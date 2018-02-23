@@ -1,0 +1,1 @@
+# org.bandahealth.idempiere.base
