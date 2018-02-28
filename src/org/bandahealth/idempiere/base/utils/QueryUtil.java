@@ -40,5 +40,4 @@ public class QueryUtil {
 		
 		return (new Query(ctx, tableName, whereClause + baseClientBaseOrgWhereClause, trxName)).first();
 	}
-
 }

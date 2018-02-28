@@ -2,22 +2,21 @@ package org.bandahealth.idempiere.base.modelevent;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
-import org.bandahealth.idempiere.base.config.BHConfigLoader;
+import org.compiere.model.I_M_Inventory;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInventory;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
 public class PhysicalInventoryModelEvent extends AbstractEventHandler{
-	private static final String TABLE_NAME = "M_Inventory";
 	
+	private final static String DOC_TYPE = "Material Physical Inventory";
 	@Override
 	protected void initialize() {
-
-		registerTableEvent(IEventTopics.PO_BEFORE_NEW, TABLE_NAME);
-		registerTableEvent(IEventTopics.PO_AFTER_NEW, TABLE_NAME);
-
-		// load bandahealth configs
-		BHConfigLoader.getInstance();
+		registerTableEvent(IEventTopics.PO_BEFORE_NEW, I_M_Inventory.Table_Name);
+		registerTableEvent(IEventTopics.PO_AFTER_NEW, I_M_Inventory.Table_Name);
 	}
 
 	@Override
@@ -31,17 +30,21 @@ public class PhysicalInventoryModelEvent extends AbstractEventHandler{
 		}
 		
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			setDefaultData(inventory);
+			beforeSaveRequest(inventory);
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
-			createRelatedDataAfterSave(inventory);
+			afterSaveRequest(inventory);
 		}		
 	}
 	
-	private void setDefaultData(MInventory inventory) {
-		
+	private void beforeSaveRequest(MInventory inventory) {
+		// retrieve & set the document type
+		Query query = new Query(Env.getCtx(), "C_DocType", "name = '" + DOC_TYPE + "'", null);
+		if (query.count() > 0) {
+			MDocType docType = query.first();
+			inventory.setC_DocType_ID(docType.get_ID());
+		}
 	}
 	
-	private void createRelatedDataAfterSave(MInventory inventory) {
-		
+	private void afterSaveRequest(MInventory inventory) {
 	}
 }
