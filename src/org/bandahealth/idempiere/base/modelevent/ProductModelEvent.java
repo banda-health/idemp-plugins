@@ -94,18 +94,13 @@ public class ProductModelEvent extends AbstractEventHandler {
 				new MProductPrice(Env.getCtx(),
 						plVersion.get_ID(), 
 						product.get_ID(), 
-						new BigDecimal(100), 
-						new BigDecimal(100), 
-						new BigDecimal(100), 
+						new BigDecimal(0.00), 
+						new BigDecimal(0.00), 
+						new BigDecimal(0.00), 
 						null);
 		prodPrice.setM_PriceList_Version_ID(plVersion.get_ID());
 		plVersion.setM_PriceList_ID(priceList.get_ID());
 		prodPrice.save();
-//		product
-		System.out.println(prodPrice.toString());
-		
-		//add the product price to the product
-		
 	}
 
 }
