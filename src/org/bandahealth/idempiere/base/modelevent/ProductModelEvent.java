@@ -5,6 +5,7 @@ import java.util.logging.Level;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.I_M_Product;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
@@ -19,15 +20,15 @@ import org.osgi.service.event.Event;
 public class ProductModelEvent extends AbstractEventHandler {
 	
 	private CLogger logger = CLogger.getCLogger(ProductModelEvent.class);
-	private MProduct product;
-	private PO persistentObject;
+	
 	private int clientId;
 	private int orgId;
 	
 	@Override
 	protected void doHandleEvent(Event event) {
+		MProduct product = null;
 		System.out.println("Event trigered: " + event.getTopic());
-		persistentObject = getPO(event);
+		PO persistentObject = getPO(event);
 		if(persistentObject instanceof MProduct) {
 			product = (MProduct)persistentObject;
 			clientId = product.getAD_Client_ID();
@@ -39,11 +40,11 @@ public class ProductModelEvent extends AbstractEventHandler {
 		if(event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			//stuff to do before save
 			System.out.println("Executing beforeSaveRequest()");
-			beforeSaveRequest();
+			beforeSaveRequest(product);
 		}else if(event.getTopic().equals(IEventTopics.PO_AFTER_NEW)){
 			//do this after save
 			System.out.println("Executing afterSaveRequest()");
-			afterSaveRequest();
+			afterSaveRequest(product);
 		}
 		
 	}
@@ -51,24 +52,30 @@ public class ProductModelEvent extends AbstractEventHandler {
 	/*Register table model events to be handled */
 	@Override
 	protected void initialize() {
-		logger.log(Level.ALL, "Initializing event listener");
+		System.out.println("Initializing event listener");
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, I_M_Product.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, I_M_Product.Table_Name);
 	}
 	
 	/*Set defaults to fields */
-	private void beforeSaveRequest() {
+	private void beforeSaveRequest(MProduct product) {
 
-		logger.log(Level.INFO, "saving header defaults!");
+		System.out.println("Inside beforeSave");
 		//set required check-boxes
 		product.setIsSold(true);
 		product.setIsPurchased(true);
 		product.setIsStocked(true);
-		
+		System.out.println(product.toString());
 	}
 
 	
-	private void afterSaveRequest() {
+	private void afterSaveRequest(MProduct product) {
+		
+		if(product.get_ID() > 0) {
+			
+			System.out.println("Product id: " + product.get_ID());
+			System.out.println("Product id: " + product.getName());
+			System.out.println(product.toString());
 		
 		//setting the sales pricing for the product
 		Query query = null;
@@ -86,8 +93,9 @@ public class ProductModelEvent extends AbstractEventHandler {
 		query = new Query(Env.getCtx(),MPriceListVersion.Table_Name,"m_pricelist_id="+priceList.get_ID(),null);
 		if(query.count() > 0) {
 			plVersion = query.first();
-			System.out.println(plVersion.toString());
+			System.out.println("price list version selected: " + plVersion.toString());
 		}
+		
 		
 		//create a product price and set default prices (list,standard and limit prices)
 		MProductPrice prodPrice =  
@@ -101,6 +109,10 @@ public class ProductModelEvent extends AbstractEventHandler {
 		prodPrice.setM_PriceList_Version_ID(plVersion.get_ID());
 		plVersion.setM_PriceList_ID(priceList.get_ID());
 		prodPrice.save();
+		}else {
+			System.out.println("Failed in saving product");
+			throw new AdempiereException("Product was not saved");
+		}
 	}
 
 }
