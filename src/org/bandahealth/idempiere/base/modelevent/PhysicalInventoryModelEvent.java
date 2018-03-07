@@ -21,7 +21,7 @@ public class PhysicalInventoryModelEvent extends AbstractEventHandler{
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		MInvdentory inventory = null;
+		MInventory inventory = null;
 		PO persistantObject = getPO(event);
 		if (persistantObject instanceof MInventory) {
 			inventory = (MInventory) persistantObject;
