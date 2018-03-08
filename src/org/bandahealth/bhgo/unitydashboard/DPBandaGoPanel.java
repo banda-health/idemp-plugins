@@ -49,7 +49,7 @@ public class DPBandaGoPanel extends DashboardPanel implements EventListener<Even
 		ToolBarButton btnViewItem = new ToolBarButton(win.getName());
 		btnViewItem.setSclass("link");
 		btnViewItem.setLabel(win.get_Translation("Name"));
-		btnViewItem.setImage(ThemeManager.getThemeResource("images/" + (Util.isEmpty(win.getImageURL()) ? "Server24.png" : win.getImageURL())));
+		btnViewItem.setImage(ThemeManager.getThemeResource("images/" + (Util.isEmpty(win.getImageURL()) ? "Server24.png" : "Server24.png")));
 		btnViewItem.addEventListener(Events.ON_CLICK, this);
 		vBox.appendChild(btnViewItem);
 		System.out.println("Added product info link to panel");
