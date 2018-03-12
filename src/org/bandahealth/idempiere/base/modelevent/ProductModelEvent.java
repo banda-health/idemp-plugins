@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.base.modelevent;
 import java.math.BigDecimal;
 import java.util.logging.Level;
 
+import javax.sql.rowset.spi.TransactionalWriter;
+
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
@@ -15,104 +17,80 @@ import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 import org.osgi.service.event.Event;
 
 public class ProductModelEvent extends AbstractEventHandler {
-	
+
 	private CLogger logger = CLogger.getCLogger(ProductModelEvent.class);
-	
-	private int clientId;
-	private int orgId;
-	
+	private int clientId = -1;
+	private int orgId = -1;
+
 	@Override
 	protected void doHandleEvent(Event event) {
 		MProduct product = null;
-		System.out.println("Event trigered: " + event.getTopic());
+
 		PO persistentObject = getPO(event);
-		if(persistentObject instanceof MProduct) {
-			product = (MProduct)persistentObject;
-			clientId = product.getAD_Client_ID();
-			orgId = product.getAD_Org_ID();
-		}else {
+		clientId = persistentObject.getAD_Client_ID();
+		orgId = persistentObject.getAD_Org_ID();
+		
+		if (persistentObject instanceof MProduct) {
+			product = (MProduct) persistentObject;
+		} else {
 			return;
 		}
-		
-		if(event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			//stuff to do before save
-			System.out.println("Executing beforeSaveRequest()");
+		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			beforeSaveRequest(product);
-		}else if(event.getTopic().equals(IEventTopics.PO_AFTER_NEW)){
-			//do this after save
-			System.out.println("Executing afterSaveRequest()");
+		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
 			afterSaveRequest(product);
 		}
-		
 	}
 
-	/*Register table model events to be handled */
+	/* Register table model events to be handled */
 	@Override
 	protected void initialize() {
-		System.out.println("Initializing event listener");
-		registerTableEvent(IEventTopics.PO_BEFORE_NEW, I_M_Product.Table_Name);
-		registerTableEvent(IEventTopics.PO_AFTER_NEW, I_M_Product.Table_Name);
-	}
-	
-	/*Set defaults to fields */
-	private void beforeSaveRequest(MProduct product) {
-
-		System.out.println("Inside beforeSave");
-		//set required check-boxes
-		product.setIsSold(true);
-		product.setIsPurchased(true);
-		product.setIsStocked(true);
-		System.out.println(product.toString());
+		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct.Table_Name);
+		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct.Table_Name);
 	}
 
-	
+	private void beforeSaveRequest(MProduct product) {}
+
 	private void afterSaveRequest(MProduct product) {
-		
-		if(product.get_ID() > 0) {
-			
-			System.out.println("Product id: " + product.get_ID());
-			System.out.println("Product id: " + product.getName());
-			System.out.println(product.toString());
-		
-		//setting the sales pricing for the product
-		Query query = null;
-		MPriceList priceList = null;
-		MPriceListVersion plVersion = null;
-		
-		//get existing sales price-list
-		query = new Query(Env.getCtx(),MPriceList.Table_Name,"isactive='Y' and isdefault='Y'",null); 
-		if (query.count() > 0) {
-			priceList = query.first();
-			System.out.println(priceList.toString());
-		}
-		
-		// get a version of the price-list set as the default
-		query = new Query(Env.getCtx(),MPriceListVersion.Table_Name,"m_pricelist_id="+priceList.get_ID(),null);
-		if(query.count() > 0) {
-			plVersion = query.first();
-			System.out.println("price list version selected: " + plVersion.toString());
-		}
-		
-		
-		//create a product price and set default prices (list,standard and limit prices)
-		MProductPrice prodPrice =  
-				new MProductPrice(Env.getCtx(),
-						plVersion.get_ID(), 
-						product.get_ID(), 
-						new BigDecimal(0.00), 
-						new BigDecimal(0.00), 
-						new BigDecimal(0.00), 
+		if (product.get_ID() > 0) {
+			// setting the sales pricing for the product
+			Query query = null;
+			MPriceList priceList = null;
+			MPriceListVersion plVersion = null;
+
+			// get existing (default) sales price-list
+			query = new Query(Env.getCtx(), 
+					MPriceList.Table_Name, "isactive='Y' and isdefault='Y'", 
+					null);
+			if (query.count() > 0) {
+				priceList = query.first();
+			}
+
+			// get the price-list version for the price-list
+			query = new Query(Env.getCtx(), 
+					MPriceListVersion.Table_Name, "m_pricelist_id=" + priceList.get_ID(), 
+					null);
+			if (query.count() > 0) {
+				plVersion = query.first();
+				MProductPrice productPricing = null;
+
+				// get the prices attached to this version
+				Query pricingQuery = new Query(Env.getCtx(), 
+						MProductPrice.Table_Name,
+						"m_pricelist_version_id=" + plVersion.get_ID(), 
 						null);
-		prodPrice.setM_PriceList_Version_ID(plVersion.get_ID());
-		plVersion.setM_PriceList_ID(priceList.get_ID());
-		prodPrice.save();
-		}else {
-			System.out.println("Failed in saving product");
-			throw new AdempiereException("Product was not saved");
+				if (pricingQuery.count() > 0) {
+					productPricing = pricingQuery.first();
+					Trx.get(product.get_TrxName(), false).commit();
+					productPricing.save();
+				}
+			}
+		} else {
+			throw new AdempiereException("Some error occured while saving the product");
 		}
 	}
-
 }
