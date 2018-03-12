@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.modelevent;
 
 import java.math.BigDecimal;
+import java.util.Properties;
 import java.util.logging.Level;
 
 import javax.sql.rowset.spi.TransactionalWriter;
@@ -8,6 +9,7 @@ import javax.sql.rowset.spi.TransactionalWriter;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.I_M_Product;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
@@ -25,6 +27,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 	private CLogger logger = CLogger.getCLogger(ProductModelEvent.class);
 	private int clientId = -1;
 	private int orgId = -1;
+	private Properties properties = null;
 
 	@Override
 	protected void doHandleEvent(Event event) {
@@ -46,9 +49,9 @@ public class ProductModelEvent extends AbstractEventHandler {
 		}
 	}
 
-	/* Register table model events to be handled */
 	@Override
 	protected void initialize() {
+		properties = Env.getCtx();
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct.Table_Name);
 	}
@@ -58,38 +61,36 @@ public class ProductModelEvent extends AbstractEventHandler {
 	private void afterSaveRequest(MProduct product) {
 		if (product.get_ID() > 0) {
 			// setting the sales pricing for the product
-			Query query = null;
 			MPriceList priceList = null;
 			MPriceListVersion plVersion = null;
+			MProductPrice productPricing = null;
 
 			// get existing (default) sales price-list
-			query = new Query(Env.getCtx(), 
-					MPriceList.Table_Name, "isactive='Y' and isdefault='Y'", 
+			priceList = QueryUtil.queryTableByOrgAndClient(clientId, orgId, 
+					properties, 
+					MPriceList.Table_Name, 
+					"isactive='Y' and isdefault='Y'", 
 					null);
-			if (query.count() > 0) {
-				priceList = query.first();
-			}
 
 			// get the price-list version for the price-list
-			query = new Query(Env.getCtx(), 
-					MPriceListVersion.Table_Name, "m_pricelist_id=" + priceList.get_ID(), 
+			plVersion = QueryUtil.queryTableByOrgAndClient(clientId, orgId, 
+					properties,
+					MPriceListVersion.Table_Name,
+					"m_pricelist_id=" + priceList.get_ID(),
 					null);
-			if (query.count() > 0) {
-				plVersion = query.first();
-				MProductPrice productPricing = null;
 
 				// get the prices attached to this version
-				Query pricingQuery = new Query(Env.getCtx(), 
-						MProductPrice.Table_Name,
-						"m_pricelist_version_id=" + plVersion.get_ID(), 
-						null);
-				if (pricingQuery.count() > 0) {
-					productPricing = pricingQuery.first();
-					Trx.get(product.get_TrxName(), false).commit();
-					productPricing.save();
-				}
-			}
-		} else {
+			productPricing = QueryUtil.queryTableByOrgAndClient(clientId, orgId, 
+					properties, 
+					MProductPrice.Table_Name,
+					"m_pricelist_version_id=" + plVersion.get_ID(),
+					null);
+			
+			Trx.get(product.get_TrxName(), false).commit();
+			productPricing.setM_Product_ID(product.get_ID());
+			productPricing.save();
+			
+			}else {
 			throw new AdempiereException("Some error occured while saving the product");
 		}
 	}
