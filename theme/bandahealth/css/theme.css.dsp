@@ -38,7 +38,7 @@ table.z-vbox > tbody > tr > td > table {
 .payment-form-content {
 }
 
-<c:include page="openmrs.css" />
+<c:include page="bandahealth.css" />
 
 <c:include page="fragment/login.css.dsp" />
 
@@ -93,5 +93,3 @@ table.z-vbox > tbody > tr > td > table {
 <c:include page="fragment/window-size.css.dsp" />
 
 <c:include page="fontawesome.css.dsp" />
-
-<c:include page="openmrs/inventory.css.dsp" />
