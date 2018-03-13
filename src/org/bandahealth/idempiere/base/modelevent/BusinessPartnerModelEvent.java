@@ -37,7 +37,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	@Override
 	protected void doHandleEvent(Event event) {
 		BHConfigLoader.getInstance();
-		
+
 		MBPartner businessPartner = null;
 		PO persistantObject = getPO(event);
 		if (persistantObject instanceof MBPartner) {
