@@ -1,1 +1,3 @@
-# org.bandahealth.idempiere.base
+# README #
+
+Banda Health Go plugins
