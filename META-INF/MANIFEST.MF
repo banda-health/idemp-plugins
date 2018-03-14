@@ -12,3 +12,4 @@ Bundle-ClassPath: theme/,
 Jetty-WarFragmentFolderPath: /
 Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0"
 Export-Package: org.bandahealth.bhgo.unitydashboard
+Import-Package: org.zkoss.zk
