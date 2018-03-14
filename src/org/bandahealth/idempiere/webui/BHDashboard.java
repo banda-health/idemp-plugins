@@ -1,4 +1,4 @@
-package org.bandahealth.bhgo.unitydashboard;
+package org.bandahealth.idempiere.webui;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Box;
 import org.zkoss.zul.Vbox;
 
-public class DPBandaGoPanel extends DashboardPanel implements EventListener<Event>{
+public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 
 	/**
 	Custom BandaHealth dash-board with links to:
@@ -31,10 +31,10 @@ public class DPBandaGoPanel extends DashboardPanel implements EventListener<Even
 	*/
 	
 	private static final long serialVersionUID = 1L;
-	private CLogger logger = CLogger.getCLogger(DPBandaGoPanel.class);
+	private CLogger logger = CLogger.getCLogger(BHDashboard.class);
 	private final String DEFAULT_TOOL_ICON = "Server24.png";
 
-	public DPBandaGoPanel() {
+	public BHDashboard() {
 		super();
 		this.appendChild(createPanel());
 	}

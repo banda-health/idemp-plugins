@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Unitydashboard
-Bundle-SymbolicName: org.bandahealth.bhgo.unitydashboard;singleton:=true
+Bundle-SymbolicName: org.bandahealth.idempiere.webui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.adempiere.ui.zk;bundle-version="5.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
@@ -11,5 +11,5 @@ Bundle-ClassPath: theme/,
  zul/
 Jetty-WarFragmentFolderPath: /
 Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0"
-Export-Package: org.bandahealth.bhgo.unitydashboard
+Export-Package: org.bandahealth.idempiere.webui
 Import-Package: org.zkoss.zk
