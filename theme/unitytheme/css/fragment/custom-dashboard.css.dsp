@@ -3,3 +3,7 @@
 .btn-small.z-button[title="Menu"]{
 	display:none;
 }
+
+.desktop-left-column.z-west{
+	width:0px;
+}
