@@ -44,6 +44,8 @@ table.z-vbox > tbody > tr > td > table {
 
 <c:include page="fragment/application-menu.css.dsp" />
 
+<c:include page="fragment/custom-dashboard.css.dsp" />
+
 <c:include page="fragment/gadget.css.dsp" />
 
 <c:include page="fragment/toolbar.css.dsp" />
