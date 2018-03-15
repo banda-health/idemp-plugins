@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.webui;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.adempiere.webui.adwindow.ToolbarCustomButton;
 import org.adempiere.webui.component.ToolBarButton;
@@ -33,10 +34,21 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	private static final long serialVersionUID = 1L;
 	private CLogger logger = CLogger.getCLogger(BHDashboard.class);
 	private final String DEFAULT_TOOL_ICON = "Server24.png";
-
+    private Properties context;
+    
 	public BHDashboard() {
 		super();
 		this.appendChild(createPanel());
+		
+		context = Env.getCtx();
+		BHRoleCheck roleCheck = new BHRoleCheck(
+				context,
+				Env.getAD_User_ID(context),
+				Env.getAD_Role_ID(context),
+				null);
+		BHRoleCheck.initalize();
+		BHRoleCheck.getRoleId();
+		BHRoleCheck.getAllRoles();
 	}
 	
 	public Box createPanel() {
