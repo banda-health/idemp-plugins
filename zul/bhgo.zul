@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<window use="org.bandahealth.bhgo.unitydashboard.DPBandaGoPanel"/>
+<window use="org.bandahealth.idempiere.webui.BHDashboard"/>
