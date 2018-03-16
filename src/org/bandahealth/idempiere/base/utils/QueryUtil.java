@@ -10,22 +10,28 @@ public class QueryUtil {
 	/**
 	 * Retrieve the first row of a given table by organization and client.
 	 * @param clientId
-	 * @param orgId
+	 * @param organizationId
 	 * @param ctx
 	 * @param tableName
 	 * @param whereClause
 	 * @param trxName
 	 * @return
 	 */
-	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int orgId, Properties ctx, String tableName,
+	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
 			String whereClause, String trxName) {
+
+		String specificClientSpecificOrgWhereClause = String.format(" and %1$s",
+				contstructClientAndOrganizationWhereClause(clientId, organizationId));
+		String specificClientBaseOrgWhereClause = String.format(" and %1$s",
+				contstructClientAndOrganizationWhereClause(clientId, QueryConstants.BASE_ORGANIZATION_ID));
+		String baseClientBaseOrgWhereClause = String.format(" and %1$s",
+				contstructClientAndOrganizationWhereClause(QueryConstants.BASE_CLIENT_ID,
+						QueryConstants.BASE_ORGANIZATION_ID));
 		
-		String specificClientSpecificOrgWhereClause = " and ad_client_id = " + clientId + " and ad_org_id = " + orgId;
-		String specificClientBaseOrgWhereClause = " and ad_client_id = " + clientId + " and ad_org_id = 0";
-		String baseClientBaseOrgWhereClause = " and ad_client_id = 0 and ad_org_id = 0";
-		
-		if (orgId == 0) {
-			specificClientSpecificOrgWhereClause = " and ad_client_id = " + clientId + " and ad_org_id <> " + orgId;
+		if (organizationId == QueryConstants.BASE_ORGANIZATION_ID) {
+			specificClientSpecificOrgWhereClause = String.format(" and %1$s = %2$s and %3$s <> %4$s",
+					QueryConstants.CLIENT_ID_COLUMN_NAME, clientId, QueryConstants.ORGANIZATION_ID_COLUMN_NAME,
+					organizationId);
 		}
 		
 		Query query = new Query(ctx, tableName, whereClause + specificClientSpecificOrgWhereClause, trxName);
@@ -39,5 +45,10 @@ public class QueryUtil {
 		}
 		
 		return (new Query(ctx, tableName, whereClause + baseClientBaseOrgWhereClause, trxName)).first();
+	}
+
+	public static String contstructClientAndOrganizationWhereClause(int clientId, int organizationId) {
+		return String.format("%1$s = %2$s and %3$s = %4$s",
+				QueryConstants.CLIENT_ID_COLUMN_NAME, clientId, QueryConstants.ORGANIZATION_ID_COLUMN_NAME, organizationId);
 	}
 }
