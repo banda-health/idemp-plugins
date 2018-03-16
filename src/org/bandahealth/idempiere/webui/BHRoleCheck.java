@@ -16,39 +16,42 @@ import org.compiere.util.Env;
  * Configure visibility of search and tree menu based on the role selected by the user
  * 
  */
-public class BHRoleCheck extends MUserRoles{
+public class BHRoleCheck {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8882317361519082007L;
-
-	public BHRoleCheck(Properties ctx, int AD_User_ID, int AD_Role_ID, String trxName) {
-		super(ctx, AD_User_ID, AD_Role_ID, trxName);
-	}
-
 	private static int roleId;
+	private static int userId;
 	private static int clientId;
 	private static Properties context;
 	private static CLogger logger;
-	
-	public static void initalize() {
+	private static MUserRoles userRoles;
+
+	static {
+		
 		context = Env.getCtx();
-		logger = CLogger.getCLogger(BHRoleCheck.class);
+		BHRoleCheck(context,Env.getAD_User_ID(context), Env.getAD_Role_ID(context),null);
 	}
 	
-	public static void getAllRoles() {
-		MUserRoles[] userRoles = MUserRoles.getOfRole(context, getRoleId());
+	public static void getAllRolesForUser() {
+		MUserRoles[] userRoles = MUserRoles.getOfUser(context, getUserId());
 		for (int i = 0; i < userRoles.length; i++) {
 			logger.info(userRoles[i].toString());
 		}
-		
 	}
 	
-	public static int getRoleId() {
+	private static void BHRoleCheck(Properties context2, int ad_User_ID, int ad_Role_ID, String object) {
+		userRoles = new MUserRoles(context2, ad_User_ID, ad_Role_ID, object);
+	}
+
+	private static int getRoleId() {
 		roleId = Env.getAD_Role_ID(context);
 		logger.info("Role ID: "+roleId);
 		return roleId;
 	}
 	
+	private static int getUserId() {
+		userId = Env.getAD_User_ID(context);
+		logger.info("User ID: "+userId);
+		return userId;
+	}
 }

@@ -8,8 +8,12 @@ import org.adempiere.webui.component.ToolBarButton;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.theme.ThemeManager;
+import org.compiere.model.I_AD_Role;
 import org.compiere.model.MInfoWindow;
+import org.compiere.model.MRole;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.MWindow;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -20,6 +24,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Box;
 import org.zkoss.zul.Vbox;
+import org.bandahealth.idempiere.base.*;
 
 public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 
@@ -38,17 +43,10 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
     
 	public BHDashboard() {
 		super();
+		context = Env.getCtx();
+		checkUserRoleLevel();
 		this.appendChild(createPanel());
 		
-		context = Env.getCtx();
-		BHRoleCheck roleCheck = new BHRoleCheck(
-				context,
-				Env.getAD_User_ID(context),
-				Env.getAD_Role_ID(context),
-				null);
-		BHRoleCheck.initalize();
-		BHRoleCheck.getRoleId();
-		BHRoleCheck.getAllRoles();
 	}
 	
 	public Box createPanel() {
@@ -149,4 +147,20 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 		return itemLink;
 	}
 
+	public void checkUserRoleLevel() {
+		MUserRoles[] roles = MUserRoles.getOfRole(context, Env.getAD_Role_ID(context));
+		for (MUserRoles mUserRole : roles) {
+			//get roleId and userId
+			int roleId = mUserRole.getAD_Role_ID();
+			//query db table (ad_role) and get user level of this role
+			List<MRole> role = new Query(context,I_AD_Role.Table_Name,"userlevel=O", null).list();
+			//if has org access only, customize dashboard
+			
+			if(mUserRole.get_Value("userlevel").equals("O")) {
+				logger.info(mUserRole.get_Value("name").toString());
+			}else {
+				logger.info("User has more privileges");
+			}
+		}
+	}
 }
