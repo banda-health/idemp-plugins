@@ -13,6 +13,7 @@ import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
 import org.compiere.model.MLocation;
+import org.compiere.model.MOrder;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MUser;
@@ -20,6 +21,7 @@ import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.eclipse.jst.jee.model.internal.common.ManyToOneRelation;
 import org.osgi.service.event.Event;
 
 public class BusinessPartnerModelEvent extends AbstractEventHandler {
@@ -64,44 +66,29 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 		if (businessPartner.isCustomer()) {
 			// Set the invoice rule
-			I_AD_Reference orderInvoiceReference = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					I_AD_Reference.Table_Name, "name = 'C_Order InvoiceRule'", null);
-			I_AD_Ref_List invoiceRule = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					I_AD_Ref_List.Table_Name,
-					"ad_reference_id = " + orderInvoiceReference.getAD_Reference_ID() + " and name = 'Immediate'",
-					null);
-			businessPartner.setInvoiceRule(invoiceRule.getValue());
+			businessPartner.setInvoiceRule(MOrder.INVOICERULE_Immediate);
 
 			// Set the invoice schedule
 
 			// Set the payment rule
-			I_AD_Reference paymentRuleReference = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					I_AD_Reference.Table_Name, "name = '_Payment Rule'", null);
-			I_AD_Ref_List paymentRule = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					I_AD_Ref_List.Table_Name,
-					"ad_reference_id = " + paymentRuleReference.getAD_Reference_ID() + " and name = 'Cash'", null);
-			businessPartner.setPaymentRule(paymentRule.getValue());
+			businessPartner.setPaymentRule(MOrder.PAYMENTRULE_Cash);
 
 			// Set the payment term
 			MPaymentTerm paymentTerm = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPaymentTerm.Table_Name, "name = 'Immediate'", null);
+					MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_Name + " = 'Immediate'", null);
 			businessPartner.setC_PaymentTerm_ID(paymentTerm.getC_PaymentTerm_ID());
 
 			// Set the price list
-			MPriceList priceList = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPriceList.Table_Name, "name = 'Standard' and isactive = 'Y'", null);
-			businessPartner.setM_PriceList_ID(priceList.getM_PriceList_ID());
+			int priceListId = businessPartner.getBPGroup().getM_PriceList_ID();
+			if (priceListId == 0) {
+				priceListId = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
+						MPriceList.Table_Name, "name = 'Standard' and isactive = 'Y'", null).get_ID();
+			}
+			businessPartner.setM_PriceList_ID(priceListId);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
-			I_AD_Reference vendorPaymentRuleReference = QueryUtil.queryTableByOrgAndClient(clientId, orgId,
-					Env.getCtx(), I_AD_Reference.Table_Name, "name = '_Payment Rule'", null);
-			I_AD_Ref_List vendorPaymentRule = QueryUtil
-					.queryTableByOrgAndClient(
-							clientId, orgId, Env.getCtx(), I_AD_Ref_List.Table_Name, "ad_reference_id = "
-									+ vendorPaymentRuleReference.getAD_Reference_ID() + " and name = 'Direct Deposit'",
-							null);
-			businessPartner.setPaymentRulePO(vendorPaymentRule.getValue());
+			businessPartner.setPaymentRulePO(MOrder.PAYMENTRULE_DirectDeposit);
 
 			// Set the PO payment term
 			MPaymentTerm purchasePaymentTerm = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
@@ -131,8 +118,8 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		if (businessPartner.getLocations(true).length == 0) {
 			MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(businessPartner);
 
-			MCountry country = (new Query(Env.getCtx(), I_C_Country.Table_Name,
-					"countrycode = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null)).first();
+			MCountry country = (new Query(Env.getCtx(), I_C_Country.Table_Name, I_C_Country.COLUMNNAME_CountryCode
+					+ " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null)).first();
 
 			MLocation location = new MLocation(country, null);
 			location.save();
