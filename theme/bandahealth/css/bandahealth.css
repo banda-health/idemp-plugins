@@ -1,8 +1,8 @@
-/* line 1, ../sass/bandahealth.scss */
+/* line 1, ../sass/_openmrs.scss */
 .openmrs {
   /* line 1232 OpenMRS Reference App CSS */
 }
-/* line 3, ../sass/bandahealth.scss */
+/* line 3, ../sass/_openmrs.scss */
 body .openmrs {
   font-family: "OpenSans", Arial, sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -12,7 +12,7 @@ body .openmrs {
   color: #363463;
   font-size: 16px;
 }
-/* line 14, ../sass/bandahealth.scss */
+/* line 14, ../sass/_openmrs.scss */
 .openmrs .button, .openmrs button, .openmrs input[type="submit"], .openmrs input[type="button"], .openmrs input[type="submit"], .openmrs a.button {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -38,31 +38,31 @@ body .openmrs {
   text-decoration: none;
   /* line 1291 OpenMRS Reference App CSS */
 }
-/* line 38, ../sass/bandahealth.scss */
+/* line 39, ../sass/_openmrs.scss */
 .openmrs .button:hover, .openmrs button:hover, .openmrs input[type="submit"]:hover, .openmrs input[type="button"]:hover, .openmrs input[type="submit"]:hover, .openmrs a.button:hover {
   background: #e2e2e2;
   border-color: #d0d0d0;
 }
-/* line 43, ../sass/bandahealth.scss */
+/* line 44, ../sass/_openmrs.scss */
 .openmrs .button.active, .openmrs button.active, .openmrs input[type="submit"].active, .openmrs input[type="button"].active, .openmrs input[type="submit"].active, .openmrs a.button.active {
   background: #d8d8d8;
   border-color: #d0d0d0;
 }
-/* line 48, ../sass/bandahealth.scss */
+/* line 49, ../sass/_openmrs.scss */
 .openmrs .button .i, .openmrs .button i, .openmrs button .i, .openmrs button i, .openmrs input[type="submit"] .i, .openmrs input[type="submit"] i, .openmrs input[type="button"] .i, .openmrs input[type="button"] i, .openmrs input[type="submit"] .i, .openmrs input[type="submit"] i, .openmrs a.button .i, .openmrs a.button i {
   font-size: 1.2em;
   margin: 0;
   padding: 0;
   line-height: .5em;
 }
-/* line 56, ../sass/bandahealth.scss */
+/* line 57, ../sass/_openmrs.scss */
 .openmrs .button.big .i, .openmrs .button.big i, .openmrs .button.medium .i, .openmrs .button.medium i, .openmrs button.big .i, .openmrs button.big i, .openmrs button.medium .i, .openmrs button.medium i, .openmrs input[type="submit"].big .i, .openmrs input[type="submit"].big i, .openmrs input[type="submit"].medium .i, .openmrs input[type="submit"].medium i, .openmrs input[type="button"].big .i, .openmrs input[type="button"].big i, .openmrs input[type="button"].medium .i, .openmrs input[type="button"].medium i, .openmrs input[type="submit"].big .i, .openmrs input[type="submit"].big i, .openmrs input[type="submit"].medium .i, .openmrs input[type="submit"].medium i, .openmrs a.button.big .i, .openmrs a.button.big i, .openmrs a.button.medium .i, .openmrs a.button.medium i {
   display: block;
   font-size: 50px;
   margin: 0 auto;
   padding: 10px;
 }
-/* line 65, ../sass/bandahealth.scss */
+/* line 66, ../sass/_openmrs.scss */
 .openmrs .button.app, .openmrs button.app, .openmrs input[type="submit"].app, .openmrs input[type="button"].app, .openmrs input[type="submit"].app, .openmrs a.button.app {
   padding: 20px 10px;
   width: 150px;
@@ -71,4 +71,9 @@ body .openmrs {
   line-height: 1.3em;
   margin: 10px;
   text-align: center;
+}
+
+/* line 4, ../sass/bandahealth.scss */
+.organization .btn-small.z-button[title="Menu"] {
+  display: none;
 }
