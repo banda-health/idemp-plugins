@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.adempiere.webui.adwindow.ToolbarCustomButton;
 import org.adempiere.webui.component.ToolBarButton;
 import org.adempiere.webui.dashboard.DashboardPanel;
+import org.adempiere.webui.desktop.DashboardController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.theme.ThemeManager;
 import org.compiere.model.I_AD_Role;
@@ -19,6 +20,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -39,14 +41,15 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	private static final long serialVersionUID = 1L;
 	private CLogger logger = CLogger.getCLogger(BHDashboard.class);
 	private final String DEFAULT_TOOL_ICON = "Server24.png";
+	private final String ORG_ONLY_ACESS = "O";
     private Properties context;
     
 	public BHDashboard() {
 		super();
 		context = Env.getCtx();
-		checkUserRoleLevel();
+		if(!isOrgAccessLevel()) 
+			return;
 		this.appendChild(createPanel());
-		
 	}
 	
 	public Box createPanel() {
@@ -147,20 +150,31 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 		return itemLink;
 	}
 
-	public void checkUserRoleLevel() {
-		MUserRoles[] roles = MUserRoles.getOfRole(context, Env.getAD_Role_ID(context));
+	
+	public boolean isOrgAccessLevel() {
+		boolean isOrgAccess = false;
+		//get user roles associated with this user
+		MUserRoles[] roles = MUserRoles.getOfUser(context, Env.getAD_User_ID(context));
 		for (MUserRoles mUserRole : roles) {
-			//get roleId and userId
+			//get roleId
 			int roleId = mUserRole.getAD_Role_ID();
 			//query db table (ad_role) and get user level of this role
-			List<MRole> role = new Query(context,I_AD_Role.Table_Name,"userlevel=O", null).list();
+			String whereClause = I_AD_Role.COLUMNNAME_AD_Role_ID+"=?";
+			MRole role = new Query(context,I_AD_Role.Table_Name,whereClause, null)
+					.setParameters(roleId)
+					.first();
 			//if has org access only, customize dashboard
-			
-			if(mUserRole.get_Value("userlevel").equals("O")) {
-				logger.info(mUserRole.get_Value("name").toString());
-			}else {
-				logger.info("User has more privileges");
+			logger.info("[BEBUG]"+role.get_ValueAsString("userlevel"));
+			if(role.get_ValueAsString("userlevel").equals(ORG_ONLY_ACESS)) {
+				logger.info("[DEBUG] has org only accesslevel");
+				isOrgAccess = true;
 			}
 		}
+		return isOrgAccess;
+	}
+	
+	private void removeExistingDashBoardGadgets() {
+		//check existing gadgets on dashboard
+		
 	}
 }
