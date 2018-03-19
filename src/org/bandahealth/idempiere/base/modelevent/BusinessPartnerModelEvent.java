@@ -5,8 +5,6 @@ import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.config.BHConfigLoader;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.compiere.model.I_AD_Ref_List;
-import org.compiere.model.I_AD_Reference;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_Country;
 import org.compiere.model.MBPartner;
@@ -21,7 +19,6 @@ import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.eclipse.jst.jee.model.internal.common.ManyToOneRelation;
 import org.osgi.service.event.Event;
 
 public class BusinessPartnerModelEvent extends AbstractEventHandler {
