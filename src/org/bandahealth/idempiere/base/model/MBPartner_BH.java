@@ -141,6 +141,33 @@ public class MBPartner_BH extends MBPartner {
 		return (String)get_Value(COLUMNNAME_BH_EMail);
 	}
 
+	/** Column name BH_IsPatient */
+	public static final String COLUMNNAME_BH_IsPatient = "BH_IsPatient";
+
+	/** Set Patient/Customer.
+	 @param BH_IsPatient
+	 Indicates if this Business Partner is a Customer
+	 */
+	public void setBH_IsPatient (boolean BH_IsPatient)
+	{
+		set_Value (COLUMNNAME_BH_IsPatient, Boolean.valueOf(BH_IsPatient));
+	}
+
+	/** Get Patient/Customer.
+	 @return Indicates if this Business Partner is a Customer
+	 */
+	public boolean isBH_IsPatient ()
+	{
+		Object oo = get_Value(COLUMNNAME_BH_IsPatient);
+		if (oo != null)
+		{
+			if (oo instanceof Boolean)
+				return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Column name BH_Phone */
 	public static final String COLUMNNAME_BH_Phone = "BH_Phone";
 

@@ -27,6 +27,8 @@ public class BusinessPartnerAge implements IColumnCallout {
 			Timestamp birthdayTimestamp = new Timestamp(birthday.getTimeInMillis());
 
 			mTab.setValue(MBPartner_BH.COLUMNNAME_BH_Birthday, birthdayTimestamp);
+		} else if (mField.getColumnName().equalsIgnoreCase(MBPartner_BH.COLUMNNAME_BH_Birthday)) {
+			mTab.setValue(MBPartner_BH.COLUMNNAME_BH_ApproximateYears, null);
 		}
 
 		return errorMessage;

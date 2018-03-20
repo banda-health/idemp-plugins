@@ -20,7 +20,8 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 
 
 		if (tableName.equalsIgnoreCase(MBPartner_BH.Table_Name)) {
-			if (columnName.equalsIgnoreCase(MBPartner_BH.COLUMNNAME_BH_ApproximateYears)) {
+			if (columnName.equalsIgnoreCase(MBPartner_BH.COLUMNNAME_BH_ApproximateYears) ||
+					columnName.equalsIgnoreCase(MBPartner_BH.COLUMNNAME_BH_Birthday)) {
 				callouts.add(new BusinessPartnerAge());
 			}
 		}
