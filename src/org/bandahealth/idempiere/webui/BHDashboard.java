@@ -1,32 +1,50 @@
 package org.bandahealth.idempiere.webui;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
-import org.adempiere.webui.adwindow.ToolbarCustomButton;
+import org.adempiere.webui.IWebClient;
+import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.component.ToolBarButton;
+import org.adempiere.webui.dashboard.DPActivities;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.desktop.DashboardController;
+import org.adempiere.webui.desktop.IDesktop;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.theme.ThemeManager;
 import org.compiere.model.I_AD_Role;
+import org.compiere.model.MDashboardContent;
+import org.compiere.model.MDashboardContentAccess;
+import org.compiere.model.MDashboardPreference;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWindow;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Desktop;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Page;
+import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.ext.Scope;
+import org.zkoss.zk.ui.metainfo.ComponentDefinition;
+import org.zkoss.zk.ui.metainfo.ComponentDefinitionMap;
+import org.zkoss.zk.ui.metainfo.NodeInfo;
+import org.zkoss.zk.ui.metainfo.PageDefinition;
+import org.zkoss.zul.Anchorchildren;
 import org.zkoss.zul.Box;
 import org.zkoss.zul.Vbox;
-import org.bandahealth.idempiere.base.*;
+import org.zkoss.zul.Vlayout;
 
 public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 
@@ -40,15 +58,23 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	
 	private static final long serialVersionUID = 1L;
 	private CLogger logger = CLogger.getCLogger(BHDashboard.class);
+	
+	private int clientId;
+	private int userId;
+	private int roleId;
+	
 	private final String DEFAULT_TOOL_ICON = "Server24.png";
 	private final String ORG_ONLY_ACESS = "O";
     private Properties context;
+    private Desktop desktop;
     
 	public BHDashboard() {
 		super();
 		context = Env.getCtx();
-		if(!isOrgAccessLevel()) 
-			return;
+		clientId = Env.getAD_Client_ID(context);
+		userId = Env.getAD_User_ID(context);
+		roleId = Env.getAD_Role_ID(context);
+		new BHCustomSelect().getDashboards();
 		this.appendChild(createPanel());
 	}
 	
@@ -171,10 +197,5 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 			}
 		}
 		return isOrgAccess;
-	}
-	
-	private void removeExistingDashBoardGadgets() {
-		//check existing gadgets on dashboard
-		
 	}
 }
