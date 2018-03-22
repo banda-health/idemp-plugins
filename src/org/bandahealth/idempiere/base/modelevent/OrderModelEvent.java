@@ -23,8 +23,6 @@ public class OrderModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		log.info("Made it here");
-
 		MOrder order = null;
 		PO persistantObject = getPO(event);
 		if (persistantObject instanceof MOrder) {
@@ -62,20 +60,28 @@ public class OrderModelEvent extends AbstractEventHandler {
 		salesOrder.setSalesRep_ID(userId);
 
 		int posOrderDocType = (new Query(Env.getCtx(), I_C_DocType.Table_Name, I_C_DocType.COLUMNNAME_DocSubTypeSO
-				+ " = '" + MOrder.DocSubTypeSO_POS + "'", null)).firstId();
+				+ " = '?'", null))
+				.setParameters(MOrder.DocSubTypeSO_POS)
+				.firstId();
 		salesOrder.setC_DocType_ID(posOrderDocType);
 	}
 
 	private int getOrganizationIDForUser(int userId, int roleId, int clientId) {
 		// Check to see if they are limited to an org
-		Query query = new Query(Env.getCtx(), I_AD_User_OrgAccess.Table_Name, QueryConstants.USER_ID_COLUMN_NAME
-				+ " = " + userId + " and " + QueryConstants.CLIENT_ID_COLUMN_NAME + " = " + clientId + " and "
-				+ QueryConstants.ORGANIZATION_ID_COLUMN_NAME + " <> " + QueryConstants.BASE_ORGANIZATION_ID, null);
+		String whereClause = String.format("%1$s = ? and %2$s = ? and %3$s <> ?",
+				QueryConstants.USER_ID_COLUMN_NAME,
+				QueryConstants.CLIENT_ID_COLUMN_NAME,
+				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
+		Query query = new Query(Env.getCtx(), I_AD_User_OrgAccess.Table_Name, whereClause, null)
+				.setParameters(userId, clientId, QueryConstants.BASE_ORGANIZATION_ID);
 		if (query.count() == 0) {
 			// The org assignment must be in the role
-			query = new Query(Env.getCtx(), I_AD_Role_OrgAccess.Table_Name,  QueryConstants.ROLE_ID_COLUMN_NAME
-					+ " = " + roleId + " and " + QueryConstants.CLIENT_ID_COLUMN_NAME + " = " + clientId + " and "
-					+ QueryConstants.ORGANIZATION_ID_COLUMN_NAME + " <> " + QueryConstants.BASE_ORGANIZATION_ID, null);
+			whereClause = String.format("%1$s = ? and %2$s = ? and %3$s <> ?",
+					QueryConstants.ROLE_ID_COLUMN_NAME,
+					QueryConstants.CLIENT_ID_COLUMN_NAME,
+					QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
+			query = new Query(Env.getCtx(), I_AD_Role_OrgAccess.Table_Name,  whereClause, null)
+					.setParameters(roleId, clientId, QueryConstants.BASE_ORGANIZATION_ID);
 		}
 
 		if (query.count() == 0) {

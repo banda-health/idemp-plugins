@@ -20,35 +20,30 @@ public class QueryUtil {
 	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
 			String whereClause, String trxName) {
 
-		String specificClientSpecificOrgWhereClause = String.format(" and %1$s",
-				contstructClientAndOrganizationWhereClause(clientId, organizationId));
-		String specificClientBaseOrgWhereClause = String.format(" and %1$s",
-				contstructClientAndOrganizationWhereClause(clientId, QueryConstants.BASE_ORGANIZATION_ID));
-		String baseClientBaseOrgWhereClause = String.format(" and %1$s",
-				contstructClientAndOrganizationWhereClause(QueryConstants.BASE_CLIENT_ID,
-						QueryConstants.BASE_ORGANIZATION_ID));
-		
-		if (organizationId == QueryConstants.BASE_ORGANIZATION_ID) {
-			specificClientSpecificOrgWhereClause = String.format(" and %1$s = %2$s and %3$s <> %4$s",
-					QueryConstants.CLIENT_ID_COLUMN_NAME, clientId, QueryConstants.ORGANIZATION_ID_COLUMN_NAME,
-					organizationId);
-		}
-		
-		Query query = new Query(ctx, tableName, whereClause + specificClientSpecificOrgWhereClause, trxName);
-		if (query.count() > 0) {
-			return query.first();
-		}
-		
-		query = new Query(ctx, tableName, whereClause + specificClientBaseOrgWhereClause, trxName);
-		if (query.count() > 0) {
-			return query.first();
-		}
-		
-		return (new Query(ctx, tableName, whereClause + baseClientBaseOrgWhereClause, trxName)).first();
-	}
+		String clientAndOrg = String.format(" and %1$s = ? and %2$s = ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
+				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
+		String clientAndNotBaseOrg = String.format(" and %1$s = ? and %2$s <> ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
+				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
 
-	public static String contstructClientAndOrganizationWhereClause(int clientId, int organizationId) {
-		return String.format("%1$s = %2$s and %3$s = %4$s",
-				QueryConstants.CLIENT_ID_COLUMN_NAME, clientId, QueryConstants.ORGANIZATION_ID_COLUMN_NAME, organizationId);
+		Query query;
+		if (organizationId == QueryConstants.BASE_ORGANIZATION_ID) {
+			query = new Query(ctx, tableName, whereClause + clientAndNotBaseOrg, trxName);
+		} else {
+			query = new Query(ctx, tableName, whereClause + clientAndOrg, trxName);
+		}
+		query.setParameters(clientId, organizationId);
+		if (query.count() > 0) {
+			return query.first();
+		}
+		
+		query = new Query(ctx, tableName, whereClause + clientAndOrg, trxName);
+		query.setParameters(clientId, QueryConstants.BASE_ORGANIZATION_ID);
+		if (query.count() > 0) {
+			return query.first();
+		}
+		
+		return (new Query(ctx, tableName, whereClause + clientAndOrg, trxName))
+				.setParameters(QueryConstants.BASE_CLIENT_ID, QueryConstants.BASE_ORGANIZATION_ID)
+				.first();
 	}
 }
