@@ -80,6 +80,7 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	
 	public Box createPanel() {
 		Vbox vBox = new Vbox();
+		vBox.setClientAttribute("style", "font-size:14px;");
 		MInfoWindow productInfoWindow = filterFromViews("Product Info");
 			if(productInfoWindow != null) {
 				ToolBarButton button = createPanelButton(productInfoWindow.getName(),

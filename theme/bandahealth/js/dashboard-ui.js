@@ -8,3 +8,8 @@ function hideDashboard(dashboardClass){
 		elements[x].style.display = "none";
 	}
 }
+
+(function () {
+	let bodyTag = document.querySelector("body");
+	bodyTag.classList.add("bh");
+})();
