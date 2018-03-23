@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Page;
 import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zul.Script;
 
 public class BHCustomSelect extends SelectorComposer<Component> {
 
@@ -45,32 +46,13 @@ public class BHCustomSelect extends SelectorComposer<Component> {
 	public void getDashboards() {
 		Desktop desktop = AEnv.getDesktop();
 		Collection<Component> desktopComponents = desktop.getComponents();
-		for (Component component : desktopComponents) {
-			if(component.getId().equals("desktop_tabbox")) {
-				Collection<Component> fellows = component.getFellows();
-				System.out.println("Fellows in "+component.getId()+": "+fellows.size());
-				for (Component fellow : fellows) {
-					System.out.println(fellow+": Attributes count: "+fellow.getAttributes().size());
-					if(fellow.getWidgetClass().equals("zul.tab.Tabbox")) {
-						System.out.print("\tWidgetClass: "+fellow.getWidgetClass()+"\n");
-						for (Component item : fellow.getChildren()) {
-							if(item.getWidgetClass().equals("zul.tab.Tabpanels")) {
-								if(item.getChildren().size() > 0) {
-									
-									for (Component tabpanelChildren : item.getChildren()) {
-										System.out.println("Class "+tabpanelChildren.getWidgetClass());
-//										System.out.println("kids in tab panel: "+tabpanelChildren.getFirstChild().getFirstChild().
-//												getFirstChild().getFirstChild().getChildren());
-									}
-								}else {
-									System.out.println("has no kids!");
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		String className = Env.getAD_Org_ID(context) >0 ? "organization":clientId > 0 ? "client" : "system";
+			Script jsFile = new Script();
+			jsFile.setSrc("/theme/bandahealth/js/bandahealth.js");
+			Component firstComponent = desktopComponents.iterator().next();
+//			firstComponent.
+//			firstComponent.appendChild(jsFile);
+//			firstComponent.appendChild(new Script("bandahealth.addRoleClass("+className+");"));
 	}
 	}
 

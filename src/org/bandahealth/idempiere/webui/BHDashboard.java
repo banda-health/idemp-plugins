@@ -43,6 +43,7 @@ import org.zkoss.zk.ui.metainfo.NodeInfo;
 import org.zkoss.zk.ui.metainfo.PageDefinition;
 import org.zkoss.zul.Anchorchildren;
 import org.zkoss.zul.Box;
+import org.zkoss.zul.Script;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Vlayout;
 
@@ -74,12 +75,18 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 		clientId = Env.getAD_Client_ID(context);
 		userId = Env.getAD_User_ID(context);
 		roleId = Env.getAD_Role_ID(context);
-		new BHCustomSelect().getDashboards();
+		
+		
+//		new BHCustomSelect().getDashboards();
 		this.appendChild(createPanel());
 	}
 	
 	public Box createPanel() {
 		Vbox vBox = new Vbox();
+		
+		String className = Env.getAD_Org_ID(context) >0 ? "organization":clientId > 0 ? "client" : "system";
+		vBox.appendChild(new Script("bandahealth.addRoleClass('"+className+"');"));
+		
 		vBox.setClientAttribute("style", "font-size:14px;");
 		MInfoWindow productInfoWindow = filterFromViews("Product Info");
 			if(productInfoWindow != null) {

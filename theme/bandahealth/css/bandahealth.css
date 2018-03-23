@@ -73,7 +73,15 @@ body .openmrs {
   text-align: center;
 }
 
-/* line 4, ../sass/bandahealth.scss */
-.organization .btn-small.z-button[title="Menu"] {
+/* line 8, ../sass/bandahealth.scss */
+.bh.client .desktop-header table table td:eq(0), .bh.organization .desktop-header table table td:eq(0) {
+  visibility: collapse;
+}
+/* line 14, ../sass/bandahealth.scss */
+.bh.client .btn-small.z-button[title="Menu"], .bh.organization .btn-small.z-button[title="Menu"] {
   display: none;
+}
+/* line 18, ../sass/bandahealth.scss */
+.bh.client .desktop-left-column.z-west, .bh.organization .desktop-left-column.z-west {
+  width: 0px;
 }
