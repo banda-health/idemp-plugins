@@ -38,13 +38,13 @@ table.z-vbox > tbody > tr > td > table {
 .payment-form-content {
 }
 
+<c:include page="bandahealth.css" />
+
 <c:include page="fragment/login.css.dsp" />
 
 <c:include page="fragment/desktop.css.dsp" />
 
 <c:include page="fragment/application-menu.css.dsp" />
-
-<c:include page="fragment/custom-dashboard.css.dsp" />
 
 <c:include page="fragment/gadget.css.dsp" />
 
@@ -91,3 +91,5 @@ table.z-vbox > tbody > tr > td > table {
 <c:include page="fragment/parameter-process.css.dsp" />
 
 <c:include page="fragment/window-size.css.dsp" />
+
+<c:include page="fontawesome.css.dsp" />
