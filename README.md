@@ -1,3 +1,3 @@
 # README #
 
-Banda Health Go plugins
+Banda Health Go base plugins
