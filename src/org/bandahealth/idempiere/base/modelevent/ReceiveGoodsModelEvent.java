@@ -59,7 +59,6 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 		}
 
 		// complete operation
-		mReceipt.completeIt();
 		String m_status = mReceipt.completeIt();
 		mReceipt.setDocStatus(m_status);
 		mReceipt.save();
