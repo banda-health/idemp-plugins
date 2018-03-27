@@ -2,26 +2,34 @@
  * Set dashboard panels returned to no display
  */
 
+
 let bandahealth = (function () {
-	document.querySelector("body").classList.add("bh");
+
+	let org = 'organization';
+	
+	document.querySelector('body').classList.add('bh');
 	
 	return {
-		addRoleClass: addRoleClass,
-		removeRoleClass: removeRoleClass
+		userIsOrg: userIsOrg,
+		userIsClientAndOrg: userIsClientAndOrg
 	};
 	
 	function addRoleClass(roleClass) {
-		document.querySelector("body").classList.add(roleClass);
-	}
-	
-	function hideDashboard(dashboardClass){
-		var elements = document.getElementsByClassName(dashboardClass);
-		for(var x = 0; x < elements.length; x++){
-			elements[x].style.display = "none";
-		}
+		document.querySelector('body').classList.add(roleClass);
 	}
 	
 	function removeRoleClass(roleClass) {
-		document.querySelector("body").classList.remove(roleClass);
+		document.querySelector('body').classList.remove(roleClass);
+	}
+	
+	function userIsOrg(){
+		addRoleClass(org);
+	}
+	
+	function userIsClientAndOrg(){
+		removeRoleClass(org);
 	}
 })();
+
+
+
