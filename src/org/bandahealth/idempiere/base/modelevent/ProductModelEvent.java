@@ -44,9 +44,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 		}
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			beforeSaveRequest(product);
-		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
-			afterSaveRequest(product);
-		}
+		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {}
 	}
 
 	@Override
@@ -58,6 +56,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	private void beforeSaveRequest(MProduct product) {}
 
+	/*Adds a default price to this product in the pricelist*/
 	private void afterSaveRequest(MProduct product) {
 		if (product.get_ID() > 0) {
 			// setting the sales pricing for the product
