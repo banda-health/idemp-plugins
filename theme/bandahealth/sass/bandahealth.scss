@@ -12,11 +12,21 @@
 		}
 	
 		.btn-small.z-button[title="Menu"] {
-			display: none;
+			display:none;
 		}
 	
 		.desktop-left-column.z-west{
 			width:0px;
+		}
+		
+		.dashboard-layout .z-anchorlayout{
+			.z-anchorchildren{
+					.dashboard-column .z-vlayout{
+						.z-vlayout-inner{
+							display:none;
+						}
+					}
+				}
 		}
 	}
 	
