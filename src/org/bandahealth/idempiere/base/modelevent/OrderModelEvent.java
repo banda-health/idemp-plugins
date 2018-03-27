@@ -59,11 +59,14 @@ public class OrderModelEvent extends AbstractEventHandler {
 
 		salesOrder.setSalesRep_ID(userId);
 
-		int posOrderDocType = (new Query(Env.getCtx(), I_C_DocType.Table_Name, I_C_DocType.COLUMNNAME_DocSubTypeSO
-				+ " = '?'", null))
+		int posOrderDocTypeId = (new Query(Env.getCtx(), I_C_DocType.Table_Name, I_C_DocType.COLUMNNAME_DocSubTypeSO
+				+ "=?", null))
 				.setParameters(MOrder.DocSubTypeSO_POS)
 				.firstId();
-		salesOrder.setC_DocType_ID(posOrderDocType);
+		salesOrder.setC_DocType_ID(posOrderDocTypeId);
+		salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
+
+		salesOrder.setPaymentRule(MOrder.PAYMENTRULE_Cash);
 	}
 
 	private int getOrganizationIDForUser(int userId, int roleId, int clientId) {
