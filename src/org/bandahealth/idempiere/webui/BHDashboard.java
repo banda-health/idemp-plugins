@@ -16,6 +16,7 @@ import org.adempiere.webui.desktop.DashboardController;
 import org.adempiere.webui.desktop.IDesktop;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.theme.ThemeManager;
+import org.apache.ecs.xhtml.script;
 import org.compiere.model.I_AD_Role;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MDashboardContentAccess;
@@ -63,18 +64,23 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	private int clientId;
 	private int userId;
 	private int roleId;
+	private int orgId;
 	
 	private final String DEFAULT_TOOL_ICON = "Server24.png";
-	private final String ORG_ONLY_ACESS = "O";
+	private final String ORG_ONLY_ACCESS = "O";
+	private final String CLIENT_ORG_ACCESS = "CO";
     private Properties context;
     private Desktop desktop;
+    private Script script;
     
 	public BHDashboard() {
 		super();
 		context = Env.getCtx();
 		clientId = Env.getAD_Client_ID(context);
+		orgId = Env.getAD_Org_ID(context);
 		userId = Env.getAD_User_ID(context);
 		roleId = Env.getAD_Role_ID(context);
+		script = new Script();
 		
 		
 //		new BHCustomSelect().getDashboards();
@@ -84,10 +90,16 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	public Box createPanel() {
 		Vbox vBox = new Vbox();
 		
-		String className = Env.getAD_Org_ID(context) >0 ? "organization":clientId > 0 ? "client" : "system";
-		vBox.appendChild(new Script("bandahealth.addRoleClass('"+className+"');"));
-		
-		vBox.setClientAttribute("style", "font-size:14px;");
+//		String className = Env.getAD_Org_ID(context) >0 ? "organization":clientId > 0 ? "client" : "system";
+		if(isOrgAccessLevel()) {
+			logger.info("user is organization access only");
+			vBox.appendChild(new Script("bandahealth.userIsOrg()"));
+		}else {
+			logger.info("user has client and organization access");
+			vBox.appendChild(new Script("bandahealth.userIsClientAndOrg()"));
+			logger.info(script.getContent());
+		}
+		vBox.appendChild(script);
 		MInfoWindow productInfoWindow = filterFromViews("Product Info");
 			if(productInfoWindow != null) {
 				ToolBarButton button = createPanelButton(productInfoWindow.getName(),
@@ -110,6 +122,19 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 		
 		return vBox;
 	}
+	
+	
+//	public String isRoleInOrgAccess() {
+//		int orgId = Env.getAD_Org_ID(context);
+//		String roleLoggedIn = "system";
+//		if(orgId > 0) {
+//			roleLoggedIn = "organization";
+////			script = new Script(content)
+//		}else {
+//			roleLoggedIn = "client";
+//		}
+//		return roleLoggedIn;
+//	}
 	
 	@Override
 	public void onEvent(Event event) throws Exception {
@@ -185,25 +210,48 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	}
 
 	
-	public boolean isOrgAccessLevel() {
-		boolean isOrgAccess = false;
-		//get user roles associated with this user
-		MUserRoles[] roles = MUserRoles.getOfUser(context, Env.getAD_User_ID(context));
-		for (MUserRoles mUserRole : roles) {
-			//get roleId
-			int roleId = mUserRole.getAD_Role_ID();
-			//query db table (ad_role) and get user level of this role
-			String whereClause = I_AD_Role.COLUMNNAME_AD_Role_ID+"=?";
-			MRole role = new Query(context,I_AD_Role.Table_Name,whereClause, null)
-					.setParameters(roleId)
-					.first();
-			//if has org access only, customize dashboard
-			logger.info("[BEBUG]"+role.get_ValueAsString("userlevel"));
-			if(role.get_ValueAsString("userlevel").equals(ORG_ONLY_ACESS)) {
-				logger.info("[DEBUG] has org only accesslevel");
-				isOrgAccess = true;
-			}
+//	public boolean isOrgAccessLevel() {
+//		boolean isOrgAccess = false;
+//		//get user roles associated with this user
+//		MUserRoles[] roles = MUserRoles.getOfUser(context, Env.getAD_User_ID(context));
+//		for (MUserRoles mUserRole : roles) {
+//			//get roleId
+//			int roleId = mUserRole.getAD_Role_ID();
+//			//query db table (ad_role) and get user level of this role
+//			String whereClause = I_AD_Role.COLUMNNAME_AD_Role_ID+"=?";
+//			MRole role = new Query(context,I_AD_Role.Table_Name,whereClause, null)
+//					.setParameters(roleId)			
+//					.first();
+//			//if has org access only, customize dashboard
+//			logger.info("[BEBUG]"+role.get_ValueAsString("userlevel"));
+//			if(role.get_ValueAsString("userlevel").equals(ORG_ONLY_ACESS)) {
+//				logger.info("[DEBUG] has org only accesslevel");
+//				isOrgAccess = true;
+//			}
+//		}
+//		return isOrgAccess;
+//	}
+//	
+	
+	public Boolean isOrgAccessLevel() {
+		Boolean orgAccessLevel = false;
+//		MUserRoles[] roles = MUserRoles.getOfUser(context, Env.getAD_User_ID(context));
+//		for (MUserRoles mUserRole : roles) {
+//			int roleId = mUserRole.getAD_Role_ID();
+////			logger.info("User Role Id: " + roleId);
+//			String whereClause = I_AD_Role.COLUMNNAME_AD_Role_ID+"=?";
+//			MRole role = new Query(context,I_AD_Role.Table_Name,whereClause, null)
+//					.setParameters(roleId)
+//					.first();
+//			logger.info("[BEBUG]"+role.get_ValueAsString("userlevel"));
+//			if(role.get_ValueAsString("userlevel").equals(ORG_ONLY_ACCESS)) {
+//				logger.info("[DEBUG] has org only accesslevel");
+//				orgAccessLevel = true;
+//			}
+//		}
+		if(orgId > 0) {
+			orgAccessLevel = true;
 		}
-		return isOrgAccess;
+		return orgAccessLevel;
 	}
 }
