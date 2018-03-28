@@ -52,8 +52,9 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 			for (MOrderLine oLine : oLines) {
 				MInOutLine line = new MInOutLine(mReceipt);
 				line.setOrderLine(oLine, mWarehouse.getDefaultLocator().get_ID(), Env.ZERO);
-				// need to find out why the available/reserved quantity is doubled under product info 
-				line.setQty(oLine.getQtyOrdered().divide(new BigDecimal(2)));
+				line.setQty(oLine.getQtyOrdered());
+				// need to find out why the available/reserved quantity is doubled under product info
+				//line.setQty(oLine.getQtyOrdered().divide(new BigDecimal(2)));
 				line.saveEx(order.get_TrxName());
 			}
 		}
