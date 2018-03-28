@@ -12,7 +12,4 @@ Bundle-ClassPath: theme/,
 Jetty-WarFragmentFolderPath: /
 Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0"
 Export-Package: org.bandahealth.idempiere.webui
-Import-Package: org.adempiere.webui.dashboard,
- org.compiere.model,
- org.zkoss.zk
 

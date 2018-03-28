@@ -35,5 +35,6 @@
     <orderEntry type="module" module-name="org.adempiere.plugin.utils" />
     <orderEntry type="library" scope="PROVIDED" name="iDempiere" level="project" />
     <orderEntry type="module" module-name="org.adempiere.ui.zk" />
+    <orderEntry type="module" module-name="org.bandahealth.idempiere.base" />
   </component>
 </module>
