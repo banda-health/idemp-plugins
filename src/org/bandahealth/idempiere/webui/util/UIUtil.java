@@ -6,11 +6,20 @@ import org.zkoss.zul.Div;
 
 public class UIUtil {
 
+	public static String INFO_WINDOW_ATTRIBUTE = "data-infowindow";
+
 	public static Div initDivButton(MHomeScreenButton button) {
 
 		Div buttonDiv = new Div();
 
-		buttonDiv.setId(Integer.toString(button.getAD_Window_ID()));
+		int windowOrInfoWindowId = button.getAD_Window_ID();
+		boolean isInfoWindow = false;
+		if (windowOrInfoWindowId == 0) {
+			windowOrInfoWindowId = button.getAD_InfoWindow_ID();
+			isInfoWindow = true;
+		}
+		buttonDiv.setId(Integer.toString(windowOrInfoWindowId));
+		buttonDiv.setAttribute(INFO_WINDOW_ATTRIBUTE, isInfoWindow);
 		buttonDiv.setTooltiptext(button.getButtonHelpText());
 		buttonDiv.setClass(button.getButtonClassName());
 
