@@ -31,5 +31,9 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="library" name="ECLIPSE" level="application" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="org.adempiere.base" />
+    <orderEntry type="module" module-name="org.adempiere.plugin.utils" />
+    <orderEntry type="library" scope="PROVIDED" name="iDempiere" level="project" />
+    <orderEntry type="module" module-name="org.adempiere.ui.zk" />
   </component>
 </module>

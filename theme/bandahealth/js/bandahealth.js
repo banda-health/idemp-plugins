@@ -2,32 +2,39 @@
  * Set dashboard panels returned to no display
  */
 
-
 let bandahealth = (function () {
 
-	let org = 'organization';
-	
-	document.querySelector('body').classList.add('bh');
-	
+	let classNames = {
+		BH: 'bh',
+		ORGANIZTION: 'organization',
+		CLIENT: 'client',
+		SYSTEM: 'system'
+	};
+
+	addClassName(classNames.BH);
+	addClassName(classNames.SYSTEM);
+
 	return {
 		userIsOrg: userIsOrg,
 		userIsClientAndOrg: userIsClientAndOrg
 	};
-	
-	function addRoleClass(roleClass) {
-		document.querySelector('body').classList.add(roleClass);
+
+	function addClassName(className) {
+		document.querySelector('body').classList.add(className);
 	}
-	
-	function removeRoleClass(roleClass) {
-		document.querySelector('body').classList.remove(roleClass);
+
+	function removeClassName(className) {
+		document.querySelector('body').classList.remove(className);
 	}
-	
-	function userIsOrg(){
-		addRoleClass(org);
+
+	function userIsOrg() {
+		removeClassName(classNames.SYSTEM);
+		addClassName(classNames.ORGANIZTION);
 	}
-	
-	function userIsClientAndOrg(){
-		removeRoleClass(org);
+
+	function userIsClientAndOrg() {
+		removeClassName(classNames.SYSTEM);
+		addClassName(classNames.CLIENT);
 	}
 })();
 
