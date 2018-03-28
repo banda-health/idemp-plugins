@@ -14,11 +14,11 @@ let bandahealth = (function () {
 		userIsClientAndOrg: userIsClientAndOrg
 	};
 	
-	function addRoleClass(roleClass) {
+	function addRoleClass(orgClass) {
 		document.querySelector('body').classList.add(orgClass);
 	}
 	
-	function removeRoleClass(roleClass) {
+	function removeRoleClass(orgClass) {
 		document.querySelector('body').classList.remove(orgClass);
 	}
 	

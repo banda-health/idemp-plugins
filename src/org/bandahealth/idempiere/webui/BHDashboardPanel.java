@@ -7,7 +7,9 @@ import org.adempiere.webui.component.ToolBarButton;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.theme.ThemeManager;
+import org.compiere.model.I_AD_Role;
 import org.compiere.model.MInfoWindow;
+import org.compiere.model.MRole;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -34,98 +36,70 @@ public class BHDashboardPanel extends DashboardPanel implements EventListener<Ev
 	
 	private static final long serialVersionUID = 1L;
 	private CLogger logger = CLogger.getCLogger(BHDashboardPanel.class);
-	
+
+	private static final String ORG_ONLY_ACESS = "O";
 	private int clientId;
 	private int userId;
 	private int roleId;
 	private int orgId;
 	
 	private final String DEFAULT_TOOL_ICON = "Server24.png";
-	private final String ORG_ONLY_ACCESS = "O";
-	private final String CLIENT_ORG_ACCESS = "CO";
     private Properties context;
-    private Desktop desktop;
     private Script script;
     
 	public BHDashboardPanel() {
 		super();
-		context = Env.getCtx();
-		clientId = Env.getAD_Client_ID(context);
-		orgId = Env.getAD_Org_ID(context);
-		userId = Env.getAD_User_ID(context);
-		roleId = Env.getAD_Role_ID(context);
+		this.context = Env.getCtx();
+		this.clientId = Env.getAD_Client_ID(context);
+		this.orgId = Env.getAD_Org_ID(context);
+		this.userId = Env.getAD_User_ID(context);
+		this.roleId = Env.getAD_Role_ID(context);
 		script = new Script();
-		
-		
-//		new BHCustomSelect().getDashboards();
 		this.appendChild(createPanel());
 	}
 	
 	public Box createPanel() {
 		Vbox vBox = new Vbox();
-		
-//		String className = Env.getAD_Org_ID(context) >0 ? "organization":clientId > 0 ? "client" : "system";
-		if(isOrgAccessLevel()) {
-			logger.info("user is organization access only");
+
+		if (isOrgUserLevel()) {
 			vBox.appendChild(new Script("bandahealth.userIsOrg()"));
-		}else {
-			logger.info("user has client and organization access");
+		} else {
 			vBox.appendChild(new Script("bandahealth.userIsClientAndOrg()"));
-			logger.info(script.getContent());
 		}
 		vBox.appendChild(script);
 		MInfoWindow productInfoWindow = filterFromViews("Product Info");
-			if(productInfoWindow != null) {
-				ToolBarButton button = createPanelButton(productInfoWindow.getName(),
-						"link",
-						productInfoWindow.get_Translation("Name"),
-						productInfoWindow.getImageURL());
-				button.addEventListener(Events.ON_CLICK, this);
-				vBox.appendChild(button);
-				}
-			//add links to BH custom windows
-			List<MWindow> bhCustomWindows = getBHCustomWindows();
-			for (MWindow mWindow : bhCustomWindows) {
-				ToolBarButton winBtn = createPanelButton(mWindow.getName(),
-						"link",
-						mWindow.getName(),
-						DEFAULT_TOOL_ICON);
-				winBtn.addEventListener(Events.ON_CLICK, this);
-				vBox.appendChild(winBtn);
-			}
-		
+		if (productInfoWindow != null) {
+			ToolBarButton button = createPanelButton(productInfoWindow.getName(), "link",
+					productInfoWindow.get_Translation("Name"), productInfoWindow.getImageURL());
+			button.addEventListener(Events.ON_CLICK, this);
+			vBox.appendChild(button);
+		}
+		// add links to BH custom windows
+		List<MWindow> bhCustomWindows = getBHCustomWindows();
+		for (MWindow mWindow : bhCustomWindows) {
+			ToolBarButton winBtn = createPanelButton(mWindow.getName(), "link", mWindow.getName(), DEFAULT_TOOL_ICON);
+			winBtn.addEventListener(Events.ON_CLICK, this);
+			vBox.appendChild(winBtn);
+		}
 		return vBox;
 	}
-	
-	
-//	public String isRoleInOrgAccess() {
-//		int orgId = Env.getAD_Org_ID(context);
-//		String roleLoggedIn = "system";
-//		if(orgId > 0) {
-//			roleLoggedIn = "organization";
-////			script = new Script(content)
-//		}else {
-//			roleLoggedIn = "client";
-//		}
-//		return roleLoggedIn;
-//	}
-	
+
 	@Override
 	public void onEvent(Event event) throws Exception {
 		Component component = event.getTarget();
 		String eventName = event.getName();
 		int displayId = -1;
-		if(eventName.equals(Events.ON_CLICK)) {
+		if (eventName.equals(Events.ON_CLICK)) {
 			ToolBarButton button = (ToolBarButton) component;
 			String windowName = button.getName();
-			if(windowName.equals("Product Info")) {
-				displayId = getWindowId(windowName,MInfoWindow.Table_Name);
+			if (windowName.equals("Product Info")) {
+				displayId = getWindowId(windowName, MInfoWindow.Table_Name);
 				SessionManager.getAppDesktop().openInfo(displayId);
-			}else {
-				displayId = getWindowId(windowName,MWindow.Table_Name);
+			} else {
+				displayId = getWindowId(windowName, MWindow.Table_Name);
 				SessionManager.getAppDesktop().openWindow(displayId, null);
 			}
-			
+
 		}
 	}
 	
@@ -134,12 +108,9 @@ public class BHDashboardPanel extends DashboardPanel implements EventListener<Ev
 	 * the product info view
 	 */
 	private MInfoWindow filterFromViews(String viewName) {
-		MInfoWindow  productInfoWin = null;
-		List<MInfoWindow> list = new Query(
-				Env.getCtx(), 
-				MInfoWindow.Table_Name, 
-				"IsValid='Y' AND IsShowInDashboard='Y'",
-				null).setOnlyActiveRecords(true).list();
+		MInfoWindow productInfoWin = null;
+		List<MInfoWindow> list = new Query(Env.getCtx(), MInfoWindow.Table_Name,
+				"IsValid='Y' AND IsShowInDashboard='Y'", null).setOnlyActiveRecords(true).list();
 		for (MInfoWindow currentWindow : list) {
 			if (currentWindow.getName().contains(viewName)) {
 				productInfoWin = currentWindow;
@@ -151,13 +122,9 @@ public class BHDashboardPanel extends DashboardPanel implements EventListener<Ev
 	/* Get all custom BH windows 
 	 * Assumes every custom table needed is prefixed with BH
 	 */
-	private List<MWindow> getBHCustomWindows(){
-		List<MWindow> list = new Query(Env.getCtx(), 
-				MWindow.Table_Name, 
-				"name like 'BH_%'", 
-				null)
-				.setOnlyActiveRecords(true)
-				.list();
+	private List<MWindow> getBHCustomWindows() {
+		List<MWindow> list = new Query(Env.getCtx(), MWindow.Table_Name, "name like 'BH_%'", null)
+				.setOnlyActiveRecords(true).list();
 		return list;
 	}
 	
@@ -165,10 +132,8 @@ public class BHDashboardPanel extends DashboardPanel implements EventListener<Ev
 	 * Get the ID of the window to be displayed
 	 */
 	private int getWindowId(String windowName, String windowType) {
-		int windowToDisplay = new Query(Env.getCtx(), 
-				windowType, 
-				"Name = ?",
-				null).setParameters(windowName).setOnlyActiveRecords(true).firstIdOnly();
+		int windowToDisplay = new Query(Env.getCtx(), windowType, "Name = ?", null).setParameters(windowName)
+				.setOnlyActiveRecords(true).firstIdOnly();
 		return windowToDisplay;
 	}
 	
@@ -177,18 +142,18 @@ public class BHDashboardPanel extends DashboardPanel implements EventListener<Ev
 		ToolBarButton itemLink = new ToolBarButton(name);
 		itemLink.setSclass(styleClass);
 		itemLink.setLabel(label);
-		itemLink.setImage(
-				ThemeManager.getThemeResource("images/" + 
-						(Util.isEmpty(image) ? image : DEFAULT_TOOL_ICON)));
+		itemLink.setImage(ThemeManager.getThemeResource("images/" + (Util.isEmpty(image) ? image : DEFAULT_TOOL_ICON)));
 		return itemLink;
 	}
-
 	
-	public Boolean isOrgAccessLevel() {
-		Boolean orgAccessLevel = false;
-		if(orgId > 0) {
-			orgAccessLevel = true;
+	/*Get the user level of the currently logged in role*/
+	public boolean isOrgUserLevel() {
+		boolean isOrgAccess = false;
+		String whereClause = I_AD_Role.COLUMNNAME_AD_Role_ID + "=?";
+		MRole role = new Query(context, I_AD_Role.Table_Name, whereClause, null).setParameters(roleId).first();
+		if (role.get_ValueAsString("userlevel").trim().equals(BHDashboardPanel.ORG_ONLY_ACESS)) {
+			isOrgAccess = true;
 		}
-		return orgAccessLevel;
+		return isOrgAccess;
 	}
 }
