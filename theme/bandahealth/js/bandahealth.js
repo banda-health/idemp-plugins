@@ -15,11 +15,11 @@ let bandahealth = (function () {
 	};
 	
 	function addRoleClass(roleClass) {
-		document.querySelector('body').classList.add(roleClass);
+		document.querySelector('body').classList.add(orgClass);
 	}
 	
 	function removeRoleClass(roleClass) {
-		document.querySelector('body').classList.remove(roleClass);
+		document.querySelector('body').classList.remove(orgClass);
 	}
 	
 	function userIsOrg(){

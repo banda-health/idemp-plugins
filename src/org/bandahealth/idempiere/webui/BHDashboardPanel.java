@@ -22,7 +22,7 @@ import org.zkoss.zul.Box;
 import org.zkoss.zul.Script;
 import org.zkoss.zul.Vbox;
 
-public class BHDashboard extends DashboardPanel implements EventListener<Event>{
+public class BHDashboardPanel extends DashboardPanel implements EventListener<Event>{
 
 	/**
 	Custom BandaHealth dash-board with links to:
@@ -33,7 +33,7 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
 	*/
 	
 	private static final long serialVersionUID = 1L;
-	private CLogger logger = CLogger.getCLogger(BHDashboard.class);
+	private CLogger logger = CLogger.getCLogger(BHDashboardPanel.class);
 	
 	private int clientId;
 	private int userId;
@@ -47,7 +47,7 @@ public class BHDashboard extends DashboardPanel implements EventListener<Event>{
     private Desktop desktop;
     private Script script;
     
-	public BHDashboard() {
+	public BHDashboardPanel() {
 		super();
 		context = Env.getCtx();
 		clientId = Env.getAD_Client_ID(context);
