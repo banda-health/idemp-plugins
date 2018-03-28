@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.base.factory;
 import java.sql.ResultSet;
 
 import org.adempiere.base.IModelFactory;
+import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.compiere.model.PO;
@@ -17,6 +18,8 @@ public class BHModelFactory implements IModelFactory {
 			return MOrder_BH.class;
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return MPayment_BH.class;
+		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
+			return MHomeScreenButton.class;
 		}
 
 		return null;
@@ -29,6 +32,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MOrder_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
+			return new MHomeScreenButton(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -41,6 +46,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MOrder_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
+			return new MHomeScreenButton(Env.getCtx(), rs, trxName);
 		}
 
 		return null;

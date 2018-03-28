@@ -204,6 +204,19 @@ public interface I_BH_HomeScreen_Button
 	  */
 	public boolean isActive();
 
+    /** Column name LineNo */
+    public static final String COLUMNNAME_LineNo = "LineNo";
+
+	/** Set Line.
+	  * Line No
+	  */
+	public void setLineNo (int LineNo);
+
+	/** Get Line.
+	  * Line No
+	  */
+	public int getLineNo();
+
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
 

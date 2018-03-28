@@ -236,6 +236,26 @@ public class X_BH_HomeScreen_Button extends PO implements I_BH_HomeScreen_Button
 		return (String)get_Value(COLUMNNAME_IconClassName);
 	}
 
+	/** Set Line.
+		@param LineNo 
+		Line No
+	  */
+	public void setLineNo (int LineNo)
+	{
+		set_Value (COLUMNNAME_LineNo, Integer.valueOf(LineNo));
+	}
+
+	/** Get Line.
+		@return Line No
+	  */
+	public int getLineNo () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LineNo);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Name.
 		@param Name 
 		Alphanumeric identifier of the entity
