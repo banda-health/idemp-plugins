@@ -85,7 +85,7 @@ body .openmrs {
 .bh.client .desktop-left-column.z-west, .bh.organization .desktop-left-column.z-west {
   width: 0px;
 }
-/* line 25, ../sass/bandahealth.scss */
-.bh.client .dashboard-layout .z-anchorlayout .z-anchorchildren .dashboard-column .z-vlayout .z-vlayout-inner, .bh.organization .dashboard-layout .z-anchorlayout .z-anchorchildren .dashboard-column .z-vlayout .z-vlayout-inner {
+/* line 22, ../sass/bandahealth.scss */
+.bh.client .dashboard-widget:not([title="BH-Dashboard"]), .bh.organization .dashboard-widget:not([title="BH-Dashboard"]) {
   display: none;
 }

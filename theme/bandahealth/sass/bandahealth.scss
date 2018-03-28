@@ -19,14 +19,8 @@
 			width:0px;
 		}
 		
-		.dashboard-layout .z-anchorlayout{
-			.z-anchorchildren{
-					.dashboard-column .z-vlayout{
-						.z-vlayout-inner{
-							display:none;
-						}
-					}
-				}
+		.dashboard-widget:not([title="BH-Dashboard"]){
+			display:none;	
 		}
 	}
 	
