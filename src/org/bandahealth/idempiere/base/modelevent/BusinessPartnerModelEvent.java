@@ -6,6 +6,14 @@ import org.bandahealth.idempiere.base.config.BHConfigLoader;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+<<<<<<< HEAD
+import org.compiere.model.I_AD_Ref_List;
+import org.compiere.model.I_AD_Reference;
+import org.compiere.model.I_C_BPartner;
+import org.compiere.model.I_C_Country;
+import org.compiere.model.MBPartner;
+=======
+>>>>>>> 0ec7a422c4e5b8f83194032bddd1b786e63f1a85
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
 import org.compiere.model.MLocation;
@@ -25,6 +33,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
+
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MBPartner_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MBPartner_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MBPartner_BH.Table_Name);
@@ -79,7 +88,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		// Set client & org?
 		int clientId = businessPartner.getAD_Client_ID();
 		int orgId = businessPartner.getAD_Org_ID();
-
 		translateToMaskedFields(businessPartner);
 
 		// Set BP Group?
@@ -150,7 +158,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		if (businessPartner.getBH_C_Location_ID() == 0) {
 			MCountry country = (new Query(Env.getCtx(), MCountry.Table_Name, MCountry.COLUMNNAME_CountryCode
 					+ " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null)).first();
-
 			MLocation location = new MLocation(country, null);
 			location.save();
 
