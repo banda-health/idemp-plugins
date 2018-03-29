@@ -17,23 +17,23 @@ public class QueryUtil {
 	 * @param trxName
 	 * @return
 	 */
-	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
-			String whereClause, String trxName) {
+	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx,
+			String tableName, String whereClause, String trxName) {
 
-		return getQueryByOrgAndClient(clientId, orgId, ctx, tableName, whereClause, trxName).first();
+		return getQueryByOrgAndClient(clientId, organizationId, ctx, tableName, whereClause, trxName).first();
 	}
 
 	/**
 	 * Gets the query object to allow for further modification by a user if desired
 	 * @param clientId
-	 * @param orgId
+	 * @param organizationId
 	 * @param ctx
 	 * @param tableName
 	 * @param whereClause
 	 * @param trxName
 	 * @return
 	 */
-	public static Query getQueryByOrgAndClient(int clientId, int orgId, Properties ctx, String tableName,
+	public static Query getQueryByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
 			String whereClause, String trxName) {
 
 		String clientAndOrg = String.format(" and %1$s = ? and %2$s = ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
