@@ -1,4 +1,2 @@
-Banda Health Go base plugins
-
-This is a PR test
-
+# README #
+Banda Health Go plugins

@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.modelevent;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
@@ -10,6 +11,7 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
@@ -40,7 +42,12 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 
 	private void createMaterialReceiptFromOrder(MOrder order) {
 		// Create Material Receipt header
-		MInOut mReceipt = new MInOut(order, 0, order.getDateOrdered());
+		Timestamp movementDate = order.getDateOrdered() != null ? order.getDateOrdered()
+				: new Timestamp(System.currentTimeMillis());
+		int C_DocTypeShipment_ID = DB.getSQLValue(order.get_TrxName(),
+				"SELECT C_DocTypeShipment_ID FROM C_DocType WHERE printname=?", "Order Confirmation");
+		MInOut mReceipt = new MInOut(order, C_DocTypeShipment_ID, movementDate);
+
 		mReceipt.setMovementType(MInOut.MOVEMENTTYPE_VendorReceipts);
 		mReceipt.setDocAction(MInOut.DOCACTION_Complete);
 		mReceipt.save();
@@ -52,14 +59,12 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 			for (MOrderLine oLine : oLines) {
 				MInOutLine line = new MInOutLine(mReceipt);
 				line.setOrderLine(oLine, mWarehouse.getDefaultLocator().get_ID(), Env.ZERO);
-				// need to find out why the available/reserved quantity is doubled under product info 
-				line.setQty(oLine.getQtyOrdered().divide(new BigDecimal(2)));
+				line.setQty(oLine.getQtyOrdered());
 				line.saveEx(order.get_TrxName());
 			}
 		}
 
 		// complete operation
-		mReceipt.completeIt();
 		String m_status = mReceipt.completeIt();
 		mReceipt.setDocStatus(m_status);
 		mReceipt.save();
