@@ -6,14 +6,6 @@ import org.bandahealth.idempiere.base.config.BHConfigLoader;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
-<<<<<<< HEAD
-import org.compiere.model.I_AD_Ref_List;
-import org.compiere.model.I_AD_Reference;
-import org.compiere.model.I_C_BPartner;
-import org.compiere.model.I_C_Country;
-import org.compiere.model.MBPartner;
-=======
->>>>>>> 0ec7a422c4e5b8f83194032bddd1b786e63f1a85
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
 import org.compiere.model.MLocation;
