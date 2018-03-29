@@ -124,6 +124,12 @@
 		.adwindow-toolbar {
 			& > div.z-toolbar-start {
 				background-color: white;
+				display: flex;
+				justify-content: flex-end;
+
+				.z-separator {
+					@extend %hide-element;
+				}
 			}
 
 			a {
@@ -133,6 +139,7 @@
 
 				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11) {
 					@extend %toolbar-button;
+					order: 1;
 
 					span {
 						width: auto;
@@ -154,7 +161,7 @@
 				}
 
 				&:nth-child(1) {
-					@extend %cancel;
+					@extend %primary;
 
 					span {
 						&::before {
@@ -168,7 +175,7 @@
 					}
 
 					&:hover {
-						@extend %cancel-hover;
+						@extend %primary-hover;
 					}
 				}
 
@@ -192,7 +199,7 @@
 				}
 
 				&:nth-child(6) {
-					@extend %primary;
+					@extend %cancel;
 
 					span {
 						&::before {
@@ -206,7 +213,7 @@
 					}
 
 					&:hover {
-						@extend %primary-hover;
+						@extend %cancel-hover;
 					}
 				}
 
@@ -230,9 +237,9 @@
 				}
 
 				&:nth-child(10) {
-					margin-left: 20px;
 					margin-right: 10px;
 					@extend %button;
+					order: 0;
 
 					span {
 						&::before {
@@ -253,6 +260,8 @@
 
 				&:nth-child(11) {
 					@extend %button;
+					margin-right: auto;
+					order: 0;
 
 					span {
 						&::before {
@@ -275,6 +284,56 @@
 
 		.adwindow-breadcrumb > div {
 			@extend %hide-element;
+		}
+
+		.desktop-layout {
+			.desktop-north table table td:first-child {
+				//visibility: collapse;
+			}
+
+			.z-west, .z-west-splitter, .z-west-collapsed {
+				@extend %hide-element;
+			}
+
+			.desktop-center {
+				left: 0 !important;
+				right: 0 !important;
+				width: auto !important;
+
+				> .z-center-body {
+					width: auto !important;
+
+					> .desktop-tabbox {
+						width: auto !important;
+					}
+				}
+			}
+		}
+
+		.desktop-tabbox {
+			& > .z-toolbar-tabs {
+				a:nth-child(2), a:last-child {
+					@extend %hide-element;
+				}
+
+				a:first-child {
+					display: inline-block !important;
+
+					span {
+						width: auto;
+
+						img {
+							@extend %hide-element;
+						}
+
+						&::before {
+							font-size: var(--button-font-size);
+							@extend %fas;
+							content: "\f0c9";
+						}
+					}
+				}
+			}
 		}
 	}
 }
