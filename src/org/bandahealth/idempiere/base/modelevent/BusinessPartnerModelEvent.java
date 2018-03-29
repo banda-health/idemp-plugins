@@ -25,6 +25,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
+
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MBPartner_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MBPartner_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MBPartner_BH.Table_Name);
@@ -79,7 +80,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		// Set client & org?
 		int clientId = businessPartner.getAD_Client_ID();
 		int orgId = businessPartner.getAD_Org_ID();
-
 		translateToMaskedFields(businessPartner);
 
 		// Set BP Group?
@@ -150,7 +150,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		if (businessPartner.getBH_C_Location_ID() == 0) {
 			MCountry country = (new Query(Env.getCtx(), MCountry.Table_Name, MCountry.COLUMNNAME_CountryCode
 					+ " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null)).first();
-
 			MLocation location = new MLocation(country, null);
 			location.save();
 
