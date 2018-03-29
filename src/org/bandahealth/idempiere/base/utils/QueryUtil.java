@@ -20,6 +20,22 @@ public class QueryUtil {
 	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
 			String whereClause, String trxName) {
 
+		return getQueryByOrgAndClient(clientId, orgId, ctx, tableName, whereClause, trxName).first();
+	}
+
+	/**
+	 * Gets the query object to allow for further modification by a user if desired
+	 * @param clientId
+	 * @param orgId
+	 * @param ctx
+	 * @param tableName
+	 * @param whereClause
+	 * @param trxName
+	 * @return
+	 */
+	public static Query getQueryByOrgAndClient(int clientId, int orgId, Properties ctx, String tableName,
+			String whereClause, String trxName) {
+
 		String clientAndOrg = String.format(" and %1$s = ? and %2$s = ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
 				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
 		String clientAndNotBaseOrg = String.format(" and %1$s = ? and %2$s <> ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
@@ -33,17 +49,16 @@ public class QueryUtil {
 		}
 		query.setParameters(clientId, organizationId);
 		if (query.count() > 0) {
-			return query.first();
+			return query;
 		}
-		
+
 		query = new Query(ctx, tableName, whereClause + clientAndOrg, trxName);
 		query.setParameters(clientId, QueryConstants.BASE_ORGANIZATION_ID);
 		if (query.count() > 0) {
-			return query.first();
+			return query;
 		}
-		
+
 		return (new Query(ctx, tableName, whereClause + clientAndOrg, trxName))
-				.setParameters(QueryConstants.BASE_CLIENT_ID, QueryConstants.BASE_ORGANIZATION_ID)
-				.first();
+				.setParameters(QueryConstants.BASE_CLIENT_ID, QueryConstants.BASE_ORGANIZATION_ID);
 	}
 }
