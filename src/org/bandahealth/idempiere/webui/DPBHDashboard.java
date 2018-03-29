@@ -17,6 +17,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Script;
+import org.zkoss.zul.Vlayout;
 
 public class DPBHDashboard extends DashboardPanel implements EventListener<Event> {
 
@@ -31,7 +32,7 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 	private static final long serialVersionUID = 1L;
 	private CLogger logger = CLogger.getCLogger(DPBHDashboard.class);
 
-	private Div layout = new Div();
+	private Vlayout layout = new Vlayout();
 	private Div contentArea = new Div();
 
 	private int clientId;
