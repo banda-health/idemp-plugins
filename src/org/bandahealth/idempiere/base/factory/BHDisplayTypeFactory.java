@@ -14,8 +14,9 @@ public class BHDisplayTypeFactory implements IDisplayTypeFactory {
 
 	CLogger log = CLogger.getCLogger(BHDisplayTypeFactory.class);
 
-	public static int PaymentRow = ((X_AD_Reference)new Query(Env.getCtx(), X_AD_Reference.Table_Name,
-			"Name='BH Bill Payments'", null).first()).getAD_Reference_ID();
+	public static int PaymentRow = -1;
+	//((X_AD_Reference)new Query(Env.getCtx(), X_AD_Reference.Table_Name,
+	//		"Name='BH Bill Payments'", null).first()).getAD_Reference_ID();
 
 	@Override
 	public boolean isID(int displayType) {
