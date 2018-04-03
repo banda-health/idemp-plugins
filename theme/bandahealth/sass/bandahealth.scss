@@ -95,25 +95,7 @@
 	}
 
 	&.client, &.organization {
-		.desktop-header {
-			table table {
-				td:eq(0) {
-					visibility: collapse;
-				}
-			}
-		}
-	
-		.btn-small.z-button[title="Menu"] {
-			display:none;
-		}
-	
-		.desktop-left-column.z-west{
-			width:0px;
-		}
 
-		.dashboard-widget:not([title="BH-Dashboard"]){
-			//display:none;
-		}
 	}
 
 	&.client {
@@ -286,11 +268,11 @@
 			@extend %hide-element;
 		}
 
-		.desktop-layout {
-			.desktop-north table table td:first-child {
-				//visibility: collapse;
-			}
+		.desktop-header-popup {
+			@extend %hide-element;
+		}
 
+		.desktop-layout {
 			.z-west, .z-west-splitter, .z-west-collapsed {
 				@extend %hide-element;
 			}
@@ -311,27 +293,55 @@
 		}
 
 		.desktop-tabbox {
+			& > .z-tabs {
+				height: 34px;
+
+				ul {
+					//display: none;
+				}
+			}
+
 			& > .z-toolbar-tabs {
-				a:nth-child(2), a:last-child {
-					@extend %hide-element;
+				&.z-toolbar {
+					padding: 0 4px;
+					border: none;
+					height: auto !important;
 				}
 
-				a:first-child {
-					display: inline-block !important;
+				a {
+					cursor: pointer;
+					border: 1px solid transparent;
+					padding: 2px;
 
-					span {
-						width: auto;
-
-						img {
-							@extend %hide-element;
-						}
-
-						&::before {
-							font-size: var(--button-font-size);
-							@extend %fas;
-							content: "\f0c9";
-						}
+					&:not(:last-child)  {
+						@extend %hide-element;
 					}
+
+					i {
+						font-size: 2.5em;
+					}
+
+					&:last-child {
+
+					}
+
+					/*&:first-child {
+						display: inline-block !important;
+
+						span {
+							width: auto;
+
+							img {
+								@extend %hide-element;
+							}
+
+							&::before {
+								font-size: var(--button-font-size);
+								@extend %fas;
+								content: "\f0c9";
+							}
+						}
+					}*/
 				}
 			}
 		}

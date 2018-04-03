@@ -30,15 +30,10 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 	 */
 
 	private static final long serialVersionUID = 1L;
-	private CLogger logger = CLogger.getCLogger(DPBHDashboard.class);
+	private CLogger log = CLogger.getCLogger(DPBHDashboard.class);
 
 	private Vlayout layout = new Vlayout();
 	private Div contentArea = new Div();
-
-	private int clientId;
-	private int userId;
-	private int roleId;
-	private int orgId;
 
 	private final String DEFAULT_TOOL_ICON = "Server24.png";
 
@@ -48,11 +43,6 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 		this.setSclass("openmrs");
 
 		initLayout();
-		Properties context = Env.getCtx();
-		clientId = Env.getAD_Client_ID(context);
-		orgId = Env.getAD_Org_ID(context);
-		userId = Env.getAD_User_ID(context);
-		roleId = Env.getAD_Role_ID(context);
 	}
 
 	private void initLayout() {
@@ -68,6 +58,7 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 	}
 
 	private void appendRoleScript() {
+		layout.appendChild(new Script("bandahealth.initPage()"));
 		if (isOrgAccessLevel()) {
 			layout.appendChild(new Script("bandahealth.userIsOrg()"));
 		} else {
@@ -114,11 +105,11 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 				.list();
 	}
 
-	public Boolean isOrgAccessLevel() {
-		Boolean orgAccessLevel = false;
-		if (orgId > 0) {
-			orgAccessLevel = true;
+	private Boolean isOrgAccessLevel() {
+		Boolean isViewingAnOrganization = true;
+		if (Env.getAD_Org_ID(Env.getCtx()) == 0) {
+			isViewingAnOrganization = false;
 		}
-		return orgAccessLevel;
+		return isViewingAnOrganization;
 	}
 }
