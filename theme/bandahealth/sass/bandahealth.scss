@@ -295,9 +295,31 @@
 		.desktop-tabbox {
 			& > .z-tabs {
 				height: 34px;
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
 
-				ul {
-					//display: none;
+				.z-tabs-content {
+					border: none;
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+
+					.z-tab {
+						font-size: 1.7em;
+						height: auto;
+						border: none;
+						background: none;
+						box-shadow: none;
+
+						&:nth-last-child(2), .z-tab-button, .z-tab-image {
+							@extend %hide-element;
+						}
+					}
+
+					.back-button {
+						padding-left: 10px;
+					}
 				}
 			}
 

@@ -126,6 +126,7 @@ var bandahealth = bandahealth || (function () {
 		let targetIsIconButton = e.target.className.indexOf(' i ') > -1 && (e.target.className.indexOf('fas ') > -1
 			|| e.target.className.indexOf('far ') > -1);
 		if (targetIsBigButton || targetIsIconButton) {
+			console.log(window.location.hash, e.target.id);
 			if (window.location.hash !== '#' + e.target.id) {
 				hasHashChangedDueToClick = true;
 				if (!isHashEmpty()) {
