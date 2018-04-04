@@ -1,7 +1,35 @@
 @import '_openmrs.scss';
 
-.btn-small.z-button[title="Menu"] {
-	.organization & {
-		display: none;
+.bh {
+
+	&.client, &.organization {
+		.desktop-header {
+			table table {
+				td:eq(0) {
+					visibility: collapse;
+				}
+			}
+		}
+	
+		.btn-small.z-button[title="Menu"] {
+			display:none;
+		}
+	
+		.desktop-left-column.z-west{
+			width:0px;
+		}
+		
+		.dashboard-widget:not([title="BH-Dashboard"]){
+			display:none;	
+		}
+	}
+	
+	&.client {
+		
+	}
+	
+	&.organization {
+		
 	}
 }
+
