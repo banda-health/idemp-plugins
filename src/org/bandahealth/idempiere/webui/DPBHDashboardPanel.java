@@ -1,12 +1,11 @@
 package org.bandahealth.idempiere.webui;
 
 import java.util.List;
-import java.util.Properties;
 
-import org.adempiere.webui.component.ToolBarButton;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
+import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -19,7 +18,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Script;
 import org.zkoss.zul.Vlayout;
 
-public class DPBHDashboard extends DashboardPanel implements EventListener<Event> {
+public class DPBHDashboardPanel extends DashboardPanel implements EventListener<Event> {
 
 	/**
 	 * Custom BandaHealth dash-board with links to:
@@ -30,14 +29,12 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 	 */
 
 	private static final long serialVersionUID = 1L;
-	private CLogger log = CLogger.getCLogger(DPBHDashboard.class);
+	private CLogger log = CLogger.getCLogger(DPBHDashboardPanel.class);
 
 	private Vlayout layout = new Vlayout();
 	private Div contentArea = new Div();
 
-	private final String DEFAULT_TOOL_ICON = "Server24.png";
-
-	public DPBHDashboard() {
+	public DPBHDashboardPanel() {
 		super();
 
 		this.setSclass("openmrs");
@@ -58,10 +55,11 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 	}
 
 	private void appendRoleScript() {
-		layout.appendChild(new Script("bandahealth.initPage()"));
-		if (isOrgAccessLevel()) {
+		if (isUserViewingAnOrganization()) {
+			layout.appendChild(new Script("bandahealth.initPage()"));
 			layout.appendChild(new Script("bandahealth.userIsOrg()"));
-		} else {
+		} else if (isUserViewingAClient()) {
+			layout.appendChild(new Script("bandahealth.initPage()"));
 			layout.appendChild(new Script("bandahealth.userIsClientAndOrg()"));
 		}
 	}
@@ -105,11 +103,20 @@ public class DPBHDashboard extends DashboardPanel implements EventListener<Event
 				.list();
 	}
 
-	private Boolean isOrgAccessLevel() {
+	private Boolean isUserViewingAnOrganization() {
 		Boolean isViewingAnOrganization = true;
-		if (Env.getAD_Org_ID(Env.getCtx()) == 0) {
+		if (Env.getAD_Org_ID(Env.getCtx()) == QueryConstants.BASE_ORGANIZATION_ID) {
 			isViewingAnOrganization = false;
 		}
 		return isViewingAnOrganization;
+	}
+
+	private boolean isUserViewingAClient() {
+		Boolean isViewingAClient = false;
+		if (Env.getAD_Org_ID(Env.getCtx()) == QueryConstants.BASE_ORGANIZATION_ID
+				&& Env.getAD_Client_ID(Env.getCtx()) != QueryConstants.BASE_CLIENT_ID) {
+			isViewingAClient = true;
+		}
+		return isViewingAClient;
 	}
 }
