@@ -2,4 +2,4 @@
 /bin/
 .sass-cache
 .settings
-
+*.css

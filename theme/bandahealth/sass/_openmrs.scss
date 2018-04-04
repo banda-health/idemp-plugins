@@ -1,9 +1,97 @@
+%button {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+	background: -webkit-linear-gradient(top, #ffffff, #dddddd);
+	background: -moz-linear-gradient(top, #ffffff, #dddddd);
+	background: -o-linear-gradient(top, #ffffff, #dddddd);
+	background: -ms-linear-gradient(top, #ffffff, #dddddd);
+	background: linear-gradient(top, #ffffff, #dddddd);
+	background-color: #dddddd;
+	border: #dddddd 1px solid;
+	padding: 8px 20px;
+	display: inline-block;
+	line-height: 1.2em;
+	color: #363463;
+	cursor: pointer;
+	min-width: 0;
+	max-width: 300px;
+	text-decoration: none;
+}
+
+%button-hover {
+	@extend %button;
+
+	background: #e2e2e2;
+	border-color: #d0d0d0;
+}
+
+%confirm {
+	@extend %button;
+
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a1d030), color-stop(100%, #88af28));
+	background: -webkit-linear-gradient(top, #a1d030, #88af28);
+	background: -moz-linear-gradient(top, #a1d030, #88af28);
+	background: -o-linear-gradient(top, #a1d030, #88af28);
+	background: -ms-linear-gradient(top, #a1d030, #88af28);
+	background: linear-gradient(top, #a1d030, #88af28);
+	background-color: #88af28;
+	color: white;
+	max-width: 250px;
+	min-width: 0;
+	margin-right: 10px;
+}
+
+%confirm-hover {
+	@extend %confirm;
+
+	background: #8eb82a;
+	border-color: #779b23;
+}
+
+%cancel {
+	@extend %button;
+
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff6666), color-stop(100%, #ff3d3d));
+	background: -webkit-linear-gradient(top, #ff6666, #ff3d3d);
+	background: -moz-linear-gradient(top, #ff6666, #ff3d3d);
+	background: -o-linear-gradient(top, #ff6666, #ff3d3d);
+	background: -ms-linear-gradient(top, #ff6666, #ff3d3d);
+	background: linear-gradient(top, #ff6666, #ff3d3d);
+	background-color: #ff3d3d;
+	color: white;
+	max-width: 250px;
+	min-width: 0;
+	margin-right: 10px;
+}
+
+%cancel-hover {
+	@extend %cancel;
+
+	background: #ff4747;
+	border-color: #ff2424;
+}
+
+%primary {
+	@extend %button;
+}
+
+%primary-hover {
+	@extend %primary;
+
+	background: #286090;
+	border-color: #204d74;
+}
+
 .openmrs {
 
 	body & {
 		font-family: "OpenSans", Arial, sans-serif;
 		-webkit-font-smoothing: subpixel-antialiased;
-		max-width: 1000px;
 		margin: 10px auto;
 		background: #eeeeee;
 		color: #363463;
@@ -12,33 +100,10 @@
 
 	/* line 1232 OpenMRS Reference App CSS */
 	.button, button, input[type="submit"], input[type="button"], input[type="submit"], a.button {
-		-moz-border-radius: 3px;
-		-webkit-border-radius: 3px;
-		-o-border-radius: 3px;
-		-ms-border-radius: 3px;
-		-khtml-border-radius: 3px;
-		border-radius: 3px;
-		background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
-		background: -webkit-linear-gradient(top, #ffffff, #dddddd);
-		background: -moz-linear-gradient(top, #ffffff, #dddddd);
-		background: -o-linear-gradient(top, #ffffff, #dddddd);
-		background: -ms-linear-gradient(top, #ffffff, #dddddd);
-		background: linear-gradient(top, #ffffff, #dddddd);
-		background-color: #dddddd;
-		border: #dddddd 1px solid;
-		padding: 8px 20px;
-		display: inline-block;
-		line-height: 1.2em;
-		color: #363463;
-		cursor: pointer;
-		min-width: 0;
-		max-width: 300px;
-
-		text-decoration: none;
+		@extend %button;
 
 		&:hover {
-			background: #e2e2e2;
-			border-color: #d0d0d0;
+			@extend %button-hover;
 		}
 
 		&.active {
@@ -71,6 +136,122 @@
 			line-height: 1.3em;
 			margin: 10px;
 			text-align: center;
+		}
+
+		&.confirm {
+			@extend %confirm;
+
+			&:hover {
+				@extend %confirm-hover;
+			}
+
+			&.active {
+				background: #81a726;
+				border-color: #779b23;
+			}
+
+			.i, i {
+				font-size: 1.2em;
+				margin: 0;
+				padding: 0;
+				line-height: .5em;
+			}
+
+			&.big, &.medium {
+				.i, i {
+					display: block;
+					font-size: 50px;
+					margin: 0 auto;
+					padding: 10px;
+				}
+			}
+
+			&.medium {
+				font-size: 34px;
+			}
+
+			&.disabled, &:disabled {
+				background: #EEE;
+				border: #cccccc 1px solid;
+				color: #CCC;
+				cursor: default;
+			}
+
+			&.print {
+				padding: 10px;
+
+				.i, i {
+					font-size: 1.5em;
+				}
+			}
+
+			&.app {
+				padding: 20px 10px;
+				width: 150px;
+				min-height: 90px;
+				vertical-align: top;
+				line-height: 1.3em;
+				margin: 10px;
+				text-align: center;
+			}
+
+			&.arrow {
+				box-sizing: border-box;
+				position: relative;
+				padding: 9px 5px;
+				margin-left: -10px;
+				background: #81a726;
+				color: white;
+				border-color: #BBB;
+				height: 68px;
+
+				span {
+					display: block;
+					line-height: 1em;
+				}
+
+				.i, i {
+					line-height: 1em;
+					font-size: 2em;
+				}
+
+				.arrow-button {
+					width: 0;
+					height: 0;
+					top: 0;
+					right: -17px;
+					border-bottom: 34px solid transparent;
+					border-top: 33px solid transparent;
+					border-left: 18px solid #81a726;
+					position: absolute;
+				}
+
+				.arrow-border-button {
+					width: 0;
+					height: 0;
+					top: 0;
+					right: -18px;
+					border-bottom: 34px solid transparent;
+					border-top: 33px solid transparent;
+					border-left: 18px solid #bbbbbb;
+					position: absolute;
+				}
+
+				&.disabled {
+					background: #EEE;
+					border: #cccccc 1px solid;
+					color: #CCC;
+					cursor: default;
+
+					.arrow-button {
+						border-left: 18px solid #eeeeee;
+					}
+
+					.arrow-border-button {
+						border-left: 18px solid #cccccc;
+					}
+				}
+			}
 		}
 	}
 }

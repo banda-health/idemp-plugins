@@ -1,35 +1,371 @@
+@import 'compass/css3';
+
 @import '_openmrs.scss';
 
-.bh {
+%combobox-highlight {
+	background:#fff;
+	background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iemtpZTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agc3RvcC1jb2xvcj0iI2ZmZmZmZiIgb2Zmc2V0PSIwJSIvPjxzdG9wIHN0b3AtY29sb3I9IiNlNGU0ZTQiIG9mZnNldD0iMTAwJSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCN6a2llOSkiIC8+PC9zdmc+);
+	background:-moz-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#e4e4e4));
+	background:-webkit-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:-o-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:-ms-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:linear-gradient(to bottom,#fff 0,#e4e4e4 100%);
+}
 
-	&.client, &.organization {
-		.desktop-header {
-			table table {
-				td:eq(0) {
-					visibility: collapse;
+%hide-element {
+	display: none !important;
+}
+
+%fa {
+	font-family:Font Awesome\ 5 Free;
+}
+
+%far {
+	@extend %fa;
+	font-weight:400;
+}
+
+%fas {
+	@extend %fa;
+	font-weight:900;
+}
+
+%toolbar-button {
+	height: auto;
+	width: auto;
+	margin-top: 10px;
+	padding: 5px 15px 5px 10px !important;
+}
+
+:root {
+	--default-textbox-outline-color: #cfcfcf;
+	--button-font-size: 1.4em;
+}
+
+.bh {
+	.center {
+		text-align: center;
+	}
+
+	.center-vertical {
+		vertical-align: center;
+	}
+
+
+	.bh-editable-rows-container {
+		display: grid;
+		grid-template-columns: 20px repeat(2, 1fr);
+		grid-column-gap: 10px;
+		padding: 5px;
+		border: 1px solid var(--default-textbox-outline-color);
+
+		div {
+			.z-label {
+				text-align: center;
+			}
+
+			.bh-button {
+				&.z-button {
+					margin-top: 5px !important;
+				}
+
+				&.form-button {
+					width: 100%;
 				}
 			}
+
+			.z-textbox {
+				width: 100%;
+			}
 		}
-	
-		.btn-small.z-button[title="Menu"] {
-			display:none;
+
+		.bh-add-row {
+			grid-column: span 3;
+			order: 1;
 		}
-	
-		.desktop-left-column.z-west{
-			width:0px;
+
+		.bh-number-box {
+			text-align: right;
 		}
-		
-		.dashboard-widget:not([title="BH-Dashboard"]){
-			display:none;	
+
+		.delete-button-container {
+			cursor: pointer;
 		}
 	}
-	
+
+	&.client, &.organization {
+
+	}
+
 	&.client {
-		
+
 	}
 	
 	&.organization {
-		
+		.adwindow-toolbar {
+			& > div.z-toolbar-start {
+				background-color: white;
+				display: flex;
+				justify-content: flex-end;
+
+				.z-separator {
+					@extend %hide-element;
+				}
+			}
+
+			a {
+				&:nth-child(2), &:nth-child(5), &:nth-child(8), &:nth-child(9), &:nth-child(n+12):nth-child(-n+50), &.disableFilter, img {
+					@extend %hide-element;
+				}
+
+				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11) {
+					@extend %toolbar-button;
+					order: 1;
+
+					span {
+						width: auto;
+
+						img {
+							@extend %hide-element;
+						}
+
+						&::before {
+							font-size: var(--button-font-size);
+							color: white;
+						}
+					}
+
+					&::after {
+						font-size: var(--button-font-size);
+						vertical-align: middle;
+					}
+				}
+
+				&:nth-child(1) {
+					@extend %primary;
+
+					span {
+						&::before {
+							@extend %fas;
+							content: "\f00d";
+						}
+					}
+
+					&::after {
+						content: " Cancel";
+					}
+
+					&:hover {
+						@extend %primary-hover;
+					}
+				}
+
+				&:nth-child(4) {
+					@extend %confirm;
+
+					span {
+						&::before {
+							@extend %fas;
+							content: "\f067";
+						}
+					}
+
+					&::after {
+						content: " New";
+					}
+
+					&:hover {
+						@extend %confirm-hover;
+					}
+				}
+
+				&:nth-child(6) {
+					@extend %cancel;
+
+					span {
+						&::before {
+							@extend %far;
+							content: "\f2ed";
+						}
+					}
+
+					&::after {
+						content: " Delete";
+					}
+
+					&:hover {
+						@extend %cancel-hover;
+					}
+				}
+
+				&:nth-child(7) {
+					@extend %confirm;
+
+					span {
+						&::before {
+							@extend %fas;
+							content: "\f0c7";
+						}
+					}
+
+					&::after {
+						content: " Save";
+					}
+
+					&:hover {
+						@extend %confirm-hover;
+					}
+				}
+
+				&:nth-child(10) {
+					margin-right: 10px;
+					@extend %button;
+					order: 0;
+
+					span {
+						&::before {
+							@extend %fas;
+							content: "\f021";
+							color: black;
+						}
+					}
+
+					&::after {
+						content: " Refresh";
+					}
+
+					&:hover {
+						@extend %button-hover;
+					}
+				}
+
+				&:nth-child(11) {
+					@extend %button;
+					margin-right: auto;
+					order: 0;
+
+					span {
+						&::before {
+							@extend %fas;
+							content: "\f002";
+							color: black;
+						}
+					}
+
+					&::after {
+						content: " Search";
+					}
+
+					&:hover {
+						@extend %button-hover;
+					}
+				}
+			}
+		}
+
+		.adwindow-breadcrumb > div {
+			@extend %hide-element;
+		}
+
+		.desktop-header-popup {
+			@extend %hide-element;
+		}
+
+		.desktop-layout {
+			.z-west, .z-west-splitter, .z-west-collapsed {
+				@extend %hide-element;
+			}
+
+			.desktop-center {
+				left: 0 !important;
+				right: 0 !important;
+				width: auto !important;
+
+				> .z-center-body {
+					width: auto !important;
+
+					> .desktop-tabbox {
+						width: auto !important;
+					}
+				}
+			}
+		}
+
+		.desktop-tabbox {
+			& > .z-tabs {
+				height: 34px;
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+
+				.z-tabs-content {
+					border: none;
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+
+					.z-tab {
+						font-size: 1.7em;
+						height: auto;
+						border: none;
+						background: none;
+						box-shadow: none;
+
+						&:nth-last-child(2), .z-tab-button, .z-tab-image {
+							@extend %hide-element;
+						}
+					}
+
+					.back-button {
+						padding-left: 10px;
+					}
+				}
+			}
+
+			& > .z-toolbar-tabs {
+				&.z-toolbar {
+					padding: 0 4px;
+					border: none;
+					height: auto !important;
+				}
+
+				a {
+					cursor: pointer;
+					border: 1px solid transparent;
+					padding: 2px;
+
+					&:not(:last-child)  {
+						@extend %hide-element;
+					}
+
+					i {
+						font-size: 2.5em;
+					}
+
+					&:last-child {
+
+					}
+
+					/*&:first-child {
+						display: inline-block !important;
+
+						span {
+							width: auto;
+
+							img {
+								@extend %hide-element;
+							}
+
+							&::before {
+								font-size: var(--button-font-size);
+								@extend %fas;
+								content: "\f0c9";
+							}
+						}
+					}*/
+				}
+			}
+		}
 	}
 }
-
