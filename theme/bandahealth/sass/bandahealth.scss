@@ -35,12 +35,12 @@
 	height: auto;
 	width: auto;
 	margin-top: 10px;
-	padding: 5px 15px 5px 10px !important;
+	padding: 3px 20px 2px 15px !important
 }
 
 :root {
 	--default-textbox-outline-color: #cfcfcf;
-	--button-font-size: 1.4em;
+	--button-font-size: 1.1em;
 }
 
 .bh {
@@ -115,6 +115,11 @@
 			}
 
 			a {
+				@extend %button;
+				&:hover {
+					@extend %button-hover;
+				}
+
 				&:nth-child(2), &:nth-child(5), &:nth-child(8), &:nth-child(9), &:nth-child(n+12):nth-child(-n+50), &.disableFilter, img {
 					@extend %hide-element;
 				}
@@ -129,11 +134,11 @@
 						img {
 							@extend %hide-element;
 						}
+					}
 
-						&:before {
-							font-size: var(--button-font-size);
-							color: white;
-						}
+					&:before {
+						font-size: var(--button-font-size);
+						color: white;
 					}
 
 					&:after {
@@ -145,11 +150,9 @@
 				&:nth-child(1) {
 					@extend %primary;
 
-					span {
-						&:before {
-							@extend %fas;
-							content: "\f00d";
-						}
+					&:before {
+						@extend %fas;
+						content: "\f00d";
 					}
 
 					&:after {
@@ -164,11 +167,9 @@
 				&:nth-child(4) {
 					@extend %confirm;
 
-					span {
-						&:before {
-							@extend %fas;
-							content: "\f067";
-						}
+					&:before {
+						@extend %fas;
+						content: "\f067";
 					}
 
 					&:after {
@@ -183,11 +184,9 @@
 				&:nth-child(6) {
 					@extend %cancel;
 
-					span {
-						&:before {
-							@extend %far;
-							content: "\f2ed";
-						}
+					&:before {
+						@extend %far;
+						content: "\f2ed";
 					}
 
 					&:after {
@@ -202,11 +201,9 @@
 				&:nth-child(7) {
 					@extend %confirm;
 
-					span {
-						&:before {
-							@extend %fas;
-							content: "\f0c7";
-						}
+					&:before {
+						@extend %fas;
+						content: "\f0c7";
 					}
 
 					&:after {
@@ -220,45 +217,31 @@
 
 				&:nth-child(10) {
 					margin-right: 10px;
-					@extend %button;
 					order: 0;
 
-					span {
-						&:before {
-							@extend %fas;
-							content: "\f021";
-							color: black;
-						}
+					&:before {
+						@extend %fas;
+						content: "\f021";
+						color: black;
 					}
 
 					&:after {
 						content: " Refresh";
 					}
-
-					&:hover {
-						@extend %button-hover;
-					}
 				}
 
 				&:nth-child(11) {
-					@extend %button;
 					margin-right: auto;
 					order: 0;
 
-					span {
-						&:before {
-							@extend %fas;
-							content: "\f002";
-							color: black;
-						}
+					&:before {
+						@extend %fas;
+						content: "\f002";
+						color: black;
 					}
 
 					&:after {
 						content: " Search";
-					}
-
-					&:hover {
-						@extend %button-hover;
 					}
 				}
 			}
@@ -489,11 +472,17 @@
 		.z-button {
 			text-shadow: none;
 
-			&[disabled] {
-				cursor: default;
-			}
-
 			&.img-btn {
+				@extend %button;
+
+				&:hover:not([disabled]) {
+					@extend %button-hover;
+				}
+
+				&[disabled] {
+					cursor: default;
+				}
+
 				img {
 					@extend %hide-element;
 				}
@@ -510,14 +499,6 @@
 					}
 				}
 
-				&.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history {
-					@extend %button;
-
-					&:hover:not([disabled]) {
-						@extend %button-hover;
-					}
-				}
-
 				&.btn-new {
 					&:before {
 						@extend %fas;
@@ -530,7 +511,7 @@
 				}
 
 				&.btn-ok {
-					margin-right:10px !important;
+					margin-right: 10px !important;
 
 					&:before {
 						@extend %fas;
