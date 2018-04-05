@@ -268,6 +268,124 @@
 			@extend %hide-element;
 		}
 
+		.adwindow-detailpane {
+			.adwindow-detailpane-tabpanel {
+				.adtab-content {
+					.z-grid-body {
+						tr.highlight {
+							.row-indicator-selected {
+								background-image: none !important;
+
+								&:before {
+									@extend %fas;
+									content: "\f303";
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.adwindow-detailpane-toolbar {
+				.z-toolbar-start {
+					display: flex;
+					justify-content: flex-start;
+
+					a {
+						width: auto;
+
+						span {
+							width: auto;
+
+							img {
+								@extend %hide-element;
+							}
+
+							&:before {
+								font-size: var(--button-font-size);
+								color: white;
+							}
+						}
+
+						&.disableFilter {
+							@extend %hide-element;
+						}
+
+						&:after {
+							font-size: var(--button-font-size);
+							vertical-align: middle;
+						}
+
+						&:nth-child(5) {
+							@extend %hide-element;
+						}
+
+						&:nth-child(1), &:nth-child(4) {
+							@extend %confirm;
+							padding: 0 5px;
+
+							&:hover {
+								@extend %confirm-hover;
+								padding: 0 5px;
+							}
+						}
+
+						&:nth-child(1) {
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f067";
+								}
+							}
+						}
+
+						&:nth-child(2) {
+							@extend %primary;
+							padding: 0 5px;
+
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f303";
+								}
+							}
+
+							&:hover {
+								@extend %primary-hover;
+								padding: 0 5px;
+							}
+						}
+
+						&:nth-child(3) {
+							@extend %cancel;
+							padding: 0 5px;
+
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f2ed";
+								}
+							}
+
+							&:hover {
+								@extend %cancel-hover;
+								padding: 0 5px;
+							}
+						}
+
+						&:nth-child(4) {
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f0c7";
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
 		.desktop-header-popup {
 			@extend %hide-element;
 		}
@@ -369,20 +487,34 @@
 		}
 
 		.z-button {
+			text-shadow: none;
+
+			&[disabled] {
+				cursor: default;
+			}
+
 			&.img-btn {
 				img {
 					@extend %hide-element;
 				}
 
-				&.btn-new, &.btn-ok, &.btn-cancel {
+				&.btn-new, &.btn-ok, &.btn-cancel, &.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history {
 					font-weight: normal;
 				}
 
 				&.btn-new, &.btn-ok {
 					@extend %confirm;
 
-					&:hover {
+					&:hover:not([disabled]) {
 						@extend %confirm-hover;
+					}
+				}
+
+				&.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history {
+					@extend %button;
+
+					&:hover:not([disabled]) {
+						@extend %button-hover;
 					}
 				}
 
@@ -410,6 +542,50 @@
 					}
 				}
 
+				&.btn-refresh {
+					&:before {
+						@extend %fas;
+						content: "\f021";
+					}
+
+					&:after {
+						content: " Refresh";
+					}
+				}
+
+				&.btn-reset {
+					&:before {
+						@extend %fas;
+						content: "\f0e2";
+					}
+
+					&:after {
+						content: " Reset";
+					}
+				}
+
+				&.btn-customize {
+					&:before {
+						@extend %fas;
+						content: "\f1de";
+					}
+
+					&:after {
+						content: " Customize";
+					}
+				}
+
+				&.btn-history {
+					&:before {
+						@extend %fas;
+						content: "\f1da";
+					}
+
+					&:after {
+						content: " History";
+					}
+				}
+
 				&.btn-cancel {
 					@extend %primary;
 
@@ -422,7 +598,7 @@
 						content: " Cancel";
 					}
 
-					&:hover {
+					&:hover:not([disabled]) {
 						@extend %primary-hover;
 					}
 				}
@@ -444,6 +620,16 @@
 				& > .z-vlayout {
 					& > .z-vlayout-inner:first-child {
 						@extend %hide-element;
+					}
+				}
+			}
+		}
+
+		.info-panel {
+			.z-button {
+				&.img-btn {
+					&.btn-ok {
+						margin-right: auto !important;
 					}
 				}
 			}
