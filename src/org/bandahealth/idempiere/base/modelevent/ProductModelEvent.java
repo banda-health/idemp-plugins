@@ -11,6 +11,7 @@ import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.I_M_Product;
+import org.compiere.model.MAttributeSet;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProduct;
@@ -49,12 +50,17 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
+		logger.info("Initializing ProductModelEvent");
 		properties = Env.getCtx();
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct.Table_Name);
 	}
 
-	private void beforeSaveRequest(MProduct product) {}
+	private void beforeSaveRequest(MProduct product) {
+		Integer attributeSetId = findProductAttributeSet("Expires On").get_ID();
+		logger.info("Attribute Set Id received:" + attributeSetId);
+		product.setM_AttributeSet_ID(attributeSetId);
+	}
 
 	/*Adds a default price to this product in the pricelist*/
 	private void afterSaveRequest(MProduct product) {
@@ -92,5 +98,14 @@ public class ProductModelEvent extends AbstractEventHandler {
 			}else {
 			throw new AdempiereException("Some error occured while saving the product");
 		}
+	}
+	
+	private MAttributeSet findProductAttributeSet(String productAttribSetName) {
+		logger.info("INSIDER: ["+this.getClass().getName()+"]");
+		MAttributeSet pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
+				MAttributeSet.Table_Name,
+				"name='"+productAttribSetName+"'", null);
+		logger.info("INSIDER: ["+this.getClass().getName()+"]" + pSet.toString());
+		return pSet;
 	}
 }
