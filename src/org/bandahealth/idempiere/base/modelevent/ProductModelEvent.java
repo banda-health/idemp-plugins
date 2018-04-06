@@ -9,6 +9,7 @@ import javax.sql.rowset.spi.TransactionalWriter;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.I_M_Product;
 import org.compiere.model.MAttributeSet;
@@ -28,7 +29,8 @@ public class ProductModelEvent extends AbstractEventHandler {
 	private CLogger logger = CLogger.getCLogger(ProductModelEvent.class);
 	private int clientId = -1;
 	private int orgId = -1;
-	private Properties properties = null;
+	private Properties context = null;
+	private MAttributeSet attributeSet;
 
 	@Override
 	protected void doHandleEvent(Event event) {
@@ -50,18 +52,20 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
-		properties = Env.getCtx();
+		context = Env.getCtx();
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct.Table_Name);
 	}
 
 	private void beforeSaveRequest(MProduct product) {
-		MAttributeSet attributeSet = findProductAttributeSet("Expires");
-		if(attributeSet != null) {
+		attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_);
+		if (attributeSet != null) {
 			Integer attributeSetId = attributeSet.get_ID();
 			product.setM_AttributeSet_ID(attributeSetId);
-		}else {
-			throw new AdempiereException("No Attribute Set could be found!");
+		} else {
+			// failed to find or create product attribute set
+			throw new AdempiereException(
+					"Attribute Set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_ + "' not found!");
 		}
 	}
 
@@ -75,21 +79,21 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 			// get existing (default) sales price-list
 			priceList = QueryUtil.queryTableByOrgAndClient(clientId, orgId, 
-					properties, 
+					context, 
 					MPriceList.Table_Name, 
 					"isactive='Y' and isdefault='Y'", 
 					null);
 
 			// get the price-list version for the price-list
 			plVersion = QueryUtil.queryTableByOrgAndClient(clientId, orgId, 
-					properties,
+					context,
 					MPriceListVersion.Table_Name,
 					"m_pricelist_id=" + priceList.get_ID(),
 					null);
 
 				// get the prices attached to this version
 			productPricing = QueryUtil.queryTableByOrgAndClient(clientId, orgId, 
-					properties, 
+					context, 
 					MProductPrice.Table_Name,
 					"m_pricelist_version_id=" + plVersion.get_ID(),
 					null);
@@ -103,10 +107,20 @@ public class ProductModelEvent extends AbstractEventHandler {
 		}
 	}
 	
+	/* Find an attribute set with specified name, create if not found */
 	private MAttributeSet findProductAttributeSet(String productAttribSetName) {
-		MAttributeSet pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-				MAttributeSet.Table_Name,
-				"name='"+productAttribSetName+"'", null);
+		MAttributeSet pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
+				"name='" + productAttribSetName + "'", null);
+		if (pSet == null) {
+			MAttributeSet newAttributeSet = new MAttributeSet(context, null, null);
+			newAttributeSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_);
+			newAttributeSet.setIsGuaranteeDate(true);
+			newAttributeSet.setIsGuaranteeDateMandatory(true);
+			newAttributeSet.save();
+			// re-query after create & save
+			pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
+					"name='" + productAttribSetName + "'", null);
+		}
 		return pSet;
 	}
 }
