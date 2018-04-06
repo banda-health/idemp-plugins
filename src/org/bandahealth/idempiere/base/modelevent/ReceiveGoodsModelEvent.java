@@ -76,7 +76,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 		}
 
 		if (asi.getM_AttributeSet_ID() > 0) {
-			asi.setGuaranteeDate(orderLine.getExpiration());
+			asi.setGuaranteeDate(orderLine.getBH_Expiration());
 			asi.saveEx();
 
 			orderLine.setM_AttributeSetInstance_ID(asi.getM_AttributeSetInstance_ID());
