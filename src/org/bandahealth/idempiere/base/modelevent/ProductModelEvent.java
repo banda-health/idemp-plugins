@@ -115,10 +115,8 @@ public class ProductModelEvent extends AbstractEventHandler {
 			MAttributeSet newAttributeSet = new MAttributeSet(context, null, null);
 			newAttributeSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_);
 			newAttributeSet.setIsGuaranteeDate(true);
-			newAttributeSet.setIsGuaranteeDateMandatory(true);
 			newAttributeSet.setIsLot(false);
 			newAttributeSet.setIsSerNo(false);
-			newAttributeSet.setMandatoryType(MAttributeSet.MANDATORYTYPE_AlwaysMandatory);
 			newAttributeSet.save();
 			pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
 					"name='" + productAttribSetName + "'", null);
