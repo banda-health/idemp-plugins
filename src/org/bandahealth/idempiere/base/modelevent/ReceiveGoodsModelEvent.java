@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MAttributeSetInstance;
@@ -30,7 +31,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 	@Override
 	protected void doHandleEvent(Event event) {
 		MOrder order = null;
-		MOrderLine orderLine = null;
+		MOrderLine_BH orderLine = null;
 		PO persistantObject = getPO(event);
 		if (persistantObject instanceof MOrder) {
 			order = (MOrder) persistantObject;
@@ -38,7 +39,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 				return;
 			}
 		} else if (persistantObject instanceof MOrderLine) {
-			orderLine = (MOrderLine) persistantObject;
+			orderLine = (MOrderLine_BH) persistantObject;
 		} else {
 			return;
 		}
