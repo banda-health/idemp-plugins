@@ -50,16 +50,19 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
-		logger.info("Initializing ProductModelEvent");
 		properties = Env.getCtx();
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct.Table_Name);
 	}
 
 	private void beforeSaveRequest(MProduct product) {
-		Integer attributeSetId = findProductAttributeSet("Expires On").get_ID();
-		logger.info("Attribute Set Id received:" + attributeSetId);
-		product.setM_AttributeSet_ID(attributeSetId);
+		MAttributeSet attributeSet = findProductAttributeSet("Expires");
+		if(attributeSet != null) {
+			Integer attributeSetId = attributeSet.get_ID();
+			product.setM_AttributeSet_ID(attributeSetId);
+		}else {
+			throw new AdempiereException("No Attribute Set could be found!");
+		}
 	}
 
 	/*Adds a default price to this product in the pricelist*/
@@ -101,11 +104,9 @@ public class ProductModelEvent extends AbstractEventHandler {
 	}
 	
 	private MAttributeSet findProductAttributeSet(String productAttribSetName) {
-		logger.info("INSIDER: ["+this.getClass().getName()+"]");
 		MAttributeSet pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
 				MAttributeSet.Table_Name,
 				"name='"+productAttribSetName+"'", null);
-		logger.info("INSIDER: ["+this.getClass().getName()+"]" + pSet.toString());
 		return pSet;
 	}
 }
