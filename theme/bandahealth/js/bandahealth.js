@@ -36,6 +36,7 @@ function BandaHealth($) {
 
 			let backLIElement = document.createElement('li');
 			backLIElement.classList.add('z-tab', 'back-button');
+			backLIElement.setAttribute('title', 'Back');
 			pageTabHolder.insertBefore(backLIElement, firstElement);
 
 			let backAElement = document.createElement('a');
@@ -53,13 +54,17 @@ function BandaHealth($) {
 
 		function appendLogoutButton() {
 			let logoutAElement = document.createElement('a');
-			logoutAElement.classList.add('window-container-toolbar-btn', 'z-toolbarbutton');
+			logoutAElement.classList.add('window-container-toolbar-btn', 'z-toolbarbutton', 'bh-logoutbutton');
 			logoutAElement.setAttribute('title', 'Logout');
 			ribbon.appendChild(logoutAElement);
 
 			let logoutIElement = document.createElement('i');
 			logoutAElement.appendChild(logoutIElement);
 			logoutIElement.classList.add('fas', 'fa-sign-out-alt');
+
+			let logoutDivElement = document.createElement('div');
+			logoutDivElement.innerText = 'Logout';
+			logoutAElement.appendChild(logoutDivElement);
 
 			logoutAElement.addEventListener('click', logout);
 		}

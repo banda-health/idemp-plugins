@@ -370,6 +370,28 @@
 			}
 		}
 
+		.bh-logoutbutton {
+			display: flex;
+			align-items: center;
+			-webkit-border-radius: 0;
+			-moz-border-radius: 0;
+			-o-border-radius: 0;
+			-ms-border-radius: 0;
+			-khtml-border-radius: 0;
+			border-radius: 0;
+			padding: 0 10px;
+
+			div {
+				margin-left: 5px;
+				font-weight: bold;
+				font-size: 1.3em;
+			}
+
+			&:hover {
+				background: #fff;
+			}
+		}
+
 		.desktop-header-popup {
 			@extend %hide-element;
 		}
@@ -383,6 +405,7 @@
 				left: 0 !important;
 				right: 0 !important;
 				width: auto !important;
+				padding-top: 0;
 
 				> .z-center-body {
 					width: auto !important;
@@ -406,6 +429,7 @@
 					display: flex;
 					justify-content: flex-start;
 					align-items: center;
+					height: 100%;
 
 					.z-tab {
 						font-size: 1.4em;
@@ -413,29 +437,54 @@
 						border: none;
 						background: none;
 						box-shadow: none;
+						-webkit-border-radius: 0;
+						-moz-border-radius: 0;
+						-o-border-radius: 0;
+						-ms-border-radius: 0;
+						-khtml-border-radius: 0;
+						border-radius: 0;
 
 						&:nth-last-child(2), .z-tab-button, .z-tab-image {
 							@extend %hide-element;
+						}
+
+						&:nth-child(3) span {
+							padding-left: 5px;
 						}
 					}
 
 					.back-button {
 						padding-left: 10px;
+						padding-right: 10px;
+						display: flex;
+						align-items: center;
+						height: 100%;
+
+						&:hover {
+							background: #fff;
+						}
+
+						a {
+							display: flex;
+						}
 					}
 				}
 			}
 
 			& > .z-toolbar-tabs {
 				&.z-toolbar {
-					padding: 0 4px;
+					padding: 0;
 					border: none;
-					height: auto !important;
+				}
+
+				.z-toolbar-content {
+					display: flex;
+					height: 100%;
 				}
 
 				a {
 					cursor: pointer;
 					border: 1px solid transparent;
-					padding: 2px;
 
 					&:not(:last-child)  {
 						@extend %hide-element;
