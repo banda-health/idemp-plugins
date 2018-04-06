@@ -537,7 +537,7 @@
 					@extend %hide-element;
 				}
 
-				&.btn-new, &.btn-ok, &.btn-cancel, &.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history {
+				&.btn-new, &.btn-ok, &.btn-cancel, &.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history, &.btn-zoom, &.btn-pattribute {
 					font-weight: normal;
 				}
 
@@ -614,6 +614,28 @@
 
 					&:after {
 						content: " History";
+					}
+				}
+
+				&.btn-zoom {
+					&:before {
+						@extend %fas;
+						content: "\f065";
+					}
+
+					&:after {
+						content: " Zoom";
+					}
+				}
+
+				&.btn-pattribute {
+					&:before {
+						@extend %fas;
+						content: "\f1fa";
+					}
+
+					&:after {
+						content: "  Prod. Attr.";
 					}
 				}
 
