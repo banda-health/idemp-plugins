@@ -4,7 +4,8 @@
 
 'use strict';
 
-var bandahealth = bandahealth || (function () {
+function BandaHealth($) {
+	let self = this;
 
 	let classNames = {
 		BH: 'bh',
@@ -15,7 +16,7 @@ var bandahealth = bandahealth || (function () {
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
 
-	let initPage = function initPage() {
+	self.initPage = function initPage() {
 		let ribbon = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start');
 		if (!pageHasLoaded()) {
 			setTimeout(initPage, 0);
@@ -53,6 +54,7 @@ var bandahealth = bandahealth || (function () {
 		function appendLogoutButton() {
 			let logoutAElement = document.createElement('a');
 			logoutAElement.classList.add('window-container-toolbar-btn', 'z-toolbarbutton');
+			logoutAElement.setAttribute('title', 'Logout');
 			ribbon.appendChild(logoutAElement);
 
 			let logoutIElement = document.createElement('i');
@@ -64,7 +66,7 @@ var bandahealth = bandahealth || (function () {
 
 		function hideRibbonElement() {
 			let expandCollapseImg = expandCollapseButton.querySelector('img');
-			if (expandCollapseImg.src.indexOf('collapse') !== -1) {
+			if (expandCollapseImg.src.includes('collapse')) {
 				expandCollapseButton.click();
 			}
 		}
@@ -81,26 +83,21 @@ var bandahealth = bandahealth || (function () {
 		}
 	};
 
-	let userIsOrg = function userIsOrg() {
+	self.userIsOrg = function userIsOrg() {
 		removeBodyClassName(classNames.SYSTEM, classNames.CLIENT);
 		addBodyClassName(classNames.ORGANIZATION);
 	};
 
-	let userIsClientAndOrg = function userIsClientAndOrg() {
+	self.userIsClientAndOrg = function userIsClientAndOrg() {
 		removeBodyClassName(classNames.SYSTEM, classNames.ORGANIZATION);
 		addBodyClassName(classNames.CLIENT);
 	};
 
-	addBodyClassName(classNames.BH);
-	addBodyClassName(classNames.SYSTEM);
+	addBodyClassName(classNames.BH, classNames.SYSTEM);
 	document.addEventListener('click', handleClickNavigation);
 	window.addEventListener('hashchange', handleNavigation);
 
-	return {
-		initPage: initPage,
-		userIsOrg: userIsOrg,
-		userIsClientAndOrg: userIsClientAndOrg
-	};
+	return self;
 
 	function addBodyClassName() {
 		if (arguments.length === 0) {
@@ -113,19 +110,19 @@ var bandahealth = bandahealth || (function () {
 	}
 
 	function closeSelectedTab() {
-		let tabs = document.querySelectorAll('.desktop-tabbox .z-tabs .z-tabs-content li');
-		// If a tab is selected other than the home tab, the tab length will be greater than 2
-		if (tabs.length > 2) {
+		if (getNumberOfIDempTabsOpen() > 1) {
 			document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content .z-tab-selected .z-tab-button i').click();
 		}
 	}
 
+	function getNumberOfIDempTabsOpen() {
+		let tabs = document.querySelectorAll('.desktop-tabbox .z-tabs .z-tabs-content li');
+		// One tab was added for the back button
+		return tabs.length - 1;
+	}
+
 	function handleClickNavigation(e) {
-		let targetIsBigButton = e.target.className.indexOf('button') > -1 && e.target.className.indexOf('app') > -1
-			&& e.target.className.indexOf('big') > -1 && e.target.className.indexOf('z-div') > -1;
-		let targetIsIconButton = e.target.className.indexOf(' i ') > -1 && (e.target.className.indexOf('fas ') > -1
-			|| e.target.className.indexOf('far ') > -1);
-		if (targetIsBigButton || targetIsIconButton) {
+		if (userClickedHomeScreenButton()) {
 			if (window.location.hash !== '#' + e.target.id) {
 				hasHashChangedDueToClick = true;
 				if (!isHashEmpty()) {
@@ -134,6 +131,91 @@ var bandahealth = bandahealth || (function () {
 				}
 				window.location.hash = e.target.id;
 			}
+		} else if (userClickedDetailPaneTab()) {
+			let clickedSpan = e.target;
+			if (clickedSpan.localName !== 'span') {
+				clickedSpan = clickedSpan.querySelector('span');
+			}
+			if (clickedSpan.parentNode.parentNode.className.includes('z-tab-selected')) {
+				hasHashChangedDueToClick = true;
+				window.location.hash(clickedSpan.id);
+			}
+		} else if (userClickedDetailPaneNewOrEdit()) {
+			let clickedSpan = e.target;
+			if (clickedSpan.localName !== 'span') {
+				clickedSpan = clickedSpan.querySelector('span');
+			}
+			if (!clickedSpan.parentNode.getAttribute('disabled')) {
+				hasHashChangedDueToClick = true;
+				window.location.hash = clickedSpan.id;
+			}
+		} else if (userClickedEditRecordInTable()) {
+			let clickedTd = e.target;
+			if (clickedTd.className.includes('row-indicator-selected')) {
+				hasHashChangedDueToClick = true;
+				window.location.hash = clickedTd.id;
+			}
+		}
+
+		return;
+
+		function userClickedDetailPaneTab() {
+			let greatGrandparent = ((e.target.parentNode || {}).parentNode || {}).parentNode || {};
+			if (e.target.localName === 'a' && e.target.className.includes('z-tab-content')) {
+				greatGrandparent = greatGrandparent.parentNode || {};
+			} else if (e.target.localName === 'span' && e.target.className.includes('z-tab-text')) {
+				greatGrandparent = (greatGrandparent.parentNode || {}).parentNode || {};
+			}
+
+			if (greatGrandparent.className && greatGrandparent.className.includes('adwindow-detailpane-tabbox')) {
+				return true;
+			}
+			return false;
+		}
+
+		function userClickedDetailPaneNewOrEdit() {
+			let targetClassName = e.target.className || '';
+			if (!targetClassName.includes('z-toolbarbutton-content') && !targetClassName.includes('z-toolbarbutton')) {
+				return false;
+			}
+			let parent = e.target.parentNode;
+			let aTag = e.target;
+			if (e.target.localName !== 'a') {
+				aTag = parent;
+				parent = parent.parentNode;
+			}
+			let grandparent = parent.parentNode;
+
+			if (grandparent.className.includes('adwindow-detailpane-toolbar')
+				&& (aTag.getAttribute('title').includes('New ') || aTag.getAttribute('title').includes('Edit '))) {
+				return true;
+			}
+			return false;
+		}
+
+		function userClickedEditRecordInTable() {
+			if (e.target.localName !== 'td' || (e.target.className && !e.target.className.includes('z-cell'))
+				|| !(e.target.getAttribute('title') || '').includes('Edit ')) {
+				return false;
+			}
+
+			let parent = e.target;
+			let i = 0;
+			// This edit TD should be 18 levels deep, according to iDempiere 5.1 layouts...
+			while (i++ < 18) {
+				parent = (parent.parentNode || {});
+			}
+
+			return (parent.className || '').includes('adwindow-detailpane')
+		}
+
+		function userClickedHomeScreenButton() {
+			let targetIsBigButton = e.target.className.includes('button') && e.target.className.includes('app')
+				&& e.target.className.includes('big') && e.target.className.includes('z-div');
+			let targetIsIconButton = e.target.className.includes(' i ') && (e.target.className.includes('fas ')
+				|| e.target.className.includes('far '));
+
+			return targetIsBigButton || targetIsIconButton;
 		}
 	}
 
@@ -144,10 +226,17 @@ var bandahealth = bandahealth || (function () {
 				// Close the current tab
 				closeSelectedTab();
 			} else {
-				// Open the right tab
-				let buttonToClick = document.querySelector(window.location.hash);
-				if (buttonToClick) {
-					buttonToClick.click();
+				// If there is more than one tab open, try to see if there is a breadcrumb ID we can click on
+				let breadcrumb = document.querySelector('.adwindow-breadcrumb a');
+				if (breadcrumb && getNumberOfIDempTabsOpen() > 1) {
+					breadcrumb.click();
+				}
+				// Assume the hash is an ID to click on
+				else if (getNumberOfIDempTabsOpen() === 1) {
+					let buttonToClick = document.querySelector(window.location.hash);
+					if (buttonToClick) {
+						buttonToClick.click();
+					}
 				}
 			}
 		}
@@ -186,4 +275,6 @@ var bandahealth = bandahealth || (function () {
 			bodyTag.classList.remove(arguments[i]);
 		}
 	}
-})();
+}
+
+var bandahealth = bandahealth || new BandaHealth(window.jQuery);
