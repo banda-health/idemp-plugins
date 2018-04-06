@@ -5,10 +5,6 @@ Bundle-SymbolicName: org.bandahealth.idempiere.webui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.adempiere.ui.zk;bundle-version="5.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ClassPath: theme/,
- .,
- src/,
- zul/
 Jetty-WarFragmentFolderPath: /
 Require-Bundle: org.adempiere.base;bundle-version="5.1.0",
  org.adempiere.plugin.utils;bundle-version="5.1.0",
