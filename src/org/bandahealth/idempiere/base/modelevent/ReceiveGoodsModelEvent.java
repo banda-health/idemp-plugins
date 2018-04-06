@@ -57,7 +57,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 	 * 
 	 * @param orderLine
 	 */
-	private void beforeSaveRequest(MOrderLine orderLine) {
+	private void beforeSaveRequest(MOrderLine_BH orderLine) {
 		MAttributeSetInstance asi = null;
 		if (orderLine.getM_AttributeSetInstance_ID() > 0) {
 			asi = new MAttributeSetInstance(Env.getCtx(), orderLine.getM_AttributeSetInstance_ID(),

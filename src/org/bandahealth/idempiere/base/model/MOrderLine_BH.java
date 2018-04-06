@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 
 import org.compiere.model.MOrder;
@@ -8,7 +9,7 @@ import org.compiere.model.MOrderLine;
 
 public class MOrderLine_BH extends MOrderLine {
 
-	public static String COLUMNNAME_BH_Expiration = "Expiration";
+	public static String COLUMNNAME_Expiration = "Expiration";
 
 	public MOrderLine_BH(MOrder order) {
 		super(order);
@@ -25,11 +26,22 @@ public class MOrderLine_BH extends MOrderLine {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void setBH_Expiration(Object BH_Expiration) {
-		set_Value(COLUMNNAME_BH_Expiration, BH_Expiration);
+	/**
+	 * Set Expire On.
+	 * 
+	 * @param Expiration
+	 *            Expire On
+	 */
+	public void setExpiration(Timestamp Expiration) {
+		set_Value(COLUMNNAME_Expiration, Expiration);
 	}
 
-	public Object getBH_Expiration() {
-		return get_Value(COLUMNNAME_BH_Expiration);
+	/**
+	 * Get Expire On.
+	 * 
+	 * @return Expire On
+	 */
+	public Timestamp getExpiration() {
+		return (Timestamp) get_Value(COLUMNNAME_Expiration);
 	}
 }
