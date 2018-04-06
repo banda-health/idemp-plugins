@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MInOut;
@@ -52,6 +53,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 
 	/**
 	 * Create an attribute set instance with guarantee date
+	 * 
 	 * @param orderLine
 	 */
 	private void beforeSaveRequest(MOrderLine orderLine) {
@@ -61,8 +63,8 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 					orderLine.get_TrxName());
 		} else {
 			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-					+ MAttributeSet.COLUMNNAME_Name + ") like '%expiration date%' AND "
-					+ MAttributeSet.COLUMNNAME_IsActive + " = 'Y'";
+					+ MAttributeSet.COLUMNNAME_Name + ") = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_
+					+ "' AND " + MAttributeSet.COLUMNNAME_IsActive + " = 'Y'";
 			MAttributeSet attributeSet = new Query(Env.getCtx(), MAttributeSet.Table_Name, whereClause,
 					orderLine.get_TrxName()).first();
 			if (attributeSet != null) {
@@ -75,7 +77,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 		if (asi.getM_AttributeSet_ID() > 0) {
 			asi.setGuaranteeDate(orderLine.getExpiration());
 			asi.saveEx();
-			
+
 			orderLine.setM_AttributeSetInstance_ID(asi.getM_AttributeSetInstance_ID());
 		}
 	}
