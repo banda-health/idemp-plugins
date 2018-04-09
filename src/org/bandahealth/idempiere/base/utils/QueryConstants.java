@@ -10,6 +10,6 @@ public class QueryConstants {
 	public static int BASE_CLIENT_ID = 0;
 	public static int BASE_ORGANIZATION_ID = 0;
 	
-	public static String BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_ = "BandaHealthProductAttributeSet";
+	public static String BANDAHEALTH_PRODUCT_ATTRIBUTE_SET = "BandaHealthProductAttributeSet";
 	
 }

@@ -19,7 +19,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
-public class ReceiveGoodsModelEvent extends AbstractEventHandler {
+public class OrderLineModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
@@ -64,7 +64,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 					orderLine.get_TrxName());
 		} else {
 			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-					+ MAttributeSet.COLUMNNAME_Name + ") = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_
+					+ MAttributeSet.COLUMNNAME_Name + ") = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
 					+ "' AND " + MAttributeSet.COLUMNNAME_IsActive + " = 'Y'";
 			MAttributeSet attributeSet = new Query(Env.getCtx(), MAttributeSet.Table_Name, whereClause,
 					orderLine.get_TrxName()).first();
