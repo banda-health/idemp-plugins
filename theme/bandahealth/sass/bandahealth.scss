@@ -522,7 +522,7 @@
 		.z-button {
 			text-shadow: none;
 
-			&.img-btn {
+			&.img-btn, &.txt-btn {
 				@extend %button;
 
 				&:hover:not([disabled]) {
@@ -536,124 +536,124 @@
 				img {
 					@extend %hide-element;
 				}
+			}
 
-				&.btn-new, &.btn-ok, &.btn-cancel, &.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history, &.btn-zoom, &.btn-pattribute {
-					font-weight: normal;
+			&.btn-new, &.btn-ok, &.btn-cancel, &.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history, &.btn-zoom, &.btn-pattribute {
+				font-weight: normal;
+			}
+
+			&.btn-new, &.btn-ok {
+				@extend %confirm;
+
+				&:hover:not([disabled]) {
+					@extend %confirm-hover;
+				}
+			}
+
+			&.btn-new {
+				&:before {
+					@extend %fas;
+					content: "\f067";
 				}
 
-				&.btn-new, &.btn-ok {
-					@extend %confirm;
+				&:after:not(.txt-btn) {
+					content: " New";
+				}
+			}
 
-					&:hover:not([disabled]) {
-						@extend %confirm-hover;
-					}
+			&.btn-ok:not(.txt-btn) {
+				margin-right: 10px !important;
+
+				&:before {
+					@extend %fas;
+					content: "\f00c";
 				}
 
-				&.btn-new {
-					&:before {
-						@extend %fas;
-						content: "\f067";
-					}
+				&:after:not(.txt-btn) {
+					content: " Ok";
+				}
+			}
 
-					&:after {
-						content: " New";
-					}
+			&.btn-refresh {
+				&:before {
+					@extend %fas;
+					content: "\f021";
 				}
 
-				&.btn-ok {
-					margin-right: 10px !important;
+				&:after:not(.txt-btn) {
+					content: " Refresh";
+				}
+			}
 
-					&:before {
-						@extend %fas;
-						content: "\f00c";
-					}
-
-					&:after {
-						content: " Ok";
-					}
+			&.btn-reset {
+				&:before {
+					@extend %fas;
+					content: "\f0e2";
 				}
 
-				&.btn-refresh {
-					&:before {
-						@extend %fas;
-						content: "\f021";
-					}
+				&:after:not(.txt-btn) {
+					content: " Reset";
+				}
+			}
 
-					&:after {
-						content: " Refresh";
-					}
+			&.btn-customize {
+				&:before {
+					@extend %fas;
+					content: "\f1de";
 				}
 
-				&.btn-reset {
-					&:before {
-						@extend %fas;
-						content: "\f0e2";
-					}
+				&:after:not(.txt-btn) {
+					content: " Customize";
+				}
+			}
 
-					&:after {
-						content: " Reset";
-					}
+			&.btn-history {
+				&:before {
+					@extend %fas;
+					content: "\f1da";
 				}
 
-				&.btn-customize {
-					&:before {
-						@extend %fas;
-						content: "\f1de";
-					}
+				&:after:not(.txt-btn) {
+					content: " History";
+				}
+			}
 
-					&:after {
-						content: " Customize";
-					}
+			&.btn-zoom {
+				&:before {
+					@extend %fas;
+					content: "\f065";
 				}
 
-				&.btn-history {
-					&:before {
-						@extend %fas;
-						content: "\f1da";
-					}
+				&:after:not(.txt-btn) {
+					content: " Zoom";
+				}
+			}
 
-					&:after {
-						content: " History";
-					}
+			&.btn-pattribute {
+				&:before {
+					@extend %fas;
+					content: "\f1fa";
 				}
 
-				&.btn-zoom {
-					&:before {
-						@extend %fas;
-						content: "\f065";
-					}
+				&:after:not(.txt-btn) {
+					content: "  Prod. Attr.";
+				}
+			}
 
-					&:after {
-						content: " Zoom";
-					}
+			&.btn-cancel {
+				@extend %primary;
+
+				&:before {
+					@extend %fas;
+					content: "\f00d";
 				}
 
-				&.btn-pattribute {
-					&:before {
-						@extend %fas;
-						content: "\f1fa";
-					}
-
-					&:after {
-						content: "  Prod. Attr.";
-					}
+				&:after:not(.txt-btn) {
+					content: " Cancel";
 				}
 
-				&.btn-cancel {
-					@extend %primary;
-
-					&:before {
-						@extend %fas;
-						content: "\f00d";
-					}
-
-					&:after {
-						content: " Cancel";
-					}
-
-					&:hover:not([disabled]) {
-						@extend %primary-hover;
-					}
+				&:hover:not([disabled]) {
+					@extend %primary-hover;
 				}
 			}
 		}

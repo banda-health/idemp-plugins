@@ -141,9 +141,9 @@ function BandaHealth($) {
 			if (clickedSpan.localName !== 'span') {
 				clickedSpan = clickedSpan.querySelector('span');
 			}
-			if (clickedSpan.parentNode.parentNode.className.includes('z-tab-selected')) {
+			if (clickedSpan.parentNode.parentNode.classList.contains('z-tab-selected')) {
 				hasHashChangedDueToClick = true;
-				window.location.hash(clickedSpan.id);
+				window.location.hash = clickedSpan.id;
 			}
 		} else if (userClickedDetailPaneNewOrEdit()) {
 			let clickedSpan = e.target;
@@ -156,7 +156,7 @@ function BandaHealth($) {
 			}
 		} else if (userClickedEditRecordInTable()) {
 			let clickedTd = e.target;
-			if (clickedTd.className.includes('row-indicator-selected')) {
+			if (clickedTd.classList.contains('row-indicator-selected')) {
 				hasHashChangedDueToClick = true;
 				window.location.hash = clickedTd.id;
 			}
@@ -166,21 +166,21 @@ function BandaHealth($) {
 
 		function userClickedDetailPaneTab() {
 			let greatGrandparent = ((e.target.parentNode || {}).parentNode || {}).parentNode || {};
-			if (e.target.localName === 'a' && e.target.className.includes('z-tab-content')) {
+			if (e.target.localName === 'a' && e.target.classList.contains('z-tab-content')) {
 				greatGrandparent = greatGrandparent.parentNode || {};
-			} else if (e.target.localName === 'span' && e.target.className.includes('z-tab-text')) {
+			} else if (e.target.localName === 'span' && e.target.classList.contains('z-tab-text')) {
 				greatGrandparent = (greatGrandparent.parentNode || {}).parentNode || {};
 			}
 
-			if (greatGrandparent.className && greatGrandparent.className.includes('adwindow-detailpane-tabbox')) {
+			if (greatGrandparent.classList && greatGrandparent.classList.contains('adwindow-detailpane-tabbox')) {
 				return true;
 			}
 			return false;
 		}
 
 		function userClickedDetailPaneNewOrEdit() {
-			let targetClassName = e.target.className || '';
-			if (!targetClassName.includes('z-toolbarbutton-content') && !targetClassName.includes('z-toolbarbutton')) {
+			let targetClassList = e.target.classList;
+			if (!targetClassList.contains('z-toolbarbutton-content') && !targetClassList.contains('z-toolbarbutton')) {
 				return false;
 			}
 			let parent = e.target.parentNode;
@@ -191,7 +191,7 @@ function BandaHealth($) {
 			}
 			let grandparent = parent.parentNode;
 
-			if (grandparent.className.includes('adwindow-detailpane-toolbar')
+			if (grandparent.classList.contains('adwindow-detailpane-toolbar')
 				&& (aTag.getAttribute('title').includes('New ') || aTag.getAttribute('title').includes('Edit '))) {
 				return true;
 			}
@@ -199,7 +199,7 @@ function BandaHealth($) {
 		}
 
 		function userClickedEditRecordInTable() {
-			if (e.target.localName !== 'td' || (e.target.className && !e.target.className.includes('z-cell'))
+			if (e.target.localName !== 'td' || !e.target.classList.contains('z-cell')
 				|| !(e.target.getAttribute('title') || '').includes('Edit ')) {
 				return false;
 			}
@@ -211,14 +211,15 @@ function BandaHealth($) {
 				parent = (parent.parentNode || {});
 			}
 
-			return (parent.className || '').includes('adwindow-detailpane')
+			return parent.classList.contains('adwindow-detailpane');
 		}
 
 		function userClickedHomeScreenButton() {
-			let targetIsBigButton = e.target.className.includes('button') && e.target.className.includes('app')
-				&& e.target.className.includes('big') && e.target.className.includes('z-div');
-			let targetIsIconButton = e.target.className.includes(' i ') && (e.target.className.includes('fas ')
-				|| e.target.className.includes('far '));
+			let targetClassList = e.target.classList;
+			let targetIsBigButton = targetClassList.contains('button') && targetClassList.contains('app')
+				&& targetClassList.contains('big') && targetClassList.contains('z-div');
+			let targetIsIconButton = targetClassList.contains('i') && (targetClassList.contains('fas')
+				|| targetClassList.contains('far') || targetClassList.contains('fab'));
 
 			return targetIsBigButton || targetIsIconButton;
 		}
