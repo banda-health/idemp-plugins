@@ -216,6 +216,9 @@ function BandaHealth($) {
 
 		function userClickedHomeScreenButton() {
 			let targetClassList = e.target.classList;
+			if (e.target.localName === 'span' && e.target.parentNode) {
+				targetClassList = e.target.parentNode.classList;
+			}
 			let targetIsBigButton = targetClassList.contains('button') && targetClassList.contains('app')
 				&& targetClassList.contains('big') && targetClassList.contains('z-div');
 			let targetIsIconButton = targetClassList.contains('i') && (targetClassList.contains('fas')
