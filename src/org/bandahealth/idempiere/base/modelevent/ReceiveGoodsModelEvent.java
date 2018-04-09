@@ -38,7 +38,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 			if (order.isSOTrx()) {
 				return;
 			}
-		} else if (persistantObject instanceof MOrderLine) {
+		} else if (persistantObject instanceof MOrderLine_BH) {
 			orderLine = (MOrderLine_BH) persistantObject;
 		} else {
 			return;
@@ -63,8 +63,8 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 			asi = new MAttributeSetInstance(Env.getCtx(), orderLine.getM_AttributeSetInstance_ID(),
 					orderLine.get_TrxName());
 		} else {
-			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-					+ MAttributeSet.COLUMNNAME_Name + ") = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_
+			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND "
+					+ MAttributeSet.COLUMNNAME_Name + " = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_
 					+ "' AND " + MAttributeSet.COLUMNNAME_IsActive + " = 'Y'";
 			MAttributeSet attributeSet = new Query(Env.getCtx(), MAttributeSet.Table_Name, whereClause,
 					orderLine.get_TrxName()).first();
