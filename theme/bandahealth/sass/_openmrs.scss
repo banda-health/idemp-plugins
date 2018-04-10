@@ -16,7 +16,6 @@
 	padding: 8px 20px;
 	display: inline-block;
 	line-height: 1.2em;
-	color: #363463;
 	cursor: pointer;
 	min-width: 0;
 	max-width: 300px;
@@ -31,8 +30,6 @@
 }
 
 %confirm {
-	@extend %button;
-
 	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a1d030), color-stop(100%, #88af28));
 	background: -webkit-linear-gradient(top, #a1d030, #88af28);
 	background: -moz-linear-gradient(top, #a1d030, #88af28);
@@ -54,8 +51,6 @@
 }
 
 %cancel {
-	@extend %button;
-
 	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff6666), color-stop(100%, #ff3d3d));
 	background: -webkit-linear-gradient(top, #ff6666, #ff3d3d);
 	background: -moz-linear-gradient(top, #ff6666, #ff3d3d);
@@ -77,7 +72,17 @@
 }
 
 %primary {
-	@extend %button;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #337ab7), color-stop(100%, #2e6da4));
+	background: -webkit-linear-gradient(top, #337ab7, #2e6da4);
+	background: -moz-linear-gradient(top, #337ab7, #2e6da4);
+	background: -o-linear-gradient(top, #337ab7, #2e6da4);
+	background: -ms-linear-gradient(top, #337ab7, #2e6da4);
+	background: linear-gradient(top, #337ab7, #2e6da4);
+	background-color: #2e6da4;
+	color: white;
+	max-width: 250px;
+	min-width: 0;
+	margin-right: 10px;
 }
 
 %primary-hover {
@@ -101,6 +106,7 @@
 	/* line 1232 OpenMRS Reference App CSS */
 	.button, button, input[type="submit"], input[type="button"], input[type="submit"], a.button {
 		@extend %button;
+		color: #363463;
 
 		&:hover {
 			@extend %button-hover;

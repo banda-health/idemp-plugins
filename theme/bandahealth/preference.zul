@@ -5,6 +5,8 @@
     adempiere.set("zkTimeoutURL", "sessiontimeout.zul");
 ]]>	
 </script>
+<script src="/theme/bandahealth/js/polyfills.js"/>
+<script src="/theme/bandahealth/js/jquery.extensions.js"/>
 <script src="/theme/bandahealth/js/bandahealth.js"/>
 <zscript>
 <![CDATA[
