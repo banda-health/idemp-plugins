@@ -51,14 +51,14 @@ public class ProductModelEvent extends AbstractEventHandler {
 	}
 
 	private void beforeSaveRequest(MProduct product) {
-		attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_);
+		attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 		if (attributeSet != null) {
 			Integer attributeSetId = attributeSet.get_ID();
 			product.setM_AttributeSet_ID(attributeSetId);
 		} else {
 			// failed to find or create product attribute set
 			throw new AdempiereException(
-					"Attribute Set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_ + "' not found!");
+					"Attribute Set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET + "' not found!");
 		}
 	}
 
@@ -97,7 +97,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 				"name='" + productAttribSetName + "'", null);
 		if (pSet == null) {
 			MAttributeSet newAttributeSet = new MAttributeSet(context, null, null);
-			newAttributeSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_);
+			newAttributeSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 			newAttributeSet.setIsGuaranteeDate(true);
 			newAttributeSet.setIsLot(false);
 			newAttributeSet.setIsSerNo(false);

@@ -6,11 +6,8 @@ import java.util.Properties;
 
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
-import org.compiere.util.DB;
 
 public class MOrderLine_BH extends MOrderLine {
-
-	public static String COLUMNNAME_Expiration = "BH_Expiration";
 
 	public MOrderLine_BH(MOrder order) {
 		super(order);
@@ -27,22 +24,23 @@ public class MOrderLine_BH extends MOrderLine {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * Set Expire On.
-	 * 
-	 * @param Expiration
-	 *            Expire On
+	/** Column name BH_Expiration */
+	public static final String COLUMNNAME_BH_Expiration = "BH_Expiration";
+
+	/** Set Expire On.
+	 @param BH_Expiration
+	 Expire On
 	 */
-	public void setExpiration(Timestamp Expiration) {
-		set_Value(COLUMNNAME_Expiration, DB.TO_DATE(Expiration));
+	public void setBH_Expiration (Timestamp BH_Expiration)
+	{
+		set_Value (COLUMNNAME_BH_Expiration, BH_Expiration);
 	}
 
-	/**
-	 * Get Expire On.
-	 * 
-	 * @return Expire On
+	/** Get Expire On.
+	 @return Expire On
 	 */
-	public Timestamp getExpiration() {
-		return (Timestamp) get_Value(COLUMNNAME_Expiration);
+	public Timestamp getBH_Expiration ()
+	{
+		return (Timestamp)get_Value(COLUMNNAME_BH_Expiration);
 	}
 }
