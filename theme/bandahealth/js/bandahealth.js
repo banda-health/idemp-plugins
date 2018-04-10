@@ -81,6 +81,20 @@ var bandahealth = bandahealth || (function () {
 		}
 	};
 
+	let openIDempDialog = function showIDempDialog() {
+		getDesktopHeaderPopupAndExecuteFunction(function clickIDempiereLogo() {
+			document.querySelector('.desktop-header-popup table.desktop-header-left table tbody tr td:first-child img')
+				.click();
+		});
+	};
+
+	let openPreferences = function showIDempDialog() {
+		getDesktopHeaderPopupAndExecuteFunction(function clickPreferences() {
+			document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
+				+ 'td:nth-child(5) a').click();
+		});
+	};
+
 	let userIsOrg = function userIsOrg() {
 		removeBodyClassName(classNames.SYSTEM, classNames.CLIENT);
 		addBodyClassName(classNames.ORGANIZATION);
@@ -98,6 +112,8 @@ var bandahealth = bandahealth || (function () {
 
 	return {
 		initPage: initPage,
+		openIDempDialog: openIDempDialog,
+		openPreferences: openPreferences,
 		userIsOrg: userIsOrg,
 		userIsClientAndOrg: userIsClientAndOrg
 	};
@@ -117,6 +133,21 @@ var bandahealth = bandahealth || (function () {
 		// If a tab is selected other than the home tab, the tab length will be greater than 2
 		if (tabs.length > 2) {
 			document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content .z-tab-selected .z-tab-button i').click();
+		}
+	}
+
+	function getDesktopHeaderPopupAndExecuteFunction(functionToExecute) {
+		let idempTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
+		idempTableFetchButton.click();
+		waitForHtmlToArrive();
+
+		function waitForHtmlToArrive() {
+			let html = document.querySelector('.desktop-header-popup');
+			if (!html) {
+				setTimeout(waitForHtmlToArrive, 0);
+				return;
+			}
+			functionToExecute();
 		}
 	}
 
@@ -162,19 +193,10 @@ var bandahealth = bandahealth || (function () {
 	}
 
 	function logout() {
-		let logoutTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
-		logoutTableFetchButton.click();
-		clickLogout();
-
-		function clickLogout() {
-			let logoutHtml = document.querySelector('.desktop-header-popup');
-			if (!logoutHtml) {
-				setTimeout(clickLogout, 0);
-				return;
-			}
-			logoutHtml.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
+		getDesktopHeaderPopupAndExecuteFunction(function clickLogout() {
+			document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
 				+ 'td:last-child a').click();
-		}
+		});
 	}
 
 	function removeBodyClassName() {
