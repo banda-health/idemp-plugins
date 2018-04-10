@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.util.DB;
 
 public class MOrderLine_BH extends MOrderLine {
 
@@ -33,7 +34,7 @@ public class MOrderLine_BH extends MOrderLine {
 	 *            Expire On
 	 */
 	public void setExpiration(Timestamp Expiration) {
-		set_Value(COLUMNNAME_Expiration, Expiration);
+		set_Value(COLUMNNAME_Expiration, DB.TO_DATE(Expiration));
 	}
 
 	/**
