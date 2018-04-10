@@ -38,6 +38,15 @@
 	padding: 3px 20px 2px 15px !important
 }
 
+%td-row-edit-icon {
+	background-image: none !important;
+
+	&:before {
+		@extend %fas;
+		content: "\f303";
+	}
+}
+
 :root {
 	--default-textbox-outline-color: #cfcfcf;
 	--button-font-size: 1.1em;
@@ -103,6 +112,20 @@
 	}
 	
 	&.organization {
+		.adwindow-layout {
+			& > div:nth-child(2) {
+				.adtab-content:first-child {
+					.adtab-grid {
+						tr.highlight, tr.grid-inactive-row {
+							.row-indicator-selected {
+								@extend %td-row-edit-icon;
+							}
+						}
+					}
+				}
+			}
+		}
+
 		.adwindow-toolbar {
 			& > div.z-toolbar-start {
 				background-color: white;
@@ -120,11 +143,20 @@
 					@extend %button-hover;
 				}
 
-				&:nth-child(2), &:nth-child(5), &:nth-child(8), &:nth-child(9), &:nth-child(n+12):nth-child(-n+50), &.disableFilter, img {
+				&:nth-child(2),
+				&:nth-child(5),
+				&:nth-child(8),
+				&:nth-child(9),
+				&:nth-child(12),
+				&:nth-child(13),
+				&:nth-child(14),
+				&:nth-child(n+16):nth-child(-n+50),
+				&.disableFilter,
+				img {
 					@extend %hide-element;
 				}
 
-				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11) {
+				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11), &:nth-child(15) {
 					@extend %toolbar-button;
 					order: 1;
 
@@ -231,7 +263,7 @@
 				}
 
 				&:nth-child(11) {
-					margin-right: auto;
+					margin-right: 10px;
 					order: 0;
 
 					&:before {
@@ -242,6 +274,21 @@
 
 					&:after {
 						content: " Search";
+					}
+				}
+
+				&:nth-child(15) {
+					margin-right: auto;
+					order: 0;
+
+					&:before {
+						@extend %fas;
+						content: "\f00a";
+						color: black;
+					}
+
+					&:after {
+						content: " Results";
 					}
 				}
 			}
@@ -255,14 +302,9 @@
 			.adwindow-detailpane-tabpanel {
 				.adtab-content {
 					.z-grid-body {
-						tr.highlight {
+						tr.highlight, tr.grid-inactive-row {
 							.row-indicator-selected {
-								background-image: none !important;
-
-								&:before {
-									@extend %fas;
-									content: "\f303";
-								}
+								@extend %td-row-edit-icon;
 							}
 						}
 					}
@@ -274,7 +316,7 @@
 					display: flex;
 					justify-content: flex-start;
 
-					a {
+					& > a {
 						width: auto;
 
 						span {
@@ -556,12 +598,12 @@
 					content: "\f067";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " New";
 				}
 			}
 
-			&.btn-ok:not(.txt-btn) {
+			&.btn-ok {
 				margin-right: 10px !important;
 
 				&:before {
@@ -569,7 +611,7 @@
 					content: "\f00c";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " Ok";
 				}
 			}
@@ -580,7 +622,7 @@
 					content: "\f021";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " Refresh";
 				}
 			}
@@ -591,7 +633,7 @@
 					content: "\f0e2";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " Reset";
 				}
 			}
@@ -602,7 +644,7 @@
 					content: "\f1de";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " Customize";
 				}
 			}
@@ -613,7 +655,7 @@
 					content: "\f1da";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " History";
 				}
 			}
@@ -624,7 +666,7 @@
 					content: "\f065";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " Zoom";
 				}
 			}
@@ -635,7 +677,7 @@
 					content: "\f1fa";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: "  Prod. Attr.";
 				}
 			}
@@ -648,7 +690,7 @@
 					content: "\f00d";
 				}
 
-				&:after:not(.txt-btn) {
+				&:not(.txt-btn):after {
 					content: " Cancel";
 				}
 
