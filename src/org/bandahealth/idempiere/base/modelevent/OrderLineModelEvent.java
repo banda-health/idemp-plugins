@@ -38,7 +38,7 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 			if (order.isSOTrx()) {
 				return;
 			}
-		} else if (persistantObject instanceof MOrderLine) {
+		} else if (persistantObject instanceof MOrderLine_BH) {
 			orderLine = (MOrderLine_BH) persistantObject;
 		} else {
 			return;
