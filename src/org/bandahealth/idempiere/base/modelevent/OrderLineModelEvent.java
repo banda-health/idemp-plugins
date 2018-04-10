@@ -64,10 +64,12 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 					orderLine.get_TrxName());
 		} else {
 			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-					+ MAttributeSet.COLUMNNAME_Name + ") = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
-					+ "' AND " + MAttributeSet.COLUMNNAME_IsActive + " = 'Y'";
+					+ MAttributeSet.COLUMNNAME_Name + ") = '"
+					+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
 			MAttributeSet attributeSet = new Query(Env.getCtx(), MAttributeSet.Table_Name, whereClause,
-					orderLine.get_TrxName()).first();
+					orderLine.get_TrxName())
+					.setOnlyActiveRecords(true)
+					.first();
 			if (attributeSet != null) {
 				asi = new MAttributeSetInstance(Env.getCtx(), 0, orderLine.get_TrxName());
 				asi.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
