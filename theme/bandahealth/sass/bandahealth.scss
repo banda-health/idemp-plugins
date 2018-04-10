@@ -35,12 +35,12 @@
 	height: auto;
 	width: auto;
 	margin-top: 10px;
-	padding: 5px 15px 5px 10px !important;
+	padding: 3px 20px 2px 15px !important
 }
 
 :root {
 	--default-textbox-outline-color: #cfcfcf;
-	--button-font-size: 1.4em;
+	--button-font-size: 1.1em;
 }
 
 .bh {
@@ -115,6 +115,11 @@
 			}
 
 			a {
+				@extend %button;
+				&:hover {
+					@extend %button-hover;
+				}
+
 				&:nth-child(2), &:nth-child(5), &:nth-child(8), &:nth-child(9), &:nth-child(n+12):nth-child(-n+50), &.disableFilter, img {
 					@extend %hide-element;
 				}
@@ -129,14 +134,14 @@
 						img {
 							@extend %hide-element;
 						}
-
-						&::before {
-							font-size: var(--button-font-size);
-							color: white;
-						}
 					}
 
-					&::after {
+					&:before {
+						font-size: var(--button-font-size);
+						color: white;
+					}
+
+					&:after {
 						font-size: var(--button-font-size);
 						vertical-align: middle;
 					}
@@ -145,14 +150,12 @@
 				&:nth-child(1) {
 					@extend %primary;
 
-					span {
-						&::before {
-							@extend %fas;
-							content: "\f00d";
-						}
+					&:before {
+						@extend %fas;
+						content: "\f00d";
 					}
 
-					&::after {
+					&:after {
 						content: " Cancel";
 					}
 
@@ -164,14 +167,12 @@
 				&:nth-child(4) {
 					@extend %confirm;
 
-					span {
-						&::before {
-							@extend %fas;
-							content: "\f067";
-						}
+					&:before {
+						@extend %fas;
+						content: "\f067";
 					}
 
-					&::after {
+					&:after {
 						content: " New";
 					}
 
@@ -183,14 +184,12 @@
 				&:nth-child(6) {
 					@extend %cancel;
 
-					span {
-						&::before {
-							@extend %far;
-							content: "\f2ed";
-						}
+					&:before {
+						@extend %far;
+						content: "\f2ed";
 					}
 
-					&::after {
+					&:after {
 						content: " Delete";
 					}
 
@@ -202,14 +201,12 @@
 				&:nth-child(7) {
 					@extend %confirm;
 
-					span {
-						&::before {
-							@extend %fas;
-							content: "\f0c7";
-						}
+					&:before {
+						@extend %fas;
+						content: "\f0c7";
 					}
 
-					&::after {
+					&:after {
 						content: " Save";
 					}
 
@@ -220,45 +217,31 @@
 
 				&:nth-child(10) {
 					margin-right: 10px;
-					@extend %button;
 					order: 0;
 
-					span {
-						&::before {
-							@extend %fas;
-							content: "\f021";
-							color: black;
-						}
+					&:before {
+						@extend %fas;
+						content: "\f021";
+						color: black;
 					}
 
-					&::after {
+					&:after {
 						content: " Refresh";
-					}
-
-					&:hover {
-						@extend %button-hover;
 					}
 				}
 
 				&:nth-child(11) {
-					@extend %button;
 					margin-right: auto;
 					order: 0;
 
-					span {
-						&::before {
-							@extend %fas;
-							content: "\f002";
-							color: black;
-						}
+					&:before {
+						@extend %fas;
+						content: "\f002";
+						color: black;
 					}
 
-					&::after {
+					&:after {
 						content: " Search";
-					}
-
-					&:hover {
-						@extend %button-hover;
 					}
 				}
 			}
@@ -266,6 +249,147 @@
 
 		.adwindow-breadcrumb > div {
 			@extend %hide-element;
+		}
+
+		.adwindow-detailpane {
+			.adwindow-detailpane-tabpanel {
+				.adtab-content {
+					.z-grid-body {
+						tr.highlight {
+							.row-indicator-selected {
+								background-image: none !important;
+
+								&:before {
+									@extend %fas;
+									content: "\f303";
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.adwindow-detailpane-toolbar {
+				.z-toolbar-start {
+					display: flex;
+					justify-content: flex-start;
+
+					a {
+						width: auto;
+
+						span {
+							width: auto;
+							text-shadow: none;
+
+							img {
+								@extend %hide-element;
+							}
+
+							&:before {
+								font-size: var(--button-font-size);
+								color: white;
+							}
+						}
+
+						&.disableFilter {
+							@extend %hide-element;
+						}
+
+						&:after {
+							font-size: var(--button-font-size);
+							vertical-align: middle;
+						}
+
+						&:nth-child(5) {
+							@extend %hide-element;
+						}
+
+						&:nth-child(1), &:nth-child(4) {
+							@extend %confirm;
+							padding: 0 5px;
+
+							&:hover {
+								@extend %confirm-hover;
+								padding: 0 5px;
+							}
+						}
+
+						&:nth-child(1) {
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f067";
+								}
+							}
+						}
+
+						&:nth-child(2) {
+							@extend %primary;
+							padding: 0 5px;
+
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f303";
+								}
+							}
+
+							&:hover {
+								@extend %primary-hover;
+								padding: 0 5px;
+							}
+						}
+
+						&:nth-child(3) {
+							@extend %cancel;
+							padding: 0 5px;
+
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f2ed";
+								}
+							}
+
+							&:hover {
+								@extend %cancel-hover;
+								padding: 0 5px;
+							}
+						}
+
+						&:nth-child(4) {
+							span {
+								&:before {
+									@extend %fas;
+									content: "\f0c7";
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.bh-logoutbutton {
+			display: flex;
+			align-items: center;
+			-webkit-border-radius: 0;
+			-moz-border-radius: 0;
+			-o-border-radius: 0;
+			-ms-border-radius: 0;
+			-khtml-border-radius: 0;
+			border-radius: 0;
+			padding: 0 10px;
+
+			div {
+				margin-left: 5px;
+				font-weight: bold;
+				font-size: 1.3em;
+			}
+
+			&:hover {
+				background: #fff;
+			}
 		}
 
 		.desktop-header-popup {
@@ -281,6 +405,7 @@
 				left: 0 !important;
 				right: 0 !important;
 				width: auto !important;
+				padding-top: 0;
 
 				> .z-center-body {
 					width: auto !important;
@@ -304,36 +429,62 @@
 					display: flex;
 					justify-content: flex-start;
 					align-items: center;
+					height: 100%;
 
 					.z-tab {
-						font-size: 1.7em;
+						font-size: 1.4em;
 						height: auto;
 						border: none;
 						background: none;
 						box-shadow: none;
+						-webkit-border-radius: 0;
+						-moz-border-radius: 0;
+						-o-border-radius: 0;
+						-ms-border-radius: 0;
+						-khtml-border-radius: 0;
+						border-radius: 0;
 
 						&:nth-last-child(2), .z-tab-button, .z-tab-image {
 							@extend %hide-element;
+						}
+
+						&:nth-child(3) span {
+							padding-left: 5px;
 						}
 					}
 
 					.back-button {
 						padding-left: 10px;
+						padding-right: 10px;
+						display: flex;
+						align-items: center;
+						height: 100%;
+
+						&:hover {
+							background: #fff;
+						}
+
+						a {
+							display: flex;
+						}
 					}
 				}
 			}
 
 			& > .z-toolbar-tabs {
 				&.z-toolbar {
-					padding: 0 4px;
+					padding: 0;
 					border: none;
-					height: auto !important;
+				}
+
+				.z-toolbar-content {
+					display: flex;
+					height: 100%;
 				}
 
 				a {
 					cursor: pointer;
 					border: 1px solid transparent;
-					padding: 2px;
 
 					&:not(:last-child)  {
 						@extend %hide-element;
@@ -357,13 +508,182 @@
 								@extend %hide-element;
 							}
 
-							&::before {
+							&:before {
 								font-size: var(--button-font-size);
 								@extend %fas;
 								content: "\f0c9";
 							}
 						}
 					}*/
+				}
+			}
+		}
+
+		.z-button {
+			text-shadow: none;
+
+			&.img-btn, &.txt-btn {
+				@extend %button;
+
+				&:hover:not([disabled]) {
+					@extend %button-hover;
+				}
+
+				&[disabled] {
+					cursor: default;
+				}
+
+				img {
+					@extend %hide-element;
+				}
+			}
+
+			&.btn-new, &.btn-ok, &.btn-cancel, &.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history, &.btn-zoom, &.btn-pattribute {
+				font-weight: normal;
+			}
+
+			&.btn-new, &.btn-ok {
+				@extend %confirm;
+
+				&:hover:not([disabled]) {
+					@extend %confirm-hover;
+				}
+			}
+
+			&.btn-new {
+				&:before {
+					@extend %fas;
+					content: "\f067";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " New";
+				}
+			}
+
+			&.btn-ok:not(.txt-btn) {
+				margin-right: 10px !important;
+
+				&:before {
+					@extend %fas;
+					content: "\f00c";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " Ok";
+				}
+			}
+
+			&.btn-refresh {
+				&:before {
+					@extend %fas;
+					content: "\f021";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " Refresh";
+				}
+			}
+
+			&.btn-reset {
+				&:before {
+					@extend %fas;
+					content: "\f0e2";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " Reset";
+				}
+			}
+
+			&.btn-customize {
+				&:before {
+					@extend %fas;
+					content: "\f1de";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " Customize";
+				}
+			}
+
+			&.btn-history {
+				&:before {
+					@extend %fas;
+					content: "\f1da";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " History";
+				}
+			}
+
+			&.btn-zoom {
+				&:before {
+					@extend %fas;
+					content: "\f065";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " Zoom";
+				}
+			}
+
+			&.btn-pattribute {
+				&:before {
+					@extend %fas;
+					content: "\f1fa";
+				}
+
+				&:after:not(.txt-btn) {
+					content: "  Prod. Attr.";
+				}
+			}
+
+			&.btn-cancel {
+				@extend %primary;
+
+				&:before {
+					@extend %fas;
+					content: "\f00d";
+				}
+
+				&:after:not(.txt-btn) {
+					content: " Cancel";
+				}
+
+				&:hover:not([disabled]) {
+					@extend %primary-hover;
+				}
+			}
+		}
+
+		.find-window {
+			.z-button {
+				&.img-btn {
+					&.btn-ok {
+						&:after {
+							content: " Search";
+						}
+					}
+				}
+			}
+
+			& > .z-window-content {
+				& > .z-vlayout {
+					& > .z-vlayout-inner:first-child {
+						@extend %hide-element;
+					}
+				}
+			}
+		}
+
+		.info-panel {
+			.z-button {
+				&.img-btn {
+					&.btn-ok {
+						margin-right: auto !important;
+					}
 				}
 			}
 		}
