@@ -9,7 +9,7 @@ import org.compiere.model.MOrderLine;
 
 public class MOrderLine_BH extends MOrderLine {
 
-	public static String COLUMNNAME_Expiration = "Expiration";
+	public static String COLUMNNAME_Expiration = "BH_Expiration";
 
 	public MOrderLine_BH(MOrder order) {
 		super(order);
