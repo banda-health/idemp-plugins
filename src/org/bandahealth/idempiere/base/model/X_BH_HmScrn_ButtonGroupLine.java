@@ -22,30 +22,31 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_HomeScreen_Button
+/** Generated Model for BH_HmScrn_ButtonGroupLine
  *  @author iDempiere (generated) 
  *  @version Release 5.1 - $Id$ */
-public class X_BH_HomeScreen_Button extends PO implements I_BH_HomeScreen_Button, I_Persistent 
+public class X_BH_HmScrn_ButtonGroupLine extends PO implements I_BH_HmScrn_ButtonGroupLine, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180328L;
+	private static final long serialVersionUID = 20180411L;
 
     /** Standard Constructor */
-    public X_BH_HomeScreen_Button (Properties ctx, int BH_HomeScreen_Button_ID, String trxName)
+    public X_BH_HmScrn_ButtonGroupLine (Properties ctx, int BH_HmScrn_ButtonGroupLine_ID, String trxName)
     {
-      super (ctx, BH_HomeScreen_Button_ID, trxName);
-      /** if (BH_HomeScreen_Button_ID == 0)
+      super (ctx, BH_HmScrn_ButtonGroupLine_ID, trxName);
+      /** if (BH_HmScrn_ButtonGroupLine_ID == 0)
         {
-			setBH_HomeScreen_Button_ID (0);
+			setBH_HmScrn_ButtonGroup_ID (0);
+			setBH_HmScrn_ButtonGroupLine_ID (0);
 			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_HomeScreen_Button (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_HmScrn_ButtonGroupLine (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -67,7 +68,7 @@ public class X_BH_HomeScreen_Button extends PO implements I_BH_HomeScreen_Button
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_BH_HomeScreen_Button[")
+      StringBuffer sb = new StringBuffer ("X_BH_HmScrn_ButtonGroupLine[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -84,9 +85,9 @@ public class X_BH_HomeScreen_Button extends PO implements I_BH_HomeScreen_Button
 	public void setAD_InfoWindow_ID (int AD_InfoWindow_ID)
 	{
 		if (AD_InfoWindow_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_AD_InfoWindow_ID, null);
+			set_Value (COLUMNNAME_AD_InfoWindow_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_AD_InfoWindow_ID, Integer.valueOf(AD_InfoWindow_ID));
+			set_Value (COLUMNNAME_AD_InfoWindow_ID, Integer.valueOf(AD_InfoWindow_ID));
 	}
 
 	/** Get Info Window.
@@ -128,38 +129,63 @@ public class X_BH_HomeScreen_Button extends PO implements I_BH_HomeScreen_Button
 		return ii.intValue();
 	}
 
-	/** Set BH_HomeScreen_Button_ID.
-		@param BH_HomeScreen_Button_ID BH_HomeScreen_Button_ID	  */
-	public void setBH_HomeScreen_Button_ID (int BH_HomeScreen_Button_ID)
+	public I_BH_HmScrn_ButtonGroup getBH_HmScrn_ButtonGroup() throws RuntimeException
+    {
+		return (I_BH_HmScrn_ButtonGroup)MTable.get(getCtx(), I_BH_HmScrn_ButtonGroup.Table_Name)
+			.getPO(getBH_HmScrn_ButtonGroup_ID(), get_TrxName());	}
+
+	/** Set BH_HmScrn_ButtonGroup.
+		@param BH_HmScrn_ButtonGroup_ID BH_HmScrn_ButtonGroup	  */
+	public void setBH_HmScrn_ButtonGroup_ID (int BH_HmScrn_ButtonGroup_ID)
 	{
-		if (BH_HomeScreen_Button_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_HomeScreen_Button_ID, null);
+		if (BH_HmScrn_ButtonGroup_ID < 1) 
+			set_Value (COLUMNNAME_BH_HmScrn_ButtonGroup_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_HomeScreen_Button_ID, Integer.valueOf(BH_HomeScreen_Button_ID));
+			set_Value (COLUMNNAME_BH_HmScrn_ButtonGroup_ID, Integer.valueOf(BH_HmScrn_ButtonGroup_ID));
 	}
 
-	/** Get BH_HomeScreen_Button_ID.
-		@return BH_HomeScreen_Button_ID	  */
-	public int getBH_HomeScreen_Button_ID () 
+	/** Get BH_HmScrn_ButtonGroup.
+		@return BH_HmScrn_ButtonGroup	  */
+	public int getBH_HmScrn_ButtonGroup_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_HomeScreen_Button_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_HmScrn_ButtonGroup_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_HomeScreen_Button_UU.
-		@param BH_HomeScreen_Button_UU BH_HomeScreen_Button_UU	  */
-	public void setBH_HomeScreen_Button_UU (String BH_HomeScreen_Button_UU)
+	/** Set BH_HmScrn_ButtonGroupLine.
+		@param BH_HmScrn_ButtonGroupLine_ID BH_HmScrn_ButtonGroupLine	  */
+	public void setBH_HmScrn_ButtonGroupLine_ID (int BH_HmScrn_ButtonGroupLine_ID)
 	{
-		set_Value (COLUMNNAME_BH_HomeScreen_Button_UU, BH_HomeScreen_Button_UU);
+		if (BH_HmScrn_ButtonGroupLine_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID, Integer.valueOf(BH_HmScrn_ButtonGroupLine_ID));
 	}
 
-	/** Get BH_HomeScreen_Button_UU.
-		@return BH_HomeScreen_Button_UU	  */
-	public String getBH_HomeScreen_Button_UU () 
+	/** Get BH_HmScrn_ButtonGroupLine.
+		@return BH_HmScrn_ButtonGroupLine	  */
+	public int getBH_HmScrn_ButtonGroupLine_ID () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_HomeScreen_Button_UU);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BH_HmScrn_ButtonGroupLine_UU.
+		@param BH_HmScrn_ButtonGroupLine_UU BH_HmScrn_ButtonGroupLine_UU	  */
+	public void setBH_HmScrn_ButtonGroupLine_UU (String BH_HmScrn_ButtonGroupLine_UU)
+	{
+		set_Value (COLUMNNAME_BH_HmScrn_ButtonGroupLine_UU, BH_HmScrn_ButtonGroupLine_UU);
+	}
+
+	/** Get BH_HmScrn_ButtonGroupLine_UU.
+		@return BH_HmScrn_ButtonGroupLine_UU	  */
+	public String getBH_HmScrn_ButtonGroupLine_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_HmScrn_ButtonGroupLine_UU);
 	}
 
 	/** Set Button Class Name.
@@ -211,23 +237,6 @@ public class X_BH_HomeScreen_Button extends PO implements I_BH_HomeScreen_Button
 	public String getButtonText () 
 	{
 		return (String)get_Value(COLUMNNAME_ButtonText);
-	}
-
-	/** Set Dashboard Class.
-		@param DashboardClass 
-		To allow for filtering in the code
-	  */
-	public void setDashboardClass (String DashboardClass)
-	{
-		set_Value (COLUMNNAME_DashboardClass, DashboardClass);
-	}
-
-	/** Get Dashboard Class.
-		@return To allow for filtering in the code
-	  */
-	public String getDashboardClass () 
-	{
-		return (String)get_Value(COLUMNNAME_DashboardClass);
 	}
 
 	/** Set Description.

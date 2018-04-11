@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.base.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 
-public class MHomeScreenButton extends X_BH_HomeScreen_Button {
+public class MHomeScreenButton extends X_BH_HmScrn_ButtonGroupLine {
 
 	public MHomeScreenButton(Properties ctx, int BH_HomeScreen_Button_ID, String trxName) {
 		super(ctx, BH_HomeScreen_Button_ID, trxName);
