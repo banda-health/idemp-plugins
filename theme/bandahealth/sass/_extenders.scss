@@ -1,0 +1,112 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+
+%combobox-highlight {
+	background:#fff;
+	background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iemtpZTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agc3RvcC1jb2xvcj0iI2ZmZmZmZiIgb2Zmc2V0PSIwJSIvPjxzdG9wIHN0b3AtY29sb3I9IiNlNGU0ZTQiIG9mZnNldD0iMTAwJSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCN6a2llOSkiIC8+PC9zdmc+);
+	background:-moz-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#e4e4e4));
+	background:-webkit-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:-o-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:-ms-linear-gradient(top,#fff 0,#e4e4e4 100%);
+	background:linear-gradient(to bottom,#fff 0,#e4e4e4 100%);
+}
+
+%hide-element {
+	display: none !important;
+}
+
+%fa {
+	font-family:Font Awesome\ 5 Free;
+}
+
+%far {
+	@extend %fa;
+	font-weight:400;
+}
+
+%fas {
+	@extend %fa;
+	font-weight:900;
+}
+
+%toolbar-button {
+	height: auto;
+	width: auto;
+	margin-top: 10px;
+	padding: 3px 20px 2px 15px !important
+}
+
+%td-row-edit-icon {
+	background-image: none !important;
+
+	&:before {
+		@extend %fas;
+		content: $icon-pencil-alt;
+	}
+}
+
+%button {
+	@include border-radius(3px);
+	@include background-gradient($button-light, $button-dark);
+	border: $button-dark 1px solid;
+	padding: 8px 20px;
+	display: inline-block;
+	line-height: 1.2em;
+	cursor: pointer;
+	min-width: 0;
+	max-width: 300px;
+	text-decoration: none;
+}
+
+%button-hover {
+	@extend %button;
+
+	background: $button-light-hover;
+	border-color: $button-dark-hover;
+}
+
+%confirm {
+	@include background-gradient($confirm-light, $confirm-dark);
+	color: white;
+	max-width: 250px;
+	min-width: 0;
+	margin-right: 10px;
+}
+
+%confirm-hover {
+	@extend %confirm;
+
+	background: $confirm-light-hover;
+	border-color: $confirm-dark-hover;
+}
+
+%delete {
+	@include background-gradient($delete-light, $delete-dark);
+	color: white;
+	max-width: 250px;
+	min-width: 0;
+	margin-right: 10px;
+}
+
+%delete-hover {
+	@extend %delete;
+
+	background: $delete-light-hover;
+	border-color: $delete-dark-hover;
+}
+
+%primary {
+	@include background-gradient($primary-light, $primary-dark);
+	color: white;
+	max-width: 250px;
+	min-width: 0;
+	margin-right: 10px;
+}
+
+%primary-hover {
+	@extend %primary;
+
+	background: $primary-light-hover;
+	border-color: $primary-dark-hover;
+}

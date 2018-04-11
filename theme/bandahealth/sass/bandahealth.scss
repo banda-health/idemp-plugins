@@ -1,47 +1,10 @@
 @import 'compass/css3';
 
+@import '_variables.scss';
+@import '_extenders.scss';
+@import '_mixins.scss';
+
 @import '_openmrs.scss';
-
-%combobox-highlight {
-	background:#fff;
-	background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iemtpZTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agc3RvcC1jb2xvcj0iI2ZmZmZmZiIgb2Zmc2V0PSIwJSIvPjxzdG9wIHN0b3AtY29sb3I9IiNlNGU0ZTQiIG9mZnNldD0iMTAwJSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCN6a2llOSkiIC8+PC9zdmc+);
-	background:-moz-linear-gradient(top,#fff 0,#e4e4e4 100%);
-	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#e4e4e4));
-	background:-webkit-linear-gradient(top,#fff 0,#e4e4e4 100%);
-	background:-o-linear-gradient(top,#fff 0,#e4e4e4 100%);
-	background:-ms-linear-gradient(top,#fff 0,#e4e4e4 100%);
-	background:linear-gradient(to bottom,#fff 0,#e4e4e4 100%);
-}
-
-%hide-element {
-	display: none !important;
-}
-
-%fa {
-	font-family:Font Awesome\ 5 Free;
-}
-
-%far {
-	@extend %fa;
-	font-weight:400;
-}
-
-%fas {
-	@extend %fa;
-	font-weight:900;
-}
-
-%toolbar-button {
-	height: auto;
-	width: auto;
-	margin-top: 10px;
-	padding: 3px 20px 2px 15px !important
-}
-
-:root {
-	--default-textbox-outline-color: #cfcfcf;
-	--button-font-size: 1.1em;
-}
 
 .bh {
 	.center {
@@ -75,7 +38,7 @@
 		grid-template-columns: 20px repeat(2, 1fr);
 		grid-column-gap: 10px;
 		padding: 5px;
-		border: 1px solid var(--default-textbox-outline-color);
+		border: 1px solid $default-textbox-outline-color;
 
 		div {
 			.z-label {
@@ -120,6 +83,20 @@
 	}
 	
 	&.organization {
+		.adwindow-layout {
+			& > div:nth-child(2) {
+				.adtab-content:first-child {
+					.adtab-grid {
+						tr.highlight, tr.grid-inactive-row {
+							.row-indicator-selected {
+								@extend %td-row-edit-icon;
+							}
+						}
+					}
+				}
+			}
+		}
+
 		.adwindow-toolbar {
 			& > div.z-toolbar-start {
 				background-color: white;
@@ -137,11 +114,20 @@
 					@extend %button-hover;
 				}
 
-				&:nth-child(2), &:nth-child(5), &:nth-child(8), &:nth-child(9), &:nth-child(n+12):nth-child(-n+50), &.disableFilter, img {
+				&:nth-child(2),
+				&:nth-child(5),
+				&:nth-child(8),
+				&:nth-child(9),
+				&:nth-child(12),
+				&:nth-child(13),
+				&:nth-child(14),
+				&:nth-child(n+16):nth-child(-n+50),
+				&.disableFilter,
+				img {
 					@extend %hide-element;
 				}
 
-				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11) {
+				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11), &:nth-child(15) {
 					@extend %toolbar-button;
 					order: 1;
 
@@ -154,12 +140,12 @@
 					}
 
 					&:before {
-						font-size: var(--button-font-size);
+						font-size: $button-font-size;
 						color: white;
 					}
 
 					&:after {
-						font-size: var(--button-font-size);
+						font-size: $button-font-size;
 						vertical-align: middle;
 					}
 				}
@@ -169,11 +155,11 @@
 
 					&:before {
 						@extend %fas;
-						content: "\f00d";
+						content: $icon-times;
 					}
 
 					&:after {
-						content: " Cancel";
+						content: $button-text-cancel;
 					}
 
 					&:hover {
@@ -186,11 +172,11 @@
 
 					&:before {
 						@extend %fas;
-						content: "\f067";
+						content: $icon-plus;
 					}
 
 					&:after {
-						content: " New";
+						content: $button-text-new;
 					}
 
 					&:hover {
@@ -199,19 +185,19 @@
 				}
 
 				&:nth-child(6) {
-					@extend %cancel;
+					@extend %delete;
 
 					&:before {
 						@extend %far;
-						content: "\f2ed";
+						content: $icon-trash-alt;
 					}
 
 					&:after {
-						content: " Delete";
+						content: $button-text-delete;
 					}
 
 					&:hover {
-						@extend %cancel-hover;
+						@extend %delete-hover;
 					}
 				}
 
@@ -220,11 +206,11 @@
 
 					&:before {
 						@extend %fas;
-						content: "\f0c7";
+						content: $icon-save;
 					}
 
 					&:after {
-						content: " Save";
+						content: $button-text-save;
 					}
 
 					&:hover {
@@ -238,27 +224,42 @@
 
 					&:before {
 						@extend %fas;
-						content: "\f021";
+						content: $icon-sync;
 						color: black;
 					}
 
 					&:after {
-						content: " Refresh";
+						content: $button-text-refresh;
 					}
 				}
 
 				&:nth-child(11) {
+					margin-right: 10px;
+					order: 0;
+
+					&:before {
+						@extend %fas;
+						content: $icon-search;
+						color: black;
+					}
+
+					&:after {
+						content: $button-text-search;
+					}
+				}
+
+				&:nth-child(15) {
 					margin-right: auto;
 					order: 0;
 
 					&:before {
 						@extend %fas;
-						content: "\f002";
+						content: $icon-th;
 						color: black;
 					}
 
 					&:after {
-						content: " Search";
+						content: $button-text-results;
 					}
 				}
 			}
@@ -272,14 +273,9 @@
 			.adwindow-detailpane-tabpanel {
 				.adtab-content {
 					.z-grid-body {
-						tr.highlight {
+						tr.highlight, tr.grid-inactive-row {
 							.row-indicator-selected {
-								background-image: none !important;
-
-								&:before {
-									@extend %fas;
-									content: "\f303";
-								}
+								@extend %td-row-edit-icon;
 							}
 						}
 					}
@@ -291,7 +287,7 @@
 					display: flex;
 					justify-content: flex-start;
 
-					a {
+					& > a {
 						width: auto;
 
 						span {
@@ -303,7 +299,7 @@
 							}
 
 							&:before {
-								font-size: var(--button-font-size);
+								font-size: $button-font-size;
 								color: white;
 							}
 						}
@@ -313,7 +309,7 @@
 						}
 
 						&:after {
-							font-size: var(--button-font-size);
+							font-size: $button-font-size;
 							vertical-align: middle;
 						}
 
@@ -335,7 +331,7 @@
 							span {
 								&:before {
 									@extend %fas;
-									content: "\f067";
+									content: $icon-plus;
 								}
 							}
 						}
@@ -347,7 +343,7 @@
 							span {
 								&:before {
 									@extend %fas;
-									content: "\f303";
+									content: $icon-pencil-alt;
 								}
 							}
 
@@ -358,18 +354,18 @@
 						}
 
 						&:nth-child(3) {
-							@extend %cancel;
+							@extend %delete;
 							padding: 0 5px;
 
 							span {
 								&:before {
 									@extend %fas;
-									content: "\f2ed";
+									content: $icon-trash-alt;
 								}
 							}
 
 							&:hover {
-								@extend %cancel-hover;
+								@extend %delete-hover;
 								padding: 0 5px;
 							}
 						}
@@ -378,7 +374,7 @@
 							span {
 								&:before {
 									@extend %fas;
-									content: "\f0c7";
+									content: $icon-save;
 								}
 							}
 						}
@@ -390,12 +386,7 @@
 		.bh-logoutbutton {
 			display: flex;
 			align-items: center;
-			-webkit-border-radius: 0;
-			-moz-border-radius: 0;
-			-o-border-radius: 0;
-			-ms-border-radius: 0;
-			-khtml-border-radius: 0;
-			border-radius: 0;
+			@include border-radius(0);
 			padding: 0 10px;
 
 			div {
@@ -469,12 +460,7 @@
 						border: none;
 						background: none;
 						box-shadow: none;
-						-webkit-border-radius: 0;
-						-moz-border-radius: 0;
-						-o-border-radius: 0;
-						-ms-border-radius: 0;
-						-khtml-border-radius: 0;
-						border-radius: 0;
+						@include border-radius(0);
 
 						&:nth-last-child(2), .z-tab-button, .z-tab-image {
 							@extend %hide-element;
@@ -541,12 +527,64 @@
 							}
 
 							&:before {
-								font-size: var(--button-font-size);
+								font-size: $button-font-size;
 								@extend %fas;
-								content: "\f0c9";
+								content: $icon-bars;
 							}
 						}
 					}*/
+				}
+			}
+		}
+
+		.find-window {
+			.z-button {
+				&.img-btn {
+					&.btn-ok {
+						&:after {
+							content: $button-text-search;
+						}
+					}
+				}
+			}
+
+			.z-grid-body {
+				.z-rows {
+					& > .z-group {
+						& > .z-group-header {
+							& > .z-group-header-body {
+								span:last-child {
+									&:before {
+										content: $search-more-options;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.z-tabs-content {
+				li:last-child {
+					@extend %hide-element;
+				}
+			}
+
+			& > .z-window-content {
+				& > .z-vlayout {
+					& > .z-vlayout-inner:first-child {
+						@extend %hide-element;
+					}
+				}
+			}
+		}
+
+		.info-panel {
+			.z-button {
+				&.img-btn {
+					&.btn-ok {
+						margin-right: auto !important;
+					}
 				}
 			}
 		}
@@ -585,90 +623,90 @@
 			&.btn-new {
 				&:before {
 					@extend %fas;
-					content: "\f067";
+					content: $icon-plus;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " New";
+				&:not(.txt-btn):after {
+					content: $button-text-new;
 				}
 			}
 
-			&.btn-ok:not(.txt-btn) {
+			&.btn-ok {
 				margin-right: 10px !important;
 
 				&:before {
 					@extend %fas;
-					content: "\f00c";
+					content: $icon-check;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " Ok";
+				&:not(.txt-btn):after {
+					content: $button-text-ok;
 				}
 			}
 
 			&.btn-refresh {
 				&:before {
 					@extend %fas;
-					content: "\f021";
+					content: $icon-sync;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " Refresh";
+				&:not(.txt-btn):after {
+					content: $button-text-refresh;
 				}
 			}
 
 			&.btn-reset {
 				&:before {
 					@extend %fas;
-					content: "\f0e2";
+					content: $icon-undo;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " Reset";
+				&:not(.txt-btn):after {
+					content: $button-text-reset;
 				}
 			}
 
 			&.btn-customize {
 				&:before {
 					@extend %fas;
-					content: "\f1de";
+					content: $icon-sliders-h;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " Customize";
+				&:not(.txt-btn):after {
+					content: $button-text-customize;
 				}
 			}
 
 			&.btn-history {
 				&:before {
 					@extend %fas;
-					content: "\f1da";
+					content: $icon-history;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " History";
+				&:not(.txt-btn):after {
+					content: $button-text-history;
 				}
 			}
 
 			&.btn-zoom {
 				&:before {
 					@extend %fas;
-					content: "\f065";
+					content: $icon-expand;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " Zoom";
+				&:not(.txt-btn):after {
+					content: $button-text-zoom;
 				}
 			}
 
 			&.btn-pattribute {
 				&:before {
 					@extend %fas;
-					content: "\f1fa";
+					content: $icon-at;
 				}
 
-				&:after:not(.txt-btn) {
-					content: "  Prod. Attr.";
+				&:not(.txt-btn):after {
+					content: $button-text-product-attributes;
 				}
 			}
 
@@ -677,45 +715,15 @@
 
 				&:before {
 					@extend %fas;
-					content: "\f00d";
+					content: $icon-times;
 				}
 
-				&:after:not(.txt-btn) {
-					content: " Cancel";
+				&:not(.txt-btn):after {
+					content: $button-text-cancel;
 				}
 
 				&:hover:not([disabled]) {
 					@extend %primary-hover;
-				}
-			}
-		}
-
-		.find-window {
-			.z-button {
-				&.img-btn {
-					&.btn-ok {
-						&:after {
-							content: " Search";
-						}
-					}
-				}
-			}
-
-			& > .z-window-content {
-				& > .z-vlayout {
-					& > .z-vlayout-inner:first-child {
-						@extend %hide-element;
-					}
-				}
-			}
-		}
-
-		.info-panel {
-			.z-button {
-				&.img-btn {
-					&.btn-ok {
-						margin-right: auto !important;
-					}
 				}
 			}
 		}
