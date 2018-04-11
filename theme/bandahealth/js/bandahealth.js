@@ -16,77 +16,86 @@ function BandaHealth($) {
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
 
-	self.initPage = function initPage() {
-		let ribbon = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start');
-		if (!pageHasLoaded()) {
-			setTimeout(initPage, 0);
+	self.initPage = (function initPageScope() {
+		let initPageHasRun = false;
+		return function initPage() {
+			if (initPageHasRun) {
+				return;
+			}
+
+			let ribbon = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start');
+			if (!pageHasLoaded()) {
+				setTimeout(initPage, 0);
+				return;
+			}
+			initPageHasRun = true;
+			
+			let expandCollapseButton = ribbon.querySelectorAll('a')[1];
+			hideRibbonElement();
+			hideWestPanel();
+			appendLogoutButton();
+			appendHomeBackButton();
+
 			return;
-		}
-		let expandCollapseButton = ribbon.querySelectorAll('a')[1];
-		hideRibbonElement();
-		hideWestPanel();
-		appendLogoutButton();
-		appendHomeBackButton();
 
-		return;
+			function appendHomeBackButton() {
+				let pageTabHolder = document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content');
+				let firstElement = pageTabHolder.querySelector('li');
 
-		function appendHomeBackButton() {
-			let pageTabHolder = document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content');
-			let firstElement = pageTabHolder.querySelector('li');
+				let backLIElement = document.createElement('li');
+				backLIElement.classList.add('z-tab', 'back-button');
+				backLIElement.setAttribute('title', 'Back');
+				pageTabHolder.insertBefore(backLIElement, firstElement);
 
-			let backLIElement = document.createElement('li');
-			backLIElement.classList.add('z-tab', 'back-button');
-			backLIElement.setAttribute('title', 'Back');
-			pageTabHolder.insertBefore(backLIElement, firstElement);
+				let backAElement = document.createElement('a');
+				backAElement.classList.add('z-tab-content');
+				backLIElement.appendChild(backAElement);
 
-			let backAElement = document.createElement('a');
-			backAElement.classList.add('z-tab-content');
-			backLIElement.appendChild(backAElement);
+				let backIElement = document.createElement('i');
+				backAElement.appendChild(backIElement);
+				backIElement.classList.add('fas', 'fa-arrow-left');
 
-			let backIElement = document.createElement('i');
-			backAElement.appendChild(backIElement);
-			backIElement.classList.add('fas', 'fa-arrow-left');
-
-			backAElement.addEventListener('click', function triggerBrowserBack() {
-				window.history.back();
-			});
-		}
-
-		function appendLogoutButton() {
-			let logoutAElement = document.createElement('a');
-			logoutAElement.classList.add('window-container-toolbar-btn', 'z-toolbarbutton', 'bh-logoutbutton');
-			logoutAElement.setAttribute('title', 'Logout');
-			ribbon.appendChild(logoutAElement);
-
-			let logoutIElement = document.createElement('i');
-			logoutAElement.appendChild(logoutIElement);
-			logoutIElement.classList.add('fas', 'fa-sign-out-alt');
-
-			let logoutDivElement = document.createElement('div');
-			logoutDivElement.innerText = 'Logout';
-			logoutAElement.appendChild(logoutDivElement);
-
-			logoutAElement.addEventListener('click', logout);
-		}
-
-		function hideRibbonElement() {
-			let expandCollapseImg = expandCollapseButton.querySelector('img');
-			if (expandCollapseImg.src.includes('collapse')) {
-				expandCollapseButton.click();
+				backAElement.addEventListener('click', function triggerBrowserBack() {
+					window.history.back();
+				});
 			}
-		}
 
-		function hideWestPanel() {
-			let westPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-west-splitter-button i')[1];
-			if (westPanelCollapseButton.offsetParent !== null) {
-				westPanelCollapseButton.click();
+			function appendLogoutButton() {
+				let logoutAElement = document.createElement('a');
+				logoutAElement.classList.add('window-container-toolbar-btn', 'z-toolbarbutton', 'bh-logoutbutton');
+				logoutAElement.setAttribute('title', 'Logout');
+				ribbon.appendChild(logoutAElement);
+
+				let logoutIElement = document.createElement('i');
+				logoutAElement.appendChild(logoutIElement);
+				logoutIElement.classList.add('fas', 'fa-sign-out-alt');
+
+				let logoutDivElement = document.createElement('div');
+				logoutDivElement.innerText = 'Logout';
+				logoutAElement.appendChild(logoutDivElement);
+
+				logoutAElement.addEventListener('click', logout);
 			}
-		}
 
-		function pageHasLoaded() {
-			return !!ribbon;
-		}
-	};
+			function hideRibbonElement() {
+				let expandCollapseImg = expandCollapseButton.querySelector('img');
+				if (expandCollapseImg.src.includes('collapse')) {
+					expandCollapseButton.click();
+				}
+			}
+
+			function hideWestPanel() {
+				let westPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-west-splitter-button i')[1];
+				if (westPanelCollapseButton.offsetParent !== null) {
+					westPanelCollapseButton.click();
+				}
+			}
+
+			function pageHasLoaded() {
+				return !!ribbon;
+			}
+		};
+	})();
 
 	self.openIDempDialog = function showIDempDialog() {
 		getDesktopHeaderPopupAndExecuteFunction(function clickIDempiereLogo() {

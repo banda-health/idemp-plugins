@@ -1,15 +1,18 @@
 package org.bandahealth.idempiere.webui;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
+import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -37,7 +40,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	public DPBHDashboardPanel() {
 		super();
 
-		this.setSclass("openmrs");
+		this.setSclass("openmrs bh-dashboard-panel");
 
 		initLayout();
 	}
@@ -66,11 +69,31 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 	public void createPanel() {
 		//add links to BH custom windows
-		List<MHomeScreenButton> buttons = getHomeScreenButtons();
-		for (MHomeScreenButton button : buttons) {
-			Div divButton = UIUtil.initDivButton(button);
-			divButton.addEventListener(Events.ON_CLICK, this);
-			contentArea.appendChild(divButton);
+		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,null)
+				.setOnlyActiveRecords(true)
+				.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo)
+				.list();
+		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null,null)
+				.setOnlyActiveRecords(true)
+				.setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo)
+				.list();
+		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+			Div groupSeparator = new Div();
+			groupSeparator.setClass("bh-button-group-header");
+			groupSeparator.appendChild(new Text(buttonGroup.getName()));
+			contentArea.appendChild(groupSeparator);
+
+			List<MHomeScreenButton> buttonsInGroup = buttons.stream()
+					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+					.collect(Collectors.toList());
+			Div groupContainer = new Div();
+			groupContainer.setClass("bh-button-group-content");
+			for (MHomeScreenButton button : buttonsInGroup) {
+				Div divButton = UIUtil.initDivButton(button);
+				divButton.addEventListener(Events.ON_CLICK, this);
+				groupContainer.appendChild(divButton);
+			}
+			contentArea.appendChild(groupContainer);
 		}
 	}
 
@@ -91,16 +114,6 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				}
 			}
 		}
-	}
-
-	/* Get all custom BH windows
-	 * Assumes every custom table needed is prefixed with BH
-	 */
-	private List<MHomeScreenButton> getHomeScreenButtons() {
-		return new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null,null)
-				.setOnlyActiveRecords(true)
-				.setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo)
-				.list();
 	}
 
 	private Boolean isUserViewingAnOrganization() {
