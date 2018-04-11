@@ -52,6 +52,23 @@
 		vertical-align: center;
 	}
 
+	.bh-button-group-header {
+		padding: 5px;
+		border-bottom: 1px solid #333;
+		font-size: 0.9em;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.bh-button-group-content:not(:last-child) {
+		margin-bottom: 15px;
+	}
+
+	.bh-dashboard-content {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+	}
 
 	.bh-editable-rows-container {
 		display: grid;
@@ -389,6 +406,21 @@
 
 			&:hover {
 				background: #fff;
+			}
+		}
+
+		.dashboard-widget {
+			.z-panel-head {
+				@extend %hide-element;
+			}
+
+			.bh-dashboard-panel {
+				margin-top: 0;
+				margin-bottom: 0;
+
+				.z-vlayout-inner {
+					padding-bottom: 0 !important;
+				}
 			}
 		}
 
