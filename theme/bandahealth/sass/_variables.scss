@@ -1,0 +1,64 @@
+// If the actual unicode is used, SASS compiles it in the CSS and it won't display
+// So have to use this function to generate unicode
+@function font-awesome-icon($code) {
+	@return unquote("\"") + unquote(str_insert($code, "\\", 1)) + unquote("\"");
+}
+
+$button-font-size: 1.1em;
+
+// Colors
+$default-textbox-outline-color: #cfcfcf;
+
+$button-light: #ffffff;
+$button-light-hover: #e2e2e2;
+$button-dark: #dddddd;
+$button-dark-hover: #d0d0d0;
+
+$confirm-light: #a1d030;
+$confirm-light-hover: #8eb82a;
+$confirm-dark: #88af28;
+$confirm-dark-hover: #779b23;
+
+$delete-light: #ff6666;
+$delete-light-hover: #ff4747;
+$delete-dark: #ff3d3d;
+$delete-dark-hover: #ff2424;
+
+$primary-light: #337ab7;
+$primary-light-hover: #286090;
+$primary-dark: #2e6da4;
+$primary-dark-hover: #204d74;
+
+// Text
+$button-text-cancel: " Cancel";
+$button-text-customize: " Customize";
+$button-text-delete: " Delete";
+$button-text-history: " History";
+$button-text-new: " New";
+$button-text-ok: " OK";
+$button-text-product-attributes: "  Prod. Attr.";
+$button-text-refresh: " Refresh";
+$button-text-reset: " Reset";
+$button-text-results: " Results";
+$button-text-save: " Save";
+$button-text-search: " Search";
+$button-text-zoom: " Zoom";
+
+$search-more-options: "More Options";
+
+// Icons
+$icon-at: font-awesome-icon("f1fa");
+$icon-bars: font-awesome-icon("f0c9");
+$icon-check: font-awesome-icon("f00c");
+$icon-expand: font-awesome-icon("f065");
+$icon-history: font-awesome-icon("f1da");
+$icon-pencil-alt: font-awesome-icon("f303");
+$icon-plus: font-awesome-icon("f067");
+$icon-save: font-awesome-icon("f0c7");
+$icon-search: font-awesome-icon("f002");
+$icon-sliders-h: font-awesome-icon("f1de");
+$icon-sync: font-awesome-icon("f021");
+$icon-th: font-awesome-icon("f00a");
+$icon-times: font-awesome-icon("f00d");
+$icon-trash-alt: font-awesome-icon("f2ed");
+$icon-undo: font-awesome-icon("f0e2");
