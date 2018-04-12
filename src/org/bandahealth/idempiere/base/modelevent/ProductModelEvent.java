@@ -63,6 +63,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 	}
 
 	/* Adds a default price to this product in the pricelist */
+	@SuppressWarnings("unused")
 	private void afterSaveRequest(MProduct product) {
 		if (product.get_ID() > 0) {
 			// setting the sales pricing for the product
