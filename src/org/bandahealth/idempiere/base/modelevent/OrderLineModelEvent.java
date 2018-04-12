@@ -19,7 +19,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
-public class ReceiveGoodsModelEvent extends AbstractEventHandler {
+public class OrderLineModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
@@ -63,11 +63,13 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 			asi = new MAttributeSetInstance(Env.getCtx(), orderLine.getM_AttributeSetInstance_ID(),
 					orderLine.get_TrxName());
 		} else {
-			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND "
-					+ MAttributeSet.COLUMNNAME_Name + " = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET_
-					+ "' AND " + MAttributeSet.COLUMNNAME_IsActive + " = 'Y'";
+			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
+					+ MAttributeSet.COLUMNNAME_Name + ") = '"
+					+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
 			MAttributeSet attributeSet = new Query(Env.getCtx(), MAttributeSet.Table_Name, whereClause,
-					orderLine.get_TrxName()).first();
+					orderLine.get_TrxName())
+					.setOnlyActiveRecords(true)
+					.first();
 			if (attributeSet != null) {
 				asi = new MAttributeSetInstance(Env.getCtx(), 0, orderLine.get_TrxName());
 				asi.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
@@ -76,7 +78,7 @@ public class ReceiveGoodsModelEvent extends AbstractEventHandler {
 		}
 
 		if (asi.getM_AttributeSet_ID() > 0) {
-			asi.setGuaranteeDate(orderLine.getExpiration());
+			asi.setGuaranteeDate(orderLine.getBH_Expiration());
 			asi.saveEx();
 
 			orderLine.setM_AttributeSetInstance_ID(asi.getM_AttributeSetInstance_ID());
