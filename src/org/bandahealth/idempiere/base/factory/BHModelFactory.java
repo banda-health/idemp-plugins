@@ -6,6 +6,7 @@ import org.adempiere.base.IModelFactory;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
+import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -28,6 +29,8 @@ public class BHModelFactory implements IModelFactory {
 			return MOrderLine_BH.class;
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButtonGroup.Table_Name)) {
 			return MHomeScreenButtonGroup.class;
+		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
+			return MInventoryLine_BH.class;
 		}
 
 		return null;
@@ -47,6 +50,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MOrderLine_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButtonGroup.Table_Name)) {
 			return new MHomeScreenButtonGroup(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
+			return new MInventoryLine_BH(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -66,6 +71,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MOrderLine_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButtonGroup.Table_Name)) {
 			return new MHomeScreenButtonGroup(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
+			return new MInventoryLine_BH(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
