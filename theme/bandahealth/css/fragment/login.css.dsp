@@ -75,7 +75,7 @@
 }
 
 .login-east-panel, .login-west-panel {
-	width: 350px;
+	width: 0px;
 	background-color: #E0EAF7;
 	position: relative;
 }
