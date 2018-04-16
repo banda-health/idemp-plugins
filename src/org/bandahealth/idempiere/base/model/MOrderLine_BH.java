@@ -11,17 +11,14 @@ public class MOrderLine_BH extends MOrderLine {
 
 	public MOrderLine_BH(MOrder order) {
 		super(order);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MOrderLine_BH(Properties ctx, int C_OrderLine_ID, String trxName) {
 		super(ctx, C_OrderLine_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MOrderLine_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/** Column name BH_Expiration */

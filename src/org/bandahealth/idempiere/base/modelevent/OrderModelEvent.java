@@ -2,13 +2,12 @@ package org.bandahealth.idempiere.base.modelevent;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
-import org.compiere.model.I_AD_Role_OrgAccess;
-import org.compiere.model.I_AD_User_OrgAccess;
-import org.compiere.model.I_C_DocType;
-import org.compiere.model.I_C_Order;
-import org.compiere.model.I_M_Warehouse;
+import org.compiere.model.MDocType;
 import org.compiere.model.MOrder;
+import org.compiere.model.MRoleOrgAccess;
+import org.compiere.model.MUserOrgAccess;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -59,7 +58,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 
 		salesOrder.setSalesRep_ID(userId);
 
-		int posOrderDocTypeId = (new Query(Env.getCtx(), I_C_DocType.Table_Name, I_C_DocType.COLUMNNAME_DocSubTypeSO
+		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocSubTypeSO
 				+ "=?", null))
 				.setParameters(MOrder.DocSubTypeSO_POS)
 				.firstId();
@@ -75,7 +74,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 				QueryConstants.USER_ID_COLUMN_NAME,
 				QueryConstants.CLIENT_ID_COLUMN_NAME,
 				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
-		Query query = new Query(Env.getCtx(), I_AD_User_OrgAccess.Table_Name, whereClause, null)
+		Query query = new Query(Env.getCtx(), MUserOrgAccess.Table_Name, whereClause, null)
 				.setParameters(userId, clientId, QueryConstants.BASE_ORGANIZATION_ID);
 		if (query.count() == 0) {
 			// The org assignment must be in the role
@@ -83,7 +82,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 					QueryConstants.ROLE_ID_COLUMN_NAME,
 					QueryConstants.CLIENT_ID_COLUMN_NAME,
 					QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
-			query = new Query(Env.getCtx(), I_AD_Role_OrgAccess.Table_Name,  whereClause, null)
+			query = new Query(Env.getCtx(), MRoleOrgAccess.Table_Name,  whereClause, null)
 					.setParameters(roleId, clientId, QueryConstants.BASE_ORGANIZATION_ID);
 		}
 
@@ -96,7 +95,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
-		registerTableEvent(IEventTopics.PO_BEFORE_NEW, I_C_Order.Table_Name);
-//		registerTableEvent(IEventTopics.PO_AFTER_NEW, I_C_Order.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MOrder_BH.Table_Name);
+//		registerTableEvent(IEventTopics.PO_AFTER_NEW, MOrder_BH.Table_Name);
 	}
 }

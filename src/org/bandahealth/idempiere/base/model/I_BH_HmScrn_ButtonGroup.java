@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_HomeScreen_Button
+/** Generated Interface for BH_HmScrn_ButtonGroup
  *  @author iDempiere (generated) 
  *  @version Release 5.1
  */
 @SuppressWarnings("all")
-public interface I_BH_HomeScreen_Button 
+public interface I_BH_HmScrn_ButtonGroup 
 {
 
-    /** TableName=BH_HomeScreen_Button */
-    public static final String Table_Name = "BH_HomeScreen_Button";
+    /** TableName=BH_HmScrn_ButtonGroup */
+    public static final String Table_Name = "BH_HmScrn_ButtonGroup";
 
-    /** AD_Table_ID=1000003 */
+    /** AD_Table_ID=1000005 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -51,21 +51,6 @@ public interface I_BH_HomeScreen_Button
 	  */
 	public int getAD_Client_ID();
 
-    /** Column name AD_InfoWindow_ID */
-    public static final String COLUMNNAME_AD_InfoWindow_ID = "AD_InfoWindow_ID";
-
-	/** Set Info Window.
-	  * Info and search/select Window
-	  */
-	public void setAD_InfoWindow_ID (int AD_InfoWindow_ID);
-
-	/** Get Info Window.
-	  * Info and search/select Window
-	  */
-	public int getAD_InfoWindow_ID();
-
-	public org.compiere.model.I_AD_InfoWindow getAD_InfoWindow() throws RuntimeException;
-
     /** Column name AD_Org_ID */
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
@@ -79,77 +64,23 @@ public interface I_BH_HomeScreen_Button
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name AD_Window_ID */
-    public static final String COLUMNNAME_AD_Window_ID = "AD_Window_ID";
+    /** Column name BH_HmScrn_ButtonGroup_ID */
+    public static final String COLUMNNAME_BH_HmScrn_ButtonGroup_ID = "BH_HmScrn_ButtonGroup_ID";
 
-	/** Set Window.
-	  * Data entry or display window
-	  */
-	public void setAD_Window_ID (int AD_Window_ID);
+	/** Set BH_HmScrn_ButtonGroup	  */
+	public void setBH_HmScrn_ButtonGroup_ID (int BH_HmScrn_ButtonGroup_ID);
 
-	/** Get Window.
-	  * Data entry or display window
-	  */
-	public int getAD_Window_ID();
+	/** Get BH_HmScrn_ButtonGroup	  */
+	public int getBH_HmScrn_ButtonGroup_ID();
 
-	public org.compiere.model.I_AD_Window getAD_Window() throws RuntimeException;
+    /** Column name BH_HmScrn_ButtonGroup_UU */
+    public static final String COLUMNNAME_BH_HmScrn_ButtonGroup_UU = "BH_HmScrn_ButtonGroup_UU";
 
-    /** Column name BH_HomeScreen_Button_ID */
-    public static final String COLUMNNAME_BH_HomeScreen_Button_ID = "BH_HomeScreen_Button_ID";
+	/** Set BH_HmScrn_ButtonGroup_UU	  */
+	public void setBH_HmScrn_ButtonGroup_UU (String BH_HmScrn_ButtonGroup_UU);
 
-	/** Set BH_HomeScreen_Button_ID	  */
-	public void setBH_HomeScreen_Button_ID (int BH_HomeScreen_Button_ID);
-
-	/** Get BH_HomeScreen_Button_ID	  */
-	public int getBH_HomeScreen_Button_ID();
-
-    /** Column name BH_HomeScreen_Button_UU */
-    public static final String COLUMNNAME_BH_HomeScreen_Button_UU = "BH_HomeScreen_Button_UU";
-
-	/** Set BH_HomeScreen_Button_UU	  */
-	public void setBH_HomeScreen_Button_UU (String BH_HomeScreen_Button_UU);
-
-	/** Get BH_HomeScreen_Button_UU	  */
-	public String getBH_HomeScreen_Button_UU();
-
-    /** Column name ButtonClassName */
-    public static final String COLUMNNAME_ButtonClassName = "ButtonClassName";
-
-	/** Set Button Class Name.
-	  * The class(es) the button will have
-	  */
-	public void setButtonClassName (String ButtonClassName);
-
-	/** Get Button Class Name.
-	  * The class(es) the button will have
-	  */
-	public String getButtonClassName();
-
-    /** Column name ButtonHelpText */
-    public static final String COLUMNNAME_ButtonHelpText = "ButtonHelpText";
-
-	/** Set Button Help Text.
-	  * The text displayed when a user hovers over the button
-	  */
-	public void setButtonHelpText (String ButtonHelpText);
-
-	/** Get Button Help Text.
-	  * The text displayed when a user hovers over the button
-	  */
-	public String getButtonHelpText();
-
-    /** Column name ButtonText */
-    public static final String COLUMNNAME_ButtonText = "ButtonText";
-
-	/** Set Button Text.
-	  * The text displayed in the button
-	  */
-	public void setButtonText (String ButtonText);
-
-	/** Get Button Text.
-	  * The text displayed in the button
-	  */
-	public String getButtonText();
+	/** Get BH_HmScrn_ButtonGroup_UU	  */
+	public String getBH_HmScrn_ButtonGroup_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -167,19 +98,6 @@ public interface I_BH_HomeScreen_Button
 	  */
 	public int getCreatedBy();
 
-    /** Column name DashboardClass */
-    public static final String COLUMNNAME_DashboardClass = "DashboardClass";
-
-	/** Set Dashboard Class.
-	  * To allow for filtering in the code
-	  */
-	public void setDashboardClass (String DashboardClass);
-
-	/** Get Dashboard Class.
-	  * To allow for filtering in the code
-	  */
-	public String getDashboardClass();
-
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
 
@@ -192,19 +110,6 @@ public interface I_BH_HomeScreen_Button
 	  * Optional short description of the record
 	  */
 	public String getDescription();
-
-    /** Column name IconClassName */
-    public static final String COLUMNNAME_IconClassName = "IconClassName";
-
-	/** Set Icon Class Name.
-	  * The class(es) to display the correct Font Awesome icon
-	  */
-	public void setIconClassName (String IconClassName);
-
-	/** Get Icon Class Name.
-	  * The class(es) to display the correct Font Awesome icon
-	  */
-	public String getIconClassName();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
