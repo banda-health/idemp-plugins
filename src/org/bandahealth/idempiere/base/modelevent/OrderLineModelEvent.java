@@ -5,16 +5,13 @@ import java.sql.Timestamp;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
-import org.bandahealth.idempiere.base.utils.QueryConstants;
-import org.compiere.model.MAttributeSet;
-import org.compiere.model.MAttributeSetInstance;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
-import org.compiere.model.Query;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
@@ -64,44 +61,10 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 	}
 
 	private void receiveGoodsBeforeSaveRequest(MOrderLine_BH orderLine) {
-		MAttributeSetInstance asi = null;
-		if (orderLine.getM_AttributeSetInstance_ID() > 0) {
-			asi = new MAttributeSetInstance(Env.getCtx(), orderLine.getM_AttributeSetInstance_ID(),
-					orderLine.get_TrxName());
-		} else {
-			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-					+ MAttributeSet.COLUMNNAME_Name + ") = '"
-					+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
-			MAttributeSet attributeSet = new Query(Env.getCtx(), MAttributeSet.Table_Name, whereClause,
-					orderLine.get_TrxName())
-					.setOnlyActiveRecords(true)
-					.first();
-
-			if (attributeSet == null) {
-				return;
-			}
-
-			// See if there is an attribute set instance for this product that already has this date
-			int attributeSetId = attributeSet.getM_AttributeSet_ID();
-			whereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate + "=? AND "
-					+ MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
-			asi = new Query(Env.getCtx(), MAttributeSetInstance.Table_Name, whereClause,
-					orderLine.get_TrxName())
-					.setParameters(orderLine.getBH_Expiration(), attributeSetId)
-					.first();
-			if (asi == null) {
-				asi = new MAttributeSetInstance(Env.getCtx(), 0, orderLine.get_TrxName());
-				asi.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
-			}
-		}
-
-		if (asi.getM_AttributeSet_ID() > 0) {
-			if (orderLine.getBH_Expiration() != null) {
-				asi.setGuaranteeDate(orderLine.getBH_Expiration());
-			}
-			asi.saveEx();
-
-			orderLine.setM_AttributeSetInstance_ID(asi.getM_AttributeSetInstance_ID());
+		int attributeSetInstanceId = QueryUtil.createExpirationDateAttributeInstance(
+				orderLine.getM_AttributeSetInstance_ID(), orderLine.getBH_Expiration(), orderLine.get_TrxName());
+		if (attributeSetInstanceId > 0) {
+			orderLine.setM_AttributeSetInstance_ID(attributeSetInstanceId);
 		}
 	}
 
