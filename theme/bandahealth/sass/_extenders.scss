@@ -55,7 +55,7 @@
 	line-height: 1.2em;
 	cursor: pointer;
 	min-width: 0;
-	max-width: 300px;
+	max-width: 250px;
 	text-decoration: none;
 }
 
@@ -69,7 +69,6 @@
 %confirm {
 	@include background-gradient($confirm-light, $confirm-dark);
 	color: white;
-	max-width: 250px;
 	min-width: 0;
 	margin-right: 10px;
 }
@@ -84,7 +83,6 @@
 %delete {
 	@include background-gradient($delete-light, $delete-dark);
 	color: white;
-	max-width: 250px;
 	min-width: 0;
 	margin-right: 10px;
 }
@@ -99,7 +97,6 @@
 %primary {
 	@include background-gradient($primary-light, $primary-dark);
 	color: white;
-	max-width: 250px;
 	min-width: 0;
 	margin-right: 10px;
 }

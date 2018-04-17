@@ -1,0 +1,7 @@
+@import "_extenders.scss";
+
+// This is to hide the custom button display field, and depends on the Description for the field
+// (usually pulled from the SystemElement)
+span[title*="trigger tab navigation"] {
+	@extend %hide-element;
+}

@@ -7,8 +7,26 @@
 @import '_openmrs.scss';
 
 .bh {
+	@import "_hacks.scss";
+
 	.center {
 		text-align: center;
+	}
+
+	.btn {
+		@extend %button;
+
+		&:hover {
+			@extend %button-hover;
+		}
+
+		&.btn-new, &.btn-confirm {
+			@extend %confirm;
+
+			&:hover {
+				@extend %confirm-hover;
+			}
+		}
 	}
 
 	.center-vertical {
@@ -71,6 +89,23 @@
 
 		.delete-button-container {
 			cursor: pointer;
+		}
+	}
+
+	.bh-tab-nav-buttons {
+		display: flex;
+		justify-content: space-between;
+
+		div.btn {
+			max-width: none;
+			margin-right: 0;
+			flex-grow: 1;
+			text-align: center;
+
+			&:hover {
+				max-width: none;
+				margin-right: 0;
+			}
 		}
 	}
 
@@ -584,6 +619,27 @@
 				&.img-btn {
 					&.btn-ok {
 						margin-right: auto !important;
+					}
+				}
+			}
+		}
+
+		.popup-dialog {
+			.z-window-content {
+				table {
+					.z-hbox {
+						img[src*="question"] {
+							@extend %hide-element;
+						}
+
+						& > tbody > tr > td > table > tbody > tr > td:first-child {
+							@extend %fas;
+							font-size: 2em;
+
+							&:before {
+								content: $icon-question-circle;
+							}
+						}
 					}
 				}
 			}

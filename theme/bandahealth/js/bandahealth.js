@@ -315,4 +315,4 @@ function BandaHealth($) {
 	}
 }
 
-var bandahealth = bandahealth || new BandaHealth(window.jQuery);
+window.bandahealth = window.bandahealth || new BandaHealth(window.jQuery);
