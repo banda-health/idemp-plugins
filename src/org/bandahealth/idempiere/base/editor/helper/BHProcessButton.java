@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.base.editor.button;
+package org.bandahealth.idempiere.base.editor.helper;
 
 import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.adwindow.IADTabbox;

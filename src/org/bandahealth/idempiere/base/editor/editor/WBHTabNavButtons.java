@@ -1,6 +1,9 @@
 package org.bandahealth.idempiere.base.editor.editor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.adempiere.util.Callback;
 import org.adempiere.webui.adwindow.ADWindow;
@@ -9,9 +12,12 @@ import org.adempiere.webui.adwindow.IADTabbox;
 import org.adempiere.webui.adwindow.IADTabpanel;
 import org.adempiere.webui.editor.WEditor;
 import org.adempiere.webui.event.ActionEvent;
-import org.bandahealth.idempiere.base.editor.button.BHProcessButton;
+import org.bandahealth.idempiere.base.editor.helper.BHButtonEvaluatee;
+import org.bandahealth.idempiere.base.editor.helper.BHProcessButton;
 import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
+import org.compiere.model.DataStatusEvent;
+import org.compiere.model.DataStatusListener;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.Query;
@@ -19,6 +25,8 @@ import org.compiere.model.StateChangeEvent;
 import org.compiere.model.StateChangeListener;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Evaluatee;
+import org.compiere.util.Evaluator;
 import org.zkoss.zhtml.I;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.event.Event;
@@ -34,10 +42,10 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 	public WBHTabNavButtons(GridField gridField, GridTab gridTab) {
 		super(new Vlayout(), gridField);
 
-		initializeEditor(gridField);
+		initializeEditor(gridField, gridTab);
 	}
 
-	private void initializeEditor(GridField gridField) {
+	private void initializeEditor(GridField gridField, GridTab gridTab) {
 
 		Vlayout layout = (Vlayout) this.getComponent();
 		layout.setWidth("100%");
@@ -46,10 +54,10 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 		innerLayout.setSclass("bh-tab-nav-buttons");
 		layout.appendChild(innerLayout);
 
-		createNavButtons(innerLayout, gridField);
+		createNavButtons(innerLayout, gridField, gridTab);
 	}
 
-	private void createNavButtons(Div layout, GridField gridField) {
+	private void createNavButtons(Div layout, GridField gridField, GridTab gridTab) {
 		int tabId = gridField.getAD_Tab_ID();
 
 		String whereClause = MTabNavBtnTab.COLUMNNAME_AD_Tab_ID + "=?";
@@ -78,6 +86,8 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 		layout.appendChild(middleDiv);
 		layout.appendChild(rightDiv);
 
+		List<MTabNavBtnTab> buttonsWithLogic = new ArrayList<>();
+		Map<String, Div> btnToDivs = new HashMap<>();
 		for (MTabNavBtnTab tabButtonForTab : tabButtonsForTab) {
 			MTabNavBtn tabButton = (MTabNavBtn) tabButtonForTab.getBH_TabNavBtn();
 			if (!tabButton.isActive()) {
@@ -86,102 +96,19 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 
 			Div buttonDiv = new Div();
 
-			// Handle overrides, if there are any
-			String buttonIconClassName = tabButtonForTab.getIconClassName();
-			if (buttonIconClassName == null) {
-				buttonIconClassName = tabButton.getIconClassName();
+			appendButtonInfo(buttonDiv, tabButtonForTab, tabButton);
+
+			if (tabButton.getDisplayLogic() != null || tabButtonForTab.getDisplayLogic() != null) {
+				buttonsWithLogic.add(tabButtonForTab);
+				btnToDivs.put(tabButtonForTab.getBH_TabNavBtn_Tab_UU(), buttonDiv);
 			}
-			String buttonText = tabButtonForTab.getButtonText();
-			if (buttonText == null) {
-				buttonText = tabButton.getButtonText();
-			}
-			String buttonHelpText = tabButtonForTab.getButtonText();
-			if (buttonHelpText == null) {
-				buttonHelpText = tabButton.getButtonText();
-			}
-			String buttonClassName = tabButtonForTab.getButtonClassName();
-			if (buttonClassName == null) {
-				buttonClassName = tabButton.getButtonClassName();
-			}
+
+			assignButtonEvents(buttonDiv, window, windowTabs, tabButton);
+
 			String buttonLocation = tabButtonForTab.getButtonLocation();
 			if (buttonLocation == null) {
 				buttonLocation = tabButton.getButtonLocation();
 			}
-
-			// Do assignments and HTML creation
-			if (buttonIconClassName != null) {
-				I icon = new I();
-				icon.setSclass(buttonIconClassName);
-				buttonDiv.appendChild(icon);
-			}
-			if (buttonText != null) {
-				buttonDiv.appendChild(new Text(buttonText));
-			}
-			if (buttonHelpText != null) {
-				buttonDiv.setTooltiptext(buttonHelpText);
-			}
-
-			buttonDiv.setSclass(buttonClassName);
-
-			// If we can, assign associated events
-			if (windowTabs != null) {
-				EventListener<Event> buttonEvent = null;
-				switch (tabButton.getButtonAction()) {
-					case MTabNavBtn.BUTTONACTION_Cancel:
-						buttonEvent = new EventListener<Event>() {
-
-							@Override
-							public void onEvent(Event event) throws Exception {
-								window.getADWindowContent().onIgnore();
-							}
-						};
-						break;
-					case MTabNavBtn.BUTTONACTION_Copy:
-						buttonEvent = new EventListener<Event>() {
-
-							@Override
-							public void onEvent(Event event) throws Exception {
-								window.getADWindowContent().onCopy();
-							}
-						};
-						break;
-					case MTabNavBtn.BUTTONACTION_Delete:
-						buttonEvent = new EventListener<Event>() {
-
-							@Override
-							public void onEvent(Event event) throws Exception {
-								window.getADWindowContent().onDelete();
-							}
-						};
-						break;
-					case MTabNavBtn.BUTTONACTION_Navigation:
-						buttonEvent = getTabNavigationEvent(tabButton.getAD_Tab_ID(), window, windowTabs);
-						break;
-					case MTabNavBtn.BUTTONACTION_New:
-						buttonEvent = new EventListener<Event>() {
-
-							@Override
-							public void onEvent(Event event) throws Exception {
-								window.getADWindowContent().onSaveCreate();
-							}
-						};
-						break;
-					case MTabNavBtn.BUTTONACTION_Process:
-						buttonEvent = getTabProcessEvent(tabButton, window);
-						break;
-					case MTabNavBtn.BUTTONACTION_Save:
-						buttonEvent = new EventListener<Event>() {
-
-							@Override
-							public void onEvent(Event event) throws Exception {
-								window.getADWindowContent().onSave();
-							}
-						};
-						break;
-				}
-				buttonDiv.addEventListener(Events.ON_CLICK, buttonEvent);
-			}
-
 			switch (buttonLocation) {
 				case MTabNavBtn.BUTTONLOCATION_Full:
 					fullDiv.appendChild(buttonDiv);
@@ -197,6 +124,131 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 					break;
 			}
 		}
+
+		if (windowTabs != null && buttonsWithLogic.size() > 0) {
+			gridTab.addDataStatusListener(new DataStatusListener() {
+
+				@Override
+				public void dataStatusChanged(DataStatusEvent e) {
+					for (MTabNavBtnTab tabButtonForTab : buttonsWithLogic) {
+						MTabNavBtn tabButton = (MTabNavBtn) tabButtonForTab.getBH_TabNavBtn();
+						Div buttonDiv = btnToDivs.get(tabButtonForTab.getBH_TabNavBtn_Tab_UU());
+
+						String displayLogic = tabButtonForTab.getDisplayLogic();
+						if (displayLogic == null) {
+							displayLogic = tabButton.getDisplayLogic();
+						}
+						String currentClass = buttonDiv.getSclass();
+						BHButtonEvaluatee buttonEvaluatee = new BHButtonEvaluatee(gridTab);
+						if (Evaluator.evaluateLogic(buttonEvaluatee, displayLogic)) {
+							currentClass = currentClass.replaceAll("\\shide", "");
+							buttonDiv.setSclass(currentClass);
+						} else {
+							currentClass += " hide";
+							buttonDiv.setSclass(currentClass);
+						}
+					}
+				}
+			});
+		}
+	}
+
+	private void assignButtonEvents(Div buttonDiv, ADWindow window, IADTabbox windowTabs, MTabNavBtn tabButton) {
+		// If there are no window tabs, this must be the tab editor in WTF and we don't want events
+		if (windowTabs == null) {
+			return;
+		}
+
+		EventListener<Event> buttonEvent = null;
+		switch (tabButton.getButtonAction()) {
+			case MTabNavBtn.BUTTONACTION_Cancel:
+				buttonEvent = new EventListener<Event>() {
+
+					@Override
+					public void onEvent(Event event) throws Exception {
+						window.getADWindowContent().onIgnore();
+					}
+				};
+				break;
+			case MTabNavBtn.BUTTONACTION_Copy:
+				buttonEvent = new EventListener<Event>() {
+
+					@Override
+					public void onEvent(Event event) throws Exception {
+						window.getADWindowContent().onCopy();
+					}
+				};
+				break;
+			case MTabNavBtn.BUTTONACTION_Delete:
+				buttonEvent = new EventListener<Event>() {
+
+					@Override
+					public void onEvent(Event event) throws Exception {
+						window.getADWindowContent().onDelete();
+					}
+				};
+				break;
+			case MTabNavBtn.BUTTONACTION_Navigation:
+				buttonEvent = getTabNavigationEvent(tabButton.getAD_Tab_ID(), window, windowTabs);
+				break;
+			case MTabNavBtn.BUTTONACTION_New:
+				buttonEvent = new EventListener<Event>() {
+
+					@Override
+					public void onEvent(Event event) throws Exception {
+						window.getADWindowContent().onSaveCreate();
+					}
+				};
+				break;
+			case MTabNavBtn.BUTTONACTION_Process:
+				buttonEvent = getTabProcessEvent(tabButton, window);
+				break;
+			case MTabNavBtn.BUTTONACTION_Save:
+				buttonEvent = new EventListener<Event>() {
+
+					@Override
+					public void onEvent(Event event) throws Exception {
+						window.getADWindowContent().onSave();
+					}
+				};
+				break;
+		}
+		buttonDiv.addEventListener(Events.ON_CLICK, buttonEvent);
+	}
+
+	private void appendButtonInfo(Div buttonDiv, MTabNavBtnTab tabButtonForTab, MTabNavBtn tabButton) {
+		// Handle overrides, if there are any
+		String buttonIconClassName = tabButtonForTab.getIconClassName();
+		if (buttonIconClassName == null) {
+			buttonIconClassName = tabButton.getIconClassName();
+		}
+		String buttonText = tabButtonForTab.getButtonText();
+		if (buttonText == null) {
+			buttonText = tabButton.getButtonText();
+		}
+		String buttonHelpText = tabButtonForTab.getButtonText();
+		if (buttonHelpText == null) {
+			buttonHelpText = tabButton.getButtonText();
+		}
+		String buttonClassName = tabButtonForTab.getButtonClassName();
+		if (buttonClassName == null) {
+			buttonClassName = tabButton.getButtonClassName();
+		}
+
+		// Do assignments and HTML creation
+		if (buttonIconClassName != null) {
+			I icon = new I();
+			icon.setSclass(buttonIconClassName);
+			buttonDiv.appendChild(icon);
+		}
+		if (buttonText != null) {
+			buttonDiv.appendChild(new Text(buttonText));
+		}
+		if (buttonHelpText != null) {
+			buttonDiv.setTooltiptext(buttonHelpText);
+		}
+
+		buttonDiv.setSclass(buttonClassName);
 	}
 
 	private EventListener<Event> getTabProcessEvent(MTabNavBtn tabButton, ADWindow window) {
