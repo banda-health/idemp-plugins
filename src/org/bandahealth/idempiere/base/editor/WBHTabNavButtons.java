@@ -53,72 +53,145 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 		int tabId = gridField.getAD_Tab_ID();
 
 		String whereClause = MTabNavBtnTab.COLUMNNAME_AD_Tab_ID + "=?";
-		List<MTabNavBtnTab> tabButtons = new Query(Env.getCtx(), MTabNavBtnTab.Table_Name, whereClause, null)
+		List<MTabNavBtnTab> tabButtonsForTab = new Query(Env.getCtx(), MTabNavBtnTab.Table_Name, whereClause, null)
 				.setParameters(tabId)
 				.list();
 
 		ADWindow window = ADWindow.get(gridField.getWindowNo());
-		IADTabbox potentialWindowTabs = null;
+		IADTabbox windowTabs = null;
 		if (window != null && window.getADWindowContent() != null) {
-			potentialWindowTabs = window.getADWindowContent().getADTab();
+			windowTabs = window.getADWindowContent().getADTab();
 		}
-		final IADTabbox windowTabs = potentialWindowTabs;
 
-		for (MTabNavBtnTab tabButton : tabButtons) {
+		for (MTabNavBtnTab tabButtonForTab : tabButtonsForTab) {
 			Div buttonDiv = new Div();
-			MTabNavBtn buttonInfo = (MTabNavBtn) tabButton.getBH_TabNavBtn();
-			if (buttonInfo.getIconClassName() != null) {
+			MTabNavBtn tabButton = (MTabNavBtn) tabButtonForTab.getBH_TabNavBtn();
+
+			// Handle overrides, if there are any
+			String buttonIconClassName = tabButtonForTab.getIconClassName();
+			if (buttonIconClassName == null) {
+				buttonIconClassName = tabButton.getIconClassName();
+			}
+			String buttonText = tabButtonForTab.getButtonText();
+			if (buttonText == null) {
+				buttonText = tabButton.getButtonText();
+			}
+			String buttonHelpText = tabButtonForTab.getButtonText();
+			if (buttonHelpText == null) {
+				buttonHelpText = tabButton.getButtonText();
+			}
+			String buttonClassName = tabButtonForTab.getButtonClassName();
+			if (buttonClassName == null) {
+				buttonClassName = tabButton.getButtonClassName();
+			}
+
+			// Do assignments and HTML creation
+			if (buttonIconClassName != null) {
 				I icon = new I();
-				icon.setSclass(buttonInfo.getIconClassName());
+				icon.setSclass(buttonIconClassName);
 				buttonDiv.appendChild(icon);
 			}
-			if (buttonInfo.getButtonText() != null) {
-				Span buttonText = new Span();
-				buttonText.appendChild(new Text(buttonInfo.getButtonText()));
-				buttonDiv.appendChild(buttonText);
+			if (buttonText != null) {
+				buttonDiv.appendChild(new Text(buttonText));
 			}
-			if (buttonInfo.getButtonHelpText() != null) {
-				buttonDiv.setAttribute("title", buttonInfo.getButtonHelpText());
+			if (buttonHelpText != null) {
+				buttonDiv.setTooltiptext(buttonHelpText);
 			}
 
-			buttonDiv.setSclass(buttonInfo.getButtonClassName());
+			buttonDiv.setSclass(buttonClassName);
 
+			// If we can, assign associated events
 			if (windowTabs != null) {
-				buttonDiv.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
+				EventListener<Event> buttonEvent = null;
+				switch (tabButton.getButtonAction()) {
+					case MTabNavBtn.BUTTONACTION_Cancel:
+						buttonEvent = new EventListener<Event>() {
 
-					@Override
-					public void onEvent(Event event) throws Exception {
-						if (event.getName().equals(Events.ON_CLICK) && event.getTarget() instanceof Div) {
-							int associatedTabIndex = -1;
-							// This loop must be here instead of outside the event because the tab count changes depending
-							// on when this is called in the Window load process
-							int totalNumberOfTabs = windowTabs.getTabCount();
-							for (int i = 0; i < totalNumberOfTabs; i++) {
-								IADTabpanel potentialTab = windowTabs.getADTabpanel(i);
-								if (buttonInfo.getAD_Tab_ID() == potentialTab.getGridTab().getAD_Tab_ID()) {
-									associatedTabIndex = i;
-									break;
-								}
+							@Override
+							public void onEvent(Event event) throws Exception {
+								window.getADWindowContent().onIgnore();
 							}
-							final int tabIndexToNavigateTo = associatedTabIndex;
+						};
+						break;
+					case MTabNavBtn.BUTTONACTION_Copy:
+						buttonEvent = new EventListener<Event>() {
 
-							window.getADWindowContent().saveAndNavigate(new Callback<Boolean>() {
+							@Override
+							public void onEvent(Event event) throws Exception {
+								window.getADWindowContent().onCopy();
+							}
+						};
+						break;
+					case MTabNavBtn.BUTTONACTION_Delete:
+						buttonEvent = new EventListener<Event>() {
 
-								@Override
-								public void onCallback(Boolean result) {
-									Event tabSelectionChanged = new Event(CompositeADTabbox.ON_SELECTION_CHANGED_EVENT,
-											null,
-											new Object[] { windowTabs.getSelectedIndex(), tabIndexToNavigateTo });
-									window.getADWindowContent().onEvent(tabSelectionChanged);
-								}
-							});
-						}
-					}
-				});
+							@Override
+							public void onEvent(Event event) throws Exception {
+								window.getADWindowContent().onDelete();
+							}
+						};
+						break;
+					case MTabNavBtn.BUTTONACTION_Navigation:
+						buttonEvent = getTabNavigationEvent(tabButton.getAD_Tab_ID(), window, windowTabs);
+						break;
+					case MTabNavBtn.BUTTONACTION_New:
+						buttonEvent = new EventListener<Event>() {
+
+							@Override
+							public void onEvent(Event event) throws Exception {
+								window.getADWindowContent().onSaveCreate();
+							}
+						};
+						break;
+					case MTabNavBtn.BUTTONACTION_Save:
+						buttonEvent = new EventListener<Event>() {
+
+							@Override
+							public void onEvent(Event event) throws Exception {
+								window.getADWindowContent().onSave();
+							}
+						};
+						break;
+				}
+				buttonDiv.addEventListener(Events.ON_CLICK, buttonEvent);
 			}
 
 			layout.appendChild(buttonDiv);
 		}
+	}
+
+	private EventListener<Event> getTabNavigationEvent(int tabID, ADWindow window, IADTabbox windowTabs) {
+		return new EventListener<Event>() {
+
+			@Override
+			public void onEvent(Event event) throws Exception {
+				if (event.getName().equals(Events.ON_CLICK) && event.getTarget() instanceof Div) {
+					int associatedTabIndex = -1;
+					// This loop must be here instead of outside the event because the tab count changes depending
+					// on when this is called in the Window load process
+					int totalNumberOfTabs = windowTabs.getTabCount();
+					for (int i = 0; i < totalNumberOfTabs; i++) {
+						IADTabpanel potentialTab = windowTabs.getADTabpanel(i);
+						if (tabID == potentialTab.getGridTab().getAD_Tab_ID()) {
+							associatedTabIndex = i;
+							break;
+						}
+					}
+					final int tabIndexToNavigateTo = associatedTabIndex;
+
+					window.getADWindowContent().saveAndNavigate(new Callback<Boolean>() {
+
+						@Override
+						public void onCallback(Boolean result) {
+							Event tabSelectionChanged = new Event(CompositeADTabbox.ON_SELECTION_CHANGED_EVENT,
+									null,
+									new Object[] { windowTabs.getSelectedIndex(), tabIndexToNavigateTo });
+							window.getADWindowContent().onEvent(tabSelectionChanged);
+						}
+					});
+				}
+			}
+		};
 	}
 
 	@Override
