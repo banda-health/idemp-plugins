@@ -4,10 +4,10 @@
 @import '_extenders.scss';
 @import '_mixins.scss';
 
-@import '_openmrs.scss';
 
 .bh {
-	@import "_hacks.scss";
+	@import '_openmrs.scss';
+	@import '_hacks.scss';
 
 	.center {
 		text-align: center;
