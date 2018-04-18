@@ -1,14 +1,15 @@
-package org.bandahealth.idempiere.base.editor;
+package org.bandahealth.idempiere.base.editor.editor;
 
 import java.util.List;
 
 import org.adempiere.util.Callback;
 import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.adwindow.CompositeADTabbox;
-import org.adempiere.webui.adwindow.DetailPane;
 import org.adempiere.webui.adwindow.IADTabbox;
 import org.adempiere.webui.adwindow.IADTabpanel;
 import org.adempiere.webui.editor.WEditor;
+import org.adempiere.webui.event.ActionEvent;
+import org.bandahealth.idempiere.base.editor.button.BHProcessButton;
 import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
 import org.compiere.model.GridField;
@@ -19,7 +20,6 @@ import org.compiere.model.StateChangeListener;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.zkoss.zhtml.I;
-import org.zkoss.zhtml.Span;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -55,6 +55,7 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 		String whereClause = MTabNavBtnTab.COLUMNNAME_AD_Tab_ID + "=?";
 		List<MTabNavBtnTab> tabButtonsForTab = new Query(Env.getCtx(), MTabNavBtnTab.Table_Name, whereClause, null)
 				.setParameters(tabId)
+				.setOnlyActiveRecords(true)
 				.list();
 
 		ADWindow window = ADWindow.get(gridField.getWindowNo());
@@ -63,9 +64,27 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 			windowTabs = window.getADWindowContent().getADTab();
 		}
 
+		Div fullDiv = new Div();
+		Div leftDiv = new Div();
+		Div middleDiv = new Div();
+		Div rightDiv = new Div();
+		fullDiv.setSclass("full");
+		leftDiv.setSclass("left");
+		middleDiv.setSclass("middle");
+		rightDiv.setSclass("right");
+
+		layout.appendChild(fullDiv);
+		layout.appendChild(leftDiv);
+		layout.appendChild(middleDiv);
+		layout.appendChild(rightDiv);
+
 		for (MTabNavBtnTab tabButtonForTab : tabButtonsForTab) {
-			Div buttonDiv = new Div();
 			MTabNavBtn tabButton = (MTabNavBtn) tabButtonForTab.getBH_TabNavBtn();
+			if (!tabButton.isActive()) {
+				continue;
+			}
+
+			Div buttonDiv = new Div();
 
 			// Handle overrides, if there are any
 			String buttonIconClassName = tabButtonForTab.getIconClassName();
@@ -83,6 +102,10 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 			String buttonClassName = tabButtonForTab.getButtonClassName();
 			if (buttonClassName == null) {
 				buttonClassName = tabButton.getButtonClassName();
+			}
+			String buttonLocation = tabButtonForTab.getButtonLocation();
+			if (buttonLocation == null) {
+				buttonLocation = tabButton.getButtonLocation();
 			}
 
 			// Do assignments and HTML creation
@@ -143,6 +166,9 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 							}
 						};
 						break;
+					case MTabNavBtn.BUTTONACTION_Process:
+						buttonEvent = getTabProcessEvent(tabButton, window);
+						break;
 					case MTabNavBtn.BUTTONACTION_Save:
 						buttonEvent = new EventListener<Event>() {
 
@@ -156,8 +182,39 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 				buttonDiv.addEventListener(Events.ON_CLICK, buttonEvent);
 			}
 
-			layout.appendChild(buttonDiv);
+			switch (buttonLocation) {
+				case MTabNavBtn.BUTTONLOCATION_Full:
+					fullDiv.appendChild(buttonDiv);
+					break;
+				case MTabNavBtn.BUTTONLOCATION_Left:
+					leftDiv.appendChild(buttonDiv);
+					break;
+				case MTabNavBtn.BUTTONLOCATION_Middle:
+					middleDiv.appendChild(buttonDiv);
+					break;
+				case MTabNavBtn.BUTTONLOCATION_Right:
+					rightDiv.appendChild(buttonDiv);
+					break;
+			}
 		}
+	}
+
+	private EventListener<Event> getTabProcessEvent(MTabNavBtn tabButton, ADWindow window) {
+		return new EventListener<Event>() {
+
+			@Override
+			public void onEvent(Event event) throws Exception {
+				window.getADWindowContent().saveAndNavigate(new Callback<Boolean>() {
+
+					@Override
+					public void onCallback(Boolean result) {
+						ActionEvent runProcessEvent = new ActionEvent(new BHProcessButton(tabButton, window),
+								tabButton.getAD_Column().getName(), Events.ON_CLICK);
+						window.getADWindowContent().actionPerformed(runProcessEvent);
+					}
+				});
+			}
+		};
 	}
 
 	private EventListener<Event> getTabNavigationEvent(int tabID, ADWindow window, IADTabbox windowTabs) {

@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.base.editor;
+package org.bandahealth.idempiere.base.editor.editor;
 
 import java.util.ArrayList;
 import java.util.List;
