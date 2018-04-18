@@ -96,15 +96,21 @@
 		display: flex;
 		justify-content: space-between;
 
-		div.btn {
-			max-width: none;
-			margin-right: 0;
-			flex-grow: 1;
-			text-align: center;
-
-			&:hover {
+		div {
+			&.btn {
 				max-width: none;
 				margin-right: 0;
+				flex-grow: 1;
+				text-align: center;
+
+				&:hover {
+					max-width: none;
+					margin-right: 0;
+				}
+			}
+
+			i {
+				padding-right: 5px;
 			}
 		}
 	}
