@@ -189,6 +189,19 @@ public interface I_BH_TabNavBtn_Tab
 	  */
 	public String getDescription();
 
+    /** Column name DisplayLogic */
+    public static final String COLUMNNAME_DisplayLogic = "DisplayLogic";
+
+	/** Set Display Logic.
+	  * If the Field is displayed, the result determines if the field is actually displayed
+	  */
+	public void setDisplayLogic (String DisplayLogic);
+
+	/** Get Display Logic.
+	  * If the Field is displayed, the result determines if the field is actually displayed
+	  */
+	public String getDisplayLogic();
+
     /** Column name IconClassName */
     public static final String COLUMNNAME_IconClassName = "IconClassName";
 

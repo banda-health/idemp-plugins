@@ -255,6 +255,23 @@ public class X_BH_TabNavBtn_Tab extends PO implements I_BH_TabNavBtn_Tab, I_Pers
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
+	/** Set Display Logic.
+		@param DisplayLogic 
+		If the Field is displayed, the result determines if the field is actually displayed
+	  */
+	public void setDisplayLogic (String DisplayLogic)
+	{
+		set_Value (COLUMNNAME_DisplayLogic, DisplayLogic);
+	}
+
+	/** Get Display Logic.
+		@return If the Field is displayed, the result determines if the field is actually displayed
+	  */
+	public String getDisplayLogic () 
+	{
+		return (String)get_Value(COLUMNNAME_DisplayLogic);
+	}
+
 	/** Set Icon Class Name.
 		@param IconClassName 
 		The class(es) to display the correct Font Awesome icon
