@@ -93,18 +93,44 @@
 	}
 
 	.bh-tab-nav-buttons {
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(100px, 1fr));
+
+		.full {
+			grid-column: start / span 3;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			grid-gap: 5px;
+
+			div {
+				text-align: center;
+			}
+		}
+
+		.left {
+			grid-column-start: 1;
+			display: flex;
+		}
+
+		.middle {
+			grid-column-start: 2;
+			display: flex;
+			justify-content: center;
+		}
+
+		.right {
+			grid-column-start: 3;
+			display: flex;
+			justify-content: flex-end;
+		}
 
 		div {
-			&.btn {
-				max-width: none;
-				margin-right: 0;
-				flex-grow: 1;
+			div.btn {
 				text-align: center;
+				max-width: none;
 
-				&:hover {
-					max-width: none;
+				&:last-child {
 					margin-right: 0;
 				}
 			}
