@@ -41,6 +41,8 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
         {
 			setBH_TabNavBtn_ID (0);
 			setButtonAction (null);
+			setButtonLocation (null);
+// 'R'
 			setName (null);
         } */
     }
@@ -73,6 +75,34 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
       return sb.toString();
     }
 
+	public org.compiere.model.I_AD_Column getAD_Column() throws RuntimeException
+    {
+		return (org.compiere.model.I_AD_Column)MTable.get(getCtx(), org.compiere.model.I_AD_Column.Table_Name)
+			.getPO(getAD_Column_ID(), get_TrxName());	}
+
+	/** Set Column.
+		@param AD_Column_ID 
+		Column in the table
+	  */
+	public void setAD_Column_ID (int AD_Column_ID)
+	{
+		if (AD_Column_ID < 1) 
+			set_Value (COLUMNNAME_AD_Column_ID, null);
+		else 
+			set_Value (COLUMNNAME_AD_Column_ID, Integer.valueOf(AD_Column_ID));
+	}
+
+	/** Get Column.
+		@return Column in the table
+	  */
+	public int getAD_Column_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Column_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	public org.compiere.model.I_AD_Tab getAD_Tab() throws RuntimeException
     {
 		return (org.compiere.model.I_AD_Tab)MTable.get(getCtx(), org.compiere.model.I_AD_Tab.Table_Name)
@@ -96,6 +126,34 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
 	public int getAD_Tab_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Tab_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.compiere.model.I_AD_Table getAD_Table() throws RuntimeException
+    {
+		return (org.compiere.model.I_AD_Table)MTable.get(getCtx(), org.compiere.model.I_AD_Table.Table_Name)
+			.getPO(getAD_Table_ID(), get_TrxName());	}
+
+	/** Set Table.
+		@param AD_Table_ID 
+		Database Table information
+	  */
+	public void setAD_Table_ID (int AD_Table_ID)
+	{
+		if (AD_Table_ID < 1) 
+			set_Value (COLUMNNAME_AD_Table_ID, null);
+		else 
+			set_Value (COLUMNNAME_AD_Table_ID, Integer.valueOf(AD_Table_ID));
+	}
+
+	/** Get Table.
+		@return Database Table information
+	  */
+	public int getAD_Table_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Table_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -225,6 +283,32 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
 	public String getButtonHelpText () 
 	{
 		return (String)get_Value(COLUMNNAME_ButtonHelpText);
+	}
+
+	/** Left = L */
+	public static final String BUTTONLOCATION_Left = "L";
+	/** Middle = M */
+	public static final String BUTTONLOCATION_Middle = "M";
+	/** Right = R */
+	public static final String BUTTONLOCATION_Right = "R";
+	/** Full = F */
+	public static final String BUTTONLOCATION_Full = "F";
+	/** Set Button Location.
+		@param ButtonLocation 
+		The position of this button on the screen
+	  */
+	public void setButtonLocation (String ButtonLocation)
+	{
+
+		set_Value (COLUMNNAME_ButtonLocation, ButtonLocation);
+	}
+
+	/** Get Button Location.
+		@return The position of this button on the screen
+	  */
+	public String getButtonLocation () 
+	{
+		return (String)get_Value(COLUMNNAME_ButtonLocation);
 	}
 
 	/** Set Button Text.

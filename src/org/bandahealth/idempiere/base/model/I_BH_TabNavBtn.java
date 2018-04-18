@@ -51,6 +51,21 @@ public interface I_BH_TabNavBtn
 	  */
 	public int getAD_Client_ID();
 
+    /** Column name AD_Column_ID */
+    public static final String COLUMNNAME_AD_Column_ID = "AD_Column_ID";
+
+	/** Set Column.
+	  * Column in the table
+	  */
+	public void setAD_Column_ID (int AD_Column_ID);
+
+	/** Get Column.
+	  * Column in the table
+	  */
+	public int getAD_Column_ID();
+
+	public org.compiere.model.I_AD_Column getAD_Column() throws RuntimeException;
+
     /** Column name AD_Org_ID */
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
@@ -78,6 +93,21 @@ public interface I_BH_TabNavBtn
 	public int getAD_Tab_ID();
 
 	public org.compiere.model.I_AD_Tab getAD_Tab() throws RuntimeException;
+
+    /** Column name AD_Table_ID */
+    public static final String COLUMNNAME_AD_Table_ID = "AD_Table_ID";
+
+	/** Set Table.
+	  * Database Table information
+	  */
+	public void setAD_Table_ID (int AD_Table_ID);
+
+	/** Get Table.
+	  * Database Table information
+	  */
+	public int getAD_Table_ID();
+
+	public org.compiere.model.I_AD_Table getAD_Table() throws RuntimeException;
 
     /** Column name AD_Window_ID */
     public static final String COLUMNNAME_AD_Window_ID = "AD_Window_ID";
@@ -150,6 +180,19 @@ public interface I_BH_TabNavBtn
 	  * The text displayed when a user hovers over the button
 	  */
 	public String getButtonHelpText();
+
+    /** Column name ButtonLocation */
+    public static final String COLUMNNAME_ButtonLocation = "ButtonLocation";
+
+	/** Set Button Location.
+	  * The position of this button on the screen
+	  */
+	public void setButtonLocation (String ButtonLocation);
+
+	/** Get Button Location.
+	  * The position of this button on the screen
+	  */
+	public String getButtonLocation();
 
     /** Column name ButtonText */
     public static final String COLUMNNAME_ButtonText = "ButtonText";

@@ -195,6 +195,32 @@ public class X_BH_TabNavBtn_Tab extends PO implements I_BH_TabNavBtn_Tab, I_Pers
 		return (String)get_Value(COLUMNNAME_ButtonHelpText);
 	}
 
+	/** Left = L */
+	public static final String BUTTONLOCATION_Left = "L";
+	/** Middle = M */
+	public static final String BUTTONLOCATION_Middle = "M";
+	/** Right = R */
+	public static final String BUTTONLOCATION_Right = "R";
+	/** Full = F */
+	public static final String BUTTONLOCATION_Full = "F";
+	/** Set Button Location.
+		@param ButtonLocation 
+		The position of this button on the screen
+	  */
+	public void setButtonLocation (String ButtonLocation)
+	{
+
+		set_Value (COLUMNNAME_ButtonLocation, ButtonLocation);
+	}
+
+	/** Get Button Location.
+		@return The position of this button on the screen
+	  */
+	public String getButtonLocation () 
+	{
+		return (String)get_Value(COLUMNNAME_ButtonLocation);
+	}
+
 	/** Set Button Text.
 		@param ButtonText 
 		The text displayed in the button

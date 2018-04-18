@@ -134,6 +134,19 @@ public interface I_BH_TabNavBtn_Tab
 	  */
 	public String getButtonHelpText();
 
+    /** Column name ButtonLocation */
+    public static final String COLUMNNAME_ButtonLocation = "ButtonLocation";
+
+	/** Set Button Location.
+	  * The position of this button on the screen
+	  */
+	public void setButtonLocation (String ButtonLocation);
+
+	/** Get Button Location.
+	  * The position of this button on the screen
+	  */
+	public String getButtonLocation();
+
     /** Column name ButtonText */
     public static final String COLUMNNAME_ButtonText = "ButtonText";
 
