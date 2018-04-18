@@ -20,6 +20,8 @@ public class OrderLineExpiration implements IColumnCallout {
 				MProduct_BH product = new MProduct_BH(Env.getCtx(), productId, null);
 				if (!product.hasExpiration()) {
 					mTab.getField(MOrderLine_BH.COLUMNNAME_BH_Expiration).setDisplayed(false);
+				} else {
+					mTab.getField(MOrderLine_BH.COLUMNNAME_BH_Expiration).setDisplayed(true);
 				}
 			}
 		}
