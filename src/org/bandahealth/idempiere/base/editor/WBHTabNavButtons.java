@@ -58,7 +58,11 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 				.list();
 
 		ADWindow window = ADWindow.get(gridField.getWindowNo());
-		IADTabbox windowTabs = window.getADWindowContent().getADTab();
+		IADTabbox potentialWindowTabs = null;
+		if (window != null && window.getADWindowContent() != null) {
+			potentialWindowTabs = window.getADWindowContent().getADTab();
+		}
+		final IADTabbox windowTabs = potentialWindowTabs;
 
 		for (MTabNavBtnTab tabButton : tabButtons) {
 			Div buttonDiv = new Div();
@@ -79,37 +83,39 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 
 			buttonDiv.setSclass(buttonInfo.getButtonClassName());
 
-			buttonDiv.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
+			if (windowTabs != null) {
+				buttonDiv.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 
-				@Override
-				public void onEvent(Event event) throws Exception {
-					if (event.getName().equals(Events.ON_CLICK) && event.getTarget() instanceof Div) {
-						int associatedTabIndex = -1;
-						// This loop must be here instead of outside the event because the tab count changes depending
-						// on when this is called in the Window load process
-						int totalNumberOfTabs = windowTabs.getTabCount();
-						for (int i = 0; i < totalNumberOfTabs; i++) {
-							IADTabpanel potentialTab = windowTabs.getADTabpanel(i);
-							if (buttonInfo.getAD_Tab_ID() == potentialTab.getGridTab().getAD_Tab_ID()) {
-								associatedTabIndex = i;
-								break;
+					@Override
+					public void onEvent(Event event) throws Exception {
+						if (event.getName().equals(Events.ON_CLICK) && event.getTarget() instanceof Div) {
+							int associatedTabIndex = -1;
+							// This loop must be here instead of outside the event because the tab count changes depending
+							// on when this is called in the Window load process
+							int totalNumberOfTabs = windowTabs.getTabCount();
+							for (int i = 0; i < totalNumberOfTabs; i++) {
+								IADTabpanel potentialTab = windowTabs.getADTabpanel(i);
+								if (buttonInfo.getAD_Tab_ID() == potentialTab.getGridTab().getAD_Tab_ID()) {
+									associatedTabIndex = i;
+									break;
+								}
 							}
+							final int tabIndexToNavigateTo = associatedTabIndex;
+
+							window.getADWindowContent().saveAndNavigate(new Callback<Boolean>() {
+
+								@Override
+								public void onCallback(Boolean result) {
+									Event tabSelectionChanged = new Event(CompositeADTabbox.ON_SELECTION_CHANGED_EVENT,
+											null,
+											new Object[] { windowTabs.getSelectedIndex(), tabIndexToNavigateTo });
+									window.getADWindowContent().onEvent(tabSelectionChanged);
+								}
+							});
 						}
-						final int tabIndexToNavigateTo = associatedTabIndex;
-
-						window.getADWindowContent().saveAndNavigate(new Callback<Boolean>() {
-
-							@Override
-							public void onCallback(Boolean result) {
-								Event tabSelectionChanged = new Event(CompositeADTabbox.ON_SELECTION_CHANGED_EVENT,
-										null,
-										new Object[]{windowTabs.getSelectedIndex(), tabIndexToNavigateTo});
-								window.getADWindowContent().onEvent(tabSelectionChanged);
-							}
-						});
 					}
-				}
-			});
+				});
+			}
 
 			layout.appendChild(buttonDiv);
 		}
