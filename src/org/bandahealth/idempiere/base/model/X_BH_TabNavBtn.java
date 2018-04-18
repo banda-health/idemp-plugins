@@ -31,7 +31,7 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180417L;
+	private static final long serialVersionUID = 20180418L;
 
     /** Standard Constructor */
     public X_BH_TabNavBtn (Properties ctx, int BH_TabNavBtn_ID, String trxName)
@@ -40,6 +40,7 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
       /** if (BH_TabNavBtn_ID == 0)
         {
 			setBH_TabNavBtn_ID (0);
+			setButtonAction (null);
 			setName (null);
         } */
     }
@@ -160,6 +161,36 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
 	public String getBH_TabNavBtn_UU () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_TabNavBtn_UU);
+	}
+
+	/** Navigation = G */
+	public static final String BUTTONACTION_Navigation = "G";
+	/** Save = S */
+	public static final String BUTTONACTION_Save = "S";
+	/** Delete = D */
+	public static final String BUTTONACTION_Delete = "D";
+	/** New = N */
+	public static final String BUTTONACTION_New = "N";
+	/** Copy = C */
+	public static final String BUTTONACTION_Copy = "C";
+	/** Cancel = U */
+	public static final String BUTTONACTION_Cancel = "U";
+	/** Set Button Action.
+		@param ButtonAction 
+		The action this button will perform
+	  */
+	public void setButtonAction (String ButtonAction)
+	{
+
+		set_Value (COLUMNNAME_ButtonAction, ButtonAction);
+	}
+
+	/** Get Button Action.
+		@return The action this button will perform
+	  */
+	public String getButtonAction () 
+	{
+		return (String)get_Value(COLUMNNAME_ButtonAction);
 	}
 
 	/** Set Button Class Name.

@@ -112,6 +112,19 @@ public interface I_BH_TabNavBtn
 	/** Get BH_TabNavBtn_UU	  */
 	public String getBH_TabNavBtn_UU();
 
+    /** Column name ButtonAction */
+    public static final String COLUMNNAME_ButtonAction = "ButtonAction";
+
+	/** Set Button Action.
+	  * The action this button will perform
+	  */
+	public void setButtonAction (String ButtonAction);
+
+	/** Get Button Action.
+	  * The action this button will perform
+	  */
+	public String getButtonAction();
+
     /** Column name ButtonClassName */
     public static final String COLUMNNAME_ButtonClassName = "ButtonClassName";
 

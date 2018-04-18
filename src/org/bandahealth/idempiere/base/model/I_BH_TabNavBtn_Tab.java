@@ -108,6 +108,45 @@ public interface I_BH_TabNavBtn_Tab
 	/** Get BH_TabNavBtn_Tab_UU	  */
 	public String getBH_TabNavBtn_Tab_UU();
 
+    /** Column name ButtonClassName */
+    public static final String COLUMNNAME_ButtonClassName = "ButtonClassName";
+
+	/** Set Button Class Name.
+	  * The class(es) the button will have
+	  */
+	public void setButtonClassName (String ButtonClassName);
+
+	/** Get Button Class Name.
+	  * The class(es) the button will have
+	  */
+	public String getButtonClassName();
+
+    /** Column name ButtonHelpText */
+    public static final String COLUMNNAME_ButtonHelpText = "ButtonHelpText";
+
+	/** Set Button Help Text.
+	  * The text displayed when a user hovers over the button
+	  */
+	public void setButtonHelpText (String ButtonHelpText);
+
+	/** Get Button Help Text.
+	  * The text displayed when a user hovers over the button
+	  */
+	public String getButtonHelpText();
+
+    /** Column name ButtonText */
+    public static final String COLUMNNAME_ButtonText = "ButtonText";
+
+	/** Set Button Text.
+	  * The text displayed in the button
+	  */
+	public void setButtonText (String ButtonText);
+
+	/** Get Button Text.
+	  * The text displayed in the button
+	  */
+	public String getButtonText();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -136,6 +175,19 @@ public interface I_BH_TabNavBtn_Tab
 	  * Optional short description of the record
 	  */
 	public String getDescription();
+
+    /** Column name IconClassName */
+    public static final String COLUMNNAME_IconClassName = "IconClassName";
+
+	/** Set Icon Class Name.
+	  * The class(es) to display the correct Font Awesome icon
+	  */
+	public void setIconClassName (String IconClassName);
+
+	/** Get Icon Class Name.
+	  * The class(es) to display the correct Font Awesome icon
+	  */
+	public String getIconClassName();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";

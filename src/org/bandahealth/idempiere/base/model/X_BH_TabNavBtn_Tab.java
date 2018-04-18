@@ -31,7 +31,7 @@ public class X_BH_TabNavBtn_Tab extends PO implements I_BH_TabNavBtn_Tab, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180417L;
+	private static final long serialVersionUID = 20180418L;
 
     /** Standard Constructor */
     public X_BH_TabNavBtn_Tab (Properties ctx, int BH_TabNavBtn_Tab_ID, String trxName)
@@ -161,6 +161,57 @@ public class X_BH_TabNavBtn_Tab extends PO implements I_BH_TabNavBtn_Tab, I_Pers
 		return (String)get_Value(COLUMNNAME_BH_TabNavBtn_Tab_UU);
 	}
 
+	/** Set Button Class Name.
+		@param ButtonClassName 
+		The class(es) the button will have
+	  */
+	public void setButtonClassName (String ButtonClassName)
+	{
+		set_Value (COLUMNNAME_ButtonClassName, ButtonClassName);
+	}
+
+	/** Get Button Class Name.
+		@return The class(es) the button will have
+	  */
+	public String getButtonClassName () 
+	{
+		return (String)get_Value(COLUMNNAME_ButtonClassName);
+	}
+
+	/** Set Button Help Text.
+		@param ButtonHelpText 
+		The text displayed when a user hovers over the button
+	  */
+	public void setButtonHelpText (String ButtonHelpText)
+	{
+		set_Value (COLUMNNAME_ButtonHelpText, ButtonHelpText);
+	}
+
+	/** Get Button Help Text.
+		@return The text displayed when a user hovers over the button
+	  */
+	public String getButtonHelpText () 
+	{
+		return (String)get_Value(COLUMNNAME_ButtonHelpText);
+	}
+
+	/** Set Button Text.
+		@param ButtonText 
+		The text displayed in the button
+	  */
+	public void setButtonText (String ButtonText)
+	{
+		set_Value (COLUMNNAME_ButtonText, ButtonText);
+	}
+
+	/** Get Button Text.
+		@return The text displayed in the button
+	  */
+	public String getButtonText () 
+	{
+		return (String)get_Value(COLUMNNAME_ButtonText);
+	}
+
 	/** Set Description.
 		@param Description 
 		Optional short description of the record
@@ -176,6 +227,23 @@ public class X_BH_TabNavBtn_Tab extends PO implements I_BH_TabNavBtn_Tab, I_Pers
 	public String getDescription () 
 	{
 		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set Icon Class Name.
+		@param IconClassName 
+		The class(es) to display the correct Font Awesome icon
+	  */
+	public void setIconClassName (String IconClassName)
+	{
+		set_Value (COLUMNNAME_IconClassName, IconClassName);
+	}
+
+	/** Get Icon Class Name.
+		@return The class(es) to display the correct Font Awesome icon
+	  */
+	public String getIconClassName () 
+	{
+		return (String)get_Value(COLUMNNAME_IconClassName);
 	}
 
 	/** Set Name.
