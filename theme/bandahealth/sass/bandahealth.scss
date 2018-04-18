@@ -8,10 +8,7 @@
 .bh {
 	@import '_openmrs.scss';
 	@import '_hacks.scss';
-
-	.center {
-		text-align: center;
-	}
+	@import '_common.scss';
 
 	.btn {
 		@extend %button;
@@ -28,11 +25,6 @@
 			}
 		}
 	}
-
-	.center-vertical {
-		vertical-align: center;
-	}
-
 	.bh-button-group-header {
 		padding: 5px;
 		border-bottom: 1px solid #ccc;
@@ -814,6 +806,12 @@
 					@extend %primary-hover;
 				}
 			}
+		}
+	}
+
+	&.no-tabs-present {
+		.z-south-collapsed {
+			@extend %hide-element;
 		}
 	}
 }

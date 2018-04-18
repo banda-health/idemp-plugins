@@ -1,0 +1,13 @@
+@import '_extenders.scss';
+
+.center {
+	text-align: center;
+}
+
+.center-vertical {
+	vertical-align: center;
+}
+
+.hide {
+	@extend %hide-element;
+}

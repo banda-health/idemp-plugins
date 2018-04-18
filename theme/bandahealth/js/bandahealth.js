@@ -76,10 +76,13 @@ function BandaHealth($) {
 		BH: 'bh',
 		ORGANIZATION: 'organization',
 		CLIENT: 'client',
-		SYSTEM: 'system'
+		SYSTEM: 'system',
+		NO_TABS_PRESENT: 'no-tabs-present'
 	};
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
+	let userClosedTheDetailPane = false;
+	let isTabDetailPaneProgrammaticallyTriggered = false;
 
 	self.initPage = (function initPageScope() {
 		let initPageHasRun = false;
@@ -206,19 +209,20 @@ function BandaHealth($) {
 	function addDomObservationMethods() {
 		executeFunctionWhenElementPresent('.z-tabpanels', function createDetailPaneObserver() {
 			let detailPaneObserver = new DomObserver(document.querySelector('.z-tabpanels'), function displayTabsIfPresent() {
-				let closeTabPaneButton = document.querySelector('.z-south-splitter-button .z-icon-caret-down');
-				let openTabPaneButton = document.querySelector('.z-south-collapsed .z-icon-chevron-up');
-				if (!closeTabPaneButton || !openTabPaneButton) {
-					console.log('pane buttons aren\'t present');
-					console.log('close tab pane button present: ' + (closeTabPaneButton ? 'yes' : 'no'));
-					console.log('open tab pane button present: ' + (openTabPaneButton ? 'yes' : 'no'));
+				// Don't do any of this if we're the system user
+				let bodyTag = document.querySelector('body');
+				if (bodyTag.classList.contains(classNames.SYSTEM)) {
 					return;
 				}
 
-				if (!areAnyTabsVisisble() && elementIsVisible(closeTabPaneButton)) {
-					closeTabPaneButton.click();
-				} else if (areAnyTabsVisisble() && !elementIsVisible(closeTabPaneButton)) {
-					openTabPaneButton.click();
+				if (!areAnyTabsVisisble()) {
+					addBodyClassName(classNames.NO_TABS_PRESENT);
+					isTabDetailPaneProgrammaticallyTriggered = true;
+					closeTabDetailPane();
+				} else if (areAnyTabsVisisble()) {
+					removeBodyClassName(classNames.NO_TABS_PRESENT);
+					isTabDetailPaneProgrammaticallyTriggered = true;
+					openTabDetailPane();
 				}
 
 				function areAnyTabsVisisble() {
@@ -244,8 +248,15 @@ function BandaHealth($) {
 		}
 	}
 
+	function closeTabDetailPane() {
+		let closeTabDetailPaneButton = document.querySelector('.z-south-splitter-button .z-icon-caret-down');
+		if (elementIsVisible(closeTabDetailPaneButton)) {
+			closeTabDetailPaneButton.click();
+		}
+	}
+
 	function elementIsVisible(element) {
-		return element.offsetParent !== null;
+		return element && element.offsetParent !== null;
 	}
 
 	function executeFunctionWhenElementPresent(querySelector, functionToExecute) {
@@ -307,6 +318,16 @@ function BandaHealth($) {
 				hasHashChangedDueToClick = true;
 				window.location.hash = clickedTd.id;
 			}
+		} else if (userClosedTheDetailPane()) {
+			if (!isTabDetailPaneProgrammaticallyTriggered) {
+				userClosedTheDetailPane = true;
+			}
+			isTabDetailPaneProgrammaticallyTriggered = false;
+		} else if (userOpenedTheDetailPane()) {
+			if (!isTabDetailPaneProgrammaticallyTriggered) {
+				userClosedTheDetailPane = false;
+			}
+			isTabDetailPaneProgrammaticallyTriggered = false;
 		}
 
 		return;
@@ -373,6 +394,18 @@ function BandaHealth($) {
 
 			return targetIsBigButton || targetIsIconButton;
 		}
+
+		function userClosedTheDetailPane() {
+			return e.target.classList.contains('z-icon-caret-down')
+				&& e.target.parentNode.classList.contains('z-south-splitter-button')
+				|| e.target.classList.contains('z-south-splitter-button');
+		}
+
+		function userOpenedTheDetailPane() {
+			return e.target.classList.contains('z-icon-chevron-up')
+				&& e.target.parentNode.classList.contains('z-south-collapsed')
+				|| e.target.classList.contains('z-south-collapsed');
+		}
 	}
 
 	function handleNavigation(e) {
@@ -411,6 +444,13 @@ function BandaHealth($) {
 			document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
 				+ 'td:last-child a').click();
 		});
+	}
+
+	function openTabDetailPane() {
+		let openTabDetailPaneButton = document.querySelector('.z-south-collapsed .z-icon-chevron-up');
+		if (!elementIsVisible(openTabDetailPaneButton) && !userClosedTheDetailPane) {
+			openTabDetailPaneButton.click();
+		}
 	}
 
 	function removeBodyClassName() {
