@@ -10,8 +10,8 @@ import org.compiere.model.MInventoryLine;
 
 public class MInventoryLine_BH extends MInventoryLine {
 
-	private static final long serialVersionUID = 1L;
 	public static final String COLUMNNAME_BH_Expiration = "BH_Expiration";
+	private static final long serialVersionUID = 1L;
 
 	public MInventoryLine_BH(MInventory inventory, int M_Locator_ID, int M_Product_ID, int M_AttributeSetInstance_ID,
 			BigDecimal QtyBook, BigDecimal QtyCount, BigDecimal QtyInternalUse) {
@@ -32,22 +32,21 @@ public class MInventoryLine_BH extends MInventoryLine {
 	}
 
 	/**
-	 * Set Expire On.
-	 * 
-	 * @param BH_Expiration
-	 *            Expire On
-	 */
-	public void setBH_Expiration(Timestamp BH_Expiration) {
-		set_Value(COLUMNNAME_BH_Expiration, BH_Expiration);
-	}
-
-	/**
 	 * Get Expire On.
-	 * 
+	 *
 	 * @return Expire On
 	 */
 	public Timestamp getBH_Expiration() {
 		return (Timestamp) get_Value(COLUMNNAME_BH_Expiration);
+	}
+
+	/**
+	 * Set Expire On.
+	 *
+	 * @param BH_Expiration Expire On
+	 */
+	public void setBH_Expiration(Timestamp BH_Expiration) {
+		set_Value(COLUMNNAME_BH_Expiration, BH_Expiration);
 	}
 
 }

@@ -9,6 +9,11 @@ import org.compiere.model.MOrderLine;
 
 public class MOrderLine_BH extends MOrderLine {
 
+	/**
+	 * Column name BH_Expiration
+	 */
+	public static final String COLUMNNAME_BH_Expiration = "BH_Expiration";
+
 	public MOrderLine_BH(MOrder order) {
 		super(order);
 	}
@@ -21,23 +26,21 @@ public class MOrderLine_BH extends MOrderLine {
 		super(ctx, rs, trxName);
 	}
 
-	/** Column name BH_Expiration */
-	public static final String COLUMNNAME_BH_Expiration = "BH_Expiration";
-
-	/** Set Expire On.
-	 @param BH_Expiration
-	 Expire On
+	/**
+	 * Get Expire On.
+	 *
+	 * @return Expire On
 	 */
-	public void setBH_Expiration (Timestamp BH_Expiration)
-	{
-		set_Value (COLUMNNAME_BH_Expiration, BH_Expiration);
+	public Timestamp getBH_Expiration() {
+		return (Timestamp) get_Value(COLUMNNAME_BH_Expiration);
 	}
 
-	/** Get Expire On.
-	 @return Expire On
+	/**
+	 * Set Expire On.
+	 *
+	 * @param BH_Expiration Expire On
 	 */
-	public Timestamp getBH_Expiration ()
-	{
-		return (Timestamp)get_Value(COLUMNNAME_BH_Expiration);
+	public void setBH_Expiration(Timestamp BH_Expiration) {
+		set_Value(COLUMNNAME_BH_Expiration, BH_Expiration);
 	}
 }

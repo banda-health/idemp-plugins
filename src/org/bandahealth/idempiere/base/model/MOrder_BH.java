@@ -8,6 +8,11 @@ import org.compiere.model.MProject;
 
 public class MOrder_BH extends MOrder {
 
+	/**
+	 * Column name BH_Payments
+	 */
+	public static final String COLUMNNAME_BH_Payments = "BH_Payments";
+
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
 		super(ctx, C_Order_ID, trxName);
 	}
@@ -20,20 +25,21 @@ public class MOrder_BH extends MOrder {
 		super(ctx, rs, trxName);
 	}
 
-	/** Column name BH_Payments */
-	public static final String COLUMNNAME_BH_Payments = "BH_Payments";
-
-	/** Set Payments.
-	 @param BH_Payments Payments	  */
-	public void setBH_Payments (Object BH_Payments)
-	{
-		set_Value (COLUMNNAME_BH_Payments, BH_Payments);
+	/**
+	 * Get Payments.
+	 *
+	 * @return Payments
+	 */
+	public Object getBH_Payments() {
+		return get_Value(COLUMNNAME_BH_Payments);
 	}
 
-	/** Get Payments.
-	 @return Payments	  */
-	public Object getBH_Payments ()
-	{
-		return get_Value(COLUMNNAME_BH_Payments);
+	/**
+	 * Set Payments.
+	 *
+	 * @param BH_Payments Payments
+	 */
+	public void setBH_Payments(Object BH_Payments) {
+		set_Value(COLUMNNAME_BH_Payments, BH_Payments);
 	}
 }
