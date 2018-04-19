@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BH Editor
+Bundle-SymbolicName: org.bandahealth.idempiere.base.editor;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/*.xml
+Require-Bundle: org.adempiere.base;bundle-version="5.1.0",
+ org.adempiere.plugin.utils;bundle-version="5.1.0",
+ org.adempiere.ui.zk;bundle-version="5.1.0",
+ org.bandahealth.idempiere.base;bundle-version="1.0.0",
+ zk;bundle-version="8.0.2",
+ zhtml;bundle-version="8.0.2",
+ zul;bundle-version="8.0.2"
