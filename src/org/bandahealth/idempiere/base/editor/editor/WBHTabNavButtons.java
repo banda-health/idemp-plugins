@@ -141,10 +141,10 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 						String currentClass = buttonDiv.getSclass();
 						BHButtonEvaluatee buttonEvaluatee = new BHButtonEvaluatee(gridTab);
 						if (Evaluator.evaluateLogic(buttonEvaluatee, displayLogic)) {
-							currentClass = currentClass.replaceAll("\\shide", "");
+							currentClass = currentClass.replaceAll("\\sgone", "");
 							buttonDiv.setSclass(currentClass);
 						} else {
-							currentClass += " hide";
+							currentClass += " gone";
 							buttonDiv.setSclass(currentClass);
 						}
 					}
