@@ -55,6 +55,12 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 	 * @param orderLine
 	 */
 	private void beforeSaveRequest(MOrderLine_BH orderLine) {
+		if (!orderLine.getC_Order().isSOTrx()) {
+			receiveGoodsBeforeSaveRequest(orderLine);
+		}
+	}
+
+	private void receiveGoodsBeforeSaveRequest(MOrderLine_BH orderLine) {
 		int attributeSetInstanceId = QueryUtil.createExpirationDateAttributeInstance(
 				orderLine.getM_AttributeSetInstance_ID(), orderLine.getBH_Expiration(), orderLine.get_TrxName());
 		if (attributeSetInstanceId > 0) {
