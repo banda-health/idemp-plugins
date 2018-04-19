@@ -163,7 +163,7 @@
 				justify-content: flex-end;
 
 				.z-separator {
-					@extend %hide-element;
+					@extend %remove-element;
 				}
 			}
 
@@ -183,7 +183,7 @@
 				&:nth-child(n+16):nth-child(-n+50),
 				&.disableFilter,
 				img {
-					@extend %hide-element;
+					@extend %remove-element;
 				}
 
 				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11), &:nth-child(15) {
@@ -194,7 +194,7 @@
 						width: auto;
 
 						img {
-							@extend %hide-element;
+							@extend %remove-element;
 						}
 					}
 
@@ -325,7 +325,7 @@
 		}
 
 		.adwindow-breadcrumb > div {
-			@extend %hide-element;
+			@extend %remove-element;
 		}
 
 		.adwindow-detailpane {
@@ -354,7 +354,7 @@
 							text-shadow: none;
 
 							img {
-								@extend %hide-element;
+								@extend %remove-element;
 							}
 
 							&:before {
@@ -364,7 +364,7 @@
 						}
 
 						&.disableFilter {
-							@extend %hide-element;
+							@extend %remove-element;
 						}
 
 						&:after {
@@ -373,7 +373,7 @@
 						}
 
 						&:nth-child(5) {
-							@extend %hide-element;
+							@extend %remove-element;
 						}
 
 						&:nth-child(1), &:nth-child(4) {
@@ -461,7 +461,7 @@
 
 		.dashboard-widget {
 			.z-panel-head {
-				@extend %hide-element;
+				@extend %remove-element;
 			}
 
 			.bh-dashboard-panel {
@@ -475,12 +475,12 @@
 		}
 
 		.desktop-header-popup {
-			@extend %hide-element;
+			@extend %remove-element;
 		}
 
 		.desktop-layout {
 			.z-west, .z-west-splitter, .z-west-collapsed {
-				@extend %hide-element;
+				@extend %remove-element;
 			}
 
 			.desktop-center {
@@ -522,7 +522,7 @@
 						@include border-radius(0);
 
 						&:nth-last-child(2), .z-tab-button, .z-tab-image {
-							@extend %hide-element;
+							@extend %remove-element;
 						}
 
 						&:nth-child(3) span {
@@ -564,7 +564,7 @@
 					border: 1px solid transparent;
 
 					&:not(:last-child)  {
-						@extend %hide-element;
+						@extend %remove-element;
 					}
 
 					i {
@@ -582,7 +582,7 @@
 							width: auto;
 
 							img {
-								@extend %hide-element;
+								@extend %remove-element;
 							}
 
 							&:before {
@@ -625,14 +625,14 @@
 
 			.z-tabs-content {
 				li:last-child {
-					@extend %hide-element;
+					@extend %remove-element;
 				}
 			}
 
 			& > .z-window-content {
 				& > .z-vlayout {
 					& > .z-vlayout-inner:first-child {
-						@extend %hide-element;
+						@extend %remove-element;
 					}
 				}
 			}
@@ -653,7 +653,7 @@
 				table {
 					.z-hbox {
 						img[src*="question"] {
-							@extend %hide-element;
+							@extend %remove-element;
 						}
 
 						& > tbody > tr > td > table > tbody > tr > td:first-child {
@@ -684,7 +684,7 @@
 				}
 
 				img {
-					@extend %hide-element;
+					@extend %remove-element;
 				}
 			}
 
@@ -810,6 +810,10 @@
 	}
 
 	&.no-tabs-present {
+		.adtab-form-borderlayout {
+			background: none;
+		}
+
 		.z-south-collapsed {
 			@extend %hide-element;
 		}

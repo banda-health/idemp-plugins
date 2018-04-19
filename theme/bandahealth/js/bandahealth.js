@@ -81,7 +81,7 @@ function BandaHealth($) {
 	};
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
-	let userClosedTheDetailPane = false;
+	let didUserCloseTheDetailPane = false;
 	let isTabDetailPaneProgrammaticallyTriggered = false;
 
 	self.initPage = (function initPageScope() {
@@ -215,31 +215,30 @@ function BandaHealth($) {
 					return;
 				}
 
-				if (!areAnyTabsVisisble()) {
+				let bodyTagClasses = document.querySelector('body').classList;
+				if (!areAnyTabsVisisble() && !bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
 					addBodyClassName(classNames.NO_TABS_PRESENT);
-					isTabDetailPaneProgrammaticallyTriggered = true;
 					closeTabDetailPane();
-				} else if (areAnyTabsVisisble()) {
+				} else if (areAnyTabsVisisble() && bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
 					removeBodyClassName(classNames.NO_TABS_PRESENT);
-					isTabDetailPaneProgrammaticallyTriggered = true;
 					openTabDetailPane();
-				}
-
-				function areAnyTabsVisisble() {
-					let tabs = document.querySelectorAll('.adwindow-detailpane-tabbox .z-tabs-content li');
-					if (tabs.length === 0) {
-						return false;
-					}
-					for (let i = 0; i < tabs.length; i++) {
-						// If an element has the class z-tab-selected, at least one is visible
-						if (tabs[i].classList.contains('z-tab-selected')) {
-							return true;
-						}
-					}
-					return false;
 				}
 			});
 		});
+
+		function areAnyTabsVisisble() {
+			let tabs = document.querySelectorAll('.adwindow-detailpane-tabbox .z-tabs-content li');
+			if (tabs.length === 0) {
+				return false;
+			}
+			for (let i = 0; i < tabs.length; i++) {
+				// If an element has the class z-tab-selected, at least one is visible
+				if (tabs[i].classList.contains('z-tab-selected')) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 
 	function closeSelectedTab() {
@@ -251,6 +250,7 @@ function BandaHealth($) {
 	function closeTabDetailPane() {
 		let closeTabDetailPaneButton = document.querySelector('.z-south-splitter-button .z-icon-caret-down');
 		if (elementIsVisible(closeTabDetailPaneButton)) {
+			isTabDetailPaneProgrammaticallyTriggered = true;
 			closeTabDetailPaneButton.click();
 		}
 	}
@@ -319,18 +319,23 @@ function BandaHealth($) {
 				window.location.hash = clickedTd.id;
 			}
 		} else if (userClosedTheDetailPane()) {
-			if (!isTabDetailPaneProgrammaticallyTriggered) {
-				userClosedTheDetailPane = true;
-			}
-			isTabDetailPaneProgrammaticallyTriggered = false;
+			didUserCloseTheDetailPane = true;
 		} else if (userOpenedTheDetailPane()) {
-			if (!isTabDetailPaneProgrammaticallyTriggered) {
-				userClosedTheDetailPane = false;
+			didUserCloseTheDetailPane = false;
+		} else if (clickWasOnDetailPaneExpander()) {
+			if (document.querySelector('body').classList.contains(classNames.NO_TABS_PRESENT)) {
+				e.preventDefault();
+				return false;
 			}
-			isTabDetailPaneProgrammaticallyTriggered = false;
 		}
 
 		return;
+
+		function clickWasOnDetailPaneExpander() {
+			return e.target.classList.contains('z-icon-chevron-up')
+				&& e.target.parentNode.classList.contains('z-south-collapsed')
+				|| e.target.classList.contains('z-south-collapsed');
+		}
 
 		function userClickedDetailPaneTab() {
 			let greatGrandparent = ((e.target.parentNode || {}).parentNode || {}).parentNode || {};
@@ -396,15 +401,28 @@ function BandaHealth($) {
 		}
 
 		function userClosedTheDetailPane() {
-			return e.target.classList.contains('z-icon-caret-down')
+			let wasClickOnTheCloseButton = e.target.classList.contains('z-icon-caret-down')
 				&& e.target.parentNode.classList.contains('z-south-splitter-button')
 				|| e.target.classList.contains('z-south-splitter-button');
+			if (!wasClickOnTheCloseButton) {
+				return false;
+			}
+			if (isTabDetailPaneProgrammaticallyTriggered) {
+				isTabDetailPaneProgrammaticallyTriggered = false;
+				return false;
+			}
+			return true;
 		}
 
 		function userOpenedTheDetailPane() {
-			return e.target.classList.contains('z-icon-chevron-up')
-				&& e.target.parentNode.classList.contains('z-south-collapsed')
-				|| e.target.classList.contains('z-south-collapsed');
+			if (!clickWasOnDetailPaneExpander()) {
+				return false;
+			}
+			if (isTabDetailPaneProgrammaticallyTriggered) {
+				isTabDetailPaneProgrammaticallyTriggered = false;
+				return false;
+			}
+			return true;
 		}
 	}
 
@@ -448,7 +466,8 @@ function BandaHealth($) {
 
 	function openTabDetailPane() {
 		let openTabDetailPaneButton = document.querySelector('.z-south-collapsed .z-icon-chevron-up');
-		if (!elementIsVisible(openTabDetailPaneButton) && !userClosedTheDetailPane) {
+		if (elementIsVisible(openTabDetailPaneButton) && !didUserCloseTheDetailPane) {
+			isTabDetailPaneProgrammaticallyTriggered = true;
 			openTabDetailPaneButton.click();
 		}
 	}

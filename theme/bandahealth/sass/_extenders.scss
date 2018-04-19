@@ -12,8 +12,12 @@
 	background:linear-gradient(to bottom,#fff 0,#e4e4e4 100%);
 }
 
-%hide-element {
+%remove-element {
 	display: none !important;
+}
+
+%hide-element {
+	visibility: hidden;
 }
 
 %fa {
