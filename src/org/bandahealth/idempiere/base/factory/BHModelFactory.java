@@ -10,6 +10,8 @@ import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MTabNavBtn;
+import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
 
@@ -31,6 +33,10 @@ public class BHModelFactory implements IModelFactory {
 			return MHomeScreenButtonGroup.class;
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			return MInventoryLine_BH.class;
+		} else if (tableName.equalsIgnoreCase(MTabNavBtn.Table_Name)) {
+			return MTabNavBtn.class;
+		} else if (tableName.equalsIgnoreCase(MTabNavBtnTab.Table_Name)) {
+			return MTabNavBtnTab.class;
 		}
 
 		return null;
@@ -52,6 +58,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MHomeScreenButtonGroup(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			return new MInventoryLine_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MTabNavBtn.Table_Name)) {
+			return new MTabNavBtn(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MTabNavBtnTab.Table_Name)) {
+			return new MTabNavBtnTab(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -73,6 +83,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MHomeScreenButtonGroup(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			return new MInventoryLine_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MTabNavBtn.Table_Name)) {
+			return new MTabNavBtn(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MTabNavBtnTab.Table_Name)) {
+			return new MTabNavBtnTab(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
