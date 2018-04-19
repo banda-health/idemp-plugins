@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.base.editor.factory;
 
 import org.adempiere.webui.editor.WEditor;
 import org.adempiere.webui.factory.IEditorFactory;
-import org.bandahealth.idempiere.base.editor.WBHTabNavButtons;
-import org.bandahealth.idempiere.base.editor.WTableEditor;
+import org.bandahealth.idempiere.base.editor.editor.WBHTabNavButtons;
+import org.bandahealth.idempiere.base.editor.editor.WTableEditor;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.util.CLogger;
