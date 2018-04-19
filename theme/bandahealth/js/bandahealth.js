@@ -77,7 +77,10 @@ function BandaHealth($) {
 		ORGANIZATION: 'organization',
 		CLIENT: 'client',
 		SYSTEM: 'system',
-		NO_TABS_PRESENT: 'no-tabs-present'
+		NO_TABS_PRESENT: 'no-tabs-present',
+		USER: {
+			ENTITY_ADD_OR_EDIT: 'entity-add-or-edit'
+		}
 	};
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
@@ -223,6 +226,13 @@ function BandaHealth($) {
 					removeBodyClassName(classNames.NO_TABS_PRESENT);
 					openTabDetailPane();
 				}
+				if (areCreatingOrEditingAnEntity() && !bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
+					addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
+					closeTabDetailPane();
+				} else if (!areCreatingOrEditingAnEntity() && bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
+					removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
+					openTabDetailPane();
+				}
 			});
 		});
 
@@ -238,6 +248,11 @@ function BandaHealth($) {
 				}
 			}
 			return false;
+		}
+
+		function areCreatingOrEditingAnEntity() {
+			let entityCancelButton = document.querySelector('.adwindow-toolbar a:nth-child(1)');
+			return elementIsVisible(entityCancelButton);
 		}
 	}
 

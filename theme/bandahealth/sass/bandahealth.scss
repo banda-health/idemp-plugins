@@ -115,6 +115,14 @@
 			grid-column-start: 3;
 			display: flex;
 			justify-content: flex-end;
+
+			div.btn {
+				margin-right: 0;
+
+				&:not(:first-child) {
+					margin-left: 10px;
+				}
+			}
 		}
 
 		div {
@@ -649,6 +657,23 @@
 		}
 
 		.popup-dialog {
+			.main-parameter-layout {
+				.top-parameter-layout {
+					> div:last-child {
+						@extend %remove-element;
+					}
+				}
+
+				.bottom-parameter-layout {
+					padding-top: 0;
+					border-top: none;
+
+					.save-parameter-container {
+						@extend %remove-element;
+					}
+				}
+			}
+
 			.z-window-content {
 				table {
 					.z-hbox {
@@ -809,7 +834,7 @@
 		}
 	}
 
-	&.no-tabs-present {
+	&.no-tabs-present, &.entity-add-or-edit {
 		.adtab-form-borderlayout {
 			background: none;
 		}
