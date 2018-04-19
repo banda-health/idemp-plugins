@@ -75,20 +75,35 @@ public class QueryUtil {
 		if (attributeSetInstanceId > 0) {
 			asi = new MAttributeSetInstance(Env.getCtx(), attributeSetInstanceId, trxName);
 		} else {
-			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND " + MAttributeSet.COLUMNNAME_Name
-					+ " = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET + "'";
+			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower(" + MAttributeSet.COLUMNNAME_Name
+					+ ") = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
 			MAttributeSet attributeSet = new Query(Env.getCtx(), MAttributeSet.Table_Name, whereClause, trxName)
-					.setOnlyActiveRecords(true).first();
-			if (attributeSet != null) {
+					.setOnlyActiveRecords(true)
+					.setClient_ID(true)
+					.first();
+
+			if (attributeSet == null) {
+				throw new RuntimeException("Attribute set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
+						+ " not defined for client.");
+			}
+
+			// See if there is an attribute set instance for this product that already has this date
+			int attributeSetId = attributeSet.getM_AttributeSet_ID();
+			whereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate + "=? AND "
+					+ MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
+			asi = new Query(Env.getCtx(), MAttributeSetInstance.Table_Name, whereClause, trxName)
+					.setParameters(expirationDate, attributeSetId)
+					.first();
+			if (asi == null) {
 				asi = new MAttributeSetInstance(Env.getCtx(), 0, trxName);
 				asi.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
-			} else {
-				return attributeSetInstanceId;
 			}
 		}
 
 		if (asi.getM_AttributeSet_ID() > 0) {
-			asi.setGuaranteeDate(expirationDate);
+			if (expirationDate != null) {
+				asi.setGuaranteeDate(expirationDate);
+			}
 			asi.saveEx();
 
 			attributeSetInstanceId = asi.getM_AttributeSetInstance_ID();
