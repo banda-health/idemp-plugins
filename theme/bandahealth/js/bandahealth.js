@@ -4,6 +4,71 @@
 
 'use strict';
 
+if (!window.DomObserver) {
+	window.DomObserver = (function observeDomConstructor() {
+		let MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+			eventListenerSupported = window.addEventListener;
+
+		function DomObserver(obj, callback) {
+			let self = this;
+
+			let observer;
+
+			if (MutationObserver) {
+				// define a new observer
+				observer = new MutationObserver(function mutationObserverChecker(mutations, observer) {
+					if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
+						callback();
+					}
+				});
+			}
+
+			self.start = function start() {
+				if (MutationObserver) {
+					startObservation();
+				} else {
+					addListeners();
+				}
+			};
+
+			self.stop = function stop() {
+				if (MutationObserver) {
+					stopObservation();
+				} else {
+					removeListeners();
+				}
+			};
+
+			self.start();
+
+			return self;
+
+			function addListeners() {
+				obj.addEventListener('DOMNodeInserted', callback, false);
+				obj.addEventListener('DOMNodeRemoved', callback, false);
+			}
+
+			function removeListeners() {
+				obj.removeEventListener('DOMNodeInserted', callback, false);
+				obj.removeEventListener('DOMNodeRemoved', callback, false);
+			}
+
+			function startObservation() {
+				observer.observe(obj, {
+					childList: true,
+					subtree: true
+				});
+			}
+
+			function stopObservation() {
+				observer.disconnect();
+			}
+		}
+
+		return DomObserver;
+	})();
+}
+
 function BandaHealth($) {
 	let self = this;
 
@@ -11,10 +76,13 @@ function BandaHealth($) {
 		BH: 'bh',
 		ORGANIZATION: 'organization',
 		CLIENT: 'client',
-		SYSTEM: 'system'
+		SYSTEM: 'system',
+		NO_TABS_PRESENT: 'no-tabs-present'
 	};
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
+	let didUserCloseTheDetailPane = false;
+	let isTabDetailPaneProgrammaticallyTriggered = false;
 
 	self.initPage = (function initPageScope() {
 		let initPageHasRun = false;
@@ -86,7 +154,7 @@ function BandaHealth($) {
 
 			function hideWestPanel() {
 				let westPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-west-splitter-button i')[1];
-				if (westPanelCollapseButton.offsetParent !== null) {
+				if (elementIsVisible(westPanelCollapseButton)) {
 					westPanelCollapseButton.click();
 				}
 			}
@@ -124,6 +192,7 @@ function BandaHealth($) {
 	addBodyClassName(classNames.BH, classNames.SYSTEM);
 	document.addEventListener('click', handleClickNavigation);
 	window.addEventListener('hashchange', handleNavigation);
+	addDomObservationMethods();
 
 	return self;
 
@@ -137,25 +206,76 @@ function BandaHealth($) {
 		}
 	}
 
+	function addDomObservationMethods() {
+		executeFunctionWhenElementPresent('.z-tabpanels', function createDetailPaneObserver() {
+			let detailPaneObserver = new DomObserver(document.querySelector('.z-tabpanels'), function displayTabsIfPresent() {
+				// Don't do any of this if we're the system user
+				let bodyTag = document.querySelector('body');
+				if (bodyTag.classList.contains(classNames.SYSTEM)) {
+					return;
+				}
+
+				let bodyTagClasses = document.querySelector('body').classList;
+				if (!areAnyTabsVisisble() && !bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
+					addBodyClassName(classNames.NO_TABS_PRESENT);
+					closeTabDetailPane();
+				} else if (areAnyTabsVisisble() && bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
+					removeBodyClassName(classNames.NO_TABS_PRESENT);
+					openTabDetailPane();
+				}
+			});
+		});
+
+		function areAnyTabsVisisble() {
+			let tabs = document.querySelectorAll('.adwindow-detailpane-tabbox .z-tabs-content li');
+			if (tabs.length === 0) {
+				return false;
+			}
+			for (let i = 0; i < tabs.length; i++) {
+				// If an element has the class z-tab-selected, at least one is visible
+				if (tabs[i].classList.contains('z-tab-selected')) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+
 	function closeSelectedTab() {
 		if (getNumberOfIDempTabsOpen() > 1) {
 			document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content .z-tab-selected .z-tab-button i').click();
 		}
 	}
 
-	function getDesktopHeaderPopupAndExecuteFunction(functionToExecute) {
-		let idempTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
-		idempTableFetchButton.click();
-		waitForHtmlToArrive();
+	function closeTabDetailPane() {
+		let closeTabDetailPaneButton = document.querySelector('.z-south-splitter-button .z-icon-caret-down');
+		if (elementIsVisible(closeTabDetailPaneButton)) {
+			isTabDetailPaneProgrammaticallyTriggered = true;
+			closeTabDetailPaneButton.click();
+		}
+	}
 
-		function waitForHtmlToArrive() {
-			let html = document.querySelector('.desktop-header-popup');
-			if (!html) {
-				setTimeout(waitForHtmlToArrive, 0);
+	function elementIsVisible(element) {
+		return element && element.offsetParent !== null;
+	}
+
+	function executeFunctionWhenElementPresent(querySelector, functionToExecute) {
+		waitForElementToBePresent();
+
+		function waitForElementToBePresent() {
+			let element = document.querySelector(querySelector);
+			if (!element) {
+				setTimeout(waitForElementToBePresent, 0);
 				return;
 			}
 			functionToExecute();
 		}
+	}
+
+	function getDesktopHeaderPopupAndExecuteFunction(functionToExecute) {
+		let idempTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
+		idempTableFetchButton.click();
+		executeFunctionWhenElementPresent('.desktop-header-popup', functionToExecute);
 	}
 
 	function getNumberOfIDempTabsOpen() {
@@ -198,9 +318,24 @@ function BandaHealth($) {
 				hasHashChangedDueToClick = true;
 				window.location.hash = clickedTd.id;
 			}
+		} else if (userClosedTheDetailPane()) {
+			didUserCloseTheDetailPane = true;
+		} else if (userOpenedTheDetailPane()) {
+			didUserCloseTheDetailPane = false;
+		} else if (clickWasOnDetailPaneExpander()) {
+			if (document.querySelector('body').classList.contains(classNames.NO_TABS_PRESENT)) {
+				e.preventDefault();
+				return false;
+			}
 		}
 
 		return;
+
+		function clickWasOnDetailPaneExpander() {
+			return e.target.classList.contains('z-icon-chevron-up')
+				&& e.target.parentNode.classList.contains('z-south-collapsed')
+				|| e.target.classList.contains('z-south-collapsed');
+		}
 
 		function userClickedDetailPaneTab() {
 			let greatGrandparent = ((e.target.parentNode || {}).parentNode || {}).parentNode || {};
@@ -264,6 +399,31 @@ function BandaHealth($) {
 
 			return targetIsBigButton || targetIsIconButton;
 		}
+
+		function userClosedTheDetailPane() {
+			let wasClickOnTheCloseButton = e.target.classList.contains('z-icon-caret-down')
+				&& e.target.parentNode.classList.contains('z-south-splitter-button')
+				|| e.target.classList.contains('z-south-splitter-button');
+			if (!wasClickOnTheCloseButton) {
+				return false;
+			}
+			if (isTabDetailPaneProgrammaticallyTriggered) {
+				isTabDetailPaneProgrammaticallyTriggered = false;
+				return false;
+			}
+			return true;
+		}
+
+		function userOpenedTheDetailPane() {
+			if (!clickWasOnDetailPaneExpander()) {
+				return false;
+			}
+			if (isTabDetailPaneProgrammaticallyTriggered) {
+				isTabDetailPaneProgrammaticallyTriggered = false;
+				return false;
+			}
+			return true;
+		}
 	}
 
 	function handleNavigation(e) {
@@ -304,6 +464,14 @@ function BandaHealth($) {
 		});
 	}
 
+	function openTabDetailPane() {
+		let openTabDetailPaneButton = document.querySelector('.z-south-collapsed .z-icon-chevron-up');
+		if (elementIsVisible(openTabDetailPaneButton) && !didUserCloseTheDetailPane) {
+			isTabDetailPaneProgrammaticallyTriggered = true;
+			openTabDetailPaneButton.click();
+		}
+	}
+
 	function removeBodyClassName() {
 		if (arguments.length === 0) {
 			return;
@@ -315,4 +483,4 @@ function BandaHealth($) {
 	}
 }
 
-var bandahealth = bandahealth || new BandaHealth(window.jQuery);
+window.bandahealth = window.bandahealth || new BandaHealth(window.jQuery);

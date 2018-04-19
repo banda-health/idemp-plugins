@@ -12,8 +12,12 @@
 	background:linear-gradient(to bottom,#fff 0,#e4e4e4 100%);
 }
 
-%hide-element {
+%remove-element {
 	display: none !important;
+}
+
+%hide-element {
+	visibility: hidden;
 }
 
 %fa {
@@ -46,67 +50,63 @@
 	}
 }
 
-%button {
-	@include border-radius(3px);
-	@include background-gradient($button-light, $button-dark);
+%button-display {
 	border: $button-dark 1px solid;
 	padding: 8px 20px;
 	display: inline-block;
 	line-height: 1.2em;
 	cursor: pointer;
 	min-width: 0;
-	max-width: 300px;
+	max-width: 250px;
 	text-decoration: none;
 }
 
-%button-hover {
-	@extend %button;
+%button {
+	@include border-radius(3px);
+	@include background-gradient($button-light, $button-dark);
+	@extend %button-display;
+}
 
+%button-hover {
 	background: $button-light-hover;
 	border-color: $button-dark-hover;
 }
 
 %confirm {
+	@extend %button-display;
 	@include background-gradient($confirm-light, $confirm-dark);
 	color: white;
-	max-width: 250px;
 	min-width: 0;
 	margin-right: 10px;
 }
 
 %confirm-hover {
-	@extend %confirm;
-
 	background: $confirm-light-hover;
 	border-color: $confirm-dark-hover;
 }
 
 %delete {
+	@extend %button-display;
 	@include background-gradient($delete-light, $delete-dark);
 	color: white;
-	max-width: 250px;
 	min-width: 0;
 	margin-right: 10px;
 }
 
 %delete-hover {
-	@extend %delete;
-
 	background: $delete-light-hover;
 	border-color: $delete-dark-hover;
 }
 
 %primary {
+	@extend %button-display;
 	@include background-gradient($primary-light, $primary-dark);
 	color: white;
-	max-width: 250px;
 	min-width: 0;
 	margin-right: 10px;
 }
 
 %primary-hover {
-	@extend %primary;
-
 	background: $primary-light-hover;
 	border-color: $primary-dark-hover;
 }
