@@ -229,6 +229,7 @@ function BandaHealth($) {
 				if (areCreatingOrEditingAnEntity() && !bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
 					addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					closeTabDetailPane();
+					navigateToDetailEditIfUserOnGridView();
 				} else if (!areCreatingOrEditingAnEntity() && bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
 					removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					openTabDetailPane();
@@ -477,6 +478,16 @@ function BandaHealth($) {
 			document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
 				+ 'td:last-child a').click();
 		});
+	}
+
+	function navigateToDetailEditIfUserOnGridView() {
+		let editTableCell = document.querySelector('.adwindow-layout div:nth-child(2) .adtab-content:first-child .adtab-grid tr .row-indicator-selected');
+		if (elementIsVisible(editTableCell)) {
+			let gridToggle = document.querySelector('.adwindow-toolbar a:nth-child(15)');
+			if (gridToggle) {
+				gridToggle.click();
+			}
+		}
 	}
 
 	function openTabDetailPane() {
