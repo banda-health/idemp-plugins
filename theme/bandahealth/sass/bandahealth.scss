@@ -701,6 +701,8 @@
 			}
 
 			&.btn-new {
+				@extend %remove-element;
+				
 				&:before {
 					@extend %fas;
 					content: $icon-plus;
@@ -727,7 +729,7 @@
 			&.btn-refresh {
 				&:before {
 					@extend %fas;
-					content: $icon-sync;
+					content: $icon-search;
 				}
 
 				&:not(.txt-btn):after {
@@ -736,6 +738,8 @@
 			}
 
 			&.btn-reset {
+				@extend %remove-element;
+
 				&:before {
 					@extend %fas;
 					content: $icon-undo;
@@ -758,6 +762,8 @@
 			}
 
 			&.btn-history {
+				@extend %remove-element;
+
 				&:before {
 					@extend %fas;
 					content: $icon-history;
@@ -769,6 +775,8 @@
 			}
 
 			&.btn-zoom {
+				@extend %remove-element;
+
 				&:before {
 					@extend %fas;
 					content: $icon-expand;
@@ -780,6 +788,8 @@
 			}
 
 			&.btn-pattribute {
+				@extend %remove-element;
+
 				&:before {
 					@extend %fas;
 					content: $icon-at;
