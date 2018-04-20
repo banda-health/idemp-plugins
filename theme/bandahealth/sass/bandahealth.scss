@@ -862,4 +862,35 @@
 			}
 		}
 	}
+
+	&.cannot-change-roles {
+		.login-box {
+			@extend %hide-element;
+		}
+
+		.bh-loading {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			hegith: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.z-loading {
+				position: initial;
+			}
+		}
+
+		#zk_prok {
+			@extend %remove-element;
+		}
+	}
+
+	&:not(.cannot-change-roles) {
+		.bh-loading {
+			@extend %remove-element;
+		}
+	}
 }

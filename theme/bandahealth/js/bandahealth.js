@@ -16,6 +16,8 @@ define([
 	let didUserCloseTheDetailPane = false;
 	let isTabDetailPaneProgrammaticallyTriggered = false;
 
+	let maxTimeToWaitUntilDomElementsAppearMS = 5000;
+
 	self.initPage = (function initPageScope() {
 		let initPageHasRun = false;
 		return function initPage() {
@@ -154,7 +156,7 @@ define([
 					openTabDetailPane();
 				}
 			});
-		});
+		}, maxTimeToWaitUntilDomElementsAppearMS);
 
 		function areAnyTabsVisisble() {
 			let tabs = document.querySelectorAll('.adwindow-detailpane-tabbox .z-tabs-content li');
@@ -193,7 +195,7 @@ define([
 	function getDesktopHeaderPopupAndExecuteFunction(functionToExecute) {
 		let idempTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
 		idempTableFetchButton.click();
-		util.executeFunctionWhenElementPresent('.desktop-header-popup', functionToExecute);
+		util.executeFunctionWhenElementPresent('.desktop-header-popup', functionToExecute, maxTimeToWaitUntilDomElementsAppearMS);
 	}
 
 	function getNumberOfIDempTabsOpen() {

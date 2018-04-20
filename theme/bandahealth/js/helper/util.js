@@ -20,10 +20,14 @@ define(function () {
 		return element && element.offsetParent !== null;
 	};
 
-	self.executeFunctionWhenElementPresent = function executeFunctionWhenElementPresent(querySelectorOrElement, functionToExecute) {
+	self.executeFunctionWhenElementPresent = function executeFunctionWhenElementPresent(querySelectorOrElement, functionToExecute, maxDuration) {
+		let start = new Date();
 		waitForElementToBePresent();
 
 		function waitForElementToBePresent() {
+			if (maxDuration && (new Date() - start > maxDuration)) {
+				return;
+			}
 			let element = querySelectorOrElement;
 			if (self.isString(querySelectorOrElement)) {
 				element = document.querySelector(querySelectorOrElement);
