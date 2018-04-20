@@ -196,7 +196,8 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 
 					@Override
 					public void onEvent(Event event) throws Exception {
-						window.getADWindowContent().onSaveCreate();
+						window.getADWindowContent().onSave();
+						window.getADWindowContent().onNew();
 					}
 				};
 				break;
