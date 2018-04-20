@@ -6,8 +6,8 @@ import java.util.List;
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.bandahealth.idempiere.base.callout.BusinessPartnerAge;
-import org.bandahealth.idempiere.base.callout.InventoryLineExpiration;
-import org.bandahealth.idempiere.base.callout.OrderLineExpiration;
+import org.bandahealth.idempiere.base.callout.InventoryLineExpirationDateRequired;
+import org.bandahealth.idempiere.base.callout.OrderLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -26,14 +26,12 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 				callouts.add(new BusinessPartnerAge());
 			}
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
-			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_BH_Expiration) 
-					|| columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_Product_ID)) {
-				callouts.add(new OrderLineExpiration());
+			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_Product_ID)) {
+				callouts.add(new OrderLineExpirationDateRequired());
 			}
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
-			if (columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_BH_Expiration) 
-					|| columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_M_Product_ID)) {
-				callouts.add(new InventoryLineExpiration());
+			if (columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_M_Product_ID)) {
+				callouts.add(new InventoryLineExpirationDateRequired());
 			}
 		}
 

@@ -51,7 +51,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 	}
 
 	private void beforeSaveRequest(MProduct_BH product) {
-		if (product.hasExpiration()) {
+		if (product.isBH_HasExpiration()) {
 			attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 			if (attributeSet != null) {
 				Integer attributeSetId = attributeSet.get_ID();
