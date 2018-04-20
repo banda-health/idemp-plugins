@@ -25,6 +25,7 @@
 			}
 		}
 	}
+
 	.bh-button-group-header {
 		padding: 5px;
 		border-bottom: 1px solid #ccc;
@@ -851,6 +852,14 @@
 
 		.z-south-collapsed {
 			@extend %hide-element;
+		}
+	}
+
+	&:not(.super-user-login) {
+		.login-box-body {
+			tr:nth-child(5) {
+				@extend %hide-element;
+			}
 		}
 	}
 }

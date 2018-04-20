@@ -4,84 +4,13 @@
 
 'use strict';
 
-if (!window.DomObserver) {
-	window.DomObserver = (function observeDomConstructor() {
-		let MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
-			eventListenerSupported = window.addEventListener;
+define([
+	'helper/util',
+	'domObserver',
+	'config/classNames'
+], function (util, DomObserver, classNames) {
+	let self = {};
 
-		function DomObserver(obj, callback) {
-			let self = this;
-
-			let observer;
-
-			if (MutationObserver) {
-				// define a new observer
-				observer = new MutationObserver(function mutationObserverChecker(mutations, observer) {
-					if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
-						callback();
-					}
-				});
-			}
-
-			self.start = function start() {
-				if (MutationObserver) {
-					startObservation();
-				} else {
-					addListeners();
-				}
-			};
-
-			self.stop = function stop() {
-				if (MutationObserver) {
-					stopObservation();
-				} else {
-					removeListeners();
-				}
-			};
-
-			self.start();
-
-			return self;
-
-			function addListeners() {
-				obj.addEventListener('DOMNodeInserted', callback, false);
-				obj.addEventListener('DOMNodeRemoved', callback, false);
-			}
-
-			function removeListeners() {
-				obj.removeEventListener('DOMNodeInserted', callback, false);
-				obj.removeEventListener('DOMNodeRemoved', callback, false);
-			}
-
-			function startObservation() {
-				observer.observe(obj, {
-					childList: true,
-					subtree: true
-				});
-			}
-
-			function stopObservation() {
-				observer.disconnect();
-			}
-		}
-
-		return DomObserver;
-	})();
-}
-
-function BandaHealth($) {
-	let self = this;
-
-	let classNames = {
-		BH: 'bh',
-		ORGANIZATION: 'organization',
-		CLIENT: 'client',
-		SYSTEM: 'system',
-		NO_TABS_PRESENT: 'no-tabs-present',
-		USER: {
-			ENTITY_ADD_OR_EDIT: 'entity-add-or-edit'
-		}
-	};
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
 	let didUserCloseTheDetailPane = false;
@@ -100,7 +29,7 @@ function BandaHealth($) {
 				return;
 			}
 			initPageHasRun = true;
-			
+
 			let expandCollapseButton = ribbon.querySelectorAll('a')[1];
 			hideRibbonElement();
 			hideWestPanel();
@@ -157,7 +86,7 @@ function BandaHealth($) {
 
 			function hideWestPanel() {
 				let westPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-west-splitter-button i')[1];
-				if (elementIsVisible(westPanelCollapseButton)) {
+				if (util.elementIsVisible(westPanelCollapseButton)) {
 					westPanelCollapseButton.click();
 				}
 			}
@@ -183,34 +112,24 @@ function BandaHealth($) {
 	};
 
 	self.userIsOrg = function userIsOrg() {
-		removeBodyClassName(classNames.SYSTEM, classNames.CLIENT);
-		addBodyClassName(classNames.ORGANIZATION);
+		util.removeBodyClassName(classNames.SYSTEM, classNames.CLIENT);
+		util.addBodyClassName(classNames.ORGANIZATION);
 	};
 
 	self.userIsClientAndOrg = function userIsClientAndOrg() {
-		removeBodyClassName(classNames.SYSTEM, classNames.ORGANIZATION);
-		addBodyClassName(classNames.CLIENT);
+		util.removeBodyClassName(classNames.SYSTEM, classNames.ORGANIZATION);
+		util.addBodyClassName(classNames.CLIENT);
 	};
 
-	addBodyClassName(classNames.BH, classNames.SYSTEM);
+	util.addBodyClassName(classNames.BH, classNames.SYSTEM);
 	document.addEventListener('click', handleClickNavigation);
 	window.addEventListener('hashchange', handleNavigation);
 	addDomObservationMethods();
 
 	return self;
 
-	function addBodyClassName() {
-		if (arguments.length === 0) {
-			return;
-		}
-		let bodyTag = document.querySelector('body');
-		for (let i = 0; i < arguments.length; i++) {
-			bodyTag.classList.add(arguments[i]);
-		}
-	}
-
 	function addDomObservationMethods() {
-		executeFunctionWhenElementPresent('.z-tabpanels', function createDetailPaneObserver() {
+		util.executeFunctionWhenElementPresent('.z-tabpanels', function createDetailPaneObserver() {
 			let detailPaneObserver = new DomObserver(document.querySelector('.z-tabpanels'), function displayTabsIfPresent() {
 				// Don't do any of this if we're the system user
 				let bodyTag = document.querySelector('body');
@@ -220,18 +139,18 @@ function BandaHealth($) {
 
 				let bodyTagClasses = document.querySelector('body').classList;
 				if (!areAnyTabsVisisble() && !bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
-					addBodyClassName(classNames.NO_TABS_PRESENT);
+					util.addBodyClassName(classNames.NO_TABS_PRESENT);
 					closeTabDetailPane();
 				} else if (areAnyTabsVisisble() && bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
-					removeBodyClassName(classNames.NO_TABS_PRESENT);
+					util.removeBodyClassName(classNames.NO_TABS_PRESENT);
 					openTabDetailPane();
 				}
 				if (areCreatingOrEditingAnEntity() && !bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
-					addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
+					util.addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					closeTabDetailPane();
 					navigateToDetailEditIfUserOnGridView();
 				} else if (!areCreatingOrEditingAnEntity() && bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
-					removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
+					util.removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					openTabDetailPane();
 				}
 			});
@@ -253,7 +172,7 @@ function BandaHealth($) {
 
 		function areCreatingOrEditingAnEntity() {
 			let entityCancelButton = document.querySelector('.adwindow-toolbar a:nth-child(1)');
-			return elementIsVisible(entityCancelButton);
+			return util.elementIsVisible(entityCancelButton);
 		}
 	}
 
@@ -265,33 +184,16 @@ function BandaHealth($) {
 
 	function closeTabDetailPane() {
 		let closeTabDetailPaneButton = document.querySelector('.z-south-splitter-button .z-icon-caret-down');
-		if (elementIsVisible(closeTabDetailPaneButton)) {
+		if (util.elementIsVisible(closeTabDetailPaneButton)) {
 			isTabDetailPaneProgrammaticallyTriggered = true;
 			closeTabDetailPaneButton.click();
-		}
-	}
-
-	function elementIsVisible(element) {
-		return element && element.offsetParent !== null;
-	}
-
-	function executeFunctionWhenElementPresent(querySelector, functionToExecute) {
-		waitForElementToBePresent();
-
-		function waitForElementToBePresent() {
-			let element = document.querySelector(querySelector);
-			if (!element) {
-				setTimeout(waitForElementToBePresent, 0);
-				return;
-			}
-			functionToExecute();
 		}
 	}
 
 	function getDesktopHeaderPopupAndExecuteFunction(functionToExecute) {
 		let idempTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
 		idempTableFetchButton.click();
-		executeFunctionWhenElementPresent('.desktop-header-popup', functionToExecute);
+		util.executeFunctionWhenElementPresent('.desktop-header-popup', functionToExecute);
 	}
 
 	function getNumberOfIDempTabsOpen() {
@@ -482,7 +384,7 @@ function BandaHealth($) {
 
 	function navigateToDetailEditIfUserOnGridView() {
 		let editTableCell = document.querySelector('.adwindow-layout div:nth-child(2) .adtab-content:first-child .adtab-grid tr .row-indicator-selected');
-		if (elementIsVisible(editTableCell)) {
+		if (util.elementIsVisible(editTableCell)) {
 			let gridToggle = document.querySelector('.adwindow-toolbar a:nth-child(15)');
 			if (gridToggle) {
 				gridToggle.click();
@@ -492,21 +394,9 @@ function BandaHealth($) {
 
 	function openTabDetailPane() {
 		let openTabDetailPaneButton = document.querySelector('.z-south-collapsed .z-icon-chevron-up');
-		if (elementIsVisible(openTabDetailPaneButton) && !didUserCloseTheDetailPane) {
+		if (util.elementIsVisible(openTabDetailPaneButton) && !didUserCloseTheDetailPane) {
 			isTabDetailPaneProgrammaticallyTriggered = true;
 			openTabDetailPaneButton.click();
 		}
 	}
-
-	function removeBodyClassName() {
-		if (arguments.length === 0) {
-			return;
-		}
-		let bodyTag = document.querySelector('body');
-		for (let i = 0; i < arguments.length; i++) {
-			bodyTag.classList.remove(arguments[i]);
-		}
-	}
-}
-
-window.bandahealth = window.bandahealth || new BandaHealth(window.jQuery);
+});

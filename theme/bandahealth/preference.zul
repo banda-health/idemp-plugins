@@ -7,7 +7,8 @@
 </script>
 <script src="/theme/bandahealth/js/polyfills.js"/>
 <script src="/theme/bandahealth/js/jquery.extensions.js"/>
-<script src="/theme/bandahealth/js/bandahealth.js"/>
+<script src="/theme/bandahealth/js/require.js"/>
+<script src="/theme/bandahealth/js/main.js"/>
 <zscript>
 <![CDATA[
 	import org.compiere.util.Env;
