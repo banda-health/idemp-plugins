@@ -22,8 +22,7 @@ public class BHEditorFactory implements IEditorFactory {
 		WEditor editor = null;
 		int displayType = gridField.getDisplayType();
 
-		//if (displayType == BHDisplayTypeFactory.PaymentRow) {
-		if (displayType == -1) {
+		if (displayType == BHDisplayTypeFactory.PaymentRow) {
 //			log.warning("MY CUSTOM MULTISELECTION DISPLAYTYPE");
 			editor = new WTableEditor(gridField, gridTab);
 		} else if (displayType == BHDisplayTypeFactory.TabNavButton) {
