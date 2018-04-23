@@ -857,7 +857,7 @@
 
 	&:not(.super-user-login) {
 		.login-box-body {
-			tr:nth-child(5) {
+			#rowSelectRole {
 				@extend %hide-element;
 			}
 		}
