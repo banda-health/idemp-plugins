@@ -59,11 +59,11 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 	private void appendRoleScript() {
 		if (isUserViewingAnOrganization()) {
-			layout.appendChild(new Script("bandahealth.initPage()"));
-			layout.appendChild(new Script("bandahealth.userIsOrg()"));
+			layout.appendChild(
+					new Script("requirejs(['user/organization'], function () {});"));
 		} else if (isUserViewingAClient()) {
-			layout.appendChild(new Script("bandahealth.initPage()"));
-			layout.appendChild(new Script("bandahealth.userIsClientAndOrg()"));
+			layout.appendChild(
+					new Script("requirejs(['user/client'], function () {});"));
 		}
 	}
 
