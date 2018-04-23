@@ -28,7 +28,7 @@ define(function () {
 			if (maxDuration && (new Date() - start > maxDuration)) {
 				return;
 			}
-			let element = document.querySelector(querySelectorOrElement);
+			let element = document.querySelector(querySelector);
 
 			if (!element) {
 				setTimeout(waitForElementToBePresent, 0);

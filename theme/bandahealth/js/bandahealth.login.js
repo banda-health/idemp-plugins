@@ -39,27 +39,8 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 		document.querySelector('body').appendChild(loadingDiv);
 	}
 
-	function allowRoleChangeIfMultipleSelectionsPresent() {
-		let mustUserSelectRole = false;
-
-		let clientChoices = document.querySelector(changeRoleTrIds.client).querySelectorAll('.login-field .z-combobox-popup li');
-		if (clientChoices.length > 1) {
-			mustUserSelectRole = true;
-		}
-
-		let roleChoices = document.querySelector(changeRoleTrIds.role).querySelectorAll('.login-field .z-combobox-popup li');
-		if (roleChoices.length > 1) {
-			mustUserSelectRole = true;
-		}
-
-		let organizationChoices = document.querySelector(changeRoleTrIds.organization).querySelectorAll('.login-field .z-combobox-popup li');
-		if (organizationChoices.length > 1) {
-			mustUserSelectRole = true;
-		}
-
-		if (mustUserSelectRole) {
-			util.removeBodyClassName(classNames.USER.CANNOT_CHANGE_ROLES);
-		}
+	function allowRoleChange() {
+		util.removeBodyClassName(classNames.USER.CANNOT_CHANGE_ROLES);
 	}
 
 	function checkText(e) {
@@ -86,7 +67,7 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 		if (loginOkWasClicked()) {
 			if (isUserLoginScreenVisible() && !canChangeRoles()) {
 				util.addBodyClassName(classNames.USER.CANNOT_CHANGE_ROLES);
-				util.executeFunctionWhenElementPresent(changeRoleTrIds.client, allowRoleChangeIfMultipleSelectionsPresent);
+				util.executeFunctionWhenElementPresent(changeRoleTrIds.client, roleSelectionScreenLoaded);
 			}
 		}
 
@@ -113,5 +94,28 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 
 	function isRoleSelectionScreenVisible() {
 		return !!document.querySelector(changeRoleTrIds.client);
+	}
+
+	function roleSelectionScreenLoaded() {
+		if (areMultipleSelectionsPresent()) {
+			allowRoleChange();
+		} else {
+			selectCurrentRoleForUser();
+		}
+
+		function areMultipleSelectionsPresent() {
+			let clientChoices = document.querySelector(changeRoleTrIds.client).querySelectorAll('.login-field .z-combobox-popup li');
+			let roleChoices = document.querySelector(changeRoleTrIds.role).querySelectorAll('.login-field .z-combobox-popup li');
+			let organizationChoices = document.querySelector(changeRoleTrIds.organization).querySelectorAll('.login-field .z-combobox-popup li');
+
+			return clientChoices.length > 1 || roleChoices.length > 1 || organizationChoices.length > 1;
+		}
+	}
+
+	function selectCurrentRoleForUser() {
+		let okButton = document.querySelector('img[src*="Ok16.png"]');
+		if (okButton) {
+			okButton.click();
+		}
 	}
 });
