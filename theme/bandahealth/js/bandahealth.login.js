@@ -12,7 +12,7 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 	};
 	let maxTimeToWaitUntilLoginFieldsAppearMS = 5000;
 
-	util.executeFunctionWhenElementPresent(getUserInputField(), function (userInputField) {
+	util.executeFunctionWhenElementPresent(getUserInputFieldSelector(), function (userInputField) {
 		userInputField.addEventListener('focus', checkText);
 		userInputField.addEventListener('change', checkText);
 		userInputField.addEventListener('keydown', checkText);
@@ -75,12 +75,16 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 	}
 
 	function getUserInputField() {
-		return document.querySelectorAll('.login-field input')[0];
+		return document.querySelector(getUserInputFieldSelector());
+	}
+
+	function getUserInputFieldSelector() {
+		return '#rowUser .login-field input';
 	}
 
 	function handleInitialLoginClick(e) {
 		if (loginOkWasClicked()) {
-			if (!canChangeRoles()) {
+			if (isUserLoginScreenVisible() && !canChangeRoles()) {
 				util.addBodyClassName(classNames.USER.CANNOT_CHANGE_ROLES);
 				util.executeFunctionWhenElementPresent(changeRoleTrIds.client, allowRoleChangeIfMultipleSelectionsPresent);
 			}
@@ -101,5 +105,13 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 			}
 			return (imageTag.src || '').includes('Ok16.png');
 		}
+	}
+
+	function isUserLoginScreenVisible() {
+		return !!getUserInputField();
+	}
+
+	function isRoleSelectionScreenVisible() {
+		return !!document.querySelector(changeRoleTrIds.client);
 	}
 });
