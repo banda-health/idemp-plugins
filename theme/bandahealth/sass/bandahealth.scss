@@ -855,7 +855,7 @@
 		}
 	}
 
-	&:not(.super-user-login) {
+	&:not(.can-change-roles) {
 		.login-box-body {
 			#rowSelectRole {
 				@extend %hide-element;

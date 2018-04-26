@@ -10,6 +10,7 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 		organization: '#rowOrganisation',
 		warehouse: '#rowWarehouse'
 	};
+	let usersThatCanChangeRoles = ['SuperUser', 'System'];
 	let maxTimeToWaitUntilLoginFieldsAppearMS = 5000;
 
 	util.executeFunctionWhenElementPresent(getUserInputFieldSelector(), function (userInputField) {
@@ -44,10 +45,10 @@ define(['helper/util', 'config/classNames'], function (util, classNames) {
 	}
 
 	function checkText(e) {
-		if (e.target.value === 'SuperUser') {
-			util.addBodyClassName(classNames.USER.SUPER_USER);
+		if (usersThatCanChangeRoles.includes(e.target.value)) {
+			util.addBodyClassName(classNames.USER.CAN_CHANGE_ROLES);
 		} else {
-			util.removeBodyClassName(classNames.USER.SUPER_USER);
+			util.removeBodyClassName(classNames.USER.CAN_CHANGE_ROLES);
 		}
 	}
 
