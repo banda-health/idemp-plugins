@@ -35,6 +35,7 @@ define([
 			let expandCollapseButton = ribbon.querySelectorAll('a')[1];
 			hideRibbonElement();
 			hideWestPanel();
+			hideEastPanel();
 			appendLogoutButton();
 			appendHomeBackButton();
 
@@ -77,6 +78,13 @@ define([
 				logoutAElement.appendChild(logoutDivElement);
 
 				logoutAElement.addEventListener('click', logout);
+			}
+
+			function hideEastPanel() {
+				let eastPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
+				if (util.elementIsVisible(eastPanelCollapseButton)) {
+					eastPanelCollapseButton.click();
+				}
 			}
 
 			function hideRibbonElement() {
@@ -132,7 +140,7 @@ define([
 
 	function addDomObservationMethods() {
 		util.executeFunctionWhenElementPresent('.z-tabpanels', function createDetailPaneObserver() {
-			let detailPaneObserver = new DomObserver(document.querySelector('.z-tabpanels'), function displayTabsIfPresent() {
+			let detailPaneObserver = new DomObserver(document.querySelector('.z-tabpanels'), function handleDomUpdate() {
 				// Don't do any of this if we're the system user
 				let bodyTag = document.querySelector('body');
 				if (bodyTag.classList.contains(classNames.SYSTEM)) {
@@ -140,20 +148,25 @@ define([
 				}
 
 				let bodyTagClasses = document.querySelector('body').classList;
-				if (!areAnyTabsVisisble() && !bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
+				if (!areAnyTabsVisisble()) {
 					util.addBodyClassName(classNames.NO_TABS_PRESENT);
 					closeTabDetailPane();
-				} else if (areAnyTabsVisisble() && bodyTagClasses.contains(classNames.NO_TABS_PRESENT)) {
+				} else if (areAnyTabsVisisble()) {
 					util.removeBodyClassName(classNames.NO_TABS_PRESENT);
 					openTabDetailPane();
 				}
-				if (areCreatingOrEditingAnEntity() && !bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
+				if (areCreatingOrEditingAnEntity()) {
 					util.addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					closeTabDetailPane();
 					navigateToDetailEditIfUserOnGridView();
-				} else if (!areCreatingOrEditingAnEntity() && bodyTagClasses.contains(classNames.USER.ENTITY_ADD_OR_EDIT)) {
+				} else if (!areCreatingOrEditingAnEntity()) {
 					util.removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					openTabDetailPane();
+				}
+				if (areViewingTheStockTakePage()) {
+					util.addBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
+				} else {
+					util.removeBodyClassName(classNamesNO_ADD_EDIT_ENTITY);
 				}
 			});
 		}, maxTimeToWaitUntilDomElementsAppearMS);
@@ -175,6 +188,11 @@ define([
 		function areCreatingOrEditingAnEntity() {
 			let entityCancelButton = document.querySelector('.adwindow-toolbar a:nth-child(1)');
 			return util.elementIsVisible(entityCancelButton);
+		}
+
+		function areViewingTheStockTakePage() {
+			let lastTabText = document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content li.z-tab-selected .z-tab-text');
+			return lastTabText && (lastTabText.innerText || '').includes('Stock Take');
 		}
 	}
 

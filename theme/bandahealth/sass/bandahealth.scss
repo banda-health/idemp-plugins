@@ -250,6 +250,10 @@
 					&:hover {
 						@extend %confirm-hover;
 					}
+
+					@at-root .no-add-edit-entity#{&} {
+						@extend %remove-element;
+					}
 				}
 
 				&:nth-child(6) {
@@ -660,8 +664,10 @@
 		.popup-dialog {
 			.main-parameter-layout {
 				.top-parameter-layout {
-					> div:last-child {
-						@extend %remove-element;
+					.input-parameter-layout {
+						> div:last-child {
+							@extend %remove-element;
+						}
 					}
 				}
 
@@ -872,8 +878,8 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			width: 100%;
-			hegith: 100%;
+			width: 100vw;
+			height: 100vh;
 			display: flex;
 			justify-content: center;
 			align-items: center;
