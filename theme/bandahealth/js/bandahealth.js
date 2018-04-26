@@ -37,6 +37,7 @@ define([
 			hideWestPanel();
 			appendLogoutButton();
 			appendHomeBackButton();
+			addDomObservationMethods();
 
 			return;
 
@@ -57,7 +58,7 @@ define([
 				backAElement.appendChild(backIElement);
 				backIElement.classList.add('fas', 'fa-arrow-left');
 
-				backAElement.addEventListener('click', function triggerBrowserBack() {
+				backLIElement.addEventListener('click', function triggerBrowserBack() {
 					window.history.back();
 				});
 			}
@@ -126,7 +127,6 @@ define([
 	util.addBodyClassName(classNames.BH, classNames.SYSTEM);
 	document.addEventListener('click', handleClickNavigation);
 	window.addEventListener('hashchange', handleNavigation);
-	addDomObservationMethods();
 
 	return self;
 
