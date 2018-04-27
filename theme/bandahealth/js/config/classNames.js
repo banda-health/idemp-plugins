@@ -7,6 +7,7 @@ define({
 	CLIENT: 'client',
 	SYSTEM: 'system',
 	LOADING: 'bh-loading',
+	NO_ADD_EDIT_ENTITY: 'no-add-edit-entity',
 	NO_TABS_PRESENT: 'no-tabs-present',
 	USER: {
 		CAN_CHANGE_ROLES: 'can-change-roles',
