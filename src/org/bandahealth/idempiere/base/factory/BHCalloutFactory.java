@@ -6,9 +6,11 @@ import java.util.List;
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.bandahealth.idempiere.base.callout.BusinessPartnerAge;
+import org.bandahealth.idempiere.base.callout.HomeScreenButtonSingleNavigationEnforcer;
 import org.bandahealth.idempiere.base.callout.InventoryLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.callout.OrderLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.compiere.util.CLogger;
@@ -32,6 +34,12 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_M_Product_ID)) {
 				callouts.add(new InventoryLineExpirationDateRequired());
+			}
+		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
+			if (columnName.equalsIgnoreCase(MHomeScreenButton.COLUMNNAME_AD_Window_ID)
+					|| columnName.equalsIgnoreCase(MHomeScreenButton.COLUMNNAME_AD_InfoWindow_ID)
+					|| columnName.equalsIgnoreCase(MHomeScreenButton.COLUMNNAME_AD_Process_ID)) {
+				callouts.add(new HomeScreenButtonSingleNavigationEnforcer());
 			}
 		}
 
