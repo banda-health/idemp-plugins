@@ -12,11 +12,7 @@ define(function () {
 
 		if (MutationObserver) {
 			// define a new observer
-			observer = new MutationObserver(function mutationObserverChecker(mutations, observer) {
-				if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
-					callback();
-				}
-			});
+			observer = getObserver();
 		}
 
 		self.start = function start() {
@@ -42,6 +38,14 @@ define(function () {
 		function addListeners() {
 			obj.addEventListener('DOMNodeInserted', callback, false);
 			obj.addEventListener('DOMNodeRemoved', callback, false);
+		}
+
+		function getObserver() {
+			return new MutationObserver(function mutationObserverChecker(mutations, observer) {
+				if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
+					callback();
+				}
+			});
 		}
 
 		function removeListeners() {

@@ -2,6 +2,6 @@
 'use strict';
 
 define(['bandahealth'], function (bandahealth) {
-	bandahealth.initPage();
+	// bandahealth.initPage();
 	bandahealth.userIsClientAndOrg();
 });
