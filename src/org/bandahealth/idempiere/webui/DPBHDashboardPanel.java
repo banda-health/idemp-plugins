@@ -106,6 +106,9 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			if (component instanceof Div) {
 				Div button = (Div) component;
 				if ((boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
+					int processId = Integer.parseInt(button.getId());
+					SessionManager.getAppDesktop().openProcessDialog(processId, false);
+				} else if ((boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openInfo(infoWindowId);
 				} else {
