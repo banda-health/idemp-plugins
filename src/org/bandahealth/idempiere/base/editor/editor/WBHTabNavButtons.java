@@ -126,7 +126,7 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 		}
 
 		if (windowTabs != null && buttonsWithLogic.size() > 0) {
-			gridTab.addDataStatusListener(new DataStatusListener() {
+			DataStatusListener updateButtonVisibility = new DataStatusListener() {
 
 				@Override
 				public void dataStatusChanged(DataStatusEvent e) {
@@ -143,13 +143,14 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 						if (Evaluator.evaluateLogic(buttonEvaluatee, displayLogic)) {
 							currentClass = currentClass.replaceAll("\\sgone", "");
 							buttonDiv.setSclass(currentClass);
-						} else {
+						} else if (!currentClass.contains(" gone")) {
 							currentClass += " gone";
 							buttonDiv.setSclass(currentClass);
 						}
 					}
 				}
-			});
+			};
+			gridTab.addDataStatusListener(updateButtonVisibility);
 		}
 	}
 
