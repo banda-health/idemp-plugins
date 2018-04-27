@@ -534,7 +534,7 @@
 						box-shadow: none;
 						@include border-radius(0);
 
-						&:nth-last-child(2), .z-tab-button, .z-tab-image {
+						&:not(:first-child):not(:last-child), .z-tab-button, .z-tab-image {
 							@extend %remove-element;
 						}
 
