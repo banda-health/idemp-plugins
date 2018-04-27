@@ -166,7 +166,7 @@ define([
 				if (areViewingTheStockTakePage()) {
 					util.addBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
 				} else {
-					util.removeBodyClassName(classNamesNO_ADD_EDIT_ENTITY);
+					util.removeBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
 				}
 			});
 		}, maxTimeToWaitUntilDomElementsAppearMS);
@@ -196,9 +196,12 @@ define([
 		}
 	}
 
-	function closeSelectedTab() {
+	function closeAllButHomeTab() {
 		if (getNumberOfIDempTabsOpen() > 1) {
-			document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content .z-tab-selected .z-tab-button i').click();
+			let tabsToClose = document.querySelectorAll('.desktop-tabbox .z-tabs .z-tabs-content li:not(:first-child):not(:nth-child(2)) .z-tab-button i');
+			tabsToClose.forEach(function closeTab(tabCloseButton) {
+				tabCloseButton.click();
+			});
 		}
 	}
 
@@ -369,7 +372,7 @@ define([
 			// Check if we're on the home page (hash is empty)
 			if (isHashEmpty()) {
 				// Close the current tab
-				closeSelectedTab();
+				closeAllButHomeTab();
 			} else {
 				// If there is more than one tab open, try to see if there is a breadcrumb ID we can click on
 				let breadcrumb = document.querySelector('.adwindow-breadcrumb a');
