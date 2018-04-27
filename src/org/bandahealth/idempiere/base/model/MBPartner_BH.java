@@ -35,6 +35,10 @@ public class MBPartner_BH extends MBPartner {
 	 * Column name BH_Phone
 	 */
 	public static final String COLUMNNAME_BH_Phone = "BH_Phone";
+	/**
+	 * Column name BH_PatientID
+	 */
+	public static final String COLUMNNAME_BH_PatientID = "BH_PatientID";
 
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
@@ -202,5 +206,23 @@ public class MBPartner_BH extends MBPartner {
 	 */
 	public void setBH_Phone(String BH_Phone) {
 		set_Value(COLUMNNAME_BH_Phone, BH_Phone);
+	}
+
+	/**
+	 * Get Patient ID.
+	 *
+	 * @return A unique identifier for users to manually enter
+	 */
+	public String getBH_PatientID() {
+		return (String) get_Value(COLUMNNAME_BH_PatientID);
+	}
+
+	/**
+	 * Set Patient ID.
+	 *
+	 * @param BH_PatientID A unique identifier for users to manually enter
+	 */
+	public void setBH_PatientID(String BH_PatientID) {
+		set_Value(COLUMNNAME_BH_PatientID, BH_PatientID);
 	}
 }
