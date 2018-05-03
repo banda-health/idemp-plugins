@@ -8,7 +8,7 @@ define(function () {
 		if (arguments.length === 0) {
 			return;
 		}
-		let bodyTagClassList = document.querySelector('body').classList;
+		let bodyTagClassList = document.body.classList;
 		for (let i = 0; i < arguments.length; i++) {
 			if (!bodyTagClassList.contains(arguments[i])) {
 				bodyTagClassList.add(arguments[i]);
@@ -46,7 +46,7 @@ define(function () {
 		if (arguments.length === 0) {
 			return;
 		}
-		let bodyTag = document.querySelector('body');
+		let bodyTag = document.body;
 		for (let i = 0; i < arguments.length; i++) {
 			bodyTag.classList.remove(arguments[i]);
 		}

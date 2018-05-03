@@ -142,12 +142,12 @@ define([
 		util.executeFunctionWhenElementPresent('.z-tabpanels', function createDetailPaneObserver() {
 			let detailPaneObserver = new DomObserver(document.querySelector('.z-tabpanels'), function handleDomUpdate() {
 				// Don't do any of this if we're the system user
-				let bodyTag = document.querySelector('body');
+				let bodyTag = document.body;
 				if (bodyTag.classList.contains(classNames.SYSTEM)) {
 					return;
 				}
 
-				let bodyTagClasses = document.querySelector('body').classList;
+				let bodyTagClasses = document.body.classList;
 				if (!areAnyTabsVisisble()) {
 					util.addBodyClassName(classNames.NO_TABS_PRESENT);
 					closeTabDetailPane();
@@ -264,7 +264,7 @@ define([
 		} else if (userOpenedTheDetailPane()) {
 			didUserCloseTheDetailPane = false;
 		} else if (clickWasOnDetailPaneExpander()) {
-			if (document.querySelector('body').classList.contains(classNames.NO_TABS_PRESENT)) {
+			if (document.body.classList.contains(classNames.NO_TABS_PRESENT)) {
 				e.preventDefault();
 				return false;
 			}
