@@ -864,7 +864,41 @@
 	&:not(.can-change-roles) {
 		.login-box-body {
 			#rowSelectRole {
-				@extend %hide-element;
+				@extend %remove-element;
+			}
+
+			.advanced-row {
+				cursor: pointer;
+
+				.z-group-header-body {
+					height: 16px;
+				}
+			}
+
+			.advanced-label {
+				display: flex;
+				justify-content: flex-end;
+
+				.z-group {
+					width: 100px;
+					margin-right: -11px;
+				}
+
+				.z-group-inner {
+					text-align: right;
+				}
+
+				.z-group-header-body {
+					padding-left: 20px;
+					display: flex;
+					align-items: center;
+				}
+			}
+
+			.advanced-field {
+				.z-group {
+					width: 220px;
+				}
 			}
 		}
 	}
