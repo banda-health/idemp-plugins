@@ -18,10 +18,10 @@
 		}
 
 		&.btn-new, &.btn-confirm {
-			@extend %confirm;
+			@extend %secondary;
 
 			&:hover {
-				@extend %confirm-hover;
+				@extend %secondary-hover;
 			}
 		}
 	}
