@@ -110,3 +110,16 @@
 	background: $primary-light-hover;
 	border-color: $primary-dark-hover;
 }
+
+%secondary {
+	@extend %button-display;
+	@include background-gradient($secondary-light, $secondary-dark);
+	color: white;
+	min-width: 0;
+	margin-right: 10px;
+}
+
+%secondary-hover {
+	background: $secondary-light-hover;
+	border-color: $secondary-dark-hover;
+}
