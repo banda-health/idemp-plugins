@@ -336,7 +336,7 @@ define([
 			let targetIsBigButton = targetClassList.contains('button') && targetClassList.contains('app')
 				&& targetClassList.contains('big') && targetClassList.contains('z-div');
 			let targetIsIconButton = targetClassList.contains('i') && (targetClassList.contains('fas')
-				|| targetClassList.contains('far') || targetClassList.contains('fab'));
+				|| targetClassList.contains('far') || targetClassList.contains('fab') || targetClassList.contains('fa'));
 
 			return targetIsBigButton || targetIsIconButton;
 		}
