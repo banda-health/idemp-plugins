@@ -20,10 +20,8 @@ public class InventoryLineExpirationDateRequired implements IColumnCallout {
 		if (value != null) {
 			int productId = (int) value;
 			String whereClause = MProduct_BH.COLUMNNAME_M_Product_ID + "=?";
-			boolean requiresExpiration = ((MProduct_BH) new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause, null)
-					.setParameters(productId)
-					.first())
-					.isBH_HasExpiration();
+			boolean requiresExpiration = ((MProduct_BH) new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause,
+					null).setParameters(productId).first()).isBH_HasExpiration();
 			mTab.setValue(MInventoryLine_BH.COLUMNNAME_BH_RequiresExpiration, requiresExpiration);
 		}
 

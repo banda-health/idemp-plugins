@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.base.modelevent;
 
+import java.util.Date;
+
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
@@ -36,6 +38,9 @@ public class PhysicalInventoryLineModelEvent extends AbstractEventHandler {
 	}
 
 	private void beforeSaveRequest(MInventoryLine_BH inventoryLine) {
+		if (inventoryLine.getBH_Expiration() != null && inventoryLine.getBH_Expiration().before(new Date())) {
+			throw new RuntimeException("Expiration should be a future date");
+		}
 		// if an expiration date is set, create an attribute set instance and attach to
 		// the inventory line
 		int attributeSetInstanceId = QueryUtil.createExpirationDateAttributeInstance(
