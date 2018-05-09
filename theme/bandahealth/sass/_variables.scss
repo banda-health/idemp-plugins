@@ -29,10 +29,10 @@ $primary-light-hover: #286090;
 $primary-dark: #2e6da4;
 $primary-dark-hover: #204d74;
 
-$secondary-light: #ff80b3;
-$secondary-light-hover: #ffb3d1;
-$secondary-dark: #cc0052;
-$secondary-dark-hover: #99003d;
+$secondary-light: lighten(#5bc0de,6%); 
+$secondary-dark: darken(#5bc0de,13%);;
+$secondary-light-hover: #5bc0de;
+$secondary-dark-hover: #5bc0de;
 
 // Text
 $button-text-cancel: " Cancel";

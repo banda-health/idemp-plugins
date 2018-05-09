@@ -17,7 +17,15 @@
 			@extend %button-hover;
 		}
 
-		&.btn-new, &.btn-confirm {
+		&.btn-new{
+			@extend %secondary;
+
+			&:hover {
+				@extend %secondary-hover;
+			}
+		}
+		
+		&.btn-confirm {
 			@extend %secondary;
 
 			&:hover {
@@ -236,7 +244,7 @@
 				}
 
 				&:nth-child(4) {
-					@extend %confirm;
+					@extend %secondary;
 
 					&:before {
 						@extend %fas;
@@ -248,7 +256,7 @@
 					}
 
 					&:hover {
-						@extend %confirm-hover;
+						@extend %secondary-hover;
 					}
 
 					@at-root .no-add-edit-entity#{&} {
