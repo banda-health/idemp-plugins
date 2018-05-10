@@ -17,7 +17,7 @@
 			@extend %button-hover;
 		}
 
-		&.btn-new{
+		&.btn-new {
 			@extend %secondary;
 
 			&:hover {
@@ -26,10 +26,10 @@
 		}
 		
 		&.btn-confirm {
-			@extend %secondary;
+			@extend %confirm;
 
 			&:hover {
-				@extend %secondary-hover;
+				@extend %confirm-hover;
 			}
 		}
 	}
@@ -148,6 +148,22 @@
 				padding-right: 5px;
 			}
 		}
+        
+        .btn-confirm{
+            @extend %secondary;
+
+			&:hover {
+				@extend %secondary-hover;
+			}
+        }
+        
+        .right >.btn-confirm:nth-of-type(2){
+            @extend %confirm;
+
+			&:hover {
+				@extend %confirm-hover;
+			}
+        }
 	}
 
 	&.client, &.organization {
