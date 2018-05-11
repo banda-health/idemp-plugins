@@ -149,21 +149,7 @@
 			}
 		}
         
-        .btn-confirm{
-            @extend %secondary;
 
-			&:hover {
-				@extend %secondary-hover;
-			}
-        }
-        
-        .right >.btn-confirm:nth-of-type(2){
-            @extend %confirm;
-
-			&:hover {
-				@extend %confirm-hover;
-			}
-        }
 	}
 
 	&.client, &.organization {
@@ -414,22 +400,25 @@
 						}
 
 						&:nth-child(1), &:nth-child(4) {
-							@extend %confirm;
+							
 							padding: 0 5px;
 
-							&:hover {
-								@extend %confirm-hover;
-								padding: 0 5px;
-							}
+							
 						}
 
 						&:nth-child(1) {
+                            @extend %secondary;
 							span {
 								&:before {
 									@extend %fas;
 									content: $icon-plus;
 								}
 							}
+                            &:hover {
+								@extend %secondary-hover;
+								padding: 0 5px;
+							}
+                            
 						}
 
 						&:nth-child(2) {
@@ -748,16 +737,13 @@
 				font-weight: normal;
 			}
 
-			&.btn-new, &.btn-ok {
-				@extend %confirm;
-
-				&:hover:not([disabled]) {
-					@extend %confirm-hover;
-				}
-			}
-
 			&.btn-new {
 				@extend %remove-element;
+                @extend %secondary;
+                
+                &:hover:not([disabled]) {
+					@extend %confirm-hover;
+				}
 				
 				&:before {
 					@extend %fas;
