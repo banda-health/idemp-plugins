@@ -4,7 +4,8 @@
 	@return unquote("\"") + unquote(str_insert($code, "\\", 1)) + unquote("\"");
 }
 
-$button-font-size: 1.1em;
+$button-font-size-small: 1.1em;
+$button-font-size-medium: 1.4em;
 
 // Colors
 $default-textbox-outline-color: #cfcfcf;
@@ -48,18 +49,23 @@ $search-more-options: "More Options";
 
 // Icons
 $icon-at: font-awesome-icon("f1fa");
+$icon-archive: font-awesome-icon("f187"); // fas
 $icon-bars: font-awesome-icon("f0c9");
 $icon-check: font-awesome-icon("f00c");
+$icon-download: font-awesome-icon("f019"); // fas
+$icon-envelope: font-awesome-icon("f0e0"); // fas, far
 $icon-expand: font-awesome-icon("f065");
 $icon-history: font-awesome-icon("f1da");
+$icon-magic: font-awesome-icon("f0d0"); // fas
 $icon-pencil-alt: font-awesome-icon("f303");
 $icon-plus: font-awesome-icon("f067");
 $icon-question-circle: font-awesome-icon("f059");
 $icon-save: font-awesome-icon("f0c7");
-$icon-search: font-awesome-icon("f002");
+$icon-search: font-awesome-icon("f002"); // fas
 $icon-sliders-h: font-awesome-icon("f1de");
 $icon-sync: font-awesome-icon("f021");
 $icon-th: font-awesome-icon("f00a");
 $icon-times: font-awesome-icon("f00d");
 $icon-trash-alt: font-awesome-icon("f2ed");
 $icon-undo: font-awesome-icon("f0e2");
+$icon-wrench: font-awesome-icon("f0ad"); // fas
