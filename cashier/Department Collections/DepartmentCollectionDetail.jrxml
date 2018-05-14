@@ -30,7 +30,7 @@
             sum((col.priceentered * col.qtyinvoiced)) AS price
        FROM c_orderline col
               where col.qtyinvoiced > 0
-              and (col.updated between $P{beginDate} AND $P{endDate})
+              and (col.updated::date between $P{beginDate} AND $P{endDate})
               and col.m_warehouse_id = $P{departmentId}
        GROUP BY col.m_product_id) outgoing_stock ON ((product.m_product_id = outgoing_stock.m_product_id)))]]>
 	</queryString>
