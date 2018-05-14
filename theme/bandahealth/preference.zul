@@ -5,8 +5,6 @@
 		adempiere.set("zkTimeoutURL", "sessiontimeout.zul");
 	]]>
 	</script>
-	<?component name="bandaHealthTemplates" macroURI="templates.zul"?>
-	<bandaHealthTemplates/>
 	<script src="/theme/bandahealth/js/polyfills.js"/>
 	<script src="/theme/bandahealth/js/jquery.extensions.js"/>
 	<script src="/theme/bandahealth/js/require.js"/>
