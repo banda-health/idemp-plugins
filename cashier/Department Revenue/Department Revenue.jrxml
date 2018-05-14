@@ -29,7 +29,7 @@ FROM m_warehouse warehouse
     sum((col.priceentered * col.qtyinvoiced)) AS price
     FROM c_orderline col
     where col.qtyinvoiced > 0
-    and (col.updated between $P{beginDate} AND $P{endDate})
+    and (col.updated::date between $P{beginDate} AND $P{endDate})
      and col.ad_client_id =  $P{AD_CLIENT_ID} 
     and col.ad_org_id =  $P{AD_CLIENT_ID}
     GROUP BY col.m_warehouse_id) outgoing_stock ON warehouse.m_warehouse_id = outgoing_stock.m_warehouse_id]]>
