@@ -456,11 +456,16 @@
 						}
 
 						&:nth-child(4) {
+						
+						@extend %confirm;
 							span {
 								&:before {
 									@extend %fas;
 									content: $icon-save;
 								}
+							}
+							&:hover {
+								@extend %confirm-hover;
 							}
 						}
 					}
@@ -757,6 +762,7 @@
 
 			&.btn-ok {
 				margin-right: 10px !important;
+				@extend %confirm;
 
 				&:before {
 					@extend %fas;
@@ -765,6 +771,10 @@
 
 				&:not(.txt-btn):after {
 					content: $button-text-ok;
+				}
+				
+				&:hover:not([disabled]) {
+					@extend %confirm-hover;
 				}
 			}
 
