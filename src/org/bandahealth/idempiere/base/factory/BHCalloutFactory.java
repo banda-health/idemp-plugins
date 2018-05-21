@@ -46,6 +46,7 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 				callouts.add(new HomeScreenButtonSingleNavigationEnforcer());
 			}
 		}
+		
 		return callouts.toArray(new IColumnCallout[0]);
 	}
 }

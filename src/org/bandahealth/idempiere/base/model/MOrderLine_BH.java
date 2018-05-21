@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.base.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.util.Env;
 
 public class MOrderLine_BH extends MOrderLine {
 
@@ -18,6 +20,9 @@ public class MOrderLine_BH extends MOrderLine {
 	 * Column name BH_RequiresExpiration
 	 */
 	public static final String COLUMNNAME_BH_RequiresExpiration = "BH_RequiresExpiration";
+	
+	/** Column name QtyAvailable */
+    public static final String COLUMNNAME_QtyAvailable = "QtyAvailable";
 
 	public MOrderLine_BH(MOrder order) {
 		super(order);
@@ -72,5 +77,25 @@ public class MOrderLine_BH extends MOrderLine {
 	 */
 	public void setBH_RequiresExpiration(boolean BH_RequiresExpiration) {
 		throw new IllegalArgumentException("BH_RequiresExpiration is virtual column");
+	}
+	
+	/** Set BH_AvailableQuantity.
+	@param QtyAvailable 
+	Available Quantity (On Hand - Reserved)
+  */
+	public void setQtyAvailable(BigDecimal QtyAvailable) {
+		set_ValueNoCheck(COLUMNNAME_QtyAvailable, QtyAvailable);
+	}
+
+	/**
+	 * Get BH_AvailableQuantity.
+	 * 
+	 * @return Available Quantity (On Hand - Reserved)
+	 */
+	public BigDecimal getQtyAvailable() {
+		BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_QtyAvailable);
+		if (bd == null)
+			return Env.ZERO;
+		return bd;
 	}
 }
