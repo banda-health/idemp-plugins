@@ -17,7 +17,15 @@
 			@extend %button-hover;
 		}
 
-		&.btn-new, &.btn-confirm {
+		&.btn-new {
+			@extend %secondary;
+
+			&:hover {
+				@extend %secondary-hover;
+			}
+		}
+		
+		&.btn-confirm {
 			@extend %confirm;
 
 			&:hover {
@@ -140,6 +148,8 @@
 				padding-right: 5px;
 			}
 		}
+        
+
 	}
 
 	&.client, &.organization {
@@ -236,7 +246,7 @@
 				}
 
 				&:nth-child(4) {
-					@extend %confirm;
+					@extend %secondary;
 
 					&:before {
 						@extend %fas;
@@ -248,7 +258,7 @@
 					}
 
 					&:hover {
-						@extend %confirm-hover;
+						@extend %secondary-hover;
 					}
 
 					@at-root .no-add-edit-entity#{&} {
@@ -390,22 +400,25 @@
 						}
 
 						&:nth-child(1), &:nth-child(4) {
-							@extend %confirm;
+							
 							padding: 0 5px;
 
-							&:hover {
-								@extend %confirm-hover;
-								padding: 0 5px;
-							}
+							
 						}
 
 						&:nth-child(1) {
+                            @extend %secondary;
 							span {
 								&:before {
 									@extend %fas;
 									content: $icon-plus;
 								}
 							}
+                            &:hover {
+								@extend %secondary-hover;
+								padding: 0 5px;
+							}
+                            
 						}
 
 						&:nth-child(2) {
@@ -443,11 +456,16 @@
 						}
 
 						&:nth-child(4) {
+						
+						@extend %confirm;
 							span {
 								&:before {
 									@extend %fas;
 									content: $icon-save;
 								}
+							}
+							&:hover {
+								@extend %confirm-hover;
 							}
 						}
 					}
@@ -791,16 +809,13 @@
 				font-weight: normal;
 			}
 
-			&.btn-new, &.btn-ok {
-				@extend %confirm;
-
-				&:hover:not([disabled]) {
-					@extend %confirm-hover;
-				}
-			}
-
 			&.btn-new {
 				@extend %remove-element;
+                @extend %secondary;
+                
+                &:hover:not([disabled]) {
+					@extend %confirm-hover;
+				}
 				
 				&:before {
 					@extend %fas;
@@ -814,6 +829,7 @@
 
 			&.btn-ok {
 				margin-right: 10px !important;
+				@extend %confirm;
 
 				&:before {
 					@extend %fas;
@@ -822,6 +838,10 @@
 
 				&:not(.txt-btn):after {
 					content: $button-text-ok;
+				}
+				
+				&:hover:not([disabled]) {
+					@extend %confirm-hover;
 				}
 			}
 
