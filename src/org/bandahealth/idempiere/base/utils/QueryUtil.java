@@ -112,14 +112,4 @@ public class QueryUtil {
 
 		return attributeSetInstanceId;
 	}
-	
-	/*Debug Method: Lists all properties in the context*/
-	public static void listContextProperties(Properties ctx) {
-		Enumeration<Object> keys = ctx.keys();
-		while(keys.hasMoreElements()) {
-			String currentKey = (String)keys.nextElement();
-			String value = ctx.getProperty(currentKey);
-			System.out.println(currentKey + ": "+value);
-		}
-	}
 }
