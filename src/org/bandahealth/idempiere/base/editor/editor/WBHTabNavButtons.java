@@ -150,7 +150,7 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 					}
 				}
 			};
-			if(gridTab != null) {
+			if (gridTab != null) {
 				gridTab.addDataStatusListener(updateButtonVisibility);
 			}
 		}
