@@ -2,12 +2,10 @@ package org.bandahealth.idempiere.base.callout;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.Properties;
 
 import org.adempiere.base.IColumnCallout;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
-import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MStorageOnHand;
@@ -28,8 +26,8 @@ public class InventoryQuantity implements IColumnCallout {
 			Integer locatorId = Env.getContextAsInt(ctx, WindowNo+"|M_Warehouse_ID");
 			String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
 					+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
-			Query getAvailableQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-			BigDecimal quantity = (BigDecimal)getAvailableQtyInStorage.setParameters(Arrays.asList(productId, locatorId)).first()
+			Query availableQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
+			BigDecimal quantity = (BigDecimal)availableQtyInStorage.setParameters(Arrays.asList(productId, locatorId)).first()
 					.get_Value("qtyonhand");
 			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, quantity);
 		} else {
