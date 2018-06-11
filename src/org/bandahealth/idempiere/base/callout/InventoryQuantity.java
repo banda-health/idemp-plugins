@@ -8,7 +8,9 @@ import org.adempiere.base.IColumnCallout;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
+import org.compiere.model.MLocator;
 import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -23,7 +25,11 @@ public class InventoryQuantity implements IColumnCallout {
 		if (value != null) {
 
 			Integer productId = (Integer) value;
-			Integer locatorId = Env.getContextAsInt(ctx, WindowNo+"|M_Warehouse_ID");
+			Integer warehouseId = Env.getContextAsInt(ctx, WindowNo+"|M_Warehouse_ID");
+			
+			MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
+			Integer locatorId = locator.get_ID();
+			
 			String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
 					+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
 			Query availableQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
