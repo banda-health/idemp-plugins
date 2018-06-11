@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.utils;
 
 import java.sql.Timestamp;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import org.compiere.model.MAttributeSet;
