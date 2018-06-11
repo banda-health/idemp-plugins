@@ -31,8 +31,6 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_Product_ID)) {
 				callouts.add(new OrderLineExpirationDateRequired());
-			}
-			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_Product_ID)) {
 				callouts.add(new InventoryQuantity());
 			}
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
