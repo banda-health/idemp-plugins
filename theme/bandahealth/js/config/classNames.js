@@ -3,6 +3,7 @@
 
 define({
 	BH: 'bh',
+	MOBILE: 'mobile',
 	ORGANIZATION: 'organization',
 	CLIENT: 'client',
 	SYSTEM: 'system',

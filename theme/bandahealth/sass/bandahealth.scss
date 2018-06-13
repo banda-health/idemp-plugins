@@ -186,6 +186,7 @@
 				}
 			}
 
+			// Toolbar buttons at the top of each edit/view screen
 			a {
 				@extend %button;
 				&:hover {
@@ -544,6 +545,7 @@
 					align-items: center;
 					height: 100%;
 
+					// Buttons at the top of the screen to navigate back or around
 					.z-tab {
 						font-size: 1.4em;
 						height: auto;
@@ -553,6 +555,10 @@
 						@include border-radius(0);
 
 						&:not(:first-child):not(:last-child), .z-tab-button, .z-tab-image {
+							@extend %remove-element;
+						}
+
+						&:nth-last-child(2) {
 							@extend %remove-element;
 						}
 
@@ -1018,6 +1024,33 @@
 	&:not(.cannot-change-roles) {
 		.bh-loading {
 			@extend %remove-element;
+		}
+	}
+
+	&.mobile {
+		.desktop-north {
+			@extend %remove-element;
+		}
+
+		.desktop-center {
+			height: 100% !important;
+			top: 0 !important;
+
+			& > .z-center-body {
+				height: 100% !important;
+
+				& > .z-desktop-tabbox {
+					height: 100% !important;
+
+					& > .z-tabpanels {
+						height: 100% !important;
+
+						& > .desktop-home-tabpanel {
+							height: 100% !important;
+						}
+					}
+				}
+			}
 		}
 	}
 }

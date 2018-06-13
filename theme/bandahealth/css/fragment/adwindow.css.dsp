@@ -81,10 +81,10 @@
 	background-image: none;
 	background-color: #fff;
 }
-.adwindow-toolbar.mobile {
-	position: relative;
-	overflow: hidden;
-}
+//.adwindow-toolbar.mobile {
+//	position: relative;
+//	overflow: hidden;
+//}
 
 .adwindow-breadcrumb {
 	height: 30px;
