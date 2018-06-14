@@ -44,8 +44,9 @@ define([
 			appendLogoutButton();
 			appendHomeBackButton();
 			addDomObservationMethods();
-			if (mobileDisplayIsBeingRendered()) {
+			if (areViewingMobile()) {
 				util.addBodyClassName(classNames.MOBILE);
+				initializeMobileCorrectionChecks();
 			}
 
 			return;
@@ -69,10 +70,6 @@ define([
 				if (util.elementIsVisible(westPanelCollapseButton)) {
 					westPanelCollapseButton.click();
 				}
-			}
-
-			function mobileDisplayIsBeingRendered() {
-				return document.querySelectorAll('.desktop-header.mobile').length !== 0;
 			}
 
 			function pageHasLoaded() {
@@ -224,6 +221,10 @@ define([
 		logoutAElement.addEventListener('click', logout);
 	}
 
+	function areViewingMobile() {
+		return document.querySelectorAll('.desktop-header.mobile').length !== 0;
+	}
+
 	function closeAllButHomeTab() {
 		if (getNumberOfIDempTabsOpen() > 1) {
 			let tabsToClose = document.querySelectorAll('.desktop-tabbox .z-tabs .z-tabs-content li:not(:first-child):not(:nth-child(2)) .z-tab-button i');
@@ -245,6 +246,15 @@ define([
 		let idempTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
 		idempTableFetchButton.click();
 		util.executeFunctionWhenElementPresent('.desktop-header-popup', functionToExecute, maxTimeToWaitUntilDomElementsAppearMS);
+	}
+
+	function getMobileHeaderPopupAndExecuteFunction(functionToExecute) {
+		let idempTableFetchButton = document.querySelector('.desktop-header-username');
+		if (!idempTableFetchButton) {
+			return;
+		}
+		idempTableFetchButton.click();
+		util.executeFunctionWhenElementPresent('.user-panel-popup', functionToExecute, maxTimeToWaitUntilDomElementsAppearMS);
 	}
 
 	function getNumberOfIDempTabsOpen() {
@@ -422,15 +432,29 @@ define([
 		needToResetHomeHash = false;
 	}
 
+	function initializeMobileCorrectionChecks() {
+		function fixMobileProblems() {
+			updateSiteNav();
+		}
+
+		setInterval(fixMobileProblems, 100);
+	}
+
 	function isHashEmpty() {
 		return !window.location.hash || window.location.hash === '#';
 	}
 
 	function logout() {
-		getDesktopHeaderPopupAndExecuteFunction(function clickLogout() {
-			document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
-				+ 'td:last-child a').click();
-		});
+		if (!areViewingMobile()) {
+			getDesktopHeaderPopupAndExecuteFunction(function clickLogout() {
+				document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
+					+ 'td:last-child a').click();
+			});
+		} else {
+			getMobileHeaderPopupAndExecuteFunction(function clickMobileLogout() {
+				document.querySelector('.user-panel-popup .z-vlayout-inner:last-child table table td:last-child a').click();
+			});
+		}
 	}
 
 	function navigateToDetailEditIfUserOnGridView() {

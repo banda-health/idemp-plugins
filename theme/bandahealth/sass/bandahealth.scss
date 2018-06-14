@@ -345,6 +345,10 @@
 						content: $button-text-results;
 					}
 				}
+
+				@at-root .mobile#{&} {
+
+				}
 			}
 		}
 
@@ -401,10 +405,7 @@
 						}
 
 						&:nth-child(1), &:nth-child(4) {
-							
 							padding: 0 5px;
-
-							
 						}
 
 						&:nth-child(1) {
@@ -419,7 +420,6 @@
 								@extend %secondary-hover;
 								padding: 0 5px;
 							}
-                            
 						}
 
 						&:nth-child(2) {
@@ -506,7 +506,7 @@
 			}
 		}
 
-		.desktop-header-popup {
+		.desktop-header-popup, .user-panel-popup {
 			@extend %remove-element;
 		}
 
@@ -1051,6 +1051,10 @@
 					}
 				}
 			}
+		}
+
+		.z-west-collapsed {
+			@extend %remove-element;
 		}
 	}
 }
