@@ -7,8 +7,9 @@
 define([
 	'helper/util',
 	'domObserver',
-	'config/classNames'
-], function (util, DomObserver, classNames) {
+	'config/classNames',
+	'helper/templateManager'
+], function (util, DomObserver, classNames, templateManager) {
 	let self = {};
 
 	let buttonIDs = {
@@ -435,9 +436,29 @@ define([
 	function initializeMobileCorrectionChecks() {
 		function fixMobileProblems() {
 			updateSiteNav();
+			addGridToggleButton();
 		}
 
 		setInterval(fixMobileProblems, 100);
+
+		function addGridToggleButton() {
+			let toolbar = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content');
+			if (!toolbar) {
+				return;
+			}
+			let gridToggleButton = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content > a[title*="Alt+T"]');
+			if (gridToggleButton) {
+				return;
+			}
+			gridToggleButton = templateManager.getTemplate('gridToggleButton').firstElementChild;
+			let oldGridToggleButton = toolbar.querySelector('a[title*="Alt+T"]');
+			gridToggleButton.addEventListener('click', function () {
+				oldGridToggleButton.click();
+			});
+			// add to UI after the Post-It button for our CSS to render correctly
+			let postItButton = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content > a[title*="Post-it"]');
+			postItButton.parentNode.insertBefore(gridToggleButton, postItButton.nextSibling);
+		}
 	}
 
 	function isHashEmpty() {
