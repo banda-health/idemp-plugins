@@ -8,6 +8,7 @@ import org.adempiere.base.IColumnCalloutFactory;
 import org.bandahealth.idempiere.base.callout.BusinessPartnerAge;
 import org.bandahealth.idempiere.base.callout.HomeScreenButtonSingleNavigationEnforcer;
 import org.bandahealth.idempiere.base.callout.InventoryLineExpirationDateRequired;
+import org.bandahealth.idempiere.base.callout.InventoryQuantity;
 import org.bandahealth.idempiere.base.callout.OrderLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
@@ -30,6 +31,7 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_Product_ID)) {
 				callouts.add(new OrderLineExpirationDateRequired());
+				callouts.add(new InventoryQuantity());
 			}
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_M_Product_ID)) {
@@ -42,7 +44,7 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 				callouts.add(new HomeScreenButtonSingleNavigationEnforcer());
 			}
 		}
-
+		
 		return callouts.toArray(new IColumnCallout[0]);
 	}
 }
