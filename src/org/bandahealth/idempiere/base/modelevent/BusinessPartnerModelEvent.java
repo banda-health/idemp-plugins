@@ -78,7 +78,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	private void beforeSaveRequest(MBPartner_BH businessPartner) {
 
 		// Set client & org?
-		int clientId = businessPartner.getAD_Client_ID();
+		/*int clientId = businessPartner.getAD_Client_ID();
 		int orgId = businessPartner.getAD_Org_ID();
 		translateToMaskedFields(businessPartner);
 
@@ -128,7 +128,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 					.setOnlyActiveRecords(true)
 					.first();
 			businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
-		}
+		} */
 	}
 
 	private void translateToMaskedFields(MBPartner_BH businessPartner) {
@@ -146,7 +146,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 		// Add a the location or a default location if no location given (address)
 		MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(businessPartner);
-
 		if (businessPartner.getBH_C_Location_ID() == 0) {
 			MCountry country = (new Query(Env.getCtx(), MCountry.Table_Name, MCountry.COLUMNNAME_CountryCode
 					+ " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null)).first();
