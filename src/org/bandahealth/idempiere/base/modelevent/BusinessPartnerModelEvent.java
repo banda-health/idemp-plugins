@@ -78,7 +78,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	private void beforeSaveRequest(MBPartner_BH businessPartner) {
 
 		// Set client & org?
-		/*int clientId = businessPartner.getAD_Client_ID();
+		int clientId = businessPartner.getAD_Client_ID();
 		int orgId = businessPartner.getAD_Org_ID();
 		translateToMaskedFields(businessPartner);
 
@@ -128,7 +128,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 					.setOnlyActiveRecords(true)
 					.first();
 			businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
-		} */
+		}
 	}
 
 	private void translateToMaskedFields(MBPartner_BH businessPartner) {
