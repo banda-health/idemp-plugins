@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MLocator;
+import org.compiere.model.MProduct;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
@@ -25,6 +26,12 @@ public class InventoryQuantity implements IColumnCallout {
 		if (value != null) {
 
 			Integer productId = (Integer) value;
+			
+			//ignore billed services
+			MProduct product = new MProduct(ctx, productId,null);
+			if(product.getProductType().equals("S")) {
+				return errorMessage;
+			}
 			Integer warehouseId = Env.getContextAsInt(ctx, WindowNo+"|M_Warehouse_ID");
 			
 			MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
