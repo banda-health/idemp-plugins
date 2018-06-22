@@ -7,9 +7,15 @@
 define([
 	'helper/util',
 	'domObserver',
-	'config/classNames'
-], function (util, DomObserver, classNames) {
+	'config/classNames',
+	'helper/templateManager'
+], function (util, DomObserver, classNames, templateManager) {
 	let self = {};
+
+	let buttonIDs = {
+		LOGOUT: 'BHLogoutButton',
+		BACK: 'BHBackButton'
+	};
 
 	let hasHashChangedDueToClick = false;
 	let needToResetHomeHash = false;
@@ -39,47 +45,12 @@ define([
 			appendLogoutButton();
 			appendHomeBackButton();
 			addDomObservationMethods();
+			if (areViewingMobile()) {
+				util.addBodyClassName(classNames.MOBILE);
+				initializeMobileCorrectionChecks();
+			}
 
 			return;
-
-			function appendHomeBackButton() {
-				let pageTabHolder = document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content');
-				let firstElement = pageTabHolder.querySelector('li');
-
-				let backLIElement = document.createElement('li');
-				backLIElement.classList.add('z-tab', 'back-button');
-				backLIElement.setAttribute('title', 'Back');
-				pageTabHolder.insertBefore(backLIElement, firstElement);
-
-				let backAElement = document.createElement('a');
-				backAElement.classList.add('z-tab-content');
-				backLIElement.appendChild(backAElement);
-
-				let backIElement = document.createElement('i');
-				backAElement.appendChild(backIElement);
-				backIElement.classList.add('fas', 'fa-arrow-left');
-
-				backLIElement.addEventListener('click', function triggerBrowserBack() {
-					window.history.back();
-				});
-			}
-
-			function appendLogoutButton() {
-				let logoutAElement = document.createElement('a');
-				logoutAElement.classList.add('window-container-toolbar-btn', 'z-toolbarbutton', 'bh-logoutbutton');
-				logoutAElement.setAttribute('title', 'Logout');
-				ribbon.appendChild(logoutAElement);
-
-				let logoutIElement = document.createElement('i');
-				logoutAElement.appendChild(logoutIElement);
-				logoutIElement.classList.add('fas', 'fa-sign-out-alt');
-
-				let logoutDivElement = document.createElement('div');
-				logoutDivElement.innerText = 'Logout';
-				logoutAElement.appendChild(logoutDivElement);
-
-				logoutAElement.addEventListener('click', logout);
-			}
 
 			function hideEastPanel() {
 				let eastPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
@@ -133,7 +104,7 @@ define([
 	};
 
 	util.addBodyClassName(classNames.BH, classNames.SYSTEM);
-	document.addEventListener('click', handleClickNavigation);
+	document.addEventListener('click', onPageClick);
 	window.addEventListener('hashchange', handleNavigation);
 
 	return self;
@@ -196,6 +167,65 @@ define([
 		}
 	}
 
+	function appendHomeBackButton() {
+		if (document.getElementById(buttonIDs.BACK) !== null) {
+			return;
+		}
+		let pageTabHolder = document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content');
+		if (!pageTabHolder) {
+			return;
+		}
+		let firstElement = pageTabHolder.querySelector('li');
+
+		let backLIElement = document.createElement('li');
+		backLIElement.classList.add('z-tab', 'back-button');
+		backLIElement.setAttribute('title', 'Back');
+		backLIElement.id = buttonIDs.BACK;
+		pageTabHolder.insertBefore(backLIElement, firstElement);
+
+		let backAElement = document.createElement('a');
+		backAElement.classList.add('z-tab-content');
+		backLIElement.appendChild(backAElement);
+
+		let backIElement = document.createElement('i');
+		backAElement.appendChild(backIElement);
+		backIElement.classList.add('fas', 'fa-arrow-left');
+
+		backLIElement.addEventListener('click', function triggerBrowserBack() {
+			window.history.back();
+		});
+	}
+
+	function appendLogoutButton() {
+		if (document.getElementById(buttonIDs.LOGOUT) !== null) {
+			return;
+		}
+		let ribbon = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start');
+		if (!ribbon) {
+			return;
+		}
+
+		let logoutAElement = document.createElement('a');
+		logoutAElement.classList.add('window-container-toolbar-btn', 'z-toolbarbutton', 'bh-logoutbutton');
+		logoutAElement.setAttribute('title', 'Logout');
+		logoutAElement.id = buttonIDs.LOGOUT;
+		ribbon.appendChild(logoutAElement);
+
+		let logoutIElement = document.createElement('i');
+		logoutAElement.appendChild(logoutIElement);
+		logoutIElement.classList.add('fas', 'fa-sign-out-alt');
+
+		let logoutDivElement = document.createElement('div');
+		logoutDivElement.innerText = 'Logout';
+		logoutAElement.appendChild(logoutDivElement);
+
+		logoutAElement.addEventListener('click', logout);
+	}
+
+	function areViewingMobile() {
+		return document.querySelectorAll('.desktop-header.mobile').length !== 0;
+	}
+
 	function closeAllButHomeTab() {
 		if (getNumberOfIDempTabsOpen() > 1) {
 			let tabsToClose = document.querySelectorAll('.desktop-tabbox .z-tabs .z-tabs-content li:not(:first-child):not(:nth-child(2)) .z-tab-button i');
@@ -217,6 +247,15 @@ define([
 		let idempTableFetchButton = document.querySelector('.z-toolbar-tabs .z-toolbar-content.z-toolbar-start a');
 		idempTableFetchButton.click();
 		util.executeFunctionWhenElementPresent('.desktop-header-popup', functionToExecute, maxTimeToWaitUntilDomElementsAppearMS);
+	}
+
+	function getMobileHeaderPopupAndExecuteFunction(functionToExecute) {
+		let idempTableFetchButton = document.querySelector('.desktop-header-username');
+		if (!idempTableFetchButton) {
+			return;
+		}
+		idempTableFetchButton.click();
+		util.executeFunctionWhenElementPresent('.user-panel-popup', functionToExecute, maxTimeToWaitUntilDomElementsAppearMS);
 	}
 
 	function getNumberOfIDempTabsOpen() {
@@ -394,15 +433,49 @@ define([
 		needToResetHomeHash = false;
 	}
 
+	function initializeMobileCorrectionChecks() {
+		function fixMobileProblems() {
+			updateSiteNav();
+			addGridToggleButton();
+		}
+
+		setInterval(fixMobileProblems, 100);
+
+		function addGridToggleButton() {
+			let toolbar = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content');
+			if (!toolbar) {
+				return;
+			}
+			let gridToggleButton = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content > a[title*="Alt+T"]');
+			if (gridToggleButton) {
+				return;
+			}
+			gridToggleButton = templateManager.getTemplate('gridToggleButton').firstElementChild;
+			let oldGridToggleButton = toolbar.querySelector('a[title*="Alt+T"]');
+			gridToggleButton.addEventListener('click', function () {
+				oldGridToggleButton.click();
+			});
+			// add to UI after the Post-It button for our CSS to render correctly
+			let postItButton = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content > a[title*="Post-it"]');
+			postItButton.parentNode.insertBefore(gridToggleButton, postItButton.nextSibling);
+		}
+	}
+
 	function isHashEmpty() {
 		return !window.location.hash || window.location.hash === '#';
 	}
 
 	function logout() {
-		getDesktopHeaderPopupAndExecuteFunction(function clickLogout() {
-			document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
-				+ 'td:last-child a').click();
-		});
+		if (!areViewingMobile()) {
+			getDesktopHeaderPopupAndExecuteFunction(function clickLogout() {
+				document.querySelector('.desktop-header-popup table table table table table table table table tbody tr '
+					+ 'td:last-child a').click();
+			});
+		} else {
+			getMobileHeaderPopupAndExecuteFunction(function clickMobileLogout() {
+				document.querySelector('.user-panel-popup .z-vlayout-inner:last-child table table td:last-child a').click();
+			});
+		}
 	}
 
 	function navigateToDetailEditIfUserOnGridView() {
@@ -415,11 +488,21 @@ define([
 		}
 	}
 
+	function onPageClick(e) {
+		handleClickNavigation(e);
+		updateSiteNav();
+	}
+
 	function openTabDetailPane() {
 		let openTabDetailPaneButton = document.querySelector('.z-south-collapsed .z-icon-chevron-up');
 		if (util.elementIsVisible(openTabDetailPaneButton) && !didUserCloseTheDetailPane) {
 			isTabDetailPaneProgrammaticallyTriggered = true;
 			openTabDetailPaneButton.click();
 		}
+	}
+
+	function updateSiteNav() {
+		appendLogoutButton();
+		appendHomeBackButton();
 	}
 });

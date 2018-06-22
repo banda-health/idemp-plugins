@@ -22,10 +22,10 @@
 	border-bottom: 1px solid #C5C5C5 !important;
 	padding-left: 4px;
 }
-.desktop-header.mobile {
-	height: 36px;
-	padding: 4px 4px;
-}
+//.desktop-header.mobile {
+//	height: 36px;
+//	padding: 4px 4px;
+//}
 
 .desktop-header-font {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
