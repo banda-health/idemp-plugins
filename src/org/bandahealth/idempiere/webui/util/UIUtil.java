@@ -16,12 +16,12 @@ public class UIUtil {
 		int windowOrInfoWindowId = button.getAD_Window_ID();
 
 		boolean isInfoWindow = false;
-		if (windowOrInfoWindowId == 0) {
+		if (button.getAD_InfoWindow_ID() != 0) {
 			windowOrInfoWindowId = button.getAD_InfoWindow_ID();
 			isInfoWindow = true;
 		}
 		boolean isReportOrProcess = false;
-		if (windowOrInfoWindowId == 0) {
+		if (button.getAD_Process_ID() != 0) {
 			windowOrInfoWindowId = button.getAD_Process_ID();
 			isReportOrProcess = true;
 		}
