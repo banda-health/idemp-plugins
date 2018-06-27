@@ -26,7 +26,7 @@ public class UIUtil {
 			isReportOrProcess = true;
 		}
 
-		buttonDiv.setId(Double.toString(Math.random() * 52 + 4));
+		buttonDiv.setId(Integer.toString(windowOrInfoWindowId));
 		buttonDiv.setAttribute(INFO_WINDOW_ATTRIBUTE, isInfoWindow);
 		buttonDiv.setAttribute(REPORT_OR_PROCESS_ATTRIBUTE, isReportOrProcess);
 		buttonDiv.setTooltiptext(button.getButtonHelpText());
