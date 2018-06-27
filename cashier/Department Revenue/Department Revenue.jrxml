@@ -20,7 +20,8 @@
   COALESCE(outgoing_stock.cases, (0)::numeric) AS Cases,
   COALESCE(outgoing_stock.price, (0)::numeric) AS Amount,
   warehouse.ad_client_id,
-  warehouse.ad_org_id
+  warehouse.ad_org_id,
+  client.name as ad_client_name
 FROM m_warehouse warehouse
   inner join
     (
@@ -30,17 +31,18 @@ FROM m_warehouse warehouse
     FROM c_orderline col
     where col.qtyinvoiced > 0
     and (col.updated::date between $P{beginDate} AND $P{endDate})
-     and col.ad_client_id =  $P{AD_CLIENT_ID} 
+     and col.ad_client_id =  $P{AD_CLIENT_ID}
     and col.ad_org_id =  $P{AD_CLIENT_ID}
-    GROUP BY col.m_warehouse_id) outgoing_stock ON warehouse.m_warehouse_id = outgoing_stock.m_warehouse_id]]>
+    GROUP BY col.m_warehouse_id) outgoing_stock ON warehouse.m_warehouse_id = outgoing_stock.m_warehouse_id
+  inner join ad_client client on warehouse.ad_client_id = client.ad_client_id]]>
 	</queryString>
-	<field name="Name" class="java.lang.String">
+	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
 	</field>
-	<field name="Cases" class="java.math.BigDecimal">
+	<field name="cases" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="cases"/>
 	</field>
-	<field name="Amount" class="java.math.BigDecimal">
+	<field name="amount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="amount"/>
 	</field>
 	<field name="ad_client_id" class="java.math.BigDecimal">
@@ -49,28 +51,31 @@ FROM m_warehouse warehouse
 	<field name="ad_org_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>
 	</field>
+	<field name="ad_client_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ad_client_name"/>
+	</field>
 	<variable name="runningAmount" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{Amount}]]></variableExpression>
-		<initialValueExpression><![CDATA[$F{Amount}]]></initialValueExpression>
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{amount}]]></initialValueExpression>
 	</variable>
 	<variable name="totalAmount" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{Amount}]]></variableExpression>
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
 	</variable>
 	<variable name="totalCases" class="java.lang.Long" calculation="Sum">
-		<variableExpression><![CDATA[$F{Cases}]]></variableExpression>
+		<variableExpression><![CDATA[$F{cases}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="35" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="32" uuid="a334a322-2426-4915-ac87-2fc6a0d5d573"/>
-				<textElement textAlignment="Center">
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="42" uuid="419647a2-e2f0-49d0-a16a-94228106c6b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
-				<text><![CDATA[Ebenezer Clinic]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{ad_client_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -123,17 +128,17 @@ FROM m_warehouse warehouse
 		<band height="18" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="223" height="16" uuid="36841dc5-7eab-41cd-b3a1-3d14a215921e"/>
-				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="299" y="0" width="100" height="16" uuid="806e64ba-7498-4962-9b62-e2a65f596e15"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="223" y="0" width="76" height="16" uuid="9d4a3666-c7a6-4492-9d45-cc2277a6084e"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{Cases}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cases}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="399" y="0" width="100" height="16" uuid="ade5a77e-24da-49b6-b2c5-8e5fc7bbe736"/>
@@ -143,7 +148,7 @@ FROM m_warehouse warehouse
 			<textField evaluationTime="Auto" pattern="#,##0.00 %">
 				<reportElement x="499" y="0" width="56" height="16" uuid="68a70d3b-b852-4867-8005-77e783c34d26"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{Amount} / $V{totalAmount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{amount} / $V{totalAmount}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
