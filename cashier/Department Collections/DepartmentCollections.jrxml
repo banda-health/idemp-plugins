@@ -20,17 +20,25 @@
 	<queryString>
 		<![CDATA[SELECT
     warehouse.m_warehouse_id as department_id,
-    warehouse.name as Department
+    warehouse.name as Department,
+    client.name as ad_client_name
 FROM
  m_warehouse as warehouse
+  inner join ad_client client on warehouse.ad_client_id = client.ad_client_id
  WHERE
-    warehouse.ad_client_id =  $P{AD_CLIENT_ID} 
-    and warehouse.ad_org_id =  $P{AD_CLIENT_ID}]]>
+    warehouse.ad_client_id =  $P{AD_CLIENT_ID}
+    and warehouse.ad_org_id = $P{AD_CLIENT_ID}]]>
 	</queryString>
 	<field name="department_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="department_id"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Department" class="java.lang.String"/>
+	<field name="Department" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="department"/>
+	</field>
+	<field name="ad_client_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ad_client_name"/>
+	</field>
 	<variable name="amountGrandTotal" class="java.math.BigDecimal" calculation="Sum"/>
 	<variable name="countGrandTotal" class="java.math.BigDecimal" calculation="Sum">
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
@@ -39,14 +47,14 @@ FROM
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="32" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="30" uuid="a334a322-2426-4915-ac87-2fc6a0d5d573"/>
-				<textElement textAlignment="Center">
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="46" uuid="3d6fa99c-1e09-4d09-a5e3-673a3e6f45c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
-				<text><![CDATA[Ebenezer Clinic]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{ad_client_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
