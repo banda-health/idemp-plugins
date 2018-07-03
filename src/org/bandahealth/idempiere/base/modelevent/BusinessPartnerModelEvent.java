@@ -12,6 +12,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrder;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceList;
+import org.compiere.model.MProduct;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -103,12 +104,13 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			// First check to see if any pricing list has been defaulted for the BP Group
 			int priceListId = businessPartner.getBPGroup().getM_PriceList_ID();
 			if (priceListId == 0) {
-				// Get the standard price list
-				// TODO: Get the default price list
-				priceListId = QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name,
-						MPriceList.COLUMNNAME_Name + " = 'Standard'", null)
-						.setOnlyActiveRecords(true)
-						.firstId();
+				String whereClause = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
+						+ MPriceList.COLUMNNAME_IsSOPriceList + "='Y' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
+						+ Env.getAD_Org_ID(Env.getCtx());
+				// Get the default sales price list
+				priceListId = QueryUtil
+						.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, whereClause, null)
+						.setOnlyActiveRecords(true).firstId();
 			}
 			businessPartner.setM_PriceList_ID(priceListId);
 		}
@@ -125,8 +127,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			// TODO: Get the default price list
 			MPriceList purchasePriceList = QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(),
 					MPriceList.Table_Name, MPriceList.COLUMNNAME_Name + " = 'Purchase'", null)
-					.setOnlyActiveRecords(true)
-					.first();
+					.setOnlyActiveRecords(true).first();
 			businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
 		}
 	}
@@ -147,8 +148,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		// Add a the location or a default location if no location given (address)
 		MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(businessPartner);
 		if (businessPartner.getBH_C_Location_ID() == 0) {
-			MCountry country = (new Query(Env.getCtx(), MCountry.Table_Name, MCountry.COLUMNNAME_CountryCode
-					+ " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null)).first();
+			MCountry country = (new Query(Env.getCtx(), MCountry.Table_Name,
+					MCountry.COLUMNNAME_CountryCode + " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null))
+							.first();
 			MLocation location = new MLocation(country, null);
 			location.save();
 
