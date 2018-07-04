@@ -119,6 +119,10 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			// Set the PO payment term
 			MPaymentTerm purchasePaymentTerm = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
 					MPaymentTerm.Table_Name, "name = 'Immediate'", null);
+			if (purchasePaymentTerm == null) {
+				throw new RuntimeException(
+						"Could not find in table '" + MPaymentTerm.Table_Name + "'" + " record with name 'Immediate'");
+			}
 			businessPartner.setPO_PaymentTerm_ID(purchasePaymentTerm.getC_PaymentTerm_ID());
 
 			// Set the purchase price list
@@ -127,6 +131,10 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 					MPriceList.Table_Name, MPriceList.COLUMNNAME_Name + " = 'Purchase'", null)
 					.setOnlyActiveRecords(true)
 					.first();
+			if (purchasePriceList == null) {
+				throw new RuntimeException(
+						"Could not find in table '" + MPriceList.Table_Name + "'" + " record with name 'Purchase'");
+			}
 			businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
 		}
 	}
