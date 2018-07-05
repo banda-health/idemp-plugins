@@ -117,7 +117,7 @@ define([
 				if (bodyTag.classList.contains(classNames.SYSTEM)) {
 					return;
 				}
-
+				disableZoomAccrossWindows();
 				let bodyTagClasses = document.body.classList;
 				if (!areAnyTabsVisisble()) {
 					util.addBodyClassName(classNames.NO_TABS_PRESENT);
@@ -506,15 +506,18 @@ define([
 		appendHomeBackButton();
 	}
 	
+	
 	function disableZoomAccrossWindows(){
 		let zoomableLabels = document.querySelectorAll('.z-label[style="\cursor: pointer; text-decoration: underline;color: #333;"\]');
-		console.log('found labels: ' + zoomableLabels.length())
-		zoomableLabels.forEach(function(label){
-			//TODO Change this to apply a class style
-			label.style.textDecoration='none';
-			label.style.cursor='default';
-			label.style.pointerEvents='none';
-			label.style.fontWeight='bold';
-		});
+		if(zoomableLabels == null){
+			return;
+		}else{
+			zoomableLabels.forEach(function(label){
+				label.style.textDecoration='none';
+				label.style.cursor='default';
+				label.style.pointerEvents='none';
+			});
+		}
+		
 	}
 });
