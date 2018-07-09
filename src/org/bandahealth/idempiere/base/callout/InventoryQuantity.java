@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MLocator;
+import org.compiere.model.MOrder;
 import org.compiere.model.MProduct;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
@@ -22,29 +23,37 @@ public class InventoryQuantity implements IColumnCallout {
 
 	@Override
 	public String start(Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue) {
+
 		String errorMessage = null;
+		Integer warehouseId = Env.getContextAsInt(ctx, WindowNo + "|M_Warehouse_ID");
+		Integer orderId = Env.getContextAsInt(ctx, WindowNo + "|C_Order_ID");
+
 		if (value != null) {
 
-			Integer productId = (Integer) value;
-			
-			//ignore billed services
-			MProduct product = new MProduct(ctx, productId,null);
-			if(product.getProductType().equals("S")) {
+			MOrder order = new MOrder(ctx, orderId, null);
+			if (!order.isSOTrx()) {
 				return errorMessage;
 			}
-			Integer warehouseId = Env.getContextAsInt(ctx, WindowNo+"|M_Warehouse_ID");
-			
+
+			Integer productId = (Integer) value;
+
+			// ignore billed services
+			MProduct product = new MProduct(ctx, productId, null);
+			if (product.getProductType().equals("S")) {
+				return errorMessage;
+			}
+
 			MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
 			Integer locatorId = locator.get_ID();
-			
+
 			String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
 					+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
 			Query availableQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-			BigDecimal quantity = (BigDecimal)availableQtyInStorage.setParameters(Arrays.asList(productId, locatorId)).first()
-					.get_Value("qtyonhand");
+			BigDecimal quantity = (BigDecimal) availableQtyInStorage.setParameters(Arrays.asList(productId, locatorId))
+					.first().get_Value("qtyonhand");
 			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, quantity);
 		} else {
-			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable,BigDecimal.ZERO);
+			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, BigDecimal.ZERO);
 		}
 
 		return errorMessage;
