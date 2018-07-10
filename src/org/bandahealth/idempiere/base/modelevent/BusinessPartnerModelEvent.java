@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.modelevent;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.BHConfigLoader;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -127,15 +128,18 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			}
 			businessPartner.setPO_PaymentTerm_ID(purchasePaymentTerm.getC_PaymentTerm_ID());
 
-			// Set the purchase price list
-			// TODO: Get the default price list
+			//Get the default purchase price list for vendors
+			String defaultPurchasePList = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
+					+ MPriceList.COLUMNNAME_IsSOPriceList + "='N' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
+					+ Env.getAD_Org_ID(Env.getCtx());
+			
 			MPriceList purchasePriceList = QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPriceList.Table_Name, MPriceList.COLUMNNAME_Name + " = 'Purchase'", null)
+					MPriceList.Table_Name, defaultPurchasePList, null)
 					.setOnlyActiveRecords(true)
 					.first();
 			if (purchasePriceList == null) {
-				throw new RuntimeException(
-						"Could not find in table '" + MPriceList.Table_Name + "'" + " record with name 'Purchase'");
+				throw new AdempiereException(
+						"Could not find a default purchase price list in table '" + MPriceList.Table_Name + "'");
 			}
 			businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
 		}
