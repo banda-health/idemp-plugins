@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.base.process;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -43,7 +45,11 @@ public class SalesProcess extends SvrProcess {
 		if (!salesOrder.getDocStatus().equals(MOrder_BH.DOCSTATUS_Drafted)) {
 			return null;
 		}
-
+		Date date = new Date();
+		if(salesOrder.getDateAcct() != null && salesOrder.getDateAcct().before(date)) {
+			salesOrder.setDateAcct(new Timestamp(date.getTime()));
+			log.info("Setting accounting date to: " + salesOrder.getDateAcct());
+		}
 		boolean salesOrderIsComplete = salesOrder.processIt(DocAction.ACTION_Complete);
 		if (!salesOrderIsComplete) {
 			log.severe("Error trying to complete order " + salesOrder.getC_Order_ID());
