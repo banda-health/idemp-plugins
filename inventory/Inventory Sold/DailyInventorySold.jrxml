@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Inventory Sold" language="groovy" pageWidth="595" pageHeight="850" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="beginDate" class="java.util.Date"/>
+	<parameter name="endDate" class="java.util.Date"/>
+	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT 
+	s.name AS DrugName,
+    s.dateordered AS DateOrdered,
+    s.qtyordered AS QtyOrdered,
+    s.qtyonhand AS QtyOnHand,
+    w.name AS Store,
+    s.ad_org_id AS AD_Org_ID,
+    client.name AS Client_Name
+ FROM bh_daily_sold_inventory_v s
+JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
+JOIN M_Warehouse w ON s.m_warehouse_id = w.m_warehouse_id
+WHERE dateordered between $P{beginDate} AND  $P{endDate}
+AND s.ad_client_ID =  $P{AD_CLIENT_ID} 
+ORDER BY s.qtyordered desc]]>
+	</queryString>
+	<field name="DrugName" class="java.lang.String"/>
+	<field name="DateOrdered" class="java.sql.Timestamp"/>
+	<field name="QtyOrdered" class="java.lang.Integer"/>
+	<field name="QtyOnHand" class="java.lang.Integer"/>
+	<field name="Store" class="java.lang.String"/>
+	<field name="AD_Org_ID" class="java.lang.Integer"/>
+	<field name="Client_Name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="46" uuid="c877cca5-9599-4880-b36b-b97a665dccdd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Client_Name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="25" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Inventory Sold"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="99" height="16" uuid="de140269-bbf7-4026-a3ea-6c1254aaaf56"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="82" height="16" uuid="47474ccf-9801-42d2-b3c8-0e9dd5805389"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Drug Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="96" height="16" uuid="3353f64b-8d84-48c0-9700-8384cc14c569"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity Sold]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="132" height="16" uuid="08138a37-96d1-4fca-86d2-017b6d54dc6c"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remaining Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="0" width="119" height="16" uuid="3416f17b-2346-4043-b1ba-336a08d4485b"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Store]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="13" width="530" height="1" uuid="e9ae85de-7d27-47b6-9abb-dfd5c972ef8d"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<textField pattern="d MMM, yyyy">
+				<reportElement x="0" y="0" width="99" height="16" uuid="089ae30e-2a51-4419-ab4a-99216852769d"/>
+				<textFieldExpression><![CDATA[$F{DateOrdered}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="0" width="75" height="16" uuid="e562d461-d810-4383-a579-885fa2ae3251"/>
+				<textFieldExpression><![CDATA[$F{DrugName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="181" y="0" width="57" height="16" uuid="55e65eeb-2bd6-4d0a-839b-215119463781"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{QtyOrdered}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="279" y="0" width="110" height="16" uuid="b112dbde-59e8-4a99-ba20-0b1b16c22f2a"/>
+				<textFieldExpression><![CDATA[$F{QtyOnHand}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="409" y="0" width="119" height="16" uuid="29817303-1a87-45f4-9cb5-3927a9925476"/>
+				<textFieldExpression><![CDATA[$F{Store}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="379" height="16" uuid="6c430987-cd11-40be-bd9d-2077e233745f"/>
+				<textFieldExpression><![CDATA["Generated at " + new SimpleDateFormat("d MMM, YYYY HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="522" y="3" width="33" height="16" uuid="7a9813a0-b37a-4dcb-a749-b1725b610579"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="3" width="87" height="16" uuid="f96d7780-6357-4924-b519-27f72a508d29"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="21">
+			<staticText>
+				<reportElement x="0" y="2" width="306" height="16" uuid="e8da193c-2a64-44be-96ca-7416132f7400"/>
+				<textElement textAlignment="Left">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>
