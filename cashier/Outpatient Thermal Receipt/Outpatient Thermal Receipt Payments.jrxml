@@ -10,7 +10,8 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select payamt as amount_tendered from bh_receipt_payment_v;]]>
+		<![CDATA[select payamt as amount_tendered from bh_receipt_payment_v
+where c_order_id= $P{billId} ;]]>
 	</queryString>
 	<field name="amount_tendered" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
@@ -19,7 +20,9 @@
 		<variableExpression><![CDATA[$F{amount_tendered}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="Variable_1" class="java.lang.String"/>
+	<variable name="totalCost" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{totalCost}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -66,7 +69,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="74" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
-					<printWhenExpression><![CDATA[$V{totalPayments}.subtract($V{totalCost}) ]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{totalPayments}.subtract($V{totalCost})]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="Arial"/>

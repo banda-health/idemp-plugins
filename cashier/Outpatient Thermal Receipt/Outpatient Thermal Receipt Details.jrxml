@@ -8,13 +8,12 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.data.adapter" value="/home/muhindi_k/BandaHealth/BandaGo/bandaidemp/bandago.plugins/reports/cashier/DataAdapter.xml"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
-	<parameter name="billId" class="java.lang.Integer">
+	<parameter name="billId" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select name as item_name, qtyentered as quantity, priceactual as price, grandtotal 
-from bh_receipt_lineitems_v;
-]]>
+from bh_receipt_lineitems_v where c_order_id= $P{billId} ]]>
 	</queryString>
 	<field name="item_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -30,7 +29,6 @@ from bh_receipt_lineitems_v;
 	</field>
 	<variable name="totalCost" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{price}.multiply($F{quantity})]]></variableExpression>
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
