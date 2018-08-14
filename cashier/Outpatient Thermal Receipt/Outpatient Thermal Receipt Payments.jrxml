@@ -7,7 +7,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_blue"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="billId" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[$P{billId}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select payamt as amount_tendered from bh_receipt_payment_v
@@ -20,7 +20,7 @@ where c_order_id= $P{billId} ;]]>
 		<variableExpression><![CDATA[$F{amount_tendered}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="totalCost" class="java.math.BigDecimal">
+	<variable name="totalCost" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$V{totalCost}]]></variableExpression>
 	</variable>
 	<background>
@@ -29,11 +29,11 @@ where c_order_id= $P{billId} ;]]>
 	<detail>
 		<band height="13" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="17" y="0" width="106" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<reportElement x="17" y="0" width="136" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[T( "CASH")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[UPPER(T( "Amount Tendered: ") )]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
 				<reportElement x="123" y="0" width="88" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
@@ -51,30 +51,14 @@ where c_order_id= $P{billId} ;]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="144" y="26" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPayments}.subtract($V{totalCost})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="74" y="6" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
+				<reportElement x="55" y="6" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[Total Payment:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="74" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
-					<printWhenExpression><![CDATA[$V{totalPayments}.subtract($V{totalCost})]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Change Due:]]></text>
+				<text><![CDATA[Chang Due:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="153" y="2" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
@@ -82,15 +66,6 @@ where c_order_id= $P{billId} ;]]>
 			<line>
 				<reportElement x="153" y="21" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
 			</line>
-			<staticText>
-				<reportElement x="74" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
-					<printWhenExpression><![CDATA[$V{totalPayments}.subtract($V{totalCost})]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Outstanding:]]></text>
-			</staticText>
 		</band>
 	</summary>
 </jasperReport>

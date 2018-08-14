@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt" pageWidth="216" pageHeight="297" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b0650e21-f6cf-4aad-acec-9e81aea4c41f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt" pageWidth="216" pageHeight="297" whenNoDataType="NoPages" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b0650e21-f6cf-4aad-acec-9e81aea4c41f">
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="75"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_blue"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="style1" fontName="Courier New" fontSize="12"/>
-	<parameter name="billId" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[1000002]]></defaultValueExpression>
+	<parameter name="billId" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1000001]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="orgId" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1000003]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select sorder.dateordered as bill_date, sorder.c_order_id as receipt_number, cashier.name as cashier_family_name,
@@ -21,7 +24,7 @@ inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
 inner join c_payment payment on invoice.c_invoice_id = payment.c_invoice_id
 inner join ad_user patient on invoice.ad_user_id = patient.ad_user_id
 inner join ad_user cashier on sorder.salesrep_id = cashier.ad_user_id
-where sorder.c_order_id =   $P{billId} ]]>
+where sorder.c_order_id =   $P{billId}]]>
 	</queryString>
 	<field name="bill_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
@@ -46,18 +49,6 @@ where sorder.c_order_id =   $P{billId} ]]>
 	</background>
 	<title>
 		<band height="170" splitType="Stretch">
-			<staticText>
-				<reportElement style="style1" mode="Transparent" x="0" y="0" width="216" height="70" uuid="e49ce628-bd2d-4cb0-b1c7-1ae5d963e2c3"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<text><![CDATA[OpenHMIS Demo
-DEMO CLINIC
-Address: 12345 Nairobi
-Tel: 070 712 3456
-Fax: 070 712 3457
-Email: openhmisproject@gmail.com]]></text>
-			</staticText>
 			<textField>
 				<reportElement style="style1" x="69" y="117" width="141" height="17" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
 				<textElement>
@@ -70,7 +61,7 @@ Email: openhmisproject@gmail.com]]></text>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format($F{bill_date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm a").format($F{bill_date})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="69" y="151" width="141" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
@@ -98,7 +89,7 @@ Email: openhmisproject@gmail.com]]></text>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[Date:]]></text>
+				<text><![CDATA[Billed On:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="13" y="134" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
@@ -130,12 +121,20 @@ Email: openhmisproject@gmail.com]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cashier_family_name}]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="0" y="0" width="216" height="60" backcolor="#BD3937" uuid="a621f8c9-c93b-496c-a829-9fd64c4779e4"/>
+				<subreportParameter name="orgId">
+					<subreportParameterExpression><![CDATA[$P{orgId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Blank_A4.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</title>
 	<detail>
 		<band height="31" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="5" width="216" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
+				<reportElement x="-1" y="1" width="216" height="24" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
 				<subreportParameter name="billId">
 					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -146,7 +145,7 @@ Email: openhmisproject@gmail.com]]></text>
 		</band>
 		<band height="25">
 			<subreport>
-				<reportElement x="0" y="0" width="216" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
+				<reportElement x="0" y="-5" width="216" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
 				<subreportParameter name="totalCost">
 					<subreportParameterExpression><![CDATA[$V{totalCost}]]></subreportParameterExpression>
 				</subreportParameter>
