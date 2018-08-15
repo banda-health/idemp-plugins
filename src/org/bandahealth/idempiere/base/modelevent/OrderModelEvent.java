@@ -43,6 +43,8 @@ public class OrderModelEvent extends AbstractEventHandler {
 			}
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
 //			afterSaveRequest(businessPartner);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
+			beforeSalesOrderUpdateRequest(order);
 		}
 	}
 
@@ -69,6 +71,20 @@ public class OrderModelEvent extends AbstractEventHandler {
 		salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
 
 		salesOrder.setPaymentRule(MOrder.PAYMENTRULE_Cash);
+	}
+	
+	private void beforeSalesOrderUpdateRequest(MOrder salesOrder) {
+
+		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
+		
+		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
+				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
+				.firstId();
+		if (salesOrder.getC_DocType_ID() != posOrderDocTypeId) {
+			salesOrder.setC_DocType_ID(posOrderDocTypeId);
+			salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
+		}
+
 	}
 
 	private int getOrganizationIDForUser(int userId, int roleId, int clientId) {
