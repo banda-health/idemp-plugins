@@ -44,7 +44,9 @@ public class OrderModelEvent extends AbstractEventHandler {
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
 //			afterSaveRequest(businessPartner);
 		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			beforeSalesOrderUpdateRequest(order);
+			if (!isPurchase) {
+				beforeSalesOrderUpdateRequest(order);	
+			}
 		}
 	}
 
@@ -115,6 +117,6 @@ public class OrderModelEvent extends AbstractEventHandler {
 	@Override
 	protected void initialize() {
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MOrder_BH.Table_Name);
-//		registerTableEvent(IEventTopics.PO_AFTER_NEW, MOrder_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MOrder_BH.Table_Name);
 	}
 }
