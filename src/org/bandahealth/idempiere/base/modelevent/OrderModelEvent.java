@@ -76,13 +76,15 @@ public class OrderModelEvent extends AbstractEventHandler {
 	}
 	
 	private void beforeSalesOrderUpdateRequest(MOrder salesOrder) {
-
 		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
 		
 		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
 				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
 				.firstId();
-		if (salesOrder.getC_DocType_ID() != posOrderDocTypeId) {
+		
+		MDocType docType = MDocType.get(Env.getCtx(), posOrderDocTypeId);
+		
+		if (docType.getAD_Client_ID() != clientId) {
 			salesOrder.setC_DocType_ID(posOrderDocTypeId);
 			salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
 		}
