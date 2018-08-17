@@ -7,15 +7,11 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_blue"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="style1" fontName="Courier New" fontSize="12"/>
-	<parameter name="billId" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[1000001]]></defaultValueExpression>
-	</parameter>
+	<parameter name="billId" class="java.math.BigDecimal"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="orgId" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[1000003]]></defaultValueExpression>
-	</parameter>
+	<parameter name="orgId" class="java.math.BigDecimal"/>
 	<queryString>
 		<![CDATA[select sorder.dateordered as bill_date, sorder.c_order_id as receipt_number, cashier.name as cashier_family_name,
        patient.name as patient_family_name, cashier.name as cashier
@@ -42,7 +38,7 @@ where sorder.c_order_id =   $P{billId}]]>
 		<property name="com.jaspersoft.studio.field.label" value="cashier_family_name"/>
 	</field>
 	<variable name="totalCost" class="java.math.BigDecimal">
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0.00	)]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -73,9 +69,9 @@ where sorder.c_order_id =   $P{billId}]]>
 			<staticText>
 				<reportElement x="0" y="77" width="216" height="17" uuid="c583cfb7-4b4a-4320-a203-d61ae2e3311f"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Receipt]]></text>
+				<text><![CDATA[RECEIPT]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="13" y="117" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
@@ -100,9 +96,15 @@ where sorder.c_order_id =   $P{billId}]]>
 			</staticText>
 			<line>
 				<reportElement x="0" y="72" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
 			</line>
 			<line>
 				<reportElement x="0" y="94" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
 			</line>
 			<line>
 				<reportElement x="0" y="167" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
@@ -127,14 +129,15 @@ where sorder.c_order_id =   $P{billId}]]>
 					<subreportParameterExpression><![CDATA[$P{orgId}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["Blank_A4.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Blank_A4.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
 	<detail>
 		<band height="31" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT}.intValue()==1]]></printWhenExpression>
 			<subreport>
-				<reportElement x="-1" y="1" width="216" height="24" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
+				<reportElement isPrintRepeatedValues="false" x="-1" y="1" width="216" height="24" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
 				<subreportParameter name="billId">
 					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -144,13 +147,14 @@ where sorder.c_order_id =   $P{billId}]]>
 			</subreport>
 		</band>
 		<band height="25">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT}.intValue()==1]]></printWhenExpression>
 			<subreport>
 				<reportElement x="0" y="-5" width="216" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
-				<subreportParameter name="totalCost">
-					<subreportParameterExpression><![CDATA[$V{totalCost}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="billId">
 					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalCost">
+					<subreportParameterExpression><![CDATA[$V{totalCost}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Outpatient Thermal Receipt Payments.jasper"]]></subreportExpression>

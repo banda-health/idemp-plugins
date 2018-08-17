@@ -6,11 +6,8 @@
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_blue"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="net.sf.jasperreports.data.adapter" value="/home/muhindi_k/BandaHealth/BandaGo/bandaidemp/bandago.plugins/reports/cashier/DataAdapter.xml"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
-	<parameter name="billId" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[1000002]]></defaultValueExpression>
-	</parameter>
+	<parameter name="billId" class="java.math.BigDecimal" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select name as item_name, qtyentered as quantity, priceactual as price, grandtotal 
 from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
@@ -27,8 +24,9 @@ from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
 	<field name="grandtotal" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="grandtotal"/>
 	</field>
-	<variable name="totalCost" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{price}.multiply($F{quantity})]]></variableExpression>
+	<variable name="totalCost" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0.0)]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -40,21 +38,21 @@ from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[Qty]]></text>
+				<text><![CDATA[QTY]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="32" y="0" width="121" height="12" uuid="87629929-d34f-4165-8c85-a041e765e0ba"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[Description]]></text>
+				<text><![CDATA[DESCRIPTION]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="153" y="0" width="58" height="12" uuid="87629929-d34f-4165-8c85-a041e765e0ba"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[Amount]]></text>
+				<text><![CDATA[AMOUNT]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="15" width="216" height="1" uuid="281e838c-7a6f-48d6-8925-12d2cbbb99c1"/>
@@ -77,8 +75,10 @@ from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement x="153" y="0" width="58" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405"/>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00###;#,##0.00###-">
+				<reportElement x="153" y="0" width="58" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -88,12 +88,12 @@ from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
 	</detail>
 	<summary>
 		<band height="17">
-			<textField>
+			<textField pattern="#,###.00#;#,###.00#-">
 				<reportElement x="119" y="5" width="92" height="12" uuid="66809266-fd5e-4cc5-8a7e-9d9425131297"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($V{totalCost})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{totalCost}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="74" y="5" width="45" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>

@@ -3,9 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="216" pageHeight="100" whenNoDataType="BlankPage" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8e782aea-40cb-486c-b6e4-149d68f67b91">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_blue"/>
-	<parameter name="orgId" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[1000003]]></defaultValueExpression>
-	</parameter>
+	<parameter name="orgId" class="java.math.BigDecimal" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select ad_client_id, 
 ad_org_id, 
