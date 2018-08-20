@@ -1,15 +1,18 @@
 package org.bandahealth.idempiere.base.process;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Level;
 
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.Env;
 
 public class SalesProcess extends SvrProcess {
 
@@ -69,6 +72,7 @@ public class SalesProcess extends SvrProcess {
 		List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name, where, get_TrxName())
 				.setParameters(salesOrder.getC_Order_ID())
 				.list();
+		BigDecimal totalPayments = new BigDecimal(0);
 		for (MPayment_BH orderPayment : orderPayments) {
 			orderPayment.setC_Invoice_ID(invoice.getC_Invoice_ID());
 			orderPayment.saveEx(get_TrxName());
@@ -79,6 +83,37 @@ public class SalesProcess extends SvrProcess {
 						+ "and associating it to invoice " + invoice.getC_Invoice_ID());
 				throw new Exception("There was an error processing the payments.");
 			}
+			
+			totalPayments = totalPayments.add(orderPayment.getPayAmt());
+			
+			orderPayment.saveEx(get_TrxName());
+		}
+		
+		// store 'balance' as a negative payment
+		BigDecimal change = totalPayments.subtract(salesOrder.getGrandTotal());
+		if (change.compareTo(BigDecimal.ZERO) > 0) {
+			change = change.multiply(new BigDecimal(-1));
+			
+			MPayment_BH orderPayment = new MPayment_BH(getCtx(), 0, get_TrxName());
+			orderPayment.copyValues(orderPayments.get(0), orderPayment);
+			orderPayment.setAD_Org_ID(salesOrder.getAD_Org_ID());
+			orderPayment.setC_Invoice_ID(0);
+			orderPayment.setC_Charge_ID(0);
+			orderPayment.setDocAction(MPayment_BH.DOCACTION_Complete);
+			orderPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
+			orderPayment.setDescription("Change");
+			
+			orderPayment.setPayAmt(change);
+			
+			orderPayment.saveEx(get_TrxName());
+
+			boolean paymentIsComplete = orderPayment.processIt(DocAction.ACTION_Complete);
+			if (!paymentIsComplete) {
+				log.severe("Error auto-processing 'balance' payment " + orderPayment.getC_Payment_ID()
+						+ "and associating it to invoice " + invoice.getC_Invoice_ID());
+				throw new Exception("There was an error processing 'balance' payment.");
+			}
+			
 			orderPayment.saveEx(get_TrxName());
 		}
 
