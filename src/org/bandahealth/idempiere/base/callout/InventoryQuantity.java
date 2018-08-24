@@ -25,8 +25,8 @@ public class InventoryQuantity implements IColumnCallout {
 	public String start(Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue) {
 
 		String errorMessage = null;
-//		Query queryQtyInStorage = null;
-//		Integer warehouseId = Env.getContextAsInt(ctx, WindowNo + "|M_Warehouse_ID");
+		Query queryQtyInStorage = null;
+		Integer warehouseId = Env.getContextAsInt(ctx, WindowNo + "|M_Warehouse_ID");
 		Integer orderId = Env.getContextAsInt(ctx, WindowNo + "|C_Order_ID");
 		Integer attributeSetId = Env.getContextAsInt(ctx, WindowNo + "|M_AttributeSetInstance_ID");
 		Integer productId = null;
@@ -52,70 +52,44 @@ public class InventoryQuantity implements IColumnCallout {
 				return errorMessage;
 			}
 
-//			MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
-//			Integer locatorId = locator.get_ID();
-//			String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
-//					+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
-//			ArrayList<Object> parameters = new ArrayList<>();
-//			parameters.add(productId);
-//			parameters.add(locatorId);
-//			if(attributeSetId > 0) {
-//				whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID+"=?";
-//				parameters.add(attributeSetId);
-//			}
-//			queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-//			queryQtyInStorage.setParameters(parameters);
-			quantity  = getQuantity(ctx, WindowNo);
-			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable,quantity );
-
+			MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
+			Integer locatorId = locator.get_ID();
+			String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
+					+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
+			ArrayList<Object> parameters = new ArrayList<>();
+			parameters.add(productId);
+			parameters.add(locatorId);
+			if(attributeSetId > 0) {
+				logger.info("Inside check!");
+				whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID+"=?";
+				parameters.add(attributeSetId);
+			}
+			queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
+			queryQtyInStorage.setParameters(parameters);
+			quantity  = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
+			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, quantity);
 		} else {
+			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, BigDecimal.ZERO); //reset qty field 
 			productId = Env.getContextAsInt(ctx, WindowNo + "|M_Product_ID");
 			if (productId != null) {
-//				MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
-//				Integer locatorId = locator.get_ID();
-//				String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
-//						+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
-//				ArrayList<Object> parameters = new ArrayList<>();
-//				parameters.add(productId);
-//				parameters.add(locatorId);
-//				if(attributeSetId > 0) {
-//					whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID+"=?";
-//					parameters.add(attributeSetId);
-//				}
-//				queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-//				queryQtyInStorage.setParameters(parameters);
-//				quantity  = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
-				quantity = getQuantity(ctx, WindowNo);
-				mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable,quantity);
-			}
+								MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
+								Integer locatorId = locator.get_ID();
+								String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
+										+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
+								ArrayList<Object> parameters = new ArrayList<>();
+								parameters.add(productId);
+								parameters.add(locatorId);
+								if(attributeSetId > 0) {
+									whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID+"=?";
+									parameters.add(attributeSetId);
+								}
+								queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
+								queryQtyInStorage.setParameters(parameters);
+								quantity  = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
+								mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable,quantity);
+							}
 		}
 
 		return errorMessage;
-	}
-
-	private BigDecimal getQuantity(Properties ctx, int WindowNo) {
-
-		Integer warehouseId = Env.getContextAsInt(ctx, WindowNo + "|M_Warehouse_ID");
-//		Integer orderId = Env.getContextAsInt(ctx, WindowNo + "|C_Order_ID");
-		Integer attributeSetId = Env.getContextAsInt(ctx, WindowNo + "|M_AttributeSetInstance_ID");
-		Integer productId = null;
-		Query queryQtyInStorage = null;
-//		BigDecimal quantity = BigDecimal.ZERO;
-
-		MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
-		Integer locatorId = locator.get_ID();
-		String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID
-				+ "=?";
-		ArrayList<Object> parameters = new ArrayList<>();
-		parameters.add(productId);
-		parameters.add(locatorId);
-		if (attributeSetId > 0) {
-			whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "=?";
-			parameters.add(attributeSetId);
-		}
-		queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-		queryQtyInStorage.setParameters(parameters);
-		BigDecimal quantity = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
-		return quantity;
 	}
 }
