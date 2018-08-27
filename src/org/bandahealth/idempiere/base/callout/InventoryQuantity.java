@@ -17,6 +17,8 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
+import bsh.util.Sessiond;
+
 public class InventoryQuantity implements IColumnCallout {
 
 	CLogger logger = CLogger.getCLogger(this.getClass());
@@ -37,7 +39,7 @@ public class InventoryQuantity implements IColumnCallout {
 			if (!order.isSOTrx()) {
 				return errorMessage;
 			}
-			
+
 			if (attributeSetId > 0) {
 				productId = Env.getContextAsInt(ctx, WindowNo + "|M_Product_ID");
 			} else {
@@ -49,13 +51,15 @@ public class InventoryQuantity implements IColumnCallout {
 			if (product.getProductType().equals("S")) {
 				return errorMessage;
 			}
-			
-			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, getQtyAvailable(ctx, warehouseId, productId, attributeSetId));
+
+			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable,
+					getQtyAvailable(ctx, warehouseId, productId, attributeSetId));
 		} else {
 			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, BigDecimal.ZERO); // reset qty field
 			productId = Env.getContextAsInt(ctx, WindowNo + "|M_Product_ID");
 			if (productId != null) {
-				mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, getQtyAvailable(ctx, warehouseId, productId, attributeSetId));
+				mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable,
+						getQtyAvailable(ctx, warehouseId, productId, attributeSetId));
 			}
 		}
 
@@ -67,20 +71,25 @@ public class InventoryQuantity implements IColumnCallout {
 		Query queryQtyInStorage = null;
 		BigDecimal quantity = BigDecimal.ZERO;
 
-		MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
-		Integer locatorId = locator.get_ID();
-		String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID
-				+ "=?";
-		ArrayList<Object> parameters = new ArrayList<>();
-		parameters.add(productId);
-		parameters.add(locatorId);
-		if (attributeSetId > 0) {
-			whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "=?";
-			parameters.add(attributeSetId);
+		MWarehouse store = new MWarehouse(ctx, warehouseId, null);
+		MLocator locator = store.getDefaultLocator();
+		if (locator != null) {
+			Integer locatorId = locator.get_ID();
+			String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
+					+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
+			ArrayList<Object> parameters = new ArrayList<>();
+			parameters.add(productId);
+			parameters.add(locatorId);
+			if (attributeSetId > 0) {
+				whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "=?";
+				parameters.add(attributeSetId);
+			}
+			queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
+			queryQtyInStorage.setParameters(parameters);
+			quantity = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
+		}else {
+			logger.severe("No locator found for store: " + store.getName());
 		}
-		queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-		queryQtyInStorage.setParameters(parameters);
-		quantity = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
 		return quantity;
 	}
 
