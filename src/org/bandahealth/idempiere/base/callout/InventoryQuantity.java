@@ -25,12 +25,10 @@ public class InventoryQuantity implements IColumnCallout {
 	public String start(Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue) {
 
 		String errorMessage = null;
-		Query queryQtyInStorage = null;
 		Integer warehouseId = Env.getContextAsInt(ctx, WindowNo + "|M_Warehouse_ID");
 		Integer orderId = Env.getContextAsInt(ctx, WindowNo + "|C_Order_ID");
 		Integer attributeSetId = Env.getContextAsInt(ctx, WindowNo + "|M_AttributeSetInstance_ID");
 		Integer productId = null;
-		BigDecimal quantity = BigDecimal.ZERO;
 
 		if (value != null) {
 
@@ -39,7 +37,7 @@ public class InventoryQuantity implements IColumnCallout {
 			if (!order.isSOTrx()) {
 				return errorMessage;
 			}
-
+			
 			if (attributeSetId > 0) {
 				productId = Env.getContextAsInt(ctx, WindowNo + "|M_Product_ID");
 			} else {
@@ -51,45 +49,39 @@ public class InventoryQuantity implements IColumnCallout {
 			if (product.getProductType().equals("S")) {
 				return errorMessage;
 			}
-
-			MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
-			Integer locatorId = locator.get_ID();
-			String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
-					+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
-			ArrayList<Object> parameters = new ArrayList<>();
-			parameters.add(productId);
-			parameters.add(locatorId);
-			if(attributeSetId > 0) {
-				logger.info("Inside check!");
-				whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID+"=?";
-				parameters.add(attributeSetId);
-			}
-			queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-			queryQtyInStorage.setParameters(parameters);
-			quantity  = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
-			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, quantity);
+			
+			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, getQtyAvailable(ctx, warehouseId, productId, attributeSetId));
 		} else {
-			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, BigDecimal.ZERO); //reset qty field 
+			mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, BigDecimal.ZERO); // reset qty field
 			productId = Env.getContextAsInt(ctx, WindowNo + "|M_Product_ID");
 			if (productId != null) {
-								MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
-								Integer locatorId = locator.get_ID();
-								String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND "
-										+ MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?";
-								ArrayList<Object> parameters = new ArrayList<>();
-								parameters.add(productId);
-								parameters.add(locatorId);
-								if(attributeSetId > 0) {
-									whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID+"=?";
-									parameters.add(attributeSetId);
-								}
-								queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
-								queryQtyInStorage.setParameters(parameters);
-								quantity  = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
-								mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable,quantity);
-							}
+				mTab.setValue(MOrderLine_BH.COLUMNNAME_QtyAvailable, getQtyAvailable(ctx, warehouseId, productId, attributeSetId));
+			}
 		}
 
 		return errorMessage;
+
 	}
+
+	private BigDecimal getQtyAvailable(Properties ctx, Integer warehouseId, Integer productId, Integer attributeSetId) {
+		Query queryQtyInStorage = null;
+		BigDecimal quantity = BigDecimal.ZERO;
+
+		MLocator locator = new MWarehouse(ctx, warehouseId, null).getDefaultLocator();
+		Integer locatorId = locator.get_ID();
+		String whereClause = MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID
+				+ "=?";
+		ArrayList<Object> parameters = new ArrayList<>();
+		parameters.add(productId);
+		parameters.add(locatorId);
+		if (attributeSetId > 0) {
+			whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "=?";
+			parameters.add(attributeSetId);
+		}
+		queryQtyInStorage = new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null);
+		queryQtyInStorage.setParameters(parameters);
+		quantity = queryQtyInStorage.aggregate("qtyonhand", Query.AGGREGATE_SUM);
+		return quantity;
+	}
+
 }
