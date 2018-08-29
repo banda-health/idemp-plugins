@@ -6,8 +6,8 @@
 	<parameter name="CLIENT_ID" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1000003]]></defaultValueExpression>
 	</parameter>
-	<parameter name="startDate" class="java.sql.Date"/>
-	<parameter name="endDate" class="java.sql.Date"/>
+	<parameter name="startDate" class="java.sql.Timestamp"/>
+	<parameter name="endDate" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
 		<![CDATA[select a.name, sum(grandtotal) as revenue,
        (select sum(grandtotal) from c_order where ad_client_id = $P{CLIENT_ID} and issotrx = 'N' 
@@ -44,7 +44,7 @@ and corder.created::date between $P{startDate} and $P{endDate} group by a.name;]
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[UPPER("INCOME STATEMENT" )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[UPPER("INCOME and expenses STATEMENT" )]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="80" y="0" width="398" height="30" uuid="5bad7586-7bfa-456c-b64c-6a8ff52c05f1"/>
@@ -65,11 +65,11 @@ and corder.created::date between $P{startDate} and $P{endDate} group by a.name;]
 				<text><![CDATA[Revenue from Sales]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="207" y="10" width="116" height="12" uuid="a5782a25-999a-4dc1-994b-974916e32b40"/>
+				<reportElement x="220" y="10" width="100" height="12" uuid="a5782a25-999a-4dc1-994b-974916e32b40"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cost of Purchases]]></text>
+				<text><![CDATA[Costs]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="330" y="10" width="100" height="12" uuid="5eb13368-3884-4f4d-bb9e-a13cd1963e85"/>
@@ -93,7 +93,7 @@ and corder.created::date between $P{startDate} and $P{endDate} group by a.name;]
 				<textFieldExpression><![CDATA[$F{revenue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="true">
-				<reportElement x="207" y="2" width="100" height="18" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268"/>
+				<reportElement x="220" y="2" width="100" height="18" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268"/>
 				<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="true">
