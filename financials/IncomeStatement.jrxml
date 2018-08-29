@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_blue"/>
+	<parameter name="CLIENT_ID" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1000003]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startDate" class="java.sql.Timestamp"/>
+	<parameter name="endDate" class="java.sql.Timestamp"/>
+	<queryString language="SQL">
+		<![CDATA[select a.name, sum(grandtotal) as revenue,
+       (select sum(grandtotal) from c_order where ad_client_id = $P{CLIENT_ID} and issotrx = 'N' 
+       	       	and created::date between $P{startDate} and $P{endDate}
+       ) as cost
+from c_order corder join ad_org a on corder.ad_org_id = a.ad_org_id
+ where corder.ad_client_id = $P{CLIENT_ID} and issotrx = 'Y' 
+and corder.created::date between $P{startDate} and $P{endDate} group by a.name;]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_org"/>
+	</field>
+	<field name="revenue" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="revenue"/>
+	</field>
+	<field name="cost" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="cost"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="80" y="47" width="370" height="20" isPrintWhenDetailOverflows="true" uuid="7aa49a94-4080-48ab-9718-664b2231c32c"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[UPPER( "for period: ") + DATEFORMAT($P{startDate}, "dd MMMM YYYY") + UPPER( " to ") + DATEFORMAT($P{endDate}, "dd MMMM YYYY")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="78" y="30" width="400" height="12" uuid="6d6ebae8-6679-4dac-8599-2d8e454ffb18"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[UPPER("INCOME and expenses STATEMENT" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="398" height="30" uuid="5bad7586-7bfa-456c-b64c-6a8ff52c05f1"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[UPPER($F{name} )]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="10" width="120" height="12" uuid="ce9e2b86-cfcd-4672-84eb-8e609fe621e3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Revenue from Sales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="10" width="100" height="12" uuid="a5782a25-999a-4dc1-994b-974916e32b40"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Costs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="10" width="100" height="12" uuid="5eb13368-3884-4f4d-bb9e-a13cd1963e85"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Income/Profit]]></text>
+			</staticText>
+			<line>
+				<reportElement x="28" y="22" width="450" height="1" uuid="a795a95a-55e0-4bfa-a3c6-b0776e705d16"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="true">
+				<reportElement x="80" y="0" width="100" height="16" uuid="d79eb99b-ab04-4f81-8e10-dce84f21ec05"/>
+				<textFieldExpression><![CDATA[$F{revenue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="true">
+				<reportElement x="220" y="2" width="100" height="18" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268"/>
+				<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="true">
+				<reportElement x="330" y="1" width="100" height="20" uuid="d37bc2be-223a-44d9-b7bf-891508ec3e4e"/>
+				<textFieldExpression><![CDATA[$F{revenue}.subtract( $F{cost} )]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

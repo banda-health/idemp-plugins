@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="216" pageHeight="100" whenNoDataType="BlankPage" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8e782aea-40cb-486c-b6e4-149d68f67b91">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_blue"/>
+	<parameter name="orgId" class="java.math.BigDecimal" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[select ad_client_id, 
+ad_org_id, 
+client_name, 
+org_name,
+email,
+phone
+ from bh_receipt_orgdetails_header_v
+ where ad_org_id= $P{orgId}]]>
+	</queryString>
+	<field name="ad_client_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ad_client_id"/>
+	</field>
+	<field name="ad_org_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>
+	</field>
+	<field name="client_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="client_name"/>
+	</field>
+	<field name="org_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="org_name"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="phone"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="3" width="176" height="20" uuid="48be8d97-c7cf-4d59-b982-4232efeeca5f"/>
+				<textFieldExpression><![CDATA[$F{client_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="15" width="90" height="21" uuid="9b1cf930-430c-4a76-b178-8b06e1e5095c"/>
+				<textFieldExpression><![CDATA[$F{org_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="30" width="90" height="20" uuid="eb183d7f-9b6d-4da4-9cef-0d703c65bdc2"/>
+				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="40" width="142" height="20" uuid="508c4199-5b99-4e6e-bded-bf730807dba0"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>
