@@ -526,24 +526,14 @@ define([
 		let saveButton = document.querySelector("a.toolbar-button.z-toolbarbutton[title*='Alt+S']");
 		let finalizeOrderButton = document.querySelector("div.btn[title*='Finalize']");
 		if (finalizeOrderButton != null) {
-			// hide save
-			saveButton.style.visibility = 'hidden';
-			
-			// enable new
-			let newButton = document.querySelector("a.toolbar-button.z-toolbarbutton[title*='Alt+N']");
-			newButton.removeAttribute('disabled');
-			newButton.removeAttribute('class');
-			newButton.style.display = 'block !important';
-			newButton.classList.add('toolbar-button', 'z-toolbarbutton');
-			
 			let saveNewButton = document.querySelector("a.toolbar-button.z-toolbarbutton[title*='Alt+A']");
-			
-			newButton.addEventListener("click", function(e) {
+			$("<style>.bh.organization .adwindow-toolbar a:nth-child(7):after{content:' New'}</style>").appendTo('head');
+			saveButton.addEventListener("click", function(e) {
 				saveNewButton.click();
 			});
 		} else {
-			// hide save
 			saveButton.style.visibility = 'visible';
+			$("<style>.bh.organization .adwindow-toolbar a:nth-child(7):after{content:' Save'}</style>").appendTo('head');
 		}
 	}
 });
