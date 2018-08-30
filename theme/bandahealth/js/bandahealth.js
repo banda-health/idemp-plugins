@@ -524,7 +524,7 @@ define([
 	
 	function hideSaveWhenFinalizeOrderPresent() {
 		let saveButton = document.querySelector("a.toolbar-button.z-toolbarbutton[title*='Alt+S']");
-		let finalizeOrderButton = document.querySelector("div.btn.btn-confirm[title*='Finalize']");
+		let finalizeOrderButton = document.querySelector("div.btn[title*='Finalize']");
 		if (finalizeOrderButton != null) {
 			// hide save
 			saveButton.style.visibility = 'hidden';
