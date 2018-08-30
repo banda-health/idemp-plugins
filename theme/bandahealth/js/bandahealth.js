@@ -130,6 +130,7 @@ define([
 					util.addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					closeTabDetailPane();
 					navigateToDetailEditIfUserOnGridView();
+					hideSaveWhenFinalizeOrderPresent();
 				} else if (!areCreatingOrEditingAnEntity()) {
 					util.removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					openTabDetailPane();
@@ -139,6 +140,7 @@ define([
 				} else {
 					util.removeBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
 				}
+				
 			});
 		}, maxTimeToWaitUntilDomElementsAppearMS);
 
@@ -518,6 +520,30 @@ define([
 				label.style.pointerEvents='none';
 			});
 		}
-		
+	}
+	
+	function hideSaveWhenFinalizeOrderPresent() {
+		let saveButton = document.querySelector("a.toolbar-button.z-toolbarbutton[title*='Alt+S']");
+		let finalizeOrderButton = document.querySelector("div.btn.btn-confirm[title*='Finalize']");
+		if (finalizeOrderButton != null) {
+			// hide save
+			saveButton.style.visibility = 'hidden';
+			
+			// enable new
+			let newButton = document.querySelector("a.toolbar-button.z-toolbarbutton[title*='Alt+N']");
+			newButton.removeAttribute('disabled');
+			newButton.removeAttribute('class');
+			newButton.style.display = 'block !important';
+			newButton.classList.add('toolbar-button', 'z-toolbarbutton');
+			
+			let saveNewButton = document.querySelector("a.toolbar-button.z-toolbarbutton[title*='Alt+A']");
+			
+			newButton.addEventListener("click", function(e) {
+				saveNewButton.click();
+			});
+		} else {
+			// hide save
+			saveButton.style.visibility = 'visible';
+		}
 	}
 });
