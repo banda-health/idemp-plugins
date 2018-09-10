@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Revenue" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e1d662ac-bb90-449a-818e-665744ad3091">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgre Idemp"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="beginDate" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -15,26 +15,16 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT
-  warehouse.Name as Name,
-  COALESCE(outgoing_stock.cases, (0)::numeric) AS Cases,
-  COALESCE(outgoing_stock.price, (0)::numeric) AS Amount,
-  warehouse.ad_client_id,
-  warehouse.ad_org_id,
-  client.name as ad_client_name
-FROM m_warehouse warehouse
-  inner join
-    (
-    select col.m_warehouse_id,
-    count(col.c_orderline_id) AS cases,
-    sum((col.priceentered * col.qtyinvoiced)) AS price
-    FROM c_orderline col
-    where col.qtyinvoiced > 0
-    and (col.updated::date between $P{beginDate} AND $P{endDate})
-     and col.ad_client_id =  $P{AD_CLIENT_ID}
-    and col.ad_org_id =  $P{AD_CLIENT_ID}
-    GROUP BY col.m_warehouse_id) outgoing_stock ON warehouse.m_warehouse_id = outgoing_stock.m_warehouse_id
-  inner join ad_client client on warehouse.ad_client_id = client.ad_client_id]]>
+		<![CDATA[SELECT 
+    count(name) AS cases,
+    sum(totalpayments) AS amount,
+    ad_client_id AS ad_client_id,
+    ad_org_id AS ad_org_id,
+    client_name AS ad_client_name
+    FROM bh_patient_transactions_v
+WHERE ad_client_id =  $P{AD_CLIENT_ID}   
+AND created BETWEEN $P{beginDate} AND  $P{endDate}
+GROUP BY ad_client_id, ad_org_id, client_name]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
