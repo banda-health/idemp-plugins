@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.adempiere.base.IColumnCallout;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
+import org.compiere.model.MMessage;
 import org.compiere.model.MProduct;
 
 public class ProductTypeCheck implements IColumnCallout {
@@ -18,7 +19,10 @@ public class ProductTypeCheck implements IColumnCallout {
 		if (product != null) {
 
 			if (product.getProductType().equals("S") || product.getProductType().equals("E")) {
-				mTab.fireDataStatusEEvent("Selected product is of type service", "message", true);
+				mTab.fireDataStatusEEvent(
+						MMessage.get(ctx, 240).getMsgText(), "Cannot add "
+								+ (product.getProductType().equals("S") ? "service" : "expense") + " to inventory",
+						true);
 			}
 		}
 		return null;
