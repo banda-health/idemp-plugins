@@ -33,6 +33,9 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 				callouts.add(new OrderLineExpirationDateRequired());
 				callouts.add(new InventoryQuantity());
 			}
+			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_AttributeSetInstance_ID)) {
+				callouts.add(new InventoryQuantity());
+			}
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_M_Product_ID)) {
 				callouts.add(new InventoryLineExpirationDateRequired());
