@@ -130,7 +130,7 @@ define([
 					util.addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					closeTabDetailPane();
 					navigateToDetailEditIfUserOnGridView();
-					hideSaveWhenFinalizeOrderPresent();
+					//hideSaveWhenFinalizeOrderPresent();
 				} else if (!areCreatingOrEditingAnEntity()) {
 					util.removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					openTabDetailPane();
