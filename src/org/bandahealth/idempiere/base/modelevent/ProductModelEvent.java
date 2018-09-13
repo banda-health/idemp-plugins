@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.config.InternalSetupConfig;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -96,18 +97,17 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	/* Find an attribute set with specified name, create if not found */
 	private MAttributeSet findProductAttributeSet(String productAttribSetName) {
-		MAttributeSet pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
+		MAttributeSet attributeSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
 				"name='" + productAttribSetName + "'", null);
-		if (pSet == null) {
-			MAttributeSet newAttributeSet = new MAttributeSet(context, null, null);
-			newAttributeSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
-			newAttributeSet.setIsGuaranteeDate(true);
-			newAttributeSet.setIsLot(false);
-			newAttributeSet.setIsSerNo(false);
-			newAttributeSet.save();
-			pSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
+		
+		if (attributeSet == null) {
+			InternalSetupConfig.configureNewProductAttribSet(context);
+			attributeSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
 					"name='" + productAttribSetName + "'", null);
 		}
-		return pSet;
+		//update for existing clients with this AS
+		attributeSet.setUseGuaranteeDateForMPolicy(true);
+		attributeSet.saveEx();
+		return attributeSet;
 	}
 }
