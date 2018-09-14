@@ -106,8 +106,10 @@ public class ProductModelEvent extends AbstractEventHandler {
 					"name='" + productAttribSetName + "'", null);
 		}
 		//update for existing clients with this AS
+		if(!(boolean) attributeSet.get_Value(MAttributeSet.COLUMNNAME_UseGuaranteeDateForMPolicy)) {
 		attributeSet.setUseGuaranteeDateForMPolicy(true);
 		attributeSet.saveEx();
+		}
 		return attributeSet;
 	}
 }
