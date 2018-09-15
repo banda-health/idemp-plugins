@@ -33,11 +33,17 @@ GROUP BY p.c_bpartner_id]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="280" height="20" uuid="e4f5f706-5600-49ac-b883-7b08d5edde74"/>
+				<reportElement x="0" y="0" width="170" height="20" uuid="e4f5f706-5600-49ac-b883-7b08d5edde74"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="300" y="0" width="100" height="20" uuid="e2fc93a7-ebd3-4ae5-b875-20b72a634548"/>
+			<textField pattern="#,###.00;¤-#,###.00">
+				<reportElement x="180" y="0" width="110" height="20" uuid="e2fc93a7-ebd3-4ae5-b875-20b72a634548"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{total_supplied}]]></textFieldExpression>
 			</textField>
 		</band>
