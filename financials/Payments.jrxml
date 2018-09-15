@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Payments" pageWidth="400" pageHeight="842" columnWidth="395" leftMargin="0" rightMargin="5" topMargin="0" bottomMargin="0" uuid="230b7086-feea-40b6-bd16-c1cfb713351d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="261"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="739"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_bluesky"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1000003]]></defaultValueExpression>
+	</parameter>
+	<parameter name="beginDate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="endDate" class="java.util.Date" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.c_bpartner_id, name, SUM(grandtotal) AS total_supplied FROM c_bpartner p
+    INNER JOIN c_order o ON p.c_bpartner_id = o.c_bpartner_id
+    WHERE p.isvendor = 'Y' AND o.docstatus = 'CO' AND  c_doctype_id =126
+      AND o.created BETWEEN $P{beginDate} AND $P{endDate}
+      AND p.ad_client_id = $P{AD_CLIENT_ID}
+GROUP BY p.c_bpartner_id]]>
+	</queryString>
+	<field name="c_bpartner_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="c_bpartner_id"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="total_supplied" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="total_supplied"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="280" height="20" uuid="e4f5f706-5600-49ac-b883-7b08d5edde74"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="e2fc93a7-ebd3-4ae5-b875-20b72a634548"/>
+				<textFieldExpression><![CDATA[$F{total_supplied}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

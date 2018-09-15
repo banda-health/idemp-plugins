@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_bluesky.xml"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="beginDate" class="java.util.Date"/>
 	<parameter name="endDate" class="java.util.Date"/>
@@ -27,6 +27,9 @@ GROUP BY org.name]]>
 	<field name="cost" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="cost"/>
 	</field>
+	<variable name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<variable name="beginDate" class="java.util.Date"/>
+	<variable name="endDate" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -57,29 +60,8 @@ GROUP BY org.name]]>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
-			<staticText>
-				<reportElement x="80" y="10" width="120" height="12" uuid="ce9e2b86-cfcd-4672-84eb-8e609fe621e3"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Revenue from Sales]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="220" y="10" width="100" height="12" uuid="a5782a25-999a-4dc1-994b-974916e32b40"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Costs]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="330" y="10" width="100" height="12" uuid="5eb13368-3884-4f4d-bb9e-a13cd1963e85"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Income/Profit]]></text>
-			</staticText>
 			<line>
-				<reportElement x="28" y="22" width="450" height="1" uuid="a795a95a-55e0-4bfa-a3c6-b0776e705d16"/>
+				<reportElement x="28" y="20" width="522" height="3" uuid="a795a95a-55e0-4bfa-a3c6-b0776e705d16"/>
 				<graphicElement>
 					<pen lineStyle="Solid"/>
 				</graphicElement>
@@ -87,29 +69,70 @@ GROUP BY org.name]]>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="539" splitType="Stretch">
 			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="false">
-				<reportElement x="80" y="0" width="100" height="16" uuid="d79eb99b-ab04-4f81-8e10-dce84f21ec05"/>
+				<reportElement x="450" y="0" width="100" height="16" uuid="d79eb99b-ab04-4f81-8e10-dce84f21ec05"/>
 				<textFieldExpression><![CDATA[$F{revenue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="false">
-				<reportElement x="220" y="2" width="100" height="18" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268"/>
+				<reportElement x="330" y="196" width="100" height="18" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268"/>
 				<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="false">
-				<reportElement x="330" y="1" width="100" height="20" uuid="d37bc2be-223a-44d9-b7bf-891508ec3e4e"/>
+				<reportElement x="330" y="225" width="100" height="12" uuid="d37bc2be-223a-44d9-b7bf-891508ec3e4e"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{revenue}.subtract( $F{cost} )]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="80" y="0" width="120" height="12" uuid="ce9e2b86-cfcd-4672-84eb-8e609fe621e3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Revenue from Sales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="20" width="120" height="12" uuid="a5782a25-999a-4dc1-994b-974916e32b40"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Costs of Purchases: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="224" width="100" height="12" uuid="5eb13368-3884-4f4d-bb9e-a13cd1963e85"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Income/Profit]]></text>
+			</staticText>
+			<line>
+				<reportElement x="330" y="219" width="100" height="1" uuid="90f48956-5537-4ecb-8c23-e098154ae73c"/>
+			</line>
+			<subreport>
+				<reportElement x="96" y="32" width="120" height="28" uuid="c7d981f1-e6e3-48ae-80d5-d619cbea0560"/>
+				<subreportParameter name="AD_CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="beginDate">
+					<subreportParameterExpression><![CDATA[$P{beginDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endDate">
+					<subreportParameterExpression><![CDATA[$P{endDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["financials/Payments.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="47" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="56" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
