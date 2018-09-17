@@ -1,4 +1,4 @@
- package org.bandahealth.idempiere.base.process;
+package org.bandahealth.idempiere.base.process;
 
 import java.math.BigDecimal;
 import java.util.List;
