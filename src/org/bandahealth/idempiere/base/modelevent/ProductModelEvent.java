@@ -97,18 +97,18 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	/* Find an attribute set with specified name, create if not found */
 	private MAttributeSet findProductAttributeSet(String productAttribSetName) {
-		MAttributeSet attributeSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
-				"name='" + productAttribSetName + "'", null);
-		
+		MAttributeSet attributeSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context,
+				MAttributeSet.Table_Name, "name='" + productAttribSetName + "'", null);
+
 		if (attributeSet == null) {
 			InternalSetupConfig.configureNewProductAttribSet(context);
 			attributeSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
 					"name='" + productAttribSetName + "'", null);
 		}
-		//update for existing clients with this AS
-		if(!(boolean) attributeSet.get_Value(MAttributeSet.COLUMNNAME_UseGuaranteeDateForMPolicy)) {
-		attributeSet.setUseGuaranteeDateForMPolicy(true);
-		attributeSet.saveEx();
+		// update for existing clients with this AS
+		if (!(boolean) attributeSet.get_Value(MAttributeSet.COLUMNNAME_UseGuaranteeDateForMPolicy)) {
+			attributeSet.setUseGuaranteeDateForMPolicy(true);
+			attributeSet.saveEx();
 		}
 		return attributeSet;
 	}
