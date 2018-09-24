@@ -15,6 +15,9 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="beginDate" class="java.util.Date"/>
 	<parameter name="endDate" class="java.util.Date"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT
   org.name,
@@ -115,7 +118,7 @@ GROUP BY org.name]]>
 					<subreportParameterExpression><![CDATA[$P{endDate}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["financials/Payments.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"Payments.jasper"]]></subreportExpression>
 			</subreport>
 			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="false">
 				<reportElement x="405" y="29" width="120" height="18" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268"/>
