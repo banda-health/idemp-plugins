@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.callout.HomeScreenButtonSingleNavigationEn
 import org.bandahealth.idempiere.base.callout.InventoryLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.callout.InventoryQuantity;
 import org.bandahealth.idempiere.base.callout.OrderLineExpirationDateRequired;
+import org.bandahealth.idempiere.base.callout.ProductTypeCheck;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
@@ -32,6 +33,7 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_Product_ID)) {
 				callouts.add(new OrderLineExpirationDateRequired());
 				callouts.add(new InventoryQuantity());
+				callouts.add(new ProductTypeCheck());
 			}
 			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_AttributeSetInstance_ID)) {
 				callouts.add(new InventoryQuantity());
