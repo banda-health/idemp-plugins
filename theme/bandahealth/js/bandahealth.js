@@ -140,7 +140,17 @@ define([
 				} else {
 					util.removeBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
 				}
-				
+				if (areViewingTheStockTakePage()) {
+					util.addBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
+				} else {
+					util.removeBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
+				}
+				if(! pageLoadedIsLookupWindow()){
+					return;
+				} else {
+					let lookupPanelOkButton = document.querySelector('button[title="OK"].img-btn.btn-ok.z-button');
+					hideLookupPanelOnProductsWindow(lookupPanelOkButton);
+				}
 			});
 		}, maxTimeToWaitUntilDomElementsAppearMS);
 
@@ -166,6 +176,19 @@ define([
 		function areViewingTheStockTakePage() {
 			let lastTabText = document.querySelector('.desktop-tabbox .z-tabs .z-tabs-content li.z-tab-selected .z-tab-text');
 			return lastTabText && (lastTabText.innerText || '').includes('Stock Take');
+		}
+		
+		function pageLoadedIsLookupWindow(){
+			//Has user clicked on the product icon?
+			let userNavigationIsFromDashboard = false;
+			let windowHeader = document.querySelector('div .z-tabs ul li:nth-child(3) a span');
+			if(windowHeader != null){
+				let isFromDashboardCheck = windowHeader.textContent.match(/^\s..\s\w{6}[a-z]$/i);
+				if(isFromDashboardCheck != null){
+					userNavigationIsFromDashboard =true;
+				}
+			}
+			return userNavigationIsFromDashboard;
 		}
 	}
 
@@ -534,6 +557,12 @@ define([
 		} else {
 			saveButton.style.visibility = 'visible';
 			$("<style>.bh.organization .adwindow-toolbar a:nth-child(7):after{content:' Save'}</style>").appendTo('head');
+		}
+	}
+	
+	function hideLookupPanelOnProductsWindow(targetButton){
+		if(targetButton){
+			targetButton.click();
 		}
 	}
 });
