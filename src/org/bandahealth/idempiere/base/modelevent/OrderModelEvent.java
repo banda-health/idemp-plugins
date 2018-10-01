@@ -19,11 +19,13 @@ import org.osgi.service.event.Event;
 public class OrderModelEvent extends AbstractEventHandler {
 
 	private CLogger log = CLogger.getCLogger(OrderModelEvent.class);
+	private int clientId = -1;
 
 	@Override
 	protected void doHandleEvent(Event event) {
 		MOrder order = null;
 		PO persistantObject = getPO(event);
+		clientId = persistantObject.getAD_Client_ID();
 		if (persistantObject instanceof MOrder) {
 			order = (MOrder) persistantObject;
 		} else {
@@ -41,6 +43,10 @@ public class OrderModelEvent extends AbstractEventHandler {
 			}
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
 //			afterSaveRequest(businessPartner);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
+			if (!isPurchase) {
+				beforeSalesOrderUpdateRequest(order);	
+			}
 		}
 	}
 
@@ -57,15 +63,32 @@ public class OrderModelEvent extends AbstractEventHandler {
 		}
 
 		salesOrder.setSalesRep_ID(userId);
-
-		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocSubTypeSO
-				+ "=?", null))
-				.setParameters(MOrder.DocSubTypeSO_POS)
+		
+		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
+		
+		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
+				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
 				.firstId();
 		salesOrder.setC_DocType_ID(posOrderDocTypeId);
 		salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
 
 		salesOrder.setPaymentRule(MOrder.PAYMENTRULE_Cash);
+	}
+	
+	private void beforeSalesOrderUpdateRequest(MOrder salesOrder) {
+		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
+		
+		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
+				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
+				.firstId();
+		
+		MDocType docType = MDocType.get(Env.getCtx(), posOrderDocTypeId);
+		
+		if (docType.getAD_Client_ID() != clientId) {
+			salesOrder.setC_DocType_ID(posOrderDocTypeId);
+			salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
+		}
+
 	}
 
 	private int getOrganizationIDForUser(int userId, int roleId, int clientId) {
@@ -96,6 +119,6 @@ public class OrderModelEvent extends AbstractEventHandler {
 	@Override
 	protected void initialize() {
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MOrder_BH.Table_Name);
-//		registerTableEvent(IEventTopics.PO_AFTER_NEW, MOrder_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MOrder_BH.Table_Name);
 	}
 }
