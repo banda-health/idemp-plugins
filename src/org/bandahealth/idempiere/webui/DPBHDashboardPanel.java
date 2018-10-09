@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.webui;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import org.adempiere.util.Callback;
+import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
@@ -13,10 +13,10 @@ import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MOrder;
+import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.zkoss.zhtml.Link;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -25,6 +25,7 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.A;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Script;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.Window;
@@ -55,8 +56,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		layout.setParent(this);
 		layout.setStyle("height: 100%; width 100%");
 
-		contentArea.setStyle("width:75%; float:left; padding-right:5px;");
-		widgetArea.setStyle("width:20%; float:right;");
+		contentArea.setStyle("width:75%; float:left; padding-right:3x;");
+		widgetArea.setStyle("width:25%; float:right;");
 		layout.appendChild(contentArea);
 		layout.appendChild(widgetArea);
 		contentArea.setClass("bh-dashboard-content");
@@ -110,16 +111,18 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		Listbox unfinishedBills = new Listbox();
 		for (MOrder order : saleOrders) {
 			String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
-			A link = new A();
 			MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
 					.setOnlyActiveRecords(true).first();
+			
+			A link = new A();
 			link.setHref(String.valueOf(order.getC_Order_ID()));
 			link.setLabel(patient.getName());
-			String details = link.getLabel() + " , " + new SimpleDateFormat("dd-MM hh:mm a").format(order.getCreated());
+			String details = link.getLabel() + ", " + new SimpleDateFormat("dd-MM hh:mm a").format(order.getCreated());
 //			unfinishedBills.appendChild(link);
 			unfinishedBills.appendItem(details, order.getDocumentNo());
+			unfinishedBills.addEventListener(Events.ON_SELECT, this);
 		}
-		Window notifications = new Window("Incomplete patient bills: (" + saleOrders.size() + ")", "none", false);
+		Window notifications = new Window("Pending Orders: (" + saleOrders.size() + ")", "none", true);
 		notifications.appendChild(unfinishedBills);
 		widgetArea.appendChild(notifications);
 	}
@@ -142,7 +145,22 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 					int windowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openWindow(windowId, null);
 				}
-			}
+			} 
+		} else if (eventName.equals(Events.ON_SELECT)) {
+			Listitem selected = ((Listbox)component).getSelectedItem();
+			Integer selectedDocNumber = Integer.parseInt(selected.getValue().toString());
+			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name ,MWindow.COLUMNNAME_Name + " LIKE '%BH Sale%'", null)
+					.setOnlyActiveRecords(true).first();
+			int windowId = bhSOWindow.getAD_Window_ID();//1000008;
+			System.out.println("Window ID: "  + windowId);
+			SessionManager.getAppDesktop().openWindow(windowId,new Callback<ADWindow>() {
+
+				@Override
+				public void onCallback(ADWindow result) {
+					System.out.println("Inside callback");
+				}
+
+			});
 		}
 	}
 
