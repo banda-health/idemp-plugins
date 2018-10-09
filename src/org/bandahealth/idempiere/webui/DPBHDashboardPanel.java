@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.adempiere.util.Callback;
+import org.adempiere.webui.adwindow.ADTabpanel;
 import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.dashboard.DashboardPanel;
+import org.adempiere.webui.desktop.TabbedDesktop;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
@@ -13,6 +15,7 @@ import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MOrder;
+import org.compiere.model.MQuery;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -109,11 +112,12 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				.setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
 
 		Listbox unfinishedBills = new Listbox();
+		// get unclosed sales orders
 		for (MOrder order : saleOrders) {
 			String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
 			MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
 					.setOnlyActiveRecords(true).first();
-			
+
 			A link = new A();
 			link.setHref(String.valueOf(order.getC_Order_ID()));
 			link.setLabel(patient.getName());
@@ -145,19 +149,31 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 					int windowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openWindow(windowId, null);
 				}
-			} 
+			}
 		} else if (eventName.equals(Events.ON_SELECT)) {
-			Listitem selected = ((Listbox)component).getSelectedItem();
+			Listitem selected = ((Listbox) component).getSelectedItem();
 			Integer selectedDocNumber = Integer.parseInt(selected.getValue().toString());
-			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name ,MWindow.COLUMNNAME_Name + " LIKE '%BH Sale%'", null)
-					.setOnlyActiveRecords(true).first();
-			int windowId = bhSOWindow.getAD_Window_ID();//1000008;
-			System.out.println("Window ID: "  + windowId);
-			SessionManager.getAppDesktop().openWindow(windowId,new Callback<ADWindow>() {
+			System.out.println("selected document: " + selectedDocNumber);
+			// get Sale Order window & its ID
+			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name,
+					MWindow.COLUMNNAME_Name + " LIKE '%BH Sale%'", null).setOnlyActiveRecords(true).first();
+			int windowId = bhSOWindow.getAD_Window_ID();// 1000008;
+			System.out.println("Window ID: " + windowId);
+			// Get the currently selected document
+			MQuery query = new MQuery(MOrder.Table_Name);
+			query.addRestriction(MOrder.COLUMNNAME_DocumentNo + "='" + String.valueOf(selectedDocNumber) + "' AND "
+					+ MOrder.COLUMNNAME_DocStatus + "='DR'");
+			SessionManager.getAppDesktop().openWindow(windowId, query, new Callback<ADWindow>() {
 
 				@Override
 				public void onCallback(ADWindow result) {
 					System.out.println("Inside callback");
+					if (result == null)
+						return;
+					result.getADWindowContent().onZoomAcross();
+//					ADTabpanel panel = (ADTabpanel)result.getADWindowContent().getADTab().getSelectedTabpanel();
+//					panel.focusToFirstEditor();		
+
 				}
 
 			});
