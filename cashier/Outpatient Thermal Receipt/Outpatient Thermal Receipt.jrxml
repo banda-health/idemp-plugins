@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt" language="groovy" pageWidth="216" pageHeight="297" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b0650e21-f6cf-4aad-acec-9e81aea4c41f">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="252"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="go"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="573"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="417"/>
+	<style name="style1" fontName="Courier New" fontSize="12"/>
+	<parameter name="billId" class="java.math.BigDecimal"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select
+  billHeader.orgID as orgID,
+  billHeader.org_name as org_name,
+  billHeader.phone as phone,
+  billHeader.email as email,
+  billHeader.address as address,
+  billHeader.city as city,
+  billDetails.bill_date as bill_date,
+  billDetails.receipt_number as receipt_number,
+  billDetails.cashierName as cashierName,
+  billDetails.patientName as patientName,
+  billDetails.fileNumber as fileNumber,
+  billDetails.bill_id as bill_id
+from
+(
+select
+  org.ad_org_id as orgID,
+  org.name as org_name,
+  orgInfo.phone as phone,
+  orgInfo.email as email,
+  coalesce(orgLocation.address1,orgLocation.address2,orgLocation.address3,orgLocation.address4) as address,
+  orgLocation.city as city
+from ad_org org
+  inner join ad_orginfo orgInfo on org.ad_org_id = orgInfo.ad_org_id
+  left join c_location orgLocation on orgInfo.c_location_id = orgLocation.c_location_id
+where org.ad_org_id =  $P{AD_CLIENT_ID}
+) as billHeader
+inner join
+(
+select
+  sorder.c_order_id as bill_id,
+  sorder.ad_org_id as orgID,
+  sorder.updated as bill_date,
+  sorder.c_order_id as receipt_number,
+  cashier.name as cashierName,
+  patient.name as patientName,
+  patient.c_bpartner_id as fileNumber
+from c_order sorder
+  inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
+  inner join ad_user patient on invoice.ad_user_id = patient.ad_user_id
+  inner join ad_user cashier on sorder.salesrep_id = cashier.ad_user_id
+where sorder.c_order_id =  $P{billId}
+) as billDetails on billheader.orgID = billDetails.orgID;]]>
+	</queryString>
+	<field name="orgid" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="orgid"/>
+	</field>
+	<field name="org_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="org_name"/>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="phone"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+	</field>
+	<field name="address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="address"/>
+	</field>
+	<field name="city" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="city"/>
+	</field>
+	<field name="bill_date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
+	</field>
+	<field name="receipt_number" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
+	</field>
+	<field name="cashiername" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
+	</field>
+	<field name="patientname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
+	</field>
+	<field name="filenumber" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="filenumber"/>
+	</field>
+	<field name="bill_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+	</field>
+	<variable name="totalCost" class="java.math.BigDecimal">
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="190" splitType="Stretch">
+			<textField>
+				<reportElement style="style1" x="69" y="117" width="141" height="17" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{receipt_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="100" width="141" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format($F{bill_date})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="151" width="141" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="77" width="216" height="17" uuid="c583cfb7-4b4a-4320-a203-d61ae2e3311f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Receipt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="117" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Receipt #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="100" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Billed On:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="134" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Served By:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="72" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+			</line>
+			<line>
+				<reportElement x="0" y="94" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+			</line>
+			<line>
+				<reportElement x="0" y="184" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+			</line>
+			<staticText>
+				<reportElement x="13" y="151" width="56" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Patient:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="134" width="141" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="167" width="56" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[File No:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="style1" x="70" y="167" width="141" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="2" width="216" height="13" uuid="1c6d712b-5f9a-4daf-8590-0729204a1001"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[UPPER($F{org_name})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="16" width="216" height="13" uuid="e1eeb8f1-5c68-4f86-9ed6-b20feae87168"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="29" width="216" height="13" uuid="36ae98e3-e587-4449-9dbd-e0eddbef95f1"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="43" width="216" height="13" uuid="3c65c83c-c322-4606-a476-fb049baafd1f"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="57" width="216" height="13" uuid="8b965e4c-bc68-47a4-8ec8-fed95f52145f"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="5" width="216" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
+				<subreportParameter name="billId">
+					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="totalCost" toVariable="totalCost"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Outpatient Thermal Receipt Details.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="25">
+			<subreport>
+				<reportElement x="0" y="0" width="216" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
+				<subreportParameter name="totalCost">
+					<subreportParameterExpression><![CDATA[$V{totalCost}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="billId">
+					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Outpatient Thermal Receipt Payments.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="21">
+			<textField>
+				<reportElement x="13" y="6" width="96" height="12" uuid="7e44d78c-4b3c-4a07-89af-fd0a08995dbe"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cashier: " + $F{cashiername}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="6" width="101" height="12" uuid="6c430987-cd11-40be-bd9d-2077e233745f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

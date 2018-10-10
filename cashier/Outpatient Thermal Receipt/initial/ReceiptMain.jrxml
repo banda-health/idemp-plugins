@@ -4,14 +4,14 @@
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="75"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="go"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="style1" fontName="Courier New" fontSize="12"/>
-	<parameter name="billId" class="java.math.BigDecimal"/>
+	<parameter name="billId" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="orgId" class="java.math.BigDecimal" isForPrompting="false"/>
+	<parameter name="orgId" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select sorder.updated as bill_date, sorder.c_order_id as receipt_number, cashier.name as cashier_family_name,
@@ -26,7 +26,7 @@ where sorder.c_order_id =   $P{billId}]]>
 	<field name="bill_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
 	</field>
-	<field name="receipt_number" class="java.math.BigDecimal">
+	<field name="receipt_number" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
 	</field>
 	<field name="cashier_family_name" class="java.lang.String">
@@ -93,7 +93,7 @@ where sorder.c_order_id =   $P{billId}]]>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[Cashier:]]></text>
+				<text><![CDATA[Served by:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="72" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
@@ -154,11 +154,11 @@ where sorder.c_order_id =   $P{billId}]]>
 			<printWhenExpression><![CDATA[$V{REPORT_COUNT}.intValue()==1]]></printWhenExpression>
 			<subreport>
 				<reportElement x="0" y="-5" width="216" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
-				<subreportParameter name="billId">
-					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="totalCost">
 					<subreportParameterExpression><![CDATA[$V{totalCost}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="billId">
+					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReceiptPayments.jasper"]]></subreportExpression>

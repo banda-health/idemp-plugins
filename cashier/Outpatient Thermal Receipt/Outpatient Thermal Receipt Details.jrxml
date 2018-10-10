@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReceiptLineItems" pageWidth="216" pageHeight="297" whenNoDataType="NoDataSection" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" isSummaryNewPage="true" isIgnorePagination="true" uuid="865ee1bb-bd7d-4d8a-b0a0-732f57770a27">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt Details" language="groovy" pageWidth="216" pageHeight="297" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="865ee1bb-bd7d-4d8a-b0a0-732f57770a27">
 	<property name="ireport.zoom" value="3.305785123966944"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="go"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<parameter name="billId" class="java.math.BigDecimal">
-		<defaultValueExpression><![CDATA[$P{billId}]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select name as item_name, qtyentered as quantity, priceactual as price, grandtotal 
-from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
+		<![CDATA[ SELECT
+  c_invoice_linetax_v.c_order_id as bill_id,
+  c_invoice_linetax_v.name as item_name,
+  c_invoice_linetax_v.qtyentered as quantity,
+  c_invoice_linetax_v.priceactual as price
+FROM
+  c_invoice_linetax_v
+WHERE
+  c_invoice_linetax_v.c_order_id =  $P{billId};]]>
 	</queryString>
+	<field name="bill_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="item_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
 	</field>
-	<field name="quantity" class="java.math.BigDecimal">
+	<field name="quantity" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="quantity"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="price" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="price"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="grandtotal" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="grandtotal"/>
-	</field>
-	<variable name="totalCost" class="java.math.BigDecimal">
-		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
-		<initialValueExpression><![CDATA[new BigDecimal(0.0)]]></initialValueExpression>
+	<variable name="totalCost" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{price}.multiply($F{quantity})]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -40,21 +49,21 @@ from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[QTY]]></text>
+				<text><![CDATA[Qty]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="32" y="0" width="121" height="12" uuid="87629929-d34f-4165-8c85-a041e765e0ba"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[DESCRIPTION]]></text>
+				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="153" y="0" width="58" height="12" uuid="87629929-d34f-4165-8c85-a041e765e0ba"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[AMOUNT]]></text>
+				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="15" width="216" height="1" uuid="281e838c-7a6f-48d6-8925-12d2cbbb99c1"/>
@@ -77,10 +86,8 @@ from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0.00###;#,##0.00###-">
-				<reportElement x="153" y="0" width="58" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405">
-					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
-				</reportElement>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement x="153" y="0" width="58" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -90,12 +97,12 @@ from bh_receipt_lineitems_v where c_order_id= $P{billId}]]>
 	</detail>
 	<summary>
 		<band height="17">
-			<textField pattern="#,###.00#;#,###.00#-">
+			<textField>
 				<reportElement x="119" y="5" width="92" height="12" uuid="66809266-fd5e-4cc5-8a7e-9d9425131297"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalCost}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($V{totalCost})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="74" y="5" width="45" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
