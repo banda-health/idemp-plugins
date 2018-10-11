@@ -110,23 +110,24 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 		List<MOrder> saleOrders = new Query(Env.getCtx(), MOrder.Table_Name, "docstatus = 'DR' AND issotrx = 'Y'", null)
 				.setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
-
+		Integer unclosedSOCount = 0;
 		Listbox unfinishedBills = new Listbox();
-		// get unclosed sales orders
-		for (MOrder order : saleOrders) {
-			String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
-			MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
-					.setOnlyActiveRecords(true).first();
+		if(saleOrders != null) {
+			unclosedSOCount = saleOrders.size();
+			for (MOrder order : saleOrders) {
+				String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
+				MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
+						.setOnlyActiveRecords(true).first();
 
-			A link = new A();
-			link.setHref(String.valueOf(order.getC_Order_ID()));
-			link.setLabel(patient.getName());
-			String details = link.getLabel() + ", " + new SimpleDateFormat("dd-MM hh:mm a").format(order.getCreated());
-//			unfinishedBills.appendChild(link);
-			unfinishedBills.appendItem(details, order.getDocumentNo());
-			unfinishedBills.addEventListener(Events.ON_SELECT, this);
-		}
-		Window notifications = new Window("Pending Orders: (" + saleOrders.size() + ")", "none", true);
+				A link = new A();
+				link.setHref(String.valueOf(order.getC_Order_ID()));
+				link.setLabel(patient.getName());
+				String details = link.getLabel() + ", " + new SimpleDateFormat("dd-MM hh:mm a").format(order.getCreated());
+				unfinishedBills.appendItem(details, order.getDocumentNo());
+				unfinishedBills.addEventListener(Events.ON_SELECT, this);
+			}
+		}		
+		Window notifications = new Window("Pending Orders: (" + unclosedSOCount + ")", "none", true);
 		notifications.appendChild(unfinishedBills);
 		widgetArea.appendChild(notifications);
 	}
