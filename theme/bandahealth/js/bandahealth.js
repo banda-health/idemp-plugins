@@ -267,7 +267,7 @@ define([
 	}
 
 	function handleClickNavigation(e) {
-		if (userClickedHomeScreenButton()) {
+		if (userClickedHomeScreenButton() || userClickedOnDraftSOItemOnDashboard()) {
 			if (window.location.hash !== '#' + e.target.id) {
 				hasHashChangedDueToClick = true;
 				if (!isHashEmpty()) {
@@ -313,6 +313,11 @@ define([
 
 		return;
 
+		function userClickedOnDraftSOItemOnDashboard(){
+			let target = e.target.parentNode.parentElement;
+			return target.classList.contains(classNames.DRAFT_MODE_ORDER_ITEM);
+		}
+		
 		function clickWasOnDetailPaneExpander() {
 			return e.target.classList.contains('z-icon-chevron-up')
 				&& e.target.parentNode.classList.contains('z-south-collapsed')

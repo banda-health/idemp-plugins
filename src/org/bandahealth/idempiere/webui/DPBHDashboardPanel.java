@@ -61,6 +61,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 		contentArea.setStyle("width:75%; float:left; padding-right:3x;");
 		widgetArea.setStyle("width:25%; float:right;");
+		
 		layout.appendChild(contentArea);
 		layout.appendChild(widgetArea);
 		contentArea.setClass("bh-dashboard-content");
@@ -112,6 +113,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				.setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
 		Integer unclosedSOCount = 0;
 		Listbox unfinishedBills = new Listbox();
+		unfinishedBills.setEmptyMessage("No orders pending)");
 		if(saleOrders != null) {
 			unclosedSOCount = saleOrders.size();
 			for (MOrder order : saleOrders) {
@@ -119,11 +121,12 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
 						.setOnlyActiveRecords(true).first();
 
-				A link = new A();
+				A link = new A(patient.getName());
 				link.setHref(String.valueOf(order.getC_Order_ID()));
-				link.setLabel(patient.getName());
 				String details = link.getLabel() + ", " + new SimpleDateFormat("dd-MM hh:mm a").format(order.getCreated());
-				unfinishedBills.appendItem(details, order.getDocumentNo());
+				Listitem item =  new Listitem(details, order.getDocumentNo());
+				item.setSclass("bh-draft-so-list");
+				unfinishedBills.appendChild(item);
 				unfinishedBills.addEventListener(Events.ON_SELECT, this);
 			}
 		}		
