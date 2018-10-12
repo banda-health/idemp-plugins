@@ -157,13 +157,11 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		} else if (eventName.equals(Events.ON_SELECT)) {
 			Listitem selected = ((Listbox) component).getSelectedItem();
 			Integer selectedDocNumber = Integer.parseInt(selected.getValue().toString());
-			System.out.println("selected document: " + selectedDocNumber);
-			// get Sale Order window & its ID
+
 			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name,
 					MWindow.COLUMNNAME_Name + " LIKE '%BH Sale%'", null).setOnlyActiveRecords(true).first();
 			int windowId = bhSOWindow.getAD_Window_ID();// 1000008;
-			System.out.println("Window ID: " + windowId);
-			// Get the currently selected document
+
 			MQuery query = new MQuery(MOrder.Table_Name);
 			query.addRestriction(MOrder.COLUMNNAME_DocumentNo + "='" + String.valueOf(selectedDocNumber) + "' AND "
 					+ MOrder.COLUMNNAME_DocStatus + "='DR'");
@@ -171,15 +169,12 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 				@Override
 				public void onCallback(ADWindow result) {
-					System.out.println("Inside callback");
 					if (result == null)
 						return;
 					result.getADWindowContent().onZoomAcross();
 //					ADTabpanel panel = (ADTabpanel)result.getADWindowContent().getADTab().getSelectedTabpanel();
 //					panel.focusToFirstEditor();		
-
 				}
-
 			});
 		}
 	}
