@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.webui;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import org.adempiere.util.Callback;
 import org.adempiere.webui.adwindow.ADTabpanel;
@@ -108,9 +109,11 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	}
 
 	private void createIncompleteBillsWidget() {
-
-		List<MOrder> saleOrders = new Query(Env.getCtx(), MOrder.Table_Name, "docstatus = 'DR' AND issotrx = 'Y'", null)
-				.setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
+		Properties p = Env.getCtx();
+		List<MOrder> saleOrders = new Query(Env.getCtx(), MOrder.Table_Name,
+				"docstatus = 'DR' AND issotrx = 'Y' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
+				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
+		
 		Integer unclosedSOCount = 0;
 		Listbox unfinishedBills = new Listbox();
 		unfinishedBills.setEmptyMessage("No orders pending)");
@@ -121,7 +124,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
 						.setOnlyActiveRecords(true).first();
 
-				A link = new A(patient.getName());
+				A link = new A(patient.getName() == null ? "Un-named Patient" : patient.getName());
 				link.setHref(String.valueOf(order.getC_Order_ID()));
 				String details = link.getLabel() + ", " + new SimpleDateFormat("dd-MM hh:mm a").format(order.getCreated());
 				Listitem item =  new Listitem(details, order.getDocumentNo());
