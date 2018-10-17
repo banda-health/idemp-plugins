@@ -60,8 +60,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		layout.setParent(this);
 		layout.setStyle("height: 100%; width 100%");
 
-		contentArea.setStyle("width:75%; float:left; padding-right:3x;");
-		widgetArea.setStyle("width:25%; float:right;");
+//		contentArea.setStyle("width:75%; float:left; padding-right:3x;");
+		widgetArea.setSclass("bh-so-list-window");
 		
 		layout.appendChild(contentArea);
 		layout.appendChild(widgetArea);
@@ -133,7 +133,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				unfinishedBills.addEventListener(Events.ON_SELECT, this);
 			}
 		}		
-		Window notifications = new Window("Pending Orders: (" + unclosedSOCount + ")", "none", true);
+		Window notifications = new Window("Un-finished Orders: (" + unclosedSOCount + ")", "none", false);
 		notifications.appendChild(unfinishedBills);
 		widgetArea.appendChild(notifications);
 	}
