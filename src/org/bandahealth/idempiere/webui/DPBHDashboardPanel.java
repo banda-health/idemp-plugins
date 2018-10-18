@@ -1,14 +1,15 @@
 package org.bandahealth.idempiere.webui;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.stream.Collectors;
+
 import org.adempiere.util.Callback;
-import org.adempiere.webui.adwindow.ADTabpanel;
 import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.dashboard.DashboardPanel;
-import org.adempiere.webui.desktop.TabbedDesktop;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
@@ -26,9 +27,9 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zul.A;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Script;
 import org.zkoss.zul.Vlayout;
@@ -62,7 +63,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 //		contentArea.setStyle("width:75%; float:left; padding-right:3x;");
 		widgetArea.setSclass("bh-so-list-window");
-		
+
 		layout.appendChild(contentArea);
 		layout.appendChild(widgetArea);
 		contentArea.setClass("bh-dashboard-content");
@@ -113,26 +114,35 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		List<MOrder> saleOrders = new Query(Env.getCtx(), MOrder.Table_Name,
 				"docstatus = 'DR' AND issotrx = 'Y' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
 				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
-		
+
 		Integer unclosedSOCount = 0;
 		Listbox unfinishedBills = new Listbox();
 		unfinishedBills.setEmptyMessage("No orders pending)");
-		if(saleOrders != null) {
+		if (saleOrders != null) {
 			unclosedSOCount = saleOrders.size();
 			for (MOrder order : saleOrders) {
 				String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
 				MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
 						.setOnlyActiveRecords(true).first();
-
-				A link = new A(patient.getName() == null ? "Un-named Patient" : patient.getName());
-				link.setHref(String.valueOf(order.getC_Order_ID()));
-				String details = link.getLabel() + ", " + new SimpleDateFormat("dd-MM hh:mm a").format(order.getCreated());
-				Listitem item =  new Listitem(details, order.getDocumentNo());
-				item.setSclass("bh-draft-so-list");
-				unfinishedBills.appendChild(item);
+				NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "KE"));
+				String orderDetails = patient.getName() == null ? "Un-named Patient"
+						: patient.getName() + ":" + formatter.format(order.getGrandTotal()) + ":"
+								+ new SimpleDateFormat("dd-MMM").format(order.getCreated());
+				Listitem listRow = new Listitem();
+				Listcell[] dataCells = new Listcell[4];// max cells to display
+				String[] orderTokens = orderDetails.split(":");
+				for (int i = 0; i < orderTokens.length; i++) {
+					dataCells[i] = new Listcell(orderTokens[i]);
+					if (i < 2) // span the name & amount cells
+						dataCells[i].setSpan(2);
+					listRow.appendChild(dataCells[i]);
+				}
+				listRow.setValue(order.getDocumentNo());
+				listRow.setSclass("bh-draft-so-list");
+				unfinishedBills.appendChild(listRow);
 				unfinishedBills.addEventListener(Events.ON_SELECT, this);
 			}
-		}		
+		}
 		Window notifications = new Window("Un-finished Orders: (" + unclosedSOCount + ")", "none", false);
 		notifications.appendChild(unfinishedBills);
 		widgetArea.appendChild(notifications);
@@ -163,7 +173,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name,
 					MWindow.COLUMNNAME_Name + " LIKE '%BH Sale%'", null).setOnlyActiveRecords(true).first();
-			int windowId = bhSOWindow.getAD_Window_ID();// 1000008;
+			int windowId = bhSOWindow.getAD_Window_ID();
 
 			MQuery query = new MQuery(MOrder.Table_Name);
 			query.addRestriction(MOrder.COLUMNNAME_DocumentNo + "='" + String.valueOf(selectedDocNumber) + "' AND "
