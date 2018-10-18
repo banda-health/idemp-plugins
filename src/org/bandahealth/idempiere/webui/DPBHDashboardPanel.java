@@ -143,7 +143,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				unfinishedBills.addEventListener(Events.ON_SELECT, this);
 			}
 		}
-		Window notifications = new Window("Un-finished Orders: (" + unclosedSOCount + ")", "none", false);
+		Window notifications = new Window("Orders To Close: (" + unclosedSOCount + ")", "none", false);
+		notifications.setTooltiptext("List of all orders that have not been closed");
 		notifications.appendChild(unfinishedBills);
 		widgetArea.appendChild(notifications);
 	}

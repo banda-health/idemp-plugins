@@ -135,10 +135,14 @@ define([
 					util.removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					openTabDetailPane();
 				}
-				//are we on dashboard
-				if (document.querySelector('.desktop-hometab.z-tab.z-tab-selected')){
-					if(document.getElementById('so-list-pane') == null){
-					createOrdersNotificationPanel();
+				// are we on dashboard
+				let dashboardPane = document.querySelector('.desktop-hometab.z-tab.z-tab-selected');
+				if (util.elementIsVisible(dashboardPane)){
+					displaySOPanelOnDashboard();
+				}else{
+					let eastPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
+					if (util.elementIsVisible(eastPanelCollapseButton)) {
+						eastPanelCollapseButton.click();
 					}
 				}
 				if (areViewingTheStockTakePage()) {
@@ -551,26 +555,17 @@ define([
 			$("<style>.bh.organization .adwindow-toolbar a:nth-child(7):after{content:' Save'}</style>").appendTo('head');
 		}
 	}
-	function createOrdersNotificationPanel(){
-		let dashboardLayoutCol = document.querySelector(".dashboard-column.z-vlayout");
-		dashboardLayoutCol.style.width = "100%";
-		dashboardLayoutCol.style.display = "inline-flex";
-		dashboardLayoutCol.style.float = "left";
-		let divToAttach = function (){
-			let panel = document.createElement("div");
-			panel.setAttribute('id','so-list-pane');
-			panel.style.width = "20%";
-			panel.style.padding = "3px";
-			panel.style.border = "1px #D8D8D8 solid";
-			panel.style.float = "right";
-			return panel;
-		}();
-		let listWindow = document.querySelector('.bh-so-list-window.z-div');
-		divToAttach.appendChild(listWindow);
-		dashboardLayoutCol.appendChild(divToAttach);
+	
+	function displaySOPanelOnDashboard(){
+		let eastPanelDisplayBtn = document.querySelector('.window-container-toolbar-btn.context-help-btn.z-toolbarbutton');
+		if(eastPanelDisplayBtn){
+			eastPanelDisplayBtn.click();
+		}
+		let eastPanel = document.querySelector('.desktop-right-column.z-east');
+		eastPanel.style.background = "white"; 
+		let parentDiv = eastPanel.getElementsByClassName('z-anchorchildren')[0];
+		let soListWindow = document.querySelector('.bh-so-list-window.z-div');
+		parentDiv.appendChild(soListWindow);
+		
 	}
-	
-	
-	
-	
 });
