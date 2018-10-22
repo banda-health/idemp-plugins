@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import org.adempiere.util.Callback;
@@ -27,13 +29,17 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zul.AbstractListModel;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Script;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.event.ListDataEvent;
+import org.zkoss.zul.event.ListDataListener;
 
 public class DPBHDashboardPanel extends DashboardPanel implements EventListener<Event> {
 
@@ -48,6 +54,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	private Vlayout layout = new Vlayout();
 	private Div contentArea = new Div();
 	private Div widgetArea = new Div();
+	
+	List<MOrder> saleOrders;
 
 	public DPBHDashboardPanel() {
 		super();
@@ -110,42 +118,53 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	}
 
 	private void createIncompleteBillsWidget() {
-		Properties p = Env.getCtx();
-		List<MOrder> saleOrders = new Query(Env.getCtx(), MOrder.Table_Name,
-				"docstatus = 'DR' AND issotrx = 'Y' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
-				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
-
+		getUpdatedSalesOrderList();
 		Integer unclosedSOCount = 0;
-		Listbox unfinishedBills = new Listbox();
-		unfinishedBills.setEmptyMessage("No orders pending)");
+		Listbox ordersInDraftListbox = new Listbox();
+		ordersInDraftListbox.setEmptyMessage("No orders pending)");
 		if (saleOrders != null) {
 			unclosedSOCount = saleOrders.size();
-			for (MOrder order : saleOrders) {
-				String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
-				MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
-						.setOnlyActiveRecords(true).first();
-				NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "KE"));
-				String orderDetails = patient.getName() == null ? "Un-named Patient"
-						: patient.getName() + ":" + formatter.format(order.getGrandTotal()) + ":"
-								+ new SimpleDateFormat("dd-MMM").format(order.getCreated());
-				Listitem listRow = new Listitem();
-				Listcell[] dataCells = new Listcell[4];// max cells to display
-				String[] orderTokens = orderDetails.split(":");
-				for (int i = 0; i < orderTokens.length; i++) {
-					dataCells[i] = new Listcell(orderTokens[i]);
-					if (i < 2) // span the name & amount cells
-						dataCells[i].setSpan(2);
-					listRow.appendChild(dataCells[i]);
+			ListModelList<MOrder> model = new ListModelList<>(saleOrders);
+			ordersInDraftListbox.setModel(model);
+
+			//update listmodel every 2 seconds
+			TimerTask task = new TimerTask() {
+				
+				@Override
+				public void run() {
+					System.out.println("Updating list...");
+					getUpdatedSalesOrderList();
 				}
-				listRow.setValue(order.getDocumentNo());
-				listRow.setSclass("bh-draft-so-list");
-				unfinishedBills.appendChild(listRow);
-				unfinishedBills.addEventListener(Events.ON_SELECT, this);
-			}
+			};
+			Timer t = new Timer();
+			t.schedule(task, 2000,5000);
+			
+//			for (MOrder order : saleOrders) {
+//				String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
+//				MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
+//						.setOnlyActiveRecords(true).first();
+//				NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "KE"));
+//				String orderDetails = patient.getName() == null ? "Un-named Patient"
+//						: patient.getName() + ":" + formatter.format(order.getGrandTotal()) + ":"
+//								+ new SimpleDateFormat("dd-MMM").format(order.getCreated());
+//				Listitem listRow = new Listitem();
+//				Listcell[] dataCells = new Listcell[4];// max cells to display
+//				String[] orderTokens = orderDetails.split(":");
+//				for (int i = 0; i < orderTokens.length; i++) {
+//					dataCells[i] = new Listcell(orderTokens[i]);
+//					if (i < 2) // span the name & amount cells
+//						dataCells[i].setSpan(2);
+//					listRow.appendChild(dataCells[i]);
+//				}
+//				listRow.setValue(order.getDocumentNo());
+//				listRow.setSclass("bh-draft-so-list");
+//				unfinishedBills.appendChild(listRow);
+//				unfinishedBills.addEventListener(Events.ON_SELECT, this);
+//			}
 		}
 		Window notifications = new Window("Orders To Close: (" + unclosedSOCount + ")", "none", false);
 		notifications.setTooltiptext("List of all orders that have not been closed");
-		notifications.appendChild(unfinishedBills);
+		notifications.appendChild(ordersInDraftListbox);
 		widgetArea.appendChild(notifications);
 	}
 
@@ -208,5 +227,12 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			isViewingAClient = true;
 		}
 		return isViewingAClient;
+	}
+	
+	private void getUpdatedSalesOrderList(){
+		saleOrders = new Query(Env.getCtx(), MOrder.Table_Name,
+				"docstatus = 'DR' AND issotrx = 'Y' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
+				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
+		System.out.println("Size of list Items: " + saleOrders.size());
 	}
 }
