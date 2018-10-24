@@ -17,6 +17,7 @@ import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
+import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MOrder;
@@ -131,6 +132,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			unclosedSOCount = saleOrders.size();
 			ListModelList<MOrder> model = new ListModelList<>(saleOrders,true);
 			ordersInDraftListbox.setModel(model);
+			ordersInDraftListbox.setItemRenderer(new DraftSaleOrderListRenderer());
 
 			//update listmodel every 2 seconds
 			TimerTask task = new TimerTask() {
@@ -148,29 +150,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			};
 			Timer t = new Timer();
 			t.schedule(task, 2000,5000);
-			
-//			for (MOrder order : saleOrders) {
-//				String patientId = MBPartner.COLUMNNAME_C_BPartner_ID + "= " + String.valueOf(order.getC_BPartner_ID());
-//				MBPartner patient = new Query(Env.getCtx(), MBPartner.Table_Name, patientId, null)
-//						.setOnlyActiveRecords(true).first();
-//				NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "KE"));
-//				String orderDetails = patient.getName() == null ? "Un-named Patient"
-//						: patient.getName() + ":" + formatter.format(order.getGrandTotal()) + ":"
-//								+ new SimpleDateFormat("dd-MMM").format(order.getCreated());
-//				Listitem listRow = new Listitem();
-//				Listcell[] dataCells = new Listcell[4];// max cells to display
-//				String[] orderTokens = orderDetails.split(":");
-//				for (int i = 0; i < orderTokens.length; i++) {
-//					dataCells[i] = new Listcell(orderTokens[i]);
-//					if (i < 2) // span the name & amount cells
-//						dataCells[i].setSpan(2);
-//					listRow.appendChild(dataCells[i]);
-//				}
-//				listRow.setValue(order.getDocumentNo());
-//				listRow.setSclass("bh-draft-so-list");
-//				unfinishedBills.appendChild(listRow);
-//				unfinishedBills.addEventListener(Events.ON_SELECT, this);
-//			}
+			ordersInDraftListbox.addEventListener(Events.ON_SELECT, this);
 		}
 		Window notifications = new Window("Orders To Close: (" + saleOrders.size() + ")", "none", false);
 		notifications.setTooltiptext("List of all orders that have not been closed");
