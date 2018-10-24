@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.webui;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -26,6 +27,9 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Desktop;
+import org.zkoss.zk.ui.DesktopUnavailableException;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -118,22 +122,25 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	}
 
 	private void createIncompleteBillsWidget() {
-		getUpdatedSalesOrderList();
 		Integer unclosedSOCount = 0;
+		saleOrders = getDraftedSOList();
 		Listbox ordersInDraftListbox = new Listbox();
 		ordersInDraftListbox.setEmptyMessage("No orders pending)");
 		if (saleOrders != null) {
 			unclosedSOCount = saleOrders.size();
-			ListModelList<MOrder> model = new ListModelList<>(saleOrders);
+			ListModelList<MOrder> model = new ListModelList<>(saleOrders,true);
+//			model.addListDataListener(new MyDataListener());
 			ordersInDraftListbox.setModel(model);
 
 			//update listmodel every 2 seconds
 			TimerTask task = new TimerTask() {
-				
 				@Override
 				public void run() {
 					System.out.println("Updating list...");
-					getUpdatedSalesOrderList();
+					if(listHasUpdates(saleOrders.size())) {
+						System.out.println("Found some updates...");
+						model.addAll(saleOrders);
+					}
 				}
 			};
 			Timer t = new Timer();
@@ -229,10 +236,40 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		return isViewingAClient;
 	}
 	
-	private void getUpdatedSalesOrderList(){
-		saleOrders = new Query(Env.getCtx(), MOrder.Table_Name,
+	private boolean listHasUpdates(int previousSize){
+		boolean hasBeenUpdated = false;
+		List<MOrder> currentList = getDraftedSOList();
+		System.out.println("Size of list Items: " + saleOrders.size());
+		if(currentList.size() != previousSize) {
+			hasBeenUpdated = true;
+		}
+		return hasBeenUpdated;
+	}
+	
+	private List<MOrder> getDraftedSOList() {
+		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
 				"docstatus = 'DR' AND issotrx = 'Y' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
 				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
-		System.out.println("Size of list Items: " + saleOrders.size());
+		return results;
+	}
+	
+	private void prepareForRefresh(List<MOrder>updatedList,ListModelList<MOrder> model) {
+		
+
+	}
+	
+	class RefresherThread extends Thread{
+		public void run() {
+			Desktop desktop = Executions.getCurrent().getDesktop();
+			System.out.println("Id of current desktop" + desktop.getId());
+			desktop.enableServerPush(true);
+//			try {
+//				Executions.activate(desktop);
+				//do stuff 
+//				Executions.deactivate(desktop);
+//			} catch (DesktopUnavailableException | InterruptedException e) {
+//				e.printStackTrace();
+//			}
+		}
 	}
 }
