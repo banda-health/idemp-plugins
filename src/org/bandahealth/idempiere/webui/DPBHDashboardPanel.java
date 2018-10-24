@@ -134,12 +134,15 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 			//update listmodel every 2 seconds
 			TimerTask task = new TimerTask() {
+			Thread refresherThread = new RefresherThread(model);
 				@Override
 				public void run() {
 					System.out.println("Updating list...");
 					if(listHasUpdates(saleOrders.size())) {
 						System.out.println("Found some updates...");
-						model.addAll(saleOrders);
+						if(!refresherThread.isAlive()) {
+							refresherThread.start();
+						}
 					}
 				}
 			};
@@ -259,17 +262,24 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	}
 	
 	class RefresherThread extends Thread{
+		private ListModelList<MOrder> model;
+		
+		public RefresherThread(ListModelList<MOrder> model) {
+			this.model = model;
+		}
+		
 		public void run() {
-			Desktop desktop = Executions.getCurrent().getDesktop();
+			Desktop desktop = DPBHDashboardPanel.this.getDesktop();
 			System.out.println("Id of current desktop" + desktop.getId());
 			desktop.enableServerPush(true);
-//			try {
-//				Executions.activate(desktop);
-				//do stuff 
-//				Executions.deactivate(desktop);
-//			} catch (DesktopUnavailableException | InterruptedException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				Executions.activate(desktop);
+				model.clear();
+				model.addAll(getDraftedSOList());
+				Executions.deactivate(desktop);
+			} catch (DesktopUnavailableException | InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
