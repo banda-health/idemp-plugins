@@ -59,7 +59,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	private Div contentArea = new Div();
 	private Div widgetArea = new Div();
 	
-	List<MOrder> saleOrders;
+	private List<MOrder> saleOrders;
+	private Integer unclosedSOCount = 0;
 
 	public DPBHDashboardPanel() {
 		super();
@@ -122,24 +123,23 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	}
 
 	private void createIncompleteBillsWidget() {
-		Integer unclosedSOCount = 0;
+
 		saleOrders = getDraftedSOList();
 		Listbox ordersInDraftListbox = new Listbox();
 		ordersInDraftListbox.setEmptyMessage("No orders pending)");
 		if (saleOrders != null) {
 			unclosedSOCount = saleOrders.size();
 			ListModelList<MOrder> model = new ListModelList<>(saleOrders,true);
-//			model.addListDataListener(new MyDataListener());
 			ordersInDraftListbox.setModel(model);
 
 			//update listmodel every 2 seconds
 			TimerTask task = new TimerTask() {
-			Thread refresherThread = new RefresherThread(model);
+			Thread refresherThread = new ModelUpdateThread(model);
 				@Override
 				public void run() {
-					System.out.println("Updating list...");
-					if(listHasUpdates(saleOrders.size())) {
+					if(updatedListAvailable()) {
 						System.out.println("Found some updates...");
+						unclosedSOCount = saleOrders.size();
 						if(!refresherThread.isAlive()) {
 							refresherThread.start();
 						}
@@ -172,7 +172,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 //				unfinishedBills.addEventListener(Events.ON_SELECT, this);
 //			}
 		}
-		Window notifications = new Window("Orders To Close: (" + unclosedSOCount + ")", "none", false);
+		Window notifications = new Window("Orders To Close: (" + saleOrders.size() + ")", "none", false);
 		notifications.setTooltiptext("List of all orders that have not been closed");
 		notifications.appendChild(ordersInDraftListbox);
 		widgetArea.appendChild(notifications);
@@ -239,11 +239,12 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		return isViewingAClient;
 	}
 	
-	private boolean listHasUpdates(int previousSize){
+	private boolean updatedListAvailable(){
 		boolean hasBeenUpdated = false;
 		List<MOrder> currentList = getDraftedSOList();
-		System.out.println("Size of list Items: " + saleOrders.size());
-		if(currentList.size() != previousSize) {
+		System.out.println("Number of items: " + currentList.size());
+		if(currentList.size() != unclosedSOCount) {
+			saleOrders = currentList;
 			hasBeenUpdated = true;
 		}
 		return hasBeenUpdated;
@@ -256,15 +257,10 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		return results;
 	}
 	
-	private void prepareForRefresh(List<MOrder>updatedList,ListModelList<MOrder> model) {
-		
-
-	}
-	
-	class RefresherThread extends Thread{
+	class ModelUpdateThread extends Thread{
 		private ListModelList<MOrder> model;
 		
-		public RefresherThread(ListModelList<MOrder> model) {
+		public ModelUpdateThread(ListModelList<MOrder> model) {
 			this.model = model;
 		}
 		
@@ -275,11 +271,11 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			try {
 				Executions.activate(desktop);
 				model.clear();
-				model.addAll(getDraftedSOList());
+				model.addAll(saleOrders);
 				Executions.deactivate(desktop);
 			} catch (DesktopUnavailableException | InterruptedException e) {
 				e.printStackTrace();
-			}
+			} 
 		}
 	}
 }
