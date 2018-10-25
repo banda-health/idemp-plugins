@@ -2,7 +2,9 @@ package org.bandahealth.idempiere.webui;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -59,7 +61,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	private Vlayout layout = new Vlayout();
 	private Div contentArea = new Div();
 	private Div widgetArea = new Div();
-	
+
 	private List<MOrder> saleOrders;
 	private Integer unclosedSOCount = 0;
 
@@ -130,26 +132,26 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		ordersInDraftListbox.setEmptyMessage("No orders pending)");
 		if (saleOrders != null) {
 			unclosedSOCount = saleOrders.size();
-			ListModelList<MOrder> model = new ListModelList<>(saleOrders,true);
+			ListModelList<MOrder> model = new ListModelList<>(saleOrders, true);
 			ordersInDraftListbox.setModel(model);
 			ordersInDraftListbox.setItemRenderer(new DraftSaleOrderListRenderer());
 
-			//update listmodel every 2 seconds
+			// update listmodel every 2 seconds
 			TimerTask task = new TimerTask() {
-			Thread refresherThread = new ModelUpdateThread(model);
+				Thread refresherThread = new ModelUpdateThread(model);
+
 				@Override
 				public void run() {
-					if(updatedListAvailable()) {
-						System.out.println("Found some updates...");
+					if (updatedListAvailable()) {
 						unclosedSOCount = saleOrders.size();
-						if(!refresherThread.isAlive()) {
+						if (!refresherThread.isAlive()) {
 							refresherThread.start();
 						}
 					}
 				}
 			};
 			Timer t = new Timer();
-			t.schedule(task, 2000,5000);
+			t.schedule(task, 2000, 5000);
 			ordersInDraftListbox.addEventListener(Events.ON_SELECT, this);
 		}
 		Window notifications = new Window("Orders To Close: (" + saleOrders.size() + ")", "none", false);
@@ -218,35 +220,40 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		}
 		return isViewingAClient;
 	}
-	
-	private boolean updatedListAvailable(){
+
+	private boolean updatedListAvailable() {
 		boolean hasBeenUpdated = false;
 		List<MOrder> currentList = getDraftedSOList();
-		System.out.println("Number of items: " + currentList.size());
-		if(currentList.size() != unclosedSOCount) {
+		if (currentList.size() != unclosedSOCount) {
 			saleOrders = currentList;
 			hasBeenUpdated = true;
 		}
 		return hasBeenUpdated;
 	}
-	
+
 	private List<MOrder> getDraftedSOList() {
+		Calendar filterDateFrom = Calendar.getInstance();
+		filterDateFrom.set(filterDateFrom.get(Calendar.YEAR), filterDateFrom.get(Calendar.MONTH), 1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String filterDateFromTxt = sdf.format(filterDateFrom.getTime());
+		String currentDateTxt = sdf.format(new Date());
+
 		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
-				"docstatus = 'DR' AND issotrx = 'Y' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
+				"docstatus = 'DR' AND issotrx = 'Y' AND " + MOrder.COLUMNNAME_DateOrdered + " BETWEEN '" + filterDateFromTxt
+						+ "' AND '" + currentDateTxt + "' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
 				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
 		return results;
 	}
-	
-	class ModelUpdateThread extends Thread{
+
+	class ModelUpdateThread extends Thread {
 		private ListModelList<MOrder> model;
-		
+
 		public ModelUpdateThread(ListModelList<MOrder> model) {
 			this.model = model;
 		}
-		
+
 		public void run() {
 			Desktop desktop = DPBHDashboardPanel.this.getDesktop();
-			System.out.println("Id of current desktop" + desktop.getId());
 			desktop.enableServerPush(true);
 			try {
 				Executions.activate(desktop);
@@ -255,7 +262,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 				Executions.deactivate(desktop);
 			} catch (DesktopUnavailableException | InterruptedException e) {
 				e.printStackTrace();
-			} 
+			}
 		}
 	}
 }
