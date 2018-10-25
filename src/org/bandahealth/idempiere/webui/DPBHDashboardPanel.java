@@ -1,34 +1,58 @@
 package org.bandahealth.idempiere.webui;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
+import org.adempiere.util.Callback;
+import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
+import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
+import org.compiere.model.MBPartner;
+import org.compiere.model.MOrder;
+import org.compiere.model.MQuery;
+import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Desktop;
+import org.zkoss.zk.ui.DesktopUnavailableException;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zul.AbstractListModel;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Script;
 import org.zkoss.zul.Vlayout;
+import org.zkoss.zul.Window;
+import org.zkoss.zul.event.ListDataEvent;
+import org.zkoss.zul.event.ListDataListener;
 
 public class DPBHDashboardPanel extends DashboardPanel implements EventListener<Event> {
 
 	/**
-	 * Custom BandaHealth dash-board with links to:
-	 * -> product info window
-	 * -> BH Product
-	 * -> BH BusinessPartner
-	 * -> BH Inventory
+	 * Custom BandaHealth dash-board with links to: -> product info window -> BH
+	 * Product -> BH BusinessPartner -> BH Inventory
 	 */
 
 	private static final long serialVersionUID = 1L;
@@ -36,6 +60,10 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 	private Vlayout layout = new Vlayout();
 	private Div contentArea = new Div();
+	private Div widgetArea = new Div();
+
+	private List<MOrder> saleOrders;
+	private Integer unclosedSOCount = 0;
 
 	public DPBHDashboardPanel() {
 		super();
@@ -49,7 +77,11 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		layout.setParent(this);
 		layout.setStyle("height: 100%; width 100%");
 
+//		contentArea.setStyle("width:75%; float:left; padding-right:3x;");
+		widgetArea.setSclass("bh-so-list-window");
+
 		layout.appendChild(contentArea);
+		layout.appendChild(widgetArea);
 		contentArea.setClass("bh-dashboard-content");
 
 		appendRoleScript();
@@ -59,24 +91,18 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 	private void appendRoleScript() {
 		if (isUserViewingAnOrganization()) {
-			layout.appendChild(
-					new Script("requirejs(['user/organization'], function () {});"));
+			layout.appendChild(new Script("requirejs(['user/organization'], function () {});"));
 		} else if (isUserViewingAClient()) {
-			layout.appendChild(
-					new Script("requirejs(['user/client'], function () {});"));
+			layout.appendChild(new Script("requirejs(['user/client'], function () {});"));
 		}
 	}
 
 	public void createPanel() {
-		//add links to BH custom windows
-		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,null)
-				.setOnlyActiveRecords(true)
-				.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo)
-				.list();
-		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null,null)
-				.setOnlyActiveRecords(true)
-				.setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo)
-				.list();
+		// add links to BH custom windows
+		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
+				null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
+		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
+				.setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
 		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 			Div groupSeparator = new Div();
 			groupSeparator.setClass("bh-button-group-header");
@@ -95,6 +121,43 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			}
 			contentArea.appendChild(groupContainer);
 		}
+
+		createIncompleteBillsWidget();
+	}
+
+	private void createIncompleteBillsWidget() {
+
+		saleOrders = getDraftedSOList();
+		Listbox ordersInDraftListbox = new Listbox();
+		ordersInDraftListbox.setEmptyMessage("No orders pending)");
+		if (saleOrders != null) {
+			unclosedSOCount = saleOrders.size();
+			ListModelList<MOrder> model = new ListModelList<>(saleOrders, true);
+			ordersInDraftListbox.setModel(model);
+			ordersInDraftListbox.setItemRenderer(new DraftSaleOrderListRenderer());
+
+			// update listmodel every 2 seconds
+			TimerTask task = new TimerTask() {
+				Thread refresherThread = new ModelUpdateThread(model);
+
+				@Override
+				public void run() {
+					if (updatedListAvailable()) {
+						unclosedSOCount = saleOrders.size();
+						if (!refresherThread.isAlive()) {
+							refresherThread.start();
+						}
+					}
+				}
+			};
+			Timer t = new Timer();
+			t.schedule(task, 2000, 5000);
+			ordersInDraftListbox.addEventListener(Events.ON_SELECT, this);
+		}
+		Window notifications = new Window("Orders To Close: (" + saleOrders.size() + ")", "none", false);
+		notifications.setTooltiptext("List of all orders that have not been closed");
+		notifications.appendChild(ordersInDraftListbox);
+		widgetArea.appendChild(notifications);
 	}
 
 	@Override
@@ -116,6 +179,28 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 					SessionManager.getAppDesktop().openWindow(windowId, null);
 				}
 			}
+		} else if (eventName.equals(Events.ON_SELECT)) {
+			Listitem selected = ((Listbox) component).getSelectedItem();
+			Integer selectedDocNumber = Integer.parseInt(selected.getValue().toString());
+
+			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name,
+					MWindow.COLUMNNAME_Name + " LIKE '%BH Sale%'", null).setOnlyActiveRecords(true).first();
+			int windowId = bhSOWindow.getAD_Window_ID();
+
+			MQuery query = new MQuery(MOrder.Table_Name);
+			query.addRestriction(MOrder.COLUMNNAME_DocumentNo + "='" + String.valueOf(selectedDocNumber) + "' AND "
+					+ MOrder.COLUMNNAME_DocStatus + "='DR'");
+			SessionManager.getAppDesktop().openWindow(windowId, query, new Callback<ADWindow>() {
+
+				@Override
+				public void onCallback(ADWindow result) {
+					if (result == null)
+						return;
+					result.getADWindowContent().onZoomAcross();
+//					ADTabpanel panel = (ADTabpanel)result.getADWindowContent().getADTab().getSelectedTabpanel();
+//					panel.focusToFirstEditor();		
+				}
+			});
 		}
 	}
 
@@ -134,5 +219,50 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			isViewingAClient = true;
 		}
 		return isViewingAClient;
+	}
+
+	private boolean updatedListAvailable() {
+		boolean hasBeenUpdated = false;
+		List<MOrder> currentList = getDraftedSOList();
+		if (currentList.size() != unclosedSOCount) {
+			saleOrders = currentList;
+			hasBeenUpdated = true;
+		}
+		return hasBeenUpdated;
+	}
+
+	private List<MOrder> getDraftedSOList() {
+		Calendar filterDateFrom = Calendar.getInstance();
+		filterDateFrom.set(filterDateFrom.get(Calendar.YEAR), filterDateFrom.get(Calendar.MONTH), 1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String filterDateFromTxt = sdf.format(filterDateFrom.getTime());
+		String currentDateTxt = sdf.format(new Date());
+
+		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
+				"docstatus = 'DR' AND issotrx = 'Y' AND " + MOrder.COLUMNNAME_DateOrdered + " BETWEEN '" + filterDateFromTxt
+						+ "' AND '" + currentDateTxt + "' AND ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
+				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
+		return results;
+	}
+
+	class ModelUpdateThread extends Thread {
+		private ListModelList<MOrder> model;
+
+		public ModelUpdateThread(ListModelList<MOrder> model) {
+			this.model = model;
+		}
+
+		public void run() {
+			Desktop desktop = DPBHDashboardPanel.this.getDesktop();
+			desktop.enableServerPush(true);
+			try {
+				Executions.activate(desktop);
+				model.clear();
+				model.addAll(saleOrders);
+				Executions.deactivate(desktop);
+			} catch (DesktopUnavailableException | InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -130,10 +130,20 @@ define([
 					util.addBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					closeTabDetailPane();
 					navigateToDetailEditIfUserOnGridView();
-					//hideSaveWhenFinalizeOrderPresent();
+					// hideSaveWhenFinalizeOrderPresent();
 				} else if (!areCreatingOrEditingAnEntity()) {
 					util.removeBodyClassName(classNames.USER.ENTITY_ADD_OR_EDIT);
 					openTabDetailPane();
+				}
+				// are we on dashboard
+				let dashboardPane = document.querySelector('.desktop-hometab.z-tab.z-tab-selected');
+				if (util.elementIsVisible(dashboardPane)){
+					displaySOPanelOnDashboard();
+				}else{
+					let eastPanelCollapseButton = document.querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
+					if (util.elementIsVisible(eastPanelCollapseButton)) {
+						eastPanelCollapseButton.click();
+					}
 				}
 				if (areViewingTheStockTakePage()) {
 					util.addBodyClassName(classNames.NO_ADD_EDIT_ENTITY);
@@ -150,7 +160,8 @@ define([
 				return false;
 			}
 			for (let i = 0; i < tabs.length; i++) {
-				// If an element has the class z-tab-selected, at least one is visible
+				// If an element has the class z-tab-selected, at least one is
+				// visible
 				if (tabs[i].classList.contains('z-tab-selected')) {
 					return true;
 				}
@@ -267,7 +278,7 @@ define([
 	}
 
 	function handleClickNavigation(e) {
-		if (userClickedHomeScreenButton()) {
+		if (userClickedHomeScreenButton() || userClickedOnDraftSOItemOnDashboard()) {
 			if (window.location.hash !== '#' + e.target.id) {
 				hasHashChangedDueToClick = true;
 				if (!isHashEmpty()) {
@@ -313,6 +324,11 @@ define([
 
 		return;
 
+		function userClickedOnDraftSOItemOnDashboard(){
+			let target = e.target.parentNode.parentElement;
+			return target.classList.contains(classNames.DRAFT_MODE_ORDER_ITEM);
+		}
+		
 		function clickWasOnDetailPaneExpander() {
 			return e.target.classList.contains('z-icon-chevron-up')
 				&& e.target.parentNode.classList.contains('z-south-collapsed')
@@ -361,7 +377,8 @@ define([
 
 			let parent = e.target;
 			let i = 0;
-			// This edit TD should be 18 levels deep, according to iDempiere 5.1 layouts...
+			// This edit TD should be 18 levels deep, according to iDempiere 5.1
+			// layouts...
 			while (i++ < 18) {
 				parent = (parent.parentNode || {});
 			}
@@ -415,7 +432,8 @@ define([
 				// Close the current tab
 				closeAllButHomeTab();
 			} else {
-				// If there is more than one tab open, try to see if there is a breadcrumb ID we can click on
+				// If there is more than one tab open, try to see if there is a
+				// breadcrumb ID we can click on
 				let breadcrumb = document.querySelector('.adwindow-breadcrumb a');
 				if (breadcrumb && getNumberOfIDempTabsOpen() > 1) {
 					breadcrumb.click();
@@ -457,7 +475,8 @@ define([
 			gridToggleButton.addEventListener('click', function () {
 				oldGridToggleButton.click();
 			});
-			// add to UI after the Post-It button for our CSS to render correctly
+			// add to UI after the Post-It button for our CSS to render
+			// correctly
 			let postItButton = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content > a[title*="Post-it"]');
 			postItButton.parentNode.insertBefore(gridToggleButton, postItButton.nextSibling);
 		}
@@ -535,5 +554,18 @@ define([
 			saveButton.style.visibility = 'visible';
 			$("<style>.bh.organization .adwindow-toolbar a:nth-child(7):after{content:' Save'}</style>").appendTo('head');
 		}
+	}
+	
+	function displaySOPanelOnDashboard(){
+		let eastPanelDisplayBtn = document.querySelector('.window-container-toolbar-btn.context-help-btn.z-toolbarbutton');
+		if(eastPanelDisplayBtn){
+			eastPanelDisplayBtn.click();
+		}
+		let eastPanel = document.querySelector('.desktop-right-column.z-east');
+		eastPanel.style.background = "white"; 
+		let parentDiv = eastPanel.getElementsByClassName('z-anchorchildren')[0];
+		let soListWindow = document.querySelector('.bh-so-list-window.z-div');
+		parentDiv.appendChild(soListWindow);
+		
 	}
 });

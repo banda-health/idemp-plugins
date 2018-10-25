@@ -12,6 +12,7 @@ Bundle-ClassPath: theme/,
 Jetty-WarFragmentFolderPath: /
 Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0", org.adempiere.ui.zk;bundle-version="5.1.0"
 Export-Package: org.bandahealth.idempiere.webui
-Import-Package: org.zkoss.zk.ui,
+Import-Package: org.adempiere.util,
+ org.zkoss.zk.ui,
  org.zkoss.zk.ui.event,
  org.zkoss.zul
