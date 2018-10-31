@@ -7,25 +7,39 @@ import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MMessage;
 import org.compiere.model.MProduct;
+import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 
 public class ProductTypeCheck implements IColumnCallout {
+
+	CLogger log = CLogger.getCLogger(ProductTypeCheck.class);
+	private final String WINDOW_BH_ORDER = "BH Sales Order";
+	private String errorMessage = null;
 
 	@Override
 	public String start(Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue) {
 
-		Integer productId = (Integer) value;
+		if (value != null) {
+			// ignore callout while on the Sale Order window
+			String windowName = Env.getContext(ctx, WindowNo + "|_WinInfo_WindowName"); 
+			if (windowName.equalsIgnoreCase(WINDOW_BH_ORDER)) {
+				return null;
+			}
+			Integer productId = (Integer) value;
 
-		MProduct product = new MProduct(ctx, productId, null);
-		if (product != null) {
+			MProduct product = new MProduct(ctx, productId, null);
 
-			if (product.getProductType().equals("S") || product.getProductType().equals("E")) {
-				mTab.fireDataStatusEEvent(
-						MMessage.get(ctx, 240).getMsgText(), "Cannot add "
-								+ (product.getProductType().equals("S") ? "service" : "expense") + " to inventory",
-						true);
+			if (product != null) {
+
+				if (product.getProductType().equals("S") || product.getProductType().equals("E")) {
+					mTab.fireDataStatusEEvent(
+							MMessage.get(ctx, 240).getMsgText(), "Cannot add "
+									+ (product.getProductType().equals("S") ? "service" : "expense") + " to inventory",
+							true);
+				}
 			}
 		}
-		return null;
+		return errorMessage;
 	}
 
 }
