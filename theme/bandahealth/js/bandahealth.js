@@ -584,4 +584,16 @@ define([
 			targetButton.click();
 		}
 	}
+	
+	function displaySOPanelOnDashboard(){
+		let eastPanelDisplayBtn = document.querySelector('.window-container-toolbar-btn.context-help-btn.z-toolbarbutton');
+		if(eastPanelDisplayBtn){
+			eastPanelDisplayBtn.click();
+		}
+		let eastPanel = document.querySelector('.desktop-right-column.z-east');
+		eastPanel.style.background = "white"; 
+		let parentDiv = eastPanel.getElementsByClassName('z-anchorchildren')[0];
+		let soListWindow = document.querySelector('.bh-so-list-window.z-div');
+		parentDiv.appendChild(soListWindow);
+	}
 });
