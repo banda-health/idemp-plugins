@@ -42,8 +42,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	private static final long serialVersionUID = 1L;
 	private CLogger log = CLogger.getCLogger(DPBHDashboardPanel.class);
 
-	private static Vlayout layout = new Vlayout();
-	private static Div contentArea = new Div();
+	private Vlayout layout = new Vlayout();
+	private Div contentArea = new Div();
 
 	public DPBHDashboardPanel() {
 		super();
