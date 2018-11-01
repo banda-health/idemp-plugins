@@ -8,6 +8,7 @@ public class UIUtil {
 
 	public static String INFO_WINDOW_ATTRIBUTE = "data-infowindow";
 	public static String REPORT_OR_PROCESS_ATTRIBUTE = "data-process";
+	public static String TERMS_OF_USE_ATTRIBUTE = "data-terms-of-use";
 
 	public static Div initDivButton(MHomeScreenButton button) {
 
