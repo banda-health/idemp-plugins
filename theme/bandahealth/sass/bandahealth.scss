@@ -503,8 +503,27 @@
 				.z-vlayout-inner {
 					padding-bottom: 0 !important;
 				}
+			
+				.z-listbox{
+/*					border:#78AADD solid thin; */
+					
+					.z-listcell-content{
+/*						background:gray; */	
+					}
+				}
 			}
 		}
+		
+		.bh-so-list-window{
+			border:thin;
+			float:right;
+		}
+	    
+	    .bh-draft-so-list{
+	    	.z-listcell{
+	    		border:none;	
+	    	}	
+	    }
 
 		.desktop-header-popup, .user-panel-popup {
 			@extend %remove-element;
