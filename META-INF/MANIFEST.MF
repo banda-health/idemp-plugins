@@ -8,7 +8,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: theme/,
  .,
  src/,
- zul/
+ zul/,
+ resources/
 Jetty-WarFragmentFolderPath: /
 Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0", org.adempiere.ui.zk;bundle-version="5.1.0"
 Export-Package: org.bandahealth.idempiere.webui

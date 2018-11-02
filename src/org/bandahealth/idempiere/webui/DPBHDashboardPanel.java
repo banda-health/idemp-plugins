@@ -311,7 +311,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	private String getTermsAndConditionsContent(){ 
 		String termsAndConditions = null;
 		InputStream iReader = this.getClass().getClassLoader().getResourceAsStream("resources/TermsAndConditions.txt");
-
+		
 		if (iReader != null) {
 			try (BufferedReader bReader = new BufferedReader(new InputStreamReader(iReader))) {
 				StringBuilder sBuilder = new StringBuilder();
