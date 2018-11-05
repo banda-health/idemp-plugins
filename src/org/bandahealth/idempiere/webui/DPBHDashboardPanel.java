@@ -202,6 +202,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		label.setStyle("color: white");
 		acceptButton.appendChild(label);
 		acceptButton.setAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE, true);
+		acceptButton.setAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE, false);
+		acceptButton.setAttribute(UIUtil.REPORT_OR_PROCESS_ATTRIBUTE, false);
 		acceptButton.addEventListener(Events.ON_CLICK, this);
 		buttonsSection.appendChild(acceptButton);
 		
@@ -216,6 +218,8 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 		Label rejectLabel = new Label(" Reject ");
 		rejectButton.appendChild(rejectLabel);
 		rejectButton.setAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE, false);
+		rejectButton.setAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE, false);
+		rejectButton.setAttribute(UIUtil.REPORT_OR_PROCESS_ATTRIBUTE, false);
 		rejectButton.addEventListener(Events.ON_CLICK, this);
 		buttonsSection.appendChild(rejectButton);
 		
@@ -232,18 +236,16 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 			if (component instanceof Div) {
 				Div button = (Div) component;
 				Boolean termsOfUse = (Boolean)button.getAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE);
-				if (button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE) != null) {
+				if ((Boolean)button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int processId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openProcessDialog(processId, false);
-				} else if (button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE) != null) {
+				} else if ((Boolean)button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openInfo(infoWindowId);
-				} else if (termsOfUse != null) {
-					if (termsOfUse) {
+				} else if (termsOfUse != null && termsOfUse == true) {
 						acceptTermsOfUse();
-					} else {
-						SessionManager.getAppDesktop().logout();
-					}
+				} else if (termsOfUse != null && termsOfUse == false) {
+					SessionManager.getAppDesktop().logout();
 				} else {
 					int windowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openWindow(windowId, null);
