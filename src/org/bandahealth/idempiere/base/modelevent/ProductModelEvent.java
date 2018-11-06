@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.modelevent;
 
+import java.math.BigDecimal;
 import java.util.Properties;
 
 import org.adempiere.base.event.AbstractEventHandler;
@@ -41,6 +42,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			beforeSaveRequest(product);
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
+			afterSaveRequest(product);
 		}
 	}
 
@@ -65,31 +67,14 @@ public class ProductModelEvent extends AbstractEventHandler {
 		}
 	}
 
-	/* Adds a default price to this product in the pricelist */
-	@SuppressWarnings("unused")
+	/* Add prices to product in the pricelist */
 	private void afterSaveRequest(MProduct_BH product) {
 		if (product.get_ID() > 0) {
-			// setting the sales pricing for the product
-			MPriceList priceList = null;
-			MPriceListVersion plVersion = null;
-			MProductPrice productPricing = null;
-
-			// get existing (default) sales price-list
-			priceList = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MPriceList.Table_Name,
-					"isactive='Y' and isdefault='Y'", null);
-
-			// get the price-list version for the price-list
-			plVersion = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MPriceListVersion.Table_Name,
-					"m_pricelist_id=" + priceList.get_ID(), null);
-
-			// get the prices attached to this version
-			productPricing = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MProductPrice.Table_Name,
-					"m_pricelist_version_id=" + plVersion.get_ID(), null);
-
-			Trx.get(product.get_TrxName(), false).commit();
-			productPricing.setM_Product_ID(product.get_ID());
-			productPricing.save();
-
+			BigDecimal buyPrice = product.getBH_BuyPrice();
+			BigDecimal sellPrice = product.getBH_SellPrice();
+			System.out.println("Buying Price: " + buyPrice + " Selling Price: " + sellPrice);
+			savePrice(product, true);
+			savePrice(product, false);
 		} else {
 			throw new AdempiereException("Some error occured while saving the product");
 		}
@@ -111,5 +96,31 @@ public class ProductModelEvent extends AbstractEventHandler {
 			attributeSet.saveEx();
 		}
 		return attributeSet;
+	}
+
+	/* Save a product price */
+	private boolean savePrice(MProduct_BH product, boolean isSoPrice) {
+		boolean isSaved = false;
+
+		// setting the sales pricing for the product
+		MPriceList priceList = null;
+		MPriceListVersion plVersion = null;
+		MProductPrice productPrice = null;
+		char s = isSoPrice == true ? 'Y' : 'N';
+		// get existing (default) sales price-list
+		priceList = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MPriceList.Table_Name,
+				"isactive='Y' and isdefault='Y'" + " and issopricelist='" + s + "'", null);
+
+		// get the price-list version for the price-list
+		plVersion = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MPriceListVersion.Table_Name,
+				"m_pricelist_id=" + priceList.get_ID(), null);
+
+		productPrice = new MProductPrice(plVersion, product.get_ID(), new BigDecimal(0),
+				(s == 'Y' ? product.getBH_SellPrice() : product.getBH_SellPrice()), new BigDecimal(0));
+		productPrice.save();
+		productPrice.setM_Product_ID(product.get_ID());
+		Trx.get(productPrice.get_TrxName(), false).commit();
+
+		return isSaved;
 	}
 }
