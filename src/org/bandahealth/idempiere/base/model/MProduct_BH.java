@@ -67,20 +67,29 @@ public class MProduct_BH extends MProduct {
 	}
 
 	public BigDecimal getBH_BuyPrice() {
-		return new BigDecimal((get_Value(COLUMNNAME_BH_BuyPrice)).toString());
+		BigDecimal value = (BigDecimal)get_Value(COLUMNNAME_BH_BuyPrice);
+		if (value == null) {
+			return null;
+		}
+		
+		return value;
 	}
 
-	public void setBH_BuyPrice(String BH_BuyPrice) {
+	public void setBH_BuyPrice(BigDecimal BH_BuyPrice) {
 		set_Value(COLUMNNAME_BH_BuyPrice, BH_BuyPrice);
 	}
 	
 
 	public BigDecimal getBH_SellPrice() {
-		return new BigDecimal(get_Value(COLUMNNAME_BH_BuyPrice).toString());
+		BigDecimal value = (BigDecimal)get_Value(COLUMNNAME_BH_SellPrice);
+		if (value == null) {
+			return null;
+		}
+		
+		return value;
 	}
 
-	public void setBH_SellPrice(String BH_BuyPrice) {
-		set_Value(COLUMNNAME_BH_BuyPrice, BH_BuyPrice);
+	public void setBH_SellPrice(BigDecimal BH_SellPrice) {
+		set_Value(COLUMNNAME_BH_SellPrice, BH_SellPrice);
 	}
-
 }
