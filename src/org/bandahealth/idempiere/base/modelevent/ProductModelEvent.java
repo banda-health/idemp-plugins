@@ -16,7 +16,6 @@ import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProductPrice;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
-import org.compiere.util.Trx;
 import org.osgi.service.event.Event;
 
 public class ProductModelEvent extends AbstractEventHandler {
@@ -136,6 +135,10 @@ public class ProductModelEvent extends AbstractEventHandler {
 					productPrice.setPriceStd(price);
 				}
 			} else {
+				if (price == null) {
+					price = new BigDecimal(0);
+				}
+				
 				productPrice = new MProductPrice(plVersion, product.get_ID(), new BigDecimal(0), price, new BigDecimal(0));
 				productPrice.setM_Product_ID(mProductId);
 			}
