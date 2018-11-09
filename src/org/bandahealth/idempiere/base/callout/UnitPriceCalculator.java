@@ -15,17 +15,23 @@ public class UnitPriceCalculator implements IColumnCallout {
 
 	CLogger log = CLogger.getCLogger(ProductTypeCheck.class);
 	private String errorMessage = null;
+	BigDecimal productQuantity, totalLineAmount, persistedUnitPrice, calculatedUnitPrice;
 
 	@Override
 	public String start(Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue) {
-		BigDecimal productQuantity = (BigDecimal) mTab.getField(MOrderLine.COLUMNNAME_QtyEntered).getValue();
-		BigDecimal totalLineAmount = (BigDecimal) mField.getValue();
-		if (productQuantity == null || totalLineAmount == null) {
-			errorMessage = "product Qty or total line aamount is empty";
-			return errorMessage;
+		if (value != null) {
+			productQuantity = (BigDecimal) mTab.getField(MOrderLine.COLUMNNAME_QtyEntered).getValue();
+			totalLineAmount = (BigDecimal) mField.getValue();
+			persistedUnitPrice = (BigDecimal)mTab.getField(MOrderLine.COLUMNNAME_PriceActual).getValue();
+			calculatedUnitPrice = totalLineAmount.divide(productQuantity, 2, RoundingMode.HALF_UP);
+			
+			//since lineTotal is calculated from table values (priceActual * Qty)...
+			//set the calculated unit price as actual price
+			if (persistedUnitPrice != calculatedUnitPrice) {
+				mTab.setValue(MOrderLine.COLUMNNAME_PriceActual, calculatedUnitPrice);
+			}
+			mTab.setValue(MOrderLine_BH.COLUMNNAME_PriceEntered, calculatedUnitPrice);
 		}
-		BigDecimal unitPrice = totalLineAmount.divide(productQuantity, 2, RoundingMode.HALF_UP);
-		mTab.setValue(MOrderLine_BH.COLUMNNAME_PriceEntered, unitPrice);
 		return errorMessage;
 	}
 
