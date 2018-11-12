@@ -1,0 +1,99 @@
+<?page title="Matesting" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<style>
+		html, body{ height:100%; }
+
+		.custom{ padding: 10px; height:100%; }
+
+		.menu{ border-right: 1px solid #E8E8E8; min-height: 100vh; }
+
+		.workspace{ background:#BB44AA; }
+
+		table{ float:left; border:none; }
+
+		.z-grid-body{ width:100px; padding:0px; }
+
+		<link rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+			integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+			crossorigin="anonymous">
+		</link>
+	</style>
+	<hlayout>
+		<div sclass="menu">
+			<tabbox id="dj" height="100%" width="100%"
+				mold="accordion">
+				<tabs>
+					<tab label="Patients and Vendors" />
+					<tab label="Inventory" />
+					<tab label="Cashier" />
+					<tab label="Reports" />
+					<tab label="Alerts" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<grid style="border:none; margin:0px;">
+							<columns>
+								<column label="" />
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<button iconSclass="z-icon-home"/>
+									<a label="Patients"
+										style="text-decoration:none;" />
+								</row>
+								<row>
+									<a label="Vendors"
+										style="text-decoration:none;" />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<grid style="border:none; margin:0px;">
+							<columns>
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<a label="Products"
+										style="text-decoration:none;" />
+								</row>
+								<row>
+									<a label="Receive Goods"
+										style="text-decoration:none;" />
+								</row>
+								<row>
+									<a label="Stock Take"
+										style="text-decoration:none;" />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<grid style="border:none; margin:0px;">
+							<columns>
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<a label="Sale Order"
+										style="text-decoration:none;" />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<a label="Daily Transactions" />
+					</tabpanel>
+					<tabpanel>
+						<a label="Unclosed Orders" />
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</div>
+		<div sclass="custom workspace" hflex="1">workspace</div>
+	</hlayout>
+</zk>
