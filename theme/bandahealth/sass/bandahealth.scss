@@ -49,7 +49,7 @@
 	.bh-dashboard-content {
 		display: flex;
 		flex-direction: column;
-		align-items: stretch;
+// 		align-items: stretch;
 	}
 
 	.bh-editable-rows-container {
@@ -531,7 +531,8 @@
 
 		.desktop-layout {
 			.z-west, .z-west-splitter, .z-west-collapsed {
-				@extend %remove-element;
+// 				@extend %remove-element;
+				background:white;
 			}
 
 			.desktop-center {
@@ -541,7 +542,8 @@
 				padding-top: 0;
 
 				> .z-center-body {
-					width: auto !important;
+					width: 75% !important;
+					float:right !important;
 
 					> .desktop-tabbox {
 						width: auto !important;

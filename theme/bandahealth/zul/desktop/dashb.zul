@@ -1,5 +1,3 @@
-<?page title="Matesting" contentType="text/html;charset=UTF-8"?>
-
 <zk>
 	<style>
 		html, body{ height:100%; }
@@ -20,18 +18,18 @@
 			crossorigin="anonymous">
 		</link>
 	</style>
-	<hlayout>
-		<div sclass="menu">
-			<tabbox id="dj" height="100%" width="100%"
+	<hlayout id="sidebar_layout">
+		<div id="sidebar_menu" sclass="menu">
+			<tabbox id="sidebar_tabbox" height="100%" width="100%"
 				mold="accordion">
-				<tabs>
+				<tabs id="sidebar_tabs">
 					<tab label="Patients and Vendors" />
 					<tab label="Inventory" />
 					<tab label="Cashier" />
 					<tab label="Reports" />
 					<tab label="Alerts" />
 				</tabs>
-				<tabpanels>
+				<tabpanels id="sidebar_tabpanels">
 					<tabpanel>
 						<grid style="border:none; margin:0px;">
 							<columns>
@@ -40,7 +38,7 @@
 							</columns>
 							<rows>
 								<row>
-									<button iconSclass="z-icon-home"/>
+									<button iconSclass="z-icon-home" />
 									<a label="Patients"
 										style="text-decoration:none;" />
 								</row>
@@ -94,6 +92,5 @@
 				</tabpanels>
 			</tabbox>
 		</div>
-		<div sclass="custom workspace" hflex="1">workspace</div>
 	</hlayout>
 </zk>
