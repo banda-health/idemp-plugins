@@ -254,13 +254,13 @@ where sorder.c_order_id =  $P{billId}
 	</detail>
 	<summary>
 		<band height="21">
-			<textField>
-				<reportElement x="109" y="6" width="101" height="12" uuid="6c430987-cd11-40be-bd9d-2077e233745f"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" size="10"/>
+			<staticText>
+				<reportElement x="4" y="6" width="101" height="12" uuid="41c7886b-79a8-4cd6-ab02-ef9f34912bd5"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Get Well Soon]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
