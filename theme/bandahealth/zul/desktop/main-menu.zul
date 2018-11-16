@@ -1,24 +1,6 @@
 <zk>
-	<style>
-		html, body{ height:100%; }
-
-		.custom{ padding: 10px; height:100%; }
-
-		.menu{ border-right: 1px solid #E8E8E8; min-height: 100vh; }
-
-		.workspace{ background:#BB44AA; }
-
-		table{ float:left; border:none; }
-
-		.z-grid-body{ width:100px; padding:0px; }
-
-		<link rel="stylesheet"
-			href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-			integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-			crossorigin="anonymous">
-		</link>
-	</style>
-	<hlayout id="sidebar_layout">
+<window id="winda">
+	<hlayout id="sidebar_layout" apply="org.bandahealth.idempiere.webui.util.DashboardController">
 		<div id="sidebar_menu" sclass="menu">
 			<tabbox id="sidebar_tabbox" height="100%" width="100%"
 				mold="accordion">
@@ -93,4 +75,5 @@
 			</tabbox>
 		</div>
 	</hlayout>
+</window>
 </zk>
