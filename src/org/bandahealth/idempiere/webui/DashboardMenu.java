@@ -29,13 +29,13 @@ import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.zkoss.zhtml.Div;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.A;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Hlayout;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
@@ -126,7 +126,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		rows.setSclass("bh-button-group-content");
 		for (MHomeScreenButton button : buttonsInGroup) {
 			Row row = new Row();
-			org.zkoss.zul.Div divButton = UIUtil.initDivButton(button);
+			Div divButton = UIUtil.initDivButton(button);
 			row.appendChild(divButton);
 			row.setParent(rows);
 			divButton.addEventListener(Events.ON_CLICK, this);
