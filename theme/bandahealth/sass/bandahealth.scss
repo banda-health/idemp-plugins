@@ -530,9 +530,11 @@
 		}
 
 		.desktop-layout {
-			.z-west, .z-west-splitter, .z-west-collapsed {
+			.z-west,{
 // 				@extend %remove-element;
 				background:white;
+				width:20vw;
+				float:right;
 			}
 
 			.desktop-center {
@@ -542,7 +544,7 @@
 				padding-top: 0;
 
 				> .z-center-body {
-					width: 75% !important;
+					width: 80vw !important;
 					float:right !important;
 
 					> .desktop-tabbox {
