@@ -122,11 +122,15 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 //		Div groupContainer = new Div();
 		rows.setSclass("bh-button-group-content");
 		for (MHomeScreenButton button : buttonsInGroup) {
+			//create a grid to hold icon and text 
 			Row row = new Row();
-			Div divButton = UIUtil.initDivButton(button);
-			row.appendChild(divButton);
+			Grid btnGrid = UIUtil.createButton(button);
+//			Div divButton = UIUtil.initDivButton(button);
+//			row.appendChild(divButton);
+			row.appendCellChild(btnGrid);
 			row.setParent(rows);
-			divButton.addEventListener(Events.ON_CLICK, this);
+//			divButton.addEventListener(Events.ON_CLICK, this);
+			btnGrid.addEventListener(Events.ON_CLICK, this);
 		}
 		Tabpanel panel = new Tabpanel();
 		panel.appendChild(grid);
@@ -166,8 +170,8 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		Component component = event.getTarget();
 		String eventName = event.getName();
 		if (eventName.equals(Events.ON_CLICK)) {
-			if (component instanceof Div) {
-				Div button = (Div) component;
+			if (component instanceof Grid) {
+				Grid button = (Grid) component;
 				Boolean termsOfUse = (Boolean)button.getAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE);
 				if ((Boolean)button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int processId = Integer.parseInt(button.getId());
