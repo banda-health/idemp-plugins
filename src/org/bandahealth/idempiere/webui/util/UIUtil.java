@@ -74,15 +74,14 @@ public class UIUtil {
 			columns[i] = new Column();
 			
 			columns[i].setWidth((i == 0 ? "45px" : "200px"));
-			columns[i].setLabel("");
 			columns[i].setParent(columnsContainer);
 		}
 		rowsContainer.appendChild(itemRow);
 		Div icon = new Div();
 		icon.setClass(button.getIconClassName() + " i");
-		icon.setStyle("padding:5px; font-size:25px; text-align:center;");
+		icon.setStyle("padding:3px; font-size:20px; text-align:center; vertical-align:middle;");
 		Label label = new Label(button.getButtonText());
-		label.setStyle("text-align:left;  vertical-align:center; padding-left:5px; border-let:none;");
+		label.setStyle("text-align:left;  vertical-align:middle; padding-left:5px;");
 		
 		itemRow.appendCellChild(icon);
 		itemRow.appendCellChild(label);
