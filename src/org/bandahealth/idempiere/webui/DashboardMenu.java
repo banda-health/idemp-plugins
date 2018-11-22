@@ -46,7 +46,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private Tabbox tabbox;
 	private Tabs tabs;
 	private Tabpanels tabpanels;
-	private String[] labels = { "Patients and Vendors", "Inventory", "Cashier", "Reports", "Alerts" };
 
 	private CLogger log = CLogger.getCLogger(DashboardMenu.class);
 
@@ -58,21 +57,20 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private void initLayout() {
 		this.setSclass("openmrs bh-dashboard-panel");
-		this.setMinimizable(false);
 		layout = new Hlayout();
-		layout.setParent(this);
 		sideBar = new Div();
-		sideBar.setSclass("bh-dashboard-content");
 		tabbox = new Tabbox();
-		tabbox.setMold("accordion");
 		tabs = new Tabs();
 		tabpanels = new Tabpanels();
+
 		appendRoleScript();
 
 	}
 
 	private void assembleComponents() {
-		tabs = createTabs(labels);
+		layout.setParent(this);
+		tabbox.setMold("accordion");
+		tabs = createButtonGroupTabs();
 		tabpanels = createTabpanels();
 		tabs.setParent(tabbox);
 		tabpanels.setParent(tabbox);
@@ -80,12 +78,11 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		layout.appendChild(sideBar);
 	}
 
-	private Tabs createTabs(String[] labels) {
+	private Tabs createButtonGroupTabs() {
 		Tabs tabs = new Tabs();
 		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
 				null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
 		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
-			log.info(buttonGroup.getName());
 			Tab tab = new Tab(buttonGroup.getName());
 			tabs.appendChild(tab);
 		}
@@ -94,52 +91,48 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private Tabpanels createTabpanels() {
 		Tabpanels tabpanelsContainer = new Tabpanels();
-		List<Tabpanel> tabpanelsList = new ArrayList<Tabpanel>();
-		//get all button groups
+		
 		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
 				null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
-		
-		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
-		//get all buttons
-		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
-				.setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
 
-		//filter buttons matching current group
-		List<MHomeScreenButton> buttonsInGroup = buttons.stream()
-				.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
-				.collect(Collectors.toList());
-		
-		Grid grid = new Grid();
-		Columns columns = new Columns();
-		Rows rows = new Rows();
-		Column[] col = { new Column("")};
-		for (int i = 0; i < col.length; i++) {
-			col[i].setParent(columns);
-		}
-		grid.appendChild(columns);
-		grid.appendChild(rows);
-		//create a tabpanel using these buttons as rows...
-//		Div groupContainer = new Div();
-		rows.setSclass("bh-button-group-content");
-		for (MHomeScreenButton button : buttonsInGroup) {
-			//create a grid to hold icon and text 
-			Row row = new Row();
-			Grid btnGrid = UIUtil.createButton(button);
-//			Div divButton = UIUtil.initDivButton(button);
-//			row.appendChild(divButton);
-			row.appendCellChild(btnGrid);
-			row.setParent(rows);
+		//add each button to matching group tab
+		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+			List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
+					.setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
+
+			// filter buttons matching current group
+			List<MHomeScreenButton> buttonsInGroup = buttons.stream()
+					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+					.collect(Collectors.toList());
+
+			Grid buttonGroupGrid = new Grid();
+			buttonGroupGrid.setStyle("border:0px"); 
+			Columns columns = new Columns();
+			Rows rows = new Rows();
+			Column[] col = { new Column() };
+			//TODO iterate using Java 8 stream?
+			for (int i = 0; i < col.length; i++) {
+				col[i].setParent(columns);
+			}
+			buttonGroupGrid.appendChild(columns);
+			buttonGroupGrid.appendChild(rows);
+			for (MHomeScreenButton button : buttonsInGroup) {
+				// create a grid to hold icon and text
+				Row row = new Row();
+				Grid btnGrid = UIUtil.createButton(button);
+				row.appendCellChild(btnGrid);
+				row.setParent(rows);
 //			divButton.addEventListener(Events.ON_CLICK, this);
-			btnGrid.addEventListener(Events.ON_CLICK, this);
-		}
-		Tabpanel panel = new Tabpanel();
-		panel.appendChild(grid);
-		tabpanelsContainer.appendChild(panel);
-		
+				btnGrid.addEventListener(Events.ON_CLICK, this);
+			}
+			Tabpanel panel = new Tabpanel();
+			panel.appendChild(buttonGroupGrid);
+			tabpanelsContainer.appendChild(panel);
+
 		}
 		return tabpanelsContainer;
 	}
-	
+
 	private void appendRoleScript() {
 		if (isUserViewingAnOrganization()) {
 			layout.appendChild(new Script("requirejs(['user/organization'], function () {});"));
@@ -147,7 +140,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 			layout.appendChild(new Script("requirejs(['user/client'], function () {});"));
 		}
 	}
-	
+
 	private Boolean isUserViewingAnOrganization() {
 		Boolean isViewingAnOrganization = true;
 		if (Env.getAD_Org_ID(Env.getCtx()) == QueryConstants.BASE_ORGANIZATION_ID) {
@@ -172,11 +165,11 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		if (eventName.equals(Events.ON_CLICK)) {
 			if (component instanceof Grid) {
 				Grid button = (Grid) component;
-				Boolean termsOfUse = (Boolean)button.getAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE);
-				if ((Boolean)button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
+				Boolean termsOfUse = (Boolean) button.getAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE);
+				if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int processId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openProcessDialog(processId, false);
-				} else if ((Boolean)button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
+				} else if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openInfo(infoWindowId);
 				} else if (termsOfUse != null && termsOfUse == true) {
