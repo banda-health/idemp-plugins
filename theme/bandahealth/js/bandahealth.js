@@ -40,8 +40,8 @@ define([
 
 			let expandCollapseButton = ribbon.querySelectorAll('a')[1];
 			hideRibbonElement();
-//			hideWestPanel();
-//			hideEastPanel();
+			hideWestPanel();
+			hideEastPanel();
 			appendLogoutButton();
 			appendHomeBackButton();
 			addDomObservationMethods();

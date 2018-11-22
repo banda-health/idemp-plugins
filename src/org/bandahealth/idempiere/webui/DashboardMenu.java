@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.webui;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,11 +90,11 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private Tabpanels createTabpanels() {
 		Tabpanels tabpanelsContainer = new Tabpanels();
-		
+
 		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
 				null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
 
-		//add each button to matching group tab
+		// add each button to matching group tab
 		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 			List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
 					.setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
@@ -106,11 +105,11 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					.collect(Collectors.toList());
 
 			Grid buttonGroupGrid = new Grid();
-			buttonGroupGrid.setStyle("border:0px"); 
+			buttonGroupGrid.setStyle("border:0px");
 			Columns columns = new Columns();
 			Rows rows = new Rows();
 			Column[] col = { new Column() };
-			//TODO iterate using Java 8 stream?
+			// TODO iterate using Java 8 stream?
 			for (int i = 0; i < col.length; i++) {
 				col[i].setParent(columns);
 			}
