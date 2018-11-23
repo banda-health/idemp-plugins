@@ -40,11 +40,12 @@ define([
 
 			let expandCollapseButton = ribbon.querySelectorAll('a')[1];
 			hideRibbonElement();
-			hideWestPanel();
-			hideEastPanel();
+//			hideWestPanel();
+//			hideEastPanel();
 			appendLogoutButton();
 			appendHomeBackButton();
 			addDomObservationMethods();
+			expandDashboardMenuTabPanels();
 			if (areViewingMobile()) {
 				util.addBodyClassName(classNames.MOBILE);
 				initializeMobileCorrectionChecks();
@@ -118,6 +119,7 @@ define([
 					return;
 				}
 				disableZoomAccrossWindows();
+				expandDashboardMenuTabPanels();
 				let bodyTagClasses = document.body.classList;
 				if (!areAnyTabsVisisble()) {
 					util.addBodyClassName(classNames.NO_TABS_PRESENT);
@@ -595,5 +597,13 @@ define([
 		let parentDiv = eastPanel.getElementsByClassName('z-anchorchildren')[0];
 		let soListWindow = document.querySelector('.bh-so-list-window.z-div');
 		parentDiv.appendChild(soListWindow);
+	}
+	
+	function expandDashboardMenuTabPanels(){
+		let tabPanels = document.querySelectorAll('.z-tabbox.z-tabbox-accordion > .z-tabpanels > .z-tabpanel');
+		tabPanels.forEach(function(currentTab){
+			let tabContent = currentTab.querySelector('.z-tabpanel-content');
+			tabContent.style = "display:block";
+		});
 	}
 });
