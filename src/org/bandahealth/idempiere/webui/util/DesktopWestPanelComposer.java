@@ -23,10 +23,7 @@ public class DesktopWestPanelComposer extends SelectorComposer<Borderlayout> {
 		try {
 			super.doAfterCompose(layout);
 			logger.info("Loaded desktop layout");
-			leftPanel.setStyle("background:#AA85E4");
-//			leftPanel.setStyle("width:30%");
-			windowArea.setStyle("background:#AA90DD");
-//			windowArea.setStyle("width:50%");
+			//TODO Access panel to add org name as Div
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
