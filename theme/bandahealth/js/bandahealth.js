@@ -227,10 +227,10 @@ define([
 
 		let backIElement = document.createElement('i');
 		backAElement.appendChild(backIElement);
-		backIElement.classList.add('fas', 'fa-arrow-left');
+//		backIElement.classList.add('fas', 'fa-arrow-left');
 
 		backLIElement.addEventListener('click', function triggerBrowserBack() {
-			window.history.back();
+//			window.history.back();
 		});
 	}
 

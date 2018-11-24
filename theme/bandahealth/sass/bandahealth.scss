@@ -532,23 +532,26 @@
 		.desktop-layout {
 			.z-west,{
 // 				@extend %remove-element;
-				background:white;
-				width:20vw;
-				float:right;
+				background:#FFFFFF;
+				width:15%;
+				float:left;
 			}
 
 			.desktop-center {
-				left: 0 !important;
 				right: 0 !important;
+				left: 0 !important;
 				width: auto !important;
 				padding-top: 0;
 
 				> .z-center-body {
-					width: 80vw !important;
-					float:right !important;
+// 					width: auto !important;
+// 					width: 80% !important;
+// 					float:right !important;
 
 					> .desktop-tabbox {
-						width: auto !important;
+						width: 80% !important;
+						float:right;
+						padding-left:30px;
 					}
 				}
 			}

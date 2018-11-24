@@ -8,7 +8,7 @@
 					id="northBody" />
 			</north>
 			<west id="desktop-left-column" sclass="desktop-left-column"
-				collapsible="false" splittable="true">
+				collapsible="false" splittable="false">
 			</west>
 			<east id="desktop-right-column"
 				sclass="desktop-right-column" collapsible="true"
