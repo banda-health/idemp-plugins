@@ -530,11 +530,16 @@
 		}
 
 		.desktop-layout {
-			.z-west,{
+			.z-west {
 // 				@extend %remove-element;
 				background:#FFFFFF;
 				width:15%;
 				float:left;
+				
+				> .z-hlayout{
+					display:flex;
+					flex-direction:column;
+				}
 			}
 
 			.desktop-center {
