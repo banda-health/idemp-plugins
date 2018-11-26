@@ -533,8 +533,6 @@
 			.z-west {
 // 				@extend %remove-element;
 				background:#FFFFFF;
-				width:15%;
-				float:left;
 				
 				> .z-hlayout{
 					display:flex;
@@ -543,20 +541,12 @@
 			}
 
 			.desktop-center {
-				right: 0 !important;
-				left: 0 !important;
-				width: auto !important;
 				padding-top: 0;
 
 				> .z-center-body {
-// 					width: auto !important;
-// 					width: 80% !important;
-// 					float:right !important;
 
 					> .desktop-tabbox {
-						width: 80% !important;
-						float:right;
-						padding-left:30px;
+						
 					}
 				}
 			}
@@ -1085,7 +1075,18 @@
 		}
 
 		.z-west-collapsed {
-			@extend %remove-element;
+		/*	@extend %remove-element; */
 		}
 	}
+
+@media screen and (max-width:768px){
+	
+	.desktop-tabbox{
+		.z-tabbox{
+			.z-tabbox-top{
+				width:100% !important;
+				}
+			}
+		}
+}
 }
