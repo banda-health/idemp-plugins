@@ -45,6 +45,7 @@ define([
 			appendLogoutButton();
 			appendHomeBackButton();
 			addDomObservationMethods();
+			expandDashboardMenuTabPanels();
 			if (areViewingMobile()) {
 				util.addBodyClassName(classNames.MOBILE);
 				initializeMobileCorrectionChecks();
@@ -118,6 +119,7 @@ define([
 					return;
 				}
 				disableZoomAccrossWindows();
+				expandDashboardMenuTabPanels();
 				let bodyTagClasses = document.body.classList;
 				if (!areAnyTabsVisisble()) {
 					util.addBodyClassName(classNames.NO_TABS_PRESENT);
@@ -225,10 +227,10 @@ define([
 
 		let backIElement = document.createElement('i');
 		backAElement.appendChild(backIElement);
-		backIElement.classList.add('fas', 'fa-arrow-left');
+//		backIElement.classList.add('fas', 'fa-arrow-left');
 
 		backLIElement.addEventListener('click', function triggerBrowserBack() {
-			window.history.back();
+//			window.history.back();
 		});
 	}
 
@@ -595,5 +597,13 @@ define([
 		let parentDiv = eastPanel.getElementsByClassName('z-anchorchildren')[0];
 		let soListWindow = document.querySelector('.bh-so-list-window.z-div');
 		parentDiv.appendChild(soListWindow);
+	}
+	
+	function expandDashboardMenuTabPanels(){
+		let tabPanels = document.querySelectorAll('.z-tabbox.z-tabbox-accordion > .z-tabpanels > .z-tabpanel');
+		tabPanels.forEach(function(currentTab){
+			let tabContent = currentTab.querySelector('.z-tabpanel-content');
+			tabContent.style = "display:block";
+		});
 	}
 });

@@ -530,25 +530,23 @@
 		}
 
 		.desktop-layout {
-			.z-west,{
+			.z-west {
 // 				@extend %remove-element;
-				background:white;
-				width:20vw;
-				float:right;
+				background:#FFFFFF;
+				
+				> .z-hlayout{
+					display:flex;
+					flex-direction:column;
+				}
 			}
 
 			.desktop-center {
-				left: 0 !important;
-				right: 0 !important;
-				width: auto !important;
 				padding-top: 0;
 
 				> .z-center-body {
-					width: 80vw !important;
-					float:right !important;
 
 					> .desktop-tabbox {
-						width: auto !important;
+						
 					}
 				}
 			}
@@ -1077,7 +1075,18 @@
 		}
 
 		.z-west-collapsed {
-			@extend %remove-element;
+		/*	@extend %remove-element; */
 		}
 	}
+
+@media screen and (max-width:768px){
+	
+	.desktop-tabbox{
+		.z-tabbox{
+			.z-tabbox-top{
+				width:100% !important;
+				}
+			}
+		}
+}
 }
