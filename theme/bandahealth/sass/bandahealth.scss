@@ -531,7 +531,6 @@
 
 		.desktop-layout {
 			.z-west {
-// 				@extend %remove-element;
 				background:#FFFFFF;
 				
 				> .z-hlayout{
@@ -1072,7 +1071,7 @@
 					}
 				}
 			}
-		}
+		}	
 
 		.z-west-collapsed {
 		/*	@extend %remove-element; */
@@ -1084,7 +1083,7 @@
 	.desktop-tabbox{
 		.z-tabbox{
 			.z-tabbox-top{
-				width:100% !important;
+// 				width:100% !important;
 				}
 			}
 		}

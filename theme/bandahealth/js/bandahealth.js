@@ -14,7 +14,8 @@ define([
 
 	let buttonIDs = {
 		LOGOUT: 'BHLogoutButton',
-		BACK: 'BHBackButton'
+		BACK: 'BHBackButton',
+		MOBILE_MENU_BUTTON: 'BHMobileMenuButton'
 	};
 
 	let hasHashChangedDueToClick = false;
@@ -23,7 +24,7 @@ define([
 	let isTabDetailPaneProgrammaticallyTriggered = false;
 
 	let maxTimeToWaitUntilDomElementsAppearMS = 5000;
-
+	
 	self.initPage = (function initPageScope() {
 		let initPageHasRun = false;
 		return function initPage() {
@@ -39,13 +40,14 @@ define([
 			initPageHasRun = true;
 
 			let expandCollapseButton = ribbon.querySelectorAll('a')[1];
+			
 			hideRibbonElement();
 //			hideWestPanel();
 //			hideEastPanel();
 			appendLogoutButton();
 			appendHomeBackButton();
 			addDomObservationMethods();
-			expandDashboardMenuTabPanels();
+			addDashboardPanelMethods();
 			if (areViewingMobile()) {
 				util.addBodyClassName(classNames.MOBILE);
 				initializeMobileCorrectionChecks();
@@ -119,7 +121,6 @@ define([
 					return;
 				}
 				disableZoomAccrossWindows();
-				expandDashboardMenuTabPanels();
 				let bodyTagClasses = document.body.classList;
 				if (!areAnyTabsVisisble()) {
 					util.addBodyClassName(classNames.NO_TABS_PRESENT);
@@ -163,8 +164,11 @@ define([
 					let lookupPanelOkButton = document.querySelector('button[title="OK"].img-btn.btn-ok.z-button');
 					hideLookupPanelOnProductsWindow(lookupPanelOkButton);
 				}
+
 			});
 		}, maxTimeToWaitUntilDomElementsAppearMS);
+		
+
 
 		function areAnyTabsVisisble() {
 			let tabs = document.querySelectorAll('.adwindow-detailpane-tabbox .z-tabs-content li');
@@ -203,8 +207,39 @@ define([
 			}
 			return userNavigationIsFromDashboard;
 		}
+		
+//	function addMobileDashboardMenu(){
+//			var headerBar = document.
+//				querySelector('.desktop-center.z-center >.z-center-body >.desktop-tabbox.z-tabbox.z-tabbox-top >.z-tabs>.z-tabs-content');
+//			headerBar.insertBefore(menuButtonAsListItem,headerBar.childNodes[0]);
+//		}
+	
+
 	}
 
+	function addDashboardPanelMethods(){
+		util.executeFunctionWhenElementPresent('.desktop-left-column', function createDashboardObserver() {
+			let dashBoardObserver = new DomObserver(document.querySelector('.desktop-tabbox'), function handleDomUpdate() {
+				console.log('DOM tree updated!');
+				let bodyTag = document.body;
+				/*Ignore for System user*/
+				if (bodyTag.classList.contains(classNames.SYSTEM)) {
+					return;
+				}
+				expandDashboardMenuTabPanels();
+
+			});
+			},maxTimeToWaitUntilDomElementsAppearMS);
+		
+			function expandDashboardMenuTabPanels(){
+				let tabPanels = document.querySelectorAll('.z-tabbox.z-tabbox-accordion > .z-tabpanels > .z-tabpanel');
+				tabPanels.forEach(function(currentTab){
+					let tabContent = currentTab.querySelector('.z-tabpanel-content');
+					tabContent.style = "display:block";
+				});
+			}
+	}
+	
 	function appendHomeBackButton() {
 		if (document.getElementById(buttonIDs.BACK) !== null) {
 			return;
@@ -259,6 +294,8 @@ define([
 
 		logoutAElement.addEventListener('click', logout);
 	}
+	
+	
 
 	function areViewingMobile() {
 		return document.querySelectorAll('.desktop-header.mobile').length !== 0;
@@ -503,8 +540,11 @@ define([
 			// add to UI after the Post-It button for our CSS to render
 			// correctly
 			let postItButton = document.querySelector('.adwindow-toolbar.mobile .z-toolbar-content > a[title*="Post-it"]');
+			if (postItButton != null)
 			postItButton.parentNode.insertBefore(gridToggleButton, postItButton.nextSibling);
 		}
+		
+		
 	}
 
 	function isHashEmpty() {
@@ -550,6 +590,7 @@ define([
 	function updateSiteNav() {
 		appendLogoutButton();
 		appendHomeBackButton();
+		appendMobileMenuButton();
 	}
 	
 	
@@ -599,11 +640,27 @@ define([
 		parentDiv.appendChild(soListWindow);
 	}
 	
-	function expandDashboardMenuTabPanels(){
-		let tabPanels = document.querySelectorAll('.z-tabbox.z-tabbox-accordion > .z-tabpanels > .z-tabpanel');
-		tabPanels.forEach(function(currentTab){
-			let tabContent = currentTab.querySelector('.z-tabpanel-content');
-			tabContent.style = "display:block";
-		});
+	
+	function appendMobileMenuButton(){
+		var menuButton = 
+			document.querySelector('.desktop-header.mobile.z-div > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > a');
+		menuButton.classList.add('.bh-mobile-menu-button');
+		
+		var menuButtonAsListItem = document.createElement('li');
+		menuButtonAsListItem.appendChild(menuButton);
+		var headerBar = document.
+		querySelector('.desktop-center.z-center >.z-center-body >.desktop-tabbox.z-tabbox.z-tabbox-top >.z-tabs>.z-tabs-content');
+		headerBar.insertBefore(menuButtonAsListItem,headerBar.childNodes[0]);
+		
+//		let menuButtonClone;
+//		menuButton.id = buttonIDs.MOBILE_MENU_BUTTON;
+//		
+//		if (document.querySelector('.bh-mobile-menu-button') !== null) {
+//			menuButtonAsListItem.appendChild(menuButton.cloneNode(true));
+//			let menuButtonClone = menuButton.cloneNode(true);
+//			menuButtonClone.classList.add('.bh-mobile-menu-button');
+//		} else{
+//			
+//		}
 	}
 });
