@@ -642,25 +642,19 @@ define([
 	
 	
 	function appendMobileMenuButton(){
+		if (document.getElementById(buttonIDs.MOBILE_MENU_BUTTON) !== null) {
+			return;
+		} 
 		var menuButton = 
 			document.querySelector('.desktop-header.mobile.z-div > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > a');
-		menuButton.classList.add('.bh-mobile-menu-button');
 		
+		menuButton.classList.add(classNames.MOBILE_MENU);
 		var menuButtonAsListItem = document.createElement('li');
-		menuButtonAsListItem.appendChild(menuButton);
+		menuButtonAsListItem.appendChild(menuButton.cloneNode(true));
+		menuButtonAsListItem.id = buttonIDs.MOBILE_MENU_BUTTON;
 		var headerBar = document.
 		querySelector('.desktop-center.z-center >.z-center-body >.desktop-tabbox.z-tabbox.z-tabbox-top >.z-tabs>.z-tabs-content');
 		headerBar.insertBefore(menuButtonAsListItem,headerBar.childNodes[0]);
 		
-//		let menuButtonClone;
-//		menuButton.id = buttonIDs.MOBILE_MENU_BUTTON;
-//		
-//		if (document.querySelector('.bh-mobile-menu-button') !== null) {
-//			menuButtonAsListItem.appendChild(menuButton.cloneNode(true));
-//			let menuButtonClone = menuButton.cloneNode(true);
-//			menuButtonClone.classList.add('.bh-mobile-menu-button');
-//		} else{
-//			
-//		}
 	}
 });
