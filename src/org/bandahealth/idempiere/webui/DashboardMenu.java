@@ -89,9 +89,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		widgetArea.setSclass("bh-so-list-window");
 
 		appendRoleScript();
-		if (hasAcceptedTermsOfUse()) {
-			
-		} else {
+		if (!hasAcceptedTermsOfUse()) {
 			createTOSPrivacyPolicyPanel();	
 		}
 	}
