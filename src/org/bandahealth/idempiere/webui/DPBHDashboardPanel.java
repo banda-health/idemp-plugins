@@ -74,9 +74,7 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 	
 	private void initLayout() {
 		layout.setParent(this);
-		layout.setStyle("height: 100%; width 100%");
 
-//		contentArea.setStyle("width:75%; float:left; padding-right:3x;");
 		widgetArea.setSclass("bh-so-list-window");
 
 		layout.appendChild(contentArea);

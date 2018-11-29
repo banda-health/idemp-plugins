@@ -49,7 +49,7 @@
 	.bh-dashboard-content {
 		display: flex;
 		flex-direction: column;
-		align-items: stretch;
+// 		align-items: stretch;
 	}
 
 	.bh-editable-rows-container {
@@ -530,21 +530,22 @@
 		}
 
 		.desktop-layout {
-			.z-west, .z-west-splitter, .z-west-collapsed {
-				@extend %remove-element;
+			.z-west {
+				background:#FFFFFF;
+				
+				> .z-hlayout{
+					display:flex;
+					flex-direction:column;
+				}
 			}
 
 			.desktop-center {
-				left: 0 !important;
-				right: 0 !important;
-				width: auto !important;
 				padding-top: 0;
 
 				> .z-center-body {
-					width: auto !important;
 
 					> .desktop-tabbox {
-						width: auto !important;
+						
 					}
 				}
 			}
@@ -1070,10 +1071,21 @@
 					}
 				}
 			}
-		}
+		}	
 
 		.z-west-collapsed {
-			@extend %remove-element;
+		/*	@extend %remove-element; */
 		}
 	}
+
+@media screen and (max-width:768px){
+	
+	.desktop-tabbox{
+		.z-tabbox{
+			.z-tabbox-top{
+// 				width:100% !important;
+				}
+			}
+		}
+}
 }
