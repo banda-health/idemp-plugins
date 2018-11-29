@@ -231,13 +231,15 @@ define(
 				function pageLoadedIsLookupWindow() {
 					// Has user clicked on the product icon?
 					let userNavigationIsFromDashboard = false;
-					let windowHeader = document
-							.querySelector('div .z-tabs ul li.z-tab-selected a span');
-					if (windowHeader != null) {
-						let isFromDashboardCheck = windowHeader.textContent == "Lookup Record";
-						if (isFromDashboardCheck != null) {
-							userNavigationIsFromDashboard = true;
-						}
+					let windowHeaders = document
+							.querySelectorAll('div .z-tabs ul li.z-tab-selected a span');
+					if (windowHeaders != null) {
+						windowHeaders.forEach(function(header) {
+							let isFromDashboardCheck = header.textContent == "Lookup Record";
+							if (isFromDashboardCheck != null) {
+								userNavigationIsFromDashboard = true;
+							}
+						};
 					}
 					return userNavigationIsFromDashboard;
 				}
