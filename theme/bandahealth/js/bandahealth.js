@@ -239,7 +239,7 @@ define(
 							if (isFromDashboardCheck != null) {
 								userNavigationIsFromDashboard = true;
 							}
-						};
+						});
 					}
 					return userNavigationIsFromDashboard;
 				}
