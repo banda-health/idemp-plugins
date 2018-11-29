@@ -14,16 +14,15 @@ public class DesktopWestPanelComposer extends SelectorComposer<Borderlayout> {
 
 	@Wire("#desktop-left-column")
 	private West leftPanel;
-	
+
 	@Wire("#windowArea")
 	private Center windowArea;
-	
 
 	public void doAfterCompose(Borderlayout layout) {
 		try {
 			super.doAfterCompose(layout);
 			logger.info("Loaded desktop layout");
-			//TODO Access panel to add org name as Div
+			// TODO Access panel to add org name as Div
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
