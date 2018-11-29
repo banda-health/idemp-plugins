@@ -232,10 +232,9 @@ define(
 					// Has user clicked on the product icon?
 					let userNavigationIsFromDashboard = false;
 					let windowHeader = document
-							.querySelector('div .z-tabs ul li:nth-child(3) a span');
+							.querySelector('div .z-tabs ul li.z-tab-selected a span');
 					if (windowHeader != null) {
-						let isFromDashboardCheck = windowHeader.textContent
-								.match(/^\s..\s\w{6}[a-z]$/i);
+						let isFromDashboardCheck = windowHeader.textContent == "Lookup Record";
 						if (isFromDashboardCheck != null) {
 							userNavigationIsFromDashboard = true;
 						}
@@ -259,7 +258,6 @@ define(
 							let dashBoardObserver = new DomObserver(document
 									.querySelector('.desktop-tabbox'),
 									function handleDomUpdate() {
-										console.log('DOM tree updated!');
 										let bodyTag = document.body;
 										/* Ignore for System user */
 										if (bodyTag.classList
@@ -753,6 +751,10 @@ define(
 				var menuButton = document
 						.querySelector('.desktop-header.mobile.z-div > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > a');
 
+				if (menuButton == null) {
+					return;
+				}
+				
 				menuButton.classList.add(classNames.MOBILE_MENU);
 				var menuButtonAsListItem = document.createElement('li');
 				menuButtonAsListItem.appendChild(menuButton.cloneNode(true));
@@ -761,6 +763,5 @@ define(
 						.querySelector('.desktop-center.z-center >.z-center-body >.desktop-tabbox.z-tabbox.z-tabbox-top >.z-tabs>.z-tabs-content');
 				headerBar.insertBefore(menuButtonAsListItem,
 						headerBar.childNodes[0]);
-
 			}
 		});
