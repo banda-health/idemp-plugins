@@ -47,6 +47,7 @@ define(
 					appendHomeBackButton();
 					addDomObservationMethods();
 					addDashboardPanelMethods();
+					expandDashboardMenuTabPanels();
 					if (areViewingMobile()) {
 						util.addBodyClassName(classNames.MOBILE);
 						initializeMobileCorrectionChecks();
@@ -242,15 +243,6 @@ define(
 					}
 					return userNavigationIsFromDashboard;
 				}
-
-				// function addMobileDashboardMenu(){
-				// var headerBar = document.
-				// querySelector('.desktop-center.z-center >.z-center-body
-				// >.desktop-tabbox.z-tabbox.z-tabbox-top
-				// >.z-tabs>.z-tabs-content');
-				// headerBar.insertBefore(menuButtonAsListItem,headerBar.childNodes[0]);
-				// }
-
 			}
 
 			function addDashboardPanelMethods() {
@@ -269,16 +261,6 @@ define(
 
 									});
 						}, maxTimeToWaitUntilDomElementsAppearMS);
-
-				function expandDashboardMenuTabPanels() {
-					let tabPanels = document
-							.querySelectorAll('.z-tabbox.z-tabbox-accordion > .z-tabpanels > .z-tabpanel');
-					tabPanels.forEach(function(currentTab) {
-						let tabContent = currentTab
-								.querySelector('.z-tabpanel-content');
-						tabContent.style = "display:block";
-					});
-				}
 			}
 
 			function appendHomeBackButton() {
@@ -765,4 +747,15 @@ define(
 						headerBar.childNodes[0]);
 
 			}
+
+            function expandDashboardMenuTabPanels() {
+                let tabPanels = document
+                        .querySelectorAll('.z-tabbox.z-tabbox-accordion > .z-tabpanels > .z-tabpanel');
+                tabPanels.forEach(function(currentTab) {
+                    let tabContent = currentTab
+                            .querySelector('.z-tabpanel-content');
+                    tabContent.style = "display:block";
+                });
+            }
+            
 		});
