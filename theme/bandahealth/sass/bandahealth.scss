@@ -1,39 +1,29 @@
 @import 'compass/css3';
-
 @import '_variables.scss';
 @import '_extenders.scss';
 @import '_mixins.scss';
-
-
 .bh {
 	@import '_openmrs.scss';
 	@import '_hacks.scss';
 	@import '_common.scss';
-
 	.btn {
 		@extend %button;
-
 		&:hover {
 			@extend %button-hover;
 		}
-
 		&.btn-new {
 			@extend %secondary;
-
 			&:hover {
 				@extend %secondary-hover;
 			}
 		}
-		
 		&.btn-confirm {
 			@extend %confirm;
-
 			&:hover {
 				@extend %confirm-hover;
 			}
 		}
 	}
-
 	.bh-button-group-header {
 		padding: 5px;
 		border-bottom: 1px solid #ccc;
@@ -41,130 +31,102 @@
 		color: #333;
 		font-weight: bold;
 	}
-
 	.bh-button-group-content:not(:last-child) {
 		margin-bottom: 15px;
 	}
-
 	.bh-dashboard-content {
 		display: flex;
 		flex-direction: column;
 	}
-
 	.bh-editable-rows-container {
 		display: grid;
 		grid-template-columns: 20px repeat(2, 1fr);
 		grid-column-gap: 10px;
 		padding: 5px;
 		border: 1px solid $default-textbox-outline-color;
-
 		div {
 			.z-label {
 				text-align: center;
 			}
-
 			.bh-button {
 				&.z-button {
 					margin-top: 5px !important;
 				}
-
 				&.form-button {
 					width: 100%;
 				}
 			}
-
 			.z-textbox {
 				width: 100%;
 			}
 		}
-
 		.bh-add-row {
 			grid-column: span 3;
 			order: 1;
 		}
-
 		.bh-number-box {
 			text-align: right;
 		}
-
 		.delete-button-container {
 			cursor: pointer;
 		}
 	}
-
 	.bh-tab-nav-buttons {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(100px, 1fr));
-
 		.full {
 			grid-column: start / span 3;
 			display: flex;
 			flex-direction: column;
 			align-items: stretch;
 			grid-gap: 5px;
-
 			div {
 				text-align: center;
 			}
 		}
-
 		.left {
 			grid-column-start: 1;
 			display: flex;
 		}
-
 		.middle {
 			grid-column-start: 2;
 			display: flex;
 			justify-content: center;
 		}
-
 		.right {
 			grid-column-start: 3;
 			display: flex;
 			justify-content: flex-end;
-
 			div.btn {
 				margin-right: 0;
-
 				&:not(:first-child) {
 					margin-left: 10px;
 				}
 			}
 		}
-
 		div {
 			div.btn {
 				text-align: center;
 				max-width: none;
-
 				&:last-child {
 					margin-right: 0;
 				}
 			}
-
 			i {
 				padding-right: 5px;
 			}
 		}
-        
-
 	}
-
-	&.client, &.organization {
-
-	}
-
-	&.client {
-
-	}
-	
+	&.client,
+	&.organization {}
+	&.client {}
 	&.organization {
 		.adwindow-layout {
-			& > div:nth-child(2) {
+			&>div:nth-child(2) {
 				.adtab-content:first-child {
 					.adtab-grid {
-						tr.highlight, tr.grid-inactive-row {
+						tr.highlight,
+						tr.grid-inactive-row {
 							.row-indicator-selected {
 								@extend %td-row-edit-icon;
 							}
@@ -173,25 +135,21 @@
 				}
 			}
 		}
-
 		.adwindow-toolbar {
-			& > div.z-toolbar-start {
+			&>div.z-toolbar-start {
 				background-color: white;
 				display: flex;
 				justify-content: flex-end;
-
 				.z-separator {
 					@extend %remove-element;
 				}
 			}
-
 			// Toolbar buttons at the top of each edit/view screen
 			a {
 				@extend %button;
 				&:hover {
 					@extend %button-hover;
 				}
-
 				&:nth-child(2),
 				&:nth-child(5),
 				&:nth-child(8),
@@ -204,162 +162,133 @@
 				img {
 					@extend %remove-element;
 				}
-
-				&:nth-child(1), &:nth-child(4), &:nth-child(6), &:nth-child(7), &:nth-child(10), &:nth-child(11), &:nth-child(15) {
+				&:nth-child(1),
+				&:nth-child(4),
+				&:nth-child(6),
+				&:nth-child(7),
+				&:nth-child(10),
+				&:nth-child(11),
+				&:nth-child(15) {
 					@extend %toolbar-button;
 					order: 1;
-
 					span {
 						width: auto;
-
 						img {
 							@extend %remove-element;
 						}
 					}
-
 					&:before {
 						font-size: $button-font-size-small;
 						color: white;
 					}
-
 					&:after {
 						font-size: $button-font-size-small;
 						vertical-align: middle;
 					}
 				}
-
 				&:nth-child(1) {
 					@extend %primary;
-
 					&:before {
 						@extend %fas;
 						content: $icon-times;
 					}
-
 					&:after {
 						content: $button-text-cancel;
 					}
-
 					&:hover {
 						@extend %primary-hover;
 					}
 				}
-
 				&:nth-child(4) {
 					@extend %secondary;
-
 					&:before {
 						@extend %fas;
 						content: $icon-plus;
 					}
-
 					&:after {
 						content: $button-text-new;
 					}
-
 					&:hover {
 						@extend %secondary-hover;
 					}
-
 					@at-root .no-add-edit-entity#{&} {
 						@extend %remove-element;
 					}
 				}
-
 				&:nth-child(6) {
 					@extend %delete;
-
 					&:before {
 						@extend %far;
 						content: $icon-trash-alt;
 					}
-
 					&:after {
 						content: $button-text-delete;
 					}
-
 					&:hover {
 						@extend %delete-hover;
 					}
 				}
-
 				&:nth-child(7) {
 					@extend %confirm;
-
 					&:before {
 						@extend %fas;
 						content: $icon-save;
 					}
-
 					&:after {
 						content: $button-text-save;
 					}
-
 					&:hover {
 						@extend %confirm-hover;
 					}
 				}
-
 				&:nth-child(10) {
 					margin-right: 10px;
 					order: 0;
-
 					&:before {
 						@extend %fas;
 						content: $icon-sync;
 						color: black;
 					}
-
 					&:after {
 						content: $button-text-refresh;
 					}
 				}
-
 				&:nth-child(11) {
 					margin-right: 10px;
 					order: 0;
-
 					&:before {
 						@extend %fas;
 						content: $icon-search;
 						color: black;
 					}
-
 					&:after {
 						content: $button-text-search;
 					}
 				}
-
 				&:nth-child(15) {
 					margin-right: auto;
 					order: 0;
-
 					&:before {
 						@extend %fas;
 						content: $icon-th;
 						color: black;
 					}
-
 					&:after {
 						content: $button-text-results;
 					}
 				}
-
-				@at-root .mobile#{&} {
-
-				}
+				@at-root .mobile#{&} {}
 			}
 		}
-
-		.adwindow-breadcrumb > div {
+		.adwindow-breadcrumb>div {
 			@extend %remove-element;
 		}
-
 		.adwindow-detailpane {
 			.adwindow-detailpane-tabpanel {
 				.adtab-content {
 					.z-grid-body {
-						tr.highlight, tr.grid-inactive-row {
+						tr.highlight,
+						tr.grid-inactive-row {
 							.row-indicator-selected {
 								@extend %td-row-edit-icon;
 							}
@@ -367,97 +296,80 @@
 					}
 				}
 			}
-
 			.adwindow-detailpane-toolbar {
 				.z-toolbar-start {
 					display: flex;
 					justify-content: flex-start;
-
-					& > a {
+					&>a {
 						width: auto;
-
 						span {
 							width: auto;
 							text-shadow: none;
-
 							img {
 								@extend %remove-element;
 							}
-
 							&:before {
 								font-size: $button-font-size-small;
 								color: white;
 							}
 						}
-
 						&.disableFilter {
 							@extend %remove-element;
 						}
-
 						&:after {
 							font-size: $button-font-size-small;
 							vertical-align: middle;
 						}
-
 						&:nth-child(5) {
 							@extend %remove-element;
 						}
-
-						&:nth-child(1), &:nth-child(4) {
+						&:nth-child(1),
+						&:nth-child(4) {
 							padding: 0 5px;
 						}
-
 						&:nth-child(1) {
-                            @extend %secondary;
+							@extend %secondary;
 							span {
 								&:before {
 									@extend %fas;
 									content: $icon-plus;
 								}
 							}
-                            &:hover {
+							&:hover {
 								@extend %secondary-hover;
 								padding: 0 5px;
 							}
 						}
-
 						&:nth-child(2) {
 							@extend %primary;
 							padding: 0 5px;
-
 							span {
 								&:before {
 									@extend %fas;
 									content: $icon-pencil-alt;
 								}
 							}
-
 							&:hover {
 								@extend %primary-hover;
 								padding: 0 5px;
 							}
 						}
-
 						&:nth-child(3) {
 							@extend %delete;
 							padding: 0 5px;
-
 							span {
 								&:before {
 									@extend %fas;
 									content: $icon-trash-alt;
 								}
 							}
-
 							&:hover {
 								@extend %delete-hover;
 								padding: 0 5px;
 							}
 						}
-
 						&:nth-child(4) {
-						
-						@extend %confirm;
+							@extend %confirm;
 							span {
 								&:before {
 									@extend %fas;
@@ -472,76 +384,68 @@
 				}
 			}
 		}
-
 		.bh-logoutbutton {
 			display: flex;
 			align-items: center;
 			@include border-radius(0);
 			padding: 0 10px;
-
 			div {
 				margin-left: 5px;
 				font-weight: bold;
 				font-size: 1.3em;
 			}
-
 			&:hover {
 				background: #fff;
 			}
 		}
-
 		.dashboard-widget {
 			.z-panel-head {
 				@extend %remove-element;
 			}
-
 			.bh-dashboard-panel {
 				margin-top: 0;
 				margin-bottom: 0;
-
 				.z-vlayout-inner {
 					padding-bottom: 0 !important;
 				}
-			
-				.z-listbox{
-/*					border:#78AADD solid thin; */
-					
-					.z-listcell-content{
-/*						background:gray; */	
+				.z-listbox {
+					/*					border:#78AADD solid thin; */
+					.z-listcell-content {
+						/*						background:gray; */
 					}
 				}
 			}
 		}
-		
-		.bh-so-list-window{
-			border:thin;
-			float:right;
+		.bh-so-list-window {
+			border: thin;
+			float: right;
 		}
-	    
-	    .bh-draft-so-list{
-	    	.z-listcell{
-	    		border:none;	
-	    	}	
-	    }
-
-		.desktop-header-popup, .user-panel-popup {
+		.bh-draft-so-list {
+			.z-listcell {
+				border: none;
+			}
+		}
+		.desktop-header-popup,
+		.user-panel-popup {
 			@extend %remove-element;
 		}
-
 		.desktop-layout {
 			.z-west {
 				background: #FFFFFF;
-				.bh-dashboard-panel{
-					.z-tabbox-accordion{
-			.z-tabpanels{
-				.z-tabpanel{
-					.z-tabpanel-content{
-						.z-grid{
-							.z-grid-body{
-								table tbody tr td{
-									.z-grid{
-										.z-grid-body{
-											overflow:hidden !important;
+				.bh-dashboard-panel {
+					.z-tabbox-accordion {
+						.z-tabpanels {
+							.z-tabpanel {
+								.z-tabpanel-content {
+									.z-grid {
+										.z-grid-body {
+											table tbody tr td {
+												.z-grid {
+													.z-grid-body {
+														overflow: hidden !important;
+													}
+												}
+											}
 										}
 									}
 								}
@@ -549,41 +453,30 @@
 						}
 					}
 				}
-			}
-		}
-				}
-				> .z-hlayout{
-					display:flex;
-					flex-direction:column;
+				>.z-hlayout {
+					display: flex;
+					flex-direction: column;
 				}
 			}
-
-				.desktop-center {
+			.desktop-center {
 				padding-top: 0;
-	
-				> .z-center-body {
-
-					> .desktop-tabbox {
-						
-					}
+				>.z-center-body {
+					>.desktop-tabbox {}
 				}
 			}
 		}
-	
 		.desktop-tabbox {
-			& > .z-tabs {
+			&>.z-tabs {
 				height: 34px;
 				display: flex;
 				justify-content: flex-start;
 				align-items: center;
-
 				.z-tabs-content {
 					border: none;
 					display: flex;
 					justify-content: flex-start;
 					align-items: center;
 					height: 100%;
-
 					// Buttons at the top of the screen to navigate back or around
 					.z-tab {
 						font-size: 1.4em;
@@ -592,65 +485,52 @@
 						background: none;
 						box-shadow: none;
 						@include border-radius(0);
-
-						&:not(:first-child):not(:last-child), .z-tab-button, .z-tab-image {
+						&:not(:first-child):not(:last-child),
+						.z-tab-button,
+						.z-tab-image {
 							@extend %remove-element;
 						}
-
 						&:nth-last-child(2) {
 							@extend %remove-element;
 						}
-
 						&:nth-child(3) span {
 							padding-left: 5px;
 						}
 					}
-
 					.back-button {
 						padding-left: 10px;
 						padding-right: 10px;
 						display: flex;
 						align-items: center;
 						height: 100%;
-
 						&:hover {
 							background: #fff;
 						}
-
 						a {
 							display: flex;
 						}
 					}
 				}
 			}
-
-			& > .z-toolbar-tabs {
+			&>.z-toolbar-tabs {
 				&.z-toolbar {
 					padding: 0;
 					border: none;
 				}
-
 				.z-toolbar-content {
 					display: flex;
 					height: 100%;
 				}
-
 				a {
 					cursor: pointer;
 					border: 1px solid transparent;
-
-					&:not(:last-child)  {
+					&:not(:last-child) {
 						@extend %remove-element;
 					}
-
 					i {
 						font-size: 2.5em;
 					}
-
-					&:last-child {
-
-					}
-
+					&:last-child {}
 					/*&:first-child {
 						display: inline-block !important;
 
@@ -670,64 +550,53 @@
 					}*/
 				}
 			}
-
 			.z-window-content {
 				.z-north-body {
-					& > .z-toolbar > .z-toolbar-content {
+					&>.z-toolbar>.z-toolbar-content {
 						display: flex;
 						align-items: center;
-
 						.z-toolbarbutton {
 							@extend %fas;
 							width: 24px;
 							text-align: center;
-
 							img {
 								@extend %remove-element;
 							}
-
 							&:before {
 								font-size: $button-font-size-medium;
 								vertical-align: middle;
 							}
-
 							&:nth-of-type(1) {
 								&:before {
 									content: $icon-wrench;
 								}
 							}
-
 							&:nth-of-type(2) {
 								&:before {
 									content: $icon-search;
 								}
 							}
-
 							&:nth-of-type(3) {
 								&:before {
 									@extend %far;
 									content: $icon-envelope;
 								}
 							}
-
 							&:nth-of-type(4) {
 								&:before {
 									content: $icon-archive;
 								}
 							}
-
 							&:nth-of-type(5) {
 								&:before {
 									content: $icon-download;
 								}
 							}
-
 							&:nth-of-type(6) {
 								&:before {
 									content: $icon-sync;
 								}
 							}
-
 							&:nth-of-type(7) {
 								&:before {
 									content: $icon-magic;
@@ -738,7 +607,6 @@
 				}
 			}
 		}
-
 		.find-window {
 			.z-button {
 				&.img-btn {
@@ -749,12 +617,11 @@
 					}
 				}
 			}
-
 			.z-grid-body {
 				.z-rows {
-					& > .z-group {
-						& > .z-group-header {
-							& > .z-group-header-body {
+					&>.z-group {
+						&>.z-group-header {
+							&>.z-group-header-body {
 								span:last-child {
 									&:before {
 										content: $search-more-options;
@@ -765,22 +632,19 @@
 					}
 				}
 			}
-
 			.z-tabs-content {
 				li:last-child {
 					@extend %remove-element;
 				}
 			}
-
-			& > .z-window-content {
-				& > .z-vlayout {
-					& > .z-vlayout-inner:first-child {
+			&>.z-window-content {
+				&>.z-vlayout {
+					&>.z-vlayout-inner:first-child {
 						@extend %remove-element;
 					}
 				}
 			}
 		}
-
 		.info-panel {
 			.z-button {
 				&.img-btn {
@@ -790,38 +654,32 @@
 				}
 			}
 		}
-
 		.popup-dialog {
 			.main-parameter-layout {
 				.top-parameter-layout {
 					.input-parameter-layout {
-						> div:last-child {
+						>div:last-child {
 							@extend %remove-element;
 						}
 					}
 				}
-
 				.bottom-parameter-layout {
 					padding-top: 0;
 					border-top: none;
-
 					.save-parameter-container {
 						@extend %remove-element;
 					}
 				}
 			}
-
 			.z-window-content {
 				table {
 					.z-hbox {
 						img[src*="question"] {
 							@extend %remove-element;
 						}
-
-						& > tbody > tr > td > table > tbody > tr > td:first-child {
+						&>tbody>tr>td>table>tbody>tr>td:first-child {
 							@extend %fas;
 							font-size: 2em;
-
 							&:before {
 								content: $icon-question-circle;
 							}
@@ -830,203 +688,169 @@
 				}
 			}
 		}
-
 		.z-button {
 			text-shadow: none;
-
-			&.img-btn, &.txt-btn {
+			&.img-btn,
+			&.txt-btn {
 				@extend %button;
-
 				&:hover:not([disabled]) {
 					@extend %button-hover;
 				}
-
 				&[disabled] {
 					cursor: default;
 				}
-
 				img {
 					@extend %remove-element;
 				}
 			}
-
-			&.btn-new, &.btn-ok, &.btn-cancel, &.btn-refresh, &.btn-reset, &.btn-customize, &.btn-history, &.btn-zoom, &.btn-pattribute {
+			&.btn-new,
+			&.btn-ok,
+			&.btn-cancel,
+			&.btn-refresh,
+			&.btn-reset,
+			&.btn-customize,
+			&.btn-history,
+			&.btn-zoom,
+			&.btn-pattribute {
 				font-weight: normal;
 			}
-
 			&.btn-new {
 				@extend %remove-element;
-                @extend %secondary;
-                
-                &:hover:not([disabled]) {
+				@extend %secondary;
+				&:hover:not([disabled]) {
 					@extend %confirm-hover;
 				}
-				
 				&:before {
 					@extend %fas;
 					content: $icon-plus;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-new;
 				}
 			}
-
 			&.btn-ok {
 				margin-right: 10px !important;
 				@extend %confirm;
-
 				&:before {
 					@extend %fas;
 					content: $icon-check;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-ok;
 				}
-				
 				&:hover:not([disabled]) {
 					@extend %confirm-hover;
 				}
 			}
-
 			&.btn-refresh {
 				&:before {
 					@extend %fas;
 					content: $icon-search;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-search;
 				}
 			}
-
 			&.btn-reset {
 				@extend %remove-element;
-
 				&:before {
 					@extend %fas;
 					content: $icon-undo;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-reset;
 				}
 			}
-
 			&.btn-customize {
 				&:before {
 					@extend %fas;
 					content: $icon-sliders-h;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-customize;
 				}
 			}
-
 			&.btn-history {
 				@extend %remove-element;
-
 				&:before {
 					@extend %fas;
 					content: $icon-history;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-history;
 				}
 			}
-
 			&.btn-zoom {
 				@extend %remove-element;
-
 				&:before {
 					@extend %fas;
 					content: $icon-expand;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-zoom;
 				}
 			}
-
 			&.btn-pattribute {
 				@extend %remove-element;
-
 				&:before {
 					@extend %fas;
 					content: $icon-at;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-product-attributes;
 				}
 			}
-
 			&.btn-cancel {
 				@extend %primary;
-
 				&:before {
 					@extend %fas;
 					content: $icon-times;
 				}
-
 				&:not(.txt-btn):after {
 					content: $button-text-cancel;
 				}
-
 				&:hover:not([disabled]) {
 					@extend %primary-hover;
 				}
 			}
 		}
 	}
-
-	&.no-tabs-present, &.entity-add-or-edit {
+	&.no-tabs-present,
+	&.entity-add-or-edit {
 		.adtab-form-borderlayout {
 			background: none;
 		}
-
 		.z-south-collapsed {
 			@extend %hide-element;
 		}
 	}
-
 	&:not(.can-change-roles) {
 		.login-box-body {
 			#rowSelectRole {
 				@extend %remove-element;
 			}
-
 			.advanced-row {
 				cursor: pointer;
-
 				.z-group-header-body {
 					height: 16px;
 				}
 			}
-
 			.advanced-label {
 				display: flex;
 				justify-content: flex-end;
-
 				.z-group {
 					width: 100px;
 					margin-right: -11px;
 				}
-
 				.z-group-inner {
 					text-align: right;
 				}
-
 				.z-group-header-body {
 					padding-left: 20px;
 					display: flex;
 					align-items: center;
 				}
 			}
-
 			.advanced-field {
 				.z-group {
 					width: 220px;
@@ -1034,12 +858,10 @@
 			}
 		}
 	}
-
 	&.cannot-change-roles {
 		.login-box {
 			@extend %hide-element;
 		}
-
 		.bh-loading {
 			position: absolute;
 			top: 0;
@@ -1049,62 +871,50 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-
 			.z-loading {
 				position: initial;
 			}
 		}
-
 		#zk_prok {
 			@extend %remove-element;
 		}
 	}
-
 	&:not(.cannot-change-roles) {
 		.bh-loading {
 			@extend %remove-element;
 		}
 	}
-
 	&.mobile {
 		.desktop-north {
 			@extend %remove-element;
 		}
-
 		.desktop-center {
 			height: 100% !important;
 			top: 0 !important;
-
-			& > .z-center-body {
+			&>.z-center-body {
 				height: 100% !important;
-
-				& > .z-desktop-tabbox {
+				&>.z-desktop-tabbox {
 					height: 100% !important;
-
-					& > .z-tabpanels {
+					&>.z-tabpanels {
 						height: 100% !important;
-
-						& > .desktop-home-tabpanel {
+						&>.desktop-home-tabpanel {
 							height: 100% !important;
 						}
 					}
 				}
 			}
-		}	
-
+		}
 		.z-west-collapsed {
-		/*	@extend %remove-element; */
+			/*	@extend %remove-element; */
 		}
 	}
-
-@media screen and (max-width:768px){
-	
-	.desktop-tabbox{
-		.z-tabbox{
-			.z-tabbox-top{
-// 				width:100% !important;
+	@media screen and (max-width:768px) {
+		.desktop-tabbox {
+			.z-tabbox {
+				.z-tabbox-top {
+					// 				width:100% !important;
 				}
 			}
 		}
-}
+	}
 }
