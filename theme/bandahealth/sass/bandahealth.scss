@@ -49,7 +49,6 @@
 	.bh-dashboard-content {
 		display: flex;
 		flex-direction: column;
-// 		align-items: stretch;
 	}
 
 	.bh-editable-rows-container {
@@ -531,17 +530,37 @@
 
 		.desktop-layout {
 			.z-west {
-				background:#FFFFFF;
-				
+				background: #FFFFFF;
+				.bh-dashboard-panel{
+					.z-tabbox-accordion{
+			.z-tabpanels{
+				.z-tabpanel{
+					.z-tabpanel-content{
+						.z-grid{
+							.z-grid-body{
+								table tbody tr td{
+									.z-grid{
+										.z-grid-body{
+											overflow:hidden !important;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+				}
 				> .z-hlayout{
 					display:flex;
 					flex-direction:column;
 				}
 			}
 
-			.desktop-center {
+				.desktop-center {
 				padding-top: 0;
-
+	
 				> .z-center-body {
 
 					> .desktop-tabbox {
@@ -550,7 +569,7 @@
 				}
 			}
 		}
-
+	
 		.desktop-tabbox {
 			& > .z-tabs {
 				height: 34px;
