@@ -12,6 +12,11 @@ public class MOrder_BH extends MOrder {
 	 * Column name BH_Payments
 	 */
 	public static final String COLUMNNAME_BH_Payments = "BH_Payments";
+	
+	/**
+	 * Column name bh_isexpense
+	 */
+	public static final String COLUMNNAME_BH_IsExpense = "BH_isexpense";
 
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
 		super(ctx, C_Order_ID, trxName);
@@ -41,5 +46,13 @@ public class MOrder_BH extends MOrder {
 	 */
 	public void setBH_Payments(Object BH_Payments) {
 		set_Value(COLUMNNAME_BH_Payments, BH_Payments);
+	}
+	
+	public Object getBH_Isexpense() {
+		return get_Value(COLUMNNAME_BH_IsExpense);
+	}
+
+	public void setBH_Isexpense(Object bh_isexpense) {
+		set_Value(COLUMNNAME_BH_IsExpense, bh_isexpense);
 	}
 }

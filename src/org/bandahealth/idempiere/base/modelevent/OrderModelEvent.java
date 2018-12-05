@@ -23,17 +23,18 @@ public class OrderModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		MOrder order = null;
+		MOrder_BH order = null;
 		PO persistantObject = getPO(event);
 		clientId = persistantObject.getAD_Client_ID();
-		if (persistantObject instanceof MOrder) {
-			order = (MOrder) persistantObject;
+		if (persistantObject instanceof MOrder_BH) {
+			order = (MOrder_BH) persistantObject;
 		} else {
 			return;
 		}
 
 		boolean isPurchase = true;
 		if (order.isSOTrx()) {
+			order.setBH_Isexpense(false);
 			isPurchase = false;
 		}
 
@@ -50,7 +51,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 		}
 	}
 
-	private void beforeSalesOrderSaveRequest(MOrder salesOrder) {
+	private void beforeSalesOrderSaveRequest(MOrder_BH salesOrder) {
 
 		int userId = Env.getAD_User_ID(Env.getCtx());
 
@@ -75,7 +76,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 		salesOrder.setPaymentRule(MOrder.PAYMENTRULE_Cash);
 	}
 	
-	private void beforeSalesOrderUpdateRequest(MOrder salesOrder) {
+	private void beforeSalesOrderUpdateRequest(MOrder_BH salesOrder) {
 		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
 		
 		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
