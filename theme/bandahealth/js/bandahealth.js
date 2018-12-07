@@ -48,6 +48,7 @@ define(
 					addDomObservationMethods();
 					addDashboardPanelMethods();
 					expandDashboardMenuTabPanels();
+					openInitialWindow();
 					if (areViewingMobile()) {
 						util.addBodyClassName(classNames.MOBILE);
 						initializeMobileCorrectionChecks();
@@ -758,4 +759,13 @@ define(
                 });
             }
             
+            function openInitialWindow(){
+                let menuItem = document.querySelector('[title="Enter patients into the system"]');
+                if(menuItem !== null){
+                    var button = menuItem.querySelector('div:nth-child(3) > table > tbody > tr');
+                    if(button !== null){
+                        button.click();
+                    }
+                }
+            }
 		});
