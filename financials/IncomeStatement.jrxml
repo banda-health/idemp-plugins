@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" columnWidth="525" leftMargin="20" rightMargin="50" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="_connection_erp.openhmisfrica.org.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -21,9 +21,10 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT
   org.name,
-  SUM(CASE WHEN issotrx = 'Y' THEN grandtotal ELSE 0 END) AS revenue, 
-  SUM(CASE WHEN issotrx = 'N' AND  c_doctype_id =126 THEN grandtotal ELSE 0 END) AS cost
-FROM c_order corder JOIN ad_org org ON corder.ad_org_id = org.ad_org_id
+  SUM(CASE WHEN corder.issotrx = 'Y' THEN corder.grandtotal ELSE 0 END) AS revenue, 
+  SUM(CASE WHEN corder.issotrx = 'N' THEN corder.grandtotal ELSE 0 END) AS cost
+FROM c_order corder 
+INNER JOIN ad_org org ON corder.ad_org_id = org.ad_org_id
 WHERE  corder.ad_client_id =  $P{AD_CLIENT_ID} 
 AND corder.created BETWEEN $P{beginDate} AND $P{endDate} 
 AND corder.docstatus = 'CO' 
@@ -81,7 +82,7 @@ GROUP BY org.name]]>
 	</pageHeader>
 	<columnHeader>
 		<band height="50" splitType="Stretch">
-			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="false">
+			<textField pattern="Ksh #,###.00;Ksh -#,###.00" isBlankWhenNull="false">
 				<reportElement x="423" y="0" width="103" height="16" uuid="d79eb99b-ab04-4f81-8e10-dce84f21ec05"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
@@ -120,26 +121,26 @@ GROUP BY org.name]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"Payments.jasper"]]></subreportExpression>
 			</subreport>
-			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="false">
+			<textField pattern="Ksh #,###.00;Ksh -#,###.00" isBlankWhenNull="false">
 				<reportElement positionType="FixRelativeToBottom" x="405" y="29" width="120" height="18" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
 			</textField>
-			<textField pattern="Ksh #,###.00;¤-#,###.00" isBlankWhenNull="false">
-				<reportElement positionType="FixRelativeToBottom" x="405" y="53" width="120" height="21" uuid="d37bc2be-223a-44d9-b7bf-891508ec3e4e"/>
+			<textField pattern="Ksh #,###.00;Ksh -#,###.00" isBlankWhenNull="false">
+				<reportElement positionType="FixRelativeToBottom" x="405" y="56" width="120" height="21" uuid="d37bc2be-223a-44d9-b7bf-891508ec3e4e"/>
 				<textElement textAlignment="Right" markup="none">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{revenue}.subtract( $F{cost} )]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="80" y="30" width="120" height="20" uuid="5eb13368-3884-4f4d-bb9e-a13cd1963e85"/>
+				<reportElement positionType="Float" x="80" y="58" width="120" height="20" uuid="5eb13368-3884-4f4d-bb9e-a13cd1963e85"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Income/Profit]]></text>
+				<text><![CDATA[Profit/ Loss:]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="405" y="47" width="121" height="1" uuid="ea0cd30e-c892-4fe2-bd28-57b83489bc16"/>
