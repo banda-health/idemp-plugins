@@ -152,7 +152,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 				Grid btnGrid = UIUtil.createButton(button);
 				row.appendCellChild(btnGrid);
 				row.setParent(rows);
-//			divButton.addEventListener(Events.ON_CLICK, this);
 				btnGrid.addEventListener(Events.ON_CLICK, this);
 			}
 			Tabpanel panel = new Tabpanel();
@@ -376,12 +375,18 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 				Grid button = (Grid) component;
 				Boolean termsOfUse = (Boolean) button.getAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE);
 				if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
-					int processId = Integer.parseInt(button.getId());
-					SessionManager.getAppDesktop().openProcessDialog(processId, false);
+//					int processId = Integer.parseInt(button.getId());
+//					SessionManager.getAppDesktop().openProcessDialog(processId, false);
+					int infoWindowId = Integer.parseInt(button.getId());
+					SessionManager.getAppDesktop().openForm(infoWindowId);
 				} else if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openInfo(infoWindowId);
-				} else if (termsOfUse != null && termsOfUse == true) {
+				} else if ((Boolean) button.getAttribute(UIUtil.SPECIAL_FORM_ATTRIBUTE)) {
+					int infoWindowId = Integer.parseInt(button.getId());
+					SessionManager.getAppDesktop().openForm(infoWindowId);
+				}
+				else if (termsOfUse != null && termsOfUse == true) {
 //						acceptTermsOfUse();
 				} else if (termsOfUse != null && termsOfUse == false) {
 					SessionManager.getAppDesktop().logout();

@@ -11,7 +11,8 @@ public class BHKibanaMetricsForm extends ADForm {
 	Iframe metricsIFrame = new Iframe();
 	// TODO Create this url configuration entry in idempiere window and access via
 	// db read
-	private static final String ELK_URL = "http://192.168.2.12:5601/goto/ea26c2229abe967f65b740194ada2d45?embed=true\" height=\"600\" width=\"800\"";
+	private static final String ELK_URL = 
+			"http://192.168.2.210:5601/app/kibana#/dashboard/4d33d880-fded-11e8-8bc1-57bce9fd3311?embed=true height=\"600\" width=\"800\"";
 
 	private CLogger logger = CLogger.getCLogger(getClass());
 
