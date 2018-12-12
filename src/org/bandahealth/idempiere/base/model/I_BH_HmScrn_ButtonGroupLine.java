@@ -32,7 +32,7 @@ public interface I_BH_HmScrn_ButtonGroupLine
     /** TableName=BH_HmScrn_ButtonGroupLine */
     public static final String Table_Name = "BH_HmScrn_ButtonGroupLine";
 
-    /** AD_Table_ID=1000006 */
+    /** AD_Table_ID=1000003 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -50,6 +50,21 @@ public interface I_BH_HmScrn_ButtonGroupLine
 	  * Client/Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
+
+    /** Column name AD_Form_ID */
+    public static final String COLUMNNAME_AD_Form_ID = "AD_Form_ID";
+
+	/** Set Special Form.
+	  * Special Form
+	  */
+	public void setAD_Form_ID (int AD_Form_ID);
+
+	/** Get Special Form.
+	  * Special Form
+	  */
+	public int getAD_Form_ID();
+
+	public org.compiere.model.I_AD_Form getAD_Form() throws RuntimeException;
 
     /** Column name AD_InfoWindow_ID */
     public static final String COLUMNNAME_AD_InfoWindow_ID = "AD_InfoWindow_ID";
