@@ -6,11 +6,14 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.adempiere.webui.component.Messagebox;
-import org.bandahealth.idempiere.webui.TermsOfService;
+import org.adempiere.webui.theme.ThemeManager;
+import org.bandahealth.idempiere.webui.TermsOfAgreementService;
 import org.compiere.util.CLogger;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.metainfo.PageDefinition;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -27,35 +30,28 @@ public class TermsOfServiceComposer extends SelectorComposer<Window> {
 	private Window window;
 	
 	private CLogger logger = CLogger.getCLogger(this.getClass());
-	private TermsOfService termsOfService = new TermsOfService();
+	private TermsOfAgreementService termsOfAgreementService = new TermsOfAgreementService();
 	
 	public void doAfterCompose(Window window) {
 		try {
 			super.doAfterCompose(window);
-			logger.info("inside tos composer...");
+			logger.info("doAfterCompose on " + String.valueOf(window.getId()) +"-> " + getClass().getName());
 		}catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	
 	@Listen("onClick = button#acceptBtn")
 	public void acceptTermsOfService(Event event) {
-		logger.info("Accepting terms!...");
-		termsOfService.acceptTermsOfUse(window);
-		
-		Execution exec = Executions.getCurrent();
-		HttpServletResponse response = (HttpServletResponse)exec.getNativeResponse();
-		try {
-			response.sendRedirect(response.encodeRedirectURL("desktop.zul"));
-			exec.setVoided(true);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		logger.info("Accepted terms!...");
+		termsOfAgreementService.acceptTermsOfUse(window);
+		String url = ThemeManager.getThemeResource("zul/desktop/desktop.zul");
+		Executions.getCurrent().sendRedirect(url);
 	}
 	
 	@Listen("onClick = button#rejectBtn")
 	public void rejectTermsOfService(Event event) {
 		logger.info("Rejecting terms!...");
-			Executions.getCurrent().sendRedirect("login.zul");
+		String url = ThemeManager.getThemeResource("zul/login/login.zul");
+			Executions.getCurrent().sendRedirect(url);
 	}
 }

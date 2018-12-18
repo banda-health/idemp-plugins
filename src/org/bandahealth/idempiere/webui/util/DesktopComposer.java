@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.webui.util;
 import java.awt.Event;
 
 import org.adempiere.webui.component.Messagebox;
-import org.bandahealth.idempiere.webui.TermsOfService;
+import org.bandahealth.idempiere.webui.TermsOfAgreementService;
 import org.compiere.util.CLogger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -26,19 +26,19 @@ public class DesktopComposer extends SelectorComposer<Borderlayout> {
 	@Wire("#windowArea")
 	private Center windowArea;
 	
-	private TermsOfService termsOfService = new TermsOfService();
+	private TermsOfAgreementService termsOfAgreementService = new TermsOfAgreementService();
 
 	public void doAfterCompose(Borderlayout layout) {
 		try {
 			super.doAfterCompose(layout);
-			if(termsOfService.hasAcceptedTermsOfUse())
+			if(termsOfAgreementService.hasAcceptedTermsOfUse())
 				return;
 			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfService.zul",null,null);
-			Html tos = new Html(termsOfService.getTermsAndConditionsContent());
+			Html tos = new Html(termsOfAgreementService.getTermsAndConditionsContent());
 			termsOfServiceComponent.getFellow("tosText", true).appendChild(tos);
 			windowArea.appendChild(termsOfServiceComponent);
 		} catch (Exception e) {
-			logger.severe("something is seriously BAD!");
+			logger.severe("Error in DesktopComposer: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
