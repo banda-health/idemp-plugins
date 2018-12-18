@@ -12,7 +12,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Html;
 import org.zkoss.zul.West;
 
-public class DesktopWestPanelComposer extends SelectorComposer<Borderlayout> {
+public class DesktopComposer extends SelectorComposer<Borderlayout> {
 
 	private CLogger logger = CLogger.getCLogger(this.getClass());
 	private static final long serialVersionUID = 1L;
