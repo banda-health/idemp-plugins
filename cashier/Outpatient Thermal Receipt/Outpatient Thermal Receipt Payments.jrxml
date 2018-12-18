@@ -48,7 +48,7 @@ where
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
 				<reportElement x="123" y="0" width="88" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amount_tendered}]]></textFieldExpression>
@@ -59,14 +59,14 @@ where
 		<band height="42" splitType="Stretch">
 			<textField pattern="#,##0">
 				<reportElement x="144" y="6" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="144" y="26" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost})]]></textFieldExpression>

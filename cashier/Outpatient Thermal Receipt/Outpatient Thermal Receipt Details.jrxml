@@ -10,7 +10,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[ SELECT
+		<![CDATA[SELECT
   c_invoice_linetax_v.c_order_id as bill_id,
   c_invoice_linetax_v.name as item_name,
   c_invoice_linetax_v.qtyentered as quantity,
@@ -60,7 +60,7 @@ WHERE
 			</staticText>
 			<staticText>
 				<reportElement x="153" y="0" width="58" height="12" uuid="87629929-d34f-4165-8c85-a041e765e0ba"/>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Amount]]></text>
@@ -88,7 +88,7 @@ WHERE
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
 				<reportElement x="153" y="0" width="58" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405"/>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{price}.multiply($F{quantity})]]></textFieldExpression>
