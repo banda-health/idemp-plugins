@@ -1,14 +1,13 @@
 <?page title="ToS" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window border="normal" width="60%" height="30%" mode="modal"
+	<window id="tosWindow" border="normal" width="80%" height="50%" mode="modal"
 		contentStyle="overflow:auto" title="BandaGo Terms of Service"
-		position="center" closable="false">
-		<borderlayout >
+		position="center" closable="false" apply="org.bandahealth.idempiere.webui.util.TermsOfServiceComposer">
+		<borderlayout>
 			<center style="overflow: auto;">
 				<panel>
 					<panelchildren>
 						<div id="tosText">
-							
 						</div>
 					</panelchildren>
 				</panel>
@@ -16,8 +15,8 @@
 			<south>
 				<panel>
 					<panelchildren style="float:right;margin-right:50%">
-						<button label="Reject"></button>
-						<button label="Accept"></button>
+						<button id="rejectBtn" label="Reject"></button>
+						<button id="acceptBtn" label="Accept"></button>
 					</panelchildren>
 				</panel>
 			</south>

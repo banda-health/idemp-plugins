@@ -13,6 +13,8 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.zkoss.zhtml.Text;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -20,7 +22,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Html;
 import org.zkoss.zul.Script;
 
-public class TermsOfService implements EventListener<Event>{
+public class TermsOfService{
 
 	private CLogger log = CLogger.getCLogger(TermsOfService.class);
 	private Div contentArea = new Div();
@@ -60,7 +62,6 @@ public class TermsOfService implements EventListener<Event>{
 		acceptButton.setAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE, true);
 		acceptButton.setAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE, false);
 		acceptButton.setAttribute(UIUtil.REPORT_OR_PROCESS_ATTRIBUTE, false);
-		acceptButton.addEventListener(Events.ON_CLICK, this);
 		buttonsSection.appendChild(acceptButton);
 
 		Div rejectButton = new Div();
@@ -76,7 +77,6 @@ public class TermsOfService implements EventListener<Event>{
 		rejectButton.setAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE, false);
 		rejectButton.setAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE, false);
 		rejectButton.setAttribute(UIUtil.REPORT_OR_PROCESS_ATTRIBUTE, false);
-		rejectButton.addEventListener(Events.ON_CLICK, this);
 		buttonsSection.appendChild(rejectButton);
 
 		groupContainer.appendChild(buttonsSection);
@@ -105,20 +105,16 @@ public class TermsOfService implements EventListener<Event>{
 		return termsAndConditions;
 	}
 
-	private void acceptTermsOfUse() {
-		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
-		user.setBH_HasAcceptedTermsOfUse(true);
-		user.save();
-//		layout.appendChild(new Script("window.location.reload();"));
-	}
-
 	public boolean hasAcceptedTermsOfUse() {
 		String whereClause = MUser_BH.COLUMNNAME_AD_User_ID + "=" + Env.getAD_User_ID(Env.getCtx()) + " AND "
 				+ MUser_BH.COLUMNNAME_BH_HasAcceptedTermsOfUse + "='Y'";
 		return new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).setOnlyActiveRecords(true).match();
 	}
 
-	public void onEvent(Event event) throws Exception {
-		//TODO Add event listeners
+	public void acceptTermsOfUse(Component component) {
+		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
+		user.setBH_HasAcceptedTermsOfUse(true);
+		user.save();
+		
 	}
 }

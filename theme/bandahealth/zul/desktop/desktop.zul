@@ -2,7 +2,7 @@
 <zk>
 	<div height="100%">
 		<borderlayout id="layout" sclass="desktop-layout"
-			apply="org.bandahealth.idempiere.webui.util.DesktopWestPanelComposer">
+			apply="org.bandahealth.idempiere.webui.util.DesktopComposer">
 			<north sclass="desktop-north">
 				<include src="/theme/default/zul/desktop/header.zul"
 					id="northBody" />
