@@ -28,8 +28,13 @@ public class DesktopWestPanelComposer extends SelectorComposer<Borderlayout> {
 	public void doAfterCompose(Borderlayout layout) {
 		try {
 			super.doAfterCompose(layout);
-			logger.info("Loaded desktop layout");
-			// TODO Access panel to add org name as Div
+			// TODO:
+			//Check if user has accepted ToS
+			//If not show ToS panel
+			//If yes proceed to load desktop
+			
+			if(termsOfService.hasAcceptedTermsOfUse())
+				return;
 			Component c = Executions.createComponents("zul/TermsOfService.zul",null,null);
 			Html tos = new Html(termsOfService.getTermsAndConditionsContent());
 			c.getFellow("tosText", true).appendChild(tos);

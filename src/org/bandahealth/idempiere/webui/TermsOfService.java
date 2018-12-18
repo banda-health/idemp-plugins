@@ -112,7 +112,7 @@ public class TermsOfService implements EventListener<Event>{
 //		layout.appendChild(new Script("window.location.reload();"));
 	}
 
-	private boolean hasAcceptedTermsOfUse() {
+	public boolean hasAcceptedTermsOfUse() {
 		String whereClause = MUser_BH.COLUMNNAME_AD_User_ID + "=" + Env.getAD_User_ID(Env.getCtx()) + " AND "
 				+ MUser_BH.COLUMNNAME_BH_HasAcceptedTermsOfUse + "='Y'";
 		return new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).setOnlyActiveRecords(true).match();
