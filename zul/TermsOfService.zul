@@ -1,0 +1,26 @@
+<?page title="ToS" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="normal" width="60%" height="30%" mode="modal"
+		contentStyle="overflow:auto" title="BandaGo Terms of Service"
+		position="center" closable="false">
+		<borderlayout >
+			<center style="overflow: auto;">
+				<panel>
+					<panelchildren>
+						<div id="tosText">
+							
+						</div>
+					</panelchildren>
+				</panel>
+			</center>
+			<south>
+				<panel>
+					<panelchildren style="float:right;margin-right:50%">
+						<button label="Reject"></button>
+						<button label="Accept"></button>
+					</panelchildren>
+				</panel>
+			</south>
+		</borderlayout>
+	</window>
+</zk>
