@@ -33,7 +33,12 @@
     patientsummary.c_invoice_id AS C_Invoice_ID,
     patientsummary.c_payment_id AS C_Payment_ID,
     patientsummary.client_name AS Client_Name,
-    patientsummary.tendertype AS PaymentMode
+    patientsummary.tendertype AS PaymentMode,
+    CASE 
+    	WHEN patientsummary.totalpayments > patientsummary.grandtotal 
+    		THEN patientsummary.grandtotal
+   	 	ELSE patientsummary.totalpayments 
+   	 END AS NetPayment
     FROM bh_patient_transactions_v as patientsummary
 WHERE ad_client_id =  $P{AD_CLIENT_ID}   
 AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
@@ -51,8 +56,9 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 	<field name="C_Payment_ID" class="java.lang.Integer"/>
 	<field name="Client_Name" class="java.lang.String"/>
 	<field name="PaymentMode" class="java.lang.String"/>
+	<field name="NetPayment" class="java.lang.Float"/>
 	<variable name="TotalPayments" class="java.lang.Float" calculation="Sum">
-		<variableExpression><![CDATA[$F{TotalPayments}]]></variableExpression>
+		<variableExpression><![CDATA[$F{NetPayment}]]></variableExpression>
 	</variable>
 	<variable name="TotalCharges" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{GrandTotal}]]></variableExpression>
@@ -113,7 +119,7 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Payments]]></text>
+				<text><![CDATA[Net Payment]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="413" y="0" width="119" height="16" uuid="3416f17b-2346-4043-b1ba-336a08d4485b"/>
@@ -151,7 +157,7 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="254" y="0" width="58" height="16" uuid="b112dbde-59e8-4a99-ba20-0b1b16c22f2a"/>
-				<textFieldExpression><![CDATA[$F{TotalPayments}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NetPayment}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="439" y="0" width="71" height="16" uuid="29817303-1a87-45f4-9cb5-3927a9925476"/>
@@ -213,20 +219,6 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 			<line>
 				<reportElement x="0" y="1" width="530" height="1" uuid="0e6fac0c-085f-45c3-93f3-37c2a067f3af"/>
 			</line>
-			<staticText>
-				<reportElement x="214" y="42" width="126" height="16" uuid="4b9964d1-0fba-4e45-8337-72084a0250b4"/>
-				<textElement textAlignment="Left">
-					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Change:]]></text>
-			</staticText>
-			<textField pattern="#,##0">
-				<reportElement x="352" y="42" width="75" height="16" uuid="bc4be155-6f2a-4e97-ade4-ac0c9fa47d27"/>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{TotalChange}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement x="0" y="60" width="530" height="1" uuid="09635107-5034-4f0c-b5f6-1961563b7881"/>
 			</line>
