@@ -31,7 +31,7 @@ public class DesktopComposer extends SelectorComposer<Borderlayout> {
 	public void doAfterCompose(Borderlayout layout) {
 		try {
 			super.doAfterCompose(layout);
-			if(termsOfAgreementService.hasAcceptedTermsOfUse())
+			if(termsOfAgreementService.isAccepted())
 				return;
 			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfService.zul",null,null);
 			Html tos = new Html(termsOfAgreementService.getTermsAndConditionsContent());

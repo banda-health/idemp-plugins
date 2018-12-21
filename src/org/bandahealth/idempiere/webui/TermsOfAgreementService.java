@@ -105,7 +105,7 @@ public  class  TermsOfAgreementService{
 		return termsAndConditions;
 	}
 
-	public boolean hasAcceptedTermsOfUse() {
+	public boolean isAccepted() {
 		String whereClause = MUser_BH.COLUMNNAME_AD_User_ID + "=" + Env.getAD_User_ID(Env.getCtx()) + " AND "
 				+ MUser_BH.COLUMNNAME_BH_HasAcceptedTermsOfUse + "='Y'";
 		return new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).setOnlyActiveRecords(true).match();
