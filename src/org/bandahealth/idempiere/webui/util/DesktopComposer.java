@@ -34,8 +34,8 @@ public class DesktopComposer extends SelectorComposer<Borderlayout> {
 			if(termsOfAgreementService.isAccepted())
 				return;
 			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfService.zul",null,null);
-			Html tos = new Html(termsOfAgreementService.getTermsAndConditionsContent());
-			termsOfServiceComponent.getFellow("tosText", true).appendChild(tos);
+			Html termsOfServiceText = new Html(termsOfAgreementService.getTermsAndConditionsContent());
+			termsOfServiceComponent.getFellow("tosText", true).appendChild(termsOfServiceText);
 			windowArea.appendChild(termsOfServiceComponent);
 		} catch (Exception e) {
 			logger.severe("Error in DesktopComposer: " + e.getMessage());
