@@ -111,7 +111,7 @@ public  class  TermsOfAgreementService{
 		return new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).setOnlyActiveRecords(true).match();
 	}
 
-	public void acceptTermsOfUse(Component component) {
+	public void acceptTermsOfUse() {
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		user.setBH_HasAcceptedTermsOfUse(true);
 		user.save();
