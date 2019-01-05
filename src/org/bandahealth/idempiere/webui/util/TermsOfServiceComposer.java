@@ -8,6 +8,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Script;
 import org.zkoss.zul.Window;
 
 public class TermsOfServiceComposer extends SelectorComposer<Window> {
@@ -33,17 +34,12 @@ public class TermsOfServiceComposer extends SelectorComposer<Window> {
 
 	@Listen("onClick = button#acceptBtn")
 	public void acceptTermsOfService(Event event) {
-		logger.info("Accepted terms!...");
 		termsOfAgreementService.acceptTermsOfUse();
 		window.getParent().removeChild(window);
-		IDesktop desktop = SessionManager.getAppDesktop();
-				desktop.openWindow(1000006, null);
-		
 	}
 
 	@Listen("onClick = button#rejectBtn")
 	public void rejectTermsOfService(Event event) {
-		logger.info("Rejecting terms!...");
-//		logout user and present login page
+		SessionManager.logoutSession();
 	}
 }

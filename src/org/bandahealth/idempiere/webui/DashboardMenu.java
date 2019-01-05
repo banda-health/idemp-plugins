@@ -26,6 +26,7 @@ import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
+import org.bandahealth.idempiere.webui.util.DesktopComposer;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MOrder;
@@ -66,6 +67,12 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	public DashboardMenu() {
 		super();
+		this.setId("bandaDashboard");
+		try {
+			new DesktopComposer().doAfterCompose(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		initLayout();
 		assembleComponents();
 	}

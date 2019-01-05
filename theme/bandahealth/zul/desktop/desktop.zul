@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zk>
 	<div height="100%">
-		<borderlayout id="layout" sclass="desktop-layout"
-			apply="org.bandahealth.idempiere.webui.util.DesktopComposer">
+		<borderlayout id="layout" sclass="desktop-layout">
 			<north sclass="desktop-north">
 				<include src="/theme/default/zul/desktop/header.zul"
-					id="northBody" />
+					id="northBody"/>
 			</north>
 			<west id="desktop-left-column" sclass="desktop-left-column"
 				collapsible="true" splittable="false" flex="true" maxsize="300">
