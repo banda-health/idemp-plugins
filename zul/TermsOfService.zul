@@ -6,17 +6,17 @@
 		<borderlayout>
 			<center style="overflow: auto;">
 				<panel>
-					<panelchildren>
-						<div id="tosText">
+					<panelchildren style="padding-right:20px;">
+						<div id="tosText" style="line-height:1.4; font-size:0.8em; padding-right:10px;">
 						</div>
 					</panelchildren>
 				</panel>
 			</center>
 			<south>
-				<panel>
-					<panelchildren style="float:right;margin-right:50%">
-						<button id="rejectBtn" label="Reject"></button>
-						<button id="acceptBtn" label="Accept"></button>
+				<panel style="margin-top:10px;">
+					<panelchildren style="float:right;margin-right:5%">
+						<button id="rejectBtn" label="Reject and Close"></button>
+						<button id="acceptBtn" label="Accept and Continue" focus="true"></button>
 					</panelchildren>
 				</panel>
 			</south>
