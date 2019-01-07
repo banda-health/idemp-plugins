@@ -22,7 +22,6 @@ public class TermsOfUseComposer extends SelectorComposer<Window> {
 	private Window window;
 
 	private CLogger logger = CLogger.getCLogger(this.getClass());
-	private TermsOfUseService termsOfUseService = new TermsOfUseService();
 
 	public void doAfterCompose(Window window) {
 		try {
@@ -34,7 +33,7 @@ public class TermsOfUseComposer extends SelectorComposer<Window> {
 
 	@Listen("onClick = button#acceptBtn")
 	public void acceptTermsOfService(Event event) {
-		termsOfUseService.acceptTermsOfUse();
+		TermsOfUseService.acceptTermsOfUse();
 		window.getParent().removeChild(window);
 	}
 

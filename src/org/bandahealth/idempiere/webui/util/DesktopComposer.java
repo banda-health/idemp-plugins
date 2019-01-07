@@ -18,15 +18,13 @@ public class DesktopComposer extends SelectorComposer<DashboardPanel>{
 	@Wire("#bandaDashboard")
 	private DashboardPanel dashboard;
 
-	private TermsOfUseService termsOfUseService = new TermsOfUseService();
-
 	public void doAfterCompose(DashboardPanel dashboardPanel) {
 		try {
 			super.doAfterCompose(dashboardPanel);
-			if (termsOfUseService.isAccepted())
+			if (TermsOfUseService.isAccepted())
 				return;
 			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfUse.zul", null, null);
-			Html termsOfServiceText = new Html(termsOfUseService.getTermsOfUseContent());
+			Html termsOfServiceText = new Html(TermsOfUseService.getTermsOfUseContent());
 			termsOfServiceComponent.getFellow("tosText", true).appendChild(termsOfServiceText);
 			dashboardPanel.appendChild(termsOfServiceComponent);
 		} catch (Exception e) {

@@ -24,11 +24,12 @@ import org.zkoss.zul.Script;
 
 public  class  TermsOfUseService{
 
-	private CLogger log = CLogger.getCLogger(TermsOfUseService.class);
+	private static CLogger log = CLogger.getCLogger(TermsOfUseService.class);
 
-	public String getTermsOfUseContent() {
+	public static String getTermsOfUseContent() {
 		String termsAndConditions = null;
-		InputStream iReader = this.getClass().getClassLoader().getResourceAsStream("resources/TermsAndConditions.txt");
+		ClassLoader classLoader = TermsOfUseService.class.getClassLoader();
+		InputStream iReader = classLoader.getResourceAsStream("resources/TermsAndConditions.txt");
 
 		if (iReader != null) {
 			try (BufferedReader bReader = new BufferedReader(new InputStreamReader(iReader))) {
@@ -47,13 +48,13 @@ public  class  TermsOfUseService{
 		return termsAndConditions;
 	}
 
-	public boolean isAccepted() {
+	public static boolean isAccepted() {
 		String whereClause = MUser_BH.COLUMNNAME_AD_User_ID + "=" + Env.getAD_User_ID(Env.getCtx()) + " AND "
 				+ MUser_BH.COLUMNNAME_BH_HasAcceptedTermsOfUse + "='Y'";
 		return new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).setOnlyActiveRecords(true).match();
 	}
 
-	public void acceptTermsOfUse() {
+	public static  void acceptTermsOfUse() {
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		user.setBH_HasAcceptedTermsOfUse(true);
 		user.save();
