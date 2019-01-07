@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.webui.util;
 
 import org.adempiere.webui.dashboard.DashboardPanel;
-import org.bandahealth.idempiere.webui.TermsOfAgreementService;
+import org.bandahealth.idempiere.webui.TermsOfUseService;
 import org.compiere.util.CLogger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -18,15 +18,15 @@ public class DesktopComposer extends SelectorComposer<DashboardPanel>{
 	@Wire("#bandaDashboard")
 	private DashboardPanel dashboard;
 
-	private TermsOfAgreementService termsOfAgreementService = new TermsOfAgreementService();
+	private TermsOfUseService termsOfUseService = new TermsOfUseService();
 
 	public void doAfterCompose(DashboardPanel dashboardPanel) {
 		try {
 			super.doAfterCompose(dashboardPanel);
-			if (termsOfAgreementService.isAccepted())
+			if (termsOfUseService.isAccepted())
 				return;
-			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfService.zul", null, null);
-			Html termsOfServiceText = new Html(termsOfAgreementService.getTermsAndConditionsContent());
+			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfUse.zul", null, null);
+			Html termsOfServiceText = new Html(termsOfUseService.getTermsOfUseContent());
 			termsOfServiceComponent.getFellow("tosText", true).appendChild(termsOfServiceText);
 			dashboardPanel.appendChild(termsOfServiceComponent);
 		} catch (Exception e) {

@@ -2,7 +2,7 @@ package org.bandahealth.idempiere.webui.util;
 
 import org.adempiere.webui.desktop.IDesktop;
 import org.adempiere.webui.session.SessionManager;
-import org.bandahealth.idempiere.webui.TermsOfAgreementService;
+import org.bandahealth.idempiere.webui.TermsOfUseService;
 import org.compiere.util.CLogger;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -11,7 +11,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Script;
 import org.zkoss.zul.Window;
 
-public class TermsOfServiceComposer extends SelectorComposer<Window> {
+public class TermsOfUseComposer extends SelectorComposer<Window> {
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class TermsOfServiceComposer extends SelectorComposer<Window> {
 	private Window window;
 
 	private CLogger logger = CLogger.getCLogger(this.getClass());
-	private TermsOfAgreementService termsOfAgreementService = new TermsOfAgreementService();
+	private TermsOfUseService termsOfUseService = new TermsOfUseService();
 
 	public void doAfterCompose(Window window) {
 		try {
@@ -34,7 +34,7 @@ public class TermsOfServiceComposer extends SelectorComposer<Window> {
 
 	@Listen("onClick = button#acceptBtn")
 	public void acceptTermsOfService(Event event) {
-		termsOfAgreementService.acceptTermsOfUse();
+		termsOfUseService.acceptTermsOfUse();
 		window.getParent().removeChild(window);
 	}
 
