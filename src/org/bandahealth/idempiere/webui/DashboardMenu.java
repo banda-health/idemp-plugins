@@ -40,6 +40,7 @@ import org.compiere.model.MQuery;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
@@ -70,6 +71,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private Div contentArea = new Div();
 	private List<MOrder> saleOrders;
 	private Integer unclosedSOCount = 0;
+	private static Integer MAX_RESULTS_SIZE = 20;
 
 	private CLogger log = CLogger.getCLogger(DashboardMenu.class);
 
@@ -262,11 +264,13 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		String filterDateFromTxt = sdf.format(filterDateFrom.getTime());
 		String currentDateTxt = sdf.format(new Date());
 
+		
 		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
 				"docstatus = 'DR' AND issotrx = 'Y' AND " + MOrder.COLUMNNAME_DateOrdered + " BETWEEN '"
 						+ filterDateFromTxt + "' AND '" + currentDateTxt + "' AND ad_client_id = "
 						+ Env.getCtx().getProperty("#AD_Client_ID"),
 				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
+		results = results.size() >= MAX_RESULTS_SIZE ? results.subList(0, MAX_RESULTS_SIZE) : results;
 		return results;
 	}
 	
