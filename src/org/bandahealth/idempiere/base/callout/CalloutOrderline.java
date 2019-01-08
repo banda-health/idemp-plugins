@@ -10,7 +10,7 @@ import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.util.Env;
 
-public class UnitPriceCalculator extends CalloutEngine {
+public class CalloutOrderline extends CalloutEngine {
 
 	private String errorMessage = null;
 	private BigDecimal productQuantity, totalLineAmount, unitPrice;
