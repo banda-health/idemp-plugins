@@ -191,7 +191,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private void createIncompleteBillsWidget() {
 
-		saleOrders = getDraftedSOList();
+		saleOrders = getSaleOrdersInDraftState();
 		Listbox ordersInDraftListbox = new Listbox();
 		ordersInDraftListbox.setEmptyMessage("No orders pending)");
 		if (saleOrders != null) {
@@ -248,7 +248,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private boolean updatedListAvailable() {
 		boolean hasBeenUpdated = false;
-		List<MOrder> currentList = getDraftedSOList();
+		List<MOrder> currentList = getSaleOrdersInDraftState();
 		if (currentList.size() != unclosedSOCount) {
 			saleOrders = currentList;
 			hasBeenUpdated = true;
@@ -256,7 +256,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		return hasBeenUpdated;
 	}
 
-	private List<MOrder> getDraftedSOList() {
+	private List<MOrder> getSaleOrdersInDraftState() {
 		Calendar filterDateFrom = Calendar.getInstance();
 		filterDateFrom.set(filterDateFrom.get(Calendar.YEAR), filterDateFrom.get(Calendar.MONTH), 1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
