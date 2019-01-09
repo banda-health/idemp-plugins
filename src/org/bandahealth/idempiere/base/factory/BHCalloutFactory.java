@@ -11,12 +11,10 @@ import org.bandahealth.idempiere.base.callout.InventoryLineExpirationDateRequire
 import org.bandahealth.idempiere.base.callout.InventoryQuantity;
 import org.bandahealth.idempiere.base.callout.OrderLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.callout.ProductTypeCheck;
-import org.bandahealth.idempiere.base.callout.UnitPriceCalculator;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
-import org.compiere.model.MOrderLine;
 import org.compiere.util.CLogger;
 
 public class BHCalloutFactory implements IColumnCalloutFactory {
@@ -39,9 +37,6 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 			}
 			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_M_AttributeSetInstance_ID)) {
 				callouts.add(new InventoryQuantity());
-			}
-			if (columnName.equalsIgnoreCase(MOrderLine_BH.COLUMNNAME_LineNetAmt)) {
-				callouts.add(new UnitPriceCalculator());
 			}
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_M_Product_ID)) {
