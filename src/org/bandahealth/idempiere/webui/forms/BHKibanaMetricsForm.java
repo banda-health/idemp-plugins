@@ -1,28 +1,39 @@
 package org.bandahealth.idempiere.webui.forms;
 
 import org.adempiere.webui.panel.ADForm;
+import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 import org.zkoss.zul.Iframe;
 
 public class BHKibanaMetricsForm extends ADForm {
 
+	private CLogger	log = CLogger.getCLogger (getClass());
+	private static final String BANDA_KIBANA_URL = "BANDA_KIBANA_URL";
 	private static final long serialVersionUID = 1L;
-
-	Iframe metricsIFrame = new Iframe();
-	// TODO Create this url configuration entry in idempiere window and access via
-	// db read
-	private static final String ELK_URL = 
-			"http://192.168.2.210:5601/app/kibana#/dashboard/4d33d880-fded-11e8-8bc1-57bce9fd3311?embed=true height=\"600\" width=\"800\"";
-
-	private CLogger logger = CLogger.getCLogger(getClass());
 
 	@Override
 	protected void initForm() {
+		String url = getKibanaURL();
+		if (url == null) {
+			return;
+		}
+		
+		Iframe metricsIFrame = new Iframe();
 		metricsIFrame.setHflex("true");
 		metricsIFrame.setVflex("true");
-		metricsIFrame.setSrc(ELK_URL);
+		metricsIFrame.setSrc(url);
 		this.appendChild(metricsIFrame);
-		logger.info("Metrics iframe at url: " + metricsIFrame.getSrc());
+		log.info("Metrics iframe at url: " + metricsIFrame.getSrc());
 	}
 
+	private String getKibanaURL() {
+		String url = MSysConfig.getValue(BANDA_KIBANA_URL, "", Env.getAD_Client_ID(Env.getCtx()));
+		if (url == null || url.equalsIgnoreCase("")) {
+			log.severe("KIBANA URL NOT SET. Kindly create a '" + BANDA_KIBANA_URL + "' config with the correct url for this client");
+			return null;
+		}
+		
+		return url;
+	}
 }
