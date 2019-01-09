@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -32,7 +33,6 @@ import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
-import org.bandahealth.idempiere.webui.DPBHDashboardPanel.ModelUpdateThread;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MOrder;
@@ -40,7 +40,6 @@ import org.compiere.model.MQuery;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
@@ -263,13 +262,12 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String filterDateFromTxt = sdf.format(filterDateFrom.getTime());
 		String currentDateTxt = sdf.format(new Date());
-
-		
 		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
 				"docstatus = 'DR' AND issotrx = 'Y' AND " + MOrder.COLUMNNAME_DateOrdered + " BETWEEN '"
 						+ filterDateFromTxt + "' AND '" + currentDateTxt + "' AND ad_client_id = "
 						+ Env.getCtx().getProperty("#AD_Client_ID"),
 				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
+		Collections.reverse(results);
 		results = results.size() >= MAX_RESULTS_SIZE ? results.subList(0, MAX_RESULTS_SIZE) : results;
 		return results;
 	}
