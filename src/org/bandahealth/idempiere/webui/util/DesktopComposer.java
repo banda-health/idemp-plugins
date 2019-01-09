@@ -21,15 +21,15 @@ public class DesktopComposer extends SelectorComposer<DashboardPanel>{
 	public void doAfterCompose(DashboardPanel dashboardPanel) {
 		try {
 			super.doAfterCompose(dashboardPanel);
-			if (TermsOfUseService.isAccepted())
+			if (TermsOfUseService.isAccepted()) {
 				return;
+			}
 			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfUse.zul", null, null);
 			Html termsOfServiceText = new Html(TermsOfUseService.getTermsOfUseContent());
 			termsOfServiceComponent.getFellow("tosText", true).appendChild(termsOfServiceText);
 			dashboardPanel.appendChild(termsOfServiceComponent);
 		} catch (Exception e) {
-			logger.severe("Error in DesktopComposer: " + e.getMessage());
-			e.printStackTrace();
+			CLogger.get().severe(e.getMessage());;
 		}
 	}
 }

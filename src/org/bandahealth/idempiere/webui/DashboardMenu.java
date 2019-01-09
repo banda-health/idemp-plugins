@@ -63,7 +63,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private List<MOrder> saleOrders;
 	private Integer unclosedSOCount = 0;
 
-	private CLogger log = CLogger.getCLogger(DashboardMenu.class);
 
 	public DashboardMenu() {
 		super();
@@ -71,7 +70,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		try {
 			new DesktopComposer().doAfterCompose(this);
 		} catch (Exception e) {
-			e.printStackTrace();
+			CLogger.get().severe("BH Error: " + e.toString());
 		}
 		initLayout();
 		assembleComponents();

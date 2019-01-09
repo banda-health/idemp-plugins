@@ -21,13 +21,12 @@ public class TermsOfUseComposer extends SelectorComposer<Window> {
 	@Wire("#tosWindow")
 	private Window window;
 
-	private CLogger logger = CLogger.getCLogger(this.getClass());
 
 	public void doAfterCompose(Window window) {
 		try {
 			super.doAfterCompose(window);
-			logger.info("doAfterCompose on " + String.valueOf(window.getId()) + "-> " + getClass().getName());
 		} catch (Exception e) {
+			CLogger.get().severe(e.getMessage());
 		}
 	}
 
