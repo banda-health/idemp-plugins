@@ -31,7 +31,7 @@ public class X_BH_HmScrn_ButtonGroupLine extends PO implements I_BH_HmScrn_Butto
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180427L;
+	private static final long serialVersionUID = 20181212L;
 
     /** Standard Constructor */
     public X_BH_HmScrn_ButtonGroupLine (Properties ctx, int BH_HmScrn_ButtonGroupLine_ID, String trxName)
@@ -72,6 +72,34 @@ public class X_BH_HmScrn_ButtonGroupLine extends PO implements I_BH_HmScrn_Butto
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	public org.compiere.model.I_AD_Form getAD_Form() throws RuntimeException
+    {
+		return (org.compiere.model.I_AD_Form)MTable.get(getCtx(), org.compiere.model.I_AD_Form.Table_Name)
+			.getPO(getAD_Form_ID(), get_TrxName());	}
+
+	/** Set Special Form.
+		@param AD_Form_ID 
+		Special Form
+	  */
+	public void setAD_Form_ID (int AD_Form_ID)
+	{
+		if (AD_Form_ID < 1) 
+			set_Value (COLUMNNAME_AD_Form_ID, null);
+		else 
+			set_Value (COLUMNNAME_AD_Form_ID, Integer.valueOf(AD_Form_ID));
+	}
+
+	/** Get Special Form.
+		@return Special Form
+	  */
+	public int getAD_Form_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Form_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
 
 	public org.compiere.model.I_AD_InfoWindow getAD_InfoWindow() throws RuntimeException
     {
