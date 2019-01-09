@@ -24,8 +24,6 @@ import org.zkoss.zul.Script;
 
 public  class  TermsOfUseService{
 
-	private static CLogger log = CLogger.getCLogger(TermsOfUseService.class);
-
 	public static String getTermsOfUseContent() {
 		String termsAndConditions = null;
 		ClassLoader classLoader = TermsOfUseService.class.getClassLoader();
@@ -42,7 +40,7 @@ public  class  TermsOfUseService{
 				}
 				termsAndConditions = sBuilder.toString();
 			} catch (IOException ex) {
-				log.log(Level.SEVERE, ex.getMessage());
+				CLogger.get().log(Level.SEVERE, ex.getMessage());
 			}
 		}
 		return termsAndConditions;
