@@ -131,7 +131,6 @@ define(
                             document
                             .querySelector('.desktop-tabbox.z-tabbox.z-tabbox-top >.z-tabpanels'),
                             function handleDomUpdate() {
-                                console.log('observer detected change!');
                                 // Don't do any of this if we're
                                 // the system user
                                 let bodyTag = document.body;
@@ -225,8 +224,7 @@ define(
             }
 
             function areCreatingOrEditingAnEntity() {
-                let entityCancelButton = document
-                    .querySelector('.adwindow-toolbar a:nth-child(1)');
+                let entityCancelButton = getElementInCurrentWindow('.adwindow-toolbar.z-toolbar a:nth-child(1)');
                 return util.elementIsVisible(entityCancelButton);
             }
 
@@ -655,11 +653,10 @@ define(
         }
 
         function navigateToDetailEditIfUserOnGridView() {
-            let editTableCell = document
-                .querySelector('.adwindow-layout div:nth-child(2) .adtab-content:first-child .adtab-grid tr .row-indicator-selected');
+            
+            let editTableCell = getElementInCurrentWindow('.adwindow-layout div:nth-child(2) .adtab-content:first-child .adtab-grid tr .row-indicator-selected') ;
             if (util.elementIsVisible(editTableCell)) {
-                let gridToggle = document
-                    .querySelector('.adwindow-toolbar a:nth-child(15)');
+                let gridToggle = getElementInCurrentWindow('.adwindow-toolbar a:nth-child(15)');
                 if (gridToggle) {
                     gridToggle.click();
                 }
@@ -787,4 +784,17 @@ define(
                 }
             }
         }
+        
+        /*Get the specified element in currently active/open window DOM*/
+        function getElementInCurrentWindow(){
+            let activeElement = null;
+            if(!arguments){
+                return;
+            }else{
+                let listOftargetElements = document.querySelectorAll(arguments[0]); 
+                activeElement = listOftargetElements.item(listOftargetElements.length - 1);
+            }
+            return activeElement;
+        }
+        
     });
