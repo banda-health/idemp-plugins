@@ -62,6 +62,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private Div contentArea = new Div();
 	private List<MOrder> saleOrders;
 	private Integer unclosedSOCount = 0;
+	private static Integer MAX_RESULTS_SIZE = 20;
 
 
 	public DashboardMenu() {
@@ -182,7 +183,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private void createIncompleteBillsWidget() {
 
-		saleOrders = getDraftedSOList();
+		saleOrders = getSaleOrdersInDraftState();
 		Listbox ordersInDraftListbox = new Listbox();
 		ordersInDraftListbox.setEmptyMessage("No orders pending)");
 		if (saleOrders != null) {
@@ -239,7 +240,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private boolean updatedListAvailable() {
 		boolean hasBeenUpdated = false;
-		List<MOrder> currentList = getDraftedSOList();
+		List<MOrder> currentList = getSaleOrdersInDraftState();
 		if (currentList.size() != unclosedSOCount) {
 			saleOrders = currentList;
 			hasBeenUpdated = true;
@@ -247,18 +248,18 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		return hasBeenUpdated;
 	}
 
-	private List<MOrder> getDraftedSOList() {
+	private List<MOrder> getSaleOrdersInDraftState() {
 		Calendar filterDateFrom = Calendar.getInstance();
 		filterDateFrom.set(filterDateFrom.get(Calendar.YEAR), filterDateFrom.get(Calendar.MONTH), 1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String filterDateFromTxt = sdf.format(filterDateFrom.getTime());
 		String currentDateTxt = sdf.format(new Date());
-
 		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
 				"docstatus = 'DR' AND issotrx = 'Y' AND " + MOrder.COLUMNNAME_DateOrdered + " BETWEEN '"
 						+ filterDateFromTxt + "' AND '" + currentDateTxt + "' AND ad_client_id = "
 						+ Env.getCtx().getProperty("#AD_Client_ID"),
-				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
+				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered + " DESC")
+						.setPageSize(MAX_RESULTS_SIZE).list();
 		return results;
 	}
 
