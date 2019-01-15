@@ -12,6 +12,7 @@ import org.zkoss.zul.Div;
 public class UIUtil {
 
 	public static String INFO_WINDOW_ATTRIBUTE = "data-infowindow";
+	public static String SPECIAL_FORM_ATTRIBUTE = "special-form";
 	public static String REPORT_OR_PROCESS_ATTRIBUTE = "data-process";
 	public static String TERMS_OF_USE_ATTRIBUTE = "data-terms-of-use";
 
@@ -19,38 +20,12 @@ public class UIUtil {
 
 		Div buttonDiv = new Div();
 		Grid buttonGrid = createButton(button);
-
-		int windowOrInfoWindowId = button.getAD_Window_ID();
-
-		boolean isInfoWindow = false;
-		if (windowOrInfoWindowId == 0) {
-			windowOrInfoWindowId = button.getAD_InfoWindow_ID();
-			isInfoWindow = true;
-		}
-		boolean isReportOrProcess = false;
-		if (windowOrInfoWindowId == 0) {
-			windowOrInfoWindowId = button.getAD_Process_ID();
-			isReportOrProcess = true;
-		}
-
-		buttonDiv.setId(Integer.toString(windowOrInfoWindowId));
-		buttonDiv.setAttribute(INFO_WINDOW_ATTRIBUTE, isInfoWindow);
-		buttonDiv.setAttribute(REPORT_OR_PROCESS_ATTRIBUTE, isReportOrProcess);
-		buttonDiv.setTooltiptext(button.getButtonHelpText());
-		buttonDiv.setClass(button.getButtonClassName());
-
-//		Div icon = new Div();
-//		icon.setClass(button.getIconClassName() + " i");
-//		buttonDiv.appendChild(icon);
-//
-//		Label label = new Label(button.getButtonText());
 		buttonDiv.appendChild(buttonGrid);
-
 		return buttonDiv;
 	}
-	
+
 	public static Grid createButton(MHomeScreenButton button) {
-		
+
 		int windowOrInfoWindowId = button.getAD_Window_ID();
 
 		boolean isInfoWindow = false;
@@ -63,8 +38,13 @@ public class UIUtil {
 			windowOrInfoWindowId = button.getAD_Process_ID();
 			isReportOrProcess = true;
 		}
+		boolean isSpecialForm = false;
+		if (windowOrInfoWindowId == 0) {
+			windowOrInfoWindowId = button.getAD_Form_ID();
+			isSpecialForm = true;
+		}
 
-		Grid buttonGrid  = new Grid();
+		Grid buttonGrid = new Grid();
 		buttonGrid.setStyle("margin:0px; padding:0px; cursor: pointer;");
 		Rows rowsContainer = new Rows();
 		Columns columnsContainer = new Columns();
@@ -72,7 +52,7 @@ public class UIUtil {
 		Column[] columns = new Column[2];
 		for (int i = 0; i < columns.length; i++) {
 			columns[i] = new Column();
-			
+
 			columns[i].setWidth((i == 0 ? "45px" : "200px"));
 			columns[i].setParent(columnsContainer);
 		}
@@ -82,18 +62,19 @@ public class UIUtil {
 		icon.setStyle("padding:3px; font-size:20px; text-align:center; vertical-align:middle;");
 		Label label = new Label(button.getButtonText());
 		label.setStyle("text-align:left;  vertical-align:middle; padding-left:5px;");
-		
+
 		itemRow.appendCellChild(icon);
 		itemRow.appendCellChild(label);
 		buttonGrid.appendChild(columnsContainer);
 		buttonGrid.appendChild(rowsContainer);
-		
+
 		buttonGrid.setId(Integer.toString(windowOrInfoWindowId));
 		buttonGrid.setAttribute(INFO_WINDOW_ATTRIBUTE, isInfoWindow);
 		buttonGrid.setAttribute(REPORT_OR_PROCESS_ATTRIBUTE, isReportOrProcess);
+		buttonGrid.setAttribute(SPECIAL_FORM_ATTRIBUTE, isSpecialForm);
 		buttonGrid.setTooltiptext(button.getButtonHelpText());
 		return buttonGrid;
-		
+
 	}
 
 }

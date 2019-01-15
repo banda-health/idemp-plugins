@@ -1,16 +1,11 @@
 package org.bandahealth.idempiere.webui;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.adempiere.util.Callback;
@@ -18,7 +13,6 @@ import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.component.Column;
 import org.adempiere.webui.component.Columns;
 import org.adempiere.webui.component.Grid;
-import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.Row;
 import org.adempiere.webui.component.Rows;
 import org.adempiere.webui.component.Tab;
@@ -32,6 +26,7 @@ import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
+import org.bandahealth.idempiere.webui.util.DesktopComposer;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MOrder;
@@ -40,7 +35,6 @@ import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.zkoss.zhtml.Text;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.DesktopUnavailableException;
@@ -50,7 +44,6 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Hlayout;
-import org.zkoss.zul.Html;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
@@ -71,10 +64,15 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private Integer unclosedSOCount = 0;
 	private static Integer MAX_RESULTS_SIZE = 20;
 
-	private CLogger log = CLogger.getCLogger(DashboardMenu.class);
 
 	public DashboardMenu() {
 		super();
+		this.setId("bandaDashboard");
+		try {
+			new DesktopComposer().doAfterCompose(this);
+		} catch (Exception e) {
+			CLogger.get().severe("BH Error: " + e.toString());
+		}
 		initLayout();
 		assembleComponents();
 	}
@@ -87,11 +85,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		tabs = new Tabs();
 		tabpanels = new Tabpanels();
 		widgetArea.setSclass("bh-so-list-window");
-
 		appendRoleScript();
-		if (!hasAcceptedTermsOfUse()) {
-			createTOSPrivacyPolicyPanel();	
-		}
 	}
 
 	private void assembleComponents() {
@@ -152,7 +146,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 				Grid btnGrid = UIUtil.createButton(button);
 				row.appendCellChild(btnGrid);
 				row.setParent(rows);
-//			divButton.addEventListener(Events.ON_CLICK, this);
 				btnGrid.addEventListener(Events.ON_CLICK, this);
 			}
 			Tabpanel panel = new Tabpanel();
@@ -269,103 +262,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 						.setPageSize(MAX_RESULTS_SIZE).list();
 		return results;
 	}
-	
-	private void createTOSPrivacyPolicyPanel() {
-		// heading section
-		Div groupSeparator = new Div();
-		groupSeparator.setClass("bh-button-group-header");
-		groupSeparator.appendChild(new Text("Terms Of Service - Banda Health Solutions"));
-
-		contentArea.appendChild(groupSeparator);
-
-		Div groupContainer = new Div();
-		groupContainer.setClass("bh-button-group-content");
-
-		// content section
-		Div contentSection = new Div();
-		contentSection.appendChild(new Html(getTermsAndConditionsContent()));
-
-		groupContainer.appendChild(contentSection);
-
-		// button section
-		Div buttonsSection = new Div();
-		buttonsSection.setClass("bh-tab-nav-buttons z-div");
-
-		Div acceptButton = new Div();
-		acceptButton.setClass("btn btn-confirm z-div");
-		acceptButton.setStyle("width:120px");
-
-		Div icon = new Div();
-		icon.setClass("fas fa-chevron-right i");
-		acceptButton.appendChild(icon);
-
-		Label label = new Label(" Accept ");
-		label.setStyle("color: white");
-		acceptButton.appendChild(label);
-		acceptButton.setAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE, true);
-		acceptButton.setAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE, false);
-		acceptButton.setAttribute(UIUtil.REPORT_OR_PROCESS_ATTRIBUTE, false);
-		acceptButton.addEventListener(Events.ON_CLICK, this);
-		buttonsSection.appendChild(acceptButton);
-
-		Div rejectButton = new Div();
-		rejectButton.setClass("img-btn z-button");
-		rejectButton.setStyle("width:120px");
-
-		Div cancelIcon = new Div();
-		cancelIcon.setClass("fas fa-ban i");
-		rejectButton.appendChild(cancelIcon);
-
-		Label rejectLabel = new Label(" Reject ");
-		rejectButton.appendChild(rejectLabel);
-		rejectButton.setAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE, false);
-		rejectButton.setAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE, false);
-		rejectButton.setAttribute(UIUtil.REPORT_OR_PROCESS_ATTRIBUTE, false);
-		rejectButton.addEventListener(Events.ON_CLICK, this);
-		buttonsSection.appendChild(rejectButton);
-
-		groupContainer.appendChild(buttonsSection);
-
-		contentArea.appendChild(groupContainer);
-	}
-
-	private boolean hasAcceptedTermsOfUse() {
-		String whereClause = MUser_BH.COLUMNNAME_AD_User_ID + "=" + Env.getAD_User_ID(Env.getCtx()) + 
-				" AND " + MUser_BH.COLUMNNAME_BH_HasAcceptedTermsOfUse + "='Y'";
-		return new Query(Env.getCtx(),MUser_BH.Table_Name, whereClause, null)
-					.setOnlyActiveRecords(true)
-					.match();
-	}
-	
-	private void acceptTermsOfUse() {
-		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
-		user.setBH_HasAcceptedTermsOfUse(true);
-		user.save();
-
-		layout.appendChild(
-				new Script("window.location.reload();"));
-	}
-	
-	private String getTermsAndConditionsContent(){ 
-		String termsAndConditions = null;
-		InputStream iReader = this.getClass().getClassLoader().getResourceAsStream("resources/TermsAndConditions.txt");
-		
-		if (iReader != null) {
-			try (BufferedReader bReader = new BufferedReader(new InputStreamReader(iReader))) {
-				StringBuilder sBuilder = new StringBuilder();
-				String line = bReader.readLine();
-				while (line != null) {
-					sBuilder.append(line);
-					sBuilder.append("<br />");
-					line = bReader.readLine();
-				}
-				termsAndConditions = sBuilder.toString();
-			} catch (IOException ex) {
-				log.log(Level.SEVERE, ex.getMessage());
-			}
-		}
-		return termsAndConditions;
-	}
 
 	@Override
 	public void onEvent(Event event) throws Exception {
@@ -376,12 +272,18 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 				Grid button = (Grid) component;
 				Boolean termsOfUse = (Boolean) button.getAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE);
 				if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
-					int processId = Integer.parseInt(button.getId());
-					SessionManager.getAppDesktop().openProcessDialog(processId, false);
+//					int processId = Integer.parseInt(button.getId());
+//					SessionManager.getAppDesktop().openProcessDialog(processId, false);
+					int infoWindowId = Integer.parseInt(button.getId());
+					SessionManager.getAppDesktop().openForm(infoWindowId);
 				} else if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openInfo(infoWindowId);
-				} else if (termsOfUse != null && termsOfUse == true) {
+				} else if ((Boolean) button.getAttribute(UIUtil.SPECIAL_FORM_ATTRIBUTE)) {
+					int infoWindowId = Integer.parseInt(button.getId());
+					SessionManager.getAppDesktop().openForm(infoWindowId);
+				}
+				else if (termsOfUse != null && termsOfUse == true) {
 //						acceptTermsOfUse();
 				} else if (termsOfUse != null && termsOfUse == false) {
 					SessionManager.getAppDesktop().logout();
