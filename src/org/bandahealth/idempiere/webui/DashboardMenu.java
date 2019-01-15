@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -266,9 +265,8 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 				"docstatus = 'DR' AND issotrx = 'Y' AND " + MOrder.COLUMNNAME_DateOrdered + " BETWEEN '"
 						+ filterDateFromTxt + "' AND '" + currentDateTxt + "' AND ad_client_id = "
 						+ Env.getCtx().getProperty("#AD_Client_ID"),
-				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered).list();
-		Collections.reverse(results);
-		results = results.size() >= MAX_RESULTS_SIZE ? results.subList(0, MAX_RESULTS_SIZE) : results;
+				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered + " DESC")
+						.setPageSize(MAX_RESULTS_SIZE).list();
 		return results;
 	}
 	
