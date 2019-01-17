@@ -776,8 +776,12 @@ define(
         }
 
         function openInitialWindow() {
-            let menuItem = document.querySelector('[title="Enter patients into the system"]');
-            if (menuItem !== null) {
+        	var menuItem = document.querySelector('[title="Metrics"]');
+        	if (menuItem === null) {
+        		menuItem = document.querySelector('[title="Enter patients into the system"]');
+        	}
+
+        	if (menuItem !== null) {
                 var button = menuItem.querySelector('div:nth-child(3) > table > tbody > tr');
                 if (button !== null) {
                     button.click();
