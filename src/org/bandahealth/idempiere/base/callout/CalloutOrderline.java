@@ -31,8 +31,9 @@ public class CalloutOrderline extends CalloutEngine {
 			} else if (mField.getColumnName().equals(MOrderLine_BH.COLUMNNAME_QtyEntered)){
 				productQuantity = (BigDecimal) mField.getValue();
 				
-				unitPrice = (BigDecimal)mTab.getField(MOrderLine_BH.COLUMNNAME_PriceActual).getValue();
-				//totalLineAmount = (BigDecimal) mTab.getField(MOrderLine_BH.COLUMNNAME_LineNetAmt).getValue();
+				//unitPrice = (BigDecimal)mTab.getField(MOrderLine_BH.COLUMNNAME_PriceActual).getValue();
+				
+				totalLineAmount = (BigDecimal) mTab.getField(MOrderLine_BH.COLUMNNAME_LineNetAmt).getValue();
 			} else {
 				totalLineAmount = (BigDecimal) mField.getValue();
 				
