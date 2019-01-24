@@ -19,7 +19,7 @@ public class CalloutOrderline extends CalloutEngine {
 		// don't touch SO line items.
 		String isSoTrx = Env.getContext(ctx, WindowNo, 0, "IsSOTrx");
 		if (isSoTrx != null && isSoTrx.equalsIgnoreCase("Y")) {
-			return errorMessage;
+			//return errorMessage;
 		}
 		
 		if (value != null) {
