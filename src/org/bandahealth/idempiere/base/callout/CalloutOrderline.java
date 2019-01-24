@@ -18,9 +18,6 @@ public class CalloutOrderline extends CalloutEngine {
 	public String validate(Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue) {
 		// don't touch SO line items.
 		String isSoTrx = Env.getContext(ctx, WindowNo, 0, "IsSOTrx");
-		if (isSoTrx != null && isSoTrx.equalsIgnoreCase("Y")) {
-			//return errorMessage;
-		}
 		
 		if (value != null) {
 			if (mField.getColumnName().equals(MOrderLine_BH.COLUMNNAME_PriceEntered)){
@@ -31,9 +28,12 @@ public class CalloutOrderline extends CalloutEngine {
 			} else if (mField.getColumnName().equals(MOrderLine_BH.COLUMNNAME_QtyEntered)){
 				productQuantity = (BigDecimal) mField.getValue();
 				
-				//unitPrice = (BigDecimal)mTab.getField(MOrderLine_BH.COLUMNNAME_PriceActual).getValue();
+				if (isSoTrx != null && isSoTrx.equalsIgnoreCase("Y")) {
+					unitPrice = (BigDecimal)mTab.getField(MOrderLine_BH.COLUMNNAME_PriceActual).getValue();
+				} else {
+					totalLineAmount = (BigDecimal) mTab.getField(MOrderLine_BH.COLUMNNAME_LineNetAmt).getValue();	
+				}
 				
-				totalLineAmount = (BigDecimal) mTab.getField(MOrderLine_BH.COLUMNNAME_LineNetAmt).getValue();
 			} else {
 				totalLineAmount = (BigDecimal) mField.getValue();
 				
