@@ -18,6 +18,7 @@
   invoice.c_order_id as bill_id,
   case when payment.tendertype = 'M' then 'MPESA'
        when payment.tendertype = 'X' then 'CASH'
+       when payment.tendertype = 'L' then 'LOCAL FUND'
        end as name,
   sum(payment.payamt) as amount_tendered
 from
