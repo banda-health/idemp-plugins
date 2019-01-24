@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt" language="groovy" pageWidth="216" pageHeight="297" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b0650e21-f6cf-4aad-acec-9e81aea4c41f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt" language="groovy" pageWidth="162" pageHeight="177" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b0650e21-f6cf-4aad-acec-9e81aea4c41f">
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="252"/>
@@ -8,6 +8,15 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="573"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="417"/>
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="mm"/>
 	<style name="style1" fontName="Courier New" fontSize="12"/>
 	<parameter name="billId" class="java.math.BigDecimal"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -102,125 +111,128 @@ where sorder.c_order_id =  $P{billId}
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="190" splitType="Stretch">
+		<band height="177" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement style="style1" x="69" y="117" width="141" height="17" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
+				<reportElement key="" style="style1" x="70" y="113" width="91" height="17" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receipt_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="69" y="100" width="141" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" x="52" y="96" width="109" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format($F{bill_date})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="69" y="151" width="141" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" x="52" y="147" width="109" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="77" width="216" height="17" uuid="c583cfb7-4b4a-4320-a203-d61ae2e3311f"/>
+				<reportElement key="" x="0" y="77" width="161" height="17" uuid="c583cfb7-4b4a-4320-a203-d61ae2e3311f"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Receipt]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="117" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<reportElement key="" x="2" y="113" width="59" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Receipt #:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="100" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<reportElement key="" x="2" y="96" width="50" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Billed On:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="134" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<reportElement key="" x="2" y="130" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Served By:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="72" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+				<reportElement x="0" y="72" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
 			</line>
 			<line>
-				<reportElement x="0" y="94" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+				<reportElement key="" x="0" y="94" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
 			</line>
 			<line>
-				<reportElement x="0" y="184" width="216" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+				<reportElement key="" x="0" y="176" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="13" y="151" width="56" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<reportElement key="" x="2" y="147" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Patient:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="69" y="134" width="141" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" x="61" y="130" width="99" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="13" y="167" width="56" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
+				<reportElement key="" x="2" y="160" width="50" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[File No:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="style1" x="70" y="167" width="141" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
+				<reportElement key="" style="style1" x="52" y="160" width="109" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="2" width="216" height="13" uuid="1c6d712b-5f9a-4daf-8590-0729204a1001"/>
+				<reportElement key="" x="0" y="2" width="161" height="13" uuid="1c6d712b-5f9a-4daf-8590-0729204a1001"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[UPPER($F{org_name})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="16" width="216" height="13" uuid="e1eeb8f1-5c68-4f86-9ed6-b20feae87168"/>
+				<reportElement key="" x="0" y="16" width="161" height="13" uuid="e1eeb8f1-5c68-4f86-9ed6-b20feae87168"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="29" width="216" height="13" uuid="36ae98e3-e587-4449-9dbd-e0eddbef95f1"/>
+				<reportElement key="" x="0" y="29" width="161" height="13" uuid="36ae98e3-e587-4449-9dbd-e0eddbef95f1"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="43" width="216" height="13" uuid="3c65c83c-c322-4606-a476-fb049baafd1f"/>
+				<reportElement key="" x="0" y="43" width="161" height="13" uuid="3c65c83c-c322-4606-a476-fb049baafd1f"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="57" width="216" height="13" uuid="8b965e4c-bc68-47a4-8ec8-fed95f52145f"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
+				<reportElement key="" x="0" y="57" width="161" height="13" uuid="8b965e4c-bc68-47a4-8ec8-fed95f52145f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
@@ -229,7 +241,7 @@ where sorder.c_order_id =  $P{billId}
 	<detail>
 		<band height="31" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="5" width="216" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
+				<reportElement key="" x="0" y="5" width="161" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
 				<subreportParameter name="billId">
 					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -240,7 +252,7 @@ where sorder.c_order_id =  $P{billId}
 		</band>
 		<band height="25">
 			<subreport>
-				<reportElement x="0" y="0" width="216" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
+				<reportElement key="" x="0" y="0" width="161" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
 				<subreportParameter name="totalCost">
 					<subreportParameterExpression><![CDATA[$V{totalCost}]]></subreportParameterExpression>
 				</subreportParameter>
