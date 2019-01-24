@@ -31,7 +31,9 @@ public class ProductTypeCheck implements IColumnCallout {
 
 			if (product != null) {
 
-				if (product.getProductType().equals("E")) {
+				String isSoTrx = Env.getContext(ctx, WindowNo, 0, "IsSOTrx");
+				if (product.getProductType().equals("E") || 
+						(isSoTrx != null && isSoTrx.equalsIgnoreCase("Y") && product.getProductType().equals("S"))) {
 					mTab.fireDataStatusEEvent(
 							MMessage.get(ctx, 240).getMsgText(), "Cannot add "
 									+ (product.getProductType().equals("S") ? "service" : "expense") + " to inventory",
