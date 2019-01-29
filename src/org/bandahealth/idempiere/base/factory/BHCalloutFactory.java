@@ -6,6 +6,7 @@ import java.util.List;
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.bandahealth.idempiere.base.callout.BusinessPartnerAge;
+import org.bandahealth.idempiere.base.callout.CalloutPaymentNHIF;
 import org.bandahealth.idempiere.base.callout.HomeScreenButtonSingleNavigationEnforcer;
 import org.bandahealth.idempiere.base.callout.InventoryLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.callout.InventoryQuantity;
@@ -15,6 +16,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.compiere.util.CLogger;
 
 public class BHCalloutFactory implements IColumnCalloutFactory {
@@ -47,6 +49,10 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 					|| columnName.equalsIgnoreCase(MHomeScreenButton.COLUMNNAME_AD_InfoWindow_ID)
 					|| columnName.equalsIgnoreCase(MHomeScreenButton.COLUMNNAME_AD_Process_ID)) {
 				callouts.add(new HomeScreenButtonSingleNavigationEnforcer());
+			}
+		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
+			if (columnName.equalsIgnoreCase(MPayment_BH.COLUMNNAME_TenderType)) {
+				callouts.add(new CalloutPaymentNHIF());
 			}
 		}
 		

@@ -7,6 +7,7 @@ import org.compiere.model.MPayment;
 
 public class MPayment_BH extends MPayment {
 
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Column name BH_C_Order_ID
 	 */
@@ -15,6 +16,14 @@ public class MPayment_BH extends MPayment {
 	 * Column name BH_MPesaPhnTrx_Num
 	 */
 	public static final String COLUMNNAME_BH_MPesaPhnTrx_Num = "BH_MPesaPhnTrx_Num";
+	
+	public static final String COLUMNNAME_BH_NHIF_RELATIONSHIP = "BH_NHIF_RELATIONSHIP";
+	
+	public static final String COLUMNNAME_BH_NHIF_MEMBER_NAME = "BH_NHIF_MEMBER_NAME";
+	
+	public static final String COLUMNNAME_NHIF_NUMBER = "NHIF_NUMBER";
+	
+	public static final String COLUMNNAME_BH_NHIF_MEMBER_ID = "BH_NHIF_MEMBER_ID";
 
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
 		super(ctx, C_Payment_ID, trxName);

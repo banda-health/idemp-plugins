@@ -11,6 +11,7 @@ import org.compiere.model.X_I_BPartner;
 
 public class MBPartner_BH extends MBPartner {
 
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Column name BH_ApproximateYears
 	 */
@@ -39,6 +40,14 @@ public class MBPartner_BH extends MBPartner {
 	 * Column name BH_PatientID
 	 */
 	public static final String COLUMNNAME_BH_PatientID = "BH_PatientID";
+	
+	public static final String COLUMNNAME_BH_NHIF_RELATIONSHIP = "BH_NHIF_RELATIONSHIP";
+	
+	public static final String COLUMNNAME_BH_NHIF_MEMBER_NAME = "BH_NHIF_MEMBER_NAME";
+	
+	public static final String COLUMNNAME_NHIF_NUMBER = "NHIF_NUMBER";
+	
+	public static final String COLUMNNAME_BH_NATIONAL_ID = "NATIONAL_ID";
 
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
@@ -224,5 +233,37 @@ public class MBPartner_BH extends MBPartner {
 	 */
 	public void setBH_PatientID(String BH_PatientID) {
 		set_Value(COLUMNNAME_BH_PatientID, BH_PatientID);
+	}
+	
+	public String getBH_NHIFRelationship() {
+		return (String) get_Value(COLUMNNAME_BH_NHIF_RELATIONSHIP);
+	}
+	
+	public void setBH_NHIFRelationship(String value) {
+		set_Value(COLUMNNAME_BH_NHIF_RELATIONSHIP, value);
+	}
+	
+	public String getBH_NHIFMemberName() {
+		return (String) get_Value(COLUMNNAME_BH_NHIF_MEMBER_NAME);
+	}
+	
+	public void setBH_NHIFMemberName(String value) {
+		set_Value(COLUMNNAME_BH_NHIF_MEMBER_NAME, value);
+	}
+	
+	public String getBH_NHIFNumber() {
+		return (String) get_Value(COLUMNNAME_NHIF_NUMBER);
+	}
+	
+	public void setBH_NHIFNumber(String value) {
+		set_Value(COLUMNNAME_NHIF_NUMBER, value);
+	}
+	
+	public String getBH_NationalID() {
+		return (String) get_Value(COLUMNNAME_BH_NATIONAL_ID);
+	}
+	
+	public void setBH_NationalID(String value) {
+		set_Value(COLUMNNAME_BH_NATIONAL_ID, value);
 	}
 }
