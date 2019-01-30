@@ -297,7 +297,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 			Integer selectedDocNumber = Integer.parseInt(selected.getValue().toString());
 
 			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name,
-					MWindow.COLUMNNAME_Name + " LIKE '%BH Sale%'", null).setOnlyActiveRecords(true).first();
+					MWindow.COLUMNNAME_Name + " LIKE '%Patient Bill%'", null).setOnlyActiveRecords(true).first();
 			int windowId = bhSOWindow.getAD_Window_ID();
 
 			MQuery query = new MQuery(MOrder.Table_Name);
