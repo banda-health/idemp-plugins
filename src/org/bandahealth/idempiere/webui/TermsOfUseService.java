@@ -4,23 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 
-import org.adempiere.webui.component.Label;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.zkoss.zhtml.Text;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zul.Div;
-import org.zkoss.zul.Html;
-import org.zkoss.zul.Script;
 
 public  class  TermsOfUseService{
 
@@ -55,6 +45,7 @@ public  class  TermsOfUseService{
 	public static  void acceptTermsOfUse() {
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		user.setBH_HasAcceptedTermsOfUse(true);
+		user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
 		user.save();
 		
 	}
