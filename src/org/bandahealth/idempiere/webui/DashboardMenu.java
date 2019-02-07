@@ -248,14 +248,16 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	}
 
 	private List<MOrder> getSaleOrdersInDraftState() {
-		Calendar filterDateFrom = Calendar.getInstance();
-		filterDateFrom.set(filterDateFrom.get(Calendar.YEAR), filterDateFrom.get(Calendar.MONTH), 1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filterDateFromTxt = sdf.format(filterDateFrom.getTime());
-		String currentDateTxt = sdf.format(new Date());
+		/*
+		 * Calendar filterDateFrom = Calendar.getInstance();
+		 * filterDateFrom.set(filterDateFrom.get(Calendar.YEAR),
+		 * filterDateFrom.get(Calendar.MONTH), 1); SimpleDateFormat sdf = new
+		 * SimpleDateFormat("yyyy-MM-dd"); String filterDateFromTxt =
+		 * sdf.format(filterDateFrom.getTime()); String currentDateTxt = sdf.format(new
+		 * Date());
+		 */
 		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
-				"docstatus = 'DR' AND issotrx = 'Y' AND " + MOrder.COLUMNNAME_DateOrdered + " BETWEEN '"
-						+ filterDateFromTxt + "' AND '" + currentDateTxt + "' AND ad_client_id = "
+				"docstatus = 'DR' AND issotrx = 'Y' AND  ad_client_id = "
 						+ Env.getCtx().getProperty("#AD_Client_ID"),
 				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered + " DESC")
 						.setPageSize(MAX_RESULTS_SIZE).list();
@@ -275,7 +277,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					try {
 						SessionManager.getAppDesktop().openForm(processId);
 					} catch (Exception ex) {
-						SessionManager.getAppDesktop().openProcessDialog(processId, false);	
+						SessionManager.getAppDesktop().openProcessDialog(processId, false);
 					}
 				} else if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
