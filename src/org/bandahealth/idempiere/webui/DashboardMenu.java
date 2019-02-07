@@ -64,7 +64,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private Integer unclosedSOCount = 0;
 	private static Integer MAX_RESULTS_SIZE = 20;
 
-
 	public DashboardMenu() {
 		super();
 		this.setId("bandaDashboard");
@@ -271,20 +270,21 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 			if (component instanceof Grid) {
 				Grid button = (Grid) component;
 				Boolean termsOfUse = (Boolean) button.getAttribute(UIUtil.TERMS_OF_USE_ATTRIBUTE);
-				if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
-//					int processId = Integer.parseInt(button.getId());
-//					SessionManager.getAppDesktop().openProcessDialog(processId, false);
-					int infoWindowId = Integer.parseInt(button.getId());
-					SessionManager.getAppDesktop().openForm(infoWindowId);
+				if ((Boolean) button.getAttribute(UIUtil.REPORT_OR_PROCESS_ATTRIBUTE)) {
+					int processId = Integer.parseInt(button.getId());
+					try {
+						SessionManager.getAppDesktop().openForm(processId);
+					} catch (Exception ex) {
+						SessionManager.getAppDesktop().openProcessDialog(processId, false);	
+					}
 				} else if ((Boolean) button.getAttribute(UIUtil.INFO_WINDOW_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openInfo(infoWindowId);
 				} else if ((Boolean) button.getAttribute(UIUtil.SPECIAL_FORM_ATTRIBUTE)) {
 					int infoWindowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openForm(infoWindowId);
-				}
-				else if (termsOfUse != null && termsOfUse == true) {
-//						acceptTermsOfUse();
+				} else if (termsOfUse != null && termsOfUse == true) {
+					// acceptTermsOfUse();
 				} else if (termsOfUse != null && termsOfUse == false) {
 					SessionManager.getAppDesktop().logout();
 				} else {
@@ -310,8 +310,9 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					if (result == null)
 						return;
 					result.getADWindowContent().onZoomAcross();
-//					ADTabpanel panel = (ADTabpanel)result.getADWindowContent().getADTab().getSelectedTabpanel();
-//					panel.focusToFirstEditor();		
+					// ADTabpanel panel =
+					// (ADTabpanel)result.getADWindowContent().getADTab().getSelectedTabpanel();
+					// panel.focusToFirstEditor();
 				}
 			});
 		}
