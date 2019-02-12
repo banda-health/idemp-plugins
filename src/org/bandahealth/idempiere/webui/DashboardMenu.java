@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.webui;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,9 @@ import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
+import org.compiere.model.MRole;
+import org.compiere.model.MRoleIncluded;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -127,6 +131,19 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
 					.collect(Collectors.toList());
 
+			//Get user and role id from context
+			int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
+			int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
+					 		
+			List<MRoleIncluded> includedRoles = new Query(Env.getCtx(), MRoleIncluded.Table_Name, 
+					MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID+"="+ roleId+" AND " + MUserRoles.COLUMNNAME_AD_User_ID+"="+userId, null)
+					.addJoinClause("JOIN " + MRole.Table_Name+" ON " +MRoleIncluded.Table_Name+"." + MRoleIncluded.COLUMNNAME_AD_Role_ID 
+							+ "=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID)
+					.addJoinClause("JOIN " + MUserRoles.Table_Name+" ON " +MRoleIncluded.Table_Name+"."+MRoleIncluded.COLUMNNAME_AD_Role_ID
+							+ "="+MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID).list();
+			for (MRoleIncluded subRole : includedRoles) {
+//				if(subRole.nam)
+			}
 			Grid buttonGroupGrid = new Grid();
 			buttonGroupGrid.setStyle("border:0px");
 			Columns columns = new Columns();
