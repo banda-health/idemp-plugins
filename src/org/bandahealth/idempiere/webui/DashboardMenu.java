@@ -117,6 +117,10 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	}
 
 	private Tabpanels createTabpanels() {
+		
+		int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
+		int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
+		
 		Tabpanels tabpanelsContainer = new Tabpanels();
 		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
 				null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
@@ -131,19 +135,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
 					.collect(Collectors.toList());
 
-			//Get user and role id from context
-			int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
-			int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
-					 		
-			List<MRoleIncluded> includedRoles = new Query(Env.getCtx(), MRoleIncluded.Table_Name, 
-					MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID+"="+ roleId+" AND " + MUserRoles.COLUMNNAME_AD_User_ID+"="+userId, null)
-					.addJoinClause("JOIN " + MRole.Table_Name+" ON " +MRoleIncluded.Table_Name+"." + MRoleIncluded.COLUMNNAME_AD_Role_ID 
-							+ "=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID)
-					.addJoinClause("JOIN " + MUserRoles.Table_Name+" ON " +MRoleIncluded.Table_Name+"."+MRoleIncluded.COLUMNNAME_AD_Role_ID
-							+ "="+MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID).list();
-			for (MRoleIncluded subRole : includedRoles) {
-//				if(subRole.nam)
-			}
 			Grid buttonGroupGrid = new Grid();
 			buttonGroupGrid.setStyle("border:0px");
 			Columns columns = new Columns();
@@ -157,12 +148,15 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 			buttonGroupGrid.appendChild(columns);
 			buttonGroupGrid.appendChild(rows);
 			for (MHomeScreenButton button : buttonsInGroup) {
-				// create a grid to hold icon and text
-				Row row = new Row();
-				Grid btnGrid = UIUtil.createButton(button);
-				row.appendCellChild(btnGrid);
-				row.setParent(rows);
-				btnGrid.addEventListener(Events.ON_CLICK, this);
+				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+				if(userHasBeenAssignedRole(roleId,userId,buttonRoleId)) {
+					// create a grid to hold icon and text
+					Row row = new Row();
+					Grid btnGrid = UIUtil.createButton(button);
+					row.appendCellChild(btnGrid);
+					row.setParent(rows);
+					btnGrid.addEventListener(Events.ON_CLICK, this);
+				}
 			}
 			Tabpanel panel = new Tabpanel();
 			panel.appendChild(buttonGroupGrid);
@@ -170,6 +164,26 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 		}
 		return tabpanelsContainer;
+	}
+	
+	private boolean userHasBeenAssignedRole(Integer roleId, Integer userId, Integer buttonRoleId) {
+		boolean hasRoleAssigned = false;
+				 		
+		List<MRoleIncluded> subRolesIncludedInRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name, 
+				MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID+"="+ roleId+" AND " + MUserRoles.COLUMNNAME_AD_User_ID+"="+userId, null)
+				.addJoinClause("JOIN " + MRole.Table_Name+" ON " +MRoleIncluded.Table_Name+"." + MRoleIncluded.COLUMNNAME_AD_Role_ID 
+						+ "=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID)
+				.addJoinClause("JOIN " + MUserRoles.Table_Name+" ON " +MRoleIncluded.Table_Name+"."+MRoleIncluded.COLUMNNAME_AD_Role_ID
+						+ "="+MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID).list();
+		
+		for (MRoleIncluded subRole : subRolesIncludedInRole) {
+			if(buttonRoleId == subRole.get_ValueAsInt(subRole.COLUMNNAME_AD_Role_ID)) {
+				hasRoleAssigned = true;
+			} else {
+				continue;
+			}
+		}
+		return hasRoleAssigned;
 	}
 
 	private void appendRoleScript() {
