@@ -34,12 +34,13 @@ SELECT
    bp.name AS GivenName,
    extract(YEAR FROM age(bp.bh_birthday)) AS Age,
    bp.bh_gender AS Gender,
-   string_agg(services.name, ', ') AS Test,
+   string_agg(services.name, E'\n') AS Test,
    c.description AS TestResults
 FROM c_order c
 INNER JOIN services ON c.c_order_id = services.c_order_id
 INNER JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
-WHERE c.issotrx = 'Y' AND c.docstatus = 'CO' AND c.ad_client_id = 1000015
+WHERE c.issotrx = 'Y' AND c.docstatus = 'CO' AND c.ad_client_id = 1000017
+AND c.created BETWEEN $P{beginDate} AND  $P{endDate}
 GROUP BY c.created, bp.name, bp.bh_birthday, bp.bh_gender, c.description
 ORDER BY c.created DESC]]>
 	</queryString>
