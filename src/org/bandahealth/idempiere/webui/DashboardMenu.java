@@ -67,6 +67,10 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private List<MOrder> saleOrders;
 	private Integer unclosedSOCount = 0;
 	private static Integer MAX_RESULTS_SIZE = 20;
+	private boolean userHasAllRoles = false;
+	
+	int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
+	int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 
 	public DashboardMenu() {
 		super();
@@ -94,7 +98,8 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private void assembleComponents() {
 		layout.setParent(this);
 		tabbox.setMold("accordion");
-		tabs = createButtonGroupTabs();
+		userHasAllRoles = hasAllRolesAssigned();
+		tabs = createButtonGroupTabs();			
 		tabpanels = createTabpanels();
 		tabs.setParent(tabbox);
 		tabpanels.setParent(tabbox);
@@ -104,69 +109,114 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		layout.appendChild(sideBar);
 		createIncompleteBillsWidget();
 	}
-
+	
 	private Tabs createButtonGroupTabs() {
 		Tabs tabs = new Tabs();
-		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
-				null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
-		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
-			Tab tab = new Tab(buttonGroup.getName());
-			tabs.appendChild(tab);
+		if (userHasAllRoles) {
+			List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
+					null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
+			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+				Tab tab = new Tab(buttonGroup.getName());
+				tabs.appendChild(tab);
+			}
+		} else {
+			tabs.appendChild(new Tab("Menu"));
 		}
 		return tabs;
 	}
+	
+	private boolean hasAllRolesAssigned() {
+		List<MRoleIncluded> subRolesIncludedInRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name, 
+				MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID+"="+ roleId+" AND " + MUserRoles.COLUMNNAME_AD_User_ID+"="+userId, null)
+				.addJoinClause("JOIN " + MRole.Table_Name+" ON " +MRoleIncluded.Table_Name+"." + MRoleIncluded.COLUMNNAME_AD_Role_ID 
+						+ "=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID)
+				.addJoinClause("JOIN " + MUserRoles.Table_Name+" ON " +MRoleIncluded.Table_Name+"."+MRoleIncluded.COLUMNNAME_AD_Role_ID
+						+ "="+MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID).list();
+		
+		for (MRoleIncluded subRole : subRolesIncludedInRole) {
+			if(subRole.get_ValueAsString(MRoleIncluded.COLUMNNAME_AD_Role_Included_UU).equals("de4c10f1-ba56-47eb-b274-365c983bff97")) {
+				userHasAllRoles = true;
+			} 
+		}
+		return userHasAllRoles;
+	}
+	
 
 	private Tabpanels createTabpanels() {
 		
-		int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
-		int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
+
 		
 		Tabpanels tabpanelsContainer = new Tabpanels();
+		
 		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
 				null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
+		
+		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
+				.setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
 
-		// add each button to matching group tab
-		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
-			List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
-					.setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
 
-			// filter buttons matching current group
-			List<MHomeScreenButton> buttonsInGroup = buttons.stream()
-					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
-					.collect(Collectors.toList());
+		if(userHasAllRoles) {
+			//show buttons in group tabs
+			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+				//get all buttons in that group
+				List<MHomeScreenButton> buttonsInGroup = buttons.stream()
+						.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+						.collect(Collectors.toList());
+				Grid buttonGroupGrid = new Grid();
+				buttonGroupGrid.setStyle("border:0px");
+				Columns columns = new Columns();
+				Rows rows = new Rows();
+				Column[] col = { new Column() };
+				for (int i = 0; i < col.length; i++) {
+					col[i].setParent(columns);
+				}
+				buttonGroupGrid.appendChild(columns);
+				buttonGroupGrid.appendChild(rows);
 
+				for (MHomeScreenButton button : buttonsInGroup) {
+						Row row = new Row();
+						Grid btnGrid = UIUtil.createButton(button);
+						row.appendCellChild(btnGrid);
+						row.setParent(rows);
+						btnGrid.addEventListener(Events.ON_CLICK, this);
+				}
+				Tabpanel panel = new Tabpanel();
+				panel.appendChild(buttonGroupGrid);
+				tabpanelsContainer.appendChild(panel);
+			}
+			
+		} else {
+			//show buttons in a single tab
 			Grid buttonGroupGrid = new Grid();
 			buttonGroupGrid.setStyle("border:0px");
 			Columns columns = new Columns();
 			Rows rows = new Rows();
 			Column[] col = { new Column() };
-			// TODO iterate using Java 8 stream?
-
 			for (int i = 0; i < col.length; i++) {
 				col[i].setParent(columns);
 			}
 			buttonGroupGrid.appendChild(columns);
 			buttonGroupGrid.appendChild(rows);
-			for (MHomeScreenButton button : buttonsInGroup) {
+			
+			for (MHomeScreenButton button : buttons) {
 				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-				if(userHasBeenAssignedRole(roleId,userId,buttonRoleId)) {
-					// create a grid to hold icon and text
-					Row row = new Row();
-					Grid btnGrid = UIUtil.createButton(button);
-					row.appendCellChild(btnGrid);
-					row.setParent(rows);
-					btnGrid.addEventListener(Events.ON_CLICK, this);
-				}
+					if(userHasSpecificRole(roleId,userId,buttonRoleId)) {
+						// create a grid to hold icon and text
+						Row row = new Row();
+						Grid btnGrid = UIUtil.createButton(button);
+						row.appendCellChild(btnGrid);
+						row.setParent(rows);
+						btnGrid.addEventListener(Events.ON_CLICK, this);
+					}
 			}
 			Tabpanel panel = new Tabpanel();
 			panel.appendChild(buttonGroupGrid);
 			tabpanelsContainer.appendChild(panel);
-
 		}
 		return tabpanelsContainer;
 	}
 	
-	private boolean userHasBeenAssignedRole(Integer roleId, Integer userId, Integer buttonRoleId) {
+	private boolean userHasSpecificRole(Integer roleId, Integer userId, Integer buttonRoleId) {
 		boolean hasRoleAssigned = false;
 				 		
 		List<MRoleIncluded> subRolesIncludedInRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name, 
@@ -177,7 +227,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 						+ "="+MUserRoles.Table_Name+"."+MUserRoles.COLUMNNAME_AD_Role_ID).list();
 		
 		for (MRoleIncluded subRole : subRolesIncludedInRole) {
-			if(buttonRoleId == subRole.get_ValueAsInt(subRole.COLUMNNAME_AD_Role_ID)) {
+			if(buttonRoleId == subRole.get_ValueAsInt(MRoleIncluded.COLUMNNAME_Included_Role_ID)) {
 				hasRoleAssigned = true;
 			} else {
 				continue;
