@@ -134,9 +134,6 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		                        + MRole.COLUMNNAME_AD_Role_ID + "=" + MRoleIncluded.Table_Name + "."
 		                        + MRoleIncluded.COLUMNNAME_Included_Role_ID)
 		                .list();
-		System.out.println("Roles Logging roe id : " + roleId);
-		System.out.println("Roles Logging: " + subRolesIncludedInRole);
-
 		for (MRole subRole : subRolesIncludedInRole) {
 			if (subRole.get_ValueAsString(MRole.COLUMNNAME_Name).equalsIgnoreCase(ALL_SUBROLES_INCLUDED)) {
 				userHasAllRoles = true;
@@ -146,61 +143,46 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	}
 
 	private Tabpanels createTabpanels() {
-
 		Tabpanels tabpanelsContainer = new Tabpanels();
-
-		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
-		        null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
-
 		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
 		        .setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
-
 		if (userHasAllRoles) {
 			// show buttons in group tabs
+			List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
+			        null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
+
 			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 				// get all buttons in that group
 				List<MHomeScreenButton> buttonsInGroup = buttons.stream()
 				        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
 				        .collect(Collectors.toList());
-				Grid buttonGroupGrid = new Grid();
-				buttonGroupGrid.setStyle("border:0px");
-				Columns columns = new Columns();
-				Rows rows = new Rows();
-				Column[] col = { new Column() };
-				for (int i = 0; i < col.length; i++) {
-					col[i].setParent(columns);
-				}
-				buttonGroupGrid.appendChild(columns);
-				buttonGroupGrid.appendChild(rows);
-
-				for (MHomeScreenButton button : buttonsInGroup) {
-					Row row = new Row();
-					Grid btnGrid = UIUtil.createButton(button);
-					row.appendCellChild(btnGrid);
-					row.setParent(rows);
-					btnGrid.addEventListener(Events.ON_CLICK, this);
-				}
-				Tabpanel panel = new Tabpanel();
-				panel.appendChild(buttonGroupGrid);
-				tabpanelsContainer.appendChild(panel);
+				createTabButtons(buttonsInGroup, tabpanelsContainer, userHasAllRoles);
 			}
-
 		} else {
 			// show buttons in a single tab
-			Grid buttonGroupGrid = new Grid();
-			buttonGroupGrid.setStyle("border:0px");
-			Columns columns = new Columns();
-			Rows rows = new Rows();
-			Column[] col = { new Column() };
-			for (int i = 0; i < col.length; i++) {
-				col[i].setParent(columns);
-			}
-			buttonGroupGrid.appendChild(columns);
-			buttonGroupGrid.appendChild(rows);
+			createTabButtons(buttons, tabpanelsContainer, userHasAllRoles);
+		}
 
-			for (MHomeScreenButton button : buttons) {
+		return tabpanelsContainer;
+	}
+
+	private void createTabButtons(List<MHomeScreenButton> buttonsInGroup, Tabpanels tabpanelsContainer,
+	        boolean userHasAllRoles) {
+		Grid buttonGroupGrid = new Grid();
+		buttonGroupGrid.setStyle("border:0px");
+		Columns columns = new Columns();
+		Rows rows = new Rows();
+		Column[] col = { new Column() };
+		for (int i = 0; i < col.length; i++) {
+			col[i].setParent(columns);
+		}
+		buttonGroupGrid.appendChild(columns);
+		buttonGroupGrid.appendChild(rows);
+
+		for (MHomeScreenButton button : buttonsInGroup) {
+			try {
 				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-				if (userHasSpecificRole(roleId, userId, buttonRoleId)) {
+				if ((!userHasAllRoles && userHasSpecificRole(roleId, userId, buttonRoleId)) || userHasAllRoles) {
 					// create a grid to hold icon and text
 					Row row = new Row();
 					Grid btnGrid = UIUtil.createButton(button);
@@ -208,12 +190,14 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					row.setParent(rows);
 					btnGrid.addEventListener(Events.ON_CLICK, this);
 				}
+			} catch (Exception ex) {
+				CLogger.get().severe("BH Error creating button: " + ex.toString());
 			}
-			Tabpanel panel = new Tabpanel();
-			panel.appendChild(buttonGroupGrid);
-			tabpanelsContainer.appendChild(panel);
 		}
-		return tabpanelsContainer;
+		Tabpanel panel = new Tabpanel();
+		panel.appendChild(buttonGroupGrid);
+		tabpanelsContainer.appendChild(panel);
+
 	}
 
 	private boolean userHasSpecificRole(Integer roleId, Integer userId, Integer buttonRoleId) {
