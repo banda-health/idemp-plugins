@@ -1,9 +1,5 @@
 package org.bandahealth.idempiere.webui;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,9 +19,8 @@ import org.adempiere.webui.component.Tabpanels;
 import org.adempiere.webui.component.Tabs;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
-import org.bandahealth.idempiere.base.model.MHomeScreenButton;
-import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
-import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.DesktopComposer;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
@@ -72,6 +67,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
 	int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
+	String usersLanguage = Env.getContext(Env.getCtx(), "#AD_Language");
 
 	public DashboardMenu() {
 		super();
@@ -114,10 +110,10 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private Tabs createButtonGroupTabs() {
 		Tabs tabs = new Tabs();
 		if (userHasAllRoles) {
-			List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
-			        null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
-			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
-				Tab tab = new Tab(buttonGroup.getName());
+			List<MDashboardButtonGroup> buttonGroups = new Query(Env.getCtx(), MDashboardButtonGroup.Table_Name, null,
+			        null).setOnlyActiveRecords(true).setOrderBy(MDashboardButtonGroup.COLUMNNAME_LineNo).list();
+			for (MDashboardButtonGroup buttonGroup : buttonGroups) {
+				Tab tab = new Tab(buttonGroup.get_Translation(MDashboardButtonGroup.COLUMNNAME_Name, usersLanguage));
 				tabs.appendChild(tab);
 			}
 		} else {
@@ -144,17 +140,17 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 	private Tabpanels createTabpanels() {
 		Tabpanels tabpanelsContainer = new Tabpanels();
-		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
-		        .setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
+		List<MDashboardButtonGroupButton> buttons = new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name, null, null)
+		        .setOnlyActiveRecords(true).setOrderBy(MDashboardButtonGroupButton.COLUMNNAME_LineNo).list();
 		if (userHasAllRoles) {
 			// show buttons in group tabs
-			List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
-			        null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
+			List<MDashboardButtonGroup> buttonGroups = new Query(Env.getCtx(), MDashboardButtonGroup.Table_Name, null,
+			        null).setOnlyActiveRecords(true).setOrderBy(MDashboardButtonGroup.COLUMNNAME_LineNo).list();
 
-			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+			for (MDashboardButtonGroup buttonGroup : buttonGroups) {
 				// get all buttons in that group
-				List<MHomeScreenButton> buttonsInGroup = buttons.stream()
-				        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+				List<MDashboardButtonGroupButton> buttonsInGroup = buttons.stream()
+				        .filter(b -> b.getBH_DbrdBtnGrp_ID() == buttonGroup.getBH_DbrdBtnGrp_ID())
 				        .collect(Collectors.toList());
 				createTabButtons(buttonsInGroup, tabpanelsContainer, userHasAllRoles);
 			}
@@ -166,7 +162,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		return tabpanelsContainer;
 	}
 
-	private void createTabButtons(List<MHomeScreenButton> buttonsInGroup, Tabpanels tabpanelsContainer,
+	private void createTabButtons(List<MDashboardButtonGroupButton> buttonsInGroup, Tabpanels tabpanelsContainer,
 	        boolean userHasAllRoles) {
 		Grid buttonGroupGrid = new Grid();
 		buttonGroupGrid.setStyle("border:0px");
@@ -179,13 +175,13 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		buttonGroupGrid.appendChild(columns);
 		buttonGroupGrid.appendChild(rows);
 
-		for (MHomeScreenButton button : buttonsInGroup) {
+		for (MDashboardButtonGroupButton button : buttonsInGroup) {
 			try {
-				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+				Integer buttonRoleId = button.get_ValueAsInt(MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID);
 				if ((!userHasAllRoles && userHasSpecificRole(roleId, userId, buttonRoleId)) || userHasAllRoles) {
 					// create a grid to hold icon and text
 					Row row = new Row();
-					Grid btnGrid = UIUtil.createButton(button);
+					Grid btnGrid = UIUtil.createButton(button, usersLanguage);
 					row.appendCellChild(btnGrid);
 					row.setParent(rows);
 					btnGrid.addEventListener(Events.ON_CLICK, this);

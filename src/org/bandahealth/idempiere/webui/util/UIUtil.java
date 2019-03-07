@@ -6,7 +6,7 @@ import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.Row;
 import org.adempiere.webui.component.Rows;
-import org.bandahealth.idempiere.base.model.MHomeScreenButton;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.zkoss.zul.Div;
 
 public class UIUtil {
@@ -16,15 +16,15 @@ public class UIUtil {
 	public static String REPORT_OR_PROCESS_ATTRIBUTE = "data-process";
 	public static String TERMS_OF_USE_ATTRIBUTE = "data-terms-of-use";
 
-	public static Div initDivButton(MHomeScreenButton button) {
+	public static Div initDivButton(MDashboardButtonGroupButton button, String usersLanguage) {
 
 		Div buttonDiv = new Div();
-		Grid buttonGrid = createButton(button);
+		Grid buttonGrid = createButton(button, usersLanguage);
 		buttonDiv.appendChild(buttonGrid);
 		return buttonDiv;
 	}
 
-	public static Grid createButton(MHomeScreenButton button) {
+	public static Grid createButton(MDashboardButtonGroupButton button, String usersLanguage) {
 
 		int windowOrInfoWindowId = button.getAD_Window_ID();
 
@@ -60,7 +60,7 @@ public class UIUtil {
 		Div icon = new Div();
 		icon.setClass(button.getIconClassName() + " i");
 		icon.setStyle("padding:3px; font-size:20px; text-align:center; vertical-align:middle;");
-		Label label = new Label(button.getButtonText());
+		Label label = new Label(button.get_Translation(MDashboardButtonGroupButton.COLUMNNAME_ButtonText, usersLanguage));
 		label.setStyle("text-align:left;  vertical-align:middle; padding-left:5px;");
 
 		itemRow.appendCellChild(icon);
@@ -72,7 +72,8 @@ public class UIUtil {
 		buttonGrid.setAttribute(INFO_WINDOW_ATTRIBUTE, isInfoWindow);
 		buttonGrid.setAttribute(REPORT_OR_PROCESS_ATTRIBUTE, isReportOrProcess);
 		buttonGrid.setAttribute(SPECIAL_FORM_ATTRIBUTE, isSpecialForm);
-		buttonGrid.setTooltiptext(button.getButtonHelpText());
+		buttonGrid.setTooltiptext(
+				button.get_Translation(MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText, usersLanguage));
 		return buttonGrid;
 
 	}

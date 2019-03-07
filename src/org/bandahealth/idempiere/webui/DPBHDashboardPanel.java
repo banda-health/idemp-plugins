@@ -17,8 +17,8 @@ import org.adempiere.util.Callback;
 import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
-import org.bandahealth.idempiere.base.model.MHomeScreenButton;
-import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
@@ -101,28 +101,28 @@ public class DPBHDashboardPanel extends DashboardPanel implements EventListener<
 
 	private void createPanel() {
 		//add links to BH custom windows
-		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,null)
+		List<MDashboardButtonGroup> buttonGroups = new Query(Env.getCtx(), MDashboardButtonGroup.Table_Name, null,null)
 				.setOnlyActiveRecords(true)
-				.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo)
+				.setOrderBy(MDashboardButtonGroup.COLUMNNAME_LineNo)
 				.list();
-		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null,null)
+		List<MDashboardButtonGroupButton> buttons = new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name, null,null)
 				.setOnlyActiveRecords(true)
-				.setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo)
+				.setOrderBy(MDashboardButtonGroupButton.COLUMNNAME_LineNo)
 				.list();
 
-		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+		for (MDashboardButtonGroup buttonGroup : buttonGroups) {
 			Div groupSeparator = new Div();
 			groupSeparator.setClass("bh-button-group-header");
 			groupSeparator.appendChild(new Text(buttonGroup.getName()));
 			contentArea.appendChild(groupSeparator);
 
-			List<MHomeScreenButton> buttonsInGroup = buttons.stream()
-					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+			List<MDashboardButtonGroupButton> buttonsInGroup = buttons.stream()
+					.filter(b -> b.getBH_DbrdBtnGrp_ID() == buttonGroup.getBH_DbrdBtnGrp_ID())
 					.collect(Collectors.toList());
 			Div groupContainer = new Div();
 			groupContainer.setClass("bh-button-group-content");
-			for (MHomeScreenButton button : buttonsInGroup) {
-				Div divButton = UIUtil.initDivButton(button);
+			for (MDashboardButtonGroupButton button : buttonsInGroup) {
+				Div divButton = UIUtil.initDivButton(button, Env.getContext(Env.getCtx(), "#AD_Language"));
 				divButton.addEventListener(Events.ON_CLICK, this);
 				groupContainer.appendChild(divButton);
 			}
