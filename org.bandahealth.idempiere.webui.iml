@@ -4,11 +4,6 @@
     <option name="compassConfigPath" value="$MODULE_DIR$/config.rb" />
     <option name="compassExecutableFilePath" value="C:/Program Files/Ruby/Ruby25-x64/bin/compass.bat" />
     <option name="compassSupportEnabled" value="true" />
-    <option name="importPaths">
-      <list>
-        <option value="C:/Program" />
-      </list>
-    </option>
   </component>
   <component name="EclipseModuleManager">
     <libelement value="file://D:\source\Banda-Health\iDempiere\dev\plugins\org.bandahealth.idempiere.webui\theme" />
