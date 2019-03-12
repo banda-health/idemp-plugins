@@ -9,7 +9,6 @@ import org.compiere.model.MProduct;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
 import org.compiere.model.X_I_Product;
-import org.omg.PortableServer.ServantRetentionPolicyValue;
 
 public class MProduct_BH extends MProduct {
 
