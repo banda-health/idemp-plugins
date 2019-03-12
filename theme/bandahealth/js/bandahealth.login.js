@@ -3,6 +3,8 @@
 
 define(['helper/util', 'config/classNames', 'helper/templateManager'], function (util, classNames, templateManager) {
 	let self = {};
+	let languageChangedDelayCheckerMS = 100;
+	let maxTimeToCheckForLanguageUpdatesMS = 10 * 1000; // 10 seconds
 	let maxTimeToWaitUntilLoginFieldsAppearMS = 5000;
 
 	util.executeFunctionWhenElementPresent(getUserInputFieldSelector(), initLoginScreen, maxTimeToWaitUntilLoginFieldsAppearMS);
@@ -41,6 +43,44 @@ define(['helper/util', 'config/classNames', 'helper/templateManager'], function 
 
 		loginTableBody.appendChild(advancedRowElement);
 		loginTableBody.appendChild(selectRoleRowElement);
+
+		initLanguageSelectorListener();
+
+		function initLanguageSelectorListener() {
+			let languageSelector = document.querySelector('#rowLanguage .login-field input');
+			if (!languageSelector) {
+				return;
+			}
+
+			let currentLanguageSelectorValue = languageSelector.value;
+			setInterval(checkIfDifferentLanguageSelected, languageChangedDelayCheckerMS);
+			let checkStartTime = 0;
+
+			function checkIfDifferentLanguageSelected() {
+				let languageSelectorValue = languageSelector.value;
+				if (languageSelectorValue !== currentLanguageSelectorValue) {
+					checkStartTime = new Date();
+					onLanguageChanged();
+				}
+				currentLanguageSelectorValue = languageSelectorValue;
+			}
+
+			function onLanguageChanged() {
+				let realSelectRoleLabel = originalSelectRoleRowElement.querySelector('.login-field .z-checkbox-content');
+				let fakeSelectRoleLabel = selectRoleRowElement.querySelector('.login-field .z-checkbox-content');
+				if (!realSelectRoleLabel || !fakeSelectRoleLabel) {
+					return;
+				}
+				if (realSelectRoleLabel.innerHTML === fakeSelectRoleLabel.innerHTML) {
+					// We're only going to wait for this to update for so long...
+					if (((new Date()) - checkStartTime) <= maxTimeToCheckForLanguageUpdatesMS) {
+						setTimeout(onLanguageChanged, languageChangedDelayCheckerMS);
+					}
+					return;
+				}
+				fakeSelectRoleLabel.innerHTML = realSelectRoleLabel.innerHTML;
+			}
+		}
 
 		function syncRealRoleSelectorWithFake(e) {
 			let checkbox = e.target;
