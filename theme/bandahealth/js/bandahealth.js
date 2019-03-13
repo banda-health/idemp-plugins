@@ -5,10 +5,10 @@
 'use strict';
 
 define(
-    ['helper/util', 'domObserver', 'config/classNames',
+    ['helper/util', 'domObserver', 'config/classNames', 'config/translation',
         'helper/templateManager'
     ],
-    function (util, DomObserver, classNames, templateManager) {
+    function (util, DomObserver, classNames, translation, templateManager) {
         let self = {};
 
         let buttonIDs = {
@@ -314,7 +314,7 @@ define(
             let logoutAElement = document.createElement('a');
             logoutAElement.classList.add('window-container-toolbar-btn',
                 'z-toolbarbutton', 'bh-logoutbutton');
-            logoutAElement.setAttribute('title', 'Logout');
+            logoutAElement.setAttribute('title', translation.LOGOUT.HELPTIP);
             logoutAElement.id = buttonIDs.LOGOUT;
             ribbon.appendChild(logoutAElement);
 
@@ -323,7 +323,7 @@ define(
             logoutIElement.classList.add('fas', 'fa-sign-out-alt');
 
             let logoutDivElement = document.createElement('div');
-            logoutDivElement.innerText = 'Logout';
+            logoutDivElement.innerText = translation.LOGOUT.TRANSLATION;
             logoutAElement.appendChild(logoutDivElement);
 
             logoutAElement.addEventListener('click', logout);

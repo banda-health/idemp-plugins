@@ -21,10 +21,12 @@ import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
+import org.bandahealth.idempiere.base.model.MUIButton;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.DesktopComposer;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
+import org.compiere.model.MMessage;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
 import org.compiere.model.MRole;
@@ -69,6 +71,8 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 	String usersLanguage = Env.getContext(Env.getCtx(), "#AD_Language");
 
+	String logoutMessageUuid = "ee7433c3-ffe0-4ceb-8077-79edf6d36400";
+
 	public DashboardMenu() {
 		super();
 		this.setId("bandaDashboard");
@@ -89,6 +93,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		tabs = new Tabs();
 		tabpanels = new Tabpanels();
 		widgetArea.setSclass("bh-so-list-window");
+		appendUIButtonTranslations();
 		appendRoleScript();
 	}
 
@@ -227,6 +232,52 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		} else if (isUserViewingAClient()) {
 			layout.appendChild(new Script("requirejs(['user/client'], function () {});"));
 		}
+	}
+
+	/**
+	 * This method puts the translations of the UI buttons into a JSON structure for the JS files to read
+	 * Structure:
+	 * {
+	 *     buttonTranslations: [{
+	 *         name: ''
+	 *         cssVariableName: ''
+	 *     }, ...],
+	 *     logout: {
+	 *         translation: '',
+	 *         helpTip: ''
+	 *     }
+	 * }
+	 */
+	private void appendUIButtonTranslations() {
+		List<MUIButton> uiButtons = new Query(Env.getCtx(), MUIButton.Table_Name, null, null)
+				.setOnlyActiveRecords(true)
+				.list();
+		StringBuilder translationJSFileContent = new StringBuilder();
+		// Initialize the script call and translation object
+		translationJSFileContent.append("require(['config/translation'], function (translation) { translation.update({ ");
+		// Add the button translations
+		translationJSFileContent.append("buttonTranslations: [");
+		for (MUIButton uiButton : uiButtons) {
+			translationJSFileContent.append("{ name: '");
+			translationJSFileContent.append(uiButton.get_Translation(MUIButton.COLUMNNAME_Name, usersLanguage));
+			translationJSFileContent.append("', cssVariableName: '");
+			translationJSFileContent.append(uiButton.getCssVariableName());
+			translationJSFileContent.append("' },");
+		}
+		translationJSFileContent.append("], ");
+		// Add the logout translation
+		String whereClause = MMessage.COLUMNNAME_AD_Message_UU + " = '" + logoutMessageUuid + "'";
+		MMessage logoutMessage = new Query(Env.getCtx(), MMessage.Table_Name, whereClause, null)
+				.first();
+		translationJSFileContent.append("logout: { translation: '");
+		translationJSFileContent.append(logoutMessage.get_Translation(MMessage.COLUMNNAME_MsgText, usersLanguage));
+		translationJSFileContent.append("', helpTip: '");
+		translationJSFileContent.append(logoutMessage.get_Translation(MMessage.COLUMNNAME_MsgTip, usersLanguage));
+		translationJSFileContent.append("' }");
+		// Close the translation update call and require call
+		translationJSFileContent.append(" }); });");
+		// Add the script to be run
+		layout.appendChild(new Script(translationJSFileContent.toString()));
 	}
 
 	private Boolean isUserViewingAnOrganization() {
