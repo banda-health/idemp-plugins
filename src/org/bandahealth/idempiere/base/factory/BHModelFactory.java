@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
+import org.bandahealth.idempiere.base.model.MUIButton;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
 
@@ -40,6 +41,8 @@ public class BHModelFactory implements IModelFactory {
 			return MTabNavBtn.class;
 		} else if (tableName.equalsIgnoreCase(MTabNavBtnTab.Table_Name)) {
 			return MTabNavBtnTab.class;
+		} else if (tableName.equalsIgnoreCase(MUIButton.Table_Name)) {
+			return MUIButton.class;
 		}
 
 		return null;
@@ -67,6 +70,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MTabNavBtn(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MTabNavBtnTab.Table_Name)) {
 			return new MTabNavBtnTab(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MUIButton.Table_Name)) {
+			return new MUIButton(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -94,6 +99,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MTabNavBtn(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MTabNavBtnTab.Table_Name)) {
 			return new MTabNavBtnTab(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MUIButton.Table_Name)) {
+			return new MUIButton(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
