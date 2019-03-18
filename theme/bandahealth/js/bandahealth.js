@@ -314,6 +314,12 @@ define(
             let logoutAElement = document.createElement('a');
             logoutAElement.classList.add('window-container-toolbar-btn',
                 'z-toolbarbutton', 'bh-logoutbutton');
+
+            // Only show the logout button to org users
+            if (!isUserOrg()) {
+                logoutAElement.classList.add('gone');
+            }
+
             logoutAElement.setAttribute('title', translation.LOGOUT.HELPTIP);
             logoutAElement.id = buttonIDs.LOGOUT;
             ribbon.appendChild(logoutAElement);
@@ -631,6 +637,10 @@ define(
 
         function isHashEmpty() {
             return !window.location.hash || window.location.hash === '#';
+        }
+
+        function isUserOrg() {
+            return document.body.classList.contains(classNames.ORGANIZATION);
         }
 
         function logout() {

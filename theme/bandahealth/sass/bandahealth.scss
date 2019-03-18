@@ -2,10 +2,12 @@
 @import '_variables.scss';
 @import '_extenders.scss';
 @import '_mixins.scss';
+
 .bh {
 	@import '_openmrs.scss';
 	@import '_hacks.scss';
 	@import '_common.scss';
+
 	.btn {
 		@extend %button;
 		&:hover {
@@ -24,6 +26,7 @@
 			}
 		}
 	}
+
 	.bh-button-group-header {
 		padding: 5px;
 		border-bottom: 1px solid #ccc;
@@ -31,13 +34,16 @@
 		color: #333;
 		font-weight: bold;
 	}
+
 	.bh-button-group-content:not(:last-child) {
 		margin-bottom: 15px;
 	}
+
 	.bh-dashboard-content {
 		display: flex;
 		flex-direction: column;
 	}
+
 	.bh-editable-rows-container {
 		display: grid;
 		grid-template-columns: 20px repeat(2, 1fr);
@@ -71,6 +77,7 @@
 			cursor: pointer;
 		}
 	}
+	
 	.bh-tab-nav-buttons {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(100px, 1fr));
@@ -117,9 +124,12 @@
 			}
 		}
 	}
+
 	&.client,
 	&.organization {}
+
 	&.client {}
+
 	&.organization {
 		.adwindow-layout {
 			&>div:nth-child(2) {
@@ -813,12 +823,6 @@
 					@extend %primary-hover;
 				}
 			}
-		}
-	}
-
-	&.system {
-		.bh-logoutbutton {
-			@extend %remove-element;
 		}
 	}
 
