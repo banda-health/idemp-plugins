@@ -48,6 +48,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Hlayout;
+import org.zkoss.zul.Html;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
@@ -109,6 +110,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		sideBar.appendChild(widgetArea);
 		layout.appendChild(sideBar);
 		createIncompleteBillsWidget();
+		createTermsOfServiceLink();
 	}
 
 	private Tabs createButtonGroupTabs() {
@@ -332,6 +334,14 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		                .setPageSize(MAX_RESULTS_SIZE).list();
 		return results;
 	}
+	
+	private void createTermsOfServiceLink() {
+		Html termsOfServiceLink = new Html("Terms Of Service");
+		termsOfServiceLink.setSclass("z-label");
+		termsOfServiceLink.setStyle("text-decoration:underline;margin:20px;cursor:pointer");
+		termsOfServiceLink.addEventListener(Events.ON_CLICK, this);
+		widgetArea.appendChild(termsOfServiceLink);
+	}
 
 	@Override
 	public void onEvent(Event event) throws Exception {
@@ -362,6 +372,9 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					int windowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openWindow(windowId, null);
 				}
+			} else if (component instanceof Html) {
+				SessionManager.getAppDesktop().showHTMLContent(TermsOfUseService.getTermsOfUseContent(), 
+						TermsOfUseService.getTitle(), true);
 			}
 		} else if (eventName.equals(Events.ON_SELECT)) {
 			Listitem selected = ((Listbox) component).getSelectedItem();
