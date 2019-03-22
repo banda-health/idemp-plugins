@@ -83,6 +83,8 @@ public class PaymentModelEvent extends AbstractEventHandler {
 				MInvoice invoice = order.getInvoices()[0];
 				payment.setC_Invoice_ID(invoice.getC_Invoice_ID());
 			}
+		} else {
+			payment.setDefaultBH_C_Order_ID();
 		}
 	}
 }

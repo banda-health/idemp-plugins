@@ -24,6 +24,8 @@ public class MPayment_BH extends MPayment {
 	public static final String COLUMNNAME_NHIF_NUMBER = "NHIF_NUMBER";
 	
 	public static final String COLUMNNAME_BH_NHIF_MEMBER_ID = "BH_NHIF_MEMBER_ID";
+	
+	public static final String COLUMNAME_TOTAL_OPEN_BALANCE = "TotalOpenBalance";
 
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
 		super(ctx, C_Payment_ID, trxName);
@@ -57,6 +59,10 @@ public class MPayment_BH extends MPayment {
 		} else {
 			set_Value(COLUMNNAME_BH_C_Order_ID, Integer.valueOf(BH_C_Order_ID));
 		}
+	}
+	
+	public void setDefaultBH_C_Order_ID() {
+		set_Value(COLUMNNAME_BH_C_Order_ID, 0);
 	}
 
 	/**
