@@ -12,7 +12,9 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-public  class  TermsOfUseService{
+public class TermsOfUseService {
+
+	public final static String TITLE = "BandaGo Terms of Service";
 
 	public static String getTermsOfUseContent() {
 		String termsAndConditions = null;
@@ -42,11 +44,11 @@ public  class  TermsOfUseService{
 		return new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).setOnlyActiveRecords(true).match();
 	}
 
-	public static  void acceptTermsOfUse() {
+	public static void acceptTermsOfUse() {
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		user.setBH_HasAcceptedTermsOfUse(true);
 		user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
 		user.save();
-		
+
 	}
 }

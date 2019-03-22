@@ -1,9 +1,5 @@
 package org.bandahealth.idempiere.webui;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,7 +21,6 @@ import org.adempiere.webui.dashboard.DashboardPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
-import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.DesktopComposer;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
@@ -48,6 +43,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Hlayout;
+import org.zkoss.zul.Html;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
@@ -109,13 +105,14 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		sideBar.appendChild(widgetArea);
 		layout.appendChild(sideBar);
 		createIncompleteBillsWidget();
+		createTermsOfServiceLink();
 	}
 
 	private Tabs createButtonGroupTabs() {
 		Tabs tabs = new Tabs();
 		if (userHasAllRoles) {
 			List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
-			        null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
+					null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
 			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 				Tab tab = new Tab(buttonGroup.getName());
 				tabs.appendChild(tab);
@@ -129,11 +126,11 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private boolean hasAllRolesAssigned() {
 
 		List<MRole> subRolesIncludedInRole = new Query(Env.getCtx(), MRole.Table_Name,
-		        MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + roleId, null)
-		                .addJoinClause("JOIN " + MRoleIncluded.Table_Name + " ON " + MRole.Table_Name + "."
-		                        + MRole.COLUMNNAME_AD_Role_ID + "=" + MRoleIncluded.Table_Name + "."
-		                        + MRoleIncluded.COLUMNNAME_Included_Role_ID)
-		                .list();
+				MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + roleId, null)
+						.addJoinClause("JOIN " + MRoleIncluded.Table_Name + " ON " + MRole.Table_Name + "."
+								+ MRole.COLUMNNAME_AD_Role_ID + "=" + MRoleIncluded.Table_Name + "."
+								+ MRoleIncluded.COLUMNNAME_Included_Role_ID)
+						.list();
 		for (MRole subRole : subRolesIncludedInRole) {
 			if (subRole.get_ValueAsString(MRole.COLUMNNAME_Name).equalsIgnoreCase(ALL_SUBROLES_INCLUDED)) {
 				userHasAllRoles = true;
@@ -145,17 +142,17 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private Tabpanels createTabpanels() {
 		Tabpanels tabpanelsContainer = new Tabpanels();
 		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, null, null)
-		        .setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
+				.setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
 		if (userHasAllRoles) {
 			// show buttons in group tabs
 			List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
-			        null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
+					null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).list();
 
 			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 				// get all buttons in that group
 				List<MHomeScreenButton> buttonsInGroup = buttons.stream()
-				        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
-				        .collect(Collectors.toList());
+						.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+						.collect(Collectors.toList());
 				createTabButtons(buttonsInGroup, tabpanelsContainer, userHasAllRoles);
 			}
 		} else {
@@ -167,7 +164,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	}
 
 	private void createTabButtons(List<MHomeScreenButton> buttonsInGroup, Tabpanels tabpanelsContainer,
-	        boolean userHasAllRoles) {
+			boolean userHasAllRoles) {
 		Grid buttonGroupGrid = new Grid();
 		buttonGroupGrid.setStyle("border:0px");
 		Columns columns = new Columns();
@@ -204,16 +201,16 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		boolean hasRoleAssigned = false;
 
 		List<MRoleIncluded> subRolesIncludedInRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
-		        MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + "=" + roleId + " AND "
-		                + MUserRoles.COLUMNNAME_AD_User_ID + "=" + userId,
-		        null).addJoinClause(
-		                "JOIN " + MRole.Table_Name + " ON " + MRoleIncluded.Table_Name + "."
-		                        + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + MRole.Table_Name + "."
-		                        + MRole.COLUMNNAME_AD_Role_ID)
-		                .addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MRoleIncluded.Table_Name + "."
-		                        + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + MUserRoles.Table_Name + "."
-		                        + MUserRoles.COLUMNNAME_AD_Role_ID)
-		                .list();
+				MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + "=" + roleId + " AND "
+						+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + userId,
+				null).addJoinClause(
+						"JOIN " + MRole.Table_Name + " ON " + MRoleIncluded.Table_Name + "."
+								+ MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + MRole.Table_Name + "."
+								+ MRole.COLUMNNAME_AD_Role_ID)
+						.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MRoleIncluded.Table_Name + "."
+								+ MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + MUserRoles.Table_Name + "."
+								+ MUserRoles.COLUMNNAME_AD_Role_ID)
+						.list();
 
 		for (MRoleIncluded subRole : subRolesIncludedInRole) {
 			if (buttonRoleId == subRole.get_ValueAsInt(MRoleIncluded.COLUMNNAME_Included_Role_ID)) {
@@ -244,7 +241,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 	private boolean isUserViewingAClient() {
 		Boolean isViewingAClient = false;
 		if (Env.getAD_Org_ID(Env.getCtx()) == QueryConstants.BASE_ORGANIZATION_ID
-		        && Env.getAD_Client_ID(Env.getCtx()) != QueryConstants.BASE_CLIENT_ID) {
+				&& Env.getAD_Client_ID(Env.getCtx()) != QueryConstants.BASE_CLIENT_ID) {
 			isViewingAClient = true;
 		}
 		return isViewingAClient;
@@ -327,10 +324,18 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 		 * Date());
 		 */
 		List<MOrder> results = new Query(Env.getCtx(), MOrder.Table_Name,
-		        "docstatus = 'DR' AND issotrx = 'Y' AND  ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
-		        null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered + " DESC")
-		                .setPageSize(MAX_RESULTS_SIZE).list();
+				"docstatus = 'DR' AND issotrx = 'Y' AND  ad_client_id = " + Env.getCtx().getProperty("#AD_Client_ID"),
+				null).setOnlyActiveRecords(true).setOrderBy(MOrder.COLUMNNAME_DateOrdered + " DESC")
+						.setPageSize(MAX_RESULTS_SIZE).list();
 		return results;
+	}
+
+	private void createTermsOfServiceLink() {
+		Html termsOfServiceLink = new Html("Terms Of Service");
+		termsOfServiceLink.setSclass("z-label");
+		termsOfServiceLink.setStyle("text-decoration:underline;margin:20px;cursor:pointer");
+		termsOfServiceLink.addEventListener(Events.ON_CLICK, this);
+		widgetArea.appendChild(termsOfServiceLink);
 	}
 
 	@Override
@@ -362,18 +367,21 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					int windowId = Integer.parseInt(button.getId());
 					SessionManager.getAppDesktop().openWindow(windowId, null);
 				}
+			} else if (component instanceof Html) {
+				SessionManager.getAppDesktop().showHTMLContent(TermsOfUseService.getTermsOfUseContent(),
+						TermsOfUseService.TITLE, true);
 			}
 		} else if (eventName.equals(Events.ON_SELECT)) {
 			Listitem selected = ((Listbox) component).getSelectedItem();
 			Integer selectedDocNumber = Integer.parseInt(selected.getValue().toString());
 
 			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name,
-			        MWindow.COLUMNNAME_Name + " LIKE '%Patient Bill%'", null).setOnlyActiveRecords(true).first();
+					MWindow.COLUMNNAME_Name + " LIKE '%Patient Bill%'", null).setOnlyActiveRecords(true).first();
 			int windowId = bhSOWindow.getAD_Window_ID();
 
 			MQuery query = new MQuery(MOrder.Table_Name);
 			query.addRestriction(MOrder.COLUMNNAME_DocumentNo + "='" + String.valueOf(selectedDocNumber) + "' AND "
-			        + MOrder.COLUMNNAME_DocStatus + "='DR'");
+					+ MOrder.COLUMNNAME_DocStatus + "='DR'");
 			SessionManager.getAppDesktop().openWindow(windowId, query, new Callback<ADWindow>() {
 
 				@Override
