@@ -13,10 +13,8 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
 public class TermsOfUseService {
-	
-	public static String getTitle() {
-		return "BandaGo Terms of Service";
-	}
+
+	public final static String TITLE = "BandaGo Terms of Service";
 
 	public static String getTermsOfUseContent() {
 		String termsAndConditions = null;
