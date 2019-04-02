@@ -292,6 +292,10 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 
 		public void run() {
 			Desktop desktop = DashboardMenu.this.getDesktop();
+			if (desktop == null) {
+				return;
+			}
+			
 			desktop.enableServerPush(true);
 			try {
 				Executions.activate(desktop);
