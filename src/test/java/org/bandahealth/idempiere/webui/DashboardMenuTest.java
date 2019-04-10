@@ -13,13 +13,12 @@ public class DashboardMenuTest extends AdempiereTestCase {
 		super.setUp();
 
 		myMenu = new DashboardMenu();
-
-		assertEquals("Id error", "bandaDashboard", "891");
+//		assertEquals("Id error", "bandaDashboard", "891");
 	}
 
 	@Test
 	public void testAssembleComponents() {
-		
+		assertEquals("Id error", "bandaDashboard", "891");
 	}
 
 	@Override
