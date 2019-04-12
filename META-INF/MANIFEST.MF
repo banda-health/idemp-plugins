@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Business Logic Unit Tests
+Bundle-SymbolicName: org.bandahealth.idempiere.base.tests
+Bundle-Version: 6.2.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-RegisterBuddy: org.adempiere.tools
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version>=1.11))"
+Fragment-Host: org.bandahealth.idempiere.base;bundle-version="1.0.0"
+Automatic-Module-Name: org.bandahealth.idempiere.base.tests
+Import-Package: javax.annotation,
+ junit.framework;version="4.12.0",
+ junit.runner;version="4.12.0",
+ org.junit;version="4.12.0",
+ org.junit.runners;version="4.12.0"
