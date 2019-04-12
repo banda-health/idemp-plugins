@@ -7,13 +7,11 @@
 			<hlayout>
 				<div>
 					<tabbox mold="accordion">
-						<tabs id="dboard_menu_tabs">
-							<tab label="tab1" />
-							<tab label="tab2" />
+						<tabs id="dboard_menu_tabs" >
+							<tab forEach="${btnGroupsModel}" label="${each} }"/>
 						</tabs>
 						<tabpanels id="dboard_menu_tabpanels">
-							<tabpanel>panel 1</tabpanel>
-							<tabpanel>panel 2</tabpanel>
+                            <tabpanel></tabpanel>
 						</tabpanels>
 					</tabbox>
 				</div>

@@ -11,53 +11,46 @@ import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Panel;
 
-public class DashboardSideMenuComposer extends SelectorComposer<Panel>{
+public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Wire("#dboard_menu_tabs")
 	private Tabs tabs;
 	@Wire("#dboard_menu_tabpanels")
 	private Tabpanel tabpanel;
 	private DashboardSideMenuDataPopulator dashboardMenuPopulator;
-	
+
 	@Override
 	public void doAfterCompose(Panel panel) {
 		try {
 			super.doAfterCompose(panel);
 			dashboardMenuPopulator = new DashboardSideMenuDataPopulator();
-			tabs = new Tabs();
-			tabpanel = new Tabpanel();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List<Tab> tabChildren = createTabs();
-		for (Tab tab : tabChildren) {
-			tabs.appendChild(tab);
-		}
+		panel.setAttribute("btnGroupsModel", getMenuGroupTabs());
+//		panel.setAttribute("btnItemsModel", getMenuButtonsTabPanels());
 	}
-	
-	public List<Tab> createTabs(){
-		List<Tab> tabs = new ArrayList<Tab>();
-		for (MHomeScreenButtonGroup  btnGrp : dashboardMenuPopulator.getButtonGroups()) {
+
+	public ListModelList<Tab> getMenuGroupTabs() {
+		ListModelList<Tab> tabModel = new ListModelList<>();
+		for (MHomeScreenButtonGroup btnGrp : dashboardMenuPopulator.getButtonGroups()) {
 			Tab tab = new Tab(btnGrp.getName());
-			tabs.add(tab);
+			tabModel.add(tab);
 		}
-		return tabs;
+		return tabModel;
 	}
-	
-	public List<Tabpanel> createTabPanelButtons(Integer buttonGroupId){
+
+	public List<Tabpanel> createTabPanelButtons(Integer buttonGroupId) {
 		List<Tabpanel> tabPanels = new ArrayList<Tabpanel>();
 		for (MHomeScreenButton button : dashboardMenuPopulator.getButtonsInButtonGroup(buttonGroupId)) {
 			UIUtil.createButton(button);
 		}
 		return tabPanels;
 	}
-
-
-	
-
 
 }
