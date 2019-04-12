@@ -8,6 +8,8 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class DashboardSideMenuDataPopulator {
+	
+	public DashboardSideMenuDataPopulator() {}
 
 	public List<MHomeScreenButtonGroup> getButtonGroups() {
 		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,
@@ -16,8 +18,10 @@ public class DashboardSideMenuDataPopulator {
 	}
 
 	public List<MHomeScreenButton> getButtonsInButtonGroup(Integer buttonGroupId) {
-		List<MHomeScreenButton> buttonsInGroup = null;
-		return buttonsInGroup;
+		String where = MHomeScreenButtonGroup.COLUMNNAME_BH_HmScrn_ButtonGroup_ID + buttonGroupId;
+		List<MHomeScreenButton> buttons = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, where,
+		        null).setOnlyActiveRecords(true).setOrderBy(MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID).list();
+		return buttons;
 	}
 
 }
