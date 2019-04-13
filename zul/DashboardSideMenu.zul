@@ -6,12 +6,42 @@
 		<panelchildren>
 			<hlayout>
 				<div>
-					<tabbox mold="accordion">
-						<tabs id="dboard_menu_tabs" >
-							<tab forEach="${btnGroupsModel}" label="${each} }"/>
+					<tabbox mold="accordion" ">
+						<tabs id="dboard_menu_tabs">
+							<tab  label="Patients And Supplies"/>
+							<tab label="Vendors And Patients"/>
+							<tab label="Cashier And Accounts"/>
+							<tab label="Pharmacy And Stores"/>
 						</tabs>
 						<tabpanels id="dboard_menu_tabpanels">
-                            <tabpanel></tabpanel>
+                            <tabpanel>
+                                <grid>
+                                    <columns>
+                                        <column></column>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <grid>
+                                                <columns>
+                                                    <column></column>
+                                                    <column></column>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <span>img</span>
+                                                        <span>text</span>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </row>
+                                        <row>r2</row>
+                                        <row>r3</row>
+                                    </rows>
+                                </grid>
+                            </tabpanel>
+                            <tabpanel>Tabpanel 2</tabpanel>
+                            <tabpanel>Tabpanel 3</tabpanel>
+                            <tabpanel>Tabpanel 4</tabpanel>
 						</tabpanels>
 					</tabbox>
 				</div>
