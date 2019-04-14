@@ -25,8 +25,8 @@ public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
 	private Tabpanels buttonsTabPanels;
 	private DashboardSideMenuDataService menuDataService;
 	
-	int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
-	int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
+	Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
+	Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 
 	@Override
 	public void doAfterCompose(Panel panel) {
@@ -41,7 +41,7 @@ public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
 	}
 
 	public void createMenuHeaders() {
-		if(RoleAndUserManagement.userRoleHasAllSubRolesIncluded(roleId)) {
+		if(userRoleIsAdmin()) {
 			for (MHomeScreenButtonGroup btnGrp : menuDataService.getButtonGroups()) {
 				headers.appendChild(new Tab(btnGrp.getName()));
 			}
@@ -59,10 +59,17 @@ public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
 			        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
 			        .collect(Collectors.toList());
 			for (MHomeScreenButton mHomeScreenButton : buttonsInGroup) {
-				Grid grid = new DashboardMenuButtonCreation().createButton(mHomeScreenButton);
-				currentGroupPanel.appendChild(grid);
+				Integer buttonRoleId = mHomeScreenButton.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+				if ((!userRoleIsAdmin() && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId)) || userRoleIsAdmin()) {
+					Grid grid = new DashboardMenuButtonCreation().createButton(mHomeScreenButton);
+					currentGroupPanel.appendChild(grid);
+				}
 			}
 			buttonsTabPanels.appendChild(currentGroupPanel);
 		}
+	}
+	
+	private boolean userRoleIsAdmin() {
+		return RoleAndUserManagement.checkRoleHasAllSubRolesIncluded(roleId);
 	}
 }
