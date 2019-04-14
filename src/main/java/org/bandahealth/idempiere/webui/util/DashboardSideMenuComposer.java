@@ -1,56 +1,68 @@
 package org.bandahealth.idempiere.webui.util;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.adempiere.webui.component.Tab;
-import org.adempiere.webui.component.Tabpanel;
-import org.adempiere.webui.component.Tabs;
-import org.adempiere.webui.dashboard.DashboardPanel;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
+import org.compiere.util.Env;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.Panel;
+import org.zkoss.zul.Tabpanel;
+import org.zkoss.zul.Tabpanels;
+import org.zkoss.zul.Tabs;
 
 public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
 
 	private static final long serialVersionUID = 1L;
 
-	@Wire("#dboard_menu_tabs")
-	private Tabs tabs;
-	@Wire("#dboard_menu_tabpanels")
-	private Tabpanel tabpanel;
-	private DashboardSideMenuDataPopulator dashboardMenuPopulator;
+	@Wire
+	private Tabs headers;
+	@Wire
+	private Tabpanels buttonsTabPanels;
+	private DashboardSideMenuDataService menuDataService;
+	
+	int userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
+	int roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 
 	@Override
 	public void doAfterCompose(Panel panel) {
 		try {
 			super.doAfterCompose(panel);
-			dashboardMenuPopulator = new DashboardSideMenuDataPopulator();
+			menuDataService = new DashboardSideMenuDataService();
+			createMenuHeaders();
+			createMenuButtons();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		panel.setAttribute("btnGroupsModel", getMenuGroupTabs());
-//		panel.setAttribute("btnItemsModel", getMenuButtonsTabPanels());
 	}
 
-	public ListModelList<Tab> getMenuGroupTabs() {
-		ListModelList<Tab> tabModel = new ListModelList<>();
-		for (MHomeScreenButtonGroup btnGrp : dashboardMenuPopulator.getButtonGroups()) {
-			Tab tab = new Tab(btnGrp.getName());
-			tabModel.add(tab);
+	public void createMenuHeaders() {
+		if(RoleAndUserManagement.userRoleHasAllSubRolesIncluded(roleId)) {
+			for (MHomeScreenButtonGroup btnGrp : menuDataService.getButtonGroups()) {
+				headers.appendChild(new Tab(btnGrp.getName()));
+			}
+		} else {
+			headers.appendChild(new Tab(""));
 		}
-		return tabModel;
 	}
 
-	public List<Tabpanel> createTabPanelButtons(Integer buttonGroupId) {
-		List<Tabpanel> tabPanels = new ArrayList<Tabpanel>();
-		for (MHomeScreenButton button : dashboardMenuPopulator.getButtonsInButtonGroup(buttonGroupId)) {
-			UIUtil.createButton(button);
+	public void createMenuButtons() {
+		List<MHomeScreenButtonGroup> buttonGroups = menuDataService.getButtonGroups();
+		List<MHomeScreenButton> buttons = menuDataService.getButtons();
+		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+			Tabpanel currentGroupPanel = new Tabpanel();
+			List<MHomeScreenButton> buttonsInGroup = buttons.stream()
+			        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+			        .collect(Collectors.toList());
+			for (MHomeScreenButton mHomeScreenButton : buttonsInGroup) {
+				Grid grid = new DashboardMenuButtonCreation().createButton(mHomeScreenButton);
+				currentGroupPanel.appendChild(grid);
+			}
+			buttonsTabPanels.appendChild(currentGroupPanel);
 		}
-		return tabPanels;
 	}
-
 }

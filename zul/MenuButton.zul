@@ -1,0 +1,16 @@
+<zk>
+	<grid>
+		<columns>
+			<column></column>
+			<column></column>
+		</columns>
+		<rows>
+			<row>
+				<div sclass="icn"></div>
+				<div sclass="lbl">
+					<label></label>
+				</div>
+			</row>
+		</rows>
+	</grid>
+</zk>

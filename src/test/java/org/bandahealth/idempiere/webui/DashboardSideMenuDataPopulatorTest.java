@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
-import org.bandahealth.idempiere.webui.util.DashboardSideMenuDataPopulator;
+import org.bandahealth.idempiere.webui.util.DashboardSideMenuDataService;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import test.AdempiereTestCase;
 
 public class DashboardSideMenuDataPopulatorTest extends AdempiereTestCase {
 
-	private DashboardSideMenuDataPopulator dashboardSideMenuDataPopulator;
+	private DashboardSideMenuDataService dashboardSideMenuDataService;
 	private List<MHomeScreenButtonGroup> groups;
 
 	public static List<String> buttonGroupNames() {
@@ -28,13 +28,13 @@ public class DashboardSideMenuDataPopulatorTest extends AdempiereTestCase {
 	@BeforeClass
 	public void setUp() throws Exception {
 		super.setUp();
-		dashboardSideMenuDataPopulator = new DashboardSideMenuDataPopulator();
-		groups = dashboardSideMenuDataPopulator.getButtonGroups();
+		dashboardSideMenuDataService = new DashboardSideMenuDataService();
+		groups = dashboardSideMenuDataService.getButtonGroups();
 	}
 
 	@Test
 	public void testDashboardPopulatorIsNotNull() {
-		assertThat(dashboardSideMenuDataPopulator, notNullValue());
+		assertThat(dashboardSideMenuDataService, notNullValue());
 	}
 
 	@Test
@@ -51,6 +51,6 @@ public class DashboardSideMenuDataPopulatorTest extends AdempiereTestCase {
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
-		dashboardSideMenuDataPopulator = null;
+		dashboardSideMenuDataService = null;
 	}
 }
