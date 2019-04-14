@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
-import org.bandahealth.idempiere.webui.util.DashboardSideMenuDataService;
+import org.bandahealth.idempiere.webui.util.dashboardmenu.DashboardSideMenuDataService;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;

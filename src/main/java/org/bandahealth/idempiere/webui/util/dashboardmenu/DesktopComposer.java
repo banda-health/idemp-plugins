@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui.util;
+package org.bandahealth.idempiere.webui.util.dashboardmenu;
 
 import org.adempiere.webui.dashboard.DashboardPanel;
 import org.bandahealth.idempiere.webui.TermsOfUseService;

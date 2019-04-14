@@ -1,7 +1,8 @@
-package org.bandahealth.idempiere.webui.util;
+package org.bandahealth.idempiere.webui.util.dashboardmenu;
 
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
+import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
