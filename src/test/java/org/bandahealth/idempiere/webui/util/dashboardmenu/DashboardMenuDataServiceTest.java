@@ -4,10 +4,13 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.webui.util.dashboardmenu.DashboardMenuDataService;
+import org.hamcrest.core.IsNot;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,6 +21,7 @@ public class DashboardMenuDataServiceTest extends AdempiereTestCase {
 
 	private DashboardMenuDataService dashboardMenuDataService;
 	private List<MHomeScreenButtonGroup> groups;
+	private List<MHomeScreenButton> buttons;
 
 	public static List<String> buttonGroupNames() {
 		return Arrays.asList(new String[] { "Patients and Suppliers", "My Products Services and Expenses",
@@ -30,23 +34,28 @@ public class DashboardMenuDataServiceTest extends AdempiereTestCase {
 		super.setUp();
 		dashboardMenuDataService = new DashboardMenuDataService();
 		groups = dashboardMenuDataService.getButtonGroups();
+		buttons = dashboardMenuDataService.getButtons();
 	}
 
 	@Test
-	public void testDashboardPopulatorIsNotNull() {
+	public void testDashboardMenuDataServiceIsNotNull() {
 		assertThat(dashboardMenuDataService, notNullValue());
 	}
 
 	@Test
-	public void testButtonGroupsInstancesReturned() {
+	public void testGetButtonGroupsReturnsMHomeScreenButtonGroupList() {
+		assertThat(groups, isA(List.class));
+		assertThat(groups, not(Collections.EMPTY_LIST)); // assumes groups setup during config...
 		assertThat(groups, everyItem(instanceOf(MHomeScreenButtonGroup.class)));
 	}
 
 	@Test
-	public void testButtonGroupsFirstEntryHasNamesDefined() {
-		assertThat(groups.get(0).getName(),containsString(buttonGroupNames().get(0)));
+	public void testGetButtonsReturnsMHomeScreenButtonList() {
+		assertThat(buttons, isA(List.class));
+		assertThat(buttons, not(Collections.EMPTY_LIST));
+		assertThat(buttons, everyItem(instanceOf(MHomeScreenButton.class)));
 	}
-	
+
 	@Override
 	@After
 	public void tearDown() throws Exception {
