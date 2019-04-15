@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui;
+package org.bandahealth.idempiere.webui.util.dashboardmenu;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
@@ -7,16 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
-import org.bandahealth.idempiere.webui.util.dashboardmenu.DashboardSideMenuDataService;
+import org.bandahealth.idempiere.webui.util.dashboardmenu.DashboardMenuDataService;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import test.AdempiereTestCase;
 
-public class DashboardSideMenuDataPopulatorTest extends AdempiereTestCase {
+public class DashboardMenuDataServiceTest extends AdempiereTestCase {
 
-	private DashboardSideMenuDataService dashboardSideMenuDataService;
+	private DashboardMenuDataService dashboardMenuDataService;
 	private List<MHomeScreenButtonGroup> groups;
 
 	public static List<String> buttonGroupNames() {
@@ -28,13 +28,13 @@ public class DashboardSideMenuDataPopulatorTest extends AdempiereTestCase {
 	@BeforeClass
 	public void setUp() throws Exception {
 		super.setUp();
-		dashboardSideMenuDataService = new DashboardSideMenuDataService();
-		groups = dashboardSideMenuDataService.getButtonGroups();
+		dashboardMenuDataService = new DashboardMenuDataService();
+		groups = dashboardMenuDataService.getButtonGroups();
 	}
 
 	@Test
 	public void testDashboardPopulatorIsNotNull() {
-		assertThat(dashboardSideMenuDataService, notNullValue());
+		assertThat(dashboardMenuDataService, notNullValue());
 	}
 
 	@Test
@@ -51,6 +51,6 @@ public class DashboardSideMenuDataPopulatorTest extends AdempiereTestCase {
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
-		dashboardSideMenuDataService = null;
+		dashboardMenuDataService = null;
 	}
 }

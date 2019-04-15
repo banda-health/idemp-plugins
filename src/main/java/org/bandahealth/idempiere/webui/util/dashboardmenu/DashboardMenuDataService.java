@@ -7,9 +7,9 @@ import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-public class DashboardSideMenuDataService {
+public class DashboardMenuDataService {
 	
-	public DashboardSideMenuDataService() {}
+	public DashboardMenuDataService() {}
 
 	public List<MHomeScreenButtonGroup> getButtonGroups() {
 		List<MHomeScreenButtonGroup> buttonGroups = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null,

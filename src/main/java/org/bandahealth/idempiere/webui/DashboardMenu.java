@@ -29,7 +29,6 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.webui.util.DraftSaleOrderListRenderer;
 import org.bandahealth.idempiere.webui.util.UIUtil;
-import org.bandahealth.idempiere.webui.util.dashboardmenu.DesktopComposer;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
 import org.compiere.model.MRole;

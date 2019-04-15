@@ -16,7 +16,7 @@ import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 
-public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
+public class DashboardMenuComposer extends SelectorComposer<Panel> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
 	private Tabs headers;
 	@Wire
 	private Tabpanels buttonsTabPanels;
-	private DashboardSideMenuDataService menuDataService;
+	private DashboardMenuDataService menuDataService;
 	
 	Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
 	Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
@@ -33,7 +33,7 @@ public class DashboardSideMenuComposer extends SelectorComposer<Panel> {
 	public void doAfterCompose(Panel panel) {
 		try {
 			super.doAfterCompose(panel);
-			menuDataService = new DashboardSideMenuDataService();
+			menuDataService = new DashboardMenuDataService();
 			createMenuHeaders();
 			createMenuButtons();
 		} catch (Exception e) {
