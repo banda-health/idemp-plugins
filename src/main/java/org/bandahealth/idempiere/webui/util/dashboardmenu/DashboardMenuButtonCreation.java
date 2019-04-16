@@ -20,7 +20,7 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 	public static String TERMS_OF_USE_ATTRIBUTE = "data-terms-of-use";
 
 	boolean isInfoWindow = false;
-	boolean isReportOrProcess = false;
+	boolean isReportOrProcess = true;
 	boolean isSpecialForm = false;
 	int windowOrInfoWindowId;
 

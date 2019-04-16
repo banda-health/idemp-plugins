@@ -18,7 +18,6 @@ public class DashboardMenuCreationTest extends AdempiereTestCase{
 	boolean isInfoWindow = false;
 	boolean isReportOrProcess = false;
 	boolean isSpecialForm = false;
-	int windowOrInfoWindowId;
 
 	@Before
 	public void setUp() throws Exception {
@@ -27,17 +26,36 @@ public class DashboardMenuCreationTest extends AdempiereTestCase{
 	}
 
 	@Test
+	public void testButtonTypeSetsAsWindowId() {
+		when(button.getAD_Window_ID()).thenReturn(1000004); //receive products window id
+		menuCreator.setButtonType(button);
+		assertThat(isReportOrProcess, is(false));
+		assertThat(isInfoWindow, is(false));
+		assertThat(isSpecialForm, is(false));
+	}
+	
+	@Test
 	public void testButtonTypeSetsIsProcessAttributeToTrue() {
 		when(button.getAD_Window_ID()).thenReturn(0);
-		when(button.getAD_Process_ID()).thenReturn(1000006); //revenue report process
+		when(button.getAD_InfoWindow_ID()).thenReturn(0);
+		when(button.getAD_Form_ID()).thenReturn(0);
+		when(button.getAD_Process_ID()).thenReturn(1000017); //income-exp report process
 		menuCreator.setButtonType(button);
-		assertThat(isReportOrProcess, is(true));
+		assertThat(menuCreator.isReportOrProcess, is(true));
 	}
 	
 	@Test
 	public void testButtonTypeSetsIsFormAttributeToTrue() {
-		when(button.getAD_Window_ID()).thenReturn(200000);// view products info window id
-		menuCreator.setButtonType(button);
-		assertThat(isInfoWindow, is(true));
+		when(button.getAD_Window_ID()).thenReturn(0);
+		when(button.getAD_Process_ID()).thenReturn(0);
+		when(button.getAD_Form_ID()).thenReturn(1000001);
+		menuCreator.setButtonType(button); // metrics form window
+		assertThat(menuCreator.isSpecialForm, is(true));
+	}
+	
+	@Override
+	public void tearDown() {
+		button = null;
+		menuCreator = null;
 	}
 }
