@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui.util.dashboardmenu;
+package org.bandahealth.idempiere.webui;
 
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;

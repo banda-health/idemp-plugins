@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
-import org.bandahealth.idempiere.webui.util.dashboardmenu.DashboardMenuDataService;
+import org.bandahealth.idempiere.webui.DashboardMenuDataService;
 import org.hamcrest.core.IsNot;
 import org.junit.After;
 import org.junit.BeforeClass;
