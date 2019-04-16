@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.webui.util;
 
 import java.util.List;
 
+import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MUserRoles;
@@ -27,7 +28,7 @@ public class RoleAndUserManagement {
 		}
 		return false;
 	}
-	
+
 	public static boolean userRoleHasSpecificSubRoles(Integer roleId, Integer userId, Integer buttonRoleId) {
 		boolean hasRoleAssigned = false;
 
@@ -51,5 +52,32 @@ public class RoleAndUserManagement {
 			}
 		}
 		return hasRoleAssigned;
+	}
+
+	public static String appendRoleScriptString() {
+		String scriptString = "";
+		if (isUserViewingAnOrganization()) {
+			scriptString = "requirejs(['user/organization'], function () {});";
+		} else if (isUserViewingAClient()) {
+			scriptString = "requirejs(['user/client'], function () {});";
+		}
+		return scriptString;
+	}
+
+	private static Boolean isUserViewingAnOrganization() {
+		Boolean isViewingAnOrganization = true;
+		if (Env.getAD_Org_ID(Env.getCtx()) == QueryConstants.BASE_ORGANIZATION_ID) {
+			isViewingAnOrganization = false;
+		}
+		return isViewingAnOrganization;
+	}
+
+	private static boolean isUserViewingAClient() {
+		Boolean isViewingAClient = false;
+		if (Env.getAD_Org_ID(Env.getCtx()) == QueryConstants.BASE_ORGANIZATION_ID
+		        && Env.getAD_Client_ID(Env.getCtx()) != QueryConstants.BASE_CLIENT_ID) {
+			isViewingAClient = true;
+		}
+		return isViewingAClient;
 	}
 }

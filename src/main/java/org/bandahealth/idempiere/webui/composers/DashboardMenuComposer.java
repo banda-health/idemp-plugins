@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Panel;
+import org.zkoss.zul.Script;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
@@ -26,6 +27,8 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	private Tabs headers;
 	@Wire
 	private Tabpanels buttonsTabPanels;
+	@Wire
+	private Panel mainDashboardPanel;
 	private DashboardMenuDataService menuDataService;
 	
 	Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
@@ -38,6 +41,7 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 			menuDataService = new DashboardMenuDataService();
 			createMenuHeaders();
 			createMenuButtons();
+			mainDashboardPanel.appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
