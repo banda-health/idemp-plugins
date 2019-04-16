@@ -266,8 +266,12 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 				public void run() {
 					if (updatedListAvailable()) {
 						unclosedSOCount = saleOrders.size();
-						if (!refresherThread.isAlive()) {
-							refresherThread.start();
+						try {
+							if (!refresherThread.isAlive()) {
+								refresherThread.run();
+							}
+						} catch (IllegalStateException ex) {
+							CLogger.get().severe("Error refreshing dashboard: " + ex.toString());
 						}
 					}
 				}
@@ -295,7 +299,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 			if (desktop == null) {
 				return;
 			}
-			
+
 			desktop.enableServerPush(true);
 			try {
 				Executions.activate(desktop);
