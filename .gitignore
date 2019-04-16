@@ -4,3 +4,4 @@
 .settings
 *.css
 test.properties
+.classpath
