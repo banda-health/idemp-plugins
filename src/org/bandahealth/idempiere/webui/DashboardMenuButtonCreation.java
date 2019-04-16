@@ -20,9 +20,9 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 	public static String TERMS_OF_USE_ATTRIBUTE = "data-terms-of-use";
 
 	boolean isInfoWindow = false;
-	boolean isReportOrProcess = true;
-	boolean isSpecialForm = false;
-	int windowOrInfoWindowId;
+	public boolean isReportOrProcess = true;
+	public boolean isSpecialForm = false;
+	public int windowOrInfoWindowId;
 
 	public void setButtonType(MHomeScreenButton mHomeScreenButton) {
 		int windowOrInfoWindowId = mHomeScreenButton.getAD_Window_ID();
