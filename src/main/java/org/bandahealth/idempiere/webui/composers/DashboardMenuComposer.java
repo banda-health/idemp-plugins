@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui.util.dashboardmenu;
+package org.bandahealth.idempiere.webui.composers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,6 +7,8 @@ import org.adempiere.webui.component.Tab;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.webui.util.RoleAndUserManagement;
+import org.bandahealth.idempiere.webui.util.dashboardmenu.DashboardMenuButtonCreation;
+import org.bandahealth.idempiere.webui.util.dashboardmenu.DashboardMenuDataService;
 import org.compiere.util.Env;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;

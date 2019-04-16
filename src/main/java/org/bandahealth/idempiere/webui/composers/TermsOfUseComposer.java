@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui.util;
+package org.bandahealth.idempiere.webui.composers;
 
 import org.adempiere.webui.session.SessionManager;
 import org.bandahealth.idempiere.webui.TermsOfUseService;
