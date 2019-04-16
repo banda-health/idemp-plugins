@@ -12,4 +12,5 @@ Import-Package: javax.annotation,
  junit.framework;version="4.12.0",
  junit.runner;version="4.12.0",
  org.junit;version="4.12.0",
- org.junit.runners;version="4.12.0"
+ org.junit.runners;version="4.12.0",
+ test

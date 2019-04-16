@@ -15,7 +15,6 @@ public class BusinessPartnerModelEventTest extends AdempiereTestCase {
 		super.setUp();
 
 		assertNotNull("Context should not be null", getCtx());
-
 	}
 
 	@Test
@@ -32,8 +31,6 @@ public class BusinessPartnerModelEventTest extends AdempiereTestCase {
 		assertEquals("Should have an Invoice Rule: ", MOrder.INVOICERULE_Immediate, savedBPartner.getInvoiceRule());
 		assertEquals("Should have a Payment Rule: ", MOrder.PAYMENTRULE_Cash, savedBPartner.getPaymentRule());
 		assertNotNull("Should have a Price List: ", savedBPartner.getM_PriceList_ID());
-
-		rollback();
 	}
 
 	@Test
@@ -54,7 +51,5 @@ public class BusinessPartnerModelEventTest extends AdempiereTestCase {
 		// should have a location
 		MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(savedBPartner);
 		assertNotNull("Should have a location ", businessPartnerLocation);
-
-		rollback();
 	}
 }
