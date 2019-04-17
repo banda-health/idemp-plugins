@@ -18,19 +18,13 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 	public static String SPECIAL_FORM_ATTRIBUTE = "special-form";
 	public static String REPORT_OR_PROCESS_ATTRIBUTE = "data-process";
 
-	boolean isInfoWindow = false;
 	public boolean isReportOrProcess = true;
 	public boolean isSpecialForm = false;
 	public int windowOrInfoWindowId;
 
 	public void setButtonType(MHomeScreenButton mHomeScreenButton) {
-		int windowOrInfoWindowId = mHomeScreenButton.getAD_Window_ID();
+		windowOrInfoWindowId = mHomeScreenButton.getAD_Window_ID();
 
-		isInfoWindow = false;
-		if (windowOrInfoWindowId == 0) {
-			windowOrInfoWindowId = mHomeScreenButton.getAD_InfoWindow_ID();
-			isInfoWindow = true;
-		}
 		isReportOrProcess = false;
 		if (windowOrInfoWindowId == 0) {
 			windowOrInfoWindowId = mHomeScreenButton.getAD_Process_ID();
@@ -53,7 +47,6 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 		string.setValue(mHomeScreenButton.getButtonText());
 		menuText.appendChild(string);
 		buttonGrid.setId(Integer.toString(windowOrInfoWindowId));
-		buttonGrid.setAttribute(INFO_WINDOW_ATTRIBUTE, isInfoWindow);
 		buttonGrid.setAttribute(REPORT_OR_PROCESS_ATTRIBUTE, isReportOrProcess);
 		buttonGrid.setAttribute(SPECIAL_FORM_ATTRIBUTE, isSpecialForm);
 		buttonGrid.setTooltiptext(mHomeScreenButton.getButtonHelpText());
@@ -75,8 +68,6 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 					} catch (Exception ex) {
 						SessionManager.getAppDesktop().openProcessDialog(targetId, false);
 					}
-				} else if ((Boolean) button.getAttribute(INFO_WINDOW_ATTRIBUTE)) {
-					SessionManager.getAppDesktop().openInfo(targetId);
 				} else if ((Boolean) button.getAttribute(SPECIAL_FORM_ATTRIBUTE)) {
 					SessionManager.getAppDesktop().openForm(targetId);
 				} else {
