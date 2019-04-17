@@ -17,7 +17,6 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 	public static String INFO_WINDOW_ATTRIBUTE = "data-infowindow";
 	public static String SPECIAL_FORM_ATTRIBUTE = "special-form";
 	public static String REPORT_OR_PROCESS_ATTRIBUTE = "data-process";
-	public static String TERMS_OF_USE_ATTRIBUTE = "data-terms-of-use";
 
 	boolean isInfoWindow = false;
 	public boolean isReportOrProcess = true;
@@ -69,27 +68,19 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 		if (eventName.equals(Events.ON_CLICK)) {
 			if (component instanceof Grid) {
 				Grid button = (Grid) component;
-				Boolean termsOfUse = (Boolean) button.getAttribute(TERMS_OF_USE_ATTRIBUTE);
+				int targetId = Integer.parseInt(button.getId());
 				if ((Boolean) button.getAttribute(REPORT_OR_PROCESS_ATTRIBUTE)) {
-					int processId = Integer.parseInt(button.getId());
 					try {
-						SessionManager.getAppDesktop().openForm(processId);
+						SessionManager.getAppDesktop().openForm(targetId);
 					} catch (Exception ex) {
-						SessionManager.getAppDesktop().openProcessDialog(processId, false);
+						SessionManager.getAppDesktop().openProcessDialog(targetId, false);
 					}
 				} else if ((Boolean) button.getAttribute(INFO_WINDOW_ATTRIBUTE)) {
-					int infoWindowId = Integer.parseInt(button.getId());
-					SessionManager.getAppDesktop().openInfo(infoWindowId);
+					SessionManager.getAppDesktop().openInfo(targetId);
 				} else if ((Boolean) button.getAttribute(SPECIAL_FORM_ATTRIBUTE)) {
-					int infoWindowId = Integer.parseInt(button.getId());
-					SessionManager.getAppDesktop().openForm(infoWindowId);
-				} else if (termsOfUse != null && termsOfUse == true) {
-					// acceptTermsOfUse();
-				} else if (termsOfUse != null && termsOfUse == false) {
-					SessionManager.getAppDesktop().logout();
+					SessionManager.getAppDesktop().openForm(targetId);
 				} else {
-					int windowId = Integer.parseInt(button.getId());
-					SessionManager.getAppDesktop().openWindow(windowId, null);
+					SessionManager.getAppDesktop().openWindow(targetId, null);
 				}
 			}
 			//TODO Add event handler for open bills widget
