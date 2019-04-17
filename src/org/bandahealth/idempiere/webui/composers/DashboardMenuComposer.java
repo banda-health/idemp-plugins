@@ -38,13 +38,13 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	public void doAfterCompose(Panel panel) {
 		try {
 			super.doAfterCompose(panel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 			menuDataService = new DashboardMenuDataService();
 			createMenuHeaders();
 			createMenuButtons();
 			mainDashboardPanel.appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void createMenuHeaders() {
