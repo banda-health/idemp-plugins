@@ -23,11 +23,6 @@ public class DashboardMenuDataServiceTest extends AdempiereTestCase {
 	private List<MHomeScreenButtonGroup> groups;
 	private List<MHomeScreenButton> buttons;
 
-	public static List<String> buttonGroupNames() {
-		return Arrays.asList(new String[] { "Patients and Suppliers", "My Products Services and Expenses",
-		        "Cashier and Accounts", "Pharmacy and Stores", "Reports", "Metrics" });
-	}
-
 	@Override
 	@BeforeClass
 	public void setUp() throws Exception {
