@@ -1,13 +1,13 @@
 <zk>
-	<grid sclass="bh-dashboard-button" style="margin:0px; padding:0px; cursor: pointer;">
+	<grid sclass="bh-dashboard-button">
 		<columns>
-			<column style="width:45px;"></column>
-			<column style="width:200px;"></column>
+			<column></column>
+			<column></column>
 		</columns>
 		<rows>
 			<row>
-				<div sclass="icn" style="padding:3px; font-size:20px; text-align:center; vertical-align:middle;"></div>
-				<div sclass="lbl" style="text-align:left;  vertical-align:middle; padding-left:5px;">
+				<div sclass="icn"></div>
+				<div sclass="lbl" style="width:200px;text-align:left; ">
 					<label></label>
 				</div>
 			</row>

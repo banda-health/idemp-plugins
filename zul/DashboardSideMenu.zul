@@ -1,8 +1,8 @@
 <zk>
-	<panel id="mainDashboardPanel" framable="false" width="400px"
+	<panel id="mainDashboardPanel" framable="false"
 		closable="false" maximizable="true"
-		sclass="openmrs bh-dashboard-panel"
-		apply="org.bandahealth.idempiere.webui.composers.DashboardMenuComposer">
+		apply="org.bandahealth.idempiere.webui.composers.DashboardMenuComposer"
+		sclass="openmrs bh-dashboard-panel">
 		<panelchildren>
 			<hlayout id="panelLayout">
 				<div>
