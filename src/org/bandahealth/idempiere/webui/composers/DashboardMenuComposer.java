@@ -44,7 +44,7 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 			menuDataService = new DashboardMenuDataService();
 			createMenuHeaders();
 			createMenuButtons();
-			mainDashboardPanel.appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
+			mainDashboardPanel.query("#panelLayout").appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
 	}
 
 	public void createMenuHeaders() {

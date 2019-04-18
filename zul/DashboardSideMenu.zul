@@ -4,7 +4,7 @@
 		sclass="openmrs bh-dashboard-panel"
 		apply="org.bandahealth.idempiere.webui.composers.DashboardMenuComposer">
 		<panelchildren>
-			<hlayout>
+			<hlayout id="panelLayout">
 				<div>
 					<tabbox mold="accordion">
 						<tabs id="headers"></tabs>
