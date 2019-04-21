@@ -1,7 +1,8 @@
 <zk>
+<vlayout id="bhRootDashboardComponent" 
+         apply="org.bandahealth.idempiere.webui.composers.DashboardMenuComposer">
 	<panel id="mainDashboardPanel" framable="false"
 		closable="false" maximizable="true"
-		apply="org.bandahealth.idempiere.webui.composers.DashboardMenuComposer"
 		sclass="openmrs bh-dashboard-panel">
 		<panelchildren>
 			<hlayout id="panelLayout">
@@ -14,4 +15,6 @@
 			</hlayout>
 		</panelchildren>
 	</panel>
+	<div id="pendingBillsParent"></div>
+</vlayout>
 </zk>

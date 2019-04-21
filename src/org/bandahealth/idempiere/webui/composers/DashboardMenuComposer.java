@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.webui.DashboardMenuButtonCreation;
 import org.bandahealth.idempiere.webui.DashboardMenuDataService;
 import org.bandahealth.idempiere.webui.util.RoleAndUserManagement;
 import org.compiere.util.Env;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Grid;
@@ -18,8 +19,10 @@ import org.zkoss.zul.Script;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
+import org.zkoss.zul.Vlayout;
+import org.zkoss.zul.Window;
 
-public class DashboardMenuComposer extends SelectorComposer<Panel> {
+public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,25 +33,28 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	@Wire
 	private Panel mainDashboardPanel;
 	private DashboardMenuDataService menuDataService;
-	
+
 	Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
 	Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 
 	@Override
-	public void doAfterCompose(Panel panel) {
+	public void doAfterCompose(Vlayout vlayout) {
 		try {
-			super.doAfterCompose(panel);
+			super.doAfterCompose(vlayout);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			menuDataService = new DashboardMenuDataService();
-			createMenuHeaders();
-			createMenuButtons();
-			mainDashboardPanel.query("#panelLayout").appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
+		menuDataService = new DashboardMenuDataService();
+		createMenuHeaders();
+		createMenuButtons();
+		mainDashboardPanel.query("#panelLayout")
+		        .appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
+		addPendingBillsWidget();
+
 	}
 
 	public void createMenuHeaders() {
-		if(userRoleIsAdmin()) {
+		if (userRoleIsAdmin()) {
 			for (MHomeScreenButtonGroup btnGrp : menuDataService.getButtonGroups()) {
 				headers.appendChild(new Tab(btnGrp.getName()));
 			}
@@ -62,21 +68,26 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 		List<MHomeScreenButton> buttons = menuDataService.getButtons();
 		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 			Tabpanel currentGroupPanel = new Tabpanel();
-			buttons.stream()
-			        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
-			        .collect(Collectors.toList())
-			        .forEach(button->{
-			        	Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-						if ((!userRoleIsAdmin() && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId)) || userRoleIsAdmin()) {
-							Grid grid = new DashboardMenuButtonCreation().createButton(button);
-							currentGroupPanel.appendChild(grid);
-						}
+			buttons.stream().filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+			        .collect(Collectors.toList()).forEach(button -> {
+				        Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+				        if ((!userRoleIsAdmin()
+				                && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+				                || userRoleIsAdmin()) {
+					        Grid grid = new DashboardMenuButtonCreation().createButton(button);
+					        currentGroupPanel.appendChild(grid);
+				        }
 			        });
 			buttonsTabPanels.appendChild(currentGroupPanel);
 		}
 	}
-	
+
 	private boolean userRoleIsAdmin() {
 		return RoleAndUserManagement.checkRoleHasAllSubRolesIncluded(roleId);
+	}
+
+	private void addPendingBillsWidget() {
+		Window window = (Window) Executions.createComponents("/zul/PendingBillsWidget.zul", null, null);
+		this.getSelf().appendChild(window);
 	}
 }
