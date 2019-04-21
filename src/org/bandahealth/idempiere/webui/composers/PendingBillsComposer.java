@@ -123,21 +123,14 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 	@Override
 	public void onEvent(Event event) throws Exception {
 		Component component = event.getTarget();
-		System.out.println("Inside event listener");
 		String eventName = event.getName();
 		if (eventName.equals(Events.ON_SELECT)) {
 			Listitem selected = ((Listbox) component).getSelectedItem();
 			Integer selectedDocNumber = Integer.parseInt(selected.getValue().toString());
-
-			MWindow bhSOWindow = new Query(Env.getCtx(), MWindow.Table_Name,
-			        MWindow.COLUMNNAME_Name + " LIKE '%Patient Bill%'", null).setOnlyActiveRecords(true).first();
-			int windowId = bhSOWindow.getAD_Window_ID();
-
-			MQuery query = new MQuery(MOrder.Table_Name);
-			query.addRestriction(MOrder.COLUMNNAME_DocumentNo + "='" + String.valueOf(selectedDocNumber) + "' AND "
-			        + MOrder.COLUMNNAME_DocStatus + "='DR'");
+			int windowId = PendingBillsDataService.getBillingWindowId();
+			MQuery query = PendingBillsDataService.createQueryForSelectedBill(selectedDocNumber);
+			
 			SessionManager.getAppDesktop().openWindow(windowId, query, new Callback<ADWindow>() {
-
 				@Override
 				public void onCallback(ADWindow result) {
 					if (result == null)
