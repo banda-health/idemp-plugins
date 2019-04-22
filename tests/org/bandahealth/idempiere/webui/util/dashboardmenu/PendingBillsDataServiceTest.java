@@ -20,6 +20,7 @@ public class PendingBillsDataServiceTest extends AdempiereTestCase {
 
 	@Test
 	public void testOnSelectOpensBillingWindow() {
+		
 	}
 
 	@Test

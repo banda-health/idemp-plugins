@@ -31,8 +31,8 @@ import org.zkoss.zul.Window;
 public class PendingBillsComposer extends SelectorComposer<Window> implements EventListener<Event> {
 
 	private static final long serialVersionUID = 1L;
-	private List<MOrder> saleOrders;
-	private Integer unclosedSOCount = 0;
+	private List<MOrder> patientBills;
+	private Integer patientBillsCount = 0;
 	@Wire
 	private Listbox pendingBillsListBox;
 
@@ -48,11 +48,11 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 	}
 
 	public ListModelList<MOrder> getPendingBillsModel() {
-		saleOrders = PendingBillsDataService.getBillsInDraftState();
+		patientBills = PendingBillsDataService.getBillsInDraftState();
 		ListModelList<MOrder> model = new ListModelList<>();
-		if (saleOrders != null) {
-			unclosedSOCount = saleOrders.size();
-			model = new ListModelList<>(saleOrders, true);
+		if (patientBills != null) {
+			patientBillsCount = patientBills.size();
+			model = new ListModelList<>(patientBills, true);
 		}
 		return model;
 	}
@@ -60,15 +60,6 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 	public PendingBillsListRenderer getRenderer() {
 		return new PendingBillsListRenderer();
 	}
-
-//	public Window addToWindow() {
-//		Window notifications = new Window("Pending Patient Bills: (" + saleOrders.size() + ")", "none", false);
-//		notifications.setStyle("z-window-popup");
-//		notifications.setTooltiptext("List of all orders that have not been closed");
-//		notifications.appendChild(this.getSelf());
-//		widgetArea.appendChild(notifications);
-//		return notifications;
-//	}
 
 	private void refreshModelList(ListModelList<MOrder> modelList) {
 		// update listmodel every 2 seconds
@@ -78,7 +69,7 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 			@Override
 			public void run() {
 				if (updatedListAvailable()) {
-					unclosedSOCount = saleOrders.size();
+					patientBillsCount = patientBills.size();
 					if (!refresherThread.isAlive()) {
 						refresherThread.start();
 					}
@@ -102,7 +93,7 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 			try {
 				Executions.activate(desktop);
 				model.clear();
-				model.addAll(saleOrders);
+				model.addAll(patientBills);
 				Executions.deactivate(desktop);
 			} catch (DesktopUnavailableException | InterruptedException e) {
 				e.printStackTrace();
@@ -113,8 +104,8 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 	private boolean updatedListAvailable() {
 		boolean hasBeenUpdated = false;
 		List<MOrder> currentList = PendingBillsDataService.getBillsInDraftState();
-		if (currentList.size() != unclosedSOCount) {
-			saleOrders = currentList;
+		if (currentList.size() != patientBillsCount) {
+			patientBills = currentList;
 			hasBeenUpdated = true;
 		}
 		return hasBeenUpdated;
