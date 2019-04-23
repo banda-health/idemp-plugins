@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.webui.DashboardMenuButtonCreation;
 import org.bandahealth.idempiere.webui.DashboardMenuDataService;
 import org.bandahealth.idempiere.webui.util.RoleAndUserManagement;
+import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -39,6 +40,7 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 		try {
 			super.doAfterCompose(panel);
 		} catch (Exception e) {
+			CLogger.get().severe("An error occured while creating component: " + e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 			menuDataService = new DashboardMenuDataService();
