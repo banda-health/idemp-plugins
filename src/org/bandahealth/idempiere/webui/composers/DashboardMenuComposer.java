@@ -8,6 +8,9 @@ import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.webui.DashboardMenuButtonCreation;
 import org.bandahealth.idempiere.webui.DashboardMenuDataService;
+import org.bandahealth.idempiere.webui.dataservice.BaseDataService;
+import org.bandahealth.idempiere.webui.dataservice.ButtonDataService;
+import org.bandahealth.idempiere.webui.dataservice.ButtonGroupDataService;
 import org.bandahealth.idempiere.webui.util.RoleAndUserManagement;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -30,7 +33,8 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	private Tabpanels buttonsTabPanels;
 	@Wire
 	private Panel mainDashboardPanel;
-	private DashboardMenuDataService menuDataService;
+	private BaseDataService<MHomeScreenButton> buttonDataService;
+	private BaseDataService<MHomeScreenButtonGroup> buttonGroupDataService;
 	
 	Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
 	Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
@@ -43,7 +47,8 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 			CLogger.get().severe("An error occured while creating component: " + e.getLocalizedMessage());
 			e.printStackTrace();
 		}
-			menuDataService = new DashboardMenuDataService();
+			buttonDataService = new ButtonDataService();
+			buttonGroupDataService = new ButtonGroupDataService();
 			createMenuHeaders();
 			createMenuButtons();
 			mainDashboardPanel.query("#panelLayout").appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
@@ -51,7 +56,7 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 
 	public void createMenuHeaders() {
 		if(userRoleIsAdmin()) {
-			for (MHomeScreenButtonGroup btnGrp : menuDataService.getButtonGroups()) {
+			for (MHomeScreenButtonGroup btnGrp : buttonGroupDataService.getData()) {
 				headers.appendChild(new Tab(btnGrp.getName()));
 			}
 		} else {
@@ -60,8 +65,8 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	}
 
 	public void createMenuButtons() {
-		List<MHomeScreenButtonGroup> buttonGroups = menuDataService.getButtonGroups();
-		List<MHomeScreenButton> buttons = menuDataService.getButtons();
+		List<MHomeScreenButtonGroup> buttonGroups = buttonGroupDataService.getData();
+		List<MHomeScreenButton> buttons = buttonDataService.getData();
 		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 			Tabpanel currentGroupPanel = new Tabpanel();
 			buttons.stream()
