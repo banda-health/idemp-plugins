@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Patient Transactions" language="groovy" pageWidth="595" pageHeight="850" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Patient Transactions" pageWidth="595" pageHeight="850" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -17,8 +17,11 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="beginDate" class="java.util.Date"/>
 	<parameter name="endDate" class="java.util.Date"/>
-	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_ORG_ID" class="java.math.BigDecimal" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.math.BigDecimal"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT 
 	patientsummary.name AS GivenName,
@@ -66,6 +69,9 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 	<variable name="TotalChange" class="java.lang.Float">
 		<variableExpression><![CDATA[$V{TotalPayments} - $V{TotalCharges}]]></variableExpression>
 	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{PaymentMode}]]></groupExpression>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -188,46 +194,38 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 	</pageFooter>
 	<summary>
 		<band height="61" splitType="Stretch">
-			<textField pattern="#,##0">
-				<reportElement x="352" y="3" width="75" height="16" uuid="a2509bd4-a44c-413d-94ea-4b5738900864"/>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{TotalPayments}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="352" y="22" width="75" height="16" uuid="c24bf36f-9a0a-4d2a-a13c-051656a198ac"/>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{TotalCharges}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="214" y="3" width="126" height="16" uuid="de140269-bbf7-4026-a3ea-6c1254aaaf56"/>
-				<textElement textAlignment="Left">
-					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Payments:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="214" y="23" width="126" height="16" uuid="43bc3df0-9aa5-4c2e-b838-92c9f3bacf54"/>
-				<textElement textAlignment="Left">
-					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Charges:]]></text>
-			</staticText>
+			<subreport>
+				<reportElement x="350" y="6" width="163" height="38" uuid="a9f1a567-e261-40b5-9963-931fc4f96fd4"/>
+				<subreportParameter name="AD_ORG_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_ORG_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AD_CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="beginDate">
+					<subreportParameterExpression><![CDATA[$P{beginDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endDate">
+					<subreportParameterExpression><![CDATA[$P{endDate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patternBeginDate">
+					<subreportParameterExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd HH:mm").format($P{beginDate})]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="patternEndDate">
+					<subreportParameterExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd HH:mm").format($P{endDate})]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DailyPatientTransactionPayments.jasper"]]></subreportExpression>
+			</subreport>
 			<line>
 				<reportElement x="0" y="1" width="530" height="1" uuid="0e6fac0c-085f-45c3-93f3-37c2a067f3af"/>
-			</line>
-			<line>
-				<reportElement x="0" y="60" width="530" height="1" uuid="09635107-5034-4f0c-b5f6-1961563b7881"/>
 			</line>
 		</band>
 	</summary>
 	<noData>
 		<band height="21">
 			<staticText>
-				<reportElement x="0" y="2" width="306" height="16" uuid="e8da193c-2a64-44be-96ca-7416132f7400"/>
+				<reportElement x="0" y="4" width="306" height="16" uuid="e8da193c-2a64-44be-96ca-7416132f7400"/>
 				<textElement textAlignment="Left">
 					<font isBold="false" isItalic="true"/>
 				</textElement>

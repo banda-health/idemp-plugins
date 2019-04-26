@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DailyPatientTransactionPayments" pageWidth="162" pageHeight="134" whenNoDataType="BlankPage" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="40dbf2df-a037-42cd-9808-b1285b682703">
+	<property name="ireport.zoom" value="3.305785123966942"/>
+	<property name="ireport.x" value="29"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ERP"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="531"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="455"/>
+	<parameter name="AD_ORG_ID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="beginDate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endDate" class="java.util.Date" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT 
+	SUM(patientsummary.totalpayments) AS TotalPayments,
+    CASE 
+    	WHEN patientsummary.tendertype IS NULL 
+    		THEN 'Not Finalized' 
+    	ELSE tendertype 
+    END AS PaymentMode,
+    SUM(patientsummary.grandtotal) AS TotalCharges
+FROM bh_patient_transactions_v as patientsummary
+WHERE ad_client_id =  $P{AD_CLIENT_ID}   
+AND created BETWEEN $P{beginDate} AND  $P{endDate}
+GROUP BY tendertype]]>
+	</queryString>
+	<field name="PaymentMode" class="java.lang.String"/>
+	<field name="TotalPayments" class="java.math.BigDecimal"/>
+	<field name="TotalCharges" class="java.math.BigDecimal"/>
+	<variable name="FinalTotalPayments" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[SUM($F{TotalPayments} )]]></variableExpression>
+	</variable>
+	<variable name="FinalTotalCharges" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TotalCharges}]]></variableExpression>
+	</variable>
+	<variable name="FinalNotPaid" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{FinalTotalCharges}.subtract($V{FinalTotalPayments})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="22">
+			<textField evaluationTime="Report" pattern="#,##0">
+				<reportElement x="100" y="4" width="60" height="13" uuid="6a93f587-2d84-414a-b8f4-245e24d70cee"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{FinalTotalPayments}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="4" width="97" height="12" uuid="ab2a54c3-fb56-4d7a-80cd-4725598734aa"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Payments:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement key="" x="7" y="3" width="86" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PaymentMode}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="97" y="3" width="62" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9">
+					<printWhenExpression><![CDATA[NOT( $F{TotalPayments}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalPayments}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0">
+				<reportElement x="98" y="3" width="62" height="12" uuid="4ee2dbf2-15fe-456b-9b79-0c4839afce60">
+					<printWhenExpression><![CDATA[$F{PaymentMode}.equalsIgnoreCase( "not finalized" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{FinalNotPaid}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="3" width="150" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+			</line>
+			<textField evaluationTime="Report" pattern="#,##0">
+				<reportElement x="100" y="13" width="60" height="12" uuid="493fd134-ecba-4ac6-844b-7434a749102a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{FinalTotalCharges}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="" x="3" y="12" width="86" height="12" uuid="73d667d7-dfaf-4ae1-8e97-c18d8ab4d7c7"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Charges:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="32" width="150" height="1" uuid="0ff30b38-f268-426b-8e25-17491851eefc"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
