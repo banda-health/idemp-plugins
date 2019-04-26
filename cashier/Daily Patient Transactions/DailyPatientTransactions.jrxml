@@ -17,8 +17,8 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="beginDate" class="java.util.Date"/>
 	<parameter name="endDate" class="java.util.Date"/>
-	<parameter name="AD_ORG_ID" class="java.math.BigDecimal" isForPrompting="false"/>
-	<parameter name="AD_CLIENT_ID" class="java.math.BigDecimal"/>
+	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>

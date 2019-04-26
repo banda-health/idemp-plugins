@@ -9,11 +9,11 @@
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="531"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="455"/>
-	<parameter name="AD_ORG_ID" class="java.math.BigDecimal">
+	<parameter name="AD_ORG_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="beginDate" class="java.util.Date" isForPrompting="false"/>
-	<parameter name="AD_CLIENT_ID" class="java.math.BigDecimal">
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="endDate" class="java.util.Date" isForPrompting="false"/>
@@ -69,11 +69,11 @@ GROUP BY tendertype]]>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout"/>
 			<textField isStretchWithOverflow="true">
-				<reportElement key="" x="7" y="3" width="86" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<reportElement key="" x="7" y="3" width="73" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PaymentMode}.toUpperCase()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PaymentMode}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="97" y="3" width="62" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9">
