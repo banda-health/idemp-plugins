@@ -32,8 +32,8 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	private Panel mainDashboardPanel;
 	private DashboardMenuDataService menuDataService;
 	
-	Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
-	Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
+	private Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
+	private Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 
 	@Override
 	public void doAfterCompose(Panel panel) {
