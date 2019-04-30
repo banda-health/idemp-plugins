@@ -12,6 +12,7 @@ import org.bandahealth.idempiere.webui.dataservice.impl.MHomeScreenButtonGroupDa
 import org.bandahealth.idempiere.webui.util.RoleAndUserManagement;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Grid;
@@ -20,8 +21,10 @@ import org.zkoss.zul.Script;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
+import org.zkoss.zul.Vlayout;
+import org.zkoss.zul.Window;
 
-public class DashboardMenuComposer extends SelectorComposer<Panel> {
+public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,9 +41,9 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	private Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 
 	@Override
-	public void doAfterCompose(Panel panel) {
+	public void doAfterCompose(Vlayout vlayout) {
 		try {
-			super.doAfterCompose(panel);
+			super.doAfterCompose(vlayout);
 		} catch (Exception e) {
 			CLogger.get().severe("An error occured while creating component: " + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -51,6 +54,7 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 		createMenuButtons();
 		mainDashboardPanel.query("#panelLayout")
 		        .appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
+		addPendingBillsWidget();
 	}
 
 	public void createMenuHeaders() {
@@ -84,5 +88,10 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 
 	private boolean userRoleIsAdmin() {
 		return RoleAndUserManagement.checkRoleHasAllSubRolesIncluded(roleId);
+	}
+
+	private void addPendingBillsWidget() {
+		Window window = (Window) Executions.createComponents("/zul/PendingBillsWidget.zul", null, null);
+		this.getSelf().appendChild(window);
 	}
 }
