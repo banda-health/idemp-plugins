@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.webui.dataservice;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Properties;
 
 import org.compiere.model.PO;
@@ -9,18 +8,9 @@ import org.compiere.util.Env;
 
 public abstract class BaseDataService<T extends PO> implements DataService<T> {
 
-	private T instance;
+	protected abstract String getTableName();
 
-	@SuppressWarnings("unchecked")
-	private T getDataType() {
-		if (instance == null) {
-			ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
-
-			instance = (T) parameterizedType.getActualTypeArguments()[0];
-		}
-		
-		return instance;
-	}
+	protected abstract String getTrxName();
 
 	protected Properties getContext() {
 		return Env.getCtx();
@@ -28,6 +18,6 @@ public abstract class BaseDataService<T extends PO> implements DataService<T> {
 
 	protected abstract String getWhereClause();
 
-	protected Query buildQuery = new Query(getContext(), getDataType().get_TableName(), getWhereClause(),
-	        getDataType().get_TrxName()).setOnlyActiveRecords(true);
+	protected Query buildQuery = new Query(getContext(), getTableName(), getWhereClause(), getTrxName())
+	        .setOnlyActiveRecords(true);
 }

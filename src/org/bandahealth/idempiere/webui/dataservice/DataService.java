@@ -7,5 +7,4 @@ import org.compiere.model.PO;
 public interface DataService<T extends PO> {
 
 	List<T> getData();
-
 }

@@ -7,10 +7,8 @@ import org.adempiere.webui.component.Tab;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.webui.DashboardMenuButtonCreation;
-import org.bandahealth.idempiere.webui.DashboardMenuDataService;
-import org.bandahealth.idempiere.webui.dataservice.BaseDataService;
-import org.bandahealth.idempiere.webui.dataservice.ButtonDataService;
-import org.bandahealth.idempiere.webui.dataservice.ButtonGroupDataService;
+import org.bandahealth.idempiere.webui.dataservice.impl.MHomeScreenButtonDataServiceImpl;
+import org.bandahealth.idempiere.webui.dataservice.impl.MHomeScreenButtonGroupDataServiceImpl;
 import org.bandahealth.idempiere.webui.util.RoleAndUserManagement;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -33,9 +31,9 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 	private Tabpanels buttonsTabPanels;
 	@Wire
 	private Panel mainDashboardPanel;
-	private BaseDataService<MHomeScreenButton> buttonDataService;
-	private BaseDataService<MHomeScreenButtonGroup> buttonGroupDataService;
-	
+	private MHomeScreenButtonDataServiceImpl buttonDataService;
+	private MHomeScreenButtonGroupDataServiceImpl buttonGroupDataService;
+
 	Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
 	Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 
@@ -47,15 +45,16 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 			CLogger.get().severe("An error occured while creating component: " + e.getLocalizedMessage());
 			e.printStackTrace();
 		}
-			buttonDataService = new ButtonDataService();
-			buttonGroupDataService = new ButtonGroupDataService();
-			createMenuHeaders();
-			createMenuButtons();
-			mainDashboardPanel.query("#panelLayout").appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
+		buttonDataService = new MHomeScreenButtonDataServiceImpl();
+		buttonGroupDataService = new MHomeScreenButtonGroupDataServiceImpl();
+		createMenuHeaders();
+		createMenuButtons();
+		mainDashboardPanel.query("#panelLayout")
+		        .appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
 	}
 
 	public void createMenuHeaders() {
-		if(userRoleIsAdmin()) {
+		if (userRoleIsAdmin()) {
 			for (MHomeScreenButtonGroup btnGrp : buttonGroupDataService.getData()) {
 				headers.appendChild(new Tab(btnGrp.getName()));
 			}
@@ -69,20 +68,20 @@ public class DashboardMenuComposer extends SelectorComposer<Panel> {
 		List<MHomeScreenButton> buttons = buttonDataService.getData();
 		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 			Tabpanel currentGroupPanel = new Tabpanel();
-			buttons.stream()
-			        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
-			        .collect(Collectors.toList())
-			        .forEach(button->{
-			        	Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-						if ((!userRoleIsAdmin() && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId)) || userRoleIsAdmin()) {
-							Grid grid = new DashboardMenuButtonCreation().createButton(button);
-							currentGroupPanel.appendChild(grid);
-						}
+			buttons.stream().filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+			        .collect(Collectors.toList()).forEach(button -> {
+				        Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+				        if ((!userRoleIsAdmin()
+				                && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+				                || userRoleIsAdmin()) {
+					        Grid grid = new DashboardMenuButtonCreation().createButton(button);
+					        currentGroupPanel.appendChild(grid);
+				        }
 			        });
 			buttonsTabPanels.appendChild(currentGroupPanel);
 		}
 	}
-	
+
 	private boolean userRoleIsAdmin() {
 		return RoleAndUserManagement.checkRoleHasAllSubRolesIncluded(roleId);
 	}
