@@ -9,11 +9,11 @@
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="531"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="455"/>
-	<parameter name="AD_ORG_ID" class="java.lang.Integer">
+	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="beginDate" class="java.util.Date" isForPrompting="false"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer">
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="endDate" class="java.util.Date" isForPrompting="false"/>

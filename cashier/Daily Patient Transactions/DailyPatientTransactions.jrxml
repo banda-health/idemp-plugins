@@ -217,9 +217,6 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DailyPatientTransactionPayments.jasper"]]></subreportExpression>
 			</subreport>
-			<line>
-				<reportElement x="0" y="1" width="530" height="1" uuid="0e6fac0c-085f-45c3-93f3-37c2a067f3af"/>
-			</line>
 		</band>
 	</summary>
 	<noData>
