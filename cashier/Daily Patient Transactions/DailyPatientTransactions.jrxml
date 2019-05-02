@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Patient Transactions" pageWidth="595" pageHeight="850" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -18,7 +18,7 @@
 	<parameter name="beginDate" class="java.util.Date"/>
 	<parameter name="endDate" class="java.util.Date"/>
 	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -208,11 +208,14 @@ AND created BETWEEN $P{beginDate} AND  $P{endDate}]]>
 				<subreportParameter name="endDate">
 					<subreportParameterExpression><![CDATA[$P{endDate}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="patternBeginDate">
-					<subreportParameterExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd HH:mm").format($P{beginDate})]]></subreportParameterExpression>
+				<subreportParameter name="TotalPayments">
+					<subreportParameterExpression><![CDATA[$V{TotalPayments}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="patternEndDate">
-					<subreportParameterExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd HH:mm").format($P{endDate})]]></subreportParameterExpression>
+				<subreportParameter name="TotalCharges">
+					<subreportParameterExpression><![CDATA[$V{TotalCharges}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TotalChange">
+					<subreportParameterExpression><![CDATA[$V{TotalChange}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DailyPatientTransactionPayments.jasper"]]></subreportExpression>
