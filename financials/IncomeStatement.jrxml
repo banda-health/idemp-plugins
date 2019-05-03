@@ -2,7 +2,6 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" columnWidth="525" leftMargin="20" rightMargin="50" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -12,6 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_bluesky.xml"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="beginDate" class="java.util.Date"/>
 	<parameter name="endDate" class="java.util.Date"/>
@@ -22,9 +22,12 @@
 		<![CDATA[SELECT
   org.name,
   SUM(CASE WHEN corder.issotrx = 'Y' THEN corder.grandtotal ELSE 0 END) AS revenue, 
-  SUM(CASE WHEN corder.issotrx = 'N' THEN corder.grandtotal ELSE 0 END) AS cost
+  SUM(CASE WHEN corder.issotrx = 'N' THEN corder.grandtotal ELSE 0 END) AS cost,
+  SUM(paytotal) As payments,
+  SUM(amtleft) AS balances_due
 FROM c_order corder 
 INNER JOIN ad_org org ON corder.ad_org_id = org.ad_org_id
+INNER JOIN bh_c_order_v on bh_c_order_v.c_order_id = corder.c_order_id
 WHERE  corder.ad_client_id =  $P{AD_CLIENT_ID} 
 AND corder.created BETWEEN $P{beginDate} AND $P{endDate} 
 AND corder.docstatus = 'CO' 
@@ -39,6 +42,12 @@ GROUP BY org.name]]>
 	</field>
 	<field name="cost" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="cost"/>
+	</field>
+	<field name="payments" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="payments"/>
+	</field>
+	<field name="balances_due" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="balances_due"/>
 	</field>
 	<variable name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<variable name="beginDate" class="java.util.Date"/>
@@ -81,11 +90,11 @@ GROUP BY org.name]]>
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="50" splitType="Stretch">
+		<band height="87" splitType="Stretch">
 			<textField pattern="Ksh #,###.00;Ksh -#,###.00" isBlankWhenNull="false">
-				<reportElement x="423" y="0" width="103" height="16" uuid="d79eb99b-ab04-4f81-8e10-dce84f21ec05"/>
+				<reportElement x="422" y="44" width="103" height="16" uuid="d79eb99b-ab04-4f81-8e10-dce84f21ec05"/>
 				<textElement textAlignment="Right">
-					<font size="11"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{revenue}]]></textFieldExpression>
 			</textField>
@@ -94,21 +103,49 @@ GROUP BY org.name]]>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Revenue from Sales]]></text>
+				<text><![CDATA[Payments Received]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="35" width="160" height="15" uuid="a5782a25-999a-4dc1-994b-974916e32b40"/>
+				<reportElement x="80" y="71" width="160" height="15" uuid="a5782a25-999a-4dc1-994b-974916e32b40"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Costs of Purchases: ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="80" y="17" width="140" height="16" uuid="19147427-aca7-433b-b7d7-cfe636476937"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unpaid Balances]]></text>
+			</staticText>
+			<textField pattern="Ksh #,###.00;Ksh -#,###.00" isBlankWhenNull="false">
+				<reportElement stretchType="ContainerBottom" x="280" y="2" width="103" height="16" uuid="75008b1b-1073-4084-8b57-07db3a1361da"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{payments}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="44" width="140" height="16" uuid="c2ea7ec2-ed03-4ae3-be2d-0839944bac72"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Sales Revenue]]></text>
+			</staticText>
+			<textField pattern="Ksh #,###.00;Ksh -#,###.00" isBlankWhenNull="false">
+				<reportElement x="280" y="22" width="103" height="16" uuid="06e3c109-573b-438a-8e19-67a4dbb58802"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balances_due}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="79" splitType="Stretch">
 			<subreport>
-				<reportElement positionType="Float" x="90" y="0" width="120" height="20" uuid="c7d981f1-e6e3-48ae-80d5-d619cbea0560"/>
+				<reportElement positionType="Float" x="90" y="4" width="120" height="20" uuid="c7d981f1-e6e3-48ae-80d5-d619cbea0560"/>
 				<subreportParameter name="AD_CLIENT_ID">
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -152,6 +189,12 @@ GROUP BY org.name]]>
 				<reportElement x="280" y="47" width="100" height="1" uuid="eff40977-45bb-4600-b1ec-e3ba3155c155"/>
 				<graphicElement>
 					<pen lineStyle="Dotted" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="305" y="-48" width="80" height="1" uuid="2ab25c1c-a37f-47d6-9dfd-88880706d801"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 		</band>
