@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt Payments" language="groovy" pageWidth="162" pageHeight="134" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="40dbf2df-a037-42cd-9808-b1285b682703">
 	<property name="ireport.zoom" value="3.305785123966942"/>
 	<property name="ireport.x" value="29"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="go"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
 	<parameter name="billId" class="java.math.BigDecimal">
@@ -19,6 +19,10 @@
   case when payment.tendertype = 'M' then 'MPESA'
        when payment.tendertype = 'X' then 'CASH'
        when payment.tendertype = 'L' then 'LOCAL FUND'
+       when payment.tendertype = 'B' then 'BILL WAIVER'
+       when payment.tendertype = 'F' then 'DONOR FUND 1'
+       when payment.tendertype = 'i' then 'LINDA MAMA'
+       when payment.tendertype = 'N' then 'NHIF'
        end as name,
   sum(payment.payamt) as amount_tendered
 from
@@ -29,9 +33,15 @@ where
   and payment.c_invoice_id is not null
   group by invoice.c_order_id, payment.tendertype]]>
 	</queryString>
-	<field name="bill_id" class="java.lang.Integer"/>
-	<field name="name" class="java.lang.String"/>
-	<field name="amount_tendered" class="java.math.BigDecimal"/>
+	<field name="bill_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="amount_tendered" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
+	</field>
 	<variable name="totalPayments" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{amount_tendered}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
