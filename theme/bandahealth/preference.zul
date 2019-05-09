@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+	<script defer="true">
+	<![CDATA[
+		adempiere.set("zkTimeoutURL", "sessiontimeout.zul");
+	]]>
+	</script>
+	<script src="/theme/bandahealth/js/polyfills.js"/>
+	<script src="/theme/bandahealth/js/jquery.extensions.js"/>
+	<script src="/theme/bandahealth/js/require.js"/>
+	<script src="/theme/bandahealth/js/main.js"/>
+	<zscript>
+	<![CDATA[
+		import org.compiere.util.Env;
+		import org.adempiere.webui.theme.ITheme;
+
+		Env.setContext(Env.getCtx(), "#ZK_Toolbar_Button_Size", "24");
+		/* Set the next variable if you want to control browser title in theme */
+		Env.setContext(Env.getCtx(), "#ZK_BROWSER_TITLE", "Banda Health");
+		Env.setContext(Env.getCtx(), ITheme.USE_CSS_FOR_WINDOW_SIZE, "Y");
+	]]>
+	</zscript>
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script src="https://www.googletagmanager.com/gtag/js?id=UA-120454291-1" />
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'UA-120454291-1');
+	</script>
+</zk>
