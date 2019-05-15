@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StockReorderLevels" language="groovy" pageWidth="595" pageHeight="850" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -18,37 +18,51 @@
 	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT 
-	s.product AS DrugName,
-    s.existingquantity AS ExistingQuantity,
-    s.reorderlevel AS ReorderLevel,
-    s.reorderquantity AS ReorderQuantity,
-    s.store AS Store,
+		<![CDATA[SELECT
+    s.product AS drugname,
+    s.existingquantity AS existingquantity,
+    s.reorderlevel AS reorderlevel,
+    s.reorderquantity AS reorderquantity,
+    s.store AS store,
     s.ad_org_id AS AD_Org_ID,
-    client.name AS Client_Name
- FROM bh_stock_reorder_levels_v s
-JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
-WHERE s.ad_client_ID =  $P{AD_CLIENT_ID} 
-ORDER BY s.existingquantity ASC]]>
+    client.name AS client_name
+FROM bh_stock_reorder_levels_v s
+    INNER JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
+WHERE (s.ad_client_ID = $P{AD_CLIENT_ID}) and (s.existingquantity <= s.reorderlevel)
+ORDER BY s.product ASC]]>
 	</queryString>
-	<field name="DrugName" class="java.lang.String"/>
-	<field name="ExistingQuantity" class="java.lang.Integer"/>
-	<field name="ReorderLevel" class="java.lang.Integer"/>
-	<field name="ReorderQuantity" class="java.lang.Integer"/>
-	<field name="Store" class="java.lang.String"/>
-	<field name="AD_Org_ID" class="java.lang.Integer"/>
-	<field name="Client_Name" class="java.lang.String"/>
+	<field name="drugname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="drugname"/>
+	</field>
+	<field name="existingquantity" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="existingquantity"/>
+	</field>
+	<field name="reorderlevel" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="reorderlevel"/>
+	</field>
+	<field name="reorderquantity" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="reorderquantity"/>
+	</field>
+	<field name="store" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="store"/>
+	</field>
+	<field name="ad_org_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>
+	</field>
+	<field name="client_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="client_name"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="46" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="555" height="46" uuid="c877cca5-9599-4880-b36b-b97a665dccdd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Client_Name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{client_name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -59,8 +73,7 @@ ORDER BY s.existingquantity ASC]]>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Stock Re-order levels As Of " + new SimpleDateFormat("d MMM, YYYY").format(new Date())
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Stock Re-order levels As Of " + new SimpleDateFormat("d MMM, YYYY").format(new Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -110,24 +123,24 @@ ORDER BY s.existingquantity ASC]]>
 		<band height="16">
 			<textField pattern="d MMM, yyyy">
 				<reportElement x="0" y="0" width="85" height="16" uuid="089ae30e-2a51-4419-ab4a-99216852769d"/>
-				<textFieldExpression><![CDATA[$F{Store}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{store}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="100" y="0" width="127" height="16" uuid="e562d461-d810-4383-a579-885fa2ae3251"/>
-				<textFieldExpression><![CDATA[$F{DrugName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{drugname}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="247" y="0" width="57" height="16" uuid="55e65eeb-2bd6-4d0a-839b-215119463781"/>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{ExistingQuantity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{existingquantity}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="365" y="0" width="82" height="16" uuid="b112dbde-59e8-4a99-ba20-0b1b16c22f2a"/>
-				<textFieldExpression><![CDATA[$F{ReorderLevel}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{reorderlevel}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="483" y="0" width="56" height="16" uuid="29817303-1a87-45f4-9cb5-3927a9925476"/>
-				<textFieldExpression><![CDATA[$F{ReorderQuantity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{reorderquantity}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
