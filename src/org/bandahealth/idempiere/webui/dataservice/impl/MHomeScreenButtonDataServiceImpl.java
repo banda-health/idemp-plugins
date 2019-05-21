@@ -13,8 +13,8 @@ public class MHomeScreenButtonDataServiceImpl extends BaseDataService<MHomeScree
 
 	@Override
 	public List<MHomeScreenButton> getData() {
-		List<MHomeScreenButton> buttonGroups = buildQuery.setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
-		return buttonGroups;
+		List<MHomeScreenButton> buttons = buildQuery.setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
+		return buttons;
 	}
 
 	@Override

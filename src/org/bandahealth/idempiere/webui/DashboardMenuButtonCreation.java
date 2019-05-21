@@ -51,6 +51,7 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 		buttonGrid.setAttribute(SPECIAL_FORM_ATTRIBUTE, isSpecialForm);
 		buttonGrid.setTooltiptext(mHomeScreenButton.getButtonHelpText());
 		buttonGrid.addEventListener(Events.ON_CLICK, this);
+		System.out.println(mHomeScreenButton.getButtonText());
 		return buttonGrid;
 	}
 

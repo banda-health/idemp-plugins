@@ -51,7 +51,7 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 		buttonDataService = new MHomeScreenButtonDataServiceImpl();
 		buttonGroupDataService = new MHomeScreenButtonGroupDataServiceImpl();
 		createMenuHeaders();
-		createMenuButtons();
+		createMenuButtons(userRoleIsAdmin());
 		mainDashboardPanel.query("#panelLayout")
 		        .appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
 		addPendingBillsWidget();
@@ -63,25 +63,43 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 				headers.appendChild(new Tab(btnGrp.getName()));
 			}
 		} else {
-			headers.appendChild(new Tab(""));
+			headers.appendChild(new Tab(Env.getContext(Env.getCtx(), "#AD_Client_Name")));
 		}
 	}
 
-	public void createMenuButtons() {
+	public void createMenuButtons(boolean isAdmin) {
 		List<MHomeScreenButtonGroup> buttonGroups = buttonGroupDataService.getData();
 		List<MHomeScreenButton> buttons = buttonDataService.getData();
-		for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+		if(isAdmin) {
+			//create a tabpanel for each  button group
+			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
+				Tabpanel currentGroupPanel = new Tabpanel();
+				buttons.stream().filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+				.collect(Collectors.toList()).forEach(button -> {
+					Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+					if ((!userRoleIsAdmin()
+							&& RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+							|| userRoleIsAdmin()) {
+						Grid grid = new DashboardMenuButtonCreation().createButton(button);
+						currentGroupPanel.appendChild(grid);
+					}
+				});
+				buttonsTabPanels.appendChild(currentGroupPanel);
+			}
+		} else {
+			// use a single tab panel
 			Tabpanel currentGroupPanel = new Tabpanel();
-			buttons.stream().filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
-			        .collect(Collectors.toList()).forEach(button -> {
-				        Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-				        if ((!userRoleIsAdmin()
-				                && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
-				                || userRoleIsAdmin()) {
-					        Grid grid = new DashboardMenuButtonCreation().createButton(button);
-					        currentGroupPanel.appendChild(grid);
-				        }
-			        });
+
+			buttons.stream()
+			.collect(Collectors.toList()).forEach(button -> {
+				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+				if ((!userRoleIsAdmin()
+						&& RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+						|| userRoleIsAdmin()) {
+					Grid grid = new DashboardMenuButtonCreation().createButton(button);
+					currentGroupPanel.appendChild(grid);
+				}
+			});
 			buttonsTabPanels.appendChild(currentGroupPanel);
 		}
 	}
