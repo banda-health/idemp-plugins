@@ -41,8 +41,18 @@
     
     .bh-dashboard-button{
         cursor: pointer;
-        display: flex;
+//         display: flex;
         margin-bottom:3px;
+        &.z-grid > .z-grid-body{
+            overflow: hidden !important;
+            table {
+                table-layout:auto !important;
+                width:inherit;
+                tbody > tr > td:nth-child(1){
+                            width:10%;
+                        }
+                }
+            }
         div{
                 font-size:20px; 
                 text-align:center; 
