@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.webui.composers;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,6 +92,14 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 			// use a single tab panel
 			Tabpanel currentGroupPanel = new Tabpanel();
 
+			Collections.sort(buttons, new Comparator<MHomeScreenButton>() {
+
+				@Override
+				public int compare(MHomeScreenButton button1, MHomeScreenButton button2) {
+					return button1.getLineNo() > button2.getLineNo() ? 1
+					        : button1.getLineNo() < button2.getLineNo() ? -1 : 0;
+				}
+			});
 			buttons.stream()
 			.collect(Collectors.toList()).forEach(button -> {
 				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
