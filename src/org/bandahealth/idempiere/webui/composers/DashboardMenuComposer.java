@@ -96,8 +96,8 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 
 				@Override
 				public int compare(MHomeScreenButton button1, MHomeScreenButton button2) {
-					return button1.getLineNo() > button2.getLineNo() ? 1
-					        : button1.getLineNo() < button2.getLineNo() ? -1 : 0;
+					return button1.getIncludedRole_ID() < button2.getIncludedRole_ID() ? -1
+					        : button1.getIncludedRole_ID() > button2.getIncludedRole_ID() ? 1 : 0;
 				}
 			});
 			buttons.stream()

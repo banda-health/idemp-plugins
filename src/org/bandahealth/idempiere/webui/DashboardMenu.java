@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.webui;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -51,6 +53,7 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Script;
+import org.zkoss.zul.South;
 import org.zkoss.zul.Window;
 
 public class DashboardMenu extends DashboardPanel implements EventListener<Event> {
@@ -159,6 +162,15 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 			}
 		} else {
 			// show buttons in a single tab
+			Collections.sort(buttons, new Comparator<MHomeScreenButton>() {
+
+				@Override
+				public int compare(MHomeScreenButton button1, MHomeScreenButton button2) {	
+					if(button1.getIncludedRole_ID()< button2.getIncludedRole_ID()) return -1;
+					if(button1.getIncludedRole_ID() > button2.getIncludedRole_ID()) return 1;
+					else return 0;
+				}
+			});
 			createTabButtons(buttons, tabpanelsContainer, userHasAllRoles);
 		}
 
@@ -185,6 +197,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					// create a grid to hold icon and text
 					Row row = new Row();
 					Grid btnGrid = UIUtil.createButton(button);
+					System.out.println("Current button: "+ button.getName() + "--> " + button.getLineNo());
 					row.appendCellChild(btnGrid);
 					row.setParent(rows);
 					btnGrid.addEventListener(Events.ON_CLICK, this);
