@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.webui.composers;
 
 import org.adempiere.webui.session.SessionManager;
-import org.bandahealth.idempiere.webui.TermsOfUseService;
+import org.bandahealth.idempiere.webui.dataservice.impl.TermsOfUseService;
 import org.compiere.util.CLogger;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;

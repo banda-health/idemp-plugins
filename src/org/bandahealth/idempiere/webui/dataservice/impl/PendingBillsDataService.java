@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui;
+package org.bandahealth.idempiere.webui.dataservice.impl;
 
 import java.util.List;
 

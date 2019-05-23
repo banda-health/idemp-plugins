@@ -7,7 +7,7 @@ import java.util.TimerTask;
 import org.adempiere.util.Callback;
 import org.adempiere.webui.adwindow.ADWindow;
 import org.adempiere.webui.session.SessionManager;
-import org.bandahealth.idempiere.webui.PendingBillsDataService;
+import org.bandahealth.idempiere.webui.dataservice.impl.PendingBillsDataService;
 import org.bandahealth.idempiere.webui.util.PendingBillsListRenderer;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;

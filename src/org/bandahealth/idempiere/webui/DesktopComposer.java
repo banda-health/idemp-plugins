@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.webui;
 
 import org.adempiere.webui.dashboard.DashboardPanel;
+import org.bandahealth.idempiere.webui.dataservice.impl.TermsOfUseService;
 import org.compiere.util.CLogger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;

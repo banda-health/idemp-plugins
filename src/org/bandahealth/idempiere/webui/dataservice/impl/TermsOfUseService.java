@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui;
+package org.bandahealth.idempiere.webui.dataservice.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
