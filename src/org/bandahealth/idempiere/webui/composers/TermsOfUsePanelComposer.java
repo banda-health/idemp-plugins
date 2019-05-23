@@ -9,7 +9,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
 
-public class TermsOfUseComposer extends SelectorComposer<Window> {
+public class TermsOfUsePanelComposer extends SelectorComposer<Window> {
 
 	private static final long serialVersionUID = 1L;
 

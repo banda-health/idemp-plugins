@@ -47,6 +47,7 @@ public  class  TermsOfUseService{
 		user.setBH_HasAcceptedTermsOfUse(true);
 		user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
 		user.save();
+		System.out.println("User accepted terms!!!!!!!!!!!");
 		
 	}
 }
