@@ -1,6 +1,6 @@
 <zk>
 	<vlayout id="bhRootDashboardComponent"
-		apply="org.bandahealth.idempiere.webui.composers.DashboardToCComposer,
+		apply="org.bandahealth.idempiere.webui.composers.DashboardTermsOfUseComposer,
 		org.bandahealth.idempiere.webui.composers.DashboardMenuComposer
 		">
 		<panel id="mainDashboardPanel" framable="false" closable="false"

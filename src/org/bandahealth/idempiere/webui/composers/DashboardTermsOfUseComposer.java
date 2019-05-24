@@ -11,7 +11,7 @@ import org.zkoss.zul.Html;
 import org.zkoss.zul.Panel;
 import org.zkoss.zul.Vlayout;
 
-public class DashboardToCComposer extends SelectorComposer<Vlayout>{
+public class DashboardTermsOfUseComposer extends SelectorComposer<Vlayout>{
 
 	private static final long serialVersionUID = 1L;
 

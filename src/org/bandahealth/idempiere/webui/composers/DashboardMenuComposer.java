@@ -9,9 +9,12 @@ import org.adempiere.webui.component.Tab;
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.webui.DashboardMenuButtonCreation;
+import org.bandahealth.idempiere.webui.RoleAndUserManagement;
 import org.bandahealth.idempiere.webui.dataservice.impl.MHomeScreenButtonDataServiceImpl;
 import org.bandahealth.idempiere.webui.dataservice.impl.MHomeScreenButtonGroupDataServiceImpl;
-import org.bandahealth.idempiere.webui.util.RoleAndUserManagement;
+import org.bandahealth.idempiere.webui.util.UIUtil;
+import org.compiere.model.MRoleIncluded;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.zkoss.zk.ui.Executions;
@@ -72,20 +75,21 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 	public void createMenuButtons(boolean isAdmin) {
 		List<MHomeScreenButtonGroup> buttonGroups = buttonGroupDataService.getData();
 		List<MHomeScreenButton> buttons = buttonDataService.getData();
-		if(isAdmin) {
-			//create a tabpanel for each  button group
+		if (isAdmin) {
+			// create a tabpanel for each button group
 			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
 				Tabpanel currentGroupPanel = new Tabpanel();
-				buttons.stream().filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
-				.collect(Collectors.toList()).forEach(button -> {
-					Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-					if ((!userRoleIsAdmin()
-							&& RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
-							|| userRoleIsAdmin()) {
-						Grid grid = new DashboardMenuButtonCreation().createButton(button);
-						currentGroupPanel.appendChild(grid);
-					}
-				});
+				buttons.stream()
+				        .filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == buttonGroup.getBH_HmScrn_ButtonGroup_ID())
+				        .collect(Collectors.toList()).forEach(button -> {
+					        Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+					        if ((!userRoleIsAdmin()
+					                && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+					                || userRoleIsAdmin()) {
+						        Grid grid = new DashboardMenuButtonCreation().createButton(button);
+						        currentGroupPanel.appendChild(grid);
+					        }
+				        });
 				buttonsTabPanels.appendChild(currentGroupPanel);
 			}
 		} else {
@@ -96,16 +100,29 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 
 				@Override
 				public int compare(MHomeScreenButton button1, MHomeScreenButton button2) {
-					return button1.getIncludedRole_ID() < button2.getIncludedRole_ID() ? -1
-					        : button1.getIncludedRole_ID() > button2.getIncludedRole_ID() ? 1 : 0;
+					int btn1Id = button1.getIncludedRole_ID();
+					int btn2Id = button2.getIncludedRole_ID();
+					if(btn1Id > 0 && btn2Id > 0) {
+						MRoleIncluded btn1IncludedRoled = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
+								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn1Id, null).first();
+						MRoleIncluded btn2IncludedRoled = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
+								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn2Id, null).first();
+						if(btn1IncludedRoled != null && btn2IncludedRoled != null) {
+							return btn1IncludedRoled.getSeqNo() < btn2IncludedRoled.getSeqNo() ? -1
+									: btn1IncludedRoled.getSeqNo() > btn2IncludedRoled.getSeqNo() ? 1 : 0;
+						} else {
+							return 0;
+						}
+					} else {
+						return 0;
+					}
 				}
 			});
-			buttons.stream()
-			.collect(Collectors.toList()).forEach(button -> {
+			buttons.stream().collect(Collectors.toList()).forEach(button -> {
 				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
 				if ((!userRoleIsAdmin()
-						&& RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
-						|| userRoleIsAdmin()) {
+				        && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+				        || userRoleIsAdmin()) {
 					Grid grid = new DashboardMenuButtonCreation().createButton(button);
 					currentGroupPanel.appendChild(grid);
 				}
