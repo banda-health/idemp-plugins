@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.webui;
+package org.bandahealth.idempiere.webui.dataservice.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +49,5 @@ public class TermsOfUseService {
 		user.setBH_HasAcceptedTermsOfUse(true);
 		user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
 		user.save();
-
 	}
 }

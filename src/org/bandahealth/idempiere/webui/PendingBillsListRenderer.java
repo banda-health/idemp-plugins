@@ -1,5 +1,4 @@
-package org.bandahealth.idempiere.webui.util;
-
+package org.bandahealth.idempiere.webui;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -14,7 +13,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
 
-public class DraftSaleOrderListRenderer implements ListitemRenderer<MOrder> {
+public class PendingBillsListRenderer implements ListitemRenderer<MOrder>  {
 
 	@Override
 	public void render(Listitem item, MOrder order, int index) throws Exception {
@@ -36,5 +35,4 @@ public class DraftSaleOrderListRenderer implements ListitemRenderer<MOrder> {
 		label.setParent(listcell);
 		listcell.setParent(listItem);
 	}
-
 }
