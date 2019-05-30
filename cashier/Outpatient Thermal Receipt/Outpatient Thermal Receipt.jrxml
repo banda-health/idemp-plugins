@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt" language="groovy" pageWidth="162" pageHeight="177" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b0650e21-f6cf-4aad-acec-9e81aea4c41f">
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
@@ -125,10 +125,10 @@ where sorder.c_order_id =  $P{billId}
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format($F{bill_date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy HH:mm").format($F{bill_date})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement key="" x="52" y="147" width="109" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" x="52" y="145" width="109" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -174,7 +174,7 @@ where sorder.c_order_id =  $P{billId}
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement key="" x="2" y="147" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<reportElement key="" x="2" y="145" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
