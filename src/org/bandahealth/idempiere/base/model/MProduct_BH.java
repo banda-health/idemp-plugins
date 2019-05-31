@@ -9,7 +9,6 @@ import org.compiere.model.MProduct;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
 import org.compiere.model.X_I_Product;
-import org.omg.PortableServer.ServantRetentionPolicyValue;
 
 public class MProduct_BH extends MProduct {
 
@@ -19,7 +18,6 @@ public class MProduct_BH extends MProduct {
 	public static final String COLUMNNAME_BH_HasExpiration = "BH_HasExpiration";
 	public static String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
 	public static String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
-	
 
 	public MProduct_BH(Properties ctx, int M_Product_ID, String trxName) {
 		super(ctx, M_Product_ID, trxName);
@@ -67,25 +65,24 @@ public class MProduct_BH extends MProduct {
 	}
 
 	public BigDecimal getBH_BuyPrice() {
-		BigDecimal value = (BigDecimal)get_Value(COLUMNNAME_BH_BuyPrice);
+		BigDecimal value = (BigDecimal) get_Value(COLUMNNAME_BH_BuyPrice);
 		if (value == null) {
 			return null;
 		}
-		
+
 		return value;
 	}
 
 	public void setBH_BuyPrice(BigDecimal BH_BuyPrice) {
 		set_Value(COLUMNNAME_BH_BuyPrice, BH_BuyPrice);
 	}
-	
 
 	public BigDecimal getBH_SellPrice() {
-		BigDecimal value = (BigDecimal)get_Value(COLUMNNAME_BH_SellPrice);
+		BigDecimal value = (BigDecimal) get_Value(COLUMNNAME_BH_SellPrice);
 		if (value == null) {
 			return null;
 		}
-		
+
 		return value;
 	}
 

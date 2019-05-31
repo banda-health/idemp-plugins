@@ -12,13 +12,11 @@ import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.AdempiereSystemError;
-import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
 public class OrderModelEvent extends AbstractEventHandler {
 
-	private CLogger log = CLogger.getCLogger(OrderModelEvent.class);
 	private int clientId = -1;
 
 	@Override

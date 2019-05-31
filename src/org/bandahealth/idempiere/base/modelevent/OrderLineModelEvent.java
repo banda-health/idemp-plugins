@@ -6,7 +6,6 @@ import java.util.Date;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
-import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
@@ -14,14 +13,11 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
-import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.compiere.util.Msg;
 import org.osgi.service.event.Event;
 
 public class OrderLineModelEvent extends AbstractEventHandler {
-	private CLogger log = CLogger.getCLogger(getClass());
 
 	@Override
 	protected void initialize() {
@@ -60,7 +56,7 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 	 * @param orderLine
 	 */
 	private void beforeSaveRequest(MOrderLine_BH orderLine) {
-		if (!orderLine.getC_Order().isSOTrx()) {
+		if (!orderLine.getC_Order().isSOTrx() || orderLine.getBH_Expiration() != null) {
 			receiveGoodsBeforeSaveRequest(orderLine);
 		}
 	}
@@ -71,7 +67,8 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 		}
 
 		int attributeSetInstanceId = QueryUtil.createExpirationDateAttributeInstance(
-				orderLine.getM_AttributeSetInstance_ID(), orderLine.getBH_Expiration(), orderLine.get_TrxName());
+				orderLine.getM_AttributeSetInstance_ID(), orderLine.getBH_Expiration(), orderLine.get_TrxName(),
+				orderLine.getCtx());
 		if (attributeSetInstanceId > 0) {
 			orderLine.setM_AttributeSetInstance_ID(attributeSetInstanceId);
 		}
