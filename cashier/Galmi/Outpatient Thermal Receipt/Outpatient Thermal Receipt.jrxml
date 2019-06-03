@@ -114,14 +114,14 @@ where sorder.c_order_id =  $P{billId}
 		<band height="177" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement key="" style="style1" x="90" y="114" width="71" height="14" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
-				<textElement>
+				<reportElement key="" style="style1" x="0" y="96" width="162" height="14" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receipt_number}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement key="" positionType="Float" stretchType="ContainerHeight" x="0" y="96" width="161" height="14" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" positionType="Float" stretchType="ContainerHeight" x="0" y="114" width="161" height="14" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -139,14 +139,7 @@ where sorder.c_order_id =  $P{billId}
 				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[Reçu]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="" x="2" y="114" width="100" height="14" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Reçu numéro:]]></text>
+				<text><![CDATA[Reçu Numero]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" x="2" y="129" width="88" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
@@ -159,7 +152,7 @@ where sorder.c_order_id =  $P{billId}
 				<reportElement x="0" y="72" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
 			</line>
 			<line>
-				<reportElement key="" x="0" y="94" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+				<reportElement key="" x="0" y="112" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
 			</line>
 			<line>
 				<reportElement key="" x="0" y="176" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240">
@@ -264,8 +257,8 @@ where sorder.c_order_id =  $P{billId}
 	<summary>
 		<band height="21">
 			<staticText>
-				<reportElement x="4" y="6" width="101" height="12" uuid="41c7886b-79a8-4cd6-ab02-ef9f34912bd5"/>
-				<textElement textAlignment="Left">
+				<reportElement x="0" y="6" width="160" height="12" uuid="41c7886b-79a8-4cd6-ab02-ef9f34912bd5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Merci !]]></text>
