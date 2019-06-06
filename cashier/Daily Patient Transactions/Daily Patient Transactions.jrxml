@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Patient Transactions" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Patient Transactions" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="go"/>
@@ -52,9 +52,8 @@
 	<subDataset name="tableDataset" uuid="3db3b095-7881-4b05-817b-6f76c63a0758">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="beginDate" class="java.util.Date"/>
-		<parameter name="endDate" class="java.util.Date"/>
-		<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="Begin Date" class="java.util.Date"/>
+		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT 
@@ -78,7 +77,8 @@
     END AS NetPayment
 FROM bh_patient_transactions_v as patientsummary
 WHERE ad_client_id = $P{AD_CLIENT_ID}
-AND created BETWEEN  $P{beginDate} AND $P{endDate}]]>
+AND created BETWEEN  $P{Begin Date} AND $P{End Date}
+ORDER BY Created ASC;]]>
 		</queryString>
 		<field name="givenname" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="givenname"/>
@@ -145,28 +145,25 @@ AND created BETWEEN  $P{beginDate} AND $P{endDate}]]>
 			<variableExpression><![CDATA[$V{TotalPayments} - $V{TotalCharges}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<parameter name="beginDate" class="java.util.Date"/>
-	<parameter name="endDate" class="java.util.Date"/>
-	<parameter name="AD_ORG_ID" class="java.lang.Integer"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
-	</parameter>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT
+    patientsummary.ad_client_id AS ad_client_id,
+    patientsummary.ad_org_id AS ad_org_id
+FROM bh_patient_transactions_v as patientsummary
+WHERE ad_client_id = $P{AD_CLIENT_ID}
+AND created BETWEEN  $P{Begin Date} AND $P{End Date}]]>
 	</queryString>
-	<pageHeader>
-		<band height="25">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<staticText>
-				<reportElement x="0" y="0" width="842" height="25" uuid="397524eb-5650-4c9f-b909-5750c176b107"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Patient Transactions]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
+	<field name="ad_client_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ad_client_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_patient_transactions_v"/>
+	</field>
+	<field name="ad_org_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_patient_transactions_v"/>
+	</field>
 	<summary>
 		<band height="40" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
@@ -177,18 +174,15 @@ AND created BETWEEN  $P{beginDate} AND $P{endDate}]]>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="66153170-9f63-4263-82d8-2d9fd376978e">
+					<datasetRun subDataset="tableDataset" uuid="d098847b-6c57-4c43-8e53-65039579a699">
+						<datasetParameter name="Begin Date">
+							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="End Date">
+							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+						</datasetParameter>
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="AD_ORG_ID">
-							<datasetParameterExpression><![CDATA[$P{AD_ORG_ID}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="beginDate">
-							<datasetParameterExpression><![CDATA[$P{beginDate}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="endDate">
-							<datasetParameterExpression><![CDATA[$P{endDate}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -336,4 +330,18 @@ AND created BETWEEN  $P{beginDate} AND $P{endDate}]]>
 			</componentElement>
 		</band>
 	</summary>
+	<noData>
+		<band height="16">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="842" height="16" uuid="c9d29787-5973-4a2f-a82b-bd7e3ea81283">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
 </jasperReport>
