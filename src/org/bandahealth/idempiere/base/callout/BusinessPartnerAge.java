@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.base.callout;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Properties;
@@ -21,9 +23,22 @@ public class BusinessPartnerAge implements IColumnCallout {
 
 		if (mField.getColumnName().equalsIgnoreCase(MBPartner_BH.COLUMNNAME_BH_ApproximateYears)) {
 			if (value != null) {
-				int approximateYears = (int) value;
+				BigDecimal approximateYears = (BigDecimal) value;
 				Calendar birthday = Calendar.getInstance();
-				birthday.add(Calendar.YEAR, approximateYears * -1);
+				if (approximateYears.compareTo(BigDecimal.ONE) < 0) {
+					birthday.add(Calendar.MONTH, (approximateYears.multiply(new BigDecimal(12))).negate().intValue());
+				} else {
+					if (approximateYears.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+						birthday.add(Calendar.YEAR, approximateYears.negate().intValue());
+					} else {
+						BigDecimal years = approximateYears.setScale(0, RoundingMode.DOWN);
+						BigDecimal months = approximateYears.remainder(years);
+
+						birthday.add(Calendar.YEAR, years.negate().intValue());
+						birthday.add(Calendar.MONTH, months.multiply(new BigDecimal(12)).negate().intValue());
+					}
+				}
+
 				Timestamp birthdayTimestamp = new Timestamp(birthday.getTimeInMillis());
 
 				mTab.setValue(MBPartner_BH.COLUMNNAME_BH_Birthday, birthdayTimestamp);
