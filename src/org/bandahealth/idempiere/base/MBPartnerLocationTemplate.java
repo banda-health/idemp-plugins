@@ -5,40 +5,39 @@ import java.util.Properties;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.Query;
 
-public class MBPartnerLocationTemplate extends BaseTemplate<MBPartnerLocation> {
+public class MBPartnerLocationTemplate extends BaseModelTemplate<MBPartnerLocation> {
 
-	private String trxName;
-	private Properties ctx;
+	private int bpartnerId;
+	private int locationId;
+	private int orgId;
 
-	public MBPartnerLocationTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MBPartnerLocationTemplate(String transactionName, Properties context, int bpartnerId, int locationId,
+			int orgId) {
+		super(transactionName, context);
+
+		this.bpartnerId = bpartnerId;
+		this.locationId = locationId;
+		this.orgId = orgId;
 	}
 
 	@Override
-	public MBPartnerLocation getInstance(int... args) {
-		MBPartnerLocation location = new Query(getCtx(), MBPartnerLocation.Table_Name, "name = 'Test Shipping Address'",
-				getTrxName()).first();
-		if (location == null) {
-			location = new MBPartnerLocation(getCtx(), 0, getTrxName());
-			location.setName("Test Shipping Address");
-			location.setC_BPartner_ID(args[0]);
-			location.setC_Location_ID(args[1]);
-			location.setAD_Org_ID(args[2]);
-			location.saveEx();
-		}
+	protected MBPartnerLocation createInstance() {
+		MBPartnerLocation location = new MBPartnerLocation(getContext(), 0, getTransactionName());
+		location.setName("Test Shipping Address");
+		location.setC_BPartner_ID(bpartnerId);
+		location.setC_Location_ID(locationId);
+		location.setAD_Org_ID(orgId);
+		location.saveEx();
+
+		commit();
 
 		return location;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
+	protected MBPartnerLocation findInstance() {
+		return new Query(getContext(), MBPartnerLocation.Table_Name, "name = 'Test Shipping Address'",
+				getTransactionName()).first();
 
-	@Override
-	protected Properties getCtx() {
-		return ctx;
 	}
-
 }

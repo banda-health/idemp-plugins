@@ -5,43 +5,34 @@ import java.util.Properties;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.Query;
 
-public class MPriceListVersionTemplate extends BaseTemplate<MPriceListVersion> {
+public class MPriceListVersionTemplate extends BaseModelTemplate<MPriceListVersion> {
 
-	private String trxName;
-	private Properties ctx;
+	private int priceListId;
 
-	public MPriceListVersionTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MPriceListVersionTemplate(String transactionName, Properties context, int priceListId) {
+		super(transactionName, context);
+
+		this.priceListId = priceListId;
 	}
 
 	@Override
-	public MPriceListVersion getInstance(int... args) {
-		MPriceListVersion priceListVersion = new Query(ctx, MPriceListVersion.Table_Name,
-				"name = 'Test Price List Version'", trxName).first();
-		if (priceListVersion == null) {
-			priceListVersion = new MPriceListVersion(ctx, 0, trxName);
-			priceListVersion.setName("Test Price List Version");
-			priceListVersion.setM_PriceList_ID(args[0]);
-			priceListVersion
-					.setM_DiscountSchema_ID(new MDiscountSchemaTemplate(getTrxName(), getCtx()).getInstance().get_ID());
-			priceListVersion.saveEx();
-		}
+	protected MPriceListVersion createInstance() {
+		MPriceListVersion priceListVersion = new MPriceListVersion(getContext(), 0, getTransactionName());
+		priceListVersion.setName("Test Price List Version");
+		priceListVersion.setM_PriceList_ID(priceListId);
+		priceListVersion.setM_DiscountSchema_ID(
+				new MDiscountSchemaTemplate(getTransactionName(), getContext()).getInstance().get_ID());
+		priceListVersion.saveEx();
+
+		commit();
 
 		return priceListVersion;
-	}
 
-	public void setInstance(int priceListId) {
-		getInstance(priceListId);
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MPriceListVersion findInstance() {
+		return new Query(getContext(), MPriceListVersion.Table_Name, "name = 'Test Price List Version'",
+				getTransactionName()).first();
 	}
 }

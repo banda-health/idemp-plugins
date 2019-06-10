@@ -5,36 +5,26 @@ import java.util.Properties;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.Query;
 
-public class MDiscountSchemaTemplate extends BaseTemplate<MDiscountSchema> {
+public class MDiscountSchemaTemplate extends BaseModelTemplate<MDiscountSchema> {
 
-	private String trxName;
-	private Properties ctx;
-
-	public MDiscountSchemaTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MDiscountSchemaTemplate(String transactionName, Properties context) {
+		super(transactionName, context);
 	}
 
 	@Override
-	public MDiscountSchema getInstance(int... args) {
-		MDiscountSchema instance = new Query(getCtx(), MDiscountSchema.Table_Name, "name = 'Test Discount Schema'",
-				getTrxName()).first();
-		if (instance == null) {
-			instance = new MDiscountSchema(getCtx(), 0, getTrxName());
-			instance.setName("Test Discount Schema");
-			instance.saveEx();
-		}
+	protected MDiscountSchema createInstance() {
+		MDiscountSchema instance = new MDiscountSchema(getContext(), 0, getTransactionName());
+		instance.setName("Test Discount Schema");
+		instance.saveEx();
+
+		commit();
 
 		return instance;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MDiscountSchema findInstance() {
+		return new Query(getContext(), MDiscountSchema.Table_Name, "name = 'Test Discount Schema'",
+				getTransactionName()).first();
 	}
 }

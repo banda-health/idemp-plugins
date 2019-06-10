@@ -6,36 +6,30 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.compiere.model.MBPartner;
 import org.compiere.model.Query;
 
-public class MUserTemplate extends BaseTemplate<MUser_BH> {
+public class MUserTemplate extends BaseModelTemplate<MUser_BH> {
 
-	private String trxName;
-	private Properties ctx;
+	private int orgId;
 
-	public MUserTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MUserTemplate(String transactionName, Properties context, int orgId) {
+		super(transactionName, context);
+
+		this.orgId = orgId;
 	}
 
 	@Override
-	public MUser_BH getInstance(int... args) {
-		MUser_BH salesRep = new Query(getCtx(), MBPartner.Table_Name, "name = 'Test Sales Rep'", getTrxName()).first();
-		if (salesRep == null) {
-			salesRep = new MUser_BH(getCtx(), 0, getTrxName());
-			salesRep.setName("Test Sales Rep");
-			salesRep.setAD_Org_ID(args[0]);
-			salesRep.saveEx();
-		}
+	protected MUser_BH createInstance() {
+		MUser_BH salesRep = new MUser_BH(getContext(), 0, getTransactionName());
+		salesRep.setName("Test Sales Rep");
+		salesRep.setAD_Org_ID(orgId);
+		salesRep.saveEx();
+
+		commit();
 
 		return salesRep;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MUser_BH findInstance() {
+		return new Query(getContext(), MBPartner.Table_Name, "name = 'Test Sales Rep'", getTransactionName()).first();
 	}
 }

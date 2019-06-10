@@ -6,47 +6,38 @@ import org.compiere.model.MCurrency;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
 
-public class MPriceListTemplate extends BaseTemplate<MPriceList> {
+public class MPriceListTemplate extends BaseModelTemplate<MPriceList> {
 
-	private String trxName;
-	private Properties ctx;
+	private int orgId;
 
-	public MPriceListTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MPriceListTemplate(String transactionName, Properties context, int orgId) {
+		super(transactionName, context);
+
+		this.orgId = orgId;
 	}
 
 	@Override
-	public MPriceList getInstance(int... args) {
-		// price list
-		MPriceList priceList = new Query(ctx, MPriceList.Table_Name, "name = 'Test Price List'", trxName).first();
-		if (priceList == null) {
-			priceList = new MPriceList(ctx, 0, trxName);
-			priceList.setName("Test Price List");
-			priceList.setAD_Org_ID(args[0]);
-			priceList.setIsDefault(true);
+	protected MPriceList createInstance() {
+		MPriceList priceList = new MPriceList(getContext(), 0, getTransactionName());
+		priceList.setName("Test Price List");
+		priceList.setAD_Org_ID(orgId);
+		priceList.setIsDefault(true);
 
-			MCurrency currency = new MCurrencyTemplate(trxName, ctx).getInstance(args[0]);
+		MCurrency currency = new MCurrencyTemplate(getTransactionName(), getContext(), orgId).getInstance();
 
-			priceList.setC_Currency_ID(currency.get_ID());
+		priceList.setC_Currency_ID(currency.get_ID());
 
-			priceList.saveEx();
+		priceList.saveEx();
 
-			new MPriceListVersionTemplate(trxName, ctx).setInstance(priceList.get_ID());
+		new MPriceListVersionTemplate(getTransactionName(), getContext(), priceList.get_ID()).getInstance();
 
-			commit();
-		}
+		commit();
 
 		return priceList;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MPriceList findInstance() {
+		return new Query(getContext(), MPriceList.Table_Name, "name = 'Test Price List'", getTransactionName()).first();
 	}
 }

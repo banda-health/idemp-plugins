@@ -5,35 +5,25 @@ import java.util.Properties;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 
-public class MOrgTemplate extends BaseTemplate<MOrg> {
+public class MOrgTemplate extends BaseModelTemplate<MOrg> {
 
-	private String trxName;
-	private Properties ctx;
-
-	public MOrgTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MOrgTemplate(String transactionName, Properties context) {
+		super(transactionName, context);
 	}
 
 	@Override
-	public MOrg getInstance(int... args) {
-		MOrg organization = new Query(getCtx(), MOrg.Table_Name, "name = 'Test Organization'", getTrxName()).first();
-		if (organization == null) {
-			organization = new MOrg(getCtx(), 0, getTrxName());
-			organization.setName("Test Organization");
-			organization.saveEx();
-		}
+	protected MOrg createInstance() {
+		MOrg organization = new MOrg(getContext(), 0, getTransactionName());
+		organization.setName("Test Organization");
+		organization.saveEx();
+
+		commit();
 
 		return organization;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MOrg findInstance() {
+		return new Query(getContext(), MOrg.Table_Name, "name = 'Test Organization'", getTransactionName()).first();
 	}
 }

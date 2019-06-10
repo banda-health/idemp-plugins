@@ -6,44 +6,31 @@ import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.Query;
 
-public class MAttributeSetTemplate extends BaseTemplate<MAttributeSet> {
+public class MAttributeSetTemplate extends BaseModelTemplate<MAttributeSet> {
 
-	private String trxName;
-	private Properties ctx;
-
-	public MAttributeSetTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MAttributeSetTemplate(String transactionName, Properties context) {
+		super(transactionName, context);
 	}
 
 	@Override
-	public MAttributeSet getInstance(int... args) {
-		String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-				+ MAttributeSet.COLUMNNAME_Name + ") = '"
-				+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
+	protected MAttributeSet createInstance() {
+		MAttributeSet bandaAttrSet = new MAttributeSet(getContext(), 0, getTransactionName());
+		bandaAttrSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
+		bandaAttrSet.setIsGuaranteeDate(true);
+		bandaAttrSet.saveEx();
 
-		MAttributeSet bandaAttrSet = new Query(getCtx(), MAttributeSet.Table_Name, whereClause, getTrxName())
-				.setOnlyActiveRecords(true).setClient_ID(true).first();
-
-		if (bandaAttrSet == null) {
-			bandaAttrSet = new MAttributeSet(getCtx(), 0, getTrxName());
-			bandaAttrSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
-			bandaAttrSet.setIsGuaranteeDate(true);
-			bandaAttrSet.saveEx();
-
-			commit();
-		}
+		commit();
 
 		return bandaAttrSet;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
+	protected MAttributeSet findInstance() {
+		String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
+				+ MAttributeSet.COLUMNNAME_Name + ") = '"
+				+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
 
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+		return new Query(getContext(), MAttributeSet.Table_Name, whereClause, getTransactionName())
+				.setOnlyActiveRecords(true).setClient_ID(true).first();
 	}
 }

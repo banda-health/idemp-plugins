@@ -5,43 +5,48 @@ import java.util.Properties;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.compiere.model.Query;
 
-public class MBPartnerTemplate extends BaseTemplate<MBPartner_BH> {
+public class MBPartnerTemplate extends BaseModelTemplate<MBPartner_BH> {
 
-	private String trxName;
-	private Properties ctx;
+	private int orgId;
+	private String patientId;
+	private boolean isPatient;
+	private String name = "Test Business Partner";
 
-	public MBPartnerTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MBPartnerTemplate(String transactionName, Properties context, int orgId, String patientId, boolean isPatient,
+			String name) {
+		super(transactionName, context);
+
+		this.orgId = orgId;
+		this.patientId = patientId;
+		this.isPatient = isPatient;
+
+		if (name != null) {
+			this.name = name;
+		}
 	}
 
 	@Override
-	public MBPartner_BH getInstance(int... args) {
-		MBPartner_BH bpartner = new Query(getCtx(), MBPartner_BH.Table_Name, "name = 'Test Business Partner'", trxName)
-				.first();
-		if (bpartner == null) {
-			bpartner = newInstance(args);
-			bpartner.saveEx();
+	protected MBPartner_BH createInstance() {
+		MBPartner_BH bpartner = new MBPartner_BH(getContext(), 0, getTransactionName());
+		bpartner.setName(this.name);
+		bpartner.setAD_Org_ID(orgId);
+
+		if (patientId != null) {
+			bpartner.setBH_PatientID(patientId);
 		}
 
-		return bpartner;
-	}
+		bpartner.setBH_IsPatient(isPatient);
 
-	public MBPartner_BH newInstance(int... args) {
-		MBPartner_BH bpartner = new MBPartner_BH(getCtx(), 0, getTrxName());
-		bpartner.setName("Test Business Partner");
-		bpartner.setAD_Org_ID(args[0]);
+		bpartner.saveEx();
+
+		commit();
 
 		return bpartner;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MBPartner_BH findInstance() {
+		return new Query(getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_Name + " = '" + this.name + "'",
+				getTransactionName()).first();
 	}
 }

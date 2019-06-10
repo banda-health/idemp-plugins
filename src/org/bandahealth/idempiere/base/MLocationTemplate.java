@@ -5,36 +5,31 @@ import java.util.Properties;
 import org.compiere.model.MLocation;
 import org.compiere.model.Query;
 
-public class MLocationTemplate extends BaseTemplate<MLocation> {
+public class MLocationTemplate extends BaseModelTemplate<MLocation> {
 
-	private String trxName;
-	private Properties ctx;
+	private int orgId;
 
-	public MLocationTemplate(String trxName, Properties ctx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MLocationTemplate(String transactionName, Properties context, int orgId) {
+		super(transactionName, context);
+
+		this.orgId = orgId;
 	}
 
 	@Override
-	public MLocation getInstance(int... args) {
-		MLocation location = new Query(getCtx(), MLocation.Table_Name, "address1 = 'Test Address 1'", getTrxName())
-				.first();
-		if (location == null) {
-			location = new MLocation(getCtx(), 0, getTrxName());
-			location.setAD_Org_ID(args[0]);
-			location.setAddress1("Test Address 1");
-			location.saveEx();
-		}
+	protected MLocation createInstance() {
+		MLocation location = new MLocation(getContext(), 0, getTransactionName());
+		location.setAD_Org_ID(orgId);
+		location.setAddress1("Test Address 1");
+		location.saveEx();
+
+		commit();
+
 		return location;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MLocation findInstance() {
+		return new Query(getContext(), MLocation.Table_Name, "address1 = 'Test Address 1'", getTransactionName())
+				.first();
 	}
 }

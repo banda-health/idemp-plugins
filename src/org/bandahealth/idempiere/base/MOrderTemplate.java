@@ -4,50 +4,48 @@ import java.util.Properties;
 
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 
-public class MOrderTemplate extends BaseTemplate<MOrder_BH> {
+public class MOrderTemplate extends BaseModelTemplate<MOrder_BH> {
 
-	private String trxName;
-	private Properties ctx;
 	private boolean isSoTrx;
 
-	public MOrderTemplate(String trxName, Properties ctx, boolean isSoTrx) {
-		this.trxName = trxName;
-		this.ctx = ctx;
+	public MOrderTemplate(String transactionName, Properties context, boolean isSoTrx) {
+		super(transactionName, context);
+
 		this.isSoTrx = isSoTrx;
 	}
 
 	@Override
-	public MOrder_BH getInstance(int... args) {
-		int orgId = new MOrgTemplate(trxName, ctx).getInstance().get_ID();
-		int locationId = new MLocationTemplate(trxName, ctx).getInstance(orgId).get_ID();
-		int bPartnerId = new MBPartnerTemplate(trxName, ctx).getInstance(orgId).get_ID();
-		int salesRepId = new MUserTemplate(trxName, ctx).getInstance(orgId).get_ID();
-		int priceListId = new MPriceListTemplate(trxName, ctx).getInstance(orgId).get_ID();
+	protected MOrder_BH createInstance() {
+		int orgId = new MOrgTemplate(getTransactionName(), getContext()).getInstance().get_ID();
+		int locationId = new MLocationTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();
+		int bPartnerId = new MBPartnerTemplate(getTransactionName(), getContext(), orgId, null, false, null)
+				.getInstance().get_ID();
+		int salesRepId = new MUserTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();
+		int priceListId = new MPriceListTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();
 
 		// check bank account
-		new MBankAccountTemplate(trxName, ctx).getInstance(orgId);
+		new MBankAccountTemplate(getTransactionName(), getContext(), orgId).getInstance();
 
-		MOrder_BH order = new MOrder_BH(ctx, 0, trxName);
+		MOrder_BH order = new MOrder_BH(getContext(), 0, getTransactionName());
 		order.setIsSOTrx(isSoTrx);
 		order.setAD_Org_ID(orgId);
-		order.setM_Warehouse_ID(new MWarehouseTemplate(trxName, ctx).getInstance(orgId, locationId).get_ID());
+		order.setM_Warehouse_ID(
+				new MWarehouseTemplate(getTransactionName(), getContext(), orgId, locationId).getInstance().get_ID());
 		order.setC_BPartner_Location_ID(
-				new MBPartnerLocationTemplate(trxName, ctx).getInstance(bPartnerId, locationId, orgId).get_ID());
+				new MBPartnerLocationTemplate(getTransactionName(), getContext(), bPartnerId, locationId, orgId)
+						.getInstance().get_ID());
 		order.setC_BPartner_ID(bPartnerId);
 		order.setSalesRep_ID(salesRepId);
 		order.setM_PriceList_ID(priceListId);
 		order.saveEx();
 
+		commit();
+
 		return order;
 	}
 
 	@Override
-	protected String getTrxName() {
-		return trxName;
-	}
-
-	@Override
-	protected Properties getCtx() {
-		return ctx;
+	protected MOrder_BH findInstance() {
+		return null;
 	}
 }

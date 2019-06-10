@@ -29,7 +29,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 
 		new MAttributeSetTemplate(getTrxName(), getCtx()).getInstance();
 
-		MOrderLine_BH orderLine = new MOrderLineTemplate(null, getTrxName(), getCtx(), false).getInstance();
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), null, false).getInstance();
 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));
 		orderLine.saveEx();
 
@@ -38,7 +38,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 	}
 
 	public void testReceiveProductHasNoExpiration() throws Exception {
-		MOrderLine_BH orderLine = new MOrderLineTemplate(null, getTrxName(), getCtx(), false).getInstance();
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), null, false).getInstance();
 		orderLine.saveEx();
 
 		assertNotNull("Receive Product Order Line should not be null", orderLine);
@@ -49,7 +49,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, -2);
 
-		MOrderLine_BH orderLine = new MOrderLineTemplate(null, getTrxName(), getCtx(), false).getInstance();
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), null, false).getInstance();
 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));
 
 		try {
@@ -64,9 +64,8 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 	public void testCreateMaterialReceipt() throws Exception {
 		MOrder_BH order = new MOrderTemplate(getTrxName(), getCtx(), false).getInstance();
 		order.setIsSOTrx(false);
-		
-		MOrderLine_BH orderLine = new MOrderLineTemplate(order, getTrxName(), getCtx(), false).getInstance();
-		orderLine.saveEx();
+
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order, false).getInstance();
 
 		assertNotNull("Receive Product Order Line should not be null", orderLine);
 
@@ -74,7 +73,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 		String status = order.completeIt();
 		assertEquals("Should complete order successfully", "Complete", status);
 
-		MInOut inOut = new MInOutTemplate(order, getTrxName(), getCtx()).getInstance();
+		MInOut inOut = new MInOutTemplate(getTrxName(), getCtx(), order.get_ID()).getInstance();
 		assertNotNull("MInOut should not be null", inOut);
 
 		assertEquals(MInOut.MOVEMENTTYPE_VendorReceipts, inOut.getMovementType());

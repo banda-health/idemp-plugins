@@ -21,30 +21,26 @@ public class BusinessPartnerModelEventTest extends AdempiereTestCase {
 
 	@Test
 	public void testCreateNewPatient() {
-		MBPartner_BH bPartner = new MBPartnerTemplate(getTrxName(), getCtx()).newInstance(Env.getAD_Org_ID(getCtx()));
-		bPartner.setBH_PatientID("000001");
-		bPartner.setBH_IsPatient(true);
-		bPartner.saveEx();
+		MBPartner_BH patient = new MBPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), "000001", true,
+				"Test Patient").getInstance();
 
-		assertEquals("Is Patient? ", true, bPartner.isCustomer());
-		assertEquals("Should have an Invoice Rule: ", MOrder.INVOICERULE_Immediate, bPartner.getInvoiceRule());
-		assertEquals("Should have a Payment Rule: ", MOrder.PAYMENTRULE_Cash, bPartner.getPaymentRule());
-		assertNotNull("Should have a Price List: ", bPartner.getM_PriceList_ID());
+		assertEquals("Is Patient? ", true, patient.isCustomer());
+		assertEquals("Should have an Invoice Rule: ", MOrder.INVOICERULE_Immediate, patient.getInvoiceRule());
+		assertEquals("Should have a Payment Rule: ", MOrder.PAYMENTRULE_Cash, patient.getPaymentRule());
+		assertNotNull("Should have a Price List: ", patient.getM_PriceList_ID());
 	}
 
 	@Test
 	public void testAfterCreateNewPatientEvent() {
-		MBPartner_BH bPartner = new MBPartnerTemplate(getTrxName(), getCtx()).newInstance(Env.getAD_Org_ID(getCtx()));
-		bPartner.setBH_PatientID("000002");
-		bPartner.setBH_IsPatient(true);
-		bPartner.saveEx();
+		MBPartner_BH patient = new MBPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), "000002", true,
+				"Test Patient").getInstance();
 
 		// should have a user contact
-		MUser user = new MUser(bPartner);
+		MUser user = new MUser(patient);
 		assertNotNull("Should have a user contact ", user);
 
 		// should have a location
-		MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(bPartner);
+		MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(patient);
 		assertNotNull("Should have a location ", businessPartnerLocation);
 	}
 }
