@@ -9,12 +9,14 @@ public class MBankAccountTemplate extends BaseModelTemplate<MBankAccount> {
 
 	private int orgId;
 	private int currencyId;
+	private int clientId;
 	private static String WHERE_CLAUSE = "AD_Org_ID=? AND C_Currency_ID=?";
 
-	public MBankAccountTemplate(String transactionName, Properties context, int orgId) {
+	public MBankAccountTemplate(String transactionName, Properties context, int orgId, int clientId) {
 		super(transactionName, context);
 
 		this.orgId = orgId;
+		this.clientId = clientId;
 		this.currencyId = getCurrencyId();
 	}
 
@@ -42,6 +44,6 @@ public class MBankAccountTemplate extends BaseModelTemplate<MBankAccount> {
 	}
 
 	private int getCurrencyId() {
-		return new MCurrencyTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();
+		return new MCurrencyTemplate(getTransactionName(), getContext(), orgId, clientId).getInstance().get_ID();
 	}
 }

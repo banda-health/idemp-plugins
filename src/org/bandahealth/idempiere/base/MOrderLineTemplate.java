@@ -11,22 +11,16 @@ import org.compiere.model.Query;
 public class MOrderLineTemplate extends BaseModelTemplate<MOrderLine_BH> {
 
 	private MOrder_BH order;
-	private boolean isSOTrx;
 
-	public MOrderLineTemplate(String transactionName, Properties context, MOrder_BH order, boolean isSOTrx) {
+	public MOrderLineTemplate(String transactionName, Properties context, MOrder_BH order) {
 		super(transactionName, context);
 
 		this.order = order;
-		this.isSOTrx = isSOTrx;
 	}
 
 	@Override
 	protected MOrderLine_BH createInstance() {
 		int orgId = new MOrgTemplate(getTransactionName(), getContext()).getInstance().get_ID();
-
-		if (order == null) {
-			order = new MOrderTemplate(getTransactionName(), getContext(), isSOTrx).getInstance();
-		}
 
 		MProduct_BH product = new MProductTemplate(getTransactionName(), getContext(), orgId).getInstance();
 
@@ -34,8 +28,6 @@ public class MOrderLineTemplate extends BaseModelTemplate<MOrderLine_BH> {
 		orderLine.setM_Product_ID(product.getM_Product_ID());
 		orderLine.setQty(new BigDecimal(1));
 		orderLine.saveEx();
-		
-		commit();
 
 		return orderLine;
 	}

@@ -9,11 +9,13 @@ import org.compiere.model.Query;
 public class MPriceListTemplate extends BaseModelTemplate<MPriceList> {
 
 	private int orgId;
+	private int clientId;
 
-	public MPriceListTemplate(String transactionName, Properties context, int orgId) {
+	public MPriceListTemplate(String transactionName, Properties context, int orgId, int clientId) {
 		super(transactionName, context);
 
 		this.orgId = orgId;
+		this.clientId = clientId;
 	}
 
 	@Override
@@ -23,7 +25,7 @@ public class MPriceListTemplate extends BaseModelTemplate<MPriceList> {
 		priceList.setAD_Org_ID(orgId);
 		priceList.setIsDefault(true);
 
-		MCurrency currency = new MCurrencyTemplate(getTransactionName(), getContext(), orgId).getInstance();
+		MCurrency currency = new MCurrencyTemplate(getTransactionName(), getContext(), orgId, clientId).getInstance();
 
 		priceList.setC_Currency_ID(currency.get_ID());
 

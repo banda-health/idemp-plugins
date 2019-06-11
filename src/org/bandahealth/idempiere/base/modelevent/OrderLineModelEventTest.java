@@ -11,16 +11,21 @@ import org.bandahealth.idempiere.base.MOrderTemplate;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MInOut;
+import org.compiere.util.Env;
 
 import test.AdempiereTestCase;
 
 public class OrderLineModelEventTest extends AdempiereTestCase {
+
+	private MOrder_BH order;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
 		assertNotNull("Context should not be null", getCtx());
+
+		order = new MOrderTemplate(getTrxName(), getCtx(), false, Env.getAD_Client_ID(getCtx())).getInstance();
 	}
 
 	public void testReceiveProductHasExpiration() throws Exception {
@@ -29,7 +34,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 
 		new MAttributeSetTemplate(getTrxName(), getCtx()).getInstance();
 
-		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), null, false).getInstance();
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order).getInstance();
 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));
 		orderLine.saveEx();
 
@@ -38,7 +43,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 	}
 
 	public void testReceiveProductHasNoExpiration() throws Exception {
-		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), null, false).getInstance();
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order).getInstance();
 		orderLine.saveEx();
 
 		assertNotNull("Receive Product Order Line should not be null", orderLine);
@@ -49,7 +54,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, -2);
 
-		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), null, false).getInstance();
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order).getInstance();
 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));
 
 		try {
@@ -62,21 +67,18 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 	}
 
 	public void testCreateMaterialReceipt() throws Exception {
-		MOrder_BH order = new MOrderTemplate(getTrxName(), getCtx(), false).getInstance();
-		order.setIsSOTrx(false);
-
-		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order, false).getInstance();
+		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order).getInstance();
 
 		assertNotNull("Receive Product Order Line should not be null", orderLine);
 
 		order.setDocAction(MOrder_BH.DOCACTION_Complete);
 		String status = order.completeIt();
-		assertEquals("Should complete order successfully", "Complete", status);
+		assertEquals("Should process order successfully", "CO", status);
 
 		MInOut inOut = new MInOutTemplate(getTrxName(), getCtx(), order.get_ID()).getInstance();
 		assertNotNull("MInOut should not be null", inOut);
 
 		assertEquals(MInOut.MOVEMENTTYPE_VendorReceipts, inOut.getMovementType());
-		assertEquals("Complete", inOut.getDocStatus());
+		assertEquals("CO", inOut.getDocStatus());
 	}
 }
