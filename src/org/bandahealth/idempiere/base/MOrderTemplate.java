@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base;
 
 import java.util.Properties;
 
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 
 public class MOrderTemplate extends BaseModelTemplate<MOrder_BH> {
@@ -21,9 +22,12 @@ public class MOrderTemplate extends BaseModelTemplate<MOrder_BH> {
 	protected MOrder_BH createInstance() {
 		int orgId = new MOrgTemplate(getTransactionName(), getContext()).getInstance().get_ID();
 		int locationId = new MLocationTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();
-		int bPartnerId = new MBPartnerTemplate(getTransactionName(), getContext(), orgId, null, false, null)
-				.getInstance().get_ID();
-		int salesRepId = new MUserTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();
+		int salesRepId = new MUserTemplate(getTransactionName(), getContext(), orgId, 0, null,
+				"test@businesspartner.com", "123456").getInstance().get_ID();
+
+		MBPartner_BH bPartner = new MBPartnerTemplate(getTransactionName(), getContext(), orgId, null, false, null,
+				true, salesRepId).getInstance();
+		int bPartnerId = bPartner.get_ID();
 		int priceListId = new MPriceListTemplate(getTransactionName(), getContext(), orgId, clientId).getInstance()
 				.get_ID();
 		if (!isSoTrx) {

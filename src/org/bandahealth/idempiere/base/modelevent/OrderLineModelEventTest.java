@@ -26,13 +26,12 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 		assertNotNull("Context should not be null", getCtx());
 
 		order = new MOrderTemplate(getTrxName(), getCtx(), false, Env.getAD_Client_ID(getCtx())).getInstance();
+		new MAttributeSetTemplate(getTrxName(), getCtx()).getInstance();
 	}
 
 	public void testReceiveProductHasExpiration() throws Exception {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, 2);
-
-		new MAttributeSetTemplate(getTrxName(), getCtx()).getInstance();
 
 		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order).getInstance();
 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));
@@ -73,7 +72,7 @@ public class OrderLineModelEventTest extends AdempiereTestCase {
 
 		order.setDocAction(MOrder_BH.DOCACTION_Complete);
 		String status = order.completeIt();
-		assertEquals("Should process order successfully", "CO", status);
+		assertEquals("Should process order successfully", MOrder_BH.DOCACTION_Complete, status);
 
 		MInOut inOut = new MInOutTemplate(getTrxName(), getCtx(), order.get_ID()).getInstance();
 		assertNotNull("MInOut should not be null", inOut);
