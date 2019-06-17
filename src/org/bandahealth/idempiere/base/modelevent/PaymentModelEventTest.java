@@ -35,19 +35,5 @@ public class PaymentModelEventTest extends AdempiereTestCase {
 		assertEquals("Should have the same business partner as the order", true,
 				payment.getC_BPartner_ID() == order.getC_BPartner_ID());
 		assertEquals("Should NOT have an invoice", true, payment.getC_Invoice_ID() == 0);
-
-	}
-
-	public void testCompletedSalesOrderPaymentBeforeSaveRequest() throws Exception {
-		//boolean status = order.processIt(DocAction.ACTION_Complete);
-		//order.completeIt();
-		// assertEquals("Should process order successfully",
-		// MOrder_BH.DOCACTION_Complete, status);
-		//assertEquals("Should have completed status", MOrder_BH.DOCSTATUS_Completed, order.getDocStatus());
-
-		//MPayment_BH payment = new MPaymentTemplate(getTrxName(), getCtx(), order).getInstance();
-
-		//assertEquals("Should have an invoice since the order is complete", true, payment.getC_Invoice_ID() > 0);
-
 	}
 }

@@ -13,9 +13,10 @@ public class MUserTemplate extends BaseModelTemplate<MUser> {
 	private Timestamp birthday;
 	private String email;
 	private String phone;
+	private String name = "Test User";
 
 	public MUserTemplate(String transactionName, Properties context, int orgId, int bpartnerId, Timestamp birthday,
-			String email, String phone) {
+			String email, String phone, String name) {
 		super(transactionName, context);
 
 		this.orgId = orgId;
@@ -23,12 +24,15 @@ public class MUserTemplate extends BaseModelTemplate<MUser> {
 		this.birthday = birthday;
 		this.email = email;
 		this.phone = phone;
+		if (name != null) {
+			this.name = name;
+		}
 	}
 
 	@Override
 	protected MUser createInstance() {
 		MUser instance = new MUser(getContext(), 0, getTransactionName());
-		instance.setName("Test User");
+		instance.setName(name);
 		instance.setAD_Org_ID(orgId);
 		instance.setBirthday(birthday);
 		instance.setEMail(email);
@@ -38,12 +42,15 @@ public class MUserTemplate extends BaseModelTemplate<MUser> {
 		}
 
 		instance.saveEx();
+		
+		commit();
 
 		return instance;
 	}
 
 	@Override
 	protected MUser findInstance() {
-		return new Query(getContext(), MUser.Table_Name, "name = 'Test User'", getTransactionName()).first();
+		return new Query(getContext(), MUser.Table_Name, MUser.COLUMNNAME_Name + "='" + name + "'",
+				getTransactionName()).first();
 	}
 }

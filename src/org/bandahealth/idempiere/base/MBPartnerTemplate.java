@@ -32,18 +32,21 @@ public class MBPartnerTemplate extends BaseModelTemplate<MBPartner_BH> {
 	protected MBPartner_BH createInstance() {
 		MBPartner_BH bpartner = new MBPartner_BH(getContext(), 0, getTransactionName());
 		bpartner.setName(this.name);
-		bpartner.setAD_Org_ID(orgId);
-		if (patientId != null) {
-			bpartner.setBH_PatientID(patientId);
+		bpartner.setValue(this.name);
+		bpartner.setAD_Org_ID(this.orgId);
+		if (this.patientId != null) {
+			bpartner.setBH_PatientID(this.patientId);
 		}
 
-		bpartner.setBH_IsPatient(isPatient);
-		bpartner.setIsSalesRep(isSalesRep);
-		if (isSalesRep) {
-			bpartner.setSalesRep_ID(salesRepId);
+		bpartner.setBH_IsPatient(this.isPatient);
+		bpartner.setIsSalesRep(this.isSalesRep);
+		if (this.isSalesRep) {
+			bpartner.setSalesRep_ID(this.salesRepId);
 		}
 
 		bpartner.saveEx();
+
+		commit();
 
 		return bpartner;
 	}

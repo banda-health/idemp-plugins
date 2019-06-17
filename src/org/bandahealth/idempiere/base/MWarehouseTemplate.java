@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base;
 
 import java.util.Properties;
 
+import org.compiere.model.MLocator;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 
@@ -24,6 +25,10 @@ public class MWarehouseTemplate extends BaseModelTemplate<MWarehouse> {
 		storeRoom.setAD_Org_ID(orgId);
 		storeRoom.setC_Location_ID(locationId);
 		storeRoom.saveEx();
+		
+		MLocator loc = new MLocator (storeRoom, "Test Locator");
+		loc.setIsDefault(true);
+		loc.saveEx();
 
 		commit();
 

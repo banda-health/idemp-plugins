@@ -16,16 +16,17 @@ public class UserModelEventTest extends AdempiereTestCase {
 
 	public void testUpdateBusinessPartnerWithUserFields() throws Exception {
 		MBPartner_BH bpartner = new MBPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), null, false,
-				null, false, 0).getInstance();
+				"Test Business Partner (User Model)", false, 0).getInstance();
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-01"));
 		Timestamp birthday = new Timestamp(cal.getTimeInMillis());
 		String email = "test@businesspartner.com";
 		String phone = "123456";
+		String name = "Test User (User Model)";
 
-		MUser user = new MUserTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), bpartner.get_ID(),
-				birthday, email, phone).getInstance();
+		MUser user = new MUserTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), bpartner.get_ID(), birthday,
+				email, phone, name).getInstance();
 
 		boolean reload = bpartner.load(getTrxName());
 

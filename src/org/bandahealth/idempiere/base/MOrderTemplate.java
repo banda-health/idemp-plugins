@@ -23,7 +23,7 @@ public class MOrderTemplate extends BaseModelTemplate<MOrder_BH> {
 		int orgId = new MOrgTemplate(getTransactionName(), getContext()).getInstance().get_ID();
 		int locationId = new MLocationTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();
 		int salesRepId = new MUserTemplate(getTransactionName(), getContext(), orgId, 0, null,
-				"test@businesspartner.com", "123456").getInstance().get_ID();
+				"test@businesspartner.com", "123456", null).getInstance().get_ID();
 
 		MBPartner_BH bPartner = new MBPartnerTemplate(getTransactionName(), getContext(), orgId, null, false, null,
 				true, salesRepId).getInstance();

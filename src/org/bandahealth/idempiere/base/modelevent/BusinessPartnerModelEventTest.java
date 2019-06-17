@@ -22,7 +22,7 @@ public class BusinessPartnerModelEventTest extends AdempiereTestCase {
 	@Test
 	public void testCreateNewPatient() {
 		MBPartner_BH patient = new MBPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), "000001", true,
-				"Test Patient", false, 0).getInstance();
+				"Test Patient 1", false, 0).getInstance();
 
 		assertEquals("Is Patient? ", true, patient.isCustomer());
 		assertEquals("Should have an Invoice Rule: ", MOrder.INVOICERULE_Immediate, patient.getInvoiceRule());
@@ -33,7 +33,7 @@ public class BusinessPartnerModelEventTest extends AdempiereTestCase {
 	@Test
 	public void testAfterCreateNewPatientEvent() {
 		MBPartner_BH patient = new MBPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), "000002", true,
-				"Test Patient", false, 0).getInstance();
+				"Test Patient 2", false, 0).getInstance();
 
 		// should have a user contact
 		MUser user = new MUser(patient);
