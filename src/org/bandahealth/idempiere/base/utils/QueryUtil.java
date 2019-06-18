@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.PO;
@@ -76,25 +77,24 @@ public class QueryUtil {
 		if (attributeSetInstanceId > 0) {
 			asi = new MAttributeSetInstance(ctx, attributeSetInstanceId, trxName);
 		} else {
-			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower(" + MAttributeSet.COLUMNNAME_Name
-					+ ") = '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
+			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
+					+ MAttributeSet.COLUMNNAME_Name + ") = '"
+					+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
 			MAttributeSet attributeSet = new Query(ctx, MAttributeSet.Table_Name, whereClause, trxName)
-					.setOnlyActiveRecords(true)
-					.setClient_ID(true)
-					.first();
+					.setOnlyActiveRecords(true).setClient_ID(true).first();
 
 			if (attributeSet == null) {
 				throw new RuntimeException("Attribute set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
 						+ " not defined for client.");
 			}
 
-			// See if there is an attribute set instance for this product that already has this date
+			// See if there is an attribute set instance for this product that already has
+			// this date
 			int attributeSetId = attributeSet.getM_AttributeSet_ID();
 			whereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate + "=? AND "
 					+ MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
 			asi = new Query(ctx, MAttributeSetInstance.Table_Name, whereClause, trxName)
-					.setParameters(expirationDate, attributeSetId)
-					.first();
+					.setParameters(expirationDate, attributeSetId).first();
 			if (asi == null) {
 				asi = new MAttributeSetInstance(ctx, 0, trxName);
 				asi.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
@@ -111,5 +111,20 @@ public class QueryUtil {
 		}
 
 		return attributeSetInstanceId;
+	}
+
+	public static boolean checkBHNewVisit(int bpartnerId) {
+		StringBuilder whereClause = new StringBuilder(MOrder_BH.COLUMNNAME_BH_NEWVISIT);
+		whereClause.append(" = 'Y' AND ");
+		whereClause.append(MOrder_BH.COLUMNNAME_C_BPartner_ID);
+		whereClause.append(" = ");
+		whereClause.append(bpartnerId);
+
+		int count = new Query(Env.getCtx(), MOrder_BH.Table_Name, whereClause.toString(), null).setClient_ID().count();
+		if (count > 0) {
+			return false;
+		}
+
+		return true;
 	}
 }
