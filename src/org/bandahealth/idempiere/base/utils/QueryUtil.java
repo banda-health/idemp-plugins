@@ -113,7 +113,7 @@ public class QueryUtil {
 		return attributeSetInstanceId;
 	}
 
-	public static boolean checkBHNewVisit(int bpartnerId, boolean newVisit) {
+	public static boolean checkBHNewVisit(int bpartnerId) {
 		StringBuilder whereClause = new StringBuilder(MOrder_BH.COLUMNNAME_BH_NEWVISIT);
 		whereClause.append(" = 'Y' AND ");
 		whereClause.append(MOrder_BH.COLUMNNAME_C_BPartner_ID);
@@ -121,10 +121,10 @@ public class QueryUtil {
 		whereClause.append(bpartnerId);
 
 		int count = new Query(Env.getCtx(), MOrder_BH.Table_Name, whereClause.toString(), null).setClient_ID().count();
-		if (count > 0 && newVisit) {
+		if (count > 0) {
 			return false;
 		}
 
-		return newVisit;
+		return true;
 	}
 }

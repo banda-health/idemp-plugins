@@ -35,8 +35,7 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 				callouts.add(new BusinessPartnerAge());
 			}
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
-			if (columnName.equalsIgnoreCase(MOrder_BH.COLUMNNAME_C_BPartner_ID)
-					|| columnName.equalsIgnoreCase(MOrder_BH.COLUMNNAME_BH_NEWVISIT)) {
+			if (columnName.equalsIgnoreCase(MOrder_BH.COLUMNNAME_C_BPartner_ID)) {
 				callouts.add(new CalloutOrder());
 			}
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {

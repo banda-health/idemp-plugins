@@ -40,10 +40,9 @@ public class PaymentModelEvent extends AbstractEventHandler {
 	}
 
 	private void afterSaveRequest(MPayment_BH payment) {
-
 		if (payment.getBH_C_Order_ID() > 0) {
 			String where = MOrder_BH.COLUMNNAME_C_Order_ID + "=?";
-			MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name, where, null)
+			MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name, where, payment.get_TrxName())
 					.setParameters(payment.getBH_C_Order_ID())
 					.first();
 
@@ -67,7 +66,7 @@ public class PaymentModelEvent extends AbstractEventHandler {
 
 		if (payment.getBH_C_Order_ID() > 0) {
 			String where = MOrder_BH.COLUMNNAME_C_Order_ID + "=?";
-			MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name, where, null)
+			MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name, where, payment.get_TrxName())
 					.setParameters(payment.getBH_C_Order_ID())
 					.first();
 
