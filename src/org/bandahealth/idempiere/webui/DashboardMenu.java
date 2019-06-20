@@ -188,7 +188,7 @@ public class DashboardMenu extends DashboardPanel implements EventListener<Event
 					btnGrid.addEventListener(Events.ON_CLICK, this);
 				}
 			} catch (Exception ex) {
-				CLogger.get().severe("BH Error creating button: " + ex.toString());
+				//CLogger.get().severe("BH Error creating button: " + ex.toString());
 			}
 		}
 		Tabpanel panel = new Tabpanel();
