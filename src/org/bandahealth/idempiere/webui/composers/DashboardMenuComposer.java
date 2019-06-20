@@ -100,16 +100,16 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 
 				@Override
 				public int compare(MHomeScreenButton button1, MHomeScreenButton button2) {
-					int btn1Id = button1.getIncludedRole_ID();
-					int btn2Id = button2.getIncludedRole_ID();
-					if(btn1Id > 0 && btn2Id > 0) {
-						MRoleIncluded btn1IncludedRoled = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
-								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn1Id, null).first();
-						MRoleIncluded btn2IncludedRoled = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
-								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn2Id, null).first();
-						if(btn1IncludedRoled != null && btn2IncludedRoled != null) {
-							return btn1IncludedRoled.getSeqNo() < btn2IncludedRoled.getSeqNo() ? -1
-									: btn1IncludedRoled.getSeqNo() > btn2IncludedRoled.getSeqNo() ? 1 : 0;
+					int btn1IncludedRoleId = button1.getIncludedRole_ID();
+					int btn2IncludedRoledId = button2.getIncludedRole_ID();
+					if(btn1IncludedRoleId > 0 && btn2IncludedRoledId > 0) {
+						MRoleIncluded btn1SubRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
+								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn1IncludedRoleId, null).first();
+						MRoleIncluded btn2SubRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
+								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn2IncludedRoledId, null).first();
+						if(btn1SubRole != null && btn2SubRole != null) {
+							return btn1SubRole.getSeqNo() < btn2SubRole.getSeqNo() ? -1
+									: btn1SubRole.getSeqNo() > btn2SubRole.getSeqNo() ? 1 : 0;
 						} else {
 							return 0;
 						}
