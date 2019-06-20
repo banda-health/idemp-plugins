@@ -21,10 +21,15 @@ public class CalloutOrder implements IColumnCallout {
 			}
 
 			boolean newVisit = QueryUtil.checkBHNewVisit(bpartnerId);
+			GridField checkbox = mTab.getField(MOrder_BH.COLUMNNAME_BH_NEWVISIT);
+			if (checkbox == null) {
+				return null;
+			}
+			
 			if (newVisit) {
-				mTab.getField(MOrder_BH.COLUMNNAME_BH_NEWVISIT).setDisplayed(true);
+				checkbox.setDisplayed(true);
 			} else {
-				mTab.getField(MOrder_BH.COLUMNNAME_BH_NEWVISIT).setDisplayed(false);
+				checkbox.setDisplayed(false);
 				mTab.setValue(MOrder_BH.COLUMNNAME_BH_NEWVISIT, false);
 			}
 		}

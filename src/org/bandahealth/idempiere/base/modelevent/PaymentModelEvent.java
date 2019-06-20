@@ -61,9 +61,6 @@ public class PaymentModelEvent extends AbstractEventHandler {
 	}
 
 	private void beforeSaveRequest(MPayment_BH payment) {
-
-		log.warning("C_Order_ID = " + payment.getBH_C_Order_ID());
-
 		if (payment.getBH_C_Order_ID() > 0) {
 			String where = MOrder_BH.COLUMNNAME_C_Order_ID + "=?";
 			MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name, where, payment.get_TrxName())
