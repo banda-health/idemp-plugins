@@ -60,7 +60,7 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 		createMenuHeaders();
 		createMenuButtons();
 		mainDashboardPanel.query("#panelLayout")
-		        .appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
+				.appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
 		addPendingBillsWidget();
 	}
 
@@ -88,17 +88,21 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 			// use a single tab panel
 			List<MHomeScreenButton> menuButtonsInRole = filterMenuButtonsAssignedForRole(buttons, roleId);
 			Collections.sort(menuButtonsInRole, new Comparator<MHomeScreenButton>() {
-				
+
 				@Override
 				public int compare(MHomeScreenButton button1, MHomeScreenButton button2) {
 					int btn1IncludedRoleId = button1.getIncludedRole_ID();
 					int btn2IncludedRoledId = button2.getIncludedRole_ID();
-					if(btn1IncludedRoleId > 0 && btn2IncludedRoledId > 0) {
+					if (btn1IncludedRoleId > 0 && btn2IncludedRoledId > 0) {
 						MRoleIncluded btn1SubRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
-								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn1IncludedRoleId + " AND " + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + roleId, null).first();
+								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn1IncludedRoleId + " AND "
+										+ MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + roleId,
+								null).first();
 						MRoleIncluded btn2SubRole = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
-								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn2IncludedRoledId + " AND " + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + roleId, null).first();
-						if(btn1SubRole != null && btn2SubRole != null) {
+								MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + btn2IncludedRoledId + " AND "
+										+ MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + roleId,
+								null).first();
+						if (btn1SubRole != null && btn2SubRole != null) {
 							return btn1SubRole.getSeqNo() < btn2SubRole.getSeqNo() ? -1
 									: btn1SubRole.getSeqNo() > btn2SubRole.getSeqNo() ? 1 : 0;
 						} else {
@@ -117,40 +121,42 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 	private boolean userRoleIsAdmin() {
 		return RoleAndUserManagement.checkRoleHasAllSubRolesIncluded(roleId);
 	}
-	
-	private List<MHomeScreenButton> filterMenuButtonsAssignedForRole(List<MHomeScreenButton> buttons, Integer currentRoleId){
-		List<MHomeScreenButton> filteredButtons = new ArrayList<MHomeScreenButton>(); 
+
+	private List<MHomeScreenButton> filterMenuButtonsAssignedForRole(List<MHomeScreenButton> buttons,
+			Integer currentRoleId) {
+		List<MHomeScreenButton> filteredButtons = new ArrayList<MHomeScreenButton>();
 		List<MRoleIncluded> assignedSubRoles = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
-				MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + currentRoleId, null).addJoinClause(
-						" JOIN " + MHomeScreenButton.Table_Name + " ON " + MRoleIncluded.Table_Name + "." +MRoleIncluded.COLUMNNAME_Included_Role_ID
-								+ "=" + MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_Included_Role_ID)
+				MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + currentRoleId, null)
+						.addJoinClause(" JOIN " + MHomeScreenButton.Table_Name + " ON " + MRoleIncluded.Table_Name + "."
+								+ MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + MHomeScreenButton.Table_Name + "."
+								+ MHomeScreenButton.COLUMNNAME_Included_Role_ID)
 						.list();
 		for (MRoleIncluded role : assignedSubRoles) {
 			for (MHomeScreenButton mHomeScreenButton : buttons) {
-				if(role.getIncluded_Role_ID() == mHomeScreenButton.getIncludedRole_ID()) {
+				if (role.getIncluded_Role_ID() == mHomeScreenButton.getIncludedRole_ID()) {
 					filteredButtons.add(mHomeScreenButton);
 				}
 			}
 		}
 		return filteredButtons;
 	}
-	
+
 	private Tabpanel addButtonsToPanel(List<MHomeScreenButton> buttons, MHomeScreenButtonGroup group) {
 		Tabpanel panel = new Tabpanel();
 		Stream<MHomeScreenButton> buttonsStream = buttons.stream();
-		if(group != null) {
-			buttonsStream = buttonsStream.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == group.getBH_HmScrn_ButtonGroup_ID());
-		} 
+		if (group != null) {
+			buttonsStream = buttonsStream
+					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == group.getBH_HmScrn_ButtonGroup_ID());
+		}
 		buttonsStream.collect(Collectors.toList()).forEach(button -> {
-	        Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-	        if ((!userRoleIsAdmin()
-	                && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
-	                || userRoleIsAdmin()) {
-		        Grid grid = new DashboardMenuButtonCreation().createButton(button);
-		        panel.appendChild(grid);
-	        }
-        });
-		
+			Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+			if ((!userRoleIsAdmin() && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+					|| userRoleIsAdmin()) {
+				Grid grid = new DashboardMenuButtonCreation().createButton(button);
+				panel.appendChild(grid);
+			}
+		});
+
 		return panel;
 	}
 
