@@ -58,7 +58,7 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 		buttonDataService = new MHomeScreenButtonDataServiceImpl();
 		buttonGroupDataService = new MHomeScreenButtonGroupDataServiceImpl();
 		createMenuHeaders();
-		createMenuButtons(userRoleIsAdmin());
+		createMenuButtons();
 		mainDashboardPanel.query("#panelLayout")
 		        .appendChild(new Script(RoleAndUserManagement.appendRoleScriptString()));
 		addPendingBillsWidget();
@@ -74,14 +74,13 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 		}
 	}
 
-	public void createMenuButtons(boolean isAdmin) {
+	public void createMenuButtons() {
 		List<MHomeScreenButtonGroup> buttonGroups = buttonGroupDataService.getData();
 		List<MHomeScreenButton> buttons = buttonDataService.getData();
 		Tabpanel currentGroupPanel = null;
-		if (isAdmin) {
+		if (userRoleIsAdmin()) {
 			// create a tabpanel for each button group
 			for (MHomeScreenButtonGroup buttonGroup : buttonGroups) {
-				currentGroupPanel = new Tabpanel();
 				currentGroupPanel = addButtonsToPanel(buttons, buttonGroup);
 				buttonsTabPanels.appendChild(currentGroupPanel);
 			}
