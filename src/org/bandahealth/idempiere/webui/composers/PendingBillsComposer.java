@@ -1,8 +1,6 @@
 package org.bandahealth.idempiere.webui.composers;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.adempiere.util.Callback;
 import org.adempiere.webui.adwindow.ADWindow;
@@ -11,13 +9,7 @@ import org.bandahealth.idempiere.webui.PendingBillsListRenderer;
 import org.bandahealth.idempiere.webui.dataservice.impl.PendingBillsDataService;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
-import org.compiere.model.MWindow;
-import org.compiere.model.Query;
-import org.compiere.util.Env;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Desktop;
-import org.zkoss.zk.ui.DesktopUnavailableException;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -26,13 +18,15 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Timer;
 import org.zkoss.zul.Window;
 
 public class PendingBillsComposer extends SelectorComposer<Window> implements EventListener<Event> {
 
 	private static final long serialVersionUID = 1L;
-	private List<MOrder> patientBills;
-	private Integer patientBillsCount = 0;
+	private List<MOrder> pendingBillsList;
+	ListModelList<MOrder> model = new ListModelList<>();
+	private Integer pendingBillsCount = 0;
 	@Wire
 	private Listbox pendingBillsListBox;
 
@@ -41,18 +35,17 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 		try {
 			super.doAfterCompose(window);
 			pendingBillsListBox.addEventListener(Events.ON_SELECT, this);
-			refreshModelList(getPendingBillsModel());
+			updatePendingBillsUI();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public ListModelList<MOrder> getPendingBillsModel() {
-		patientBills = PendingBillsDataService.getBillsInDraftState();
-		ListModelList<MOrder> model = new ListModelList<>();
-		if (patientBills != null) {
-			patientBillsCount = patientBills.size();
-			model = new ListModelList<>(patientBills, true);
+		pendingBillsList = PendingBillsDataService.getBillsInDraftState();
+		if (pendingBillsList != null) {
+			pendingBillsCount = pendingBillsList.size();
+			model = new ListModelList<>(pendingBillsList, true);
 		}
 		return model;
 	}
@@ -61,54 +54,34 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 		return new PendingBillsListRenderer();
 	}
 
-	private void refreshModelList(ListModelList<MOrder> modelList) {
-		// update listmodel every 2 seconds
-		TimerTask task = new TimerTask() {
-			Thread refresherThread = new ModelUpdateThread(modelList);
-
-			@Override
-			public void run() {
-				if (updatedListAvailable()) {
-					patientBillsCount = patientBills.size();
-					if (!refresherThread.isAlive()) {
-						refresherThread.start();
-					}
-				}
-			}
-		};
-		Timer t = new Timer();
-		t.schedule(task, 2000, 5000);
-	}
-
-	class ModelUpdateThread extends Thread {
-		private ListModelList<MOrder> model;
-
-		public ModelUpdateThread(ListModelList<MOrder> model) {
-			this.model = model;
-		}
-
-		public void run() {
-			Desktop desktop = Executions.getCurrent().getDesktop();
-			desktop.enableServerPush(true);
-			try {
-				Executions.activate(desktop);
-				model.clear();
-				model.addAll(patientBills);
-				Executions.deactivate(desktop);
-			} catch (DesktopUnavailableException | InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	private boolean updatedListAvailable() {
 		boolean hasBeenUpdated = false;
-		List<MOrder> currentList = PendingBillsDataService.getBillsInDraftState();
-		if (currentList.size() != patientBillsCount) {
-			patientBills = currentList;
+		List<MOrder> updatedPendingBillsList = PendingBillsDataService.getBillsInDraftState();
+		if (updatedPendingBillsList.size() != pendingBillsCount) {
+			pendingBillsList = updatedPendingBillsList;
 			hasBeenUpdated = true;
 		}
 		return hasBeenUpdated;
+	}
+	
+	public void updatePendingBillsUI() {
+		Timer timer = new Timer();
+		timer.setRepeats(true);
+		timer.setDelay(3000);
+		timer.addEventListener(Events.ON_TIMER, new EventListener<Event>() {
+
+			@Override
+			public void onEvent(Event event) throws Exception {
+				System.out.println("Timer exec");
+				if(updatedListAvailable()) {
+					model.clear();
+					model.addAll(pendingBillsList);
+				}
+			}
+			
+		});
+		pendingBillsListBox.getParent().appendChild(timer);
+		timer.start();
 	}
 
 	@Override
