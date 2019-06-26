@@ -1,19 +1,29 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Unitydashboard
-Bundle-SymbolicName: org.bandahealth.idempiere.webui;singleton:=true
 Bundle-Version: 1.0.0
+Bundle-Name: BandaHealthGo WebUI
+Bundle-Vendor: BandaHealth
 Fragment-Host: org.adempiere.ui.zk;bundle-version="5.1.0"
+Bundle-SymbolicName: org.bandahealth.idempiere.webui;singleton:=true
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ClassPath: theme/,
- .,
- src/,
- zul/,
- resources/
-Jetty-WarFragmentFolderPath: /
-Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0", org.adempiere.ui.zk;bundle-version="5.1.0"
-Export-Package: org.bandahealth.idempiere.webui
-Import-Package: org.adempiere.util,
- org.zkoss.zk.ui,
+Import-Package: org.zkoss.zk.ui,
  org.zkoss.zk.ui.event,
  org.zkoss.zul
+Jetty-WarFragmentFolderPath: /
+Export-Package: org.bandahealth.idempiere.webui;
+  uses:="org.compiere.model,
+   org.zkoss.zk.ui.event,
+   org.bandahealth.idempiere.base.model,
+   org.zkoss.zul",
+ org.bandahealth.idempiere.webui.composers;
+  uses:="org.zkoss.zk.ui.select,
+   org.zkoss.zk.ui.event,
+   org.bandahealth.idempiere.webui,
+   org.zkoss.zul",
+ org.bandahealth.idempiere.webui.dataservice;uses:="org.compiere.model",
+ org.bandahealth.idempiere.webui.dataservice.impl;uses:="org.compiere.model,org.bandahealth.idempiere.webui.dataservice",
+ org.bandahealth.idempiere.webui.factory;uses:="org.adempiere.webui.factory,org.adempiere.webui.panel",
+ org.bandahealth.idempiere.webui.forms;uses:="org.adempiere.webui.panel",
+ org.bandahealth.idempiere.webui.util;uses:="org.adempiere.webui.component,org.bandahealth.idempiere.base.model,org.zkoss.zul"
+Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0",
+ org.adempiere.plugin.utils;bundle-version="6.2.0"

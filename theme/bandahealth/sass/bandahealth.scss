@@ -38,6 +38,29 @@
 		display: flex;
 		flex-direction: column;
 	}
+    
+    .bh-dashboard-button{
+        cursor: pointer;
+//         display: flex;
+        margin-bottom:3px;
+        &.z-grid > .z-grid-body{
+            overflow: hidden !important;
+            table {
+                table-layout:auto !important;
+                width:inherit;
+                tbody > tr > td:nth-child(1){
+                            width:10%;
+                        }
+                }
+            }
+        div{
+                font-size:20px; 
+                text-align:center; 
+                vertical-align:middle;
+                color: #363463;
+            }
+    }
+    
 	.bh-editable-rows-container {
 		display: grid;
 		grid-template-columns: 20px repeat(2, 1fr);
