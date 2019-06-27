@@ -25,5 +25,4 @@ Export-Package: org.bandahealth.idempiere.webui;
  org.bandahealth.idempiere.webui.factory;uses:="org.adempiere.webui.factory,org.adempiere.webui.panel",
  org.bandahealth.idempiere.webui.forms;uses:="org.adempiere.webui.panel",
  org.bandahealth.idempiere.webui.util;uses:="org.adempiere.webui.component,org.bandahealth.idempiere.base.model,org.zkoss.zul"
-Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0",
- org.adempiere.plugin.utils;bundle-version="6.2.0"
+Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0"

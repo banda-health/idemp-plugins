@@ -72,7 +72,6 @@ public class PendingBillsComposer extends SelectorComposer<Window> implements Ev
 
 			@Override
 			public void onEvent(Event event) throws Exception {
-				System.out.println("Timer exec");
 				if(updatedListAvailable()) {
 					model.clear();
 					model.addAll(pendingBillsList);
