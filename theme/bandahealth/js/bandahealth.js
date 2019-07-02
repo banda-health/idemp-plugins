@@ -45,7 +45,7 @@ define(
                 // hideWestPanel();
                 // hideEastPanel();
                 appendLogoutButton();
-                appendHomeBackButton();
+                // appendHomeBackButton();
                 addDomObservationMethods();
                 addDashboardPanelMethods();
                 expandDashboardMenuTabPanels();
@@ -57,13 +57,13 @@ define(
 
                 return;
 
-                function hideEastPanel() {
-                    let eastPanelCollapseButton = document
-                        .querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
-                    if (util.elementIsVisible(eastPanelCollapseButton)) {
-                        eastPanelCollapseButton.click();
-                    }
-                }
+                // function hideEastPanel() {
+                //     let eastPanelCollapseButton = document
+                //         .querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
+                //     if (util.elementIsVisible(eastPanelCollapseButton)) {
+                //         eastPanelCollapseButton.click();
+                //     }
+                // }
 
                 function hideRibbonElement() {
                     let expandCollapseImg = expandCollapseButton
@@ -73,13 +73,13 @@ define(
                     }
                 }
 
-                function hideWestPanel() {
-                    let westPanelCollapseButton = document
-                        .querySelectorAll('.desktop-layout .z-west-splitter-button i')[1];
-                    if (util.elementIsVisible(westPanelCollapseButton)) {
-                        westPanelCollapseButton.click();
-                    }
-                }
+                // function hideWestPanel() {
+                //     let westPanelCollapseButton = document
+                //         .querySelectorAll('.desktop-layout .z-west-splitter-button i')[1];
+                //     if (util.elementIsVisible(westPanelCollapseButton)) {
+                //         westPanelCollapseButton.click();
+                //     }
+                // }
 
                 function pageHasLoaded() {
                     return !!ribbon;
