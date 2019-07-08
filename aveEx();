@@ -1,0 +1,190 @@
+[1mdiff --git a/src/org/bandahealth/idempiere/base/MBPartnerTemplate.java b/src/org/bandahealth/idempiere/base/MBPartnerTemplate.java[m
+[1mindex 3b93f71..d60dce8 100644[m
+[1m--- a/src/org/bandahealth/idempiere/base/MBPartnerTemplate.java[m
+[1m+++ b/src/org/bandahealth/idempiere/base/MBPartnerTemplate.java[m
+[36m@@ -11,15 +11,16 @@[m [mpublic class MBPartnerTemplate extends BaseModelTemplate<MBPartner_BH> {[m
+ 	private String patientId;[m
+ 	private boolean isPatient;[m
+ 	private String name = "Test Business Partner";[m
+[32m+[m	[32mprivate boolean isSalesRep;[m
+ [m
+ 	public MBPartnerTemplate(String transactionName, Properties context, int orgId, String patientId, boolean isPatient,[m
+[31m-			String name) {[m
+[32m+[m			[32mString name, boolean isSalesRep) {[m
+ 		super(transactionName, context);[m
+ [m
+ 		this.orgId = orgId;[m
+ 		this.patientId = patientId;[m
+ 		this.isPatient = isPatient;[m
+[31m-[m
+[32m+[m		[32mthis.isSalesRep = isSalesRep;[m
+ 		if (name != null) {[m
+ 			this.name = name;[m
+ 		}[m
+[36m@@ -30,16 +31,19 @@[m [mpublic class MBPartnerTemplate extends BaseModelTemplate<MBPartner_BH> {[m
+ 		MBPartner_BH bpartner = new MBPartner_BH(getContext(), 0, getTransactionName());[m
+ 		bpartner.setName(this.name);[m
+ 		bpartner.setAD_Org_ID(orgId);[m
+[31m-[m
+ 		if (patientId != null) {[m
+ 			bpartner.setBH_PatientID(patientId);[m
+ 		}[m
+ [m
+ 		bpartner.setBH_IsPatient(isPatient);[m
+[31m-[m
+[32m+[m		[32mbpartner.setIsSalesRep(isSalesRep);[m
+[32m+[m		[32mif (isSalesRep) {[m
+[32m+[m			[32mbpartner.setSalesRep_ID(new MUserTemplate(getTransactionName(), getContext(), orgId, 0, null,[m
+[32m+[m					[32m"test@businesspartner.com", "123456").getInstance().get_ID());[m
+[32m+[m		[32m}[m
+[32m+[m[41m		[m
+ 		bpartner.saveEx();[m
+[31m-[m
+[31m-		commit();[m
+[32m+[m		[32m// commit();[m
+ [m
+ 		return bpartner;[m
+ 	}[m
+[1mdiff --git a/src/org/bandahealth/idempiere/base/MOrderTemplate.java b/src/org/bandahealth/idempiere/base/MOrderTemplate.java[m
+[1mindex a301615..29b524a 100644[m
+[1m--- a/src/org/bandahealth/idempiere/base/MOrderTemplate.java[m
+[1m+++ b/src/org/bandahealth/idempiere/base/MOrderTemplate.java[m
+[36m@@ -2,6 +2,7 @@[m [mpackage org.bandahealth.idempiere.base;[m
+ [m
+ import java.util.Properties;[m
+ [m
+[32m+[m[32mimport org.bandahealth.idempiere.base.model.MBPartner_BH;[m
+ import org.bandahealth.idempiere.base.model.MOrder_BH;[m
+ [m
+ public class MOrderTemplate extends BaseModelTemplate<MOrder_BH> {[m
+[36m@@ -21,9 +22,10 @@[m [mpublic class MOrderTemplate extends BaseModelTemplate<MOrder_BH> {[m
+ 	protected MOrder_BH createInstance() {[m
+ 		int orgId = new MOrgTemplate(getTransactionName(), getContext()).getInstance().get_ID();[m
+ 		int locationId = new MLocationTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();[m
+[31m-		int bPartnerId = new MBPartnerTemplate(getTransactionName(), getContext(), orgId, null, false, null)[m
+[31m-				.getInstance().get_ID();[m
+[31m-		int salesRepId = new MUserTemplate(getTransactionName(), getContext(), orgId).getInstance().get_ID();[m
+[32m+[m		[32mMBPartner_BH bPartner = new MBPartnerTemplate(getTransactionName(), getContext(), orgId, null, false, null,[m
+[32m+[m				[32mtrue).getInstance();[m
+[32m+[m		[32mint bPartnerId = bPartner.get_ID();[m
+[32m+[m		[32mint salesRepId = bPartner.getSalesRep_ID();[m
+ 		int priceListId = new MPriceListTemplate(getTransactionName(), getContext(), orgId, clientId).getInstance()[m
+ 				.get_ID();[m
+ 		if (!isSoTrx) {[m
+[1mdiff --git a/src/org/bandahealth/idempiere/base/MUserTemplate.java b/src/org/bandahealth/idempiere/base/MUserTemplate.java[m
+[1mindex e3bcda1..d3daed2 100644[m
+[1m--- a/src/org/bandahealth/idempiere/base/MUserTemplate.java[m
+[1m+++ b/src/org/bandahealth/idempiere/base/MUserTemplate.java[m
+[36m@@ -1,35 +1,51 @@[m
+ package org.bandahealth.idempiere.base;[m
+ [m
+[32m+[m[32mimport java.sql.Timestamp;[m
+ import java.util.Properties;[m
+ [m
+ import org.bandahealth.idempiere.base.model.MUser_BH;[m
+[31m-import org.compiere.model.MBPartner;[m
+ import org.compiere.model.Query;[m
+ [m
+ public class MUserTemplate extends BaseModelTemplate<MUser_BH> {[m
+ [m
+ 	private int orgId;[m
+[32m+[m	[32mprivate int bpartnerId;[m
+[32m+[m	[32mprivate Timestamp birthday;[m
+[32m+[m	[32mprivate String email;[m
+[32m+[m	[32mprivate String phone;[m
+ [m
+[31m-	public MUserTemplate(String transactionName, Properties context, int orgId) {[m
+[32m+[m	[32mpublic MUserTemplate(String transactionName, Properties context, int orgId, int bpartnerId, Timestamp birthday,[m
+[32m+[m			[32mString email, String phone) {[m
+ 		super(transactionName, context);[m
+ [m
+ 		this.orgId = orgId;[m
+[32m+[m		[32mthis.bpartnerId = bpartnerId;[m
+[32m+[m		[32mthis.birthday = birthday;[m
+[32m+[m		[32mthis.email = email;[m
+[32m+[m		[32mthis.phone = phone;[m
+ 	}[m
+ [m
+ 	@Override[m
+ 	protected MUser_BH createInstance() {[m
+[31m-		MUser_BH salesRep = new MUser_BH(getContext(), 0, getTransactionName());[m
+[31m-		salesRep.setName("Test Sales Rep");[m
+[31m-		salesRep.setAD_Org_ID(orgId);[m
+[31m-		salesRep.saveEx();[m
+[32m+[m		[32mMUser_BH instance = new MUser_BH(getContext(), 0, getTransactionName());[m
+[32m+[m		[32minstance.setName("Test User");[m
+[32m+[m		[32minstance.setAD_Org_ID(orgId);[m
+[32m+[m		[32minstance.setBirthday(birthday);[m
+[32m+[m		[32minstance.setEMail(email);[m
+[32m+[m		[32minstance.setPhone(phone);[m
+[32m+[m		[32mif (bpartnerId > 0) {[m
+[32m+[m			[32minstance.setC_BPartner_ID(bpartnerId);[m
+[32m+[m		[32m}[m
+ [m
+[31m-		commit();[m
+[32m+[m		[32minstance.saveEx();[m
+ [m
+[31m-		return salesRep;[m
+[32m+[m		[32m// commit();[m
+[32m+[m
+[32m+[m		[32mreturn instance;[m
+ 	}[m
+ [m
+ 	@Override[m
+ 	protected MUser_BH findInstance() {[m
+[31m-		return new Query(getContext(), MBPartner.Table_Name, "name = 'Test Sales Rep'", getTransactionName()).first();[m
+[32m+[m		[32mreturn new Query(getContext(), MUser_BH.Table_Name, "name = 'Test User'", getTransactionName()).first();[m
+ 	}[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/org/bandahealth/idempiere/base/modelevent/BusinessPartnerModelEventTest.java b/src/org/bandahealth/idempiere/base/modelevent/BusinessPartnerModelEventTest.java[m
+[1mindex afcc2cb..f987c10 100644[m
+[1m--- a/src/org/bandahealth/idempiere/base/modelevent/BusinessPartnerModelEventTest.java[m
+[1m+++ b/src/org/bandahealth/idempiere/base/modelevent/BusinessPartnerModelEventTest.java[m
+[36m@@ -22,7 +22,7 @@[m [mpublic class BusinessPartnerModelEventTest extends AdempiereTestCase {[m
+ 	@Test[m
+ 	public void testCreateNewPatient() {[m
+ 		MBPartner_BH patient = new MBPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), "000001", true,[m
+[31m-				"Test Patient").getInstance();[m
+[32m+[m				[32m"Test Patient", false).getInstance();[m
+ [m
+ 		assertEquals("Is Patient? ", true, patient.isCustomer());[m
+ 		assertEquals("Should have an Invoice Rule: ", MOrder.INVOICERULE_Immediate, patient.getInvoiceRule());[m
+[36m@@ -33,7 +33,7 @@[m [mpublic class BusinessPartnerModelEventTest extends AdempiereTestCase {[m
+ 	@Test[m
+ 	public void testAfterCreateNewPatientEvent() {[m
+ 		MBPartner_BH patient = new MBPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), "000002", true,[m
+[31m-				"Test Patient").getInstance();[m
+[32m+[m				[32m"Test Patient", false).getInstance();[m
+ [m
+ 		// should have a user contact[m
+ 		MUser user = new MUser(patient);[m
+[1mdiff --git a/src/org/bandahealth/idempiere/base/modelevent/OrderLineModelEventTest.java b/src/org/bandahealth/idempiere/base/modelevent/OrderLineModelEventTest.java[m
+[1mindex a5f66c4..7f836e5 100644[m
+[1m--- a/src/org/bandahealth/idempiere/base/modelevent/OrderLineModelEventTest.java[m
+[1m+++ b/src/org/bandahealth/idempiere/base/modelevent/OrderLineModelEventTest.java[m
+[36m@@ -26,14 +26,13 @@[m [mpublic class OrderLineModelEventTest extends AdempiereTestCase {[m
+ 		assertNotNull("Context should not be null", getCtx());[m
+ [m
+ 		order = new MOrderTemplate(getTrxName(), getCtx(), false, Env.getAD_Client_ID(getCtx())).getInstance();[m
+[32m+[m		[32mnew MAttributeSetTemplate(getTrxName(), getCtx()).getInstance();[m
+ 	}[m
+ [m
+ 	public void testReceiveProductHasExpiration() throws Exception {[m
+ 		Calendar cal = Calendar.getInstance();[m
+ 		cal.add(Calendar.MONTH, 2);[m
+ [m
+[31m-		new MAttributeSetTemplate(getTrxName(), getCtx()).getInstance();[m
+[31m-[m
+ 		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order).getInstance();[m
+ 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));[m
+ 		orderLine.saveEx();[m
+[36m@@ -73,7 +72,7 @@[m [mpublic class OrderLineModelEventTest extends AdempiereTestCase {[m
+ [m
+ 		order.setDocAction(MOrder_BH.DOCACTION_Complete);[m
+ 		String status = order.completeIt();[m
+[31m-		assertEquals("Should process order successfully", "CO", status);[m
+[32m+[m		[32massertEquals("Should process order successfully", MOrder_BH.DOCACTION_Complete, status);[m
+ [m
+ 		MInOut inOut = new MInOutTemplate(getTrxName(), getCtx(), order.get_ID()).getInstance();[m
+ 		assertNotNull("MInOut should not be null", inOut);[m
