@@ -55,13 +55,13 @@ define(
 
                 return;
 
-                function hideEastPanel() {
-                    let eastPanelCollapseButton = document
-                        .querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
-                    if (util.elementIsVisible(eastPanelCollapseButton)) {
-                        eastPanelCollapseButton.click();
-                    }
-                }
+                // function hideEastPanel() {
+                //     let eastPanelCollapseButton = document
+                //         .querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
+                //     if (util.elementIsVisible(eastPanelCollapseButton)) {
+                //         eastPanelCollapseButton.click();
+                //     }
+                // }
 
                 function hideRibbonElement() {
                     let expandCollapseImg = expandCollapseButton
@@ -70,7 +70,6 @@ define(
                         expandCollapseButton.click();
                     }
                 }
-
 
                 function pageHasLoaded() {
                     return !!ribbon;
