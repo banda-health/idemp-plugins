@@ -28,6 +28,8 @@ public class MOrderLineTemplate extends BaseModelTemplate<MOrderLine_BH> {
 		orderLine.setM_Product_ID(product.getM_Product_ID());
 		orderLine.setQty(new BigDecimal(1));
 		orderLine.saveEx();
+		
+		commit();
 
 		return orderLine;
 	}

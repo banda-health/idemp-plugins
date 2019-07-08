@@ -29,6 +29,8 @@ public class MPaymentTemplate extends BaseModelTemplate<MPayment_BH> {
 		instance.setC_BankAccount_ID(new MBankAccountTemplate(getTransactionName(), getContext(), order.getAD_Org_ID(),
 				order.getAD_Client_ID()).getInstance().get_ID());
 		instance.saveEx(getTransactionName());
+		
+		commit();
 
 		return instance;
 	}

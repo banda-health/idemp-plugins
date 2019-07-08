@@ -55,7 +55,9 @@ public class MOrderTemplate extends BaseModelTemplate<MOrder_BH> {
 		order.setSalesRep_ID(salesRepId);
 		order.setM_PriceList_ID(priceListId);
 		order.saveEx();
-
+		
+		commit();
+		
 		return order;
 	}
 
