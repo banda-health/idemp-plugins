@@ -63,30 +63,20 @@
 		</parameter>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select
-  case when payment.tendertype = 'M' then 'MPESA'
-       when payment.tendertype = 'X' then 'CASH'
-       when payment.tendertype = 'L' then 'LOCAL FUND'
-       when payment.tendertype = 'B' then 'BILL WAIVER'
-       when payment.tendertype = 'F' then 'DONOR FUND 1'
-       when payment.tendertype = 'i' then 'LINDA MAMA'
-       when payment.tendertype = 'N' then 'NHIF'
-       end as PaymentMode,
-  sum(payment.payamt) as PaymentAmount,
-  cashier.name as CashierName
-from
-  c_invoice invoice
-  inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
-  inner join c_order corder on invoice.c_order_id = corder.c_order_id
-  inner join ad_user cashier on corder.salesrep_id = cashier.ad_user_id
-where
-  payment.c_invoice_id is not null
-  and payment.ad_client_id =  $P{AD_CLIENT_ID}
-  and (payment.created BETWEEN $P{Begin Date} AND  $P{End Date})
-  group by CashierName, PaymentMode;]]>
+			<![CDATA[SELECT
+    bhpayment.tendertype as PaymentMode,
+	SUM(bhpayment.totalpayments) AS PaymentAmount,
+    cashier.name as CashierName
+FROM bh_patient_transactions_v as bhpayment
+    inner join c_payment payment on payment.c_payment_id = bhpayment.c_payment_id
+    inner join ad_user cashier on payment.createdby = cashier.ad_user_id
+WHERE bhpayment.ad_client_id =  $P{AD_CLIENT_ID}
+AND (bhpayment.created BETWEEN $P{Begin Date} AND  $P{End Date})
+GROUP BY PaymentMode, CashierName;]]>
 		</queryString>
 		<field name="paymentmode" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="paymentmode"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_patient_transactions_v"/>
 		</field>
 		<field name="paymentamount" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="paymentamount"/>
