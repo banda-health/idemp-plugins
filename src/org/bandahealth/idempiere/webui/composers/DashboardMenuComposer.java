@@ -52,8 +52,6 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 	public void doAfterCompose(Vlayout vlayout) {
 		try {
 			super.doAfterCompose(vlayout);
-			Desktop desktop = Executions.getCurrent().getDesktop();
-			desktop.enableServerPush(false);
 		} catch (Exception e) {
 			CLogger.get().severe("An error occured while creating component: " + e.getLocalizedMessage());
 			e.printStackTrace();
