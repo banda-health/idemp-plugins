@@ -14,12 +14,13 @@ import org.bandahealth.idempiere.webui.DashboardMenuButtonCreation;
 import org.bandahealth.idempiere.webui.RoleAndUserManagement;
 import org.bandahealth.idempiere.webui.dataservice.impl.MHomeScreenButtonDataServiceImpl;
 import org.bandahealth.idempiere.webui.dataservice.impl.MHomeScreenButtonGroupDataServiceImpl;
-import org.bandahealth.idempiere.webui.util.UIUtil;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Grid;
@@ -51,6 +52,8 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 	public void doAfterCompose(Vlayout vlayout) {
 		try {
 			super.doAfterCompose(vlayout);
+			Desktop desktop = Executions.getCurrent().getDesktop();
+			desktop.enableServerPush(false);
 		} catch (Exception e) {
 			CLogger.get().severe("An error occured while creating component: " + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -149,11 +152,15 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 					.filter(b -> b.getBH_HmScrn_ButtonGroup_ID() == group.getBH_HmScrn_ButtonGroup_ID());
 		}
 		buttonsStream.collect(Collectors.toList()).forEach(button -> {
-			Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
-			if ((!userRoleIsAdmin() && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
-					|| userRoleIsAdmin()) {
-				Grid grid = new DashboardMenuButtonCreation().createButton(button);
-				panel.appendChild(grid);
+			try {
+				Integer buttonRoleId = button.get_ValueAsInt(MHomeScreenButton.COLUMNNAME_Included_Role_ID);
+				if ((!userRoleIsAdmin() && RoleAndUserManagement.userRoleHasSpecificSubRoles(roleId, userId, buttonRoleId))
+						|| userRoleIsAdmin()) {
+					Grid grid = new DashboardMenuButtonCreation().createButton(button);
+					panel.appendChild(grid);
+				}
+			} catch (UiException exception) {
+				//Non-unique IDs found for components
 			}
 		});
 
