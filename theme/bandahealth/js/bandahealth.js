@@ -45,6 +45,7 @@ define(
                 hideEastPanel();
                 appendLogoutButton();
                 addDomObservationMethods();
+                addTabCountResetObservation();
                 addDashboardPanelMethods();
                 expandDashboardMenuTabPanels();
                 openInitialWindow();
@@ -240,6 +241,34 @@ define(
                 return userNavigationIsFromDashboard;
             }
         }
+        
+        /*On adding a new window, clear/close the previous one*/
+        function addTabCountResetObservation(){
+        	let mainTab = document.querySelector('.desktop-tabbox.z-tabbox.z-tabbox-top > .z-tabs > .z-tabs-content');
+        	 util.executeFunctionWhenElementPresent(mainTab,
+        			 function createTabResetObserver(){
+        		 		let tabObserver = new DomObserver(mainTab, function(mutationsList){
+        		 			mutationsList.forEach(mutation => {
+        		 				var previous = mutation.previousSibling;
+        		 				if(previous != null){
+        		 					previous.remove();
+        		 					console.log("Removed previous");
+        		 				});
+        		 			}
+//        	var config = {childList:true};
+//        	var callback = function(mutationsList){
+//        	    mutationsList.forEach(mutation => {
+//        			var previous = mutation.previousSibling;
+//        			if(previous != null){
+//        				previous.remove();
+//        	        }
+//        	    })};
+//        	    var observer = new MutationObserver(callback);
+//        	    observer.observe(bar,config);
+        	
+//        	var bar = document.querySelector('.desktop-tabbox.z-tabbox.z-tabbox-top > .z-tabs > .z-tabs-content');
+        }
+        	 }}
 
         function addDashboardPanelMethods() {
             util.executeFunctionWhenElementPresent('.desktop-left-column',
@@ -741,5 +770,7 @@ define(
             }
             return activeElement;
         }
+        
+
         
     });
