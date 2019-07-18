@@ -22,7 +22,6 @@ public class DashboardTermsOfUseComposer extends SelectorComposer<Vlayout>{
 		try {
 			super.doAfterCompose(dashboardPanel);
 			if (TermsOfUseService.isAccepted()) {
-				System.out.println("Checking terms!" + TermsOfUseService.isAccepted());
 				return;
 			}
 			Component termsOfServiceComponent = Executions.createComponents("zul/TermsOfUse.zul", null, null);
