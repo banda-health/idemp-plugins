@@ -30,7 +30,7 @@ from
   inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
 where
   payment.bh_c_order_id = $P{billId}
-  and payment.c_invoice_id is not null
+  and payment.docstatus = 'CO'
   group by invoice.c_order_id, payment.tendertype]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">

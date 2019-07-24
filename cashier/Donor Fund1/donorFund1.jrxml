@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="donorFund1" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="donorFund1" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="325"/>
@@ -57,34 +57,39 @@
   sorder.updated as date,
   patient.name as name,
   '' as ke_NO,
-  patient.c_bpartner_id as opd_NO,
+  patientID.bh_patientid as opd_NO,
   invoice.description as diagnoses,
   sum(payment.payamt) as amount_tendered
 from c_order sorder
   inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
   inner join ad_user patient on invoice.ad_user_id = patient.ad_user_id
   inner join ad_user cashier on sorder.salesrep_id = cashier.ad_user_id
+  inner join c_bpartner patientID on patient.c_bpartner_id = patientID.c_bpartner_id
   inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
 where
   payment.tendertype = 'F' and payment.ad_org_id =  $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.updated) BETWEEN  $P{Begin Date} AND  $P{End Date})
-group by sorder.updated, patient.name, patient.c_bpartner_id, invoice.description
+  and (date(payment.created) BETWEEN  $P{Begin Date} AND  $P{End Date})
+group by sorder.updated, patient.name, patientID.bh_patientid, invoice.description
 order by patient.name asc;]]>
 		</queryString>
 		<field name="date" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="date"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
 		<field name="name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 		</field>
 		<field name="ke_no" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="ke_no"/>
 		</field>
-		<field name="opd_no" class="java.math.BigDecimal">
+		<field name="opd_no" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="opd_no"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
 		<field name="diagnoses" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="diagnoses"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
 		</field>
 		<field name="amount_tendered" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
@@ -98,8 +103,20 @@ order by patient.name asc;]]>
 	</parameter>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[select
+  UPPER(clienName.name) as name
+from c_order sorder
+  inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
+  inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
+  inner join ad_client clienName on payment.ad_client_id = clienName.ad_client_id
+where
+  payment.tendertype = 'F' and payment.ad_org_id = $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
+  and (date(payment.created) BETWEEN $P{Begin Date} AND  $P{End Date})
+LIMIT 1;]]>
 	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
 	<title>
 		<band height="96" splitType="Stretch">
 			<staticText>
@@ -110,19 +127,24 @@ order by patient.name asc;]]>
 				<text><![CDATA[KE 824 CDC MONTHLY MEDICAL BILL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="31" width="555" height="30" uuid="3597ef40-a85b-4d18-ad86-d24b944ad29c"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[FACILITY: COMMUNITY HEALTH PARTNERS]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="61" width="555" height="35" uuid="2f403adb-7dd0-4ad2-bfa4-2caf181b85cf"/>
+				<reportElement x="0" y="61" width="555" height="35" uuid="2f403adb-7dd0-4ad2-bfa4-2caf181b85cf">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[MONTH OF ..................................]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="31" width="555" height="30" uuid="144e52fe-4924-4739-9910-233f7b8ec3f9">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FACILITY: " + $F{name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<summary>
@@ -297,4 +319,18 @@ order by patient.name asc;]]>
 			</componentElement>
 		</band>
 	</summary>
+	<noData>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="715a0d9d-b937-4c17-89f5-56f0a68c96b9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[No Data to display on the report]]></text>
+			</staticText>
+		</band>
+	</noData>
 </jasperReport>
