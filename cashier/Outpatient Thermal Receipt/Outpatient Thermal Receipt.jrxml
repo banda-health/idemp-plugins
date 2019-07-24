@@ -60,49 +60,61 @@ select
   sorder.c_order_id as receipt_number,
   cashier.name as cashierName,
   patient.name as patientName,
-  patient.c_bpartner_id as fileNumber
+  patient.bh_patientid as fileNumber
 from c_order sorder
   inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
-  inner join ad_user patient on invoice.ad_user_id = patient.ad_user_id
+  inner join ad_user userID on invoice.ad_user_id = userID.ad_user_id
+  inner join c_bpartner patient on userID.c_bpartner_id = patient.c_bpartner_id
   inner join ad_user cashier on sorder.salesrep_id = cashier.ad_user_id
 where sorder.c_order_id =  $P{billId}
 ) as billDetails on billheader.orgID = billDetails.orgID;]]>
 	</queryString>
 	<field name="orgid" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="orgid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_org"/>
 	</field>
 	<field name="org_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="org_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_org"/>
 	</field>
 	<field name="phone" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_orginfo"/>
 	</field>
 	<field name="email" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_orginfo"/>
 	</field>
 	<field name="address" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="address"/>
 	</field>
 	<field name="city" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="city"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_location"/>
 	</field>
 	<field name="bill_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
 	<field name="receipt_number" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
 	<field name="cashiername" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 	</field>
 	<field name="patientname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
-	<field name="filenumber" class="java.math.BigDecimal">
+	<field name="filenumber" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="filenumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
-	<field name="bill_id" class="java.lang.Integer">
+	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
 	<variable name="totalCost" class="java.math.BigDecimal">
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
