@@ -70,7 +70,7 @@ where
   payment.tendertype = 'F' and payment.ad_org_id =  $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
   and (date(payment.created) BETWEEN  $P{Begin Date} AND  $P{End Date})
 group by sorder.updated, patient.name, patientID.bh_patientid, invoice.description
-order by patient.name asc;]]>
+order by sorder.updated asc;]]>
 		</queryString>
 		<field name="date" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="date"/>
