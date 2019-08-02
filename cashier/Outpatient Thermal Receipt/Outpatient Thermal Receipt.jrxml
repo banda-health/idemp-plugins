@@ -60,11 +60,20 @@ select
   sorder.c_order_id as receipt_number,
   cashier.name as cashierName,
   patient.name as patientName,
+<<<<<<< HEAD
   patientid.bh_patientid as fileNumber
 from c_order sorder
   inner join ad_user patient on sorder.ad_user_id = patient.ad_user_id
   inner join c_bpartner patientid on patient.c_bpartner_id = patientid.c_bpartner_id
   inner join ad_user cashier on sorder.updatedby = cashier.ad_user_id
+=======
+  patient.bh_patientid as fileNumber
+from c_order sorder
+  inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
+  inner join ad_user userID on invoice.ad_user_id = userID.ad_user_id
+  inner join c_bpartner patient on userID.c_bpartner_id = patient.c_bpartner_id
+  inner join ad_user cashier on sorder.salesrep_id = cashier.ad_user_id
+>>>>>>> 26b7010c207720df5b6b072c6845a7534e7a23e2
 where sorder.c_order_id =  $P{billId}
 ) as billDetails on billheader.orgID = billDetails.orgID;]]>
 	</queryString>
@@ -105,7 +114,11 @@ where sorder.c_order_id =  $P{billId}
 	</field>
 	<field name="patientname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
+<<<<<<< HEAD
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+=======
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+>>>>>>> 26b7010c207720df5b6b072c6845a7534e7a23e2
 	</field>
 	<field name="filenumber" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="filenumber"/>

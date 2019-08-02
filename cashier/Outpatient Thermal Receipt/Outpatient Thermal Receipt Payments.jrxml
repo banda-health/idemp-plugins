@@ -30,7 +30,11 @@ from
 where
   payment.bh_c_order_id = $P{billId}
   and payment.docstatus = 'CO'
+<<<<<<< HEAD
   group by payment.bh_c_order_id, payment.tendertype]]>
+=======
+  group by invoice.c_order_id, payment.tendertype]]>
+>>>>>>> 26b7010c207720df5b6b072c6845a7534e7a23e2
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
