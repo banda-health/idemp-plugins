@@ -26,6 +26,8 @@ public class MPayment_BH extends MPayment {
 	public static final String COLUMNNAME_BH_NHIF_MEMBER_ID = "BH_NHIF_MEMBER_ID";
 	
 	public static final String COLUMNAME_TOTAL_OPEN_BALANCE = "TotalOpenBalance";
+	
+	public static final String COLUMNNAME_BH_PROCESSING = "BH_processing";
 
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
 		super(ctx, C_Payment_ID, trxName);
@@ -81,5 +83,9 @@ public class MPayment_BH extends MPayment {
 	 */
 	public void setBH_MPesaPhnTrx_Num(String BH_MPesaPhnTrx_Num) {
 		set_Value(COLUMNNAME_BH_MPesaPhnTrx_Num, BH_MPesaPhnTrx_Num);
+	}
+	
+	public void setBH_Processing(boolean processing) {
+		set_Value(COLUMNNAME_BH_PROCESSING, processing);
 	}
 }
