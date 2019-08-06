@@ -50,13 +50,8 @@ limit 1;]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-<<<<<<< HEAD
 		<band height="119" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
-=======
-		<band height="177" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
->>>>>>> 26b7010c207720df5b6b072c6845a7534e7a23e2
 			<staticText>
 				<reportElement key="" x="0" y="2" width="161" height="13" uuid="64057cf8-3b02-4298-9793-2792b921389c">
 					<property name="com.jaspersoft.studio.unit.x" value="mm"/>
@@ -69,18 +64,13 @@ limit 1;]]>
 				<text><![CDATA[Hôpital de la SIM-Galmi]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-<<<<<<< HEAD
 				<reportElement key="" positionType="Float" stretchType="ContainerHeight" x="0" y="43" width="161" height="14" uuid="359ecd97-d517-4c3a-bee6-40ef97690f71"/>
-=======
-				<reportElement key="" positionType="Float" stretchType="ContainerHeight" x="0" y="64" width="161" height="14" uuid="359ecd97-d517-4c3a-bee6-40ef97690f71"/>
->>>>>>> 26b7010c207720df5b6b072c6845a7534e7a23e2
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" de " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " à " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 			<staticText>
-<<<<<<< HEAD
 				<reportElement key="" x="0" y="83" width="161" height="12" uuid="e2b42f52-100f-4d3a-b24a-2ee4f9ed4999">
 					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
@@ -89,25 +79,13 @@ limit 1;]]>
 				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
 					<paragraph leftIndent="0"/>
-=======
-				<reportElement key="" x="2" y="114" width="86" height="12" uuid="e2b42f52-100f-4d3a-b24a-2ee4f9ed4999">
-					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
-					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
-				</reportElement>
-				<textElement>
-					<font fontName="Arial"/>
->>>>>>> 26b7010c207720df5b6b072c6845a7534e7a23e2
 				</textElement>
 				<text><![CDATA[Caissier # :]]></text>
 			</staticText>
 		</band>
 	</title>
 	<detail>
-<<<<<<< HEAD
 		<band height="87" splitType="Stretch">
-=======
-		<band height="31" splitType="Stretch">
->>>>>>> 26b7010c207720df5b6b072c6845a7534e7a23e2
 			<subreport>
 				<reportElement key="" x="0" y="5" width="161" height="21" uuid="bf75d05e-c496-4ae4-9376-d5d95247e2ee">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>

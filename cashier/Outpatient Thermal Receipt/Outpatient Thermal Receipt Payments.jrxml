@@ -29,7 +29,6 @@ from
   c_payment payment
 where
   payment.bh_c_order_id = $P{billId}
-  and payment.docstatus = 'CO'
   group by payment.bh_c_order_id, payment.tendertype]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
