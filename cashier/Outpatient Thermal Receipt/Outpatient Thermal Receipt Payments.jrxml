@@ -15,7 +15,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select
-  invoice.c_order_id as bill_id,
+  payment.bh_c_order_id as bill_id,
   case when payment.tendertype = 'M' then 'MPESA'
        when payment.tendertype = 'X' then 'CASH'
        when payment.tendertype = 'L' then 'LOCAL FUND'
@@ -26,15 +26,14 @@
        end as name,
   sum(payment.payamt) as amount_tendered
 from
-  c_invoice invoice
-  inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
+  c_payment payment
 where
   payment.bh_c_order_id = $P{billId}
-  and payment.docstatus = 'CO'
-  group by invoice.c_order_id, payment.tendertype]]>
+  group by payment.bh_c_order_id, payment.tendertype]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
 	</field>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
