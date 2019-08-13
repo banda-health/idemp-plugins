@@ -7,7 +7,7 @@
 					id="northBody"/>
 			</north>
 			<west id="desktop-left-column" sclass="desktop-left-column"
-				collapsible="true" splittable="false" flex="true" maxsize="300">
+				collapsible="false" splittable="false" flex="true" size="20%" maxsize="250">
 			</west>
 			<east id="desktop-right-column"
 				sclass="desktop-right-column" collapsible="true"
