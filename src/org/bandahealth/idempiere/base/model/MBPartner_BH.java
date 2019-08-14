@@ -47,6 +47,8 @@ public class MBPartner_BH extends MBPartner {
 	
 	public static final String COLUMNNAME_NHIF_NUMBER = "NHIF_NUMBER";
 	
+	public static final String COLUMNNAME_NHIF_TYPE = "BH_NHIF_Type";
+	
 	public static final String COLUMNNAME_BH_NATIONAL_ID = "NATIONAL_ID";
 
 	public MBPartner_BH(Properties ctx) {
@@ -255,6 +257,7 @@ public class MBPartner_BH extends MBPartner {
 		return (String) get_Value(COLUMNNAME_NHIF_NUMBER);
 	}
 	
+	
 	public void setBH_NHIFNumber(String value) {
 		set_Value(COLUMNNAME_NHIF_NUMBER, value);
 	}
@@ -265,5 +268,13 @@ public class MBPartner_BH extends MBPartner {
 	
 	public void setBH_NationalID(String value) {
 		set_Value(COLUMNNAME_BH_NATIONAL_ID, value);
+	}
+	
+	public void setBH_NHIFType(String value) {
+		set_Value(COLUMNNAME_NHIF_TYPE, value);
+	}
+	
+	public String getBH_NHIFType() {
+		return (String) get_Value(COLUMNNAME_NHIF_TYPE);
 	}
 }
