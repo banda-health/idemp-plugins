@@ -266,6 +266,7 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 					public void onCallback(Boolean result) {
 						ActionEvent runProcessEvent = new ActionEvent(new BHProcessButton(tabButton, window),
 								tabButton.getAD_Column().getName(), Events.ON_CLICK);
+						window.getADWindowContent().onRefresh();
 						window.getADWindowContent().actionPerformed(runProcessEvent);
 					}
 				});
