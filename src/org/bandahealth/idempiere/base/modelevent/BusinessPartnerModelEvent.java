@@ -110,6 +110,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 						.setOnlyActiveRecords(true).firstId();
 			}
 			businessPartner.setM_PriceList_ID(priceListId);
+
+			// check unique patient id
+			checkPatientId(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
@@ -124,15 +127,13 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			}
 			businessPartner.setPO_PaymentTerm_ID(purchasePaymentTerm.getC_PaymentTerm_ID());
 
-			//Get the default purchase price list for vendors
+			// Get the default purchase price list for vendors
 			String defaultPurchasePList = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
 					+ MPriceList.COLUMNNAME_IsSOPriceList + "='N' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
 					+ Env.getAD_Org_ID(Env.getCtx());
-			
+
 			MPriceList purchasePriceList = QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPriceList.Table_Name, defaultPurchasePList, null)
-					.setOnlyActiveRecords(true)
-					.first();
+					MPriceList.Table_Name, defaultPurchasePList, null).setOnlyActiveRecords(true).first();
 			if (purchasePriceList == null) {
 				throw new AdempiereException(
 						"Could not find a default purchase price list in table '" + MPriceList.Table_Name + "'");
@@ -180,6 +181,22 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		user.setBirthday(businessPartner.getBH_Birthday());
 		user.setEMail(businessPartner.getBH_EMail());
 		user.setPhone(businessPartner.getBH_Phone());
+	}
+
+	private void checkPatientId(MBPartner_BH businessPartner) {
+		if (businessPartner.isBH_IsPatient()) {
+			String patientId = businessPartner.getBH_PatientID();
+			if (patientId == null || patientId == "") {
+				throw new AdempiereException("Required Patient ID");
+			}
+
+			boolean exists = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
+					MBPartner_BH.COLUMNNAME_BH_PatientID + " =? ", null).setParameters(patientId).match();
+			if (exists) {
+				throw new AdempiereException(
+						"The Patient ID already exists in the system.");
+			}
+		}
 	}
 
 }
