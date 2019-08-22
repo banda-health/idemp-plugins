@@ -112,7 +112,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			businessPartner.setM_PriceList_ID(priceListId);
 
 			// check unique patient id
-			checkPatientId(businessPartner);
+			//checkPatientId(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
@@ -191,10 +191,10 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			}
 
 			boolean exists = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-					MBPartner_BH.COLUMNNAME_BH_PatientID + " =? ", null).setParameters(patientId).match();
+					MBPartner_BH.COLUMNNAME_BH_PatientID + " =? ", null).setClient_ID().setParameters(patientId)
+							.match();
 			if (exists) {
-				throw new AdempiereException(
-						"The Patient ID already exists in the system.");
+				throw new AdempiereException("The Patient ID already exists in the system.");
 			}
 		}
 	}
