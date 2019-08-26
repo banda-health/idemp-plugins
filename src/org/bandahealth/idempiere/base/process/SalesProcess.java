@@ -8,6 +8,7 @@ import java.util.logging.Level;
 
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.process.call.SalesProcessAsyncCall;
 import org.compiere.Adempiere;
 import org.compiere.model.MClient;
 import org.compiere.model.Query;
@@ -38,8 +39,9 @@ public class SalesProcess extends SvrProcess {
 	protected String doIt() throws Exception {
 		setPaymentStatus(true, null, null);
 
+		// async call.
 		Adempiere.getThreadPoolExecutor()
-				.schedule(new SalesProcessJob(getCtx(), orderId, new ProcessCallback<String>() {
+				.schedule(new SalesProcessAsyncCall(getCtx(), orderId, new ProcessCallback<String>() {
 
 					@Override
 					public void onSuccess(Properties context, String transactionName) {
