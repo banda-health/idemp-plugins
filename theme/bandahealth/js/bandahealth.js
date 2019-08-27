@@ -206,7 +206,7 @@ define(
                     // If an element has the class z-tab-selected, at least
                     // one is
                     // visible
-                    if (tabs[i].classList.contains('z-tab-selected')) {
+                    if (tabs[i].classList.contains('z-tab-selected') && util.elementIsVisible(tabs[i])) {
                         return true;
                     }
                 }

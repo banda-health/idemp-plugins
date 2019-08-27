@@ -11,7 +11,7 @@ import org.compiere.util.Env;
 
 public class RoleAndUserManagement {
 
-	private final static String ALL_SUBROLES_INCLUDED = "allRoles";
+	private final static String ALL_SUBROLES_INCLUDED = "BandaGo Admin";
 	private static Query query = new Query(Env.getCtx(), MRole.Table_Name,
 	        MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "= ?", null).addJoinClause(
 	                "JOIN " + MRoleIncluded.Table_Name + " ON " + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID
