@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.base.process.call;
+package org.bandahealth.idempiere.base.process;
 
 import java.util.List;
 import java.util.Properties;
@@ -7,10 +7,11 @@ import java.util.logging.Level;
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.process.call.ProcessSalesOrder;
 import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
 
-public class SalesProcesSyncCall extends SvrProcess {
+public class CompleteOrdersProcess extends SvrProcess {
 
 	@Override
 	protected void prepare() {
