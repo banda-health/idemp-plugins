@@ -50,7 +50,7 @@ public class SalesProcess extends SvrProcess {
 
 					@Override
 					public void onError(String error, Properties context, String transactionName) {
-						setPaymentStatus(false, context, transactionName);
+						// setPaymentStatus(false, context, transactionName);
 
 						MClient client = MClient.get(getCtx(), getAD_Client_ID());
 						client.sendEMail("implementer@bandahealth.org", "ERROR PROCESSING PATIENT BILL",
