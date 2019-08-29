@@ -32,6 +32,10 @@ public class CompleteOrdersProcess extends SvrProcess {
 			MOrder_BH salesOrder = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
 					get_TrxName()).setParameters(payment.getBH_C_Order_ID()).first();
 			if (salesOrder == null) {
+				log.log(Level.SEVERE,
+						"NO Matching SO (" + payment.getBH_C_Order_ID() + "), Payment (" + payment.get_ID()
+								+ "), PaymentAmount (" + payment.getPayAmt() + "), Client "
+								+ payment.getAD_Client_ID());
 				continue;
 			}
 
@@ -47,14 +51,15 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 				@Override
 				public void onError(String result, Properties context, String transactionName) {
-					log.log(Level.SEVERE, "Error processing order " + payment.getBH_C_Order_ID());
+					log.log(Level.SEVERE,
+							"Error processing order " + payment.getBH_C_Order_ID() + " - **Detail** " + result);
 				}
 			}).processIt();
 			count++;
 		}
 
 		log.log(Level.INFO, "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
-				+ " mins. Processed " + count + " orders.");
+				+ " mins. Processed " + count + " order(s).");
 
 		return null;
 	}

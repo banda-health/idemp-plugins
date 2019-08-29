@@ -10,7 +10,6 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MMessage;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
-import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 
 public class ProcessSalesOrder {
@@ -35,6 +34,7 @@ public class ProcessSalesOrder {
 		/* Packed out from BH_SysConfig */
 		String noLineItemsEnteredErrorMsgUUID = "03cb65e5-104c-4dd6-bec0-4bfe244ae804";
 		if (!salesOrder.getDocStatus().equals(MOrder_BH.DOCSTATUS_Drafted)) {
+			callback.onError("DocStatus MUST be DRAFTED " + salesOrder.get_ID(), context, transactionName);
 			return;
 		}
 		Date date = new Date();
@@ -46,9 +46,11 @@ public class ProcessSalesOrder {
 			MMessage message = new Query(context, MMessage.Table_Name, MMessage.COLUMNNAME_AD_Message_UU + "=?", null)
 					.setParameters(noLineItemsEnteredErrorMsgUUID).first();
 			if (message != null) {
-				throw new AdempiereUserError(message.getMsgText());
+				callback.onError(message.getMsgText(), context, transactionName);
 			} else {
-				throw new AdempiereUserError("Unable to process bill " + salesOrder.get_ID());
+				callback.onError("Order MUST have at least one line item: orderId = " + salesOrder.get_ID(), context,
+						transactionName);
+				return;
 			}
 		}
 
