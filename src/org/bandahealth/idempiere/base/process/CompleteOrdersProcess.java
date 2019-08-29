@@ -19,13 +19,15 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 	@Override
 	protected String doIt() throws Exception {
-		log.log(Level.INFO, "Start CompleteOrdersProcess");
+		long start = System.currentTimeMillis();
+		log.log(Level.INFO, "START CompleteOrdersProcess");
 
 		List<MPayment_BH> payments = new Query(getCtx(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_PROCESSING + " = ? AND " + MPayment_BH.COLUMNNAME_DocStatus + " = ?",
 				get_TrxName()).setParameters("Y", MPayment_BH.DOCSTATUS_Drafted)
 						.setOrderBy(MPayment_BH.COLUMNNAME_Created + " DESC").list();
 		log.log(Level.INFO, "ORDERS::::: " + payments.size());
+		int count = 0;
 		for (MPayment_BH payment : payments) {
 			MOrder_BH salesOrder = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
 					get_TrxName()).setParameters(payment.getBH_C_Order_ID()).first();
@@ -48,7 +50,11 @@ public class CompleteOrdersProcess extends SvrProcess {
 					log.log(Level.SEVERE, "Error processing order " + payment.getBH_C_Order_ID());
 				}
 			}).processIt();
+			count++;
 		}
+
+		log.log(Level.INFO, "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
+				+ " mins. Processed " + count + " orders.");
 
 		return null;
 	}

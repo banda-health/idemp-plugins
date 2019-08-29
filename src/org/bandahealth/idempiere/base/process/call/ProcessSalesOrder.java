@@ -45,7 +45,11 @@ public class ProcessSalesOrder {
 		if ((salesOrder.getTotalLines().intValue() == 0)) {
 			MMessage message = new Query(context, MMessage.Table_Name, MMessage.COLUMNNAME_AD_Message_UU + "=?", null)
 					.setParameters(noLineItemsEnteredErrorMsgUUID).first();
-			throw new AdempiereUserError(message.getMsgText());
+			if (message != null) {
+				throw new AdempiereUserError(message.getMsgText());
+			} else {
+				throw new AdempiereUserError("Unable to process bill " + salesOrder.get_ID());
+			}
 		}
 
 		try {
