@@ -58,9 +58,10 @@ public class CompleteOrdersProcess extends SvrProcess {
 			count++;
 		}
 
-		log.log(Level.INFO, "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
-				+ " mins. Processed " + count + " order(s).");
+		String msg = "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
+				+ " mins. Processed " + count + " order(s).";
+		log.log(Level.INFO, msg);
 
-		return null;
+		return msg;
 	}
 }
