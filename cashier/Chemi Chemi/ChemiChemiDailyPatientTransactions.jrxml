@@ -30,7 +30,7 @@
 	GROUP BY co.c_order_id, m.name
 )
 SELECT
-   c.created AS Created,
+   c.dateordered AS Created,
    bp.name AS GivenName,
    extract(YEAR FROM age(bp.bh_birthday)) AS Age,
    bp.bh_gender AS Gender,
@@ -40,9 +40,9 @@ FROM c_order c
 INNER JOIN services ON c.c_order_id = services.c_order_id
 INNER JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
 WHERE c.issotrx = 'Y' AND c.docstatus = 'CO' AND c.ad_client_id = 1000017
-AND c.created BETWEEN $P{beginDate} AND  $P{endDate}
-GROUP BY c.created, bp.name, bp.bh_birthday, bp.bh_gender, c.description
-ORDER BY c.created DESC]]>
+AND c.dateordered BETWEEN $P{beginDate} AND  $P{endDate}
+GROUP BY c.dateordered, bp.name, bp.bh_birthday, bp.bh_gender, c.description
+ORDER BY c.dateordered DESC]]>
 	</queryString>
 	<field name="Created" class="java.sql.Timestamp"/>
 	<field name="GivenName" class="java.lang.String"/>
