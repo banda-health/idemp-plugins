@@ -64,10 +64,10 @@ inner join
 (
 select
     cobilldate.c_bpartner_id,
-    date(cobilldate.created) as billdate
+    date(cobilldate.dateordered) as billdate
 from c_order cobilldate
 where
-    cobilldate.ad_client_id = $P{AD_CLIENT_ID} and (date(cobilldate.created) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    cobilldate.ad_client_id = $P{AD_CLIENT_ID} and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) as orderbilldate on regPatient.c_bpartner_id = orderbilldate.c_bpartner_id
 left join
 (
@@ -169,10 +169,10 @@ inner join
 (
 select
     cobilldate.c_bpartner_id,
-    date(cobilldate.created) as billdate
+    date(cobilldate.dateordered) as billdate
 from c_order cobilldate
 where
-    cobilldate.ad_client_id =  $P{AD_CLIENT_ID} and (date(cobilldate.created) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    cobilldate.ad_client_id =  $P{AD_CLIENT_ID} and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) as orderbilldate on regPatient.c_bpartner_id = orderbilldate.c_bpartner_id
 group by orderbilldate.billdate;]]>
 	</queryString>
