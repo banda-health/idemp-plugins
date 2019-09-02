@@ -195,7 +195,7 @@ group by orderbilldate.billdate;]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["MoH705A p2 Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["MoH705A Patient Visits and Referrals Totals Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
