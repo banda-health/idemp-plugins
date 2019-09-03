@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NonCodedDiagnosesAdults" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="2eade94f-29dc-4fb6-8ad4-7dd69c27140e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MoH 705B Outpatient Summary" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="2eade94f-29dc-4fb6-8ad4-7dd69c27140e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -12,6 +12,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.report.description" value="Diagnoses Count over 5yrs"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -64,8 +65,10 @@
     corder.description as diagnosis,
     count(corder.description) as noofdiagnosis
 from c_order corder
+    inner join c_bpartner patient on corder.c_bpartner_id = patient.c_bpartner_id
 where
     corder.ad_client_id = $P{AD_CLIENT_ID} and corder.description is not null
+    and EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
     and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by calendar, diagnosis
 order by calendar asc;]]>
@@ -88,8 +91,10 @@ order by calendar asc;]]>
 		<![CDATA[select
     date(corder.dateordered) as calendar
 from c_order corder
+    inner join c_bpartner patient on corder.c_bpartner_id = patient.c_bpartner_id
 where
     corder.ad_client_id = $P{AD_CLIENT_ID} and corder.description is not null
+    and EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
     and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}));]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date">
@@ -105,7 +110,7 @@ where
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["MoH 705A Diagnoses Count Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["MoH 705B Out Patient Over 5yr Summary Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
