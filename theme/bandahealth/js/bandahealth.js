@@ -42,10 +42,8 @@ define(
                 let expandCollapseButton = ribbon.querySelectorAll('a')[1];
 
                 hideRibbonElement();
-                // hideWestPanel();
-                // hideEastPanel();
+                hideEastPanel();
                 appendLogoutButton();
-                appendHomeBackButton();
                 addDomObservationMethods();
                 addDashboardPanelMethods();
                 expandDashboardMenuTabPanels();
@@ -57,27 +55,19 @@ define(
 
                 return;
 
-                function hideEastPanel() {
-                    let eastPanelCollapseButton = document
-                        .querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
-                    if (util.elementIsVisible(eastPanelCollapseButton)) {
-                        eastPanelCollapseButton.click();
-                    }
-                }
+                 function hideEastPanel() {
+                     let eastPanelCollapseButton = document
+                         .querySelectorAll('.desktop-layout .z-east-splitter-button i')[1];
+                     if (util.elementIsVisible(eastPanelCollapseButton)) {
+                         eastPanelCollapseButton.click();
+                     }
+                 }
 
                 function hideRibbonElement() {
                     let expandCollapseImg = expandCollapseButton
                         .querySelector('img');
                     if (expandCollapseImg.src.includes('collapse')) {
                         expandCollapseButton.click();
-                    }
-                }
-
-                function hideWestPanel() {
-                    let westPanelCollapseButton = document
-                        .querySelectorAll('.desktop-layout .z-west-splitter-button i')[1];
-                    if (util.elementIsVisible(westPanelCollapseButton)) {
-                        westPanelCollapseButton.click();
                     }
                 }
 
@@ -139,6 +129,7 @@ define(
                                     return;
                                 }
                                 disableZoomAccrossWindows();
+                               
                                 let bodyTagClasses = document.body.classList;
                                 if (!areAnyTabsVisisble()) {
                                     util
@@ -167,7 +158,6 @@ define(
                                     .querySelector('.desktop-hometab.z-tab.z-tab-selected');
                                 if (util
                                     .elementIsVisible(dashboardPane)) {
-                                    displaySOPanelOnDashboard();
                                 }
                                 else {
                                     let eastPanelCollapseButton = document
@@ -216,7 +206,7 @@ define(
                     // If an element has the class z-tab-selected, at least
                     // one is
                     // visible
-                    if (tabs[i].classList.contains('z-tab-selected')) {
+                    if (tabs[i].classList.contains('z-tab-selected') && util.elementIsVisible(tabs[i])) {
                         return true;
                     }
                 }
@@ -251,6 +241,21 @@ define(
                 return userNavigationIsFromDashboard;
             }
         }
+        
+        /*On adding a new window, clear/close the previous one*/
+        function addTabCountResetObservation(){
+        	let mainTab = document.querySelector('.desktop-tabbox.z-tabbox.z-tabbox-top > .z-tabs > .z-tabs-content');
+        	var config = {childList:true};
+        	var callback = function(mutationsList){
+        	    mutationsList.forEach(mutation => {
+        			var previous = mutation.previousSibling;
+        			if(previous != null){
+        				previous.remove();
+        	        }
+        	    })};
+        	    var observer = new MutationObserver(callback);
+        	    observer.observe(mainTab,config);
+        }
 
         function addDashboardPanelMethods() {
             util.executeFunctionWhenElementPresent('.desktop-left-column',
@@ -265,40 +270,10 @@ define(
                                 return;
                             }
                             expandDashboardMenuTabPanels();
+                            addTabCountResetObservation();
 
                         });
                 }, maxTimeToWaitUntilDomElementsAppearMS);
-        }
-
-        function appendHomeBackButton() {
-            if (document.getElementById(buttonIDs.BACK) !== null) {
-                return;
-            }
-            let pageTabHolder = document
-                .querySelector('.desktop-tabbox .z-tabs .z-tabs-content');
-            if (!pageTabHolder) {
-                return;
-            }
-            let firstElement = pageTabHolder.querySelector('li');
-
-            let backLIElement = document.createElement('li');
-            backLIElement.classList.add('z-tab', 'back-button');
-            backLIElement.setAttribute('title', 'Back');
-            backLIElement.id = buttonIDs.BACK;
-            pageTabHolder.insertBefore(backLIElement, firstElement);
-
-            let backAElement = document.createElement('a');
-            backAElement.classList.add('z-tab-content');
-            backLIElement.appendChild(backAElement);
-
-            let backIElement = document.createElement('i');
-            backAElement.appendChild(backIElement);
-            // backIElement.classList.add('fas', 'fa-arrow-left');
-
-            backLIElement.addEventListener('click',
-                function triggerBrowserBack() {
-                    // window.history.back();
-                });
         }
 
         function appendLogoutButton() {
@@ -680,7 +655,6 @@ define(
 
         function updateSiteNav() {
             appendLogoutButton();
-            appendHomeBackButton();
             appendMobileMenuButton();
         }
 
@@ -726,22 +700,6 @@ define(
             if (targetButton) {
                 targetButton.click();
             }
-        }
-
-        function displaySOPanelOnDashboard() {
-            let eastPanelDisplayBtn = document
-                .querySelector('.window-container-toolbar-btn.context-help-btn.z-toolbarbutton');
-            if (eastPanelDisplayBtn) {
-                eastPanelDisplayBtn.click();
-            }
-            let eastPanel = document
-                .querySelector('.desktop-right-column.z-east');
-            eastPanel.style.background = "white";
-            let parentDiv = eastPanel
-                .getElementsByClassName('z-anchorchildren')[0];
-            let soListWindow = document
-                .querySelector('.bh-so-list-window.z-div');
-            parentDiv.appendChild(soListWindow);
         }
 
         function appendMobileMenuButton() {
@@ -800,5 +758,4 @@ define(
             }
             return activeElement;
         }
-        
     });

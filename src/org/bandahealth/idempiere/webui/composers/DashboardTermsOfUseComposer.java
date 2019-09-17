@@ -1,23 +1,24 @@
-package org.bandahealth.idempiere.webui.util;
+package org.bandahealth.idempiere.webui.composers;
 
 import org.adempiere.webui.dashboard.DashboardPanel;
-import org.bandahealth.idempiere.webui.TermsOfUseService;
+import org.bandahealth.idempiere.webui.dataservice.impl.TermsOfUseService;
 import org.compiere.util.CLogger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Html;
+import org.zkoss.zul.Panel;
+import org.zkoss.zul.Vlayout;
 
-public class DesktopComposer extends SelectorComposer<DashboardPanel>{
+public class DashboardTermsOfUseComposer extends SelectorComposer<Vlayout>{
 
 	private static final long serialVersionUID = 1L;
 
-	@Wire("#bandaDashboard")
-	private DashboardPanel dashboard;
+	@Wire("#bhRootDashboardComponent")
+	private Vlayout dashboard;
 
-	public void doAfterCompose(DashboardPanel dashboardPanel) {
+	public void doAfterCompose(Vlayout dashboardPanel) {
 		try {
 			super.doAfterCompose(dashboardPanel);
 			if (TermsOfUseService.isAccepted()) {

@@ -20,14 +20,4 @@
 		Env.setContext(Env.getCtx(), ITheme.USE_CSS_FOR_WINDOW_SIZE, "Y");
 	]]>
 	</zscript>
-	
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script src="https://www.googletagmanager.com/gtag/js?id=UA-120454291-1" />
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	
-	  gtag('config', 'UA-120454291-1');
-	</script>
 </zk>
