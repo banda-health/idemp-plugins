@@ -1,0 +1,5 @@
+1.0.0 - 2019-08-30
+    * Return useful message upon completion of the process
+    
+1.0.0 - 2019-08-06
+    * Update CalloutNHIFPayment to populate NHIF type field

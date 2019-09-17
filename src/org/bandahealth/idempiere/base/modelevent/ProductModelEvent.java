@@ -116,9 +116,13 @@ public class ProductModelEvent extends AbstractEventHandler {
 			// get the price-list version for the price-list
 			plVersion = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MPriceListVersion.Table_Name,
 					"m_pricelist_id=" + priceList.get_ID(), null);
-			
+
+			if (plVersion == null) {
+				throw new AdempiereException("PriceList version not found. Please set in Idempiere!");
+			}
+
 			productPrice = MProductPrice.get(Env.getCtx(), plVersion.get_ID(), mProductId, null);
-			
+
 			BigDecimal price = isSellingPrice == 'Y' ? product.getBH_SellPrice() : product.getBH_BuyPrice();
 			if (productPrice != null) {
 				if (price == null) {
@@ -129,7 +133,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 						// update product buy price
 						product.setBH_BuyPrice(productPrice.getPriceStd());
 					}
-					
+
 					product.save(product.get_TrxName());
 				} else {
 					productPrice.setPriceStd(price);
@@ -138,16 +142,18 @@ public class ProductModelEvent extends AbstractEventHandler {
 				if (price == null) {
 					price = new BigDecimal(0);
 				}
-				
-				productPrice = new MProductPrice(plVersion, product.get_ID(), new BigDecimal(0), price, new BigDecimal(0));
+
+				productPrice = new MProductPrice(product.getCtx(), plVersion.get_ID(), product.get_ID(),
+						new BigDecimal(0), price, new BigDecimal(0), product.get_TrxName());
 				productPrice.setM_Product_ID(mProductId);
 			}
 
 			productPrice.save(product.get_TrxName());
+
 		} else {
 			throw new AdempiereException("Default PriceList not found. Please set in Idempiere!");
 		}
-		
+
 		return isSaved;
 	}
 }

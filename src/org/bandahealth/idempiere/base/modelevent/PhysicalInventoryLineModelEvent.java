@@ -45,7 +45,7 @@ public class PhysicalInventoryLineModelEvent extends AbstractEventHandler {
 		// the inventory line
 		int attributeSetInstanceId = QueryUtil.createExpirationDateAttributeInstance(
 				inventoryLine.getM_AttributeSetInstance_ID(), inventoryLine.getBH_Expiration(),
-				inventoryLine.get_TrxName());
+				inventoryLine.get_TrxName(), inventoryLine.getCtx());
 		if (attributeSetInstanceId > 0) {
 			inventoryLine.setM_AttributeSetInstance_ID(attributeSetInstanceId);
 		}
