@@ -1,3 +1,5 @@
-BH_Patient_Billing
-    10.0.15.0 - 2019-09-17
-        * Add Lab Notes on Patient Billing window
+1.0.0 - 2019-08-27
+    * The Bill Items and Payment sub-tabs should not show in patient bill detail view
+    
+1.0.0 - 2019-08-22
+    * Add a check for tab to be both selected/active and visible before opening detail pane
