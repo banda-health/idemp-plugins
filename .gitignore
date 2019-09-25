@@ -1,0 +1,10 @@
+bin
+.classpath
+.project
+.settings
+target
+
+# IntelliJ files for those editing plugins with IntelliJ
+.idea
+org.bandahealth.idempiere.rest.eml
+org.bandahealth.idempiere.rest.iml
