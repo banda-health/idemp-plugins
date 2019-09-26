@@ -10,17 +10,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.cxf.jaxrs.ext.MessageContext;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.rest.BaseRestService;
 import org.bandahealth.idempiere.rest.model.Patient;
+import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 /**
  * Expose Patients REST functionality
  * 
- * TODO: Db logic should be abstracted. Error handling
+ * TODO: Db logic should be abstracted. Error handling and logging.
  * 
  * @author andrew
  *
@@ -28,13 +27,9 @@ import org.compiere.util.Env;
 @Path("/patientservice")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PatientRestService extends BaseRestService<Patient> {
+public class PatientRestService extends BaseEntityRestService<Patient> {
 
 	public PatientRestService() {
-	}
-
-	public PatientRestService(MessageContext jaxrsContext) {
-		this.jaxrsContext = jaxrsContext;
 	}
 
 	@POST

@@ -67,6 +67,6 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  javax.ws.rs-api;bundle-version="2.1.3",
  com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;bundle-version="2.9.2"
 Bundle-ClassPath: .
-Service-Component: OSGI-INF/PatientServiceImpl.xml
+Service-Component: OSGI-INF/PatientRestService.xml
 Web-ContextPath: BHGO
 Bundle-ActivationPolicy: lazy

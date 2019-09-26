@@ -23,7 +23,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	</jaxrs:server>
 
 	<bean id="PatientServiceImplBean"
-		class="org.bandahealth.idempiere.rest.service.PatientRestService" />
+		class="org.bandahealth.idempiere.rest.service.impl.PatientRestService" />
 
 	<bean id="jsonProvider"
 		class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
