@@ -9,6 +9,7 @@ public class BaseEntity extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 	private String description;
 	private String name;
+	private String value;
 
 	public BaseEntity() {
 		super();
@@ -39,4 +40,14 @@ public class BaseEntity extends BaseMetadata {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@XmlElement
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 }

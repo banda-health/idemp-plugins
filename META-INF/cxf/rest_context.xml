@@ -14,7 +14,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<!-- JAX-RS -->
 	<jaxrs:server id="bhgoRest" address="/rs">
 		<jaxrs:serviceBeans>
-			<ref bean="PatientServiceImplBean" />
+			<ref bean="PatientServiceBean" />
+			<ref bean="ProcessServiceBean"/>
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -22,8 +23,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		</jaxrs:providers>
 	</jaxrs:server>
 
-	<bean id="PatientServiceImplBean"
+	<bean id="PatientServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.PatientRestService" />
+
+	<bean id="ProcessServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.ProcessRestService" />
 
 	<bean id="jsonProvider"
 		class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />

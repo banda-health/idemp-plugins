@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -10,16 +9,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
-import org.compiere.model.Query;
-import org.compiere.util.Env;
+import org.bandahealth.idempiere.rest.service.db.PatientDBService;
 
 /**
  * Expose Patients REST functionality
  * 
- * TODO: Db logic should be abstracted. Error handling and logging.
+ * TODO: Error handling and logging.
  * 
  * @author andrew
  *
@@ -36,34 +33,14 @@ public class PatientRestService extends BaseEntityRestService<Patient> {
 	@Path("/patients")
 	@Override
 	public List<Patient> getAll() {
-		List<Patient> results = new ArrayList<>();
-		List<MBPartner_BH> patients = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", null).setParameters(true).list();
-		if (!patients.isEmpty()) {
-			for (MBPartner_BH patient : patients) {
-				results.add(new Patient(patient.getAD_Client_ID(), patient.getAD_Org_ID(), patient.getC_BPartner_UU(),
-						patient.isActive(), patient.getCreated(), patient.getCreatedBy(), patient.getDescription(),
-						patient.getName(), patient.getTotalOpenBalance()));
-			}
-		}
-
-		return results;
+		return PatientDBService.getAll();
 	}
 
 	@POST
 	@Path("/patient/{uuid}")
 	@Override
 	public Patient getEntity(@PathParam("uuid") String uuid) {
-		MBPartner_BH patient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", null).setParameters(uuid).first();
-
-		if (patient != null) {
-			return new Patient(patient.getAD_Client_ID(), patient.getAD_Org_ID(), patient.getC_BPartner_UU(),
-					patient.isActive(), patient.getCreated(), patient.getCreatedBy(), patient.getDescription(),
-					patient.getName(), patient.getTotalOpenBalance());
-		}
-
-		return null;
+		return PatientDBService.getPatient(uuid);
 	}
 
 	@POST

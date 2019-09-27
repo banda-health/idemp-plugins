@@ -1,0 +1,169 @@
+package org.bandahealth.idempiere.rest.model;
+
+import java.sql.Timestamp;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "parameter")
+public class ProcessParameter extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
+
+	private int adElementId;
+	private int adReferenceId;
+	private int adReferenceValueId;
+	private int adValueRuleId;
+	private String defaultValue;
+	private String defaultValue2;
+	private String displayLogic;
+	private String entityType;
+	private int fieldLength;
+	private boolean isEncrypted;
+	private boolean isMandatory;
+	private boolean isRange;
+	private String mandatoryLogic;
+
+	public ProcessParameter() {
+		super();
+	}
+
+	public ProcessParameter(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy,
+			String name, String description, int adElementId, int adReferenceId, int adReferenceValueId,
+			int adValueRuleId, String defaultValue, String defaultValue2, String displayLogic, String entityType,
+			int fieldLength, boolean isEncrypted, boolean isMandatory, boolean isRange, String mandatoryLogic) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
+
+		this.adElementId = adElementId;
+		this.adReferenceId = adReferenceId;
+		this.adReferenceValueId = adReferenceValueId;
+		this.adValueRuleId = adValueRuleId;
+		this.defaultValue = defaultValue;
+		this.defaultValue2 = defaultValue2;
+		this.displayLogic = displayLogic;
+		this.entityType = entityType;
+		this.fieldLength = fieldLength;
+		this.isEncrypted = isEncrypted;
+		this.isMandatory = isMandatory;
+		this.isRange = isRange;
+		this.mandatoryLogic = mandatoryLogic;
+	}
+
+	@XmlElement
+	public int getAdElementId() {
+		return adElementId;
+	}
+
+	public void setAdElementId(int adElementId) {
+		this.adElementId = adElementId;
+	}
+
+	@XmlElement
+	public int getAdReferenceId() {
+		return adReferenceId;
+	}
+
+	public void setAdReferenceId(int adReferenceId) {
+		this.adReferenceId = adReferenceId;
+	}
+
+	@XmlElement
+	public int getAdReferenceValueId() {
+		return adReferenceValueId;
+	}
+
+	public void setAdReferenceValueId(int adReferenceValueId) {
+		this.adReferenceValueId = adReferenceValueId;
+	}
+
+	@XmlElement
+	public int getAdValueRuleId() {
+		return adValueRuleId;
+	}
+
+	public void setAdValueRuleId(int adValueRuleId) {
+		this.adValueRuleId = adValueRuleId;
+	}
+
+	@XmlElement
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+
+	@XmlElement
+	public String getDefaultValue2() {
+		return defaultValue2;
+	}
+
+	public void setDefaultValue2(String defaultValue2) {
+		this.defaultValue2 = defaultValue2;
+	}
+
+	@XmlElement
+	public String getDisplayLogic() {
+		return displayLogic;
+	}
+
+	public void setDisplayLogic(String displayLogic) {
+		this.displayLogic = displayLogic;
+	}
+
+	@XmlElement
+	public String getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
+
+	@XmlElement
+	public int getFieldLength() {
+		return fieldLength;
+	}
+
+	public void setFieldLength(int fieldLength) {
+		this.fieldLength = fieldLength;
+	}
+
+	@XmlElement
+	public boolean isEncrypted() {
+		return isEncrypted;
+	}
+
+	public void setEncrypted(boolean isEncrypted) {
+		this.isEncrypted = isEncrypted;
+	}
+
+	@XmlElement
+	public boolean isMandatory() {
+		return isMandatory;
+	}
+
+	public void setMandatory(boolean isMandatory) {
+		this.isMandatory = isMandatory;
+	}
+
+	@XmlElement
+	public boolean isRange() {
+		return isRange;
+	}
+
+	public void setRange(boolean isRange) {
+		this.isRange = isRange;
+	}
+
+	@XmlElement
+	public String getMandatoryLogic() {
+		return mandatoryLogic;
+	}
+
+	public void setMandatoryLogic(String mandatoryLogic) {
+		this.mandatoryLogic = mandatoryLogic;
+	}
+
+}
