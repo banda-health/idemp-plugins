@@ -51,6 +51,7 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="Payment Mode" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[select
   cashier.name as cashiername,
@@ -58,7 +59,7 @@
        when p.tendertype = 'X' then 'CASH'
        when p.tendertype = 'L' then 'LOCAL FUND'
        when p.tendertype = 'B' then 'BILL WAIVER'
-       when p.tendertype = 'F' then 'DONOR FUND 1'
+       when p.tendertype = 'F' then 'DONOR FUND'
        when p.tendertype = 'i' then 'LINDA MAMA'
        when p.tendertype = 'N' then 'NHIF'
        end as paymentmode,
@@ -71,6 +72,7 @@ from
 where
    ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
     AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
+    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
   group by cashier.name, p.tendertype;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
@@ -87,6 +89,7 @@ where
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Payment Mode" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select
   cashier.name as cashiername
@@ -98,6 +101,7 @@ where
 where
    ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
     AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
+    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
 limit 1;]]>
 	</queryString>
 	<field name="cashiername" class="java.lang.String">
@@ -115,7 +119,7 @@ limit 1;]]>
 				</reportElement>
 				<crosstabDataset>
 					<dataset>
-						<datasetRun subDataset="CashierCollections" uuid="67663531-95d6-41d2-bd10-57584f71c62c">
+						<datasetRun subDataset="CashierCollections" uuid="db4b9830-f3c8-4b4e-ab46-786279ed2457">
 							<datasetParameter name="AD_CLIENT_ID">
 								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 							</datasetParameter>
@@ -124,6 +128,9 @@ limit 1;]]>
 							</datasetParameter>
 							<datasetParameter name="End Date">
 								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="Payment Mode">
+								<datasetParameterExpression><![CDATA[$P{Payment Mode}]]></datasetParameterExpression>
 							</datasetParameter>
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
