@@ -62,6 +62,7 @@ public class StockTakeProcess extends SvrProcess {
 			if (product != null) {
 				// create transaction
 				MTransaction mTransaction = new MTransaction(getCtx(), 0, get_TrxName());
+				mTransaction.setAD_Org_ID(existingStorage.getAD_Org_ID());
 				mTransaction.setMovementQty(updatedQuantity.subtract(existingStorage.getQtyOnHand()));
 				mTransaction.setM_AttributeSetInstance_ID(existingStorage.getM_AttributeSetInstance_ID());
 				mTransaction.setMovementDate(new Timestamp(System.currentTimeMillis()));
