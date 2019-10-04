@@ -64,34 +64,27 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[select productname.name as item_name,
-       coalesce(beginningqty.beginning,0) as beginning,
-       coalesce(endingqty.ending,0) as ending,
-       abs(coalesce(sum(endingqty.ending*productSP.SalesPrice),0)) as endingvalue
-from
-(
-select m_product_id,
-       name
-from m_product
-where isactive = 'Y' and ad_client_id = $P{AD_CLIENT_ID}
-) as productname
-inner join
-(
-select m_product_id,
-       sum(qtyonhand) as ending
-from m_storageonhand
-where ad_client_id = $P{AD_CLIENT_ID} and date(updated) <=  $P{End Date}
-group by m_product_id
-) as endingqty on productname.m_product_id = endingqty.m_product_id
+			<![CDATA[select currentqty.product as item_name,
+       coalesce(sum(currentqty.closingqty - changesinqty.qtychanged),sum(currentqty.closingqty))  as beginning,
+       sum(currentqty.closingqty) as ending,
+       abs(coalesce(sum(currentqty.closingqty*productSP.SalesPrice),0)) as endingvalue
+from (
+         select m_product_id,
+                product,
+                sum(quantity) as closingqty
+         from bh_stocktake_v
+         where ad_client_id = $P{AD_CLIENT_ID}
+         group by m_product_id, product
+     ) as currentqty
 left join
-(
+    (
 select m_product_id,
-       sum(qtyonhand) as beginning
-from m_storageonhand
-where ad_client_id = $P{AD_CLIENT_ID} and date(updated) <=  $P{Begin Date}
+       sum(movementqty) as qtychanged
+from m_transaction
+where ad_client_id =  $P{AD_CLIENT_ID}
+    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by m_product_id
-) as beginningqty on productname.m_product_id = beginningqty.m_product_id
-  and endingqty.m_product_id = beginningqty.m_product_id
+        ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
 left join
 (
 select
@@ -101,14 +94,12 @@ select
     inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
     inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
 where priceList.issopricelist = 'Y' and priceList.isdefault = 'Y'
-) as productSP on productname.m_product_id = productSP.m_product_id
-group by productname.name, coalesce(beginningqty.beginning,0),
-coalesce(endingqty.ending,0)
-order by productname.name asc;]]>
+) as productSP on currentqty.m_product_id = productSP.m_product_id
+group by item_name;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stocktake_v"/>
 		</field>
 		<field name="beginning" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="beginning"/>
