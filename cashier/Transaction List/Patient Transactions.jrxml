@@ -21,6 +21,7 @@
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Payment Mode" class="java.lang.String"/>
+	<parameter name="Patient Type" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select
   org.ad_client_id,
@@ -62,6 +63,9 @@ from ad_org org
 				<subreportParameter name="Payment Mode">
 					<subreportParameterExpression><![CDATA[$P{Payment Mode}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="Patient Type">
+					<subreportParameterExpression><![CDATA[$P{Patient Type}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Patient transactions list.jasper"]]></subreportExpression>
 			</subreport>
@@ -83,6 +87,9 @@ from ad_org org
 				</subreportParameter>
 				<subreportParameter name="Payment Mode">
 					<subreportParameterExpression><![CDATA[$P{Payment Mode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Patient Type">
+					<subreportParameterExpression><![CDATA[$P{Patient Type}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "payment breakdown per cashier.jasper"]]></subreportExpression>

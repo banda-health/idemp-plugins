@@ -53,6 +53,7 @@
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="Payment Mode" class="java.lang.String"/>
+		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[select
     billdetails.c_order_id,
@@ -84,6 +85,7 @@ from c_order co
     left join ad_ref_list nhifType on nhifType.value = cb.bh_nhif_type
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
 ) as billdetails
 inner join
@@ -222,6 +224,7 @@ order by billdetails.patientname asc;]]>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select
@@ -241,6 +244,7 @@ from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID})
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
 ) as billdetails
 inner join
@@ -301,7 +305,7 @@ group by bh_c_order_id
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="4e4d8885-e029-46e7-864b-b8ad7a0b332e">
+					<datasetRun subDataset="tableDataset" uuid="df9eae88-681c-4a29-8039-f1e7ad3d4ef3">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -313,6 +317,9 @@ group by bh_c_order_id
 						</datasetParameter>
 						<datasetParameter name="Payment Mode">
 							<datasetParameterExpression><![CDATA[$P{Payment Mode}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Patient Type">
+							<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

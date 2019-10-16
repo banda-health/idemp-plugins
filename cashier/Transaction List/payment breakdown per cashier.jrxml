@@ -52,6 +52,7 @@
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="Payment Mode" class="java.lang.String"/>
+		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[select
   cashier.name as cashiername,
@@ -73,6 +74,7 @@ where
    ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
     AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
     AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
+    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
   group by cashier.name, p.tendertype;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
@@ -90,6 +92,7 @@ where
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
+	<parameter name="Patient Type" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select
   cashier.name as cashiername
@@ -102,6 +105,7 @@ where
    ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
     AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
     AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
+    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
 limit 1;]]>
 	</queryString>
 	<field name="cashiername" class="java.lang.String">
@@ -119,7 +123,7 @@ limit 1;]]>
 				</reportElement>
 				<crosstabDataset>
 					<dataset>
-						<datasetRun subDataset="CashierCollections" uuid="db4b9830-f3c8-4b4e-ab46-786279ed2457">
+						<datasetRun subDataset="CashierCollections" uuid="e4f39a52-9085-437c-8a27-dce43ea15021">
 							<datasetParameter name="AD_CLIENT_ID">
 								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 							</datasetParameter>
@@ -131,6 +135,9 @@ limit 1;]]>
 							</datasetParameter>
 							<datasetParameter name="Payment Mode">
 								<datasetParameterExpression><![CDATA[$P{Payment Mode}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="Patient Type">
+								<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
 							</datasetParameter>
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
