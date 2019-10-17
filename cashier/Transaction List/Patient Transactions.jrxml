@@ -96,12 +96,6 @@ from ad_org org
 				<subreportParameter name="AD_CLIENT_ID">
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="Payment Mode">
-					<subreportParameterExpression><![CDATA[$P{Payment Mode}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Patient Type">
-					<subreportParameterExpression><![CDATA[$P{Patient Type}]]></subreportParameterExpression>
-				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Patient transactions - debt payment list.jasper"]]></subreportExpression>
 			</subreport>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Debt Payments" pageWidth="1370" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1370" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Debt Payments" pageWidth="540" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
@@ -52,8 +52,6 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-		<parameter name="Payment Mode" class="java.lang.String"/>
-		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[select date(cp.datetrx) as bill_date,
        cb.name as patientname,
@@ -82,73 +80,45 @@ order by cb.name asc;]]>
 			<property name="com.jaspersoft.studio.field.label" value="amountpaid"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
 		</field>
-		<variable name="totalPaymentsV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{localfund}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif})]]></variableExpression>
-		</variable>
-		<variable name="totalChangeGivenV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$V{totalPaymentsV}.subtract($F{billtotal})]]></variableExpression>
-		</variable>
-		<variable name="totalOutstanding" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
-		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="Patient Type" class="java.lang.String"/>
-	<parameter name="Payment Mode" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select
-    billdetails.c_order_id,
-    billdetails.bill_date as billdate,
-    billdetails.patientname as patientname,
-    billdetails.lineitemtotals as billtotal
-from
-(
-select co.c_order_id,
-       cb.c_bpartner_id,
-       date(co.dateordered) as bill_date,
+		<![CDATA[select date(cp.datetrx) as bill_date,
        cb.name as patientname,
-       co.totallines as lineitemtotals,
-       co.grandtotal as totals
-from c_order co
-    inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-where ((co.ad_client_id = $P{AD_CLIENT_ID})
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
+       cb.totalopenbalance as totaldebt,
+       cp.payamt as amountpaid
+from c_payment cp
+    inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
+where ((cp.ad_client_id = $P{AD_CLIENT_ID})
+      AND (cp.c_invoice_id is null and cp.tendertype = 'X' and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
+      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
-) as billdetails
-inner join
-(
-select bh_c_order_id
-from c_payment p
-where ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
-    )
-group by bh_c_order_id
-) as payments on billdetails.c_order_id = payments.bh_c_order_id;]]>
+order by cb.name asc;]]>
 	</queryString>
-	<field name="c_order_id" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
-	</field>
-	<field name="billdate" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
+	<field name="bill_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
 	</field>
 	<field name="patientname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
-	<field name="billtotal" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	<field name="totaldebt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totaldebt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="amountpaid" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="amountpaid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
 	</field>
 	<pageHeader>
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="1370" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
+				<reportElement x="0" y="0" width="540" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -159,7 +129,7 @@ group by bh_c_order_id
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Patient Debt Payments"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pay Outstanding Balance"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -168,7 +138,7 @@ group by bh_c_order_id
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="687" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="540" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -176,7 +146,7 @@ group by bh_c_order_id
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="df9eae88-681c-4a29-8039-f1e7ad3d4ef3">
+					<datasetRun subDataset="tableDataset" uuid="d207c541-b2f8-48ce-af42-eb16fc9224f6">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -185,12 +155,6 @@ group by bh_c_order_id
 						</datasetParameter>
 						<datasetParameter name="End Date">
 							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="Payment Mode">
-							<datasetParameterExpression><![CDATA[$P{Payment Mode}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="Patient Type">
-							<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -203,7 +167,7 @@ group by bh_c_order_id
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Bill Date]]></text>
+								<text><![CDATA[Date Paid]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
@@ -214,7 +178,7 @@ group by bh_c_order_id
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{billdate}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{bill_date}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -241,96 +205,50 @@ group by bh_c_order_id
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="120" uuid="e2970a6e-a581-458c-8521-c170085c6ba7">
+					<jr:column width="80" uuid="e2970a6e-a581-458c-8521-c170085c6ba7">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="120" height="30" uuid="46eba97f-5827-44ff-a1be-122b76dde8d3"/>
+								<reportElement x="0" y="0" width="80" height="30" uuid="46eba97f-5827-44ff-a1be-122b76dde8d3"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[NHIF Type]]></text>
+								<text><![CDATA[Amount Paid]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="17" uuid="8cc531f8-111d-4dd5-81d8-f96e18f29ed2"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="8cc531f8-111d-4dd5-81d8-f96e18f29ed2"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{patientnhiftype}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{amountpaid}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="78" uuid="11f224aa-d428-4312-9f07-ac270a70ed25">
+					<jr:column width="120" uuid="11f224aa-d428-4312-9f07-ac270a70ed25">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="78" height="30" uuid="b79b3aad-bd79-4c3a-a7d9-5549f5be65bb"/>
+								<reportElement x="0" y="0" width="120" height="30" uuid="b79b3aad-bd79-4c3a-a7d9-5549f5be65bb"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Bill Total]]></text>
+								<text><![CDATA[Remaining Balance]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="78" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="120" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{billtotal}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="79" uuid="8a17b70a-6a6b-4b98-8143-08c36f936108">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<staticText>
-								<reportElement x="0" y="0" width="79" height="30" uuid="f74cf3ae-168a-4df3-90a4-52484694ab26"/>
-								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="DejaVu Sans" size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Total Payment]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="79" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$V{totalPaymentsV}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="70" uuid="d321bd45-33d3-467c-96f1-585332650ead">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="70" height="30" uuid="302fd58a-20d3-48f0-9856-7c525f053e97"/>
-								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="DejaVu Sans" size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Cash]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="76a574a5-f325-4145-b1e0-566d4a68b8e4"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{cash}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{totaldebt}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -342,11 +260,13 @@ group by bh_c_order_id
 		<band height="16">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement key="" x="0" y="0" width="1250" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7"/>
+				<reportElement key="" x="0" y="0" width="540" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[No data was found to display on the report.]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</noData>
