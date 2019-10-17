@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Balance my stock changes" language="groovy" pageWidth="535" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Balance my stock changes" language="groovy" pageWidth="540" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,6 +8,15 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -216,9 +225,8 @@ limit 1;]]>
 	<pageHeader>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="535" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
+				<reportElement x="0" y="0" width="540" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -234,10 +242,11 @@ limit 1;]]>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="32">
+		<band height="45">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="0" width="535" height="32" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="540" height="45" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
 					<datasetRun subDataset="balance stock changes" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
@@ -254,9 +263,9 @@ limit 1;]]>
 					</datasetRun>
 					<jr:column width="280" uuid="b58cb061-182d-4902-848e-c1f76933c76c">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="280" height="17" uuid="aaa1b9e9-0f6d-448e-a6be-eb96b5581819"/>
+								<reportElement x="0" y="0" width="280" height="30" uuid="aaa1b9e9-0f6d-448e-a6be-eb96b5581819"/>
 								<textElement verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="2"/>
@@ -276,14 +285,15 @@ limit 1;]]>
 					</jr:column>
 					<jr:column width="160" uuid="59a83745-f95c-4d5a-9104-45bc0d12825d">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<staticText>
-								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="160" height="17" uuid="6779be22-1846-4d30-9f1a-66d17ffb1b3e"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="160" height="30" uuid="6779be22-1846-4d30-9f1a-66d17ffb1b3e"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<text><![CDATA[# changed at Stock Take]]></text>
+								<text><![CDATA[Quantity changed at stock take]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
@@ -296,21 +306,22 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="95" uuid="4428dc26-e90a-4b52-8fc1-b10a0f3605ff">
+					<jr:column width="100" uuid="4428dc26-e90a-4b52-8fc1-b10a0f3605ff">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="95" height="17" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="30" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<text><![CDATA[Final Balance]]></text>
+								<text><![CDATA[Current Quantity]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="95" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
+								<reportElement x="0" y="0" width="100" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -325,9 +336,8 @@ limit 1;]]>
 	<noData>
 		<band height="20">
 			<staticText>
-				<reportElement x="0" y="0" width="535" height="20" uuid="e8da193c-2a64-44be-96ca-7416132f7400">
+				<reportElement x="0" y="0" width="540" height="20" uuid="e8da193c-2a64-44be-96ca-7416132f7400">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false" isItalic="true"/>
