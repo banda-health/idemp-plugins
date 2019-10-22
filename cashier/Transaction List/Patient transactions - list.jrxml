@@ -639,7 +639,7 @@ group by bh_c_order_id
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Outstanding]]></text>
+								<text><![CDATA[Unpaid Amount]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - payment breakdown per cashier" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b86d88f7-9fa4-4e6a-967d-f4d312b4ce2b">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - debt payment totals" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b86d88f7-9fa4-4e6a-967d-f4d312b4ce2b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
@@ -51,31 +51,24 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-		<parameter name="Payment Mode" class="java.lang.String"/>
-		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[select
-  cashier.name as cashiername,
-  case when p.tendertype = 'M' then 'MPESA'
-       when p.tendertype = 'X' then 'CASH'
-       when p.tendertype = 'L' then 'LOCAL FUND'
-       when p.tendertype = 'B' then 'BILL WAIVER'
-       when p.tendertype = 'F' then 'DONOR FUND'
-       when p.tendertype = 'i' then 'LINDA MAMA'
-       when p.tendertype = 'N' then 'NHIF'
+			<![CDATA[select cashier.name as cashiername,
+       case when cp.tendertype = 'M' then 'MPESA'
+       when cp.tendertype = 'X' then 'CASH'
+       when cp.tendertype = 'L' then 'LOCAL FUND'
+       when cp.tendertype = 'B' then 'BILL WAIVER'
+       when cp.tendertype = 'F' then 'DONOR FUND'
+       when cp.tendertype = 'i' then 'LINDA MAMA'
+       when cp.tendertype = 'N' then 'NHIF'
        end as paymentmode,
-  sum(p.payamt) as paymentamount
-from
-  c_payment p
-    inner join c_order co on p.bh_c_order_id = co.c_order_id
-    and co.docstatus <> 'VO'
-    inner join ad_user cashier on p.createdby = cashier.ad_user_id
-where
-   ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-    AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
-  group by cashier.name, p.tendertype;]]>
+       sum(cp.payamt) as paymentamount
+from c_payment cp
+    inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
+    inner join ad_user cashier on cp.createdby = cashier.ad_user_id
+where (cp.ad_client_id = $P{AD_CLIENT_ID})
+      AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
+      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by cashier.name, cp.tendertype;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
@@ -91,21 +84,14 @@ where
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="Payment Mode" class="java.lang.String"/>
-	<parameter name="Patient Type" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select
-  cashier.name as cashiername
- from
-  c_payment p
-    inner join c_order co on p.bh_c_order_id = co.c_order_id
-    and co.docstatus <> 'VO'
-    inner join ad_user cashier on p.updatedby = cashier.ad_user_id
-where
-   ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-    AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
+		<![CDATA[select cashier.name as cashiername
+from c_payment cp
+    inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
+    inner join ad_user cashier on cp.createdby = cashier.ad_user_id
+where (cp.ad_client_id = $P{AD_CLIENT_ID})
+      AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
+      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 limit 1;]]>
 	</queryString>
 	<field name="cashiername" class="java.lang.String">
@@ -115,16 +101,38 @@ limit 1;]]>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
+	<title>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="842" height="20" uuid="0c516fb0-1684-484f-90f9-489b46b6292b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Outstanding Balance Payments Breakdown"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
 	<summary>
 		<band height="51" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<crosstab>
 				<reportElement x="0" y="0" width="842" height="51" uuid="239b371a-4374-487b-a732-9cf91c52c560">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<crosstabDataset>
 					<dataset>
-						<datasetRun subDataset="CashierCollections" uuid="e4f39a52-9085-437c-8a27-dce43ea15021">
+						<datasetRun subDataset="CashierCollections" uuid="a93fda1d-f04c-4d8d-a99b-ed9f4c2949b2">
 							<datasetParameter name="AD_CLIENT_ID">
 								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 							</datasetParameter>
@@ -133,12 +141,6 @@ limit 1;]]>
 							</datasetParameter>
 							<datasetParameter name="End Date">
 								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
-							</datasetParameter>
-							<datasetParameter name="Payment Mode">
-								<datasetParameterExpression><![CDATA[$P{Payment Mode}]]></datasetParameterExpression>
-							</datasetParameter>
-							<datasetParameter name="Patient Type">
-								<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
 							</datasetParameter>
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
@@ -150,6 +152,7 @@ limit 1;]]>
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField>
 								<reportElement x="0" y="0" width="110" height="17" uuid="430cb441-d075-4b82-9f24-d0fc7fa9ad2c">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
@@ -164,6 +167,7 @@ limit 1;]]>
 					</crosstabRowHeader>
 					<crosstabTotalRowHeader>
 						<cellContents mode="Opaque" style="Crosstab_CT">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<staticText>
 								<reportElement x="0" y="0" width="110" height="17" forecolor="#030303" uuid="30c3be67-b731-4ef8-ac54-c23d2036df8d"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -208,7 +212,6 @@ limit 1;]]>
 				</measure>
 				<crosstabCell width="80" height="17">
 					<cellContents mode="Opaque" style="Crosstab_CD">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<textField pattern="#,##0.###">
 							<reportElement x="0" y="0" width="80" height="17" uuid="3da43d54-ae63-4f02-a17c-eabf605eed86"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -232,7 +235,6 @@ limit 1;]]>
 				</crosstabCell>
 				<crosstabCell width="80" height="17" rowTotalGroup="CashierName">
 					<cellContents mode="Opaque" style="Crosstab_CT">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<textField pattern="#,##0.###">
 							<reportElement x="0" y="0" width="80" height="17" forecolor="#050505" backcolor="#F7FAFC" uuid="7b7c6746-25df-4f2c-b79c-f937985796f5"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -266,7 +268,7 @@ limit 1;]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[No data was found to display on the report.]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</noData>
