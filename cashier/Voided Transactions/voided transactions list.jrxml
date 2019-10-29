@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1300" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Voided transactions list" pageWidth="1200" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1200" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
@@ -61,8 +61,6 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-		<parameter name="Payment Mode" class="java.lang.String"/>
-		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[select
     billdetails.c_order_id,
@@ -92,18 +90,15 @@ select co.c_order_id,
 from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
     left join ad_ref_list nhifType on nhifType.value = cb.bh_nhif_type
-where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
+where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus = 'VO')
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
 ) as billdetails
 inner join
 (
 select bh_c_order_id
 from c_payment p
-where ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
-    )
+where (p.ad_client_id = $P{AD_CLIENT_ID}) and (p.docstatus = 'CO')
 group by bh_c_order_id
 ) as payments on billdetails.c_order_id = payments.bh_c_order_id
 left join
@@ -223,18 +218,10 @@ order by billdetails.patientname asc;]]>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{localfund}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif})]]></variableExpression>
 		</variable>
-		<variable name="totalChangeGivenV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$V{totalPaymentsV}.subtract($F{billtotal})]]></variableExpression>
-		</variable>
-		<variable name="totalOutstanding" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
-		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="Patient Type" class="java.lang.String"/>
-	<parameter name="Payment Mode" class="java.lang.String"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select
     billdetails.c_order_id,
@@ -253,16 +240,13 @@ from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID})
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
 ) as billdetails
 inner join
 (
 select bh_c_order_id
 from c_payment p
-where ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
-    )
+where (p.ad_client_id = $P{AD_CLIENT_ID}) and (p.docstatus = 'VO')
 group by bh_c_order_id
 ) as payments on billdetails.c_order_id = payments.bh_c_order_id;]]>
 	</queryString>
@@ -285,9 +269,8 @@ group by bh_c_order_id
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="1300" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
+				<reportElement x="0" y="0" width="1370" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -298,7 +281,7 @@ group by bh_c_order_id
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Patient transaction and Payment Totals Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Voided Transactions Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -307,7 +290,7 @@ group by bh_c_order_id
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="1300" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="1200" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -315,7 +298,7 @@ group by bh_c_order_id
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="df9eae88-681c-4a29-8039-f1e7ad3d4ef3">
+					<datasetRun subDataset="tableDataset" uuid="0a86bd01-cca6-4f13-92ef-87723dd97da8">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -324,12 +307,6 @@ group by bh_c_order_id
 						</datasetParameter>
 						<datasetParameter name="End Date">
 							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="Payment Mode">
-							<datasetParameterExpression><![CDATA[$P{Payment Mode}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="Patient Type">
-							<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -615,33 +592,6 @@ group by bh_c_order_id
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<staticText>
-								<reportElement x="0" y="0" width="100" height="30" uuid="3e6106f0-5051-498d-a330-1bb5a578fa15"/>
-								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="DejaVu Sans" size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Unpaid Amount]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="a5a192b8-1f1f-48d9-b728-881187d1f860">
-									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-								</reportElement>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
-									<paragraph rightIndent="5"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$V{totalOutstanding}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
 				</jr:table>
 			</componentElement>
 		</band>
@@ -650,7 +600,7 @@ group by bh_c_order_id
 		<band height="16">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement key="" x="0" y="0" width="1300" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
+				<reportElement key="" x="0" y="0" width="1200" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
