@@ -1,24 +1,33 @@
 package org.bandahealth.idempiere.rest.filter;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Properties;
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ResourceInfo;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
-import org.compiere.model.MUser;
-import org.compiere.model.Query;
+import org.compiere.model.MAcctSchema;
+import org.compiere.model.MClientInfo;
+import org.compiere.model.MRole;
 import org.compiere.util.Env;
-import org.glassfish.jersey.internal.util.Base64;
-import org.idempiere.adinterface.CompiereService;
-import org.apache.cxf.jaxrs.ext.MessageContext;
+import org.compiere.util.Util;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
+
+import org.adempiere.util.ServerContext;
+import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.utils.LoginClaims;
+import org.bandahealth.idempiere.rest.utils.TokenUtils;
 
 /**
  * Basic Authentication
@@ -29,90 +38,116 @@ import org.apache.cxf.jaxrs.ext.MessageContext;
 @Provider
 public class AuthenticationFilter implements ContainerRequestFilter {
 
-	private static final String COMPIERE_SERVICE = "CompiereService";
-	@Context
-	protected MessageContext context; // rest context
-
-	@Context
-	private ResourceInfo resourceInfo;
-	private static final String AUTHORIZATION_PROPERTY = "Authorization";
-	private static final String AUTHENTICATION_SCHEME = "Basic";
-	private static final String UNATHORIZED_ACCESS = "Unauthorized Access!!";
+	public static final String LOGIN_NAME = "#LoginName";
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		// Get request headers
-		final MultivaluedMap<String, String> headers = requestContext.getHeaders();
-
-		// Fetch authorization header
-		final List<String> authorization = headers.get(AUTHORIZATION_PROPERTY);
-
-		// If no authorization information present; block access
-		if (authorization == null || authorization.isEmpty()) {
-			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(UNATHORIZED_ACCESS).build());
+		// don't filter a request to get an authentication session.
+		if (requestContext.getMethod().equals(HttpMethod.POST)
+				&& requestContext.getUriInfo().getPath().endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH)) {
 			return;
 		}
 
-		// Get encoded username and password
-		final String encodedUserPassword = authorization.get(0).replaceFirst(AUTHENTICATION_SCHEME + " ", "");
+		String authHeaderVal = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
-		// Decode username and password
-		String usernameAndPassword = new String(Base64.decode(encodedUserPassword.getBytes()));
-
-		// Split username and password tokens
-		final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
-		final String username = tokenizer.nextToken();
-		final String password = tokenizer.nextToken();
-
-		MUser user = new Query(Env.getCtx(), MUser.Table_Name,
-				MUser.COLUMNNAME_Name + "=? AND " + MUser.COLUMNNAME_Password + " =?", null)
-						.setParameters(username, password).first();
-		if (user == null) {
-			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(UNATHORIZED_ACCESS).build());
-			return;
-		}
-
-		CompiereService service = getCompiereService();
-		service.connect();
-		service.setPassword(password);
-		Env.setContext(service.getCtx(), Env.AD_CLIENT_ID, user.getAD_Client_ID());
-		Env.setContext(service.getCtx(), Env.AD_USER_ID, user.get_ID());
-		Env.setContext(service.getCtx(), Env.AD_ROLE_ID, 0);
-
-		boolean login = service.login(user.get_ID(), 0, user.getAD_Client_ID(), user.getAD_Org_ID(), 0, "en_US");
-		service.disconnect();
-		if (!login) {
-			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(UNATHORIZED_ACCESS).build());
-			return;
+		// consume JWT i.e. execute signature validation
+		if (authHeaderVal != null && authHeaderVal.startsWith("Bearer")) {
+			try {
+				validate(authHeaderVal.split(" ")[1]);
+				if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))
+						|| Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID))) {
+					if (!requestContext.getUriInfo().getPath().startsWith(IRestConfigs.AUTHENTICATION)) {
+						requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+					}
+				}
+			} catch (JWTVerificationException ex) {
+				requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+			} catch (Exception ex) {
+				requestContext.abortWith(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
+			}
+		} else {
+			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 		}
 	}
 
 	/**
+	 * Borrowed from
+	 * https://github.com/hengsin/idempiere-rest/blob/master/com.trekglobal.idempiere.rest.api/src/com/trekglobal/idempiere/rest/api/v1/auth/filter/RequestFilter.java#L99
 	 * 
-	 * @return Compiere Service object for current request
+	 * @param token
+	 * @throws IllegalArgumentException
+	 * @throws UnsupportedEncodingException
 	 */
-	private CompiereService getCompiereService() {
-		HttpServletRequest req = getHttpServletRequest();
-
-		CompiereService m_cs = (CompiereService) req.getAttribute(COMPIERE_SERVICE);
-		if (m_cs == null) {
-			m_cs = new CompiereService();
-			req.setAttribute(COMPIERE_SERVICE, m_cs);
+	private void validate(String token) throws IllegalArgumentException, UnsupportedEncodingException {
+		Algorithm algorithm = Algorithm.HMAC256(TokenUtils.getTokenSecret());
+		JWTVerifier verifier = JWT.require(algorithm).withIssuer(TokenUtils.getTokenIssuer()).build(); // Reusable
+																										// verifier
+																										// instance
+		DecodedJWT jwt = verifier.verify(token);
+		String userName = jwt.getSubject();
+		ServerContext.setCurrentInstance(new Properties());
+		Env.setContext(Env.getCtx(), LOGIN_NAME, userName);
+		Claim claim = jwt.getClaim(LoginClaims.AD_Client_ID.name());
+		int AD_Client_ID = 0;
+		if (!claim.isNull()) {
+			AD_Client_ID = claim.asInt();
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, AD_Client_ID);
 		}
-		return m_cs;
-	}
-
-	/**
-	 * Get HttpServletRequest object
-	 * 
-	 * @return HttpServletRequest
-	 */
-	private HttpServletRequest getHttpServletRequest() {
-		HttpServletRequest req = null;
-		if (context != null) {
-			req = (HttpServletRequest) context.getHttpServletRequest();
+		claim = jwt.getClaim(LoginClaims.AD_User_ID.name());
+		if (!claim.isNull()) {
+			Env.setContext(Env.getCtx(), Env.AD_USER_ID, claim.asInt());
+		}
+		claim = jwt.getClaim(LoginClaims.AD_Role_ID.name());
+		int AD_Role_ID = 0;
+		if (!claim.isNull()) {
+			AD_Role_ID = claim.asInt();
+			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, AD_Role_ID);
+		}
+		claim = jwt.getClaim(LoginClaims.AD_Org_ID.name());
+		int AD_Org_ID = 0;
+		if (!claim.isNull()) {
+			AD_Org_ID = claim.asInt();
+			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, AD_Org_ID);
+		}
+		claim = jwt.getClaim(LoginClaims.M_Warehouse_ID.name());
+		if (!claim.isNull()) {
+			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, claim.asInt());
 		}
 
-		return req;
+		if (AD_Role_ID > 0) {
+			if (MRole.getDefault(Env.getCtx(), false).isShowAcct())
+				Env.setContext(Env.getCtx(), "#ShowAcct", "Y");
+			else
+				Env.setContext(Env.getCtx(), "#ShowAcct", "N");
+		}
+
+		Env.setContext(Env.getCtx(), "#Date", new Timestamp(System.currentTimeMillis()));
+
+		/** Define AcctSchema , Currency, HasAlias **/
+		if (AD_Client_ID > 0) {
+			if (MClientInfo.get(Env.getCtx(), AD_Client_ID).getC_AcctSchema1_ID() > 0) {
+				MAcctSchema primary = MAcctSchema.get(Env.getCtx(),
+						MClientInfo.get(Env.getCtx(), AD_Client_ID).getC_AcctSchema1_ID());
+				Env.setContext(Env.getCtx(), "$C_AcctSchema_ID", primary.getC_AcctSchema_ID());
+				Env.setContext(Env.getCtx(), "$C_Currency_ID", primary.getC_Currency_ID());
+				Env.setContext(Env.getCtx(), "$HasAlias", primary.isHasAlias());
+			}
+
+			MAcctSchema[] ass = MAcctSchema.getClientAcctSchema(Env.getCtx(), AD_Client_ID);
+			if (ass != null && ass.length > 1) {
+				for (MAcctSchema as : ass) {
+					if (as.getAD_OrgOnly_ID() != 0) {
+						if (as.isSkipOrg(AD_Org_ID)) {
+							continue;
+						} else {
+							Env.setContext(Env.getCtx(), "$C_AcctSchema_ID", as.getC_AcctSchema_ID());
+							Env.setContext(Env.getCtx(), "$C_Currency_ID", as.getC_Currency_ID());
+							Env.setContext(Env.getCtx(), "$HasAlias", as.isHasAlias());
+							break;
+						}
+					}
+				}
+			}
+		}
 	}
 }
