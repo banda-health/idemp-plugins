@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.rest.model.BaseMetadata;
 
 public interface IEntityRestService<T extends BaseMetadata> {
 
-	public List<T> getAll();
+	public List<T> getAll(int page, int size);
 
 	public T getEntity(String uuid);
 

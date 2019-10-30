@@ -48,10 +48,14 @@ public class ProcessDBService {
 		return response;
 	}
 
-	public static List<Process> getAll() {
+	public static List<Process> getAll(int page, int size) {
 		List<Process> results = new ArrayList<>();
-		List<MProcess> processes = new Query(Env.getCtx(), MProcess.Table_Name, null, null).setOnlyActiveRecords(true)
-				.setParameters(true).setClient_ID().setPageSize(5).list();
+		List<MProcess> processes = new Query(Env.getCtx(), MProcess.Table_Name, null, null)
+				.setOnlyActiveRecords(true)
+				.setParameters(true)
+				.setClient_ID()
+				.setPage(size, page)
+				.list();
 		if (!processes.isEmpty()) {
 			for (MProcess process : processes) {
 				List<MProcessPara> params = new Query(Env.getCtx(), MProcessPara.Table_Name,
