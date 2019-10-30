@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
 
@@ -30,6 +31,8 @@ public class MPayment_BH extends MPayment {
 	public static final String COLUMNAME_TOTAL_OPEN_BALANCE = "TotalOpenBalance";
 	
 	public static final String COLUMNNAME_BH_PROCESSING = "BH_processing";
+	
+	public static final String COLUMNNAME_BH_TENDER_AMOUNT = "BH_tender_amount";
 
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
 		super(ctx, C_Payment_ID, trxName);
@@ -89,5 +92,13 @@ public class MPayment_BH extends MPayment {
 	
 	public void setBH_Processing(boolean processing) {
 		set_Value(COLUMNNAME_BH_PROCESSING, processing);
+	}
+	
+	public void setBH_TenderAmount(BigDecimal amount) {
+		set_Value(COLUMNNAME_BH_TENDER_AMOUNT, amount);
+	}
+	
+	public BigDecimal getBH_TenderAmount() {
+		return (BigDecimal) get_Value(COLUMNNAME_BH_TENDER_AMOUNT);
 	}
 }

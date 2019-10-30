@@ -350,9 +350,25 @@ public class MInvoice_BH extends MInvoice {
 		// Go through and add the payment with the amount specified on the order
 		String where = MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?";
 		List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name, where, get_TrxName())
-		        .setParameters(getC_Order_ID()).list();
+		        .setParameters(getC_Order_ID())
+		        .setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID)
+		        .list();
 		BigDecimal totalPayments = new BigDecimal(0);
+		BigDecimal remainingAmount = getGrandTotal();
 		for (MPayment_BH orderPayment : orderPayments) {
+			// set payment received to bh_tender_amount
+			orderPayment.setBH_TenderAmount(orderPayment.getPayAmt());
+			
+			if (remainingAmount.compareTo(BigDecimal.ZERO) <= 0) {
+				orderPayment.setPayAmt(BigDecimal.ZERO);
+			} else if (orderPayment.getBH_TenderAmount().compareTo(remainingAmount) < 0) { 
+				// set payment amount to tender type if less than the remaining grand total
+				orderPayment.setPayAmt(orderPayment.getBH_TenderAmount());
+			} else {
+				// set payment amount as the remaining amount.
+				orderPayment.setPayAmt(remainingAmount);
+			}
+			
 			orderPayment.setC_Invoice_ID(getC_Invoice_ID());
 			orderPayment.saveEx(get_TrxName());
 
@@ -368,7 +384,12 @@ public class MInvoice_BH extends MInvoice {
 			if (orderPayment.getJustCreatedAllocInv() != null)
 				addDocsPostProcess(orderPayment.getJustCreatedAllocInv());
 
-			totalPayments = totalPayments.add(orderPayment.getPayAmt());
+			remainingAmount = remainingAmount.subtract(orderPayment.getBH_TenderAmount());
+			
+			// sum all tender amounts
+			totalPayments = totalPayments.add(orderPayment.getBH_TenderAmount());
+						
+			
 		}
 		
 		return totalPayments;
