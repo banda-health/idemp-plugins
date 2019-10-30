@@ -359,8 +359,10 @@ public class MInvoice_BH extends MInvoice {
 			// set payment received to bh_tender_amount
 			orderPayment.setBH_TenderAmount(orderPayment.getPayAmt());
 			
-			// set payment amount to tender type if less than the remaining grand total
-			if (orderPayment.getBH_TenderAmount().compareTo(remainingAmount) < 0) {
+			if (remainingAmount.compareTo(BigDecimal.ZERO) <= 0) {
+				orderPayment.setPayAmt(BigDecimal.ZERO);
+			} else if (orderPayment.getBH_TenderAmount().compareTo(remainingAmount) < 0) { 
+				// set payment amount to tender type if less than the remaining grand total
 				orderPayment.setPayAmt(orderPayment.getBH_TenderAmount());
 			} else {
 				// set payment amount as the remaining amount.
