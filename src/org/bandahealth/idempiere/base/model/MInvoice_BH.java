@@ -227,10 +227,10 @@ public class MInvoice_BH extends MInvoice {
 		}
 		
 		// adjust invAmt based on how much was paid.
-		BigDecimal change = totalPayments.subtract(invAmt);
+		/*BigDecimal change = totalPayments.subtract(invAmt);
 		if (change.compareTo(BigDecimal.ZERO) > 0) {
 			invAmt = totalPayments;
-		}
+		}*/
 		
 		//	Total Balance
 		BigDecimal newBalance = bp.getTotalOpenBalance();
