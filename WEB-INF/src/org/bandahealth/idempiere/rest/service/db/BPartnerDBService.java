@@ -38,7 +38,6 @@ public class BPartnerDBService {
 			return new BaseListResponse<BPartner>(results, pagingInfo);
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			log.severe(ex.getMessage());
 		}
 
