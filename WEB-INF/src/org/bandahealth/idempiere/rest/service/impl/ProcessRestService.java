@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.rest.service.impl;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.IProcessRestService;
 import org.bandahealth.idempiere.rest.service.db.ProcessDBService;
-import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -15,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
 
 @Path(IRestConfigs.PROCESS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -31,8 +31,8 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	@POST
 	@Path("/processes")
 	@Override
-	public List<Process> getAll(@PathParam("page") int page, @PathParam("size") int size) {
-		return ProcessDBService.getAll(page, size);
+	public BaseListResponse<Process> getAll(@PathParam("page") int page, @PathParam("size") int size) {
+		return ProcessDBService.getAll(getPagingInfo(page, size));
 	}
 
 	@POST

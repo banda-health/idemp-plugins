@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.rest.model.BPartner;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.compiere.model.MBPartner;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -13,23 +15,34 @@ public class BPartnerDBService {
 
 	private static CLogger log = CLogger.getCLogger(BPartnerDBService.class);
 
-	public static List<BPartner> getAll(int page, int size) {
-		List<BPartner> results = new ArrayList<>();
-
+	public static BaseListResponse<BPartner> getAll(Paging pagingInfo) {
 		try {
-			List<MBPartner> bpartners = new Query(Env.getCtx(), MBPartner.Table_Name, null, null)
-					// .setClient_ID()
-					.setOnlyActiveRecords(true).setPage(size, page).list();
+			List<BPartner> results = new ArrayList<>();
+
+			Query query = new Query(Env.getCtx(), MBPartner.Table_Name, null, null).setClient_ID()
+					.setOnlyActiveRecords(true);
+
+			// get total count without pagination parameters
+			pagingInfo.setTotalRecordCount(query.count());
+
+			// set pagination params
+			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
+			List<MBPartner> bpartners = query.list();
+
 			if (!bpartners.isEmpty()) {
 				for (MBPartner bpartner : bpartners) {
 					results.add(createBPartnerInstance(bpartner));
 				}
 			}
+
+			return new BaseListResponse<BPartner>(results, pagingInfo);
+
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			log.severe(ex.getMessage());
 		}
 
-		return results;
+		return null;
 	}
 
 	public static BPartner getBPartner(String uuid) {
