@@ -4,22 +4,35 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "bpartner")
-public class BPartner extends BaseEntity {
+public class BusinessPartner extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	private BigDecimal totalOpenBalance;
 
-	public BPartner() {
+	public BusinessPartner() {
 	}
 
-	public BPartner(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy,
+	public BusinessPartner(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy,
 			String description, String name, BigDecimal totalOpenBalance) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.totalOpenBalance = totalOpenBalance;
+	}
+
+	public BusinessPartner updateFields(int clientId, int orgId, String uuid, boolean isActive, Timestamp created,
+			int createdBy, String description, String name, BigDecimal totalOpenBalance) {
+		setClientId(clientId);
+		setOrgId(orgId);
+		setUuid(uuid);
+		setActive(isActive);
+		setCreated(created);
+		setCreatedBy(createdBy);
+		setDescription(description);
+		setName(name);
+		setTotalOpenBalance(totalOpenBalance);
+
+		return this;
 	}
 
 	@XmlElement
