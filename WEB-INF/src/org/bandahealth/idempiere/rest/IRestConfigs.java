@@ -17,5 +17,8 @@ public interface IRestConfigs {
 	String VENDORS_PATH = AUTHENTICATION_PATH + "/vendors";
 	String VENDOR_PATH = "/vendor/{uuid}";
 
+	String MENUS_PATH = AUTHENTICATION_PATH + "/menus";
+	String MENU_PATH = "/menu/{uuid}";
+
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
 }

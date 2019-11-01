@@ -18,6 +18,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ProcessServiceBean" />
 			<ref bean="AuthenticationServiceBean" />
 			<ref bean="VendorServiceBean" />
+			<ref bean="MenuServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -42,5 +43,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="VendorServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.VendorRestService" />
+
+	<bean id="MenuServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.MenuRestService" />
 
 </beans>
