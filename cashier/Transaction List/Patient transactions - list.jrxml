@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1300" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1212" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1212" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -72,13 +63,11 @@
     billdetails.lineitemtotals as billtotal,
     coalesce(cashp.cash,0) as cash,
     coalesce(mpesap.mpesa, 0) as mpesa,
-    coalesce(localfundp.localfund, 0) as localfund,
     coalesce(billwaiverp.billwaiver,0) as billwaiver,
     coalesce(donorfund1p.donorfund1,0) as donorfund1,
     coalesce(lindamamap.lindamama,0) as lindamama,
     coalesce(nhifp.nhif,0) as nhif,
     0 as totalpayment,
-    0 as changegiven,
     0 as outstanding
 from
 (
@@ -127,19 +116,10 @@ group by cp.bh_c_order_id
 left join
 (
 select cp.bh_c_order_id,
-       sum(cp.payamt) as localfund
-from c_payment cp
-where cp.ad_client_id = $P{AD_CLIENT_ID}
-    and cp.tendertype = 'L'
-group by cp.bh_c_order_id
-) as localfundp on billdetails.c_order_id = localfundp.bh_c_order_id
-left join
-(
-select cp.bh_c_order_id,
        sum(cp.payamt) as billwaiver
 from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
-    and cp.tendertype = 'B'
+    and cp.tendertype in ('B','L')
 group by cp.bh_c_order_id
 ) as billwaiverp on billdetails.c_order_id = billwaiverp.bh_c_order_id
 left join
@@ -196,9 +176,6 @@ order by billdetails.patientname asc;]]>
 		<field name="mpesa" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="mpesa"/>
 		</field>
-		<field name="localfund" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="localfund"/>
-		</field>
 		<field name="billwaiver" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="billwaiver"/>
 		</field>
@@ -214,17 +191,11 @@ order by billdetails.patientname asc;]]>
 		<field name="totalpayment" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.label" value="totalpayment"/>
 		</field>
-		<field name="changegiven" class="java.lang.Integer">
-			<property name="com.jaspersoft.studio.field.label" value="changegiven"/>
-		</field>
 		<field name="outstanding" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.label" value="outstanding"/>
 		</field>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{localfund}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif})]]></variableExpression>
-		</variable>
-		<variable name="totalChangeGivenV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$V{totalPaymentsV}.subtract($F{billtotal})]]></variableExpression>
+			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif})]]></variableExpression>
 		</variable>
 		<variable name="totalOutstanding" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
@@ -285,7 +256,7 @@ group by bh_c_order_id
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="1300" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
+				<reportElement x="0" y="0" width="1212" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -307,7 +278,7 @@ group by bh_c_order_id
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="1300" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="1212" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -591,32 +562,8 @@ group by bh_c_order_id
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="88" uuid="4d4d63d4-f410-4e05-898c-265d962f5301">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<staticText>
-								<reportElement x="0" y="0" width="88" height="30" uuid="ca5003eb-3547-4c83-b58e-9f0f1db88c20"/>
-								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="DejaVu Sans" size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Local Fund]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="88" height="17" uuid="0c0815e5-27b7-451a-b3bb-fb2121ab3491"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{localfund}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
 					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -650,7 +597,7 @@ group by bh_c_order_id
 		<band height="16">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement key="" x="0" y="0" width="1300" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
+				<reportElement key="" x="0" y="0" width="1212" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
