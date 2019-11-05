@@ -2,13 +2,14 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bandahealth.idempiere.base.model.MHomeScreenButton;
 import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.MenuGroupItem;
 import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.compiere.model.MRole;
+import org.compiere.model.MRoleIncluded;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -23,6 +24,9 @@ public class MenuGroupDBService {
 
 	private static CLogger log = CLogger.getCLogger(MenuGroupDBService.class);
 
+	// private Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
+	private final String ALL_SUBROLES_INCLUDED = "BandaGo Admin";
+
 	/**
 	 * Get group items
 	 * 
@@ -33,7 +37,7 @@ public class MenuGroupDBService {
 		try {
 			List<MenuGroupItem> results = new ArrayList<>();
 
-			Query query = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null, null).setClient_ID()
+			Query query = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null, null)
 					.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true);
 
 			// get total count without pagination parameters
@@ -43,12 +47,17 @@ public class MenuGroupDBService {
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 			List<MHomeScreenButtonGroup> menus = query.list();
 
+			boolean isAdmin = hasAdminPrivileges(getRoleId());
+
 			if (!menus.isEmpty()) {
 				for (MHomeScreenButtonGroup menu : menus) {
-					results.add(new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
-							menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), menu.getCreated(), menu.getCreatedBy(),
-							menu.getName(), menu.getDescription(), menu.getLineNo(),
-							getMenuGroupLineItems(menu.get_ID())));
+					List<MenuGroupLineItem> groupLineItems = getMenuGroupLineItems(menu.get_ID(), isAdmin);
+					if (groupLineItems != null && !groupLineItems.isEmpty()) {
+						results.add(new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
+								menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), menu.getCreated(),
+								menu.getCreatedBy(), menu.getName(), menu.getDescription(), menu.getLineNo(),
+								groupLineItems));
+					}
 				}
 			}
 
@@ -65,13 +74,16 @@ public class MenuGroupDBService {
 		try {
 			String whereClause = MHomeScreenButtonGroup.COLUMNNAME_BH_HmScrn_ButtonGroup_UU + "=?";
 			MHomeScreenButtonGroup menu = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, whereClause, null)
-					.setClient_ID().setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true)
-					.setParameters(uuid).first();
+					.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true).setParameters(uuid)
+					.first();
 
 			if (menu != null) {
-				return new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
-						menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), menu.getCreated(), menu.getCreatedBy(),
-						menu.getName(), menu.getDescription(), menu.getLineNo(), getMenuGroupLineItems(menu.get_ID()));
+				List<MenuGroupLineItem> items = getMenuGroupLineItems(menu.get_ID(), hasAdminPrivileges(getRoleId()));
+				if (items != null && !items.isEmpty()) {
+					return new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
+							menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), menu.getCreated(), menu.getCreatedBy(),
+							menu.getName(), menu.getDescription(), menu.getLineNo(), items);
+				}
 			}
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -86,14 +98,29 @@ public class MenuGroupDBService {
 	 * @param menuGroupItemId
 	 * @return
 	 */
-	private List<MenuGroupLineItem> getMenuGroupLineItems(int menuGroupItemId) {
+	private List<MenuGroupLineItem> getMenuGroupLineItems(int menuGroupItemId, boolean isAdmin) {
 		try {
 			List<MenuGroupLineItem> results = new ArrayList<>();
+			List<Object> parameters = new ArrayList<>();
 
-			String whereClause = MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID + "=?";
-			Query query = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, whereClause, null)
-					.setParameters(menuGroupItemId).setClient_ID().setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo)
-					.setOnlyActiveRecords(true);
+			String whereClause = MHomeScreenButton.Table_Name + "."
+					+ MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID + " =?";
+			parameters.add(menuGroupItemId);
+
+			if (!isAdmin) {
+				whereClause += " AND " + MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=?";
+				parameters.add(getRoleId());
+			}
+
+			Query query = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, whereClause, null);
+			if (!isAdmin) {
+				query = query.addJoinClause(" JOIN " + MRoleIncluded.Table_Name + " ON " + MHomeScreenButton.Table_Name
+						+ "." + MHomeScreenButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
+						+ MRoleIncluded.COLUMNNAME_Included_Role_ID);
+			}
+
+			query = query.setParameters(parameters).setOnlyActiveRecords(true)
+					.setOrderBy(MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_LineNo);
 
 			List<MHomeScreenButton> menuItems = query.list();
 
@@ -115,5 +142,23 @@ public class MenuGroupDBService {
 		}
 
 		return null;
+	}
+
+	private boolean hasAdminPrivileges(int roleId) {
+		String whereClause = MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "= ? AND "
+				+ MRole.COLUMNNAME_Name + " = ?";
+		Query query = new Query(Env.getCtx(), MRole.Table_Name, whereClause, null).addJoinClause(
+				"JOIN " + MRoleIncluded.Table_Name + " ON " + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID + "="
+						+ MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_Included_Role_ID);
+
+		if (query.setParameters(roleId, ALL_SUBROLES_INCLUDED).match()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private int getRoleId() {
+		return Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 	}
 }

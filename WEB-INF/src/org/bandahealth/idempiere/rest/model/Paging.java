@@ -16,7 +16,7 @@ public class Paging {
 	public static class DEFAULT {
 
 		public static Paging getInstance() {
-			return new Paging(1, 10);
+			return new Paging(0, 10);
 		}
 	}
 
