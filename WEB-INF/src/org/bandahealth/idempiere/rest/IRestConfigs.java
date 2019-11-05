@@ -7,6 +7,18 @@ public interface IRestConfigs {
 	String AUTHENTICATION_PATH = ROOT_PATH + AUTHENTICATION;
 	String AUTHENTICATION_SESSION_PATH = "/session";
 	String AUTHENTICATION_REST_URL = AUTHENTICATION_PATH + AUTHENTICATION_SESSION_PATH;
-	String BPARTNER_PATH = AUTHENTICATION_PATH + "/bpartner";
+
+	String CREATE_PATH = "/create";
+	String UPDATE_PATH = "/update";
+
+	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";
+	String PATIENT_PATH = "/patient/{uuid}";
+
+	String VENDORS_PATH = AUTHENTICATION_PATH + "/vendors";
+	String VENDOR_PATH = "/vendor/{uuid}";
+
+	String MENUS_PATH = AUTHENTICATION_PATH + "/menus";
+	String MENU_PATH = "/menu/{uuid}";
+
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
 }

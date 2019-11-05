@@ -7,6 +7,8 @@ import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
@@ -48,14 +50,16 @@ public class ProcessDBService {
 		return response;
 	}
 
-	public static List<Process> getAll(int page, int size) {
+	public static BaseListResponse<Process> getAll(Paging pagingInfo) {
 		List<Process> results = new ArrayList<>();
-		List<MProcess> processes = new Query(Env.getCtx(), MProcess.Table_Name, null, null)
-				.setOnlyActiveRecords(true)
-				.setParameters(true)
-				.setClient_ID()
-				.setPage(size, page)
-				.list();
+		List<MProcess> processes;
+		Query query = new Query(Env.getCtx(), MProcess.Table_Name, null, null).setOnlyActiveRecords(true)
+				.setParameters(true).setClient_ID();
+
+		pagingInfo.setTotalRecordCount(query.count());
+		query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
+		processes = query.list();
+
 		if (!processes.isEmpty()) {
 			for (MProcess process : processes) {
 				List<MProcessPara> params = new Query(Env.getCtx(), MProcessPara.Table_Name,
@@ -70,7 +74,7 @@ public class ProcessDBService {
 			}
 		}
 
-		return results;
+		return new BaseListResponse<Process>(results, pagingInfo);
 	}
 
 	public static Process getProcess(String uuid) {

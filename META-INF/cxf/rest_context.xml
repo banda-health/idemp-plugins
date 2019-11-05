@@ -14,9 +14,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<!-- JAX-RS -->
 	<jaxrs:server id="bhgoRest" address="/rs">
 		<jaxrs:serviceBeans>
-			<ref bean="BPartnerServiceBean" />
-			<ref bean="ProcessServiceBean"/>
-			<ref bean="AuthenticationServiceBean"/>
+			<ref bean="PatientServiceBean" />
+			<ref bean="ProcessServiceBean" />
+			<ref bean="AuthenticationServiceBean" />
+			<ref bean="VendorServiceBean" />
+			<ref bean="MenuServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -24,8 +26,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		</jaxrs:providers>
 	</jaxrs:server>
 
-	<bean id="BPartnerServiceBean"
-		class="org.bandahealth.idempiere.rest.service.impl.BPartnerRestService" />
+	<bean id="PatientServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.PatientRestService" />
 
 	<bean id="ProcessServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ProcessRestService" />
@@ -35,7 +37,14 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="authenticationFilter"
 		class="org.bandahealth.idempiere.rest.filter.AuthenticationFilter" />
-		
+
 	<bean id="AuthenticationServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.AuthenticationRestService" />
+
+	<bean id="VendorServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.VendorRestService" />
+
+	<bean id="MenuServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.MenuRestService" />
+
 </beans>
