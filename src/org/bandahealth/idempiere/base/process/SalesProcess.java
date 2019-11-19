@@ -7,11 +7,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.process.call.SalesProcessAsyncCall;
 import org.compiere.Adempiere;
 import org.compiere.model.MClient;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 
@@ -37,6 +39,15 @@ public class SalesProcess extends SvrProcess {
 
 	@Override
 	protected String doIt() throws Exception {
+		// check receive goods/expenses
+		MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?", get_TrxName())
+				.setParameters(orderId).first();
+		if (!order.isSOTrx()) {
+			order.setBH_Isexpense(true);
+			order.processIt(DocAction.ACTION_Complete);
+			return null;
+		}
+		
 		setPaymentStatus(true, null, null);
 
 		// async call.
