@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -80,7 +81,7 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 	private T createInstance(MBPartner_BH bpartner) {
 		try {
 			return (T) getInstance().updateFields(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(),
-					bpartner.getC_BPartner_UU(), bpartner.isActive(), bpartner.getCreated(), bpartner.getCreatedBy(),
+					bpartner.getC_BPartner_UU(), bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
 					bpartner.getDescription(), bpartner.getName(), bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

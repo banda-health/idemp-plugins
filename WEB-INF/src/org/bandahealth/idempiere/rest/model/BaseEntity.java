@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.sql.Timestamp;
-
 import javax.xml.bind.annotation.XmlElement;
 
 public class BaseEntity extends BaseMetadata {
@@ -15,7 +13,7 @@ public class BaseEntity extends BaseMetadata {
 		super();
 	}
 
-	public BaseEntity(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy,
+	public BaseEntity(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String name, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 

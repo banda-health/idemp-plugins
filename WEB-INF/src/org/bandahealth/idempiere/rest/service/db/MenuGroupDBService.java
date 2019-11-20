@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.MenuGroupItem;
 import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.Query;
@@ -54,7 +55,7 @@ public class MenuGroupDBService {
 					List<MenuGroupLineItem> groupLineItems = getMenuGroupLineItems(menu.get_ID(), isAdmin);
 					if (groupLineItems != null && !groupLineItems.isEmpty()) {
 						results.add(new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
-								menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), menu.getCreated(),
+								menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), DateUtil.parse(menu.getCreated()),
 								menu.getCreatedBy(), menu.getName(), menu.getDescription(), menu.getLineNo(),
 								groupLineItems));
 					}
@@ -63,6 +64,23 @@ public class MenuGroupDBService {
 
 			return new BaseListResponse<MenuGroupItem>(results, pagingInfo);
 
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
+	}
+
+	/**
+	 * Retrieve all groupline items for the logged in user.
+	 * 
+	 * @return
+	 */
+	public BaseListResponse<MenuGroupLineItem> getMenuGroupLineItems() {
+		try {
+			// get all items
+			return new BaseListResponse<MenuGroupLineItem>(getMenuGroupLineItems(0, hasAdminPrivileges(getRoleId())),
+					null);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -81,8 +99,8 @@ public class MenuGroupDBService {
 				List<MenuGroupLineItem> items = getMenuGroupLineItems(menu.get_ID(), hasAdminPrivileges(getRoleId()));
 				if (items != null && !items.isEmpty()) {
 					return new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
-							menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), menu.getCreated(), menu.getCreatedBy(),
-							menu.getName(), menu.getDescription(), menu.getLineNo(), items);
+							menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), DateUtil.parse(menu.getCreated()),
+							menu.getCreatedBy(), menu.getName(), menu.getDescription(), menu.getLineNo(), items);
 				}
 			}
 		} catch (Exception ex) {
@@ -103,12 +121,19 @@ public class MenuGroupDBService {
 			List<MenuGroupLineItem> results = new ArrayList<>();
 			List<Object> parameters = new ArrayList<>();
 
-			String whereClause = MHomeScreenButton.Table_Name + "."
-					+ MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID + " =?";
-			parameters.add(menuGroupItemId);
+			String whereClause = "";
+			if (menuGroupItemId > 0) {
+				whereClause = MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID
+						+ " =?";
+				parameters.add(menuGroupItemId);
+			}
 
 			if (!isAdmin) {
-				whereClause += " AND " + MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=?";
+				if (menuGroupItemId > 0) {
+					whereClause += " AND ";
+				}
+
+				whereClause += MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=?";
 				parameters.add(getRoleId());
 			}
 
@@ -127,11 +152,12 @@ public class MenuGroupDBService {
 			if (!menuItems.isEmpty()) {
 				for (MHomeScreenButton menuItem : menuItems) {
 					results.add(new MenuGroupLineItem(menuItem.getAD_Client_ID(), menuItem.getAD_Org_ID(),
-							menuItem.getBH_HmScrn_ButtonGroupLine_UU(), menuItem.isActive(), menuItem.getCreated(),
-							menuItem.getCreatedBy(), menuItem.getName(), menuItem.getDescription(),
-							menuItem.getAD_InfoWindow_ID(), menuItem.getAD_Window_ID(), menuItem.getAD_Process_ID(),
-							menuItem.getAD_Form_ID(), menuItem.getIncludedRole_ID(), menuItem.getLineNo(),
-							menuItem.getButtonText()));
+							menuItem.getBH_HmScrn_ButtonGroupLine_UU(), menuItem.isActive(),
+							DateUtil.parse(menuItem.getCreated()), menuItem.getCreatedBy(), menuItem.getName(),
+							menuItem.getDescription(), menuItem.getAD_InfoWindow_ID(), menuItem.getAD_Window_ID(),
+							menuItem.getAD_Process_ID(), menuItem.getAD_Form_ID(), menuItem.getIncludedRole_ID(),
+							menuItem.getLineNo(), menuItem.getButtonText(), menuItem.getIconClassName(),
+							menuItem.getButtonClassName()));
 				}
 			}
 

@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.sql.Timestamp;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,7 +26,7 @@ public class ProcessParameter extends BaseEntity {
 		super();
 	}
 
-	public ProcessParameter(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy,
+	public ProcessParameter(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String name, String description, int adElementId, int adReferenceId, int adReferenceValueId,
 			int adValueRuleId, String defaultValue, String defaultValue2, String displayLogic, String entityType,
 			int fieldLength, boolean isEncrypted, boolean isMandatory, boolean isRange, String mandatoryLogic) {

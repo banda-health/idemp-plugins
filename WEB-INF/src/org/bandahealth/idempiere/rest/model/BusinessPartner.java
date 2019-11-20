@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -13,14 +12,14 @@ public class BusinessPartner extends BaseEntity {
 	public BusinessPartner() {
 	}
 
-	public BusinessPartner(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy,
+	public BusinessPartner(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String description, String name, BigDecimal totalOpenBalance) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.totalOpenBalance = totalOpenBalance;
 	}
 
-	public BusinessPartner updateFields(int clientId, int orgId, String uuid, boolean isActive, Timestamp created,
+	public BusinessPartner updateFields(int clientId, int orgId, String uuid, boolean isActive, String created,
 			int createdBy, String description, String name, BigDecimal totalOpenBalance) {
 		setClientId(clientId);
 		setOrgId(orgId);
