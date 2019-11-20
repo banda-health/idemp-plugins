@@ -68,7 +68,7 @@ public class AuthenticationRestService {
 			builder.withIssuer(TokenUtils.getTokenIssuer()).withExpiresAt(expiresAt);
 			try {
 				String token = builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret()));
-				return new AuthResponse(token, Status.OK);
+				return new AuthResponse(token, Status.OK, Env.getAD_Client_ID(Env.getCtx()), user.get_ID());
 			} catch (Exception e) {
 				return new AuthResponse(null, Status.BAD_REQUEST);
 			}
