@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -98,7 +99,7 @@ public class ProcessDBService {
 
 	private static Process createProcessInstance(MProcess process, List<ProcessParameter> parameters) {
 		return new Process(process.getAD_Client_ID(), process.getAD_Org_ID(), process.getAD_Process_UU(),
-				process.isActive(), process.getCreated(), process.getCreatedBy(), process.getDescription(),
+				process.isActive(), DateUtil.parse(process.getCreated()), process.getCreatedBy(), process.getDescription(),
 				process.getName(), process.getAD_Form_ID(), process.getAD_ReportView_ID(), process.getAD_Workflow_ID(),
 				process.getAllowMultipleExecution(), process.getClassname(), process.getCopyFromProcess(),
 				process.getEntityType(), process.getExecutionType(), process.isDirectPrint(), process.isReport(),
@@ -107,7 +108,7 @@ public class ProcessDBService {
 
 	private static ProcessParameter createProcessParameterInstance(MProcessPara param) {
 		return new ProcessParameter(param.getAD_Client_ID(), param.getAD_Org_ID(), param.getAD_Process_Para_UU(),
-				param.isActive(), param.getCreated(), param.getCreatedBy(), param.getName(), param.getDescription(),
+				param.isActive(), DateUtil.parse(param.getCreated()), param.getCreatedBy(), param.getName(), param.getDescription(),
 				param.getAD_Element_ID(), param.getAD_Reference_ID(), param.getAD_Reference_Value_ID(),
 				param.getAD_Val_Rule_ID(), param.getDefaultValue(), param.getDefaultValue2(), param.getDisplayLogic(),
 				param.getEntityType(), param.getFieldLength(), param.isEncrypted(), param.isMandatory(),

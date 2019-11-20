@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,7 +12,7 @@ public class MenuGroupItem extends BaseEntity {
 	private int lineNumber;
 	private List<MenuGroupLineItem> items;
 
-	public MenuGroupItem(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy,
+	public MenuGroupItem(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String name, String description, int lineNumber, List<MenuGroupLineItem> groupLineItems) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
