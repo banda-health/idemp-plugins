@@ -19,6 +19,8 @@ public class AuthResponse {
 
 	private List<Client> clients = new ArrayList<>();
 
+	private boolean hasAcceptedTermsOfUse;
+
 	public AuthResponse() {
 	}
 
@@ -73,4 +75,12 @@ public class AuthResponse {
 		this.clients = clients;
 	}
 
+	@XmlElement
+	public boolean isHasAcceptedTermsOfUse() {
+		return hasAcceptedTermsOfUse;
+	}
+
+	public void setHasAcceptedTermsOfUse(boolean hasAcceptedTermsOfUse) {
+		this.hasAcceptedTermsOfUse = hasAcceptedTermsOfUse;
+	}
 }

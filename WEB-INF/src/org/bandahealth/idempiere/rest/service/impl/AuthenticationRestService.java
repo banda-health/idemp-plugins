@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.rest.model.Client;
 import org.bandahealth.idempiere.rest.model.Org;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
+import org.bandahealth.idempiere.rest.service.db.TermsOfServiceService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
@@ -43,6 +44,9 @@ import java.sql.Timestamp;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthenticationRestService {
+
+	public AuthenticationRestService() {
+	}
 
 	@POST
 	@Path(IRestConfigs.AUTHENTICATION_SESSION_PATH)
@@ -125,11 +129,14 @@ public class AuthenticationRestService {
 			}
 
 			builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
+			Env.setContext(Env.getCtx(), Env.AD_USER_ID, user.getAD_User_ID());
 			response.setUserId(user.getAD_User_ID());
 
 			try {
 				// generate session token
 				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
+				// has accepted terms of use?
+				response.setHasAcceptedTermsOfUse(TermsOfServiceService.isAccepted());
 				// status OK.
 				response.setStatus(Status.OK);
 				return response;
