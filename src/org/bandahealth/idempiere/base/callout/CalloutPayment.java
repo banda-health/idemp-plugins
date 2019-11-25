@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.callout;
 
+import java.math.BigDecimal;
 import java.util.Properties;
 
 import org.adempiere.base.IColumnCallout;
@@ -20,6 +21,11 @@ public class CalloutPayment implements IColumnCallout {
 			MBPartner_BH bpartner = new MBPartner_BH(ctx, Integer.valueOf(cBpartnerID), null);
 
 			mTab.setValue(MPayment_BH.COLUMNAME_TOTAL_OPEN_BALANCE, bpartner.getTotalOpenBalance());
+		}
+		
+		BigDecimal remainingInvoiceAmount = (BigDecimal) mTab.getField(MPayment_BH.COLUMNNAME_BH_REMAINING_INVOICE_AMOUNT).getValue();
+		if (remainingInvoiceAmount != null && remainingInvoiceAmount.compareTo(BigDecimal.ZERO) >= 0) {
+			mTab.setValue(MPayment_BH.COLUMNNAME_PayAmt, remainingInvoiceAmount);
 		}
 
 		return errorMessage;
