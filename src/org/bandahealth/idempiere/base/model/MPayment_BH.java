@@ -26,6 +26,8 @@ public class MPayment_BH extends MPayment {
 	public static final String COLUMNNAME_BH_NHIF_MEMBER_ID = "BH_NHIF_MEMBER_ID";
 	
 	public static final String COLUMNNAME_BH_PROCESSING = "BH_processing";
+	
+	public static final String COLUMNNAME_BH_REMAINING_INVOICE_AMOUNT = "BH_RmngInvcAmt";
 
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
 		super(ctx, C_Payment_ID, trxName);
