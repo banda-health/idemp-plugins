@@ -6,7 +6,6 @@ import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.Query;
-import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
@@ -63,9 +62,6 @@ public class SalesProcessAsyncCall implements Runnable {
 
 		if (salesOrder.isSOTrx()) {
 			new ProcessSalesOrder(salesOrder, context, transactionName, callback).processIt();
-		} else {
-			salesOrder.setBH_Isexpense(true);
-			salesOrder.processIt(DocAction.ACTION_Complete);
 		}
 	}
 }
