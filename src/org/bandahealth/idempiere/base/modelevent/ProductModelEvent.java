@@ -55,6 +55,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 	}
 
 	private void beforeSaveRequest(MProduct_BH product) {
+		product.setValue(product.getName());
 		if (product.isBH_HasExpiration()) {
 			attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 			if (attributeSet != null) {
@@ -65,6 +66,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 				throw new AdempiereException(
 						"Attribute Set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET + "' not found!");
 			}
+
 		}
 	}
 

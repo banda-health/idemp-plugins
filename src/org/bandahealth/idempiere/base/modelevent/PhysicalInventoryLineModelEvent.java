@@ -6,7 +6,6 @@ import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.compiere.model.I_M_InventoryLine;
 import org.compiere.model.PO;
 import org.osgi.service.event.Event;
 
@@ -14,9 +13,9 @@ public class PhysicalInventoryLineModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
-		registerTableEvent(IEventTopics.PO_BEFORE_NEW, I_M_InventoryLine.Table_Name);
-		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, I_M_InventoryLine.Table_Name);
-		registerTableEvent(IEventTopics.PO_AFTER_NEW, I_M_InventoryLine.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MInventoryLine_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MInventoryLine_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_AFTER_NEW, MInventoryLine_BH.Table_Name);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.factory;
 
 import org.adempiere.base.IProcessFactory;
+import org.bandahealth.idempiere.base.process.InitializeStockProcess;
 import org.bandahealth.idempiere.base.process.SalesProcess;
 import org.bandahealth.idempiere.base.process.StockTakeProcess;
 import org.compiere.process.ProcessCall;
@@ -17,6 +18,8 @@ public class BHProcessFactory implements IProcessFactory {
 			return new SalesProcess();
 		} else if (className.equals(StockTakeProcess.class.getName())) {
 			return new StockTakeProcess();
+		} else if (className.equals(InitializeStockProcess.class.getName())) {
+			return new InitializeStockProcess();
 		}
 
 		return null;
