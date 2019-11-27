@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.base.modelevent;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
-import org.compiere.model.I_M_Inventory;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInventory;
 import org.compiere.model.PO;
@@ -15,8 +14,8 @@ public class PhysicalInventoryModelEvent extends AbstractEventHandler{
 	private final static String DOC_TYPE = "Material Physical Inventory";
 	@Override
 	protected void initialize() {
-		registerTableEvent(IEventTopics.PO_BEFORE_NEW, I_M_Inventory.Table_Name);
-		registerTableEvent(IEventTopics.PO_AFTER_NEW, I_M_Inventory.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MInventory.Table_Name);
+		registerTableEvent(IEventTopics.PO_AFTER_NEW, MInventory.Table_Name);
 	}
 
 	@Override
