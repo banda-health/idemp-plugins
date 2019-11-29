@@ -18,13 +18,13 @@
   payment.bh_c_order_id as bill_id,
   case when payment.tendertype = 'M' then 'MPESA'
        when payment.tendertype = 'X' then 'CASH'
-       when payment.tendertype = 'L' then 'LOCAL FUND'
+       when payment.tendertype = 'L' then 'BILL WAIVER'
        when payment.tendertype = 'B' then 'BILL WAIVER'
-       when payment.tendertype = 'F' then 'DONOR FUND 1'
+       when payment.tendertype = 'F' then 'DONOR FUND'
        when payment.tendertype = 'i' then 'LINDA MAMA'
        when payment.tendertype = 'N' then 'NHIF'
        end as name,
-  sum(payment.payamt) as amount_tendered
+  coalesce(sum(payment.bh_tender_amount), sum(payment.payamt)) as amount_tendered
 from
   c_payment payment
 where
@@ -50,14 +50,14 @@ where
 	</background>
 	<detail>
 		<band height="13" splitType="Stretch">
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement key="" x="3" y="0" width="86" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}.toUpperCase()]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement key="" x="94" y="0" width="68" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
@@ -69,7 +69,7 @@ where
 	</detail>
 	<summary>
 		<band height="42" splitType="Stretch">
-			<textField pattern="#,##0">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="92" y="6" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
@@ -77,7 +77,7 @@ where
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="94" y="26" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="End Stock value report" language="groovy" pageWidth="940" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="940" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Balance my stock changes" language="groovy" pageWidth="540" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -57,7 +57,7 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="End stock value" uuid="4ddff745-c801-490f-9e16-520912866ea0">
+	<subDataset name="balance stock changes" uuid="4ddff745-c801-490f-9e16-520912866ea0">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
@@ -79,7 +79,7 @@ from (
          where ad_client_id = $P{AD_CLIENT_ID}
          group by m_product_id, product
      ) as currentqty
-left join
+inner join
     (
 select m_product_id,
        sum(movementqty) as qtychanged
@@ -158,14 +158,66 @@ group by item_name;]]>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[select m_product_id
-from m_product
-where isactive = 'Y' and ad_client_id = $P{AD_CLIENT_ID}
+		<![CDATA[select currentqty.m_product_id as m_product_id
+from (
+         select m_product_id,
+                product,
+                sum(quantity) as closingqty
+         from bh_stocktake_v
+         where ad_client_id = $P{AD_CLIENT_ID}
+         group by m_product_id, product
+     ) as currentqty
+inner join
+    (
+select m_product_id,
+       sum(movementqty) as qtychanged
+from m_transaction
+where ad_client_id =  $P{AD_CLIENT_ID}
+    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by m_product_id
+        ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
+left join
+(
+select m_product_id,
+       sum(movementqty) as qtyreceived
+from m_transaction
+where ad_client_id =  $P{AD_CLIENT_ID} and movementtype = 'V+'
+    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by m_product_id
+) as stockreceived on currentqty.m_product_id = stockreceived.m_product_id
+left join
+(
+select m_product_id,
+       sum(movementqty) as qtybalanced
+from m_transaction
+where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('P+','P-')
+    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by m_product_id
+) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id
+left join
+(
+select m_product_id,
+       sum(movementqty) as qtysold
+from m_transaction
+where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('C-')
+    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by m_product_id
+) as stocksold on currentqty.m_product_id = stocksold.m_product_id
+left join
+(
+select
+    productPrice.m_product_id,
+    productPrice.pricestd as SalesPrice
+    from m_pricelist priceList
+    inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
+    inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+where priceList.issopricelist = 'Y' and priceList.isdefault = 'Y'
+) as productSP on currentqty.m_product_id = productSP.m_product_id
 limit 1;]]>
 	</queryString>
 	<field name="m_product_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="m_product_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_stocktake_v"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -173,7 +225,7 @@ limit 1;]]>
 	<pageHeader>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="940" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
+				<reportElement x="0" y="0" width="540" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
@@ -182,19 +234,22 @@ limit 1;]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Opening and Closing Stock Report Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Balance my stock changes between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="32">
+		<band height="45">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="0" width="940" height="32" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1"/>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="540" height="45" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="End stock value" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
+					<datasetRun subDataset="balance stock changes" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
 						<datasetParameter name="Begin Date">
 							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -208,9 +263,9 @@ limit 1;]]>
 					</datasetRun>
 					<jr:column width="280" uuid="b58cb061-182d-4902-848e-c1f76933c76c">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="280" height="17" uuid="aaa1b9e9-0f6d-448e-a6be-eb96b5581819"/>
+								<reportElement x="0" y="0" width="280" height="30" uuid="aaa1b9e9-0f6d-448e-a6be-eb96b5581819"/>
 								<textElement verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="2"/>
@@ -228,90 +283,22 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80" uuid="c535b35f-570e-4e9c-b6eb-624615030595">
+					<jr:column width="160" uuid="59a83745-f95c-4d5a-9104-45bc0d12825d">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="17" uuid="c3199e2a-044a-4370-9b7a-f18aa0274ce2"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="160" height="30" uuid="6779be22-1846-4d30-9f1a-66d17ffb1b3e"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<text><![CDATA[Opening]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField pattern="#,##0" isBlankWhenNull="false">
-								<reportElement x="0" y="0" width="80" height="15" uuid="3dc6affc-89e0-41e4-979d-3b53a941835f"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{beginning}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="6fdb6a67-a703-46fd-be30-0f64950205f3">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<staticText>
-								<reportElement x="0" y="0" width="80" height="17" uuid="1b3aec8c-6e17-4bd2-8385-67dabd0d8cbe"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<text><![CDATA[Received]]></text>
+								<text><![CDATA[Quantity changed at stock take]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
 							<textField pattern="#,##0" isBlankWhenNull="false">
-								<reportElement x="0" y="0" width="80" height="15" uuid="21425c3c-7256-4496-b9fb-28f70b9a583c"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{receivedstock}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="e542933e-1bd6-49b2-8991-afa9ff8865eb">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<staticText>
-								<reportElement x="0" y="0" width="80" height="17" uuid="d91f3df3-4e75-4814-b2dd-4b7de467ff07"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<text><![CDATA[Sold]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="15">
-							<textField pattern="#,##0" isBlankWhenNull="false">
-								<reportElement x="0" y="0" width="80" height="15" uuid="ac53ae70-2504-4761-9fb4-1083896c717b"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{soldstock}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="59a83745-f95c-4d5a-9104-45bc0d12825d">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<staticText>
-								<reportElement x="0" y="0" width="80" height="17" uuid="6779be22-1846-4d30-9f1a-66d17ffb1b3e"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<text><![CDATA[Balanced]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="15">
-							<textField pattern="#,##0" isBlankWhenNull="false">
-								<reportElement x="0" y="0" width="80" height="15" uuid="71a24340-6079-4e26-ae29-206a927d2b71"/>
+								<reportElement x="0" y="0" width="160" height="15" uuid="71a24340-6079-4e26-ae29-206a927d2b71"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -319,70 +306,26 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80" uuid="4428dc26-e90a-4b52-8fc1-b10a0f3605ff">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+					<jr:column width="100" uuid="4428dc26-e90a-4b52-8fc1-b10a0f3605ff">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="17" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="30" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<text><![CDATA[Closing]]></text>
+								<text><![CDATA[Current Quantity]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="80" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
+								<reportElement x="0" y="0" width="100" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{ending}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="150" uuid="cd2a977b-766e-49e5-b8b7-5833ab944cf2">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="150" height="17" uuid="85a37c72-a2f3-44c0-8a84-689a07b4ace8"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<text><![CDATA[Closing Stock Value ]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="15">
-							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="150" height="15" uuid="22c01cdc-e8b9-499c-b3d2-09ce4a510b7f"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{endingvalue}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="110" uuid="9b898697-5044-4e2d-b806-e29ec3ee470c">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
-						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="110" height="17" uuid="465fd0a5-650b-4652-bb33-cde2a0ea7f04"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<text><![CDATA[Running Total]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="15">
-							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="110" height="15" uuid="fa427411-179b-49d4-9ceb-da42ba1d2c45"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<paragraph rightIndent="2"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$V{runningTotal}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -393,10 +336,10 @@ limit 1;]]>
 	<noData>
 		<band height="20">
 			<staticText>
-				<reportElement x="0" y="0" width="940" height="20" uuid="e8da193c-2a64-44be-96ca-7416132f7400">
+				<reportElement x="0" y="0" width="540" height="20" uuid="e8da193c-2a64-44be-96ca-7416132f7400">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[No data was found to display on the report.]]></text>
