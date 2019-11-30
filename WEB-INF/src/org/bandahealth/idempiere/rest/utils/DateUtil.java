@@ -5,9 +5,13 @@ import java.text.SimpleDateFormat;
 
 public class DateUtil {
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public static String parse(Timestamp timestamp) {
-		return sdf.format(timestamp);
+		if (timestamp != null) {
+			return sdf.format(timestamp);
+		}
+
+		return null;
 	}
 }

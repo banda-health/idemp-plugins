@@ -13,25 +13,10 @@ public class BusinessPartner extends BaseEntity {
 	}
 
 	public BusinessPartner(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			String description, String name, BigDecimal totalOpenBalance) {
+			String name, String description, BigDecimal totalOpenBalance) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.totalOpenBalance = totalOpenBalance;
-	}
-
-	public BusinessPartner updateFields(int clientId, int orgId, String uuid, boolean isActive, String created,
-			int createdBy, String description, String name, BigDecimal totalOpenBalance) {
-		setClientId(clientId);
-		setOrgId(orgId);
-		setUuid(uuid);
-		setActive(isActive);
-		setCreated(created);
-		setCreatedBy(createdBy);
-		setDescription(description);
-		setName(name);
-		setTotalOpenBalance(totalOpenBalance);
-
-		return this;
 	}
 
 	@XmlElement

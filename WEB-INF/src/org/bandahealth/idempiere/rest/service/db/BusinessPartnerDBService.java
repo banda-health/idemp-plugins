@@ -7,19 +7,20 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
 public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 
-	private static CLogger log = CLogger.getCLogger(BusinessPartnerDBService.class);
+	protected static CLogger log = CLogger.getCLogger(BusinessPartnerDBService.class);
 
 	protected abstract T getInstance();
 
 	private String WHERE_CLAUSE;
 	private List<Object> parameters;
+
+	protected abstract T createInstance(MBPartner_BH bpartner);
 
 	public BusinessPartnerDBService() {
 	}
@@ -33,8 +34,9 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 		try {
 			List<T> results = new ArrayList<>();
 
-			Query query = new Query(Env.getCtx(), MBPartner_BH.Table_Name, WHERE_CLAUSE, null).setClient_ID()
-					.setOnlyActiveRecords(true);
+			Query query = new Query(Env.getCtx(), MBPartner_BH.Table_Name, WHERE_CLAUSE,
+					MBPartner_BH.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
+							.setOrderBy(MBPartner_BH.COLUMNNAME_C_BPartner_ID + " DESC");
 			if (parameters != null) {
 				query = query.setParameters(parameters);
 			}
@@ -48,7 +50,9 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 
 			if (!bpartners.isEmpty()) {
 				for (MBPartner_BH bpartner : bpartners) {
-					results.add(createInstance(bpartner));
+					if (bpartner != null) {
+						results.add(createInstance(bpartner));
+					}
 				}
 			}
 
@@ -70,19 +74,6 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 			if (bpartner != null) {
 				return createInstance(bpartner);
 			}
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	private T createInstance(MBPartner_BH bpartner) {
-		try {
-			return (T) getInstance().updateFields(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(),
-					bpartner.getC_BPartner_UU(), bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
-					bpartner.getDescription(), bpartner.getName(), bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

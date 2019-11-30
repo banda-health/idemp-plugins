@@ -137,6 +137,8 @@ public class AuthenticationRestService {
 				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
 				// has accepted terms of use?
 				response.setHasAcceptedTermsOfUse(TermsOfServiceService.isAccepted());
+				// set username
+				response.setUsername(credentials.getUsername());
 				// status OK.
 				response.setStatus(Status.OK);
 				return response;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.model.Vendor;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 public class VendorDBService extends BusinessPartnerDBService<Vendor> {
 
@@ -19,5 +20,18 @@ public class VendorDBService extends BusinessPartnerDBService<Vendor> {
 	@Override
 	protected Vendor getInstance() {
 		return new Vendor();
+	}
+
+	@Override
+	protected Vendor createInstance(MBPartner_BH bpartner) {
+		try {
+			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
+					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
+					bpartner.getDescription(), bpartner.getName(), bpartner.getTotalOpenBalance());
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
 	}
 }
