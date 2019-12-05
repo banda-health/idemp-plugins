@@ -36,7 +36,7 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 
 			Query query = new Query(Env.getCtx(), MBPartner_BH.Table_Name, WHERE_CLAUSE,
 					MBPartner_BH.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
-							.setOrderBy(MBPartner_BH.COLUMNNAME_C_BPartner_ID + " DESC");
+							.setOrderBy(MBPartner_BH.COLUMNNAME_Created + " DESC");
 			if (parameters != null) {
 				query = query.setParameters(parameters);
 			}

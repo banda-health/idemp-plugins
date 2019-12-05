@@ -13,6 +13,7 @@ public interface IRestConfigs {
 
 	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";
 	String PATIENT_PATH = "/patient/{uuid}";
+	String PATIENT_SUMMARY_PATH = AUTHENTICATION_PATH + "/patientsummary";
 
 	String VENDORS_PATH = AUTHENTICATION_PATH + "/vendors";
 	String VENDOR_PATH = "/vendor/{uuid}";

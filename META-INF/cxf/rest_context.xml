@@ -21,6 +21,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="MenuServiceBean" />
 			<ref bean="MenuLineServiceBean" />
 			<ref bean="TermsOfServiceBean" />
+			<ref bean="PatientSummaryServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -54,5 +55,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="TermsOfServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.TermsOfServiceRestService" />
+
+	<bean id="PatientSummaryServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.PatientSummaryRestService" />
 
 </beans>

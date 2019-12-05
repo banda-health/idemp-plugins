@@ -121,31 +121,44 @@ public class MenuGroupDBService {
 			List<MenuGroupLineItem> results = new ArrayList<>();
 			List<Object> parameters = new ArrayList<>();
 
-			String whereClause = "";
+			String whereClause;
 			if (menuGroupItemId > 0) {
 				whereClause = MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID
 						+ " =?";
 				parameters.add(menuGroupItemId);
+			} else {
+				// filter out metrics and reports
+				whereClause = MHomeScreenButtonGroup.Table_Name + "." + MHomeScreenButtonGroup.COLUMNNAME_Name
+						+ " NOT IN ('Metrics', 'Reports')";
 			}
 
 			if (!isAdmin) {
-				if (menuGroupItemId > 0) {
-					whereClause += " AND ";
-				}
+				whereClause += " AND ";
 
 				whereClause += MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=?";
 				parameters.add(getRoleId());
 			}
 
-			Query query = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, whereClause, null);
+			Query query = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, whereClause, null)
+					.setOnlyActiveRecords(true)
+					.setOrderBy(MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_LineNo);
+
+			// join MHomeScreenButtonGroup Table
+			query = query.addJoinClause(" JOIN " + MHomeScreenButtonGroup.Table_Name + " ON "
+					+ MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID + "="
+					+ MHomeScreenButtonGroup.Table_Name + "."
+					+ MHomeScreenButtonGroup.COLUMNNAME_BH_HmScrn_ButtonGroup_ID);
+
 			if (!isAdmin) {
+				// join Role Table
 				query = query.addJoinClause(" JOIN " + MRoleIncluded.Table_Name + " ON " + MHomeScreenButton.Table_Name
 						+ "." + MHomeScreenButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
 						+ MRoleIncluded.COLUMNNAME_Included_Role_ID);
 			}
 
-			query = query.setParameters(parameters).setOnlyActiveRecords(true)
-					.setOrderBy(MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_LineNo);
+			if (parameters.size() > 0) {
+				query = query.setParameters(parameters);
+			}
 
 			List<MHomeScreenButton> menuItems = query.list();
 
