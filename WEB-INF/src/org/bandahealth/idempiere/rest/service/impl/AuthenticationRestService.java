@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
@@ -18,7 +19,7 @@ import org.bandahealth.idempiere.rest.model.Client;
 import org.bandahealth.idempiere.rest.model.Org;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
-import org.bandahealth.idempiere.rest.service.db.TermsOfServiceService;
+import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
@@ -46,6 +47,12 @@ import java.sql.Timestamp;
 public class AuthenticationRestService {
 
 	public AuthenticationRestService() {
+	}
+	
+	@POST
+	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
+	public boolean acceptTermsOfService(@QueryParam("accept") boolean accept) {
+		return TermsOfServiceDBService.acceptTermsOfUse(accept);
 	}
 
 	@POST
@@ -136,7 +143,7 @@ public class AuthenticationRestService {
 				// generate session token
 				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
 				// has accepted terms of use?
-				response.setHasAcceptedTermsOfUse(TermsOfServiceService.isAccepted());
+				response.setHasAcceptedTermsOfUse(TermsOfServiceDBService.hasAccepted());
 				// set username
 				response.setUsername(credentials.getUsername());
 				// status OK.

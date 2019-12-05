@@ -5,8 +5,9 @@ public interface IRestConfigs {
 	String ROOT_PATH = "/";
 	String AUTHENTICATION = "auth";
 	String AUTHENTICATION_PATH = ROOT_PATH + AUTHENTICATION;
+	
 	String AUTHENTICATION_SESSION_PATH = "/session";
-	String AUTHENTICATION_REST_URL = AUTHENTICATION_PATH + AUTHENTICATION_SESSION_PATH;
+	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms";
 
 	String CREATE_PATH = "/create";
 	String UPDATE_PATH = "/update";
@@ -26,7 +27,5 @@ public interface IRestConfigs {
 
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
 
-	String TERMSOFSERVICE_PATH = AUTHENTICATION_PATH + "/terms";
-	String ACCEPT_TERMSOFSERVICE_PATH = "/accept";
-
+	
 }

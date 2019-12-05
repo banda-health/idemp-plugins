@@ -12,14 +12,14 @@ import org.compiere.util.Env;
  * @author andrew
  *
  */
-public class TermsOfServiceService {
+public class TermsOfServiceDBService {
 
 	/**
 	 * Verify if the terms of service have been accepted.
 	 * 
 	 * @return
 	 */
-	public static boolean isAccepted() {
+	public static boolean hasAccepted() {
 		String whereClause = MUser_BH.COLUMNNAME_AD_User_ID + "=" + Env.getAD_User_ID(Env.getCtx()) + " AND "
 				+ MUser_BH.COLUMNNAME_BH_HasAcceptedTermsOfUse + "='Y'";
 		return new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).setOnlyActiveRecords(true).match();
@@ -28,16 +28,14 @@ public class TermsOfServiceService {
 	/**
 	 * User accepts terms of service.
 	 */
-	public static boolean acceptTermsOfUse() {
+	public static boolean acceptTermsOfUse(boolean accept) {
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		if (user != null) {
-			user.setBH_HasAcceptedTermsOfUse(true);
+			user.setBH_HasAcceptedTermsOfUse(accept);
 			user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
 			user.save();
-
-			return true;
 		}
 
-		return false;
+		return accept;
 	}
 }
