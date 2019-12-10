@@ -1,0 +1,60 @@
+package org.bandahealth.idempiere.rest.service.impl;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Service;
+import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
+import org.bandahealth.idempiere.rest.service.db.ServiceDBService;
+
+/**
+ * Expose Service REST functionality
+ * 
+ * @author andrew
+ *
+ */
+@Path(IRestConfigs.SERVICES_PATH)
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class ServiceRestService extends BaseEntityRestService<Service> {
+
+	private ServiceDBService dbService;
+
+	public ServiceRestService() {
+		this.dbService = new ServiceDBService();
+	}
+
+	@POST
+	@Path(IRestConfigs.ROOT_PATH)
+	@Override
+	public BaseListResponse<Service> getAll(@QueryParam("page") int page, @QueryParam("size") int size) {
+		return dbService.getAll(getPagingInfo(page, size));
+	}
+
+	@POST
+	@Path(IRestConfigs.SERVICE_PATH)
+	@Override
+	public Service getEntity(@QueryParam("uuid") String uuid) {
+		return dbService.getEntity(uuid);
+	}
+
+	@POST
+	@Path(IRestConfigs.UPDATE_PATH)
+	@Override
+	public Service updateEntity(Service entity) {
+		return null;
+	}
+
+	@POST
+	@Path(IRestConfigs.CREATE_PATH)
+	@Override
+	public Service createEntity(Service entity) {
+		return null;
+	}
+}
