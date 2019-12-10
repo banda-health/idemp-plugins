@@ -26,6 +26,10 @@ public interface IRestConfigs {
 	String MENU_LINE_PATH = "/menulines/{uuid}";
 
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
+	
+	// 'services' used by iDemp WebServices.
+	String SERVICES_PATH = AUTHENTICATION_PATH + "/bhservices";
+	String SERVICE_PATH = "/service";
 
 	
 }
