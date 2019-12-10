@@ -30,6 +30,9 @@ public interface IRestConfigs {
 	// 'services' used by iDemp WebServices.
 	String SERVICES_PATH = AUTHENTICATION_PATH + "/bhservices";
 	String SERVICE_PATH = "/service";
+	
+	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
+	String EXPENSE_PATH = "/expense";
 
 	
 }
