@@ -15,6 +15,11 @@
 		color:red !important;
 	}
 	
+	span[title="Amount being paid"]{
+		color:red !important;
+	}
+	
+	
 	.btn {
 		@extend %button;
 		&:hover {
