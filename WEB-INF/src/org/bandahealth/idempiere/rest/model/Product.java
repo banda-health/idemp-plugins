@@ -1,0 +1,100 @@
+package org.bandahealth.idempiere.rest.model;
+
+import java.math.BigDecimal;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer;
+import com.fasterxml.jackson.databind.deser.std.NumberDeserializers.BigDecimalDeserializer;
+
+@XmlRootElement(name = "product")
+public class Product extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
+
+	private String value;
+	private String isStocked;
+	private Integer reorderLevel;
+	private Integer reorderQuantity;
+	private BigDecimal buyPrice;
+	private BigDecimal sellPrice;
+	private String productType;
+
+	public Product() {
+	}
+
+	public Product(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
+			String description, String value, String isStocked, Integer reorderLevel, Integer reorderQuantity,
+			BigDecimal buyPrice, BigDecimal sellPrice, String productType) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
+
+		this.value = value;
+		this.isStocked = isStocked;
+		this.reorderLevel = reorderLevel;
+		this.reorderQuantity = reorderQuantity;
+		this.buyPrice = buyPrice;
+		this.sellPrice = sellPrice;
+		this.productType = productType;
+	}
+	
+	@XmlElement
+	public String getValue() {
+		return value;
+	}
+
+	@XmlElement
+	public String getIsStocked() {
+		return isStocked;
+	}
+
+	@XmlElement
+	public Integer getReorderLevel() {
+		return reorderLevel;
+	}
+
+	@XmlElement
+	public Integer getReorderQuantity() {
+		return reorderQuantity;
+	}
+
+	@XmlElement
+	public BigDecimal getBuyPrice() {
+		return buyPrice;
+	}
+
+	@XmlElement
+	public BigDecimal getSellPrice() {
+		return sellPrice;
+	}
+
+	@XmlElement
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setIsStocked(String isStocked) {
+		this.isStocked = isStocked;
+	}
+
+	public void setReorderLevel(Integer reorderLevel) {
+		this.reorderLevel = reorderLevel;
+	}
+
+	public void setReorderQuantity(Integer reorderQuantity) {
+		this.reorderQuantity = reorderQuantity;
+	}
+
+	public void setBuyPrice(BigDecimal buyPrice) {
+		this.buyPrice = buyPrice;
+	}
+
+	public void setSellPrice(BigDecimal sellPrice) {
+		this.sellPrice = sellPrice;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+}
