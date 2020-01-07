@@ -14,7 +14,7 @@ public class Product extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String value;
-	private String isStocked;
+	private boolean isStocked;
 	private Integer reorderLevel;
 	private Integer reorderQuantity;
 	private BigDecimal buyPrice;
@@ -25,8 +25,7 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, String value, String isStocked, Integer reorderLevel, Integer reorderQuantity,
-			BigDecimal buyPrice, BigDecimal sellPrice, String productType) {
+			String description, String value, boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice, String productType) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -44,7 +43,7 @@ public class Product extends BaseEntity {
 	}
 
 	@XmlElement
-	public String getIsStocked() {
+	public boolean getIsStocked() {
 		return isStocked;
 	}
 
@@ -73,7 +72,7 @@ public class Product extends BaseEntity {
 		return productType;
 	}
 
-	public void setIsStocked(String isStocked) {
+	public void setIsStocked(boolean isStocked) {
 		this.isStocked = isStocked;
 	}
 
