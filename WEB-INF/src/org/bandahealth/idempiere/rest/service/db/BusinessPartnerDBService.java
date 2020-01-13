@@ -30,6 +30,16 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 		this.parameters = parameters;
 	}
 
+	/*
+	 * Retrieve bpartner by uuid
+	 */
+	protected MBPartner_BH getBPartner(String uuid) {
+		MBPartner_BH entity = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
+				MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", null).setParameters(uuid).first();
+
+		return entity;
+	}
+	
 	public BaseListResponse<T> getAll(Paging pagingInfo) {
 		try {
 			List<T> results = new ArrayList<>();
