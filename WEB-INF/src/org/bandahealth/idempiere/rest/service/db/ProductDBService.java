@@ -54,7 +54,7 @@ public class ProductDBService {
 
 			Query query = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause,
 					MProduct_BH.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
-							.setParameters("S").setOrderBy(MProduct_BH.COLUMNNAME_Created + " DESC");
+							.setParameters("I").setOrderBy(MProduct_BH.COLUMNNAME_Created + " DESC");
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
