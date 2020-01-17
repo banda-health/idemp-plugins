@@ -56,7 +56,7 @@ public class PatientSummaryDBService {
 
 		PatientSummary patientSummary = new PatientSummary(totalVisits, totalInpatients, totalOutpatients,
 				patientsWithOutstandingBalance);
-		patientSummary.setActive(true);
+		patientSummary.setIsActive(true);
 		patientSummary.setClientId(Env.getAD_Client_ID(Env.getCtx()));
 		patientSummary.setOrgId(Env.getAD_Org_ID(Env.getCtx()));
 

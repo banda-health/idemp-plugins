@@ -54,11 +54,11 @@ public class BaseMetadata implements Serializable {
 	}
 
 	@XmlElement
-	public boolean isActive() {
+	public boolean isIsActive() {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 

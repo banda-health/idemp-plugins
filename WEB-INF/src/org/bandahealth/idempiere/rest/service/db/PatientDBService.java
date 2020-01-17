@@ -32,23 +32,23 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 			patient.setBH_IsPatient(true);
 		}
 
-		if (entity.getName() != null) {
+		if (entity.getName() != null && !entity.getName().isEmpty()) {
 			patient.setName(entity.getName());
 		}
 
-		if (entity.getPatientNumber() != null) {
+		if (entity.getPatientNumber() != null && !entity.getPatientNumber().isEmpty()) {
 			patient.setBH_PatientID(entity.getPatientNumber());
 		}
 
-		if (entity.getDateOfBirth() != null) {
+		if (entity.getDateOfBirth() != null && !entity.getDateOfBirth().isEmpty()) {
 			patient.setBH_Birthday(DateUtil.getTimestamp(entity.getDateOfBirth()));
 		}
 
-		if (entity.getPhone() != null) {
+		if (entity.getPhone() != null && !entity.getPhone().isEmpty()) {
 			patient.setBH_Phone(entity.getPhone());
 		}
 
-		if (entity.getAddress() != null) {
+		if (entity.getAddress() != null && !entity.getAddress().isEmpty()) {
 			MLocation location = new MLocation(Env.getCtx(), 0, null);
 			location.setAddress1(entity.getAddress());
 			location.saveEx();
@@ -56,33 +56,47 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 			patient.setBH_C_Location_ID(location.get_ID());
 		}
 
-		if (entity.getGender() != null) {
-			patient.set_Attribute("bh_gender", entity.getGender());
+		if (entity.getGender() != null && !entity.getGender().isEmpty()) {
+			patient.set_CustomColumn("bh_gender", entity.getGender());
 		}
 
-		if (entity.getEmail() != null) {
+		if (entity.getEmail() != null && !entity.getEmail().isEmpty()) {
 			patient.setBH_EMail(entity.getEmail());
 		}
 
-		if (entity.getNhifRelationship() != null) {
+		if (entity.getNhifRelationship() != null && !entity.getNhifRelationship().isEmpty()) {
 			patient.setBH_NHIFRelationship(entity.getNhifRelationship());
 		}
 
-		if (entity.getNhifMemberName() != null) {
+		if (entity.getNhifMemberName() != null && !entity.getNhifMemberName().isEmpty()) {
 			patient.setBH_NHIFMemberName(entity.getNhifMemberName());
 		}
 
-		if (entity.getNhifNumber() != null) {
+		if (entity.getNhifNumber() != null && !entity.getNhifNumber().isEmpty()) {
 			patient.setBH_NHIFNumber(entity.getNhifNumber());
 		}
 
-		if (entity.getNhifType() != null) {
+		if (entity.getNhifType() != null && !entity.getNhifType().isEmpty()) {
 			patient.setBH_NHIFType(entity.getNhifType());
 		}
 
-		if (entity.getNationalId() != null) {
+		if (entity.getNationalId() != null && !entity.getNationalId().isEmpty()) {
 			patient.setBH_NationalID(entity.getNationalId());
 		}
+		
+		if (entity.getOccupation() != null && !entity.getOccupation().isEmpty()) {
+			patient.set_CustomColumn("bh_occupset_CustomColumnuation", entity.getOccupation());
+		}
+		
+		if (entity.getNextOfKinName() != null && !entity.getNextOfKinName().isEmpty()) {
+			patient.set_CustomColumn("nextofkin_name", entity.getNextOfKinName());
+		}
+		
+		if (entity.getNextOfKinContact() != null && !entity.getNextOfKinContact().isEmpty()) {
+			patient.set_CustomColumn("nextofkin_contact", entity.getNextOfKinContact());
+		}
+		
+		patient.setIsActive(entity.isIsActive());
 
 		patient.saveEx();
 
