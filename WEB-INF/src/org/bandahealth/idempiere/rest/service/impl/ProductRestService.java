@@ -13,22 +13,22 @@ import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductDBService;
 
-
 @Path(IRestConfigs.PRODUCTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductRestService extends BaseEntityRestService<Product> {
 
 	private ProductDBService productService;
-	
+
 	public ProductRestService() {
 		productService = new ProductDBService();
 	}
-	
+
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size) {
+	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
 		return productService.getAll(getPagingInfo(page, size));
 	}
 
