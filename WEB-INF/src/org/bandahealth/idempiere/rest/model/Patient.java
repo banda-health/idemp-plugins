@@ -5,7 +5,11 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement(name = "patient")
+@JsonInclude(value = Include.NON_NULL)
 public class Patient extends BusinessPartner {
 
 	private static final long serialVersionUID = 1L;
@@ -49,6 +53,13 @@ public class Patient extends BusinessPartner {
 		this.occupation = occupation;
 		this.nextOfKinName = nextOfKinName;
 		this.nextOfKinContact = nextOfKinContact;
+	}
+
+	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
+			String description, BigDecimal totalOpenBalance, String patientNumber) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
+
+		this.patientNumber = patientNumber;
 	}
 
 	@XmlElement

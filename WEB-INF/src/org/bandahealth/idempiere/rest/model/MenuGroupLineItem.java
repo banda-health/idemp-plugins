@@ -3,7 +3,11 @@ package org.bandahealth.idempiere.rest.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement(name = "lineitems")
+@JsonInclude(value = Include.NON_NULL)
 public class MenuGroupLineItem extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

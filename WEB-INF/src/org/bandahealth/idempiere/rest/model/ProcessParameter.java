@@ -3,7 +3,11 @@ package org.bandahealth.idempiere.rest.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement(name = "parameter")
+@JsonInclude(value = Include.NON_NULL)
 public class ProcessParameter extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

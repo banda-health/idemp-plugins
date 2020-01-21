@@ -5,7 +5,11 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement(name = "expense")
+@JsonInclude(value = Include.NON_NULL)
 public class Expense extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

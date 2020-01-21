@@ -23,7 +23,20 @@ public class VendorDBService extends BusinessPartnerDBService<Vendor> {
 	}
 
 	@Override
-	protected Vendor createInstance(MBPartner_BH bpartner) {
+	protected Vendor createInstanceWithDefaultFields(MBPartner_BH bpartner) {
+		try {
+			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
+					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
+					bpartner.getDescription(), bpartner.getName(), bpartner.getTotalOpenBalance());
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
+	}
+
+	@Override
+	protected Vendor createInstanceWithAllFields(MBPartner_BH bpartner) {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
 					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),

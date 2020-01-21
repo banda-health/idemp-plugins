@@ -33,7 +33,8 @@ public class MenuRestService extends BaseEntityRestService<MenuGroupItem> {
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<MenuGroupItem> getAll(@QueryParam("page") int page, @QueryParam("size") int size) {
+	public BaseListResponse<MenuGroupItem> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
 		return dbService.getMenuGroupItems(getPagingInfo(page, size));
 	}
 
