@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MLocation;
 import org.compiere.util.Env;
 
+/**
+ * Patient Database Operations
+ * 
+ * @author andrew
+ *
+ */
 public class PatientDBService extends BusinessPartnerDBService<Patient> {
 
 	private String WHERE_CLAUSE = MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
@@ -16,7 +24,10 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 
 	public PatientDBService() {
 		parameters.add("Y");
-		setQueryConditions(WHERE_CLAUSE, parameters);
+	}
+
+	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+		return super.getAll(WHERE_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	/*
@@ -101,11 +112,6 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 		patient.saveEx();
 
 		return createInstanceWithAllFields(getBPartner(patient.getC_BPartner_UU()));
-	}
-
-	@Override
-	protected Patient getInstance() {
-		return new Patient();
 	}
 
 	@Override

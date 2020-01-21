@@ -29,7 +29,7 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	@Override
 	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
-		return productService.getAll(getPagingInfo(page, size));
+		return productService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
@@ -39,11 +39,15 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 		return productService.getEntity(uuid);
 	}
 
+	@POST
+	@Path(IRestConfigs.UPDATE_PATH)
 	@Override
 	public Product updateEntity(Product entity) {
 		return null;
 	}
 
+	@POST
+	@Path(IRestConfigs.CREATE_PATH)
 	@Override
 	public Product createEntity(Product entity) {
 		return null;
