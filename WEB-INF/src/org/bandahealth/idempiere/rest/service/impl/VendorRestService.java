@@ -52,13 +52,13 @@ public class VendorRestService extends BaseEntityRestService<Vendor> {
 	@Path(IRestConfigs.UPDATE_PATH)
 	@Override
 	public Vendor updateEntity(Vendor entity) {
-		return null;
+		return dbService.saveEntity(entity);
 	}
 
 	@POST
 	@Path(IRestConfigs.CREATE_PATH)
 	@Override
 	public Vendor createEntity(Vendor entity) {
-		return null;
+		return dbService.saveEntity(entity);
 	}
 }
