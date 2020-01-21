@@ -66,11 +66,7 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  com.fasterxml.jackson.core.jackson-databind;bundle-version="2.9.7",
  com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.9.7",
  org.apache.commons.codec;bundle-version="1.6.0",
-<<<<<<< HEAD
- org.bandahealth.idempiere.base
-=======
  org.bandahealth.idempiere.base;bundle-version="1.0.0"
->>>>>>> develop
 Bundle-ClassPath: .,
  WEB-INF/lib/java-jwt.jar
 Service-Component: OSGI-INF/BPartnerRestService.xml
