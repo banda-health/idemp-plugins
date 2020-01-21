@@ -83,24 +83,24 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 		if (entity.getNationalId() != null && !entity.getNationalId().isEmpty()) {
 			patient.setBH_NationalID(entity.getNationalId());
 		}
-		
+
 		if (entity.getOccupation() != null && !entity.getOccupation().isEmpty()) {
-			patient.set_CustomColumn("bh_occupset_CustomColumnuation", entity.getOccupation());
+			patient.set_CustomColumn("bh_occupation", entity.getOccupation());
 		}
-		
+
 		if (entity.getNextOfKinName() != null && !entity.getNextOfKinName().isEmpty()) {
 			patient.set_CustomColumn("nextofkin_name", entity.getNextOfKinName());
 		}
-		
+
 		if (entity.getNextOfKinContact() != null && !entity.getNextOfKinContact().isEmpty()) {
 			patient.set_CustomColumn("nextofkin_contact", entity.getNextOfKinContact());
 		}
-		
+
 		patient.setIsActive(entity.isIsActive());
 
 		patient.saveEx();
 
-		return createInstance(getBPartner(patient.getC_BPartner_UU()));
+		return createInstanceWithAllFields(getBPartner(patient.getC_BPartner_UU()));
 	}
 
 	@Override
@@ -109,12 +109,13 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 	}
 
 	@Override
-	protected Patient createInstance(MBPartner_BH bpartner) {
+	protected Patient createInstanceWithAllFields(MBPartner_BH bpartner) {
 		try {
 			String address = "";
 			if (bpartner.getBH_C_Location() != null) {
 				address = bpartner.getBH_C_Location().getAddress1();
 			}
+
 			return new Patient(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
 					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
 					bpartner.getName(), bpartner.getDescription(), bpartner.getTotalOpenBalance(),
@@ -123,6 +124,20 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 					bpartner.getBH_NHIFRelationship(), bpartner.getBH_NHIFMemberName(), bpartner.getBH_NHIFNumber(),
 					bpartner.getBH_NHIFType(), bpartner.getBH_NationalID(), bpartner.get_ValueAsString("bh_occupation"),
 					bpartner.get_ValueAsString("nextofkin_name"), bpartner.get_ValueAsString("nextofkin_contact"));
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
+	}
+
+	@Override
+	protected Patient createInstanceWithDefaultFields(MBPartner_BH bpartner) {
+		try {
+			return new Patient(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
+					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
+					bpartner.getName(), bpartner.getDescription(), bpartner.getTotalOpenBalance(),
+					bpartner.getBH_PatientID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

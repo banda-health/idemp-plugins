@@ -15,7 +15,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 /*
  * All Service DB Operations
  */
-public class ServiceDBService {
+public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 
 	private CLogger log = CLogger.getCLogger(ServiceDBService.class);
 
@@ -23,7 +23,7 @@ public class ServiceDBService {
 	}
 
 	// retrieve a list of paginated services.
-	public BaseListResponse<Service> getAll(Paging pagingInfo) {
+	public BaseListResponse<Service> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		try {
 			List<Service> results = new ArrayList<>();
 
@@ -31,7 +31,12 @@ public class ServiceDBService {
 
 			Query query = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause,
 					MProduct_BH.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
-							.setParameters("S").setOrderBy(MProduct_BH.COLUMNNAME_Created + " DESC");
+							.setParameters("S");
+
+			String orderBy = getOrderBy(sortColumn, sortOrder);
+			if (orderBy != null) {
+				query = query.setOrderBy(orderBy);
+			}
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
@@ -43,7 +48,7 @@ public class ServiceDBService {
 			if (!services.isEmpty()) {
 				for (MProduct_BH service : services) {
 					if (service != null) {
-						results.add(createInstance(service));
+						results.add(createInstanceWithDefaultFields(service));
 					}
 				}
 			}
@@ -63,12 +68,13 @@ public class ServiceDBService {
 
 		MProduct_BH entity = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause,
 				MProduct_BH.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
-						.setParameters("S", uuid).setOrderBy(MProduct_BH.COLUMNNAME_Created + " DESC").first();
+						.setParameters("S", uuid).first();
 
-		return createInstance(entity);
+		return createInstanceWithAllFields(entity);
 	}
 
-	private Service createInstance(MProduct_BH service) {
+	@Override
+	protected Service createInstanceWithDefaultFields(MProduct_BH service) {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
 					service.isActive(), DateUtil.parse(service.getCreated()), service.getCreatedBy(), service.getName(),
@@ -78,5 +84,16 @@ public class ServiceDBService {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected Service createInstanceWithAllFields(MProduct_BH instance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected MProduct_BH getModelInstance() {
+		return new MProduct_BH(Env.getCtx(), 0, null);
 	}
 }

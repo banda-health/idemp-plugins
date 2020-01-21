@@ -5,7 +5,11 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement(name = "process")
+@JsonInclude(value = Include.NON_NULL)
 public class Process extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

@@ -11,7 +11,7 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
+public abstract class BusinessPartnerDBService<T extends BusinessPartner> extends BaseDBService<T, MBPartner_BH> {
 
 	protected static CLogger log = CLogger.getCLogger(BusinessPartnerDBService.class);
 
@@ -19,8 +19,6 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 
 	private String WHERE_CLAUSE;
 	private List<Object> parameters;
-
-	protected abstract T createInstance(MBPartner_BH bpartner);
 
 	public BusinessPartnerDBService() {
 	}
@@ -39,14 +37,24 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 
 		return entity;
 	}
-	
-	public BaseListResponse<T> getAll(Paging pagingInfo) {
+
+	@Override
+	protected MBPartner_BH getModelInstance() {
+		return new MBPartner_BH(Env.getCtx());
+	}
+
+	public BaseListResponse<T> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		try {
 			List<T> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), MBPartner_BH.Table_Name, WHERE_CLAUSE,
-					MBPartner_BH.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
-							.setOrderBy(MBPartner_BH.COLUMNNAME_Created + " DESC");
+					MBPartner_BH.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true);
+
+			String orderBy = getOrderBy(sortColumn, sortOrder);
+			if (orderBy != null) {
+				query = query.setOrderBy(orderBy);
+			}
+
 			if (parameters != null) {
 				query = query.setParameters(parameters);
 			}
@@ -61,7 +69,7 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 			if (!bpartners.isEmpty()) {
 				for (MBPartner_BH bpartner : bpartners) {
 					if (bpartner != null) {
-						results.add(createInstance(bpartner));
+						results.add(createInstanceWithDefaultFields(bpartner));
 					}
 				}
 			}
@@ -82,7 +90,7 @@ public abstract class BusinessPartnerDBService<T extends BusinessPartner> {
 							.first();
 
 			if (bpartner != null) {
-				return createInstance(bpartner);
+				return createInstanceWithAllFields(bpartner);
 			}
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

@@ -8,7 +8,11 @@ import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement(name = "response")
+@JsonInclude(value = Include.NON_NULL)
 public class AuthResponse {
 
 	private String token;

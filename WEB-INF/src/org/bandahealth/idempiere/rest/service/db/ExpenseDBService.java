@@ -12,7 +12,7 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-public class ExpenseDBService {
+public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 
 	private CLogger log = CLogger.getCLogger(ExpenseDBService.class);
 
@@ -20,12 +20,17 @@ public class ExpenseDBService {
 	}
 
 	// retrieve a list of paginated expenses.
-	public BaseListResponse<Expense> getAll(Paging pagingInfo) {
+	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		try {
 			List<Expense> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), MCharge.Table_Name, null, MCharge.COLUMNNAME_Name + " IS NOT NULL")
-					.setClient_ID().setOnlyActiveRecords(true).setOrderBy(MCharge.COLUMNNAME_Created + " DESC");
+					.setClient_ID().setOnlyActiveRecords(true);
+
+			String orderBy = getOrderBy(sortColumn, sortOrder);
+			if (orderBy != null) {
+				query = query.setOrderBy(orderBy);
+			}
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
@@ -37,7 +42,7 @@ public class ExpenseDBService {
 			if (!expenses.isEmpty()) {
 				for (MCharge expense : expenses) {
 					if (expense != null) {
-						results.add(createInstance(expense));
+						results.add(createInstanceWithDefaultFields(expense));
 					}
 				}
 			}
@@ -56,12 +61,13 @@ public class ExpenseDBService {
 
 		MCharge entity = new Query(Env.getCtx(), MCharge.Table_Name, whereClause,
 				MCharge.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
-						.setParameters("S", uuid).setOrderBy(MCharge.COLUMNNAME_Created + " DESC").first();
+						.setParameters("S", uuid).first();
 
-		return createInstance(entity);
+		return createInstanceWithAllFields(entity);
 	}
 
-	private Expense createInstance(MCharge expense) {
+	@Override
+	protected Expense createInstanceWithDefaultFields(MCharge expense) {
 		try {
 			return new Expense(expense.getAD_Client_ID(), expense.getAD_Org_ID(), expense.getC_Charge_UU(),
 					expense.isActive(), DateUtil.parse(expense.getCreated()), expense.getCreatedBy(), expense.getName(),
@@ -71,5 +77,15 @@ public class ExpenseDBService {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected Expense createInstanceWithAllFields(MCharge expense) {
+		return createInstanceWithDefaultFields(expense);
+	}
+
+	@Override
+	protected MCharge getModelInstance() {
+		return new MCharge(Env.getCtx(), 0, null);
 	}
 }

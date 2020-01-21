@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement(name = "supplier")
+@JsonInclude(value = Include.NON_NULL)
 public class Vendor extends BusinessPartner {
 
 	private static final long serialVersionUID = 1L;
