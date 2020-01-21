@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.model.Process;
@@ -31,7 +32,8 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	@POST
 	@Path("/processes")
 	@Override
-	public BaseListResponse<Process> getAll(@PathParam("page") int page, @PathParam("size") int size) {
+	public BaseListResponse<Process> getAll(@PathParam("page") int page, @PathParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
 		return ProcessDBService.getAll(getPagingInfo(page, size));
 	}
 

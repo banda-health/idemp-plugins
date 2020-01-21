@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.bandahealth.idempiere.rest;singleton:=true
 Bundle-Version: 7.1.0.qualifier
 Automatic-Module-Name: org.bandahealth.idempiere.rest
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: java.util,
- javax.activation,
+Import-Package: javax.activation,
  javax.jws,
  javax.jws.soap;version="1.1.0",
  javax.servlet;version="3.0.0",
@@ -67,7 +66,11 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  com.fasterxml.jackson.core.jackson-databind;bundle-version="2.9.7",
  com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.9.7",
  org.apache.commons.codec;bundle-version="1.6.0",
+<<<<<<< HEAD
  org.bandahealth.idempiere.base
+=======
+ org.bandahealth.idempiere.base;bundle-version="1.0.0"
+>>>>>>> develop
 Bundle-ClassPath: .,
  WEB-INF/lib/java-jwt.jar
 Service-Component: OSGI-INF/BPartnerRestService.xml
