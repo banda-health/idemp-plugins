@@ -24,6 +24,11 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	}
 
 	@Override
+	public Service saveEntity(Service entity) {
+		return null;
+	}
+
+	@Override
 	protected Service createInstanceWithDefaultFields(MProduct_BH service) {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),

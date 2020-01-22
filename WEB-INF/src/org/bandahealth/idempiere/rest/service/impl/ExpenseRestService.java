@@ -46,17 +46,9 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	}
 
 	@POST
-	@Path(IRestConfigs.UPDATE_PATH)
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Expense updateEntity(Expense entity) {
+	public Expense saveEntity(Expense entity) {
 		return null;
 	}
-
-	@POST
-	@Path(IRestConfigs.CREATE_PATH)
-	@Override
-	public Expense createEntity(Expense entity) {
-		return null;
-	}
-
 }

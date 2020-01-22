@@ -47,15 +47,7 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	@POST
 	@Path("/update")
 	@Override
-	public Process updateEntity(Process entity) {
+	public Process saveEntity(Process entity) {
 		return null;
 	}
-
-	@POST
-	@Path("/create")
-	@Override
-	public Process createEntity(Process entity) {
-		return null;
-	}
-
 }

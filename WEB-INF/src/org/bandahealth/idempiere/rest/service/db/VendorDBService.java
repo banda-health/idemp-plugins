@@ -20,6 +20,11 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 	}
 
 	@Override
+	public Vendor saveEntity(Vendor entity) {
+		return null;
+	}
+
+	@Override
 	protected Vendor createInstanceWithDefaultFields(MBPartner_BH bpartner) {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),

@@ -26,7 +26,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
-	public Product saveProduct(Product entity) {
+	@Override
+	public Product saveEntity(Product entity) {
 		MProduct_BH product;
 		MProduct_BH exists = getEntityFromDB(entity.getUuid());
 		if (exists != null) {

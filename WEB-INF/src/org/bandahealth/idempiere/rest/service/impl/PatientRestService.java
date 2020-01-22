@@ -49,16 +49,9 @@ public class PatientRestService extends BaseEntityRestService<Patient> {
 	}
 
 	@POST
-	@Path(IRestConfigs.UPDATE_PATH)
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Patient updateEntity(Patient entity) {
-		return dbService.savePatient(entity);
-	}
-
-	@POST
-	@Path(IRestConfigs.CREATE_PATH)
-	@Override
-	public Patient createEntity(Patient entity) {
-		return dbService.savePatient(entity);
+	public Patient saveEntity(Patient entity) {
+		return dbService.saveEntity(entity);
 	}
 }

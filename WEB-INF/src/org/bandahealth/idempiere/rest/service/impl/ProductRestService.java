@@ -40,17 +40,9 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	}
 
 	@POST
-	@Path(IRestConfigs.UPDATE_PATH)
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Product updateEntity(Product entity) {
-		return productDbService.saveProduct(entity);
+	public Product saveEntity(Product entity) {
+		return productDbService.saveEntity(entity);
 	}
-
-	@POST
-	@Path(IRestConfigs.CREATE_PATH)
-	@Override
-	public Product createEntity(Product entity) {
-		return productDbService.saveProduct(entity);
-	}
-
 }

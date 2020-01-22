@@ -9,7 +9,5 @@ public interface IEntityRestService<T extends BaseMetadata> {
 
 	public T getEntity(String uuid);
 
-	public T updateEntity(T entity);
-
-	public T createEntity(T entity);
+	public T saveEntity(T entity);
 }
