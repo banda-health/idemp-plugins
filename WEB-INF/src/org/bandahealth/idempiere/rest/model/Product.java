@@ -42,8 +42,11 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description) {
+			String description, BigDecimal buyPrice, BigDecimal sellPrice) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
+
+		this.buyPrice = buyPrice;
+		this.sellPrice = sellPrice;
 	}
 
 	@XmlElement
