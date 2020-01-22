@@ -96,18 +96,10 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public T getEntity(String uuid) {
 		try {
-			// construct uuid column name
-			String columnUuid = getModelInstance().get_TableName() + "_uu";
-			if (!checkColumnExists(columnUuid)) {
-				log.severe("Uuid column not found: " + columnUuid);
-				return null;
-			}
+			S entity = getEntityFromDB(uuid);
 
-			S bpartner = new Query(Env.getCtx(), getModelInstance().get_TableName(), columnUuid + "=?", null)
-					.setOnlyActiveRecords(true).setParameters(uuid).first();
-
-			if (bpartner != null) {
-				return createInstanceWithAllFields(bpartner);
+			if (entity != null) {
+				return createInstanceWithAllFields(entity);
 			}
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -116,4 +108,22 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
+	protected S getEntityFromDB(String uuid) {
+		try {
+			// construct uuid column name
+			String columnUuid = getModelInstance().get_TableName() + "_uu";
+			if (!checkColumnExists(columnUuid)) {
+				log.severe("Uuid column not found: " + columnUuid);
+				return null;
+			}
+
+			S entity = new Query(Env.getCtx(), getModelInstance().get_TableName(), columnUuid + "=?", null)
+					.setOnlyActiveRecords(true).setParameters(uuid).first();
+			return entity;
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
+	}
 }

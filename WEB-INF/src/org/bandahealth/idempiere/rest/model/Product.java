@@ -21,13 +21,14 @@ public class Product extends BaseEntity {
 	private BigDecimal buyPrice;
 	private BigDecimal sellPrice;
 	private String productType;
+	private boolean hasExpiration;
 
 	public Product() {
 	}
 
 	public Product(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, String value, boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
-			String productType, Integer reorderLevel, Integer reorderQuantity) {
+			String productType, Integer reorderLevel, Integer reorderQuantity, boolean hasExpiration) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -37,6 +38,7 @@ public class Product extends BaseEntity {
 		this.productType = productType;
 		this.reorderLevel = reorderLevel;
 		this.reorderQuantity = reorderQuantity;
+		this.hasExpiration = hasExpiration;
 	}
 
 	public Product(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
@@ -101,6 +103,15 @@ public class Product extends BaseEntity {
 
 	public void setProductType(String productType) {
 		this.productType = productType;
+	}
+
+	@XmlElement
+	public boolean isHasExpiration() {
+		return hasExpiration;
+	}
+
+	public void setHasExpiration(boolean hasExpiration) {
+		this.hasExpiration = hasExpiration;
 	}
 
 }

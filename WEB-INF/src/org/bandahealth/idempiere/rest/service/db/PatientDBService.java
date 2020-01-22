@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocation;
 import org.compiere.util.Env;
 
@@ -17,17 +18,18 @@ import org.compiere.util.Env;
  * @author andrew
  *
  */
-public class PatientDBService extends BusinessPartnerDBService<Patient> {
+public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
-	private String WHERE_CLAUSE = MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
-	private List<Object> parameters = new ArrayList<>();
-
-	public PatientDBService() {
-		parameters.add("Y");
-	}
+	private static String COLUMNNAME_GENDER = "bh_gender";
+	private static String COLUMNNAME_OCCUPATION = "bh_occupation";
+	private static String COLUMNNAME_NEXTOFKIN_NAME = "nextofkin_name";
+	private static String COLUMNNAME_NEXTOFKIN_CONTACT = "nextofkin_contact";
 
 	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
-		return super.getAll(WHERE_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+
+		return super.getAll(MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	/*
@@ -35,31 +37,31 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 	 */
 	public Patient savePatient(Patient entity) {
 		MBPartner_BH patient;
-		MBPartner_BH exists = getBPartner(entity.getUuid());
+		MBPartner_BH exists = getEntityFromDB(entity.getUuid());
 		if (exists != null) {
 			patient = exists;
 		} else {
-			patient = new MBPartner_BH(Env.getCtx(), 0, null);
+			patient = getModelInstance();
 			patient.setBH_IsPatient(true);
 		}
 
-		if (entity.getName() != null && !entity.getName().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getName())) {
 			patient.setName(entity.getName());
 		}
 
-		if (entity.getPatientNumber() != null && !entity.getPatientNumber().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getPatientNumber())) {
 			patient.setBH_PatientID(entity.getPatientNumber());
 		}
 
-		if (entity.getDateOfBirth() != null && !entity.getDateOfBirth().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getDateOfBirth())) {
 			patient.setBH_Birthday(DateUtil.getTimestamp(entity.getDateOfBirth()));
 		}
 
-		if (entity.getPhone() != null && !entity.getPhone().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getPhone())) {
 			patient.setBH_Phone(entity.getPhone());
 		}
 
-		if (entity.getAddress() != null && !entity.getAddress().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getAddress())) {
 			MLocation location = new MLocation(Env.getCtx(), 0, null);
 			location.setAddress1(entity.getAddress());
 			location.saveEx();
@@ -67,51 +69,51 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 			patient.setBH_C_Location_ID(location.get_ID());
 		}
 
-		if (entity.getGender() != null && !entity.getGender().isEmpty()) {
-			patient.set_CustomColumn("bh_gender", entity.getGender());
+		if (StringUtil.isNotNullAndEmpty(entity.getGender())) {
+			patient.set_CustomColumn(COLUMNNAME_GENDER, entity.getGender());
 		}
 
-		if (entity.getEmail() != null && !entity.getEmail().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getEmail())) {
 			patient.setBH_EMail(entity.getEmail());
 		}
 
-		if (entity.getNhifRelationship() != null && !entity.getNhifRelationship().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getNhifRelationship())) {
 			patient.setBH_NHIFRelationship(entity.getNhifRelationship());
 		}
 
-		if (entity.getNhifMemberName() != null && !entity.getNhifMemberName().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getNhifMemberName())) {
 			patient.setBH_NHIFMemberName(entity.getNhifMemberName());
 		}
 
-		if (entity.getNhifNumber() != null && !entity.getNhifNumber().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getNhifNumber())) {
 			patient.setBH_NHIFNumber(entity.getNhifNumber());
 		}
 
-		if (entity.getNhifType() != null && !entity.getNhifType().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getNhifType())) {
 			patient.setBH_NHIFType(entity.getNhifType());
 		}
 
-		if (entity.getNationalId() != null && !entity.getNationalId().isEmpty()) {
+		if (StringUtil.isNotNullAndEmpty(entity.getNationalId())) {
 			patient.setBH_NationalID(entity.getNationalId());
 		}
 
-		if (entity.getOccupation() != null && !entity.getOccupation().isEmpty()) {
-			patient.set_CustomColumn("bh_occupation", entity.getOccupation());
+		if (StringUtil.isNotNullAndEmpty(entity.getOccupation())) {
+			patient.set_CustomColumn(COLUMNNAME_OCCUPATION, entity.getOccupation());
 		}
 
-		if (entity.getNextOfKinName() != null && !entity.getNextOfKinName().isEmpty()) {
-			patient.set_CustomColumn("nextofkin_name", entity.getNextOfKinName());
+		if (StringUtil.isNotNullAndEmpty(entity.getNextOfKinName())) {
+			patient.set_CustomColumn(COLUMNNAME_NEXTOFKIN_NAME, entity.getNextOfKinName());
 		}
 
-		if (entity.getNextOfKinContact() != null && !entity.getNextOfKinContact().isEmpty()) {
-			patient.set_CustomColumn("nextofkin_contact", entity.getNextOfKinContact());
+		if (StringUtil.isNotNullAndEmpty(entity.getNextOfKinContact())) {
+			patient.set_CustomColumn(COLUMNNAME_NEXTOFKIN_CONTACT, entity.getNextOfKinContact());
 		}
 
 		patient.setIsActive(entity.isIsActive());
 
 		patient.saveEx();
 
-		return createInstanceWithAllFields(getBPartner(patient.getC_BPartner_UU()));
+		return createInstanceWithAllFields(getEntityFromDB(patient.getC_BPartner_UU()));
 	}
 
 	@Override
@@ -126,10 +128,12 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
 					bpartner.getName(), bpartner.getDescription(), bpartner.getTotalOpenBalance(),
 					bpartner.getBH_PatientID(), DateUtil.parse(bpartner.getBH_Birthday()), bpartner.getBH_Phone(),
-					address, bpartner.get_ValueAsString("bh_gender"), bpartner.getBH_EMail(),
+					address, bpartner.get_ValueAsString(COLUMNNAME_GENDER), bpartner.getBH_EMail(),
 					bpartner.getBH_NHIFRelationship(), bpartner.getBH_NHIFMemberName(), bpartner.getBH_NHIFNumber(),
-					bpartner.getBH_NHIFType(), bpartner.getBH_NationalID(), bpartner.get_ValueAsString("bh_occupation"),
-					bpartner.get_ValueAsString("nextofkin_name"), bpartner.get_ValueAsString("nextofkin_contact"));
+					bpartner.getBH_NHIFType(), bpartner.getBH_NationalID(),
+					bpartner.get_ValueAsString(COLUMNNAME_GENDER),
+					bpartner.get_ValueAsString(COLUMNNAME_NEXTOFKIN_NAME),
+					bpartner.get_ValueAsString(COLUMNNAME_NEXTOFKIN_CONTACT));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -149,5 +153,10 @@ public class PatientDBService extends BusinessPartnerDBService<Patient> {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected MBPartner_BH getModelInstance() {
+		return new MBPartner_BH(Env.getCtx(), 0, null);
 	}
 }

@@ -8,18 +8,15 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.util.Env;
 
-public class VendorDBService extends BusinessPartnerDBService<Vendor> {
-
-	private String WHERE_CLAUSE = MBPartner_BH.COLUMNNAME_IsVendor + "=?";
-	private List<Object> parameters = new ArrayList<>();
-
-	public VendorDBService() {
-		parameters.add("Y");
-	}
+public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
-		return super.getAll(WHERE_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+
+		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
@@ -46,5 +43,10 @@ public class VendorDBService extends BusinessPartnerDBService<Vendor> {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected MBPartner_BH getModelInstance() {
+		return new MBPartner_BH(Env.getCtx());
 	}
 }
