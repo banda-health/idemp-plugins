@@ -120,7 +120,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			}
 
 			S entity = new Query(Env.getCtx(), getModelInstance().get_TableName(), columnUuid + "=?", null)
-					.setOnlyActiveRecords(true).setParameters(uuid).first();
+					.setParameters(uuid).first();
 			return entity;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
