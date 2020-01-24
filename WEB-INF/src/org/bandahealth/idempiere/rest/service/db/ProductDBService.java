@@ -10,6 +10,10 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MProductCategory;
+import org.compiere.model.MTaxCategory;
+import org.compiere.model.MUOM;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 /*
@@ -37,6 +41,27 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			} else {
 				product = getModelInstance();
 				product.setProductType(MProduct_BH.PRODUCTTYPE_Item);
+
+				// set default uom (unit of measure).
+				MUOM uom = new Query(Env.getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_Name + "=?", null)
+						.setParameters("Each").first();
+				if (uom != null) {
+					product.setC_UOM_ID(uom.get_ID());
+				}
+
+				// set product category.
+				MProductCategory productCategory = new Query(Env.getCtx(), MProductCategory.Table_Name,
+						MProductCategory.COLUMNNAME_Name + "=?", null).setParameters("Standard").setClient_ID().first();
+				if (productCategory != null) {
+					product.setM_Product_Category_ID(productCategory.get_ID());
+				}
+
+				// set tax category
+				MTaxCategory taxCategory = new Query(Env.getCtx(), MTaxCategory.Table_Name,
+						MTaxCategory.COLUMNNAME_Name + "=?", null).setParameters("Standard").setClient_ID().first();
+				if (taxCategory != null) {
+					product.setC_TaxCategory_ID(taxCategory.get_ID());
+				}
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
@@ -87,7 +112,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
-			throw new RuntimeException(ex.getLocalizedMessage(), ex);
+			
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 	}
 
