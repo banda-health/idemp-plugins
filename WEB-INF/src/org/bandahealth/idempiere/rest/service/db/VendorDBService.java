@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
 
 public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
@@ -21,7 +22,29 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	@Override
 	public Vendor saveEntity(Vendor entity) {
-		return null;
+		MBPartner_BH vendor;
+		MBPartner_BH exists = getEntityFromDB(entity.getUuid());
+		if (exists != null) {
+			vendor = exists;
+		} else {
+			vendor = new MBPartner_BH(Env.getCtx(), 0, null);
+			vendor.setBH_IsPatient(false);
+			vendor.setIsVendor(true);
+		}
+
+		if (StringUtil.isNotNullAndEmpty(vendor.getName())) {
+			vendor.setName(entity.getName());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
+			vendor.setDescription(entity.getDescription());
+		}
+
+		vendor.setIsActive(entity.isIsActive());
+
+		vendor.saveEx();
+
+		return createInstanceWithAllFields(getEntityFromDB(vendor.getC_BPartner_UU()));
 	}
 
 	@Override
@@ -52,6 +75,6 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	@Override
 	protected MBPartner_BH getModelInstance() {
-		return new MBPartner_BH(Env.getCtx());
+		return new MBPartner_BH(Env.getCtx(), 0, null);
 	}
 }

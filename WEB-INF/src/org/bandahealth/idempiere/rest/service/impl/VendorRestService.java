@@ -52,6 +52,6 @@ public class VendorRestService extends BaseEntityRestService<Vendor> {
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Vendor saveEntity(Vendor entity) {
-		return null;
+		return dbService.saveEntity(entity);
 	}
 }
