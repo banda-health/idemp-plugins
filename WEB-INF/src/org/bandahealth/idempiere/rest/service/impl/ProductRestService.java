@@ -3,9 +3,11 @@ package org.bandahealth.idempiere.rest.service.impl;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -35,7 +37,7 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	@POST
 	@Path(IRestConfigs.PRODUCT_PATH)
 	@Override
-	public Product getEntity(@QueryParam("uuid") String uuid) {
+	public Product getEntity(@PathParam("uuid") String uuid) {
 		return productDbService.getEntity(uuid);
 	}
 

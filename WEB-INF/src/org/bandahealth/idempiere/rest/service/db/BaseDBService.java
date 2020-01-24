@@ -22,7 +22,7 @@ import org.compiere.util.Env;
 public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public abstract T saveEntity(T entity);
-	
+
 	// Default fields used for lists
 	protected abstract T createInstanceWithDefaultFields(S instance);
 
