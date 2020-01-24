@@ -3,6 +3,7 @@ bin
 .project
 .settings
 target
+.checkstyle
 
 # IntelliJ files for those editing plugins with IntelliJ
 .idea
@@ -14,6 +15,3 @@ WEB-INF/lib/java-jwt.jar
 #23/10/2020: Remove pom.xml from repo due to different setup locations for this plugin.
 pom.xml 
 
-
-#23/10/2020: Remove .classpath
-.classpath

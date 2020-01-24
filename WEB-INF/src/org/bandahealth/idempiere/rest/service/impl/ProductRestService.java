@@ -3,9 +3,11 @@ package org.bandahealth.idempiere.rest.service.impl;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -18,10 +20,10 @@ import org.bandahealth.idempiere.rest.service.db.ProductDBService;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductRestService extends BaseEntityRestService<Product> {
 
-	private ProductDBService productService;
+	private ProductDBService productDbService;
 
 	public ProductRestService() {
-		productService = new ProductDBService();
+		productDbService = new ProductDBService();
 	}
 
 	@POST
@@ -29,24 +31,20 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	@Override
 	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
-		return productService.getAll(getPagingInfo(page, size));
+		return productDbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
 	@Path(IRestConfigs.PRODUCT_PATH)
 	@Override
-	public Product getEntity(@QueryParam("uuid") String uuid) {
-		return productService.getEntity(uuid);
+	public Product getEntity(@PathParam("uuid") String uuid) {
+		return productDbService.getEntity(uuid);
 	}
 
+	@POST
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Product updateEntity(Product entity) {
-		return null;
+	public Product saveEntity(Product entity) {
+		return productDbService.saveEntity(entity);
 	}
-
-	@Override
-	public Product createEntity(Product entity) {
-		return null;
-	}
-
 }

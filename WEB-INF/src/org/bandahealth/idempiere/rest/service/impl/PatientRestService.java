@@ -45,20 +45,13 @@ public class PatientRestService extends BaseEntityRestService<Patient> {
 	@Path(IRestConfigs.PATIENT_PATH)
 	@Override
 	public Patient getEntity(@PathParam("uuid") String uuid) {
-		return dbService.getBusinessPartner(uuid);
+		return dbService.getEntity(uuid);
 	}
 
 	@POST
-	@Path(IRestConfigs.UPDATE_PATH)
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Patient updateEntity(Patient entity) {
-		return dbService.savePatient(entity);
-	}
-
-	@POST
-	@Path(IRestConfigs.CREATE_PATH)
-	@Override
-	public Patient createEntity(Patient entity) {
-		return dbService.savePatient(entity);
+	public Patient saveEntity(Patient entity) {
+		return dbService.saveEntity(entity);
 	}
 }

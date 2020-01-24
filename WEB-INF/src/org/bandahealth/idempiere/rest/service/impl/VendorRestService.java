@@ -45,20 +45,13 @@ public class VendorRestService extends BaseEntityRestService<Vendor> {
 	@Path(IRestConfigs.VENDOR_PATH)
 	@Override
 	public Vendor getEntity(@PathParam("uuid") String uuid) {
-		return dbService.getBusinessPartner(uuid);
+		return dbService.getEntity(uuid);
 	}
 
 	@POST
-	@Path(IRestConfigs.UPDATE_PATH)
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Vendor updateEntity(Vendor entity) {
-		return dbService.saveEntity(entity);
-	}
-
-	@POST
-	@Path(IRestConfigs.CREATE_PATH)
-	@Override
-	public Vendor createEntity(Vendor entity) {
+	public Vendor saveEntity(Vendor entity) {
 		return dbService.saveEntity(entity);
 	}
 }

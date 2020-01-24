@@ -4,26 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.compiere.model.MLocation;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
 
-import com.fasterxml.jackson.databind.deser.std.NumberDeserializers.BigDecimalDeserializer;
+public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
-public class VendorDBService extends BusinessPartnerDBService<Vendor> {
-
-	private String WHERE_CLAUSE = MBPartner_BH.COLUMNNAME_IsVendor + "=?";
-	private List<Object> parameters = new ArrayList<>();
-
-	public VendorDBService() {
+	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
-		setQueryConditions(WHERE_CLAUSE, parameters);
+
+		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
-	protected Vendor getInstance() {
-		return new Vendor();
+	public Vendor saveEntity(Vendor entity) {
+		MBPartner_BH vendor;
+		MBPartner_BH exists = getEntityFromDB(entity.getUuid());
+		if (exists != null) {
+			vendor = exists;
+		} else {
+			vendor = new MBPartner_BH(Env.getCtx(), 0, null);
+			vendor.setBH_IsPatient(false);
+			vendor.setIsVendor(true);
+		}
+
+		if (StringUtil.isNotNullAndEmpty(vendor.getName())) {
+			vendor.setName(entity.getName());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
+			vendor.setDescription(entity.getDescription());
+		}
+
+		vendor.setIsActive(entity.isIsActive());
+
+		vendor.saveEx();
+
+		return createInstanceWithAllFields(getEntityFromDB(vendor.getC_BPartner_UU()));
 	}
 
 	@Override
@@ -52,33 +73,8 @@ public class VendorDBService extends BusinessPartnerDBService<Vendor> {
 		return null;
 	}
 
-	public Vendor saveEntity(Vendor entity) {
-		MBPartner_BH vendor;
-		MBPartner_BH exists = getBPartner(entity.getUuid());
-		if (exists != null) {
-			vendor = exists;
-		} else {
-			vendor = new MBPartner_BH(Env.getCtx(), 0, null);
-			vendor.setBH_IsPatient(false);
-			vendor.setIsVendor(true); //
-		}
-
-		if (entity.getName() != null && !entity.getName().isEmpty()) {
-			vendor.setName(entity.getName());
-		}
-		
-		if (entity.getDescription() != null && !entity.getDescription().isEmpty()) {
-			vendor.setDescription(entity.getDescription());
-		}
-
-		if (entity.getTotalOpenBalance() != null && !entity.getTotalOpenBalance().equals(0)) {
-			vendor.setTotalOpenBalance(entity.getTotalOpenBalance());
-		}
-
-		vendor.setIsActive(entity.isIsActive());
-
-		vendor.saveEx();
-
-		return createInstanceWithAllFields(getBPartner(vendor.getC_BPartner_UU()));
+	@Override
+	protected MBPartner_BH getModelInstance() {
+		return new MBPartner_BH(Env.getCtx(), 0, null);
 	}
 }

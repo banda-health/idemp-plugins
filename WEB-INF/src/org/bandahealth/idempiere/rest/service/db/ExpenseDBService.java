@@ -19,6 +19,11 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	public ExpenseDBService() {
 	}
 
+	@Override
+	public Expense saveEntity(Expense entity) {
+		return null;
+	}
+
 	// retrieve a list of paginated expenses.
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		try {

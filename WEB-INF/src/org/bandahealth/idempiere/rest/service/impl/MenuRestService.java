@@ -46,13 +46,7 @@ public class MenuRestService extends BaseEntityRestService<MenuGroupItem> {
 	}
 
 	@Override
-	public MenuGroupItem updateEntity(MenuGroupItem entity) {
+	public MenuGroupItem saveEntity(MenuGroupItem entity) {
 		throw new RuntimeException("Not permitted");
 	}
-
-	@Override
-	public MenuGroupItem createEntity(MenuGroupItem entity) {
-		throw new RuntimeException("Not permitted");
-	}
-
 }

@@ -46,16 +46,9 @@ public class ServiceRestService extends BaseEntityRestService<Service> {
 	}
 
 	@POST
-	@Path(IRestConfigs.UPDATE_PATH)
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Service updateEntity(Service entity) {
-		return null;
-	}
-
-	@POST
-	@Path(IRestConfigs.CREATE_PATH)
-	@Override
-	public Service createEntity(Service entity) {
+	public Service saveEntity(Service entity) {
 		return null;
 	}
 }

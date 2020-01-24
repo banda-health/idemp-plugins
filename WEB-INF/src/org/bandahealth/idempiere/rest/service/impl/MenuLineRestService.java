@@ -44,13 +44,7 @@ public class MenuLineRestService extends BaseEntityRestService<MenuGroupLineItem
 	}
 
 	@Override
-	public MenuGroupLineItem updateEntity(MenuGroupLineItem entity) {
+	public MenuGroupLineItem saveEntity(MenuGroupLineItem entity) {
 		return null;
 	}
-
-	@Override
-	public MenuGroupLineItem createEntity(MenuGroupLineItem entity) {
-		return null;
-	}
-
 }
