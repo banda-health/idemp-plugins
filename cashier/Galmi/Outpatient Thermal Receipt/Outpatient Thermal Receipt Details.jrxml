@@ -11,29 +11,32 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT
-  c_invoice_linetax_v.c_order_id as bill_id,
-  c_invoice_linetax_v.name as item_name,
-  c_invoice_linetax_v.qtyentered as quantity,
-  c_invoice_linetax_v.priceactual as price
-FROM
-  c_invoice_linetax_v
-WHERE
-  c_invoice_linetax_v.c_order_id =  $P{billId};]]>
+		<![CDATA[select
+  corderline.c_order_id as bill_id,
+  item.name as item_name,
+  corderline.qtyordered as quantity,
+  corderline.priceactual as price
+from c_orderline as corderline
+  inner join m_product item on corderline.m_product_id = item.m_product_id
+where corderline.c_order_id =  $P{billId};]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="item_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
 	</field>
 	<field name="quantity" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="price" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="totalCost" class="java.math.BigDecimal" calculation="Sum">
