@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="End Stock value report" language="groovy" pageWidth="940" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="940" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="End Stock value report" language="groovy" pageWidth="1040" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1040" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,15 +8,6 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -70,7 +61,8 @@
        coalesce(sum(stocksold.qtysold),0) as soldstock,
        coalesce(sum(stocktakechange.qtybalanced),0) as balancestock,
        sum(currentqty.closingqty) as ending,
-       abs(coalesce(sum(currentqty.closingqty*productSP.SalesPrice),0)) as endingvalue
+       productPP.PurchasePrice as PurchasePrice,
+       abs(coalesce(sum(currentqty.closingqty*productPP.PurchasePrice),0)) as endingvalue
 from (
          select m_product_id,
                 product,
@@ -108,24 +100,28 @@ group by m_product_id
 ) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id
 left join
 (
-select m_product_id,
-       sum(movementqty) as qtysold
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('C-')
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
+select coline.m_product_id,
+       sum(coline.qtyordered) as qtysold
+from c_order co
+    inner join c_orderline coline on co.c_order_id = coline.c_order_id
+    inner join c_payment cp on co.c_order_id = cp.bh_c_order_id
+where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
+    and (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and ((cp.docstatus = 'CO') OR (cp.docstatus = 'DR' and cp.bh_processing = 'Y'))
+    )
+group by coline.m_product_id
 ) as stocksold on currentqty.m_product_id = stocksold.m_product_id
 left join
 (
 select
     productPrice.m_product_id,
-    productPrice.pricestd as SalesPrice
+    productPrice.pricestd as PurchasePrice
     from m_pricelist priceList
     inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
     inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-where priceList.issopricelist = 'Y' and priceList.isdefault = 'Y'
-) as productSP on currentqty.m_product_id = productSP.m_product_id
-group by item_name;]]>
+where priceList.issopricelist = 'N' and priceList.isdefault = 'Y'
+) as productPP on currentqty.m_product_id = productPP.m_product_id
+group by item_name,PurchasePrice;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -145,6 +141,10 @@ group by item_name;]]>
 		</field>
 		<field name="ending" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="ending"/>
+		</field>
+		<field name="purchaseprice" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="purchaseprice"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
 		</field>
 		<field name="endingvalue" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="endingvalue"/>
@@ -173,8 +173,9 @@ limit 1;]]>
 	<pageHeader>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="940" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
+				<reportElement x="0" y="0" width="1040" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -192,7 +193,9 @@ limit 1;]]>
 	<detail>
 		<band height="32">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="0" width="940" height="32" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1"/>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="1040" height="32" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
 					<datasetRun subDataset="End stock value" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
 						<datasetParameter name="Begin Date">
@@ -342,8 +345,31 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="150" uuid="cd2a977b-766e-49e5-b8b7-5833ab944cf2">
+					<jr:column width="100" uuid="fdeaf416-e47d-4ec2-85bc-b1bcc00ab542">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="17" uuid="30f70f95-8b08-45ee-a14a-d54c7f662553"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Purchase Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="100" height="15" uuid="fe786cd8-fdb8-4aff-9f6e-fb5b8dac86be"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{purchaseprice}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="cd2a977b-766e-49e5-b8b7-5833ab944cf2">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
 						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="150" height="17" uuid="85a37c72-a2f3-44c0-8a84-689a07b4ace8"/>
@@ -365,7 +391,7 @@ limit 1;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="110" uuid="9b898697-5044-4e2d-b806-e29ec3ee470c">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
 						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="110" height="17" uuid="465fd0a5-650b-4652-bb33-cde2a0ea7f04"/>
@@ -393,8 +419,9 @@ limit 1;]]>
 	<noData>
 		<band height="20">
 			<staticText>
-				<reportElement x="0" y="0" width="940" height="20" uuid="e8da193c-2a64-44be-96ca-7416132f7400">
+				<reportElement x="0" y="0" width="1040" height="20" uuid="e8da193c-2a64-44be-96ca-7416132f7400">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left">
 					<font isBold="false" isItalic="true"/>
