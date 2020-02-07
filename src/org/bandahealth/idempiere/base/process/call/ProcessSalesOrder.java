@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MMessage;
 import org.compiere.model.Query;
@@ -42,7 +43,12 @@ public class ProcessSalesOrder {
 			salesOrder.setDateAcct(new Timestamp(date.getTime()));
 			log.info("Setting accounting date to: " + salesOrder.getDateAcct());
 		}
-		if ((salesOrder.getTotalLines().intValue() == 0)) {
+
+		// check if the order has any orderline items.
+		int lineItemsCount = new Query(context, MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_Order_ID + " = ?",
+				transactionName).setParameters(salesOrder.getC_Order_ID()).count();
+
+		if (lineItemsCount == 0) {
 			MMessage message = new Query(context, MMessage.Table_Name, MMessage.COLUMNNAME_AD_Message_UU + "=?", null)
 					.setParameters(noLineItemsEnteredErrorMsgUUID).first();
 			if (message != null) {
@@ -50,8 +56,11 @@ public class ProcessSalesOrder {
 			} else {
 				callback.onError("Order MUST have at least one line item: orderId = " + salesOrder.get_ID(), context,
 						transactionName);
-				return;
 			}
+
+			salesOrder.setDocStatus(MOrder_BH.DOCSTATUS_Invalid);
+			salesOrder.saveEx();
+			return;
 		}
 
 		try {
@@ -65,6 +74,15 @@ public class ProcessSalesOrder {
 		} catch (AdempiereException ex) {
 			callback.onError("Could not complete order " + salesOrder.getC_Order_ID() + ". Error: " + ex.getMessage(),
 					context, transactionName);
+			
+			// handle wrong allocation date error.
+			if (ex.getMessage().contains("Failed when processing document - Wrong allocation date")) {
+				// date ordered must be greater than the created date.
+				if (salesOrder.getCreated().before(salesOrder.getDateOrdered())) {
+					salesOrder.setDateOrdered(salesOrder.getCreated());
+					salesOrder.saveEx();
+				}
+			}
 		} finally {
 			log.warning("Time spent processing SO (secs): " + (System.currentTimeMillis() - start) / 1000);
 		}
