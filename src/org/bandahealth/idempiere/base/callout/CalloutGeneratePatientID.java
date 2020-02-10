@@ -24,21 +24,42 @@ public class CalloutGeneratePatientID implements IColumnCallout {
 			}
 
 			// retrieve last entered patient
-			MBPartner_BH lastPatient = new Query(ctx, MBPartner_BH.Table_Name, null, null).setOnlyActiveRecords(true)
-					.setClient_ID().setOrderBy(MBPartner_BH.COLUMNNAME_Created + " DESC").first();
-			String patientId = lastPatient.getBH_PatientID();
+			MBPartner_BH lastCreatedPatient = new Query(ctx, MBPartner_BH.Table_Name, null, null)
+					.setOnlyActiveRecords(true).setClient_ID().setOrderBy(MBPartner_BH.COLUMNNAME_Created + " DESC, "
+							+ MBPartner_BH.COLUMNNAME_BH_PatientID + " DESC")
+					.first();
+			String lastCreatedPatientId = lastCreatedPatient.getBH_PatientID();
 			// check if numeric
-			if (patientId != null && patientId.chars().allMatch(Character::isDigit)) {
-				int numericPatientId = Integer.valueOf(patientId);
+			if (isNumeric(lastCreatedPatientId)) {
+				int numericCreatedPatientId = Integer.valueOf(lastCreatedPatientId);
+
+				// check if there is an updated record greater than the last entered patient id.
+				MBPartner_BH lastUpdatedPatient = new Query(ctx, MBPartner_BH.Table_Name, null, null)
+						.setOnlyActiveRecords(true).setClient_ID().setOrderBy(MBPartner_BH.COLUMNNAME_Updated + " DESC")
+						.first();
+				String lastUpdatedPatientId = lastUpdatedPatient.getBH_PatientID();
+				if (isNumeric(lastUpdatedPatientId)) {
+					int numericUpdatedPatientId = Integer.valueOf(lastUpdatedPatientId);
+					if (numericUpdatedPatientId > numericCreatedPatientId) {
+						numericUpdatedPatientId++;
+						mTab.setValue(MBPartner_BH.COLUMNNAME_BH_PatientID, numericUpdatedPatientId);
+						return null;
+					}
+				}
+
 				// increment patient id by 1
-				numericPatientId++;
-				mTab.setValue(MBPartner_BH.COLUMNNAME_BH_PatientID, numericPatientId);
+				numericCreatedPatientId++;
+				mTab.setValue(MBPartner_BH.COLUMNNAME_BH_PatientID, numericCreatedPatientId);
 			} else {
 				// show the last patient id.
-				mTab.setValue(MBPartner_BH.COLUMNNAME_BH_LastPatientID, patientId);
+				mTab.setValue(MBPartner_BH.COLUMNNAME_BH_LastPatientID, lastCreatedPatientId);
 			}
 		}
 
 		return null;
+	}
+
+	private boolean isNumeric(String patientId) {
+		return patientId != null && patientId.chars().allMatch(Character::isDigit);
 	}
 }
