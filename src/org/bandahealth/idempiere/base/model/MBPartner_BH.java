@@ -50,6 +50,10 @@ public class MBPartner_BH extends MBPartner {
 	public static final String COLUMNNAME_NHIF_TYPE = "BH_NHIF_Type";
 	
 	public static final String COLUMNNAME_BH_NATIONAL_ID = "NATIONAL_ID";
+	/**
+	 * Column name BH_LastPatientID
+	 */
+	public static final String COLUMNNAME_BH_LastPatientID = "BH_LastPatientID";
 
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
@@ -276,5 +280,14 @@ public class MBPartner_BH extends MBPartner {
 	
 	public String getBH_NHIFType() {
 		return (String) get_Value(COLUMNNAME_NHIF_TYPE);
+	}
+	
+	/**
+	 * Set Last Patient ID.
+	 *
+	 * @param BH_LastPatientID 
+	 */
+	public void setBH_LastPatientID(String BH_LastPatientID) {
+		set_Value(COLUMNNAME_BH_PatientID, null);
 	}
 }
