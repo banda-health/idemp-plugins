@@ -110,7 +110,8 @@ inner join ad_user patient on bill.ad_user_id = patient.ad_user_id
 inner join ad_user cashier on bill.updatedby = cashier.ad_user_id
 inner join c_payment payments on bill.c_order_id = payments.bh_c_order_id
 where bill.docstatus = 'IN'
-order by client.name, billdate asc;]]>
+order by client.name, billdate asc
+limit 1;]]>
 	</queryString>
 	<field name="billdate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
@@ -131,7 +132,7 @@ order by client.name, billdate asc;]]>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
