@@ -5,6 +5,7 @@ import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.utils.NumberUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
@@ -71,6 +72,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	private void beforeChangeRequest(MBPartner_BH businessPartner) {
 		translateToMaskedFields(businessPartner);
+		checkPatientID(businessPartner);
 	}
 
 	private void beforeSaveRequest(MBPartner_BH businessPartner) {
@@ -112,7 +114,8 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			businessPartner.setM_PriceList_ID(priceListId);
 
 			// check unique patient id
-			//checkPatientId(businessPartner);
+			checkPatientID(businessPartner);
+			// checkPatientId(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
@@ -183,20 +186,31 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		user.setPhone(businessPartner.getBH_Phone());
 	}
 
-	private void checkPatientId(MBPartner_BH businessPartner) {
-		if (businessPartner.isBH_IsPatient()) {
-			String patientId = businessPartner.getBH_PatientID();
-			if (patientId == null || patientId == "") {
-				throw new AdempiereException("Required Patient ID");
-			}
+	/**
+	 * Check if this patient id has not been used by another user.
+	 * 
+	 * @param patient
+	 */
+	private void checkPatientID(MBPartner_BH patient) {
+		String bhPatientId = patient.getBH_PatientID();
 
-			boolean exists = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-					MBPartner_BH.COLUMNNAME_BH_PatientID + " =? ", null).setClient_ID().setParameters(patientId)
-							.match();
-			if (exists) {
-				throw new AdempiereException("The Patient ID already exists in the system.");
-			}
+		if (!NumberUtils.isNumeric(bhPatientId)) {
+			return;
+		}
+
+		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
+		if (generatedPatientId == null) {
+			return;
+		}
+
+		if (generatedPatientId instanceof String) {
+			return;
+		}
+
+		Integer nextPatientId = (Integer) generatedPatientId;
+
+		if (Integer.valueOf(bhPatientId) < nextPatientId) {
+			patient.setBH_PatientID(String.valueOf(generatedPatientId));
 		}
 	}
-
 }
