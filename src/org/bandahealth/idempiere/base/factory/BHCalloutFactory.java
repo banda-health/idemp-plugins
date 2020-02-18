@@ -6,7 +6,7 @@ import java.util.List;
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.bandahealth.idempiere.base.callout.BusinessPartnerAge;
-import org.bandahealth.idempiere.base.callout.CalloutGeneratePatientID;
+import org.bandahealth.idempiere.base.callout.CalloutGeneratePatientId;
 import org.bandahealth.idempiere.base.callout.CalloutOrder;
 import org.bandahealth.idempiere.base.callout.CalloutPayment;
 import org.bandahealth.idempiere.base.callout.CalloutPaymentNHIF;
@@ -36,7 +36,7 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 				callouts.add(new BusinessPartnerAge());
 			}
 			if (columnName.equalsIgnoreCase(MBPartner_BH.COLUMNNAME_BH_PatientID)) {
-				callouts.add(new CalloutGeneratePatientID());
+				callouts.add(new CalloutGeneratePatientId());
 			}
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MOrder_BH.COLUMNNAME_C_BPartner_ID)) {
