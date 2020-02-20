@@ -10,7 +10,7 @@ public class BaseMetadata implements Serializable {
 	private int clientId;
 	private int orgId;
 	private String uuid;
-	private boolean isActive;
+	private boolean isActive = true;
 	private String created;
 	private int createdBy;
 

@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -53,5 +54,14 @@ public class PatientRestService extends BaseEntityRestService<Patient> {
 	@Override
 	public Patient saveEntity(Patient entity) {
 		return dbService.saveEntity(entity);
+	}
+
+	@POST
+	@Path(IRestConfigs.PATIENT_GENERATE_ID)
+	public Patient generatePatientId() {
+		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
+		Patient patient = new Patient();
+		patient.setPatientNumber(generatedPatientId != null ? generatedPatientId.toString() : null);
+		return patient;
 	}
 }

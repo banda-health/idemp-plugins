@@ -15,6 +15,9 @@ public class Expense extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	private BigDecimal amount;
 
+	public Expense() {
+	}
+
 	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal amount) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);

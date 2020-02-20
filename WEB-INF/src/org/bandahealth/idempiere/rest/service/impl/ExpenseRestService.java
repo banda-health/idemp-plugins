@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.impl;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -41,7 +42,7 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	@POST
 	@Path(IRestConfigs.EXPENSE_PATH)
 	@Override
-	public Expense getEntity(@QueryParam("uuid") String uuid) {
+	public Expense getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
@@ -49,6 +50,6 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Expense saveEntity(Expense entity) {
-		return null;
+		return dbService.saveEntity(entity);
 	}
 }

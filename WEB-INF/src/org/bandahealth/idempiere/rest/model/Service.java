@@ -15,6 +15,9 @@ public class Service extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	private BigDecimal sellingPrice;
 
+	public Service() {
+	}
+
 	public Service(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal sellingPrice) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
