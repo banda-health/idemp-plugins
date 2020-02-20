@@ -14,6 +14,7 @@ public interface IRestConfigs {
 	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";
 	String PATIENT_PATH = "/patient/{uuid}";
 	String PATIENT_SUMMARY_PATH = AUTHENTICATION_PATH + "/patientsummary";
+	String PATIENT_GENERATE_ID = "/generatepatientid";
 
 	String VENDORS_PATH = AUTHENTICATION_PATH + "/vendors";
 	String VENDOR_PATH = "/vendor/{uuid}";
@@ -31,10 +32,10 @@ public interface IRestConfigs {
 	
 	// 'services' used by iDemp WebServices.
 	String SERVICES_PATH = AUTHENTICATION_PATH + "/bhservices";
-	String SERVICE_PATH = "/service";
+	String SERVICE_PATH = "/service/{uuid}";
 	
 	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
-	String EXPENSE_PATH = "/expense";
+	String EXPENSE_PATH = "/expense/{uuid}";
 
 	
 }

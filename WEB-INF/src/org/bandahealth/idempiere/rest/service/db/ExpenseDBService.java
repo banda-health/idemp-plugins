@@ -1,17 +1,21 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
-import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
+/**
+ * Expense (charge) related db operations
+ * 
+ * @author andrew
+ *
+ */
 public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 
 	private CLogger log = CLogger.getCLogger(ExpenseDBService.class);
@@ -21,54 +25,35 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 
 	@Override
 	public Expense saveEntity(Expense entity) {
-		return null;
-	}
-
-	// retrieve a list of paginated expenses.
-	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		try {
-			List<Expense> results = new ArrayList<>();
-
-			Query query = new Query(Env.getCtx(), MCharge.Table_Name, null, MCharge.COLUMNNAME_Name + " IS NOT NULL")
-					.setClient_ID().setOnlyActiveRecords(true);
-
-			String orderBy = getOrderBy(sortColumn, sortOrder);
-			if (orderBy != null) {
-				query = query.setOrderBy(orderBy);
+			MCharge charge;
+			MCharge exists = getEntityFromDB(entity.getUuid());
+			if (exists != null) {
+				charge = exists;
+			} else {
+				charge = getModelInstance();
 			}
 
-			// get total count without pagination parameters
-			pagingInfo.setTotalRecordCount(query.count());
-
-			// set pagination params
-			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
-			List<MCharge> expenses = query.list();
-
-			if (!expenses.isEmpty()) {
-				for (MCharge expense : expenses) {
-					if (expense != null) {
-						results.add(createInstanceWithDefaultFields(expense));
-					}
-				}
+			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
+				charge.setName(entity.getName());
 			}
 
-			return new BaseListResponse<Expense>(results, pagingInfo);
+			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
+				charge.setDescription(entity.getDescription());
+			}
+
+			charge.setIsActive(entity.isIsActive());
+			charge.saveEx();
+
+			return createInstanceWithAllFields(getEntityFromDB(charge.getC_Charge_UU()));
 
 		} catch (Exception ex) {
-			log.severe(ex.getMessage());
+			throw new AdempiereException(ex.getLocalizedMessage());
 		}
-
-		return null;
 	}
 
-	public Expense getEntity(String uuid) {
-		String whereClause = MCharge.COLUMNNAME_C_Charge_UU + " = ?";
-
-		MCharge entity = new Query(Env.getCtx(), MCharge.Table_Name, whereClause,
-				MCharge.COLUMNNAME_Name + " IS NOT NULL").setClient_ID().setOnlyActiveRecords(true)
-						.setParameters("S", uuid).first();
-
-		return createInstanceWithAllFields(entity);
+	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
