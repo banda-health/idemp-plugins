@@ -9,36 +9,36 @@ import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.StockTakeItem;
+import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
-import org.bandahealth.idempiere.rest.service.db.StockTakeDBService;
+import org.bandahealth.idempiere.rest.service.db.InventoryDBService;
 
 @Path(IRestConfigs.STOCK_TAKE_ITEMS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class StockTakeRestService extends BaseEntityRestService<StockTakeItem>{
+public class InventoryRestService extends BaseEntityRestService<Inventory>{
 	
-	private StockTakeDBService stockTakeDbService;
+	private InventoryDBService inventoryDBService;
 
-	public  StockTakeRestService() {
-		stockTakeDbService = new StockTakeDBService();
+	public  InventoryRestService() {
+		inventoryDBService = new InventoryDBService();
 	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<StockTakeItem> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+	public BaseListResponse<Inventory> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
-		return stockTakeDbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
+		return inventoryDBService.getInventory(getPagingInfo(page, size));
 	}
 
 	@Override
-	public StockTakeItem getEntity(String uuid) {
+	public Inventory getEntity(String uuid) {
 		return null;
 	}
 
 	@Override
-	public StockTakeItem saveEntity(StockTakeItem entity) {
+	public Inventory saveEntity(Inventory entity) {
 		return null;
 	}
 
