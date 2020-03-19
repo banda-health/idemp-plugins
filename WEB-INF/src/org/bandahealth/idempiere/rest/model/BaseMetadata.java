@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class BaseMetadata implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -71,7 +73,7 @@ public class BaseMetadata implements Serializable {
 		this.created = created;
 	}
 
-	@XmlElement
+	@JsonIgnore
 	public int getCreatedBy() {
 		return createdBy;
 	}

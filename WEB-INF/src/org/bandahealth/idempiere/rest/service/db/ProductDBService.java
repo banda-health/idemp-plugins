@@ -101,15 +101,15 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	}
 
 	@Override
-	protected Product createInstanceWithAllFields(MProduct_BH product) {
+	protected Product createInstanceWithAllFields(MProduct_BH instance) {
 		try {
-			return new Product(product.getAD_Client_ID(), product.getAD_Org_ID(), product.getM_Product_UU(),
-					product.isActive(), DateUtil.parse(product.getCreated()), product.getCreatedBy(), product.getName(),
-					product.getDescription(), product.getValue(), product.isStocked(), product.getBH_BuyPrice(),
-					product.getBH_SellPrice(), product.getProductType(),
-					product.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
-					product.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
-					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration));
+			return new Product(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getM_Product_UU(),
+					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), instance.getName(),
+					instance.getDescription(), instance.getValue(), instance.isStocked(), instance.getBH_BuyPrice(),
+					instance.getBH_SellPrice(), instance.getProductType(),
+					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
+					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
+					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			

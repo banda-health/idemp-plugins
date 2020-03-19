@@ -6,6 +6,7 @@ import java.util.List;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -20,6 +21,32 @@ import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
 
 public class ProcessDBService {
+
+	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
+
+	public ProcessDBService() {
+	}
+
+	public void runOrderProcess(int orderId) {
+		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
+				.setOnlyActiveRecords(true).setParameters(SALES_PROCESS_CLASS_NAME).first();
+
+		MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+
+		processInfo.setParameter(new ProcessInfoParameter[] {
+				new ProcessInfoParameter(MOrder_BH.COLUMNNAME_C_Order_ID, orderId, null, null, null) });
+
+		ServerProcessCtl.process(processInfo, null);
+
+		BHProcessInfo response = new BHProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		response.setPinstanceId(processInfo.getAD_PInstance_ID());
+		response.setSummary(processInfo.getSummary());
+		response.setError(processInfo.isError());
+	}
 
 	public static BHProcessInfo runProcess(BHProcessInfo request) {
 		if (request == null) {
@@ -99,20 +126,20 @@ public class ProcessDBService {
 
 	private static Process createProcessInstance(MProcess process, List<ProcessParameter> parameters) {
 		return new Process(process.getAD_Client_ID(), process.getAD_Org_ID(), process.getAD_Process_UU(),
-				process.isActive(), DateUtil.parse(process.getCreated()), process.getCreatedBy(), process.getDescription(),
-				process.getName(), process.getAD_Form_ID(), process.getAD_ReportView_ID(), process.getAD_Workflow_ID(),
-				process.getAllowMultipleExecution(), process.getClassname(), process.getCopyFromProcess(),
-				process.getEntityType(), process.getExecutionType(), process.isDirectPrint(), process.isReport(),
-				parameters);
+				process.isActive(), DateUtil.parse(process.getCreated()), process.getCreatedBy(),
+				process.getDescription(), process.getName(), process.getAD_Form_ID(), process.getAD_ReportView_ID(),
+				process.getAD_Workflow_ID(), process.getAllowMultipleExecution(), process.getClassname(),
+				process.getCopyFromProcess(), process.getEntityType(), process.getExecutionType(),
+				process.isDirectPrint(), process.isReport(), parameters);
 	}
 
 	private static ProcessParameter createProcessParameterInstance(MProcessPara param) {
 		return new ProcessParameter(param.getAD_Client_ID(), param.getAD_Org_ID(), param.getAD_Process_Para_UU(),
-				param.isActive(), DateUtil.parse(param.getCreated()), param.getCreatedBy(), param.getName(), param.getDescription(),
-				param.getAD_Element_ID(), param.getAD_Reference_ID(), param.getAD_Reference_Value_ID(),
-				param.getAD_Val_Rule_ID(), param.getDefaultValue(), param.getDefaultValue2(), param.getDisplayLogic(),
-				param.getEntityType(), param.getFieldLength(), param.isEncrypted(), param.isMandatory(),
-				param.isRange(), param.getMandatoryLogic());
+				param.isActive(), DateUtil.parse(param.getCreated()), param.getCreatedBy(), param.getName(),
+				param.getDescription(), param.getAD_Element_ID(), param.getAD_Reference_ID(),
+				param.getAD_Reference_Value_ID(), param.getAD_Val_Rule_ID(), param.getDefaultValue(),
+				param.getDefaultValue2(), param.getDisplayLogic(), param.getEntityType(), param.getFieldLength(),
+				param.isEncrypted(), param.isMandatory(), param.isRange(), param.getMandatoryLogic());
 	}
 
 	private static ProcessInfoParameter[] getInfoParameters(List<BHProcessInfoParameter> params) {

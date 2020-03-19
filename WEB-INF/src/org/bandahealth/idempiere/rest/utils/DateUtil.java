@@ -8,7 +8,7 @@ import org.compiere.util.CLogger;
 
 public class DateUtil {
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	private static CLogger log = CLogger.getCLogger(DateUtil.class);
 
 	public static String parse(Timestamp timestamp) {
