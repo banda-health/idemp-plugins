@@ -24,6 +24,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ServiceRestServiceBean" />
 			<ref bean="ExpenseServiceBean" />
 			<ref bean="ProductServiceBean" />
+			<ref bean="StockTakeServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -70,5 +71,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		
 	<bean id="ProductServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ProductRestService" />
+		
+	<bean id="StockTakeServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.InventoryRestService" />
 
 </beans>
