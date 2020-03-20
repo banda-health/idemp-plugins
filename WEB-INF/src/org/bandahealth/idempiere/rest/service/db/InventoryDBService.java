@@ -11,6 +11,7 @@ import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -21,7 +22,8 @@ public class InventoryDBService {
 
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo) throws DBException {
 		List<Inventory> results = new ArrayList<>();
-		String sql = "SELECT m_product_id, m_warehouse_id, product, expirationdate, quantity, shelflifedays"
+		String sql = "SELECT m_product_id, m_warehouse_id, product, expirationdate, quantity, shelflifedays, m_attributesetinstance_id,"
+				+ " ad_client_id, ad_org_id, created, createdBy, description"
 				+ " FROM bh_stocktake_v WHERE ad_client_id = ? and ad_org_id = ? order by product asc";
 		if (pagingInfo.getPageSize() > 0) {
 			if (DB.getDatabase().isPagingSupported()) {
@@ -46,7 +48,9 @@ public class InventoryDBService {
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Inventory inventory = new Inventory(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
-						resultSet.getDate(4), resultSet.getInt(5), resultSet.getInt(6));
+						DateUtil.parseExpiration(resultSet.getTimestamp(4)), resultSet.getInt(5), resultSet.getInt(6),
+						resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9),
+						DateUtil.parse(resultSet.getTimestamp(10)), resultSet.getInt(11), resultSet.getString(12));
 				results.add(inventory);
 			}
 		} catch (SQLException e) {
@@ -60,9 +64,4 @@ public class InventoryDBService {
 
 		return new BaseListResponse<Inventory>(results, pagingInfo);
 	}
-
-	public void updateInventory() {
-
-	}
-
 }

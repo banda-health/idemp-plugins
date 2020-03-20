@@ -8,7 +8,10 @@ import org.compiere.util.CLogger;
 
 public class DateUtil {
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private final static String DEFAULT_FORMAT = "yyyy-MM-dd hh:mm:ss";
+	private final static String EXPIRATION_FORMAT = "yyyy-MM-dd";
+
+	private static SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
 	private static CLogger log = CLogger.getCLogger(DateUtil.class);
 
 	public static String parse(Timestamp timestamp) {
@@ -17,6 +20,15 @@ public class DateUtil {
 		}
 
 		return null;
+	}
+
+	public static String parseExpiration(Timestamp timestamp) {
+		if (timestamp != null) {
+			return new SimpleDateFormat(EXPIRATION_FORMAT).format(timestamp);
+		}
+
+		return null;
+
 	}
 
 	public static Timestamp getTimestamp(String date) {
@@ -30,4 +42,5 @@ public class DateUtil {
 
 		return null;
 	}
+
 }

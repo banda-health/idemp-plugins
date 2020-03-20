@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
@@ -23,11 +24,18 @@ import org.compiere.util.Env;
 public class ProcessDBService {
 
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
+	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
+	private final String QUANTITY = "QUANTITY";
 
 	public ProcessDBService() {
 	}
 
-	public void runOrderProcess(int orderId) {
+	/**
+	 * Call and run the SalesProcess
+	 * 
+	 * @param orderId
+	 */
+	public String runOrderProcess(int orderId) {
 		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
 				.setOnlyActiveRecords(true).setParameters(SALES_PROCESS_CLASS_NAME).first();
 
@@ -42,12 +50,38 @@ public class ProcessDBService {
 
 		ServerProcessCtl.process(processInfo, null);
 
-		BHProcessInfo response = new BHProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
-		response.setPinstanceId(processInfo.getAD_PInstance_ID());
-		response.setSummary(processInfo.getSummary());
-		response.setError(processInfo.isError());
+		return processInfo.getSummary();
 	}
-	
+
+	/**
+	 * Call and run StockTake process
+	 * 
+	 * @param productID
+	 * @param attributeSetInstanceId
+	 * @param quantity
+	 */
+	public String runStockTakeProcess(int productID, int attributeSetInstanceId, int quantity) {
+		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
+				.setOnlyActiveRecords(true).setParameters(STOCKTAKE_PROCESS_CLASS_NAME).first();
+
+		MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+
+		processInfo
+				.setParameter(new ProcessInfoParameter[] {
+						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_Product_ID, productID, null, null, null),
+						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID,
+								attributeSetInstanceId, null, null, null),
+						new ProcessInfoParameter(QUANTITY, quantity, null, null, null) });
+
+		ServerProcessCtl.process(processInfo, null);
+
+		return processInfo.getSummary();
+	}
+
 	public static BHProcessInfo runProcess(BHProcessInfo request) {
 		if (request == null) {
 			return null;
