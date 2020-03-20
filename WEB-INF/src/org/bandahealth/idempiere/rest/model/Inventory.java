@@ -28,6 +28,16 @@ public class Inventory extends BaseEntity {
 		this.productId = productId;
 	}
 
+	public Inventory(int productId, int warehouseId, String productName, Date expiration, int quantity, int shelfLife) {
+		super();
+		this.productId = productId;
+		this.warehouseId = warehouseId;
+		this.productName = productName;
+		this.expirationDate = expiration;
+		this.quantity = quantity;
+		this.shelfLife = shelfLife;
+	}
+
 	public int getProductId() {
 		return productId;
 	}

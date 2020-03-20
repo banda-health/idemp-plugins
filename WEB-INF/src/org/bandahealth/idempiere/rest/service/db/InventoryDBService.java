@@ -21,7 +21,7 @@ public class InventoryDBService {
 
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo) throws DBException {
 		List<Inventory> results = new ArrayList<>();
-		String sql = "SELECT * "
+		String sql = "SELECT m_product_id, m_warehouse_id, product, expirationdate, quantity, shelflifedays"
 				+ " FROM bh_stocktake_v WHERE ad_client_id = ? and ad_org_id = ? order by product asc";
 		if (pagingInfo.getPageSize() > 0) {
 			if (DB.getDatabase().isPagingSupported()) {
@@ -34,29 +34,30 @@ public class InventoryDBService {
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
 		try {
-			pstmt = DB.prepareStatement(sql, null);
-			DB.setParameters(pstmt, parameters);
+			statement = DB.prepareStatement(sql, null);
+			DB.setParameters(statement, parameters);
 
 			// get total count without pagination parameters
-			pagingInfo.setTotalRecordCount(pstmt.getFetchSize());
+			pagingInfo.setTotalRecordCount(statement.getFetchSize());
 
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				Inventory inventory = new Inventory(rs.getInt(1));
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Inventory inventory = new Inventory(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
+						resultSet.getDate(4), resultSet.getInt(5), resultSet.getInt(6));
 				results.add(inventory);
 			}
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, sql, e);
 			throw new DBException(e, sql);
 		} finally {
-			DB.close(rs, pstmt);
-			rs = null;
-			pstmt = null;
+			DB.close(resultSet, statement);
+			resultSet = null;
+			statement = null;
 		}
-		
+
 		return new BaseListResponse<Inventory>(results, pagingInfo);
 	}
 
