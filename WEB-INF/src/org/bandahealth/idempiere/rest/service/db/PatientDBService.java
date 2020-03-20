@@ -40,11 +40,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	@Override
 	public Patient saveEntity(Patient entity) {
 		try {
-			MBPartner_BH patient;
-			MBPartner_BH exists = getEntityFromDB(entity.getUuid());
-			if (exists != null) {
-				patient = exists;
-			} else {
+			MBPartner_BH patient = getEntityFromDB(entity.getUuid());
+			if (patient == null) {
 				patient = getModelInstance();
 				patient.setBH_IsPatient(true);
 			}

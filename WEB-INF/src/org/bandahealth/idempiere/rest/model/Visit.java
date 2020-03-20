@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -27,9 +29,9 @@ public class Visit extends Order {
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
 			BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis, String patientType,
-			String referral, List<OrderLine> orderLines, List<Payment> payments) {
+			String referral, List<OrderLine> orderLines, List<Payment> payments, String documentStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, businessPartnerId, businessPartnerName,
-				totalOpenBalance, dateOrdered, grandTotal, true, diagnosis, orderLines, payments);
+				totalOpenBalance, dateOrdered, grandTotal, true, diagnosis, orderLines, payments, documentStatus);
 
 		this.newVisit = newVisit;
 		this.visitNotes = visitNotes;
@@ -37,13 +39,15 @@ public class Visit extends Order {
 		this.referral = referral;
 
 		setIsSalesOrderTransaction(true);
+		setOrderStatus();
 	}
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			BigDecimal grandTotal) {
+			BigDecimal grandTotal, String documentStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, businessPartnerId, businessPartnerName,
-				totalOpenBalance, dateOrdered, grandTotal, true, null, null, null);
+				totalOpenBalance, dateOrdered, grandTotal, true, null, null, null, documentStatus);
+
 		setIsSalesOrderTransaction(true);
 	}
 
@@ -104,7 +108,8 @@ public class Visit extends Order {
 	/**
 	 * WAITING - visit with no clinical, no line items, no payments DISPENSING -
 	 * visit with clinical information, no line items, no payments PENDING - visit
-	 * with clinical information, line items, no payments
+	 * with clinical information, line items, no payments, PENDING_COMPLETION -
+	 * visit yet to be processed, COMPLETED - completed visit
 	 * 
 	 * @param entity
 	 */
@@ -118,6 +123,12 @@ public class Visit extends Order {
 			}
 		} else if (this.getOrderLines() != null && this.getPayments() == null) {
 			this.setStatus(OrderStatus.PENDING);
+		} else {
+			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(getDocumentStatus())) {
+				this.setStatus(OrderStatus.COMPLETED);
+			} else {
+				this.setStatus(OrderStatus.PENDING_COMPLETION);
+			}
 		}
 	}
 }

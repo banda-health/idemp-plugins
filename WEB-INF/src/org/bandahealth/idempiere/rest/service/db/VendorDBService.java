@@ -22,11 +22,8 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	@Override
 	public Vendor saveEntity(Vendor entity) {
-		MBPartner_BH vendor;
-		MBPartner_BH exists = getEntityFromDB(entity.getUuid());
-		if (exists != null) {
-			vendor = exists;
-		} else {
+		MBPartner_BH vendor = getEntityFromDB(entity.getUuid());
+		if (vendor == null) {
 			vendor = new MBPartner_BH(Env.getCtx(), 0, null);
 			vendor.setBH_IsPatient(false);
 			vendor.setIsVendor(true);

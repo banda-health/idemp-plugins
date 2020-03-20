@@ -1,8 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
 public enum OrderStatus {
-	WAITING,
-	DISPENSING,
-	PENDING,
-	COMPLETED
+	WAITING, DISPENSING, PENDING, PENDING_COMPLETION, COMPLETED
 }

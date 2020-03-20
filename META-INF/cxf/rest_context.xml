@@ -25,6 +25,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ExpenseServiceBean" />
 			<ref bean="ProductServiceBean" />
 			<ref bean="VisitServiceBean" />
+			<ref bean="PaymentServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -74,5 +75,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		
 	<bean id="VisitServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.VisitRestService" />
+		
+	<bean id="PaymentServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.PaymentRestService" />
 
 </beans>

@@ -18,12 +18,6 @@ import org.compiere.util.Env;
  */
 public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> {
 
-	private int orderId;
-
-	public OrderLineDBService(int orderId) {
-		this.orderId = orderId;
-	}
-
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
 		MOrderLine_BH mOrderLine = getEntityFromDB(entity.getUuid());
@@ -31,8 +25,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine = new MOrderLine_BH(Env.getCtx(), 0, null);
 		}
 
-		if (orderId > 0) {
-			mOrderLine.setC_Order_ID(orderId);
+		if (entity.getOrderId() > 0) {
+			mOrderLine.setC_Order_ID(entity.getOrderId());
 		}
 
 		if (entity.getChargeId() > 0) {
@@ -67,8 +61,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		try {
 			return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					instance.getC_Charge_ID(), orderId, instance.getM_Product_ID(), instance.getPriceActual(),
-					instance.getQtyOrdered());
+					instance.getC_Charge_ID(), instance.getC_Order_ID(), instance.getM_Product_ID(),
+					instance.getPriceActual(), instance.getQtyOrdered());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

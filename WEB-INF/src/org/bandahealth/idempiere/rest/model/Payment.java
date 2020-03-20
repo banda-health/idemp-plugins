@@ -17,18 +17,20 @@ public class Payment extends BaseMetadata {
 	private int orderId;
 	private BigDecimal payAmount;
 	private String tenderType;
+	private String tenderTypeDescription;
 
 	public Payment() {
 	}
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int bpartnerId, int orderId, BigDecimal payAmount, String tenderType) {
+			int bpartnerId, int orderId, BigDecimal payAmount, String tenderType, String tenderTypeDescription) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.bpartnerId = bpartnerId;
 		this.orderId = orderId;
 		this.payAmount = payAmount;
 		this.tenderType = tenderType;
+		this.tenderTypeDescription = tenderTypeDescription;
 	}
 
 	public int getBpartnerId() {
@@ -71,4 +73,11 @@ public class Payment extends BaseMetadata {
 		this.tenderType = tenderType;
 	}
 
+	public String getTenderTypeDescription() {
+		return tenderTypeDescription;
+	}
+
+	public void setTenderTypeDescription(String tenderTypeDescription) {
+		this.tenderTypeDescription = tenderTypeDescription;
+	}
 }

@@ -41,4 +41,7 @@ public interface IRestConfigs {
 	String VISIT_PATH = "/visit/{uuid}";
 	String VISIT_PROCESS_PATH = "/process/{uuid}";
 	String VISIT_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+	
+	String PAYMENTS_PATH = AUTHENTICATION_PATH + "/payments";
+	String PAYMENT_PATH = "/payment/{uuid}";
 }

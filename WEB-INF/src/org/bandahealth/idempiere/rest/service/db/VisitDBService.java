@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 
 /**
  * Visit/billing functionality
@@ -31,6 +32,27 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
+	protected void populateExtraFields(Visit entity, MOrder_BH mOrder) {
+		if (StringUtil.isNotNullAndEmpty(entity.getVisitNotes())) {
+			mOrder.set_ValueOfColumn(COLUMNNAME_VISIT_NOTES, entity.getVisitNotes());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getDiagnosis())) {
+			mOrder.setDescription(entity.getDiagnosis());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getPatientType())) {
+			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getReferral())) {
+			mOrder.set_ValueOfColumn(COLUMNNAME_REFERRAL, entity.getReferral());
+		}
+
+		mOrder.setBH_NewVisit(entity.isNewVisit());
+	}
+
+	@Override
 	protected Visit createInstanceWithDefaultFields(MOrder_BH instance) {
 		try {
 			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
@@ -41,7 +63,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getC_BPartner_ID(), patient.getName(), patient.getTotalOpenBalance(),
-					DateUtil.parse(instance.getDateOrdered()), instance.getGrandTotal());
+					DateUtil.parse(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -57,9 +79,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			if (patient == null) {
 				return null;
 			}
-
-			orderLineDBService = new OrderLineDBService(instance.get_ID());
-			paymentDBService = new PaymentDBService(instance.get_ID(), instance.getC_BPartner_ID());
 
 			// retrieve order lines
 			List<OrderLine> orderLines = orderLineDBService.getOrderLinesByOrderId(instance.get_ID());
@@ -77,12 +96,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
 					: null;
 
-			Visit visit = new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
+			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getC_BPartner_ID(), patient.getName(), patient.getTotalOpenBalance(),
 					DateUtil.parse(instance.getDateOrdered()), instance.getGrandTotal(), instance.isBH_NewVisit(),
-					visitNotes, instance.getDescription(), patientType, referral, orderLines, payments);
-			return visit;
+					visitNotes, instance.getDescription(), patientType, referral, orderLines, payments,
+					instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

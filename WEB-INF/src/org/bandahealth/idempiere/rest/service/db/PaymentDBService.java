@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
+import org.compiere.model.MRefList;
+import org.compiere.model.MReference;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -22,13 +26,14 @@ import org.compiere.util.Env;
  */
 public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
-	private int orderId;
-	private int businessPartnerId;
 	private final String CURRENCY = "KES";
+	private final String TENDER_TYPE = "C_Payment Tender Type";
 
-	public PaymentDBService(int orderId, int businessPartnerId) {
-		this.orderId = orderId;
-		this.businessPartnerId = businessPartnerId;
+	public PaymentDBService() {
+	}
+
+	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
@@ -38,11 +43,11 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment = getModelInstance();
 		}
 
-		if (orderId > 0) {
-			mPayment.setBH_C_Order_ID(orderId);
+		if (entity.getOrderId() > 0) {
+			mPayment.setBH_C_Order_ID(entity.getOrderId());
 		}
 
-		mPayment.setC_BPartner_ID(businessPartnerId);
+		mPayment.setC_BPartner_ID(entity.getBpartnerId());
 
 		if (entity.getChargeId() > 0) {
 			mPayment.setC_Charge_ID(entity.getChargeId());
@@ -80,7 +85,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			return new Payment(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Payment_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getC_BPartner_ID(), instance.getBH_C_Order_ID(), instance.getPayAmt(),
-					instance.getTenderType());
+					instance.getTenderType(), getTenderTypeName(instance.getTenderType()));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -114,8 +119,8 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			return new MCurrency(Env.getCtx(), currencyId, null);
 		}
 
-		return new Query(Env.getCtx(), MCurrency.Table_Name, "iso_code = ?", null).setParameters(CURRENCY)
-				.setOnlyActiveRecords(true).setClient_ID().first();
+		return new Query(Env.getCtx(), MCurrency.Table_Name, MCurrency.COLUMNNAME_ISO_Code + " = ?", null)
+				.setParameters(CURRENCY).setOnlyActiveRecords(true).setClient_ID().first();
 	}
 
 	/**
@@ -125,10 +130,17 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	 */
 	protected MBankAccount getBankAccount() {
 		MBankAccount bankAccount = new Query(Env.getCtx(), MBankAccount.Table_Name, null, null)
-				.setOnlyActiveRecords(true).setClient_ID().setOrderBy("IsDefault DESC").first();
+				.setOnlyActiveRecords(true).setClient_ID().setOrderBy(MBankAccount.COLUMNNAME_IsDefault + " DESC")
+				.first();
 		return bankAccount;
 	}
 
+	/**
+	 * Get payments associated with an order
+	 * 
+	 * @param orderId
+	 * @return
+	 */
 	public List<Payment> getPaymentsByOrderId(int orderId) {
 		List<Payment> payments = new ArrayList<>();
 		List<MPayment_BH> mPayments = new Query(Env.getCtx(), MPayment_BH.Table_Name,
@@ -140,4 +152,31 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 		return payments;
 	}
+
+	/**
+	 * Retrieve tender type name
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private String getTenderTypeName(String value) {
+		/**
+		 * SELECT l.name FROM ad_ref_list l JOIN ad_reference r ON l.ad_reference_id =
+		 * r.ad_reference_id WHERE l.value = ? AND r.name = 'C_Payment Tender Type'
+		 */
+		MRefList refList = new Query(Env.getCtx(), MRefList.Table_Name,
+				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND " + MReference.Table_Name + "."
+						+ MReference.COLUMNNAME_Name + "=?",
+				null).addJoinClause(
+						"JOIN " + MReference.Table_Name + " ON " + MReference.Table_Name + "."
+								+ MReference.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
+								+ MRefList.COLUMNNAME_AD_Reference_ID)
+						.setParameters(value, TENDER_TYPE).setOnlyActiveRecords(true).first();
+		if (refList != null) {
+			return refList.getName();
+		}
+
+		return null;
+	}
+
 }
