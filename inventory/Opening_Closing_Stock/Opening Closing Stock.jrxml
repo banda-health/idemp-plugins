@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -49,44 +49,55 @@
 		</box>
 	</style>
 	<subDataset name="End stock value" uuid="4ddff745-c801-490f-9e16-520912866ea0">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[select currentqty.product as item_name,
-       coalesce(sum(currentqty.closingqty - changesinqty.qtychanged),sum(currentqty.closingqty))  as beginning,
+			<![CDATA[select productname.product as item_name,
+       coalesce(sum(currentqty.closingqty - changesinqty.qtychanged),sum(currentqty.closingqty)) as beginning,
        coalesce(sum(stockreceived.qtyreceived),0) as receivedstock,
        coalesce(sum(stocksold.qtysold),0) as soldstock,
        coalesce(sum(stocktakechange.qtybalanced),0) as balancestock,
        sum(currentqty.closingqty) as ending,
        productPP.PurchasePrice as PurchasePrice,
        abs(coalesce(sum(currentqty.closingqty*productPP.PurchasePrice),0)) as endingvalue
-from (
-         select m_product_id,
-                product,
-                sum(quantity) as closingqty
-         from bh_stocktake_v
-         where ad_client_id = $P{AD_CLIENT_ID}
-         group by m_product_id, product
-     ) as currentqty
+from
+    (
+select m_product_id,
+    product
+from bh_stocktake_v
+where ad_client_id = $P{AD_CLIENT_ID}
+group by m_product_id, product
+    ) as productname
+left join
+     (
+select m_product_id,
+    sum(movementqty) as closingqty
+from m_transaction
+where ad_client_id = $P{AD_CLIENT_ID}
+    and m_attributesetinstance_id <> 0
+    and (date(updated) <= date($P{End Date}))
+group by m_product_id
+     ) as currentqty on currentqty.m_product_id = productname.m_product_id
 left join
     (
 select m_product_id,
        sum(movementqty) as qtychanged
 from m_transaction
 where ad_client_id =  $P{AD_CLIENT_ID}
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and m_attributesetinstance_id <> 0
+    and (date(updated) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by m_product_id
-        ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
+) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
 left join
 (
 select m_product_id,
        sum(movementqty) as qtyreceived
 from m_transaction
 where ad_client_id =  $P{AD_CLIENT_ID} and movementtype = 'V+'
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(updated) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by m_product_id
 ) as stockreceived on currentqty.m_product_id = stockreceived.m_product_id
 left join
@@ -95,21 +106,18 @@ select m_product_id,
        sum(movementqty) as qtybalanced
 from m_transaction
 where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('P+','P-')
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(updated) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by m_product_id
 ) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id
 left join
 (
-select coline.m_product_id,
-       sum(coline.qtyordered) as qtysold
-from c_order co
-    inner join c_orderline coline on co.c_order_id = coline.c_order_id
-    inner join c_payment cp on co.c_order_id = cp.bh_c_order_id
-where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-    and (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-    and ((cp.docstatus = 'CO') OR (cp.docstatus = 'DR' and cp.bh_processing = 'Y'))
-    )
-group by coline.m_product_id
+select m_product_id,
+       sum(movementqty) as qtysold
+from m_transaction
+where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('C-')
+    and m_attributesetinstance_id <> 0
+    and (date(updated) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by m_product_id
 ) as stocksold on currentqty.m_product_id = stocksold.m_product_id
 left join
 (
@@ -158,14 +166,34 @@ group by item_name,PurchasePrice;]]>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[select m_product_id
-from m_product
-where isactive = 'Y' and ad_client_id = $P{AD_CLIENT_ID}
+		<![CDATA[select currentqty.product as item_name,
+       coalesce(sum(currentqty.closingqty - changesinqty.qtychanged),sum(currentqty.closingqty))  as beginning
+from (
+         select m_product_id,
+                product,
+                sum(quantity) as closingqty
+         from bh_stocktake_v
+         where ad_client_id = $P{AD_CLIENT_ID}
+         group by m_product_id, product
+     ) as currentqty
+inner join
+    (
+select m_product_id,
+       sum(movementqty) as qtychanged
+from m_transaction
+where ad_client_id =  $P{AD_CLIENT_ID}
+    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by m_product_id
+        ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
+group by item_name
 limit 1;]]>
 	</queryString>
-	<field name="m_product_id" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="m_product_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+	<field name="item_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_stocktake_v"/>
+	</field>
+	<field name="beginning" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="beginning"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -423,7 +451,7 @@ limit 1;]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[No data was found to display on the report.]]></text>
