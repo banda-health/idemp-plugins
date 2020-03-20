@@ -26,6 +26,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ProductServiceBean" />
 			<ref bean="VisitServiceBean" />
 			<ref bean="PaymentServiceBean" />
+			<ref bean="StockTakeServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -45,7 +46,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="authenticationFilter"
 		class="org.bandahealth.idempiere.rest.filter.AuthenticationFilter" />
-		
+
 	<bean id="exceptionProvider"
 		class="org.bandahealth.idempiere.rest.AdempiereExceptionMapper" />
 
@@ -69,14 +70,17 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="ExpenseServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ExpenseRestService" />
-		
+
 	<bean id="ProductServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ProductRestService" />
-		
+
 	<bean id="VisitServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.VisitRestService" />
-		
+
 	<bean id="PaymentServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.PaymentRestService" />
+
+	<bean id="StockTakeServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.InventoryRestService" />
 
 </beans>

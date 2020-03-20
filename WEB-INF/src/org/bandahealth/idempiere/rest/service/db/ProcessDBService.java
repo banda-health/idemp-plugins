@@ -47,7 +47,7 @@ public class ProcessDBService {
 		response.setSummary(processInfo.getSummary());
 		response.setError(processInfo.isError());
 	}
-
+	
 	public static BHProcessInfo runProcess(BHProcessInfo request) {
 		if (request == null) {
 			return null;

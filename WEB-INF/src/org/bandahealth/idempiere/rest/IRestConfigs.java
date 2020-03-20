@@ -36,6 +36,9 @@ public interface IRestConfigs {
 
 	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
 	String EXPENSE_PATH = "/expense/{uuid}";
+	
+	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
+	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
 
 	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";
 	String VISIT_PATH = "/visit/{uuid}";
