@@ -26,11 +26,8 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	@Override
 	public Expense saveEntity(Expense entity) {
 		try {
-			MCharge charge;
-			MCharge exists = getEntityFromDB(entity.getUuid());
-			if (exists != null) {
-				charge = exists;
-			} else {
+			MCharge charge = getEntityFromDB(entity.getUuid());
+			if (charge == null) {
 				charge = getModelInstance();
 			}
 

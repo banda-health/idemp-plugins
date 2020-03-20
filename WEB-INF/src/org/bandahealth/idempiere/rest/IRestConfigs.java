@@ -5,7 +5,7 @@ public interface IRestConfigs {
 	String ROOT_PATH = "/";
 	String AUTHENTICATION = "auth";
 	String AUTHENTICATION_PATH = ROOT_PATH + AUTHENTICATION;
-	
+
 	String AUTHENTICATION_SESSION_PATH = "/session";
 	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms";
 
@@ -26,19 +26,25 @@ public interface IRestConfigs {
 	String MENU_LINE_PATH = "/menulines/{uuid}";
 
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
-	
+
 	String PRODUCTS_PATH = AUTHENTICATION_PATH + "/products";
 	String PRODUCT_PATH = "/product/{uuid}";
-	
+
 	// 'services' used by iDemp WebServices.
 	String SERVICES_PATH = AUTHENTICATION_PATH + "/bhservices";
 	String SERVICE_PATH = "/service/{uuid}";
-	
+
 	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
 	String EXPENSE_PATH = "/expense/{uuid}";
 	
 	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
 	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
 
+	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";
+	String VISIT_PATH = "/visit/{uuid}";
+	String VISIT_PROCESS_PATH = "/process/{uuid}";
+	String VISIT_SAVE_AND_PROCESS_PATH = "/saveandprocess";
 	
+	String PAYMENTS_PATH = AUTHENTICATION_PATH + "/payments";
+	String PAYMENT_PATH = "/payment/{uuid}";
 }

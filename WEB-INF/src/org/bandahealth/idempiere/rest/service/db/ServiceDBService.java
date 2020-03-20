@@ -32,11 +32,8 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	@Override
 	public Service saveEntity(Service entity) {
 		try {
-			MProduct_BH service;
-			MProduct_BH exists = getEntityFromDB(entity.getUuid());
-			if (exists != null) {
-				service = exists;
-			} else {
+			MProduct_BH service = getEntityFromDB(entity.getUuid());
+			if (service == null) {
 				service = getModelInstance();
 				service.setProductType(MProduct_BH.PRODUCTTYPE_Service);
 

@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocation;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 /**
@@ -39,11 +40,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	@Override
 	public Patient saveEntity(Patient entity) {
 		try {
-			MBPartner_BH patient;
-			MBPartner_BH exists = getEntityFromDB(entity.getUuid());
-			if (exists != null) {
-				patient = exists;
-			} else {
+			MBPartner_BH patient = getEntityFromDB(entity.getUuid());
+			if (patient == null) {
 				patient = getModelInstance();
 				patient.setBH_IsPatient(true);
 			}
@@ -162,5 +160,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	@Override
 	protected MBPartner_BH getModelInstance() {
 		return new MBPartner_BH(Env.getCtx(), 0, null);
+	}
+
+	public MBPartner_BH getPatientById(int patientId) {
+		return new Query(Env.getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=?", null)
+				.setParameters(patientId).first();
 	}
 }

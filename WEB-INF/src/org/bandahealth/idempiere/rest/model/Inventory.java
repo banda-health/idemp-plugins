@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.sql.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,26 +14,25 @@ public class Inventory extends BaseEntity {
 	private int productId;
 	private int warehouseId;
 	private String productName;
-	private Date expirationDate;
+	private String expirationDate;
 	private int quantity;
 	private int shelfLife;
+	private int attributeSetInstanceId;
 
 	public Inventory() {
 	}
 
-	public Inventory(int productId) {
-		super();
-		this.productId = productId;
-	}
+	public Inventory(int productId, int warehouseId, String productName, String expiration, int quantity, int shelfLife,
+			int attributeSetInstanceId, int clientId, int orgId, String created, int createdBy, String description) {
+		super(clientId, orgId, null, true, created, createdBy, null, description);
 
-	public Inventory(int productId, int warehouseId, String productName, Date expiration, int quantity, int shelfLife) {
-		super();
 		this.productId = productId;
 		this.warehouseId = warehouseId;
 		this.productName = productName;
 		this.expirationDate = expiration;
 		this.quantity = quantity;
 		this.shelfLife = shelfLife;
+		this.attributeSetInstanceId = attributeSetInstanceId;
 	}
 
 	public int getProductId() {
@@ -54,7 +51,7 @@ public class Inventory extends BaseEntity {
 		return productName;
 	}
 
-	public Date getExpirationDate() {
+	public String getExpirationDate() {
 		return expirationDate;
 	}
 
@@ -74,7 +71,7 @@ public class Inventory extends BaseEntity {
 		this.productName = productName;
 	}
 
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 
@@ -86,4 +83,11 @@ public class Inventory extends BaseEntity {
 		this.shelfLife = shlfLife;
 	}
 
+	public int getAttributeSetInstanceId() {
+		return attributeSetInstanceId;
+	}
+
+	public void setAttributeSetInstanceId(int attributeSetInstanceId) {
+		this.attributeSetInstanceId = attributeSetInstanceId;
+	}
 }
