@@ -29,7 +29,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 			vendor.setIsVendor(true);
 		}
 
-		if (StringUtil.isNotNullAndEmpty(vendor.getName())) {
+		if (StringUtil.isNotNullAndEmpty(entity.getName())) {
 			vendor.setName(entity.getName());
 		}
 
