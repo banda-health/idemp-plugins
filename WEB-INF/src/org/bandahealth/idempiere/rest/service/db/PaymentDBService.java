@@ -47,7 +47,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setBH_C_Order_ID(entity.getOrderId());
 		}
 
-		mPayment.setC_BPartner_ID(entity.getBpartnerId());
+		mPayment.setC_BPartner_ID(entity.getBusinessPartnerId());
 
 		if (entity.getChargeId() > 0) {
 			mPayment.setC_Charge_ID(entity.getChargeId());

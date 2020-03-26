@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Payment extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private int bpartnerId;
+	private int businessPartnerId;
 	private int chargeId;
 	private int orderId;
 	private BigDecimal payAmount;
@@ -23,22 +23,22 @@ public class Payment extends BaseMetadata {
 	}
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int bpartnerId, int orderId, BigDecimal payAmount, String tenderType, String tenderTypeDescription) {
+			int businessPartnerId, int orderId, BigDecimal payAmount, String tenderType, String tenderTypeDescription) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
-		this.bpartnerId = bpartnerId;
+		this.businessPartnerId = businessPartnerId;
 		this.orderId = orderId;
 		this.payAmount = payAmount;
 		this.tenderType = tenderType;
 		this.tenderTypeDescription = tenderTypeDescription;
 	}
 
-	public int getBpartnerId() {
-		return bpartnerId;
+	public int getBusinessPartnerId() {
+		return businessPartnerId;
 	}
 
-	public void setBpartnerId(int bpartnerId) {
-		this.bpartnerId = bpartnerId;
+	public void setBusinessPartnerId(int businessPartnerId) {
+		this.businessPartnerId = businessPartnerId;
 	}
 
 	public int getChargeId() {

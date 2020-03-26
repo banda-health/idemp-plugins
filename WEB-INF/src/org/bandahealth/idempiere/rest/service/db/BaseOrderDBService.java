@@ -63,7 +63,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			if (entity.getPayments() != null && entity.isIsSalesOrderTransaction()) {
 				for (Payment payment : entity.getPayments()) {
 					payment.setOrderId(mOrder.get_ID());
-					payment.setBpartnerId(mOrder.getC_BPartner_ID());
+					payment.setBusinessPartnerId(mOrder.getC_BPartner_ID());
 					paymentDBService.saveEntity(payment);
 				}
 			}
@@ -81,16 +81,14 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @param uuid
 	 * @return
 	 */
-	public T asyncProcessEntity(String uuid) {
+	public String asyncProcessEntity(String uuid) {
 		MOrder_BH order = getEntityFromDB(uuid);
 		if (order == null) {
 			log.severe("No order with uuid = " + uuid);
-			return null;
+			return "No order with uuid = " + uuid;
 		}
 
-		processDBService.runOrderProcess(order.get_ID());
-
-		return null;
+		return processDBService.runOrderProcess(order.get_ID());
 	}
 
 	/**
@@ -117,7 +115,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @param entity
 	 * @return
 	 */
-	public T asynSaveAndProcessEntity(T entity) {
+	public String asynSaveAndProcessEntity(T entity) {
 		T saveEntity = saveEntity(entity);
 		if (saveEntity != null) {
 			return asyncProcessEntity(saveEntity.getUuid());

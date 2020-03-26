@@ -50,7 +50,7 @@ public class ProcessDBService {
 
 		ServerProcessCtl.process(processInfo, null);
 
-		return processInfo.getSummary();
+		return Process.PROCESSING_MESSAGE;
 	}
 
 	/**
