@@ -14,6 +14,8 @@ public class Process extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public final static String PROCESSING_MESSAGE = "Processing Transaction";
+
 	private int adFormId;
 	private int adReportViewId;
 	private int adWorkflowId;
@@ -30,10 +32,10 @@ public class Process extends BaseEntity {
 		super();
 	}
 
-	public Process(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			String name, String description, int adFormId, int adReportViewId, int adWorkflowId,
-			String allowMultipleExecution, String classname, String copyFromProcess, String entityType,
-			String executionType, boolean isDirectPrint, boolean isReport, List<ProcessParameter> parameters) {
+	public Process(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
+			String description, int adFormId, int adReportViewId, int adWorkflowId, String allowMultipleExecution,
+			String classname, String copyFromProcess, String entityType, String executionType, boolean isDirectPrint,
+			boolean isReport, List<ProcessParameter> parameters) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.adFormId = adFormId;
