@@ -36,6 +36,12 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
 			vendor.setDescription(entity.getDescription());
 		}
+		if (StringUtil.isNotNullAndEmpty(entity.getPhoneNumber())) {
+			vendor.setBH_Phone((entity.getPhoneNumber()));
+		}
+		if (StringUtil.isNotNullAndEmpty(entity.getEmailAddress())) {
+			vendor.setBH_EMail((entity.getEmailAddress()));
+		}
 
 		vendor.setIsActive(entity.isIsActive());
 
@@ -49,7 +55,8 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
 					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
-					bpartner.getDescription(), bpartner.getName(), bpartner.getTotalOpenBalance());
+					bpartner.getDescription(), bpartner.getName(), bpartner.getBH_EMail(), bpartner.getBH_Phone(),
+					bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -62,7 +69,8 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
 					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
-					bpartner.getDescription(), bpartner.getName(), bpartner.getTotalOpenBalance());
+					bpartner.getDescription(), bpartner.getName(), bpartner.getBH_EMail(), bpartner.getBH_Phone(),
+					bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
