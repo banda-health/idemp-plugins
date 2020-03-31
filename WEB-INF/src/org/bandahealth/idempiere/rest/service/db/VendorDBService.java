@@ -20,6 +20,22 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
+	/**
+	 * Vendor search implementation.
+	 * 
+	 * @param value
+	 * @param pagingInfo
+	 * @return
+	 */
+	public BaseListResponse<Vendor> search(String value, Paging pagingInfo) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("%" + value + "%");
+		parameters.add("Y");
+
+		return search(DEFAULT_SEARCH_CLAUSE + AND_OPARATOR + MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters,
+				pagingInfo);
+	}
+
 	@Override
 	public Vendor saveEntity(Vendor entity) {
 		MBPartner_BH vendor = getEntityFromDB(entity.getUuid());
@@ -68,6 +84,11 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected Vendor createInstanceWithSearchFields(MBPartner_BH instance) {
+		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override

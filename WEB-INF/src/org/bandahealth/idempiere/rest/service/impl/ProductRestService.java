@@ -8,7 +8,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Product;
@@ -20,10 +19,10 @@ import org.bandahealth.idempiere.rest.service.db.ProductDBService;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductRestService extends BaseEntityRestService<Product> {
 
-	private ProductDBService productDbService;
+	private ProductDBService dbService;
 
 	public ProductRestService() {
-		productDbService = new ProductDBService();
+		dbService = new ProductDBService();
 	}
 
 	@POST
@@ -31,20 +30,28 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	@Override
 	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
-		return productDbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
+		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
 	@Path(IRestConfigs.PRODUCT_PATH)
 	@Override
 	public Product getEntity(@PathParam("uuid") String uuid) {
-		return productDbService.getEntity(uuid);
+		return dbService.getEntity(uuid);
 	}
 
 	@POST
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Product saveEntity(Product entity) {
-		return productDbService.saveEntity(entity);
+		return dbService.saveEntity(entity);
+	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Product> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return dbService.search(value, getPagingInfo(page, size));
 	}
 }

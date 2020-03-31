@@ -109,6 +109,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return null;
 	}
 
+	@Override
+	protected Visit createInstanceWithSearchFields(MOrder_BH instance) {
+		return createInstanceWithDefaultFields(instance);
+	}
+
 	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");

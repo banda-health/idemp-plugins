@@ -34,6 +34,15 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 		return super.getAll(MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
+	public BaseListResponse<Patient> search(String value, Paging pagingInfo) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("%" + value + "%");
+		parameters.add("Y");
+
+		return search(this.DEFAULT_SEARCH_CLAUSE + this.AND_OPARATOR + MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?",
+				parameters, pagingInfo);
+	}
+
 	/*
 	 * Save or Update Patient
 	 */
@@ -155,6 +164,11 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
+	}
+
+	@Override
+	protected Patient createInstanceWithSearchFields(MBPartner_BH instance) {
+		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override

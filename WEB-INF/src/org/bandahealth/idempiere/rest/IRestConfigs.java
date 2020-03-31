@@ -10,6 +10,8 @@ public interface IRestConfigs {
 	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms";
 
 	String SAVE_PATH = "/save";
+	
+	String SEARCH_PATH = "/search";
 
 	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";
 	String PATIENT_PATH = "/patient/{uuid}";

@@ -49,4 +49,12 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 
 		return entity;
 	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Inventory> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return null;
+	}
 }

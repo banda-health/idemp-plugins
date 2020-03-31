@@ -47,4 +47,12 @@ public class MenuLineRestService extends BaseEntityRestService<MenuGroupLineItem
 	public MenuGroupLineItem saveEntity(MenuGroupLineItem entity) {
 		return null;
 	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<MenuGroupLineItem> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return null;
+	}
 }

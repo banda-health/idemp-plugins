@@ -1,5 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Expense;
@@ -53,6 +56,13 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
 	}
 
+	public BaseListResponse<Expense> search(String value, Paging pagingInfo) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("%" + value + "%");
+
+		return this.search(this.DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo);
+	}
+
 	@Override
 	protected Expense createInstanceWithDefaultFields(MCharge expense) {
 		try {
@@ -69,6 +79,11 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	@Override
 	protected Expense createInstanceWithAllFields(MCharge expense) {
 		return createInstanceWithDefaultFields(expense);
+	}
+
+	@Override
+	protected Expense createInstanceWithSearchFields(MCharge instance) {
+		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override
