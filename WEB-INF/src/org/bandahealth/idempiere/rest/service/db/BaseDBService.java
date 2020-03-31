@@ -6,6 +6,7 @@ import java.util.List;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -21,6 +22,13 @@ import org.compiere.util.Env;
  */
 public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
+	private final String ASCENDING_ORDER = "ASC";
+	private final String DESCENDING_ORDER = "DESC";
+	private final String LIKE_COMPARATOR = "LIKE";
+	public final String AND_OPARATOR = " AND ";
+
+	public final String DEFAULT_SEARCH_CLAUSE = MUser.COLUMNNAME_Name + " " + LIKE_COMPARATOR + " ? ";
+
 	public abstract T saveEntity(T entity);
 
 	// Default fields used for lists
@@ -28,6 +36,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	// All fields
 	protected abstract T createInstanceWithAllFields(S instance);
+
+	// Search fields
+	protected abstract T createInstanceWithSearchFields(S instance);
 
 	protected abstract S getModelInstance();
 
@@ -45,11 +56,49 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null) {
 			// check if column exists
 			if (checkColumnExists(sortColumn)) {
-				return sortColumn + " " + (sortOrder.equalsIgnoreCase("DESC") ? "DESC" : "ASC");
+				return sortColumn + " "
+						+ (sortOrder.equalsIgnoreCase(DESCENDING_ORDER) ? DESCENDING_ORDER : ASCENDING_ORDER);
 			}
 		} else {
 			// every table has the 'created' column
-			return checkColumnExists("CREATED") ? "CREATED DESC" : null;
+			return checkColumnExists(MUser.COLUMNNAME_Created) ? MUser.COLUMNNAME_Created + " " + DESCENDING_ORDER
+					: null;
+		}
+
+		return null;
+	}
+
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo) {
+		try {
+			List<T> results = new ArrayList<>();
+
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
+					.setOnlyActiveRecords(true);
+
+			if (parameters != null) {
+				query = query.setParameters(parameters);
+			}
+
+			// get total count without pagination parameters
+			pagingInfo.setTotalRecordCount(query.count());
+
+			// set pagination params
+			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
+
+			List<S> entities = query.list();
+
+			if (!entities.isEmpty()) {
+				for (S entity : entities) {
+					if (entity != null) {
+						results.add(createInstanceWithSearchFields(entity));
+					}
+				}
+			}
+
+			return new BaseListResponse<T>(results, pagingInfo);
+
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
 		}
 
 		return null;

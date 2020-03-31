@@ -57,6 +57,14 @@ public class PatientRestService extends BaseEntityRestService<Patient> {
 	}
 
 	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Patient> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return dbService.search(value, getPagingInfo(page, size));
+	}
+
+	@POST
 	@Path(IRestConfigs.PATIENT_GENERATE_ID)
 	public Patient generatePatientId() {
 		Object generatedPatientId = QueryUtil.generateNextBHPatientId();

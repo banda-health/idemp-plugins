@@ -52,4 +52,12 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	public Expense saveEntity(Expense entity) {
 		return dbService.saveEntity(entity);
 	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Expense> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return dbService.search(value, getPagingInfo(page, size));
+	}
 }

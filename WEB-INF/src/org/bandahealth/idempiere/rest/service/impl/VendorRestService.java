@@ -17,8 +17,6 @@ import org.bandahealth.idempiere.rest.service.db.VendorDBService;
 /**
  * Expose Vendor REST functionality
  * 
- * TODO: Error handling and logging.
- * 
  * @author andrew
  *
  */
@@ -53,5 +51,13 @@ public class VendorRestService extends BaseEntityRestService<Vendor> {
 	@Override
 	public Vendor saveEntity(Vendor entity) {
 		return dbService.saveEntity(entity);
+	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Vendor> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return dbService.search(value, getPagingInfo(page, size));
 	}
 }

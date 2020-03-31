@@ -29,6 +29,15 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
+	public BaseListResponse<Service> search(String value, Paging pagingInfo) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("%" + value + "%");
+		parameters.add(MProduct_BH.PRODUCTTYPE_Service);
+
+		return this.search(this.DEFAULT_SEARCH_CLAUSE + AND_OPARATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
+				parameters, pagingInfo);
+	}
+
 	@Override
 	public Service saveEntity(Service entity) {
 		try {
@@ -105,6 +114,11 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected Service createInstanceWithSearchFields(MProduct_BH instance) {
+		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override

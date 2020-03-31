@@ -98,6 +98,11 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	}
 
 	@Override
+	protected Payment createInstanceWithSearchFields(MPayment_BH instance) {
+		return createInstanceWithDefaultFields(instance);
+	}
+
+	@Override
 	protected MPayment_BH getModelInstance() {
 		return new MPayment_BH(Env.getCtx(), 0, null);
 	}

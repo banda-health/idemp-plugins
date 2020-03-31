@@ -52,4 +52,12 @@ public class ServiceRestService extends BaseEntityRestService<Service> {
 	public Service saveEntity(Service entity) {
 		return dbService.saveEntity(entity);
 	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Service> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return dbService.search(value, getPagingInfo(page, size));
+	}
 }

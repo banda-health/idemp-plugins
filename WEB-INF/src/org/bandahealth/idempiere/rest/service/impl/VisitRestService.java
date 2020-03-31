@@ -64,4 +64,12 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	public String saveAndProcessVisit(Visit entity) {
 		return dbService.asynSaveAndProcessEntity(entity);
 	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Visit> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return null;
+	}
 }

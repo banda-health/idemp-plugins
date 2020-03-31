@@ -47,4 +47,11 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 		return dbService.saveEntity(entity);
 	}
 
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Payment> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return null;
+	}
 }

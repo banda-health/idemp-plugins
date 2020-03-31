@@ -49,4 +49,12 @@ public class MenuRestService extends BaseEntityRestService<MenuGroupItem> {
 	public MenuGroupItem saveEntity(MenuGroupItem entity) {
 		throw new RuntimeException("Not permitted");
 	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<MenuGroupItem> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size) {
+		return null;
+	}
 }

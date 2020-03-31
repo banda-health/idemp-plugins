@@ -50,4 +50,9 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	public Process saveEntity(Process entity) {
 		return null;
 	}
+
+	@Override
+	public BaseListResponse<Process> search(String value, int page, int size) {
+		return null;
+	}
 }

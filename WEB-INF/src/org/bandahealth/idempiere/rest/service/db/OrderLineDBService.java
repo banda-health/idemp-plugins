@@ -68,6 +68,11 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		}
 		return null;
 	}
+	
+	@Override
+	protected OrderLine createInstanceWithSearchFields(MOrderLine_BH instance) {
+		return createInstanceWithDefaultFields(instance);
+	}
 
 	@Override
 	protected MOrderLine_BH getModelInstance() {
