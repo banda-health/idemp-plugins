@@ -6,15 +6,16 @@ import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.NHIF;
+import org.bandahealth.idempiere.rest.model.NHIFRelationship;
+import org.bandahealth.idempiere.rest.model.NHIFType;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Payment;
+import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
-import org.compiere.model.MRefList;
-import org.compiere.model.MReference;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -27,7 +28,6 @@ import org.compiere.util.Env;
 public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	private final String CURRENCY = "KES";
-	private final String TENDER_TYPE = "C_Payment Tender Type";
 
 	public PaymentDBService() {
 	}
@@ -57,8 +57,8 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setPayAmt(entity.getPayAmount());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getTenderType())) {
-			mPayment.setTenderType(entity.getTenderType());
+		if (entity.getPaymentType() != null) {
+			mPayment.setTenderType(entity.getPaymentType().getValue());
 		}
 
 		// get currency
@@ -73,6 +73,28 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setC_BankAccount_ID(bankAccount.get_ID());
 		}
 
+		// check nhif
+		if (entity.getNhif() != null) {
+			if (entity.getNhif().getType() != null) {
+				mPayment.set_ValueOfColumn(MPayment_BH.COLUMNAME_BH_NHIF_TYPE, entity.getNhif().getType().getValue());
+			}
+
+			if (entity.getNhif().getRelationship() != null) {
+				mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_BH_NHIF_RELATIONSHIP,
+						entity.getNhif().getRelationship().getValue());
+			}
+
+			mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME, entity.getNhif().getMemberName());
+			mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_NHIF_NUMBER, entity.getNhif().getNumber());
+			mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_ID, entity.getNhif().getMemberId());
+			mPayment.set_ValueOfColumn(NHIF.COLUMNNAME_BH_CLAIM_NUMBER, entity.getNhif().getClaimNumber());
+		}
+
+		// check description
+		if (entity.getDescription() != null) {
+			mPayment.setDescription(entity.getDescription());
+		}
+
 		mPayment.setIsActive(entity.isIsActive());
 		mPayment.saveEx();
 
@@ -82,10 +104,31 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	@Override
 	protected Payment createInstanceWithDefaultFields(MPayment_BH instance) {
 		try {
+			String nhifType = instance.get_Value(MPayment_BH.COLUMNAME_BH_NHIF_TYPE) != null
+					? (String) instance.get_Value(MPayment_BH.COLUMNAME_BH_NHIF_TYPE)
+					: null;
+			String relationship = instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_RELATIONSHIP) != null
+					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_RELATIONSHIP)
+					: null;
+			String claimNumber = instance.get_Value(NHIF.COLUMNNAME_BH_CLAIM_NUMBER) != null
+					? (String) instance.get_Value(NHIF.COLUMNNAME_BH_CLAIM_NUMBER)
+					: null;
+			String memberId = instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_ID) != null
+					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_ID)
+					: null;
+			String number = instance.get_Value(MPayment_BH.COLUMNNAME_NHIF_NUMBER) != null
+					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_NHIF_NUMBER)
+					: null;
+			String memberName = instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME) != null
+					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME)
+					: null;
+
 			return new Payment(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Payment_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getC_BPartner_ID(), instance.getBH_C_Order_ID(), instance.getPayAmt(),
-					instance.getTenderType(), getTenderTypeName(instance.getTenderType()));
+					new PaymentType(instance.getTenderType()), instance.getDescription(),
+					new NHIF(new NHIFType(nhifType), new NHIFRelationship(relationship), claimNumber, memberId, number,
+							memberName));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -157,31 +200,4 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 		return payments;
 	}
-
-	/**
-	 * Retrieve tender type name
-	 * 
-	 * @param value
-	 * @return
-	 */
-	private String getTenderTypeName(String value) {
-		/**
-		 * SELECT l.name FROM ad_ref_list l JOIN ad_reference r ON l.ad_reference_id =
-		 * r.ad_reference_id WHERE l.value = ? AND r.name = 'C_Payment Tender Type'
-		 */
-		MRefList refList = new Query(Env.getCtx(), MRefList.Table_Name,
-				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND " + MReference.Table_Name + "."
-						+ MReference.COLUMNNAME_Name + "=?",
-				null).addJoinClause(
-						"JOIN " + MReference.Table_Name + " ON " + MReference.Table_Name + "."
-								+ MReference.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
-								+ MRefList.COLUMNNAME_AD_Reference_ID)
-						.setParameters(value, TENDER_TYPE).setOnlyActiveRecords(true).first();
-		if (refList != null) {
-			return refList.getName();
-		}
-
-		return null;
-	}
-
 }

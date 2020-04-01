@@ -18,7 +18,7 @@ public class Visit extends Order {
 	private static final long serialVersionUID = 1L;
 	private Boolean newVisit;
 	private String visitNotes;
-	private String patientType;
+	private PatientType patientType;
 	private String referral;
 	private OrderStatus status;
 
@@ -28,7 +28,7 @@ public class Visit extends Order {
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis, String patientType,
+			BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis, PatientType patientType,
 			String referral, List<OrderLine> orderLines, List<Payment> payments, String documentStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, businessPartnerId, businessPartnerName,
 				totalOpenBalance, dateOrdered, grandTotal, true, diagnosis, orderLines, payments, documentStatus);
@@ -51,8 +51,8 @@ public class Visit extends Order {
 		setIsSalesOrderTransaction(true);
 	}
 
-	public Visit getVisitQueue(String created, String uuid, boolean isActive, String name,
-			List<OrderLine> orderLines, List<Payment> payments) {
+	public Visit getVisitQueue(String created, String uuid, boolean isActive, String name, List<OrderLine> orderLines,
+			List<Payment> payments) {
 
 		setCreated(created);
 		setUuid(uuid);
@@ -99,11 +99,11 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public String getPatientType() {
+	public PatientType getPatientType() {
 		return patientType;
 	}
 
-	public void setPatientType(String patientType) {
+	public void setPatientType(PatientType patientType) {
 		this.patientType = patientType;
 	}
 

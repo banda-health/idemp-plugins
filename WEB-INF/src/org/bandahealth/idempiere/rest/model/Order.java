@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Order extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private int businessPartnerId;
+	private Integer businessPartnerId;
 	private String dateOrdered;
 	private BigDecimal grandTotal;
 	private boolean isSalesOrderTransaction;
@@ -36,9 +36,9 @@ public class Order extends BaseMetadata {
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered, BigDecimal grandTotal,
-			boolean isSalesOrderTransaction, String description, List<OrderLine> orderLines, List<Payment> payments,
-			String documentStatus) {
+			Integer businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered,
+			BigDecimal grandTotal, boolean isSalesOrderTransaction, String description, List<OrderLine> orderLines,
+			List<Payment> payments, String documentStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartnerId = businessPartnerId;
@@ -54,7 +54,7 @@ public class Order extends BaseMetadata {
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered,
+			Integer businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered,
 			boolean isSalesOrderTransaction, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
@@ -70,7 +70,7 @@ public class Order extends BaseMetadata {
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
+			Integer businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
 			boolean isSalesOrderTransaction, List<OrderLine> orderLines, String documentStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
@@ -83,11 +83,11 @@ public class Order extends BaseMetadata {
 		this.documentStatus = documentStatus;
 	}
 
-	public int getBusinessPartnerId() {
+	public Integer getBusinessPartnerId() {
 		return businessPartnerId;
 	}
 
-	public void setBusinessPartnerId(int businessPartnerId) {
+	public void setBusinessPartnerId(Integer businessPartnerId) {
 		this.businessPartnerId = businessPartnerId;
 	}
 

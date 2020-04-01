@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -43,8 +44,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setDescription(entity.getDiagnosis());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getPatientType())) {
-			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType());
+		if (entity.getPatientType() != null) {
+			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType().getValue());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getReferral())) {
@@ -102,7 +103,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getC_BPartner_ID(), patient.getName(), patient.getTotalOpenBalance(),
 					DateUtil.parse(instance.getDateOrdered()), instance.getGrandTotal(), instance.isBH_NewVisit(),
-					visitNotes, instance.getDescription(), patientType, referral, orderLines, payments,
+					visitNotes, instance.getDescription(), new PatientType(patientType), referral, orderLines, payments,
 					instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

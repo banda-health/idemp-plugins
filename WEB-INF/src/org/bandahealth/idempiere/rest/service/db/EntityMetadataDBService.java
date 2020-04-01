@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
+import org.compiere.model.MValRule;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -25,6 +26,7 @@ public class EntityMetadataDBService {
 	private final String PAYMENT_TYPE = "C_Payment Tender Type";
 	private final String NHIF_TYPE = "BH_NHIFTypeRef";
 	private final String NHIF_RELATIONSHIP = "BH_NHIF_Relationship_Choices";
+	private final String PAYMENT_TYPE_LIMIT = "C_Payment Tender Type Limit";
 
 	public EntityMetadata getAll() {
 		EntityMetadata metadata = new EntityMetadata();
@@ -61,11 +63,19 @@ public class EntityMetadataDBService {
 	}
 
 	private List<MRefList> getTypes(String value) {
-		return new Query(Env.getCtx(), MRefList.Table_Name,
-				MReference.Table_Name + "." + MReference.COLUMNNAME_Name + "=?", null)
-						.addJoinClause("JOIN " + MReference.Table_Name + " ON " + MReference.Table_Name + "."
-								+ MReference.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
-								+ MRefList.COLUMNNAME_AD_Reference_ID)
-						.setParameters(value).setOnlyActiveRecords(true).list();
+		String whereClause = MReference.Table_Name + "." + MReference.COLUMNNAME_Name + "=? ";
+		if (value.equalsIgnoreCase(PAYMENT_TYPE)) {
+			// get payment type limits..
+			MValRule valRule = new Query(Env.getCtx(), MValRule.Table_Name, MValRule.COLUMNNAME_Name + "=?", null)
+					.setParameters(PAYMENT_TYPE_LIMIT).setOnlyActiveRecords(true).first();
+			if (valRule != null) {
+				whereClause += "AND " + valRule.getCode();
+			}
+		}
+
+		return new Query(Env.getCtx(), MRefList.Table_Name, whereClause, null).addJoinClause("JOIN "
+				+ MReference.Table_Name + " ON " + MReference.Table_Name + "." + MReference.COLUMNNAME_AD_Reference_ID
+				+ "=" + MRefList.Table_Name + "." + MRefList.COLUMNNAME_AD_Reference_ID).setParameters(value)
+				.setOnlyActiveRecords(true).list();
 	}
 }

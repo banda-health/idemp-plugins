@@ -14,6 +14,10 @@ public class PatientType extends BaseEntity {
 	public PatientType() {
 	}
 
+	public PatientType(String value) {
+		setValue(value);
+	}
+
 	public PatientType(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String name, String value) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, null);

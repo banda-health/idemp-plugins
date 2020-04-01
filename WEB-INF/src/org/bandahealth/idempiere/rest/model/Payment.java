@@ -16,21 +16,24 @@ public class Payment extends BaseMetadata {
 	private int chargeId;
 	private int orderId;
 	private BigDecimal payAmount;
-	private String tenderType;
-	private String tenderTypeDescription;
+	private PaymentType paymentType;
+	private String description;
+	private NHIF nhif;
 
 	public Payment() {
 	}
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, int orderId, BigDecimal payAmount, String tenderType, String tenderTypeDescription) {
+			int businessPartnerId, int orderId, BigDecimal payAmount, PaymentType paymentType, String description,
+			NHIF nhif) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartnerId = businessPartnerId;
 		this.orderId = orderId;
 		this.payAmount = payAmount;
-		this.tenderType = tenderType;
-		this.tenderTypeDescription = tenderTypeDescription;
+		this.paymentType = paymentType;
+		this.description = description;
+		this.nhif = nhif;
 	}
 
 	public int getBusinessPartnerId() {
@@ -65,19 +68,27 @@ public class Payment extends BaseMetadata {
 		this.payAmount = payAmount;
 	}
 
-	public String getTenderType() {
-		return tenderType;
+	public PaymentType getPaymentType() {
+		return paymentType;
 	}
 
-	public void setTenderType(String tenderType) {
-		this.tenderType = tenderType;
+	public void setPaymentType(PaymentType paymentType) {
+		this.paymentType = paymentType;
 	}
 
-	public String getTenderTypeDescription() {
-		return tenderTypeDescription;
+	public NHIF getNhif() {
+		return nhif;
 	}
 
-	public void setTenderTypeDescription(String tenderTypeDescription) {
-		this.tenderTypeDescription = tenderTypeDescription;
+	public void setNhif(NHIF nhif) {
+		this.nhif = nhif;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
