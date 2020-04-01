@@ -163,7 +163,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 						results.add(new Visit().getVisitQueue(DateUtil.parse(entity.getCreated()),
 								entity.getC_Order_UU(), entity.isActive(), patient.getName(),
-								DateUtil.parse(entity.getDateOrdered()), entity.getGrandTotal(),
 								orderLineDBService.getOrderLinesByOrderId(entity.get_ID()),
 								paymentDBService.getPaymentsByOrderId(entity.get_ID())));
 					}

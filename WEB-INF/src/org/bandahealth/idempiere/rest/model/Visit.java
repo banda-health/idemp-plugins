@@ -51,15 +51,13 @@ public class Visit extends Order {
 		setIsSalesOrderTransaction(true);
 	}
 
-	public Visit getVisitQueue(String created, String uuid, boolean isActive, String businessPartnerName,
-			String dateOrdered, BigDecimal grandTotal, List<OrderLine> orderLines, List<Payment> payments) {
-		
+	public Visit getVisitQueue(String created, String uuid, boolean isActive, String name,
+			List<OrderLine> orderLines, List<Payment> payments) {
+
 		setCreated(created);
 		setUuid(uuid);
 		setIsActive(isActive);
-		setName(businessPartnerName);
-		setDateOrdered(dateOrdered);
-		setGrandTotal(grandTotal);
+		setName(name);
 		setOrderLines(orderLines);
 		setPayments(payments);
 
