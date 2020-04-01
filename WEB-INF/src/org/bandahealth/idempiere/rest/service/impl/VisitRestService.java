@@ -66,6 +66,12 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	}
 
 	@POST
+	@Path(IRestConfigs.VISIT_QUEUE_PATH)
+	public BaseListResponse<Visit> getVisitQueue(@QueryParam("page") int page, @QueryParam("size") int size) {
+		return dbService.getVisitQueue(getPagingInfo(page, size));
+	}
+
+	@POST
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Visit> search(@QueryParam("value") String value, @QueryParam("page") int page,

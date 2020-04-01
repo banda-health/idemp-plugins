@@ -51,6 +51,28 @@ public class Visit extends Order {
 		setIsSalesOrderTransaction(true);
 	}
 
+	public Visit getVisitQueue(String created, String uuid, boolean isActive, String businessPartnerName,
+			String dateOrdered, BigDecimal grandTotal, List<OrderLine> orderLines, List<Payment> payments) {
+		
+		setCreated(created);
+		setUuid(uuid);
+		setIsActive(isActive);
+		setName(businessPartnerName);
+		setDateOrdered(dateOrdered);
+		setGrandTotal(grandTotal);
+		setOrderLines(orderLines);
+		setPayments(payments);
+
+		setOrderStatus();
+
+		// don't return orderlines and payments.They are only used to check the order
+		// status
+		setOrderLines(null);
+		setPayments(null);
+
+		return this;
+	}
+
 	@XmlElement
 	public Boolean isNewVisit() {
 		return newVisit;
@@ -114,14 +136,16 @@ public class Visit extends Order {
 	 * @param entity
 	 */
 	public void setOrderStatus() {
-		if (this.getOrderLines() == null && this.getPayments() == null) {
+		if ((this.getOrderLines() == null || this.getOrderLines().size() == 0)
+				&& (this.getPayments() == null || this.getPayments().size() == 0)) {
 			if (this.getPatientType() == null && this.getReferral() == null && this.getDiagnosis() == null
 					&& this.getVisitNotes() == null) {
 				this.setStatus(OrderStatus.WAITING);
 			} else {
 				this.setStatus(OrderStatus.DISPENSING);
 			}
-		} else if (this.getOrderLines() != null && this.getPayments() == null) {
+		} else if ((this.getOrderLines() != null && this.getOrderLines().size() > 0)
+				&& (this.getPayments() == null || this.getPayments().size() == 0)) {
 			this.setStatus(OrderStatus.PENDING);
 		} else {
 			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(getDocumentStatus())) {

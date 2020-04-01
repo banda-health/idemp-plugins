@@ -27,6 +27,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="VisitServiceBean" />
 			<ref bean="PaymentServiceBean" />
 			<ref bean="StockTakeServiceBean" />
+			<ref bean="EntityMetadataServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -82,5 +83,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="StockTakeServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.InventoryRestService" />
+
+	<bean id="EntityMetadataServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.EntityMetadataRestService" />
 
 </beans>
