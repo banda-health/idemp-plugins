@@ -8,10 +8,13 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * Visit/billing functionality
@@ -41,8 +44,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setDescription(entity.getDiagnosis());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getPatientType())) {
-			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType());
+		if (entity.getPatientType() != null) {
+			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType().getValue());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getReferral())) {
@@ -100,7 +103,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getC_BPartner_ID(), patient.getName(), patient.getTotalOpenBalance(),
 					DateUtil.parse(instance.getDateOrdered()), instance.getGrandTotal(), instance.isBH_NewVisit(),
-					visitNotes, instance.getDescription(), patientType, referral, orderLines, payments,
+					visitNotes, instance.getDescription(), new PatientType(patientType), referral, orderLines, payments,
 					instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -120,4 +123,60 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
+
+	/**
+	 * Get In-complete Visits
+	 * 
+	 * @param pagingInfo
+	 * @return
+	 */
+	public BaseListResponse<Visit> getVisitQueue(Paging pagingInfo) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
+
+		try {
+			List<Visit> results = new ArrayList<>();
+
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
+					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
+							.setClient_ID().setOnlyActiveRecords(true);
+
+			if (parameters != null) {
+				query = query.setParameters(parameters);
+			}
+
+			// get total count without pagination parameters
+			pagingInfo.setTotalRecordCount(query.count());
+
+			// set pagination params
+			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
+			List<MOrder_BH> entities = query.list();
+
+			if (!entities.isEmpty()) {
+				for (MOrder_BH entity : entities) {
+					if (entity != null) {
+						// get patient
+						MBPartner_BH patient = patientDBService.getPatientById(entity.getC_BPartner_ID());
+						if (patient == null) {
+							continue;
+						}
+
+						results.add(new Visit().getVisitQueue(DateUtil.parse(entity.getCreated()),
+								entity.getC_Order_UU(), entity.isActive(), patient.getName(),
+								orderLineDBService.getOrderLinesByOrderId(entity.get_ID()),
+								paymentDBService.getPaymentsByOrderId(entity.get_ID())));
+					}
+				}
+			}
+
+			return new BaseListResponse<Visit>(results, pagingInfo);
+
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
+	}
+
 }

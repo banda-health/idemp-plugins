@@ -18,7 +18,7 @@ public class Visit extends Order {
 	private static final long serialVersionUID = 1L;
 	private Boolean newVisit;
 	private String visitNotes;
-	private String patientType;
+	private PatientType patientType;
 	private String referral;
 	private OrderStatus status;
 
@@ -28,7 +28,7 @@ public class Visit extends Order {
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis, String patientType,
+			BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis, PatientType patientType,
 			String referral, List<OrderLine> orderLines, List<Payment> payments, String documentStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, businessPartnerId, businessPartnerName,
 				totalOpenBalance, dateOrdered, grandTotal, true, diagnosis, orderLines, payments, documentStatus);
@@ -49,6 +49,26 @@ public class Visit extends Order {
 				totalOpenBalance, dateOrdered, grandTotal, true, null, null, null, documentStatus);
 
 		setIsSalesOrderTransaction(true);
+	}
+
+	public Visit getVisitQueue(String created, String uuid, boolean isActive, String name, List<OrderLine> orderLines,
+			List<Payment> payments) {
+
+		setCreated(created);
+		setUuid(uuid);
+		setIsActive(isActive);
+		setName(name);
+		setOrderLines(orderLines);
+		setPayments(payments);
+
+		setOrderStatus();
+
+		// don't return orderlines and payments.They are only used to check the order
+		// status
+		setOrderLines(null);
+		setPayments(null);
+
+		return this;
 	}
 
 	@XmlElement
@@ -79,11 +99,11 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public String getPatientType() {
+	public PatientType getPatientType() {
 		return patientType;
 	}
 
-	public void setPatientType(String patientType) {
+	public void setPatientType(PatientType patientType) {
 		this.patientType = patientType;
 	}
 
@@ -114,14 +134,16 @@ public class Visit extends Order {
 	 * @param entity
 	 */
 	public void setOrderStatus() {
-		if (this.getOrderLines() == null && this.getPayments() == null) {
+		if ((this.getOrderLines() == null || this.getOrderLines().size() == 0)
+				&& (this.getPayments() == null || this.getPayments().size() == 0)) {
 			if (this.getPatientType() == null && this.getReferral() == null && this.getDiagnosis() == null
 					&& this.getVisitNotes() == null) {
 				this.setStatus(OrderStatus.WAITING);
 			} else {
 				this.setStatus(OrderStatus.DISPENSING);
 			}
-		} else if (this.getOrderLines() != null && this.getPayments() == null) {
+		} else if ((this.getOrderLines() != null && this.getOrderLines().size() > 0)
+				&& (this.getPayments() == null || this.getPayments().size() == 0)) {
 			this.setStatus(OrderStatus.PENDING);
 		} else {
 			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(getDocumentStatus())) {
