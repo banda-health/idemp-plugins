@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="3.305785123966942"/>
 	<property name="ireport.x" value="29"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
 	<parameter name="billId" class="java.math.BigDecimal">
@@ -94,7 +94,7 @@ where
 			</staticText>
 			<staticText>
 				<reportElement key="" x="20" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
-					<printWhenExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}) >= 0]]></printWhenExpression>
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) >= 0)]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="Arial"/>
@@ -109,7 +109,7 @@ where
 			</line>
 			<staticText>
 				<reportElement key="" x="20" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
-					<printWhenExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}) < 0]]></printWhenExpression>
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) < 0)]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="Arial"/>
