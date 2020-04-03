@@ -56,7 +56,7 @@ inner join
 select
   sorder.c_order_id as bill_id,
   sorder.ad_org_id as orgID,
-  sorder.dateordered as bill_date,
+  sorder.created as bill_date,
   sorder.c_order_id as receipt_number,
   cashier.name as cashierName,
   patient.name as patientName,
@@ -136,7 +136,7 @@ where sorder.c_order_id = $P{billId}
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy").format($F{bill_date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy HH:mm").format($F{bill_date})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement key="" x="90" y="144" width="71" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
