@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.OrderLine;
+import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.MProduct;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -17,6 +20,12 @@ import org.compiere.util.Env;
  *
  */
 public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> {
+
+	private ProductDBService productDBService;
+
+	public OrderLineDBService() {
+		this.productDBService = new ProductDBService();
+	}
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
@@ -33,8 +42,12 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setC_Charge_ID(entity.getChargeId());
 		}
 
-		if (entity.getProductId() > 0) {
-			mOrderLine.setM_Product_ID(entity.getProductId());
+		if (entity.getProduct() != null) {
+			MProduct_BH product = productDBService.getEntityFromDB(entity.getProduct().getUuid());
+
+			if (product != null) {
+				mOrderLine.setM_Product_ID(product.get_ID());
+			}
 		}
 
 		if (entity.getPrice().compareTo(BigDecimal.ZERO) > 0) {
@@ -59,16 +72,24 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	@Override
 	protected OrderLine createInstanceWithAllFields(MOrderLine_BH instance) {
 		try {
+
+			MProduct product = productDBService.getProductByID(instance.getM_Product_ID());
+
+			if (product == null) {
+				return null;
+			}
+
 			return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					instance.getC_Charge_ID(), instance.getC_Order_ID(), instance.getM_Product_ID(),
-					instance.getPriceActual(), instance.getQtyOrdered());
+					instance.getC_Charge_ID(), instance.getC_Order_ID(),
+					new Product(product.getName(), product.getM_Product_UU()), instance.getPriceActual(),
+					instance.getQtyOrdered());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected OrderLine createInstanceWithSearchFields(MOrderLine_BH instance) {
 		return createInstanceWithDefaultFields(instance);

@@ -43,20 +43,20 @@ public class Visit extends Order {
 	}
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			BigDecimal grandTotal, String documentStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, businessPartnerId, businessPartnerName,
-				totalOpenBalance, dateOrdered, grandTotal, true, null, null, null, documentStatus);
+			String businessPartnerName, PatientType patientType, String dateOrdered, BigDecimal grandTotal,
+			String documentStatus) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, businessPartnerName, null, dateOrdered,
+				grandTotal, true, null, null, null, documentStatus);
 
+		this.patientType = patientType;
 		setIsSalesOrderTransaction(true);
 	}
 
-	public Visit getVisitQueue(String created, String uuid, boolean isActive, String name, List<OrderLine> orderLines,
+	public Visit getVisitQueue(String created, String uuid, String name, List<OrderLine> orderLines,
 			List<Payment> payments) {
 
 		setCreated(created);
 		setUuid(uuid);
-		setIsActive(isActive);
 		setName(name);
 		setOrderLines(orderLines);
 		setPayments(payments);
@@ -146,7 +146,7 @@ public class Visit extends Order {
 				&& (this.getPayments() == null || this.getPayments().size() == 0)) {
 			this.setStatus(OrderStatus.PENDING);
 		} else {
-			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(getDocumentStatus())) {
+			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(getDocStatus())) {
 				this.setStatus(OrderStatus.COMPLETED);
 			} else {
 				this.setStatus(OrderStatus.PENDING_COMPLETION);

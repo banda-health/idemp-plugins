@@ -15,20 +15,25 @@ public class Product extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String value;
-	private boolean isStocked;
+	private Boolean isStocked;
 	private Integer reorderLevel;
 	private Integer reorderQuantity;
 	private BigDecimal buyPrice;
 	private BigDecimal sellPrice;
 	private String productType;
-	private boolean hasExpiration;
+	private Boolean hasExpiration;
 
 	public Product() {
 	}
 
-	public Product(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, String value, boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
-			String productType, Integer reorderLevel, Integer reorderQuantity, boolean hasExpiration) {
+	public Product(String name, String uuid) {
+		this.setName(name);
+		this.setUuid(uuid);
+	}
+
+	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
+			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
+			String productType, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -41,7 +46,7 @@ public class Product extends BaseEntity {
 		this.hasExpiration = hasExpiration;
 	}
 
-	public Product(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
+	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal buyPrice, BigDecimal sellPrice) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
@@ -55,7 +60,7 @@ public class Product extends BaseEntity {
 	}
 
 	@XmlElement
-	public boolean getIsStocked() {
+	public Boolean getIsStocked() {
 		return isStocked;
 	}
 
@@ -84,7 +89,7 @@ public class Product extends BaseEntity {
 		return productType;
 	}
 
-	public void setIsStocked(boolean isStocked) {
+	public void setIsStocked(Boolean isStocked) {
 		this.isStocked = isStocked;
 	}
 
@@ -109,12 +114,11 @@ public class Product extends BaseEntity {
 	}
 
 	@XmlElement
-	public boolean isHasExpiration() {
+	public Boolean isHasExpiration() {
 		return hasExpiration;
 	}
 
-	public void setHasExpiration(boolean hasExpiration) {
+	public void setHasExpiration(Boolean hasExpiration) {
 		this.hasExpiration = hasExpiration;
 	}
-
 }

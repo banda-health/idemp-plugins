@@ -48,7 +48,7 @@ public class InventoryDBService {
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Inventory inventory = new Inventory(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
-						DateUtil.parseExpiration(resultSet.getTimestamp(4)), resultSet.getInt(5), resultSet.getInt(6),
+						DateUtil.parseDateOnly(resultSet.getTimestamp(4)), resultSet.getInt(5), resultSet.getInt(6),
 						resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9),
 						DateUtil.parse(resultSet.getTimestamp(10)), resultSet.getInt(11), resultSet.getString(12));
 				results.add(inventory);

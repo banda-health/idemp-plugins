@@ -29,9 +29,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
+	private EntityMetadataDBService entityMetadataDBService;
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
+		entityMetadataDBService = new EntityMetadataDBService();
 	}
 
 	@Override
@@ -63,10 +65,17 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				return null;
 			}
 
+			String patientType = instance.get_Value(COLUMNNAME_PATIENT_TYPE) != null
+					? (String) instance.get_Value(COLUMNNAME_PATIENT_TYPE)
+					: null;
+
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					instance.getC_BPartner_ID(), patient.getName(), patient.getTotalOpenBalance(),
-					DateUtil.parse(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus());
+					patient.getName(),
+					new PatientType(entityMetadataDBService
+							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
+							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -102,9 +111,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getC_BPartner_ID(), patient.getName(), patient.getTotalOpenBalance(),
-					DateUtil.parse(instance.getDateOrdered()), instance.getGrandTotal(), instance.isBH_NewVisit(),
-					visitNotes, instance.getDescription(), new PatientType(patientType), referral, orderLines, payments,
-					instance.getDocStatus());
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
+					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
+					referral, orderLines, payments, instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -146,6 +155,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				query = query.setParameters(parameters);
 			}
 
+			// default sorting i.e created desc
+			String orderBy = getOrderBy(null, null);
+			if (orderBy != null) {
+				query = query.setOrderBy(orderBy);
+			}
+
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
 
@@ -162,10 +177,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							continue;
 						}
 
-						results.add(new Visit().getVisitQueue(DateUtil.parse(entity.getCreated()),
-								entity.getC_Order_UU(), entity.isActive(), patient.getName(),
-								orderLineDBService.getOrderLinesByOrderId(entity.get_ID()),
-								paymentDBService.getPaymentsByOrderId(entity.get_ID())));
+						results.add(
+								new Visit().getVisitQueue(DateUtil.parseQueueTime(entity.getCreated()), entity.getC_Order_UU(),
+										patient.getName(), orderLineDBService.getOrderLinesByOrderId(entity.get_ID()),
+										paymentDBService.getPaymentsByOrderId(entity.get_ID())));
 					}
 				}
 			}
@@ -178,5 +193,4 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return null;
 	}
-
 }

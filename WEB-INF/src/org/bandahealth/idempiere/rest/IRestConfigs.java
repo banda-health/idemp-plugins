@@ -31,6 +31,7 @@ public interface IRestConfigs {
 
 	String PRODUCTS_PATH = AUTHENTICATION_PATH + "/products";
 	String PRODUCT_PATH = "/product/{uuid}";
+	String SEARCH_ITEMS_PATH = "/searchitems";
 
 	// 'services' used by iDemp WebServices.
 	String SERVICES_PATH = AUTHENTICATION_PATH + "/bhservices";

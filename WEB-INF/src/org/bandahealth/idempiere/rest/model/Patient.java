@@ -62,6 +62,34 @@ public class Patient extends BusinessPartner {
 		this.patientNumber = patientNumber;
 	}
 
+	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,
+			String phone, String address) {
+		setUuid(uuid);
+		setName(name);
+		setTotalOpenBalance(totalOpenBalance);
+
+		String description = name;
+		if (patientNumber != null) {
+			description += ", patient #:" + patientNumber;
+		}
+
+		if (dateOfBirth != null) {
+			description += ", date of birth:" + dateOfBirth;
+		}
+
+		if (phone != null) {
+			description += ", phone:" + phone;
+		}
+
+		if (address != null) {
+			description += ", address:" + address;
+		}
+
+		setDescription(description);
+
+		this.patientNumber = patientNumber;
+	}
+
 	@XmlElement
 	public String getPatientNumber() {
 		return patientNumber;

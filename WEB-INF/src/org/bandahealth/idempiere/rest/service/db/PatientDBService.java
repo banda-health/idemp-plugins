@@ -36,11 +36,14 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	public BaseListResponse<Patient> search(String value, Paging pagingInfo) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("%" + value + "%");
+		parameters.add(constructSearchValue(value));
+		parameters.add(value);
 		parameters.add("Y");
 
-		return search(this.DEFAULT_SEARCH_CLAUSE + this.AND_OPARATOR + MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?",
-				parameters, pagingInfo);
+		String whereClause = "(" + DEFAULT_SEARCH_CLAUSE + OR_OPARATOR + MBPartner_BH.COLUMNNAME_BH_PatientID + " "
+				+ LIKE_COMPARATOR + " ? )" + AND_OPARATOR + MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
+
+		return search(whereClause, parameters, pagingInfo);
 	}
 
 	/*
@@ -130,23 +133,23 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	}
 
 	@Override
-	protected Patient createInstanceWithAllFields(MBPartner_BH bpartner) {
+	protected Patient createInstanceWithAllFields(MBPartner_BH instance) {
 		try {
 			String address = "";
-			if (bpartner.getBH_C_Location() != null) {
-				address = bpartner.getBH_C_Location().getAddress1();
+			if (instance.getBH_C_Location() != null) {
+				address = instance.getBH_C_Location().getAddress1();
 			}
 
-			return new Patient(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
-					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
-					bpartner.getName(), bpartner.getDescription(), bpartner.getTotalOpenBalance(),
-					bpartner.getBH_PatientID(), DateUtil.parse(bpartner.getBH_Birthday()), bpartner.getBH_Phone(),
-					address, bpartner.get_ValueAsString(COLUMNNAME_GENDER), bpartner.getBH_EMail(),
-					bpartner.getBH_NHIFRelationship(), bpartner.getBH_NHIFMemberName(), bpartner.getBH_NHIFNumber(),
-					bpartner.getBH_NHIFType(), bpartner.getBH_NationalID(),
-					bpartner.get_ValueAsString(COLUMNNAME_GENDER),
-					bpartner.get_ValueAsString(COLUMNNAME_NEXTOFKIN_NAME),
-					bpartner.get_ValueAsString(COLUMNNAME_NEXTOFKIN_CONTACT));
+			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
+					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
+					instance.getBH_PatientID(), DateUtil.parse(instance.getBH_Birthday()), instance.getBH_Phone(),
+					address, instance.get_ValueAsString(COLUMNNAME_GENDER), instance.getBH_EMail(),
+					instance.getBH_NHIFRelationship(), instance.getBH_NHIFMemberName(), instance.getBH_NHIFNumber(),
+					instance.getBH_NHIFType(), instance.getBH_NationalID(),
+					instance.get_ValueAsString(COLUMNNAME_OCCUPATION),
+					instance.get_ValueAsString(COLUMNNAME_NEXTOFKIN_NAME),
+					instance.get_ValueAsString(COLUMNNAME_NEXTOFKIN_CONTACT));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -154,12 +157,12 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	}
 
 	@Override
-	protected Patient createInstanceWithDefaultFields(MBPartner_BH bpartner) {
+	protected Patient createInstanceWithDefaultFields(MBPartner_BH instance) {
 		try {
-			return new Patient(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
-					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
-					bpartner.getName(), bpartner.getDescription(), bpartner.getTotalOpenBalance(),
-					bpartner.getBH_PatientID());
+			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
+					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
+					instance.getBH_PatientID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -168,7 +171,19 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	protected Patient createInstanceWithSearchFields(MBPartner_BH instance) {
-		return createInstanceWithDefaultFields(instance);
+		try {
+			String address = "";
+			if (instance.getBH_C_Location() != null) {
+				address = instance.getBH_C_Location().getAddress1();
+			}
+
+			return new Patient(instance.getC_BPartner_UU(), instance.getName(), instance.getTotalOpenBalance(),
+					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
+					instance.getBH_Phone(), address);
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+			throw new AdempiereException(ex.getLocalizedMessage());
+		}
 	}
 
 	@Override

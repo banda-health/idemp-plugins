@@ -21,7 +21,7 @@ public class OrderLine extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 	private int chargeId;
 	private int orderId;
-	private int productId;
+	private Product product;
 	private BigDecimal price;
 	private BigDecimal quantity;
 
@@ -29,22 +29,22 @@ public class OrderLine extends BaseMetadata {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int chargeId, int orderId, int productId, BigDecimal price, BigDecimal quantity) {
+			int chargeId, int orderId, Product product, BigDecimal price, BigDecimal quantity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.chargeId = chargeId;
 		this.orderId = orderId;
-		this.productId = productId;
+		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, int orderId,
-			int productId, BigDecimal price, BigDecimal quantity) {
+			Product product, BigDecimal price, BigDecimal quantity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.orderId = orderId;
-		this.productId = productId;
+		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
 	}
@@ -77,12 +77,12 @@ public class OrderLine extends BaseMetadata {
 	}
 
 	@XmlElement
-	public int getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	@XmlElement

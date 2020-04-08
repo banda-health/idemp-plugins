@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Product;
+import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductDBService;
 
@@ -53,5 +54,11 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	public BaseListResponse<Product> search(@QueryParam("value") String value, @QueryParam("page") int page,
 			@QueryParam("size") int size) {
 		return dbService.search(value, getPagingInfo(page, size));
+	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_ITEMS_PATH)
+	public BaseListResponse<SearchProduct> searchItems(@QueryParam("value") String query) {
+		return dbService.searchItems(query);
 	}
 }

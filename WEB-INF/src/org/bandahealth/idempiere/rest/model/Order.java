@@ -30,7 +30,7 @@ public class Order extends BaseMetadata {
 	private String name;
 	private BigDecimal totalOpenBalance;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
-	private String documentStatus;
+	private String docStatus;
 
 	public Order() {
 	}
@@ -38,7 +38,7 @@ public class Order extends BaseMetadata {
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Integer businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered,
 			BigDecimal grandTotal, boolean isSalesOrderTransaction, String description, List<OrderLine> orderLines,
-			List<Payment> payments, String documentStatus) {
+			List<Payment> payments, String docStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartnerId = businessPartnerId;
@@ -50,13 +50,13 @@ public class Order extends BaseMetadata {
 		this.description = description;
 		this.orderLines = orderLines;
 		this.payments = payments;
-		this.documentStatus = documentStatus;
+		this.docStatus = docStatus;
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Integer businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered,
 			boolean isSalesOrderTransaction, List<OrderLine> orderLines, List<Payment> payments,
-			String documentStatus) {
+			String docStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartnerId = businessPartnerId;
@@ -66,12 +66,12 @@ public class Order extends BaseMetadata {
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 		this.orderLines = orderLines;
 		this.payments = payments;
-		this.documentStatus = documentStatus;
+		this.docStatus = docStatus;
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Integer businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			boolean isSalesOrderTransaction, List<OrderLine> orderLines, String documentStatus) {
+			boolean isSalesOrderTransaction, List<OrderLine> orderLines, String docStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartnerId = businessPartnerId;
@@ -80,7 +80,7 @@ public class Order extends BaseMetadata {
 		this.dateOrdered = dateOrdered;
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 		this.orderLines = orderLines;
-		this.documentStatus = documentStatus;
+		this.docStatus = docStatus;
 	}
 
 	public Integer getBusinessPartnerId() {
@@ -173,11 +173,11 @@ public class Order extends BaseMetadata {
 	}
 
 	@XmlElement
-	public String getDocumentStatus() {
-		return documentStatus;
+	public String getDocStatus() {
+		return docStatus;
 	}
 
-	public void setDocumentStatus(String documentStatus) {
-		this.documentStatus = documentStatus;
+	public void setDocStatus(String docStatus) {
+		this.docStatus = docStatus;
 	}
 }
