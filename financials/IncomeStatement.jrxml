@@ -18,7 +18,10 @@
     coalesce(expenses.expenselineitemtotals,0) as expensetotal,
     coalesce(purchases.purchaselineitemtotals,0) as purchasetotal,
     coalesce(salesproducts.productsales,0) as productsales,
-    coalesce(incomeservice.serviceincome,0) as serviceincome
+    coalesce(incomeservice.serviceincome,0) as serviceincome,
+    coalesce(salesproducts.productsales,0) + COALESCE(incomeservice.serviceincome,0) as totalsales,
+    coalesce(payments.revenuesales,0) + COALESCE(debtPayments.debtpaymentamount,0) as totalpayments,
+    coalesce(expenses.expenselineitemtotals,0) + COALESCE(purchases.purchaselineitemtotals,0) as totalexpenses
 from
 (
 select co.ad_client_id,
@@ -29,7 +32,7 @@ from c_order co
     INNER JOIN ad_client client ON co.ad_client_id = client.ad_client_id
 where
     co.ad_client_id = $P{AD_CLIENT_ID} AND co.docstatus = 'CO'
-    AND bh_isexpense = 'N'
+    AND co.bh_isexpense = 'N'
     AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by co.ad_client_id, client.name
 ) as billdetails
@@ -38,13 +41,12 @@ inner join
 select
   p.ad_client_id,
   sum(p.payamt) as revenuesales
-from
-  c_payment p
+from c_payment p
     inner join c_order co on p.bh_c_order_id = co.c_order_id
-    and co.docstatus <> 'VO'
 where
    ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-    AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
+    AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date}))
+    AND co.docstatus in ('CO','DR'))
 group by p.ad_client_id
 ) as payments on billdetails.ad_client_id = payments.ad_client_id
 left join
@@ -60,11 +62,12 @@ group by cp.ad_client_id
 left join
 (
 select co.ad_client_id,
-       sum(co.totallines) as expenselineitemtotals,
-       sum(co.grandtotal) as expensetotals
+       sum(expenseline.priceentered) as expenselineitemtotals
 from c_order co
+    inner join c_orderline expenseline on co.c_order_id = expenseline.c_order_id
+    inner join c_charge expense on expenseline.c_charge_id = expense.c_charge_id
 where co.ad_client_id = $P{AD_CLIENT_ID} AND co.docstatus = 'CO'
-      AND bh_isexpense = 'Y'
+      AND co.bh_isexpense = 'Y'
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by co.ad_client_id
 ) as expenses on billdetails.ad_client_id = expenses.ad_client_id
@@ -75,7 +78,7 @@ select co.ad_client_id,
        sum(co.grandtotal) as purchasetotals
 from c_order co
 where co.ad_client_id = $P{AD_CLIENT_ID} AND co.docstatus = 'CO'
-      AND bh_isexpense is null
+      AND co.bh_isexpense is null
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by co.ad_client_id
 ) as purchases on billdetails.ad_client_id = purchases.ad_client_id
@@ -86,12 +89,11 @@ select coline.ad_client_id,
 from c_orderline coline
     inner join m_product product on coline.m_product_id = product.m_product_id
     and product.producttype = 'I'
-    inner join c_order on coline.c_order_id = c_order.c_order_id
-    and bh_isexpense = 'N'
+    inner join c_order co on coline.c_order_id = co.c_order_id
+    and co.bh_isexpense = 'N'
 where coline.ad_client_id = $P{AD_CLIENT_ID}
     AND coline.processed = 'Y'
-    AND (date(coline.dateordered) BETWEEN date($P{Begin Date})
-    AND date($P{End Date}))
+    AND (date(coline.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coline.ad_client_id
 ) as salesproducts on billdetails.ad_client_id = salesproducts.ad_client_id
 left join
@@ -101,8 +103,8 @@ select coline.ad_client_id,
 from c_orderline coline
     inner join m_product product on coline.m_product_id = product.m_product_id
     and product.producttype = 'S'
-    inner join c_order on coline.c_order_id = c_order.c_order_id
-    and bh_isexpense = 'N'
+    inner join c_order co on coline.c_order_id = co.c_order_id
+    and co.bh_isexpense = 'N'
 where coline.ad_client_id = $P{AD_CLIENT_ID} AND coline.processed = 'Y'
       AND (date(coline.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coline.ad_client_id
@@ -132,6 +134,15 @@ group by coline.ad_client_id
 	</field>
 	<field name="serviceincome" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="serviceincome"/>
+	</field>
+	<field name="totalsales" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totalsales"/>
+	</field>
+	<field name="totalpayments" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totalpayments"/>
+	</field>
+	<field name="totalexpenses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totalexpenses"/>
 	</field>
 	<variable name="totalPayments" class="java.math.BigDecimal">
 		<variableExpression><![CDATA[$F{salesrevenue}.add($F{debtrevenue})]]></variableExpression>
@@ -303,7 +314,7 @@ group by coline.ad_client_id
 					<font size="11" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{salesrevenue})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalsales}.subtract($F{salesrevenue})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="85" y="17" width="439" height="18" uuid="9e8348c3-569b-4c66-9593-a8ca73458665">
@@ -477,7 +488,7 @@ group by coline.ad_client_id
 					<font size="11" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalPayments}.subtract($V{totalExpenses})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalpayments}.subtract($F{totalexpenses})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="85" y="74" width="320" height="18" uuid="5eb13368-3884-4f4d-bb9e-a13cd1963e85">
