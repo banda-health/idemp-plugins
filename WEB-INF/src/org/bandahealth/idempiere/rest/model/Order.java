@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Order extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private Integer businessPartnerId;
+	private BusinessPartner businessPartner;
 	private String dateOrdered;
 	private BigDecimal grandTotal;
 	private boolean isSalesOrderTransaction;
@@ -27,8 +27,6 @@ public class Order extends BaseMetadata {
 	private String description;
 	private List<OrderLine> orderLines;
 	private List<Payment> payments;
-	private String name;
-	private BigDecimal totalOpenBalance;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 
@@ -36,14 +34,11 @@ public class Order extends BaseMetadata {
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered,
-			BigDecimal grandTotal, boolean isSalesOrderTransaction, String description, List<OrderLine> orderLines,
-			List<Payment> payments, String docStatus) {
+			BusinessPartner businessPartner, String dateOrdered, BigDecimal grandTotal, boolean isSalesOrderTransaction,
+			String description, List<OrderLine> orderLines, List<Payment> payments, String docStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
-		this.businessPartnerId = businessPartnerId;
-		this.name = name;
-		this.totalOpenBalance = totalOpenBalance;
+		this.businessPartner = businessPartner;
 		this.dateOrdered = dateOrdered;
 		this.grandTotal = grandTotal;
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
@@ -54,14 +49,11 @@ public class Order extends BaseMetadata {
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer businessPartnerId, String name, BigDecimal totalOpenBalance, String dateOrdered,
-			boolean isSalesOrderTransaction, List<OrderLine> orderLines, List<Payment> payments,
-			String docStatus) {
+			BusinessPartner businessPartner, String dateOrdered, boolean isSalesOrderTransaction,
+			List<OrderLine> orderLines, List<Payment> payments, String docStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
-		this.businessPartnerId = businessPartnerId;
-		this.name = name;
-		this.totalOpenBalance = totalOpenBalance;
+		this.businessPartner = businessPartner;
 		this.dateOrdered = dateOrdered;
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 		this.orderLines = orderLines;
@@ -70,25 +62,23 @@ public class Order extends BaseMetadata {
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			boolean isSalesOrderTransaction, List<OrderLine> orderLines, String docStatus) {
+			BusinessPartner businessPartner, String dateOrdered, boolean isSalesOrderTransaction,
+			List<OrderLine> orderLines, String docStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
-		this.businessPartnerId = businessPartnerId;
-		this.name = businessPartnerName;
-		this.totalOpenBalance = totalOpenBalance;
+		this.businessPartner = businessPartner;
 		this.dateOrdered = dateOrdered;
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 		this.orderLines = orderLines;
 		this.docStatus = docStatus;
 	}
 
-	public Integer getBusinessPartnerId() {
-		return businessPartnerId;
+	public BusinessPartner getBusinessPartner() {
+		return businessPartner;
 	}
 
-	public void setBusinessPartnerId(Integer businessPartnerId) {
-		this.businessPartnerId = businessPartnerId;
+	public void setBusinessPartner(BusinessPartner businessPartner) {
+		this.businessPartner = businessPartner;
 	}
 
 	@XmlElement
@@ -152,24 +142,6 @@ public class Order extends BaseMetadata {
 
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
-	}
-
-	@XmlElement
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@XmlElement
-	public BigDecimal getTotalOpenBalance() {
-		return totalOpenBalance;
-	}
-
-	public void setTotalOpenBalance(BigDecimal totalOpenBalance) {
-		this.totalOpenBalance = totalOpenBalance;
 	}
 
 	@XmlElement

@@ -122,7 +122,11 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 				patient.set_CustomColumn(COLUMNNAME_NEXTOFKIN_CONTACT, entity.getNextOfKinContact());
 			}
 
-			patient.setIsActive(entity.isIsActive());
+			if (entity.isIsActive()) {
+				patient.setIsActive(entity.isIsActive());
+			} else {
+				patient.setIsActive(true);
+			}
 
 			patient.saveEx();
 

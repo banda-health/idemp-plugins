@@ -20,27 +20,29 @@ public class Product extends BaseEntity {
 	private Integer reorderQuantity;
 	private BigDecimal buyPrice;
 	private BigDecimal sellPrice;
-	private String productType;
+	private String type;
 	private Boolean hasExpiration;
 
 	public Product() {
 	}
 
-	public Product(String name, String uuid) {
+	public Product(String name, String uuid, String type) {
 		this.setName(name);
 		this.setUuid(uuid);
+
+		this.type = type;
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
 			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
-			String productType, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration) {
+			String type, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
 		this.isStocked = isStocked;
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
-		this.productType = productType;
+		this.type = type;
 		this.reorderLevel = reorderLevel;
 		this.reorderQuantity = reorderQuantity;
 		this.hasExpiration = hasExpiration;
@@ -85,8 +87,8 @@ public class Product extends BaseEntity {
 	}
 
 	@XmlElement
-	public String getProductType() {
-		return productType;
+	public String getType() {
+		return type;
 	}
 
 	public void setIsStocked(Boolean isStocked) {
@@ -109,8 +111,8 @@ public class Product extends BaseEntity {
 		this.sellPrice = sellPrice;
 	}
 
-	public void setProductType(String productType) {
-		this.productType = productType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@XmlElement

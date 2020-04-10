@@ -186,7 +186,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				product.setDescription(entity.getDescription());
 			}
 
-			product.setBH_HasExpiration(entity.isHasExpiration());
+			if (entity.isHasExpiration() != null) {
+				product.setBH_HasExpiration(entity.isHasExpiration());
+			}
 
 			if (entity.getReorderLevel() != null) {
 				product.set_CustomColumn(COLUMNNAME_REORDER_LEVEL, entity.getReorderLevel());
@@ -204,7 +206,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				product.setBH_SellPrice(entity.getSellPrice());
 			}
 
-			product.setIsActive(entity.isIsActive());
+			if (entity.isIsActive()) {
+				product.setIsActive(entity.isIsActive());
+			} else {
+				product.setIsActive(true);
+			}
 
 			product.saveEx();
 

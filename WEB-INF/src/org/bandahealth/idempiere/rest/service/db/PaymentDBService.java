@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
@@ -95,7 +96,12 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setDescription(entity.getDescription());
 		}
 
-		mPayment.setIsActive(entity.isIsActive());
+		if (entity.isIsActive() != null) {
+			mPayment.setIsActive(entity.isIsActive());
+		} else {
+			mPayment.setIsActive(true);
+		}
+
 		mPayment.saveEx();
 
 		return createInstanceWithAllFields(getEntityFromDB(mPayment.getC_Payment_UU()));
@@ -199,5 +205,35 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		}
 
 		return payments;
+	}
+
+	/**
+	 * Delete payment lines for a given order and not in given subset
+	 * 
+	 * @param orderId
+	 */
+	public void deletePaymentLinesByOrder(int orderId, String lineUuids) {
+		String whereClause = MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?";
+
+		if (StringUtil.isNotNullAndEmpty(lineUuids)) {
+			whereClause += " AND " + MPayment_BH.COLUMNNAME_C_Payment_UU + " NOT IN(" + lineUuids + ")";
+		}
+
+		List<MPayment_BH> mPaymentLines = new Query(Env.getCtx(), MPayment_BH.Table_Name, whereClause, null)
+				.setParameters(orderId).setClient_ID().list();
+		for (MPayment_BH mPayment : mPaymentLines) {
+			mPayment.deleteEx(false);
+		}
+	}
+
+	/**
+	 * Check if an order has any payments
+	 * 
+	 * @param orderId
+	 * @return
+	 */
+	public boolean checkPaymentExists(int orderId) {
+		return new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + " =?", null)
+				.setOnlyActiveRecords(true).setClient_ID().setParameters(orderId).match();
 	}
 }

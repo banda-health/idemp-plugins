@@ -7,9 +7,12 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.OrderLine;
+import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
+import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -46,15 +49,26 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setDescription(entity.getDiagnosis());
 		}
 
-		if (entity.getPatientType() != null) {
+		if (entity.getPatientType() != null && entity.getPatientType().getValue() != null) {
 			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType().getValue());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getReferral())) {
-			mOrder.set_ValueOfColumn(COLUMNNAME_REFERRAL, entity.getReferral());
+		
+		if (entity.getReferral() != null && entity.getReferral().getValue() != null) {
+			mOrder.set_ValueOfColumn(COLUMNNAME_REFERRAL, entity.getReferral().getValue());
 		}
 
-		mOrder.setBH_NewVisit(entity.isNewVisit());
+		// set patient
+		if (entity.getPatient() != null) {
+			MBPartner_BH patient = patientDBService.getEntityFromDB(entity.getPatient().getUuid());
+			if (patient != null) {
+				mOrder.setC_BPartner_ID(patient.get_ID());
+			}
+		}
+
+		if (entity.isNewVisit() != null) {
+			mOrder.setBH_NewVisit(entity.isNewVisit());
+		}
 	}
 
 	@Override
@@ -71,7 +85,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					patient.getName(),
+					new Patient(patient.getName()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
@@ -110,10 +124,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					instance.getC_BPartner_ID(), patient.getName(), patient.getTotalOpenBalance(),
+					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance()),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
 					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
-					referral, orderLines, payments, instance.getDocStatus());
+					new Referral(referral), orderLines, payments, instance.getDocStatus(), getOrderStatus(instance));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -177,10 +191,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							continue;
 						}
 
-						results.add(
-								new Visit().getVisitQueue(DateUtil.parseQueueTime(entity.getCreated()), entity.getC_Order_UU(),
-										patient.getName(), orderLineDBService.getOrderLinesByOrderId(entity.get_ID()),
-										paymentDBService.getPaymentsByOrderId(entity.get_ID())));
+						results.add(new Visit().getVisitQueue(DateUtil.parseQueueTime(entity.getCreated()),
+								entity.getC_Order_UU(), new Patient(patient.getName()), getOrderStatus(entity)));
 					}
 				}
 			}
@@ -192,5 +204,39 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		return null;
+	}
+
+	/**
+	 * WAITING - visit with no clinical, no line items, no payments DISPENSING -
+	 * visit with clinical information, no line items, no payments PENDING - visit
+	 * with clinical information, line items, no payments, PENDING_COMPLETION -
+	 * visit yet to be processed, COMPLETED - completed visit
+	 * 
+	 * @param entity
+	 */
+	private OrderStatus getOrderStatus(MOrder_BH entity) {
+		// check payments
+		boolean paymentsExist = paymentDBService.checkPaymentExists(entity.get_ID());
+
+		// check orderlines
+		boolean orderlinesExist = orderLineDBService.checkOrderLinesExist(entity.get_ID());
+
+		if (!orderlinesExist && !paymentsExist) {
+			// check visit information
+			if (entity.get_Value(COLUMNNAME_REFERRAL) == null && entity.getDescription() == null
+					&& entity.get_Value(COLUMNNAME_VISIT_NOTES) == null) {
+				return OrderStatus.WAITING;
+			} else {
+				return OrderStatus.DISPENSING;
+			}
+		} else if (orderlinesExist && !paymentsExist) {
+			return OrderStatus.PENDING;
+		} else {
+			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(entity.getDocStatus())) {
+				return OrderStatus.COMPLETED;
+			} else {
+				return OrderStatus.PENDING_COMPLETION;
+			}
+		}
 	}
 }

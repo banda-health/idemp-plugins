@@ -31,9 +31,10 @@ public class DateUtil {
 		return null;
 
 	}
-	
+
 	/**
 	 * Parse Visit Queue Date
+	 * 
 	 * @param timestamp
 	 * @return
 	 */
@@ -51,7 +52,11 @@ public class DateUtil {
 			try {
 				return new Timestamp(sdf.parse(date).getTime());
 			} catch (ParseException e) {
-				log.severe(e.getMessage());
+				try {
+					return new Timestamp(new SimpleDateFormat(DATE_FORMAT).parse(date).getTime());
+				} catch (ParseException e1) {
+					log.severe(e.getMessage());
+				}
 			}
 		}
 
