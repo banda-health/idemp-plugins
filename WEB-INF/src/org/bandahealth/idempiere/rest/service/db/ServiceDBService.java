@@ -80,11 +80,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 				service.setBH_SellPrice(entity.getSellingPrice());
 			}
 
-			if (entity.isIsActive()) {
-				service.setIsActive(entity.isIsActive());
-			} else {
-				service.setIsActive(true);
-			}
+			service.setIsActive(entity.isIsActive());
 
 			service.saveEx();
 

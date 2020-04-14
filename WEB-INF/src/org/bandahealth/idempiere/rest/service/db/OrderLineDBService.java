@@ -59,11 +59,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setQty(entity.getQuantity());
 		}
 
-		if (entity.isIsActive() != null) {
-			mOrderLine.setIsActive(entity.isIsActive());
-		} else {
-			mOrderLine.setIsActive(true);
-		}
+		mOrderLine.setIsActive(entity.isIsActive());
 
 		mOrderLine.saveEx();
 

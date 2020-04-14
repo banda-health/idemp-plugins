@@ -42,11 +42,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 				charge.setDescription(entity.getDescription());
 			}
 
-			if (entity.isIsActive()) {
-				charge.setIsActive(entity.isIsActive());
-			} else {
-				charge.setIsActive(true);
-			}
+			charge.setIsActive(entity.isIsActive());
 
 			charge.saveEx();
 

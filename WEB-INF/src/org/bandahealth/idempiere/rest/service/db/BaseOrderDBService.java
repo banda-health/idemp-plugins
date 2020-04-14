@@ -43,11 +43,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 				mOrder.setDescription(entity.getDescription());
 			}
 
-			if (entity.isIsActive()) {
-				mOrder.setIsActive(entity.isIsActive());
-			} else {
-				mOrder.setIsActive(true);
-			}
+			mOrder.setIsActive(entity.isIsActive());
 
 			mOrder.setIsSOTrx(entity.isIsSalesOrderTransaction());
 

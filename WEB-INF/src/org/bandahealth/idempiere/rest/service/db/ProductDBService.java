@@ -206,11 +206,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				product.setBH_SellPrice(entity.getSellPrice());
 			}
 
-			if (entity.isIsActive()) {
-				product.setIsActive(entity.isIsActive());
-			} else {
-				product.setIsActive(true);
-			}
+			product.setIsActive(entity.isIsActive());
 
 			product.saveEx();
 

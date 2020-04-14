@@ -54,7 +54,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setC_Charge_ID(entity.getChargeId());
 		}
 
-		if (entity.getPayAmount().compareTo(BigDecimal.ZERO) > 0) {
+		if (entity.getPayAmount() != null && entity.getPayAmount().compareTo(BigDecimal.ZERO) > 0) {
 			mPayment.setPayAmt(entity.getPayAmount());
 		}
 
@@ -96,11 +96,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setDescription(entity.getDescription());
 		}
 
-		if (entity.isIsActive() != null) {
-			mPayment.setIsActive(entity.isIsActive());
-		} else {
-			mPayment.setIsActive(true);
-		}
+		mPayment.setIsActive(entity.isIsActive());
 
 		mPayment.saveEx();
 

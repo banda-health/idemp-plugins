@@ -12,14 +12,14 @@ public class BaseMetadata implements Serializable {
 	private Integer clientId;
 	private Integer orgId;
 	private String uuid;
-	private Boolean isActive;
+	private boolean isActive = true;
 	private String created;
 	private int createdBy;
 
 	public BaseMetadata() {
 	}
 
-	public BaseMetadata(Integer clientId, Integer orgId, String uuid, Boolean isActive, String created,
+	public BaseMetadata(Integer clientId, Integer orgId, String uuid, boolean isActive, String created,
 			Integer createdBy) {
 		this.clientId = clientId;
 		this.orgId = orgId;
@@ -57,11 +57,11 @@ public class BaseMetadata implements Serializable {
 	}
 
 	@XmlElement
-	public Boolean isIsActive() {
+	public boolean isIsActive() {
 		return isActive;
 	}
 
-	public void setIsActive(Boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 

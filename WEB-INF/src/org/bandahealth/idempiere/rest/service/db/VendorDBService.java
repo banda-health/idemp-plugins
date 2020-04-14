@@ -59,11 +59,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 			vendor.setBH_EMail((entity.getEmailAddress()));
 		}
 
-		if (entity.isIsActive()) {
-			vendor.setIsActive(entity.isIsActive());
-		} else {
-			vendor.setIsActive(true);
-		}
+		vendor.setIsActive(entity.isIsActive());
 
 		vendor.saveEx();
 
