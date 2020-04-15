@@ -16,12 +16,14 @@ public class EntityMetadata {
 	private List<PatientType> patientTypes;
 	private List<NHIFType> nhifTypes;
 	private List<NHIFRelationship> nhifRelationships;
+	private List<Referral> referrals;
 
 	public EntityMetadata() {
 		paymentTypes = new ArrayList<>();
 		patientTypes = new ArrayList<>();
 		nhifTypes = new ArrayList<>();
 		nhifRelationships = new ArrayList<>();
+		referrals = new ArrayList<>();
 	}
 
 	public List<PaymentType> getPaymentTypes() {
@@ -56,6 +58,14 @@ public class EntityMetadata {
 		this.nhifRelationships = nhifRelationships;
 	}
 
+	public List<Referral> getReferrals() {
+		return referrals;
+	}
+
+	public void setReferrals(List<Referral> referrals) {
+		this.referrals = referrals;
+	}
+
 	public void addPatientType(PatientType entity) {
 		patientTypes.add(entity);
 	}
@@ -70,5 +80,9 @@ public class EntityMetadata {
 
 	public void addNHIFRelationship(NHIFRelationship entity) {
 		nhifRelationships.add(entity);
+	}
+
+	public void addReferral(Referral entity) {
+		referrals.add(entity);
 	}
 }

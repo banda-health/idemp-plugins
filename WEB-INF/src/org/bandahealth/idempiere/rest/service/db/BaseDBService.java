@@ -22,12 +22,13 @@ import org.compiere.util.Env;
  */
 public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
-	private final String ASCENDING_ORDER = "ASC";
-	private final String DESCENDING_ORDER = "DESC";
-	private final String LIKE_COMPARATOR = "LIKE";
+	public final String ASCENDING_ORDER = "ASC";
+	public final String DESCENDING_ORDER = "DESC";
+	public final String LIKE_COMPARATOR = "LIKE";
 	public final String AND_OPARATOR = " AND ";
+	public final String OR_OPARATOR = " OR ";
 
-	public final String DEFAULT_SEARCH_CLAUSE = MUser.COLUMNNAME_Name + " " + LIKE_COMPARATOR + " ? ";
+	public final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + MUser.COLUMNNAME_Name + ") " + LIKE_COMPARATOR + " ? ";
 
 	public abstract T saveEntity(T entity);
 
@@ -159,7 +160,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
-	protected S getEntityFromDB(String uuid) {
+	public S getEntityFromDB(String uuid) {
 		try {
 			// construct uuid column name
 			String columnUuid = getModelInstance().get_TableName() + "_uu";
@@ -176,5 +177,16 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		}
 
 		return null;
+	}
+
+	public String constructSearchValue(String value) {
+		String searchValue;
+		if (value == null) {
+			searchValue = "";
+		} else {
+			searchValue = "%" + value.toLowerCase() + "%";
+		}
+
+		return searchValue;
 	}
 }

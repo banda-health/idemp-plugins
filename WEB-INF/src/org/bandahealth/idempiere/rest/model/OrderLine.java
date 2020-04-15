@@ -19,9 +19,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class OrderLine extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private int chargeId;
-	private int orderId;
-	private int productId;
+	private Integer chargeId;
+	private Integer orderId;
+	private Product product;
 	private BigDecimal price;
 	private BigDecimal quantity;
 
@@ -29,28 +29,28 @@ public class OrderLine extends BaseMetadata {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int chargeId, int orderId, int productId, BigDecimal price, BigDecimal quantity) {
+			Integer chargeId, Integer orderId, Product product, BigDecimal price, BigDecimal quantity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.chargeId = chargeId;
 		this.orderId = orderId;
-		this.productId = productId;
+		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
 	}
 
-	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, int orderId,
-			int productId, BigDecimal price, BigDecimal quantity) {
+	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Integer orderId,
+			Product product, BigDecimal price, BigDecimal quantity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.orderId = orderId;
-		this.productId = productId;
+		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
 	}
 
-	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, int orderId,
-			int chargeId, BigDecimal price) {
+	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Integer orderId,
+			Integer chargeId, BigDecimal price) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.orderId = orderId;
@@ -59,30 +59,30 @@ public class OrderLine extends BaseMetadata {
 	}
 
 	@XmlElement
-	public int getChargeId() {
+	public Integer getChargeId() {
 		return chargeId;
 	}
 
-	public void setChargeId(int chargeId) {
+	public void setChargeId(Integer chargeId) {
 		this.chargeId = chargeId;
 	}
 
 	@XmlElement
-	public int getOrderId() {
+	public Integer getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
 
 	@XmlElement
-	public int getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	@XmlElement

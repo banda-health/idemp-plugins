@@ -81,6 +81,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 			}
 
 			service.setIsActive(entity.isIsActive());
+
 			service.saveEx();
 
 			return createInstanceWithAllFields(getEntityFromDB(service.getM_Product_UU()));

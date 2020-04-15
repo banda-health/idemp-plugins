@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.List;
+
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.Order;
@@ -41,9 +43,10 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 				mOrder.setDescription(entity.getDescription());
 			}
 
-			mOrder.setC_BPartner_ID(entity.getBusinessPartnerId());
-			mOrder.setIsSOTrx(entity.isIsSalesOrderTransaction());
 			mOrder.setIsActive(entity.isIsActive());
+
+			mOrder.setIsSOTrx(entity.isIsSalesOrderTransaction());
+
 			mOrder.setIsApproved(true);
 			mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 
@@ -51,26 +54,51 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 			mOrder.saveEx();
 
+			// list of persisted order line ids
+			String lineIds = "";
 			// persist product/service/charge order lines
-			if (entity.getOrderLines() != null) {
-				for (OrderLine orderLine : entity.getOrderLines()) {
+			List<OrderLine> orderLines = entity.getOrderLines();
+			if (orderLines != null) {
+				int count = 0;
+				for (OrderLine orderLine : orderLines) {
 					orderLine.setOrderId(mOrder.get_ID());
-					orderLineDBService.saveEntity(orderLine);
+					OrderLine response = orderLineDBService.saveEntity(orderLine);
+					lineIds += "'" + response.getUuid() + "'";
+					if (++count < orderLines.size()) {
+						lineIds += ",";
+					}
 				}
 			}
 
+			// delete order lines not in request
+			orderLineDBService.deleteOrderLinesByOrder(mOrder.get_ID(), lineIds);
+
+			// list of persisted payment line ids
+			lineIds = "";
 			// only a visit/bill/sales order can have payments
-			if (entity.getPayments() != null && entity.isIsSalesOrderTransaction()) {
+			List<Payment> payments = entity.getPayments();
+			if (payments != null && entity.isIsSalesOrderTransaction()) {
+				int count = 0;
 				for (Payment payment : entity.getPayments()) {
 					payment.setOrderId(mOrder.get_ID());
 					payment.setBusinessPartnerId(mOrder.getC_BPartner_ID());
-					paymentDBService.saveEntity(payment);
+					Payment response = paymentDBService.saveEntity(payment);
+					lineIds += "'" + response.getUuid() + "'";
+					if (++count < payments.size()) {
+						lineIds += ",";
+					}
 				}
 			}
+
+			// delete payment lines not in request
+			paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds);
 
 			return createInstanceWithAllFields(getEntityFromDB(mOrder.getC_Order_UU()));
 
 		} catch (Exception ex) {
+			ex.printStackTrace();
+			log.severe(ex.getMessage());
+
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
 	}

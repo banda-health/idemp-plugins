@@ -43,6 +43,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 			}
 
 			charge.setIsActive(entity.isIsActive());
+
 			charge.saveEx();
 
 			return createInstanceWithAllFields(getEntityFromDB(charge.getC_Charge_UU()));

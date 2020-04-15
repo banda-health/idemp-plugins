@@ -32,6 +32,16 @@ public class Patient extends BusinessPartner {
 	public Patient() {
 	}
 
+	public Patient(String name) {
+		setName(name);
+	}
+
+	public Patient(String uuid, String name, BigDecimal totalOpenBalance) {
+		setUuid(uuid);
+		setName(name);
+		setTotalOpenBalance(totalOpenBalance);
+	}
+
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
 			String address, String gender, String email, String nhifRelationship, String nhifMemberName,
@@ -58,6 +68,34 @@ public class Patient extends BusinessPartner {
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal totalOpenBalance, String patientNumber) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
+
+		this.patientNumber = patientNumber;
+	}
+
+	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,
+			String phone, String address) {
+		setUuid(uuid);
+		setName(name);
+		setTotalOpenBalance(totalOpenBalance);
+
+		String description = name;
+		if (patientNumber != null) {
+			description += ", patient #:" + patientNumber;
+		}
+
+		if (dateOfBirth != null) {
+			description += ", date of birth:" + dateOfBirth;
+		}
+
+		if (phone != null) {
+			description += ", phone:" + phone;
+		}
+
+		if (address != null) {
+			description += ", address:" + address;
+		}
+
+		setDescription(description);
 
 		this.patientNumber = patientNumber;
 	}

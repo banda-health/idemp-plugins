@@ -2,12 +2,8 @@ package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.bandahealth.idempiere.base.model.MOrder_BH;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -19,54 +15,47 @@ public class Visit extends Order {
 	private Boolean newVisit;
 	private String visitNotes;
 	private PatientType patientType;
-	private String referral;
+	private Referral referral;
 	private OrderStatus status;
+	private Patient patient;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
 	}
 
-	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis, PatientType patientType,
-			String referral, List<OrderLine> orderLines, List<Payment> payments, String documentStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, businessPartnerId, businessPartnerName,
-				totalOpenBalance, dateOrdered, grandTotal, true, diagnosis, orderLines, payments, documentStatus);
+	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
+			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis,
+			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
+			String documentStatus, OrderStatus status) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
+				orderLines, payments, documentStatus);
 
 		this.newVisit = newVisit;
 		this.visitNotes = visitNotes;
 		this.patientType = patientType;
 		this.referral = referral;
-
-		setIsSalesOrderTransaction(true);
-		setOrderStatus();
-	}
-
-	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, String businessPartnerName, BigDecimal totalOpenBalance, String dateOrdered,
-			BigDecimal grandTotal, String documentStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, businessPartnerId, businessPartnerName,
-				totalOpenBalance, dateOrdered, grandTotal, true, null, null, null, documentStatus);
+		this.patient = patient;
+		this.status = status;
 
 		setIsSalesOrderTransaction(true);
 	}
 
-	public Visit getVisitQueue(String created, String uuid, boolean isActive, String name, List<OrderLine> orderLines,
-			List<Payment> payments) {
+	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
+			PatientType patientType, String dateOrdered, BigDecimal grandTotal, String documentStatus) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, null, null,
+				null, documentStatus);
 
+		this.patientType = patientType;
+		this.patient = patient;
+
+		setIsSalesOrderTransaction(true);
+	}
+
+	public Visit getVisitQueue(String created, String uuid, Patient patient, OrderStatus status) {
 		setCreated(created);
 		setUuid(uuid);
-		setIsActive(isActive);
-		setName(name);
-		setOrderLines(orderLines);
-		setPayments(payments);
-
-		setOrderStatus();
-
-		// don't return orderlines and payments.They are only used to check the order
-		// status
-		setOrderLines(null);
-		setPayments(null);
+		setPatient(patient);
+		setStatus(status);
 
 		return this;
 	}
@@ -108,11 +97,11 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public String getReferral() {
+	public Referral getReferral() {
 		return referral;
 	}
 
-	public void setReferral(String referral) {
+	public void setReferral(Referral referral) {
 		this.referral = referral;
 	}
 
@@ -125,32 +114,11 @@ public class Visit extends Order {
 		this.status = status;
 	}
 
-	/**
-	 * WAITING - visit with no clinical, no line items, no payments DISPENSING -
-	 * visit with clinical information, no line items, no payments PENDING - visit
-	 * with clinical information, line items, no payments, PENDING_COMPLETION -
-	 * visit yet to be processed, COMPLETED - completed visit
-	 * 
-	 * @param entity
-	 */
-	public void setOrderStatus() {
-		if ((this.getOrderLines() == null || this.getOrderLines().size() == 0)
-				&& (this.getPayments() == null || this.getPayments().size() == 0)) {
-			if (this.getPatientType() == null && this.getReferral() == null && this.getDiagnosis() == null
-					&& this.getVisitNotes() == null) {
-				this.setStatus(OrderStatus.WAITING);
-			} else {
-				this.setStatus(OrderStatus.DISPENSING);
-			}
-		} else if ((this.getOrderLines() != null && this.getOrderLines().size() > 0)
-				&& (this.getPayments() == null || this.getPayments().size() == 0)) {
-			this.setStatus(OrderStatus.PENDING);
-		} else {
-			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(getDocumentStatus())) {
-				this.setStatus(OrderStatus.COMPLETED);
-			} else {
-				this.setStatus(OrderStatus.PENDING_COMPLETION);
-			}
-		}
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 }
