@@ -148,7 +148,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public T getEntity(String uuid) {
 		try {
-			S entity = getEntityFromDB(uuid);
+			S entity = getEntityByUuidFromDB(uuid);
 
 			if (entity != null) {
 				return createInstanceWithAllFields(entity);
@@ -160,7 +160,13 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
-	public S getEntityFromDB(String uuid) {
+	/**
+	 * Retrieve entity from DB given uuid
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	public S getEntityByUuidFromDB(String uuid) {
 		try {
 			// construct uuid column name
 			String columnUuid = getModelInstance().get_TableName() + "_uu";
@@ -171,6 +177,31 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			S entity = new Query(Env.getCtx(), getModelInstance().get_TableName(), columnUuid + "=?", null)
 					.setParameters(uuid).first();
+			return entity;
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
+	}
+
+	/**
+	 * Retrieve entity from db given id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public S getEntityByIdFromDB(int id) {
+		try {
+			// construct id column name
+			String columnId = getModelInstance().get_TableName() + "_id";
+			if (!checkColumnExists(columnId)) {
+				log.severe("Id column not found: " + columnId);
+				return null;
+			}
+
+			S entity = new Query(Env.getCtx(), getModelInstance().get_TableName(), columnId + "=?", null)
+					.setParameters(id).first();
 			return entity;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

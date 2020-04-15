@@ -1,0 +1,45 @@
+package org.bandahealth.idempiere.rest.model;
+
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@XmlRootElement(name = "receiveproduct")
+@JsonInclude(value = Include.NON_NULL)
+public class ReceiveProduct extends Order {
+
+	private static final long serialVersionUID = 1L;
+
+	private Vendor vendor;
+
+	public ReceiveProduct() {
+		setIsSalesOrderTransaction(false);
+	}
+
+	public ReceiveProduct(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			Vendor vendor, String dateOrdered, List<OrderLine> orderLines, String docStatus) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, orderLines, docStatus);
+
+		this.vendor = vendor;
+	}
+
+	public ReceiveProduct(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			Vendor vendor, String dateOrdered, String docStatus) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, docStatus);
+
+		this.vendor = vendor;
+	}
+
+	@XmlElement
+	public Vendor getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
+	}
+}

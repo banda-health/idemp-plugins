@@ -52,7 +52,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	@Override
 	public Patient saveEntity(Patient entity) {
 		try {
-			MBPartner_BH patient = getEntityFromDB(entity.getUuid());
+			MBPartner_BH patient = getEntityByUuidFromDB(entity.getUuid());
 			if (patient == null) {
 				patient = getModelInstance();
 				patient.setBH_IsPatient(true);
@@ -126,7 +126,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 			patient.saveEx();
 
-			return createInstanceWithAllFields(getEntityFromDB(patient.getC_BPartner_UU()));
+			return createInstanceWithAllFields(getEntityByUuidFromDB(patient.getC_BPartner_UU()));
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}

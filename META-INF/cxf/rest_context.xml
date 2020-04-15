@@ -28,6 +28,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="PaymentServiceBean" />
 			<ref bean="StockTakeServiceBean" />
 			<ref bean="EntityMetadataServiceBean" />
+			<ref bean="TrackExpenseServiceBean" />
+			<ref bean="ReceiveProductServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -86,5 +88,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="EntityMetadataServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.EntityMetadataRestService" />
+
+	<bean id="TrackExpenseServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.TrackExpenseRestService" />
+
+	<bean id="ReceiveProductServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.ReceiveProductRestService" />
 
 </beans>

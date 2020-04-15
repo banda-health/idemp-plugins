@@ -18,6 +18,17 @@ public class Expense extends BaseEntity {
 	public Expense() {
 	}
 
+	public Expense(String name, String uuid) {
+		setName(name);
+		setUuid(uuid);
+	}
+
+	public Expense(String name, BigDecimal amount) {
+		setName(name);
+
+		this.amount = amount;
+	}
+
 	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal amount) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);

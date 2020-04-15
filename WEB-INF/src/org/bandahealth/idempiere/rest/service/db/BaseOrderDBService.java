@@ -24,13 +24,14 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	protected OrderLineDBService orderLineDBService = new OrderLineDBService();
 	protected PaymentDBService paymentDBService = new PaymentDBService();
 	private ProcessDBService processDBService = new ProcessDBService();
+	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
 
 	protected abstract void populateExtraFields(T entity, MOrder_BH mOrder);
 
 	@Override
 	public T saveEntity(T entity) {
 		try {
-			MOrder_BH mOrder = getEntityFromDB(entity.getUuid());
+			MOrder_BH mOrder = getEntityByUuidFromDB(entity.getUuid());
 			if (mOrder == null) {
 				mOrder = getModelInstance();
 			}
@@ -93,7 +94,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			// delete payment lines not in request
 			paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds);
 
-			return createInstanceWithAllFields(getEntityFromDB(mOrder.getC_Order_UU()));
+			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -110,7 +111,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @return
 	 */
 	public String asyncProcessEntity(String uuid) {
-		MOrder_BH order = getEntityFromDB(uuid);
+		MOrder_BH order = getEntityByUuidFromDB(uuid);
 		if (order == null) {
 			log.severe("No order with uuid = " + uuid);
 			return "No order with uuid = " + uuid;
@@ -126,7 +127,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @return
 	 */
 	public T processEntity(String uuid) {
-		MOrder_BH order = getEntityFromDB(uuid);
+		MOrder_BH order = getEntityByUuidFromDB(uuid);
 		if (order == null) {
 			log.severe("No order with uuid = " + uuid);
 			return null;
@@ -134,7 +135,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 		order.processIt(DocAction.ACTION_Complete);
 
-		return createInstanceWithAllFields(getEntityFromDB(order.getC_Order_UU()));
+		return createInstanceWithAllFields(getEntityByUuidFromDB(order.getC_Order_UU()));
 	}
 
 	/**

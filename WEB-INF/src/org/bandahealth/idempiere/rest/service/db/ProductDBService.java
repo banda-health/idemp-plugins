@@ -149,7 +149,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public Product saveEntity(Product entity) {
 		try {
 			MProduct_BH product;
-			MProduct_BH exists = getEntityFromDB(entity.getUuid());
+			MProduct_BH exists = getEntityByUuidFromDB(entity.getUuid());
 			if (exists != null) {
 				product = exists;
 			} else {
@@ -210,7 +210,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			product.saveEx();
 
-			return createInstanceWithAllFields(getEntityFromDB(product.getM_Product_UU()));
+			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}

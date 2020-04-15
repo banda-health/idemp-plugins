@@ -38,7 +38,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	@Override
 	public Vendor saveEntity(Vendor entity) {
-		MBPartner_BH vendor = getEntityFromDB(entity.getUuid());
+		MBPartner_BH vendor = getEntityByUuidFromDB(entity.getUuid());
 		if (vendor == null) {
 			vendor = new MBPartner_BH(Env.getCtx(), 0, null);
 			vendor.setBH_IsPatient(false);
@@ -63,7 +63,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 		vendor.saveEx();
 
-		return createInstanceWithAllFields(getEntityFromDB(vendor.getC_BPartner_UU()));
+		return createInstanceWithAllFields(getEntityByUuidFromDB(vendor.getC_BPartner_UU()));
 	}
 
 	@Override

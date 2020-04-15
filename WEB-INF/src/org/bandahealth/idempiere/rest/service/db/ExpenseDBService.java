@@ -29,7 +29,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	@Override
 	public Expense saveEntity(Expense entity) {
 		try {
-			MCharge charge = getEntityFromDB(entity.getUuid());
+			MCharge charge = getEntityByUuidFromDB(entity.getUuid());
 			if (charge == null) {
 				charge = getModelInstance();
 			}
@@ -46,7 +46,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 
 			charge.saveEx();
 
-			return createInstanceWithAllFields(getEntityFromDB(charge.getC_Charge_UU()));
+			return createInstanceWithAllFields(getEntityByUuidFromDB(charge.getC_Charge_UU()));
 
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -83,8 +83,14 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	}
 
 	@Override
-	protected Expense createInstanceWithSearchFields(MCharge instance) {
-		return createInstanceWithDefaultFields(instance);
+	protected Expense createInstanceWithSearchFields(MCharge expense) {
+		try {
+			return new Expense(expense.getName(), expense.getChargeAmt());
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
 	}
 
 	@Override
