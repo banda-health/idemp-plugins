@@ -47,28 +47,23 @@
 	</style>
 	<subDataset name="CashierCollections" uuid="a7821519-34a3-488e-93e8-ff09a7bb5bac">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString>
 			<![CDATA[select cashier.name as cashiername,
-       case when cp.tendertype = 'M' then 'MPESA'
-       when cp.tendertype = 'X' then 'CASH'
-       when cp.tendertype = 'L' then 'LOCAL FUND'
-       when cp.tendertype = 'B' then 'BILL WAIVER'
-       when cp.tendertype = 'F' then 'DONOR FUND'
-       when cp.tendertype = 'i' then 'LINDA MAMA'
-       when cp.tendertype = 'N' then 'NHIF'
-       end as paymentmode,
+       tendertype.name as paymentmode,
        sum(cp.payamt) as paymentamount
 from c_payment cp
     inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
     inner join ad_user cashier on cp.createdby = cashier.ad_user_id
+    inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
+    and AD_Reference_ID=214
 where (cp.ad_client_id = $P{AD_CLIENT_ID})
       AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
       AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by cashier.name, cp.tendertype;]]>
+group by cashier.name, tendertype.name;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
@@ -76,6 +71,7 @@ group by cashier.name, cp.tendertype;]]>
 		</field>
 		<field name="paymentmode" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="paymentmode"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
 		</field>
 		<field name="paymentamount" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="paymentamount"/>

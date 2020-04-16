@@ -47,7 +47,7 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
@@ -55,18 +55,13 @@
 		<queryString language="SQL">
 			<![CDATA[select date(cp.datetrx) as bill_date,
        cb.name as patientname,
-       case when cp.tendertype = 'M' then 'M-Pesa'
-       when cp.tendertype = 'X' then 'Cash'
-       when cp.tendertype = 'L' then 'Local Fund'
-       when cp.tendertype = 'B' then 'Bill Waiver'
-       when cp.tendertype = 'F' then 'Donor Fund'
-       when cp.tendertype = 'i' then 'Linda Mama'
-       when cp.tendertype = 'N' then 'NHIF'
-       end as paymentmode,
+       tendertype.name as paymentmode,
        cb.totalopenbalance as totaldebt,
        cp.payamt as amountpaid
 from c_payment cp
     inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
+    inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
+    and AD_Reference_ID=214
 where ((cp.ad_client_id = $P{AD_CLIENT_ID})
       AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
       AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
@@ -82,6 +77,7 @@ order by cb.name asc;]]>
 		</field>
 		<field name="paymentmode" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="paymentmode"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
 		</field>
 		<field name="totaldebt" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="totaldebt"/>
