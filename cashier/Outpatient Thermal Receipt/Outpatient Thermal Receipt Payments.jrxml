@@ -16,20 +16,15 @@
 	<queryString>
 		<![CDATA[select
   payment.bh_c_order_id as bill_id,
-  case when payment.tendertype = 'M' then 'MPESA'
-       when payment.tendertype = 'X' then 'CASH'
-       when payment.tendertype = 'L' then 'BILL WAIVER'
-       when payment.tendertype = 'B' then 'BILL WAIVER'
-       when payment.tendertype = 'F' then 'DONOR FUND'
-       when payment.tendertype = 'i' then 'LINDA MAMA'
-       when payment.tendertype = 'N' then 'NHIF'
-       end as name,
+  tendertype.name as name,
   coalesce(sum(payment.bh_tender_amount), sum(payment.payamt)) as amount_tendered
 from
   c_payment payment
+  inner join AD_Ref_List tendertype on payment.tendertype = tendertype.value
+  and AD_Reference_ID=214
 where
   payment.bh_c_order_id = $P{billId}
-  group by payment.bh_c_order_id, payment.tendertype]]>
+group by payment.bh_c_order_id, tendertype.name;]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
@@ -37,6 +32,7 @@ where
 	</field>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
 	</field>
 	<field name="amount_tendered" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
