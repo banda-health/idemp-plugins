@@ -65,6 +65,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.isNewVisit() != null) {
 			mOrder.setBH_NewVisit(entity.isNewVisit());
 		}
+		
+		mOrder.setIsSOTrx(true);
 	}
 
 	@Override

@@ -46,8 +46,6 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 			mOrder.setIsActive(entity.isIsActive());
 
-			mOrder.setIsSOTrx(entity.isIsSalesOrderTransaction());
-
 			mOrder.setIsApproved(true);
 			mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 

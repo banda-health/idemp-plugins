@@ -40,6 +40,10 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getProvider().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
 		}
+
+		mOrder.setIsSOTrx(false);
+
+		mOrder.setBH_Isexpense(true);
 	}
 
 	@Override

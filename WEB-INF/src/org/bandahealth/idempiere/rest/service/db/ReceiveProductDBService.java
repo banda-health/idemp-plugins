@@ -38,6 +38,8 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getVendor().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
 		}
+
+		mOrder.setIsSOTrx(false);
 	}
 
 	@Override
