@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -30,8 +31,8 @@ public class TrackExpense extends Order {
 	}
 
 	public TrackExpense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Vendor provider, String dateOrdered, String docStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, docStatus);
+			Vendor provider, String dateOrdered, String docStatus, BigDecimal grandTotal) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, docStatus, grandTotal);
 
 		setExpense(true);
 		this.provider = provider;

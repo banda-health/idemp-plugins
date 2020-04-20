@@ -47,11 +47,12 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 				return null;
 			}
 
-			return new TrackExpense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateOrdered()),
-					entityMetadataDBService.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS,
-							instance.getDocStatus()));
+			return new TrackExpense(
+					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(), instance.isActive(),
+					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
+					DateUtil.parseDateOnly(instance.getDateOrdered()), entityMetadataDBService
+							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					instance.getGrandTotal());
 
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

@@ -246,8 +246,14 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	}
 
 	@Override
-	protected Product createInstanceWithSearchFields(MProduct_BH instance) {
-		return createInstanceWithDefaultFields(instance);
+	protected Product createInstanceWithSearchFields(MProduct_BH product) {
+		try {
+			return new Product(product.getM_Product_UU(), product.getName(), product.getBH_BuyPrice(),
+					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration));
+		} catch (Exception ex) {
+			log.severe("Error creating product instance: " + ex);
+			throw new RuntimeException(ex.getLocalizedMessage(), ex);
+		}
 	}
 
 	@Override

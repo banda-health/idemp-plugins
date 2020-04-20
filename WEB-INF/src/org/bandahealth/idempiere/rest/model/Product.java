@@ -34,8 +34,8 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
-			String type, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration) {
+			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice, String type,
+			Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -54,6 +54,14 @@ public class Product extends BaseEntity {
 
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
+	}
+
+	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration) {
+		setUuid(uuid);
+		setName(name);
+
+		this.buyPrice = buyPrice;
+		this.hasExpiration = hasExpiration;
 	}
 
 	@XmlElement

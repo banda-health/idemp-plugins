@@ -26,18 +26,30 @@ public class OrderLine extends BaseMetadata {
 	private BigDecimal quantity;
 	private BigDecimal lineNetAmount;
 	private Integer attributeSetInstanceId;
+	private String expiration;
 
 	public OrderLine() {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Expense expense, Integer orderId, Product product, BigDecimal price, BigDecimal quantity,
-			BigDecimal lineNetAmount) {
+			Integer orderId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
+			String expiration) {
+		super(clientId, orgId, uuid, isActive, created, createdBy);
+
+		this.orderId = orderId;
+		this.product = product;
+		this.price = price;
+		this.quantity = quantity;
+		this.lineNetAmount = lineNetAmount;
+		this.expiration = expiration;
+	}
+
+	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			Expense expense, Integer orderId, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.expense = expense;
 		this.orderId = orderId;
-		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
 		this.lineNetAmount = lineNetAmount;
@@ -124,4 +136,14 @@ public class OrderLine extends BaseMetadata {
 	public void setAttributeSetInstanceId(Integer attributeSetInstanceId) {
 		this.attributeSetInstanceId = attributeSetInstanceId;
 	}
+
+	@XmlElement
+	public String getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(String expiration) {
+		this.expiration = expiration;
+	}
+
 }

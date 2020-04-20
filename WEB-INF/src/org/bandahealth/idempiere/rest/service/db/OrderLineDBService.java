@@ -75,6 +75,10 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setM_AttributeSetInstance_ID(entity.getAttributeSetInstanceId());
 		}
 
+		if (StringUtil.isNotNullAndEmpty(entity.getExpiration())) {
+			mOrderLine.setBH_Expiration(DateUtil.getTimestamp(entity.getExpiration()));
+		}
+
 		mOrderLine.setIsActive(entity.isIsActive());
 
 		mOrderLine.saveEx();
@@ -93,10 +97,11 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			MProduct product = productDBService.getProductByID(instance.getM_Product_ID());
 			if (product != null) {
 				return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
-						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), null,
+						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 						instance.getC_Order_ID(),
 						new Product(product.getName(), product.getM_Product_UU(), product.getProductType()),
-						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt());
+						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
+						DateUtil.parse(instance.getBH_Expiration()));
 			} else {
 				// check charge
 				MCharge charge = expenseDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
@@ -104,7 +109,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 					return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
 							instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 							instance.getCreatedBy(), new Expense(charge.getName(), charge.getC_Charge_UU()),
-							instance.getC_Order_ID(), null, instance.getPriceActual(), instance.getQtyOrdered(),
+							instance.getC_Order_ID(), instance.getPriceActual(), instance.getQtyOrdered(),
 							instance.getLineNetAmt());
 				}
 			}
