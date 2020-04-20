@@ -19,10 +19,10 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
  */
 public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 
-	private VendorDBService vendorDbService;
+	private VendorDBService vendorDBService;
 
 	public TrackExpenseDBService() {
-		this.vendorDbService = new VendorDBService();
+		this.vendorDBService = new VendorDBService();
 	}
 
 	public BaseListResponse<TrackExpense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
@@ -36,14 +36,18 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 
 	@Override
 	protected void populateExtraFields(TrackExpense entity, MOrder_BH mOrder) {
+		if (entity.getProvider() != null) {
+			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getProvider().getUuid());
+			mOrder.setC_BPartner_ID(vendor.get_ID());
+		}
 	}
 
 	@Override
 	protected TrackExpense createInstanceWithDefaultFields(MOrder_BH instance) {
 		try {
-			MBPartner_BH vendor = vendorDbService.getEntityByIdFromDB(instance.getC_BPartner_ID());
+			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
 			if (vendor == null) {
-				log.severe("Missing vendor");
+				log.severe("Missing provider");
 				return null;
 			}
 
@@ -63,7 +67,7 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	@Override
 	protected TrackExpense createInstanceWithAllFields(MOrder_BH instance) {
 		try {
-			MBPartner_BH vendor = vendorDbService.getEntityByIdFromDB(instance.getC_BPartner_ID());
+			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
 			if (vendor == null) {
 				log.severe("Missing vendor");
 				return null;
