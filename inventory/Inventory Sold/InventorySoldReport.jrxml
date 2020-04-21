@@ -77,33 +77,18 @@
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
 			<![CDATA[select
-    billitems.item_name as item_name,
-    sum(billdetails.quantity) as quantity,
-    sum(billdetails.amount) as amount
-from
-(
- select
-  item.m_product_id,
-  item.name as item_name
-from m_product item
-where item.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y' 
+    item.name as item_name,
+    sum(coline.qtyordered) as quantity,
+    sum(coline.linenetamt) as amount
+from c_orderline coline
+    inner join c_order sorder on coline.c_order_id = sorder.c_order_id
+    and sorder.bh_isexpense = 'N'
+    inner join m_product item on coline.m_product_id = item.m_product_id
     and item.producttype = 'I'
-) as billitems
-inner join
-(
-select coline.m_product_id,
-       coline.qtyordered as quantity,
-       coline.linenetamt as amount
-from c_order co
-    inner join c_orderline coline on co.c_order_id = coline.c_order_id
-    inner join c_payment cp on co.c_order_id = cp.bh_c_order_id
-where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-    and (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-    and ((cp.docstatus = 'CO') OR (cp.docstatus = 'DR' and cp.bh_processing = 'Y'))
-    )
-) as billdetails on billitems.m_product_id = billdetails.m_product_id
-group by billitems.item_name
-order by billitems.item_name asc;]]>
+where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
+    and (date(coline.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
+group by item.name
+order by item.name asc;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -122,29 +107,16 @@ order by billitems.item_name asc;]]>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
-    billitems.item_name as item_name
-from
-(
- select
-  item.m_product_id,
-  item.name as item_name
-from m_product item
-where item.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y' 
+    item.name as item_name
+from c_orderline coline
+    inner join c_order sorder on coline.c_order_id = sorder.c_order_id
+    and sorder.bh_isexpense = 'N'
+    inner join m_product item on coline.m_product_id = item.m_product_id
     and item.producttype = 'I'
-) as billitems
-inner join
-(
-select coline.m_product_id,
-       coline.qtyordered as quantity,
-       coline.linenetamt as amount
-from c_order co
-    inner join c_orderline coline on co.c_order_id = coline.c_order_id
-    inner join c_payment cp on co.c_order_id = cp.bh_c_order_id
-where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-    and (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-    and ((cp.docstatus = 'CO') OR (cp.docstatus = 'DR' and cp.bh_processing = 'Y'))
-    )
-) as billdetails on billitems.m_product_id = billdetails.m_product_id
+where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
+    and (date(coline.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
+group by item.name
+order by item.name asc
 limit 1;]]>
 	</queryString>
 	<field name="item_name" class="java.lang.String">
