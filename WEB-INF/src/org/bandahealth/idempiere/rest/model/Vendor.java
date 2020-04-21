@@ -23,6 +23,11 @@ public class Vendor extends BusinessPartner {
 		setName(name);
 	}
 
+	public Vendor(String uuid, String name) {
+		setUuid(uuid);
+		setName(name);
+	}
+
 	public Vendor(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String description, String name, String email, String phone, BigDecimal totalOpenBalance) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);

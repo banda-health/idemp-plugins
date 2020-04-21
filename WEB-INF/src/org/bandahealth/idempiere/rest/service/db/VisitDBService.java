@@ -55,7 +55,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		// set patient
-		if (entity.getPatient() != null) {
+		if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
 			MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
 			if (patient != null) {
 				mOrder.setC_BPartner_ID(patient.get_ID());
@@ -65,7 +65,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.isNewVisit() != null) {
 			mOrder.setBH_NewVisit(entity.isNewVisit());
 		}
-		
+
 		mOrder.setIsSOTrx(true);
 	}
 
