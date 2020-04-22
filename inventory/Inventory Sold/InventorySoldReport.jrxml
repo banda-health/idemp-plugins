@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Inventory Sold" pageWidth="480" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="480" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Inventory Sold" pageWidth="930" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="930" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -70,16 +70,35 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="inventory sold" uuid="4ddff745-c801-490f-9e16-520912866ea0">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
 			<![CDATA[select
-    item.name as item_name,
-    sum(coline.qtyordered) as quantity,
-    sum(coline.linenetamt) as amount
+    billitems.item_name as item_name,
+    sum(billdetails.quantity) as quantity,
+    billdetails.saleprice as sellingprice,
+    sum(billdetails.amount) as amount,
+    productPP.PurchasePrice as PurchasePrice,
+    abs(coalesce(sum(billdetails.quantity*productPP.PurchasePrice),0)) as costgoodssold
+from
+(
+select
+    item.m_product_id,
+    item.name as item_name
+from m_product item
+where item.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y'
+    and item.producttype = 'I'
+) as billitems
+inner join
+(
+select
+    coline.m_product_id,
+    coline.qtyordered as quantity,
+    coline.priceentered as saleprice,
+    coline.linenetamt as amount
 from c_orderline coline
     inner join c_order sorder on coline.c_order_id = sorder.c_order_id
     and sorder.bh_isexpense = 'N'
@@ -87,8 +106,19 @@ from c_orderline coline
     and item.producttype = 'I'
 where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
     and (date(coline.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
-group by item.name
-order by item.name asc;]]>
+) as billdetails on billitems.m_product_id = billdetails.m_product_id
+left join
+(
+select
+    productPrice.m_product_id,
+    productPrice.pricestd as PurchasePrice
+    from m_pricelist priceList
+    inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
+    inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+where priceList.issopricelist = 'N' and priceList.isdefault = 'Y'
+) as productPP on billdetails.m_product_id = productPP.m_product_id
+group by billitems.item_name,billdetails.saleprice,productPP.PurchasePrice
+order by billitems.item_name asc;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -98,13 +128,27 @@ order by item.name asc;]]>
 			<property name="com.jaspersoft.studio.field.label" value="quantity"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
 		</field>
+		<field name="sellingprice" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="sellingprice"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
 		<field name="amount" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="amount"/>
 		</field>
+		<field name="purchaseprice" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="purchaseprice"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
+		</field>
+		<field name="costgoodssold" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="costgoodssold"/>
+		</field>
+		<variable name="gross profit" class="java.math.BigDecimal">
+			<variableExpression><![CDATA[$F{amount}.subtract($F{costgoodssold})]]></variableExpression>
+		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select
     item.name as item_name
@@ -129,7 +173,7 @@ limit 1;]]>
 	<pageHeader>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="480" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
+				<reportElement x="0" y="0" width="930" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -151,7 +195,7 @@ limit 1;]]>
 	<detail>
 		<band height="32">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="0" width="480" height="32" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1">
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="930" height="32" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1">
 					<property name="com.jaspersoft.studio.table.style.column_header" value="table 1_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="table 1_TD"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -220,8 +264,31 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="ae9b22e4-b12a-4955-ad46-b9892fd195ad">
+					<jr:column width="110" uuid="afe95fae-8ad7-4714-8584-b6944b8bac33">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="17" uuid="15a6105b-1dc4-47cd-a137-156a8dbef630"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Unit Selling Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="15" uuid="f1b0d060-e369-43af-8dfe-625372a76c23"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{sellingprice}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="ae9b22e4-b12a-4955-ad46-b9892fd195ad">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -240,6 +307,75 @@ limit 1;]]>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="8d25c955-aef3-4959-a0c4-9e75b760060d">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="17" uuid="2f911b4a-9bb3-4682-b7b3-28e741edafcf"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Purchasing Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="120" height="15" uuid="8191ecf0-0a57-4b9a-8c0a-382cd1efdf93"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{purchaseprice}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="308c1fb4-db31-4885-8e9c-d05be61b49b5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="17" uuid="3c1759cd-ecd9-44eb-a6c3-a072e23db13d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Cost of Goods Sold]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="120" height="15" uuid="123a3e2e-73da-40b6-8395-8976078646b2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costgoodssold}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="34a236d3-3540-478b-b87c-9fa5f0d82a32">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="17" uuid="d8520c79-a16f-4ffb-97f6-a1f337609a7a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Gross Profit]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="15" uuid="d579f0ee-2a7b-4b80-8254-3eebd1faa117"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{gross profit}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
