@@ -67,6 +67,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setQty(entity.getQuantity());
 		}
 
+		// only save for receive products
 		if (entity.getLineNetAmount() != null) {
 			mOrderLine.setLineNetAmt(entity.getLineNetAmount());
 		}
@@ -108,7 +109,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				if (charge != null) {
 					return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
 							instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-							instance.getCreatedBy(), new Expense(charge.getName(), charge.getC_Charge_UU()),
+							instance.getCreatedBy(),
+							new Expense(charge.getC_Charge_UU(), charge.getName(), charge.getChargeAmt()),
 							instance.getC_Order_ID(), instance.getPriceActual(), instance.getQtyOrdered(),
 							instance.getLineNetAmt());
 				}

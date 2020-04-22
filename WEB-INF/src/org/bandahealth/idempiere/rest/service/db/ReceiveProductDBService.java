@@ -29,7 +29,8 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("N");
 
-		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + " IS NULL",
+				parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override

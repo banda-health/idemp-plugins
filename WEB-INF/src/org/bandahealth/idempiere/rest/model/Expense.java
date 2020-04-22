@@ -18,12 +18,8 @@ public class Expense extends BaseEntity {
 	public Expense() {
 	}
 
-	public Expense(String name, String uuid) {
-		setName(name);
+	public Expense(String uuid, String name, BigDecimal amount) {
 		setUuid(uuid);
-	}
-
-	public Expense(String name, BigDecimal amount) {
 		setName(name);
 
 		this.amount = amount;
