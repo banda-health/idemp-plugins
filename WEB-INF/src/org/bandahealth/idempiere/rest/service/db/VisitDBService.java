@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +33,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
+	private ProcessDBService processDBService;
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
+		processDBService = new ProcessDBService();
 	}
 
 	@Override
@@ -236,5 +240,20 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				return OrderStatus.PENDING_COMPLETION;
 			}
 		}
+	}
+
+	/**
+	 * Generates Thermal receipt
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	public File generateThermalReceipt(String uuid) {
+		MOrder_BH visit = getEntityByUuidFromDB(uuid);
+		if (visit != null) {
+			return processDBService.generateThermalReceipt(new BigDecimal(visit.get_ID()));
+		}
+
+		return null;
 	}
 }

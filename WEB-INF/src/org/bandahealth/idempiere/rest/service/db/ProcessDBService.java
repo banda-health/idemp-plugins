@@ -1,11 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
@@ -14,6 +17,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
+import org.compiere.model.MScheduler;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
@@ -26,6 +30,8 @@ public class ProcessDBService {
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
 	private final String QUANTITY = "QUANTITY";
+	private final String THERMAL_RECEIPT_PROCESS = "BH Thermal Receipt";
+	private final String BILL_ID = "billId";
 
 	public ProcessDBService() {
 	}
@@ -80,6 +86,46 @@ public class ProcessDBService {
 		ServerProcessCtl.process(processInfo, null);
 
 		return processInfo.getSummary();
+	}
+
+	/**
+	 * Generates thermal receipt for given bill id
+	 * 
+	 * @param reportName
+	 * @param tableId
+	 * @param recordId
+	 */
+	public File generateThermalReceipt(BigDecimal billId) {
+		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Name + "=?", null)
+				.setOnlyActiveRecords(true).setParameters(THERMAL_RECEIPT_PROCESS).first();
+
+		MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		// pi.setAD_User_ID(getAD_User_ID());
+		// pi.setAD_Client_ID(scheduler.getAD_Client_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+		processInfo.setIsBatch(true);
+		processInfo.setExport(true);
+		// pi.setPrintPreview(true);
+		processInfo.setReportType(MScheduler.REPORTOUTPUTTYPE_PDF);
+		processInfo.setExportFileExtension("pdf");
+
+		processInfo.setParameter(
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BILL_ID, billId, null, null, null) });
+
+		ServerProcessCtl.process(processInfo, null);
+
+		if (processInfo.isError()) {
+			throw new AdempiereException("Could not generate thermal receipt.");
+		}
+
+		if (processInfo.getExportFile() != null) {
+			return processInfo.getExportFile();
+		}
+
+		return null;
 	}
 
 	public static BHProcessInfo runProcess(BHProcessInfo request) {
