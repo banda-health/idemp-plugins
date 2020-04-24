@@ -143,7 +143,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
-					instance.getBH_PatientID(), DateUtil.parse(instance.getBH_Birthday()), instance.getBH_Phone(),
+					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()), instance.getBH_Phone(),
 					address, instance.get_ValueAsString(COLUMNNAME_GENDER), instance.getBH_EMail(),
 					instance.getBH_NHIFRelationship(), instance.getBH_NHIFMemberName(), instance.getBH_NHIFNumber(),
 					instance.getBH_NHIFType(), instance.getBH_NationalID(),
@@ -160,7 +160,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	protected Patient createInstanceWithDefaultFields(MBPartner_BH instance) {
 		try {
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID());
 		} catch (Exception ex) {

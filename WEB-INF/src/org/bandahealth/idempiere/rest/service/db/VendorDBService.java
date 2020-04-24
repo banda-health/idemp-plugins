@@ -70,7 +70,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 	protected Vendor createInstanceWithDefaultFields(MBPartner_BH bpartner) {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
-					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
+					bpartner.isActive(), DateUtil.parseDateOnly(bpartner.getCreated()), bpartner.getCreatedBy(),
 					bpartner.getDescription(), bpartner.getName(), bpartner.getBH_EMail(), bpartner.getBH_Phone(),
 					bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {
@@ -84,7 +84,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 	protected Vendor createInstanceWithAllFields(MBPartner_BH bpartner) {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
-					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
+					bpartner.isActive(), DateUtil.parseDateOnly(bpartner.getCreated()), bpartner.getCreatedBy(),
 					bpartner.getDescription(), bpartner.getName(), bpartner.getBH_EMail(), bpartner.getBH_Phone(),
 					bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {
