@@ -148,7 +148,7 @@ order by billitems.item_name asc;]]>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
     item.name as item_name
@@ -230,8 +230,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField pattern="#,##0" isBlankWhenNull="false">
-								<reportElement x="0" y="0" width="280" height="15" uuid="3dc6affc-89e0-41e4-979d-3b53a941835f">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="280" height="15" uuid="3dc6affc-89e0-41e4-979d-3b53a941835f">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
@@ -255,8 +255,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="100" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -278,8 +278,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
-							<textField>
-								<reportElement x="0" y="0" width="110" height="15" uuid="f1b0d060-e369-43af-8dfe-625372a76c23"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="15" uuid="f1b0d060-e369-43af-8dfe-625372a76c23"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -301,8 +301,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
-							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="100" height="15" uuid="95e77387-072b-4a75-ad8e-7dde3e55c4e1"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="95e77387-072b-4a75-ad8e-7dde3e55c4e1"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -324,8 +324,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
-							<textField>
-								<reportElement x="0" y="0" width="120" height="15" uuid="8191ecf0-0a57-4b9a-8c0a-382cd1efdf93"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="15" uuid="8191ecf0-0a57-4b9a-8c0a-382cd1efdf93"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -347,8 +347,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
-							<textField>
-								<reportElement x="0" y="0" width="120" height="15" uuid="123a3e2e-73da-40b6-8395-8976078646b2"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="15" uuid="123a3e2e-73da-40b6-8395-8976078646b2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
@@ -370,8 +370,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
-							<textField>
-								<reportElement x="0" y="0" width="100" height="15" uuid="d579f0ee-2a7b-4b80-8254-3eebd1faa117"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="d579f0ee-2a7b-4b80-8254-3eebd1faa117"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
