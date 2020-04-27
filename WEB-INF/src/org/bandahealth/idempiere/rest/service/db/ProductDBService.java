@@ -149,7 +149,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public Product saveEntity(Product entity) {
 		try {
 			MProduct_BH product;
-			MProduct_BH exists = getEntityFromDB(entity.getUuid());
+			MProduct_BH exists = getEntityByUuidFromDB(entity.getUuid());
 			if (exists != null) {
 				product = exists;
 			} else {
@@ -210,7 +210,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			product.saveEx();
 
-			return createInstanceWithAllFields(getEntityFromDB(product.getM_Product_UU()));
+			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
@@ -220,7 +220,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	protected Product createInstanceWithAllFields(MProduct_BH instance) {
 		try {
 			return new Product(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getM_Product_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getValue(), instance.isStocked(),
 					instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.getProductType(),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
@@ -237,7 +237,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	protected Product createInstanceWithDefaultFields(MProduct_BH product) {
 		try {
 			return new Product(product.getAD_Client_ID(), product.getAD_Org_ID(), product.getM_Product_UU(),
-					product.isActive(), DateUtil.parse(product.getCreated()), product.getCreatedBy(), product.getName(),
+					product.isActive(), DateUtil.parseDateOnly(product.getCreated()), product.getCreatedBy(), product.getName(),
 					product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
@@ -246,8 +246,14 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	}
 
 	@Override
-	protected Product createInstanceWithSearchFields(MProduct_BH instance) {
-		return createInstanceWithDefaultFields(instance);
+	protected Product createInstanceWithSearchFields(MProduct_BH product) {
+		try {
+			return new Product(product.getM_Product_UU(), product.getName(), product.getBH_BuyPrice(),
+					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration));
+		} catch (Exception ex) {
+			log.severe("Error creating product instance: " + ex);
+			throw new RuntimeException(ex.getLocalizedMessage(), ex);
+		}
 	}
 
 	@Override

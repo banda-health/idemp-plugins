@@ -39,7 +39,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	@Override
 	public Payment saveEntity(Payment entity) {
-		MPayment_BH mPayment = getEntityFromDB(entity.getUuid());
+		MPayment_BH mPayment = getEntityByUuidFromDB(entity.getUuid());
 		if (mPayment == null) {
 			mPayment = getModelInstance();
 		}
@@ -100,7 +100,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 		mPayment.saveEx();
 
-		return createInstanceWithAllFields(getEntityFromDB(mPayment.getC_Payment_UU()));
+		return createInstanceWithAllFields(getEntityByUuidFromDB(mPayment.getC_Payment_UU()));
 	}
 
 	@Override

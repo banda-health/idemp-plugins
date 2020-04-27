@@ -38,7 +38,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	@Override
 	public Vendor saveEntity(Vendor entity) {
-		MBPartner_BH vendor = getEntityFromDB(entity.getUuid());
+		MBPartner_BH vendor = getEntityByUuidFromDB(entity.getUuid());
 		if (vendor == null) {
 			vendor = new MBPartner_BH(Env.getCtx(), 0, null);
 			vendor.setBH_IsPatient(false);
@@ -63,14 +63,14 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 		vendor.saveEx();
 
-		return createInstanceWithAllFields(getEntityFromDB(vendor.getC_BPartner_UU()));
+		return createInstanceWithAllFields(getEntityByUuidFromDB(vendor.getC_BPartner_UU()));
 	}
 
 	@Override
 	protected Vendor createInstanceWithDefaultFields(MBPartner_BH bpartner) {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
-					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
+					bpartner.isActive(), DateUtil.parseDateOnly(bpartner.getCreated()), bpartner.getCreatedBy(),
 					bpartner.getDescription(), bpartner.getName(), bpartner.getBH_EMail(), bpartner.getBH_Phone(),
 					bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {
@@ -84,7 +84,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 	protected Vendor createInstanceWithAllFields(MBPartner_BH bpartner) {
 		try {
 			return new Vendor(bpartner.getAD_Client_ID(), bpartner.getAD_Org_ID(), bpartner.getC_BPartner_UU(),
-					bpartner.isActive(), DateUtil.parse(bpartner.getCreated()), bpartner.getCreatedBy(),
+					bpartner.isActive(), DateUtil.parseDateOnly(bpartner.getCreated()), bpartner.getCreatedBy(),
 					bpartner.getDescription(), bpartner.getName(), bpartner.getBH_EMail(), bpartner.getBH_Phone(),
 					bpartner.getTotalOpenBalance());
 		} catch (Exception ex) {

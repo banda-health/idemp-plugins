@@ -19,52 +19,68 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class OrderLine extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private Integer chargeId;
+	private Expense expense;
 	private Integer orderId;
 	private Product product;
 	private BigDecimal price;
 	private BigDecimal quantity;
+	private BigDecimal lineNetAmount;
+	private Integer attributeSetInstanceId;
+	private String expiration;
 
 	public OrderLine() {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer chargeId, Integer orderId, Product product, BigDecimal price, BigDecimal quantity) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.chargeId = chargeId;
-		this.orderId = orderId;
-		this.product = product;
-		this.price = price;
-		this.quantity = quantity;
-	}
-
-	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Integer orderId,
-			Product product, BigDecimal price, BigDecimal quantity) {
+			Integer orderId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
+			String expiration) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.orderId = orderId;
 		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
+		this.lineNetAmount = lineNetAmount;
+		this.expiration = expiration;
 	}
 
-	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Integer orderId,
-			Integer chargeId, BigDecimal price) {
+	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			Expense expense, Integer orderId, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount) {
+		super(clientId, orgId, uuid, isActive, created, createdBy);
+
+		this.expense = expense;
+		this.orderId = orderId;
+		this.price = price;
+		this.quantity = quantity;
+		this.lineNetAmount = lineNetAmount;
+	}
+
+	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			Integer orderId, Product product, BigDecimal price, BigDecimal quantity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.orderId = orderId;
-		this.chargeId = chargeId;
+		this.product = product;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			Integer orderId, Expense expense, BigDecimal price) {
+		super(clientId, orgId, uuid, isActive, created, createdBy);
+
+		this.orderId = orderId;
+		this.expense = expense;
 		this.price = price;
 	}
 
 	@XmlElement
-	public Integer getChargeId() {
-		return chargeId;
+	public Expense getExpense() {
+		return expense;
 	}
 
-	public void setChargeId(Integer chargeId) {
-		this.chargeId = chargeId;
+	public void setExpense(Expense charge) {
+		this.expense = charge;
 	}
 
 	@XmlElement
@@ -102,4 +118,32 @@ public class OrderLine extends BaseMetadata {
 	public void setQuantity(BigDecimal quantity) {
 		this.quantity = quantity;
 	}
+
+	@XmlElement
+	public BigDecimal getLineNetAmount() {
+		return lineNetAmount;
+	}
+
+	public void setLineNetAmount(BigDecimal lineNetAmount) {
+		this.lineNetAmount = lineNetAmount;
+	}
+
+	@XmlElement
+	public Integer getAttributeSetInstanceId() {
+		return attributeSetInstanceId;
+	}
+
+	public void setAttributeSetInstanceId(Integer attributeSetInstanceId) {
+		this.attributeSetInstanceId = attributeSetInstanceId;
+	}
+
+	@XmlElement
+	public String getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(String expiration) {
+		this.expiration = expiration;
+	}
+
 }

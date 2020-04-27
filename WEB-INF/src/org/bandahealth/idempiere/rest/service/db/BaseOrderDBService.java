@@ -9,6 +9,8 @@ import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MDocType;
+import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
@@ -24,13 +26,15 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	protected OrderLineDBService orderLineDBService = new OrderLineDBService();
 	protected PaymentDBService paymentDBService = new PaymentDBService();
 	private ProcessDBService processDBService = new ProcessDBService();
+	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
+	private final String PURCHASE_ORDER = "Purchase Order";
 
 	protected abstract void populateExtraFields(T entity, MOrder_BH mOrder);
 
 	@Override
 	public T saveEntity(T entity) {
 		try {
-			MOrder_BH mOrder = getEntityFromDB(entity.getUuid());
+			MOrder_BH mOrder = getEntityByUuidFromDB(entity.getUuid());
 			if (mOrder == null) {
 				mOrder = getModelInstance();
 			}
@@ -45,12 +49,15 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 			mOrder.setIsActive(entity.isIsActive());
 
-			mOrder.setIsSOTrx(entity.isIsSalesOrderTransaction());
-
 			mOrder.setIsApproved(true);
 			mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 
 			populateExtraFields(entity, mOrder);
+
+			// set target document type
+			if (!mOrder.isSOTrx()) {
+				mOrder.setC_DocTypeTarget_ID(getPurchaseOrderDocumentTypeId());
+			}
 
 			mOrder.saveEx();
 
@@ -93,7 +100,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			// delete payment lines not in request
 			paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds);
 
-			return createInstanceWithAllFields(getEntityFromDB(mOrder.getC_Order_UU()));
+			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -110,7 +117,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @return
 	 */
 	public String asyncProcessEntity(String uuid) {
-		MOrder_BH order = getEntityFromDB(uuid);
+		MOrder_BH order = getEntityByUuidFromDB(uuid);
 		if (order == null) {
 			log.severe("No order with uuid = " + uuid);
 			return "No order with uuid = " + uuid;
@@ -126,7 +133,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @return
 	 */
 	public T processEntity(String uuid) {
-		MOrder_BH order = getEntityFromDB(uuid);
+		MOrder_BH order = getEntityByUuidFromDB(uuid);
 		if (order == null) {
 			log.severe("No order with uuid = " + uuid);
 			return null;
@@ -134,7 +141,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 		order.processIt(DocAction.ACTION_Complete);
 
-		return createInstanceWithAllFields(getEntityFromDB(order.getC_Order_UU()));
+		return createInstanceWithAllFields(getEntityByUuidFromDB(order.getC_Order_UU()));
 	}
 
 	/**
@@ -170,5 +177,22 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	@Override
 	protected MOrder_BH getModelInstance() {
 		return new MOrder_BH(Env.getCtx(), 0, null);
+	}
+
+	/**
+	 * Get Purchase Order Target Document Type
+	 * 
+	 * @return
+	 */
+	protected int getPurchaseOrderDocumentTypeId() {
+		// set target document type
+		MDocType docType = new Query(Env.getCtx(), MDocType.Table_Name,
+				MDocType.COLUMNNAME_Name + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?", null)
+						.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
+		if (docType != null) {
+			return docType.get_ID();
+		}
+
+		return 0;
 	}
 }

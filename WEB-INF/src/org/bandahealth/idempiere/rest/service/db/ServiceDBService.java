@@ -41,7 +41,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	@Override
 	public Service saveEntity(Service entity) {
 		try {
-			MProduct_BH service = getEntityFromDB(entity.getUuid());
+			MProduct_BH service = getEntityByUuidFromDB(entity.getUuid());
 			if (service == null) {
 				service = getModelInstance();
 				service.setProductType(MProduct_BH.PRODUCTTYPE_Service);
@@ -84,7 +84,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 
 			service.saveEx();
 
-			return createInstanceWithAllFields(getEntityFromDB(service.getM_Product_UU()));
+			return createInstanceWithAllFields(getEntityByUuidFromDB(service.getM_Product_UU()));
 
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -95,7 +95,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	protected Service createInstanceWithDefaultFields(MProduct_BH service) {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
-					service.isActive(), DateUtil.parse(service.getCreated()), service.getCreatedBy(), service.getName(),
+					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
 					null, service.getBH_SellPrice());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -108,7 +108,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	protected Service createInstanceWithAllFields(MProduct_BH service) {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
-					service.isActive(), DateUtil.parse(service.getCreated()), service.getCreatedBy(), service.getName(),
+					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
 					service.getDescription(), service.getBH_SellPrice());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

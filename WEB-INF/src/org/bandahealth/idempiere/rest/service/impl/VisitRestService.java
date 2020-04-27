@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
+import java.io.File;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -7,6 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -54,13 +58,13 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	}
 
 	@POST
-	@Path(IRestConfigs.VISIT_PROCESS_PATH)
+	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
 	public String processVisit(@PathParam("uuid") String uuid) {
 		return dbService.asyncProcessEntity(uuid);
 	}
 
 	@POST
-	@Path(IRestConfigs.VISIT_SAVE_AND_PROCESS_PATH)
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
 	public String saveAndProcessVisit(Visit entity) {
 		return dbService.asynSaveAndProcessEntity(entity);
 	}
@@ -76,6 +80,20 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	@Override
 	public BaseListResponse<Visit> search(@QueryParam("value") String value, @QueryParam("page") int page,
 			@QueryParam("size") int size) {
+		return null;
+	}
+
+	@POST
+	@Path(IRestConfigs.PRINT_RECEIPT_PATH)
+	@Produces("application/pdf")
+	public Response generateReceipt(@PathParam("uuid") String uuid) {
+		File receipt = dbService.generateThermalReceipt(uuid);
+		if (receipt != null) {
+			ResponseBuilder response = Response.ok((Object) receipt);
+			response.header("Content-Disposition", "attachment; filename=\"receipt.pdf\"");
+			return response.build();
+		}
+
 		return null;
 	}
 }

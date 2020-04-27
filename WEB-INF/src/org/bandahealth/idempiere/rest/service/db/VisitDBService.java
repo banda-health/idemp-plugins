@@ -1,12 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
@@ -32,11 +33,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
-	private EntityMetadataDBService entityMetadataDBService;
+	private ProcessDBService processDBService;
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
-		entityMetadataDBService = new EntityMetadataDBService();
+		processDBService = new ProcessDBService();
 	}
 
 	@Override
@@ -53,14 +54,13 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType().getValue());
 		}
 
-		
 		if (entity.getReferral() != null && entity.getReferral().getValue() != null) {
 			mOrder.set_ValueOfColumn(COLUMNNAME_REFERRAL, entity.getReferral().getValue());
 		}
 
 		// set patient
-		if (entity.getPatient() != null) {
-			MBPartner_BH patient = patientDBService.getEntityFromDB(entity.getPatient().getUuid());
+		if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
+			MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
 			if (patient != null) {
 				mOrder.setC_BPartner_ID(patient.get_ID());
 			}
@@ -69,6 +69,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.isNewVisit() != null) {
 			mOrder.setBH_NewVisit(entity.isNewVisit());
 		}
+
+		mOrder.setIsSOTrx(true);
 	}
 
 	@Override
@@ -76,6 +78,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		try {
 			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
 			if (patient == null) {
+				log.severe("Missing patient");
 				return null;
 			}
 
@@ -103,11 +106,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			// get patient
 			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
 			if (patient == null) {
+				log.severe("Missing patient");
 				return null;
 			}
-
-			// retrieve order lines
-			List<OrderLine> orderLines = orderLineDBService.getOrderLinesByOrderId(instance.get_ID());
 
 			// retrieve payments
 			List<Payment> payments = paymentDBService.getPaymentsByOrderId(instance.get_ID());
@@ -127,7 +128,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance()),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
 					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
-					new Referral(referral), orderLines, payments, instance.getDocStatus(), getOrderStatus(instance));
+					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
+					instance.getDocStatus(), getOrderStatus(instance));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -238,5 +240,20 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				return OrderStatus.PENDING_COMPLETION;
 			}
 		}
+	}
+
+	/**
+	 * Generates Thermal receipt
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	public File generateThermalReceipt(String uuid) {
+		MOrder_BH visit = getEntityByUuidFromDB(uuid);
+		if (visit != null) {
+			return processDBService.generateThermalReceipt(new BigDecimal(visit.get_ID()));
+		}
+
+		return null;
 	}
 }

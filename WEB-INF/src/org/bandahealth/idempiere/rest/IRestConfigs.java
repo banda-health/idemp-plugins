@@ -13,6 +13,8 @@ public interface IRestConfigs {
 
 	String SEARCH_PATH = "/search";
 
+	String PRINT_RECEIPT_PATH = "/printreceipt/{uuid}";
+
 	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";
 	String PATIENT_PATH = "/patient/{uuid}";
 	String PATIENT_SUMMARY_PATH = AUTHENTICATION_PATH + "/patientsummary";
@@ -43,14 +45,25 @@ public interface IRestConfigs {
 	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
 	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
 
+	String ENTITY_PROCESS_PATH = "/process/{uuid}";
+	String ENTITY_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+
 	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";
 	String VISIT_PATH = "/visit/{uuid}";
-	String VISIT_PROCESS_PATH = "/process/{uuid}";
-	String VISIT_SAVE_AND_PROCESS_PATH = "/saveandprocess";
 	String VISIT_QUEUE_PATH = "/visitqueue";
 
 	String PAYMENTS_PATH = AUTHENTICATION_PATH + "/payments";
 	String PAYMENT_PATH = "/payment/{uuid}";
 
 	String METADATA_PATH = AUTHENTICATION_PATH + "/metadata";
+
+	String RECEIVE_PRODUCTS_PATH = AUTHENTICATION_PATH + "/receiveproducts";
+	String RECEIVE_PRODUCT_PATH = "/receiveproduct/{uuid}";
+	String RECEIVE_PRODUCT_PROCESS_PATH = "/process/{uuid}";
+	String RECEIVE_PRODUCT_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+
+	String TRACK_EXPENSES_PATH = AUTHENTICATION_PATH + "/trackexpenses";
+	String TRACK_EXPENSE_PATH = "/trackexpense/{uuid}";
+	String TRACK_EXPENSE_PROCESS_PATH = "/process/{uuid}";
+	String TRACK_EXPENSE_SAVE_AND_PROCESS_PATH = "/saveandprocess";
 }

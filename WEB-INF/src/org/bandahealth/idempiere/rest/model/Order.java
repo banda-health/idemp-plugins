@@ -73,6 +73,18 @@ public class Order extends BaseMetadata {
 		this.docStatus = docStatus;
 	}
 
+	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			BusinessPartner businessPartner, String dateOrdered, boolean isSalesOrderTransaction, String docStatus,
+			BigDecimal grandTotal) {
+		super(clientId, orgId, uuid, isActive, created, createdBy);
+
+		this.businessPartner = businessPartner;
+		this.dateOrdered = dateOrdered;
+		this.isSalesOrderTransaction = isSalesOrderTransaction;
+		this.docStatus = docStatus;
+		this.grandTotal = grandTotal;
+	}
+
 	public BusinessPartner getBusinessPartner() {
 		return businessPartner;
 	}

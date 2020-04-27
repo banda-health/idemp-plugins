@@ -12,11 +12,20 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Vendor extends BusinessPartner {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String phoneNumber;
 	private String emailAddress;
 
 	public Vendor() {
+	}
+
+	public Vendor(String name) {
+		setName(name);
+	}
+
+	public Vendor(String uuid, String name) {
+		setUuid(uuid);
+		setName(name);
 	}
 
 	public Vendor(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -41,5 +50,5 @@ public class Vendor extends BusinessPartner {
 	public void setemailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
-	
+
 }
