@@ -38,6 +38,10 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 				charge.setName(entity.getName());
 			}
 
+			if (entity.getAmount() != null) {
+				charge.setChargeAmt(entity.getAmount());
+			}
+
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
 				charge.setDescription(entity.getDescription());
 			}
@@ -68,8 +72,8 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	protected Expense createInstanceWithDefaultFields(MCharge expense) {
 		try {
 			return new Expense(expense.getAD_Client_ID(), expense.getAD_Org_ID(), expense.getC_Charge_UU(),
-					expense.isActive(), DateUtil.parse(expense.getCreated()), expense.getCreatedBy(), expense.getName(),
-					expense.getDescription(), expense.getChargeAmt());
+					expense.isActive(), DateUtil.parseDateOnly(expense.getCreated()), expense.getCreatedBy(),
+					expense.getName(), expense.getDescription(), expense.getChargeAmt());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

@@ -95,7 +95,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	protected Service createInstanceWithDefaultFields(MProduct_BH service) {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
-					service.isActive(), DateUtil.parse(service.getCreated()), service.getCreatedBy(), service.getName(),
+					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
 					null, service.getBH_SellPrice());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -108,7 +108,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	protected Service createInstanceWithAllFields(MProduct_BH service) {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
-					service.isActive(), DateUtil.parse(service.getCreated()), service.getCreatedBy(), service.getName(),
+					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
 					service.getDescription(), service.getBH_SellPrice());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
