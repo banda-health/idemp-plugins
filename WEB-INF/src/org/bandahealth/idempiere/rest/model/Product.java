@@ -56,12 +56,15 @@ public class Product extends BaseEntity {
 		this.sellPrice = sellPrice;
 	}
 
-	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration) {
+	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration, String created,
+			BigDecimal sellPrice) {
 		setUuid(uuid);
 		setName(name);
+		setCreated(created);
 
 		this.buyPrice = buyPrice;
 		this.hasExpiration = hasExpiration;
+		this.sellPrice = sellPrice;
 	}
 
 	@XmlElement

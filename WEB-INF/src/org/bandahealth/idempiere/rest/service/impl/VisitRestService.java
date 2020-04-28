@@ -80,7 +80,7 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	@Override
 	public BaseListResponse<Visit> search(@QueryParam("value") String value, @QueryParam("page") int page,
 			@QueryParam("size") int size) {
-		return null;
+		return dbService.search(value, getPagingInfo(page, size));
 	}
 
 	@POST
