@@ -29,16 +29,7 @@ public class CalloutGeneratePatientId implements IColumnCallout {
 				return null;
 			}
 
-			if (generatedPatientId instanceof String) {
-				// non numeric patient id found..
-
-				// show the last patient id.
-				mTab.setValue(MBPartner_BH.COLUMNNAME_BH_LastPatientID, generatedPatientId);
-				return null;
-			}
-
 			mTab.setValue(MBPartner_BH.COLUMNNAME_BH_PatientID, generatedPatientId.toString());
-			return null;
 
 		}
 

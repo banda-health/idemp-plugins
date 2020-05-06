@@ -72,7 +72,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	private void beforeChangeRequest(MBPartner_BH businessPartner) {
 		translateToMaskedFields(businessPartner);
-		//checkPatientID(businessPartner);
 	}
 
 	private void beforeSaveRequest(MBPartner_BH businessPartner) {
@@ -115,7 +114,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 			// check unique patient id
 			checkPatientID(businessPartner);
-			// checkPatientId(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
