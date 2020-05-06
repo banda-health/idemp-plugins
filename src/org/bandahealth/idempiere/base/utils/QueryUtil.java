@@ -134,38 +134,20 @@ public class QueryUtil {
 	 * @return
 	 */
 	public static Object generateNextBHPatientId() {
+		// default patient id
+		Integer numericCreatedPatientId = 100000;
+
 		// check the last created patient id
-		String whereClause = MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
-		MBPartner_BH lastCreatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name, whereClause, null)
-				.setClient_ID()
-				.setOrderBy(
+		MBPartner_BH lastCreatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
+				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", null).setClient_ID().setOrderBy(
 						MBPartner_BH.COLUMNNAME_Created + " DESC, " + MBPartner_BH.COLUMNNAME_BH_PatientID + " DESC")
-				.setParameters("Y").first();
+						.setParameters("Y").first();
 
-		// first patient registration
-		if (lastCreatedPatient == null) {
-			return 100000;
-		}
-
-		if (NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
-			Integer numericCreatedPatientId = Integer.valueOf(lastCreatedPatient.getBH_PatientID());
-			// check if there is an updated record greater than the last entered patient id.
-			MBPartner_BH lastUpdatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name, whereClause, null)
-					.setClient_ID().setOrderBy(MBPartner_BH.COLUMNNAME_Updated + " DESC").setParameters("Y").first();
-
-			if (lastUpdatedPatient != null && NumberUtils.isNumeric(lastUpdatedPatient.getBH_PatientID())) {
-				String lastUpdatedPatientId = lastUpdatedPatient.getBH_PatientID();
-				int numericUpdatedPatientId = Integer.valueOf(lastUpdatedPatientId);
-				if (numericUpdatedPatientId > numericCreatedPatientId) {
-					numericCreatedPatientId = numericUpdatedPatientId;
-				}
-			}
-
+		if (lastCreatedPatient != null && NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
+			numericCreatedPatientId = Integer.valueOf(lastCreatedPatient.getBH_PatientID());
 			numericCreatedPatientId++;
-
-			return numericCreatedPatientId;
-		} else {
-			return lastCreatedPatient.getBH_PatientID();
 		}
+
+		return numericCreatedPatientId;
 	}
 }
