@@ -50,10 +50,10 @@ public class ChargeModelEvent extends AbstractEventHandler {
 		}
 	}
 
-	private void afterChangeRequest(MCharge_BH charge) {
+	private void beforeChangeRequest(MCharge_BH charge) {
 	}
 
-	private void beforeChangeRequest(MCharge_BH charge) {
+	private void afterChangeRequest(MCharge_BH charge) {
 		updateChargeAccount(charge);
 	}
 
