@@ -31,6 +31,9 @@ public interface IRestConfigs {
 
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
 
+	String REPORTS_PATH = AUTHENTICATION_PATH + "/reports";
+	String GENERATE_PATH = "/generate";
+
 	String PRODUCTS_PATH = AUTHENTICATION_PATH + "/products";
 	String PRODUCT_PATH = "/product/{uuid}";
 	String SEARCH_ITEMS_PATH = "/searchitems";
@@ -66,4 +69,6 @@ public interface IRestConfigs {
 	String TRACK_EXPENSE_PATH = "/trackexpense/{uuid}";
 	String TRACK_EXPENSE_PROCESS_PATH = "/process/{uuid}";
 	String TRACK_EXPENSE_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+
+	String APPLICATION_PDF = "application/pdf";
 }

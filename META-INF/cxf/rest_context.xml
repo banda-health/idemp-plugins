@@ -30,6 +30,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="EntityMetadataServiceBean" />
 			<ref bean="TrackExpenseServiceBean" />
 			<ref bean="ReceiveProductServiceBean" />
+			<ref bean="ReportServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -94,5 +95,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="ReceiveProductServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ReceiveProductRestService" />
+
+	<bean id="ReportServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.ReportRestService" />
 
 </beans>

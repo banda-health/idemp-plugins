@@ -85,7 +85,7 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	@POST
 	@Path(IRestConfigs.PRINT_RECEIPT_PATH)
-	@Produces("application/pdf")
+	@Produces(IRestConfigs.APPLICATION_PDF)
 	public Response generateReceipt(@PathParam("uuid") String uuid) {
 		File receipt = dbService.generateThermalReceipt(uuid);
 		if (receipt != null) {
