@@ -1,11 +1,15 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -30,6 +34,54 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	private final String PURCHASE_ORDER = "Purchase Order";
 
 	protected abstract void populateExtraFields(T entity, MOrder_BH mOrder);
+
+	/**
+	 * Search by patient/vendor name
+	 * 
+	 * @param value
+	 * @param pagingInfo
+	 * @return
+	 */
+	public BaseListResponse<T> search(String value, Paging pagingInfo) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add(value);
+		parameters.add(constructSearchValue(value));
+
+		// search patient
+
+		String whereClause = "(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_BH_PatientID + " =? "
+				+ OR_OPARATOR + " LOWER("+ MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_Name + ") " + LIKE_COMPARATOR
+				+ " ? )";
+
+		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
+				.addJoinClause("JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+						+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
+						+ MBPartner_BH.COLUMNNAME_C_BPartner_ID)
+				.setClient_ID().setOnlyActiveRecords(true);
+
+		if (parameters != null) {
+			query = query.setParameters(parameters);
+		}
+
+		// get total count without pagination parameters
+		pagingInfo.setTotalRecordCount(query.count());
+
+		// set pagination params
+		query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
+
+		List<T> results = new ArrayList<>();
+		List<MOrder_BH> entities = query.list();
+
+		if (!entities.isEmpty()) {
+			for (MOrder_BH entity : entities) {
+				if (entity != null) {
+					results.add(createInstanceWithSearchFields(entity));
+				}
+			}
+		}
+
+		return new BaseListResponse<T>(results, pagingInfo);
+	}
 
 	@Override
 	public T saveEntity(T entity) {

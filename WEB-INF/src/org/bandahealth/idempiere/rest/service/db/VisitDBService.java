@@ -33,11 +33,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
-	private ProcessDBService processDBService;
+	private ReportDBService reportDBService;
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
-		processDBService = new ProcessDBService();
+		reportDBService = new ReportDBService();
 	}
 
 	@Override
@@ -251,7 +251,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	public File generateThermalReceipt(String uuid) {
 		MOrder_BH visit = getEntityByUuidFromDB(uuid);
 		if (visit != null) {
-			return processDBService.generateThermalReceipt(new BigDecimal(visit.get_ID()));
+			return reportDBService.generateThermalReceipt(new BigDecimal(visit.get_ID()));
 		}
 
 		return null;

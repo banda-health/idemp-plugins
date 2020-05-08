@@ -44,7 +44,7 @@ public class TrackExpenseRestService extends BaseEntityRestService<TrackExpense>
 	@Override
 	public BaseListResponse<TrackExpense> search(@QueryParam("value") String value, @QueryParam("page") int page,
 			@QueryParam("size") int size) {
-		return null;
+		return dbService.search(value, getPagingInfo(page, size));
 	}
 
 	@POST

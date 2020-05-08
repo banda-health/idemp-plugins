@@ -80,12 +80,12 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	@Override
 	public BaseListResponse<Visit> search(@QueryParam("value") String value, @QueryParam("page") int page,
 			@QueryParam("size") int size) {
-		return null;
+		return dbService.search(value, getPagingInfo(page, size));
 	}
 
 	@POST
 	@Path(IRestConfigs.PRINT_RECEIPT_PATH)
-	@Produces("application/pdf")
+	@Produces(IRestConfigs.APPLICATION_PDF)
 	public Response generateReceipt(@PathParam("uuid") String uuid) {
 		File receipt = dbService.generateThermalReceipt(uuid);
 		if (receipt != null) {

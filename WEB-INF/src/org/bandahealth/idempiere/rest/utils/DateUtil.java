@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.utils;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.compiere.util.CLogger;
 
@@ -57,6 +58,18 @@ public class DateUtil {
 				} catch (ParseException e1) {
 					log.severe(e.getMessage());
 				}
+			}
+		}
+
+		return null;
+	}
+
+	public static Date parseDate(String date) {
+		if (date != null) {
+			try {
+				return new SimpleDateFormat(DATE_FORMAT).parse(date);
+			} catch (ParseException ex) {
+				log.severe(ex.getMessage());
 			}
 		}
 
