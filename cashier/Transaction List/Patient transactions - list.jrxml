@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1412" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1412" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1532" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1532" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -77,6 +68,8 @@
     coalesce(donorfund1p.donorfund1,0) as donorfund1,
     coalesce(lindamamap.lindamama,0) as lindamama,
     coalesce(nhifp.nhif,0) as nhif,
+    coalesce(cccp.ccc,0) as ccc,
+    coalesce(mchp.mch,0) as mch,
     coalesce(otherp.other,0) as other,
     0 as totalpayment,
     0 as outstanding
@@ -164,10 +157,28 @@ group by cp.bh_c_order_id
 left join
 (
 select cp.bh_c_order_id,
+       sum(cp.payamt) as ccc
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'G'
+group by cp.bh_c_order_id
+) as cccp on billdetails.c_order_id = cccp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as mch
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'H'
+group by cp.bh_c_order_id
+) as mchp on billdetails.c_order_id = mchp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
        sum(cp.payamt) as other
 from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
-    and cp.tendertype not in ('X','M','B','L','F','i','N')
+    and cp.tendertype not in ('X','M','B','L','F','i','N','G','H')
 group by cp.bh_c_order_id
 ) as otherp on billdetails.c_order_id = otherp.bh_c_order_id
 order by billdetails.patientname asc;]]>
@@ -213,6 +224,12 @@ order by billdetails.patientname asc;]]>
 		<field name="nhif" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="nhif"/>
 		</field>
+		<field name="ccc" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="ccc"/>
+		</field>
+		<field name="mch" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="mch"/>
+		</field>
 		<field name="other" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="other"/>
 		</field>
@@ -223,7 +240,7 @@ order by billdetails.patientname asc;]]>
 			<property name="com.jaspersoft.studio.field.label" value="outstanding"/>
 		</field>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif}).add($F{other})]]></variableExpression>
+			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif}).add($F{ccc}).add($F{mch}).add($F{other})]]></variableExpression>
 		</variable>
 		<variable name="totalOutstanding" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
@@ -290,9 +307,8 @@ group by bh_c_order_id
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="1312" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
+				<reportElement x="0" y="0" width="1532" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -312,11 +328,10 @@ group by bh_c_order_id
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="1412" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="1532" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
@@ -445,7 +460,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="78" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -469,7 +484,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="79" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -492,7 +507,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="76a574a5-f325-4145-b1e0-566d4a68b8e4"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -515,7 +530,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="61" height="17" uuid="b2574f0c-38cb-493d-bad9-2dc26c092941"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -539,7 +554,7 @@ group by bh_c_order_id
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="64" height="17" uuid="7b26d0fe-8f87-4f9b-9181-6a84dc8fa90e"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -563,7 +578,7 @@ group by bh_c_order_id
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="c8eb8032-b843-4896-acba-a87e24594748"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -586,7 +601,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="c8b75400-512d-4fac-9f46-9e759505a17c"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -610,7 +625,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="c1979b27-de58-4193-9610-8e305b9d3bc6"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -620,8 +635,57 @@ group by bh_c_order_id
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
+					<jr:column width="60" uuid="87866248-734d-4d03-ac0b-f0470f323112">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="30" uuid="6a8d6a27-e169-44d5-829d-6bfaab61a524"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[CCC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="4168c6bc-b653-46e7-9b07-311ce0dd1845"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ccc}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="0de33cc5-790e-4d35-8fd4-d06ad8afc9f7">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="30" uuid="595b60dc-9617-4248-a5a2-9e13bdac7c9b"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[MCH
+]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="d0f1f6cb-fbd8-49f1-87ad-8e772e2ce2e9"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{mch}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -634,7 +698,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="4a84764f-dc21-4a2b-b113-e8fb46d047eb"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -645,7 +709,7 @@ group by bh_c_order_id
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -658,7 +722,7 @@ group by bh_c_order_id
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="a5a192b8-1f1f-48d9-b728-881187d1f860">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
@@ -679,9 +743,7 @@ group by bh_c_order_id
 		<band height="16">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement key="" x="0" y="0" width="1312" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
+				<reportElement key="" x="0" y="0" width="1532" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false" isItalic="true"/>
 				</textElement>
