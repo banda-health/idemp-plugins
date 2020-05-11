@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Authentication {
 	private String username;
 	private String password;
-	private int clientId;
-	private int roleId;
-	private int organizationId;
-	private int warehouseId;
+	private Integer clientId;
+	private Integer roleId;
+	private Integer organizationId;
+	private Integer warehouseId;
 
 	public Authentication() {
 	}
@@ -34,38 +34,38 @@ public class Authentication {
 	}
 
 	@XmlElement
-	public int getClientId() {
+	public Integer getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(int adClientId) {
+	public void setClientId(Integer adClientId) {
 		this.clientId = adClientId;
 	}
 
 	@XmlElement
-	public int getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int adRoleId) {
+	public void setRoleId(Integer adRoleId) {
 		this.roleId = adRoleId;
 	}
 
 	@XmlElement
-	public int getOrganizationId() {
+	public Integer getOrganizationId() {
 		return organizationId;
 	}
 
-	public void setOrganizationId(int adOrganizationId) {
+	public void setOrganizationId(Integer adOrganizationId) {
 		this.organizationId = adOrganizationId;
 	}
 
 	@XmlElement
-	public int getWarehouseId() {
+	public Integer getWarehouseId() {
 		return warehouseId;
 	}
 
-	public void setWarehouseId(int adWarehouseId) {
+	public void setWarehouseId(Integer adWarehouseId) {
 		this.warehouseId = adWarehouseId;
 	}
 }
