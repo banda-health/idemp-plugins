@@ -27,6 +27,8 @@ public class AuthResponse {
 
 	private boolean hasAcceptedTermsOfUse;
 
+	private int roleId;
+
 	public AuthResponse() {
 	}
 
@@ -97,5 +99,13 @@ public class AuthResponse {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 }
