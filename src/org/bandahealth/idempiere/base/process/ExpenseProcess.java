@@ -36,28 +36,17 @@ public class ExpenseProcess extends SvrProcess {
 
 	@Override
 	protected String doIt() throws Exception {
-		// check receive goods/expenses
-		MInvoice_BH invoice = new Query(
-				getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_ID + "=?", get_TrxName())
-				.setParameters(invoiceId)
-				.first();
-		
-//		setPaymentStatus(true, null, null);
-
+		setBHProcessingStatus(true, null, null);
 		// async call.
 		Adempiere.getThreadPoolExecutor()
 				.schedule(new ExpenseProcessAsyncCall(getCtx(), invoiceId, new ProcessCallback<String>() {
 
 					@Override
 					public void onSuccess(Properties context, String transactionName) {
-//						setPaymentStatus(false, context, transactionName);
-						// Add payments equalling the amount of this invoice, associate them, and complete them
-					}
+						setBHProcessingStatus(false, context, transactionName);}
 
 					@Override
 					public void onError(String error, Properties context, String transactionName) {
-						// setPaymentStatus(false, context, transactionName);
-
 						MClient client = MClient.get(getCtx(), getAD_Client_ID());
 						client.sendEMail("implementer@bandahealth.org", "ERROR PROCESSING PATIENT BILL",
 								ErrorUtils.createHtmlBody(error, client.getName()), null, true);
@@ -65,5 +54,19 @@ public class ExpenseProcess extends SvrProcess {
 				}), 0, TimeUnit.MILLISECONDS);
 
 		return null;
+	}
+
+	private void setBHProcessingStatus(boolean processing, Properties context, String transactionName) {
+		String where = MInvoice_BH.COLUMNNAME_C_Invoice_ID + "=?";
+		MInvoice_BH expense = new Query(
+				context == null ? getCtx() : context,
+				MInvoice_BH.Table_Name,
+				where,
+				transactionName
+		)
+				.setParameters(invoiceId)
+				.first();
+		expense.setBH_Processing(processing);
+		expense.saveEx();
 	}
 }
