@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.base.process.call;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.exceptions.PeriodClosedException;
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.compiere.model.MDocType;
 import org.compiere.model.MMessage;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
 
-public class CompleteExpense {
+public class ProcessExpense {
 
 	private CLogger log = CLogger.getCLogger(getClass());
 
@@ -23,36 +23,58 @@ public class CompleteExpense {
 	private String transactionName;
 	private MInvoice_BH expense;
 	private ProcessCallback<String> callback;
+	private String processAction;
 
-	public CompleteExpense(MInvoice_BH expense, Properties context, String transactionName,
-												 ProcessCallback<String> callback) {
+	public ProcessExpense(
+			MInvoice_BH expense, Properties context, String transactionName, String processAction,
+			ProcessCallback<String> callback) {
 		this.expense = expense;
 		this.context = context;
 		this.transactionName = transactionName;
+		this.processAction = processAction;
 		this.callback = callback;
 	}
 
 	public void processIt() {
+		if (DocAction.ACTION_Reverse_Accrual.equalsIgnoreCase(processAction)) {
+			reverseIt();
+		} else {
+			completeIt();
+		}
+	}
+
+	private void reverseIt() {
+		long start = System.currentTimeMillis();
+		try {
+			expense.setDocAction(DocAction.ACTION_Reverse_Accrual);
+			expense.saveEx();
+			boolean isExpenseReversed = expense.processIt(DocAction.ACTION_None);
+			if (!isExpenseReversed) {
+				callback.onError("Error trying to reverse expense " + expense.getC_Invoice_ID(), context,
+						transactionName);
+			} else {
+				// We need to save this or otherwise the event will never "updated"
+				expense.saveEx();
+				callback.onSuccess(context, transactionName);
+			}
+		} catch (AdempiereException ex) {
+			callback.onError("Could not reverse expense " + expense.getC_Invoice_ID() + ". Error: " + ex.getMessage(),
+					context, transactionName);
+		} finally {
+			log.warning("Time spent reversing expense (secs): " + (System.currentTimeMillis() - start) / 1000);
+		}
+	}
+
+	private void completeIt() {
 		long start = System.currentTimeMillis();
 
-		// Make sure the current period is open if saving a past record
-		MPeriod expensePeriod = new Query(
-				context,
-				MPeriod.Table_Name,
-				MPeriod.COLUMNNAME_StartDate + "<= ? AND " + MPeriod.COLUMNNAME_EndDate + "> ?",
-				transactionName
-		)
-				.setParameters(expense.getDateAcct(), expense.getDateAcct())
-				.first();
-		Date date = new Date();
-		if (
-				expensePeriod == null ||
-						expensePeriod.getPeriodControl(MDocType.DOCBASETYPE_APPayment) == null ||
-						!expensePeriod.getPeriodControl(MDocType.DOCBASETYPE_APPayment).isOpen()
-		) {
-			expense.setDateAcct(new Timestamp(date.getTime()));
+		try {
+			MPeriod.testPeriodOpen(context, expense.getDateAcct(), expense.getC_DocType_ID(), expense.getAD_Org_ID());
+		} catch (PeriodClosedException ex) {
+			expense.setDateAcct(new Timestamp(new Date().getTime()));
 			log.info("Setting accounting date to: " + expense.getDateAcct());
 		}
+
 		/* Packed out from BH_SysConfig */
 		String noLineItemsEnteredErrorMsgUuid = "03cb65e5-104c-4dd6-bec0-4bfe244ae804";
 		if (!expense.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Drafted)) {

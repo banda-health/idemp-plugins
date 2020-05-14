@@ -17,8 +17,10 @@ public class ExpenseProcessAsyncCall implements Runnable {
 	private MInvoice_BH expense;
 	private String transactionName = getClass().getName() + "_startThread";
 	private ProcessCallback<String> callback;
+	private String processAction;
 
-	public ExpenseProcessAsyncCall(Properties ctx, int invoiceId, ProcessCallback<String> callback) {
+	public ExpenseProcessAsyncCall(
+			Properties ctx, int invoiceId, String processAction, ProcessCallback<String> callback) {
 		super();
 
 		context = new Properties();
@@ -38,6 +40,7 @@ public class ExpenseProcessAsyncCall implements Runnable {
 				.first();
 
 		this.callback = callback;
+		this.processAction = processAction;
 	}
 
 	@Override
@@ -50,9 +53,9 @@ public class ExpenseProcessAsyncCall implements Runnable {
 			log.severe(e.getMessage());
 			transaction.rollback();
 		} finally {
-			ServerContext.dispose();
 			transaction.close();
 			transaction = null;
+			ServerContext.dispose();
 		}
 	}
 
@@ -60,6 +63,6 @@ public class ExpenseProcessAsyncCall implements Runnable {
 		if (expense == null) {
 			return;
 		}
-		new CompleteExpense(expense, context, transactionName, callback).processIt();
+		new ProcessExpense(expense, context, transactionName, processAction, callback).processIt();
 	}
 }

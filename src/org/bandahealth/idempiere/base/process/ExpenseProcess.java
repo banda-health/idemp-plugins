@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.utils.ErrorUtils;
 import org.compiere.Adempiere;
 import org.compiere.model.MClient;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 
@@ -16,11 +17,16 @@ import java.util.logging.Level;
 
 public class ExpenseProcess extends SvrProcess {
 
+	private final String PROCESSACTION_Complete = "Complete";
+	private final String PROCESSACTION_Remove = "Remove";
+
 	private int invoiceId;
+	private String processAction;
 
 	@Override
 	protected void prepare() {
 		ProcessInfoParameter[] parameters = getParameter();
+		this.processAction = DocAction.ACTION_Complete;
 
 		for (ProcessInfoParameter parameter : parameters) {
 
@@ -28,6 +34,11 @@ public class ExpenseProcess extends SvrProcess {
 
 			if (parameterName.equalsIgnoreCase("c_invoice_id")) {
 				invoiceId = parameter.getParameterAsInt();
+			} else if (parameterName.equalsIgnoreCase("processaction")) {
+				String processAction = parameter.getParameterAsString();
+				if (processAction.equalsIgnoreCase(PROCESSACTION_Remove)) {
+					this.processAction = DocAction.ACTION_Reverse_Accrual;
+				}
 			} else {
 				log.log(Level.SEVERE, "Unknown Parameter: " + parameterName);
 			}
@@ -39,7 +50,7 @@ public class ExpenseProcess extends SvrProcess {
 		setBHProcessingStatus(true, null, null);
 		// async call.
 		Adempiere.getThreadPoolExecutor()
-				.schedule(new ExpenseProcessAsyncCall(getCtx(), invoiceId, new ProcessCallback<String>() {
+				.schedule(new ExpenseProcessAsyncCall(getCtx(), invoiceId, processAction, new ProcessCallback<String>() {
 
 					@Override
 					public void onSuccess(Properties context, String transactionName) {
