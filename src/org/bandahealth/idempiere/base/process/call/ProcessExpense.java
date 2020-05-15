@@ -46,6 +46,7 @@ public class ProcessExpense {
 	private void reverseIt() {
 		long start = System.currentTimeMillis();
 		try {
+			// The iDempiere process prefers the action is set, then calling the process command
 			expense.setDocAction(DocAction.ACTION_Reverse_Accrual);
 			expense.saveEx();
 			boolean isExpenseReversed = expense.processIt(DocAction.ACTION_None);
@@ -53,7 +54,8 @@ public class ProcessExpense {
 				callback.onError("Error trying to reverse expense " + expense.getC_Invoice_ID(), context,
 						transactionName);
 			} else {
-				// We need to save this or otherwise the event will never "updated"
+				// We need to save this or otherwise the expense will never "updated" because of the reversal process in
+				// iDempiere
 				expense.saveEx();
 				callback.onSuccess(context, transactionName);
 			}
