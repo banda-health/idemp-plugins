@@ -35,7 +35,7 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	}
 
 	@Override
-	protected void populateExtraFields(TrackExpense entity, MOrder_BH mOrder) {
+	protected void beforeSave(TrackExpense entity, MOrder_BH mOrder) {
 		if (entity.getProvider() != null && entity.getProvider().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getProvider().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
@@ -43,6 +43,10 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 
 		mOrder.setIsSOTrx(false);
 		mOrder.setBH_Isexpense(true);
+	}
+
+	@Override
+	protected void afterSave(TrackExpense entity, MOrder_BH mOrder) {
 	}
 
 	@Override

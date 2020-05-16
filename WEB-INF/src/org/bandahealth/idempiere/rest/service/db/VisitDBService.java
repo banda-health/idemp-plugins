@@ -34,14 +34,17 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
 	private ReportDBService reportDBService;
+	private PaymentDBService paymentDBService;
+	private MBPartner_BH mPatient;
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		reportDBService = new ReportDBService();
+		paymentDBService = new PaymentDBService();
 	}
 
 	@Override
-	protected void populateExtraFields(Visit entity, MOrder_BH mOrder) {
+	protected void beforeSave(Visit entity, MOrder_BH mOrder) {
 		if (StringUtil.isNotNullAndEmpty(entity.getVisitNotes())) {
 			mOrder.set_ValueOfColumn(COLUMNNAME_VISIT_NOTES, entity.getVisitNotes());
 		}
@@ -60,9 +63,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		// set patient
 		if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
-			MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
-			if (patient != null) {
-				mOrder.setC_BPartner_ID(patient.get_ID());
+			mPatient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
+			if (mPatient != null) {
+				mOrder.setC_BPartner_ID(mPatient.get_ID());
 			}
 		}
 
@@ -71,6 +74,31 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		mOrder.setIsSOTrx(true);
+	}
+
+	@Override
+	protected void afterSave(Visit entity, MOrder_BH mOrder) {
+		// list of persisted payment line ids
+		String lineIds = "";
+		List<Payment> payments = entity.getPayments();
+		if (payments != null && entity.isIsSalesOrderTransaction()) {
+			int count = 0;
+			for (Payment payment : entity.getPayments()) {
+				payment.setOrderId(mOrder.get_ID());
+				if (mPatient != null) {
+					payment.setPatient(new Patient(mPatient.getC_BPartner_UU()));
+				}
+
+				Payment response = paymentDBService.saveEntity(payment);
+				lineIds += "'" + response.getUuid() + "'";
+				if (++count < payments.size()) {
+					lineIds += ",";
+				}
+			}
+		}
+
+		// delete payment lines not in request
+		paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds);
 	}
 
 	@Override

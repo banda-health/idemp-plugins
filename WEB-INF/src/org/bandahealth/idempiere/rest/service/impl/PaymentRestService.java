@@ -48,6 +48,18 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 	}
 
 	@POST
+	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
+	public Payment processPayment(@PathParam("uuid") String uuid) {
+		return dbService.processPayment(uuid);
+	}
+
+	@POST
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
+	public Payment saveAndProcessVisit(Payment entity) {
+		return dbService.saveAndProcessPayment(entity);
+	}
+
+	@POST
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Payment> search(@QueryParam("value") String value, @QueryParam("page") int page,

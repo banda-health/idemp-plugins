@@ -34,13 +34,17 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 	}
 
 	@Override
-	protected void populateExtraFields(ReceiveProduct entity, MOrder_BH mOrder) {
+	protected void beforeSave(ReceiveProduct entity, MOrder_BH mOrder) {
 		if (entity.getVendor() != null && entity.getVendor().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getVendor().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
 		}
 
 		mOrder.setIsSOTrx(false);
+	}
+
+	@Override
+	protected void afterSave(ReceiveProduct entity, MOrder_BH mOrder) {
 	}
 
 	@Override

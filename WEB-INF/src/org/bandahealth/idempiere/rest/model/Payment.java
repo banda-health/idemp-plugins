@@ -12,36 +12,40 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Payment extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private int businessPartnerId;
+	private Patient patient;
 	private int chargeId;
 	private int orderId;
 	private BigDecimal payAmount;
 	private PaymentType paymentType;
 	private String description;
 	private NHIF nhif;
+	private String docStatus;
+	private String transactionDate;
 
 	public Payment() {
 	}
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			int businessPartnerId, int orderId, BigDecimal payAmount, PaymentType paymentType, String description,
-			NHIF nhif) {
+			Patient patient, int orderId, BigDecimal payAmount, PaymentType paymentType, String description, NHIF nhif,
+			String docStatus, String transactionDate) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
-		this.businessPartnerId = businessPartnerId;
+		this.patient = patient;
 		this.orderId = orderId;
 		this.payAmount = payAmount;
 		this.paymentType = paymentType;
 		this.description = description;
 		this.nhif = nhif;
+		this.docStatus = docStatus;
+		this.transactionDate = transactionDate;
 	}
 
-	public int getBusinessPartnerId() {
-		return businessPartnerId;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setBusinessPartnerId(int businessPartnerId) {
-		this.businessPartnerId = businessPartnerId;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 	public int getChargeId() {
@@ -90,5 +94,21 @@ public class Payment extends BaseMetadata {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getDocStatus() {
+		return docStatus;
+	}
+
+	public void setDocStatus(String docStatus) {
+		this.docStatus = docStatus;
+	}
+
+	public String getTransactionDate() {
+		return transactionDate;
+	}
+
+	public void setTransactionDate(String transactionDate) {
+		this.transactionDate = transactionDate;
 	}
 }
