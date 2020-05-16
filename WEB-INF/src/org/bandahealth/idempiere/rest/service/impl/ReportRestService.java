@@ -14,6 +14,8 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.service.db.ReportDBService;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MScheduler;
 import org.compiere.util.CLogger;
 
 /**
@@ -32,7 +34,6 @@ public class ReportRestService {
 	private ReportDBService dbService;
 
 	public ReportRestService() {
-		dbService = new ReportDBService();
 	}
 
 	/**
@@ -46,11 +47,18 @@ public class ReportRestService {
 	@POST
 	@Path(IRestConfigs.GENERATE_PATH)
 	@Produces(IRestConfigs.APPLICATION_PDF)
-	public Response generateReport(@QueryParam("name") String name, @QueryParam("beginDate") String beginDate,
-			@QueryParam("endDate") String endDate, @QueryParam("paymentMode") String paymentMode,
-			@QueryParam("patientType") String patientType) {
+	public Response generateReport(@QueryParam("formatType") String formatType, @QueryParam("name") String name,
+			@QueryParam("beginDate") String beginDate, @QueryParam("endDate") String endDate,
+			@QueryParam("paymentMode") String paymentMode, @QueryParam("patientType") String patientType) {
 		// retrieve report full name
 		String reportName = ReportDBService.reportNameMapping.get(name);
+
+		// validate report output type
+		if (!StringUtil.isNotNullAndEmpty(formatType)) {
+			formatType = MScheduler.REPORTOUTPUTTYPE_PDF;
+		}
+
+		dbService = new ReportDBService(formatType);
 
 		if (reportName == null) {
 			log.severe("Report '" + name + "' does not exist!");
@@ -111,7 +119,7 @@ public class ReportRestService {
 			return null;
 		}
 
-		return buildResponse(report, reportName);
+		return buildResponse(report, reportName, formatType);
 	}
 
 	/**
@@ -121,9 +129,9 @@ public class ReportRestService {
 	 * @param name
 	 * @return
 	 */
-	private Response buildResponse(File report, String name) {
+	private Response buildResponse(File report, String name, String format) {
 		ResponseBuilder response = Response.ok((Object) report);
-		response.header("Content-Disposition", "attachment; filename=\"" + name + "\".pdf\"");
+		response.header("Content-Disposition", "attachment; filename=\"" + name + "\"." + format.toLowerCase() + "\"");
 		return response.build();
 	}
 }

@@ -5,7 +5,6 @@ import java.io.File;
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
-import org.compiere.model.MScheduler;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
@@ -20,8 +19,6 @@ import org.compiere.util.Env;
  */
 public abstract class BaseReportDBProcess {
 
-	private final String EXPORT_FILE_EXTENSION = "pdf";
-
 	/**
 	 * Generates Report
 	 * 
@@ -29,14 +26,14 @@ public abstract class BaseReportDBProcess {
 	 * @param parameters
 	 * @return
 	 */
-	protected File generateReport(String reportName, ProcessInfoParameter[] parameters) {
+	protected File generateReport(String reportName, String reportOutputType, ProcessInfoParameter[] parameters) {
 		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Name + "=?", null)
 				.setOnlyActiveRecords(true).setParameters(reportName).first();
 
 		if (mprocess == null) {
 			throw new AdempiereException("Could not find report " + reportName);
 		}
-		
+
 		MPInstance mpInstance = new MPInstance(mprocess, 0);
 
 		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
@@ -44,8 +41,8 @@ public abstract class BaseReportDBProcess {
 		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
 		processInfo.setIsBatch(true);
 		processInfo.setExport(true);
-		processInfo.setReportType(MScheduler.REPORTOUTPUTTYPE_PDF);
-		processInfo.setExportFileExtension(EXPORT_FILE_EXTENSION);
+		processInfo.setReportType(reportOutputType.toUpperCase());
+		processInfo.setExportFileExtension(reportOutputType.toLowerCase());
 
 		if (parameters != null) {
 			processInfo.setParameter(parameters);
