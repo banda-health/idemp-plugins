@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MScheduler;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -39,7 +40,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
-		reportDBService = new ReportDBService();
 		paymentDBService = new PaymentDBService();
 	}
 
@@ -279,6 +279,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	public File generateThermalReceipt(String uuid) {
 		MOrder_BH visit = getEntityByUuidFromDB(uuid);
 		if (visit != null) {
+			reportDBService = new ReportDBService(MScheduler.REPORTOUTPUTTYPE_PDF);
 			return reportDBService.generateThermalReceipt(new BigDecimal(visit.get_ID()));
 		}
 
