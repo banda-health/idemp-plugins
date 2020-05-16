@@ -10,7 +10,6 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
@@ -28,12 +27,13 @@ import org.compiere.util.Env;
 public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<T, MOrder_BH> {
 
 	protected OrderLineDBService orderLineDBService = new OrderLineDBService();
-	protected PaymentDBService paymentDBService = new PaymentDBService();
 	private ProcessDBService processDBService = new ProcessDBService();
 	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
 	private final String PURCHASE_ORDER = "Purchase Order";
 
-	protected abstract void populateExtraFields(T entity, MOrder_BH mOrder);
+	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
+
+	protected abstract void afterSave(T entity, MOrder_BH mOrder);
 
 	/**
 	 * Search by patient/vendor name
@@ -50,8 +50,8 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 		// search patient
 
 		String whereClause = "(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_BH_PatientID + " =? "
-				+ OR_OPARATOR + " LOWER("+ MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_Name + ") " + LIKE_COMPARATOR
-				+ " ? )";
+				+ OR_OPARATOR + " LOWER(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_Name + ") "
+				+ LIKE_COMPARATOR + " ? )";
 
 		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
 				.addJoinClause("JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
@@ -104,7 +104,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			mOrder.setIsApproved(true);
 			mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 
-			populateExtraFields(entity, mOrder);
+			beforeSave(entity, mOrder);
 
 			// set target document type
 			if (!mOrder.isSOTrx()) {
@@ -132,25 +132,8 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			// delete order lines not in request
 			orderLineDBService.deleteOrderLinesByOrder(mOrder.get_ID(), lineIds);
 
-			// list of persisted payment line ids
-			lineIds = "";
-			// only a visit/bill/sales order can have payments
-			List<Payment> payments = entity.getPayments();
-			if (payments != null && entity.isIsSalesOrderTransaction()) {
-				int count = 0;
-				for (Payment payment : entity.getPayments()) {
-					payment.setOrderId(mOrder.get_ID());
-					payment.setBusinessPartnerId(mOrder.getC_BPartner_ID());
-					Payment response = paymentDBService.saveEntity(payment);
-					lineIds += "'" + response.getUuid() + "'";
-					if (++count < payments.size()) {
-						lineIds += ",";
-					}
-				}
-			}
-
-			// delete payment lines not in request
-			paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds);
+			// any post save operation
+			afterSave(entity, mOrder);
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
 

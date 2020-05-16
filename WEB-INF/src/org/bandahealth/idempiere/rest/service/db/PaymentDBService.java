@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.NHIF;
 import org.bandahealth.idempiere.rest.model.NHIFRelationship;
 import org.bandahealth.idempiere.rest.model.NHIFType;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -18,6 +20,7 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 /**
@@ -29,8 +32,12 @@ import org.compiere.util.Env;
 public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	private final String CURRENCY = "KES";
+	private PatientDBService patientDBService;
+	private EntityMetadataDBService entityMetadataDBService;
 
 	public PaymentDBService() {
+		patientDBService = new PatientDBService();
+		entityMetadataDBService = new EntityMetadataDBService();
 	}
 
 	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
@@ -48,7 +55,12 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setBH_C_Order_ID(entity.getOrderId());
 		}
 
-		mPayment.setC_BPartner_ID(entity.getBusinessPartnerId());
+		if (entity.getPatient() != null) {
+			MBPartner_BH bPartner = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
+			if (bPartner != null) {
+				mPayment.setC_BPartner_ID(bPartner.get_ID());
+			}
+		}
 
 		if (entity.getChargeId() > 0) {
 			mPayment.setC_Charge_ID(entity.getChargeId());
@@ -96,6 +108,10 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setDescription(entity.getDescription());
 		}
 
+		if (entity.getTransactionDate() != null) {
+			mPayment.setDateTrx(DateUtil.getTimestamp(entity.getTransactionDate()));
+		}
+
 		mPayment.setIsActive(entity.isIsActive());
 
 		mPayment.saveEx();
@@ -125,12 +141,21 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME)
 					: null;
 
+			Patient patient = null;
+			MBPartner_BH mPatient = patientDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
+			if (mPatient != null) {
+				patient = new Patient(mPatient.getC_BPartner_UU(), mPatient.getName(), mPatient.getTotalOpenBalance());
+			}
+
 			return new Payment(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Payment_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					instance.getC_BPartner_ID(), instance.getBH_C_Order_ID(), instance.getPayAmt(),
-					new PaymentType(instance.getTenderType()), instance.getDescription(),
+					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), patient,
+					instance.getBH_C_Order_ID(), instance.getPayAmt(), new PaymentType(instance.getTenderType()),
+					instance.getDescription(),
 					new NHIF(new NHIFType(nhifType), new NHIFRelationship(relationship), claimNumber, memberId, number,
-							memberName));
+							memberName),
+					entityMetadataDBService.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS,
+							instance.getDocStatus()),
+					DateUtil.parseDateOnly(instance.getDateTrx()));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -231,5 +256,38 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	public boolean checkPaymentExists(int orderId) {
 		return new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + " =?", null)
 				.setOnlyActiveRecords(true).setClient_ID().setParameters(orderId).match();
+	}
+
+	/**
+	 * Save and Process Payment
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	public Payment saveAndProcessPayment(Payment entity) {
+		Payment savedEntity = saveEntity(entity);
+		if (savedEntity != null) {
+			return processPayment(savedEntity.getUuid());
+		}
+
+		return null;
+	}
+
+	/**
+	 * Process Payment
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	public Payment processPayment(String uuid) {
+		MPayment_BH payment = getEntityByUuidFromDB(uuid);
+		if (payment == null) {
+			log.severe("No payment with uuid = " + uuid);
+			return null;
+		}
+
+		payment.processIt(DocAction.ACTION_Complete);
+
+		return createInstanceWithAllFields(getEntityByUuidFromDB(payment.getC_Payment_UU()));
 	}
 }
