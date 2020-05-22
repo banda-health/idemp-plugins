@@ -19,7 +19,7 @@ package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
-import org.compiere.model.*;
+
 import org.compiere.model.I_Persistent;
 import org.compiere.model.MTable;
 import org.compiere.model.PO;
@@ -44,6 +44,7 @@ public class X_BH_PaymentRef_BankAcct extends PO implements I_BH_PaymentRef_Bank
       /** if (BH_PaymentRef_BankAcct_ID == 0)
         {
 			setBH_PaymentRef_BankAcct_ID (0);
+			setBH_PaymentRef_ID (0);
 			setName (null);
         } */
     }
@@ -161,6 +162,43 @@ public class X_BH_PaymentRef_BankAcct extends PO implements I_BH_PaymentRef_Bank
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set BH_PaymentRefList_Value.
+		@param BH_PaymentRefList_Value 
+		The value of the payment reference list entry
+	  */
+	public void setBH_PaymentRefList_Value (String BH_PaymentRefList_Value)
+	{
+		set_Value (COLUMNNAME_BH_PaymentRefList_Value, BH_PaymentRefList_Value);
+	}
+
+	/** Get BH_PaymentRefList_Value.
+		@return The value of the payment reference list entry
+	  */
+	public String getBH_PaymentRefList_Value () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_PaymentRefList_Value);
+	}
+
+	/** Set BH_ReferenceList_IsActive.
+		@param BH_ReferenceList_IsActive BH_ReferenceList_IsActive	  */
+	public void setBH_ReferenceList_IsActive (boolean BH_ReferenceList_IsActive)
+	{
+		throw new IllegalArgumentException ("BH_ReferenceList_IsActive is virtual column");	}
+
+	/** Get BH_ReferenceList_IsActive.
+		@return BH_ReferenceList_IsActive	  */
+	public boolean isBH_ReferenceList_IsActive () 
+	{
+		Object oo = get_Value(COLUMNNAME_BH_ReferenceList_IsActive);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	public org.compiere.model.I_C_BankAccount getC_BankAccount() throws RuntimeException

@@ -18,6 +18,8 @@ public class MInvoice_BH extends MInvoice {
 
 	/** Mobile Account = A */
 	public static final String PAYMENTRULE_MobileAccount = "A";
+	/** BH Cash Account = b */
+	public static final String PAYMENTRULE_BHCashAccount = "b";
 
 	/**
 	 * Column name BH_Processing
@@ -135,52 +137,50 @@ public class MInvoice_BH extends MInvoice {
 	@Override
 	public String completeIt() {
 		StringBuilder info = new StringBuilder();
-		// Only do any additional logic if their not paying via cash
+		// Only do any additional logic if it's an expense
 		if (getBH_IsExpense()) {
-			//	Create Payment if not paying via Cash
-			if (PAYMENTRULE_MobileAccount.equals(getPaymentRule())) {
-				String createMobilePaymentStatus = createMobilePayment(info);
-				if (!createMobilePaymentStatus.equals(DocAction.ACTION_Complete)) {
-					return createMobilePaymentStatus;
-				}
-			}
+			//	Create Payment
+			createExpensePayment(info);
 		}
 		String docStatus = super.completeIt();
-		info.append(getProcessMsg());
+		info.insert(0, getProcessMsg());
 		setProcessMessage(info.toString());
 		return docStatus;
 	}
 	
 	/**
-	 * Create a payment for the expenses using a mobile account
+	 * Create a payment for the expenses based on bank account mapping.
 	 * This was copied from MInvoice.java with some slight modifications
 	 */
-	private String createMobilePayment(StringBuilder info) {
-		// First, get the accounts that can be used with this payment
-		String whereClause = "AD_Org_ID=? AND C_Currency_ID=?";
-		MBankAccount defaultBankAccount = new Query(getCtx(),MBankAccount.Table_Name,whereClause,get_TrxName())
+	private String createExpensePayment(StringBuilder info) {
+		// First, get the default bank account that can be used with this payment
+		MBankAccount defaultBankAccount = new Query(
+				getCtx(),
+				MBankAccount.Table_Name,
+				MBankAccount.COLUMNNAME_AD_Org_ID + "=? AND " + MBankAccount.COLUMNNAME_C_Currency_ID + "=?",
+				get_TrxName()
+		)
 				.setParameters(getAD_Org_ID(), getC_Currency_ID())
 				.setOnlyActiveRecords(true)
 				.setOrderBy("IsDefault DESC")
 				.first();
-		whereClause = "AD_Org_ID=? AND C_Currency_ID=? AND " + MBankAccount.COLUMNNAME_BankAccountType + "=?";
-		MBankAccount mobileBankAccount = new Query(getCtx(),MBankAccount.Table_Name,whereClause,get_TrxName())
-				.setParameters(
-						getAD_Org_ID(),
-						getC_Currency_ID(),
-						MBankAccount_BH.BANKACCOUNTTYPE_Mobile
-				)
-				.setOnlyActiveRecords(true)
-				.first();
-		// If no accounts, we have a problem
-		if (mobileBankAccount == null && defaultBankAccount == null) {
-			setProcessMessage("@NoAccountOrgCurrency@");
-			return DocAction.STATUS_Invalid;
-		}
-		// We should only ever come this route if paying by mobile, so prefer that, if an account exists
-		MBankAccount bankAccountToUse = mobileBankAccount;
-		if (mobileBankAccount == null) {
+
+		MBankAccount bankAccountToUse = MBankAccount_BH.getBankAccountMappedToRefListValue(
+				getCtx(),
+				get_TrxName(),
+				MInvoice_BH.PAYMENTRULE_AD_Reference_ID,
+				getPaymentRule()
+		);
+		if (bankAccountToUse == null) {
+			info.append("No bank account mapping found for payment rule '");
+			info.append(getPaymentRule());
+			info.append("'. Using default bank account.");
 			bankAccountToUse = defaultBankAccount;
+		}
+		// If no accounts at this point, we have a problem
+		if (bankAccountToUse == null) {
+			setProcessMessage("@NoOrgBankAccount@");
+			return DocAction.STATUS_Invalid;
 		}
 
 		// Since we're dealing with expenses, they'll only be AP Payments

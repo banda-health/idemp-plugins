@@ -16,8 +16,8 @@ public class MPayment_BH extends MPayment {
 	public static final String TENDERTYPE_LindaMama = "i";
 	/** MPesa = M */
 	public static final String TENDERTYPE_MPesa = "M";
-	/** M-Tiba = MT */
-	public static final String TENDERTYPE_MTiba = "MT";
+	/** M-Tiba = L */
+	public static final String TENDERTYPE_MTiba = "L";
 	/** NHIF = N */
 	public static final String TENDERTYPE_NHIF = "N";
 	/**

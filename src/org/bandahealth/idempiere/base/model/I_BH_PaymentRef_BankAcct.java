@@ -108,6 +108,28 @@ public interface I_BH_PaymentRef_BankAcct
 
 	public I_BH_PaymentRef getBH_PaymentRef() throws RuntimeException;
 
+    /** Column name BH_PaymentRefList_Value */
+    public static final String COLUMNNAME_BH_PaymentRefList_Value = "BH_PaymentRefList_Value";
+
+	/** Set BH_PaymentRefList_Value.
+	  * The value of the payment reference list entry
+	  */
+	public void setBH_PaymentRefList_Value (String BH_PaymentRefList_Value);
+
+	/** Get BH_PaymentRefList_Value.
+	  * The value of the payment reference list entry
+	  */
+	public String getBH_PaymentRefList_Value();
+
+    /** Column name BH_ReferenceList_IsActive */
+    public static final String COLUMNNAME_BH_ReferenceList_IsActive = "BH_ReferenceList_IsActive";
+
+	/** Set BH_ReferenceList_IsActive	  */
+	public void setBH_ReferenceList_IsActive (boolean BH_ReferenceList_IsActive);
+
+	/** Get BH_ReferenceList_IsActive	  */
+	public boolean isBH_ReferenceList_IsActive();
+
     /** Column name C_BankAccount_ID */
     public static final String COLUMNNAME_C_BankAccount_ID = "C_BankAccount_ID";
 

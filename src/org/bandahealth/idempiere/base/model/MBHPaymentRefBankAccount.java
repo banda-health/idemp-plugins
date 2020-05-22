@@ -20,6 +20,7 @@ public class MBHPaymentRefBankAccount extends X_BH_PaymentRef_BankAcct {
 
 		setAD_Ref_List_ID(refList.getAD_Ref_List_ID());
 		setName(refList.getName());
+		setBH_PaymentRefList_Value(refList.getValue());
 	}
 
 	public MBHPaymentRefBankAccount(MRefList refList, MBankAccount bankAccount) {
