@@ -200,7 +200,16 @@ public class MBandaSetup {
 			referencesToCreatePaymentMappingsFor = new ArrayList<MReference>();
 		}
 		for (MReference referenceToCreatePaymentMappingsFor : referencesToCreatePaymentMappingsFor) {
-			
+			MBHPaymentRef paymentRef = new MBHPaymentRef(ctx, 0, trx.getTrxName());
+			paymentRef.setAD_Reference_ID(referenceToCreatePaymentMappingsFor.getAD_Reference_ID());
+			if (!paymentRef.save()) {
+				String err = "Payment Bank Account mapping NOT inserted";
+				log.log(Level.SEVERE, err);
+				info.append(err);
+				trx.rollback();
+				trx.close();
+				return false;
+			}
 		}
 
 		return true;
