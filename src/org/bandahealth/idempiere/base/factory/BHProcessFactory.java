@@ -23,6 +23,8 @@ public class BHProcessFactory implements IProcessFactory {
 			return new ExpenseProcess();
 		} else if (className.equals(MBHPaymentRef.class.getName())) {
 			return new BHPaymentRefProcess();
+		} else if (className.equals(InitialBandaClientSetup.class.getName())) {
+			return new InitialBandaClientSetup();
 		}
 
 		return null;
