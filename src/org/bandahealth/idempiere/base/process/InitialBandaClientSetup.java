@@ -44,6 +44,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private String orgName = null;
 	private String clientLevel = CLIENTLEVEL_BASIC;
 
+	private int usersClientId;
+
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
 			+ File.separator + "import"
@@ -56,6 +58,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * Prepare
 	 */
 	protected void prepare() {
+		usersClientId = getAD_Client_ID();
+
 		addCoAFileValueToParametersBasedOnClientType();
 
 		super.prepare();
@@ -110,6 +114,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		) {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initial client setup incomplete"));
 		}
+
 		// Set the client ID for this process so everyone gets the same ID from here, ctx, or wherever
 		getProcessInfo().setAD_Client_ID(bandaSetup.getAD_Client_ID());
 		try {
@@ -127,39 +132,51 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			bandaSetup.start();
 
 			if (!bandaSetup.updateDefaultAccountMapping()) {
-				bandaSetup.rollback();
+				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update default mapping failed"));
 			}
 			addLog(bandaSetup.getInfo());
 
 			if (!bandaSetup.createBankAccounts(wantsCashBoxAccount, wantsMobileAccount, wantsSavingsAccount)) {
-				bandaSetup.rollback();
+				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create bank accounts failed"));
 			}
 			addLog(bandaSetup.getInfo());
 
 			if (!bandaSetup.addDefaultCharges()) {
-				bandaSetup.rollback();
+				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create default charges failed"));
 			}
 			addLog(bandaSetup.getInfo());
 
 			if (!bandaSetup.createDefaultProductCategories()) {
-				bandaSetup.rollback();
+				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create default product categories failed"));
 			}
 			addLog(bandaSetup.getInfo());
 
 			if (!bandaSetup.finish()) {
-				bandaSetup.rollback();
+				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Failed to save Banda additions"));
 			}
 		} catch (Exception e) {
-			bandaSetup.rollback();
+			rollback(bandaSetup);
 			throw e;
 		}
 
+		resetClientId();
+
 		return completeInfo;
+	}
+
+	private void rollback(MBandaSetup bandaSetup) {
+		resetClientId();
+		bandaSetup.rollback();
+	}
+
+	private void resetClientId() {
+		getProcessInfo().setAD_Client_ID(usersClientId);
+		Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, usersClientId);
 	}
 
 	/**

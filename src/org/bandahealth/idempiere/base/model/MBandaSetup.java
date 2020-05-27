@@ -202,24 +202,22 @@ public class MBandaSetup {
 				.append("\n");
 
 		// Now create accounts for this bank
-		if (createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_DEFAULT, true,
+		if (!createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_DEFAULT, true,
 				clientsBank.getC_Bank_ID(), null)) {
 			return false;
 		}
 
-		if (wantsCashBox) {
-			if (createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_CASH_BOX, false,
-					clientsBank.getC_Bank_ID(), MBandaSetup.ACCOUNTVALUE_CASH_BOX)) {
-				return false;
-			}
+		if (wantsCashBox && !createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_CASH_BOX, false,
+				clientsBank.getC_Bank_ID(), MBandaSetup.ACCOUNTVALUE_CASH_BOX)) {
+			return false;
 		}
 
-		if (wantsMobile && createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_MOBILE, false,
+		if (wantsMobile && !createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_MOBILE, false,
 				clientsBank.getC_Bank_ID(), MBandaSetup.ACCOUNTVALUE_MOBILE)) {
 			return false;
 		}
 
-		if (wantsSavings && createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_SAVINGS, false,
+		if (wantsSavings && !createAndSaveBankAccount(clientName, MBandaSetup.ACCOUNTNAME_SAVINGS, false,
 				clientsBank.getC_Bank_ID(), MBandaSetup.ACCOUNTVALUE_SAVINGS)) {
 			return false;
 		}
@@ -482,7 +480,7 @@ public class MBandaSetup {
 					.append(". Using default In-Transit Account value");
 		}
 
-		return !updateAccountMappingsForBankAccount(bankAccount, inTransitAccount);
+		return updateAccountMappingsForBankAccount(bankAccount, inTransitAccount);
 	}
 
 	private boolean updateAccountMappingsForBankAccount(MBankAccount bankAccount, MAccount inTransitAccount) {
