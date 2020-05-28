@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.compiere.impexp.ImpFormat;
-import org.compiere.impexp.MImpFormat;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -22,8 +20,6 @@ import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 
-import java.io.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;

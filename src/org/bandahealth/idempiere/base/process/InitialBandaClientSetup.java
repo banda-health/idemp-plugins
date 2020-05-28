@@ -270,7 +270,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private void addCoAFileValueToParametersBasedOnClientType() {
 		addParameter(new ProcessInfoParameter(
 				"CoAFile",
-				MSysConfig.getValue(MSysConfig_BH.DEFAULT_BASIC_COA_PATH, coaInitialAccountsFile),
+				MSysConfig.getValue(MSysConfig_BH.DEFAULT_INITIAL_COA_PATH, coaInitialAccountsFile),
 				null,
 				null,
 				null
