@@ -73,6 +73,7 @@ Service-Component: OSGI-INF/BPartnerRestService.xml
 Web-ContextPath: BHGO
 Bundle-ActivationPolicy: lazy
 Export-Package: org.bandahealth.idempiere.rest,
+ org.bandahealth.idempiere.rest.exceptions,
  org.bandahealth.idempiere.rest.filter,
  org.bandahealth.idempiere.rest.model,
  org.bandahealth.idempiere.rest.service,

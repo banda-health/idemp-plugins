@@ -35,10 +35,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
 			<ref bean="authenticationFilter" />
-			<ref bean="exceptionProvider" />
+			<ref bean="productSaveExceptionMapper"/>
+			<ref bean="adempiereExceptionMapper"/>
 		</jaxrs:providers>
 	</jaxrs:server>
-
+	
 	<bean id="PatientServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.PatientRestService" />
 
@@ -50,9 +51,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="authenticationFilter"
 		class="org.bandahealth.idempiere.rest.filter.AuthenticationFilter" />
-
-	<bean id="exceptionProvider"
-		class="org.bandahealth.idempiere.rest.AdempiereExceptionMapper" />
 
 	<bean id="AuthenticationServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.AuthenticationRestService" />
@@ -98,5 +96,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="ReportServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ReportRestService" />
+		
+	<bean id="productSaveExceptionMapper" 
+		class="org.bandahealth.idempiere.rest.exceptions.ProductSaveExceptionMapper"/>
+		
+	<bean id="adempiereExceptionMapper" 
+		class="org.bandahealth.idempiere.rest.exceptions.AdempiereExceptionMapper"/>
 
 </beans>
