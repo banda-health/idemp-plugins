@@ -56,7 +56,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		}
 
 		if (entity.getPatient() != null) {
-			MBPartner_BH bPartner = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
+			MBPartner_BH bPartner = patientDBService.getEntityByUuidFromDB(entity.getPatient().getName());
 			if (bPartner != null) {
 				mPayment.setC_BPartner_ID(bPartner.get_ID());
 			}
