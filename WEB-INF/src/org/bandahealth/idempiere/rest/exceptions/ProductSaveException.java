@@ -15,6 +15,7 @@ public class ProductSaveException extends AdempiereException {
 
 	public ProductSaveException(String message) {
 		super(message);
+		
 	}
 
 }
