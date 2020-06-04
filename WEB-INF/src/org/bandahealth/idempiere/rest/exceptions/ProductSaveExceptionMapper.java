@@ -22,7 +22,7 @@ public class ProductSaveExceptionMapper implements ExceptionMapper<ProductSaveEx
 		ResponseBuilderImpl builder = new ResponseBuilderImpl();
 		builder.status(Response.Status.INTERNAL_SERVER_ERROR);
 		builder.entity(exception.getMessage());
-		builder.header("Error-Key", "EXISTS");
+		builder.header("Exception", exception.getMessage());
 		builder.header("Content-Type", "application/json");
 		Response response = builder.build();
 		return response;
