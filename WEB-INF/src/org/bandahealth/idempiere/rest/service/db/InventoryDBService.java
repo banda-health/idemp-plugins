@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -38,8 +39,11 @@ public class InventoryDBService {
 			String sortColumn, String sortOrder) throws DBException {
 		List<Inventory> results = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT m_product_id, m_warehouse_id, product, expirationdate, quantity, shelflifedays, ")
-				.append("m_attributesetinstance_id, ad_client_id, ad_org_id, created, createdBy, description ")
+		List<String> availableColumnNames = new ArrayList<String>(Arrays.asList(
+				"m_product_id", "m_warehouse_id", "product", "expirationdate", "quantity", "shelflifedays",
+				"m_attributesetinstance_id", "ad_client_id", "ad_org_id", "created", "createdBy", "description"
+		));
+		sql.append("SELECT ").append(String.join(", ", availableColumnNames))
 				.append(" FROM bh_stocktake_v WHERE ad_client_id = ? and ad_org_id = ? ");
 
 		List<Object> parameters = new ArrayList<>();
@@ -72,24 +76,25 @@ public class InventoryDBService {
 		}
 
 		sql.append("order by ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()) {
-			sql.append(sortColumn).append(" ").append(sortOrder);
+		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
+				&& availableColumnNames.contains(sortColumn)) {
+			sql.append(sortColumn).append(" ").append(sortOrder).append(" NULLS LAST");
 		} else {
-			sql.append("product asc");
+			sql.append("product asc NULLS LAST");
 		}
 
+		String sqlToUse = sql.toString();
 		if (pagingInfo.getPageSize() > 0) {
 			if (DB.getDatabase().isPagingSupported()) {
-				sql.append(DB.getDatabase().addPagingSQL(sql.toString(),
-						(pagingInfo.getPageSize() * pagingInfo.getPage()) + 1,
-						pagingInfo.getPageSize() * (pagingInfo.getPage() + 1)));
+				sqlToUse = DB.getDatabase().addPagingSQL(sqlToUse, (pagingInfo.getPageSize() * pagingInfo.getPage()) + 1,
+						pagingInfo.getPageSize() * (pagingInfo.getPage() + 1));
 			}
 		}
 
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			statement = DB.prepareStatement(sql.toString(), null);
+			statement = DB.prepareStatement(sqlToUse, null);
 			DB.setParameters(statement, parameters);
 
 			// get total count without pagination parameters
@@ -104,8 +109,8 @@ public class InventoryDBService {
 				results.add(inventory);
 			}
 		} catch (SQLException e) {
-			log.log(Level.SEVERE, sql.toString(), e);
-			throw new DBException(e, sql.toString());
+			log.log(Level.SEVERE, sqlToUse, e);
+			throw new DBException(e, sqlToUse);
 		} finally {
 			DB.close(resultSet, statement);
 			resultSet = null;

@@ -101,14 +101,15 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected String getOrderBy(String sortColumn, String sortOrder) {
 		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null) {
 			// check if column exists
-			if (checkColumnExists(sortColumn)) {
+			if (checkColumnExists(sortColumn) || sortColumn.contains(".")) {
 				return sortColumn + " "
-						+ (sortOrder.equalsIgnoreCase(DESCENDING_ORDER) ? DESCENDING_ORDER : ASCENDING_ORDER);
+						+ (sortOrder.equalsIgnoreCase(DESCENDING_ORDER) ? DESCENDING_ORDER : ASCENDING_ORDER)
+						+ " NULLS LAST";
 			}
 		} else {
 			// every table has the 'created' column
 			return checkColumnExists(MUser.COLUMNNAME_Created) ? MUser.COLUMNNAME_Created + " " + DESCENDING_ORDER
-					: null;
+					+ " NULLS LAST" : null;
 		}
 
 		return null;
@@ -197,11 +198,30 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
 			String sortOrder) {
+		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
+	}
+
+	/**
+	 * Get all with the inclusion of a join clause for joined cases of sorting
+	 * @param whereClause
+	 * @param parameters
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @param joinClause Use to specify a linked table so joining can occur
+	 * @return
+	 */
+	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
 					.setOnlyActiveRecords(true);
+
+			if (joinClause != null) {
+				query.addJoinClause(joinClause);
+			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);
 			if (orderBy != null) {
