@@ -29,8 +29,9 @@ public class InventoryDBService {
 
 	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
 
-	public BaseListResponse<Inventory> getInventory(Paging pagingInfo) throws DBException {
-		return searchInventory(pagingInfo, null, null, null);
+	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder)
+			throws DBException {
+		return searchInventory(pagingInfo, null, sortColumn, sortOrder);
 	}
 
 	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String searchValue,
