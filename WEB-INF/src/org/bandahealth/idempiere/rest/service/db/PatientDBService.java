@@ -143,10 +143,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
-					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()), instance.getBH_Phone(),
-					address, instance.get_ValueAsString(COLUMNNAME_GENDER), instance.getBH_EMail(),
-					instance.getBH_NHIFRelationship(), instance.getBH_NHIFMemberName(), instance.getBH_NHIFNumber(),
-					instance.getBH_NHIFType(), instance.getBH_NationalID(),
+					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
+					instance.getBH_Phone(), address, instance.get_ValueAsString(COLUMNNAME_GENDER),
+					instance.getBH_EMail(), instance.getBH_NHIFRelationship(), instance.getBH_NHIFMemberName(),
+					instance.getBH_NHIFNumber(), instance.getBH_NHIFType(), instance.getBH_NationalID(),
 					instance.get_ValueAsString(COLUMNNAME_OCCUPATION),
 					instance.get_ValueAsString(COLUMNNAME_NEXTOFKIN_NAME),
 					instance.get_ValueAsString(COLUMNNAME_NEXTOFKIN_CONTACT));
@@ -162,7 +162,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
 					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
-					instance.getBH_PatientID());
+					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
+					instance.get_ValueAsString(COLUMNNAME_GENDER));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
