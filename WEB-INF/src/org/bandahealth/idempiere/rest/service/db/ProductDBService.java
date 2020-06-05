@@ -39,13 +39,13 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
-	public BaseListResponse<Product> search(String value, Paging pagingInfo) {
+	@Override
+	public BaseListResponse<Product> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(value));
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
 
-		return this.search(this.DEFAULT_SEARCH_CLAUSE + AND_OPARATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
-				parameters, pagingInfo);
+		return this.search(MProduct_BH.COLUMNNAME_ProductType + "=?", constructSearchValue(value),
+				getSearchableColumns(false), parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	/**

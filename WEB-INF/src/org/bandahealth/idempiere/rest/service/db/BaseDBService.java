@@ -1,8 +1,11 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.bandahealth.idempiere.base.model.MColumn_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -28,7 +31,49 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public final String AND_OPARATOR = " AND ";
 	public final String OR_OPARATOR = " OR ";
 
-	public final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + MUser.COLUMNNAME_Name + ") " + LIKE_COMPARATOR + " ? ";
+	public final String DEFAULT_SEARCH_COLUMN = MUser.COLUMNNAME_Name;
+	public final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
+
+	/**
+	 * Get the fields that can be searched for the entity, T
+	 * @param ignoreDefaultSearchColumn whether the default search column should be ignored or not
+	 * @return A list of column names that are configured to be searchable
+	 */
+	protected List<String> getSearchableColumns(boolean ignoreDefaultSearchColumn) {
+		return getSearchableColumns(ignoreDefaultSearchColumn, getModelInstance().get_Table_ID());
+	}
+
+	/**
+	 * Get the fields that can be searched for pertaining to the entity with a specific table ID
+	 * @param ignoreDefaultSearchColumn whether the default search column should be ignored or not
+	 * @param tableId The ID of the table pertaining to the desired entity
+	 * @return A list of column names that are configured to be searchable
+	 */
+	protected List<String> getSearchableColumns(boolean ignoreDefaultSearchColumn, int tableId) {
+		List<MColumn_BH> searchableColumnsToReturn = new Query(
+				Env.getCtx(),
+				MColumn_BH.Table_Name,
+				MColumn_BH.COLUMNNAME_AD_Table_ID + "=? AND " + MColumn_BH.COLUMNNAME_BH_RestSearchable + "=?",
+				getModelInstance().get_TrxName()
+		)
+				.setOnlyActiveRecords(true)
+				.setParameters(tableId, "Y")
+				.list();
+
+		List<String> searchableColumns = new ArrayList<String>();
+		if (!ignoreDefaultSearchColumn) {
+			searchableColumns.add(DEFAULT_SEARCH_COLUMN);
+		}
+		if (searchableColumnsToReturn == null) {
+			return searchableColumns;
+		}
+		searchableColumns.addAll(
+				searchableColumnsToReturn.stream()
+						.map(MColumn_BH::getColumnName)
+						.collect(Collectors.toList())
+		);
+		return searchableColumns;
+	}
 
 	public abstract T saveEntity(T entity);
 
@@ -69,12 +114,57 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo) {
+	/**
+	 * Gets the entity by searching for it
+	 * @param searchValue The value received via the REST API without transformation
+	 * @param pagingInfo An iDempiere paging object
+	 * @param sortColumn The column to sort on
+	 * @param sortOrder The sort order for the column
+	 * @return A list of entity T using all search fields, including the default
+	 */
+	public BaseListResponse<T> search(String searchValue, Paging pagingInfo, String sortColumn, String sortOrder) {
+		return search(null, constructSearchValue(searchValue),
+				getSearchableColumns(false), null, pagingInfo, sortColumn, sortOrder);
+	}
+
+	public BaseListResponse<T> search(String baseWhereClause, String searchValue, List<String> fieldsToSearch,
+																		List<Object> parameters, Paging pagingInfo, String sortColumn,
+																		String sortOrder) {
 		try {
 			List<T> results = new ArrayList<>();
 
+			String whereClause = baseWhereClause;
+			if (whereClause == null) {
+				whereClause = "";
+			}
+
+			if (searchValue != null && !searchValue.isEmpty() && fieldsToSearch != null && fieldsToSearch.size() > 0) {
+				if (parameters == null) {
+					parameters = new ArrayList<Object>();
+				}
+				StringBuilder searchableFieldsWhereClause = new StringBuilder();
+				searchableFieldsWhereClause.append(whereClause).append(AND_OPARATOR).append("(");
+
+				List<String> searchableFieldClauses = new ArrayList<String>();
+				List<Object> finalParameters = parameters;
+				fieldsToSearch.forEach(fieldToSearch -> {
+					searchableFieldClauses.add("LOWER(CAST(" + fieldToSearch + " AS VARCHAR)) " + LIKE_COMPARATOR + " ?");
+					finalParameters.add(searchValue);
+				});
+
+				searchableFieldsWhereClause.append(String.join(OR_OPARATOR, searchableFieldClauses)).append(")");
+				whereClause = searchableFieldsWhereClause.toString();
+
+				parameters = finalParameters;
+			}
+
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
 					.setOnlyActiveRecords(true);
+
+			String orderBy = getOrderBy(sortColumn, sortOrder);
+			if (orderBy != null) {
+				query = query.setOrderBy(orderBy);
+			}
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);

@@ -7,7 +7,7 @@ public interface IEntityRestService<T extends BaseMetadata> {
 
 	public BaseListResponse<T> getAll(int page, int size, String sortColumn, String sortOrder);
 
-	public BaseListResponse<T> search(String value, int page, int size);
+	public BaseListResponse<T> search(String value, int page, int size, String sortColumn, String sortOrder);
 
 	public T getEntity(String uuid);
 

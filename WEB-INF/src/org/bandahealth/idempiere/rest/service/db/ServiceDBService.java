@@ -29,13 +29,12 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
-	public BaseListResponse<Service> search(String value, Paging pagingInfo) {
+	public BaseListResponse<Service> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("%" + value + "%");
 		parameters.add(MProduct_BH.PRODUCTTYPE_Service);
 
-		return this.search(this.DEFAULT_SEARCH_CLAUSE + AND_OPARATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
-				parameters, pagingInfo);
+		return this.search(MProduct_BH.COLUMNNAME_ProductType + "=?", constructSearchValue(value),
+				getSearchableColumns(false), parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override

@@ -54,7 +54,8 @@ public class MenuRestService extends BaseEntityRestService<MenuGroupItem> {
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<MenuGroupItem> search(@QueryParam("value") String value, @QueryParam("page") int page,
-			@QueryParam("size") int size) {
+			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder) {
 		return null;
 	}
 }
