@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.rest.exceptions.ProductSaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
@@ -212,7 +213,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
 		} catch (Exception ex) {
-			throw new AdempiereException(ex.getLocalizedMessage());
+			throw new ProductSaveException(ex.getLocalizedMessage());
 		}
 	}
 

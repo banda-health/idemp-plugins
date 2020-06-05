@@ -67,13 +67,14 @@ public class Patient extends BusinessPartner {
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
-			String address) {
+			String address, String gender) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
 		this.phone = phone;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
+		this.gender = gender;
 	}
 
 	// TODO: Remove this method because the description-construction logic has been moved to the front-end
