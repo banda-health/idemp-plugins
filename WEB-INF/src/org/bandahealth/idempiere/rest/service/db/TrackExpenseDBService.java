@@ -35,6 +35,28 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	}
 
 	@Override
+	public BaseListResponse<TrackExpense> search(String searchValue, Paging pagingInfo, String sortColumn, String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
+
+		StringBuilder whereClause = new StringBuilder()
+				.append("(LOWER(").append(MBPartner_BH.Table_Name).append(".").append(MBPartner_BH.COLUMNNAME_Name)
+				.append(") ").append(LIKE_COMPARATOR).append(" ?)")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
+				.append(MOrder_BH.COLUMNNAME_BH_IsExpense).append("=?");
+		parameters.add(constructSearchValue(searchValue));
+		parameters.add("N");
+		parameters.add("Y");
+
+		StringBuilder joinClause = new StringBuilder()
+				.append("JOIN ").append(MBPartner_BH.Table_Name).append(" ON ").append(MBPartner_BH.Table_Name)
+				.append(".").append(MBPartner_BH.COLUMNNAME_C_BPartner_ID).append("=").append(MOrder_BH.Table_Name)
+				.append(".").append(MOrder_BH.COLUMNNAME_C_BPartner_ID);
+
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
+				joinClause.toString());
+	}
+
+	@Override
 	protected void beforeSave(TrackExpense entity, MOrder_BH mOrder) {
 		if (entity.getProvider() != null && entity.getProvider().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getProvider().getUuid());
