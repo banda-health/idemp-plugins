@@ -156,14 +156,16 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @param uuid
 	 * @return
 	 */
-	public String asyncProcessEntity(String uuid) {
+	public T asyncProcessEntity(String uuid) {
 		MOrder_BH order = getEntityByUuidFromDB(uuid);
 		if (order == null) {
 			log.severe("No order with uuid = " + uuid);
-			return "No order with uuid = " + uuid;
+			return null;
 		}
 
-		return processDBService.runOrderProcess(order.get_ID());
+		processDBService.runOrderProcess(order.get_ID());
+		
+		return createInstanceWithAllFields(getEntityByUuidFromDB(order.getC_Order_UU()));
 	}
 
 	/**
@@ -190,10 +192,11 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @param entity
 	 * @return
 	 */
-	public String asynSaveAndProcessEntity(T entity) {
+	public T asynSaveAndProcessEntity(T entity) {
 		T saveEntity = saveEntity(entity);
 		if (saveEntity != null) {
-			return asyncProcessEntity(saveEntity.getUuid());
+			asyncProcessEntity(saveEntity.getUuid());
+			return saveEntity;
 		}
 
 		return null;

@@ -59,13 +59,13 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
-	public String processVisit(@PathParam("uuid") String uuid) {
+	public Visit processVisit(@PathParam("uuid") String uuid) {
 		return dbService.asyncProcessEntity(uuid);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public String saveAndProcessVisit(Visit entity) {
+	public Visit saveAndProcessVisit(Visit entity) {
 		return dbService.asynSaveAndProcessEntity(entity);
 	}
 
