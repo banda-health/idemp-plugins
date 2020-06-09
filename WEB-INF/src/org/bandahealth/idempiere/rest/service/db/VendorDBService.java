@@ -27,13 +27,13 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 	 * @param pagingInfo
 	 * @return
 	 */
-	public BaseListResponse<Vendor> search(String value, Paging pagingInfo) {
+	public BaseListResponse<Vendor> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("%" + value + "%");
 		parameters.add("Y");
 
-		return search(DEFAULT_SEARCH_CLAUSE + AND_OPARATOR + MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters,
-				pagingInfo);
+		return search(DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters,
+				pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override

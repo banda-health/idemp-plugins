@@ -50,7 +50,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 		// search patient
 
 		String whereClause = "(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_BH_PatientID + " =? "
-				+ OR_OPARATOR + " LOWER(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_Name + ") "
+				+ OR_OPERATOR + " LOWER(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_Name + ") "
 				+ LIKE_COMPARATOR + " ? )";
 
 		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)

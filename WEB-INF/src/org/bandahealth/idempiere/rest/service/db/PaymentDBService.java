@@ -44,6 +44,24 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
 	}
 
+	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,
+			String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
+
+		StringBuilder whereClause = new StringBuilder()
+				.append("LOWER(").append(MBPartner_BH.Table_Name).append(".").append(MBPartner_BH.COLUMNNAME_Name)
+				.append(") ").append(LIKE_COMPARATOR).append(" ?");
+		parameters.add(constructSearchValue(searchValue));
+
+		StringBuilder joinClause = new StringBuilder()
+				.append("JOIN ").append(MBPartner_BH.Table_Name).append(" ON ").append(MBPartner_BH.Table_Name)
+				.append(".").append(MBPartner_BH.COLUMNNAME_C_BPartner_ID).append("=").append(MPayment_BH.Table_Name)
+				.append(".").append(MPayment_BH.COLUMNNAME_C_BPartner_ID);
+
+		return super.search(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
+				joinClause.toString());
+	}
+
 	@Override
 	public Payment saveEntity(Payment entity) {
 		MPayment_BH mPayment = getEntityByUuidFromDB(entity.getUuid());

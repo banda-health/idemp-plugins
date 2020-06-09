@@ -32,7 +32,7 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@Override
 	public BaseListResponse<Inventory> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
-		return inventoryDBService.getInventory(getPagingInfo(page, size));
+		return inventoryDBService.getInventory(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@Override
@@ -54,7 +54,8 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Inventory> search(@QueryParam("value") String value, @QueryParam("page") int page,
-			@QueryParam("size") int size) {
-		return null;
+			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder) {
+		return inventoryDBService.searchInventory(getPagingInfo(page, size), value, sortColumn, sortOrder);
 	}
 }

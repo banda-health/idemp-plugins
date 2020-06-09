@@ -52,7 +52,8 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	}
 
 	@Override
-	public BaseListResponse<Process> search(String value, int page, int size) {
+	public BaseListResponse<Process> search(String value, int page, int size, String sortColumn,
+			String sortOrder) {
 		return null;
 	}
 }

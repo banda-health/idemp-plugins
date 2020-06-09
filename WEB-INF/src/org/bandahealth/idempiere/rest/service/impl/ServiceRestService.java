@@ -57,7 +57,8 @@ public class ServiceRestService extends BaseEntityRestService<Service> {
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Service> search(@QueryParam("value") String value, @QueryParam("page") int page,
-			@QueryParam("size") int size) {
-		return dbService.search(value, getPagingInfo(page, size));
+			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder) {
+		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 }

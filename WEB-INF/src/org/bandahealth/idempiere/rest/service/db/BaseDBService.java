@@ -22,13 +22,16 @@ import org.compiere.util.Env;
  */
 public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
-	public final String ASCENDING_ORDER = "ASC";
-	public final String DESCENDING_ORDER = "DESC";
-	public final String LIKE_COMPARATOR = "LIKE";
-	public final String AND_OPARATOR = " AND ";
-	public final String OR_OPARATOR = " OR ";
+	public static final String ASCENDING_ORDER = "ASC";
+	public static final String DESCENDING_ORDER = "DESC";
+	public static final String LIKE_COMPARATOR = "LIKE";
+	public static final String AND_OPERATOR = " AND ";
+	public static final String OR_OPERATOR = " OR ";
 
-	public final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + MUser.COLUMNNAME_Name + ") " + LIKE_COMPARATOR + " ? ";
+	public static final String ORDERBY_NULLS_LAST = " NULLS LAST";
+
+	public static final String DEFAULT_SEARCH_COLUMN = MUser.COLUMNNAME_Name;
+	public static final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 
 	public abstract T saveEntity(T entity);
 
@@ -58,23 +61,56 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			// check if column exists
 			if (checkColumnExists(sortColumn)) {
 				return sortColumn + " "
-						+ (sortOrder.equalsIgnoreCase(DESCENDING_ORDER) ? DESCENDING_ORDER : ASCENDING_ORDER);
+						+ (sortOrder.equalsIgnoreCase(DESCENDING_ORDER) ? DESCENDING_ORDER : ASCENDING_ORDER)
+						+ ORDERBY_NULLS_LAST;
 			}
 		} else {
 			// every table has the 'created' column
 			return checkColumnExists(MUser.COLUMNNAME_Created) ? MUser.COLUMNNAME_Created + " " + DESCENDING_ORDER
-					: null;
+					+ ORDERBY_NULLS_LAST : null;
 		}
 
 		return null;
 	}
 
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo) {
+	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo,
+			String sortColumn, String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add(constructSearchValue(valueToSearch));
+		return this.search(DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
+	}
+
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
+			String sortColumn, String sortOrder) {
+		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
+	}
+
+	/**
+	 * Search all with the inclusion of a join clause for joined cases of sorting
+	 * @param whereClause
+	 * @param parameters
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @param joinClause Use to specify a linked table so joining can occur
+	 * @return
+	 */
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
+			String sortColumn, String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
 					.setOnlyActiveRecords(true);
+
+			if (joinClause != null) {
+				query.addJoinClause(joinClause);
+			}
+
+			String orderBy = getOrderBy(sortColumn, sortOrder);
+			if (orderBy != null) {
+				query = query.setOrderBy(orderBy);
+			}
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);
@@ -107,11 +143,30 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
 			String sortOrder) {
+		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
+	}
+
+	/**
+	 * Get all with the inclusion of a join clause for joined cases of sorting
+	 * @param whereClause
+	 * @param parameters
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @param joinClause Use to specify a linked table so joining can occur
+	 * @return
+	 */
+	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
 					.setOnlyActiveRecords(true);
+
+			if (joinClause != null) {
+				query.addJoinClause(joinClause);
+			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);
 			if (orderBy != null) {
