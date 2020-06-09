@@ -33,11 +33,6 @@ public class InventoryDBService {
 		return this.getInventory(pagingInfo, null, sortColumn, sortOrder);
 	}
 
-	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
-			String sortOrder) throws DBException {
-		return this.getInventory(pagingInfo, value, sortColumn, sortOrder);
-	}
-
 	private BaseListResponse<Inventory> getInventory(Paging pagingInfo, String searchValue, String sortColumn,
 			String sortOrder) throws DBException {
 		List<Inventory> results = new ArrayList<>();
@@ -119,5 +114,10 @@ public class InventoryDBService {
 		}
 
 		return new BaseListResponse<Inventory>(results, pagingInfo);
+	}
+
+	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
+			String sortOrder) throws DBException {
+		return this.getInventory(pagingInfo, value, sortColumn, sortOrder);
 	}
 }
