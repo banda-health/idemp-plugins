@@ -88,7 +88,13 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 
 	@Override
 	protected Expense createInstanceWithSearchFields(MCharge expense) {
-		return createInstanceWithDefaultFields(expense);
+		try {
+			return new Expense(expense.getC_Charge_UU(), expense.getName(), expense.getChargeAmt());
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return null;
 	}
 
 	@Override
