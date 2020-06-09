@@ -178,10 +178,6 @@ public class MBPartner_BH extends MBPartner {
 		return (String)get_Value(COLUMNNAME_BH_EMail);
 	}
 
-	/** Female = female */
-	public static final String BH_GENDER_Female = "female";
-	/** Male = male */
-	public static final String BH_GENDER_Male = "male";
 	/** Set Gender.
 	 @param bh_gender Gender	  */
 	public void setbh_gender (String bh_gender)
@@ -249,12 +245,6 @@ public class MBPartner_BH extends MBPartner {
 		return (String)get_Value(COLUMNNAME_bh_nhif_member_name);
 	}
 
-	/** Principal Member = P */
-	public static final String BH_NHIF_RELATIONSHIP_PrincipalMember = "P";
-	/** Spouse = S */
-	public static final String BH_NHIF_RELATIONSHIP_Spouse = "S";
-	/** Child = C */
-	public static final String BH_NHIF_RELATIONSHIP_Child = "C";
 	/** Set NHIF Relationship.
 	 @param bh_nhif_relationship NHIF Relationship	  */
 	public void setbh_nhif_relationship (String bh_nhif_relationship)
@@ -270,12 +260,6 @@ public class MBPartner_BH extends MBPartner {
 		return (String)get_Value(COLUMNNAME_bh_nhif_relationship);
 	}
 
-	/** National Scheme = 10000002 */
-	public static final String BH_NHIF_TYPE_NationalScheme = "10000002";
-	/** Fixed FFS = 10000003 */
-	public static final String BH_NHIF_TYPE_FixedFFS = "10000003";
-	/** FFS = 10000004 */
-	public static final String BH_NHIF_TYPE_FFS = "10000004";
 	/** Set NHIF Type.
 	 @param BH_NHIF_Type
 	 Select the type of NHIF the patient is registered with.
