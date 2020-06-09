@@ -66,12 +66,14 @@ public class Patient extends BusinessPartner {
 	}
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String gender) {
+			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String gender,
+			String phone) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
+		this.phone = phone;
 	}
 
 	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,
@@ -83,6 +85,7 @@ public class Patient extends BusinessPartner {
 		this.address = address;
 		this.gender = gender;
 		this.setCreated(created);
+		this.dateOfBirth = dateOfBirth;
 
 		String description = name;
 		if (patientNumber != null) {

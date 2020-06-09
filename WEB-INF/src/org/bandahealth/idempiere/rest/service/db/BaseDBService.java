@@ -82,11 +82,30 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
 			String sortColumn, String sortOrder) {
+		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
+	}
+
+	/**
+	 * Search all with the inclusion of a join clause for joined cases of sorting
+	 * @param whereClause
+	 * @param parameters
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @param joinClause Use to specify a linked table so joining can occur
+	 * @return
+	 */
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
+			String sortColumn, String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
 					.setOnlyActiveRecords(true);
+
+			if (joinClause != null) {
+				query.addJoinClause(joinClause);
+			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);
 			if (orderBy != null) {
@@ -124,11 +143,30 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
 			String sortOrder) {
+		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
+	}
+
+	/**
+	 * Get all with the inclusion of a join clause for joined cases of sorting
+	 * @param whereClause
+	 * @param parameters
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @param joinClause Use to specify a linked table so joining can occur
+	 * @return
+	 */
+	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
 					.setOnlyActiveRecords(true);
+
+			if (joinClause != null) {
+				query.addJoinClause(joinClause);
+			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);
 			if (orderBy != null) {

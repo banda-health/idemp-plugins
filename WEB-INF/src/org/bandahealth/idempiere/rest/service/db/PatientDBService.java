@@ -37,11 +37,13 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	public BaseListResponse<Patient> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(value));
-		parameters.add(value);
+		parameters.add(value + "%");
+		parameters.add(value + "%");
 		parameters.add("Y");
 
 		String whereClause = "(" + DEFAULT_SEARCH_CLAUSE + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_PatientID + " "
-				+ LIKE_COMPARATOR + " ? )" + AND_OPERATOR + MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
+				+ LIKE_COMPARATOR + " ?" + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Phone + " " + LIKE_COMPARATOR
+				+ " ?)" + AND_OPERATOR + MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
 
 		return search(whereClause, parameters, pagingInfo, sortColumn, sortOrder);
 	}
@@ -166,7 +168,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getbh_gender());
+					instance.getbh_gender(), instance.getBH_Phone());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
