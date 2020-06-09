@@ -4,7 +4,6 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
 import org.compiere.util.CLogger;
@@ -61,9 +60,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	@Override
 	protected Expense createInstanceWithDefaultFields(MCharge expense) {
 		try {
-			return new Expense(expense.getAD_Client_ID(), expense.getAD_Org_ID(), expense.getC_Charge_UU(),
-					expense.isActive(), DateUtil.parseDateOnly(expense.getCreated()), expense.getCreatedBy(),
-					expense.getName(), expense.getDescription(), expense.getChargeAmt());
+			return new Expense(expense.getC_Charge_UU(), expense.getName(), expense.getChargeAmt());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

@@ -44,21 +44,16 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 */
 	public BaseListResponse<T> search(String value, Paging pagingInfo) {
 		List<Object> parameters = new ArrayList<>();
-		String searchValue = constructSearchValue(value);
+		parameters.add(value);
+		parameters.add(constructSearchValue(value));
 
 		// search patient
-		StringBuilder whereClause = new StringBuilder();
-		List<String> whereClausePieces = new ArrayList<String>();
 
-		super.getSearchableColumns(false, MBPartner_BH.Table_ID)
-				.forEach(searchableField -> {
-					whereClausePieces.add("LOWER(CAST(" + MBPartner_BH.Table_Name + "." + searchableField +
-							" AS VARCHAR)) " + LIKE_COMPARATOR + " ?");
-					parameters.add(searchValue);
-				});
-		whereClause.append("(").append(String.join(OR_OPARATOR, whereClausePieces)).append(")");
+		String whereClause = "(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_BH_PatientID + " =? "
+				+ OR_OPERATOR + " LOWER(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_Name + ") "
+				+ LIKE_COMPARATOR + " ? )";
 
-		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause.toString(), null)
+		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
 				.addJoinClause("JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
 						+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
 						+ MBPartner_BH.COLUMNNAME_C_BPartner_ID)

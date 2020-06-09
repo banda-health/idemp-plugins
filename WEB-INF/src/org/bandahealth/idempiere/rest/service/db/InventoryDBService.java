@@ -7,80 +7,76 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.DBException;
-import org.bandahealth.idempiere.base.model.MColumn_BH;
+import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.compiere.model.MTable;
-import org.compiere.model.Query;
+import org.compiere.model.MUser;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
+import static org.bandahealth.idempiere.rest.service.db.BaseDBService.*;
+
 public class InventoryDBService {
-
-	/** TableName=BH_Stocktake_v */
-	public static final String BH_STOCKTAKE_V_Table_Name = "BH_Stocktake_v";
-
-	public static final int BH_STOCKTAKE_V_Table_ID = MTable.getTable_ID(BH_STOCKTAKE_V_Table_Name);
 
 	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
 
+	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;
+	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
+
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder)
 			throws DBException {
-		return searchInventory(pagingInfo, null, sortColumn, sortOrder);
+		return this.getInventory(pagingInfo, null, sortColumn, sortOrder);
 	}
 
-	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String searchValue,
-			String sortColumn, String sortOrder) throws DBException {
+	private BaseListResponse<Inventory> getInventory(Paging pagingInfo, String searchValue, String sortColumn,
+			String sortOrder) throws DBException {
 		List<Inventory> results = new ArrayList<>();
-		StringBuilder sql = new StringBuilder();
-		List<String> availableColumnNames = new ArrayList<String>(Arrays.asList(
-				"m_product_id", "m_warehouse_id", "product", "expirationdate", "quantity", "shelflifedays",
-				"m_attributesetinstance_id", "ad_client_id", "ad_org_id", "created", "createdBy", "description"
+
+		List<String> viewColumnsToUse = new ArrayList<>(Arrays.asList(
+				X_BH_Stocktake_v.COLUMNNAME_M_Product_ID,
+				X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
+				X_BH_Stocktake_v.COLUMNNAME_Product,
+				X_BH_Stocktake_v.COLUMNNAME_expirationdate,
+				X_BH_Stocktake_v.COLUMNNAME_quantity,
+				X_BH_Stocktake_v.COLUMNNAME_ShelfLifeDays,
+				X_BH_Stocktake_v.COLUMNNAME_M_AttributeSetInstance_ID,
+				X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID,
+				X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID,
+				X_BH_Stocktake_v.COLUMNNAME_Created,
+				X_BH_Stocktake_v.COLUMNNAME_CreatedBy,
+				X_BH_Stocktake_v.COLUMNNAME_Description
 		));
-		sql.append("SELECT ").append(String.join(", ", availableColumnNames))
-				.append(" FROM bh_stocktake_v WHERE ad_client_id = ? and ad_org_id = ? ");
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ").append(String.join(", ", viewColumnsToUse))
+				.append(" FROM ").append(X_BH_Stocktake_v.Table_Name).append(" WHERE ")
+				.append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID).append(" =?").append(AND_OPERATOR)
+				.append(X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID).append(" =?");
 
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
 		if (searchValue != null && !searchValue.isEmpty()) {
-			List<MColumn_BH> searchableColumnsToUse = new Query(
-					Env.getCtx(),
-					MColumn_BH.Table_Name,
-					MColumn_BH.COLUMNNAME_AD_Table_ID + "=? AND " + MColumn_BH.COLUMNNAME_BH_RestSearchable + "=?",
-					null
-			)
-					.setOnlyActiveRecords(true)
-					.setParameters(BH_STOCKTAKE_V_Table_ID, "Y")
-					.list();
-
-			if (searchableColumnsToUse != null && searchableColumnsToUse.size() > 0) {
-				List<String> searchableColumns = searchableColumnsToUse.stream()
-						.map(MColumn_BH::getColumnName)
-						.collect(Collectors.toList());
-				List<String> whereClausePieces = new ArrayList<String>();
-				String finalSearchValue = "%" + searchValue.toLowerCase() + "%";
-				searchableColumns.forEach(searchableColumn -> {
-					whereClausePieces.add("LOWER(CAST(" + searchableColumn + " AS VARCHAR)) LIKE ?");
-					parameters.add(finalSearchValue);
-				});
-				sql.append("(").append(String.join(" OR ", whereClausePieces)).append(")");
-			}
+			sql.append(AND_OPERATOR).append(DEFAULT_SEARCH_CLAUSE);
+			parameters.add("%" + searchValue.toLowerCase() + "%");
 		}
 
-		sql.append("order by ");
+		sql.append(" order by ");
 		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
-				&& availableColumnNames.contains(sortColumn)) {
-			sql.append(sortColumn).append(" ").append(sortOrder).append(" NULLS LAST");
+				&& viewColumnsToUse.contains(sortColumn)) {
+			sql.append(sortColumn).append(" ").append(sortOrder).append(ORDERBY_NULLS_LAST);
 		} else {
-			sql.append("product asc NULLS LAST");
+			sql
+					.append(X_BH_Stocktake_v.COLUMNNAME_Product)
+					.append(" ")
+					.append(ASCENDING_ORDER)
+					.append(ORDERBY_NULLS_LAST);
 		}
 
 		String sqlToUse = sql.toString();
@@ -118,5 +114,10 @@ public class InventoryDBService {
 		}
 
 		return new BaseListResponse<Inventory>(results, pagingInfo);
+	}
+
+	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
+			String sortOrder) throws DBException {
+		return this.getInventory(pagingInfo, value, sortColumn, sortOrder);
 	}
 }

@@ -30,15 +30,8 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 		parameters.add("N");
 		parameters.add("Y");
 
-		String joinClause = null;
-		if (sortColumn != null && sortColumn.contains(MBPartner_BH.Table_Name)) {
-			joinClause = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
-					MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." +
-					MOrder_BH.COLUMNNAME_C_BPartner_ID;
-		}
-
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + "=?",
-				parameters, pagingInfo, sortColumn, sortOrder, joinClause);
+				parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override

@@ -36,13 +36,14 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	public BaseListResponse<Patient> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
-		String searchValue = constructSearchValue(value);
-
-		String whereClause = MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
+		parameters.add(constructSearchValue(value));
+		parameters.add(value);
 		parameters.add("Y");
 
-		return search(whereClause, searchValue, super.getSearchableColumns(false),
-				parameters, pagingInfo, sortColumn, sortOrder);
+		String whereClause = "(" + DEFAULT_SEARCH_CLAUSE + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_PatientID + " "
+				+ LIKE_COMPARATOR + " ? )" + AND_OPERATOR + MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
+
+		return search(whereClause, parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	/*
@@ -90,23 +91,23 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getNhifRelationship())) {
-				patient.setBH_NHIFRelationship(entity.getNhifRelationship());
+				patient.setbh_nhif_relationship(entity.getNhifRelationship());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getNhifMemberName())) {
-				patient.setBH_NHIFMemberName(entity.getNhifMemberName());
+				patient.setbh_nhif_member_name(entity.getNhifMemberName());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getNhifNumber())) {
-				patient.setBH_NHIFNumber(entity.getNhifNumber());
+				patient.setNHIF_Number(entity.getNhifNumber());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getNhifType())) {
-				patient.setBH_NHIFType(entity.getNhifType());
+				patient.setBH_NHIF_Type(entity.getNhifType());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getNationalId())) {
-				patient.setBH_NationalID(entity.getNationalId());
+				patient.setNational_ID(entity.getNationalId());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getOccupation())) {
@@ -143,12 +144,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getBH_Phone(), address, instance.get_ValueAsString(COLUMNNAME_GENDER),
-					instance.getBH_EMail(), instance.getBH_NHIFRelationship(), instance.getBH_NHIFMemberName(),
-					instance.getBH_NHIFNumber(), instance.getBH_NHIFType(), instance.getBH_NationalID(),
-					instance.get_ValueAsString(COLUMNNAME_OCCUPATION),
-					instance.get_ValueAsString(COLUMNNAME_NEXTOFKIN_NAME),
-					instance.get_ValueAsString(COLUMNNAME_NEXTOFKIN_CONTACT));
+					instance.getBH_Phone(), address, instance.getbh_gender(),
+					instance.getBH_EMail(), instance.getbh_nhif_relationship(), instance.getbh_nhif_member_name(),
+					instance.getNHIF_Number(), instance.getBH_NHIF_Type(), instance.getNational_ID(),
+					instance.getbh_occupation(), instance.getNextOfKin_Name(), instance.getNextOfKin_Contact());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -167,7 +166,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getBH_Phone(), address, instance.get_ValueAsString(COLUMNNAME_GENDER));
+					instance.getbh_gender());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -176,7 +175,20 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	protected Patient createInstanceWithSearchFields(MBPartner_BH instance) {
-		return createInstanceWithDefaultFields(instance);
+		try {
+			String address = "";
+			if (instance.getBH_C_Location() != null) {
+				address = instance.getBH_C_Location().getAddress1();
+			}
+
+			return new Patient(instance.getC_BPartner_UU(), instance.getName(), instance.getTotalOpenBalance(),
+					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
+					instance.getBH_Phone(), address, DateUtil.parseDateOnly(instance.getCreated()),
+					instance.getbh_gender());
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+			throw new AdempiereException(ex.getLocalizedMessage());
+		}
 	}
 
 	@Override

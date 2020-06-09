@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.exceptions.ProductSaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -43,10 +42,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	@Override
 	public BaseListResponse<Product> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
+		parameters.add(constructSearchValue(value));
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
 
-		return this.search(MProduct_BH.COLUMNNAME_ProductType + "=?", constructSearchValue(value),
-				getSearchableColumns(false), parameters, pagingInfo, sortColumn, sortOrder);
+		return this.search(this.DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
+				parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	/**
