@@ -27,4 +27,8 @@ public class MDiscountSchemaTemplate extends BaseModelTemplate<MDiscountSchema> 
 		return new Query(getContext(), MDiscountSchema.Table_Name, "name = 'Test Discount Schema'",
 				getTransactionName()).first();
 	}
+
+	@Override
+	protected void setFields(MDiscountSchema instance) {
+	}
 }

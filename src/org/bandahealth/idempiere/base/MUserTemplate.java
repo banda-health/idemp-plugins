@@ -42,7 +42,7 @@ public class MUserTemplate extends BaseModelTemplate<MUser> {
 		}
 
 		instance.saveEx();
-		
+
 		commit();
 
 		return instance;
@@ -52,5 +52,10 @@ public class MUserTemplate extends BaseModelTemplate<MUser> {
 	protected MUser findInstance() {
 		return new Query(getContext(), MUser.Table_Name, MUser.COLUMNNAME_Name + "='" + name + "'",
 				getTransactionName()).first();
+	}
+
+	@Override
+	protected void setFields(MUser instance) {
+
 	}
 }

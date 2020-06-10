@@ -33,4 +33,9 @@ public class MAttributeSetTemplate extends BaseModelTemplate<MAttributeSet> {
 		return new Query(getContext(), MAttributeSet.Table_Name, whereClause, getTransactionName())
 				.setOnlyActiveRecords(true).setClient_ID(true).first();
 	}
+
+	@Override
+	protected void setFields(MAttributeSet instance) {
+	}
+
 }

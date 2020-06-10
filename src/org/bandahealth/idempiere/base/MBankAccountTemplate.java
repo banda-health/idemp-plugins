@@ -43,6 +43,10 @@ public class MBankAccountTemplate extends BaseModelTemplate<MBankAccount> {
 		return bankAccount;
 	}
 
+	@Override
+	protected void setFields(MBankAccount instance) {
+	}
+
 	private int getCurrencyId() {
 		return new MCurrencyTemplate(getTransactionName(), getContext(), orgId, clientId).getInstance().get_ID();
 	}

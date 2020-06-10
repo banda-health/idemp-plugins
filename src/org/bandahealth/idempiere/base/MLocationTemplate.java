@@ -32,4 +32,8 @@ public class MLocationTemplate extends BaseModelTemplate<MLocation> {
 		return new Query(getContext(), MLocation.Table_Name, "address1 = 'Test Address 1'", getTransactionName())
 				.first();
 	}
+
+	@Override
+	protected void setFields(MLocation instance) {
+	}
 }

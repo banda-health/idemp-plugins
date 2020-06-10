@@ -24,4 +24,8 @@ public class MInOutTemplate extends BaseModelTemplate<MInOut> {
 	protected MInOut findInstance() {
 		return new Query(getContext(), MInOut.Table_Name, "c_order_id = " + orderId, getTransactionName()).first();
 	}
+
+	@Override
+	protected void setFields(MInOut instance) {
+	}
 }

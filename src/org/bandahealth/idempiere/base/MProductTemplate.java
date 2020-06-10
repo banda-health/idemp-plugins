@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Properties;
 
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.compiere.model.MPriceList;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
@@ -13,17 +14,25 @@ import org.compiere.model.X_I_Product;
 public class MProductTemplate extends BaseModelTemplate<MProduct_BH> {
 
 	private int orgId;
+	private String name;
+	private MPriceList soPriceList;
+	private MPriceList poPriceList;
 
-	public MProductTemplate(String transactionName, Properties context, int orgId) {
+	public MProductTemplate(String transactionName, Properties context, int orgId, String name, MPriceList soPriceList,
+			MPriceList poPriceList) {
 		super(transactionName, context);
 
 		this.orgId = orgId;
+		this.name = name;
+		this.soPriceList = soPriceList;
+		this.poPriceList = poPriceList;
 	}
 
 	@Override
 	protected MProduct_BH createInstance() {
 		MProduct_BH product = new MProduct_BH(getContext(), 0, getTransactionName());
-		product.setName("Test Product");
+		product.setName(name);
+		product.setValue(name);
 
 		// set uom - unit of measure
 		MUOM uom = new Query(getContext(), MUOM.Table_Name, "name = 'Each'", getTransactionName()).first();
@@ -62,18 +71,49 @@ public class MProductTemplate extends BaseModelTemplate<MProduct_BH> {
 
 		product.setC_TaxCategory_ID(taxCategory.get_ID());
 
-		product.setBH_BuyPrice(new BigDecimal(10));
-		product.setBH_SellPrice(new BigDecimal(20));
+		// set buying price
+		if (poPriceList != null) {
+			product.setBH_BuyPrice(new BigDecimal(10));
+		}
+
+		// set selling price
+		if (soPriceList != null) {
+			product.setBH_SellPrice(new BigDecimal(20));
+		}
 
 		product.saveEx();
 
 		commit();
 
+		setFields(product);
+
 		return product;
 	}
 
 	@Override
+	protected void setFields(MProduct_BH product) {
+		// set buying price
+		if (poPriceList != null) {
+			int priceVersion = new MPriceListVersionTemplate(getTransactionName(), getContext(), poPriceList.get_ID(),
+					poPriceList.getName() + " Version").getInstance().get_ID();
+
+			new MProductPriceTemplate(getTransactionName(), getContext(), product.get_ID(), new BigDecimal(10),
+					priceVersion).getInstance();
+		}
+
+		// set selling price
+		if (soPriceList != null) {
+			int priceVersion = new MPriceListVersionTemplate(getTransactionName(), getContext(), soPriceList.get_ID(),
+					soPriceList.getName() + " Version").getInstance().get_ID();
+
+			new MProductPriceTemplate(getTransactionName(), getContext(), product.get_ID(), new BigDecimal(20),
+					priceVersion).getInstance();
+		}
+	}
+
+	@Override
 	protected MProduct_BH findInstance() {
-		return new Query(getContext(), MProduct_BH.Table_Name, "name = 'Test Product'", getTransactionName()).first();
+		return new Query(getContext(), MProduct_BH.Table_Name, "name = ?", getTransactionName()).setParameters(name)
+				.first();
 	}
 }

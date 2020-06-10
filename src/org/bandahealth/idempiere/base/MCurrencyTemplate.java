@@ -46,4 +46,9 @@ public class MCurrencyTemplate extends BaseModelTemplate<MCurrency> {
 
 		return new Query(getContext(), MCurrency.Table_Name, "iso_code = 'KES'", getTransactionName()).first();
 	}
+
+	@Override
+	protected void setFields(MCurrency instance) {
+	}
+
 }

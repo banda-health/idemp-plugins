@@ -26,4 +26,8 @@ public class MOrgTemplate extends BaseModelTemplate<MOrg> {
 	protected MOrg findInstance() {
 		return new Query(getContext(), MOrg.Table_Name, "name = 'Test Organization'", getTransactionName()).first();
 	}
+
+	@Override
+	protected void setFields(MOrg instance) {
+	}
 }

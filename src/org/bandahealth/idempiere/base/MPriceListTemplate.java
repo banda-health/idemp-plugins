@@ -10,19 +10,29 @@ public class MPriceListTemplate extends BaseModelTemplate<MPriceList> {
 
 	private int orgId;
 	private int clientId;
+	private boolean isSoPriceList;
+	private String name;
 
-	public MPriceListTemplate(String transactionName, Properties context, int orgId, int clientId) {
+	public MPriceListTemplate(String transactionName, Properties context, int orgId, int clientId,
+			boolean isSoPriceList, String name) {
 		super(transactionName, context);
 
 		this.orgId = orgId;
 		this.clientId = clientId;
+		this.isSoPriceList = isSoPriceList;
+		this.name = name;
 	}
 
 	@Override
 	protected MPriceList createInstance() {
 		MPriceList priceList = new MPriceList(getContext(), 0, getTransactionName());
-		priceList.setName("Test Price List");
+		priceList.setName(name);
 		priceList.setAD_Org_ID(orgId);
+
+		if (isSoPriceList) {
+			priceList.setIsSOPriceList(isSoPriceList);
+		}
+
 		priceList.setIsDefault(true);
 
 		MCurrency currency = new MCurrencyTemplate(getTransactionName(), getContext(), orgId, clientId).getInstance();
@@ -31,7 +41,8 @@ public class MPriceListTemplate extends BaseModelTemplate<MPriceList> {
 
 		priceList.saveEx();
 
-		new MPriceListVersionTemplate(getTransactionName(), getContext(), priceList.get_ID()).getInstance();
+		new MPriceListVersionTemplate(getTransactionName(), getContext(), priceList.get_ID(), name + " Version")
+				.getInstance();
 
 		commit();
 
@@ -39,7 +50,12 @@ public class MPriceListTemplate extends BaseModelTemplate<MPriceList> {
 	}
 
 	@Override
+	protected void setFields(MPriceList priceList) {
+	}
+
+	@Override
 	protected MPriceList findInstance() {
-		return new Query(getContext(), MPriceList.Table_Name, "name = 'Test Price List'", getTransactionName()).first();
+		return new Query(getContext(), MPriceList.Table_Name, "name = ?", getTransactionName()).setParameters(name)
+				.first();
 	}
 }

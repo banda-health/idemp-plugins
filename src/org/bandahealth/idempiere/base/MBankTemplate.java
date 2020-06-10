@@ -27,4 +27,8 @@ public class MBankTemplate extends BaseModelTemplate<MBank> {
 	protected MBank findInstance() {
 		return new Query(getContext(), MBank.Table_Name, "name = 'Test Bank'", getTransactionName()).first();
 	}
+
+	@Override
+	protected void setFields(MBank instance) {
+	}
 }

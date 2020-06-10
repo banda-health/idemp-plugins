@@ -40,4 +40,11 @@ public class MBPartnerLocationTemplate extends BaseModelTemplate<MBPartnerLocati
 				getTransactionName()).first();
 
 	}
+
+	@Override
+	protected void setFields(MBPartnerLocation instance) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

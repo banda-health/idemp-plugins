@@ -25,6 +25,8 @@ public abstract class BaseModelTemplate<T extends PO> {
 		T instance = findInstance();
 		if (instance == null) {
 			return createInstance();
+		} else {
+			setFields(instance);
 		}
 
 		return instance;
@@ -33,6 +35,8 @@ public abstract class BaseModelTemplate<T extends PO> {
 	protected abstract T createInstance();
 
 	protected abstract T findInstance();
+
+	protected abstract void setFields(T instance);
 
 	protected String getTransactionName() {
 		return this.transactionName;

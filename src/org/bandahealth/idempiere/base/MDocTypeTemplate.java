@@ -33,4 +33,8 @@ public class MDocTypeTemplate extends BaseModelTemplate<MDocType> {
 		whereClause.append(name);
 		return new Query(getContext(), MDocType.Table_Name, whereClause.toString(), getTransactionName()).first();
 	}
+
+	@Override
+	protected void setFields(MDocType instance) {
+	}
 }

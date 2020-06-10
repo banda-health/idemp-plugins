@@ -25,8 +25,8 @@ public class MWarehouseTemplate extends BaseModelTemplate<MWarehouse> {
 		storeRoom.setAD_Org_ID(orgId);
 		storeRoom.setC_Location_ID(locationId);
 		storeRoom.saveEx();
-		
-		MLocator loc = new MLocator (storeRoom, "Test Locator");
+
+		MLocator loc = new MLocator(storeRoom, "Test Locator");
 		loc.setIsDefault(true);
 		loc.saveEx();
 
@@ -38,5 +38,9 @@ public class MWarehouseTemplate extends BaseModelTemplate<MWarehouse> {
 	@Override
 	protected MWarehouse findInstance() {
 		return new Query(getContext(), MWarehouse.Table_Name, "name = 'Test Store room'", getTransactionName()).first();
+	}
+
+	@Override
+	protected void setFields(MWarehouse instance) {
 	}
 }
