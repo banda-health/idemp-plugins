@@ -52,7 +52,7 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 				.append(".").append(MBPartner_BH.COLUMNNAME_C_BPartner_ID).append("=").append(MOrder_BH.Table_Name)
 				.append(".").append(MOrder_BH.COLUMNNAME_C_BPartner_ID);
 
-		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
+		return super.search(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
 				joinClause.toString());
 	}
 
