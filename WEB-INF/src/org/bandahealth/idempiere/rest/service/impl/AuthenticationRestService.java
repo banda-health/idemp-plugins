@@ -222,9 +222,8 @@ public class AuthenticationRestService {
 	/**
 	 * Check valid system users with no system role.
 	 * 
-	 * Here we check
-	 * 
 	 * @param clients
+	 * @param credentials
 	 * @return
 	 */
 	private MUser checkValidSystemUserWithNoSystemRole(KeyNamePair[] clients, Authentication credentials) {
