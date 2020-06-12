@@ -39,20 +39,11 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
-				.append("(LOWER(").append(MBPartner_BH.Table_Name).append(".").append(MBPartner_BH.COLUMNNAME_Name)
-				.append(") ").append(LIKE_COMPARATOR).append(" ?)")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
+				.append(MOrder_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
 				.append(MOrder_BH.COLUMNNAME_BH_IsExpense).append(" IS NULL");
-		parameters.add(constructSearchValue(searchValue));
 		parameters.add("N");
 
-		StringBuilder joinClause = new StringBuilder()
-				.append("JOIN ").append(MBPartner_BH.Table_Name).append(" ON ").append(MBPartner_BH.Table_Name)
-				.append(".").append(MBPartner_BH.COLUMNNAME_C_BPartner_ID).append("=").append(MOrder_BH.Table_Name)
-				.append(".").append(MOrder_BH.COLUMNNAME_C_BPartner_ID);
-
-		return super.search(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
-				joinClause.toString());
+		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause.toString(), parameters);
 	}
 
 	@Override

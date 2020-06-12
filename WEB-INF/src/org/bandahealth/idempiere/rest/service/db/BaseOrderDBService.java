@@ -36,28 +36,59 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	protected abstract void afterSave(T entity, MOrder_BH mOrder);
 
 	/**
-	 * Search by patient/vendor name
+	 * Search an order by patient/vendor name
+	 *
+	 * @param value
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @return
+	 */
+	@Override
+	public BaseListResponse<T> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
+		return this.search(value, pagingInfo, sortColumn, sortOrder, null, null);
+	}
+
+	/**
+	 * Search an order by patient/vendor name
 	 * 
 	 * @param value
 	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @param initialWhereClause an optional where clause to filter results
+	 * @param parameters an optional parameters list for use in the where clause
 	 * @return
 	 */
-	public BaseListResponse<T> search(String value, Paging pagingInfo) {
-		List<Object> parameters = new ArrayList<>();
+	public BaseListResponse<T> search(String value, Paging pagingInfo, String sortColumn, String sortOrder,
+			String initialWhereClause, List<Object> parameters) {
+		if (parameters == null) {
+			parameters = new ArrayList<>();
+		}
+
+		// Do this first because parameters would've already been added to the array if so
+		StringBuilder whereClause = new StringBuilder();
+		if (initialWhereClause != null && !initialWhereClause.isEmpty()) {
+			whereClause.append(initialWhereClause).append(AND_OPERATOR);
+		}
+
+		// search patient
+		whereClause.append("(").append(MBPartner_BH.Table_Name).append(".").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
+				.append("=?").append(OR_OPERATOR).append("LOWER(").append(MBPartner_BH.Table_Name).append(".")
+				.append(MBPartner_BH.COLUMNNAME_Name).append(") ").append(LIKE_COMPARATOR).append(" ?)");
 		parameters.add(value);
 		parameters.add(constructSearchValue(value));
 
-		// search patient
-
-		String whereClause = "(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_BH_PatientID + " =? "
-				+ OR_OPERATOR + " LOWER(" + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_Name + ") "
-				+ LIKE_COMPARATOR + " ? )";
-
-		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
+		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause.toString(), null)
 				.addJoinClause("JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
 						+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
 						+ MBPartner_BH.COLUMNNAME_C_BPartner_ID)
 				.setClient_ID().setOnlyActiveRecords(true);
+
+		String orderBy = getOrderBy(sortColumn, sortOrder);
+		if (orderBy != null) {
+			query = query.setOrderBy(orderBy);
+		}
 
 		if (parameters != null) {
 			query = query.setParameters(parameters);
