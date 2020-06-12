@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Version: 1.0.0
+Bundle-Version: 7.1.0.qualifier
 Bundle-Name: BandaHealthGo WebUI
 Bundle-Vendor: BandaHealth
 Fragment-Host: org.adempiere.ui.zk;bundle-version="5.1.0"
