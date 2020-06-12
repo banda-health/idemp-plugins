@@ -7,14 +7,7 @@ import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.OrderStatus;
-import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Patient;
-import org.bandahealth.idempiere.rest.model.PatientType;
-import org.bandahealth.idempiere.rest.model.Payment;
-import org.bandahealth.idempiere.rest.model.Referral;
-import org.bandahealth.idempiere.rest.model.Visit;
+import org.bandahealth.idempiere.rest.model.*;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MScheduler;
@@ -41,6 +34,24 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		paymentDBService = new PaymentDBService();
+	}
+
+	@Override
+	public BaseListResponse<Visit> search(String searchValue, Paging pagingInfo, String sortColumn, String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
+
+		StringBuilder whereClause = new StringBuilder()
+				.append("(LOWER(").append(MBPartner_BH.Table_Name).append(".").append(MBPartner_BH.COLUMNNAME_Name)
+				.append(") ").append(LIKE_COMPARATOR).append(" ?)");
+		parameters.add(constructSearchValue(searchValue));
+
+		StringBuilder joinClause = new StringBuilder()
+				.append("JOIN ").append(MBPartner_BH.Table_Name).append(" ON ").append(MBPartner_BH.Table_Name)
+				.append(".").append(MBPartner_BH.COLUMNNAME_C_BPartner_ID).append("=").append(MOrder_BH.Table_Name)
+				.append(".").append(MOrder_BH.COLUMNNAME_C_BPartner_ID);
+
+		return super.search(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
+				joinClause.toString());
 	}
 
 	@Override
