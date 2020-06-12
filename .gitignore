@@ -12,6 +12,3 @@ org.bandahealth.idempiere.rest.iml
 
 WEB-INF/lib/java-jwt.jar
 
-#23/10/2020: Remove pom.xml from repo due to different setup locations for this plugin.
-pom.xml 
-
