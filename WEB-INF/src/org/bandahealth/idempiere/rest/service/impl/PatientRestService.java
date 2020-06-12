@@ -1,87 +1,76 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.cxf.jaxrs.ext.MessageContext;
-import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.rest.BaseRestService;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.Patient;
-import org.compiere.model.Query;
-import org.compiere.util.Env;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
+import org.bandahealth.idempiere.rest.service.db.PatientDBService;
 
 /**
- * Expose Patients REST functionality
+ * Expose Patient REST functionality
  * 
- * TODO: Db logic should be abstracted. Error handling
+ * TODO: Error handling and logging.
  * 
  * @author andrew
  *
  */
-@Path("/patientservice")
+@Path(IRestConfigs.PATIENTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PatientRestService extends BaseRestService<Patient> {
+public class PatientRestService extends BaseEntityRestService<Patient> {
+
+	private PatientDBService dbService;
 
 	public PatientRestService() {
-	}
-
-	public PatientRestService(MessageContext jaxrsContext) {
-		this.jaxrsContext = jaxrsContext;
+		dbService = new PatientDBService();
 	}
 
 	@POST
-	@Path("/patients")
+	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public List<Patient> getAll() {
-		List<Patient> results = new ArrayList<>();
-		List<MBPartner_BH> patients = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", null).setParameters(true).list();
-		if (!patients.isEmpty()) {
-			for (MBPartner_BH patient : patients) {
-				results.add(new Patient(patient.getAD_Client_ID(), patient.getAD_Org_ID(), patient.getC_BPartner_UU(),
-						patient.isActive(), patient.getCreated(), patient.getCreatedBy(), patient.getDescription(),
-						patient.getName(), patient.getTotalOpenBalance()));
-			}
-		}
-
-		return results;
+	public BaseListResponse<Patient> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
+		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
-	@Path("/patient/{uuid}")
+	@Path(IRestConfigs.PATIENT_PATH)
 	@Override
 	public Patient getEntity(@PathParam("uuid") String uuid) {
-		MBPartner_BH patient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", null).setParameters(uuid).first();
-
-		if (patient != null) {
-			return new Patient(patient.getAD_Client_ID(), patient.getAD_Org_ID(), patient.getC_BPartner_UU(),
-					patient.isActive(), patient.getCreated(), patient.getCreatedBy(), patient.getDescription(),
-					patient.getName(), patient.getTotalOpenBalance());
-		}
-
-		return null;
+		return dbService.getEntity(uuid);
 	}
 
 	@POST
-	@Path("/update")
+	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Patient updateEntity(Patient entity) {
-		return null;
+	public Patient saveEntity(Patient entity) {
+		return dbService.saveEntity(entity);
 	}
 
 	@POST
-	@Path("/create")
+	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
-	public Patient createEntity(Patient entity) {
-		return null;
+	public BaseListResponse<Patient> search(@QueryParam("value") String value, @QueryParam("page") int page,
+			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder) {
+		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
+	}
+
+	@POST
+	@Path(IRestConfigs.PATIENT_GENERATE_ID)
+	public Patient generatePatientId() {
+		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
+		Patient patient = new Patient();
+		patient.setPatientNumber(generatedPatientId != null ? generatedPatientId.toString() : null);
+		return patient;
 	}
 }

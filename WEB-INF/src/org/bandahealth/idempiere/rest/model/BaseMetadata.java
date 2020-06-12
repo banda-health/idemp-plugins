@@ -1,24 +1,26 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class BaseMetadata implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int clientId;
-	private int orgId;
+	private Integer clientId;
+	private Integer orgId;
 	private String uuid;
-	private boolean isActive;
-	private Timestamp created;
+	private boolean isActive = true;
+	private String created;
 	private int createdBy;
 
 	public BaseMetadata() {
 	}
 
-	public BaseMetadata(int clientId, int orgId, String uuid, boolean isActive, Timestamp created, int createdBy) {
+	public BaseMetadata(Integer clientId, Integer orgId, String uuid, boolean isActive, String created,
+			Integer createdBy) {
 		this.clientId = clientId;
 		this.orgId = orgId;
 		this.uuid = uuid;
@@ -28,20 +30,20 @@ public class BaseMetadata implements Serializable {
 	}
 
 	@XmlElement
-	public int getClientId() {
+	public Integer getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(int clientId) {
+	public void setClientId(Integer clientId) {
 		this.clientId = clientId;
 	}
 
 	@XmlElement
-	public int getOrgId() {
+	public Integer getOrgId() {
 		return orgId;
 	}
 
-	public void setOrgId(int orgId) {
+	public void setOrgId(Integer orgId) {
 		this.orgId = orgId;
 	}
 
@@ -55,29 +57,29 @@ public class BaseMetadata implements Serializable {
 	}
 
 	@XmlElement
-	public boolean isActive() {
+	public boolean isIsActive() {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
 	@XmlElement
-	public Timestamp getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(Timestamp created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
-	@XmlElement
-	public int getCreatedBy() {
+	@JsonIgnore
+	public Integer getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
 }

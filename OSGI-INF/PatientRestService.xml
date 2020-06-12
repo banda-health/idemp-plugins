@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.bandahealth.idempiere.rest.service.PatientRestService">
-   <implementation class="org.bandahealth.idempiere.rest.service.PatientRestService"/>
-   <property name="service.ranking" type="Integer" value="5"/>
-</scr:component>

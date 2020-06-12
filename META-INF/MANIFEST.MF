@@ -2,10 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Custom REST Webservices
 Bundle-SymbolicName: org.bandahealth.idempiere.rest;singleton:=true
-Bundle-Version: 6.2.0.qualifier
+Bundle-Version: 7.1.0.qualifier
 Automatic-Module-Name: org.bandahealth.idempiere.rest
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: javax.activation,
- javax.jws;version="1.1.0",
+ javax.jws,
  javax.jws.soap;version="1.1.0",
  javax.servlet;version="3.0.0",
  javax.servlet.http;version="3.0.0",
@@ -13,9 +14,9 @@ Import-Package: javax.activation,
  javax.ws.rs.client;version="2.1.3",
  javax.ws.rs.container;version="2.1.3",
  javax.ws.rs.core;version="2.1.3",
+ javax.ws.rs.ext,
  javax.xml.bind;version="2.3.0",
  javax.xml.bind.annotation;version="2.3.0",
- org.bandahealth.idempiere.base.model,
  org.compiere.model,
  org.idempiere.adinterface,
  org.osgi.framework;version="1.6.0",
@@ -52,10 +53,6 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  org.springframework.spring-jcl;bundle-version="5.1.1",
  org.apache.servicemix.bundles.spring-web,
  org.apache.cxf.cxf-rt-rs-extension-providers;bundle-version="3.1.17",
- javax.xml.soap-api;bundle-version="1.4.0",
- org.apache.axis;bundle-version="1.4.0",
- javax.xml.soap;bundle-version="1.3.0",
- jaxws-api;bundle-version="2.3.1",
  javax.annotation-api;bundle-version="1.3.2",
  org.glassfish.jersey.core.jersey-common;bundle-version="2.22.1",
  org.apache.cxf.cxf-rt-rs-service-description;bundle-version="3.2.6",
@@ -64,9 +61,21 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  org.glassfish.hk2.locator;bundle-version="2.5.0",
  org.glassfish.hk2.utils;bundle-version="2.5.0",
  org.glassfish.jersey.bundles.repackaged.jersey-guava;bundle-version="2.22.1",
- javax.ws.rs-api;bundle-version="2.1.3",
- com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;bundle-version="2.9.2"
-Bundle-ClassPath: .
-Service-Component: OSGI-INF/PatientServiceImpl.xml
+ com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;bundle-version="2.9.2",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.9.7",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.9.7",
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.9.7",
+ org.apache.commons.codec;bundle-version="1.6.0",
+ org.bandahealth.idempiere.base;bundle-version="1.0.0"
+Bundle-ClassPath: .,
+ WEB-INF/lib/java-jwt.jar
 Web-ContextPath: BHGO
 Bundle-ActivationPolicy: lazy
+Export-Package: org.bandahealth.idempiere.rest,
+ org.bandahealth.idempiere.rest.exceptions,
+ org.bandahealth.idempiere.rest.filter,
+ org.bandahealth.idempiere.rest.model,
+ org.bandahealth.idempiere.rest.service,
+ org.bandahealth.idempiere.rest.service.db,
+ org.bandahealth.idempiere.rest.service.impl,
+ org.bandahealth.idempiere.rest.utils
