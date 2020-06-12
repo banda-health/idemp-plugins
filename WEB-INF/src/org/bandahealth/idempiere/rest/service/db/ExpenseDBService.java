@@ -89,7 +89,8 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	@Override
 	protected Expense createInstanceWithSearchFields(MCharge expense) {
 		try {
-			return new Expense(expense.getC_Charge_UU(), expense.getName(), expense.getChargeAmt());
+			return new Expense(expense.getC_Charge_UU(), expense.getName(), expense.getChargeAmt(),
+					DateUtil.parseDateOnly(expense.getCreated()), expense.getDescription());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

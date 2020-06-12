@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
@@ -68,13 +69,15 @@ public class InventoryDBService {
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
 		if (searchValue != null && !searchValue.isEmpty()) {
-			sql.append(AND_OPERATOR).append(DEFAULT_SEARCH_CLAUSE);
+			sql
+					.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product)
+					.append(") ").append(LIKE_COMPARATOR).append(" ?");
 			parameters.add("%" + searchValue.toLowerCase() + "%");
 		}
 
 		sql.append(" order by ");
 		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
-				&& viewColumnsToUse.contains(sortColumn)) {
+				&& viewColumnsToUse.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
 			sql.append(sortColumn).append(" ").append(sortOrder).append(ORDERBY_NULLS_LAST);
 		} else {
 			sql

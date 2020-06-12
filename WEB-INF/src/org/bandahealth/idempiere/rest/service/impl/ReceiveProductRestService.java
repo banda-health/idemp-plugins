@@ -45,7 +45,7 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 	public BaseListResponse<ReceiveProduct> search(@QueryParam("value") String value, @QueryParam("page") int page,
 			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder) {
-		return dbService.search(value, getPagingInfo(page, size));
+		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
