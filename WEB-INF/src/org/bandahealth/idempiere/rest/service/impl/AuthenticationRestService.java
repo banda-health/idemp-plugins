@@ -66,6 +66,10 @@ public class AuthenticationRestService {
 		} else {
 			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
 			if (user == null) {
+				user = checkValidSystemUserWithNoSystemRole(clients, credentials);
+			}
+
+			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
 
@@ -214,4 +218,27 @@ public class AuthenticationRestService {
 			response.getClients().add(clientResponse);
 		}
 	}
+
+	/**
+	 * Check valid system users with no system role.
+	 * 
+	 * @param clients
+	 * @param credentials
+	 * @return
+	 */
+	private MUser checkValidSystemUserWithNoSystemRole(KeyNamePair[] clients, Authentication credentials) {
+		MUser user = null;
+		for (KeyNamePair client : clients) {
+			// update context with client id
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getKey());
+
+			user = MUser.get(Env.getCtx(), credentials.getUsername());
+			if (user != null) {
+				break;
+			}
+		}
+
+		return user;
+	}
+
 }
