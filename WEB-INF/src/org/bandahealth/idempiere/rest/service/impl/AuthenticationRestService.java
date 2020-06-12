@@ -67,9 +67,10 @@ public class AuthenticationRestService {
 			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
 			if (user == null) {
 				user = checkValidSystemUserWithNoSystemRole(clients, credentials);
-				if (user == null) {
-					return new AuthResponse(Status.UNAUTHORIZED);
-				}
+			}
+
+			if (user == null) {
+				return new AuthResponse(Status.UNAUTHORIZED);
 			}
 
 			if (user.isLocked()) {
