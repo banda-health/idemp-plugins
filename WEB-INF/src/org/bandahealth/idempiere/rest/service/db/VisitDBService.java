@@ -163,6 +163,14 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return createInstanceWithDefaultFields(instance);
 	}
 
+	public BaseListResponse<Visit> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+
+		return super.search(value, pagingInfo, sortColumn, sortOrder, MOrder_BH.COLUMNNAME_IsSOTrx + "=?",
+				parameters);
+	}
+
 	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
