@@ -67,7 +67,7 @@ public class TokenUtils {
 	 */
 	public static Timestamp getTokeExpiresAt() {
 		Timestamp expiresAt = new Timestamp(System.currentTimeMillis());
-		expiresAt = TimeUtil.addMinutess(expiresAt, 60);
+		expiresAt = TimeUtil.addMinutess(expiresAt, 480); // 60*8 
 		return expiresAt;
 	}
 }
