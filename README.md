@@ -30,7 +30,8 @@ Fork the project and clone it to you GitLab repository, then import it into Ecli
 In the plugin root directory, run the following command
 `mvn validate` then `mvn build`
 
-To 
+To deploy the plugin to the server, in Eclipse, go to Run Configurations, choose the Plugins tab and from the list, ensure that the rest plugin 
+with the name select the *org.idempiere.bandahealth.rest* is shown. You can change the autostart option to `true`. When the server is started, the plugin will be 
 
 #### Documentation
 
