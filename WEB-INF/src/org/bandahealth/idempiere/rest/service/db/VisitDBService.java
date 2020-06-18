@@ -79,7 +79,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			for (Payment payment : entity.getPayments()) {
 				payment.setOrderId(mOrder.get_ID());
 				if (mPatient != null) {
-					payment.setPatient(new Patient(mPatient.getC_BPartner_UU()));
+					payment.setPatient(new Patient(mPatient.getName(), mPatient.getC_BPartner_UU()));
 				}
 
 				Payment response = paymentDBService.saveEntity(payment);
@@ -109,7 +109,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Patient(patient.getName()),
+					new Patient(patient.getName(), patient.getC_BPartner_UU()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
@@ -167,8 +167,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.search(value, pagingInfo, sortColumn, sortOrder, MOrder_BH.COLUMNNAME_IsSOTrx + "=?",
-				parameters);
+		return super.search(value, pagingInfo, sortColumn, sortOrder, MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters);
 	}
 
 	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
@@ -223,7 +222,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 						}
 
 						results.add(new Visit().getVisitQueue(DateUtil.parseQueueTime(entity.getCreated()),
-								entity.getC_Order_UU(), new Patient(patient.getName()), getOrderStatus(entity)));
+								entity.getC_Order_UU(), new Patient(patient.getName(), patient.getC_BPartner_UU()), getOrderStatus(entity)));
 					}
 				}
 			}
