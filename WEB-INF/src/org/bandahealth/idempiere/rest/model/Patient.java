@@ -32,8 +32,9 @@ public class Patient extends BusinessPartner {
 	public Patient() {
 	}
 
-	public Patient(String name) {
+	public Patient(String name, String uuid) {
 		setName(name);
+		setUuid(uuid);
 	}
 
 	public Patient(String uuid, String name, BigDecimal totalOpenBalance) {
