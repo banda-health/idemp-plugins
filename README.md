@@ -45,7 +45,7 @@ To contribute, see the CONTRIBUTING.md file in the root directory of this reposi
 
 #### Support
 To reach out to the team, please use our RocketChat service [here](https://chat.openhmisafrica.org/home), alternatively 
-send an email to; implementers@bandahealth.org
+send an email to; implementer@bandahealth.org
 
 
 
