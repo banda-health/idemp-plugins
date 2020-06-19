@@ -1,13 +1,17 @@
-# BandaHealth's Parent Project
+#### BandaGo Plug-ins Parent Project
 
-Contains all modules i.e
+This plugin maps and resolves all bandaGo plugin dependencies and builds the deployment artifacts.
+The included plugins are: 
 * idemp-base
 * idemp-base-editor
 * idemp-webui
 * idemp-rest
 * idemp-base-tests (contains unit tests for idemp-base )
 
-PS: All the modules should be in the same directory location.
+PS: All the plugins should be contained in a common directory location.
 
-### mvn verify -Didempiere.core.repository.url=<path_to_idemp>/org.idempiere.p2/target/repository
+##### To build all bandaGo projects, run:
 
+`mvn verify -Didempiere.home.dir=<absolute_path_to_idemp_repo/>/org.idempiere.p2/target/repository`
+Example: 
+`mvn verify -Didempiere.home.dir=/home/user1/idempiere/org.idempiere.p2/target/repository`

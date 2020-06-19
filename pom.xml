@@ -1,5 +1,6 @@
 <!-- build with
-mvn verify -Didempiere.core.repository.url=<path_to_idemp>/org.idempiere.p2/target/repository
+mvn verify -Didempiere.home.dir=<absolute_path_to_idemp_repo/>/org.idempiere.p2/target/repository
+Example: mvn verify -Didempiere.home.dir=/home/user1/idempiere/org.idempiere.p2/target/repository
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -18,8 +19,7 @@ mvn verify -Didempiere.core.repository.url=<path_to_idemp>/org.idempiere.p2/targ
 		<lifecycle.mapping.version>1.0.0</lifecycle.mapping.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<url.file.srv>https://raw.githubusercontent.com/idempiere/binary.file/master</url.file.srv>
-		<!-- default value of properties, use when run without profile -->
-		<idempiere.core.repository.url>file:///${basedir}/../idempiere_7.1/org.idempiere.p2/target/repository</idempiere.core.repository.url>
+		<idempiere.core.repository.url>file://${idempiere.home.dir}/org.idempiere.p2/target/repository</idempiere.core.repository.url>
 	</properties>
 
 	<build>
