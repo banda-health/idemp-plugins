@@ -17,6 +17,8 @@ The projects adds a custom theme and implements data services for the custom UI 
 Before setting up this plugin, you should ensure that the following requirements have been installed and working.
 * Java OpenJDK 11 or 12 
 * Maven 3.6.0 or later.
+* Ruby 2.7.1 or later.
+* Compass CSS Framework [Website](http://compass-style.org/)
 * Idempiere ERP 7.1 or later ([Instructions on setup](https://wiki.openhmisafrica.org/wiki/bandago/view/Developer%20Guide/Setup%20iDempiere%206.2%20environment/))
 * **Important** To be able to work with the BandaHealth GitLab repositories, you need to setup ssh access on your GitLab account [See this](https://docs.gitlab.com/ee/ssh/#options-for-ssh-keys)
 * Successful setup of the `idemp-base` plugin.
