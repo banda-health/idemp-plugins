@@ -19,15 +19,14 @@ Before setting up this plugin, you should ensure that the following requirements
 * Maven 3.6.0 or later.
 * Ruby 2.7.1 or later.
 * Compass CSS Framework [Website](http://compass-style.org/)
-* Idempiere ERP 7.1 or later ([Instructions on setup](https://wiki.openhmisafrica.org/wiki/bandago/view/Developer%20Guide/Setup%20iDempiere%206.2%20environment/))
-* **Important** To be able to work with the BandaHealth GitLab repositories, you need to setup ssh access on your GitLab account [See this](https://docs.gitlab.com/ee/ssh/#options-for-ssh-keys)
-* Successful setup of the `idemp-base` plugin.
+* BandaGo System setup([Instructions on setup](https://wiki.openhmisafrica.org/wiki/bandago/view/Developer%20Guide/))
+* **Important** To be able to work with the BandaHealth GitLab repositories, you need to setup `ssh` access on your GitLab account [See this](https://docs.gitlab.com/ee/ssh/#options-for-ssh-keys)
 
 #### Installation
-* From your GitLab account, fork the `idemp-webui` repository and then clone it to your local development workstation.
+* From the steps in bandaGo system setup, you should, at this point, have all required BandaGo plug-ins in a common parent directory.
 * In Eclipse, use the 'Open Projects From FileSystem' option to import the project into your workspace.
 * In the Project Explorer, right click on the project and choose 'Clean', the project will be rebuild with all dependencies being added.
-* To deploy the plugin to the server, in Eclipse, go to 'Run Configurations', choose the 'Plugins' tab and from the list, in the filter box, search 'banda' to filter the just imported plugin and ensure that the rest plugin with the name select the *org.idempiere.bandahealth.webui* is shown. Change the autostart option to `true`. When the server is started, this sets the plugin to be installed into Idempiere and automatically started. 
+* To deploy the plug-in to the server, in Eclipse, go to 'Run Configurations', choose the 'Plugins' tab and from the list, in the filter box, search 'banda' to filter the just imported plugin and ensure that the rest plugin with the name select the *org.idempiere.bandahealth.rest* is shown. Change the autostart option to `true`. When the server is started, this sets the plugin to be installed into Idempiere and automatically started. 
 * You are now ready to work with this project for features and bug fixes!.
 
 #### Documentation
