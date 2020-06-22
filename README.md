@@ -22,16 +22,11 @@ Before setting up this plugin, you should ensure that the following requirements
 * 
 
 #### Installation
-Idemp-rest is a plug-in and therefore requires BandaGo to be setup and running. In addition the [idemp-base]() and [idemp-base-editor]() need to be installed 
-in Idempire before installing this plugin. 
- That done, get the code for the plug-in [here](https://code.openhmisafrica.org/bhgo/idemp-rest).
-Fork the project and clone it to you GitLab repository, then import it into Eclipse IDE.
-
-In the plugin root directory, run the following command
-`mvn validate` then `mvn build`
-
+* From your GitLab account, fork the `idemp-rest` [here](https://code.openhmisafrica.org/bhgo/idemp-rest) and clone it to your local development workstation.
+* From the `idemp-parent` repository (this project should be present if you setup BandaGo correctly), run `mvn verify`, this command will validate, compile, build and package all your plug-in projects.
 To deploy the plugin to the server, in Eclipse, go to Run Configurations, choose the Plugins tab and from the list, ensure that the rest plugin 
 with the name select the *org.idempiere.bandahealth.rest* is shown. You can change the autostart option to `true`. When the server is started, the plugin will be 
+automatically started.
 
 #### Documentation
 
