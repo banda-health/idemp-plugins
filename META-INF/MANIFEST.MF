@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BandaHealthGo
 Bundle-SymbolicName: org.bandahealth.idempiere.base;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 7.1.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
  org.adempiere.plugin.utils;bundle-version="7.1.0",
