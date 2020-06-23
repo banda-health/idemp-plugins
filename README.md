@@ -31,8 +31,6 @@ Before setting up this plug-in, you should ensure that the following requirement
 
 - [Website](http://bandahealth.org)
   
-- [BandaGo Demo Site](http://erp.bandahealth.org)
-
 - [BandaGo User Documentation](https://wiki.openhmisafrica.org/wiki/bandago/view/Main/) 
 
 
