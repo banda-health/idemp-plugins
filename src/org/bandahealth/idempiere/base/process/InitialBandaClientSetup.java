@@ -109,6 +109,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		String completeInfo = super.doIt();
 
 		MBandaSetup bandaSetup = new MBandaSetup(getCtx(), clientName, orgName);
+		// If AD_Client_ID or AD_Org_ID are -1, something went wrong in setup, but no error was generated
+		// If this happens, we want to throw an error
 		if (bandaSetup.getAccountSchema() == null ||
 				bandaSetup.getAD_Client_ID() == -1 || bandaSetup.getAD_Org_ID() == -1
 		) {
@@ -164,6 +166,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			throw e;
 		}
 
+		/**
+		 * The context has it's AD_Client_ID replaced with the generated one. If the user continues using iDempiere,
+		 * they're AD_Client_ID will be wrong (since they should be "System") and they'll have to log out and log
+		 * back in to fix it. Instead, just reset the client ID in the context to what it was before the process
+		 * started.
+		 */
 		resetClientId();
 
 		return completeInfo;

@@ -25,7 +25,21 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
+/**
+ * Initial setup of a client, but with the additional things needed in Banda Go
+ */
 public class MBandaSetup {
+
+	protected CLogger log = CLogger.getCLogger(getClass());
+
+	private final Trx transaction = Trx.get(Trx.createTrxName("Setup"), true);
+	private final Properties context;
+	private final String language;
+	private StringBuffer info;
+
+	private final int clientId;
+	private final int orgId;
+	private final MAcctSchema accountSchema;
 
 	public static final String ACCOUNTVALUE_CASH_BOX = "11800";
 	public static final String ACCOUNTVALUE_MOBILE = "11400";
@@ -42,58 +56,47 @@ public class MBandaSetup {
 	public static final String IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU = "7fbbb20b-8521-47e4-b0e1-31332f17958b";
 
 	public MBandaSetup(Properties ctx, String clientName, String orgName) {
-		this.ctx = ctx;
-		language = Env.getAD_Language(this.ctx);
+		this.context = ctx;
+		language = Env.getAD_Language(this.context);
 
 		clientId = new Query(
-				this.ctx,
+				this.context,
 				MClient.Table_Name,
 				MClient.COLUMNNAME_Name + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(clientName)
 				.firstId();
 		orgId = new Query(
-				this.ctx,
+				this.context,
 				MOrg.Table_Name,
 				MOrg.COLUMNNAME_Name + "=? AND " + MOrg.COLUMNNAME_AD_Client_ID + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(orgName, clientId)
 				.firstId();
 
 		// For some reason, the client ID isn't set. Set it so entity creation doesn't error out
-		Env.setContext(this.ctx, Env.AD_CLIENT_ID, clientId);
+		Env.setContext(this.context, Env.AD_CLIENT_ID, clientId);
 
 		accountSchema = new Query(
-				this.ctx,
+				this.context,
 				MAcctSchema.Table_Name,
 				MAcctSchema.COLUMNNAME_AD_Client_ID + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(clientId)
 				.first();
 	}
 
-	protected CLogger log = CLogger.getCLogger(getClass());
-
-	private final Trx trx = Trx.get(Trx.createTrxName("Setup"), true);
-	private final Properties ctx;
-	private final String language;
-	private StringBuffer info;
-
-	private final int clientId;
-	private final int orgId;
-	private final MAcctSchema accountSchema;
-
 	public void start() {
-		trx.setDisplayName(getClass().getName()+"_createClient_BH");
-		trx.start();
+		transaction.setDisplayName(getClass().getName()+"_createClient_BH");
+		transaction.start();
 	}
 
 	public boolean finish() {
-		boolean success = trx.commit();
-		trx.close();
+		boolean success = transaction.commit();
+		transaction.close();
 		log.info("finish");
 		return success;
 	}
@@ -102,31 +105,38 @@ public class MBandaSetup {
 		info = new StringBuffer();
 
 		MAcctSchemaDefault acctSchemaDefault = new Query(
-				ctx,
+				context,
 				MAcctSchemaDefault.Table_Name,
 				MAcctSchemaDefault.COLUMNNAME_AD_Client_ID + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(clientId)
 				.first();
 		if (acctSchemaDefault == null) {
 			log.severe("No Accounting Schema Defaults for client");
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 
-		// Make the B_Asset account match the B_InTransit account
-		MAccount assetAccount = (MAccount) MTable.get(ctx, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getB_Asset_Acct(), trx.getTrxName());
-		MAccount inTransitAccount = (MAccount) MTable.get(ctx, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getB_InTransit_Acct(), trx.getTrxName());
+		/**
+		 * In iDempiere, accounts are mapped to many different things, such as bank accounts and charges.
+		 * The default account mappings generated map different accounts to the Bank Asset account (B_Asset)
+		 * and the Bank In-Transit account (B_InTransit). Based on a recommendation from Chuck, we simplify
+		 * this mapping and choose to map these accounts to the same default account because we don't ever
+		 * upload bank statements, which is the default way iDempiere transfers value from B_InTransit
+		 * to B_Asset. So, we need to make the B_Asset account match the B_InTransit account.
+		 */
+		MAccount assetAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
+				.getPO(acctSchemaDefault.getB_Asset_Acct(), transaction.getTrxName());
+		MAccount inTransitAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
+				.getPO(acctSchemaDefault.getB_InTransit_Acct(), transaction.getTrxName());
 		if (assetAccount == null || inTransitAccount == null) {
 			String err = "B_Asset and/or B_InTransit accounts do not exist";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 		assetAccount.setAccount_ID(inTransitAccount.getAccount_ID());
@@ -135,22 +145,27 @@ public class MBandaSetup {
 			String err = "B_Asset account NOT updated";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 
-		// Make the B_PaymentSelect account match the V_Liability account
-		MAccount paymentSelectAccount = (MAccount) MTable.get(ctx, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getB_PaymentSelect_Acct(), trx.getTrxName());
-		MAccount liabilityAccount = (MAccount) MTable.get(ctx, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getV_Liability_Acct(), trx.getTrxName());
+		/**
+		 * The default account mappings generated map different accounts to the Vendor Liability account (V_Liability)
+		 * and the Bank Payment Select account (B_PaymentSelect). Based on a recommendation from Chuck, we simplify
+		 * this mapping and choose to map these accounts to the same default account. So, we need to make the
+		 * B_PaymentSelect account match the V_Liability account.
+		 */
+		MAccount paymentSelectAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
+				.getPO(acctSchemaDefault.getB_PaymentSelect_Acct(), transaction.getTrxName());
+		MAccount liabilityAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
+				.getPO(acctSchemaDefault.getV_Liability_Acct(), transaction.getTrxName());
 		if (paymentSelectAccount == null || liabilityAccount == null) {
 			String err = "B_PaymentSelect and/or V_Liability accounts do not exist";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 		paymentSelectAccount.setAccount_ID(liabilityAccount.getAccount_ID());
@@ -159,22 +174,29 @@ public class MBandaSetup {
 			String err = "B_PaymentSelect account NOT updated";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 
 		return true;
 	}
 
+	/**
+	 * Create bank accounts for the client
+	 * @param wantsCashBox
+	 * @param wantsMobile
+	 * @param wantsSavings
+	 * @return
+	 */
 	public boolean createBankAccounts(boolean wantsCashBox, boolean wantsMobile, boolean wantsSavings) {
 		info = new StringBuffer();
 
-		MClient client = (MClient) MTable.get(ctx, MClient.Table_ID).getPO(clientId, trx.getTrxName());
+		MClient client = (MClient) MTable.get(context, MClient.Table_ID).getPO(clientId, transaction.getTrxName());
 
 		String clientName = client.getName();
 
-		MBank clientsBank = new MBank(ctx, 0, trx.getTrxName());
+		MBank clientsBank = new MBank(context, 0, transaction.getTrxName());
 		clientsBank.setName(clientName + " Bank");
 		clientsBank.setDescription(clientsBank.getName());
 		clientsBank.setRoutingNo("DefaultRouteNo");
@@ -189,8 +211,8 @@ public class MBandaSetup {
 			String err = "Bank NOT inserted";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 
@@ -225,33 +247,30 @@ public class MBandaSetup {
 		info = new StringBuffer();
 
 		// First, create the default charge category
-		MChargeType_BH defaultCategory = new MChargeType_BH(ctx, 0, trx.getTrxName());
+		MChargeType_BH defaultCategory = new MChargeType_BH(context, 0, transaction.getTrxName());
 		defaultCategory.setName(MChargeType_BH.CHARGETYPENAME_DEFAULT_CATEGORY);
 		if (!defaultCategory.save()) {
 			String err = "Default Category Charge Type NOT inserted";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 
 		// Get all active, default charges from the system
 		List<MBHChargeDefault> defaultCharges = new Query(
-				ctx,
+				context,
 				MBHChargeDefault.Table_Name,
-				"1=1",
-				trx.getTrxName()
+				null,
+				transaction.getTrxName()
 		)
 				.setOnlyActiveRecords(true)
 				.list();
-		if (defaultCharges == null) {
-			defaultCharges = new ArrayList<MBHChargeDefault>();
-		}
 
 		for (MBHChargeDefault defaultCharge : defaultCharges) {
 			// Create a new charge based on this default charge
-			MCharge_BH chargeToAdd = new MCharge_BH(ctx, 0, trx.getTrxName());
+			MCharge_BH chargeToAdd = new MCharge_BH(context, 0, transaction.getTrxName());
 			chargeToAdd.setName(defaultCharge.getName());
 			chargeToAdd.setDescription(defaultCharge.getDescription());
 			chargeToAdd.setBH_Locked(true);
@@ -260,8 +279,8 @@ public class MBandaSetup {
 				String err = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 
@@ -271,35 +290,35 @@ public class MBandaSetup {
 				String err = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 			// Now get the charge's accounting mapping
-			X_C_Charge_Acct chargeAcctToModify = new Query(
-					ctx,
+			X_C_Charge_Acct chargeAccountToModify = new Query(
+					context,
 					X_C_Charge_Acct.Table_Name,
 					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
-					trx.getTrxName()
+					transaction.getTrxName()
 			)
 					.setParameters(chargeToAdd.getC_Charge_ID())
 					.first();
-			if (chargeAcctToModify == null) {
+			if (chargeAccountToModify == null) {
 				String err = "Charge Account does not exist";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 			// Point the charge to our valid combination
-			chargeAcctToModify.setCh_Expense_Acct(chargeExpenseAccount.getC_ValidCombination_ID());
-			if (!chargeAcctToModify.save()) {
+			chargeAccountToModify.setCh_Expense_Acct(chargeExpenseAccount.getC_ValidCombination_ID());
+			if (!chargeAccountToModify.save()) {
 				String err = "Charge Account NOT updated";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 		}
@@ -307,25 +326,26 @@ public class MBandaSetup {
 		return true;
 	}
 
+	/**
+	 * These creates the default product categories for a client
+	 * @return
+	 */
 	public boolean createDefaultProductCategories() {
 		info = new StringBuffer();
 
 		// Get all active, default product categories from the system
 		List<MBHProductCategoryDefault> defaultProductCategories = new Query(
-				ctx,
+				context,
 				MBHProductCategoryDefault.Table_Name,
-				"1=1",
-				trx.getTrxName()
+				null,
+				transaction.getTrxName()
 		)
 				.setOnlyActiveRecords(true)
 				.list();
-		if (defaultProductCategories == null) {
-			defaultProductCategories = new ArrayList<MBHProductCategoryDefault>();
-		}
 
 		for (MBHProductCategoryDefault defaultProductCategory : defaultProductCategories) {
 			// Create a new product category based on this default product category
-			MProductCategory_BH productCategoryToAdd = new MProductCategory_BH(ctx, 0, trx.getTrxName());
+			MProductCategory_BH productCategoryToAdd = new MProductCategory_BH(context, 0, transaction.getTrxName());
 			productCategoryToAdd.setAD_Org_ID(orgId);
 			productCategoryToAdd.setName(defaultProductCategory.getName());
 			productCategoryToAdd.setIsActive(true);
@@ -336,8 +356,8 @@ public class MBandaSetup {
 				String err = "Default Product Category NOT inserted";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 
@@ -347,16 +367,16 @@ public class MBandaSetup {
 				String err = "Default Product Category Valid Combination NOT inserted";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 			// Now get the product category's accounting mapping
 			MProductCategoryAcct productCategoryAccountToModify = new Query(
-					ctx,
+					context,
 					MProductCategoryAcct.Table_Name,
 					MProductCategoryAcct.COLUMNNAME_M_Product_Category_ID + "=?",
-					trx.getTrxName()
+					transaction.getTrxName()
 			)
 					.setParameters(productCategoryToAdd.getM_Product_Category_ID())
 					.first();
@@ -364,8 +384,8 @@ public class MBandaSetup {
 				String err = "Product Category Account does not exist";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 			// Point the product category to our valid combination
@@ -374,8 +394,8 @@ public class MBandaSetup {
 				String err = "Product Category Account NOT updated";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 		}
@@ -387,57 +407,61 @@ public class MBandaSetup {
 		throw new UnsupportedOperationException("This method has not been implemented yet.");
 	}
 
+	/**
+	 * Create payment bank account mappings for the client
+	 * @return
+	 */
 	private boolean createPaymentBankAccountMappings() {
 		MReference paymentBankAccountMappingReference = new Query(
-				ctx,
+				context,
 				MReference.Table_Name,
 				MReference.COLUMNNAME_AD_Reference_UU + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(MBandaSetup.REFERENCE_PAYMENT_REF_UU)
 				.first();
 		if (paymentBankAccountMappingReference == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 		MRefTable paymentBankAccountMappingsReferenceLimiting = new Query(
-				ctx,
+				context,
 				MRefTable.Table_Name,
 				MRefTable.COLUMNNAME_AD_Reference_ID + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(paymentBankAccountMappingReference.getAD_Reference_ID())
 				.first();
 		if (paymentBankAccountMappingsReferenceLimiting == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 
 		// So that we don't have to hard code these values, get the ones stored for the screen's dynamic validation
 		List<MReference> referencesToCreatePaymentMappingsFor = new Query(
-				ctx,
+				context,
 				MReference.Table_Name,
 				paymentBankAccountMappingsReferenceLimiting.getWhereClause(),
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.list();
 		if (referencesToCreatePaymentMappingsFor == null) {
 			referencesToCreatePaymentMappingsFor = new ArrayList<MReference>();
 		}
 		for (MReference referenceToCreatePaymentMappingsFor : referencesToCreatePaymentMappingsFor) {
-			MBHPaymentRef paymentRef = new MBHPaymentRef(ctx, 0, trx.getTrxName());
+			MBHPaymentRef paymentRef = new MBHPaymentRef(context, 0, transaction.getTrxName());
 			paymentRef.setAD_Org_ID(orgId);
 			paymentRef.setAD_Reference_ID(referenceToCreatePaymentMappingsFor.getAD_Reference_ID());
 			if (!paymentRef.save()) {
 				String err = "Payment Bank Account mapping NOT inserted";
 				log.log(Level.SEVERE, err);
 				info.append(err);
-				trx.rollback();
-				trx.close();
+				transaction.rollback();
+				transaction.close();
 				return false;
 			}
 		}
@@ -445,9 +469,18 @@ public class MBandaSetup {
 		return true;
 	}
 
+	/**
+	 * Create a bank account for the client and assign it to the bank
+	 * @param clientName
+	 * @param accountName
+	 * @param isDefault
+	 * @param bankId
+	 * @param inTransitAccountValue
+	 * @return
+	 */
 	private boolean createAndSaveBankAccount(String clientName, String accountName, boolean isDefault,
 																					 int bankId, String inTransitAccountValue) {
-		MBankAccount bankAccount = new MBankAccount(ctx, 0, trx.getTrxName());
+		MBankAccount bankAccount = new MBankAccount(context, 0, transaction.getTrxName());
 		bankAccount.setIsActive(true);
 		bankAccount.setIsDefault(isDefault);
 		bankAccount.setName(clientName + " " + accountName + " Account");
@@ -462,8 +495,8 @@ public class MBandaSetup {
 			String err = accountName + " Bank Account NOT inserted";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return true;
 		}
 
@@ -479,19 +512,25 @@ public class MBandaSetup {
 		return updateAccountMappingsForBankAccount(bankAccount, inTransitAccount);
 	}
 
+	/**
+	 * Update the account mappings for the bank accounts that are created.
+	 * @param bankAccount
+	 * @param inTransitAccount
+	 * @return
+	 */
 	private boolean updateAccountMappingsForBankAccount(MBankAccount bankAccount, MAccount inTransitAccount) {
 		X_C_BankAccount_Acct accountMapping = new Query(
-				ctx,
+				context,
 				X_C_BankAccount_Acct.Table_Name,
 				X_C_BankAccount_Acct.COLUMNNAME_C_BankAccount_ID + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(bankAccount.getC_BankAccount_ID())
 				.first();
 		if (accountMapping == null) {
 			log.severe("No Account Mapping for Bank Account");
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 		if (inTransitAccount != null) {
@@ -502,20 +541,25 @@ public class MBandaSetup {
 			String err = "Account Mapping NOT updated";
 			log.log(Level.SEVERE, err);
 			info.append(err);
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return false;
 		}
 
 		return true;
 	}
 
+	/**
+	 * Get the valid combination for an account or create one if none currently exists and return it.
+	 * @param accountValue
+	 * @return
+	 */
 	private MAccount getOrCreateValidCombination(String accountValue) {
 		MElementValue accountElement = new Query(
-				ctx,
+				context,
 				MElementValue.Table_Name,
 				MElementValue.COLUMNNAME_Value + "=? AND " + MElementValue.COLUMNNAME_AD_Client_ID + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(accountValue, clientId)
 				.first();
@@ -524,10 +568,10 @@ public class MBandaSetup {
 		}
 		// See if an account already exists for this account value
 		MAccount account = new Query(
-				ctx,
+				context,
 				MAccount.Table_Name,
 				MAccount.COLUMNNAME_AD_Client_ID + "=? AND " + MAccount.COLUMNNAME_Account_ID + "=?",
-				trx.getTrxName()
+				transaction.getTrxName()
 		)
 				.setParameters(accountElement.getAD_Client_ID(), accountElement.getC_ElementValue_ID())
 				.first();
@@ -535,14 +579,14 @@ public class MBandaSetup {
 			return account;
 		}
 		
-		account = new MAccount(ctx, 0, trx.getTrxName());
+		account = new MAccount(context, 0, transaction.getTrxName());
 		account.setC_AcctSchema_ID(accountSchema.getC_AcctSchema_ID());
 		account.setAccount_ID(accountElement.getC_ElementValue_ID());
 		account.setValueDescription();
 		if (!account.save()) {
 			log.severe("Account NOT inserted");
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 			return null;
 		}
 		return account;
@@ -587,8 +631,8 @@ public class MBandaSetup {
 	 */
 	public void rollback() {
 		try {
-			trx.rollback();
-			trx.close();
+			transaction.rollback();
+			transaction.close();
 		} catch (Exception e) {}
 	}
 }
