@@ -199,14 +199,14 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 */
 	private boolean importCoA(String coaFileToImport) throws IOException, SQLException {
 		// We'll create a local transaction for this because it'll be needed later
-		Trx localTrx = Trx.get(Trx.createTrxName(PREFIX_PROCESS_TRANSACTION_NAME), true);
-		localTrx.start();
+		Trx localTransaction = Trx.get(Trx.createTrxName(PREFIX_PROCESS_TRANSACTION_NAME), true);
+		localTransaction.start();
 
 		MImpFormat accountingFormat = new Query(
 				getCtx(),
 				MImpFormat.Table_Name,
 				MImpFormat.COLUMNNAME_AD_ImpFormat_UU + "=?",
-				localTrx.getTrxName()
+				localTransaction.getTrxName()
 		)
 				.setParameters(MBandaSetup.IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU)
 				.first();
@@ -215,7 +215,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			String err = "Accounting Format do not exist";
 			log.log(Level.SEVERE, err);
 			addLog(err);
-			localTrx.close();
+			localTransaction.close();
 			return false;
 		}
 
@@ -232,15 +232,15 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			if (line.contains("[Account_Value]")) {
 				continue;
 			}
-			if (coaFormat.updateDB(getCtx(), line, localTrx.getTrxName())) {
+			if (coaFormat.updateDB(getCtx(), line, localTransaction.getTrxName())) {
 				importedRows++;
 			}
 		}
 		reader.close();
 		addLog("Imported " + importedRows + " of " + totalRows + " rows of the Banda CoA file.");
 
-		boolean success = localTrx.commit(false);
-		localTrx.close();
+		boolean success = localTransaction.commit(false);
+		localTransaction.close();
 		return success;
 	}
 
