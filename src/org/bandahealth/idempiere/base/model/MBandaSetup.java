@@ -50,6 +50,12 @@ public class MBandaSetup {
 	public static final String ACCOUNTNAME_MOBILE = "Mobile";
 	public static final String ACCOUNTNAME_SAVINGS = "Savings";
 
+	private final String BANK_DEFAULT_ROUTING_NUMBER = "DefaultRouteNo";
+	private final String SUFFIX_TRANSACTION_NAME = "_createClient_BH";
+	private final String SUFFIX_BANK_NAME = " Bank";
+	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
+	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
+
 	/* The UU of the Payment Reference Reference */
 	public static final String REFERENCE_PAYMENT_REF_UU = "5943153c-cf7b-4bd1-96b7-ff36d1c0f860";
 	/* The UU of the Accounting - Accounts import format */
@@ -90,7 +96,7 @@ public class MBandaSetup {
 	}
 
 	public void start() {
-		transaction.setDisplayName(getClass().getName()+"_createClient_BH");
+		transaction.setDisplayName(getClass().getName()+SUFFIX_TRANSACTION_NAME);
 		transaction.start();
 	}
 
@@ -197,9 +203,9 @@ public class MBandaSetup {
 		String clientName = client.getName();
 
 		MBank clientsBank = new MBank(context, 0, transaction.getTrxName());
-		clientsBank.setName(clientName + " Bank");
+		clientsBank.setName(clientName + SUFFIX_BANK_NAME);
 		clientsBank.setDescription(clientsBank.getName());
-		clientsBank.setRoutingNo("DefaultRouteNo");
+		clientsBank.setRoutingNo(BANK_DEFAULT_ROUTING_NUMBER);
 
 		clientsBank.setIsOwnBank(true);
 		clientsBank.setIsActive(true);
@@ -483,10 +489,10 @@ public class MBandaSetup {
 		MBankAccount bankAccount = new MBankAccount(context, 0, transaction.getTrxName());
 		bankAccount.setIsActive(true);
 		bankAccount.setIsDefault(isDefault);
-		bankAccount.setName(clientName + " " + accountName + " Account");
+		bankAccount.setName(clientName + " " + accountName + SUFFIX_BANK_ACCOUNT_NAME);
 		bankAccount.setAD_Org_ID(orgId);
 		bankAccount.setC_Bank_ID(bankId);
-		bankAccount.setAccountNo(accountName + "AccountNo");
+		bankAccount.setAccountNo(accountName + SUFFIX_BANK_ACCOUNT_NUMBER);
 		bankAccount.setC_Currency_ID(accountSchema.getC_Currency_ID());
 		bankAccount.setBankAccountType(MBankAccount.BANKACCOUNTTYPE_Cash);
 

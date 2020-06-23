@@ -44,6 +44,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private String orgName = null;
 	private String clientLevel = CLIENTLEVEL_BASIC;
 
+	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
+
 	private int usersClientId;
 
 	// [$IDEMPIERE-HOME]/data/import/
@@ -197,7 +199,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 */
 	private boolean importCoA(String coaFileToImport) throws IOException, SQLException {
 		// We'll create a local transaction for this because it'll be needed later
-		Trx localTrx = Trx.get(Trx.createTrxName("Setup_accountImport"), true);
+		Trx localTrx = Trx.get(Trx.createTrxName(PREFIX_PROCESS_TRANSACTION_NAME), true);
 		localTrx.start();
 
 		MImpFormat accountingFormat = new Query(
