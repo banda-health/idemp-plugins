@@ -36,6 +36,20 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String CLIENTLEVEL_BASIC = "B";
 	public static final String CLIENTLEVEL_INTERMEDIATE = "I";
 	public static final String CLIENTLEVEL_ADVANCED = "A";
+	
+	public static final String PARAMETERNAME_IS_USING_CASH_BOX = "IsUsingCashBox";
+	public static final String PARAMETERNAME_IS_USING_MOBILE = "IsUsingMobile";
+	public static final String PARAMETERNAME_IS_USING_SAVINGS = "IsUsingSavings";
+	public static final String PARAMETERNAME_CLIENT_NAME = "ClientName";
+	public static final String PARAMETERNAME_ORG_NAME = "OrgName";
+	public static final String PARAMETERNAME_CLIENT_LEVEL = "ClientLevel";
+	public static final String PARAMETERNAME_AD_CLIENT_ID = "AD_Client_ID";
+	public static final String PARAMETERNAME_C_ELEMENT_ID = "C_Element_ID";
+	public static final String PARAMETERNAME_UPDATE_DEFAULT_ACCOUNTS = "UpdateDefaultAccounts";
+	public static final String PARAMETERNAME_CREATE_NEW_COMBINATION = "CreateNewCombination";
+	public static final String PARAMETERNAME_DELETE_OLD_IMPORTED = "DeleteOldImported";
+	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
+	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
 
 	private boolean wantsCashBoxAccount = false;
 	private boolean wantsMobileAccount = false;
@@ -73,22 +87,22 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				continue;
 			}
 			switch (name) {
-				case "IsUsingCashBox":
+				case PARAMETERNAME_IS_USING_CASH_BOX:
 					wantsCashBoxAccount = processInfoParameter.getParameterAsBoolean();
 					break;
-				case "IsUsingMobile":
+				case PARAMETERNAME_IS_USING_MOBILE:
 					wantsMobileAccount = processInfoParameter.getParameterAsBoolean();
 					break;
-				case "IsUsingSavings":
+				case PARAMETERNAME_IS_USING_SAVINGS:
 					wantsSavingsAccount = processInfoParameter.getParameterAsBoolean();
 					break;
-				case "ClientName":
+				case PARAMETERNAME_CLIENT_NAME:
 					clientName = processInfoParameter.getParameterAsString();
 					break;
-				case "OrgName":
+				case PARAMETERNAME_ORG_NAME:
 					orgName = processInfoParameter.getParameterAsString();
 					break;
-				case "ClientLevel":
+				case PARAMETERNAME_CLIENT_LEVEL:
 					clientLevel = processInfoParameter.getParameterAsString();
 					break;
 			}
@@ -261,16 +275,16 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), "C_Element doesn't exist for client"));
 		}
 		// The process likes it's client ID as a BigDecimal for some reason
-		addParameter(new ProcessInfoParameter("AD_Client_ID", new BigDecimal(bandaSetup.getAD_Client_ID()),
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_AD_CLIENT_ID, new BigDecimal(bandaSetup.getAD_Client_ID()),
 				null, null, null));
 		// The process likes it's C_Element_ID as a BigDecimal for some reason
-		addParameter(new ProcessInfoParameter("C_Element_ID", new BigDecimal(elementId),
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_C_ELEMENT_ID, new BigDecimal(elementId),
 				null, null, null));
-		addParameter(new ProcessInfoParameter("UpdateDefaultAccounts", "Y",
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_UPDATE_DEFAULT_ACCOUNTS, "Y",
 				null, null, null));
-		addParameter(new ProcessInfoParameter("CreateNewCombination", "Y",
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_CREATE_NEW_COMBINATION, "Y",
 				null, null, null));
-		addParameter(new ProcessInfoParameter("DeleteOldImported", "Y",
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_DELETE_OLD_IMPORTED, "Y",
 				null, null, null));
 	}
 
@@ -279,13 +293,13 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 */
 	private void addCoAFileValueToParametersBasedOnClientType() {
 		addParameter(new ProcessInfoParameter(
-				"CoAFile",
+				PARAMETERNAME_COA_FILE,
 				MSysConfig.getValue(MSysConfig_BH.DEFAULT_INITIAL_COA_PATH, coaInitialAccountsFile),
 				null,
 				null,
 				null
 		));
-		addParameter(new ProcessInfoParameter("UseDefaultCoA", "N",
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_USE_DEFAULT_COA, "N",
 				null, null, null));
 	}
 
