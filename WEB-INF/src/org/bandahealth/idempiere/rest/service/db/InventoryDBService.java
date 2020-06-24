@@ -43,54 +43,43 @@ public class InventoryDBService {
 			String sortOrder) throws DBException {
 		List<Inventory> results = new ArrayList<>();
 
-		List<String> viewColumnsToUse = new ArrayList<>(Arrays.asList(
-				X_BH_Stocktake_v.COLUMNNAME_M_Product_ID,
-				X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
-				X_BH_Stocktake_v.COLUMNNAME_Product,
-				X_BH_Stocktake_v.COLUMNNAME_expirationdate,
-				X_BH_Stocktake_v.COLUMNNAME_quantity,
-				X_BH_Stocktake_v.COLUMNNAME_ShelfLifeDays,
-				X_BH_Stocktake_v.COLUMNNAME_M_AttributeSetInstance_ID,
-				X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID,
-				X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID,
-				X_BH_Stocktake_v.COLUMNNAME_Created,
-				X_BH_Stocktake_v.COLUMNNAME_CreatedBy,
-				X_BH_Stocktake_v.COLUMNNAME_Description
-		));
+		List<String> viewColumnsToUse = new ArrayList<>(
+				Arrays.asList(X_BH_Stocktake_v.COLUMNNAME_M_Product_ID, X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
+						X_BH_Stocktake_v.COLUMNNAME_Product, X_BH_Stocktake_v.COLUMNNAME_expirationdate,
+						X_BH_Stocktake_v.COLUMNNAME_quantity, X_BH_Stocktake_v.COLUMNNAME_ShelfLifeDays,
+						X_BH_Stocktake_v.COLUMNNAME_M_AttributeSetInstance_ID, X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID,
+						X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID, X_BH_Stocktake_v.COLUMNNAME_Created,
+						X_BH_Stocktake_v.COLUMNNAME_CreatedBy, X_BH_Stocktake_v.COLUMNNAME_Description));
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT ").append(String.join(", ", viewColumnsToUse))
-				.append(" FROM ").append(X_BH_Stocktake_v.Table_Name).append(" WHERE ")
-				.append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID).append(" =?").append(AND_OPERATOR)
-				.append(X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID).append(" =?");
+		sql.append("SELECT ").append(String.join(", ", viewColumnsToUse)).append(" FROM ")
+				.append(X_BH_Stocktake_v.Table_Name).append(" WHERE ").append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID)
+				.append(" =?").append(AND_OPERATOR).append(X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID).append(" =?");
 
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
 		if (searchValue != null && !searchValue.isEmpty()) {
-			sql
-					.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product)
-					.append(") ").append(LIKE_COMPARATOR).append(" ?");
+			sql.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product).append(") ")
+					.append(LIKE_COMPARATOR).append(" ?");
 			parameters.add("%" + searchValue.toLowerCase() + "%");
 		}
 
 		sql.append(" order by ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
-				&& viewColumnsToUse.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
+		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty() && viewColumnsToUse
+				.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
 			sql.append(sortColumn).append(" ").append(sortOrder).append(ORDERBY_NULLS_LAST);
 		} else {
-			sql
-					.append(X_BH_Stocktake_v.COLUMNNAME_Product)
-					.append(" ")
-					.append(ASCENDING_ORDER)
+			sql.append(X_BH_Stocktake_v.COLUMNNAME_Product).append(" ").append(ASCENDING_ORDER)
 					.append(ORDERBY_NULLS_LAST);
 		}
 
 		String sqlToUse = sql.toString();
 		if (pagingInfo.getPageSize() > 0) {
 			if (DB.getDatabase().isPagingSupported()) {
-				sqlToUse = DB.getDatabase().addPagingSQL(sqlToUse, (pagingInfo.getPageSize() * pagingInfo.getPage()) + 1,
+				sqlToUse = DB.getDatabase().addPagingSQL(sqlToUse,
+						(pagingInfo.getPageSize() * pagingInfo.getPage()) + 1,
 						pagingInfo.getPageSize() * (pagingInfo.getPage() + 1));
 			}
 		}
@@ -102,7 +91,7 @@ public class InventoryDBService {
 			DB.setParameters(statement, parameters);
 
 			// get total count without pagination parameters
-			pagingInfo.setTotalRecordCount(statement.getFetchSize());
+			pagingInfo.setTotalRecordCount(getTotalRecordCount(searchValue));
 
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -122,5 +111,53 @@ public class InventoryDBService {
 		}
 
 		return new BaseListResponse<Inventory>(results, pagingInfo);
+	}
+
+	/**
+	 * Get Total Count
+	 * 
+	 * @param searchValue
+	 * @return
+	 */
+	private int getTotalRecordCount(String searchValue) {
+		int totalRecordCount = 0;
+
+		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ");
+		sql.append(X_BH_Stocktake_v.Table_Name).append(" WHERE ").append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID)
+				.append(" =?").append(AND_OPERATOR).append(X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID).append(" =?");
+
+		List<Object> parameters = new ArrayList<>();
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
+
+		if (searchValue != null && !searchValue.isEmpty()) {
+			sql.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product).append(") ")
+					.append(LIKE_COMPARATOR).append(" ?");
+			parameters.add("%" + searchValue.toLowerCase() + "%");
+		}
+
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		String sqlTotalCount = sql.toString();
+		try {
+			statement = DB.prepareStatement(sqlTotalCount, null);
+			DB.setParameters(statement, parameters);
+
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				totalRecordCount = resultSet.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			log.log(Level.SEVERE, sqlTotalCount, e);
+			throw new DBException(e, sqlTotalCount);
+		} finally {
+			DB.close(resultSet, statement);
+			resultSet = null;
+			statement = null;
+		}
+
+		return totalRecordCount;
+
 	}
 }
