@@ -285,4 +285,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return null;
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

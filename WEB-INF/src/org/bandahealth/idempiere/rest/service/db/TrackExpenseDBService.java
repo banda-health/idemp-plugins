@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -10,6 +11,9 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.TrackExpense;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.MOrder;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * Track Expenses logic
@@ -109,5 +113,17 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	@Override
 	protected TrackExpense createInstanceWithSearchFields(MOrder_BH instance) {
 		return createInstanceWithDefaultFields(instance);
+	}
+
+	
+	@Override
+	public Boolean deleteEntity(String uuid) {
+		try {
+			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU+ "=?", null)
+					.setParameters(uuid).first();
+			return order.delete(false);
+		} catch (Exception ex) {
+			throw new AdempiereException(ex.getLocalizedMessage());
+		}
 	}
 }

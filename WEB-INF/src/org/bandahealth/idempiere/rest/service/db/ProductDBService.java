@@ -266,4 +266,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public MProduct getProductByID(int id) {
 		return MProduct_BH.get(Env.getCtx(), id);
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

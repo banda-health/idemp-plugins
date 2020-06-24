@@ -109,4 +109,10 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 	protected ReceiveProduct createInstanceWithSearchFields(MOrder_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

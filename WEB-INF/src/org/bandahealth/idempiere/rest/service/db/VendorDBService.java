@@ -103,4 +103,10 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 	protected MBPartner_BH getModelInstance() {
 		return new MBPartner_BH(Env.getCtx(), 0, null);
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

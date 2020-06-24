@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -10,9 +11,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.TrackExpense;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.TrackExpenseDBService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Expose TrackExpense REST functionality
@@ -73,4 +76,11 @@ public class TrackExpenseRestService extends BaseEntityRestService<TrackExpense>
 	public TrackExpense saveAndProcessVisit(TrackExpense entity) {
 		return dbService.saveAndProcessEntity(entity);
 	}
+	
+	@DELETE
+	@Path(IRestConfigs.TRACK_EXPENSE_PATH)
+	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
+		return dbService.deleteEntity(uuid);
+	}
+
 }

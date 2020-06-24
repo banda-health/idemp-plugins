@@ -126,4 +126,10 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	protected MProduct_BH getModelInstance() {
 		return new MProduct_BH(Env.getCtx(), 0, null);
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

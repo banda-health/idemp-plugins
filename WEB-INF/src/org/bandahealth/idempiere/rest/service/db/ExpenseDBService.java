@@ -1,12 +1,16 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
+import org.compiere.model.MOrder;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
@@ -57,6 +61,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 		}
 	}
 
+
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
 	}
@@ -101,5 +106,11 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	@Override
 	protected MCharge getModelInstance() {
 		return new MCharge(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
