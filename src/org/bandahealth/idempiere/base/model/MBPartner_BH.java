@@ -68,6 +68,9 @@ public class MBPartner_BH extends MBPartner {
 
 	/** Column name NHIF_Number */
 	public static final String COLUMNNAME_NHIF_Number = "NHIF_Number";
+	
+	/** Column name BH_Local_PatientID */
+	public static final String COLUMNNAME_BH_Local_PatientID = "BH_Local_PatientID";
 
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
@@ -403,5 +406,22 @@ public class MBPartner_BH extends MBPartner {
 	public String getNHIF_Number ()
 	{
 		return (String)get_Value(COLUMNNAME_NHIF_Number);
+	}
+	
+	/** Set Local Patient ID.
+	 @param BH_PatientID
+	 A unique identifier for users to manually enter
+	 */
+	public void setBH_Local_PatientID (String BH_Local_PatientID)
+	{
+		set_Value (COLUMNNAME_BH_Local_PatientID, BH_Local_PatientID);
+	}
+
+	/** Get Patient ID.
+	 @return A unique identifier for users to manually enter
+	 */
+	public String getBH_Local_PatientID ()
+	{
+		return (String)get_Value(COLUMNNAME_BH_Local_PatientID);
 	}
 }
