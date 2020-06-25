@@ -119,9 +119,16 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	@Override
 	public Boolean deleteEntity(String uuid) {
 		try {
-			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU+ "=?", null)
+			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU + "=?", null)
 					.setParameters(uuid).first();
-			return order.delete(false);
+			if(order.isSOTrx()) {
+				throw new AdempiereException("Document is not an Expense");
+//				return order.delete(false);
+			} if (order.isComplete()) {
+				throw new AdempiereException("Expense is already completed");
+			} else {
+				return order.delete(false);
+			}
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}

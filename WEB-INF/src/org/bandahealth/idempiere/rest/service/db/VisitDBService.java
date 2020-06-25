@@ -5,11 +5,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.*;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -287,8 +289,20 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
-	public Boolean deleteEntity(String entityUuid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean deleteEntity(String uuid) {
+		try {
+			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU + "=?", null)
+					.setParameters(uuid).first();
+			if(!order.isSOTrx()) {
+				throw new AdempiereException("Document id not a Visit");
+//				return order.delete(false);
+			} if (order.isComplete()) {
+				throw new AdempiereException("Visit is already completed");
+			} else {
+				return order.delete(false);
+			}
+		} catch (Exception ex) {
+			throw new AdempiereException(ex.getLocalizedMessage());
+		}
 	}
 }

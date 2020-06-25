@@ -11,11 +11,9 @@ import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.TrackExpense;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.TrackExpenseDBService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Expose TrackExpense REST functionality
