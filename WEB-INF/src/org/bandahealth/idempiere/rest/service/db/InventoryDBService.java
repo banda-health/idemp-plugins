@@ -91,7 +91,7 @@ public class InventoryDBService {
 			DB.setParameters(statement, parameters);
 
 			// get total count without pagination parameters
-			pagingInfo.setTotalRecordCount(getTotalRecordCount(searchValue));
+			pagingInfo.setTotalRecordCount(statement.getFetchSize());
 
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -111,53 +111,5 @@ public class InventoryDBService {
 		}
 
 		return new BaseListResponse<Inventory>(results, pagingInfo);
-	}
-
-	/**
-	 * Get Total Count
-	 * 
-	 * @param searchValue
-	 * @return
-	 */
-	private int getTotalRecordCount(String searchValue) {
-		int totalRecordCount = 0;
-
-		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ");
-		sql.append(X_BH_Stocktake_v.Table_Name).append(" WHERE ").append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID)
-				.append(" =?").append(AND_OPERATOR).append(X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID).append(" =?");
-
-		List<Object> parameters = new ArrayList<>();
-		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
-
-		if (searchValue != null && !searchValue.isEmpty()) {
-			sql.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product).append(") ")
-					.append(LIKE_COMPARATOR).append(" ?");
-			parameters.add("%" + searchValue.toLowerCase() + "%");
-		}
-
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		String sqlTotalCount = sql.toString();
-		try {
-			statement = DB.prepareStatement(sqlTotalCount, null);
-			DB.setParameters(statement, parameters);
-
-			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				totalRecordCount = resultSet.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			log.log(Level.SEVERE, sqlTotalCount, e);
-			throw new DBException(e, sqlTotalCount);
-		} finally {
-			DB.close(resultSet, statement);
-			resultSet = null;
-			statement = null;
-		}
-
-		return totalRecordCount;
-
 	}
 }
