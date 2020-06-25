@@ -83,7 +83,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 				.addJoinClause("JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
 						+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
 						+ MBPartner_BH.COLUMNNAME_C_BPartner_ID)
-				.setClient_ID().setOnlyActiveRecords(true);
+				.setClient_ID();
 
 		String orderBy = getOrderBy(sortColumn, sortOrder);
 		if (orderBy != null) {
