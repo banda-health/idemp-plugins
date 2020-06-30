@@ -51,9 +51,9 @@ public class InventoryDBService {
 						X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID, X_BH_Stocktake_v.COLUMNNAME_Created,
 						X_BH_Stocktake_v.COLUMNNAME_CreatedBy, X_BH_Stocktake_v.COLUMNNAME_Description));
 
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT ").append(String.join(", ", viewColumnsToUse)).append(" FROM ")
-				.append(X_BH_Stocktake_v.Table_Name).append(" WHERE ").append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID)
+		StringBuilder sqlSelect = new StringBuilder().append("SELECT ").append(String.join(", ", viewColumnsToUse))
+				.append(" FROM ").append(X_BH_Stocktake_v.Table_Name).append(" ");
+		StringBuilder sqlWhere = new StringBuilder().append("WHERE ").append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID)
 				.append(" =?").append(AND_OPERATOR).append(X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID).append(" =?");
 
 		List<Object> parameters = new ArrayList<>();
@@ -61,21 +61,26 @@ public class InventoryDBService {
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
 		if (searchValue != null && !searchValue.isEmpty()) {
-			sql.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product).append(") ")
-					.append(LIKE_COMPARATOR).append(" ?");
+			sqlWhere
+					.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product)
+					.append(") ").append(LIKE_COMPARATOR).append(" ?");
 			parameters.add("%" + searchValue.toLowerCase() + "%");
 		}
 
-		sql.append(" order by ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty() && viewColumnsToUse
-				.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
-			sql.append(sortColumn).append(" ").append(sortOrder).append(ORDERBY_NULLS_LAST);
+		StringBuilder sqlOrderBy = new StringBuilder().append(" order by ");
+		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
+				&& viewColumnsToUse.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
+			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder).append(ORDERBY_NULLS_LAST);
 		} else {
-			sql.append(X_BH_Stocktake_v.COLUMNNAME_Product).append(" ").append(ASCENDING_ORDER)
+			sqlOrderBy
+					.append(X_BH_Stocktake_v.COLUMNNAME_Product)
+					.append(" ")
+					.append(ASCENDING_ORDER)
 					.append(ORDERBY_NULLS_LAST);
 		}
 
-		String sqlToUse = sql.toString();
+		String sqlToUse = sqlSelect.append(sqlWhere.toString()).append(sqlOrderBy.toString()).toString();
+
 		if (pagingInfo.getPageSize() > 0) {
 			if (DB.getDatabase().isPagingSupported()) {
 				sqlToUse = DB.getDatabase().addPagingSQL(sqlToUse,
@@ -91,7 +96,7 @@ public class InventoryDBService {
 			DB.setParameters(statement, parameters);
 
 			// get total count without pagination parameters
-			pagingInfo.setTotalRecordCount(getTotalRecordCount(searchValue));
+			pagingInfo.setTotalRecordCount(getTotalRecordCount(sqlWhere.toString(), parameters));
 
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -119,22 +124,11 @@ public class InventoryDBService {
 	 * @param searchValue
 	 * @return
 	 */
-	private int getTotalRecordCount(String searchValue) {
+	private int getTotalRecordCount(String sqlWhere, List<Object> parameters) {
 		int totalRecordCount = 0;
 
 		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ");
-		sql.append(X_BH_Stocktake_v.Table_Name).append(" WHERE ").append(X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID)
-				.append(" =?").append(AND_OPERATOR).append(X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID).append(" =?");
-
-		List<Object> parameters = new ArrayList<>();
-		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
-
-		if (searchValue != null && !searchValue.isEmpty()) {
-			sql.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product).append(") ")
-					.append(LIKE_COMPARATOR).append(" ?");
-			parameters.add("%" + searchValue.toLowerCase() + "%");
-		}
+		sql.append(X_BH_Stocktake_v.Table_Name).append(" ").append(sqlWhere);
 
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -160,4 +154,5 @@ public class InventoryDBService {
 		return totalRecordCount;
 
 	}
+
 }
