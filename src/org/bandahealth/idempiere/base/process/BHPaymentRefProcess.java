@@ -12,6 +12,8 @@ import java.util.logging.Level;
 
 public class BHPaymentRefProcess extends SvrProcess {
 
+	public static String PARAMETERNAME_BY_PAYMENTREF_ID = "bh_paymentref_id";
+
 	private int mbhPaymentRefId;
 
 	@Override
@@ -20,7 +22,7 @@ public class BHPaymentRefProcess extends SvrProcess {
 
 		for (ProcessInfoParameter parameter : parameters) {
 			String parameterName = parameter.getParameterName();
-			if (parameterName.equalsIgnoreCase("bh_paymentref_id")) {
+			if (parameterName.equalsIgnoreCase(PARAMETERNAME_BY_PAYMENTREF_ID)) {
 				mbhPaymentRefId = parameter.getParameterAsInt();
 			} else {
 				log.log(Level.SEVERE, "Unknown Parameter: " + parameterName);
