@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.base.process.call;
 import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.utils.EnvConstant;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -20,22 +21,22 @@ public class ExpenseProcessAsyncCall implements Runnable {
 	private String processAction;
 
 	public ExpenseProcessAsyncCall(
-			Properties ctx, int invoiceId, String processAction, ProcessCallback<String> callback) {
+			Properties context, int invoiceId, String processAction, ProcessCallback<String> callback) {
 		super();
 
-		context = new Properties();
+		this.context = new Properties();
 
-		Env.setContext(context, "#AD_Client_ID", ctx.getProperty("#AD_Client_ID"));
-		Env.setContext(context, "#AD_Org_ID", ctx.getProperty("#AD_Org_ID"));
-		Env.setContext(context, "#AD_Role_ID", ctx.getProperty("#AD_Role_ID"));
-		Env.setContext(context, "#AD_Language", ctx.getProperty("#AD_Language"));
-		Env.setContext(context, "#AD_User_ID", ctx.getProperty("#AD_User_ID"));
-		Env.setContext(context, "#Date", ctx.getProperty("#Date"));
+		Env.setContext(this.context, Env.AD_CLIENT_ID, context.getProperty(Env.AD_CLIENT_ID));
+		Env.setContext(this.context, Env.AD_ORG_ID, context.getProperty(Env.AD_ORG_ID));
+		Env.setContext(this.context, Env.AD_ROLE_ID, context.getProperty(Env.AD_ROLE_ID));
+		Env.setContext(this.context, Env.AD_USER_ID, context.getProperty(Env.AD_USER_ID));
+		Env.setContext(this.context, Env.LANGUAGE, context.getProperty(Env.LANGUAGE));
+		Env.setContext(this.context, EnvConstant.DATE, context.getProperty(EnvConstant.DATE));
 
 		transaction = Trx.get(transactionName, true);
 
 		expense = new Query(
-				context, MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_ID + "=?", transactionName)
+				this.context, MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_ID + "=?", transactionName)
 				.setParameters(invoiceId)
 				.first();
 
