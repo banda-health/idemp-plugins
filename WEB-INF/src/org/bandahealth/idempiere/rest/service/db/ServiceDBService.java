@@ -31,7 +31,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 
 	public BaseListResponse<Service> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("%" + value + "%");
+		parameters.add(constructSearchValue(value));
 		parameters.add(MProduct_BH.PRODUCTTYPE_Service);
 
 		return this.search(this.DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
