@@ -63,7 +63,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 
 	public BaseListResponse<Expense> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("%" + value + "%");
+		parameters.add(constructSearchValue(value));
 
 		return this.search(this.DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
 	}
