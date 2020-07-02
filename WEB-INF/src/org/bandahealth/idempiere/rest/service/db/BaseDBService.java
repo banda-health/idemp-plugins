@@ -100,8 +100,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		try {
 			List<T> results = new ArrayList<>();
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
-					.setOnlyActiveRecords(true);
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID();
 
 			if (joinClause != null) {
 				query.addJoinClause(joinClause);
@@ -161,8 +160,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		try {
 			List<T> results = new ArrayList<>();
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID()
-					.setOnlyActiveRecords(true);
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID();
 
 			if (joinClause != null) {
 				query.addJoinClause(joinClause);

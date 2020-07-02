@@ -60,10 +60,11 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration, String created,
-			BigDecimal sellPrice, BigDecimal priceMargin) {
+			BigDecimal sellPrice, Boolean isActive, BigDecimal priceMargin) {
 		setUuid(uuid);
 		setName(name);
 		setCreated(created);
+		setIsActive(isActive);
 
 		this.buyPrice = buyPrice;
 		this.hasExpiration = hasExpiration;
