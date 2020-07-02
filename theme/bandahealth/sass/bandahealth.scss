@@ -198,7 +198,11 @@
 				&:nth-child(1),
 				&:nth-child(2),
 				&:nth-child(5),
-				&:nth-child(n+11):nth-child(-n+50),
+				&:nth-child(9),
+				&:nth-child(10),
+				&:nth-child(11),
+				&:nth-child(12),
+				&:nth-child(n+15):nth-child(-n+50),
 				&.disableFilter,
 				img {
 					@extend %remove-element;
@@ -209,8 +213,8 @@
 				&:nth-child(6),
 				&:nth-child(7),
 				&:nth-child(8),
-				&:nth-child(9),
-				&:nth-child(10) {
+				&:nth-child(13),
+				&:nth-child(14) {
 					@extend %toolbar-button;
 					order: 10;
 					span {
@@ -263,7 +267,7 @@
 					}
 				}
 				// Delete
-				&:nth-child(9) {
+				&:nth-child(13) {
 					@extend %delete;
 					&:before {
 						@extend %far;
@@ -292,7 +296,7 @@
 					}
 				}
 				// Refresh/Re-query
-				&:nth-child(10) {
+				&:nth-child(14) {
 					margin-right: 10px;
 					order: -1;
 					&:before {
