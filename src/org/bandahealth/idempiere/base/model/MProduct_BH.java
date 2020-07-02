@@ -18,6 +18,7 @@ public class MProduct_BH extends MProduct {
 	public static final String COLUMNNAME_BH_HasExpiration = "BH_HasExpiration";
 	public static String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
 	public static String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
+	public static String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
 
 	public MProduct_BH(Properties ctx, int M_Product_ID, String trxName) {
 		super(ctx, M_Product_ID, trxName);
@@ -88,5 +89,18 @@ public class MProduct_BH extends MProduct {
 
 	public void setBH_SellPrice(BigDecimal BH_SellPrice) {
 		set_Value(COLUMNNAME_BH_SellPrice, BH_SellPrice);
+	}
+	
+	public BigDecimal getBH_PriceMargin() {
+		BigDecimal value = (BigDecimal) get_Value(COLUMNNAME_BH_PriceMargin);
+		if (value == null) {
+			return null;
+		}
+
+		return value;
+	}
+
+	public void setBH_PriceMargin(BigDecimal BH_PriceMargin) {
+		set_Value(COLUMNNAME_BH_PriceMargin, BH_PriceMargin);
 	}
 }
