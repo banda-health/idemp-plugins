@@ -42,8 +42,8 @@ public interface IRestConfigs {
 	String SERVICES_PATH = AUTHENTICATION_PATH + "/bhservices";
 	String SERVICE_PATH = "/service/{uuid}";
 
-	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
-	String EXPENSE_PATH = "/expense/{uuid}";
+	String EXPENSE_CATEGORIES_PATH = AUTHENTICATION_PATH + "/expensecategories";
+	String EXPENSE_CATEGORY_PATH = "/expensecategory/{uuid}";
 
 	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
 	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
@@ -69,6 +69,9 @@ public interface IRestConfigs {
 	String TRACK_EXPENSE_PATH = "/trackexpense/{uuid}";
 	String TRACK_EXPENSE_PROCESS_PATH = "/process/{uuid}";
 	String TRACK_EXPENSE_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+
+	String ACCOUNTS_PATH = AUTHENTICATION_PATH + "/accounts";
+	String ACCOUNTS_UUID_PATH = "/account/{uuid}";
 
 	String APPLICATION_PDF = "application/pdf";
 }

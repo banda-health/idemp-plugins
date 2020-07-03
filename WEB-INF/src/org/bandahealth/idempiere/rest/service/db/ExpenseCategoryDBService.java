@@ -1,12 +1,15 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.rest.model.Account;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Expense;
+import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
+import org.compiere.model.MElementValue;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
@@ -14,22 +17,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Expense (charge) related db operations
+ * Expense Category (charge) related db operations
  * 
  * @author andrew
  *
  */
-public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
+public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCharge_BH> {
 
-	private CLogger log = CLogger.getCLogger(ExpenseDBService.class);
+	private CLogger log = CLogger.getCLogger(ExpenseCategoryDBService.class);
+	private AccountDBService accountDBService;
 
-	public ExpenseDBService() {
+	public ExpenseCategoryDBService() {
+		this.accountDBService = new AccountDBService();
 	}
 
 	@Override
-	public Expense saveEntity(Expense entity) {
+	public ExpenseCategory saveEntity(ExpenseCategory entity) {
 		try {
-			MCharge charge = getEntityByUuidFromDB(entity.getUuid());
+			MCharge_BH charge = getEntityByUuidFromDB(entity.getUuid());
 			if (charge == null) {
 				charge = getModelInstance();
 			}
@@ -38,14 +43,11 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 				charge.setName(entity.getName());
 			}
 
-			if (entity.getAmount() != null) {
-				charge.setChargeAmt(entity.getAmount());
-			}
-
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
 				charge.setDescription(entity.getDescription());
 			}
 
+			charge.setC_ElementValue_ID(entity.getAccount().getId());
 			charge.setIsActive(entity.isIsActive());
 
 			charge.saveEx();
@@ -57,11 +59,11 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 		}
 	}
 
-	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<ExpenseCategory> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
 	}
 
-	public BaseListResponse<Expense> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<ExpenseCategory> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(value));
 
@@ -69,11 +71,13 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	}
 
 	@Override
-	protected Expense createInstanceWithDefaultFields(MCharge expense) {
+	protected ExpenseCategory createInstanceWithDefaultFields(MCharge_BH expense) {
 		try {
-			return new Expense(expense.getAD_Client_ID(), expense.getAD_Org_ID(), expense.getC_Charge_UU(),
+			MElementValue dbAccount = accountDBService.getEntityByIdFromDB(expense.getC_ElementValue_ID());
+			Account account = accountDBService.createInstanceWithAllFields((dbAccount));
+			return new ExpenseCategory(expense.getAD_Client_ID(), expense.getAD_Org_ID(), expense.getC_Charge_UU(),
 					expense.isActive(), DateUtil.parseDateOnly(expense.getCreated()), expense.getCreatedBy(),
-					expense.getName(), expense.getDescription(), expense.getChargeAmt());
+					expense.getName(), expense.getDescription(), expense.getBH_Locked(), account);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -82,15 +86,16 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	}
 
 	@Override
-	protected Expense createInstanceWithAllFields(MCharge expense) {
+	protected ExpenseCategory createInstanceWithAllFields(MCharge_BH expense) {
 		return createInstanceWithDefaultFields(expense);
 	}
 
 	@Override
-	protected Expense createInstanceWithSearchFields(MCharge expense) {
+	protected ExpenseCategory createInstanceWithSearchFields(MCharge_BH expense) {
 		try {
-			return new Expense(expense.getC_Charge_UU(), expense.getName(), expense.getChargeAmt(),
-					DateUtil.parseDateOnly(expense.getCreated()), expense.getDescription(), expense.isActive());
+			Account account = accountDBService.getEntity(expense.getC_ElementValue_ID());
+			return new ExpenseCategory(expense.getC_Charge_UU(), expense.getName(), expense.getBH_Locked(),
+					DateUtil.parseDateOnly(expense.getCreated()), expense.getDescription(), expense.isActive(), account);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -99,7 +104,7 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	}
 
 	@Override
-	protected MCharge getModelInstance() {
-		return new MCharge(Env.getCtx(), 0, null);
+	protected MCharge_BH getModelInstance() {
+		return new MCharge_BH(Env.getCtx(), 0, null);
 	}
 }

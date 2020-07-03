@@ -22,7 +22,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="MenuLineServiceBean" />
 			<ref bean="PatientSummaryServiceBean" />
 			<ref bean="ServiceRestServiceBean" />
-			<ref bean="ExpenseServiceBean" />
+			<ref bean="ExpenseCategoryServiceBean" />
+			<ref bean="AccountServiceBean" />
 			<ref bean="ProductServiceBean" />
 			<ref bean="VisitServiceBean" />
 			<ref bean="PaymentServiceBean" />
@@ -70,8 +71,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<bean id="ServiceRestServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ServiceRestService" />
 
-	<bean id="ExpenseServiceBean"
-		class="org.bandahealth.idempiere.rest.service.impl.ExpenseRestService" />
+	<bean id="ExpenseCategoryServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.ExpenseCategoryRestService" />
+
+	<bean id="AccountServiceBean"
+		  class="org.bandahealth.idempiere.rest.service.impl.AccountRestService" />
 
 	<bean id="ProductServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ProductRestService" />

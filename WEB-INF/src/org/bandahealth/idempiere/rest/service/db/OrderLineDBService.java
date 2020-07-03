@@ -3,9 +3,11 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.rest.model.Expense;
+import org.bandahealth.idempiere.rest.model.Account;
+import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -24,11 +26,13 @@ import org.compiere.util.Env;
 public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> {
 
 	private ProductDBService productDBService;
-	private ExpenseDBService expenseDBService;
+	private ExpenseCategoryDBService expenseCategoryDBService;
+	private AccountDBService accountDBService;
 
 	public OrderLineDBService() {
 		this.productDBService = new ProductDBService();
-		this.expenseDBService = new ExpenseDBService();
+		this.expenseCategoryDBService = new ExpenseCategoryDBService();
+		this.accountDBService = new AccountDBService();
 	}
 
 	@Override
@@ -43,8 +47,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setC_Order_ID(entity.getOrderId());
 		}
 
-		if (entity.getExpense() != null) {
-			MCharge charge = expenseDBService.getEntityByUuidFromDB(entity.getExpense().getUuid());
+		if (entity.getExpenseCategory() != null) {
+			MCharge charge = expenseCategoryDBService.getEntityByUuidFromDB(entity.getExpenseCategory().getUuid());
 
 			if (charge != null) {
 				mOrderLine.setC_Charge_ID(charge.get_ID());
@@ -105,12 +109,14 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 						DateUtil.parse(instance.getBH_Expiration()));
 			} else {
 				// check charge
-				MCharge charge = expenseDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
+				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
 				if (charge != null) {
+					Account account = accountDBService.getEntity(charge.getC_ElementValue_ID());
+					ExpenseCategory expenseCategory = new ExpenseCategory(charge.getC_Charge_UU(), charge.getName(),
+							charge.getBH_Locked(), account);
 					return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
 							instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-							instance.getCreatedBy(),
-							new Expense(charge.getC_Charge_UU(), charge.getName(), charge.getChargeAmt()),
+							instance.getCreatedBy(), expenseCategory,
 							instance.getC_Order_ID(), instance.getPriceActual(), instance.getQtyOrdered(),
 							instance.getLineNetAmt());
 				}

@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.math.BigDecimal;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,45 +8,51 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @XmlRootElement(name = "expense")
 @JsonInclude(value = Include.NON_NULL)
-public class Expense extends BaseEntity {
+public class ExpenseCategory extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-	private BigDecimal amount;
+	private boolean isLocked;
+	private Account account;
 
-	public Expense() {
+	public ExpenseCategory() {
 	}
 
-	public Expense(String uuid, String name, BigDecimal amount) {
+	public ExpenseCategory(String uuid, String name, boolean isLocked, Account account) {
 		setUuid(uuid);
 		setName(name);
-
-		this.amount = amount;
+		setAccount(account);
 	}
 
-	public Expense(String uuid, String name, BigDecimal amount, String created, String description, boolean isActive) {
+	public ExpenseCategory(String uuid, String name, boolean isLocked, String created, String description,
+												 boolean isActive, Account account) {
 		setUuid(uuid);
 		setName(name);
 		setDescription(description);
 		setCreated(created);
 		setIsActive(isActive);
-
-		this.amount = amount;
+		setAccount(account);
 	}
 
-	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal amount) {
+	public ExpenseCategory(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
+												 String description, boolean isLocked, Account account) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
-
-		this.amount = amount;
+		setAccount(account);
 	}
 
 	@XmlElement
-	public BigDecimal getAmount() {
-		return amount;
+	public boolean getIsLocked() {
+		return isLocked;
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setIsLocked(boolean isLocked) {
+		this.isLocked = isLocked;
+	}
+
+	@XmlElement
+	public Account getAccount() { return account; }
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 }

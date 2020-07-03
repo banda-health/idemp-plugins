@@ -10,9 +10,9 @@ import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Expense;
+import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
-import org.bandahealth.idempiere.rest.service.db.ExpenseDBService;
+import org.bandahealth.idempiere.rest.service.db.ExpenseCategoryDBService;
 
 /**
  * Expose Expenses REST functionality
@@ -20,45 +20,45 @@ import org.bandahealth.idempiere.rest.service.db.ExpenseDBService;
  * @author andrew
  *
  */
-@Path(IRestConfigs.EXPENSES_PATH)
+@Path(IRestConfigs.EXPENSE_CATEGORIES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ExpenseRestService extends BaseEntityRestService<Expense> {
+public class ExpenseCategoryRestService extends BaseEntityRestService<ExpenseCategory> {
 
-	private ExpenseDBService dbService;
+	private ExpenseCategoryDBService dbService;
 
-	public ExpenseRestService() {
-		this.dbService = new ExpenseDBService();
+	public ExpenseCategoryRestService() {
+		this.dbService = new ExpenseCategoryDBService();
 	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Expense> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
+	public BaseListResponse<ExpenseCategory> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+																									@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
-	@Path(IRestConfigs.EXPENSE_PATH)
+	@Path(IRestConfigs.EXPENSE_CATEGORY_PATH)
 	@Override
-	public Expense getEntity(@PathParam("uuid") String uuid) {
+	public ExpenseCategory getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
 	@POST
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public Expense saveEntity(Expense entity) {
+	public ExpenseCategory saveEntity(ExpenseCategory entity) {
 		return dbService.saveEntity(entity);
 	}
 
 	@POST
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
-	public BaseListResponse<Expense> search(@QueryParam("value") String value, @QueryParam("page") int page,
-			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder) {
+	public BaseListResponse<ExpenseCategory> search(@QueryParam("value") String value, @QueryParam("page") int page,
+																									@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+																									@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 }
