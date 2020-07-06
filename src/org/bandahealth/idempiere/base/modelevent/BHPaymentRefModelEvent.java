@@ -57,6 +57,12 @@ public class BHPaymentRefModelEvent extends AbstractEventHandler {
 		}
 	}
 
+	/**
+	 * Since the Reference Lists the Payment References point to are maintained elsewhere, they need
+	 * to be synced from time to time. This method takes care of adding, removing, and updating reference
+	 * list values so the lists stay in sync.
+	 * @param paymentRef
+	 */
 	public static void synchronizeReferenceListValues(MBHPaymentRef paymentRef) {
 		// Get the reference list items for each reference
 		List<MRefList> refLists = new Query(
@@ -83,7 +89,7 @@ public class BHPaymentRefModelEvent extends AbstractEventHandler {
 						"Y"
 				)
 				.first();
-		// Get the current reference values
+		// Get the current payment reference values
 		List<MBHPaymentRefBankAccount> existingPaymentRefBankAccounts = new Query(
 				Env.getCtx(),
 				MBHPaymentRefBankAccount.Table_Name,
@@ -92,12 +98,10 @@ public class BHPaymentRefModelEvent extends AbstractEventHandler {
 		)
 				.setParameters(paymentRef.getBH_PaymentRef_ID())
 				.list();
-		if (defaultBankAccount == null || refLists == null) {
+		if (defaultBankAccount == null) {
 			return;
 		}
-		if (existingPaymentRefBankAccounts == null) {
-			existingPaymentRefBankAccounts = new ArrayList<MBHPaymentRefBankAccount>();
-		}
+
 		// Pluck the reference list ids for easy comparison
 		List<Integer> existingPaymentRefBankAccountRefListIds = existingPaymentRefBankAccounts
 				.stream()
@@ -175,6 +179,10 @@ public class BHPaymentRefModelEvent extends AbstractEventHandler {
 		deleteCurrentPaymentRefBankAccounts(paymentRef);
 	}
 
+	/**
+	 * Ensure the name assigned to the payment reference matches the actual reference
+	 * @param paymentRef
+	 */
 	private void updatePaymentRefName(MBHPaymentRef paymentRef) {
 		// Set the name of this to be the reference name
 		MReference reference = new Query(
@@ -191,6 +199,10 @@ public class BHPaymentRefModelEvent extends AbstractEventHandler {
 		paymentRef.setName(reference.getName());
 	}
 
+	/**
+	 * Remove all children of this payment reference
+	 * @param paymentRef
+	 */
 	private void deleteCurrentPaymentRefBankAccounts(MBHPaymentRef paymentRef) {
 		List<MBHPaymentRefBankAccount> paymentRefBankAccounts = new Query(
 				Env.getCtx(),
@@ -200,9 +212,7 @@ public class BHPaymentRefModelEvent extends AbstractEventHandler {
 		)
 				.setParameters(paymentRef.getBH_PaymentRef_ID())
 				.list();
-		if (paymentRefBankAccounts == null) {
-			return;
-		}
+
 		for (MBHPaymentRefBankAccount paymentRefBankAccount : paymentRefBankAccounts) {
 			paymentRefBankAccount.deleteEx(true, paymentRef.get_TrxName());
 		}

@@ -17,6 +17,9 @@ import java.util.logging.Level;
 
 public class ExpenseProcess extends SvrProcess {
 
+	public static final String PARAMETERNAME_C_INVOICE_ID = "c_invoice_id";
+	public static final String PARAMETERNAME_PROCESS_ACTION = "processaction";
+
 	private final String PROCESSACTION_Complete = "Complete";
 	private final String PROCESSACTION_Remove = "Remove";
 
@@ -32,9 +35,9 @@ public class ExpenseProcess extends SvrProcess {
 
 			String parameterName = parameter.getParameterName();
 
-			if (parameterName.equalsIgnoreCase("c_invoice_id")) {
+			if (parameterName.equalsIgnoreCase(PARAMETERNAME_C_INVOICE_ID)) {
 				invoiceId = parameter.getParameterAsInt();
-			} else if (parameterName.equalsIgnoreCase("processaction")) {
+			} else if (parameterName.equalsIgnoreCase(PARAMETERNAME_PROCESS_ACTION)) {
 				String processAction = parameter.getParameterAsString();
 				if (processAction.equalsIgnoreCase(PROCESSACTION_Remove)) {
 					this.processAction = DocAction.ACTION_Reverse_Accrual;

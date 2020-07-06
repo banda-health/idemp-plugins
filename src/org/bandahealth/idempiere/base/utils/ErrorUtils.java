@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class ErrorUtils {
 
+	public static String NO_LINE_ITEMS_ENTERED_ERROR_MESSAGE_UUID = "03cb65e5-104c-4dd6-bec0-4bfe244ae804";
+
 	public static String createHtmlBody(String error, String clientName) {
 		StringBuilder output = new StringBuilder(
 				"&nbsp;Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");

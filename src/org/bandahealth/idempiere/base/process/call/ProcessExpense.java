@@ -5,6 +5,7 @@ import org.adempiere.exceptions.PeriodClosedException;
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.utils.ErrorUtils;
 import org.compiere.model.MMessage;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
@@ -77,8 +78,6 @@ public class ProcessExpense {
 			log.info("Setting accounting date to: " + expense.getDateAcct());
 		}
 
-		/* Packed out from BH_SysConfig */
-		String noLineItemsEnteredErrorMsgUuid = "03cb65e5-104c-4dd6-bec0-4bfe244ae804";
 		if (!expense.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Drafted)) {
 			callback.onError("DocStatus MUST be DRAFTED " + expense.get_ID(), context, transactionName);
 			return;
@@ -93,7 +92,7 @@ public class ProcessExpense {
 		if (lineItemsCount == 0) {
 			MMessage message = new Query(
 					context, MMessage.Table_Name, MMessage.COLUMNNAME_AD_Message_UU + "=?", null)
-					.setParameters(noLineItemsEnteredErrorMsgUuid).first();
+					.setParameters(ErrorUtils.NO_LINE_ITEMS_ENTERED_ERROR_MESSAGE_UUID).first();
 			if (message != null) {
 				callback.onError(message.getMsgText(), context, transactionName);
 			} else {
