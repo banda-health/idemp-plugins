@@ -39,7 +39,7 @@ text-align: left;
 height: 20px;
 overflow: hidden;
 }
-.progressmeter-setupwizard-image {
+.progressmeter-setupwizard-img {
 display: inline-block;
 background: #90EE90;
 background-image: none;

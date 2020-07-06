@@ -2,7 +2,6 @@
 @import '_variables.scss';
 @import '_extenders.scss';
 @import '_mixins.scss';
-
 .bh {
 	@import '_openmrs.scss';
 	@import '_hacks.scss';
@@ -181,9 +180,6 @@
 				.z-separator {
 					@extend %remove-element;
 				}
-				> span.toolbar-searchbox {
-					@extend %remove-element;
-				}
 			}
 			// Toolbar buttons at the top of each edit/view screen
 			a {
@@ -191,35 +187,29 @@
 				&:hover {
 					@extend %button-hover;
 				}
-				&:before {
-					height: unset;
-				}
-				// Remove buttons we don't want people to use
-				&:nth-child(1),
 				&:nth-child(2),
 				&:nth-child(5),
+				&:nth-child(8),
 				&:nth-child(9),
-				&:nth-child(10),
-				&:nth-child(11),
 				&:nth-child(12),
-				&:nth-child(n+15):nth-child(-n+50),
+				&:nth-child(13),
+				&:nth-child(14),
+				&:nth-child(n+16):nth-child(-n+50),
 				&.disableFilter,
 				img {
 					@extend %remove-element;
 				}
-				// Move these buttons to the right by setting order: 10
-				&:nth-child(3),
+				&:nth-child(1),
 				&:nth-child(4),
 				&:nth-child(6),
 				&:nth-child(7),
-				&:nth-child(8),
-				&:nth-child(13),
-				&:nth-child(14) {
+				&:nth-child(10),
+				&:nth-child(11),
+				&:nth-child(15) {
 					@extend %toolbar-button;
-					order: 10;
+					order: 1;
 					span {
 						width: auto;
-						vertical-align: middle;
 						img {
 							@extend %remove-element;
 						}
@@ -233,10 +223,8 @@
 						vertical-align: middle;
 					}
 				}
-				// Undo button
-				&:nth-child(7) {
+				&:nth-child(1) {
 					@extend %primary;
-					order: 1;
 					&:before {
 						@extend %fas;
 						content: $icon-times;
@@ -248,10 +236,8 @@
 						@extend %primary-hover;
 					}
 				}
-				// New
 				&:nth-child(4) {
 					@extend %secondary;
-					order: 2;
 					&:before {
 						@extend %fas;
 						content: $icon-plus;
@@ -266,8 +252,7 @@
 						@extend %remove-element;
 					}
 				}
-				// Delete
-				&:nth-child(13) {
+				&:nth-child(6) {
 					@extend %delete;
 					&:before {
 						@extend %far;
@@ -280,10 +265,8 @@
 						@extend %delete-hover;
 					}
 				}
-				// Save
-				&:nth-child(6) {
+				&:nth-child(7) {
 					@extend %confirm;
-					order: 4;
 					&:before {
 						@extend %fas;
 						content: $icon-save;
@@ -295,10 +278,9 @@
 						@extend %confirm-hover;
 					}
 				}
-				// Refresh/Re-query
-				&:nth-child(14) {
+				&:nth-child(10) {
 					margin-right: 10px;
-					order: -1;
+					order: 0;
 					&:before {
 						@extend %fas;
 						content: $icon-sync;
@@ -308,8 +290,7 @@
 						content: $button-text-refresh;
 					}
 				}
-				// Search/Lookup record
-				&:nth-child(3) {
+				&:nth-child(11) {
 					margin-right: 10px;
 					order: 0;
 					&:before {
@@ -321,8 +302,7 @@
 						content: $button-text-search;
 					}
 				}
-				// Grid button
-				&:nth-child(8) {
+				&:nth-child(15) {
 					margin-right: auto;
 					order: 0;
 					&:before {
