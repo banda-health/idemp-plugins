@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Version: 7.1.0.qualifier
 Bundle-Name: BandaHealthGo WebUI
 Bundle-Vendor: BandaHealth
-Fragment-Host: org.adempiere.ui.zk;bundle-version="7.1.0"
+Fragment-Host: org.adempiere.ui.zk;bundle-version="5.1.0"
 Bundle-SymbolicName: org.bandahealth.idempiere.webui;singleton:=true
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.zkoss.zk.ui,
  org.zkoss.zk.ui.event,
  org.zkoss.zul

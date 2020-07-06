@@ -5,15 +5,11 @@ it fix some issue relate resize, but can make side effect
 when detect side effect, fix to only apply for parameter window*/
 .z-window.z-window-noborder.z-window-noheader.z-window-embedded,
 .z-window.z-window-noborder.z-window-noheader.z-window-embedded .z-window-content,
-.main-parameter-layout {
+.main-parameter-layout{
 	height: 100%;
 }
-.process-modal-dialog .main-parameter-layout{
-	height: auto;
-	flex-basis: auto;
-}
 .process-modal-dialog.z-window > .z-window-content {
-	flex: 1 1 auto;
+	height: 100%;
 }
 
 .main-parameter-layout,
@@ -32,17 +28,15 @@ when detect side effect, fix to only apply for parameter window*/
 }
 .top-parameter-layout{
 	overflow: auto;
-	padding-bottom: 2vh;
-	flex-basis: auto;
 }
 
 .bottom-parameter-layout{
-	padding: 4px 4px 0px 4px;
+	padding-top: 4px;
 	border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .message-paramenter{
-	max-height: 300pt; 
+	max-height: 150pt; 
 	overflow: hidden; 
 	margin: 10px;
 }
@@ -64,10 +58,6 @@ when detect side effect, fix to only apply for parameter window*/
 .save-parameter-container{
 	overflow-x: auto;
 	overflow-y: hidden;
-}
-
-.result-parameter-layout {
-	overflow: auto;
 }
 
 .popup-dialog.z-window.z-window-overlapped.z-window-shadow,
