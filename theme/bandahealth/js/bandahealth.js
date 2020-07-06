@@ -214,7 +214,7 @@ define(
             }
 
             function areCreatingOrEditingAnEntity() {
-                let entityCancelButton = getElementInCurrentWindow('.adwindow-toolbar.z-toolbar a:nth-child(7)');
+                let entityCancelButton = getElementInCurrentWindow('.adwindow-toolbar.z-toolbar a:nth-child(1)');
                 return util.elementIsVisible(entityCancelButton);
             }
 
@@ -631,7 +631,7 @@ define(
             
             let editTableCell = getElementInCurrentWindow('.adwindow-layout div:nth-child(2) .adtab-content:first-child .adtab-grid tr .row-indicator-selected') ;
             if (util.elementIsVisible(editTableCell)) {
-                let gridToggle = getElementInCurrentWindow('.adwindow-toolbar a:nth-child(8)');
+                let gridToggle = getElementInCurrentWindow('.adwindow-toolbar a:nth-child(15)');
                 if (gridToggle) {
                     gridToggle.click();
                 }
