@@ -12,31 +12,34 @@ public class ExpenseCategory extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	private boolean isLocked;
-	private Account account;
+	private int accountId;
 
 	public ExpenseCategory() {
 	}
 
-	public ExpenseCategory(String uuid, String name, boolean isLocked, Account account) {
+	public ExpenseCategory(String uuid, String name, boolean isLocked, int accountId) {
 		setUuid(uuid);
 		setName(name);
-		setAccount(account);
+		setIsLocked(isLocked);
+		setAccountId(accountId);
 	}
 
 	public ExpenseCategory(String uuid, String name, boolean isLocked, String created, String description,
-												 boolean isActive, Account account) {
+												 boolean isActive, int accountId) {
 		setUuid(uuid);
 		setName(name);
 		setDescription(description);
 		setCreated(created);
 		setIsActive(isActive);
-		setAccount(account);
+		setIsLocked(isLocked);
+		setAccountId(accountId);
 	}
 
 	public ExpenseCategory(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-												 String description, boolean isLocked, Account account) {
+												 String description, boolean isLocked, int accountId) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
-		setAccount(account);
+		setIsLocked(isLocked);
+		setAccountId(accountId);
 	}
 
 	@XmlElement
@@ -49,10 +52,10 @@ public class ExpenseCategory extends BaseEntity {
 	}
 
 	@XmlElement
-	public Account getAccount() { return account; }
+	public int getAccountId() { return accountId; }
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
 	}
 
 }

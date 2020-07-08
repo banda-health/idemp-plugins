@@ -111,9 +111,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				// check charge
 				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
 				if (charge != null) {
-					Account account = accountDBService.getEntity(charge.getC_ElementValue_ID());
 					ExpenseCategory expenseCategory = new ExpenseCategory(charge.getC_Charge_UU(), charge.getName(),
-							charge.getBH_Locked(), account);
+							charge.getBH_Locked(), charge.getC_ElementValue_ID());
 					return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
 							instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 							instance.getCreatedBy(), expenseCategory,
