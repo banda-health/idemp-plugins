@@ -1,251 +1,420 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.compiere.model.MBankAccount;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+
+import org.compiere.model.MBPartner;
+import org.compiere.model.MClient;
+import org.compiere.model.MConversionRate;
+import org.compiere.model.MConversionRateUtil;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInOut;
+import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MInvoiceBatch;
+import org.compiere.model.MInvoiceBatchLine;
+import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MMatchInv;
+import org.compiere.model.MMatchPO;
 import org.compiere.model.MOrder;
+import org.compiere.model.MOrderLine;
+import org.compiere.model.MPeriod;
+import org.compiere.model.MProject;
+import org.compiere.model.MRMALine;
+import org.compiere.model.MSysConfig;
+import org.compiere.model.MUser;
+import org.compiere.model.ModelValidationEngine;
+import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
-
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Properties;
+import org.compiere.util.CLogger;
+import org.compiere.util.DB;
+import org.compiere.util.Env;
+import org.compiere.util.Msg;
+import org.compiere.util.TimeUtil;
 
 public class MInvoice_BH extends MInvoice {
 	
 	private static final long serialVersionUID = 1L;
 
-	/** Mobile Account = A */
-	public static final String PAYMENTRULE_MobileAccount = "A";
-	/** BH Cash Account = b */
-	public static final String PAYMENTRULE_BHCashAccount = "b";
+	private boolean	m_justPrepared = false;
 
-	/**
-	 * Column name BH_Processing
-	 */
-	public static final String COLUMNNAME_BH_Processing = "BH_Processing";
-
-	/**
-	 * Set BH_Processing.
-	 *
-	 * @param bhProcessing Whether this invoice is an expense or not
-	 */
-	public void setBH_Processing(boolean bhProcessing) {
-		set_Value(COLUMNNAME_BH_Processing, bhProcessing);
-	}
-
-	/**
-	 * Get BH_Processing.
-	 *
-	 * @return BH_Processing
-	 */
-	public boolean getBH_Processing() {
-		Object bhProcessing = get_Value(COLUMNNAME_BH_Processing);
-		if (bhProcessing == null) {
-			return false;
-		}
-		return (boolean) bhProcessing;
-	}
-
-	/**
-	 * Column name BH_IsExpense
-	 */
-	public static final String COLUMNNAME_BH_IsExpense = "BH_IsExpense";
-
-	/**
-	 * Set BH_IsExpense.
-	 *
-	 * @param bhIsExpense Whether this invoice is an expense or not
-	 */
-	public void setBH_IsExpense(boolean bhIsExpense) {
-		set_Value(COLUMNNAME_BH_IsExpense, bhIsExpense);
-	}
-
-	/**
-	 * Get BH_IsExpense.
-	 *
-	 * @return BH_IsExpense
-	 */
-	public boolean getBH_IsExpense() {
-		Object bhIsExpense = get_Value(COLUMNNAME_BH_IsExpense);
-		if (bhIsExpense == null) {
-			return false;
-		}
-		return (boolean) bhIsExpense;
-	}
-
-	/**
-	 * Column name BH_DocAction
-	 */
-	public static final String COLUMNNAME_BH_DocAction = "BH_DocAction";
-
-	/**
-	 * Set BH_DocAction.
-	 *
-	 * @param bhDocAction Get the code-set value of the doc action (not used in UI anywhere)
-	 */
-	public void setBH_DocAction(String bhDocAction) {
-		set_Value(COLUMNNAME_BH_DocAction, bhDocAction);
-	}
-
-	/**
-	 * Get BH_DocAction.
-	 *
-	 * @return BH_DocAction
-	 */
-	public String getBH_DocAction() {
-		return (String) get_Value(COLUMNNAME_BH_DocAction);
-	}
-
-	/**
-	 * 	Get Process Message
-	 *	@return clear text error message
-	 */
-	@Override
-	public String getProcessMsg()
-	{
-		return super.getProcessMsg();
-	}	//	getProcessMsg
-
-	/**
-	 * Set process message
-	 * @param processMsg
-	 */
-	@Override
-	public void setProcessMessage(String processMsg)
-	{
-		super.setProcessMessage(processMsg);
-	}
-
-	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
+	public MInvoice_BH (Properties ctx, int C_Invoice_ID, String trxName) {
 		super(ctx, C_Invoice_ID, trxName);
 	}
 	
-	public MInvoice_BH(Properties ctx, ResultSet rs, String trxName) {
+	public MInvoice_BH (Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
 	
-	public MInvoice_BH(MOrder order, int C_DocTypeTarget_ID, Timestamp invoiceDate) {
+	public MInvoice_BH (MOrder order, int C_DocTypeTarget_ID, Timestamp invoiceDate) {
 		super(order, C_DocTypeTarget_ID, invoiceDate);
+	}
+	
+	public MInvoice_BH(MInOut ship, Timestamp invoiceDate) {
+		super(ship, invoiceDate);
+	}
+	
+	public MInvoice_BH (MInvoiceBatch batch, MInvoiceBatchLine line) {
+		super(batch, line);
+	}
+
+	@Override
+	public String prepareIt() {
+		String status = super.prepareIt();
+		if (status == DocAction.STATUS_InProgress) {
+			m_justPrepared = true;
+		}
+		
+		return status;
 	}
 	
 	/**
 	 * 	Complete Document
 	 * 	@return new status (Complete, In Progress, Invalid, Waiting ..)
 	 */
-	@Override
-	public String completeIt() {
-		StringBuilder info = new StringBuilder();
-		// Only do any additional logic if it's an expense
-		if (getBH_IsExpense()) {
-			//	Create Payment
-			createExpensePayment(info);
+	public String completeIt()
+	{
+		//	Re-Check
+		if (!m_justPrepared)
+		{
+			String status = prepareIt();
+			m_justPrepared = false;
+			if (!DocAction.STATUS_InProgress.equals(status))
+				return status;
 		}
-		String docStatus = super.completeIt();
-		info.insert(0, getProcessMsg());
-		setProcessMessage(info.toString());
-		return docStatus;
-	}
+
+		// Set the definite document number after completed (if needed)
+		setDefiniteDocumentNo();
+
+		setProcessMessage (ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_COMPLETE));
+		if (getProcessMsg() != null)
+			return DocAction.STATUS_Invalid;
+
+		//	Implicit Approval
+		if (!isApproved())
+			approveIt();
+		if (log.isLoggable(Level.INFO)) log.info(toString());
+		StringBuilder info = new StringBuilder();
+		
+		// POS supports multiple payments
+		/**
+		 * Remove block of code. 
+		 */
+
+		// Create BHGo payments..
+		BigDecimal totalPayments = createPayments(info);
+		
+		//	Update Order & Match
+		int matchInv = 0;
+		int matchPO = 0;
+		MInvoiceLine[] lines = getLines(false);
+		for (int i = 0; i < lines.length; i++)
+		{
+			MInvoiceLine line = lines[i];
+
+			//	Matching - Inv-Shipment
+			if (!isSOTrx()
+				&& line.getM_InOutLine_ID() != 0
+				&& line.getM_Product_ID() != 0
+				&& !isReversal())
+			{
+				MInOutLine receiptLine = new MInOutLine (getCtx(),line.getM_InOutLine_ID(), get_TrxName());
+				BigDecimal matchQty = line.getQtyInvoiced();
+
+				if (receiptLine.getMovementQty().compareTo(matchQty) < 0)
+					matchQty = receiptLine.getMovementQty();
+
+				MMatchInv inv = new MMatchInv(line, getDateInvoiced(), matchQty);
+				if (!inv.save(get_TrxName()))
+				{
+					setProcessMessage( CLogger.retrieveErrorString("Could not create Invoice Matching"));
+					return DocAction.STATUS_Invalid;
+				}
+				matchInv++;
+				addDocsPostProcess(inv);
+			}
+					
+			//	Update Order Line
+			MOrderLine ol = null;
+			if (line.getC_OrderLine_ID() != 0)
+			{
+				if (isSOTrx()
+					|| line.getM_Product_ID() == 0)
+				{
+					ol = new MOrderLine (getCtx(), line.getC_OrderLine_ID(), get_TrxName());
+					if (line.getQtyInvoiced() != null)
+						ol.setQtyInvoiced(ol.getQtyInvoiced().add(line.getQtyInvoiced()));
+					if (!ol.save(get_TrxName()))
+					{
+						setProcessMessage("Could not update Order Line");
+						return DocAction.STATUS_Invalid;
+					}
+				}
+				//	Order Invoiced Qty updated via Matching Inv-PO
+				else if (!isSOTrx()
+					&& line.getM_Product_ID() != 0
+					&& !isReversal())
+				{
+					//	MatchPO is created also from MInOut when Invoice exists before Shipment
+					BigDecimal matchQty = line.getQtyInvoiced();
+					MMatchPO po = MMatchPO.create (line, null,
+						getDateInvoiced(), matchQty);
+					if (po != null) 
+					{
+						if (!po.save(get_TrxName()))
+						{
+							setProcessMessage("Could not create PO Matching");
+							return DocAction.STATUS_Invalid;
+						}
+						matchPO++;
+						if (!po.isPosted())
+							addDocsPostProcess(po);
+						
+						MMatchInv[] matchInvoices = MMatchInv.getInvoiceLine(getCtx(), line.getC_InvoiceLine_ID(), get_TrxName());
+						if (matchInvoices != null && matchInvoices.length > 0) 
+						{
+							for(MMatchInv matchInvoice : matchInvoices)
+							{
+								if (!matchInvoice.isPosted())
+								{
+									addDocsPostProcess(matchInvoice);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			//Update QtyInvoiced RMA Line
+			if (line.getM_RMALine_ID() != 0)
+			{
+				MRMALine rmaLine = new MRMALine (getCtx(),line.getM_RMALine_ID(), get_TrxName());
+				if (rmaLine.getQtyInvoiced() != null)
+					rmaLine.setQtyInvoiced(rmaLine.getQtyInvoiced().add(line.getQtyInvoiced()));
+				else
+					rmaLine.setQtyInvoiced(line.getQtyInvoiced());
+				if (!rmaLine.save(get_TrxName()))
+				{
+					setProcessMessage("Could not update RMA Line");
+					return DocAction.STATUS_Invalid;
+				}
+			}
+			//			
+		}	//	for all lines
+		if (matchInv > 0)
+			info.append(" @M_MatchInv_ID@#").append(matchInv).append(" ");
+		if (matchPO > 0)
+			info.append(" @M_MatchPO_ID@#").append(matchPO).append(" ");
+
+
+		//	Update BP Statistics
+		MBPartner bp = new MBPartner (getCtx(), getC_BPartner_ID(), get_TrxName());
+		DB.getDatabase().forUpdate(bp, 0);
+		//	Update total revenue and balance / credit limit (reversed on AllocationLine.processIt)
+		BigDecimal invAmt = MConversionRate.convertBase(getCtx(), getGrandTotal(true),	//	CM adjusted
+			getC_Currency_ID(), getDateAcct(), getC_ConversionType_ID(), getAD_Client_ID(), getAD_Org_ID());
+		if (invAmt == null)
+		{
+			setProcessMessage(MConversionRateUtil.getErrorMessage(getCtx(), "ErrorConvertingCurrencyToBaseCurrency",
+					getC_Currency_ID(), MClient.get(getCtx()).getC_Currency_ID(), getC_ConversionType_ID(), getDateAcct(), get_TrxName()));
+			return DocAction.STATUS_Invalid;
+		}
+		
+		// adjust invAmt based on how much was paid.
+		/*BigDecimal change = totalPayments.subtract(invAmt);
+		if (change.compareTo(BigDecimal.ZERO) > 0) {
+			invAmt = totalPayments;
+		}*/
+		
+		//	Total Balance
+		BigDecimal newBalance = bp.getTotalOpenBalance();
+		if (newBalance == null)
+			newBalance = Env.ZERO;
+		if (isSOTrx())
+		{
+			newBalance = newBalance.add(invAmt);
+			//
+			if (bp.getFirstSale() == null)
+				bp.setFirstSale(getDateInvoiced());
+			BigDecimal newLifeAmt = bp.getActualLifeTimeValue();
+			if (newLifeAmt == null)
+				newLifeAmt = invAmt;
+			else
+				newLifeAmt = newLifeAmt.add(invAmt);
+			BigDecimal newCreditAmt = bp.getSO_CreditUsed();
+			if (newCreditAmt == null)
+				newCreditAmt = invAmt;
+			else
+				newCreditAmt = newCreditAmt.add(invAmt);
+			//
+			if (log.isLoggable(Level.FINE)) log.fine("GrandTotal=" + getGrandTotal(true) + "(" + invAmt
+				+ ") BP Life=" + bp.getActualLifeTimeValue() + "->" + newLifeAmt
+				+ ", Credit=" + bp.getSO_CreditUsed() + "->" + newCreditAmt
+				+ ", Balance=" + bp.getTotalOpenBalance() + " -> " + newBalance);
+			bp.setActualLifeTimeValue(newLifeAmt);
+			bp.setSO_CreditUsed(newCreditAmt);
+		}	//	SO
+		else
+		{
+			newBalance = newBalance.subtract(invAmt);
+			if (log.isLoggable(Level.FINE)) log.fine("GrandTotal=" + getGrandTotal(true) + "(" + invAmt
+				+ ") Balance=" + bp.getTotalOpenBalance() + " -> " + newBalance);
+		}
+		
+		bp.setTotalOpenBalance(newBalance);
+		bp.setSOCreditStatus();
+		if (!bp.save(get_TrxName()))
+		{
+			setProcessMessage("Could not update Business Partner");
+			return DocAction.STATUS_Invalid;
+		}
+
+		//	User - Last Result/Contact
+		if (getAD_User_ID() != 0)
+		{
+			MUser user = new MUser (getCtx(), getAD_User_ID(), get_TrxName());
+			user.setLastContact(new Timestamp(System.currentTimeMillis()));
+			StringBuilder msgset = new StringBuilder().append(Msg.translate(getCtx(), "C_Invoice_ID")).append(": ").append(getDocumentNo());
+			user.setLastResult(msgset.toString());
+			if (!user.save(get_TrxName()))
+			{
+				setProcessMessage( "Could not update Business Partner User");
+				return DocAction.STATUS_Invalid;
+			}
+		}	//	user
+
+		//	Update Project
+		if (isSOTrx() && getC_Project_ID() != 0)
+		{
+			MProject project = new MProject (getCtx(), getC_Project_ID(), get_TrxName());
+			BigDecimal amt = getGrandTotal(true);
+			int C_CurrencyTo_ID = project.getC_Currency_ID();
+			if (C_CurrencyTo_ID != getC_Currency_ID())
+				amt = MConversionRate.convert(getCtx(), amt, getC_Currency_ID(), C_CurrencyTo_ID,
+					getDateAcct(), 0, getAD_Client_ID(), getAD_Org_ID());
+			if (amt == null)
+			{
+				setProcessMessage( MConversionRateUtil.getErrorMessage(getCtx(), "ErrorConvertingCurrencyToProjectCurrency",
+						getC_Currency_ID(), C_CurrencyTo_ID, 0, getDateAcct(), get_TrxName()));
+				return DocAction.STATUS_Invalid;
+			}
+			BigDecimal newAmt = project.getInvoicedAmt();
+			if (newAmt == null)
+				newAmt = amt;
+			else
+				newAmt = newAmt.add(amt);
+			if (log.isLoggable(Level.FINE)) log.fine("GrandTotal=" + getGrandTotal(true) + "(" + amt
+				+ ") Project " + project.getName()
+				+ " - Invoiced=" + project.getInvoicedAmt() + "->" + newAmt);
+			project.setInvoicedAmt(newAmt);
+			if (!project.save(get_TrxName()))
+			{
+				setProcessMessage( "Could not update Project");
+				return DocAction.STATUS_Invalid;
+			}
+		}	//	project
+		
+		// auto delay capture authorization payment
+		/**
+		 * Remove block of code.
+		 */
+		//	User Validation
+		String valid = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_COMPLETE);
+		if (valid != null)
+		{
+			setProcessMessage( valid);
+			return DocAction.STATUS_Invalid;
+		}
+
+		//	Counter Documents
+		/**
+		 * Remove block of code.
+		 */
+
+		setProcessMessage( info.toString().trim());
+		setProcessed(true);
+		setDocAction(DOCACTION_Close);
+		return DocAction.STATUS_Completed;
+	}	//	completeIt
 	
 	/**
-	 * Create a payment for the expenses based on bank account mapping.
-	 * This was copied from MInvoice.java with some slight modifications
+	 * Create payments the BHGo way..
 	 */
-	private String createExpensePayment(StringBuilder info) {
-		// First, get the default bank account that can be used with this payment
-		MBankAccount defaultBankAccount = new Query(
-				getCtx(),
-				MBankAccount.Table_Name,
-				MBankAccount.COLUMNNAME_AD_Org_ID + "=? AND " + MBankAccount.COLUMNNAME_C_Currency_ID + "=?",
-				get_TrxName()
-		)
-				.setParameters(getAD_Org_ID(), getC_Currency_ID())
-				.setOnlyActiveRecords(true)
-				.setOrderBy("IsDefault DESC")
-				.first();
+	private BigDecimal createPayments(StringBuilder info) {
+		// Go through and add the payment with the amount specified on the order
+		String where = MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?";
+		List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name, where, get_TrxName())
+		        .setParameters(getC_Order_ID())
+		        .setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID)
+		        .list();
+		BigDecimal totalPayments = new BigDecimal(0);
+		BigDecimal remainingAmount = getGrandTotal();
+		for (MPayment_BH orderPayment : orderPayments) {
+			// set payment received to bh_tender_amount
+			orderPayment.setBH_TenderAmount(orderPayment.getPayAmt());
+			
+			if (remainingAmount.compareTo(BigDecimal.ZERO) <= 0) {
+				orderPayment.setPayAmt(BigDecimal.ZERO);
+			} else if (orderPayment.getBH_TenderAmount().compareTo(remainingAmount) < 0) { 
+				// set payment amount to tender type if less than the remaining grand total
+				orderPayment.setPayAmt(orderPayment.getBH_TenderAmount());
+			} else {
+				// set payment amount as the remaining amount.
+				orderPayment.setPayAmt(remainingAmount);
+			}
+			
+			orderPayment.setC_Invoice_ID(getC_Invoice_ID());
+			orderPayment.saveEx(get_TrxName());
 
-		MBankAccount bankAccountToUse = MBankAccount_BH.getBankAccountMappedToRefListValue(
-				getCtx(),
-				get_TrxName(),
-				MInvoice_BH.PAYMENTRULE_AD_Reference_ID,
-				getPaymentRule()
-		);
-		if (bankAccountToUse == null) {
-			info.append("No bank account mapping found for payment rule '");
-			info.append(getPaymentRule());
-			info.append("'. Using default bank account.");
-			bankAccountToUse = defaultBankAccount;
-		}
-		// If no accounts at this point, we have a problem
-		if (bankAccountToUse == null) {
-			setProcessMessage("@NoOrgBankAccount@");
-			return DocAction.STATUS_Invalid;
-		}
+			boolean paymentIsComplete = orderPayment.processIt(DocAction.ACTION_Complete);
+			if (!paymentIsComplete) {
+				log.severe("Error auto-processing payment " + orderPayment.getC_Payment_ID()
+				        + "and associating it to invoice " + getC_Invoice_ID());
+			}
+			
+			info.append("@C_Payment_ID@: " + orderPayment.getDocumentInfo());
 
-		// Since we're dealing with expenses, they'll only be AP Payments
-		String docBaseType = MDocType.DOCBASETYPE_APPayment;
+			// IDEMPIERE-2588 - add the allocation generation with the payment
+			if (orderPayment.getJustCreatedAllocInv() != null)
+				addDocsPostProcess(orderPayment.getJustCreatedAllocInv());
 
-		MDocType[] doctypes = MDocType.getOfDocBaseType(getCtx(), docBaseType);
-		if (doctypes == null || doctypes.length == 0) {
-			setProcessMessage("No document type ");
-			return DocAction.STATUS_Invalid;
+			remainingAmount = remainingAmount.subtract(orderPayment.getBH_TenderAmount());
+			
+			// sum all tender amounts
+			totalPayments = totalPayments.add(orderPayment.getBH_TenderAmount());
+						
+			
 		}
-		MDocType doctype = null;
-		for (MDocType doc : doctypes) {
-			if (doc.getAD_Org_ID() == this.getAD_Org_ID()) {
-				doctype = doc;
-				break;
+		
+		return totalPayments;
+	}
+	/**
+	 * 	Set the definite document number after completed
+	 */
+	private void setDefiniteDocumentNo() {
+		if (isReversal() && ! MSysConfig.getBooleanValue(MSysConfig.Invoice_ReverseUseNewNumber, true, getAD_Client_ID())) // IDEMPIERE-1771
+			return;
+		MDocType dt = MDocType.get(getCtx(), getC_DocType_ID());
+		if (dt.isOverwriteDateOnComplete()) {
+			setDateInvoiced(TimeUtil.getDay(0));
+			if (getDateAcct().before(getDateInvoiced())) {
+				setDateAcct(getDateInvoiced());
+				MPeriod.testPeriodOpen(getCtx(), getDateAcct(), getC_DocType_ID(), getAD_Org_ID());
 			}
 		}
-		if (doctype == null) {
-			doctype = doctypes[0];
+		if (dt.isOverwriteSeqOnComplete()) {
+			String value = DB.getDocumentNo(getC_DocType_ID(), get_TrxName(), true, this);
+			if (value != null)
+				setDocumentNo(value);
 		}
-
-		// Create the payment
-		MPayment_BH payment = new MPayment_BH(getCtx(), 0, get_TrxName());
-		payment.setAD_Org_ID(getAD_Org_ID());
-		payment.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
-		payment.setC_BankAccount_ID(bankAccountToUse.getC_BankAccount_ID());
-		payment.setC_BPartner_ID(getC_BPartner_ID());
-		payment.setC_Invoice_ID(getC_Invoice_ID());
-		payment.setC_Currency_ID(getC_Currency_ID());
-		payment.setC_DocType_ID(doctype.getC_DocType_ID());
-		if (isCreditMemo()) {
-			payment.setPayAmt(getGrandTotal().negate());
-		} else {
-			payment.setPayAmt(getGrandTotal());
-		}
-		payment.setIsPrepayment(false);
-		payment.setDateAcct(getDateAcct());
-		payment.setDateTrx(getDateInvoiced());
-
-		//	Save payment
-		payment.saveEx();
-
-		payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-		if (!payment.processIt(MPayment_BH.DOCACTION_Complete)) {
-			setProcessMessage("Cannot Complete the Payment : [" + payment.getProcessMsg() + "] " + payment);
-			return DocAction.STATUS_Invalid;
-		}
-
-		payment.saveEx();
-		info.append("@C_Payment_ID@: " + payment.getDocumentInfo());
-
-		// IDEMPIERE-2588 - add the allocation generation with the payment
-		if (payment.getJustCreatedAllocInv() != null) {
-			addDocsPostProcess(payment.getJustCreatedAllocInv());
-		}
-
-		testAllocation(true);
-
-		return DocAction.ACTION_Complete;
 	}
-
-	/**
-	 * Copied from MInvoice.java
-	 * @param doc
-	 */
+	
 	private void addDocsPostProcess(PO doc) {
 		getDocsPostProcess().add(doc);
 	}
