@@ -36,14 +36,17 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	public BaseListResponse<Patient> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(value));
+		String patientId = constructSearchValue(value);
+		parameters.add(patientId);
 		parameters.add(value + "%");
 		parameters.add(value + "%");
+		parameters.add(patientId);
 		parameters.add("Y");
 
 		String whereClause = "(" + DEFAULT_SEARCH_CLAUSE + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_PatientID + " "
 				+ LIKE_COMPARATOR + " ?" + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Phone + " " + LIKE_COMPARATOR
-				+ " ?)" + AND_OPERATOR + MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
+				+ " ? " + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Local_PatientID + " " + LIKE_COMPARATOR + " ?" + ")" + AND_OPERATOR
+				+ MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
 
 		return search(whereClause, parameters, pagingInfo, sortColumn, sortOrder);
 	}
@@ -124,6 +127,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 				patient.set_CustomColumn(COLUMNNAME_NEXTOFKIN_CONTACT, entity.getNextOfKinContact());
 			}
 
+			if (StringUtil.isNotNullAndEmpty(entity.getLocalPatientNumber())) {
+				patient.setBH_Local_PatientID(entity.getLocalPatientNumber());
+			}
+
 			patient.setIsActive(entity.isIsActive());
 
 			patient.saveEx();
@@ -146,10 +153,11 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getBH_Phone(), address, instance.getbh_gender(),
-					instance.getBH_EMail(), instance.getbh_nhif_relationship(), instance.getbh_nhif_member_name(),
-					instance.getNHIF_Number(), instance.getBH_NHIF_Type(), instance.getNational_ID(),
-					instance.getbh_occupation(), instance.getNextOfKin_Name(), instance.getNextOfKin_Contact());
+					instance.getBH_Phone(), address, instance.getbh_gender(), instance.getBH_EMail(),
+					instance.getbh_nhif_relationship(), instance.getbh_nhif_member_name(), instance.getNHIF_Number(),
+					instance.getBH_NHIF_Type(), instance.getNational_ID(), instance.getbh_occupation(),
+					instance.getNextOfKin_Name(), instance.getNextOfKin_Contact(),
+					instance.getBH_Local_PatientID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -168,7 +176,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getbh_gender(), instance.getBH_Phone());
+					instance.getbh_gender(), instance.getBH_Phone(),
+					instance.getBH_Local_PatientID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -186,7 +195,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			return new Patient(instance.getC_BPartner_UU(), instance.getName(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getBH_Phone(), address, DateUtil.parseDateOnly(instance.getCreated()),
-					instance.getbh_gender());
+					instance.getbh_gender(), instance.isActive(), instance.getBH_Local_PatientID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());

@@ -206,6 +206,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			if (entity.getSellPrice() != null) {
 				product.setBH_SellPrice(entity.getSellPrice());
 			}
+			
+			// calculate price margin
+			if (entity.getBuyPrice() != null && entity.getSellPrice() != null) {
+				product.setBH_PriceMargin(entity.getSellPrice().subtract(entity.getBuyPrice()));
+			}
 
 			product.setIsActive(entity.isIsActive());
 
@@ -226,7 +231,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.getProductType(),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
-					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration));
+					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 
@@ -239,7 +244,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			return new Product(product.getAD_Client_ID(), product.getAD_Org_ID(), product.getM_Product_UU(),
 					product.isActive(), DateUtil.parseDateOnly(product.getCreated()), product.getCreatedBy(),
-					product.getName(), product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice());
+					product.getName(), product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(), product.getBH_PriceMargin());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
@@ -251,7 +256,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			return new Product(product.getM_Product_UU(), product.getName(), product.getBH_BuyPrice(),
 					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration),
-					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice());
+					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice(), product.isActive(), product.getBH_PriceMargin());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);

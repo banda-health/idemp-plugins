@@ -28,6 +28,7 @@ public class Patient extends BusinessPartner {
 	private String occupation;
 	private String nextOfKinName;
 	private String nextOfKinContact;
+	private String localPatientNumber;
 
 	public Patient() {
 	}
@@ -47,7 +48,7 @@ public class Patient extends BusinessPartner {
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
 			String address, String gender, String email, String nhifRelationship, String nhifMemberName,
 			String nhifNumber, String nhifType, String nationalId, String occupation, String nextOfKinName,
-			String nextOfKinContact) {
+			String nextOfKinContact, String localPatientNumber) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
@@ -64,33 +65,41 @@ public class Patient extends BusinessPartner {
 		this.occupation = occupation;
 		this.nextOfKinName = nextOfKinName;
 		this.nextOfKinContact = nextOfKinContact;
+		this.localPatientNumber = localPatientNumber;
 	}
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String gender,
-			String phone) {
+			String phone, String localPatientNumber) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
 		this.phone = phone;
+		this.localPatientNumber = localPatientNumber;
 	}
 
 	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,
-			String phone, String address, String created, String gender) {
+			String phone, String address, String created, String gender, boolean isActive, String localPatientNumber) {
 		setUuid(uuid);
 		setName(name);
 		setTotalOpenBalance(totalOpenBalance);
+		setIsActive(isActive);
 		this.phone = phone;
 		this.address = address;
 		this.gender = gender;
 		this.setCreated(created);
 		this.dateOfBirth = dateOfBirth;
+		this.localPatientNumber = localPatientNumber;
 
 		String description = name;
 		if (patientNumber != null) {
 			description += ", patient #:" + patientNumber;
+		}
+		
+		if (localPatientNumber != null) {
+			description += ", local ID:" + localPatientNumber;
 		}
 
 		if (dateOfBirth != null) {
@@ -236,4 +245,12 @@ public class Patient extends BusinessPartner {
 		this.nextOfKinContact = nextOfKinContact;
 	}
 
+	@XmlElement
+	public String getLocalPatientNumber() {
+		return localPatientNumber;
+	}
+
+	public void setLocalPatientNumber(String localPatientNumber) {
+		this.localPatientNumber = localPatientNumber;
+	}
 }

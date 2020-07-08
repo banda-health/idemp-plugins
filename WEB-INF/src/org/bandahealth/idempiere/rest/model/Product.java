@@ -22,6 +22,7 @@ public class Product extends BaseEntity {
 	private BigDecimal sellPrice;
 	private String type;
 	private Boolean hasExpiration;
+	private BigDecimal priceMargin;
 
 	public Product() {
 	}
@@ -35,7 +36,7 @@ public class Product extends BaseEntity {
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
 			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice, String type,
-			Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration) {
+			Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration, BigDecimal priceMargin) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -46,25 +47,29 @@ public class Product extends BaseEntity {
 		this.reorderLevel = reorderLevel;
 		this.reorderQuantity = reorderQuantity;
 		this.hasExpiration = hasExpiration;
+		this.priceMargin = priceMargin;
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal buyPrice, BigDecimal sellPrice) {
+			String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
+		this.priceMargin = priceMargin;
 	}
 
 	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration, String created,
-			BigDecimal sellPrice) {
+			BigDecimal sellPrice, Boolean isActive, BigDecimal priceMargin) {
 		setUuid(uuid);
 		setName(name);
 		setCreated(created);
+		setIsActive(isActive);
 
 		this.buyPrice = buyPrice;
 		this.hasExpiration = hasExpiration;
 		this.sellPrice = sellPrice;
+		this.priceMargin = priceMargin;
 	}
 
 	@XmlElement
@@ -133,5 +138,14 @@ public class Product extends BaseEntity {
 
 	public void setHasExpiration(Boolean hasExpiration) {
 		this.hasExpiration = hasExpiration;
+	}
+
+	@XmlElement
+	public BigDecimal getPriceMargin() {
+		return priceMargin;
+	}
+
+	public void setPriceMargin(BigDecimal priceMargin) {
+		this.priceMargin = priceMargin;
 	}
 }

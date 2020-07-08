@@ -25,11 +25,12 @@ public class Expense extends BaseEntity {
 		this.amount = amount;
 	}
 
-	public Expense(String uuid, String name, BigDecimal amount, String created, String description) {
+	public Expense(String uuid, String name, BigDecimal amount, String created, String description, boolean isActive) {
 		setUuid(uuid);
 		setName(name);
 		setDescription(description);
 		setCreated(created);
+		setIsActive(isActive);
 
 		this.amount = amount;
 	}
