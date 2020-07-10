@@ -97,7 +97,8 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateOrdered()),
 					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
+							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					instance.getGrandTotal());
 
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

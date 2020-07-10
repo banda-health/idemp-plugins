@@ -23,11 +23,13 @@ public class Expense extends Invoice {
 	}
 
 	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-								 Vendor supplier, String dateOrdered, List<InvoiceLine> invoiceLines, String docStatus) {
+								 Vendor supplier, String dateOrdered, List<InvoiceLine> invoiceLines, String docStatus,
+								 BigDecimal grandTotal) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, invoiceLines, docStatus);
 
 		setIsExpense(true);
 		this.supplier = supplier;
+		setGrandTotal(grandTotal);
 	}
 
 	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,

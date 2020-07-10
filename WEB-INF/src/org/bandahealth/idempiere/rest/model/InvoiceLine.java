@@ -31,7 +31,8 @@ public class InvoiceLine extends BaseMetadata {
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount) {
+										 Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity,
+										 BigDecimal lineNetAmount, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.invoiceId = invoiceId;
@@ -39,10 +40,12 @@ public class InvoiceLine extends BaseMetadata {
 		this.quantity = quantity;
 		this.lineNetAmount = lineNetAmount;
 		this.product = product;
+		this.description = description;
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 ExpenseCategory expenseCategory, Integer invoiceId, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount) {
+										 ExpenseCategory expenseCategory, Integer invoiceId, BigDecimal price, BigDecimal quantity,
+										 BigDecimal lineNetAmount, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.expenseCategory = expenseCategory;
@@ -50,25 +53,28 @@ public class InvoiceLine extends BaseMetadata {
 		this.price = price;
 		this.quantity = quantity;
 		this.lineNetAmount = lineNetAmount;
+		this.description = description;
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity) {
+										 Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.invoiceId = invoiceId;
 		this.price = price;
 		this.quantity = quantity;
 		this.product = product;
+		this.description = description;
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 Integer invoiceId, ExpenseCategory expenseCategory, BigDecimal price) {
+										 Integer invoiceId, ExpenseCategory expenseCategory, BigDecimal price, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.invoiceId = invoiceId;
 		this.expenseCategory = expenseCategory;
 		this.price = price;
+		this.description = description;
 	}
 
 	@XmlElement

@@ -1,11 +1,9 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MCharge_BH;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.model.InvoiceLine;
-import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -27,12 +25,10 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 
 	private ProductDBService productDBService;
 	private ExpenseCategoryDBService expenseCategoryDBService;
-	private AccountDBService accountDBService;
 
 	public InvoiceLineDBService() {
 		this.productDBService = new ProductDBService();
 		this.expenseCategoryDBService = new ExpenseCategoryDBService();
-		this.accountDBService = new AccountDBService();
 	}
 
 	@Override
@@ -100,7 +96,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 						instance.getC_Invoice_ID(),
 						new Product(product.getName(), product.getM_Product_UU(), product.getProductType()),
-						instance.getPriceActual(), instance.getQtyInvoiced(), instance.getLineNetAmt());
+						instance.getPriceActual(), instance.getQtyInvoiced(), instance.getLineNetAmt(), instance.getDescription());
 			} else {
 				// check charge
 				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
@@ -111,7 +107,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 							instance.getC_InvoiceLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 							instance.getCreatedBy(), expenseCategory,
 							instance.getC_Invoice_ID(), instance.getPriceActual(), instance.getQtyInvoiced(),
-							instance.getLineNetAmt());
+							instance.getLineNetAmt(), instance.getDescription());
 				}
 			}
 		} catch (Exception ex) {
@@ -133,8 +129,8 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 	public List<InvoiceLine> getInvoiceLinesByInvoiceId(int invoiceId) {
 		List<MInvoiceLine> invoiceLines = new Query(
 				Env.getCtx(),
-				MOrderLine_BH.Table_Name,
-				MOrderLine_BH.COLUMNNAME_C_Order_ID + "=?",
+				MInvoiceLine.Table_Name,
+				MInvoiceLine.COLUMNNAME_C_Invoice_ID + "=?",
 				null
 		)
 				.setParameters(invoiceId)
