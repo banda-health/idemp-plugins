@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.TrackExpense;
@@ -17,7 +17,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
  * @author andrew
  *
  */
-public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
+public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 
 	private VendorDBService vendorDBService;
 
@@ -30,7 +30,7 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 		parameters.add("N");
 		parameters.add("Y");
 
-		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + "=?",
+		return super.getAll(MInvoice_BH.COLUMNNAME_IsSOTrx + "=? AND " + MInvoice_BH.COLUMNNAME_BH_IsExpense + "=?",
 				parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
@@ -39,8 +39,8 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
-				.append(MOrder_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_BH_IsExpense).append("=?");
+				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?");
 		parameters.add("N");
 		parameters.add("Y");
 
@@ -48,22 +48,22 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	}
 
 	@Override
-	protected void beforeSave(TrackExpense entity, MOrder_BH mOrder) {
-		if (entity.getProvider() != null && entity.getProvider().getUuid() != null) {
-			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getProvider().getUuid());
+	protected void beforeSave(TrackExpense entity, MInvoice_BH mOrder) {
+		if (entity.getSupplier() != null && entity.getSupplier().getUuid() != null) {
+			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getSupplier().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
 		}
 
 		mOrder.setIsSOTrx(false);
-		mOrder.setBH_Isexpense(true);
+		mOrder.setBH_IsExpense(true);
 	}
 
 	@Override
-	protected void afterSave(TrackExpense entity, MOrder_BH mOrder) {
+	protected void afterSave(TrackExpense entity, MInvoice_BH mOrder) {
 	}
 
 	@Override
-	protected TrackExpense createInstanceWithDefaultFields(MOrder_BH instance) {
+	protected TrackExpense createInstanceWithDefaultFields(MInvoice_BH instance) {
 		try {
 			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
 			if (vendor == null) {
@@ -72,7 +72,7 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 			}
 
 			return new TrackExpense(
-					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(), instance.isActive(),
+					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(), instance.isActive(),
 					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
@@ -85,7 +85,7 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	}
 
 	@Override
-	protected TrackExpense createInstanceWithAllFields(MOrder_BH instance) {
+	protected TrackExpense createInstanceWithAllFields(MInvoice_BH instance) {
 		try {
 			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
 			if (vendor == null) {
@@ -93,10 +93,10 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 				return null;
 			}
 
-			return new TrackExpense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
+			return new TrackExpense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateOrdered()),
-					orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), entityMetadataDBService
+					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
 
 		} catch (Exception ex) {
@@ -107,7 +107,7 @@ public class TrackExpenseDBService extends BaseOrderDBService<TrackExpense> {
 	}
 
 	@Override
-	protected TrackExpense createInstanceWithSearchFields(MOrder_BH instance) {
+	protected TrackExpense createInstanceWithSearchFields(MInvoice_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
 }

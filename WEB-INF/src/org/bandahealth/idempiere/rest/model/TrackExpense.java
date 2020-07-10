@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @XmlRootElement(name = "trackexpense")
 @JsonInclude(value = Include.NON_NULL)
-public class TrackExpense extends Order {
+public class TrackExpense extends Invoice {
 
 	private static final long serialVersionUID = 1L;
 
-	private Vendor provider;
+	private Vendor supplier;
 
 	public TrackExpense() {
 		setIsSalesOrderTransaction(false);
@@ -23,27 +23,27 @@ public class TrackExpense extends Order {
 	}
 
 	public TrackExpense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Vendor provider, String dateOrdered, List<OrderLine> orderLines, String docStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, orderLines, docStatus);
+											Vendor supplier, String dateOrdered, List<InvoiceLine> invoiceLines, String docStatus) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, invoiceLines, docStatus);
 
 		setExpense(true);
-		this.provider = provider;
+		this.supplier = supplier;
 	}
 
 	public TrackExpense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Vendor provider, String dateOrdered, String docStatus, BigDecimal grandTotal) {
+											Vendor supplier, String dateOrdered, String docStatus, BigDecimal grandTotal) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, false, docStatus, grandTotal);
 
 		setExpense(true);
-		this.provider = provider;
+		this.supplier = supplier;
 	}
 
 	@XmlElement
-	public Vendor getProvider() {
-		return provider;
+	public Vendor getSupplier() {
+		return supplier;
 	}
 
-	public void setProvider(Vendor provider) {
-		this.provider = provider;
+	public void setSupplier(Vendor supplier) {
+		this.supplier = supplier;
 	}
 }
