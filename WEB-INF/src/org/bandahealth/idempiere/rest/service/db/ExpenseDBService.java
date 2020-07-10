@@ -48,18 +48,18 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	}
 
 	@Override
-	protected void beforeSave(Expense entity, MInvoice_BH mOrder) {
+	protected void beforeSave(Expense entity, MInvoice_BH invoice) {
 		if (entity.getSupplier() != null && entity.getSupplier().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getSupplier().getUuid());
-			mOrder.setC_BPartner_ID(vendor.get_ID());
+			invoice.setC_BPartner_ID(vendor.get_ID());
 		}
 
-		mOrder.setIsSOTrx(false);
-		mOrder.setBH_IsExpense(true);
+		invoice.setIsSOTrx(false);
+		invoice.setBH_IsExpense(true);
 	}
 
 	@Override
-	protected void afterSave(Expense entity, MInvoice_BH mOrder) {
+	protected void afterSave(Expense entity, MInvoice_BH invoice) {
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 			return new Expense(
 					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(), instance.isActive(),
 					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), entityMetadataDBService
+					DateUtil.parseDateOnly(instance.getDateInvoiced()), entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
 					instance.getGrandTotal());
 
@@ -95,7 +95,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 			return new Expense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateOrdered()),
+					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
 					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
 					instance.getGrandTotal());
