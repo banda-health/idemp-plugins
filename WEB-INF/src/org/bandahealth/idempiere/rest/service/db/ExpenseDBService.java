@@ -7,7 +7,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.TrackExpense;
+import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 
@@ -17,7 +17,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
  * @author andrew
  *
  */
-public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
+public class TrackExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 	private VendorDBService vendorDBService;
 
@@ -25,7 +25,7 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 		this.vendorDBService = new VendorDBService();
 	}
 
-	public BaseListResponse<TrackExpense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("N");
 		parameters.add("Y");
@@ -35,7 +35,7 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 	}
 
 	@Override
-	public BaseListResponse<TrackExpense> search(String searchValue, Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Expense> search(String searchValue, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
@@ -48,7 +48,7 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 	}
 
 	@Override
-	protected void beforeSave(TrackExpense entity, MInvoice_BH mOrder) {
+	protected void beforeSave(Expense entity, MInvoice_BH mOrder) {
 		if (entity.getSupplier() != null && entity.getSupplier().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getSupplier().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
@@ -59,11 +59,11 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 	}
 
 	@Override
-	protected void afterSave(TrackExpense entity, MInvoice_BH mOrder) {
+	protected void afterSave(Expense entity, MInvoice_BH mOrder) {
 	}
 
 	@Override
-	protected TrackExpense createInstanceWithDefaultFields(MInvoice_BH instance) {
+	protected Expense createInstanceWithDefaultFields(MInvoice_BH instance) {
 		try {
 			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
 			if (vendor == null) {
@@ -71,7 +71,7 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 				return null;
 			}
 
-			return new TrackExpense(
+			return new Expense(
 					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(), instance.isActive(),
 					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), entityMetadataDBService
@@ -85,7 +85,7 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 	}
 
 	@Override
-	protected TrackExpense createInstanceWithAllFields(MInvoice_BH instance) {
+	protected Expense createInstanceWithAllFields(MInvoice_BH instance) {
 		try {
 			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
 			if (vendor == null) {
@@ -93,7 +93,7 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 				return null;
 			}
 
-			return new TrackExpense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
+			return new Expense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateOrdered()),
 					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
@@ -107,7 +107,7 @@ public class TrackExpenseDBService extends BaseInvoiceDBService<TrackExpense> {
 	}
 
 	@Override
-	protected TrackExpense createInstanceWithSearchFields(MInvoice_BH instance) {
+	protected Expense createInstanceWithSearchFields(MInvoice_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
 }
