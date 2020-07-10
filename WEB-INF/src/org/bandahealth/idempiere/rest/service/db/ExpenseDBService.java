@@ -12,16 +12,16 @@ import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 /**
- * Track Expenses logic
+ * Expenses logic
  * 
  * @author andrew
  *
  */
-public class TrackExpenseDBService extends BaseInvoiceDBService<Expense> {
+public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 	private VendorDBService vendorDBService;
 
-	public TrackExpenseDBService() {
+	public ExpenseDBService() {
 		this.vendorDBService = new VendorDBService();
 	}
 

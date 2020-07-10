@@ -109,7 +109,7 @@ public class Invoice extends BaseMetadata {
 		return isExpense;
 	}
 
-	public void setExpense(Boolean isExpense) {
+	public void setIsExpense(Boolean isExpense) {
 		this.isExpense = isExpense;
 	}
 

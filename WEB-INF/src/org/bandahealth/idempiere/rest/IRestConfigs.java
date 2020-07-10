@@ -65,10 +65,8 @@ public interface IRestConfigs {
 	String RECEIVE_PRODUCT_PROCESS_PATH = "/process/{uuid}";
 	String RECEIVE_PRODUCT_SAVE_AND_PROCESS_PATH = "/saveandprocess";
 
-	String TRACK_EXPENSES_PATH = AUTHENTICATION_PATH + "/trackexpenses";
-	String TRACK_EXPENSE_PATH = "/trackexpense/{uuid}";
-	String TRACK_EXPENSE_PROCESS_PATH = "/process/{uuid}";
-	String TRACK_EXPENSE_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
+	String EXPENSE_PATH = "/expense/{uuid}";
 
 	String ACCOUNTS_PATH = AUTHENTICATION_PATH + "/accounts";
 	String ACCOUNTS_UUID_PATH = "/account/{uuid}";

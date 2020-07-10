@@ -10,9 +10,9 @@ import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.TrackExpense;
+import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
-import org.bandahealth.idempiere.rest.service.db.TrackExpenseDBService;
+import org.bandahealth.idempiere.rest.service.db.ExpenseDBService;
 
 /**
  * Expose TrackExpense REST functionality
@@ -20,57 +20,57 @@ import org.bandahealth.idempiere.rest.service.db.TrackExpenseDBService;
  * @author andrew
  *
  */
-@Path(IRestConfigs.TRACK_EXPENSES_PATH)
+@Path(IRestConfigs.EXPENSES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class TrackExpenseRestService extends BaseEntityRestService<TrackExpense> {
+public class ExpenseRestService extends BaseEntityRestService<Expense> {
 
-	private TrackExpenseDBService dbService;
+	private ExpenseDBService dbService;
 
-	public TrackExpenseRestService() {
-		this.dbService = new TrackExpenseDBService();
+	public ExpenseRestService() {
+		this.dbService = new ExpenseDBService();
 	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<TrackExpense> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
+	public BaseListResponse<Expense> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+																					@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
-	public BaseListResponse<TrackExpense> search(@QueryParam("value") String value, @QueryParam("page") int page,
-			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder) {
+	public BaseListResponse<Expense> search(@QueryParam("value") String value, @QueryParam("page") int page,
+																					@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+																					@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
-	@Path(IRestConfigs.TRACK_EXPENSE_PATH)
+	@Path(IRestConfigs.EXPENSE_PATH)
 	@Override
-	public TrackExpense getEntity(@PathParam("uuid") String uuid) {
+	public Expense getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
 	@POST
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
-	public TrackExpense saveEntity(TrackExpense entity) {
+	public Expense saveEntity(Expense entity) {
 		return dbService.saveEntity(entity);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
-	public TrackExpense processVisit(@PathParam("uuid") String uuid) {
+	public Expense processVisit(@PathParam("uuid") String uuid) {
 		return dbService.processEntity(uuid);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public TrackExpense saveAndProcessVisit(TrackExpense entity) {
+	public Expense saveAndProcessVisit(Expense entity) {
 		return dbService.saveAndProcessEntity(entity);
 	}
 }
