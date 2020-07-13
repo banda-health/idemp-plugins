@@ -24,8 +24,9 @@ public class Expense extends Invoice {
 
 	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 								 Vendor supplier, String dateInvoiced, List<InvoiceLine> invoiceLines, String docStatus,
-								 BigDecimal grandTotal) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false, invoiceLines, docStatus);
+								 BigDecimal grandTotal, String paymentType) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
+				invoiceLines, docStatus, paymentType);
 
 		setIsExpense(true);
 		this.supplier = supplier;
@@ -33,8 +34,9 @@ public class Expense extends Invoice {
 	}
 
 	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-								 Vendor supplier, String dateInvoiced, String docStatus, BigDecimal grandTotal) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false, docStatus, grandTotal);
+								 Vendor supplier, String dateInvoiced, String docStatus, BigDecimal grandTotal, String paymentType) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
+				docStatus, grandTotal, paymentType);
 
 		setIsExpense(true);
 		this.supplier = supplier;

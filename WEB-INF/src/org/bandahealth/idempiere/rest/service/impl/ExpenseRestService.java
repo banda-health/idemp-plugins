@@ -71,6 +71,6 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
 	public Expense saveAndProcessVisit(Expense entity) {
-		return dbService.saveAndProcessEntity(entity);
+		return dbService.asyncSaveAndProcessEntity(entity);
 	}
 }

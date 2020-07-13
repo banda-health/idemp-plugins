@@ -10,6 +10,9 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.MDocType;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * Expenses logic
@@ -54,8 +57,17 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 			invoice.setC_BPartner_ID(vendor.get_ID());
 		}
 
+		invoice.setTotalLines(invoice.getGrandTotal());
 		invoice.setIsSOTrx(false);
 		invoice.setBH_IsExpense(true);
+
+		int apInvoiceId = new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?",
+				null)
+				.setClient_ID()
+				.setParameters(MDocType.DOCBASETYPE_APInvoice)
+				.firstId();
+		invoice.setC_DocType_ID(apInvoiceId);
+		invoice.setC_DocTypeTarget_ID(apInvoiceId);
 	}
 
 	@Override
@@ -76,7 +88,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
 					DateUtil.parseDateOnly(instance.getDateInvoiced()), entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
-					instance.getGrandTotal());
+					instance.getGrandTotal(), instance.getPaymentRule());
 
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -98,7 +110,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
 					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
-					instance.getGrandTotal());
+					instance.getGrandTotal(), instance.getPaymentRule());
 
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

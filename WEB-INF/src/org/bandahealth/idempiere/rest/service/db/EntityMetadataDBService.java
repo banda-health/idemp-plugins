@@ -25,7 +25,8 @@ import org.compiere.util.Env;
 public class EntityMetadataDBService {
 
 	public final static String PATIENT_TYPE = "BH_PatientType";
-	public final static String PAYMENT_TYPE = "C_Payment Tender Type";
+	public final static String ORDER_PAYMENT_TYPE = "C_Payment Tender Type";
+	public final static String INVOICE_PAYMENT_TYPE = "_Payment Rule";
 	public final static String NHIF_TYPE = "BH_NHIFTypeRef";
 	public final static String NHIF_RELATIONSHIP = "BH_NHIF_Relationship_Choices";
 	public final static String REFERRAL_DROPDOWN = "BH_Referral_Dropdown";
@@ -43,8 +44,16 @@ public class EntityMetadataDBService {
 		}
 
 		// retrieve payment types
-		for (MRefList instance : getTypes(PAYMENT_TYPE)) {
-			metadata.addPaymentType(new PaymentType(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
+		for (MRefList instance : getTypes(ORDER_PAYMENT_TYPE)) {
+			metadata.addOrderPaymentType(new PaymentType(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
+					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
+					instance.getCreatedBy(), instance.getName(), instance.getValue()));
+		}
+
+		// retrieve invoice payment types
+		List<MRefList> invoicePaymentTypes = getTypes(INVOICE_PAYMENT_TYPE);
+		for (MRefList instance : invoicePaymentTypes) {
+			metadata.addInvoicePaymentType(new PaymentType(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
 					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 					instance.getCreatedBy(), instance.getName(), instance.getValue()));
 		}
@@ -91,7 +100,7 @@ public class EntityMetadataDBService {
 			parameters.add(referenceValue);
 		}
 
-		if (referenceName.equalsIgnoreCase(PAYMENT_TYPE)) {
+		if (referenceName.equalsIgnoreCase(ORDER_PAYMENT_TYPE)) {
 			// get payment type limits..
 			MValRule valRule = new Query(Env.getCtx(), MValRule.Table_Name, MValRule.COLUMNNAME_Name + "=?", null)
 					.setParameters(PAYMENT_TYPE_LIMIT).setOnlyActiveRecords(true).first();
