@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -64,13 +65,19 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
-	public Expense processVisit(@PathParam("uuid") String uuid) {
+	public Expense process(@PathParam("uuid") String uuid) {
 		return dbService.processEntity(uuid);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public Expense saveAndProcessVisit(Expense entity) {
+	public Expense saveAndProcess(Expense entity) {
 		return dbService.asyncSaveAndProcessEntity(entity);
+	}
+
+	@DELETE
+	@Path(IRestConfigs.UUID_PATH)
+	public boolean saveAndProcess(@PathParam("uuid") String uuid) {
+		return dbService.asyncDeleteEntity(uuid);
 	}
 }

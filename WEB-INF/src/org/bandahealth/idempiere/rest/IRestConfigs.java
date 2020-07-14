@@ -13,6 +13,8 @@ public interface IRestConfigs {
 
 	String SEARCH_PATH = "/search";
 
+	String UUID_PATH = "/{uuid}";
+
 	String PRINT_RECEIPT_PATH = "/printreceipt/{uuid}";
 
 	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";

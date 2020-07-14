@@ -30,11 +30,16 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
+
+		StringBuilder whereClause = new StringBuilder()
+				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_DocStatus).append("!=?");
 		parameters.add("N");
 		parameters.add("Y");
+		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 
-		return super.getAll(MInvoice_BH.COLUMNNAME_IsSOTrx + "=? AND " + MInvoice_BH.COLUMNNAME_BH_IsExpense + "=?",
-				parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
@@ -43,9 +48,11 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 		StringBuilder whereClause = new StringBuilder()
 				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?");
+				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_DocStatus).append("!=?");
 		parameters.add("N");
 		parameters.add("Y");
+		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 
 		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause.toString(), parameters);
 	}
