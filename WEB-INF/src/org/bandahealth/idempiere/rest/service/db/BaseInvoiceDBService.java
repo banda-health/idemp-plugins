@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.*;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -132,12 +131,15 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends BaseDBServ
 
 			invoice.setIsApproved(true);
 			invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
+			invoice.setPaymentRule(entity.getPaymentRule());
 
 			beforeSave(entity, invoice);
 
 			// set target document type
 			if (!invoice.isSOTrx()) {
-				invoice.setC_DocTypeTarget_ID(getPurchaseOrderDocumentTypeId());
+				int apInvoiceId = getAPInvoiceDocumentTypeId();
+				invoice.setC_DocType_ID(apInvoiceId);
+				invoice.setC_DocTypeTarget_ID(apInvoiceId);
 			}
 
 			invoice.saveEx();
@@ -255,20 +257,16 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends BaseDBServ
 	}
 
 	/**
-	 * Get Purchase Order Target Document Type
+	 * Get the Invoice (Vendor) document type id
 	 * 
 	 * @return
 	 */
-	protected int getPurchaseOrderDocumentTypeId() {
-		// set target document type
-		MDocType docType = new Query(Env.getCtx(), MDocType.Table_Name,
-				MDocType.COLUMNNAME_Name + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?", null)
-						.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
-		if (docType != null) {
-			return docType.get_ID();
-		}
-
-		return 0;
+	protected int getAPInvoiceDocumentTypeId() {
+		return new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?",
+				null)
+				.setClient_ID()
+				.setParameters(MDocType.DOCBASETYPE_APInvoice)
+				.firstId();
 	}
 
 	/**

@@ -76,6 +76,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 		}
 
 		invoiceLine.setIsActive(entity.isIsActive());
+		invoiceLine.setDescription(entity.getDescription());
 
 		invoiceLine.saveEx();
 

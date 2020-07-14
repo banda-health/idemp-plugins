@@ -60,14 +60,6 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		invoice.setTotalLines(invoice.getGrandTotal());
 		invoice.setIsSOTrx(false);
 		invoice.setBH_IsExpense(true);
-
-		int apInvoiceId = new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?",
-				null)
-				.setClient_ID()
-				.setParameters(MDocType.DOCBASETYPE_APInvoice)
-				.firstId();
-		invoice.setC_DocType_ID(apInvoiceId);
-		invoice.setC_DocTypeTarget_ID(apInvoiceId);
 	}
 
 	@Override

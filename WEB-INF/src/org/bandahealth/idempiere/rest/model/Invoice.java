@@ -25,7 +25,7 @@ public class Invoice extends BaseMetadata {
 	private Boolean isExpense;
 	private String description;
 	private List<InvoiceLine> invoiceLines;
-	private String paymentType;
+	private String paymentRule;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 
@@ -34,7 +34,7 @@ public class Invoice extends BaseMetadata {
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 								 BusinessPartner businessPartner, String dateInvoiced, BigDecimal grandTotal, boolean isSalesOrderTransaction,
-								 String description, List<InvoiceLine> invoiceLines, String docStatus, String paymentType) {
+								 String description, List<InvoiceLine> invoiceLines, String docStatus, String paymentRule) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartner = businessPartner;
@@ -44,12 +44,12 @@ public class Invoice extends BaseMetadata {
 		this.description = description;
 		this.invoiceLines = invoiceLines;
 		this.docStatus = docStatus;
-		this.paymentType = paymentType;
+		this.paymentRule = paymentRule;
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 								 BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction,
-								 List<InvoiceLine> invoiceLines, String docStatus, String paymentType) {
+								 List<InvoiceLine> invoiceLines, String docStatus, String paymentRule) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartner = businessPartner;
@@ -57,12 +57,12 @@ public class Invoice extends BaseMetadata {
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 		this.invoiceLines = invoiceLines;
 		this.docStatus = docStatus;
-		this.paymentType = paymentType;
+		this.paymentRule = paymentRule;
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 								 BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction, String docStatus,
-								 BigDecimal grandTotal, String paymentType) {
+								 BigDecimal grandTotal, String paymentRule) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartner = businessPartner;
@@ -70,7 +70,7 @@ public class Invoice extends BaseMetadata {
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 		this.docStatus = docStatus;
 		this.grandTotal = grandTotal;
-		this.paymentType = paymentType;
+		this.paymentRule = paymentRule;
 	}
 
 	public BusinessPartner getBusinessPartner() {
@@ -145,11 +145,11 @@ public class Invoice extends BaseMetadata {
 	}
 
 	@XmlElement
-	public String getPaymentType() {
-		return paymentType;
+	public String getPaymentRule() {
+		return paymentRule;
 	}
 
-	public void setPaymentType(String paymentType) {
-		this.paymentType = paymentType;
+	public void setPaymentRule(String paymentRule) {
+		this.paymentRule = paymentRule;
 	}
 }
