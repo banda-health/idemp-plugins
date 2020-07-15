@@ -69,7 +69,7 @@ public class Patient extends BusinessPartner {
 		this.nextOfKinContact = nextOfKinContact;
 		this.localPatientNumber = localPatientNumber;
 		this.totalVisits = totalVisits;
-		this.lastVisitDate = lastVisitDate;
+		this.lastVisitDate= lastVisitDate;
 	}
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
@@ -256,5 +256,23 @@ public class Patient extends BusinessPartner {
 
 	public void setLocalPatientNumber(String localPatientNumber) {
 		this.localPatientNumber = localPatientNumber;
+	}
+	
+	@XmlElement
+	public String getTotalVisits() {
+		return totalVisits;
+	}
+
+	public void setTotalVisits(String totalVisits) {
+		this.totalVisits = totalVisits;
+	}
+
+	@XmlElement
+	public String getLastVisitDate() {
+		return lastVisitDate;
+	}
+
+	public void setLastVisitDate(String lastVisitDate) {
+		this.lastVisitDate = lastVisitDate;
 	}
 }

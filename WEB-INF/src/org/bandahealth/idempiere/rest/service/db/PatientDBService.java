@@ -27,8 +27,6 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	private static String COLUMNNAME_NEXTOFKIN_NAME = "nextofkin_name";
 	private static String COLUMNNAME_NEXTOFKIN_CONTACT = "nextofkin_contact";
 	
-	private VisitDBService visitService = new VisitDBService();
-
 	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
@@ -152,9 +150,9 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			}
 			
 			//get all visits associated with this patient
-			String visits = visitService.getVisitsCount(instance);
+			String visits = VisitDBService.getVisitsCount(instance);
 			//get the last visit's date
-			String lastVisit = visitService.getLastVisitDate(instance);
+			String lastVisit = VisitDBService.getLastVisitDate(instance);
 			
 
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
