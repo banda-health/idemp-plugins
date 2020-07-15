@@ -285,4 +285,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return null;
 	}
+	
+	public String getVisitsCount(MBPartner_BH patient) {
+		return String.valueOf(12);
+	}
+	
+	public String getLastVisitDate(MBPartner_BH patient) {
+		return "2020-05-04 12:46:35";
+	}
 }

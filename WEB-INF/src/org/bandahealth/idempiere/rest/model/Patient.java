@@ -29,6 +29,8 @@ public class Patient extends BusinessPartner {
 	private String nextOfKinName;
 	private String nextOfKinContact;
 	private String localPatientNumber;
+	private String totalVisits;
+	private String lastVisitDate;
 
 	public Patient() {
 	}
@@ -48,7 +50,7 @@ public class Patient extends BusinessPartner {
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
 			String address, String gender, String email, String nhifRelationship, String nhifMemberName,
 			String nhifNumber, String nhifType, String nationalId, String occupation, String nextOfKinName,
-			String nextOfKinContact, String localPatientNumber) {
+			String nextOfKinContact, String localPatientNumber, String totalVisits, String lastVisitDate) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
@@ -66,6 +68,8 @@ public class Patient extends BusinessPartner {
 		this.nextOfKinName = nextOfKinName;
 		this.nextOfKinContact = nextOfKinContact;
 		this.localPatientNumber = localPatientNumber;
+		this.totalVisits = totalVisits;
+		this.lastVisitDate = lastVisitDate;
 	}
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
