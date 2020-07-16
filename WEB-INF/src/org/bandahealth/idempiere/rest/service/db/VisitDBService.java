@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -318,6 +319,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		 for (MOrder_BH mOrder_BH : results) {
 			dates.add(mOrder_BH.getDateOrdered());
 		}
-		return Collections.max(dates).toLocaleString();
+		 DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+			return df.format(Collections.max(dates));
+		
 	}
 }
