@@ -29,7 +29,7 @@ public class Patient extends BusinessPartner {
 	private String nextOfKinName;
 	private String nextOfKinContact;
 	private String localPatientNumber;
-	private String totalVisits;
+	private int totalVisits;
 	private String lastVisitDate;
 
 	public Patient() {
@@ -50,7 +50,7 @@ public class Patient extends BusinessPartner {
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
 			String address, String gender, String email, String nhifRelationship, String nhifMemberName,
 			String nhifNumber, String nhifType, String nationalId, String occupation, String nextOfKinName,
-			String nextOfKinContact, String localPatientNumber, String totalVisits, String lastVisitDate) {
+			String nextOfKinContact, String localPatientNumber, int totalVisits, String lastVisitDate) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
@@ -259,11 +259,11 @@ public class Patient extends BusinessPartner {
 	}
 	
 	@XmlElement
-	public String getTotalVisits() {
+	public int getTotalVisits() {
 		return totalVisits;
 	}
 
-	public void setTotalVisits(String totalVisits) {
+	public void setTotalVisits(int totalVisits) {
 		this.totalVisits = totalVisits;
 	}
 

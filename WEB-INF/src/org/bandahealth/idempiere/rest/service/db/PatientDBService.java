@@ -148,7 +148,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			if (instance.getBH_C_Location() != null) {
 				address = instance.getBH_C_Location().getAddress1();
 			}
-			String visits = VisitDBService.getVisitsCount(instance);
+			int visits = VisitDBService.getVisitsCount(instance);
 			String lastVisit = VisitDBService.getLastVisitDate(instance);
 
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
