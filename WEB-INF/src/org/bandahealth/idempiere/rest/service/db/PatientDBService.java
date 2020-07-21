@@ -26,7 +26,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	private static String COLUMNNAME_OCCUPATION = "bh_occupation";
 	private static String COLUMNNAME_NEXTOFKIN_NAME = "nextofkin_name";
 	private static String COLUMNNAME_NEXTOFKIN_CONTACT = "nextofkin_contact";
-
+	
 	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
@@ -148,6 +148,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			if (instance.getBH_C_Location() != null) {
 				address = instance.getBH_C_Location().getAddress1();
 			}
+			int visits = VisitDBService.getVisitsCount(instance);
+			String lastVisit = VisitDBService.getLastVisitDate(instance);
 
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
@@ -157,7 +159,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getbh_nhif_relationship(), instance.getbh_nhif_member_name(), instance.getNHIF_Number(),
 					instance.getBH_NHIF_Type(), instance.getNational_ID(), instance.getbh_occupation(),
 					instance.getNextOfKin_Name(), instance.getNextOfKin_Contact(),
-					instance.getBH_Local_PatientID());
+					instance.getBH_Local_PatientID(), visits, lastVisit );
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());

@@ -2,13 +2,23 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.rest.model.*;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.OrderStatus;
+import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Patient;
+import org.bandahealth.idempiere.rest.model.PatientType;
+import org.bandahealth.idempiere.rest.model.Payment;
+import org.bandahealth.idempiere.rest.model.Referral;
+import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
@@ -287,22 +297,31 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return null;
 	}
-
-	@Override
-	public Boolean deleteEntity(String uuid) {
-		try {
-			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU + "=?", null)
-					.setParameters(uuid).first();
-			if(!order.isSOTrx()) {
-				throw new AdempiereException("Document id not a Visit");
-//				return order.delete(false);
-			} if (order.isComplete()) {
-				throw new AdempiereException("Visit is already completed");
-			} else {
-				return order.delete(false);
-			}
-		} catch (Exception ex) {
-			throw new AdempiereException(ex.getLocalizedMessage());
+	
+	public static int getVisitsCount(MBPartner_BH patient) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		parameters.add(patient.get_ID());
+		int count = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " 
+				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
+						.setClient_ID().setOnlyActiveRecords(true).count();
+		return count;
+	}
+	
+	public static String getLastVisitDate(MBPartner_BH patient) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		parameters.add(patient.get_ID());
+		
+		 List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " 
+					+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
+							.setClient_ID().setOnlyActiveRecords(true).list();
+		 List<Date> dates = new ArrayList<>();
+		 for (MOrder_BH mOrder_BH : results) {
+			dates.add(mOrder_BH.getDateOrdered());
 		}
+		 Timestamp ts = new Timestamp(Collections.max(dates).getTime());
+		 return DateUtil.parseDateOnly(ts);
+		
 	}
 }
