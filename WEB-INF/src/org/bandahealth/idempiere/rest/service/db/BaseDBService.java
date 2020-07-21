@@ -34,6 +34,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public static final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 
 	public abstract T saveEntity(T entity);
+	
+	public abstract Boolean deleteEntity(String entityUuid);
 
 	// Default fields used for lists
 	protected abstract T createInstanceWithDefaultFields(S instance);

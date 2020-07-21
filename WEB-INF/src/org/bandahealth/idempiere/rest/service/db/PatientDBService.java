@@ -211,4 +211,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 		return new Query(Env.getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=?", null)
 				.setParameters(patientId).first();
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

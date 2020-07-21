@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.impl;
 import java.io.File;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -96,5 +97,11 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 		}
 
 		return null;
+	}
+	
+	@DELETE
+	@Path(IRestConfigs.VISIT_PATH)
+	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
+		return dbService.deleteEntity(uuid);
 	}
 }
