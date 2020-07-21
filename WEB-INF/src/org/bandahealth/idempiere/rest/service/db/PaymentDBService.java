@@ -308,4 +308,10 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(payment.getC_Payment_UU()));
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
