@@ -107,6 +107,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		return null;
+	}
+
+	@Override
 	protected Visit createInstanceWithDefaultFields(MOrder_BH instance) {
 		try {
 			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
