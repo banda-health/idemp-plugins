@@ -7,6 +7,7 @@ import java.util.List;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.exceptions.ProductSaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
@@ -31,6 +32,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
+	private InventoryDBService inventoryDbService = new InventoryDBService();
 
 	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
@@ -85,58 +87,22 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			if (entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 
-				String whereClause = MWarehouse.Table_Name + "." + MWarehouse.COLUMNNAME_M_Warehouse_ID + " = ? AND "
-						+ MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + " = ?";
-
-				String joinClause = "INNER JOIN " + MStorageOnHand.Table_Name;
-
-				joinClause += " ON " + MAttributeSetInstance.Table_Name + "."
-						+ MAttributeSetInstance.COLUMNNAME_M_AttributeSetInstance_ID + " = " + MStorageOnHand.Table_Name
-						+ "." + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID;
-
-				joinClause += " AND " + MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_QtyOnHand + " > 0";
-
-				String warehouseId = Env.getContext(Env.getCtx(), Env.M_WAREHOUSE_ID);
-				int mWarehouseId = 0;
-				if (warehouseId != null) {
-					mWarehouseId = Integer.valueOf(warehouseId);
-				}
-
-				joinClause += " INNER JOIN " + MLocator.Table_Name + " ON " + MStorageOnHand.Table_Name + "."
-						+ MStorageOnHand.COLUMNNAME_M_Locator_ID + " = " + MLocator.Table_Name + "."
-						+ MLocator.COLUMNNAME_M_Locator_ID;
-
-				joinClause += " INNER JOIN " + MWarehouse.Table_Name + " ON " + MWarehouse.Table_Name + "."
-						+ MWarehouse.COLUMNNAME_M_Warehouse_ID + "=" + MLocator.Table_Name + "."
-						+ MLocator.COLUMNNAME_M_Warehouse_ID;
-
-				query = new Query(Env.getCtx(), MAttributeSetInstance.Table_Name, whereClause, null)
-						.addJoinClause(joinClause).setParameters(mWarehouseId, entity.get_ID())
-						.setOnlyActiveRecords(true);
-
-				query = query.setOrderBy(MAttributeSetInstance.COLUMNNAME_GuaranteeDate + " " + ASCENDING_ORDER);
-
-				List<MAttributeSetInstance> attributeSetInstances = query.list();
-
+				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo, entity.get_ID());
+				
 				BigDecimal totalQuantity = BigDecimal.ZERO;
-				for (MAttributeSetInstance attributeSetInstance : attributeSetInstances) {
+				
+				for (Inventory inventory : inventoryList.getResults()) {
 					// get expiry date and id
 					SearchProductAttribute attribute = new SearchProductAttribute(
-							DateUtil.parseDateOnly(attributeSetInstance.getGuaranteeDate()),
-							attributeSetInstance.get_ID());
-
-					// get existing quantity
-					MStorageOnHand storage = new Query(Env.getCtx(), MStorageOnHand.Table_Name,
-							MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "=?", null)
-									.setParameters(attributeSetInstance.get_ID()).setOnlyActiveRecords(true).first();
-					if (storage != null) {
-						totalQuantity = totalQuantity.add(storage.getQtyOnHand());
-						attribute.setExistingQuantity(storage.getQtyOnHand());
-					}
-
+							inventory.getExpirationDate(), inventory.getAttributeSetInstanceId());
+					
+					// get quantity
+					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
+					attribute.setExistingQuantity(BigDecimal.valueOf(inventory.getQuantity()));
+					
 					result.addAttribute(attribute);
 				}
-
+				
 				result.setTotalQuantity(totalQuantity);
 			}
 
