@@ -28,14 +28,13 @@ import org.compiere.util.Env;
 
 /**
  * Visit/billing functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	private final String COLUMNNAME_VISIT_NOTES = "bh_lab_notes"; // this column needs to be renamed accordingly in the
-																	// db
+	// db
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
@@ -111,10 +110,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		try {
 			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU + "=?", null)
 					.setParameters(uuid).first();
-			if(!order.isSOTrx()) {
+			if (!order.isSOTrx()) {
 				throw new AdempiereException("Document id not a Visit");
 //				return order.delete(false);
-			} if (order.isComplete()) {
+			}
+			if (order.isComplete()) {
 				throw new AdempiereException("Visit is already completed");
 			} else {
 				return order.delete(false);
@@ -143,7 +143,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
+					.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -209,7 +209,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	/**
 	 * Get In-complete Visits
-	 * 
+	 *
 	 * @param pagingInfo
 	 * @return
 	 */
@@ -223,7 +223,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-							.setClient_ID().setOnlyActiveRecords(true);
+					.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);
@@ -271,7 +271,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	 * visit with clinical information, no line items, no payments PENDING - visit
 	 * with clinical information, line items, no payments, PENDING_COMPLETION -
 	 * visit yet to be processed, COMPLETED - completed visit
-	 * 
+	 *
 	 * @param entity
 	 */
 	private OrderStatus getOrderStatus(MOrder_BH entity) {
@@ -302,7 +302,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	/**
 	 * Generates Thermal receipt
-	 * 
+	 *
 	 * @param uuid
 	 * @return
 	 */
@@ -315,31 +315,33 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return null;
 	}
-	
+
 	public static int getVisitsCount(MBPartner_BH patient) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 		parameters.add(patient.get_ID());
-		int count = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " 
+		int count = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND "
 				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
-						.setClient_ID().setOnlyActiveRecords(true).count();
+				.setClient_ID().setOnlyActiveRecords(true).count();
 		return count;
 	}
-	
+
 	public static String getLastVisitDate(MBPartner_BH patient) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 		parameters.add(patient.get_ID());
-		
-		 List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " 
-					+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
-							.setClient_ID().setOnlyActiveRecords(true).list();
-		 List<Date> dates = new ArrayList<>();
-		 for (MOrder_BH mOrder_BH : results) {
+
+		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND "
+				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
+				.setClient_ID().setOnlyActiveRecords(true).list();
+		if (results.isEmpty()) {
+			return null;
+		}
+		List<Date> dates = new ArrayList<>();
+		for (MOrder_BH mOrder_BH : results) {
 			dates.add(mOrder_BH.getDateOrdered());
 		}
-		 Timestamp ts = new Timestamp(Collections.max(dates).getTime());
-		 return DateUtil.parseDateOnly(ts);
-		
+		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
+		return DateUtil.parseDateOnly(ts);
 	}
 }
