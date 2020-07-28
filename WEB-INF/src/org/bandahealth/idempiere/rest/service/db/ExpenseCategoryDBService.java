@@ -115,4 +115,10 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 	protected MCharge_BH getModelInstance() {
 		return new MCharge_BH(Env.getCtx(), 0, null);
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

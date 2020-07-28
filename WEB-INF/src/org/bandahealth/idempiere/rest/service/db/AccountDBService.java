@@ -64,4 +64,10 @@ public class AccountDBService extends BaseDBService<Account, MElementValue> {
 	protected MElementValue getModelInstance() {
 		return new MElementValue(Env.getCtx(), 0, null);
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

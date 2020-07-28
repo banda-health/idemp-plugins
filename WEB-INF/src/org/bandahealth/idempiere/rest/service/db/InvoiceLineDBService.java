@@ -171,4 +171,10 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 		return new Query(Env.getCtx(), MInvoiceLine.Table_Name, MInvoiceLine.COLUMNNAME_C_Invoice_ID + " =?", null)
 				.setParameters(invoiceId).setOnlyActiveRecords(true).setClient_ID().match();
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

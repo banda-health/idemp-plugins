@@ -28,7 +28,6 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		this.vendorDBService = new VendorDBService();
 	}
 
-	@Override
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
