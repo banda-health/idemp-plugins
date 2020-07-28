@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.impl;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -62,7 +63,7 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	public Expense saveEntity(Expense entity) {
 		return dbService.saveEntity(entity);
 	}
-
+	
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
 	public Expense process(@PathParam("uuid") String uuid) {

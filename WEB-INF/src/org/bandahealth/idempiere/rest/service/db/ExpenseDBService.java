@@ -28,6 +28,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		this.vendorDBService = new VendorDBService();
 	}
 
+	@Override
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
@@ -121,5 +122,11 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	@Override
 	protected Expense createInstanceWithSearchFields(MInvoice_BH instance) {
 		return createInstanceWithDefaultFields(instance);
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -177,4 +177,10 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		return new Query(Env.getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_Order_ID + " =?", null)
 				.setParameters(orderId).setOnlyActiveRecords(true).setClient_ID().match();
 	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
