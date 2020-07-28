@@ -15,7 +15,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.compiere.model.MUser;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -135,33 +135,9 @@ public class InventoryDBService {
 	 * @return
 	 */
 	private int getTotalRecordCount(String sqlWhere, List<Object> parameters) {
-		int totalRecordCount = 0;
-
 		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ");
 		sql.append(X_BH_Stocktake_v.Table_Name).append(" ").append(sqlWhere);
-
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		String sqlTotalCount = sql.toString();
-		try {
-			statement = DB.prepareStatement(sqlTotalCount, null);
-			DB.setParameters(statement, parameters);
-
-			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				totalRecordCount = resultSet.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			log.log(Level.SEVERE, sqlTotalCount, e);
-			throw new DBException(e, sqlTotalCount);
-		} finally {
-			DB.close(resultSet, statement);
-			resultSet = null;
-			statement = null;
-		}
-
-		return totalRecordCount;
-
+		
+		return SqlUtil.getCount(sql.toString(), parameters);
 	}
 }

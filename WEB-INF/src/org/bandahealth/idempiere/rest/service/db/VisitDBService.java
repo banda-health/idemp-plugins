@@ -1,14 +1,21 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import static org.bandahealth.idempiere.rest.service.db.BaseDBService.AND_OPERATOR;
+
 import java.io.File;
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -20,10 +27,12 @@ import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
 import org.compiere.model.Query;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 /**
@@ -341,5 +350,56 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		 Timestamp ts = new Timestamp(Collections.max(dates).getTime());
 		 return DateUtil.parseDateOnly(ts);
 		
+	}
+	
+	/**
+	 * Get Open Visits (exclude today's visits) Count
+	 * 
+	 * @return count
+	 */
+	public Integer getOpenVisitDraftsCount() {
+		StringBuilder sqlWhere = new StringBuilder().append("WHERE ").append(MOrder_BH.COLUMNNAME_AD_Client_ID)
+				.append(" =?").append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsActive).append(" =?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ")
+				.append(AND_OPERATOR).append("to_char(")
+				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
+
+		List<Object> parameters = new ArrayList<>();
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
+		parameters.add(true);
+		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
+		parameters.add("'" + DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())) + "'");
+		parameters.add("Y");
+		
+		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ");
+		sql.append(MOrder_BH.Table_Name).append(" ").append(sqlWhere);
+		
+		return SqlUtil.getCount(sql.toString(), parameters);
+	}
+	
+	/**
+	 * Get Open Visits
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @return
+	 */
+	public BaseListResponse<Visit> getOpenVisitDrafts(Paging pagingInfo, String sortColumn, String sortOrder) {
+		StringBuilder sqlWhere = new StringBuilder(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND ")
+				.append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? AND ")
+				.append("to_char(")
+				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsActive).append(" =?");
+		
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
+		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
+		parameters.add(true);
+		
+		return super.getAll(sqlWhere.toString(), parameters, pagingInfo, sortColumn, sortOrder);
 	}
 }
