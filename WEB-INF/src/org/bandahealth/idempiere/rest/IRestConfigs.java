@@ -8,6 +8,7 @@ public interface IRestConfigs {
 
 	String AUTHENTICATION_SESSION_PATH = "/session";
 	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms";
+	String CHANGEPASSWORD_PATH = AUTHENTICATION_SESSION_PATH + "/changePassword";
 
 	String SAVE_PATH = "/save";
 	String DELETE_PATH = "/delete";
