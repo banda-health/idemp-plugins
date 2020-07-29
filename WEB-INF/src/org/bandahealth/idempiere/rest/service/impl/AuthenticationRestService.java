@@ -14,7 +14,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
-import org.bandahealth.idempiere.base.model.MADMessage_BH;
+import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
@@ -84,11 +84,11 @@ public class AuthenticationRestService {
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
 		if (Util.isEmpty(credentials.getPassword())) {
-			throw new IllegalArgumentException(org.compiere.util.Msg.getMsg(Env.getCtx(), MADMessage_BH.OLD_PASSWORD_MANDATORY));
+			throw new IllegalArgumentException(org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
 		}
 
 		if (Util.isEmpty(credentials.getNewPassword())) {
-			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MADMessage_BH.NEW_PASSWORD_MANDATORY));
+			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.NEW_PASSWORD_MANDATORY));
 		}
 
 		// TODO: Add this back in if we start using these
@@ -102,7 +102,7 @@ public class AuthenticationRestService {
 
 		if (org.compiere.model.MSysConfig.getBooleanValue(MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
 			if (credentials.getPassword().equals(credentials.getNewPassword())) {
-				throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MADMessage_BH.NEW_PASSWORD_MUST_DIFFER));
+				throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.NEW_PASSWORD_MUST_DIFFER));
 			}
 		}
 
@@ -222,8 +222,8 @@ public class AuthenticationRestService {
 	private AuthResponse handleUserNeedsToChangePassword(Authentication credentials) {
 		List<String> securityQuestions = new ArrayList<>();
 
-		for (int i = 1; i <= MADMessage_BH.NO_OF_SECURITY_QUESTION; i++) {
-			securityQuestions.add(Msg.getMsg(Env.getCtx(), MADMessage_BH.SECURITY_QUESTION_PREFIX + i));
+		for (int i = 1; i <= MMessage_BH.NO_OF_SECURITY_QUESTION; i++) {
+			securityQuestions.add(Msg.getMsg(Env.getCtx(), MMessage_BH.SECURITY_QUESTION_PREFIX + i));
 		}
 		AuthResponse response = new AuthResponse();
 		response.setUsername(credentials.getUsername());
