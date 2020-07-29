@@ -358,26 +358,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	 * @return count
 	 */
 	public Integer getOpenVisitDraftsCount() {
-		StringBuilder sqlWhere = new StringBuilder().append("WHERE ").append(MOrder_BH.COLUMNNAME_AD_Client_ID)
-				.append(" =?").append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsActive).append(" =?")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ")
-				.append(AND_OPERATOR).append("to_char(")
-				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
-
 		List<Object> parameters = new ArrayList<>();
-		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
-		parameters.add(true);
-		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
-		parameters.add("'" + DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())) + "'");
-		parameters.add("Y");
+		StringBuilder sqlWhere = new StringBuilder("WHERE ")
+				.append(buildOpenDraftsWhereClauseAndParameters(parameters));
 		
-		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ");
-		sql.append(MOrder_BH.Table_Name).append(" ").append(sqlWhere);
-		
-		return SqlUtil.getCount(sql.toString(), parameters);
+		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
 	}
 	
 	/**
@@ -388,18 +373,32 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	 * @return
 	 */
 	public BaseListResponse<Visit> getOpenVisitDrafts(Paging pagingInfo, String sortColumn, String sortOrder) {
-		StringBuilder sqlWhere = new StringBuilder(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND ")
-				.append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? AND ")
-				.append("to_char(")
-				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsActive).append(" =?");
-		
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
-		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
-		parameters.add(true);
+		String sqlWhere = buildOpenDraftsWhereClauseAndParameters(parameters);
 		
-		return super.getAll(sqlWhere.toString(), parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(sqlWhere, parameters, pagingInfo, sortColumn, sortOrder);
+	}
+	
+	private String buildOpenDraftsWhereClauseAndParameters(List<Object> parameters) {
+		StringBuilder sqlWhere = new StringBuilder().append(MOrder_BH.COLUMNNAME_AD_Client_ID)
+				.append(" =?").append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsActive).append(" =?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ")
+				.append(AND_OPERATOR).append("to_char(")
+				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
+
+		if (parameters == null) {
+			parameters = new ArrayList<>();
+		}
+		
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
+		parameters.add(true);
+		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
+		parameters.add("'" + DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())) + "'");
+		parameters.add("Y");
+		
+		return sqlWhere.toString();
 	}
 }

@@ -135,9 +135,6 @@ public class InventoryDBService {
 	 * @return
 	 */
 	private int getTotalRecordCount(String sqlWhere, List<Object> parameters) {
-		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ");
-		sql.append(X_BH_Stocktake_v.Table_Name).append(" ").append(sqlWhere);
-		
-		return SqlUtil.getCount(sql.toString(), parameters);
+		return SqlUtil.getCount(X_BH_Stocktake_v.Table_Name, sqlWhere, parameters);
 	}
 }

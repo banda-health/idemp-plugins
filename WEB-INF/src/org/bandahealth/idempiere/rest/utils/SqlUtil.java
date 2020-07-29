@@ -20,13 +20,18 @@ public class SqlUtil {
 
 	private static CLogger log = CLogger.getCLogger(SqlUtil.class);
 
-	public static Integer getCount(String sql, List<Object> parameters) {
+	public static Integer getCount(String tableName, String whereClause, List<Object> parameters) {
+		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ")
+				.append(tableName)
+				.append(" ")
+				.append(whereClause);
+		
 		Integer count = null;
 
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			statement = DB.prepareStatement(sql, null);
+			statement = DB.prepareStatement(sql.toString(), null);
 			DB.setParameters(statement, parameters);
 
 			resultSet = statement.executeQuery();
@@ -35,8 +40,8 @@ public class SqlUtil {
 			}
 
 		} catch (SQLException e) {
-			log.log(Level.SEVERE, sql, e);
-			throw new DBException(e, sql);
+			log.log(Level.SEVERE, sql.toString(), e);
+			throw new DBException(e, sql.toString());
 		} finally {
 			DB.close(resultSet, statement);
 			resultSet = null;
