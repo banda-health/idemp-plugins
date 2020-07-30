@@ -31,15 +31,19 @@ public class InventoryDBService {
 
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder)
 			throws DBException {
-		return this.getInventory(pagingInfo, null, sortColumn, sortOrder);
+		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder);
 	}
 
 	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
 			String sortOrder) throws DBException {
-		return this.getInventory(pagingInfo, value, sortColumn, sortOrder);
+		return this.getInventory(pagingInfo, value, null, sortColumn, sortOrder);
+	}
+	
+	public BaseListResponse<Inventory> getProductInventory(Paging pagingInfo, Integer productId) throws DBException {
+		return this.getInventory(pagingInfo, null, productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER);
 	}
 
-	private BaseListResponse<Inventory> getInventory(Paging pagingInfo, String searchValue, String sortColumn,
+	private BaseListResponse<Inventory> getInventory(Paging pagingInfo, String searchValue, Integer productId, String sortColumn,
 			String sortOrder) throws DBException {
 		List<Inventory> results = new ArrayList<>();
 
@@ -65,6 +69,12 @@ public class InventoryDBService {
 					.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product)
 					.append(") ").append(LIKE_COMPARATOR).append(" ?");
 			parameters.add("%" + searchValue.toLowerCase() + "%");
+		}
+		
+		if (productId != null) {
+			sqlWhere.append(AND_OPERATOR).append(X_BH_Stocktake_v.COLUMNNAME_M_Product_ID).append(EQUAL_OPERATOR)
+					.append(" ?");
+			parameters.add(productId);
 		}
 
 		StringBuilder sqlOrderBy = new StringBuilder().append(" order by ");
