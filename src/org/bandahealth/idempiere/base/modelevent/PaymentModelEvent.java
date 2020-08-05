@@ -1,13 +1,20 @@
 package org.bandahealth.idempiere.base.modelevent;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MPayment;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
@@ -81,6 +88,25 @@ public class PaymentModelEvent extends AbstractEventHandler {
 			}
 		} else {
 			payment.setDefaultBH_C_Order_ID();
+	
+			// Issue go-1219: Need to make sure the service debt/pay outstanding balance window does not result to negative open balances.
+			
+			// get bpartner's total open balance
+			MBPartner bPartner = MBPartner.get(Env.getCtx(), payment.getC_BPartner_ID());
+			if (bPartner == null) {
+				throw new AdempiereException("Payment must have a business partner");
+			}
+			
+			BigDecimal totalOpenBalance = bPartner.getTotalOpenBalance();
+			
+			// set the payment amount to tender amount
+			payment.setBH_TenderAmount(payment.getPayAmt());
+			
+			if (totalOpenBalance.compareTo(BigDecimal.ZERO) <= 0) {
+				payment.setPayAmt(BigDecimal.ZERO);
+			} else if (payment.getPayAmt().compareTo(totalOpenBalance) > 0) {
+				payment.setPayAmt(totalOpenBalance);
+			}
 		}
 	}
 }
