@@ -15,8 +15,6 @@ public class BHModelFactory implements IModelFactory {
 			return MBPartner_BH.class;
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
 			return MOrder_BH.class;
-		} else if (tableName.equalsIgnoreCase(MInvoice_BH.Table_Name)) {
-			return MInvoice_BH.class;
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return MPayment_BH.class;
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
@@ -46,8 +44,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBPartner_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
 			return new MOrder_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MInvoice_BH.Table_Name)) {
-			return new MInvoice_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
@@ -77,8 +73,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBPartner_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
 			return new MOrder_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MInvoice_BH.Table_Name)) {
-			return new MInvoice_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {

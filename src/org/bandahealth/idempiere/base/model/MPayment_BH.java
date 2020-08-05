@@ -9,17 +9,6 @@ import org.compiere.model.MPayment;
 public class MPayment_BH extends MPayment {
 
 	private static final long serialVersionUID = 1L;
-
-	/** Bill Waiver = B */
-	public static final String TENDERTYPE_BillWaiver = "B";
-	/** Linda Mama = i */
-	public static final String TENDERTYPE_LindaMama = "i";
-	/** MPesa = M */
-	public static final String TENDERTYPE_MPesa = "M";
-	/** M-Tiba = MT */
-	public static final String TENDERTYPE_MTiba = "MT";
-	/** NHIF = N */
-	public static final String TENDERTYPE_NHIF = "N";
 	/**
 	 * Column name BH_C_Order_ID
 	 */
