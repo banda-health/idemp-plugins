@@ -5,17 +5,16 @@ import org.adempiere.exceptions.AdempiereException;
 
 
 /**
- * @author icarus
+ * @author kellym
+ * Catch user error: Entry of existing record.
  *
  */
-public class ProductSaveException extends AdempiereException {
+public class DuplicateEntitySaveException extends AdempiereException {
 
 	private static final long serialVersionUID = 1L;
 
 
-	public ProductSaveException(String message) {
+	public DuplicateEntitySaveException(String message) {
 		super(message);
-		
 	}
-
 }

@@ -57,6 +57,8 @@ public interface IRestConfigs {
 	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";
 	String VISIT_PATH = "/visit/{uuid}";
 	String VISIT_QUEUE_PATH = "/visitqueue";
+	String VISIT_OPEN_DRAFTS = "/opendrafts";
+	String VISIT_OPEN_DRAFTS_COUNT = VISIT_OPEN_DRAFTS + "/count";
 
 	String PAYMENTS_PATH = AUTHENTICATION_PATH + "/payments";
 	String PAYMENT_PATH = "/payment/{uuid}";
