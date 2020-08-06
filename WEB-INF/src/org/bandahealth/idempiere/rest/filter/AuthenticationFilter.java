@@ -31,9 +31,8 @@ import org.bandahealth.idempiere.rest.utils.TokenUtils;
 
 /**
  * Basic Authentication
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Provider
 public class AuthenticationFilter implements ContainerRequestFilter {
@@ -42,9 +41,10 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		// don't filter a request to get an authentication session.
+		// Don't filter a request to get an authentication session or to change a password
 		if (requestContext.getMethod().equals(HttpMethod.POST)
-				&& requestContext.getUriInfo().getPath().endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH)) {
+				&& (requestContext.getUriInfo().getPath().endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH) ||
+				requestContext.getUriInfo().getPath().endsWith(IRestConfigs.CHANGEPASSWORD_PATH))) {
 			return;
 		}
 
@@ -73,7 +73,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	/**
 	 * Borrowed from
 	 * https://github.com/hengsin/idempiere-rest/blob/master/com.trekglobal.idempiere.rest.api/src/com/trekglobal/idempiere/rest/api/v1/auth/filter/RequestFilter.java#L99
-	 * 
+	 *
 	 * @param token
 	 * @throws IllegalArgumentException
 	 * @throws UnsupportedEncodingException
@@ -81,8 +81,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	private void validate(String token) throws IllegalArgumentException, UnsupportedEncodingException {
 		Algorithm algorithm = Algorithm.HMAC256(TokenUtils.getTokenSecret());
 		JWTVerifier verifier = JWT.require(algorithm).withIssuer(TokenUtils.getTokenIssuer()).build(); // Reusable
-																										// verifier
-																										// instance
+		// verifier
+		// instance
 		DecodedJWT jwt = verifier.verify(token);
 		String userName = jwt.getSubject();
 		ServerContext.setCurrentInstance(new Properties());

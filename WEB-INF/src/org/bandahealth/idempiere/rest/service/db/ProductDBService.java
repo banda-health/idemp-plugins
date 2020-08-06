@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.rest.exceptions.ProductSaveException;
+import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -184,7 +184,12 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
 		} catch (Exception ex) {
-			throw new ProductSaveException(ex.getLocalizedMessage());
+			if(ex.getMessage().contains("Require unique data")) {
+				throw new DuplicateEntitySaveException(ex.getLocalizedMessage());
+			} else {
+				throw new AdempiereException(ex.getLocalizedMessage());
+			}
+
 		}
 	}
 

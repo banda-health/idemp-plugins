@@ -16,18 +16,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class AuthResponse {
 
 	private String token;
-
 	private Response.Status status;
-
 	private int userId;
-
 	private String username;
-
 	private List<Client> clients = new ArrayList<>();
-
 	private boolean hasAcceptedTermsOfUse;
-
 	private int roleId;
+	private boolean needsToResetPassword;
+	private List<String> securityQuestions;
 
 	public AuthResponse() {
 	}
@@ -107,5 +103,21 @@ public class AuthResponse {
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+
+	public boolean getNeedsToResetPassword() {
+		return needsToResetPassword;
+	}
+
+	public void setNeedsToResetPassword(boolean needsToResetPassword) {
+		this.needsToResetPassword = needsToResetPassword;
+	}
+
+	public List<String> getSecurityQuestions() {
+		return securityQuestions;
+	}
+
+	public void setSecurityQuestions(List<String> securityQuestions) {
+		this.securityQuestions = securityQuestions;
 	}
 }
