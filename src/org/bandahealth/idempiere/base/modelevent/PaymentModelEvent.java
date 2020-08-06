@@ -88,6 +88,10 @@ public class PaymentModelEvent extends AbstractEventHandler {
 			}
 		} else {
 			payment.setDefaultBH_C_Order_ID();
+			
+			if (payment.getC_Invoice_ID() > 0) {
+				return;
+			}
 	
 			// Issue go-1219: Need to make sure the service debt/pay outstanding balance window does not result to negative open balances.
 			
