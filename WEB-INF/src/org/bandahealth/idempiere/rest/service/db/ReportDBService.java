@@ -53,10 +53,8 @@ public class ReportDBService extends BaseReportDBProcess {
 
 	// parameters
 	private final String BILL_ID = "billId";
-	private final String BEGIN_DATE = "beginDate";
-	private final String END_DATE = "endDate";
-	private final String DPT_BEGIN_DATE = "Begin Date";
-	private final String DPT_END_DATE = "End Date";
+	private final String BEGIN_DATE = "Begin Date";
+	private final String END_DATE = "End Date";
 	private final String PAYMENT_MODE = "Payment Mode";
 	private final String PATIENT_TYPE = "Patient Type";
 
@@ -103,8 +101,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	public File generatePatientTransactionsReport(Date beginDate, Date endDate, String paymentMode,
 			String patientType) {
 		List<ProcessInfoParameter> parameters = new ArrayList<>();
-		parameters.add(new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null));
-		parameters.add(new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null));
+		parameters.add(new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null));
+		parameters.add(new ProcessInfoParameter(END_DATE, endDate, null, null, null));
 
 		// check payment mode
 		if (StringUtil.isNotNullAndEmpty(paymentMode)) {
@@ -147,8 +145,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateValueOfOpeningAndClosingStockReport(Date beginDate, Date endDate) {
 		return generateReport(VALUE_OPENING_CLOSING_STOCK_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 
 	/**
@@ -160,8 +158,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateMoH705APatientVisitsReferralTotalsReport(Date beginDate, Date endDate) {
 		return generateReport(MOH705A_PATIENT_VISITS_REFERRALS_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 
 	/**
@@ -173,8 +171,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateMoH705AOutPatientUnder5SummaryReport(Date beginDate, Date endDate) {
 		return generateReport(MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 
 	/**
@@ -186,8 +184,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateMoH717NewRevisitPatientCountReport(Date beginDate, Date endDate) {
 		return generateReport(MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 
 	/**
@@ -199,8 +197,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateMoH705BOutpatientOver5SummaryReport(Date beginDate, Date endDate) {
 		return generateReport(MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 
 	/**
@@ -212,8 +210,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateInventorySoldReport(Date beginDate, Date endDate) {
 		return generateReport(INVENTORY_SOLD_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 
 	/**
@@ -225,8 +223,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateStockDiscrepancyReport(Date beginDate, Date endDate) {
 		return generateReport(STOCK_DISCREPANCY_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 
 	/**
@@ -238,7 +236,7 @@ public class ReportDBService extends BaseReportDBProcess {
 	 */
 	public File generateDonorFundReport(Date beginDate, Date endDate) {
 		return generateReport(DONOR_FUND_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(DPT_BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(DPT_END_DATE, endDate, null, null, null) });
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
 	}
 }

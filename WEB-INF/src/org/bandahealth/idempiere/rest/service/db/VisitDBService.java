@@ -1,21 +1,15 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import static org.bandahealth.idempiere.rest.service.db.BaseDBService.AND_OPERATOR;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -32,7 +26,6 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
 import org.compiere.model.Query;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 /**
@@ -396,9 +389,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
-		parameters.add(true);
+		parameters.add("Y");
 		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
-		parameters.add("'" + DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())) + "'");
+		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
 		parameters.add("Y");
 		
 		return sqlWhere.toString();
