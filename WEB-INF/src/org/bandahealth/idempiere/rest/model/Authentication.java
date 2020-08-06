@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Authentication {
 	private String username;
 	private String password;
+	private String newPassword;
+	private String securityQuestion;
+	private String answer;
 	private Integer clientId;
 	private Integer roleId;
 	private Integer organizationId;
@@ -31,6 +34,14 @@ public class Authentication {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 
 	@XmlElement
@@ -67,5 +78,21 @@ public class Authentication {
 
 	public void setWarehouseId(Integer adWarehouseId) {
 		this.warehouseId = adWarehouseId;
+	}
+
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 }
