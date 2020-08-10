@@ -3,12 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bandahealth.idempiere.rest.model.EntityMetadata;
-import org.bandahealth.idempiere.rest.model.NHIFRelationship;
-import org.bandahealth.idempiere.rest.model.NHIFType;
-import org.bandahealth.idempiere.rest.model.PatientType;
-import org.bandahealth.idempiere.rest.model.PaymentType;
-import org.bandahealth.idempiere.rest.model.Referral;
+import org.bandahealth.idempiere.rest.model.*;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
@@ -32,6 +27,7 @@ public class EntityMetadataDBService {
 	public final static String REFERRAL_DROPDOWN = "BH_Referral_Dropdown";
 	public final static String PAYMENT_TYPE_LIMIT = "C_Payment Tender Type Limit";
 	public final static String DOCUMENT_STATUS = "_Document Status";
+	public final static String PRODUCT_CATEGORY_TYPE = "BH Product Category Type";
 
 	public EntityMetadata getAll() {
 		EntityMetadata metadata = new EntityMetadata();
@@ -77,6 +73,13 @@ public class EntityMetadataDBService {
 			metadata.addReferral(new Referral(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
 					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 					instance.getCreatedBy(), instance.getName(), instance.getValue()));
+		}
+
+		// retrieve product category types
+		for (MRefList instance : getTypes(PRODUCT_CATEGORY_TYPE)) {
+			metadata.addProductCategoryType(new BaseEntity(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
+					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
+					instance.getCreatedBy(), instance.getName(), instance.getDescription(), instance.getValue()));
 		}
 
 		return metadata;

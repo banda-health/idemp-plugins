@@ -80,6 +80,10 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 				service.setBH_SellPrice(entity.getSellingPrice());
 			}
 
+			if (entity.getProductCategoryId() != null) {
+				service.setM_Product_Category_ID(entity.getProductCategoryId());
+			}
+
 			service.setIsActive(entity.isIsActive());
 
 			service.saveEx();
@@ -96,7 +100,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
 					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
-					null, service.getBH_SellPrice());
+					null, service.getBH_SellPrice(), service.getM_Product_Category_ID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -109,7 +113,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 		try {
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
 					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
-					service.getDescription(), service.getBH_SellPrice());
+					service.getDescription(), service.getBH_SellPrice(), service.getM_Product_Category_ID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

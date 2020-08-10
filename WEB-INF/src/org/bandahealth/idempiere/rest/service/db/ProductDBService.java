@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -131,6 +132,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				}
 
 				// set product category.
+				product.setM_Product_Category_ID(entity.getProductCategoryId());
 				MProductCategory productCategory = new Query(Env.getCtx(), MProductCategory.Table_Name,
 						MProductCategory.COLUMNNAME_Name + "=?", null).setParameters("Standard").setClient_ID().first();
 				if (productCategory != null) {
@@ -172,6 +174,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			if (entity.getSellPrice() != null) {
 				product.setBH_SellPrice(entity.getSellPrice());
 			}
+
+			if (entity.getProductCategoryId() != null) {
+				product.setM_Product_Category_ID(entity.getProductCategoryId());
+			}
 			
 			// calculate price margin
 			if (entity.getBuyPrice() != null && entity.getSellPrice() != null) {
@@ -202,7 +208,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.getProductType(),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
-					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin());
+					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin(),
+					instance.getM_Product_Category_ID());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 

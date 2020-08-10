@@ -48,6 +48,8 @@ public interface IRestConfigs {
 	String EXPENSE_CATEGORIES_PATH = AUTHENTICATION_PATH + "/expensecategories";
 	String EXPENSE_CATEGORY_PATH = "/expensecategory/{uuid}";
 
+	String PRODUCT_CATEGORIES_PATH = AUTHENTICATION_PATH + "/productcategories";
+
 	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
 	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
 
