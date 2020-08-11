@@ -6,8 +6,8 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="739"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="beginDate" class="java.util.Date"/>
-	<parameter name="endDate" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT p.c_bpartner_id,
        p.name as name,
@@ -17,7 +17,7 @@ FROM c_order o
 WHERE
       o.docstatus = 'CO'
       AND o.issotrx = 'N'
-      AND (date(o.dateordered) BETWEEN date( $P{beginDate}) AND date( $P{endDate}))
+      AND (date(o.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
       AND o.ad_client_id =  $P{AD_CLIENT_ID}
 GROUP BY p.c_bpartner_id]]>
 	</queryString>

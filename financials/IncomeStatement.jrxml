@@ -13,8 +13,8 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="beginDate" class="java.util.Date"/>
-	<parameter name="endDate" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -26,7 +26,7 @@
 FROM c_order corder 
 INNER JOIN ad_org org ON corder.ad_org_id = org.ad_org_id
 WHERE  corder.ad_client_id =  $P{AD_CLIENT_ID} 
-AND (date(corder.dateordered) BETWEEN date($P{beginDate}) AND date($P{endDate})) 
+AND (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})) 
 AND corder.docstatus = 'CO' 
 GROUP BY org.name]]>
 	</queryString>
@@ -50,7 +50,7 @@ GROUP BY org.name]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["For period: " + DATEFORMAT($P{beginDate}, "dd MMMM YYYY") + " to " + DATEFORMAT($P{endDate}, "dd MMMM YYYY")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["For period: " + DATEFORMAT($P{Begin Date}, "dd MMMM YYYY") + " to " + DATEFORMAT($P{End Date}, "dd MMMM YYYY")]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="80" y="20" width="399" height="27" uuid="6d6ebae8-6679-4dac-8599-2d8e454ffb18"/>
@@ -111,11 +111,11 @@ GROUP BY org.name]]>
 				<subreportParameter name="AD_CLIENT_ID">
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="beginDate">
-					<subreportParameterExpression><![CDATA[$P{beginDate}]]></subreportParameterExpression>
+				<subreportParameter name="Begin Date">
+					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="endDate">
-					<subreportParameterExpression><![CDATA[$P{endDate}]]></subreportParameterExpression>
+				<subreportParameter name="End Date">
+					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"Payments.jasper"]]></subreportExpression>
