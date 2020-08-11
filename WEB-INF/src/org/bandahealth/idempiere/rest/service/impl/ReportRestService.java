@@ -76,7 +76,7 @@ public class ReportRestService {
 					DateUtil.parseDate(endDate), paymentMode, patientType);
 			break;
 		case ReportDBService.STOCK_REORDER_REPORT:
-			report = dbService.generateProductAndPriceReport();
+			report = dbService.generateStockReorderReport();
 			break;
 		case ReportDBService.PRODUCT_AND_PRICES_REPORT:
 			report = dbService.generateProductAndPriceReport();
