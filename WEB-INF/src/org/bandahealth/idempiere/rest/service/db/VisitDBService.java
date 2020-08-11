@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -20,6 +21,7 @@ import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
@@ -343,5 +345,55 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
 		return DateUtil.parseDateOnly(ts);
+	}
+	
+	/**
+	 * Get Open Visits (exclude today's visits) Count
+	 * 
+	 * @return count
+	 */
+	public Integer getOpenVisitDraftsCount() {
+		List<Object> parameters = new ArrayList<>();
+		StringBuilder sqlWhere = new StringBuilder("WHERE ")
+				.append(buildOpenDraftsWhereClauseAndParameters(parameters));
+		
+		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
+	}
+	
+	/**
+	 * Get Open Visits
+	 * @param pagingInfo
+	 * @param sortColumn
+	 * @param sortOrder
+	 * @return
+	 */
+	public BaseListResponse<Visit> getOpenVisitDrafts(Paging pagingInfo, String sortColumn, String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
+		String sqlWhere = buildOpenDraftsWhereClauseAndParameters(parameters);
+		
+		return super.getAll(sqlWhere, parameters, pagingInfo, sortColumn, sortOrder);
+	}
+	
+	private String buildOpenDraftsWhereClauseAndParameters(List<Object> parameters) {
+		StringBuilder sqlWhere = new StringBuilder().append(MOrder_BH.COLUMNNAME_AD_Client_ID)
+				.append(" =?").append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsActive).append(" =?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ")
+				.append(AND_OPERATOR).append("to_char(")
+				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
+
+		if (parameters == null) {
+			parameters = new ArrayList<>();
+		}
+		
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
+		parameters.add("Y");
+		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
+		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
+		parameters.add("Y");
+		
+		return sqlWhere.toString();
 	}
 }

@@ -104,4 +104,17 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
 		return dbService.deleteEntity(uuid);
 	}
+	
+	@POST
+	@Path(IRestConfigs.VISIT_OPEN_DRAFTS)
+	public BaseListResponse<Visit> getListOpenDrafts(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
+		return dbService.getOpenVisitDrafts(getPagingInfo(page, size), sortColumn, sortOrder);
+	}
+	
+	@POST
+	@Path(IRestConfigs.VISIT_OPEN_DRAFTS_COUNT)
+	public Integer getOpenDraftsCount() {
+		return dbService.getOpenVisitDraftsCount();
+	}
 }
