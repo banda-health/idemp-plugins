@@ -12,6 +12,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator.Builder;
 import com.auth0.jwt.algorithms.Algorithm;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.config.Transaction;
+import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
@@ -25,26 +28,33 @@ import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MWarehouse;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
+import org.compiere.util.Msg;
+import org.compiere.util.Trx;
+import org.compiere.util.Util;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Authentication Service Accepts Username, password and generates a session
  * token. It attempts to set default client, role, warehouse, org values for
  * clients, else return a list where multiple values are found
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.AUTHENTICATION_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthenticationRestService {
+
+	public static String ERROR_USER_NOT_FOUND = "Could not find user";
 
 	public AuthenticationRestService() {
 	}
@@ -53,6 +63,93 @@ public class AuthenticationRestService {
 	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
 	public boolean acceptTermsOfService(@QueryParam("accept") boolean accept) {
 		return TermsOfServiceDBService.acceptTermsOfUse(accept);
+	}
+
+	@POST
+	@Path(IRestConfigs.CHANGEPASSWORD_PATH)
+	public AuthResponse changePassword(Authentication credentials) {
+		Login login = new Login(Env.getCtx());
+		// retrieve list of clients the user has access to.
+		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
+		if (clients == null || clients.length == 0) {
+			return new AuthResponse(Status.UNAUTHORIZED);
+		}
+
+		MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
+		if (user == null) {
+			user = checkValidSystemUserWithNoSystemRole(clients, credentials);
+		}
+
+		/**
+		 * Copied from ChangePasswordPanel > validateChangePassword
+		 */
+		if (Util.isEmpty(credentials.getPassword())) {
+			throw new IllegalArgumentException(org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
+		}
+
+		if (Util.isEmpty(credentials.getNewPassword())) {
+			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.NEW_PASSWORD_MANDATORY));
+		}
+
+		// TODO: Add this back in if we start using these
+//		if (Util.isEmpty(credentials.getSecurityQuestion())) {
+//			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MADMessage_BH.SECURITY_QUESTION_MANDATORY));
+//		}
+//
+//		if (Util.isEmpty(credentials.getAnswer())) {
+//			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MADMessage_BH.ANSWER_MANDATORY));
+//		}
+
+		if (org.compiere.model.MSysConfig.getBooleanValue(MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
+			if (credentials.getPassword().equals(credentials.getNewPassword())) {
+				throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.NEW_PASSWORD_MUST_DIFFER));
+			}
+		}
+
+		updateUsersPassword(credentials, clients);
+		return this.generateSession(credentials);
+	}
+
+	/**
+	 * Handle everything related to updating a user's password. Largely copied from ChangePasswordPanel > validateChangePassword
+	 * @param credentials
+	 * @param clients
+	 */
+	private void updateUsersPassword(Authentication credentials, KeyNamePair[] clients) {
+		Trx trx = null;
+		try {
+			String trxName = Trx.createTrxName(Transaction.ChangePassword.NAME);
+			trx = Trx.get(trxName, true);
+			trx.setDisplayName(getClass().getName() + Transaction.ChangePassword.SUFFIX_DISPLAY);
+
+			for (KeyNamePair client : clients) {
+				int clientId = client.getKey();
+				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
+				MUser clientUser = MUser.get(Env.getCtx(), credentials.getUsername());
+				if (clientUser == null) {
+					trx.rollback();
+					throw new AdempiereException(ERROR_USER_NOT_FOUND);
+				}
+
+				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password, credentials.getNewPassword()); // will be hashed and validate on saveEx
+				clientUser.setIsExpired(false);
+				// TODO: Add this back in if we start using these
+//				clientUser.setSecurityQuestion(credentials.getSecurityQuestion());
+//				clientUser.setAnswer(credentials.getAnswer());
+				clientUser.saveEx(trx.getTrxName());
+			}
+
+			trx.commit();
+		} catch (AdempiereException e) {
+			if (trx != null)
+				trx.rollback();
+			throw e;
+		} finally {
+			if (trx != null)
+				trx.close();
+		}
+		// The user's password has been updated, so update the credentials object, too
+		credentials.setPassword(credentials.getNewPassword());
 	}
 
 	@POST
@@ -78,7 +175,7 @@ public class AuthenticationRestService {
 			}
 
 			if (user.isExpired()) {
-				return new AuthResponse(Status.UNAUTHORIZED);
+				return handleUserNeedsToChangePassword(credentials);
 			}
 
 			Builder builder = JWT.create().withSubject(credentials.getUsername());
@@ -117,9 +214,29 @@ public class AuthenticationRestService {
 	}
 
 	/**
+	 * The user needs to change their credentials, so set the appropriate data
+	 *
+	 * @param credentials
+	 * @return
+	 */
+	private AuthResponse handleUserNeedsToChangePassword(Authentication credentials) {
+		List<String> securityQuestions = new ArrayList<>();
+
+		for (int i = 1; i <= MMessage_BH.NO_OF_SECURITY_QUESTION; i++) {
+			securityQuestions.add(Msg.getMsg(Env.getCtx(), MMessage_BH.SECURITY_QUESTION_PREFIX + i));
+		}
+		AuthResponse response = new AuthResponse();
+		response.setUsername(credentials.getUsername());
+		response.setNeedsToResetPassword(true);
+		response.setSecurityQuestions(securityQuestions);
+		response.setStatus(Status.OK);
+		return response;
+	}
+
+	/**
 	 * This function will be called when a user has changed login credentials i.e
 	 * client, role, warehouse, organization
-	 * 
+	 *
 	 * @param credentials
 	 * @param builder
 	 */
@@ -158,7 +275,7 @@ public class AuthenticationRestService {
 
 	/**
 	 * Set default properties
-	 * 
+	 *
 	 * @param clients
 	 * @param user
 	 * @param builder
@@ -221,7 +338,7 @@ public class AuthenticationRestService {
 
 	/**
 	 * Check valid system users with no system role.
-	 * 
+	 *
 	 * @param clients
 	 * @param credentials
 	 * @return
