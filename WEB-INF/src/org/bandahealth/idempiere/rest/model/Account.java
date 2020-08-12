@@ -10,22 +10,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(value = Include.NON_NULL)
 public class Account extends BaseEntity {
 
-	private int id;
-
-	public Account(int id, String uuid, String name, String description, String value) {
+	public Account(String uuid, String name, String description, String value) {
 		setUuid(uuid);
 		setName(name);
 		setDescription(description);
 		setValue(value);
-		setId(id);
-	}
-
-	@XmlElement
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 }
