@@ -12,6 +12,7 @@ Service-Component: OSGI-INF/*.xml
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
 Export-Package: org.bandahealth.idempiere.base.callout,
+ org.bandahealth.idempiere.base.config,
  org.bandahealth.idempiere.base.model,
  org.bandahealth.idempiere.base.process,
  org.bandahealth.idempiere.base.utils
