@@ -22,7 +22,7 @@ public class Expense extends Invoice {
 		setIsExpense(true);
 	}
 
-	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+	public Expense(Integer clientId, Integer orgId, String uuid, boolean isActive, String created, Integer createdBy,
 								 Vendor supplier, String dateInvoiced, List<InvoiceLine> invoiceLines, String docStatus,
 								 BigDecimal grandTotal, String paymentType) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
@@ -33,7 +33,7 @@ public class Expense extends Invoice {
 		setGrandTotal(grandTotal);
 	}
 
-	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+	public Expense(Integer clientId, Integer orgId, String uuid, boolean isActive, String created, Integer createdBy,
 								 Vendor supplier, String dateInvoiced, String docStatus, BigDecimal grandTotal, String paymentType) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
 				docStatus, grandTotal, paymentType);
@@ -42,7 +42,6 @@ public class Expense extends Invoice {
 		this.supplier = supplier;
 	}
 
-	@XmlElement
 	public Vendor getSupplier() {
 		return supplier;
 	}

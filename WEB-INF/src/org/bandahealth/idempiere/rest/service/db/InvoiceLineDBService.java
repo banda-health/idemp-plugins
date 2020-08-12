@@ -7,10 +7,7 @@ import org.bandahealth.idempiere.rest.model.InvoiceLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MCharge;
-import org.compiere.model.MInvoiceLine;
-import org.compiere.model.MProduct;
-import org.compiere.model.Query;
+import org.compiere.model.*;
 import org.compiere.util.Env;
 
 import java.util.ArrayList;
@@ -19,16 +16,17 @@ import java.util.stream.Collectors;
 
 /**
  * InvoiceLine (product/service/charge) db service
- *
  */
 public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLine> {
 
 	private ProductDBService productDBService;
 	private ExpenseCategoryDBService expenseCategoryDBService;
+	private AccountDBService accountDBService;
 
 	public InvoiceLineDBService() {
 		this.productDBService = new ProductDBService();
 		this.expenseCategoryDBService = new ExpenseCategoryDBService();
+		this.accountDBService = new AccountDBService();
 	}
 
 	@Override
@@ -102,13 +100,16 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 				// check charge
 				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
 				if (charge != null) {
-					ExpenseCategory expenseCategory = new ExpenseCategory(charge.getC_Charge_UU(), charge.getName(),
-							charge.getBH_Locked(), charge.getC_ElementValue_ID());
-					return new InvoiceLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
-							instance.getC_InvoiceLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-							instance.getCreatedBy(), expenseCategory,
-							instance.getC_Invoice_ID(), instance.getPriceActual(), instance.getQtyInvoiced(),
-							instance.getLineNetAmt(), instance.getDescription());
+					MElementValue account = accountDBService.getEntityByIdFromDB(charge.getC_ElementValue_ID());
+					if (account != null) {
+						ExpenseCategory expenseCategory = new ExpenseCategory(charge.getC_Charge_UU(), charge.getName(),
+								charge.isBH_Locked(), account.getC_ElementValue_UU());
+						return new InvoiceLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
+								instance.getC_InvoiceLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
+								instance.getCreatedBy(), expenseCategory,
+								instance.getC_Invoice_ID(), instance.getPriceActual(), instance.getQtyInvoiced(),
+								instance.getLineNetAmt(), instance.getDescription());
+					}
 				}
 			}
 		} catch (Exception ex) {
@@ -145,7 +146,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 
 	/**
 	 * Delete invoiceLines for a given order and not in given subset invoiceLines
-	 * 
+	 *
 	 * @param invoiceId
 	 */
 	public void deleteInvoiceLinesByInvoice(int invoiceId, String invoiceLineUuids) {
@@ -163,7 +164,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 
 	/**
 	 * Check if an invoiceLine exists with the given invoice id
-	 * 
+	 *
 	 * @param invoiceId
 	 * @return
 	 */

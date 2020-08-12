@@ -203,25 +203,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	/**
-	 * Retrieve a REST entity from the DB with a given ID
-	 * @param id
-	 * @return
-	 */
-	public T getEntity(int id) {
-		try {
-			S entity = getEntityByIdFromDB(id);
-
-			if (entity != null) {
-				return createInstanceWithAllFields(entity);
-			}
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-
-		return null;
-	}
-
-	/**
 	 * Retrieve a REST entity from the DB with a given UUID
 	 * @param uuid
 	 * @return
