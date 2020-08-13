@@ -48,14 +48,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getAccountUuid())) {
-				MElementValue account = new Query(
-						Env.getCtx(),
-						MElementValue.Table_Name,
-						MElementValue.COLUMNNAME_C_ElementValue_UU + "=?",
-						null
-				)
-						.setParameters(entity.getAccountUuid())
-						.first();
+				MElementValue account = accountDBService.getEntityByUuidFromDB(entity.getAccountUuid());
 				if (account != null) {
 					charge.setC_ElementValue_ID(account.getC_ElementValue_ID());
 				}
