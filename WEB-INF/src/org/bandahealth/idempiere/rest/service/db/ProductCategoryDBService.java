@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  *
  * @author andrew
  */
-public class ProductCategoryDBService {
+public class ProductCategoryDBService extends BaseDBService<ProductCategory, MProductCategory_BH> {
 
 	public List<ProductCategory> get() {
 		List<MProductCategory_BH> productCategories = new Query(
@@ -37,5 +37,35 @@ public class ProductCategoryDBService {
 				.setClient_ID()
 				.list();
 		return productCategories.stream().map(ProductCategory::new).collect(Collectors.toList());
+	}
+
+	@Override
+	public ProductCategory saveEntity(ProductCategory entity) {
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		return null;
+	}
+
+	@Override
+	protected ProductCategory createInstanceWithDefaultFields(MProductCategory_BH instance) {
+		return new ProductCategory(instance);
+	}
+
+	@Override
+	protected ProductCategory createInstanceWithAllFields(MProductCategory_BH instance) {
+		return createInstanceWithDefaultFields(instance);
+	}
+
+	@Override
+	protected ProductCategory createInstanceWithSearchFields(MProductCategory_BH instance) {
+		return createInstanceWithDefaultFields(instance);
+	}
+
+	@Override
+	protected MProductCategory_BH getModelInstance() {
+		return new MProductCategory_BH(Env.getCtx(), 0, null);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -20,6 +21,8 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
  * All Service DB Operations
  */
 public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
+
+	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 
 	// retrieve a list of paginated services.
 	public BaseListResponse<Service> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
@@ -80,8 +83,12 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 				service.setBH_SellPrice(entity.getSellingPrice());
 			}
 
-			if (entity.getProductCategoryId() != null) {
-				service.setM_Product_Category_ID(entity.getProductCategoryId());
+			if (entity.getProductCategoryUuid() != null) {
+				MProductCategory_BH productCategory = productCategoryDBService
+						.getEntityByUuidFromDB(entity.getProductCategoryUuid());
+				if (productCategory != null) {
+					service.setM_Product_Category_ID(productCategory.getM_Product_Category_ID());
+				}
 			}
 
 			service.setIsActive(entity.isIsActive());
@@ -98,9 +105,11 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	@Override
 	protected Service createInstanceWithDefaultFields(MProduct_BH service) {
 		try {
+			MProductCategory_BH productCategory = productCategoryDBService
+					.getEntityByIdFromDB(service.getM_Product_Category_ID());
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
 					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
-					null, service.getBH_SellPrice(), service.getM_Product_Category_ID());
+					null, service.getBH_SellPrice(), productCategory.getM_Product_Category_UU());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -111,9 +120,11 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	@Override
 	protected Service createInstanceWithAllFields(MProduct_BH service) {
 		try {
+			MProductCategory_BH productCategory = productCategoryDBService
+					.getEntityByIdFromDB(service.getM_Product_Category_ID());
 			return new Service(service.getAD_Client_ID(), service.getAD_Org_ID(), service.getM_Product_UU(),
 					service.isActive(), DateUtil.parseDateOnly(service.getCreated()), service.getCreatedBy(), service.getName(),
-					service.getDescription(), service.getBH_SellPrice(), service.getM_Product_Category_ID());
+					service.getDescription(), service.getBH_SellPrice(), productCategory.getM_Product_Category_UU());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

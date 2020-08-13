@@ -23,7 +23,7 @@ public class Product extends BaseEntity {
 	private String type;
 	private Boolean hasExpiration;
 	private BigDecimal priceMargin;
-	private Integer productCategoryId;
+	private String productCategoryUuid;
 
 	public Product() {
 	}
@@ -38,7 +38,7 @@ public class Product extends BaseEntity {
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
 								 String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
 								 String type, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration,
-								 BigDecimal priceMargin, Integer productCategoryId) {
+								 BigDecimal priceMargin, String productCategoryUuid) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -50,7 +50,7 @@ public class Product extends BaseEntity {
 		this.reorderQuantity = reorderQuantity;
 		this.hasExpiration = hasExpiration;
 		this.priceMargin = priceMargin;
-		setProductCategoryId(productCategoryId);
+		setProductCategoryUuid(productCategoryUuid);
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
@@ -152,11 +152,11 @@ public class Product extends BaseEntity {
 		this.priceMargin = priceMargin;
 	}
 
-	public Integer getProductCategoryId() {
-		return productCategoryId;
+	public String getProductCategoryUuid() {
+		return productCategoryUuid;
 	}
 
-	public void setProductCategoryId(Integer productCategoryId) {
-		this.productCategoryId = productCategoryId;
+	public void setProductCategoryUuid(String productCategoryUuid) {
+		this.productCategoryUuid = productCategoryUuid;
 	}
 }

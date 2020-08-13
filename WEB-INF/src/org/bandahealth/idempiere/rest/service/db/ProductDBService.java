@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -15,14 +16,10 @@ import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MAttributeSetInstance;
-import org.compiere.model.MLocator;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
-import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
-import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -34,6 +31,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
 	private InventoryDBService inventoryDbService = new InventoryDBService();
+	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 
 	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
@@ -54,9 +52,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 	/**
 	 * Auto-complete search.
-	 * 
+	 * <p>
 	 * Searches products/services and returns related price, expiry, quantity fields
-	 * 
+	 *
 	 * @param searchValue
 	 * @return
 	 */
@@ -89,21 +87,21 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			if (entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 
 				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo, entity.get_ID());
-				
+
 				BigDecimal totalQuantity = BigDecimal.ZERO;
-				
+
 				for (Inventory inventory : inventoryList.getResults()) {
 					// get expiry date and id
 					SearchProductAttribute attribute = new SearchProductAttribute(
 							inventory.getExpirationDate(), inventory.getAttributeSetInstanceId());
-					
+
 					// get quantity
 					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
 					attribute.setExistingQuantity(BigDecimal.valueOf(inventory.getQuantity()));
-					
+
 					result.addAttribute(attribute);
 				}
-				
+
 				result.setTotalQuantity(totalQuantity);
 			}
 
@@ -132,7 +130,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				}
 
 				// set product category.
-				product.setM_Product_Category_ID(entity.getProductCategoryId());
 				MProductCategory productCategory = new Query(Env.getCtx(), MProductCategory.Table_Name,
 						MProductCategory.COLUMNNAME_Name + "=?", null).setParameters("Standard").setClient_ID().first();
 				if (productCategory != null) {
@@ -175,10 +172,14 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				product.setBH_SellPrice(entity.getSellPrice());
 			}
 
-			if (entity.getProductCategoryId() != null) {
-				product.setM_Product_Category_ID(entity.getProductCategoryId());
+			if (entity.getProductCategoryUuid() != null) {
+				MProductCategory_BH productCategory = productCategoryDBService
+						.getEntityByUuidFromDB(entity.getProductCategoryUuid());
+				if (productCategory != null) {
+					product.setM_Product_Category_ID(productCategory.getM_Product_Category_ID());
+				}
 			}
-			
+
 			// calculate price margin
 			if (entity.getBuyPrice() != null && entity.getSellPrice() != null) {
 				product.setBH_PriceMargin(entity.getSellPrice().subtract(entity.getBuyPrice()));
@@ -190,7 +191,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
 		} catch (Exception ex) {
-			if(ex.getMessage().contains("Require unique data")) {
+			if (ex.getMessage().contains("Require unique data")) {
 				throw new DuplicateEntitySaveException(ex.getLocalizedMessage());
 			} else {
 				throw new AdempiereException(ex.getLocalizedMessage());
@@ -202,6 +203,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	@Override
 	protected Product createInstanceWithAllFields(MProduct_BH instance) {
 		try {
+			MProductCategory_BH productCategory = productCategoryDBService
+					.getEntityByIdFromDB(instance.getM_Product_Category_ID());
 			return new Product(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getM_Product_UU(),
 					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getValue(), instance.isStocked(),
@@ -209,7 +212,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
 					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin(),
-					instance.getM_Product_Category_ID());
+					productCategory.getM_Product_Category_UU());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 
