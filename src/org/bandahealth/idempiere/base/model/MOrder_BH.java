@@ -10,6 +10,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrder;
@@ -21,6 +22,7 @@ import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Util;
 
@@ -202,6 +204,15 @@ public class MOrder_BH extends MOrder {
 	protected MInvoice_BH createInvoice (MDocType dt, MInOut shipment, Timestamp invoiceDate)
 	{
 		if (log.isLoggable(Level.INFO)) log.info(dt.toString());
+		
+		// check if there is an associated invoice for this order
+		MInvoice existingInvoice = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
+				.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
+		
+		if (existingInvoice != null) {
+			return MInvoice_BH.createMInvoice_BH(existingInvoice);
+		}
+		
 		MInvoice_BH invoice = new MInvoice_BH (this, dt.getC_DocTypeInvoice_ID(), invoiceDate);
 		if (!invoice.save(get_TrxName()))
 		{
