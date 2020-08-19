@@ -64,11 +64,10 @@ public class MInvoice_BH extends MInvoice {
 		super(batch, line);
 	}
 	
-	public static MInvoice_BH createMInvoice_BH(MInvoice invoice) {
-		MInvoice_BH newInvoice = new MInvoice_BH(invoice.getCtx(), 0, invoice.get_TrxName());
-		PO.copyValues (invoice, newInvoice, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
-		
-		return newInvoice;
+	public MInvoice_BH (MInvoice invoice) {
+		super(invoice.getCtx(), 0, invoice.get_TrxName());
+
+		PO.copyValues (invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
 	}
 
 	@Override

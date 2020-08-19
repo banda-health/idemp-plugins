@@ -210,7 +210,7 @@ public class MOrder_BH extends MOrder {
 				.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
 		
 		if (existingInvoice != null) {
-			return MInvoice_BH.createMInvoice_BH(existingInvoice);
+			return new MInvoice_BH(existingInvoice);
 		}
 		
 		MInvoice_BH invoice = new MInvoice_BH (this, dt.getC_DocTypeInvoice_ID(), invoiceDate);
