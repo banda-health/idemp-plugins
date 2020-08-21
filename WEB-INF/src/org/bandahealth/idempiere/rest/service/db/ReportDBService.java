@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.process.ProcessInfoParameter;
 
@@ -33,6 +34,7 @@ public class ReportDBService extends BaseReportDBProcess {
 	public static final String INVENTORY_SOLD_REPORT = "Inventory Sold Report";
 	public static final String STOCK_DISCREPANCY_REPORT = "Stock Discrepancy Report";
 	public static final String DONOR_FUND_REPORT = "Donor Fund Report";
+	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
 
 	public static final Map<String, String> reportNameMapping = new HashMap<String, String>() {
 		{
@@ -48,6 +50,7 @@ public class ReportDBService extends BaseReportDBProcess {
 			put("inventorysoldreport", INVENTORY_SOLD_REPORT);
 			put("stockdiscrepancyreport", STOCK_DISCREPANCY_REPORT);
 			put("donorfundreport", DONOR_FUND_REPORT);
+			put("debtpaymentreceipt", DEBT_PAYMENT_RECEIPT);
 		}
 	};
 
@@ -57,6 +60,7 @@ public class ReportDBService extends BaseReportDBProcess {
 	private final String END_DATE = "End Date";
 	private final String PAYMENT_MODE = "Payment Mode";
 	private final String PATIENT_TYPE = "Patient Type";
+	private final String DEBT_PAYMENT_ID = "debtPaymentID";
 
 	private String reportOutputType;
 
@@ -238,5 +242,26 @@ public class ReportDBService extends BaseReportDBProcess {
 		return generateReport(DONOR_FUND_REPORT, reportOutputType,
 				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
 						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
+	}
+
+	/**
+	 * Generates Debt Payment Report
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	public File generateDebtPaymentReport(String uuid) {
+		if (uuid == null || uuid.isEmpty()) {
+			return null;
+		}
+
+		// retrieve payment from DB
+		MPayment_BH payment = new PaymentDBService().getEntityByUuidFromDB(uuid);
+		if (payment == null) {
+			return null;
+		}
+		
+		return generateReport(DEBT_PAYMENT_RECEIPT, reportOutputType, new ProcessInfoParameter[] {
+				new ProcessInfoParameter(DEBT_PAYMENT_ID, BigDecimal.valueOf(payment.get_ID()), null, null, null) });
 	}
 }
