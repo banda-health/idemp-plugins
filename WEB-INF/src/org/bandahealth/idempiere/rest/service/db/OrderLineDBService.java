@@ -3,32 +3,36 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.rest.model.Expense;
+import org.bandahealth.idempiere.rest.model.Account;
+import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
+import org.compiere.model.MElementValue;
 import org.compiere.model.MProduct;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 /**
  * OrderLine (product/service/charge) db service
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> {
 
 	private ProductDBService productDBService;
-	private ExpenseDBService expenseDBService;
+	private ExpenseCategoryDBService expenseCategoryDBService;
+	private AccountDBService accountDBService;
 
 	public OrderLineDBService() {
 		this.productDBService = new ProductDBService();
-		this.expenseDBService = new ExpenseDBService();
+		this.expenseCategoryDBService = new ExpenseCategoryDBService();
+		this.accountDBService = new AccountDBService();
 	}
 
 	@Override
@@ -43,8 +47,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setC_Order_ID(entity.getOrderId());
 		}
 
-		if (entity.getExpense() != null) {
-			MCharge charge = expenseDBService.getEntityByUuidFromDB(entity.getExpense().getUuid());
+		if (entity.getExpenseCategory() != null) {
+			MCharge charge = expenseCategoryDBService.getEntityByUuidFromDB(entity.getExpenseCategory().getUuid());
 
 			if (charge != null) {
 				mOrderLine.setC_Charge_ID(charge.get_ID());
@@ -105,14 +109,18 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 						DateUtil.parse(instance.getBH_Expiration()));
 			} else {
 				// check charge
-				MCharge charge = expenseDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
+				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
 				if (charge != null) {
-					return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
-							instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-							instance.getCreatedBy(),
-							new Expense(charge.getC_Charge_UU(), charge.getName(), charge.getChargeAmt()),
-							instance.getC_Order_ID(), instance.getPriceActual(), instance.getQtyOrdered(),
-							instance.getLineNetAmt());
+					MElementValue account = accountDBService.getEntityByIdFromDB(charge.getC_ElementValue_ID());
+					if (account != null) {
+						ExpenseCategory expenseCategory = new ExpenseCategory(charge.getC_Charge_UU(), charge.getName(),
+								charge.isBH_Locked(), account.getC_ElementValue_UU());
+						return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
+								instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
+								instance.getCreatedBy(), expenseCategory,
+								instance.getC_Order_ID(), instance.getPriceActual(), instance.getQtyOrdered(),
+								instance.getLineNetAmt());
+					}
 				}
 			}
 		} catch (Exception ex) {
@@ -136,7 +144,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 		List<MOrderLine_BH> mOrderLines = new Query(Env.getCtx(), MOrderLine_BH.Table_Name,
 				MOrderLine_BH.COLUMNNAME_C_Order_ID + "=?", null).setParameters(orderId).setOnlyActiveRecords(true)
-						.setClient_ID().list();
+				.setClient_ID().list();
 		for (MOrderLine_BH mOrderLine : mOrderLines) {
 			orderLines.add(createInstanceWithDefaultFields(mOrderLine));
 		}
@@ -146,7 +154,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 	/**
 	 * Delete orderlines for a given order and not in given subset orderlines
-	 * 
+	 *
 	 * @param orderId
 	 */
 	public void deleteOrderLinesByOrder(int orderId, String orderLineUuids) {
@@ -164,7 +172,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 	/**
 	 * Check if an orderline exists with the given order id
-	 * 
+	 *
 	 * @param orderId
 	 * @return
 	 */

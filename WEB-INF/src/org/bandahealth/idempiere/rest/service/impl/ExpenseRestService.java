@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
@@ -16,7 +17,7 @@ import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ExpenseDBService;
 
 /**
- * Expose Expenses REST functionality
+ * Expose TrackExpense REST functionality
  * 
  * @author andrew
  *
@@ -36,8 +37,17 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
 	public BaseListResponse<Expense> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
+																					@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
+	}
+
+	@POST
+	@Path(IRestConfigs.SEARCH_PATH)
+	@Override
+	public BaseListResponse<Expense> search(@QueryParam("value") String value, @QueryParam("page") int page,
+																					@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+																					@QueryParam("sortOrder") String sortOrder) {
+		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
 	@POST
@@ -55,11 +65,20 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	}
 	
 	@POST
-	@Path(IRestConfigs.SEARCH_PATH)
-	@Override
-	public BaseListResponse<Expense> search(@QueryParam("value") String value, @QueryParam("page") int page,
-			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder) {
-		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
+	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
+	public Expense process(@PathParam("uuid") String uuid) {
+		return dbService.processEntity(uuid);
+	}
+
+	@POST
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
+	public Expense saveAndProcess(Expense entity) {
+		return dbService.asyncSaveAndProcessEntity(entity);
+	}
+
+	@DELETE
+	@Path(IRestConfigs.UUID_PATH)
+	public boolean saveAndProcess(@PathParam("uuid") String uuid) {
+		return dbService.asyncDeleteEntity(uuid);
 	}
 }

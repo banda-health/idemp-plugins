@@ -23,6 +23,7 @@ public class Product extends BaseEntity {
 	private String type;
 	private Boolean hasExpiration;
 	private BigDecimal priceMargin;
+	private String productCategoryUuid;
 
 	public Product() {
 	}
@@ -35,8 +36,9 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice, String type,
-			Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration, BigDecimal priceMargin) {
+								 String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
+								 String type, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration,
+								 BigDecimal priceMargin, String productCategoryUuid) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -48,10 +50,11 @@ public class Product extends BaseEntity {
 		this.reorderQuantity = reorderQuantity;
 		this.hasExpiration = hasExpiration;
 		this.priceMargin = priceMargin;
+		setProductCategoryUuid(productCategoryUuid);
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin) {
+								 String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.buyPrice = buyPrice;
@@ -60,7 +63,7 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration, String created,
-			BigDecimal sellPrice, Boolean isActive, BigDecimal priceMargin) {
+								 BigDecimal sellPrice, Boolean isActive, BigDecimal priceMargin) {
 		setUuid(uuid);
 		setName(name);
 		setCreated(created);
@@ -82,9 +85,17 @@ public class Product extends BaseEntity {
 		return isStocked;
 	}
 
+	public void setIsStocked(Boolean isStocked) {
+		this.isStocked = isStocked;
+	}
+
 	@XmlElement
 	public Integer getReorderLevel() {
 		return reorderLevel;
+	}
+
+	public void setReorderLevel(Integer reorderLevel) {
+		this.reorderLevel = reorderLevel;
 	}
 
 	@XmlElement
@@ -92,9 +103,17 @@ public class Product extends BaseEntity {
 		return reorderQuantity;
 	}
 
+	public void setReorderQuantity(Integer reorderQuantity) {
+		this.reorderQuantity = reorderQuantity;
+	}
+
 	@XmlElement
 	public BigDecimal getBuyPrice() {
 		return buyPrice;
+	}
+
+	public void setBuyPrice(BigDecimal buyPrice) {
+		this.buyPrice = buyPrice;
 	}
 
 	@XmlElement
@@ -102,29 +121,13 @@ public class Product extends BaseEntity {
 		return sellPrice;
 	}
 
+	public void setSellPrice(BigDecimal sellPrice) {
+		this.sellPrice = sellPrice;
+	}
+
 	@XmlElement
 	public String getType() {
 		return type;
-	}
-
-	public void setIsStocked(Boolean isStocked) {
-		this.isStocked = isStocked;
-	}
-
-	public void setReorderLevel(Integer reorderLevel) {
-		this.reorderLevel = reorderLevel;
-	}
-
-	public void setReorderQuantity(Integer reorderQuantity) {
-		this.reorderQuantity = reorderQuantity;
-	}
-
-	public void setBuyPrice(BigDecimal buyPrice) {
-		this.buyPrice = buyPrice;
-	}
-
-	public void setSellPrice(BigDecimal sellPrice) {
-		this.sellPrice = sellPrice;
 	}
 
 	public void setType(String type) {
@@ -147,5 +150,13 @@ public class Product extends BaseEntity {
 
 	public void setPriceMargin(BigDecimal priceMargin) {
 		this.priceMargin = priceMargin;
+	}
+
+	public String getProductCategoryUuid() {
+		return productCategoryUuid;
+	}
+
+	public void setProductCategoryUuid(String productCategoryUuid) {
+		this.productCategoryUuid = productCategoryUuid;
 	}
 }

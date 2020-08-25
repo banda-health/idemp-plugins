@@ -12,26 +12,38 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(value = Include.NON_NULL)
 public class EntityMetadata {
 
-	private List<PaymentType> paymentTypes;
+	private List<PaymentType> orderPaymentTypes;
+	private List<PaymentType> invoicePaymentTypes;
 	private List<PatientType> patientTypes;
 	private List<NHIFType> nhifTypes;
 	private List<NHIFRelationship> nhifRelationships;
 	private List<Referral> referrals;
+	private List<BaseEntity> productCategoryTypes;
 
 	public EntityMetadata() {
-		paymentTypes = new ArrayList<>();
+		orderPaymentTypes = new ArrayList<>();
+		invoicePaymentTypes = new ArrayList<>();
 		patientTypes = new ArrayList<>();
 		nhifTypes = new ArrayList<>();
 		nhifRelationships = new ArrayList<>();
 		referrals = new ArrayList<>();
+		productCategoryTypes = new ArrayList<>();
 	}
 
-	public List<PaymentType> getPaymentTypes() {
-		return paymentTypes;
+	public List<PaymentType> getOrderPaymentTypes() {
+		return orderPaymentTypes;
 	}
 
-	public void setPaymentTypes(List<PaymentType> paymentTypes) {
-		this.paymentTypes = paymentTypes;
+	public void setOrderPaymentTypes(List<PaymentType> orderPaymentTypes) {
+		this.orderPaymentTypes = orderPaymentTypes;
+	}
+
+	public List<PaymentType> getInvoicePaymentTypes() {
+		return invoicePaymentTypes;
+	}
+
+	public void setInvoicePaymentTypes(List<PaymentType> invoicePaymentTypes) {
+		this.invoicePaymentTypes = invoicePaymentTypes;
 	}
 
 	public List<PatientType> getPatientTypes() {
@@ -66,12 +78,24 @@ public class EntityMetadata {
 		this.referrals = referrals;
 	}
 
+	public List<BaseEntity> getProductCategoryTypes() {
+		return productCategoryTypes;
+	}
+
+	public void setProductCategoryTypes(List<BaseEntity> productCategoryTypes) {
+		this.productCategoryTypes = productCategoryTypes;
+	}
+
 	public void addPatientType(PatientType entity) {
 		patientTypes.add(entity);
 	}
 
-	public void addPaymentType(PaymentType entity) {
-		paymentTypes.add(entity);
+	public void addOrderPaymentType(PaymentType entity) {
+		orderPaymentTypes.add(entity);
+	}
+
+	public void addInvoicePaymentType(PaymentType entity) {
+		invoicePaymentTypes.add(entity);
 	}
 
 	public void addNHIFType(NHIFType entity) {
@@ -84,5 +108,9 @@ public class EntityMetadata {
 
 	public void addReferral(Referral entity) {
 		referrals.add(entity);
+	}
+
+	public void addProductCategoryType(BaseEntity entity) {
+		productCategoryTypes.add(entity);
 	}
 }

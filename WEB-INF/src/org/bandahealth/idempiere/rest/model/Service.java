@@ -14,15 +14,17 @@ public class Service extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	private BigDecimal sellingPrice;
+	private String productCategoryUuid;
 
 	public Service() {
 	}
 
 	public Service(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal sellingPrice) {
+			String description, BigDecimal sellingPrice, String productCategoryUuid) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.sellingPrice = sellingPrice;
+		this.setProductCategoryUuid(productCategoryUuid);
 	}
 
 	@XmlElement
@@ -32,5 +34,13 @@ public class Service extends BaseEntity {
 
 	public void setSellingPrice(BigDecimal sellingPrice) {
 		this.sellingPrice = sellingPrice;
+	}
+
+	public String getProductCategoryUuid() {
+		return productCategoryUuid;
+	}
+
+	public void setProductCategoryUuid(String productCategoryUuid) {
+		this.productCategoryUuid = productCategoryUuid;
 	}
 }
