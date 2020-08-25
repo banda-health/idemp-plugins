@@ -1,84 +1,116 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Expense;
-import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MCharge;
-import org.compiere.model.MOrder;
-import org.compiere.model.Query;
-import org.compiere.util.CLogger;
-import org.compiere.util.Env;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Expense;
+import org.bandahealth.idempiere.rest.model.Vendor;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.MDocType;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
+
 /**
- * Expense (charge) related db operations
+ * Expenses logic
  * 
  * @author andrew
  *
  */
-public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
+public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
-	private CLogger log = CLogger.getCLogger(ExpenseDBService.class);
+	private VendorDBService vendorDBService;
 
 	public ExpenseDBService() {
+		this.vendorDBService = new VendorDBService();
 	}
-
-	@Override
-	public Expense saveEntity(Expense entity) {
-		try {
-			MCharge charge = getEntityByUuidFromDB(entity.getUuid());
-			if (charge == null) {
-				charge = getModelInstance();
-			}
-
-			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
-				charge.setName(entity.getName());
-			}
-
-			if (entity.getAmount() != null) {
-				charge.setChargeAmt(entity.getAmount());
-			}
-
-			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
-				charge.setDescription(entity.getDescription());
-			}
-
-			charge.setIsActive(entity.isIsActive());
-
-			charge.saveEx();
-
-			return createInstanceWithAllFields(getEntityByUuidFromDB(charge.getC_Charge_UU()));
-
-		} catch (Exception ex) {
-			throw new AdempiereException(ex.getLocalizedMessage());
-		}
-	}
-
 
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
-		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
-	}
-
-	public BaseListResponse<Expense> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(value));
 
-		return this.search(this.DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
+		StringBuilder whereClause = new StringBuilder()
+				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_DocStatus).append("!=?");
+		parameters.add("N");
+		parameters.add("Y");
+		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
+
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
-	protected Expense createInstanceWithDefaultFields(MCharge expense) {
+	public BaseListResponse<Expense> search(String searchValue, Paging pagingInfo, String sortColumn, String sortOrder) {
+		List<Object> parameters = new ArrayList<>();
+
+		StringBuilder whereClause = new StringBuilder()
+				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?").append(AND_OPERATOR)
+				.append(MInvoice_BH.COLUMNNAME_DocStatus).append("!=?");
+		parameters.add("N");
+		parameters.add("Y");
+		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
+
+		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause.toString(), parameters);
+	}
+
+	@Override
+	protected void beforeSave(Expense entity, MInvoice_BH invoice) {
+		if (entity.getSupplier() != null && entity.getSupplier().getUuid() != null) {
+			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getSupplier().getUuid());
+			invoice.setC_BPartner_ID(vendor.get_ID());
+		}
+
+		invoice.setTotalLines(invoice.getGrandTotal());
+		invoice.setIsSOTrx(false);
+		invoice.setBH_IsExpense(true);
+	}
+
+	@Override
+	protected void afterSave(Expense entity, MInvoice_BH invoice) {
+	}
+
+	@Override
+	protected Expense createInstanceWithDefaultFields(MInvoice_BH instance) {
 		try {
-			return new Expense(expense.getAD_Client_ID(), expense.getAD_Org_ID(), expense.getC_Charge_UU(),
-					expense.isActive(), DateUtil.parseDateOnly(expense.getCreated()), expense.getCreatedBy(),
-					expense.getName(), expense.getDescription(), expense.getChargeAmt());
+			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
+			if (vendor == null) {
+				log.severe("Missing provider");
+				return null;
+			}
+
+			return new Expense(
+					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(), instance.isActive(),
+					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
+					DateUtil.parseDateOnly(instance.getDateInvoiced()), entityMetadataDBService
+							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					instance.getGrandTotal(), instance.getPaymentRule());
+
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	protected Expense createInstanceWithAllFields(MInvoice_BH instance) {
+		try {
+			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
+			if (vendor == null) {
+				log.severe("Missing vendor");
+				return null;
+			}
+
+			return new Expense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
+					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
+					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
+							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					instance.getGrandTotal(), instance.getPaymentRule());
+
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -87,25 +119,8 @@ public class ExpenseDBService extends BaseDBService<Expense, MCharge> {
 	}
 
 	@Override
-	protected Expense createInstanceWithAllFields(MCharge expense) {
-		return createInstanceWithDefaultFields(expense);
-	}
-
-	@Override
-	protected Expense createInstanceWithSearchFields(MCharge expense) {
-		try {
-			return new Expense(expense.getC_Charge_UU(), expense.getName(), expense.getChargeAmt(),
-					DateUtil.parseDateOnly(expense.getCreated()), expense.getDescription(), expense.isActive());
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-
-		return null;
-	}
-
-	@Override
-	protected MCharge getModelInstance() {
-		return new MCharge(Env.getCtx(), 0, null);
+	protected Expense createInstanceWithSearchFields(MInvoice_BH instance) {
+		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override

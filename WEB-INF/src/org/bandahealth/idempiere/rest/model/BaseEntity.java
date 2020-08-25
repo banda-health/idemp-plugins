@@ -14,11 +14,20 @@ public class BaseEntity extends BaseMetadata {
 	}
 
 	public BaseEntity(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			String name, String description) {
+										String name, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.name = name;
 		this.description = description;
+	}
+
+	public BaseEntity(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+										String name, String description, String value) {
+		super(clientId, orgId, uuid, isActive, created, createdBy);
+
+		this.name = name;
+		this.description = description;
+		this.value = value;
 	}
 
 	@XmlElement

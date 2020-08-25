@@ -22,13 +22,15 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="MenuLineServiceBean" />
 			<ref bean="PatientSummaryServiceBean" />
 			<ref bean="ServiceRestServiceBean" />
-			<ref bean="ExpenseServiceBean" />
+			<ref bean="ExpenseCategoryServiceBean" />
+			<ref bean="ProductCategoryServiceBean" />
+			<ref bean="AccountServiceBean" />
 			<ref bean="ProductServiceBean" />
 			<ref bean="VisitServiceBean" />
 			<ref bean="PaymentServiceBean" />
 			<ref bean="StockTakeServiceBean" />
 			<ref bean="EntityMetadataServiceBean" />
-			<ref bean="TrackExpenseServiceBean" />
+			<ref bean="ExpenseServiceBean" />
 			<ref bean="ReceiveProductServiceBean" />
 			<ref bean="ReportServiceBean" />
 		</jaxrs:serviceBeans>
@@ -70,8 +72,14 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<bean id="ServiceRestServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ServiceRestService" />
 
-	<bean id="ExpenseServiceBean"
-		class="org.bandahealth.idempiere.rest.service.impl.ExpenseRestService" />
+	<bean id="ExpenseCategoryServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.ExpenseCategoryRestService" />
+
+	<bean id="ProductCategoryServiceBean"
+		  class="org.bandahealth.idempiere.rest.service.impl.ProductCategoryRestService" />
+
+	<bean id="AccountServiceBean"
+		  class="org.bandahealth.idempiere.rest.service.impl.AccountRestService" />
 
 	<bean id="ProductServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ProductRestService" />
@@ -88,8 +96,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<bean id="EntityMetadataServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.EntityMetadataRestService" />
 
-	<bean id="TrackExpenseServiceBean"
-		class="org.bandahealth.idempiere.rest.service.impl.TrackExpenseRestService" />
+	<bean id="ExpenseServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.ExpenseRestService" />
 
 	<bean id="ReceiveProductServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ReceiveProductRestService" />

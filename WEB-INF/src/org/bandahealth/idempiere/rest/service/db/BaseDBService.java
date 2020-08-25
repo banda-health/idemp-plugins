@@ -202,6 +202,11 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
+	/**
+	 * Retrieve a REST entity from the DB with a given UUID
+	 * @param uuid
+	 * @return
+	 */
 	public T getEntity(String uuid) {
 		try {
 			S entity = getEntityByUuidFromDB(uuid);
