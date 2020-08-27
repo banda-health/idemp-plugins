@@ -130,6 +130,12 @@ public class MInvoice_BH extends MInvoice {
 		super(order, C_DocTypeTarget_ID, invoiceDate);
 	}
 	
+	public MInvoice_BH (MInvoice invoice) {
+		super(invoice.getCtx(), 0, invoice.get_TrxName());
+
+		PO.copyValues (invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
+	}
+
 	/**
 	 * 	Complete Document
 	 * 	@return new status (Complete, In Progress, Invalid, Waiting ..)
