@@ -318,14 +318,20 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return null;
 	}
 
-	public static int getVisitsCount(MBPartner_BH patient) {
+	public static int getVisitsCount(Integer patientId) {
+		StringBuilder sqlWhere = new StringBuilder("WHERE ")
+				.append(MOrder_BH.COLUMNNAME_IsSOTrx)
+				.append(" = ? AND ")
+				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID)
+				.append(" = ? AND ")
+				.append(MOrder_BH.COLUMNNAME_IsActive).append(" = ?");
+		
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
-		parameters.add(patient.get_ID());
-		int count = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND "
-				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
-				.setClient_ID().setOnlyActiveRecords(true).count();
-		return count;
+		parameters.add(patientId);
+		parameters.add("Y");
+		
+		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
 	}
 
 	public static String getLastVisitDate(MBPartner_BH patient) {
@@ -333,7 +339,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		parameters.add("Y");
 		parameters.add(patient.get_ID());
 
-		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND "
+		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + " =? AND "
 				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
 				.setClient_ID().setOnlyActiveRecords(true).list();
 		if (results.isEmpty()) {
