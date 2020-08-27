@@ -41,6 +41,20 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_IsExpense = "BH_isexpense";
 
 	public static final String COLUMNNAME_BH_NEWVISIT = "bh_newvisit";
+	
+	public static final String COLUMNNAME_BH_CHIEF_COMPLAINT = "BH_ChiefComplaint";
+	
+	public static final String COLUMNNAME_BH_TEMPERATURE = "BH_Temperature";
+	
+	public static final String COLUMNNAME_BH_PULSE = "BH_Pulse";
+	
+	public static final String COLUMNNAME_BH_RESPIRATORY_RATE = "BH_RespiratoryRate";
+	
+	public static final String COLUMNNAME_BH_BLOOD_PRESSURE = "BH_BloodPressure";
+	
+	public static final String COLUMNNAME_BH_HEIGHT = "BH_Height";
+	
+	public static final String COLUMNNAME_BH_WEIGHT = "BH_Weight";
 
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
 		super(ctx, C_Order_ID, trxName);
@@ -346,5 +360,61 @@ public class MOrder_BH extends MOrder {
 	
 	public void setBH_NewVisit(boolean newVisit) {
 		set_Value(COLUMNNAME_BH_NEWVISIT, newVisit);
+	}
+
+	public String getBH_Chief_Complaint() {
+		return (String)get_Value(COLUMNNAME_BH_CHIEF_COMPLAINT);
+	}
+	
+	public void setBH_Chief_Complaint(String BH_Chief_Complaint) {
+		set_Value(COLUMNNAME_BH_CHIEF_COMPLAINT, BH_Chief_Complaint);
+	}
+
+	public String getBH_Temperature() {
+		return (String)get_Value( COLUMNNAME_BH_TEMPERATURE);
+	}
+	
+	public void setBH_Temperature(String BH_Temperature) {
+		set_Value(COLUMNNAME_BH_TEMPERATURE, BH_Temperature);
+	}
+
+	public String getBH_Pulse() {
+		return (String)get_Value( COLUMNNAME_BH_PULSE);
+	}
+	
+	public void setBH_Pulse(String BH_Pulse) {
+		set_Value(COLUMNNAME_BH_PULSE, BH_Pulse);
+	}
+
+	public String getBH_Respiratory_Rate() {
+		return (String)get_Value( COLUMNNAME_BH_RESPIRATORY_RATE);
+	}
+	
+	public void setBH_Respiratory_Rate(String BH_Respiratory_Rate) {
+		set_Value(COLUMNNAME_BH_RESPIRATORY_RATE, BH_Respiratory_Rate);
+	}
+
+	public String getBH_Blood_Pressure() {
+		return (String)get_Value( COLUMNNAME_BH_BLOOD_PRESSURE);
+	}
+	
+	public void setBH_Blood_Pressure(String BH_Blood_Pressure) {
+		set_Value(COLUMNNAME_BH_BLOOD_PRESSURE, BH_Blood_Pressure);
+	}
+
+	public String getBH_Height() {
+		return (String)get_Value( COLUMNNAME_BH_HEIGHT);
+	}
+	
+	public void setBH_Height(String BH_Height) {
+		set_Value(COLUMNNAME_BH_HEIGHT, BH_Height);
+	}
+
+	public String getBH_Weight() {
+		return (String)get_Value( COLUMNNAME_BH_WEIGHT);
+	}
+	
+	public void setBH_Weight(String BH_Weight) {
+		set_Value(COLUMNNAME_BH_WEIGHT, BH_Weight);
 	}
 }
