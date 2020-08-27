@@ -49,7 +49,8 @@ public class ReportRestService {
 	@Produces(IRestConfigs.APPLICATION_PDF)
 	public Response generateReport(@QueryParam("formatType") String formatType, @QueryParam("name") String name,
 			@QueryParam("beginDate") String beginDate, @QueryParam("endDate") String endDate,
-			@QueryParam("paymentMode") String paymentMode, @QueryParam("patientType") String patientType) {
+			@QueryParam("paymentMode") String paymentMode, @QueryParam("patientType") String patientType,
+			@QueryParam("uuid") String uuid) {
 		// retrieve report full name
 		String reportName = ReportDBService.reportNameMapping.get(name);
 
@@ -111,6 +112,11 @@ public class ReportRestService {
 			break;
 		case ReportDBService.DONOR_FUND_REPORT:
 			report = dbService.generateDonorFundReport(DateUtil.parseDate(beginDate), DateUtil.parseDate(endDate));
+			break;
+		case ReportDBService.DEBT_PAYMENT_RECEIPT:
+			report = dbService.generateDebtPaymentReport(uuid);
+			break;
+		default:
 			break;
 		}
 
