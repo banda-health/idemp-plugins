@@ -15,6 +15,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBPartner_BH.class;
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
 			return MOrder_BH.class;
+		} else if (tableName.equalsIgnoreCase(MInvoice_BH.Table_Name)) {
+			return MInvoice_BH.class;
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return MPayment_BH.class;
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
@@ -33,6 +35,18 @@ public class BHModelFactory implements IModelFactory {
 			return MTabNavBtnTab.class;
 		} else if (tableName.equalsIgnoreCase(MCharge_BH.Table_Name)) {
 			return MCharge_BH.class;
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRef.Table_Name)) {
+			return MBHPaymentRef.class;
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRefBankAccount.Table_Name)) {
+			return MBHPaymentRefBankAccount.class;
+		} else if (tableName.equalsIgnoreCase(MBHChargeDefault.Table_Name)) {
+			return MBHChargeDefault.class;
+		} else if (tableName.equalsIgnoreCase(MChargeType_BH.Table_Name)) {
+			return MChargeType_BH.class;
+		} else if (tableName.equalsIgnoreCase(MProductCategory_BH.Table_Name)) {
+			return MProductCategory_BH.class;
+		} else if (tableName.equalsIgnoreCase(MBHProductCategoryDefault.Table_Name)) {
+			return MBHProductCategoryDefault.class;
 		}
 
 		return null;
@@ -44,6 +58,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBPartner_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
 			return new MOrder_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MInvoice_BH.Table_Name)) {
+			return new MInvoice_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
@@ -62,6 +78,18 @@ public class BHModelFactory implements IModelFactory {
 			return new MTabNavBtnTab(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MCharge_BH.Table_Name)) {
 			return new MCharge_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRef.Table_Name)) {
+			return new MBHPaymentRef(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRefBankAccount.Table_Name)) {
+			return new MBHPaymentRefBankAccount(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeDefault.Table_Name)) {
+			return new MBHChargeDefault(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MChargeType_BH.Table_Name)) {
+			return new MChargeType_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MProductCategory_BH.Table_Name)) {
+			return new MProductCategory_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHProductCategoryDefault.Table_Name)) {
+			return new MBHProductCategoryDefault(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -73,6 +101,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBPartner_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
 			return new MOrder_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MInvoice_BH.Table_Name)) {
+			return new MInvoice_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MHomeScreenButton.Table_Name)) {
@@ -91,6 +121,18 @@ public class BHModelFactory implements IModelFactory {
 			return new MTabNavBtnTab(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MCharge_BH.Table_Name)) {
 			return new MCharge_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRef.Table_Name)) {
+			return new MBHPaymentRef(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRefBankAccount.Table_Name)) {
+			return new MBHPaymentRefBankAccount(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeDefault.Table_Name)) {
+			return new MBHChargeDefault(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MChargeType_BH.Table_Name)) {
+			return new MChargeType_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MProductCategory_BH.Table_Name)) {
+			return new MProductCategory_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHProductCategoryDefault.Table_Name)) {
+			return new MBHProductCategoryDefault(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
