@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -79,7 +78,36 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setBH_NewVisit(entity.isNewVisit());
 		}
 
+		if (entity.getChiefComplaint() != null) {
+			mOrder.setBH_Chief_Complaint(entity.getChiefComplaint());
+		}
+
+		if (entity.getTemperature() != null) {
+			mOrder.setBH_Temperature(entity.getTemperature());
+		}
+
+		if (entity.getPulse() != null) {
+			mOrder.setBH_Pulse(entity.getPulse());
+		}
+
+		if (entity.getRespiratoryRate() != null) {
+			mOrder.setBH_Respiratory_Rate(entity.getRespiratoryRate());
+		}
+
+		if (entity.getBloodPressure() != null) {
+			mOrder.setBH_Blood_Pressure(entity.getBloodPressure());
+		}
+
+		if (entity.getHeight() != null) {
+			mOrder.setBH_Height(entity.getHeight());
+		}
+
+		if (entity.getWeight() != null) {
+			mOrder.setBH_Weight(entity.getWeight());
+		}
+
 		mOrder.setIsSOTrx(true);
+
 	}
 
 	@Override
@@ -145,7 +173,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
-					.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
+							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -182,7 +210,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
 					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
 					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
-					instance.getDocStatus(), getOrderStatus(instance));
+					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
+					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
+					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -225,7 +255,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-					.setClient_ID().setOnlyActiveRecords(true);
+							.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);
@@ -254,7 +284,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 						}
 
 						results.add(new Visit().getVisitQueue(DateUtil.parseQueueTime(entity.getCreated()),
-								entity.getC_Order_UU(), new Patient(patient.getName(), patient.getC_BPartner_UU()), getOrderStatus(entity)));
+								entity.getC_Order_UU(), new Patient(patient.getName(), patient.getC_BPartner_UU()),
+								getOrderStatus(entity)));
 					}
 				}
 			}
@@ -328,6 +359,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
+
 		parameters.add(patientId);
 		parameters.add("Y");
 		
@@ -339,9 +371,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		parameters.add("Y");
 		parameters.add(patient.get_ID());
 
-		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + " =? AND "
-				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null).setParameters(parameters)
-				.setClient_ID().setOnlyActiveRecords(true).list();
+		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name,
+				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
+						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true).list();
+
 		if (results.isEmpty()) {
 			return null;
 		}
@@ -352,7 +385,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
 		return DateUtil.parseDateOnly(ts);
 	}
-	
+
 	/**
 	 * Get Open Visits (exclude today's visits) Count
 	 * 
@@ -362,12 +395,13 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		StringBuilder sqlWhere = new StringBuilder("WHERE ")
 				.append(buildOpenDraftsWhereClauseAndParameters(parameters));
-		
+
 		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
 	}
-	
+
 	/**
 	 * Get Open Visits
+	 * 
 	 * @param pagingInfo
 	 * @param sortColumn
 	 * @param sortOrder
@@ -376,30 +410,29 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	public BaseListResponse<Visit> getOpenVisitDrafts(Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		String sqlWhere = buildOpenDraftsWhereClauseAndParameters(parameters);
-		
+
 		return super.getAll(sqlWhere, parameters, pagingInfo, sortColumn, sortOrder);
 	}
-	
+
 	private String buildOpenDraftsWhereClauseAndParameters(List<Object> parameters) {
-		StringBuilder sqlWhere = new StringBuilder().append(MOrder_BH.COLUMNNAME_AD_Client_ID)
-				.append(" =?").append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsActive).append(" =?")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ")
-				.append(AND_OPERATOR).append("to_char(")
-				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
+		StringBuilder sqlWhere = new StringBuilder().append(MOrder_BH.COLUMNNAME_AD_Client_ID).append(" =?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?").append(AND_OPERATOR)
+				.append(MOrder_BH.COLUMNNAME_IsActive).append(" =?").append(AND_OPERATOR)
+				.append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ").append(AND_OPERATOR).append("to_char(")
+				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ").append(AND_OPERATOR)
+				.append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
 
 		if (parameters == null) {
 			parameters = new ArrayList<>();
 		}
-		
+
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 		parameters.add("Y");
 		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
 		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
 		parameters.add("Y");
-		
+
 		return sqlWhere.toString();
 	}
 }
