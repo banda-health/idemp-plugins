@@ -16,7 +16,6 @@ import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
-import org.bandahealth.idempiere.rest.model.PatientVital;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.Visit;
@@ -78,18 +77,37 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.isNewVisit() != null) {
 			mOrder.setBH_NewVisit(entity.isNewVisit());
 		}
-		
-		if (entity.getPatientVital() != null) {
-			mOrder.setBH_Chief_Complaint(entity.getPatientVital().getChiefComplaint());
-			mOrder.setBH_Temperature(entity.getPatientVital().getTemperature());
-			mOrder.setBH_Pulse(entity.getPatientVital().getPulse());
-			mOrder.setBH_Respiratory_Rate(entity.getPatientVital().getRespiratoryRate());
-			mOrder.setBH_Blood_Pressure(entity.getPatientVital().getBloodPressure());
-			mOrder.setBH_Height(entity.getPatientVital().getHeight());
-			mOrder.setBH_Weight(entity.getPatientVital().getWeight());
+
+		if (entity.getChiefComplaint() != null) {
+			mOrder.setBH_Chief_Complaint(entity.getChiefComplaint());
+		}
+
+		if (entity.getTemperature() != null) {
+			mOrder.setBH_Temperature(entity.getTemperature());
+		}
+
+		if (entity.getPulse() != null) {
+			mOrder.setBH_Pulse(entity.getPulse());
+		}
+
+		if (entity.getRespiratoryRate() != null) {
+			mOrder.setBH_Respiratory_Rate(entity.getRespiratoryRate());
+		}
+
+		if (entity.getBloodPressure() != null) {
+			mOrder.setBH_Blood_Pressure(entity.getBloodPressure());
+		}
+
+		if (entity.getHeight() != null) {
+			mOrder.setBH_Height(entity.getHeight());
+		}
+
+		if (entity.getWeight() != null) {
+			mOrder.setBH_Weight(entity.getWeight());
 		}
 
 		mOrder.setIsSOTrx(true);
+
 	}
 
 	@Override
@@ -192,10 +210,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
 					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
 					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
-					instance.getDocStatus(), getOrderStatus(instance),
-					new PatientVital(instance.getBH_Chief_Complaint(), instance.getBH_Temperature(),
-							instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(), instance.getBH_Blood_Pressure(),
-							instance.getBH_Height(), instance.getBH_Weight()));
+					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
+					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
+					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

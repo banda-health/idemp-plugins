@@ -18,7 +18,13 @@ public class Visit extends Order {
 	private Referral referral;
 	private OrderStatus status;
 	private Patient patient;
-	private PatientVital patientVital;
+	private String chiefComplaint;
+	private String temperature;
+	private String pulse;
+	private String respiratoryRate;
+	private String bloodPressure;
+	private String height;
+	private String weight;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -27,7 +33,8 @@ public class Visit extends Order {
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
 			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis,
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
-			String documentStatus, OrderStatus status, PatientVital patientVital) {
+			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
+			String respiratoryRate, String bloodPressure, String height, String weight) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
 				orderLines, payments, documentStatus);
 
@@ -37,8 +44,14 @@ public class Visit extends Order {
 		this.referral = referral;
 		this.patient = patient;
 		this.status = status;
-		this.patientVital = patientVital;
-		
+		this.chiefComplaint = chiefComplaint;
+		this.temperature = temperature;
+		this.pulse = pulse;
+		this.respiratoryRate = respiratoryRate;
+		this.bloodPressure = bloodPressure;
+		this.height = height;
+		this.weight = weight;
+
 		setIsSalesOrderTransaction(true);
 	}
 
@@ -125,11 +138,65 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public PatientVital getPatientVital() {
-		return patientVital;
+	public String getChiefComplaint() {
+		return chiefComplaint;
 	}
 
-	public void setPatientVital(PatientVital patientVital) {
-		this.patientVital = patientVital;
+	public void setChiefComplaint(String chiefComplaint) {
+		this.chiefComplaint = chiefComplaint;
+	}
+
+	@XmlElement
+	public String getTemperature() {
+		return temperature;
+	}
+
+	public void setTemperature(String temperature) {
+		this.temperature = temperature;
+	}
+
+	@XmlElement
+	public String getPulse() {
+		return pulse;
+	}
+
+	public void setPulse(String pulse) {
+		this.pulse = pulse;
+	}
+	
+	@XmlElement
+	public String getRespiratoryRate() {
+		return respiratoryRate;
+	}
+
+	public void setRespiratoryRate(String respiratoryRate) {
+		this.respiratoryRate = respiratoryRate;
+	}
+
+	@XmlElement
+	public String getBloodPressure() {
+		return bloodPressure;
+	}
+
+	public void setBloodPressure(String bloodPressure) {
+		this.bloodPressure = bloodPressure;
+	}
+
+	@XmlElement
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	@XmlElement
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
 	}
 }
