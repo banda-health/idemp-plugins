@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.process.ProcessInfoParameter;
 
@@ -21,33 +22,48 @@ public class ReportDBService extends BaseReportDBProcess {
 
 	// report names
 	public static final String INCOME_EXPENSE_REPORT = "Income & Expenses";
+	public static final String INCOME_EXPENSE_REPORT_VALUE = "incomeexpensereport"; 
 	public static final String THERMAL_RECEIPT_REPORT = "BH Thermal Receipt";
 	public static final String PATIENT_TRANSACTIONS_REPORT = "Patient Transactions";
+	public static final String PATIENT_TRANSACTIONS_REPORT_VALUE = "patienttransactionreport";
 	public static final String STOCK_REORDER_REPORT = "Stock to be Ordered";
+	public static final String STOCK_REORDER_REPORT_VALUE = "stockreorderreport";
 	public static final String PRODUCT_AND_PRICES_REPORT = "Products and Prices";
+	public static final String PRODUCT_AND_PRICES_REPORT_VALUE = "productandpricereport";
 	public static final String VALUE_OPENING_CLOSING_STOCK_REPORT = "Value of Opening and Closing Stock";
+	public static final String VALUE_OPENING_CLOSING_STOCK_REPORT_VALUE = "valueofopeningandclosingstockreport";
 	public static final String MOH705A_PATIENT_VISITS_REFERRALS_REPORT = "MoH705A Patient Visits and Referrals";
+	public static final String MOH705A_PATIENT_VISITS_REFERRALS_REPORT_VALUE = "mohpatientvisitsreferralreport";
 	public static final String MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT = "MoH705A Out Patient Under 5yr Summary";
+	public static final String MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT_VALUE = "mohoutpatientunder5summaryreport";
 	public static final String MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT = "MoH717 New and Revisit Patient Count";
+	public static final String MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT_VALUE = "mohnewrevisitpatientcountreport";
 	public static final String MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT = "MoH705B Out Patient Over 5yr Summary";
+	public static final String MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT_VALUE = "mohoutpatientover5summaryreport";
 	public static final String INVENTORY_SOLD_REPORT = "Inventory Sold Report";
+	public static final String INVENTORY_SOLD_REPORT_VALUE = "inventorysoldreport";
 	public static final String STOCK_DISCREPANCY_REPORT = "Stock Discrepancy Report";
+	public static final String STOCK_DISCREPANCY_REPORT_VALUE = "stockdiscrepancyreport";
 	public static final String DONOR_FUND_REPORT = "Donor Fund Report";
+	public static final String DONOR_FUND_REPORT_VALUE = "donorfundreport";
+	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
+	public static final String DEBT_PAYMENT_RECEIPT_VALUE = "debtpaymentreceipt";
 
 	public static final Map<String, String> reportNameMapping = new HashMap<String, String>() {
 		{
-			put("incomeexpensereport", INCOME_EXPENSE_REPORT);
-			put("patienttransactionreport", PATIENT_TRANSACTIONS_REPORT);
-			put("stockreorderreport", STOCK_REORDER_REPORT);
-			put("productandpricereport", PRODUCT_AND_PRICES_REPORT);
-			put("valueofopeningandclosingstockreport", VALUE_OPENING_CLOSING_STOCK_REPORT);
-			put("mohpatientvisitsreferralreport", MOH705A_PATIENT_VISITS_REFERRALS_REPORT);
-			put("mohoutpatientunder5summaryreport", MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT);
-			put("mohnewrevisitpatientcountreport", MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT);
-			put("mohoutpatientover5summaryreport", MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT);
-			put("inventorysoldreport", INVENTORY_SOLD_REPORT);
-			put("stockdiscrepancyreport", STOCK_DISCREPANCY_REPORT);
-			put("donorfundreport", DONOR_FUND_REPORT);
+			put(INCOME_EXPENSE_REPORT_VALUE, INCOME_EXPENSE_REPORT);
+			put(PATIENT_TRANSACTIONS_REPORT_VALUE, PATIENT_TRANSACTIONS_REPORT);
+			put(STOCK_REORDER_REPORT_VALUE, STOCK_REORDER_REPORT);
+			put(PRODUCT_AND_PRICES_REPORT_VALUE, PRODUCT_AND_PRICES_REPORT);
+			put(VALUE_OPENING_CLOSING_STOCK_REPORT_VALUE, VALUE_OPENING_CLOSING_STOCK_REPORT);
+			put(MOH705A_PATIENT_VISITS_REFERRALS_REPORT_VALUE, MOH705A_PATIENT_VISITS_REFERRALS_REPORT);
+			put(MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT_VALUE, MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT);
+			put(MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT_VALUE, MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT);
+			put(MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT_VALUE, MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT);
+			put(INVENTORY_SOLD_REPORT_VALUE, INVENTORY_SOLD_REPORT);
+			put(STOCK_DISCREPANCY_REPORT_VALUE, STOCK_DISCREPANCY_REPORT);
+			put(DONOR_FUND_REPORT_VALUE, DONOR_FUND_REPORT);
+			put(DEBT_PAYMENT_RECEIPT_VALUE, DEBT_PAYMENT_RECEIPT);
 		}
 	};
 
@@ -57,6 +73,7 @@ public class ReportDBService extends BaseReportDBProcess {
 	private final String END_DATE = "End Date";
 	private final String PAYMENT_MODE = "Payment Mode";
 	private final String PATIENT_TYPE = "Patient Type";
+	private final String DEBT_PAYMENT_ID = "debtPaymentID";
 
 	private String reportOutputType;
 
@@ -238,5 +255,26 @@ public class ReportDBService extends BaseReportDBProcess {
 		return generateReport(DONOR_FUND_REPORT, reportOutputType,
 				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
 						new ProcessInfoParameter(END_DATE, endDate, null, null, null) });
+	}
+
+	/**
+	 * Generates Debt Payment Report
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	public File generateDebtPaymentReport(String uuid) {
+		if (uuid == null || uuid.isEmpty()) {
+			return null;
+		}
+
+		// retrieve payment from DB
+		MPayment_BH payment = new PaymentDBService().getEntityByUuidFromDB(uuid);
+		if (payment == null) {
+			return null;
+		}
+		
+		return generateReport(DEBT_PAYMENT_RECEIPT, reportOutputType, new ProcessInfoParameter[] {
+				new ProcessInfoParameter(DEBT_PAYMENT_ID, BigDecimal.valueOf(payment.get_ID()), null, null, null) });
 	}
 }

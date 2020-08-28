@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class OrderLine extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private Expense expense;
+	private ExpenseCategory expenseCategory;
 	private Integer orderId;
 	private Product product;
 	private BigDecimal price;
@@ -45,10 +45,10 @@ public class OrderLine extends BaseMetadata {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Expense expense, Integer orderId, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount) {
+									 ExpenseCategory expenseCategory, Integer orderId, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
-		this.expense = expense;
+		this.expenseCategory = expenseCategory;
 		this.orderId = orderId;
 		this.price = price;
 		this.quantity = quantity;
@@ -66,21 +66,21 @@ public class OrderLine extends BaseMetadata {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer orderId, Expense expense, BigDecimal price) {
+									 Integer orderId, ExpenseCategory expenseCategory, BigDecimal price) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.orderId = orderId;
-		this.expense = expense;
+		this.expenseCategory = expenseCategory;
 		this.price = price;
 	}
 
 	@XmlElement
-	public Expense getExpense() {
-		return expense;
+	public ExpenseCategory getExpenseCategory() {
+		return expenseCategory;
 	}
 
-	public void setExpense(Expense charge) {
-		this.expense = charge;
+	public void setExpenseCategory(ExpenseCategory charge) {
+		this.expenseCategory = charge;
 	}
 
 	@XmlElement

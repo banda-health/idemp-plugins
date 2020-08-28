@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.process.ExpenseProcess;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -31,6 +33,7 @@ public class ProcessDBService {
 
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
+	private final String EXPENSE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.ExpenseProcess";
 	private final String QUANTITY = "QUANTITY";
 
 	public ProcessDBService() {
@@ -53,6 +56,42 @@ public class ProcessDBService {
 
 		processInfo.setParameter(new ProcessInfoParameter[] {
 				new ProcessInfoParameter(MOrder_BH.COLUMNNAME_C_Order_ID, orderId, null, null, null) });
+
+		ServerProcessCtl.process(processInfo, null);
+
+		return Process.PROCESSING_MESSAGE;
+	}
+
+	/**
+	 * Call and run the SalesProcess
+	 *
+	 * @param invoiceId
+	 */
+	public String runExpenseProcess(int invoiceId, boolean delete) {
+		MProcess mprocess = new Query(
+				Env.getCtx(),
+				MProcess.Table_Name,
+				MProcess.COLUMNNAME_Classname + "=?",
+				null
+		)
+				.setOnlyActiveRecords(true).setParameters(EXPENSE_PROCESS_CLASS_NAME).first();
+
+		MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+
+		processInfo.setParameter(new ProcessInfoParameter[] {
+				new ProcessInfoParameter(ExpenseProcess.PARAMETERNAME_C_INVOICE_ID, invoiceId, null, null, null),
+				new ProcessInfoParameter(
+						ExpenseProcess.PARAMETERNAME_PROCESS_ACTION,
+						delete ? ExpenseProcess.PROCESSACTION_Remove : ExpenseProcess.PROCESSACTION_Complete,
+						null,
+						null,
+						null
+				)
+		});
 
 		ServerProcessCtl.process(processInfo, null);
 

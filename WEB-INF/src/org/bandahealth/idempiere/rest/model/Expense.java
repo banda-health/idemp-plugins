@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,45 +11,42 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @XmlRootElement(name = "expense")
 @JsonInclude(value = Include.NON_NULL)
-public class Expense extends BaseEntity {
+public class Expense extends Invoice {
 
 	private static final long serialVersionUID = 1L;
-	private BigDecimal amount;
+
+	private Vendor supplier;
 
 	public Expense() {
+		setIsSalesOrderTransaction(false);
+		setIsExpense(true);
 	}
 
-	public Expense(String uuid, String name, BigDecimal amount) {
-		setUuid(uuid);
-		setName(name);
+	public Expense(Integer clientId, Integer orgId, String uuid, boolean isActive, String created, Integer createdBy,
+								 Vendor supplier, String dateInvoiced, List<InvoiceLine> invoiceLines, String docStatus,
+								 BigDecimal grandTotal, String paymentType) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
+				invoiceLines, docStatus, paymentType);
 
-		this.amount = amount;
+		setIsExpense(true);
+		this.supplier = supplier;
+		setGrandTotal(grandTotal);
 	}
 
-	public Expense(String uuid, String name, BigDecimal amount, String created, String description, boolean isActive) {
-		setUuid(uuid);
-		setName(name);
-		setDescription(description);
-		setCreated(created);
-		setIsActive(isActive);
+	public Expense(Integer clientId, Integer orgId, String uuid, boolean isActive, String created, Integer createdBy,
+								 Vendor supplier, String dateInvoiced, String docStatus, BigDecimal grandTotal, String paymentType) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
+				docStatus, grandTotal, paymentType);
 
-		this.amount = amount;
+		setIsExpense(true);
+		this.supplier = supplier;
 	}
 
-	public Expense(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal amount) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
-
-		this.amount = amount;
+	public Vendor getSupplier() {
+		return supplier;
 	}
 
-	@XmlElement
-	public BigDecimal getAmount() {
-		return amount;
+	public void setSupplier(Vendor supplier) {
+		this.supplier = supplier;
 	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-
 }
