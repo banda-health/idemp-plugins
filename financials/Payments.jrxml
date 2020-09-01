@@ -9,17 +9,17 @@
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT p.c_bpartner_id,
-       p.name as name,
-       SUM(o.grandtotal) AS total_supplied
-FROM c_order o
-    INNER JOIN c_bpartner p ON o.c_bpartner_id = p.c_bpartner_id
+		<![CDATA[SELECT bp.c_bpartner_id,
+       bp.name as name,
+       SUM(ci.grandtotal) AS total_supplied
+FROM c_invoice ci
+    INNER JOIN c_bpartner bp ON ci.c_bpartner_id = bp.c_bpartner_id
 WHERE
-      o.docstatus = 'CO'
-      AND o.issotrx = 'N'
-      AND (date(o.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND o.ad_client_id =  $P{AD_CLIENT_ID}
-GROUP BY p.c_bpartner_id]]>
+      ci.docstatus = 'CO'
+      AND ci.issotrx = 'N'
+      AND ci.ad_client_id = $P{AD_CLIENT_ID}
+      AND (date(ci.dateinvoiced) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+GROUP BY bp.c_bpartner_id;]]>
 	</queryString>
 	<field name="c_bpartner_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="c_bpartner_id"/>
@@ -44,7 +44,7 @@ GROUP BY p.c_bpartner_id]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
-			<textField pattern="Ksh #,###0.00">
+			<textField pattern="Ksh #,##0.00">
 				<reportElement x="180" y="0" width="110" height="20" uuid="e2fc93a7-ebd3-4ae5-b875-20b72a634548"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>

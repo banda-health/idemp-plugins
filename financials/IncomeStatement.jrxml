@@ -21,14 +21,14 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT
   org.name,
-  SUM(CASE WHEN corder.issotrx = 'Y' THEN corder.grandtotal ELSE 0 END) AS revenue, 
-  SUM(CASE WHEN corder.issotrx = 'N' THEN corder.grandtotal ELSE 0 END) AS cost
-FROM c_order corder 
-INNER JOIN ad_org org ON corder.ad_org_id = org.ad_org_id
-WHERE  corder.ad_client_id =  $P{AD_CLIENT_ID} 
-AND (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})) 
-AND corder.docstatus = 'CO' 
-GROUP BY org.name]]>
+  SUM(CASE WHEN ci.issotrx = 'Y' THEN ci.grandtotal ELSE 0 END) AS revenue, 
+  SUM(CASE WHEN ci.issotrx = 'N' THEN ci.grandtotal ELSE 0 END) AS cost
+FROM c_invoice ci 
+INNER JOIN ad_org org ON ci.ad_org_id = org.ad_org_id
+WHERE  ci.ad_client_id =  $P{AD_CLIENT_ID} 
+AND (date(ci.dateinvoiced) BETWEEN date($P{Begin Date}) AND date($P{End Date})) 
+AND ci.docstatus = 'CO' 
+GROUP BY org.name;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
@@ -81,7 +81,7 @@ GROUP BY org.name]]>
 	</pageHeader>
 	<columnHeader>
 		<band height="50" splitType="Stretch">
-			<textField pattern="Ksh #,###0.00" isBlankWhenNull="false">
+			<textField pattern="Ksh #,##0.00" isBlankWhenNull="false">
 				<reportElement x="423" y="0" width="103" height="16" uuid="d79eb99b-ab04-4f81-8e10-dce84f21ec05"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
@@ -120,7 +120,7 @@ GROUP BY org.name]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"Payments.jasper"]]></subreportExpression>
 			</subreport>
-			<textField pattern="Ksh #,###0.00" isBlankWhenNull="false">
+			<textField pattern="Ksh #,##0.00" isBlankWhenNull="false">
 				<reportElement positionType="FixRelativeToBottom" x="405" y="30" width="120" height="23" uuid="f24abe5d-c9db-4b34-87d3-717f7a2ac268">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -133,7 +133,7 @@ GROUP BY org.name]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
 			</textField>
-			<textField pattern="Ksh #,###0.00" isBlankWhenNull="false">
+			<textField pattern="Ksh #,##0.00" isBlankWhenNull="false">
 				<reportElement positionType="FixRelativeToBottom" x="405" y="53" width="120" height="26" uuid="d37bc2be-223a-44d9-b7bf-891508ec3e4e"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>

@@ -255,7 +255,7 @@ where cp.c_payment_id = $P{debtPaymentID}
 					<subreportParameterExpression><![CDATA[$P{debtPaymentID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Debt Payment Receipts.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Debt Payment Receipt.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
