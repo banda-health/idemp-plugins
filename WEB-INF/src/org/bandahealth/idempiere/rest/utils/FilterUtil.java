@@ -73,15 +73,25 @@ public class FilterUtil {
 				}
 				whereClause.append(canPrependSeparator ? " AND " : "");
 				switch (key) {
-					case "$and" -> whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-							dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.AND, false));
-					case "$not" -> whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-							dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.AND, true));
-					case "$or" -> whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-							dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.OR, false));
-					case "$nor" -> whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-							dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.OR, true));
-					default -> logger.warning("Unknown array filter property: " + key + ", skipping...");
+					case "$and":
+						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.AND, false));
+						break;
+					case "$not":
+						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.AND, true));
+						break;
+					case "$or":
+						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.OR, false));
+						break;
+					case "$nor":
+						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.OR, true));
+						break;
+					default:
+						logger.warning("Unknown array filter property: " + key + ", skipping...");
+						break;
 				}
 				canPrependSeparator = true;
 			}
@@ -177,47 +187,61 @@ public class FilterUtil {
 				List<?> listOperatorValues;
 				String parameterClause;
 				switch (comparison) {
-					case "$eq" -> handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate,
-							canPrependSeparator, filterValue, dbColumnIsDateType);
-					case "$neq" -> handleEqualityComparison(dbColumnName, whereClause, parameters, separator, !negate,
-							canPrependSeparator, filterValue, dbColumnIsDateType);
-					case "$gt" -> {
+					case "$eq":
+						handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate,
+								canPrependSeparator, filterValue, dbColumnIsDateType);
+						break;
+					case "$neq":
+						handleEqualityComparison(dbColumnName, whereClause, parameters, separator, !negate,
+								canPrependSeparator, filterValue, dbColumnIsDateType);
+						break;
+					case "$gt":
 						whereClause.append(dbColumnName).append(negate ? "<=" : ">").append("?");
 						parameters.add(filterValue);
-					}
-					case "$gte" -> {
+						break;
+					case "$gte":
 						whereClause.append(dbColumnName).append(negate ? "<" : ">=").append("?");
 						parameters.add(filterValue);
-					}
-					case "$lt" -> {
+						break;
+					case "$lt":
 						whereClause.append(dbColumnName).append(negate ? ">=" : "<").append("?");
 						parameters.add(filterValue);
-					}
-					case "$lte" -> {
+						break;
+					case "$lte":
 						whereClause.append(dbColumnName).append(negate ? ">" : "<=").append("?");
 						parameters.add(filterValue);
-					}
-					case "$in" -> {
+						break;
+					case "$in":
 						listOperatorValues = (List<?>) filterValue;
 						parameterClause = "?,".repeat(listOperatorValues.size());
 						whereClause.append(dbColumnName).append(negate ? " NOT " : " ").append("IN (")
 								.append(parameterClause.substring(0, parameterClause.length() - 1)).append(")");
 						parameters.addAll(listOperatorValues);
-					}
-					case "$nin" -> {
+						break;
+					case "$nin":
 						listOperatorValues = (List<?>) filterValue;
 						parameterClause = "?,".repeat(listOperatorValues.size());
 						whereClause.append(dbColumnName).append(negate ? " " : " NOT ").append("IN (")
 								.append(parameterClause.substring(0, parameterClause.length() - 1)).append(")");
 						parameters.addAll(listOperatorValues);
-					}
-					case "$text" -> whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ")
-							.append("LIKE '%").append(filterValue).append("%'");
-					case "$ntext" -> whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
-							.append("LIKE '%").append(filterValue).append("%'");
-					case "$null" -> whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
-					case "$nnull" -> whereClause.append(dbColumnName).append(" IS").append(negate ? " " : " NOT ").append("NULL");
-					default -> logger.warning("Unknown comparison: " + comparison + ", skipping...");
+						break;
+					case "$text":
+						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ")
+								.append("LIKE '%").append(filterValue).append("%'");
+						break;
+					case "$ntext":
+						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
+								.append("LIKE '%").append(filterValue).append("%'");
+						break;
+					case "$null":
+						whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
+						break;
+					case "$nnull":
+						whereClause.append(dbColumnName).append(" IS").append(negate ? " " : " NOT ").append("NULL");
+						break;
+					default:
+						logger.warning("Unknown comparison: " + comparison + ", skipping...");
+						break;
 				}
 				canPrependSeparator = true;
 			}
