@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.utils;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.compiere.util.CLogger;
@@ -48,6 +49,11 @@ public class DateUtil {
 
 	}
 
+	/**
+	 * Parse a YYYY-MM-DD (with or without the timestamp) to a Timestamp
+	 * @param date
+	 * @return
+	 */
 	public static Timestamp getTimestamp(String date) {
 		if (date != null) {
 			try {
@@ -74,5 +80,17 @@ public class DateUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Adds a day to the passed-in timestamp
+	 * @param currentDay The timestamp to get a day from
+	 * @return A timestamp exactly 1 day ahead
+	 */
+	public static Timestamp getTheNextDay(Timestamp currentDay) {
+		Calendar endDateCalendar = Calendar.getInstance();
+		endDateCalendar.setTime(currentDay);
+		endDateCalendar.add(Calendar.DATE, 1);
+		return new Timestamp(endDateCalendar.getTimeInMillis());
 	}
 }

@@ -15,6 +15,7 @@ import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
@@ -33,11 +34,16 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 
-	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
+		String whereClause = FilterUtil.getWhereClauseFromFilter(getModelInstance(), filterJson, parameters);
+		if (StringUtil.isNotNullAndEmpty(whereClause)) {
+			whereClause = " AND " + whereClause;
+		}
 
-		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?" + whereClause, parameters, pagingInfo,
+				sortColumn, sortOrder);
 	}
 
 	@Override
