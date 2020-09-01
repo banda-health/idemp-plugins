@@ -157,23 +157,16 @@ public class FilterUtil {
 
 			// Try to see if this property should be a date
 			boolean dbColumnIsDateType = false;
-			Timestamp startDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
-			Timestamp endDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
 			try {
 				Object columnValue = dbModel.get_Value(dbColumnName);
 				dbColumnIsDateType = columnValue instanceof Timestamp;
-				if (dbColumnIsDateType) {
-					startDate = DateUtil.getTimestamp(comparisons.toString());
-					endDate = DateUtil.getTheNextDay(startDate);
-				}
 			} catch (Exception ignored) {
 			}
 
 			// If this isn't a hashmap for this property, assume it's an $eq
 			if (!(comparisons instanceof HashMap)) {
-				Object filterValue = comparisons;
-				handleEqualsAssignment(dbColumnName, whereClause, parameters, separator, negate, canPrependSeparator, filterValue,
-						dbColumnIsDateType, startDate, endDate);
+				handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate, canPrependSeparator,
+						comparisons, dbColumnIsDateType);
 				canPrependSeparator = true;
 				continue;
 			}
@@ -181,75 +174,50 @@ public class FilterUtil {
 			for (String comparison : comparisonMap.keySet()) {
 				whereClause.append(canPrependSeparator ? separator : "");
 				Object filterValue = comparisonMap.get(comparison);
-				if (dbColumnIsDateType) {
-					startDate = DateUtil.getTimestamp(filterValue.toString());
-					endDate = DateUtil.getTheNextDay(startDate);
-				}
 				List<?> listOperatorValues;
 				String parameterClause;
 				switch (comparison) {
-					case "$eq":
-						handleEqualsAssignment(dbColumnName, whereClause, parameters, separator, negate, canPrependSeparator,
-								filterValue, dbColumnIsDateType, startDate, endDate);
-						break;
-					case "$neq":
-						if (dbColumnIsDateType) {
-							whereClause.append(canPrependSeparator ? separator : "").append(dbColumnName)
-									.append(negate ? " " : " NOT ").append("BETWEEN ? AND ?");
-							parameters.add(startDate);
-							parameters.add(endDate);
-						} else {
-							whereClause.append(dbColumnName).append(negate ? "" : "!").append("=?");
-							parameters.add(filterValue);
-						}
-						break;
-					case "$gt":
+					case "$eq" -> handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate,
+							canPrependSeparator, filterValue, dbColumnIsDateType);
+					case "$neq" -> handleEqualityComparison(dbColumnName, whereClause, parameters, separator, !negate,
+							canPrependSeparator, filterValue, dbColumnIsDateType);
+					case "$gt" -> {
 						whereClause.append(dbColumnName).append(negate ? "<=" : ">").append("?");
 						parameters.add(filterValue);
-						break;
-					case "$gte":
+					}
+					case "$gte" -> {
 						whereClause.append(dbColumnName).append(negate ? "<" : ">=").append("?");
 						parameters.add(filterValue);
-						break;
-					case "$lt":
+					}
+					case "$lt" -> {
 						whereClause.append(dbColumnName).append(negate ? ">=" : "<").append("?");
 						parameters.add(filterValue);
-						break;
-					case "$lte":
+					}
+					case "$lte" -> {
 						whereClause.append(dbColumnName).append(negate ? ">" : "<=").append("?");
 						parameters.add(filterValue);
-						break;
-					case "$in":
+					}
+					case "$in" -> {
 						listOperatorValues = (List<?>) filterValue;
 						parameterClause = "?,".repeat(listOperatorValues.size());
 						whereClause.append(dbColumnName).append(negate ? " NOT " : " ").append("IN (")
 								.append(parameterClause.substring(0, parameterClause.length() - 1)).append(")");
 						parameters.addAll(listOperatorValues);
-						break;
-					case "$nin":
+					}
+					case "$nin" -> {
 						listOperatorValues = (List<?>) filterValue;
 						parameterClause = "?,".repeat(listOperatorValues.size());
 						whereClause.append(dbColumnName).append(negate ? " " : " NOT ").append("IN (")
 								.append(parameterClause.substring(0, parameterClause.length() - 1)).append(")");
 						parameters.addAll(listOperatorValues);
-						break;
-					case "$text":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ").append("LIKE '%")
-								.append(filterValue).append("%'");
-						break;
-					case "$ntext":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ").append("LIKE '%")
-								.append(filterValue).append("%'");
-						break;
-					case "$null":
-						whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
-						break;
-					case "$nnull":
-						whereClause.append(dbColumnName).append(" IS").append(negate ? " " : " NOT ").append("NULL");
-						break;
-					default:
-						logger.warning("Unknown comparison: " + comparison + ", skipping...");
-						break;
+					}
+					case "$text" -> whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ")
+							.append("LIKE '%").append(filterValue).append("%'");
+					case "$ntext" -> whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
+							.append("LIKE '%").append(filterValue).append("%'");
+					case "$null" -> whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
+					case "$nnull" -> whereClause.append(dbColumnName).append(" IS").append(negate ? " " : " NOT ").append("NULL");
+					default -> logger.warning("Unknown comparison: " + comparison + ", skipping...");
 				}
 				canPrependSeparator = true;
 			}
@@ -268,14 +236,13 @@ public class FilterUtil {
 	 * @param canPrependSeparator Whether the subclause is preceded by a subclause and the separator should be prepended
 	 * @param filterValue The value to filter by
 	 * @param dbColumnIsDateType Whether the model property is a date (used to write the subclause appropriately)
-	 * @param startDate A Timestamp version of the value parameter
-	 * @param endDate An end date to search between (since date equalities are actually BETWEENs)
 	 */
-	private static void handleEqualsAssignment(
+	private static void handleEqualityComparison(
 			String property, StringBuilder whereClause, List<Object> parameters, String separator, boolean negate,
-			boolean canPrependSeparator, Object filterValue, boolean dbColumnIsDateType, Timestamp startDate,
-			Timestamp endDate) {
+			boolean canPrependSeparator, Object filterValue, boolean dbColumnIsDateType) {
 		if (dbColumnIsDateType) {
+			Timestamp startDate = DateUtil.getTimestamp(filterValue.toString());
+			Timestamp endDate = DateUtil.getTheNextDay(startDate);
 			whereClause.append(canPrependSeparator ? separator : "").append(property)
 					.append(negate ? " NOT " : " ").append("BETWEEN ? AND ?");
 			parameters.add(startDate);
