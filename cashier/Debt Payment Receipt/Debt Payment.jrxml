@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="252"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="573"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="417"/>
@@ -37,7 +37,8 @@
   debtDetails.cashierName as cashierName,
   debtDetails.patientName as patientName,
   debtDetails.fileNumber as fileNumber,
-  debtDetails.debt_id as debt_id
+  debtDetails.debt_id as debt_id,
+  debtDetails.totaldebt as debt
 from
 (
 select
@@ -61,7 +62,8 @@ select
   cp.c_payment_id as receipt_number,
   cashier.name as cashierName,
   patient.name as patientName,
-  patient.bh_patientid as fileNumber
+  patient.bh_patientid as fileNumber,
+  patient.totalopenbalance as totaldebt
 from c_payment cp
   inner join c_bpartner patient on cp.c_bpartner_id = patient.c_bpartner_id
   inner join ad_user cashier on cp.createdby = cashier.ad_user_id
@@ -115,6 +117,13 @@ where cp.c_payment_id = $P{debtPaymentID}
 		<property name="com.jaspersoft.studio.field.label" value="debt_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
 	</field>
+	<field name="debt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="debt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<variable name="totalCost" class="java.math.BigDecimal">
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -196,18 +205,18 @@ where cp.c_payment_id = $P{debtPaymentID}
 				<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="2" y="160" width="50" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
+				<reportElement key="" x="2" y="160" width="68" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[File No:]]></text>
+				<text><![CDATA[Current Debt:]]></text>
 			</staticText>
-			<textField>
-				<reportElement key="" style="style1" x="52" y="160" width="109" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
+			<textField pattern="Ksh #,##0.00">
+				<reportElement key="" style="style1" x="70" y="160" width="91" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{debt}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement key="" x="0" y="2" width="161" height="13" uuid="1c6d712b-5f9a-4daf-8590-0729204a1001"/>
@@ -247,10 +256,19 @@ where cp.c_payment_id = $P{debtPaymentID}
 		</band>
 	</title>
 	<detail>
-		<band height="56">
-			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+		<band height="31" splitType="Stretch">
 			<subreport>
-				<reportElement key="" x="0" y="0" width="161" height="56" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
+				<reportElement key="" x="0" y="5" width="161" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
+				<subreportParameter name="debtPaymentID">
+					<subreportParameterExpression><![CDATA[$P{debtPaymentID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Debt Payment Details.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="25">
+			<subreport>
+				<reportElement key="" x="0" y="0" width="161" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
 				<subreportParameter name="debtPaymentID">
 					<subreportParameterExpression><![CDATA[$P{debtPaymentID}]]></subreportParameterExpression>
 				</subreportParameter>
