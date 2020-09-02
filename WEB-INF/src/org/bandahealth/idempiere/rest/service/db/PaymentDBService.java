@@ -41,7 +41,10 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	}
 
 	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
-		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		
+		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,
@@ -131,6 +134,8 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		}
 
 		mPayment.setIsActive(entity.isIsActive());
+		
+		mPayment.setBH_IsServiceDebt(true);
 
 		mPayment.saveEx();
 
@@ -173,7 +178,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 							memberName),
 					entityMetadataDBService.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS,
 							instance.getDocStatus()),
-					DateUtil.parseDateOnly(instance.getDateTrx()));
+					DateUtil.parseDateOnly(instance.getDateTrx()), instance.getBH_TenderAmount());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getMessage(), ex);
