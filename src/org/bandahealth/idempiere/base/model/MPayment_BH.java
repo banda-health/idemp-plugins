@@ -46,6 +46,8 @@ public class MPayment_BH extends MPayment {
 	public static final String COLUMNNAME_BH_TENDER_AMOUNT = "BH_tender_amount";
 	
 	public static final String COLUMNNAME_BH_REMAINING_INVOICE_AMOUNT = "BH_RmngInvcAmt";
+	
+	public static final String COLUMNNAME_BH_IsServiceDebt = "BH_IsServiceDebt";
 
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
 		super(ctx, C_Payment_ID, trxName);
@@ -113,5 +115,22 @@ public class MPayment_BH extends MPayment {
 	
 	public BigDecimal getBH_TenderAmount() {
 		return (BigDecimal) get_Value(COLUMNNAME_BH_TENDER_AMOUNT);
+	}
+	
+	public void setBH_IsServiceDebt (boolean BH_IsServiceDebt)
+	{
+		set_Value (COLUMNNAME_BH_IsServiceDebt, Boolean.valueOf(BH_IsServiceDebt));
+	}
+
+	public boolean isBH_IsServiceDebt ()
+	{
+		Object oo = get_Value(COLUMNNAME_BH_IsServiceDebt);
+		if (oo != null)
+		{
+			if (oo instanceof Boolean)
+				return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }
