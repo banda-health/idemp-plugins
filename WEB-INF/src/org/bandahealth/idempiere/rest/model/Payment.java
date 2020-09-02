@@ -21,13 +21,14 @@ public class Payment extends BaseMetadata {
 	private NHIF nhif;
 	private String docStatus;
 	private String transactionDate;
+	private BigDecimal tenderAmount;
 
 	public Payment() {
 	}
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Patient patient, int orderId, BigDecimal payAmount, PaymentType paymentType, String description, NHIF nhif,
-			String docStatus, String transactionDate) {
+			String docStatus, String transactionDate, BigDecimal tenderAmount) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.patient = patient;
@@ -38,6 +39,7 @@ public class Payment extends BaseMetadata {
 		this.nhif = nhif;
 		this.docStatus = docStatus;
 		this.transactionDate = transactionDate;
+		this.tenderAmount = tenderAmount;
 	}
 
 	public Patient getPatient() {
@@ -110,5 +112,13 @@ public class Payment extends BaseMetadata {
 
 	public void setTransactionDate(String transactionDate) {
 		this.transactionDate = transactionDate;
+	}
+
+	public BigDecimal getTenderAmount() {
+		return tenderAmount;
+	}
+
+	public void setTenderAmount(BigDecimal tenderAmount) {
+		this.tenderAmount = tenderAmount;
 	}
 }
