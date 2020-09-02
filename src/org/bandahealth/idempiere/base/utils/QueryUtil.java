@@ -1,21 +1,29 @@
 package org.bandahealth.idempiere.base.utils;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
+import java.util.logging.Level;
 
+import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 public class QueryUtil {
 
 	/**
 	 * Retrieve the first row of a given table by organization and client.
-	 * 
+	 *
 	 * @param clientId
 	 * @param organizationId
 	 * @param ctx
@@ -25,14 +33,14 @@ public class QueryUtil {
 	 * @return
 	 */
 	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx,
-			String tableName, String whereClause, String trxName) {
+																													String tableName, String whereClause, String trxName) {
 
 		return getQueryByOrgAndClient(clientId, organizationId, ctx, tableName, whereClause, trxName).first();
 	}
 
 	/**
 	 * Gets the query object to allow for further modification by a user if desired
-	 * 
+	 *
 	 * @param clientId
 	 * @param organizationId
 	 * @param ctx
@@ -42,7 +50,7 @@ public class QueryUtil {
 	 * @return
 	 */
 	public static Query getQueryByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
-			String whereClause, String trxName) {
+																						 String whereClause, String trxName) {
 
 		String clientAndOrg = String.format(" and %1$s = ? and %2$s = ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
 				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
@@ -71,7 +79,7 @@ public class QueryUtil {
 	}
 
 	public static int createExpirationDateAttributeInstance(int attributeSetInstanceId, Timestamp expirationDate,
-			String trxName, Properties ctx) {
+																													String trxName, Properties ctx) {
 		MAttributeSetInstance asi = null;
 
 		if (attributeSetInstanceId > 0) {
@@ -130,18 +138,49 @@ public class QueryUtil {
 
 	/**
 	 * Generates The Next Patient ID for a given client.
-	 * 
+	 *
 	 * @return
 	 */
 	public static Object generateNextBHPatientId() {
 		// default patient id
 		Integer numericCreatedPatientId = 100000;
 
+		// First, try to see if we can fetch their current maximum numeric Banda patient id
+		StringBuilder sqlQuery = new StringBuilder("SELECT MAX(").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
+				.append(") FROM ").append(MBPartner_BH.Table_Name).append(" WHERE ")
+				.append(MBPartner_BH.COLUMNNAME_AD_Client_ID).append("=? AND isnumeric(")
+				.append(MBPartner_BH.COLUMNNAME_BH_PatientID).append(")");
+		Integer clientsCurrentMaxPatientId = 0;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			statement = DB.prepareStatement(sqlQuery.toString(), null);
+			DB.setParameters(statement, Collections.singletonList(Env.getAD_Client_ID(Env.getCtx())));
+
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				clientsCurrentMaxPatientId = Integer.parseInt(resultSet.getString(1));
+			}
+
+		} catch (SQLException ignore) {
+			System.out.println(ignore.getMessage());
+		} finally {
+			DB.close(resultSet, statement);
+			resultSet = null;
+			statement = null;
+		}
+
+		// If the value was updated from 0, we found it!
+		if (clientsCurrentMaxPatientId != 0) {
+			return clientsCurrentMaxPatientId + 1;
+		}
+
+		// There was an error checking the maximum, so get the most recent patient
 		// check the last created patient id
 		MBPartner_BH lastCreatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", null).setClient_ID().setOrderBy(
-						MBPartner_BH.COLUMNNAME_Created + " DESC, " + MBPartner_BH.COLUMNNAME_BH_PatientID + " DESC")
-						.setParameters("Y").first();
+				MBPartner_BH.COLUMNNAME_Created + " DESC, " + MBPartner_BH.COLUMNNAME_BH_PatientID + " DESC")
+				.setParameters("Y").first();
 
 		if (lastCreatedPatient != null && NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
 			numericCreatedPatientId = Integer.valueOf(lastCreatedPatient.getBH_PatientID());
