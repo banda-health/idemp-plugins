@@ -67,32 +67,38 @@ public class FilterUtil {
 
 			boolean canPrependSeparator = false;
 			// First check the arrays of properties ($and, $not, $or, $nor)
-			for (String key : filter.keySet()) {
-				if (!comparisonArrayProperties.contains(key)) {
+			for (String logicalComparisonKey : filter.keySet()) {
+				if (!comparisonArrayProperties.contains(logicalComparisonKey)) {
 					continue;
 				}
 				whereClause.append(canPrependSeparator ? " AND " : "");
-				switch (key) {
+				String dbColumnComparisonsListWhereClause = null;
+				switch (logicalComparisonKey) {
 					case "$and":
-						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.AND, false));
+						dbColumnComparisonsListWhereClause = getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(logicalComparisonKey), parameters, FilterArrayJoin.AND, false);
 						break;
 					case "$not":
-						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.AND, true));
+						dbColumnComparisonsListWhereClause = getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(logicalComparisonKey), parameters, FilterArrayJoin.AND, true);
 						break;
 					case "$or":
-						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.OR, false));
+						dbColumnComparisonsListWhereClause = getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(logicalComparisonKey), parameters, FilterArrayJoin.OR, false);
 						break;
 					case "$nor":
-						whereClause.append(getWhereClauseFromDBColumnComparisonsList(
-								dbModel, (List<?>) filter.get(key), parameters, FilterArrayJoin.OR, true));
+						dbColumnComparisonsListWhereClause = getWhereClauseFromDBColumnComparisonsList(
+								dbModel, (List<?>) filter.get(logicalComparisonKey), parameters, FilterArrayJoin.OR, true);
 						break;
 					default:
-						logger.warning("Unknown array filter property: " + key + ", skipping...");
+						logger.warning("Unknown array filter property: " + logicalComparisonKey + ", skipping...");
 						break;
 				}
+				// If nothing was returned for this array property, don't do anything
+				if (StringUtil.isNullOrEmpty(dbColumnComparisonsListWhereClause)) {
+					continue;
+				}
+				whereClause.append(dbColumnComparisonsListWhereClause);
 				canPrependSeparator = true;
 			}
 			// Finally, check to see if there were any comparisons passed outside of the array comparisons
@@ -100,12 +106,21 @@ public class FilterUtil {
 					.filter(property -> !comparisonArrayProperties.contains(property.getKey()))
 					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 			if (filtersOutsideArrayComparisons.keySet().size() > 0) {
-				whereClause.append(canPrependSeparator ? " AND " : "");
-				whereClause.append(
-						getWhereClauseFromDBColumnComparisons(dbModel, filtersOutsideArrayComparisons, parameters, false));
+				String dbColumnComparisonsWhereClause =
+						getWhereClauseFromDBColumnComparisons(dbModel, filtersOutsideArrayComparisons, parameters, false);
+				// Only add this where clause if something was returned from the db column comparisons
+				if (!StringUtil.isNullOrEmpty(dbColumnComparisonsWhereClause)) {
+					whereClause.append(canPrependSeparator ? " AND " : "");
+					whereClause.append(dbColumnComparisonsWhereClause);
+				}
 			}
 		} catch (Exception e) {
 			throw new AdempiereException("Filter criteria doesn't meet the standard form.");
+		}
+		// If we've only added the first statement, just return an empty string
+		// (i.e. there was no filter data in the object)
+		if (whereClause.length() == 1) {
+			return "";
 		}
 		whereClause.append(")");
 		return whereClause.toString();
@@ -135,9 +150,17 @@ public class FilterUtil {
 		}
 		// For each of the comparisons, create an appropriate where subclause
 		for (Object dbColumnComparison : dbColumnComparisonsList) {
-			whereClause.append(canPrependSeparator ? separator : "").append(
-					getWhereClauseFromDBColumnComparisons(dbModel, (Map<String, Object>) dbColumnComparison, parameters, negate));
-			canPrependSeparator = true;
+			String dbColumnComparisonWhereClause =
+					getWhereClauseFromDBColumnComparisons(dbModel, (Map<String, Object>) dbColumnComparison, parameters, negate);
+			if (!StringUtil.isNullOrEmpty(dbColumnComparisonWhereClause)) {
+				whereClause.append(canPrependSeparator ? separator : "").append(dbColumnComparisonWhereClause);
+				canPrependSeparator = true;
+			}
+		}
+		// If we've only added the first statement, just return an empty string
+		// (i.e. there was no filter data in the object)
+		if (whereClause.length() == 1) {
+			return "";
 		}
 		return whereClause.append(")").toString();
 	}
@@ -188,12 +211,14 @@ public class FilterUtil {
 				String parameterClause;
 				switch (comparison) {
 					case "$eq":
+						// We don't want to prepend a separator because that logic is already handled above
 						handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate,
-								canPrependSeparator, filterValue, dbColumnIsDateType);
+								false, filterValue, dbColumnIsDateType);
 						break;
 					case "$neq":
+						// We don't want to prepend a separator because that logic is already handled above
 						handleEqualityComparison(dbColumnName, whereClause, parameters, separator, !negate,
-								canPrependSeparator, filterValue, dbColumnIsDateType);
+								false, filterValue, dbColumnIsDateType);
 						break;
 					case "$gt":
 						whereClause.append(dbColumnName).append(negate ? "<=" : ">").append("?");
@@ -241,10 +266,15 @@ public class FilterUtil {
 						break;
 					default:
 						logger.warning("Unknown comparison: " + comparison + ", skipping...");
-						break;
+						continue;
 				}
 				canPrependSeparator = true;
 			}
+		}
+		// If we've only added the first statement, just return an empty string
+		// (i.e. there was no filter data in the object)
+		if (whereClause.length() == 1) {
+			return "";
 		}
 		return whereClause.append(")").toString();
 	}
