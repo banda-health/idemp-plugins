@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +15,11 @@ import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -29,22 +33,32 @@ public class InventoryDBService {
 	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 
-	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder)
+	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder,
+																									String filterJson)
 			throws DBException {
-		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder);
+		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder, filterJson);
 	}
 
 	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
 			String sortOrder) throws DBException {
-		return this.getInventory(pagingInfo, value, null, sortColumn, sortOrder);
+		return this.getInventory(pagingInfo, value, null, sortColumn, sortOrder, null);
+	}
+
+	public BigDecimal getProductInventory(Integer productId) throws DBException {
+		BaseListResponse<Inventory> inventoryList = this.getInventory(new Paging(0, 1000), null,
+				productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER, null);
+
+		return inventoryList.getResults().stream()
+				.reduce(BigDecimal.ZERO, (subtotal, item) -> subtotal.add(BigDecimal.valueOf(item.getQuantity())),
+						BigDecimal::add);
 	}
 	
 	public BaseListResponse<Inventory> getProductInventory(Paging pagingInfo, Integer productId) throws DBException {
-		return this.getInventory(pagingInfo, null, productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER);
+		return this.getInventory(pagingInfo, null, productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER, null);
 	}
 
 	private BaseListResponse<Inventory> getInventory(Paging pagingInfo, String searchValue, Integer productId, String sortColumn,
-			String sortOrder) throws DBException {
+			String sortOrder, String filterJson) throws DBException {
 		List<Inventory> results = new ArrayList<>();
 
 		List<String> viewColumnsToUse = new ArrayList<>(
@@ -69,6 +83,14 @@ public class InventoryDBService {
 					.append(AND_OPERATOR).append("LOWER(").append(X_BH_Stocktake_v.COLUMNNAME_Product)
 					.append(") ").append(LIKE_COMPARATOR).append(" ?");
 			parameters.add("%" + searchValue.toLowerCase() + "%");
+		}
+
+		if (!StringUtil.isNullOrEmpty(filterJson)) {
+			String consumerFilterWhereClause = FilterUtil
+					.getWhereClauseFromFilter(null, filterJson, parameters);
+			if (!StringUtil.isNullOrEmpty(consumerFilterWhereClause)) {
+				sqlWhere.append(AND_OPERATOR).append(consumerFilterWhereClause);
+			}
 		}
 		
 		if (productId != null) {

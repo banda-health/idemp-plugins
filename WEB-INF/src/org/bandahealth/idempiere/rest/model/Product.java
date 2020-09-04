@@ -24,6 +24,7 @@ public class Product extends BaseEntity {
 	private Boolean hasExpiration;
 	private BigDecimal priceMargin;
 	private String productCategoryUuid;
+	private BigDecimal totalQuantity;
 
 	public Product() {
 	}
@@ -38,7 +39,7 @@ public class Product extends BaseEntity {
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
 								 String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
 								 String type, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration,
-								 BigDecimal priceMargin, String productCategoryUuid) {
+								 BigDecimal priceMargin, String productCategoryUuid, BigDecimal totalQuantity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.value = value;
@@ -51,6 +52,7 @@ public class Product extends BaseEntity {
 		this.hasExpiration = hasExpiration;
 		this.priceMargin = priceMargin;
 		setProductCategoryUuid(productCategoryUuid);
+		setTotalQuantity(totalQuantity);
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
@@ -158,5 +160,13 @@ public class Product extends BaseEntity {
 
 	public void setProductCategoryUuid(String productCategoryUuid) {
 		this.productCategoryUuid = productCategoryUuid;
+	}
+
+	public BigDecimal getTotalQuantity() {
+		return totalQuantity;
+	}
+
+	public void setTotalQuantity(BigDecimal totalQuantity) {
+		this.totalQuantity = totalQuantity;
 	}
 }
