@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.process;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.compiere.model.MStorageOnHand;
@@ -32,15 +33,19 @@ public class StockTakeProcess extends SvrProcess {
 	@Override
 	protected String doIt() throws Exception {
 		// get original stock
-		MStorageOnHand existingStorage = (MStorageOnHand) new Query(getCtx(), MStorageOnHand.Table_Name,
+		List<MStorageOnHand> listExistingStorage = new Query(getCtx(), MStorageOnHand.Table_Name,
 				MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID
-						+ "=?",
-				get_TrxName()).setParameters(productID, attributeSetInstanceId).first();
-		if (existingStorage == null) {
+						+ "=?", get_TrxName())
+				.setParameters(productID, attributeSetInstanceId)
+				.setOnlyActiveRecords(true)
+				.list();
+		if (listExistingStorage == null) {
 			return null;
 		}
 
-		UpdateStock.updateStock(existingStorage, new BigDecimal(quantity));
+		for (MStorageOnHand existingStorage : listExistingStorage) {
+			UpdateStock.updateStock(existingStorage, new BigDecimal(quantity));
+		}
 
 		return null;
 	}
