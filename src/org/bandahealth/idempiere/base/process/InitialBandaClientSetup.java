@@ -7,8 +7,11 @@ import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.compiere.Adempiere;
 import org.compiere.impexp.ImpFormat;
 import org.compiere.impexp.MImpFormat;
+import org.compiere.model.*;
 import org.compiere.model.MElement;
+import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.process.ImportAccount;
 import org.compiere.process.ProcessInfoParameter;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 
 /**
@@ -61,6 +65,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
 
 	private int usersClientId;
+	private int usersId;
 
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
@@ -75,6 +80,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 */
 	protected void prepare() {
 		usersClientId = getAD_Client_ID();
+		usersId = getAD_User_ID();
 
 		addCoAFileValueToParametersBasedOnClientType();
 
@@ -182,6 +188,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			throw e;
 		}
 
+		addCreatedUserRolesToLoggedInUser(bandaSetup.getAD_Client_ID(), bandaSetup.getAD_Org_ID());
+
 		/**
 		 * The context has it's AD_Client_ID replaced with the generated one. If the user continues using iDempiere,
 		 * they're AD_Client_ID will be wrong (since they should be "System") and they'll have to log out and log
@@ -191,6 +199,43 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		resetClientId();
 
 		return completeInfo;
+	}
+
+	/**
+	 * Roles are currently added to the SuperUser user, which the logged-in user may not be. So, add them to the
+	 * logged-in user
+	 */
+	private void addCreatedUserRolesToLoggedInUser(int clientId, int orgId) {
+		List<MRole> clientRoles = new Query(
+				getCtx(),
+				MRole.Table_Name,
+				MRole.COLUMNNAME_AD_Client_ID + "=?",
+				get_TrxName()
+		)
+				.setParameters(clientId)
+				.list();
+		String whereClause = "?,".repeat(clientRoles.size());
+		whereClause = whereClause.substring(0, whereClause.length() - 1);
+		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
+		parameters.add(usersId);
+		List<MUserRoles> usersAssignedClientRoles = new Query(
+				getCtx(),
+				MUserRoles.Table_Name,
+				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ") AND " +
+						MUserRoles.COLUMNNAME_AD_User_ID + "=?",
+				get_TrxName()
+		)
+				.setParameters(parameters)
+				.list();
+		// If any roles have already been assigned for this user and client, we don't need to do anything
+		if (usersAssignedClientRoles.size() > 0) {
+			return;
+		}
+		clientRoles.forEach(clientRole -> {
+			MUserRoles roleToAssign = new MUserRoles(getCtx(), usersId, clientRole.getAD_Role_ID(), get_TrxName());
+			roleToAssign.setAD_Org_ID(orgId);
+			roleToAssign.saveEx();
+		});
 	}
 
 	private void rollback(MBandaSetup bandaSetup) {
