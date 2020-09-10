@@ -61,8 +61,8 @@ from c_payment cp
     inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
     and AD_Reference_ID=214
 where (cp.ad_client_id = $P{AD_CLIENT_ID})
-      AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
-      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      and bh_isservicedebt = 'Y'
+      and (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by cashier.name, tendertype.name;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">

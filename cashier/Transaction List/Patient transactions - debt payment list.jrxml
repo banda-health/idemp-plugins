@@ -63,8 +63,8 @@ from c_payment cp
     inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
     and AD_Reference_ID=214
 where ((cp.ad_client_id = $P{AD_CLIENT_ID})
-      AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
-      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      and bh_isservicedebt = 'Y'
+      and (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 order by cb.name asc;]]>
 		</queryString>
@@ -265,7 +265,7 @@ order by cb.name asc;]]>
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="fff1d762-b433-4a16-a57f-4b92f26fcca1"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{SumAmountPaid}]]></textFieldExpression>
 							</textField>
@@ -298,7 +298,7 @@ order by cb.name asc;]]>
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="120" height="17" uuid="d674d3ec-6407-4ce4-b26c-8a50e3b9a5df"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumTotalDebt}]]></textFieldExpression>
 							</textField>
