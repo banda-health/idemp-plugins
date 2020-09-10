@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Debt Payments" pageWidth="610" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="610" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -87,6 +87,14 @@ order by cb.name asc;]]>
 			<property name="com.jaspersoft.studio.field.label" value="amountpaid"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
 		</field>
+		<variable name="SumAmountPaid" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{amountpaid}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumTotalDebt" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{totaldebt}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
@@ -141,11 +149,10 @@ order by cb.name asc;]]>
 		</band>
 	</pageHeader>
 	<summary>
-		<band height="47" splitType="Stretch">
+		<band height="64" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="610" height="47" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="610" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -252,8 +259,19 @@ order by cb.name asc;]]>
 								<text><![CDATA[Amount Paid]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="fff1d762-b433-4a16-a57f-4b92f26fcca1"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{SumAmountPaid}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="8cc531f8-111d-4dd5-81d8-f96e18f29ed2"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -275,6 +293,16 @@ order by cb.name asc;]]>
 								<text><![CDATA[Open Balance]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="120" height="17" uuid="d674d3ec-6407-4ce4-b26c-8a50e3b9a5df"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumTotalDebt}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="120" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
