@@ -60,14 +60,17 @@ where cp.c_payment_id = $P{debtPaymentID};]]>
 		<band height="30" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00">
-				<reportElement key="" x="123" y="-4" width="38" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405"/>
-				<textElement textAlignment="Center">
+				<reportElement key="" x="100" y="-4" width="61" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="mm"/>
+				</reportElement>
+				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{debtamount}.add($F{openbalance})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="12" y="-4" width="101" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+				<reportElement key="" x="12" y="-4" width="81" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
 				</reportElement>
@@ -83,7 +86,7 @@ where cp.c_payment_id = $P{debtPaymentID};]]>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[Payment Type]]></text>
+				<text><![CDATA[Payment]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" x="114" y="17" width="43" height="12" uuid="48d4e617-7560-43a3-b5e8-9dcb78eac555"/>

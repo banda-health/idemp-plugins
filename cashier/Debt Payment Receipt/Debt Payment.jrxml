@@ -211,7 +211,7 @@ where cp.c_payment_id = $P{debtPaymentID}
 				</textElement>
 				<text><![CDATA[Current Debt:]]></text>
 			</staticText>
-			<textField pattern="Ksh #,##0.00">
+			<textField pattern="#,##0.00">
 				<reportElement key="" style="style1" x="70" y="160" width="91" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
