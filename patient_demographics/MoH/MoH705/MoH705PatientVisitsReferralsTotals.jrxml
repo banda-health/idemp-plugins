@@ -294,7 +294,7 @@ group by orderbilldate.billdate;]]>
 								<reportElement x="0" y="0" width="150" height="17" uuid="05de1798-ddaf-45b7-86c0-8f787accc460"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sum1stAttendance}]]></textFieldExpression>
 							</textField>
@@ -323,12 +323,12 @@ group by orderbilldate.billdate;]]>
 ]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="130" height="17" uuid="e0eb5a73-d6e5-4bc5-9917-0b9019b0252e"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumReattendance}]]></textFieldExpression>
 							</textField>
@@ -361,7 +361,7 @@ group by orderbilldate.billdate;]]>
 								<reportElement x="0" y="0" width="130" height="17" uuid="374f8126-ca86-4736-8a8a-c9f23e7c6c27"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumReferralsFromHF}]]></textFieldExpression>
 							</textField>
@@ -394,7 +394,7 @@ group by orderbilldate.billdate;]]>
 								<reportElement x="0" y="0" width="150" height="17" uuid="7755027f-cd8c-444f-ae5a-4006fa91f586"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumReferralsToOtherHF}]]></textFieldExpression>
 							</textField>
@@ -427,7 +427,7 @@ group by orderbilldate.billdate;]]>
 								<reportElement x="0" y="0" width="150" height="17" uuid="9d43a0fe-8ea5-4aba-9763-17c74130f8c5"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumReferralsFromCU}]]></textFieldExpression>
 							</textField>
@@ -460,7 +460,7 @@ group by orderbilldate.billdate;]]>
 								<reportElement x="0" y="0" width="140" height="17" uuid="a8fbeefe-e09b-4e25-96b4-4ff74f0f754e"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
-									<font fontName="DejaVu Sans" size="12"/>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumReferralsToCU}]]></textFieldExpression>
 							</textField>
