@@ -113,7 +113,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			businessPartner.setM_PriceList_ID(priceListId);
 
 			// check unique patient id
-			checkPatientID(businessPartner);
+			generatePatientID(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
@@ -185,30 +185,16 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	}
 
 	/**
-	 * Check if this patient id has not been used by another user.
+	 * Generate a unique patient id
 	 * 
 	 * @param patient
 	 */
-	private void checkPatientID(MBPartner_BH patient) {
-		String bhPatientId = patient.getBH_PatientID();
-
-		if (!NumberUtils.isNumeric(bhPatientId)) {
-			return;
-		}
-
+	private void generatePatientID(MBPartner_BH patient) {
 		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
-		if (generatedPatientId == null) {
+		if (generatedPatientId == null || generatedPatientId instanceof String) {
 			return;
 		}
 
-		if (generatedPatientId instanceof String) {
-			return;
-		}
-
-		Integer nextPatientId = (Integer) generatedPatientId;
-
-		if (Integer.valueOf(bhPatientId) < nextPatientId) {
-			patient.setBH_PatientID(String.valueOf(generatedPatientId));
-		}
+		patient.setBH_PatientID(String.valueOf(generatedPatientId));
 	}
 }
