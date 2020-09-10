@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MoH717" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="e6f5415f-18b1-40a8-862e-af41d81a921f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -14,7 +14,7 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select coalesce(sum(over5malecountNV.countover5malenewvisit),0) as maleover5newvisit,
        coalesce(sum(under5malecountNV.countunder5malenewvisit),0) as maleunder5newvisit,
@@ -38,7 +38,8 @@ select
     date(cobilldate.dateordered) as billdate
 from c_order cobilldate
 where
-    cobilldate.ad_client_id = $P{AD_CLIENT_ID} and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    cobilldate.ad_client_id = $P{AD_CLIENT_ID} 
+    and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) as orderbilldate on regPatient.c_bpartner_id = orderbilldate.c_bpartner_id
 left join
 (
@@ -51,6 +52,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
+    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5malecountNV on orderbilldate.c_bpartner_id = over5malecountNV.c_bpartner_id
 left join
@@ -64,6 +66,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
+    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5malecountNV on orderbilldate.c_bpartner_id = under5malecountNV.c_bpartner_id
 left join
@@ -77,6 +80,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
+    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5femalecountNV on orderbilldate.c_bpartner_id = over5femalecountNV.c_bpartner_id
 left join
@@ -90,6 +94,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
+    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5femalecountNV on orderbilldate.c_bpartner_id = under5femalecountNV.c_bpartner_id
 left join
@@ -103,6 +108,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
+    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5malecountRV on orderbilldate.c_bpartner_id = over5malecountRV.c_bpartner_id
 left join
@@ -116,6 +122,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
+    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5malecountRV on orderbilldate.c_bpartner_id = under5malecountRV.c_bpartner_id
 left join
@@ -126,9 +133,11 @@ select
 from c_bpartner patient
     inner join c_order revisit on patient.c_bpartner_id = revisit.c_bpartner_id
     and revisit.bh_newvisit = 'N'
+    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
+    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5femalecountRV on orderbilldate.c_bpartner_id = over5femalecountRV.c_bpartner_id
 left join
@@ -142,6 +151,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
+    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5femalecountRV on orderbilldate.c_bpartner_id = under5femalecountRV.c_bpartner_id
 left join
@@ -151,7 +161,8 @@ select
     count(copatientcount.c_bpartner_id) as countallpatients
 from c_order copatientcount
 where
-    copatientcount.ad_client_id = $P{AD_CLIENT_ID} and (date(copatientcount.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    copatientcount.ad_client_id = $P{AD_CLIENT_ID} 
+    and (date(copatientcount.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by copatientcount.c_bpartner_id
 ) as patientbillcount on regPatient.c_bpartner_id = patientbillcount.c_bpartner_id;]]>
 	</queryString>
