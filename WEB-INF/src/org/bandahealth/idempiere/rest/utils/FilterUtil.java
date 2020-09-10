@@ -213,12 +213,18 @@ public class FilterUtil {
 			}
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
-			// Try to see if this property should be a date
 			boolean dbColumnIsDateType = false;
-			try {
-				Object columnValue = dbModel.get_Value(dbColumnName);
-				dbColumnIsDateType = columnValue instanceof Timestamp;
-			} catch (Exception ignored) {
+			// If the column already has an alias, we won't check the property on the model (because aliases should only be
+			// supplied when filtering from a joined table)
+			if (!doesTableAliasExistOnColumn(dbColumnName)) {
+				// Try to see if this property should be a date
+				try {
+					Object columnValue = dbModel.get_Value(dbColumnName);
+					dbColumnIsDateType = columnValue instanceof Timestamp;
+				} catch (Exception ignored) {
+				}
+				// Since no alias exists, scope it to the current model's table
+				dbColumnName = dbModel.get_TableName() + "." + dbColumnName;
 			}
 
 			// If this isn't a hashmap for this property, assume it's an $eq
@@ -357,6 +363,16 @@ public class FilterUtil {
 					.append(negate ? "!" : "").append("=?");
 			parameters.add(filterValue);
 		}
+	}
+
+	/**
+	 * Check to see if the table alias already exists on the column (aka Table_Name.ColumnName vs just ColumnName)
+	 *
+	 * @param dbColumn The dbColumn string to check
+	 * @return Whether a table alias is present on the dbColumn
+	 */
+	private static boolean doesTableAliasExistOnColumn(String dbColumn) {
+		return dbColumn.contains(".");
 	}
 
 	enum FilterArrayJoin {
