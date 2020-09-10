@@ -15,26 +15,45 @@ import java.util.List;
 import java.util.Properties;
 
 public class MInvoice_BH extends MInvoice {
-	
-	private static final long serialVersionUID = 1L;
 
-	/** Mobile Account = A */
+	/**
+	 * Mobile Account = A
+	 */
 	public static final String PAYMENTRULE_MobileAccount = "A";
-	/** BH Cash Account = b */
+	/**
+	 * BH Cash Account = b
+	 */
 	public static final String PAYMENTRULE_BHCashAccount = "b";
-
 	/**
 	 * Column name BH_Processing
 	 */
 	public static final String COLUMNNAME_BH_Processing = "BH_Processing";
-
 	/**
-	 * Set BH_Processing.
-	 *
-	 * @param bhProcessing Whether this invoice is an expense or not
+	 * Column name BH_IsExpense
 	 */
-	public void setBH_Processing(boolean bhProcessing) {
-		set_Value(COLUMNNAME_BH_Processing, bhProcessing);
+	public static final String COLUMNNAME_BH_IsExpense = "BH_IsExpense";
+	/**
+	 * Column name BH_DocAction
+	 */
+	public static final String COLUMNNAME_BH_DocAction = "BH_DocAction";
+	private static final long serialVersionUID = 1L;
+
+	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
+		super(ctx, C_Invoice_ID, trxName);
+	}
+
+	public MInvoice_BH(Properties ctx, ResultSet rs, String trxName) {
+		super(ctx, rs, trxName);
+	}
+
+	public MInvoice_BH(MOrder order, int C_DocTypeTarget_ID, Timestamp invoiceDate) {
+		super(order, C_DocTypeTarget_ID, invoiceDate);
+	}
+
+	public MInvoice_BH(MInvoice invoice) {
+		super(invoice.getCtx(), 0, invoice.get_TrxName());
+
+		PO.copyValues(invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
 	}
 
 	/**
@@ -51,17 +70,12 @@ public class MInvoice_BH extends MInvoice {
 	}
 
 	/**
-	 * Column name BH_IsExpense
-	 */
-	public static final String COLUMNNAME_BH_IsExpense = "BH_IsExpense";
-
-	/**
-	 * Set BH_IsExpense.
+	 * Set BH_Processing.
 	 *
-	 * @param bhIsExpense Whether this invoice is an expense or not
+	 * @param bhProcessing Whether this invoice is an expense or not
 	 */
-	public void setBH_IsExpense(boolean bhIsExpense) {
-		set_Value(COLUMNNAME_BH_IsExpense, bhIsExpense);
+	public void setBH_Processing(boolean bhProcessing) {
+		set_Value(COLUMNNAME_BH_Processing, bhProcessing);
 	}
 
 	/**
@@ -78,17 +92,12 @@ public class MInvoice_BH extends MInvoice {
 	}
 
 	/**
-	 * Column name BH_DocAction
-	 */
-	public static final String COLUMNNAME_BH_DocAction = "BH_DocAction";
-
-	/**
-	 * Set BH_DocAction.
+	 * Set BH_IsExpense.
 	 *
-	 * @param bhDocAction Get the code-set value of the doc action (not used in UI anywhere)
+	 * @param bhIsExpense Whether this invoice is an expense or not
 	 */
-	public void setBH_DocAction(String bhDocAction) {
-		set_Value(COLUMNNAME_BH_DocAction, bhDocAction);
+	public void setBH_IsExpense(boolean bhIsExpense) {
+		set_Value(COLUMNNAME_BH_IsExpense, bhIsExpense);
 	}
 
 	/**
@@ -101,46 +110,38 @@ public class MInvoice_BH extends MInvoice {
 	}
 
 	/**
-	 * 	Get Process Message
-	 *	@return clear text error message
+	 * Set BH_DocAction.
+	 *
+	 * @param bhDocAction Get the code-set value of the doc action (not used in UI anywhere)
+	 */
+	public void setBH_DocAction(String bhDocAction) {
+		set_Value(COLUMNNAME_BH_DocAction, bhDocAction);
+	}
+
+	/**
+	 * Get Process Message
+	 *
+	 * @return clear text error message
 	 */
 	@Override
-	public String getProcessMsg()
-	{
+	public String getProcessMsg() {
 		return super.getProcessMsg();
-	}	//	getProcessMsg
+	}  //	getProcessMsg
 
 	/**
 	 * Set process message
+	 *
 	 * @param processMsg
 	 */
 	@Override
-	public void setProcessMessage(String processMsg)
-	{
+	public void setProcessMessage(String processMsg) {
 		super.setProcessMessage(processMsg);
 	}
 
-	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
-		super(ctx, C_Invoice_ID, trxName);
-	}
-	
-	public MInvoice_BH(Properties ctx, ResultSet rs, String trxName) {
-		super(ctx, rs, trxName);
-	}
-	
-	public MInvoice_BH(MOrder order, int C_DocTypeTarget_ID, Timestamp invoiceDate) {
-		super(order, C_DocTypeTarget_ID, invoiceDate);
-	}
-	
-	public MInvoice_BH (MInvoice invoice) {
-		super(invoice.getCtx(), 0, invoice.get_TrxName());
-
-		PO.copyValues (invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
-	}
-
 	/**
-	 * 	Complete Document
-	 * 	@return new status (Complete, In Progress, Invalid, Waiting ..)
+	 * Complete Document
+	 *
+	 * @return new status (Complete, In Progress, Invalid, Waiting ..)
 	 */
 	@Override
 	public String completeIt() {
@@ -158,11 +159,38 @@ public class MInvoice_BH extends MInvoice {
 		String docStatus = super.completeIt();
 		setPaymentRule(currentPaymentRule);
 		saveEx();
+
+		// Now that the invoice has been completed, we can complete the payments
+		completePayments(info);
+
 		info.insert(0, getProcessMsg());
 		setProcessMessage(info.toString());
 		return docStatus;
 	}
-	
+
+	private String completePayments(StringBuilder info) {
+		List<MPayment_BH> invoicePayments = new Query(getCtx(), MPayment_BH.Table_Name,
+				MPayment_BH.COLUMNNAME_C_Invoice_ID + "=?", get_TrxName())
+				.setParameters(getC_Invoice_ID())
+				.list();
+		for (MPayment_BH payment : invoicePayments) {
+			payment.setDocAction(MPayment_BH.DOCACTION_Complete);
+			if (!payment.processIt(MPayment_BH.DOCACTION_Complete)) {
+				setProcessMessage("Cannot Complete the Payment : [" + payment.getProcessMsg() + "] " + payment);
+				return DocAction.STATUS_Invalid;
+			}
+
+			payment.saveEx();
+			info.append("@C_Payment_ID@: ").append(payment.getDocumentInfo());
+
+			// IDEMPIERE-2588 - add the allocation generation with the payment
+			if (payment.getJustCreatedAllocInv() != null) {
+				addDocsPostProcess(payment.getJustCreatedAllocInv());
+			}
+		}
+		return DocAction.STATUS_Completed;
+	}
+
 	/**
 	 * Create a payment for the expenses based on bank account mapping.
 	 * This was copied from MInvoice.java with some slight modifications
@@ -236,29 +264,14 @@ public class MInvoice_BH extends MInvoice {
 		payment.setDateTrx(getDateInvoiced());
 
 		//	Save payment
-		payment.saveEx();
+		payment.saveEx(get_TrxName());
 
-		payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-		if (!payment.processIt(MPayment_BH.DOCACTION_Complete)) {
-			setProcessMessage("Cannot Complete the Payment : [" + payment.getProcessMsg() + "] " + payment);
-			return DocAction.STATUS_Invalid;
-		}
-
-		payment.saveEx();
-		info.append("@C_Payment_ID@: " + payment.getDocumentInfo());
-
-		// IDEMPIERE-2588 - add the allocation generation with the payment
-		if (payment.getJustCreatedAllocInv() != null) {
-			addDocsPostProcess(payment.getJustCreatedAllocInv());
-		}
-
-		testAllocation(true);
-
-		return DocAction.ACTION_Complete;
+		return DocAction.STATUS_Drafted;
 	}
 
 	/**
 	 * Create the payments that exist on the patient bill
+	 *
 	 * @param info The builder that will be logged after process completion
 	 * @return The total amount of the payments
 	 */
@@ -288,18 +301,6 @@ public class MInvoice_BH extends MInvoice {
 			orderPayment.setC_Invoice_ID(getC_Invoice_ID());
 			orderPayment.saveEx(get_TrxName());
 
-			boolean paymentIsComplete = orderPayment.processIt(DocAction.ACTION_Complete);
-			if (!paymentIsComplete) {
-				log.severe("Error auto-processing payment " + orderPayment.getC_Payment_ID()
-						+ "and associating it to invoice " + getC_Invoice_ID());
-			}
-
-			info.append("@C_Payment_ID@: " + orderPayment.getDocumentInfo());
-
-			// IDEMPIERE-2588 - add the allocation generation with the payment
-			if (orderPayment.getJustCreatedAllocInv() != null)
-				addDocsPostProcess(orderPayment.getJustCreatedAllocInv());
-
 			remainingAmount = remainingAmount.subtract(orderPayment.getBH_TenderAmount());
 
 			// sum all tender amounts
@@ -311,6 +312,7 @@ public class MInvoice_BH extends MInvoice {
 
 	/**
 	 * Copied from MInvoice.java
+	 *
 	 * @param doc
 	 */
 	private void addDocsPostProcess(PO doc) {
