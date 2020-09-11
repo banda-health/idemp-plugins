@@ -163,7 +163,6 @@ public class QueryUtil {
 			}
 
 		} catch (SQLException ignore) {
-			System.out.println(ignore.getMessage());
 		} finally {
 			DB.close(resultSet, statement);
 			resultSet = null;
