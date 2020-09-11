@@ -23,6 +23,8 @@ public class MOrderLine_BH extends MOrderLine {
 	
 	/** Column name QtyAvailable */
     public static final String COLUMNNAME_QtyAvailable = "QtyAvailable";
+    
+    public static final String COLUMNNAME_BH_Instructions = "BH_Instructions";
 
 	public MOrderLine_BH(MOrder order) {
 		super(order);
@@ -97,5 +99,15 @@ public class MOrderLine_BH extends MOrderLine {
 		if (bd == null)
 			return Env.ZERO;
 		return bd;
+	}
+	
+	public void setBH_Instructions (String BH_Instructions)
+	{
+		set_Value (COLUMNNAME_BH_Instructions, BH_Instructions);
+	}
+
+	public String getBH_Instructions ()
+	{
+		return (String)get_Value(COLUMNNAME_BH_Instructions);
 	}
 }
