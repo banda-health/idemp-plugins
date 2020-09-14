@@ -6,7 +6,6 @@ import java.util.List;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.rest.model.Account;
 import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Product;
@@ -83,6 +82,10 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		if (StringUtil.isNotNullAndEmpty(entity.getExpiration())) {
 			mOrderLine.setBH_Expiration(DateUtil.getTimestamp(entity.getExpiration()));
 		}
+		
+		if (StringUtil.isNotNullAndEmpty(entity.getInstructions())) {
+			mOrderLine.setBH_Instructions(entity.getInstructions());
+		}
 
 		mOrderLine.setIsActive(entity.isIsActive());
 
@@ -106,7 +109,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 						instance.getC_Order_ID(),
 						new Product(product.getName(), product.getM_Product_UU(), product.getProductType()),
 						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
-						DateUtil.parse(instance.getBH_Expiration()));
+						DateUtil.parse(instance.getBH_Expiration()), instance.getBH_Instructions());
 			} else {
 				// check charge
 				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());

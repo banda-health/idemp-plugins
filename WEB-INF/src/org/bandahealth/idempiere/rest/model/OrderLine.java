@@ -27,13 +27,14 @@ public class OrderLine extends BaseMetadata {
 	private BigDecimal lineNetAmount;
 	private Integer attributeSetInstanceId;
 	private String expiration;
+	private String instructions;
 
 	public OrderLine() {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Integer orderId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
-			String expiration) {
+			String expiration, String instructions) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.orderId = orderId;
@@ -42,6 +43,7 @@ public class OrderLine extends BaseMetadata {
 		this.quantity = quantity;
 		this.lineNetAmount = lineNetAmount;
 		this.expiration = expiration;
+		this.instructions = instructions;
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -146,4 +148,12 @@ public class OrderLine extends BaseMetadata {
 		this.expiration = expiration;
 	}
 
+	@XmlElement
+	public String getInstructions() {
+		return instructions;
+	}
+
+	public void setInstructions(String instructions) {
+		this.instructions = instructions;
+	}
 }
