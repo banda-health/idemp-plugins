@@ -22,6 +22,8 @@ import org.bandahealth.idempiere.rest.model.Client;
 import org.bandahealth.idempiere.rest.model.Org;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
+import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
+import org.bandahealth.idempiere.rest.service.db.ReportDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
@@ -55,6 +57,8 @@ import java.util.List;
 public class AuthenticationRestService {
 
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
+	
+	private MenuGroupDBService menuDbservice = new MenuGroupDBService();
 
 	public AuthenticationRestService() {
 	}
@@ -198,6 +202,8 @@ public class AuthenticationRestService {
 			response.setUserId(user.getAD_User_ID());
 
 			try {
+				// has access to reports
+				response.setHasAccessToReports(menuDbservice.hasAccessToReports());
 				// generate session token
 				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
 				// has accepted terms of use?
