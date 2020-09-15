@@ -30,6 +30,7 @@
   billHeader.phone as phone,
   billHeader.email as email,
   billHeader.address as address,
+  billHeader.address1 as address1,
   billHeader.city as city,
   billDetails.bill_date as bill_date,
   billDetails.receipt_number as receipt_number,
@@ -44,7 +45,8 @@ select
   org.name as org_name,
   orgInfo.phone as phone,
   orgInfo.email as email,
-  coalesce(orgLocation.address1,orgLocation.address2,orgLocation.address3,orgLocation.address4) as address,
+  coalesce(orgLocation.address1,orgLocation.address3) as address,
+  coalesce(orgLocation.address2,orgLocation.address4) as address1,
   orgLocation.city as city
 from ad_org org
   inner join ad_orginfo orgInfo on org.ad_org_id = orgInfo.ad_org_id
@@ -86,6 +88,9 @@ where sorder.c_order_id =  $P{billId}
 	</field>
 	<field name="address" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="address"/>
+	</field>
+	<field name="address1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="address1"/>
 	</field>
 	<field name="city" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="city"/>
@@ -221,29 +226,29 @@ where sorder.c_order_id =  $P{billId}
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement key="" x="0" y="16" width="161" height="13" uuid="e1eeb8f1-5c68-4f86-9ed6-b20feae87168"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement key="" x="0" y="29" width="161" height="13" uuid="36ae98e3-e587-4449-9dbd-e0eddbef95f1"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="" x="0" y="43" width="161" height="13" uuid="3c65c83c-c322-4606-a476-fb049baafd1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" x="0" y="43" width="161" height="13" uuid="3c65c83c-c322-4606-a476-fb049baafd1f"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
 				<reportElement key="" x="0" y="57" width="161" height="13" uuid="8b965e4c-bc68-47a4-8ec8-fed95f52145f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
