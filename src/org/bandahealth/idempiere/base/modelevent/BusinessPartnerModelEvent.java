@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.utils.NumberUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
 import org.compiere.model.MLocation;
@@ -185,11 +186,15 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	}
 
 	/**
-	 * Generate a unique patient id
+	 * Generate a unique patient id if the current one is not null
 	 * 
 	 * @param patient
 	 */
 	private void generatePatientID(MBPartner_BH patient) {
+		if (!StringUtil.isNullOrEmpty(patient.getBH_PatientID())) {
+			return;
+		}
+
 		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
 		if (generatedPatientId == null || generatedPatientId instanceof String) {
 			return;
