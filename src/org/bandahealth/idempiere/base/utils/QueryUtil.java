@@ -143,11 +143,11 @@ public class QueryUtil {
 	 */
 	public static Object generateNextBHPatientId() {
 		// default patient id
-		Integer numericCreatedPatientId = 100000;
+		Integer initialClientPatientId = 100000;
 
 		// First, try to see if we can fetch their current maximum numeric Banda patient id
-		StringBuilder sqlQuery = new StringBuilder("SELECT MAX(").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
-				.append(") FROM ").append(MBPartner_BH.Table_Name).append(" WHERE ")
+		StringBuilder sqlQuery = new StringBuilder("SELECT MAX(CAST(").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
+				.append(" AS NUMERIC)) FROM ").append(MBPartner_BH.Table_Name).append(" WHERE ")
 				.append(MBPartner_BH.COLUMNNAME_AD_Client_ID).append("=? AND isnumeric(")
 				.append(MBPartner_BH.COLUMNNAME_BH_PatientID).append(")");
 		Integer clientsCurrentMaxPatientId = 0;
@@ -182,10 +182,11 @@ public class QueryUtil {
 				.setParameters("Y").first();
 
 		if (lastCreatedPatient != null && NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
-			numericCreatedPatientId = Integer.valueOf(lastCreatedPatient.getBH_PatientID());
-			numericCreatedPatientId++;
+			clientsCurrentMaxPatientId = Integer.parseInt(lastCreatedPatient.getBH_PatientID()) + 1;
+		} else {
+			clientsCurrentMaxPatientId = initialClientPatientId;
 		}
 
-		return numericCreatedPatientId;
+		return clientsCurrentMaxPatientId;
 	}
 }
