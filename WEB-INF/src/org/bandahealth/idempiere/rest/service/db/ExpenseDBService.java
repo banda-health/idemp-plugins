@@ -28,7 +28,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		this.vendorDBService = new VendorDBService();
 	}
 
-	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
@@ -39,7 +39,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		parameters.add("Y");
 		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 
-		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson);
 	}
 
 	@Override

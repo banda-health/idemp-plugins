@@ -40,11 +40,12 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		entityMetadataDBService = new EntityMetadataDBService();
 	}
 
-	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 		
-		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn, sortOrder,
+				filterJson);
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,

@@ -26,17 +26,11 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 		dbService = new ProductDBService();
 	}
 
-	@Override
-	public BaseListResponse<Product> getAll(int page, int size, String sortColumn, String sortOrder) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
-	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filter") String filterJson) {
+	public BaseListResponse<Product> getAll(
+			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 

@@ -78,8 +78,9 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 		}
 	}
 
-	public BaseListResponse<ExpenseCategory> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
-		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder);
+	public BaseListResponse<ExpenseCategory> getAll(
+			Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder, filterJson);
 	}
 
 	public BaseListResponse<ExpenseCategory> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
