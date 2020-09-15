@@ -11,7 +11,7 @@ import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 
 public class FilterUtil {
-	public static final String DEFAULT_WHERE_CLAUSE = "";
+	public static final String DEFAULT_WHERE_CLAUSE = "(1=1)";
 
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
 	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
@@ -55,8 +55,7 @@ public class FilterUtil {
 	 * @param <T>        An iDempiere model extending from PO
 	 * @return A where clause based off the filter criteria to use in a DB query
 	 */
-	public static <T extends PO> String getWhereClauseFromFilter(
-			T dbModel, String filterJson, List<Object> parameters) {
+	public static <T extends PO> String getWhereClauseFromFilter(T dbModel, String filterJson, List<Object> parameters) {
 		if (StringUtil.isNullOrEmpty(filterJson)) {
 			return DEFAULT_WHERE_CLAUSE;
 		}
@@ -66,7 +65,11 @@ public class FilterUtil {
 			Map<String, Object> expression = objectMapper.readValue(filterJson, HashMap.class);
 
 			// Starting off, we don't want any negation, and the base filter JSON object is an expression
-			return getWhereClauseFromExpression(dbModel, expression, parameters, false);
+			String whereClause = getWhereClauseFromExpression(dbModel, expression, parameters, false);
+			if (whereClause.isEmpty()) {
+				return DEFAULT_WHERE_CLAUSE;
+			}
+			return whereClause;
 		} catch (Exception e) {
 			throw new AdempiereException("Filter criteria doesn't meet the standard form.");
 		}
@@ -96,7 +99,7 @@ public class FilterUtil {
 				continue;
 			}
 			whereClause.append(canPrependSeparator ? separator : "");
-			String expressionListWhereClause = null;
+			String expressionListWhereClause = "";
 			switch (logicalQuerySelector) {
 				case "$and":
 					expressionListWhereClause = getWhereClauseFromExpressionList(
@@ -120,8 +123,8 @@ public class FilterUtil {
 					logger.warning("Unknown array filter property: " + logicalQuerySelector + ", skipping...");
 					break;
 			}
-			// If the default where clause was returned for this array property, don't do anything
-			if (expressionListWhereClause.equals(DEFAULT_WHERE_CLAUSE)) {
+			// If an empty where clause was returned for this array property, don't do anything
+			if (expressionListWhereClause.isEmpty()) {
 				continue;
 			}
 			whereClause.append(expressionListWhereClause);
@@ -135,7 +138,7 @@ public class FilterUtil {
 			String comparisonsExpressionWhereClause =
 					getWhereClauseFromComparisonQuerySelectors(dbModel, comparisonQuerySelectors, parameters, negate);
 			// Only add this where clause if something was returned from the db column comparisons
-			if (!comparisonsExpressionWhereClause.equals(DEFAULT_WHERE_CLAUSE)) {
+			if (!comparisonsExpressionWhereClause.isEmpty()) {
 				whereClause.append(canPrependSeparator ? separator : "");
 				whereClause.append(comparisonsExpressionWhereClause);
 			}
@@ -144,7 +147,7 @@ public class FilterUtil {
 		// If we've only added the first statement, just return an empty string
 		// (i.e. there was no filter data in the object)
 		if (whereClause.length() == 1) {
-			return DEFAULT_WHERE_CLAUSE;
+			return "";
 		}
 		whereClause.append(")");
 		return whereClause.toString();
@@ -177,7 +180,7 @@ public class FilterUtil {
 		for (Object expression : expresionsList) {
 			String expressionWhereClause =
 					getWhereClauseFromExpression(dbModel, (Map<String, Object>) expression, parameters, negate);
-			if (!expressionWhereClause.equals(DEFAULT_WHERE_CLAUSE)) {
+			if (!expressionWhereClause.isEmpty()) {
 				whereClause.append(canPrependSeparator ? separator : "").append(expressionWhereClause);
 				canPrependSeparator = true;
 			}
@@ -185,7 +188,7 @@ public class FilterUtil {
 		// If we've only added the first statement, just return an empty string
 		// (i.e. there was no filter data in the object)
 		if (whereClause.length() == 1) {
-			return DEFAULT_WHERE_CLAUSE;
+			return "";
 		}
 		return whereClause.append(")").toString();
 	}
@@ -329,7 +332,7 @@ public class FilterUtil {
 		// If we've only added the first statement, just return an empty string
 		// (i.e. there was no filter data in the object)
 		if (whereClause.length() == 1) {
-			return DEFAULT_WHERE_CLAUSE;
+			return "";
 		}
 		return whereClause.append(")").toString();
 	}
