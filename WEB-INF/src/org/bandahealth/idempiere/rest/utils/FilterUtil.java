@@ -226,8 +226,10 @@ public class FilterUtil {
 					dbColumnIsDateType = columnValue instanceof Timestamp;
 				} catch (Exception ignored) {
 				}
-				// Since no alias exists, scope it to the current model's table
-				dbColumnName = dbModel.get_TableName() + "." + dbColumnName;
+				// Since no alias exists, scope it to the current model's table, if possible
+				if (dbModel != null) {
+					dbColumnName = dbModel.get_TableName() + "." + dbColumnName;
+				}
 			}
 
 			// If this isn't a hashmap for this property, assume it's an $eq
