@@ -5,9 +5,7 @@ import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.utils.NumberUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
 import org.compiere.model.MLocation;
@@ -191,7 +189,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	 * @param patient
 	 */
 	private void generatePatientID(MBPartner_BH patient) {
-		if (!StringUtil.isNullOrEmpty(patient.getBH_PatientID())) {
+		if (patient.getBH_PatientID() != null && !patient.getBH_PatientID().isEmpty()) {
 			return;
 		}
 
