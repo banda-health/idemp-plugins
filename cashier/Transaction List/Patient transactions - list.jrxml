@@ -104,8 +104,12 @@ inner join
 (
 select bh_c_order_id
 from c_payment p
-where ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
+inner join c_order co on co.c_order_id = p.bh_c_order_id
+where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
+and ((p.docstatus = 'CO')
+or (p.docstatus = 'DR' and p.bh_processing = 'Y')
+or (co.docstatus = 'CO' and p.bh_processing = 'N'))
+and ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
     )
 group by bh_c_order_id
 ) as payments on billdetails.c_order_id = payments.bh_c_order_id
@@ -334,7 +338,8 @@ inner join
 (
 select bh_c_order_id
 from c_payment p
-where ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
+where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
+	and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
 	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
     )
 group by bh_c_order_id

@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - debt payment totals" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b86d88f7-9fa4-4e6a-967d-f4d312b4ce2b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
@@ -61,7 +61,7 @@ from c_payment cp
     inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
     and AD_Reference_ID=214
 where (cp.ad_client_id = $P{AD_CLIENT_ID})
-      and bh_isservicedebt = 'Y'
+      and (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
       and (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by cashier.name, tendertype.name;]]>
 		</queryString>

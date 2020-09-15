@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - payment breakdown per cashier" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b86d88f7-9fa4-4e6a-967d-f4d312b4ce2b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
@@ -66,10 +66,13 @@ from
     inner join AD_Ref_List tendertype on p.tendertype = tendertype.value
     and AD_Reference_ID=214
 where
-   ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-    AND (date(co.dateordered) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
+   ((p.ad_client_id = $P{AD_CLIENT_ID}) 
+   	and ((p.docstatus = 'CO')
+	or (p.docstatus = 'DR' and p.bh_processing = 'Y')
+	or (co.docstatus = 'CO' and p.bh_processing = 'N'))
+    and (date(co.dateordered) between  date($P{Begin Date}) and date($P{End Date})) )
+    and ($P{Payment Mode} is null or $P{Payment Mode} = '''' or tendertype = $P{Payment Mode})
+    and ($P{Patient Type} is null or $P{Patient Type} = '''' or co.bh_patienttype = $P{Patient Type})
 group by cashier.name, tendertype.name;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
