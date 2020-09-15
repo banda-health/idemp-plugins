@@ -74,6 +74,8 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 		if (entity.getOrderId() > 0) {
 			mPayment.setBH_C_Order_ID(entity.getOrderId());
+		} else {
+			mPayment.setBH_IsServiceDebt(true);
 		}
 
 		if (entity.getPatient() != null) {
@@ -135,8 +137,6 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 		mPayment.setIsActive(entity.isIsActive());
 		
-		mPayment.setBH_IsServiceDebt(true);
-
 		mPayment.saveEx();
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(mPayment.getC_Payment_UU()));
