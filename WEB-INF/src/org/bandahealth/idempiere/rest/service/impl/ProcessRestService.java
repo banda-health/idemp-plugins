@@ -32,8 +32,9 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	@POST
 	@Path("/processes")
 	@Override
-	public BaseListResponse<Process> getAll(@PathParam("page") int page, @PathParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
+	public BaseListResponse<Process> getAll(
+			@PathParam("page") int page, @PathParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
 		return ProcessDBService.getAll(getPagingInfo(page, size));
 	}
 

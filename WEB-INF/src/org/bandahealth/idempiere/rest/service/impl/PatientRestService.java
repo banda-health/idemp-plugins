@@ -37,9 +37,10 @@ public class PatientRestService extends BaseEntityRestService<Patient> {
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Patient> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
-		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder);
+	public BaseListResponse<Patient> getAll(
+			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
+		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
 	@POST

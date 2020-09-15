@@ -232,11 +232,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return super.search(value, pagingInfo, sortColumn, sortOrder, MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters);
 	}
 
-	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder,
+				filterJson);
 	}
 
 	/**
@@ -411,7 +412,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		String sqlWhere = buildOpenDraftsWhereClauseAndParameters(parameters);
 
-		return super.getAll(sqlWhere, parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(sqlWhere, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
 	private String buildOpenDraftsWhereClauseAndParameters(List<Object> parameters) {

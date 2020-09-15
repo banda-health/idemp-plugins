@@ -24,6 +24,7 @@ public class AuthResponse {
 	private int roleId;
 	private boolean needsToResetPassword;
 	private List<String> securityQuestions;
+	private boolean hasAccessToReports;
 
 	public AuthResponse() {
 	}
@@ -120,4 +121,14 @@ public class AuthResponse {
 	public void setSecurityQuestions(List<String> securityQuestions) {
 		this.securityQuestions = securityQuestions;
 	}
+
+	@XmlElement
+	public boolean isHasAccessToReports() {
+		return hasAccessToReports;
+	}
+
+	public void setHasAccessToReports(boolean hasAccessToReports) {
+		this.hasAccessToReports = hasAccessToReports;
+	}
+
 }

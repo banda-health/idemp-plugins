@@ -6,6 +6,7 @@ import java.util.List;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -144,8 +145,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
-		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
+			String sortOrder, String filterJson) {
+		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
 	}
 
 	/**
@@ -159,11 +160,15 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String joinClause) {
+			String sortOrder, String filterJson, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
+			if (parameters == null) {
+				parameters = new ArrayList<>();
+			}
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID();
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause + " AND " +
+					FilterUtil.getWhereClauseFromFilter(getModelInstance(), filterJson, parameters), null).setClient_ID();
 
 			if (joinClause != null) {
 				query.addJoinClause(joinClause);
@@ -174,7 +179,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				query = query.setOrderBy(orderBy);
 			}
 
-			if (parameters != null) {
+			if (parameters.size() > 0) {
 				query = query.setParameters(parameters);
 			}
 

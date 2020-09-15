@@ -27,16 +27,9 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 		processDBService = new ProcessDBService();
 	}
 
-	@Override
-	public BaseListResponse<Inventory> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
+	@Override
 	public BaseListResponse<Inventory> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
@@ -64,6 +57,6 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	public BaseListResponse<Inventory> search(@QueryParam("value") String value, @QueryParam("page") int page,
 			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder) {
-		return inventoryDBService.searchInventory(getPagingInfo(page, size), value, sortColumn, sortOrder);
+		return inventoryDBService.searchInventory(getPagingInfo(page, size), value, sortColumn, sortOrder, null);
 	}
 }
