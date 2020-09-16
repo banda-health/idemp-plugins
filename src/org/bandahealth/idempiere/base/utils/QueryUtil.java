@@ -16,10 +16,13 @@ import org.compiere.model.MAttributeSet;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 public class QueryUtil {
+
+	private static CLogger logger = CLogger.getCLogger(QueryUtil.class);
 
 	/**
 	 * Retrieve the first row of a given table by organization and client.
@@ -149,20 +152,22 @@ public class QueryUtil {
 		StringBuilder sqlQuery = new StringBuilder("SELECT MAX(CAST(").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
 				.append(" AS NUMERIC)) FROM ").append(MBPartner_BH.Table_Name).append(" WHERE ")
 				.append(MBPartner_BH.COLUMNNAME_AD_Client_ID).append("=? AND isnumeric(")
-				.append(MBPartner_BH.COLUMNNAME_BH_PatientID).append(")");
+				.append(MBPartner_BH.COLUMNNAME_BH_PatientID).append(") AND ").append(MBPartner_BH.COLUMNNAME_BH_IsPatient)
+				.append("=? AND ").append(MBPartner_BH.COLUMNNAME_AD_Org_ID).append("=?");
 		Integer clientsCurrentMaxPatientId = 0;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
 			statement = DB.prepareStatement(sqlQuery.toString(), null);
-			DB.setParameters(statement, Collections.singletonList(Env.getAD_Client_ID(Env.getCtx())));
+			DB.setParameters(statement, Arrays.asList(Env.getAD_Client_ID(Env.getCtx()), "Y", Env.getAD_Org_ID(Env.getCtx())));
 
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				clientsCurrentMaxPatientId = Integer.parseInt(resultSet.getString(1));
+				clientsCurrentMaxPatientId = resultSet.getInt(1);
 			}
 
-		} catch (SQLException ignore) {
+		} catch (SQLException maxIdCheckException) {
+			logger.info("Error checking for existing BH Patient Local ID max: " + maxIdCheckException.getMessage());
 		} finally {
 			DB.close(resultSet, statement);
 			resultSet = null;
@@ -177,9 +182,10 @@ public class QueryUtil {
 		// There was an error checking the maximum, so get the most recent patient
 		// check the last created patient id
 		MBPartner_BH lastCreatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", null).setClient_ID().setOrderBy(
-				MBPartner_BH.COLUMNNAME_Created + " DESC, " + MBPartner_BH.COLUMNNAME_BH_PatientID + " DESC")
-				.setParameters("Y").first();
+				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=? AND " + MBPartner_BH.COLUMNNAME_AD_Org_ID + "=?",
+				null)
+				.setClient_ID().setOrderBy(MBPartner_BH.COLUMNNAME_Created + " DESC")
+				.setParameters("Y", Env.getAD_Org_ID(Env.getCtx())).first();
 
 		if (lastCreatedPatient != null && NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
 			clientsCurrentMaxPatientId = Integer.parseInt(lastCreatedPatient.getBH_PatientID()) + 1;
