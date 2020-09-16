@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -167,8 +168,15 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				parameters = new ArrayList<>();
 			}
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause + " AND " +
-					FilterUtil.getWhereClauseFromFilter(getModelInstance(), filterJson, parameters), null).setClient_ID();
+			String filterWhereClause = FilterUtil.getWhereClauseFromFilter(getModelInstance(), filterJson, parameters);
+			if (StringUtil.isNullOrEmpty(whereClause)) {
+				whereClause = filterWhereClause;
+			} else {
+				whereClause += " AND " + filterWhereClause;
+			}
+
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
+					.setClient_ID();
 
 			if (joinClause != null) {
 				query.addJoinClause(joinClause);
