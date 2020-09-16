@@ -43,7 +43,7 @@ from
 select
   org.ad_org_id as orgID,
   org.name as org_name,
-  orgInfo.phone as phone,
+  concat_ws(' / ', orgInfo.phone, orgInfo.phone2) as phone,
   orgInfo.email as email,
   coalesce(orgLocation.address1,orgLocation.address3) as address,
   coalesce(orgLocation.address2,orgLocation.address4) as address1,
