@@ -27,10 +27,9 @@ import static org.bandahealth.idempiere.rest.service.db.BaseDBService.*;
 
 public class InventoryDBService {
 
-	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
-
 	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
+	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
 
 	public BaseListResponse<Inventory> getInventory(
 			Paging pagingInfo, String sortColumn, String sortOrder, String filterJson)
@@ -38,20 +37,27 @@ public class InventoryDBService {
 		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder, filterJson);
 	}
 
-	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
-			String sortOrder, String filterJson) throws DBException {
+	public BaseListResponse<Inventory> searchInventory(
+			Paging pagingInfo, String value, String sortColumn, String sortOrder, String filterJson) throws DBException {
 		return this.getInventory(pagingInfo, value, null, sortColumn, sortOrder, filterJson);
 	}
 
+	/**
+	 * Get the inventory of a particular product
+	 *
+	 * @param productId The ID of the product to get inventory for
+	 * @return The product's inventory.
+	 * @throws DBException
+	 */
 	public BigDecimal getProductInventory(Integer productId) throws DBException {
-		BaseListResponse<Inventory> inventoryList = this.getInventory(new Paging(0, 1000), null,
-				productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER, null);
+		BaseListResponse<Inventory> inventoryList = this.getInventory(Paging.ALL.getInstance(), null,
+				productId, null, null, null);
 
 		return inventoryList.getResults().stream()
 				.reduce(BigDecimal.ZERO, (subtotal, item) -> subtotal.add(BigDecimal.valueOf(item.getQuantity())),
 						BigDecimal::add);
 	}
-	
+
 	public BaseListResponse<Inventory> getProductInventory(Paging pagingInfo, Integer productId) throws DBException {
 		return this.getInventory(pagingInfo, null, productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate,
 				ASCENDING_ORDER, null);
@@ -87,7 +93,7 @@ public class InventoryDBService {
 					.append(") ").append(LIKE_COMPARATOR).append(" ?");
 			parameters.add("%" + searchValue.toLowerCase() + "%");
 		}
-		
+
 		if (productId != null) {
 			sqlWhere.append(AND_OPERATOR).append(X_BH_Stocktake_v.COLUMNNAME_M_Product_ID).append(EQUAL_OPERATOR)
 					.append(" ?");
@@ -147,7 +153,7 @@ public class InventoryDBService {
 
 	/**
 	 * Get Total Count
-	 * 
+	 *
 	 * @param searchValue
 	 * @return
 	 */
