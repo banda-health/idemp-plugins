@@ -49,7 +49,7 @@ public class InventoryDBService {
 	 * @return The product's inventory.
 	 * @throws DBException
 	 */
-	public BigDecimal getProductInventory(Integer productId) throws DBException {
+	public BigDecimal getProductInventoryCount(Integer productId) throws DBException {
 		BaseListResponse<Inventory> inventoryList = this.getInventory(Paging.ALL.getInstance(), null,
 				productId, null, null, null);
 
