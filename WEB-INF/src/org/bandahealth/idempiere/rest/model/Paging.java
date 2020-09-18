@@ -20,6 +20,16 @@ public class Paging {
 		}
 	}
 
+	/**
+	 * Meant to be a paging that gets all results (it'll actually just get the top 1000000...)
+	 */
+	public static class ALL {
+
+		public static Paging getInstance() {
+			return new Paging(0, 1000000);
+		}
+	}
+
 	private int page;
 	private int pageSize;
 	private Integer totalRecordCount;
