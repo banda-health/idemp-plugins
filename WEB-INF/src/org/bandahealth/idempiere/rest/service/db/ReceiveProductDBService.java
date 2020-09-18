@@ -25,12 +25,13 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		this.vendorDBService = new VendorDBService();
 	}
 
-	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<ReceiveProduct> getAll(
+			Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("N");
 
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + " IS NULL",
-				parameters, pagingInfo, sortColumn, sortOrder);
+				parameters, pagingInfo, sortColumn, sortOrder, filterJson);
 	}
 
 	@Override

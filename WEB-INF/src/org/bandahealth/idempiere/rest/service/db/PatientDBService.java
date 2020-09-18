@@ -27,11 +27,12 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	private static String COLUMNNAME_NEXTOFKIN_NAME = "nextofkin_name";
 	private static String COLUMNNAME_NEXTOFKIN_CONTACT = "nextofkin_contact";
 	
-	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", parameters, pagingInfo, sortColumn, sortOrder,
+				filterJson);
 	}
 
 	public BaseListResponse<Patient> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {

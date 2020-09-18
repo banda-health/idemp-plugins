@@ -33,11 +33,12 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 
-	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
 
-		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder);
+		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo,
+				sortColumn, sortOrder, filterJson);
 	}
 
 	@Override
