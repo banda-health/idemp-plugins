@@ -5,7 +5,6 @@ import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.utils.NumberUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
@@ -113,7 +112,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			businessPartner.setM_PriceList_ID(priceListId);
 
 			// check unique patient id
-			checkPatientID(businessPartner);
+			generatePatientID(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
@@ -185,30 +184,20 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	}
 
 	/**
-	 * Check if this patient id has not been used by another user.
+	 * Generate a unique patient id if the current one is not null
 	 * 
 	 * @param patient
 	 */
-	private void checkPatientID(MBPartner_BH patient) {
-		String bhPatientId = patient.getBH_PatientID();
-
-		if (!NumberUtils.isNumeric(bhPatientId)) {
+	private void generatePatientID(MBPartner_BH patient) {
+		if (patient.getBH_PatientID() != null && !patient.getBH_PatientID().isEmpty()) {
 			return;
 		}
 
 		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
-		if (generatedPatientId == null) {
+		if (generatedPatientId == null || generatedPatientId instanceof String) {
 			return;
 		}
 
-		if (generatedPatientId instanceof String) {
-			return;
-		}
-
-		Integer nextPatientId = (Integer) generatedPatientId;
-
-		if (Integer.valueOf(bhPatientId) < nextPatientId) {
-			patient.setBH_PatientID(String.valueOf(generatedPatientId));
-		}
+		patient.setBH_PatientID(String.valueOf(generatedPatientId));
 	}
 }
