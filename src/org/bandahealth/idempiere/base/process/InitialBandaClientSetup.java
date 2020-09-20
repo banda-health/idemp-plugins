@@ -54,11 +54,13 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_DELETE_OLD_IMPORTED = "DeleteOldImported";
 	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
+	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
 
 	private boolean wantsCashBoxAccount = false;
 	private boolean wantsMobileAccount = false;
 	private boolean wantsSavingsAccount = false;
 	private String clientName = null;
+	private String adminUserName = null;
 	private String orgName = null;
 	private String clientLevel = CLIENTLEVEL_BASIC;
 
@@ -111,6 +113,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				case PARAMETERNAME_CLIENT_LEVEL:
 					clientLevel = processInfoParameter.getParameterAsString();
 					break;
+				case PARAMETERNAME_ADMIN_USER_NAME:
+					adminUserName = processInfoParameter.getParameterAsString();
 			}
 		}
 	}
@@ -176,6 +180,18 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			if (!bandaSetup.createDefaultProductCategories()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create default product categories failed"));
+			}
+			addLog(bandaSetup.getInfo());
+
+			if (!bandaSetup.createAdvancedUserRole(adminUserName)) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create advanced user role failed"));
+			}
+			addLog(bandaSetup.getInfo());
+
+			if (!bandaSetup.addDefaultIncludedRoles()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Adding default roles to base roles failed"));
 			}
 			addLog(bandaSetup.getInfo());
 

@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.*;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -11,11 +12,18 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MProductCategoryAcct;
 import org.compiere.model.MRefTable;
 import org.compiere.model.MReference;
+import org.compiere.model.MRole;
+import org.compiere.model.MRoleIncluded;
+import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MTable;
+import org.compiere.model.MUser;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
+import org.compiere.util.*;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
@@ -23,6 +31,7 @@ import org.compiere.util.Trx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.logging.Level;
 
 /**
@@ -30,40 +39,41 @@ import java.util.logging.Level;
  */
 public class MBandaSetup {
 
-	protected CLogger log = CLogger.getCLogger(getClass());
-
-	private final Trx transaction = Trx.get(Trx.createTrxName("Setup"), true);
-	private final Properties context;
-	private final String language;
-	private StringBuffer info;
-
-	private final int clientId;
-	private final int orgId;
-	private final MAcctSchema accountSchema;
-
 	public static final String ACCOUNTVALUE_CASH_BOX = "11800";
 	public static final String ACCOUNTVALUE_MOBILE = "11400";
 	public static final String ACCOUNTVALUE_SAVINGS = "11300";
-
 	public static final String ACCOUNTNAME_DEFAULT = "Default";
 	public static final String ACCOUNTNAME_CASH_BOX = "Cash Box";
 	public static final String ACCOUNTNAME_MOBILE = "Mobile";
 	public static final String ACCOUNTNAME_SAVINGS = "Savings";
-
+	/* The UU of the Payment Reference Reference */
+	public static final String REFERENCE_PAYMENT_REF_UU = "5943153c-cf7b-4bd1-96b7-ff36d1c0f860";
+	/* The UU of the Accounting - Accounts import format */
+	public static final String IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU = "7fbbb20b-8521-47e4-b0e1-31332f17958b";
+	private final Trx transaction = Trx.get(Trx.createTrxName("Setup"), true);
+	private final Properties context;
+	private final String language;
+	private final int clientId;
+	private final String clientName;
+	private final int orgId;
+	private final MAcctSchema accountSchema;
 	private final String BANK_DEFAULT_ROUTING_NUMBER = "DefaultRouteNo";
 	private final String SUFFIX_TRANSACTION_NAME = "_createClient_BH";
 	private final String SUFFIX_BANK_NAME = " Bank";
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
-
-	/* The UU of the Payment Reference Reference */
-	public static final String REFERENCE_PAYMENT_REF_UU = "5943153c-cf7b-4bd1-96b7-ff36d1c0f860";
-	/* The UU of the Accounting - Accounts import format */
-	public static final String IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU = "7fbbb20b-8521-47e4-b0e1-31332f17958b";
+	// Pulled from line 228 of MSetup.java
+	private final String SUFFIX_ADMIN_ROLE = " Admin";
+	// Pulled from line 258 of MSetup.java
+	private final String SUFFIX_USER_ROLE = " User";
+	private final String SUFFIX_ADVANCED_USER_ROLE = " Advanced User";
+	protected CLogger log = CLogger.getCLogger(getClass());
+	private StringBuffer info;
 
 	public MBandaSetup(Properties ctx, String clientName, String orgName) {
 		this.context = ctx;
 		language = Env.getAD_Language(this.context);
+		this.clientName = clientName;
 
 		clientId = new Query(
 				this.context,
@@ -96,7 +106,7 @@ public class MBandaSetup {
 	}
 
 	public void start() {
-		transaction.setDisplayName(getClass().getName()+SUFFIX_TRANSACTION_NAME);
+		transaction.setDisplayName(getClass().getName() + SUFFIX_TRANSACTION_NAME);
 		transaction.start();
 	}
 
@@ -190,6 +200,7 @@ public class MBandaSetup {
 
 	/**
 	 * Create bank accounts for the client
+	 *
 	 * @param wantsCashBox
 	 * @param wantsMobile
 	 * @param wantsSavings
@@ -212,8 +223,7 @@ public class MBandaSetup {
 		// Don't need to set location at this point
 //		clientsBank.setC_Location_ID();
 
-		if (!clientsBank.save())
-		{
+		if (!clientsBank.save()) {
 			String err = "Bank NOT inserted";
 			log.log(Level.SEVERE, err);
 			info.append(err);
@@ -334,6 +344,7 @@ public class MBandaSetup {
 
 	/**
 	 * These creates the default product categories for a client
+	 *
 	 * @return
 	 */
 	public boolean createDefaultProductCategories() {
@@ -409,12 +420,127 @@ public class MBandaSetup {
 		return true;
 	}
 
+	/**
+	 * The roles for admin and user are created by default - add one for an advanced user that isn't an admin.
+	 *
+	 * @return Whether the creation was successful
+	 */
+	public boolean createAdvancedUserRole(String adminUserName) {
+		String name = clientName + SUFFIX_ADVANCED_USER_ROLE;
+		MRole advancedUserRole = new MRole(context, 0, transaction.getTrxName());
+		advancedUserRole.setName(name);
+		advancedUserRole.setIsAccessAdvanced(false);
+		if (!advancedUserRole.save()) {
+			String err = "Advanced User Role NOT inserted";
+			log.log(Level.SEVERE, err);
+			info.append(err);
+			return false;
+		}
+		//  OrgAccess x,y
+		MRoleOrgAccess userOrgAccess = new MRoleOrgAccess(advancedUserRole, orgId);
+		if (!userOrgAccess.save()) {
+			log.log(Level.SEVERE, "Advanced User Role_OrgAccess NOT created");
+		}
+		// Update the appropriate users to have access to this new role
+		MUser clientAdminUser = new Query(context, MUser.Table_Name,
+				MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?",
+				transaction.getTrxName())
+				.setParameters(clientId, adminUserName)
+				.first();
+		if (clientAdminUser != null) {
+			MUserRoles userRole = new MUserRoles(context, clientAdminUser.getAD_User_ID(), advancedUserRole.getAD_Role_ID(),
+					transaction.getTrxName());
+			userRole.saveEx();
+		}
+		return true;
+	}
+
+	/**
+	 * The roles created for a client need to have the Banda Health master roles included. Add the ones configured
+	 * in the system to the created roles.
+	 *
+	 * @return Whether the addition was successful
+	 */
+	public boolean addDefaultIncludedRoles() {
+		// Get the roles for this client
+		List<MRole> clientRoles = new Query(context, MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
+				transaction.getTrxName())
+				.setParameters(clientId)
+				.list();
+		MRole adminRole = null;
+		MRole advancedUserRole = null;
+		MRole userRole = null;
+		for (MRole clientRole : clientRoles) {
+			if (clientRole.getName().endsWith(SUFFIX_ADMIN_ROLE)) {
+				adminRole = clientRole;
+			} else if (clientRole.getName().endsWith(SUFFIX_ADVANCED_USER_ROLE)) {
+				advancedUserRole = clientRole;
+			} else if (clientRole.getName().endsWith(SUFFIX_USER_ROLE)) {
+				userRole = clientRole;
+			}
+		}
+		if (adminRole == null || userRole == null || advancedUserRole == null) {
+			String err;
+			if (adminRole == null) {
+				err = "Admin role does not exist";
+				log.log(Level.SEVERE, err);
+				info.append(err);
+			}
+			if (userRole == null) {
+				err = "User role does not exist";
+				log.log(Level.SEVERE, err);
+				info.append(err);
+			}
+			if (userRole == null) {
+				err = "Advanced User role does not exist";
+				log.log(Level.SEVERE, err);
+				info.append(err);
+			}
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+		// Now that we have the roles, pull the default role IDs to include
+		List<MBHDefaultIncludedRole> defaultIncludedRoles = new Query(context, MBHDefaultIncludedRole.Table_Name,
+				null, transaction.getTrxName())
+				.setOnlyActiveRecords(true)
+				.list();
+		int adminRoleSequencer = 10;
+		int userRoleSequencer = 10;
+		int advancedUserRoleSequencer = 10;
+		int sequencerIncrement = 10;
+		for (MBHDefaultIncludedRole defaultIncludedRole : defaultIncludedRoles) {
+			MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
+			roleIncluded.setIncluded_Role_ID(defaultIncludedRole.getIncluded_Role_ID());
+
+			if (defaultIncludedRole.getDB_UserType().equals(MBHDefaultIncludedRole.DB_USERTYPE_Admin)) {
+				roleIncluded.setAD_Role_ID(adminRole.getAD_Role_ID());
+				roleIncluded.setSeqNo(adminRoleSequencer);
+				adminRoleSequencer += sequencerIncrement;
+			} else if (defaultIncludedRole.getDB_UserType().equals(MBHDefaultIncludedRole.DB_USERTYPE_User)) {
+				roleIncluded.setAD_Role_ID(userRole.getAD_Role_ID());
+				roleIncluded.setSeqNo(userRoleSequencer);
+				userRoleSequencer += sequencerIncrement;
+			} else if (defaultIncludedRole.getDB_UserType().equals(MBHDefaultIncludedRole.DB_USERTYPE_AdvancedUser)) {
+				roleIncluded.setAD_Role_ID(advancedUserRole.getAD_Role_ID());
+				roleIncluded.setSeqNo(advancedUserRoleSequencer);
+				advancedUserRoleSequencer += sequencerIncrement;
+			} else {
+				log.log(Level.INFO, "Unknown User Type: " + defaultIncludedRole.getDB_UserType());
+			}
+
+			roleIncluded.saveEx();
+		}
+		return true;
+	}
+
 	public boolean addDefaultProductsAndServices() {
 		throw new UnsupportedOperationException("This method has not been implemented yet.");
 	}
 
 	/**
 	 * Create payment bank account mappings for the client
+	 *
 	 * @return
 	 */
 	private boolean createPaymentBankAccountMappings() {
@@ -477,6 +603,7 @@ public class MBandaSetup {
 
 	/**
 	 * Create a bank account for the client and assign it to the bank
+	 *
 	 * @param clientName
 	 * @param accountName
 	 * @param isDefault
@@ -496,8 +623,7 @@ public class MBandaSetup {
 		bankAccount.setC_Currency_ID(accountSchema.getC_Currency_ID());
 		bankAccount.setBankAccountType(MBankAccount.BANKACCOUNTTYPE_Cash);
 
-		if (!bankAccount.save())
-		{
+		if (!bankAccount.save()) {
 			String err = accountName + " Bank Account NOT inserted";
 			log.log(Level.SEVERE, err);
 			info.append(err);
@@ -520,6 +646,7 @@ public class MBandaSetup {
 
 	/**
 	 * Update the account mappings for the bank accounts that are created.
+	 *
 	 * @param bankAccount
 	 * @param inTransitAccount
 	 * @return
@@ -557,6 +684,7 @@ public class MBandaSetup {
 
 	/**
 	 * Get the valid combination for an account or create one if none currently exists and return it.
+	 *
 	 * @param accountValue
 	 * @return
 	 */
@@ -584,7 +712,7 @@ public class MBandaSetup {
 		if (account != null) {
 			return account;
 		}
-		
+
 		account = new MAccount(context, 0, transaction.getTrxName());
 		account.setC_AcctSchema_ID(accountSchema.getC_AcctSchema_ID());
 		account.setAccount_ID(accountElement.getC_ElementValue_ID());
@@ -599,24 +727,26 @@ public class MBandaSetup {
 	}
 
 	/**
-	 *  Get Client
-	 *  @return AD_Client_ID
+	 * Get Client
+	 *
+	 * @return AD_Client_ID
 	 */
-	public int getAD_Client_ID()
-	{
+	public int getAD_Client_ID() {
 		return clientId;
 	}
+
 	/**
-	 * 	Get AD_Org_ID
-	 *	@return AD_Org_ID
+	 * Get AD_Org_ID
+	 *
+	 * @return AD_Org_ID
 	 */
-	public int getAD_Org_ID()
-	{
+	public int getAD_Org_ID() {
 		return orgId;
 	}
 
 	/**
 	 * Get AccountSchema
+	 *
 	 * @return AccountSchema
 	 */
 	public MAcctSchema getAccountSchema() {
@@ -624,21 +754,22 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * 	Get Info
-	 *	@return Info
+	 * Get Info
+	 *
+	 * @return Info
 	 */
-	public String getInfo()
-	{
+	public String getInfo() {
 		return info.toString();
 	}
 
 	/**
-	 * 	Rollback Internal Transaction
+	 * Rollback Internal Transaction
 	 */
 	public void rollback() {
 		try {
 			transaction.rollback();
 			transaction.close();
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 	}
 }
