@@ -69,6 +69,7 @@ public class ProcessSalesOrder {
 				callback.onError("Error trying to complete order " + salesOrder.getC_Order_ID(), context,
 						transactionName);
 			} else {
+				salesOrder.saveEx();
 				callback.onSuccess(context, transactionName);
 			}
 		} catch (AdempiereException ex) {
