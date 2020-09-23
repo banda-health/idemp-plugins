@@ -90,7 +90,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setC_Charge_ID(entity.getChargeId());
 		}
 
-		if (entity.getPayAmount() != null && entity.getPayAmount().compareTo(BigDecimal.ZERO) > 0) {
+		if (entity.getPayAmount() != null && entity.getPayAmount().compareTo(BigDecimal.ZERO) >= 0) {
 			mPayment.setPayAmt(entity.getPayAmount());
 		}
 
