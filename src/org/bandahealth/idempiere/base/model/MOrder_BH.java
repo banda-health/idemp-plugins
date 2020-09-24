@@ -56,7 +56,7 @@ public class MOrder_BH extends MOrder {
 	
 	public static final String COLUMNNAME_BH_WEIGHT = "BH_Weight";
 	
-	public static final String COLUMNNAME_BH_DIAGNOSIS_II = "BH_Diagnosis_II";
+	public static final String COLUMNNAME_BH_SECOND_DIAGNOSIS = "BH_SecondDiagnosis";
 
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
 		super(ctx, C_Order_ID, trxName);
@@ -420,11 +420,11 @@ public class MOrder_BH extends MOrder {
 		set_Value(COLUMNNAME_BH_WEIGHT, BH_Weight);
 	}
 	
-	public String getBH_Diagnosis_II() {
-		return (String)get_Value( COLUMNNAME_BH_DIAGNOSIS_II);
+	public String getBH_SecondDiagnosis() {
+		return (String)get_Value( COLUMNNAME_BH_SECOND_DIAGNOSIS);
 	}
 	
-	public void setBH_Diagnosis_II(String BH_Diagnosis_II) {
-		set_Value(COLUMNNAME_BH_DIAGNOSIS_II, BH_Diagnosis_II);
+	public void setBH_SecondDiagnosis(String BH_SecondDiagnosis) {
+		set_Value(COLUMNNAME_BH_SECOND_DIAGNOSIS, BH_SecondDiagnosis);
 	}
 }
