@@ -106,6 +106,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setBH_Weight(entity.getWeight());
 		}
 
+		if (entity.getDiagnosisII() != null) {
+			mOrder.setBH_Diagnosis_II(entity.getDiagnosisII());
+		}
+
 		mOrder.setIsSOTrx(true);
 
 	}
@@ -212,7 +216,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
-					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight());
+					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
+					instance.getBH_Diagnosis_II());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -351,19 +356,16 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	public static int getVisitsCount(Integer patientId) {
-		StringBuilder sqlWhere = new StringBuilder("WHERE ")
-				.append(MOrder_BH.COLUMNNAME_IsSOTrx)
-				.append(" = ? AND ")
-				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID)
-				.append(" = ? AND ")
-				.append(MOrder_BH.COLUMNNAME_IsActive).append(" = ?");
-		
+		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
+				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_IsActive)
+				.append(" = ?");
+
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
 		parameters.add(patientId);
 		parameters.add("Y");
-		
+
 		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
 	}
 

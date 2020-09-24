@@ -23,6 +23,7 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
+	private MProduct_BH serviceInstance = new MProduct_BH(Env.getCtx(), 0, null);
 
 	// retrieve a list of paginated services.
 	public BaseListResponse<Service> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
@@ -140,7 +141,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 
 	@Override
 	protected MProduct_BH getModelInstance() {
-		return new MProduct_BH(Env.getCtx(), 0, null);
+		return serviceInstance;
 	}
 
 	@Override

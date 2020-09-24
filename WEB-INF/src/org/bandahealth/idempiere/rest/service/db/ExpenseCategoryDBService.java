@@ -26,7 +26,8 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 
 	private CLogger log = CLogger.getCLogger(ExpenseCategoryDBService.class);
 	private AccountDBService accountDBService;
-
+	private MCharge_BH expenseCategoryInstance = new MCharge_BH(Env.getCtx(), 0, null);
+	
 	public ExpenseCategoryDBService() {
 		accountDBService = new AccountDBService();
 	}
@@ -125,7 +126,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 
 	@Override
 	protected MCharge_BH getModelInstance() {
-		return new MCharge_BH(Env.getCtx(), 0, null);
+		return expenseCategoryInstance;
 	}
 
 	@Override

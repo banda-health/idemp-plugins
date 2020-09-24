@@ -1,21 +1,10 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MChargeType_BH;
-import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.ExpenseCategory;
-import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ProductCategory;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MProduct;
 import org.compiere.model.Query;
-import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +14,8 @@ import java.util.stream.Collectors;
  * @author andrew
  */
 public class ProductCategoryDBService extends BaseDBService<ProductCategory, MProductCategory_BH> {
+	
+	private MProductCategory_BH productCategoryInstance = new MProductCategory_BH(Env.getCtx(), 0, null);
 
 	public List<ProductCategory> get() {
 		List<MProductCategory_BH> productCategories = new Query(
@@ -66,6 +57,6 @@ public class ProductCategoryDBService extends BaseDBService<ProductCategory, MPr
 
 	@Override
 	protected MProductCategory_BH getModelInstance() {
-		return new MProductCategory_BH(Env.getCtx(), 0, null);
+		return productCategoryInstance;
 	}
 }

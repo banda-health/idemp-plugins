@@ -30,6 +30,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	private ProcessDBService processDBService = new ProcessDBService();
 	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
 	private final String PURCHASE_ORDER = "Purchase Order";
+	private MOrder_BH orderInstance = new MOrder_BH(Env.getCtx(), 0, null);
 
 	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
 
@@ -245,7 +246,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 	@Override
 	protected MOrder_BH getModelInstance() {
-		return new MOrder_BH(Env.getCtx(), 0, null);
+		return orderInstance;
 	}
 
 	/**
