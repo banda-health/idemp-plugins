@@ -106,8 +106,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setBH_Weight(entity.getWeight());
 		}
 
-		if (entity.getDiagnosisII() != null) {
-			mOrder.setBH_Diagnosis_II(entity.getDiagnosisII());
+		if (entity.getSecondDiagnosis() != null) {
+			mOrder.setBH_SecondDiagnosis(entity.getSecondDiagnosis());
 		}
 
 		mOrder.setIsSOTrx(true);
@@ -217,7 +217,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
-					instance.getBH_Diagnosis_II());
+					instance.getBH_SecondDiagnosis());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
