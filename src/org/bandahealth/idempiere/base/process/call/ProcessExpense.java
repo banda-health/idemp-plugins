@@ -111,7 +111,6 @@ public class ProcessExpense {
 				callback.onError("Error trying to complete expense " + expense.getC_Invoice_ID(), context,
 						transactionName);
 			} else {
-				expense.saveEx();
 				callback.onSuccess(context, transactionName);
 			}
 		} catch (AdempiereException ex) {
