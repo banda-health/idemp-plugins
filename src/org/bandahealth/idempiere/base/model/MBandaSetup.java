@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.compiere.model.*;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -21,9 +20,7 @@ import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
-import org.compiere.util.*;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
@@ -31,7 +28,6 @@ import org.compiere.util.Trx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.UUID;
 import java.util.logging.Level;
 
 /**
