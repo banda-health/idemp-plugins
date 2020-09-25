@@ -47,6 +47,8 @@ public class BHModelFactory implements IModelFactory {
 			return MProductCategory_BH.class;
 		} else if (tableName.equalsIgnoreCase(MBHProductCategoryDefault.Table_Name)) {
 			return MBHProductCategoryDefault.class;
+		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
+			return MBHDefaultIncludedRole.class;
 		}
 
 		return null;
@@ -90,6 +92,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MProductCategory_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHProductCategoryDefault.Table_Name)) {
 			return new MBHProductCategoryDefault(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
+			return new MBHDefaultIncludedRole(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -133,6 +137,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MProductCategory_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHProductCategoryDefault.Table_Name)) {
 			return new MBHProductCategoryDefault(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
+			return new MBHDefaultIncludedRole(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
