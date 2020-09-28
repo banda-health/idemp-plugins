@@ -25,6 +25,7 @@ public class Visit extends Order {
 	private String bloodPressure;
 	private String height;
 	private String weight;
+	private String secondDiagnosis;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -34,7 +35,7 @@ public class Visit extends Order {
 			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis,
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
-			String respiratoryRate, String bloodPressure, String height, String weight) {
+			String respiratoryRate, String bloodPressure, String height, String weight, String secondDiagnosis) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
 				orderLines, payments, documentStatus);
 
@@ -51,6 +52,7 @@ public class Visit extends Order {
 		this.bloodPressure = bloodPressure;
 		this.height = height;
 		this.weight = weight;
+		this.secondDiagnosis = secondDiagnosis;
 
 		setIsSalesOrderTransaction(true);
 	}
@@ -163,7 +165,7 @@ public class Visit extends Order {
 	public void setPulse(String pulse) {
 		this.pulse = pulse;
 	}
-	
+
 	@XmlElement
 	public String getRespiratoryRate() {
 		return respiratoryRate;
@@ -199,4 +201,14 @@ public class Visit extends Order {
 	public void setWeight(String weight) {
 		this.weight = weight;
 	}
+
+	@XmlElement
+	public String getSecondDiagnosis() {
+		return secondDiagnosis;
+	}
+
+	public void setSecondDiagnosis(String secondDiagnosis) {
+		this.secondDiagnosis = secondDiagnosis;
+	}
+
 }
