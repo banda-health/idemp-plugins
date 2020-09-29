@@ -32,7 +32,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
-	private MProduct_BH productInstance = new MProduct_BH(Env.getCtx(), 0, null);
 
 	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
@@ -248,7 +247,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 	@Override
 	protected MProduct_BH getModelInstance() {
-		return productInstance;
+		return new MProduct_BH(Env.getCtx(), 0, null);
 	}
 
 	public MProduct getProductByID(int id) {

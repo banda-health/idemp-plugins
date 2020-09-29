@@ -10,7 +10,6 @@ import org.compiere.util.Env;
 public class AccountDBService extends BaseDBService<Account, MElementValue> {
 
 	private CLogger log = CLogger.getCLogger(AccountDBService.class);
-	private MElementValue accountInstance = new MElementValue(Env.getCtx(), 0, null);
 
 	@Override
 	public Account saveEntity(Account entity) {
@@ -63,7 +62,7 @@ public class AccountDBService extends BaseDBService<Account, MElementValue> {
 
 	@Override
 	protected MElementValue getModelInstance() {
-		return accountInstance;
+		return new MElementValue(Env.getCtx(), 0, null);
 	}
 
 	@Override

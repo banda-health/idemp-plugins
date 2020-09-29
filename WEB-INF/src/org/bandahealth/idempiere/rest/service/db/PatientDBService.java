@@ -26,7 +26,6 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	private static String COLUMNNAME_OCCUPATION = "bh_occupation";
 	private static String COLUMNNAME_NEXTOFKIN_NAME = "nextofkin_name";
 	private static String COLUMNNAME_NEXTOFKIN_CONTACT = "nextofkin_contact";
-	private MBPartner_BH patientInstance = new MBPartner_BH(Env.getCtx(), 0, null);;
 	
 	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
@@ -202,7 +201,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	protected MBPartner_BH getModelInstance() {
-		return patientInstance;
+		return new MBPartner_BH(Env.getCtx(), 0, null);
 	}
 
 	public MBPartner_BH getPatientById(int patientId) {
