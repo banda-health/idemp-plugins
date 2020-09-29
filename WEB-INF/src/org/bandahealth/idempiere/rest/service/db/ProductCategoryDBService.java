@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
  */
 public class ProductCategoryDBService extends BaseDBService<ProductCategory, MProductCategory_BH> {
 	
-	private MProductCategory_BH productCategoryInstance = new MProductCategory_BH(Env.getCtx(), 0, null);
-
 	public List<ProductCategory> get() {
 		List<MProductCategory_BH> productCategories = new Query(
 				Env.getCtx(),
@@ -57,6 +55,6 @@ public class ProductCategoryDBService extends BaseDBService<ProductCategory, MPr
 
 	@Override
 	protected MProductCategory_BH getModelInstance() {
-		return productCategoryInstance;
+		return new MProductCategory_BH(Env.getCtx(), 0, null);
 	}
 }

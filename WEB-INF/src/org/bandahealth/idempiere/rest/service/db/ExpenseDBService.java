@@ -10,9 +10,6 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.compiere.model.MDocType;
-import org.compiere.model.Query;
-import org.compiere.util.Env;
 
 /**
  * Expenses logic

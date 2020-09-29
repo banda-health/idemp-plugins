@@ -13,8 +13,6 @@ import org.compiere.util.Env;
 
 public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 	
-	private MBPartner_BH vendorInstance = new MBPartner_BH(Env.getCtx(), 0, null);
-
 	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
@@ -104,7 +102,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	@Override
 	protected MBPartner_BH getModelInstance() {
-		return vendorInstance;
+		return new MBPartner_BH(Env.getCtx(), 0, null);
 	}
 
 	@Override

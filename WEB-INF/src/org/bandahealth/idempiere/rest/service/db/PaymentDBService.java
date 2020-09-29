@@ -34,7 +34,6 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	private final String CURRENCY = "KES";
 	private PatientDBService patientDBService;
 	private EntityMetadataDBService entityMetadataDBService;
-	private MPayment_BH paymentInstance = new MPayment_BH(Env.getCtx(), 0, null);
 
 	public PaymentDBService() {
 		patientDBService = new PatientDBService();
@@ -199,7 +198,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	@Override
 	protected MPayment_BH getModelInstance() {
-		return paymentInstance;
+		return new MPayment_BH(Env.getCtx(), 0, null);
 	}
 
 	/**
