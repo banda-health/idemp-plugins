@@ -13,9 +13,8 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 /**
  * Expenses logic
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
@@ -36,7 +35,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		parameters.add("Y");
 		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 
-		String join ="JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
+		String join = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
 				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MInvoice_BH.Table_Name + "." + MInvoice_BH.COLUMNNAME_C_BPartner_ID;
 
 		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson, join);
@@ -86,7 +85,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(), instance.isActive(),
 					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
 					DateUtil.parseDateOnly(instance.getDateInvoiced()), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
 					instance.getGrandTotal(), instance.getPaymentRule());
 
 		} catch (Exception ex) {
@@ -108,7 +107,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
 					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
 					instance.getGrandTotal(), instance.getPaymentRule());
 
 		} catch (Exception ex) {

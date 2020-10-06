@@ -30,7 +30,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("N");
 
-		String join ="JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
+		String join = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
 				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + " IS NULL",
