@@ -241,8 +241,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
+		String join ="JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID;
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson);
+				filterJson, join);
 	}
 
 	/**

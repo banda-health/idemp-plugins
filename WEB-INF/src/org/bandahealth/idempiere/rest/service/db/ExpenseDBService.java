@@ -36,7 +36,10 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		parameters.add("Y");
 		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 
-		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson);
+		String join ="JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MInvoice_BH.Table_Name + "." + MInvoice_BH.COLUMNNAME_C_BPartner_ID;
+
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson, join);
 	}
 
 	@Override

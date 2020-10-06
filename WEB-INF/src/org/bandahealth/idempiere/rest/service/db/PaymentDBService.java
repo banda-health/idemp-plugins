@@ -43,9 +43,12 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
+
+		String join ="JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MPayment_BH.Table_Name + "." + MPayment_BH.COLUMNNAME_C_BPartner_ID;
 		
 		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson);
+				filterJson, join);
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,
