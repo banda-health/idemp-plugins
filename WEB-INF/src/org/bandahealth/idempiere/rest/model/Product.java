@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 
 @XmlRootElement(name = "product")
 @JsonInclude(value = Include.NON_NULL)
@@ -56,12 +57,14 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-								 String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin) {
+								 String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin,
+								 MProduct_BH product) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
 		this.priceMargin = priceMargin;
+		setHasExpiration(product.isBH_HasExpiration());
 	}
 
 	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration, String created,
