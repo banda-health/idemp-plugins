@@ -2,11 +2,14 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
@@ -18,6 +21,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
@@ -33,12 +37,30 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 
+	private Map<String, String> dynamicJoins = new HashMap<>() {{
+		put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
+				+ ",SUM(" + MStorageOnHand.COLUMNNAME_QtyOnHand + ") as quantity FROM " + MStorageOnHand.Table_Name
+				+ " GROUP BY " + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " + X_BH_Stocktake_v.Table_Name + " ON "
+				+ X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID + "=" + MProduct_BH.Table_Name
+				+ "." + MProduct_BH.COLUMNNAME_M_Product_ID);
+	}};
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
+	}
+
 	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
 
+		// Join for product category
+		String joinClause = " JOIN " + MProductCategory_BH.Table_Name + " ON " + MProductCategory_BH.Table_Name + "."
+				+ MProductCategory_BH.COLUMNNAME_M_Product_Category_ID + "=" + MProduct_BH.Table_Name + "."
+				+ MProduct_BH.COLUMNNAME_M_Product_Category_ID;
+
 		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo,
-				sortColumn, sortOrder, filterJson);
+				sortColumn, sortOrder, filterJson, joinClause);
 	}
 
 	@Override
@@ -47,7 +69,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		parameters.add(constructSearchValue(value));
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
 
-		return this.search(this.DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
+		return this.search(DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
 				parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
@@ -226,7 +248,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			return new Product(product.getAD_Client_ID(), product.getAD_Org_ID(), product.getM_Product_UU(),
 					product.isActive(), DateUtil.parseDateOnly(product.getCreated()), product.getCreatedBy(),
-					product.getName(), product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(), product.getBH_PriceMargin());
+					product.getName(), product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(),
+					product.getBH_PriceMargin(), product);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);

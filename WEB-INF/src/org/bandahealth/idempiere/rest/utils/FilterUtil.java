@@ -3,12 +3,15 @@ package org.bandahealth.idempiere.rest.utils;
 import org.adempiere.exceptions.AdempiereException;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
@@ -18,6 +21,7 @@ public class FilterUtil {
 
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
 	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
+	private static final String MALFORMED_FILTER_STRING_ERROR = "Filter criteria doesn't meet the standard form.";
 
 	/**
 	 * This takes in a filter JSON model generated and converts it into an appropriate WHERE clause to pass to the DB.
@@ -64,8 +68,7 @@ public class FilterUtil {
 		}
 		try {
 			// Parse the JSON string
-			ObjectMapper objectMapper = new ObjectMapper();
-			Map<String, Object> expression = objectMapper.readValue(filterJson, HashMap.class);
+			Map<String, Object> expression = parseJsonString(filterJson);
 
 			// Starting off, we don't want any negation, and the base filter JSON object is an expression
 			String whereClause = getWhereClauseFromExpression(dbModel, expression, parameters, false);
@@ -74,8 +77,21 @@ public class FilterUtil {
 			}
 			return whereClause;
 		} catch (Exception e) {
-			throw new AdempiereException("Filter criteria doesn't meet the standard form.");
+			throw new AdempiereException(MALFORMED_FILTER_STRING_ERROR);
 		}
+	}
+
+	/**
+	 * Parse the filter string into an object
+	 *
+	 * @param filterJson The JSON string received for filtering
+	 * @return The filter expressions
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
+	 */
+	private static Map<String, Object> parseJsonString(String filterJson) throws JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.readValue(filterJson, HashMap.class);
 	}
 
 	/**
@@ -228,6 +244,10 @@ public class FilterUtil {
 					Object columnValue = dbModel.get_Value(dbColumnName);
 					dbColumnIsDateType = columnValue instanceof Timestamp;
 				} catch (Exception ignored) {
+					// As a last precaution, check if the name has "date" in it
+					if (dbColumnName.toLowerCase().contains("date")){
+						dbColumnIsDateType = true;
+					}
 				}
 				// Since no alias exists, scope it to the current model's table, if possible
 				if (dbModel != null) {
@@ -381,6 +401,54 @@ public class FilterUtil {
 	 */
 	private static boolean doesTableAliasExistOnColumn(String dbColumn) {
 		return dbColumn.contains(".");
+	}
+
+	/**
+	 * Get the table alias provided in the column
+	 *
+	 * @param dbColumn The dbColumn string to check
+	 * @return The table alias on the dbColumn
+	 */
+	private static String getTableAliasFromColumn(String dbColumn) {
+		return dbColumn.substring(0, dbColumn.indexOf("."));
+	}
+
+	/**
+	 * Parse through the field names and return a list of aliases.
+	 *
+	 * @param filterJson
+	 * @return
+	 */
+	public static List<String> getNeededJoinTables(String filterJson) {
+		try {
+			Map<String, Object> expression = parseJsonString(filterJson);
+			return getNeededJoinTablesFromExpression(expression);
+		} catch (Exception e) {
+			throw new AdempiereException(MALFORMED_FILTER_STRING_ERROR);
+		}
+	}
+
+	/**
+	 * Gets the list of tables that need to be JOINed from the expression
+	 *
+	 * @param expression The JSON object received for filtering
+	 * @return A list of table names that need JOINs
+	 */
+	private static List<String> getNeededJoinTablesFromExpression(Map<String, Object> expression) {
+		List<String> neededJoinTables = new ArrayList<>();
+		for (String logicalQuerySelectorOrDbColumnName : expression.keySet()) {
+			if (!LOGICAL_QUERY_SELECTORS.contains(logicalQuerySelectorOrDbColumnName)) {
+				// It is a DB column
+				if (doesTableAliasExistOnColumn(logicalQuerySelectorOrDbColumnName)) {
+					neededJoinTables.add(getTableAliasFromColumn(logicalQuerySelectorOrDbColumnName));
+				}
+				continue;
+			}
+			for (Object expressionList : (List<?>) expression.get(logicalQuerySelectorOrDbColumnName)) {
+				neededJoinTables.addAll(getNeededJoinTablesFromExpression((Map<String, Object>) expressionList));
+			}
+		}
+		return neededJoinTables;
 	}
 
 	enum FilterArrayJoin {
