@@ -226,7 +226,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			return new Product(product.getAD_Client_ID(), product.getAD_Org_ID(), product.getM_Product_UU(),
 					product.isActive(), DateUtil.parseDateOnly(product.getCreated()), product.getCreatedBy(),
-					product.getName(), product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(), product.getBH_PriceMargin());
+					product.getName(), product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(),
+					product.getBH_PriceMargin(), product);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
