@@ -89,7 +89,8 @@ public class FilterUtil {
 	 * @throws JsonProcessingException 
 	 * @throws JsonMappingException 
 	 */
-	private static Map<String, Object> parseJsonString(String filterJson) throws JsonMappingException, JsonProcessingException {
+	private static Map<String, Object> parseJsonString(String filterJson) throws JsonMappingException,
+			JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(filterJson, HashMap.class);
 	}
@@ -244,14 +245,16 @@ public class FilterUtil {
 					Object columnValue = dbModel.get_Value(dbColumnName);
 					dbColumnIsDateType = columnValue instanceof Timestamp;
 				} catch (Exception ignored) {
-					// As a last precaution, check if the name has "date" in it
-					if (dbColumnName.toLowerCase().contains("date")){
-						dbColumnIsDateType = true;
-					}
 				}
 				// Since no alias exists, scope it to the current model's table, if possible
 				if (dbModel != null) {
 					dbColumnName = dbModel.get_TableName() + "." + dbColumnName;
+				}
+			}
+			if (!dbColumnIsDateType) {
+				// As a last precaution, check if the name has "date" in it
+				if (dbColumnName.toLowerCase().contains("date")) {
+					dbColumnIsDateType = true;
 				}
 			}
 
@@ -419,10 +422,12 @@ public class FilterUtil {
 	 * @param filterJson
 	 * @return
 	 */
-	public static List<String> getNeededJoinTables(String filterJson) {
+	public static List<String> getTablesNeedingJoins(String filterJson) {
 		try {
 			Map<String, Object> expression = parseJsonString(filterJson);
-			return getNeededJoinTablesFromExpression(expression);
+			// Make sure to return the distinct list without duplicates
+			return getTablesNeedingJoinsFromExpression(expression).stream().map(String::toLowerCase).distinct()
+					.collect(Collectors.toList());
 		} catch (Exception e) {
 			throw new AdempiereException(MALFORMED_FILTER_STRING_ERROR);
 		}
@@ -434,7 +439,7 @@ public class FilterUtil {
 	 * @param expression The JSON object received for filtering
 	 * @return A list of table names that need JOINs
 	 */
-	private static List<String> getNeededJoinTablesFromExpression(Map<String, Object> expression) {
+	private static List<String> getTablesNeedingJoinsFromExpression(Map<String, Object> expression) {
 		List<String> neededJoinTables = new ArrayList<>();
 		for (String logicalQuerySelectorOrDbColumnName : expression.keySet()) {
 			if (!LOGICAL_QUERY_SELECTORS.contains(logicalQuerySelectorOrDbColumnName)) {
@@ -445,7 +450,7 @@ public class FilterUtil {
 				continue;
 			}
 			for (Object expressionList : (List<?>) expression.get(logicalQuerySelectorOrDbColumnName)) {
-				neededJoinTables.addAll(getNeededJoinTablesFromExpression((Map<String, Object>) expressionList));
+				neededJoinTables.addAll(getTablesNeedingJoinsFromExpression((Map<String, Object>) expressionList));
 			}
 		}
 		return neededJoinTables;

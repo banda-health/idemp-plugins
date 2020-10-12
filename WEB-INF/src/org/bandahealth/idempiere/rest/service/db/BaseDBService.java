@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -195,7 +194,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			StringBuilder dynamicJoinClause = new StringBuilder();
 			if (!getDynamicJoins().isEmpty()) {
 				String passedInJoinClause = (joinClause == null ? "" : joinClause).toLowerCase();
-				List<String> neededJoinTables = FilterUtil.getNeededJoinTables(filterJson);
+				List<String> neededJoinTables = FilterUtil.getTablesNeedingJoins(filterJson);
 				for (String tableNeedingJoin : neededJoinTables) {
 					// If this table was already specified in a JOIN, we don't need to dynamically add it
 					if (passedInJoinClause.contains(tableNeedingJoin + ".")) {
