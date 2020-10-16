@@ -352,8 +352,292 @@ order by row]]>
 	</parameter>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[WITH payments as (
+	SELECT
+		cp.c_payment_id,
+		cp.c_bpartner_id,
+		cp.bh_c_order_id,
+		date(cp.created) as date,
+		cp.tendertype,
+		cp.payamt
+	FROM adempiere.c_payment cp
+	INNER JOIN adempiere.c_bpartner bp on cp.c_bpartner_id = bp.c_bpartner_id
+	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's ID parameter
+		AND cp.payamt IS NOT NULL
+		AND cp.ad_client_id = $P{AD_CLIENT_ID}
+), transactions as (
+	SELECT
+		name,
+		date,
+		item,
+		charges,
+		visit_payments,
+		open_balance_payments,
+		open_balance,
+		row_number() over (order by sort, date) as row
+	FROM (
+		SELECT
+			name,
+			date,
+			CASE WHEN charges = 0 THEN 'Open balance payment only' ELSE 'Visit Charges and payments' END AS item,
+			charges,
+			visit_payments * -1 as visit_payments,
+			open_balance_payments * -1 as open_balance_payments,
+			SUM(line_total) OVER (PARTITION BY name ORDER BY date ROWS UNBOUNDED PRECEDING) as open_balance,
+			2 as sort
+		FROM (
+			SELECT
+				name,
+				date,
+				SUM(charges) as charges,
+				SUM(visit_payments) as visit_payments,
+				SUM(open_balance_payments) as open_balance_payments,
+				SUM(charges) + SUM(visit_payments) + SUM(open_balance_payments) AS line_total
+			FROM (
+				SELECT
+					Name,
+					Date,
+					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Visit'), 0) AS charges,
+					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Bill Payment' OR type = 'Insurance, Waivers, and Deductions'), 0) AS visit_payments,
+					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Outstanding Balance Payment'), 0) AS open_balance_payments
+				FROM (
+					-- Bills
+					SELECT
+						o.c_order_id,
+						bp.name,
+						o.c_bpartner_id,
+						date(o.created) as date,
+						'Visit' as "type",
+						o.grandtotal,
+						10 as sort
+					FROM adempiere.c_order o
+					INNER JOIN adempiere.c_bpartner bp
+						ON o.c_bpartner_id = bp.c_bpartner_id
+					INNER JOIN payments cp
+						ON cp.c_bpartner_id = bp.c_bpartner_id
+					WHERE o.issotrx='Y'
+						AND o.docstatus='CO'
+					UNION
+					-- Insurance, waivers, and deductions
+					SELECT
+						co.c_order_id,
+						bp.name,
+						cp.c_bpartner_id,
+						cp.date,
+						'Insurance, Waivers, and Deductions' as "type",
+						cp.totalpayamt * -1,
+						20 as sort
+					FROM (
+						SELECT
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date,
+							SUM(payamt) as totalpayamt
+						FROM payments
+						WHERE tendertype NOT IN ('A','C','K','X','D','M','MT')
+						GROUP BY
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date
+					) cp
+					INNER JOIN adempiere.c_bpartner bp
+						ON cp.c_bpartner_id = bp.c_bpartner_id
+					LEFT JOIN adempiere.c_allocationline cal
+						ON cal.c_payment_id = cp.c_payment_id
+					LEFT JOIN adempiere.c_invoice i
+						ON i.c_invoice_id = cal.c_invoice_id
+					INNER JOIN adempiere.c_order co
+						ON i.c_order_id = co.c_order_id
+								OR co.c_order_id = cp.bh_c_order_id
+					WHERE co.issotrx='Y'
+						AND co.docstatus='CO'
+					UNION
+					-- Bill Payments
+					SELECT
+						co.c_order_id,
+						bp.name,
+						cp.c_bpartner_id,
+						cp.date,
+						-- CASE
+						-- 	WHEN cp.tendertype IN ('M','MT') THEN 'Bill Payment - Mobile'
+						-- 	WHEN cp.tendertype IN ('X') THEN 'Bill Payment - Cash'
+						-- 	ELSE 'Bill Payment'
+						-- END as "type",
+						'Bill Payment' as "type",
+						cp.totalpayamt * -1,
+						30 as sort
+					FROM (
+						SELECT
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date,
+							tendertype,
+							SUM(payamt) as totalpayamt
+						FROM payments
+						WHERE tendertype IN ('A','C','K','X','D','M','MT')
+						GROUP BY
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date,
+							tendertype
+					) cp
+					INNER JOIN adempiere.c_bpartner bp
+						ON cp.c_bpartner_id = bp.c_bpartner_id
+					LEFT JOIN adempiere.c_allocationline cal
+						ON cal.c_payment_id = cp.c_payment_id
+					LEFT JOIN adempiere.c_invoice i
+						ON i.c_invoice_id = cal.c_invoice_id
+					INNER JOIN adempiere.c_order co
+						ON i.c_order_id = co.c_order_id
+								OR co.c_order_id = cp.bh_c_order_id
+					WHERE co.issotrx='Y'
+						AND co.docstatus='CO'
+					UNION
+					SELECT
+						co.c_order_id,
+						bp.name,
+						cp.c_bpartner_id,
+						cp.date,
+						'Outstanding Balance Payment' as "type",
+						cp.totalpayamt * -1,
+						40 as sort
+					FROM (
+						SELECT
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date,
+							SUM(payamt) as totalpayamt
+						FROM payments
+						GROUP BY
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date
+					) cp
+					INNER JOIN adempiere.c_bpartner bp
+						ON cp.c_bpartner_id = bp.c_bpartner_id
+					LEFT JOIN adempiere.c_allocationline cal
+						ON cal.c_payment_id = cp.c_payment_id
+					LEFT JOIN adempiere.c_invoice i
+						ON i.c_invoice_id = cal.c_invoice_id
+					LEFT JOIN adempiere.c_order co
+						ON i.c_order_id = co.c_order_id
+								OR co.c_order_id = cp.bh_c_order_id
+					WHERE co.issotrx IS NULL
+						AND co.docstatus IS NULL
+				) as transactions
+				GROUP BY
+					Name,
+					Date,
+					type,
+					grandtotal,
+					sort,
+					c_bpartner_id
+			) as transactions
+			GROUP BY
+				name,
+				date
+		) as transactions
+		UNION
+		SELECT
+			name,
+			date(created) as date,
+			'Starting balance',
+			0 as charges,
+			0 as visit_payments,
+			0 as open_balance_payments,
+			0 as open_balance,
+			1 as sort
+		FROM adempiere.c_bpartner bp
+		JOIN payments p
+			ON p.c_bpartner_id = bp.c_bpartner_id
+	) as transactions
+)
+SELECT
+	name,
+	date,
+	item,
+	charges,
+	visit_payments,
+	open_balance_payments,
+	open_balance
+FROM (
+	SELECT
+		name,
+		date,
+		item,
+		NULL::numeric as charges,
+		NULL::numeric as visit_payments,
+		NULL::numeric as open_balance_payments,
+		0 as open_balance,
+		row
+	FROM (
+		SELECT *
+		FROM transactions
+		WHERE item = 'Starting balance'
+			AND date between date($P{Begin Date}) and date($P{End Date}) -- UPDATE - use start and end date parameters
+	) as given_starting_balance
+	UNION
+	SELECT
+		name,
+		date($P{Begin Date}), -- UPDATE - use start date parameter
+		'Starting balance as of ' || date($P{Begin Date}) as item, -- UPDATE - use start date parameter (formatted as needed)
+		NULL as charges,
+		NULL as visit_payments,
+		NULL as open_balance_payments,
+		open_balance,
+		0 as row
+	FROM (
+		SELECT *
+		FROM transactions
+		WHERE date < date($P{Begin Date}) -- UPDATE - use start date parameter
+		-- WHERE date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
+		ORDER BY row desc
+		LIMIT 1
+	) as calculated_starting_balance
+	UNION
+	SELECT
+		name,
+		date,
+		item,
+		CASE WHEN charges = 0 and visit_payments = 0 THEN NULL ELSE charges END as charges,
+		CASE WHEN charges = 0 and visit_payments = 0 THEN NULL ELSE visit_payments END as visit_payments,
+		CASE WHEN open_balance_payments = 0 THEN NULL ELSE open_balance_payments END as open_balance_payments,
+		open_balance,
+		row
+	FROM transactions
+	WHERE date between date($P{Begin Date}) and date($P{End Date}) -- UPDATE - use start and end date parameters
+    -- WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
+) as payments
+order by row
+limit 1]]>
 	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+	</field>
+	<field name="item" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="item"/>
+	</field>
+	<field name="charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="charges"/>
+	</field>
+	<field name="visit_payments" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="visit_payments"/>
+	</field>
+	<field name="open_balance_payments" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="open_balance_payments"/>
+	</field>
+	<field name="open_balance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="open_balance"/>
+	</field>
 	<title>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
