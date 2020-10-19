@@ -113,18 +113,17 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		// check nhif
 		if (entity.getNhif() != null) {
 			if (entity.getNhif().getType() != null) {
-				mPayment.set_ValueOfColumn(MPayment_BH.COLUMNAME_BH_NHIF_TYPE, entity.getNhif().getType().getValue());
+				mPayment.setBH_NHIF_Type(entity.getNhif().getType().getValue());
 			}
 
 			if (entity.getNhif().getRelationship() != null) {
-				mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_BH_NHIF_RELATIONSHIP,
-						entity.getNhif().getRelationship().getValue());
+				mPayment.setbh_nhif_relationship(entity.getNhif().getRelationship().getValue());
 			}
 
-			mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME, entity.getNhif().getMemberName());
-			mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_NHIF_NUMBER, entity.getNhif().getNumber());
-			mPayment.set_ValueOfColumn(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_ID, entity.getNhif().getMemberId());
-			mPayment.set_ValueOfColumn(NHIF.COLUMNNAME_BH_CLAIM_NUMBER, entity.getNhif().getClaimNumber());
+			mPayment.setbh_nhif_member_name(entity.getNhif().getMemberName());
+			mPayment.setNHIF_Number(entity.getNhif().getNumber());
+			mPayment.setbh_nhif_member_id(entity.getNhif().getMemberId());
+			mPayment.setbh_nhif_claim_number(entity.getNhif().getClaimNumber());
 		}
 
 		// check description
@@ -146,24 +145,12 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	@Override
 	protected Payment createInstanceWithDefaultFields(MPayment_BH instance) {
 		try {
-			String nhifType = instance.get_Value(MPayment_BH.COLUMNAME_BH_NHIF_TYPE) != null
-					? (String) instance.get_Value(MPayment_BH.COLUMNAME_BH_NHIF_TYPE)
-					: null;
-			String relationship = instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_RELATIONSHIP) != null
-					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_RELATIONSHIP)
-					: null;
-			String claimNumber = instance.get_Value(NHIF.COLUMNNAME_BH_CLAIM_NUMBER) != null
-					? (String) instance.get_Value(NHIF.COLUMNNAME_BH_CLAIM_NUMBER)
-					: null;
-			String memberId = instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_ID) != null
-					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_ID)
-					: null;
-			String number = instance.get_Value(MPayment_BH.COLUMNNAME_NHIF_NUMBER) != null
-					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_NHIF_NUMBER)
-					: null;
-			String memberName = instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME) != null
-					? (String) instance.get_Value(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME)
-					: null;
+			String nhifType = instance.getBH_NHIF_Type();
+			String relationship = instance.getbh_nhif_relationship();
+			String claimNumber = instance.getbh_nhif_claim_number();
+			String memberId = instance.getbh_nhif_member_id();
+			String number = instance.getNHIF_Number();
+			String memberName = instance.getbh_nhif_member_name();
 
 			Patient patient = null;
 			MBPartner_BH mPatient = patientDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
