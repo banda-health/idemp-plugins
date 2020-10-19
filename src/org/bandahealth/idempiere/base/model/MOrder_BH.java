@@ -216,6 +216,7 @@ public class MOrder_BH extends MOrder {
 	/**
 	 * Make sure the total open balance updated accordingly
 	 */
+	@Override
 	public boolean voidIt() {
 		super.voidIt();
 
