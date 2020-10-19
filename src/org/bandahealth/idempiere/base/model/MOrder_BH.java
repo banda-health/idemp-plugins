@@ -1,12 +1,15 @@
 package org.bandahealth.idempiere.base.model;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
@@ -209,6 +212,42 @@ public class MOrder_BH extends MOrder {
 		setDocAction(DOCACTION_Close);
 		return DocAction.STATUS_Completed;
 	}	//	completeIt
+	
+	/**
+	 * Make sure the total open balance updated accordingly
+	 */
+	@Override
+	public boolean voidIt() {
+		if (!super.voidIt()) {
+			return false;
+		}
+
+		// Handle case where customer paid a lesser amount that the bill total
+
+		// Get total amount paid
+		String where = MInvoice.Table_Name + "." + MInvoice.COLUMNNAME_C_Order_ID + "=?";
+		String join = "JOIN " + MInvoice.Table_Name + " ON " + MPayment_BH.Table_Name + "."
+				+ MPayment_BH.COLUMNNAME_C_Invoice_ID + " = " + MInvoice.Table_Name + "."
+				+ MInvoice.COLUMNNAME_C_Invoice_ID;
+		List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name, where, get_TrxName())
+				.addJoinClause(join)
+				.setParameters(getC_Order_ID()).setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID).list();
+		BigDecimal totalPayments = new BigDecimal(0);
+		for (MPayment_BH orderPayment : orderPayments) {
+			totalPayments = totalPayments.add(orderPayment.getPayAmt());
+		}
+
+		if (totalPayments.compareTo(getGrandTotal()) < 0) {
+			// update TOB
+			MBPartner bpartner = new Query(getCtx(), MBPartner.Table_Name, MBPartner.COLUMNNAME_C_BPartner_ID + " =?", get_TrxName())
+					.setParameters(getC_BPartner_ID()).first();
+			BigDecimal newOpenBalance = bpartner.getTotalOpenBalance().add(totalPayments);
+			bpartner.setTotalOpenBalance(newOpenBalance);
+			bpartner.save(get_TrxName());
+		}
+
+		return true;
+	}
 	
 	/**
 	 * 	Create Invoice
