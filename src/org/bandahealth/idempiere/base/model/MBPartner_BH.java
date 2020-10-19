@@ -409,7 +409,7 @@ public class MBPartner_BH extends MBPartner {
 	}
 	
 	/** Set Local Patient ID.
-	 @param BH_PatientID
+	 @param BH_Local_PatientID
 	 A unique identifier for users to manually enter
 	 */
 	public void setBH_Local_PatientID (String BH_Local_PatientID)
