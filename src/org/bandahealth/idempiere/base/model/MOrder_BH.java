@@ -218,7 +218,9 @@ public class MOrder_BH extends MOrder {
 	 */
 	@Override
 	public boolean voidIt() {
-		super.voidIt();
+		if (!super.voidIt()) {
+			return false;
+		}
 
 		// Handle case where customer paid a lesser amount that the bill total
 
