@@ -117,7 +117,7 @@ public class ReportRestService {
 			report = dbService.generateDebtPaymentReport(uuid);
 			break;
 		case ReportDBService.PAYMENT_TRAIL_REPORT:
-			report = dbService.generatePaymentTrailReport(uuid, DateUtil.parseDate(beginDate), DateUtil.parseDate(endDate));
+			report = dbService.generatePaymentTrailReport(uuid);
 			break;
 		default:
 			break;

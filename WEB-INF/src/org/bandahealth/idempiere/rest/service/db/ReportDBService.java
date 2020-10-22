@@ -290,10 +290,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	 * @param endDate
 	 * @return
 	 */
-	public File generatePaymentTrailReport(String patientUuid, Date beginDate, Date endDate) {
+	public File generatePaymentTrailReport(String patientUuid) {
 		return generateReport(PAYMENT_TRAIL_REPORT, reportOutputType,
-				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
-						new ProcessInfoParameter(END_DATE, endDate, null, null, null),
-						new ProcessInfoParameter(C_BPARTNER_UU, patientUuid, null, null, null)});
+				new ProcessInfoParameter[] { new ProcessInfoParameter(C_BPARTNER_UU, patientUuid, null, null, null)});
 	}
 }
