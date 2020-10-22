@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Payment Trail" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Payment Trail" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
@@ -52,8 +52,6 @@
 	<subDataset name="tableDataset" uuid="1cb87e7b-4d77-4091-9dae-89707248c7d9">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="c_bpartner_uu" class="java.lang.String">
 			<parameterDescription><![CDATA[Patient UUID]]></parameterDescription>
 		</parameter>
@@ -287,13 +285,13 @@ FROM (
 		SELECT *
 		FROM transactions
 		WHERE item = 'Starting balance'
-			AND date between date($P{Begin Date}) and date($P{End Date}) -- UPDATE - use start and end date parameters
+			-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	) as given_starting_balance
 	UNION
 	SELECT
 		name,
-		date($P{Begin Date}), -- UPDATE - use start date parameter
-		'Starting balance as of ' || date($P{Begin Date}) as item, -- UPDATE - use start date parameter (formatted as needed)
+		'2015-01-01', -- UPDATE - use start date parameter
+		'Starting balance as of ' || '2015-01-01' as item, -- UPDATE - use start date parameter (formatted as needed)
 		NULL as charges,
 		NULL as visit_payments,
 		NULL as open_balance_payments,
@@ -302,8 +300,8 @@ FROM (
 	FROM (
 		SELECT *
 		FROM transactions
-		WHERE date < date($P{Begin Date}) -- UPDATE - use start date parameter
-		-- WHERE date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
+		-- WHERE date < '2020-07-19' -- UPDATE - use start date parameter
+		WHERE date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
 		ORDER BY row desc
 		LIMIT 1
 	) as calculated_starting_balance
@@ -318,8 +316,8 @@ FROM (
 		open_balance,
 		row
 	FROM transactions
-	WHERE date between date($P{Begin Date}) and date($P{End Date}) -- UPDATE - use start and end date parameters
-    -- WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
+	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
+    WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
 order by row]]>
 		</queryString>
@@ -345,8 +343,6 @@ order by row]]>
 			<property name="com.jaspersoft.studio.field.label" value="open_balance"/>
 		</field>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="c_bpartner_uu" class="java.lang.String">
 		<parameterDescription><![CDATA[Patient UUID]]></parameterDescription>
 	</parameter>
@@ -580,13 +576,13 @@ FROM (
 		SELECT *
 		FROM transactions
 		WHERE item = 'Starting balance'
-			AND date between date($P{Begin Date}) and date($P{End Date}) -- UPDATE - use start and end date parameters
+			-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	) as given_starting_balance
 	UNION
 	SELECT
 		name,
-		date($P{Begin Date}), -- UPDATE - use start date parameter
-		'Starting balance as of ' || date($P{Begin Date}) as item, -- UPDATE - use start date parameter (formatted as needed)
+		'2015-01-01', -- UPDATE - use start date parameter
+		'Starting balance as of ' || '2015-01-01' as item, -- UPDATE - use start date parameter (formatted as needed)
 		NULL as charges,
 		NULL as visit_payments,
 		NULL as open_balance_payments,
@@ -595,8 +591,8 @@ FROM (
 	FROM (
 		SELECT *
 		FROM transactions
-		WHERE date < date($P{Begin Date}) -- UPDATE - use start date parameter
-		-- WHERE date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
+		-- WHERE date < '2020-07-19' -- UPDATE - use start date parameter
+		WHERE date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
 		ORDER BY row desc
 		LIMIT 1
 	) as calculated_starting_balance
@@ -611,8 +607,8 @@ FROM (
 		open_balance,
 		row
 	FROM transactions
-	WHERE date between date($P{Begin Date}) and date($P{End Date}) -- UPDATE - use start and end date parameters
-    -- WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
+	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
+    WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
 order by row
 limit 1]]>
@@ -641,24 +637,15 @@ limit 1]]>
 	<title>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
-				<reportElement x="0" y="0" width="842" height="20" uuid="5cdaf457-32f7-4138-8913-32d54f4b907f">
+			<staticText>
+				<reportElement x="0" y="0" width="842" height="20" uuid="d67a3014-1e95-40cb-afda-e47135cee9d6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-					<paragraph leftIndent="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Payment Trail Report Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Payment Trail Report]]></text>
+			</staticText>
 		</band>
 	</title>
 	<summary>
@@ -672,15 +659,9 @@ limit 1]]>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="75339775-5915-41df-85de-fe92cfc53cda">
+					<datasetRun subDataset="tableDataset" uuid="3d24d28f-1b10-4c78-9df4-859159fc1372">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="Begin Date">
-							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="End Date">
-							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="c_bpartner_uu">
 							<datasetParameterExpression><![CDATA[$P{c_bpartner_uu}]]></datasetParameterExpression>
