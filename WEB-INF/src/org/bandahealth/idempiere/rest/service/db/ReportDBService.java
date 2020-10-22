@@ -48,6 +48,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	public static final String DONOR_FUND_REPORT_VALUE = "donorfundreport";
 	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
 	public static final String DEBT_PAYMENT_RECEIPT_VALUE = "debtpaymentreceipt";
+	public static final String PAYMENT_TRAIL_REPORT = "Payment Trail report";
+	public static final String PAYMENT_TRAIL_REPORT_VALUE = "paymenttrailreport";
 
 	public static final Map<String, String> reportNameMapping = new HashMap<String, String>() {
 		{
@@ -64,6 +66,7 @@ public class ReportDBService extends BaseReportDBProcess {
 			put(STOCK_DISCREPANCY_REPORT_VALUE, STOCK_DISCREPANCY_REPORT);
 			put(DONOR_FUND_REPORT_VALUE, DONOR_FUND_REPORT);
 			put(DEBT_PAYMENT_RECEIPT_VALUE, DEBT_PAYMENT_RECEIPT);
+			put(PAYMENT_TRAIL_REPORT_VALUE, PAYMENT_TRAIL_REPORT);
 		}
 	};
 
@@ -74,6 +77,7 @@ public class ReportDBService extends BaseReportDBProcess {
 	private final String PAYMENT_MODE = "Payment Mode";
 	private final String PATIENT_TYPE = "Patient Type";
 	private final String DEBT_PAYMENT_ID = "debtPaymentID";
+	private final String C_BPARTNER_UU = "c_bpartner_uu";
 
 	private String reportOutputType;
 
@@ -276,5 +280,20 @@ public class ReportDBService extends BaseReportDBProcess {
 		
 		return generateReport(DEBT_PAYMENT_RECEIPT, reportOutputType, new ProcessInfoParameter[] {
 				new ProcessInfoParameter(DEBT_PAYMENT_ID, BigDecimal.valueOf(payment.get_ID()), null, null, null) });
+	}
+	
+	/**
+	 * Generates Payment Trail Report
+	 * 
+	 * @param patientUuid
+	 * @param beginDate
+	 * @param endDate
+	 * @return
+	 */
+	public File generatePaymentTrailReport(String patientUuid, Date beginDate, Date endDate) {
+		return generateReport(PAYMENT_TRAIL_REPORT, reportOutputType,
+				new ProcessInfoParameter[] { new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null),
+						new ProcessInfoParameter(C_BPARTNER_UU, patientUuid, null, null, null)});
 	}
 }
