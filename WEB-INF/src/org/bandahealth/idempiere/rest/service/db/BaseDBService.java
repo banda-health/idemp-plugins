@@ -1,8 +1,11 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -16,11 +19,10 @@ import org.compiere.util.Env;
 
 /**
  * Abstract common db service functionality
- * 
- * @author andrew
  *
  * @param <T>
  * @param <S>
+ * @author andrew
  */
 public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
@@ -35,10 +37,21 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public static final String DEFAULT_SEARCH_COLUMN = MUser.COLUMNNAME_Name;
 	public static final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
+	protected static CLogger log = CLogger.getCLogger(BaseDBService.class);
 
 	public abstract T saveEntity(T entity);
-	
+
 	public abstract Boolean deleteEntity(String entityUuid);
+
+	/**
+	 * This should be overridden in inheriting classes.
+	 * Structure: Map<TableName, JOIN clause>
+	 *
+	 * @return A map of table names and their appropriate JOIN clauses
+	 */
+	public Map<String, String> getDynamicJoins() {
+		return new HashMap<>();
+	}
 
 	// Default fields used for lists
 	protected abstract T createInstanceWithDefaultFields(S instance);
@@ -50,8 +63,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract T createInstanceWithSearchFields(S instance);
 
 	protected abstract S getModelInstance();
-
-	protected static CLogger log = CLogger.getCLogger(BaseDBService.class);
 
 	private boolean checkColumnExists(String columnName) {
 		if (getModelInstance() != null) {
@@ -79,29 +90,30 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo,
-			String sortColumn, String sortOrder) {
+																		String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(valueToSearch));
 		return this.search(DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-			String sortColumn, String sortOrder) {
+																		String sortColumn, String sortOrder) {
 		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
 	/**
 	 * Search all with the inclusion of a join clause for joined cases of sorting
+	 *
 	 * @param whereClause
 	 * @param parameters
 	 * @param pagingInfo
 	 * @param sortColumn
 	 * @param sortOrder
-	 * @param joinClause Use to specify a linked table so joining can occur
+	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return
 	 */
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-			String sortColumn, String sortOrder, String joinClause) {
+																		String sortColumn, String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
@@ -146,22 +158,23 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson) {
+																		String sortOrder, String filterJson) {
 		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
 	}
 
 	/**
 	 * Get all with the inclusion of a join clause for joined cases of sorting
+	 *
 	 * @param whereClause
 	 * @param parameters
 	 * @param pagingInfo
 	 * @param sortColumn
 	 * @param sortOrder
-	 * @param joinClause Use to specify a linked table so joining can occur
+	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson, String joinClause) {
+																		String sortOrder, String filterJson, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 			if (parameters == null) {
@@ -178,8 +191,36 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
 					.setClient_ID();
 
+			StringBuilder dynamicJoinClause = new StringBuilder();
+			if (!getDynamicJoins().isEmpty()) {
+				String passedInJoinClause = (joinClause == null ? "" : joinClause).toLowerCase();
+				List<String> neededJoinTables = FilterUtil.getTablesNeedingJoins(filterJson);
+				for (String tableNeedingJoin : neededJoinTables) {
+					// If this table was already specified in a JOIN, we don't need to dynamically add it
+					if (passedInJoinClause.contains(tableNeedingJoin + ".")) {
+						continue;
+					}
+					// Find the needed JOIN clause
+					boolean foundMatchForTable = false;
+					for (String dynamicTableJoinName : getDynamicJoins().keySet()) {
+						if (dynamicTableJoinName.equalsIgnoreCase(tableNeedingJoin)) {
+							dynamicJoinClause.append(" ").append(getDynamicJoins().get(dynamicTableJoinName));
+							foundMatchForTable = true;
+						}
+					}
+					// If no JOIN clause is specified in the dynamic JOIN, we need to let the user know
+					if (!foundMatchForTable) {
+						throw new AdempiereException(tableNeedingJoin
+								+ " was specified in the filter, but no dynamic JOIN clause provided");
+					}
+				}
+			}
 			if (joinClause != null) {
-				query.addJoinClause(joinClause);
+				dynamicJoinClause.append(" ").append(joinClause);
+			}
+
+			if (!dynamicJoinClause.toString().trim().isEmpty()) {
+				query.addJoinClause(dynamicJoinClause.toString().trim());
 			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);
@@ -217,6 +258,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	/**
 	 * Retrieve a REST entity from the DB with a given UUID
+	 *
 	 * @param uuid
 	 * @return
 	 */
@@ -236,7 +278,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	/**
 	 * Retrieve entity from DB given uuid
-	 * 
+	 *
 	 * @param uuid
 	 * @return
 	 */
@@ -261,7 +303,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	/**
 	 * Retrieve entity from db given id
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
