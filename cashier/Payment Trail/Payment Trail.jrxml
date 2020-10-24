@@ -75,6 +75,7 @@
 		AND p1.payamt IS NOT NULL
 		AND p2.c_payment_id IS NULL
 		AND p1.docstatus != 'RE'
+		AND p1.ad_client_id = $P{AD_CLIENT_ID}
 ), transactions as (
 	SELECT
 		name,
@@ -371,6 +372,7 @@ order by row]]>
 		AND p1.payamt IS NOT NULL
 		AND p2.c_payment_id IS NULL
 		AND p1.docstatus != 'RE'
+		AND p1.ad_client_id = $P{AD_CLIENT_ID}
 ), transactions as (
 	SELECT
 		name,
