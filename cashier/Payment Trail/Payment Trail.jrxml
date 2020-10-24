@@ -58,6 +58,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
 			<![CDATA[;WITH payments as (
+	-- Get all payments made by a person, except those that were reversed
 	SELECT
 		p1.c_payment_id,
 		p1.c_bpartner_id,
@@ -66,17 +67,18 @@
 		p1.tendertype,
 		p1.payamt
 	FROM adempiere.c_payment p1
-	INNER JOIN adempiere.c_bpartner bp on p1.c_bpartner_id = bp.c_bpartner_id
+	INNER JOIN adempiere.c_bpartner bp
+	    ON p1.c_bpartner_id = bp.c_bpartner_id
 	LEFT JOIN adempiere.c_payment p2
 		ON p2.docstatus = 'RE'
 			AND p2.reversal_id = p1.c_payment_id
 			AND p1.c_bpartner_id = p2.c_bpartner_id
-	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's ID parameter
+	WHERE bp.c_bpartner_uu =  $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
 		AND p1.payamt IS NOT NULL
 		AND p2.c_payment_id IS NULL
 		AND p1.docstatus != 'RE'
-		AND p1.ad_client_id = $P{AD_CLIENT_ID}
 ), transactions as (
+	-- This categorizes the payments
 	SELECT
 		name,
 		date,
@@ -90,13 +92,14 @@
 		SELECT
 			name,
 			date,
-			CASE WHEN charges = 0 THEN 'Open balance payment only' ELSE 'Visit Charges and payments' END AS item,
+			CASE WHEN charges = 0 AND visit_payments = 0 THEN 'Open balance payment only' ELSE 'Visit Charges and payments' END AS item,
 			charges,
 			visit_payments * -1 as visit_payments,
 			open_balance_payments * -1 as open_balance_payments,
 			SUM(line_total) OVER (PARTITION BY name ORDER BY date ROWS UNBOUNDED PRECEDING) as open_balance,
 			2 as sort
 		FROM (
+			-- Sum all the payments and group them by date
 			SELECT
 				name,
 				date,
@@ -105,6 +108,7 @@
 				SUM(open_balance_payments) as open_balance_payments,
 				SUM(charges) + SUM(visit_payments) + SUM(open_balance_payments) AS line_total
 			FROM (
+				-- Here's where payments are categorized
 				SELECT
 					Name,
 					Date,
@@ -208,6 +212,7 @@
 					WHERE co.issotrx='Y'
 						AND co.docstatus='CO'
 					UNION
+					-- Outstanding Balance Payments
 					SELECT
 						co.c_order_id,
 						bp.name,
@@ -255,6 +260,7 @@
 				date
 		) as transactions
 		UNION
+		-- Add another row to show the starting balance of zero when the patient was created
 		SELECT
 			name,
 			date(created) as date,
@@ -278,6 +284,7 @@ SELECT
 	open_balance_payments,
 	open_balance
 FROM (
+	-- This is when the patient creation date is after the specified start date
 	SELECT
 		name,
 		date,
@@ -294,6 +301,7 @@ FROM (
 			-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	) as given_starting_balance
 	UNION
+	-- This is when the patient creation date is before the specified start date
 	SELECT
 		name,
 		'2020-07-19', -- UPDATE - use start date parameter
@@ -312,6 +320,7 @@ FROM (
 		LIMIT 1
 	) as calculated_starting_balance
 	UNION
+	-- This sums up and displays the remainder of the open balance rows, up to the end date
 	SELECT
 		name,
 		date,
@@ -325,7 +334,8 @@ FROM (
 	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
-order by row]]>
+order by row
+]]>
 		</queryString>
 		<field name="name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="name"/>
@@ -355,6 +365,7 @@ order by row]]>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[;WITH payments as (
+	-- Get all payments made by a person, except those that were reversed
 	SELECT
 		p1.c_payment_id,
 		p1.c_bpartner_id,
@@ -363,17 +374,18 @@ order by row]]>
 		p1.tendertype,
 		p1.payamt
 	FROM adempiere.c_payment p1
-	INNER JOIN adempiere.c_bpartner bp on p1.c_bpartner_id = bp.c_bpartner_id
+	INNER JOIN adempiere.c_bpartner bp
+	    ON p1.c_bpartner_id = bp.c_bpartner_id
 	LEFT JOIN adempiere.c_payment p2
 		ON p2.docstatus = 'RE'
 			AND p2.reversal_id = p1.c_payment_id
 			AND p1.c_bpartner_id = p2.c_bpartner_id
-	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's ID parameter
+	WHERE bp.c_bpartner_uu =  $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
 		AND p1.payamt IS NOT NULL
 		AND p2.c_payment_id IS NULL
 		AND p1.docstatus != 'RE'
-		AND p1.ad_client_id = $P{AD_CLIENT_ID}
 ), transactions as (
+	-- This categorizes the payments
 	SELECT
 		name,
 		date,
@@ -387,13 +399,14 @@ order by row]]>
 		SELECT
 			name,
 			date,
-			CASE WHEN charges = 0 THEN 'Open balance payment only' ELSE 'Visit Charges and payments' END AS item,
+			CASE WHEN charges = 0 AND visit_payments = 0 THEN 'Open balance payment only' ELSE 'Visit Charges and payments' END AS item,
 			charges,
 			visit_payments * -1 as visit_payments,
 			open_balance_payments * -1 as open_balance_payments,
 			SUM(line_total) OVER (PARTITION BY name ORDER BY date ROWS UNBOUNDED PRECEDING) as open_balance,
 			2 as sort
 		FROM (
+			-- Sum all the payments and group them by date
 			SELECT
 				name,
 				date,
@@ -402,6 +415,7 @@ order by row]]>
 				SUM(open_balance_payments) as open_balance_payments,
 				SUM(charges) + SUM(visit_payments) + SUM(open_balance_payments) AS line_total
 			FROM (
+				-- Here's where payments are categorized
 				SELECT
 					Name,
 					Date,
@@ -505,6 +519,7 @@ order by row]]>
 					WHERE co.issotrx='Y'
 						AND co.docstatus='CO'
 					UNION
+					-- Outstanding Balance Payments
 					SELECT
 						co.c_order_id,
 						bp.name,
@@ -552,6 +567,7 @@ order by row]]>
 				date
 		) as transactions
 		UNION
+		-- Add another row to show the starting balance of zero when the patient was created
 		SELECT
 			name,
 			date(created) as date,
@@ -575,6 +591,7 @@ SELECT
 	open_balance_payments,
 	open_balance
 FROM (
+	-- This is when the patient creation date is after the specified start date
 	SELECT
 		name,
 		date,
@@ -591,6 +608,7 @@ FROM (
 			-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	) as given_starting_balance
 	UNION
+	-- This is when the patient creation date is before the specified start date
 	SELECT
 		name,
 		'2020-07-19', -- UPDATE - use start date parameter
@@ -609,6 +627,7 @@ FROM (
 		LIMIT 1
 	) as calculated_starting_balance
 	UNION
+	-- This sums up and displays the remainder of the open balance rows, up to the end date
 	SELECT
 		name,
 		date,
