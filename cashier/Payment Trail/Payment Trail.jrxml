@@ -57,19 +57,24 @@
 		</parameter>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
-			<![CDATA[WITH payments as (
+			<![CDATA[;WITH payments as (
 	SELECT
-		cp.c_payment_id,
-		cp.c_bpartner_id,
-		cp.bh_c_order_id,
-		date(cp.created) as date,
-		cp.tendertype,
-		cp.payamt
-	FROM adempiere.c_payment cp
-	INNER JOIN adempiere.c_bpartner bp on cp.c_bpartner_id = bp.c_bpartner_id
+		p1.c_payment_id,
+		p1.c_bpartner_id,
+		p1.bh_c_order_id,
+		date(p1.created) as date,
+		p1.tendertype,
+		p1.payamt
+	FROM adempiere.c_payment p1
+	INNER JOIN adempiere.c_bpartner bp on p1.c_bpartner_id = bp.c_bpartner_id
+	LEFT JOIN adempiere.c_payment p2
+		ON p2.docstatus = 'RE'
+			AND p2.reversal_id = p1.c_payment_id
+			AND p1.c_bpartner_id = p2.c_bpartner_id
 	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's ID parameter
-		AND cp.payamt IS NOT NULL
-		AND cp.ad_client_id = $P{AD_CLIENT_ID}
+		AND p1.payamt IS NOT NULL
+		AND p2.c_payment_id IS NULL
+		AND p1.docstatus != 'RE'
 ), transactions as (
 	SELECT
 		name,
@@ -198,7 +203,7 @@
 						ON i.c_invoice_id = cal.c_invoice_id
 					INNER JOIN adempiere.c_order co
 						ON i.c_order_id = co.c_order_id
-								OR co.c_order_id = cp.bh_c_order_id
+							OR co.c_order_id = cp.bh_c_order_id
 					WHERE co.issotrx='Y'
 						AND co.docstatus='CO'
 					UNION
@@ -232,7 +237,7 @@
 						ON i.c_invoice_id = cal.c_invoice_id
 					LEFT JOIN adempiere.c_order co
 						ON i.c_order_id = co.c_order_id
-								OR co.c_order_id = cp.bh_c_order_id
+							OR co.c_order_id = cp.bh_c_order_id
 					WHERE co.issotrx IS NULL
 						AND co.docstatus IS NULL
 				) as transactions
@@ -290,8 +295,8 @@ FROM (
 	UNION
 	SELECT
 		name,
-		'2015-01-01', -- UPDATE - use start date parameter
-		'Starting balance as of ' || '2015-01-01' as item, -- UPDATE - use start date parameter (formatted as needed)
+		'2020-07-19', -- UPDATE - use start date parameter
+		'Starting balance as of ' || '2020-07-19' as item, -- UPDATE - use start date parameter (formatted as needed)
 		NULL as charges,
 		NULL as visit_payments,
 		NULL as open_balance_payments,
@@ -317,7 +322,7 @@ FROM (
 		row
 	FROM transactions
 	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
-    WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
+	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
 order by row]]>
 		</queryString>
@@ -348,19 +353,24 @@ order by row]]>
 	</parameter>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[WITH payments as (
+		<![CDATA[;WITH payments as (
 	SELECT
-		cp.c_payment_id,
-		cp.c_bpartner_id,
-		cp.bh_c_order_id,
-		date(cp.created) as date,
-		cp.tendertype,
-		cp.payamt
-	FROM adempiere.c_payment cp
-	INNER JOIN adempiere.c_bpartner bp on cp.c_bpartner_id = bp.c_bpartner_id
+		p1.c_payment_id,
+		p1.c_bpartner_id,
+		p1.bh_c_order_id,
+		date(p1.created) as date,
+		p1.tendertype,
+		p1.payamt
+	FROM adempiere.c_payment p1
+	INNER JOIN adempiere.c_bpartner bp on p1.c_bpartner_id = bp.c_bpartner_id
+	LEFT JOIN adempiere.c_payment p2
+		ON p2.docstatus = 'RE'
+			AND p2.reversal_id = p1.c_payment_id
+			AND p1.c_bpartner_id = p2.c_bpartner_id
 	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's ID parameter
-		AND cp.payamt IS NOT NULL
-		AND cp.ad_client_id = $P{AD_CLIENT_ID}
+		AND p1.payamt IS NOT NULL
+		AND p2.c_payment_id IS NULL
+		AND p1.docstatus != 'RE'
 ), transactions as (
 	SELECT
 		name,
@@ -489,7 +499,7 @@ order by row]]>
 						ON i.c_invoice_id = cal.c_invoice_id
 					INNER JOIN adempiere.c_order co
 						ON i.c_order_id = co.c_order_id
-								OR co.c_order_id = cp.bh_c_order_id
+							OR co.c_order_id = cp.bh_c_order_id
 					WHERE co.issotrx='Y'
 						AND co.docstatus='CO'
 					UNION
@@ -523,7 +533,7 @@ order by row]]>
 						ON i.c_invoice_id = cal.c_invoice_id
 					LEFT JOIN adempiere.c_order co
 						ON i.c_order_id = co.c_order_id
-								OR co.c_order_id = cp.bh_c_order_id
+							OR co.c_order_id = cp.bh_c_order_id
 					WHERE co.issotrx IS NULL
 						AND co.docstatus IS NULL
 				) as transactions
@@ -581,8 +591,8 @@ FROM (
 	UNION
 	SELECT
 		name,
-		'2015-01-01', -- UPDATE - use start date parameter
-		'Starting balance as of ' || '2015-01-01' as item, -- UPDATE - use start date parameter (formatted as needed)
+		'2020-07-19', -- UPDATE - use start date parameter
+		'Starting balance as of ' || '2020-07-19' as item, -- UPDATE - use start date parameter (formatted as needed)
 		NULL as charges,
 		NULL as visit_payments,
 		NULL as open_balance_payments,
@@ -608,7 +618,7 @@ FROM (
 		row
 	FROM transactions
 	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
-    WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
+	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
 order by row
 limit 1]]>
