@@ -1,10 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
@@ -26,7 +30,21 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	private static String COLUMNNAME_OCCUPATION = "bh_occupation";
 	private static String COLUMNNAME_NEXTOFKIN_NAME = "nextofkin_name";
 	private static String COLUMNNAME_NEXTOFKIN_CONTACT = "nextofkin_contact";
-	
+
+	private Map<String, String> dynamicJoins = new HashMap<>() {{
+		put(MOrder_BH.Table_Name, "LEFT JOIN (" + "SELECT " + MOrder_BH.COLUMNNAME_C_BPartner_ID
+				+ ",MAX(" + MOrder_BH.COLUMNNAME_DateOrdered + ") as " + MOrder_BH.COLUMNNAME_DateOrdered + " FROM "
+				+ MOrder_BH.Table_Name + " WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "='Y' GROUP BY "
+				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + ") AS " + MOrder_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + "=" + MBPartner_BH.Table_Name + "."
+				+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+	}};
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
+	}
+
 	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");

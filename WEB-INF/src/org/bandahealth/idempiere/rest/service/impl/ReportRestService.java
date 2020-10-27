@@ -116,6 +116,9 @@ public class ReportRestService {
 		case ReportDBService.DEBT_PAYMENT_RECEIPT:
 			report = dbService.generateDebtPaymentReport(uuid);
 			break;
+		case ReportDBService.PAYMENT_TRAIL_REPORT:
+			report = dbService.generatePaymentTrailReport(uuid);
+			break;
 		default:
 			break;
 		}

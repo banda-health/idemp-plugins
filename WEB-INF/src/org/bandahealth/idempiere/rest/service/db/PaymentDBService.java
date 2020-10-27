@@ -25,9 +25,8 @@ import org.compiere.util.Env;
 
 /**
  * Payment DB Functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
@@ -43,13 +42,16 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
-		
-		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson);
+
+		String join = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MPayment_BH.Table_Name + "." + MPayment_BH.COLUMNNAME_C_BPartner_ID;
+
+		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn,
+				sortOrder, filterJson, join);
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
+																					String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
@@ -136,7 +138,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		}
 
 		mPayment.setIsActive(entity.isIsActive());
-		
+
 		mPayment.saveEx();
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(mPayment.getC_Payment_UU()));
@@ -190,7 +192,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	/**
 	 * Get client's currency in the db
-	 * 
+	 *
 	 * @return
 	 */
 	private MCurrency getCurrency() {
@@ -211,7 +213,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	/**
 	 * Get bank account
-	 * 
+	 *
 	 * @return
 	 */
 	protected MBankAccount getBankAccount() {
@@ -223,7 +225,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	/**
 	 * Get payments associated with an order
-	 * 
+	 *
 	 * @param orderId
 	 * @return
 	 */
@@ -231,7 +233,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		List<Payment> payments = new ArrayList<>();
 		List<MPayment_BH> mPayments = new Query(Env.getCtx(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?", null).setParameters(orderId).setOnlyActiveRecords(true)
-						.setClient_ID().list();
+				.setClient_ID().list();
 		for (MPayment_BH mPayment : mPayments) {
 			payments.add(createInstanceWithDefaultFields(mPayment));
 		}
@@ -241,7 +243,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	/**
 	 * Delete payment lines for a given order and not in given subset
-	 * 
+	 *
 	 * @param orderId
 	 */
 	public void deletePaymentLinesByOrder(int orderId, String lineUuids) {
@@ -260,7 +262,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	/**
 	 * Check if an order has any payments
-	 * 
+	 *
 	 * @param orderId
 	 * @return
 	 */
@@ -271,7 +273,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	/**
 	 * Save and Process Payment
-	 * 
+	 *
 	 * @param entity
 	 * @return
 	 */
@@ -286,7 +288,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 
 	/**
 	 * Process Payment
-	 * 
+	 *
 	 * @param uuid
 	 * @return
 	 */

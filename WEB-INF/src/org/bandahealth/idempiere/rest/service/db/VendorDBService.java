@@ -12,7 +12,7 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
 
 public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
-	
+
 	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
@@ -23,7 +23,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	/**
 	 * Vendor search implementation.
-	 * 
+	 *
 	 * @param value
 	 * @param pagingInfo
 	 * @return
