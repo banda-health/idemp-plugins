@@ -288,7 +288,7 @@ public class ReportDBService extends BaseReportDBProcess {
 	 * @param patientUuid
 	 * @param beginDate
 	 * @param endDate
-	 * @return
+	 * @return generated File
 	 */
 	public File generatePaymentTrailReport(String patientUuid) {
 		return generateReport(PAYMENT_TRAIL_REPORT, reportOutputType,
