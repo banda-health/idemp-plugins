@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MoH705Ap2" pageWidth="940" pageHeight="585" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="940" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -41,7 +41,7 @@
 		</box>
 	</style>
 	<subDataset name="tableDataset" uuid="4f3ffd2a-d6a3-480d-8993-16e7645f49e4">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
@@ -67,7 +67,8 @@ select
     date(cobilldate.dateordered) as billdate
 from c_order cobilldate
 where
-    cobilldate.ad_client_id = $P{AD_CLIENT_ID} and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    cobilldate.ad_client_id = $P{AD_CLIENT_ID}
+    and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) as orderbilldate on regPatient.c_bpartner_id = orderbilldate.c_bpartner_id
 left join
 (
@@ -77,6 +78,7 @@ select
 from c_order conewvisit
 where
     conewvisit.ad_client_id = $P{AD_CLIENT_ID} and conewvisit.bh_newvisit = 'Y'
+    and (date(conewvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by conewvisit.c_bpartner_id
 ) as newvisitcount on orderbilldate.c_bpartner_id = newvisitcount.c_bpartner_id
 left join
@@ -87,6 +89,7 @@ select
 from c_order coreattendace
 where
     coreattendace.ad_client_id = $P{AD_CLIENT_ID} and coreattendace.bh_newvisit = 'N'
+    and (date(coreattendace.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreattendace.c_bpartner_id
 ) as reattendacecount on orderbilldate.c_bpartner_id = reattendacecount.c_bpartner_id
 left join
@@ -97,6 +100,7 @@ select
 from c_order coreferralsfromhf
 where
     coreferralsfromhf.ad_client_id = $P{AD_CLIENT_ID} and coreferralsfromhf.bh_referral = 'hf'
+    and (date(coreferralsfromhf.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferralsfromhf.c_bpartner_id
 ) as referralsfromhfcount on orderbilldate.c_bpartner_id = referralsfromhfcount.c_bpartner_id
 left join
@@ -107,6 +111,7 @@ select
 from c_order coreferralstootherhf
 where
     coreferralstootherhf.ad_client_id = $P{AD_CLIENT_ID} and coreferralstootherhf.bh_referral = 'OHF'
+    and (date(coreferralstootherhf.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferralstootherhf.c_bpartner_id
 ) as referralstootherhfcount on orderbilldate.c_bpartner_id = referralstootherhfcount.c_bpartner_id
 left join
@@ -117,6 +122,7 @@ select
 from c_order coreferalsfromcu
 where
     coreferalsfromcu.ad_client_id = $P{AD_CLIENT_ID} and coreferalsfromcu.bh_referral = 'fcu'
+    and (date(coreferalsfromcu.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferalsfromcu.c_bpartner_id
 ) as referalsfromcucount on orderbilldate.c_bpartner_id = referalsfromcucount.c_bpartner_id
 left join
@@ -127,6 +133,7 @@ select
 from c_order coreferaltocu
 where
     coreferaltocu.ad_client_id = $P{AD_CLIENT_ID} and coreferaltocu.bh_referral = 'tcu'
+    and (date(coreferaltocu.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferaltocu.c_bpartner_id
 ) as referaltocucount on orderbilldate.c_bpartner_id = referaltocucount.c_bpartner_id
 group by orderbilldate.billdate
@@ -153,6 +160,30 @@ order by orderbilldate.billdate asc;]]>
 		<field name="referaltocu" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="referaltocu"/>
 		</field>
+		<variable name="sum1stAttendance" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{no1stattendances}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumReattendance" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{reattendances}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumReferralsFromHF" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{referralsfromhf}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumReferralsToOtherHF" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{referralstootherhf}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumReferralsFromCU" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{referalsfromcu}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumReferralsToCU" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{referaltocu}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
@@ -200,10 +231,11 @@ group by orderbilldate.billdate;]]>
 		</band>
 	</pageHeader>
 	<summary>
-		<band height="47" splitType="Stretch">
+		<band height="64" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="940" height="47" uuid="f14d8dd9-6afe-42ed-95cc-9ac1bc965f2f">
+				<reportElement x="0" y="0" width="940" height="64" uuid="f14d8dd9-6afe-42ed-95cc-9ac1bc965f2f">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -257,6 +289,16 @@ group by orderbilldate.billdate;]]>
 								<text><![CDATA[Number of first attendances]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="150" height="17" uuid="05de1798-ddaf-45b7-86c0-8f787accc460"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sum1stAttendance}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField>
 								<reportElement x="0" y="0" width="150" height="17" uuid="07b8aabd-83f7-4e81-ba21-ecefc6913d66"/>
@@ -281,6 +323,16 @@ group by orderbilldate.billdate;]]>
 ]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="130" height="17" uuid="e0eb5a73-d6e5-4bc5-9917-0b9019b0252e"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumReattendance}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField>
 								<reportElement x="0" y="0" width="130" height="17" uuid="90250899-013b-43e2-8210-8e6b35cd4361"/>
@@ -304,6 +356,16 @@ group by orderbilldate.billdate;]]>
 								<text><![CDATA[Referrals from health facilities]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="130" height="17" uuid="374f8126-ca86-4736-8a8a-c9f23e7c6c27"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumReferralsFromHF}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField>
 								<reportElement x="0" y="0" width="130" height="17" uuid="efe088b5-04f0-44e5-85f0-76ee4b167970"/>
@@ -327,6 +389,16 @@ group by orderbilldate.billdate;]]>
 								<text><![CDATA[Referrals to other health facility]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="150" height="17" uuid="7755027f-cd8c-444f-ae5a-4006fa91f586"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumReferralsToOtherHF}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField>
 								<reportElement x="0" y="0" width="150" height="17" uuid="6a2127f7-1c65-4603-a662-4bc6ffef0856"/>
@@ -350,6 +422,16 @@ group by orderbilldate.billdate;]]>
 								<text><![CDATA[Referrals from Community Unit]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="150" height="17" uuid="9d43a0fe-8ea5-4aba-9763-17c74130f8c5"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumReferralsFromCU}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField>
 								<reportElement x="0" y="0" width="150" height="17" uuid="27ada4c6-1e33-4331-977c-de755a952ccd"/>
@@ -373,6 +455,16 @@ group by orderbilldate.billdate;]]>
 								<text><![CDATA[Referral to Community Unit]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="140" height="17" uuid="a8fbeefe-e09b-4e25-96b4-4ff74f0f754e"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumReferralsToCU}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField>
 								<reportElement x="0" y="0" width="140" height="17" uuid="bb857d73-7b44-4ca7-9772-b7335d065772"/>

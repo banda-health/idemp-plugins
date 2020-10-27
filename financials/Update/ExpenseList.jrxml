@@ -19,13 +19,14 @@
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<queryString language="SQL">
-		<![CDATA[select expense.name as name, sum(expenseline.priceentered) AS costofexpense
-from c_orderline expenseline
-inner join c_bpartner cb on expenseline.c_bpartner_id = cb.c_bpartner_id
-and cb.isvendor = 'Y'
-inner join c_charge expense on expenseline.c_charge_id = expense.c_charge_id
-where date(expenseline.created) BETWEEN date($P{Begin Date}) AND date($P{End Date})
-      AND expenseline.ad_client_id = $P{AD_CLIENT_ID}
+		<![CDATA[select expense.name as name,
+       sum(co.totallines) as costofexpense
+from c_order co
+    inner join c_orderline expenseline on co.c_order_id = expenseline.c_order_id
+    inner join c_charge expense on expenseline.c_charge_id = expense.c_charge_id
+where co.ad_client_id = $P{AD_CLIENT_ID} AND co.docstatus = 'CO'
+      AND co.bh_isexpense = 'Y'
+      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by expense.name;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">

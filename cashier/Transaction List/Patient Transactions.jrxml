@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Transactions Main" pageWidth="1312" pageHeight="744" orientation="Landscape" columnWidth="1312" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="cc04d203-d034-4a9b-95b5-22b226c482fc">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Transactions Main" pageWidth="1640" pageHeight="744" orientation="Landscape" columnWidth="1640" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="cc04d203-d034-4a9b-95b5-22b226c482fc">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
@@ -39,9 +48,7 @@ from ad_org org
 	<detail>
 		<band height="80" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="1312" height="80" uuid="3abb6978-cadc-4e58-b442-232ef9298fcc">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
+				<reportElement x="0" y="0" width="1640" height="80" uuid="3abb6978-cadc-4e58-b442-232ef9298fcc"/>
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -63,9 +70,8 @@ from ad_org org
 		</band>
 		<band height="69">
 			<subreport>
-				<reportElement x="0" y="0" width="1312" height="69" uuid="d6ca2513-c06f-4d4c-af72-e7d4ebd7636a">
+				<reportElement x="0" y="0" width="1640" height="69" uuid="d6ca2513-c06f-4d4c-af72-e7d4ebd7636a">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
@@ -89,9 +95,7 @@ from ad_org org
 		<band height="80">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<subreport>
-				<reportElement x="0" y="0" width="1312" height="80" uuid="ff0a331a-1250-4284-bda9-ff73bed56750">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
+				<reportElement x="0" y="0" width="1640" height="80" uuid="ff0a331a-1250-4284-bda9-ff73bed56750"/>
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -108,9 +112,8 @@ from ad_org org
 		<band height="69">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<subreport>
-				<reportElement x="0" y="0" width="1312" height="69" uuid="5de7e959-9463-4b84-b849-e5a7158fd5cb">
+				<reportElement x="0" y="0" width="1640" height="69" uuid="5de7e959-9463-4b84-b849-e5a7158fd5cb">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>

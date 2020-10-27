@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Debt Payment Details" pageWidth="162" pageHeight="134" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="865ee1bb-bd7d-4d8a-b0a0-732f57770a27">
+	<property name="ireport.zoom" value="3.305785123966944"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<parameter name="debtPaymentID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cp.payamt as debtamount,
+       cp.bh_tender_amount as amounttendered,
+       bp.totalopenbalance as openbalance
+from c_payment cp
+inner join c_bpartner bp on cp.c_bpartner_id = bp.c_bpartner_id
+where cp.c_payment_id = $P{debtPaymentID};]]>
+	</queryString>
+	<field name="debtamount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="debtamount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
+	</field>
+	<field name="amounttendered" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="amounttendered"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
+	</field>
+	<field name="openbalance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="openbalance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement key="" x="8" y="0" width="85" height="12" uuid="87629929-d34f-4165-8c85-a041e765e0ba"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="114" y="0" width="43" height="12" uuid="87629929-d34f-4165-8c85-a041e765e0ba"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement key="" x="0" y="12" width="161" height="1" uuid="c8e86fa7-31ba-481c-8d83-fd76f8f4de22">
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+				</reportElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+				<reportElement key="" x="100" y="-4" width="61" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="mm"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{debtamount}.add($F{openbalance})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="" x="12" y="-4" width="81" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Debt:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="8" y="17" width="85" height="12" uuid="ac995223-1b2d-4425-b0c8-7ba52c321664">
+					<property name="com.jaspersoft.studio.unit.x" value="mm"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Payment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="114" y="17" width="43" height="12" uuid="48d4e617-7560-43a3-b5e8-9dcb78eac555"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement key="" x="0" y="29" width="161" height="1" uuid="89202e48-e9ca-464d-825d-df92ec79c90c"/>
+			</line>
+			<line>
+				<reportElement key="" x="0" y="16" width="161" height="1" uuid="488c9c0c-b3b2-4635-8659-ffe6d522239e"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
