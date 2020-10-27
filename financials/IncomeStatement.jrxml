@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
@@ -22,9 +22,9 @@
 from
 (
 select co.ad_client_id,
-       client.name,
-       sum(co.totallines) as saleslineitemtotals,
-       sum(co.grandtotal) as salestotals
+	client.name,
+	sum(co.totallines) as saleslineitemtotals,
+	sum(co.grandtotal) as salestotals
 from c_order co
     INNER JOIN ad_client client ON co.ad_client_id = client.ad_client_id
 where
@@ -59,14 +59,14 @@ group by cp.ad_client_id
 ) as debtPayments on billdetails.ad_client_id = debtPayments.ad_client_id
 left join
 (
-select co.ad_client_id,
-       sum(co.totallines) as expenselineitemtotals,
-       sum(co.grandtotal) as expensetotals
-from c_order co
-where co.ad_client_id = $P{AD_CLIENT_ID} AND co.docstatus = 'CO'
+select ci.ad_client_id,
+       sum(ci.totallines) as expenselineitemtotals,
+       sum(ci.grandtotal) as expensetotals
+from c_invoice ci
+where ci.ad_client_id = $P{AD_CLIENT_ID} AND ci.docstatus = 'CO'
       AND bh_isexpense = 'Y'
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by co.ad_client_id
+      AND (date(ci.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+group by ci.ad_client_id
 ) as expenses on billdetails.ad_client_id = expenses.ad_client_id
 left join
 (
