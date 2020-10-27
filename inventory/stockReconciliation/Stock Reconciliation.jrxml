@@ -59,7 +59,7 @@
 			<![CDATA[select
     productname.product,
     stocktakechange.qtybalanced as quantitychange,
-    productname.qty as newlevel,
+    (productname.qty - coalesce(stockreceived.qtyreceived,0)) + coalesce(stocksold.qtysold,0) as newlevel,
     stocktakechange.datechanged,
     stocktakechange.changer
 from
@@ -68,8 +68,8 @@ select
     mstore.m_product_id,
     prod.name as product,
     sum(mstore.qtyonhand) as qty
-from 
-    m_storage mstore
+from
+    m_storageonhand mstore
     inner join m_product prod on mstore.m_product_id = prod.m_product_id
 where
     mstore.ad_client_id = $P{AD_CLIENT_ID}
@@ -83,15 +83,35 @@ select
     sum(mtr.movementqty) as qtybalanced,
     buser.name as changer,
     mtr.updated as datechanged
-from 
+from
     m_transaction mtr
     inner join ad_user buser on mtr.updatedby = buser.ad_user_id
-where 
+where
     mtr.ad_client_id = $P{AD_CLIENT_ID}
     and mtr.movementtype in ('P+','P-')
     and (date(mtr.movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by mtr.m_product_id, buser.name, mtr.updated
 ) as stocktakechange on productname.m_product_id = stocktakechange.m_product_id
+left join
+(
+select inoutline.m_product_id,
+       coalesce(sum(inoutline.movementqty),0) as qtysold
+from m_inoutline inoutline
+inner join m_inout inout on inoutline.m_inout_id = inout.m_inout_id
+where inoutline.ad_client_id = $P{AD_CLIENT_ID}
+and inout.movementtype = 'C-'
+and (date(inout.movementdate) >= date($P{Begin Date}))
+group by inoutline.m_product_id
+) as stocksold on stocktakechange.m_product_id = stocksold.m_product_id
+left join
+(
+select m_product_id,
+       coalesce(sum(movementqty),0) as qtyreceived
+from m_transaction
+where ad_client_id = $P{AD_CLIENT_ID} and movementtype = 'V+'
+    and (date(movementdate) >= date($P{Begin Date}))
+group by m_product_id
+) as stockreceived on stocktakechange.m_product_id = stockreceived.m_product_id
 order by stocktakechange.datechanged asc;]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
@@ -115,7 +135,7 @@ order by stocktakechange.datechanged asc;]]>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
     productname.product,
@@ -172,15 +192,23 @@ limit 1;]]>
 	</field>
 	<title>
 		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="595" height="20" uuid="d7ca69f9-1c91-43b2-8f49-c7ea5e8d89c7">
+				<reportElement x="210" y="0" width="385" height="20" uuid="d7ca69f9-1c91-43b2-8f49-c7ea5e8d89c7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Stock Balancing Report " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Period (from " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " to " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date}) + ")"]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="210" height="20" uuid="046a4a9c-abe6-4add-9658-bc830d7c108d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock Balancing Report]]></text>
+			</staticText>
 		</band>
 	</title>
 	<summary>
@@ -206,11 +234,11 @@ limit 1;]]>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="160" uuid="9c87f6c9-a00c-4218-bcdc-d9bb122a05d5">
+					<jr:column width="210" uuid="9c87f6c9-a00c-4218-bcdc-d9bb122a05d5">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="160" height="30" uuid="4c4ed5f7-5e0d-445b-a811-7e8d8e0f63a2"/>
+								<reportElement x="0" y="0" width="210" height="30" uuid="4c4ed5f7-5e0d-445b-a811-7e8d8e0f63a2"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -221,23 +249,21 @@ limit 1;]]>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="160" height="15" uuid="d907d998-b912-44e1-bc20-20b98aa79700">
-									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-								</reportElement>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="210" height="15" uuid="d907d998-b912-44e1-bc20-20b98aa79700"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
-									<paragraph leftIndent="5"/>
+									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="6282fa6f-90ec-4975-81f8-92649a3cb237">
+					<jr:column width="70" uuid="6282fa6f-90ec-4975-81f8-92649a3cb237">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="100" height="30" uuid="4db4de28-e7dd-4e33-b8f6-b04e09a5babb"/>
+								<reportElement x="0" y="0" width="70" height="30" uuid="4db4de28-e7dd-4e33-b8f6-b04e09a5babb"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -247,23 +273,21 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="9dafd07d-3963-4362-88c8-c28ec06af641">
-									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-								</reportElement>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="70" height="15" uuid="9dafd07d-3963-4362-88c8-c28ec06af641"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
-									<paragraph rightIndent="5"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{quantitychange}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80" uuid="6eac8560-8721-4b39-811d-a1c7bf7e8f75">
+					<jr:column width="60" uuid="6eac8560-8721-4b39-811d-a1c7bf7e8f75">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="30" uuid="c39ea993-8e8b-4d1e-875c-dde3c65936d2"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="c39ea993-8e8b-4d1e-875c-dde3c65936d2"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -272,14 +296,12 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="15" uuid="5a5c25c0-50ef-4cfd-a417-14eaff4e579e">
-									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-								</reportElement>
+							<textField isStretchWithOverflow="true" pattern="###0.###;-###0.###" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="60" height="15" uuid="5a5c25c0-50ef-4cfd-a417-14eaff4e579e"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
-									<paragraph rightIndent="5"/>
+									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{newlevel}]]></textFieldExpression>
 							</textField>
@@ -299,13 +321,11 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="15" uuid="82029608-d29f-4d90-b151-95bf38f45547">
-									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-								</reportElement>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="15" uuid="82029608-d29f-4d90-b151-95bf38f45547"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
-									<paragraph leftIndent="5"/>
+									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{datechanged}]]></textFieldExpression>
 							</textField>
@@ -325,13 +345,11 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="135" height="15" uuid="0c2db98b-6648-4f6e-85d2-2099d407ef0f">
-									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-								</reportElement>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="135" height="15" uuid="0c2db98b-6648-4f6e-85d2-2099d407ef0f"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
-									<paragraph leftIndent="5"/>
+									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{changer}]]></textFieldExpression>
 							</textField>
