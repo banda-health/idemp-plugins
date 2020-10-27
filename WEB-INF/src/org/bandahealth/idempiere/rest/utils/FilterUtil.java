@@ -423,6 +423,9 @@ public class FilterUtil {
 	 * @return
 	 */
 	public static List<String> getTablesNeedingJoins(String filterJson) {
+		if (StringUtil.isNullOrEmpty(filterJson)) {
+			return new ArrayList<>();
+		}
 		try {
 			Map<String, Object> expression = parseJsonString(filterJson);
 			// Make sure to return the distinct list without duplicates
