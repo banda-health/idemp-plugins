@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -10,6 +11,9 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.MOrder;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * Receive products logic
@@ -116,7 +120,19 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU + "=?", null)
+					.setParameters(entityUuid).first();
+			if (order.isSOTrx()) {
+				throw new AdempiereException("Document id not a receive product (PO)");
+			}
+			if (order.isComplete()) {
+				throw new AdempiereException("Order is already completed");
+			} else {
+				return order.delete(false);
+			}
+		} catch (Exception ex) {
+			throw new AdempiereException(ex.getLocalizedMessage());
+		}
 	}
 }
