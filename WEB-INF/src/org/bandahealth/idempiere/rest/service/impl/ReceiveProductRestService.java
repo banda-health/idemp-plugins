@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -73,5 +74,11 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
 	public ReceiveProduct saveAndProcessVisit(ReceiveProduct entity) {
 		return dbService.saveAndProcessEntity(entity);
+	}
+	
+	@DELETE
+	@Path(IRestConfigs.RECEIVE_PRODUCT_PATH)
+	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
+		return dbService.deleteEntity(uuid);
 	}
 }
