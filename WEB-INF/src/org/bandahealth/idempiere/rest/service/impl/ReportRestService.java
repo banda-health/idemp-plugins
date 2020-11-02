@@ -119,6 +119,9 @@ public class ReportRestService {
 		case ReportDBService.PAYMENT_TRAIL_REPORT:
 			report = dbService.generatePaymentTrailReport(uuid);
 			break;
+		case ReportDBService.DIAGNOSIS_REPORT:
+			report = dbService.generateDiagnosisReport(DateUtil.parseDate(beginDate), DateUtil.parseDate(endDate), uuid);
+			break;
 		default:
 			break;
 		}
