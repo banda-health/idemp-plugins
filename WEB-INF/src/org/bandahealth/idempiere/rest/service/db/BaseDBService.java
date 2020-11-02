@@ -223,8 +223,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			if (!dynamicJoinClause.toString().trim().isEmpty()) {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
-			} else if (SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
-				query.addJoinClause(SortUtil.getJoinClauseFromAlias(sortColumn, getDynamicJoins()));
+			} 
+			if (SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
+				query.addJoinClause(SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins()));
 			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);

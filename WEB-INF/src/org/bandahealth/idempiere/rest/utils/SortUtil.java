@@ -20,8 +20,12 @@ public class SortUtil {
 	 * @param joinColumns A map of join columns provided
 	 * @return a string representing the join clause. 
 	 */
-	public static String getJoinClauseFromAlias(String sortColumn, Map<String, String> joinColumns) {
-		return joinColumns.get(sortColumn.substring(0, sortColumn.indexOf("."))).toString();
+	public static String getJoinClauseFromAlias(String sortColumn, String joinClause,  Map<String, String> joinColumns) {
+		String tableName = sortColumn.substring(0, sortColumn.indexOf("."));
+		String alias = tableName + ".";
+		if (joinClause != null && joinClause.toLowerCase().contains(alias))
+			return null;
+		return joinColumns.get(tableName.toString());
 		
 	}
 
