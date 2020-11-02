@@ -50,6 +50,8 @@ public class ReportDBService extends BaseReportDBProcess {
 	public static final String DEBT_PAYMENT_RECEIPT_VALUE = "debtpaymentreceipt";
 	public static final String PAYMENT_TRAIL_REPORT = "Payment Trail report";
 	public static final String PAYMENT_TRAIL_REPORT_VALUE = "paymenttrailreport";
+	public static final String DIAGNOSIS_REPORT = "Diagnosis Report";
+	public static final String DIAGNOSIS_REPORT_VALUE = "diagnosisreport";
 
 	public static final Map<String, String> reportNameMapping = new HashMap<String, String>() {
 		{
@@ -78,6 +80,7 @@ public class ReportDBService extends BaseReportDBProcess {
 	private final String PATIENT_TYPE = "Patient Type";
 	private final String DEBT_PAYMENT_ID = "debtPaymentID";
 	private final String C_BPARTNER_UU = "c_bpartner_uu";
+	private final String DIAGNOSIS = "Diagnosis";
 
 	private String reportOutputType;
 
@@ -293,5 +296,13 @@ public class ReportDBService extends BaseReportDBProcess {
 	public File generatePaymentTrailReport(String patientUuid) {
 		return generateReport(PAYMENT_TRAIL_REPORT, reportOutputType,
 				new ProcessInfoParameter[] { new ProcessInfoParameter(C_BPARTNER_UU, patientUuid, null, null, null)});
+	}
+	
+	public File generateDiagnosisReport(Date beginDate, Date endDate, String diagnosis) {
+		return generateReport(DIAGNOSIS_REPORT, reportOutputType,
+				new ProcessInfoParameter[] { 
+						new ProcessInfoParameter(BEGIN_DATE, beginDate, null, null, null),
+						new ProcessInfoParameter(END_DATE, endDate, null, null, null),
+						new ProcessInfoParameter(DIAGNOSIS, diagnosis, null, null, null)});
 	}
 }
