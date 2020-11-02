@@ -6,11 +6,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -24,7 +28,10 @@ import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_BPartner;
+import org.compiere.model.X_C_Order;
 import org.compiere.util.Env;
 
 /**
@@ -42,10 +49,21 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private ReportDBService reportDBService;
 	private PaymentDBService paymentDBService;
 	private MBPartner_BH mPatient;
+	
+	private Map<String, String> dynamicJoins = new HashMap<>() {{
+		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = "
+				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+	}};
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		paymentDBService = new PaymentDBService();
+	}
+	
+	
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
 	}
 
 	@Override
@@ -241,10 +259,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		String join ="JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
-				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID;
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson, join);
+				filterJson, null);
 	}
 
 	/**
