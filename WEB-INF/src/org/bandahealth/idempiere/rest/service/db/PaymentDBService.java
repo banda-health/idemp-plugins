@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.NHIF;

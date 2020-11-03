@@ -7,10 +7,9 @@ import java.util.Map;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Expense;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.X_C_BPartner;
