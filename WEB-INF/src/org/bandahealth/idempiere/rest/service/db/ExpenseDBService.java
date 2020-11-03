@@ -1,15 +1,18 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Expense;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.X_C_BPartner;
 
 /**
  * Expenses logic
@@ -17,11 +20,21 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
  * @author andrew
  */
 public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
+	
+	private Map<String, String> dynamicJoins = new HashMap<>() {{
+		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MInvoice_BH.Table_Name + "." + MInvoice_BH.COLUMNNAME_C_BPartner_ID + " = "
+				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+	}};
 
 	private VendorDBService vendorDBService;
 
 	public ExpenseDBService() {
 		this.vendorDBService = new VendorDBService();
+	}
+	
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
 	}
 
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
@@ -34,11 +47,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		parameters.add("N");
 		parameters.add("Y");
 		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
-
-		String join = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
-				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MInvoice_BH.Table_Name + "." + MInvoice_BH.COLUMNNAME_C_BPartner_ID;
-
-		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson, join);
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
 	}
 
 	@Override
