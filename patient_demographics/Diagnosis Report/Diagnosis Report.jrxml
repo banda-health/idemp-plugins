@@ -55,7 +55,7 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-		<parameter name="diagnosis" class="java.lang.String"/>
+		<parameter name="Diagnosis" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[select
     corder.description as diagnosis,
@@ -66,7 +66,7 @@ from c_order corder
     inner join c_bpartner cb on corder.c_bpartner_id = cb.c_bpartner_id
 where
     corder.ad_client_id = $P{AD_CLIENT_ID}
-    and lower(corder.description) like '%$P!{diagnosis}%'
+    and lower(corder.description) like '%$P!{Diagnosis}%'
     and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 order by 2 asc;]]>
 		</queryString>
@@ -89,7 +89,7 @@ order by 2 asc;]]>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="diagnosis" class="java.lang.String"/>
+	<parameter name="Diagnosis" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select
     corder.description as diagnosis,
@@ -100,7 +100,7 @@ from c_order corder
     inner join c_bpartner cb on corder.c_bpartner_id = cb.c_bpartner_id
 where
     corder.ad_client_id = $P{AD_CLIENT_ID}
-    and lower(corder.description) like '%$P!{diagnosis}%'
+    and lower(corder.description) like '%$P!{Diagnosis}%'
     and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 order by 2 asc
 limit 1;]]>
@@ -151,7 +151,7 @@ limit 1;]]>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="ce49302b-6905-454f-bcad-5c52ab5be49f">
+					<datasetRun subDataset="tableDataset" uuid="e4312aa1-ce91-4230-998e-dc491dbd90fa">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -161,8 +161,8 @@ limit 1;]]>
 						<datasetParameter name="End Date">
 							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="diagnosis">
-							<datasetParameterExpression><![CDATA[$P{diagnosis}]]></datasetParameterExpression>
+						<datasetParameter name="Diagnosis">
+							<datasetParameterExpression><![CDATA[$P{Diagnosis}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
