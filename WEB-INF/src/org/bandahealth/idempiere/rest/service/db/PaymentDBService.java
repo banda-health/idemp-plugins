@@ -2,7 +2,9 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -20,6 +22,7 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_BPartner;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
@@ -33,6 +36,18 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	private final String CURRENCY = "KES";
 	private PatientDBService patientDBService;
 	private EntityMetadataDBService entityMetadataDBService;
+	
+
+	private Map<String, String> dynamicJoins = new HashMap<>() {{
+		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." + MPayment_BH.COLUMNNAME_C_BPartner_ID + " = "
+				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+	}};
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
+	}
+
 
 	public PaymentDBService() {
 		patientDBService = new PatientDBService();
@@ -43,11 +58,8 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		String join = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
-				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MPayment_BH.Table_Name + "." + MPayment_BH.COLUMNNAME_C_BPartner_ID;
-
 		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn,
-				sortOrder, filterJson, join);
+				sortOrder, filterJson, null);
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,

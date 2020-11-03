@@ -10,12 +10,14 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
+import org.bandahealth.idempiere.rest.utils.SortUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+
 
 /**
  * Abstract common db service functionality
@@ -66,7 +68,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	private boolean checkColumnExists(String columnName) {
 		if (getModelInstance() != null) {
-			return getModelInstance().get_ColumnIndex(columnName) > -1;
+			return getModelInstance().get_ColumnIndex(columnName) > -1 || columnName.contains(".");
 		}
 
 		return false;
@@ -221,6 +223,12 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			if (!dynamicJoinClause.toString().trim().isEmpty()) {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
+			} 
+			if (SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
+				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
+				if(joinString != null) {
+					query.addJoinClause(joinString);
+				}
 			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);
