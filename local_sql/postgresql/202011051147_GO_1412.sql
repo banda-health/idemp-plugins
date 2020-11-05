@@ -1,3 +1,4 @@
+CREATE OR REPLACE view bh_stocktake_v AS
 WITH quantitysums AS (
          SELECT s_1.m_product_id,
             sum(s_1.qtyonhand) AS quantity,
@@ -39,3 +40,6 @@ WITH quantitysums AS (
      LEFT JOIN bh_stocktake st ON asi.m_attributesetinstance_id = st.m_attributesetinstance_id
   WHERE attset.name::text = 'BandaHealthProductAttributeSet'::text
   ORDER BY p.name;
+
+SELECT register_migration_script('202011051147_GO_1412.sql') FROM dual;
+
