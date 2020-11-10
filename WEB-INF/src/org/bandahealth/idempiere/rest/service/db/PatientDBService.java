@@ -210,7 +210,9 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			return new Patient(instance.getC_BPartner_UU(), instance.getName(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getBH_Phone(), address, DateUtil.parseDateOnly(instance.getCreated()),
-					instance.getbh_gender(), instance.isActive(), instance.getBH_Local_PatientID());
+					instance.getbh_gender(), instance.isActive(), instance.getBH_Local_PatientID(),
+					VisitDBService.getVisitsCount(instance.get_ID()), 
+					VisitDBService.getLastVisitDate(instance));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());

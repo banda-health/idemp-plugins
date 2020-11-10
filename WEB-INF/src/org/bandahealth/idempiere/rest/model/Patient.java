@@ -85,7 +85,8 @@ public class Patient extends BusinessPartner {
 	}
 
 	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,
-			String phone, String address, String created, String gender, boolean isActive, String localPatientNumber) {
+			String phone, String address, String created, String gender, boolean isActive, String localPatientNumber,
+			int totalVisits, String lastVisitDate) {
 		setUuid(uuid);
 		setName(name);
 		setTotalOpenBalance(totalOpenBalance);
@@ -96,6 +97,8 @@ public class Patient extends BusinessPartner {
 		this.setCreated(created);
 		this.dateOfBirth = dateOfBirth;
 		this.localPatientNumber = localPatientNumber;
+		this.totalVisits = totalVisits;
+		this.lastVisitDate= lastVisitDate;
 
 		String description = name;
 		if (patientNumber != null) {
