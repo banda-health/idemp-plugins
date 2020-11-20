@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.webui.dataservice.BaseDataService;
  * Provide data for dashboard menu (headers and buttons)
  *
  */
-public class MHomeScreenButtonGroupDataServiceImpl extends BaseDataService<MDashboardButtonGroup> {
+public class MDashboardButtonGroupDataServiceImpl extends BaseDataService<MDashboardButtonGroup> {
 
 	@Override
 	public List<MDashboardButtonGroup> getData() {

@@ -2,18 +2,18 @@ package org.bandahealth.idempiere.webui.dataservice.impl;
 
 import java.util.List;
 
-import org.bandahealth.idempiere.base.model.MHomeScreenButton;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.webui.dataservice.BaseDataService;
 
 /**
  * Provide data for dashboard menu (headers and buttons)
  *
  */
-public class MHomeScreenButtonDataServiceImpl extends BaseDataService<MHomeScreenButton> {
+public class MDashboardButtonGroupButtonDataServiceImpl extends BaseDataService<MDashboardButtonGroupButton> {
 
 	@Override
-	public List<MHomeScreenButton> getData() {
-		List<MHomeScreenButton> buttons = buildQuery.setOrderBy(MHomeScreenButton.COLUMNNAME_LineNo).list();
+	public List<MDashboardButtonGroupButton> getData() {
+		List<MDashboardButtonGroupButton> buttons = buildQuery.setOrderBy(MDashboardButtonGroupButton.COLUMNNAME_LineNo).list();
 		return buttons;
 	}
 
@@ -24,7 +24,7 @@ public class MHomeScreenButtonDataServiceImpl extends BaseDataService<MHomeScree
 
 	@Override
 	protected String getTableName() {
-		return MHomeScreenButton.Table_Name;
+		return MDashboardButtonGroupButton.Table_Name;
 	}
 
 	@Override
