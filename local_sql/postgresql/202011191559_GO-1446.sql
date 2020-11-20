@@ -170,6 +170,12 @@ UPDATE ad_column
 SET columnname = 'BH_DbrdBtnGrp_Btn_UU', name = 'BH_DbrdBtnGrp_Btn_UU'
 WHERE columnname = 'BH_HmScrn_ButtonGroupLine_UU';
 
+-- We also need to udpate AD_Element
+UPDATE ad_element SET columnname = 'BH_DbrdBtnGrp_ID', name = 'BH_DbrdBtnGrp_ID', printname = 'Button Group' WHERE ad_element_uu = '6a6d008b-3531-4c75-8483-5f4b859a6dfe';
+UPDATE ad_element SET columnname = 'BH_DbrdBtnGrp_UU', name = 'BH_DbrdBtnGrp_UU', printname = 'BH_DbrdBtnGrp_UU' WHERE ad_element_uu = 'd7ba3d57-65f4-432f-b194-b04f8e95c4d8';
+UPDATE ad_element SET columnname = 'BH_DbrdBtnGrp_Btn_ID', name = 'BH_DbrdBtnGrp_Btn_ID', printname = 'BH_DbrdBtnGrp_Btn_ID' WHERE ad_element_uu = '616de46c-495b-44b3-aa37-ac230f6b404c';
+UPDATE ad_element SET columnname = 'BH_DbrdBtnGrp_Btn_UU', name = 'BH_DbrdBtnGrp_Btn_UU', printname = 'BH_DbrdBtnGrp_Btn_UU' WHERE ad_element_uu = '6646b341-7ed3-40ee-a457-ce2a98cfbd54';
+
 /**********************************************************************************************************/
 -- Add translation tables for the (former) home screen buttons
 /**********************************************************************************************************/
