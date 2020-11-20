@@ -142,7 +142,7 @@ SET name = 'BH_DbrdBtnGrp', tablename = 'BH_DbrdBtnGrp'
 WHERE ad_table_uu = 'ae04c83f-2010-4037-bd42-e6f15a857823';
 
 UPDATE ad_column
-SET columnname = 'BH_DbrdBtnGrp_ID', name = 'BH_DbrdBtnGrp'
+SET columnname = 'BH_DbrdBtnGrp_ID', name = 'BH_DbrdBtnGrp_ID'
 WHERE columnname = 'BH_HmScrn_ButtonGroup_ID';
 UPDATE ad_column
 SET columnname = 'BH_DbrdBtnGrp_UU', name = 'BH_DbrdBtnGrp_UU'
@@ -164,7 +164,7 @@ SET name = 'BH_DbrdBtnGrp_Btn', tablename = 'BH_DbrdBtnGrp_Btn'
 WHERE ad_table_uu = 'bdfcbd0c-4810-4d63-a5b6-3c6ca2119b11';
 
 UPDATE ad_column
-SET columnname = 'BH_DbrdBtnGrp_Btn_ID', name = 'BH_DbrdBtnGrp_Btn'
+SET columnname = 'BH_DbrdBtnGrp_Btn_ID', name = 'BH_DbrdBtnGrp_Btn_ID'
 WHERE columnname = 'BH_HmScrn_ButtonGroupLine_ID';
 UPDATE ad_column
 SET columnname = 'BH_DbrdBtnGrp_Btn_UU', name = 'BH_DbrdBtnGrp_Btn_UU'
