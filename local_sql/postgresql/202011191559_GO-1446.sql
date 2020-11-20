@@ -255,10 +255,6 @@ UPDATE ad_sequence
 SET currentnext = (SELECT MAX(ad_sequence_id) + 1 FROM ad_sequence)
 WHERE name = 'AD_Sequence';
 
--- Insert the new values into ad_element
-INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2019-03-20 15:39:51.493000', 100, '2019-03-20 15:39:51.493000', 100, 'BH_DbrdBtnGrp_Trl_UU', 'U', 'BH_DbrdBtnGrp_Trl_UU', 'BH_DbrdBtnGrp_Trl_UU', null, null, null, null, null, null, 'ec3b4a4d-5026-4bdf-b7bd-ae756981ba2e', null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2019-03-20 15:39:53.192000', 100, '2019-03-20 15:39:53.192000', 100, 'BH_DbrdBtnGrp_Btn_Trl_UU', 'U', 'BH_DbrdBtnGrp_Btn_Trl_UU', 'BH_DbrdBtnGrp_Btn_Trl_UU', null, null, null, null, null, null, '1b62f6ad-569b-4bb3-b8eb-99ac7087fb5e', null) ON CONFLICT DO NOTHING;
-
 /**********************************************************************************************************/
 -- Insert translation data for the (former) home screen buttons
 /**********************************************************************************************************/
