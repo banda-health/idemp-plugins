@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.base.factory;
 
 import org.adempiere.base.IProcessFactory;
-import org.bandahealth.idempiere.base.process.SalesProcess;
-import org.bandahealth.idempiere.base.process.StockTakeProcess;
+import org.bandahealth.idempiere.base.model.MBHPaymentRef;
+import org.bandahealth.idempiere.base.process.*;
 import org.compiere.process.ProcessCall;
 import org.compiere.util.CLogger;
 
@@ -17,6 +17,14 @@ public class BHProcessFactory implements IProcessFactory {
 			return new SalesProcess();
 		} else if (className.equals(StockTakeProcess.class.getName())) {
 			return new StockTakeProcess();
+		} else if (className.equals(InitializeStockProcess.class.getName())) {
+			return new InitializeStockProcess();
+		} else if (className.equals(ExpenseProcess.class.getName())) {
+			return new ExpenseProcess();
+		} else if (className.equals(MBHPaymentRef.class.getName())) {
+			return new BHPaymentRefProcess();
+		} else if (className.equals(InitialBandaClientSetup.class.getName())) {
+			return new InitialBandaClientSetup();
 		}
 
 		return null;

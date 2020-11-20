@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.base.modelevent;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.config.BHConfigLoader;
 import org.bandahealth.idempiere.base.config.IBHConfig;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -13,7 +12,6 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrder;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceList;
-import org.compiere.model.MProduct;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -38,8 +36,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		BHConfigLoader.getInstance();
-
 		MBPartner_BH businessPartner = null;
 		PO persistantObject = getPO(event);
 		if (persistantObject instanceof MBPartner_BH) {
@@ -114,6 +110,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 						.setOnlyActiveRecords(true).firstId();
 			}
 			businessPartner.setM_PriceList_ID(priceListId);
+
+			// check unique patient id
+			generatePatientID(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
 			// Set the payment rule
@@ -128,15 +127,13 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			}
 			businessPartner.setPO_PaymentTerm_ID(purchasePaymentTerm.getC_PaymentTerm_ID());
 
-			//Get the default purchase price list for vendors
+			// Get the default purchase price list for vendors
 			String defaultPurchasePList = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
 					+ MPriceList.COLUMNNAME_IsSOPriceList + "='N' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
 					+ Env.getAD_Org_ID(Env.getCtx());
-			
+
 			MPriceList purchasePriceList = QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPriceList.Table_Name, defaultPurchasePList, null)
-					.setOnlyActiveRecords(true)
-					.first();
+					MPriceList.Table_Name, defaultPurchasePList, null).setOnlyActiveRecords(true).first();
 			if (purchasePriceList == null) {
 				throw new AdempiereException(
 						"Could not find a default purchase price list in table '" + MPriceList.Table_Name + "'");
@@ -186,4 +183,21 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		user.setPhone(businessPartner.getBH_Phone());
 	}
 
+	/**
+	 * Generate a unique patient id if the current one is not null
+	 * 
+	 * @param patient
+	 */
+	private void generatePatientID(MBPartner_BH patient) {
+		if (patient.getBH_PatientID() != null && !patient.getBH_PatientID().isEmpty()) {
+			return;
+		}
+
+		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
+		if (generatedPatientId == null || generatedPatientId instanceof String) {
+			return;
+		}
+
+		patient.setBH_PatientID(String.valueOf(generatedPatientId));
+	}
 }

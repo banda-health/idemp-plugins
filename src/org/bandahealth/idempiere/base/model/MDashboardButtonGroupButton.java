@@ -3,15 +3,19 @@ package org.bandahealth.idempiere.base.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 
-public class MDashboardButtonGroupButton extends X_BH_DbrdBtnGrp_Btn {
-	
-	/** Column name Included_Role_ID */
-    public static final String COLUMNNAME_Included_Role_ID = "Included_Role_ID";
+public class MDashboardButtonGroupButton extends X_BH_HmScrn_ButtonGroupLine {
 
-	/** Get IncludedRole.
-	*/
+	/** Column name Included_Role_ID */
+	public static final String COLUMNNAME_Included_Role_ID = "Included_Role_ID";
+
+	/**
+	 * Get IncludedRole.
+	 */
 	public int getIncludedRole_ID() {
-		return (Integer) get_Value(COLUMNNAME_Included_Role_ID);
+		Integer ii = (Integer) get_Value(COLUMNNAME_Included_Role_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 
 	public MDashboardButtonGroupButton(Properties ctx, int BH_HomeScreen_Button_ID, String trxName) {

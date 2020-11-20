@@ -19,13 +19,17 @@ package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
-import org.compiere.model.*;
+
+import org.compiere.model.I_Persistent;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_TabNavBtn
  *  @author iDempiere (generated) 
  *  @version Release 5.1 - $Id$ */
-public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent 
+public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
 {
 
 	/**
@@ -77,7 +81,7 @@ public class X_BH_TabNavBtn extends PO implements I_BH_TabNavBtn, I_Persistent
 
 	public org.compiere.model.I_AD_Column getAD_Column() throws RuntimeException
     {
-		return (org.compiere.model.I_AD_Column)MTable.get(getCtx(), org.compiere.model.I_AD_Column.Table_Name)
+		return (org.compiere.model.I_AD_Column) MTable.get(getCtx(), org.compiere.model.I_AD_Column.Table_Name)
 			.getPO(getAD_Column_ID(), get_TrxName());	}
 
 	/** Set Column.

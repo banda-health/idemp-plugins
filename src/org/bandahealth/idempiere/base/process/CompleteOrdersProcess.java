@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.process.call.ProcessSalesOrder;
 import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.Env;
 
 public class CompleteOrdersProcess extends SvrProcess {
 
@@ -33,6 +34,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 				.setOnlyActiveRecords(true).list();
 		log.log(Level.INFO, "ORDER PAYMENTS::::: " + payments.size());
 		int count = 0;
+		int usersAD_Client_ID = Env.getAD_Client_ID(Env.getCtx());
 		for (MPayment_BH payment : payments) {
 			// the DocStatus could be in Drafted, In Progress.
 			MOrder_BH salesOrder = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
@@ -64,6 +66,11 @@ public class CompleteOrdersProcess extends SvrProcess {
 				continue;
 			}
 
+			// Several entities use the AD_Client value in the context to determine their own
+			// This leads to bad results when processing orders because then the allocations have
+			// the wrong AD_Client_IDs and can't fetch the appropriate Bank Accounts and Account Schemas
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, salesOrder.getAD_Client_ID());
+
 			new ProcessSalesOrder(salesOrder, getCtx(), get_TrxName(), new ProcessCallback<String>() {
 
 				@Override
@@ -82,6 +89,9 @@ public class CompleteOrdersProcess extends SvrProcess {
 			}).processIt();
 			count++;
 		}
+
+		// Reset the AD_Client_ID to be correct
+		Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
 
 		String msg = "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
 				+ " mins. Processed " + count + " order(s).";
