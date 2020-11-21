@@ -37,7 +37,7 @@ import org.zkoss.zul.Window;
 public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 
 	private static final long serialVersionUID = 1L;
-
+	private final String logoutMessageUuid = "ee7433c3-ffe0-4ceb-8077-79edf6d36400";
 	@Wire
 	private Tabs headers;
 	@Wire
@@ -46,12 +46,9 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 	private Panel mainDashboardPanel;
 	private MDashboardButtonGroupButtonDataServiceImpl buttonDataService;
 	private MDashboardButtonGroupDataServiceImpl buttonGroupDataService;
-
 	private Integer userId = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
 	private Integer roleId = Env.getContextAsInt(Env.getCtx(), "#AD_Role_ID");
 	private String usersLanguage = Env.getContext(Env.getCtx(), "#AD_Language");
-
-	private final String logoutMessageUuid = "ee7433c3-ffe0-4ceb-8077-79edf6d36400";
 
 	@Override
 	public void doAfterCompose(Vlayout vlayout) {
@@ -134,10 +131,10 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 		List<MDashboardButtonGroupButton> filteredButtons = new ArrayList<MDashboardButtonGroupButton>();
 		List<MRoleIncluded> assignedSubRoles = new Query(Env.getCtx(), MRoleIncluded.Table_Name,
 				MRoleIncluded.COLUMNNAME_AD_Role_ID + "=" + currentRoleId, null)
-						.addJoinClause(" JOIN " + MDashboardButtonGroupButton.Table_Name + " ON " + MRoleIncluded.Table_Name + "."
-								+ MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + MDashboardButtonGroupButton.Table_Name + "."
-								+ MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID)
-						.list();
+				.addJoinClause(" JOIN " + MDashboardButtonGroupButton.Table_Name + " ON " + MRoleIncluded.Table_Name + "."
+						+ MRoleIncluded.COLUMNNAME_Included_Role_ID + "=" + MDashboardButtonGroupButton.Table_Name + "."
+						+ MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID)
+				.list();
 		for (MRoleIncluded role : assignedSubRoles) {
 			for (MDashboardButtonGroupButton mHomeScreenButton : buttons) {
 				if (role.getIncluded_Role_ID() == mHomeScreenButton.getIncludedRole_ID()) {
@@ -152,8 +149,7 @@ public class DashboardMenuComposer extends SelectorComposer<Vlayout> {
 		Tabpanel panel = new Tabpanel();
 		Stream<MDashboardButtonGroupButton> buttonsStream = buttons.stream();
 		if (group != null) {
-			buttonsStream = buttonsStream
-					.filter(b -> b.getBH_DbrdBtnGrp_Btn_ID() == group.getBH_DbrdBtnGrp_ID());
+			buttonsStream = buttonsStream.filter(b -> b.getBH_DbrdBtnGrp_ID() == group.getBH_DbrdBtnGrp_ID());
 		}
 		buttonsStream.collect(Collectors.toList()).forEach(button -> {
 			try {

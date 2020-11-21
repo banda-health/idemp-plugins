@@ -50,7 +50,7 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 		buttonGrid.setAttribute(REPORT_OR_PROCESS_ATTRIBUTE, isReportOrProcess);
 		buttonGrid.setAttribute(SPECIAL_FORM_ATTRIBUTE, isSpecialForm);
 		buttonGrid.setTooltiptext(dashboardButtonGroupButton.get_Translation(
-				MDashboardButtonGroupButton.COLUMNNAME_ButtonText, usersLanguage));
+				MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText, usersLanguage));
 		buttonGrid.addEventListener(Events.ON_CLICK, this);
 		return buttonGrid;
 	}
