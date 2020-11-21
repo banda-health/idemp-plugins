@@ -286,6 +286,78 @@ UPDATE bh_dbrdbtngrp_btn SET buttonhelptext = 'Enter patients into the system', 
 UPDATE bh_dbrdbtngrp_btn SET buttonhelptext = 'Track your expenses ', buttontext = 'Track My Expenses', description = '/expenses', isactive = 'Y', name = 'Track Expenses' WHERE bh_dbrdbtngrp_btn_uu = '2bd2f18b-7fe9-4079-b074-8dc113b98714';
 
 /**********************************************************************************************************/
+-- Add translation tables for the Tab Navigation Buttons
+/**********************************************************************************************************/
+create table if not exists bh_tabnavbtn_trl
+(
+	ad_client_id numeric(10) not null,
+	ad_language varchar(6) not null,
+	ad_org_id numeric(10) not null,
+	bh_tabnavbtn_id numeric(10) not null,
+	bh_tabnavbtn_trl_uu varchar(36),
+	buttonhelptext varchar(100),
+	buttontext varchar(100),
+	created timestamp default statement_timestamp() not null,
+	createdby numeric(10) not null,
+	description varchar(255),
+	help varchar(2000),
+	isactive char default 'Y'::bpchar not null,
+	istranslated char not null,
+	name varchar(60) not null,
+	updated timestamp default statement_timestamp() not null,
+	updatedby numeric(10) not null,
+	constraint pk_bh_tabnavbtn_trl
+		primary key (bh_tabnavbtn_id, ad_language),
+	constraint bh_tabnavbtn_trl_uu_idx
+		unique (bh_tabnavbtn_trl_uu),
+	constraint adlanguage_bhtabnavbtntrl
+		foreign key (ad_language) references ad_language,
+	constraint bhtabnavbtn_bhtabnavbtntrl
+		foreign key (bh_tabnavbtn_id) references bh_tabnavbtn,
+	constraint bh_tabnavbtn_trl_isactive_check
+		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar])),
+	constraint bh_tabnavbtn_trl_istranslated_check
+		check (istranslated = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
+);
+
+create table if not exists bh_tabnavbtn_tab_trl
+(
+	ad_client_id numeric(10) not null,
+	ad_language varchar(6) not null,
+	ad_org_id numeric(10) not null,
+	bh_tabnavbtn_tab_id numeric(10) not null,
+	bh_tabnavbtn_tab_trl_uu varchar(36),
+	buttonhelptext varchar(100),
+	buttontext varchar(100),
+	created timestamp default statement_timestamp() not null,
+	createdby numeric(10) not null,
+	description varchar(255),
+	help varchar(2000),
+	isactive char default 'Y'::bpchar not null,
+	istranslated char not null,
+	name varchar(60) not null,
+	updated timestamp default statement_timestamp() not null,
+	updatedby numeric(10) not null,
+	constraint pk_bh_tabnavbtn_tab_trl
+		primary key (bh_tabnavbtn_tab_id, ad_language),
+	constraint bh_tabnavbtn_tab_trl_uu_idx
+		unique (bh_tabnavbtn_tab_trl_uu),
+	constraint adlanguage_bhtabnavbtntabtrl
+		foreign key (ad_language) references ad_language,
+	constraint bhtabnavbtntab_bhtabnavbtntabt
+		foreign key (bh_tabnavbtn_tab_id) references bh_tabnavbtn_tab,
+	constraint bh_tabnavbtn_tab_trl_isactive_check
+		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar])),
+	constraint bh_tabnavbtn_tab_trl_istranslated_check
+		check (istranslated = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
+);
+
+/**********************************************************************************************************/
+-- Add translation data for the Tab Navigation Buttons
+/**********************************************************************************************************/
+
+
+/**********************************************************************************************************/
 -- Finish
 /**********************************************************************************************************/
 SELECT register_migration_script('202011191559_GO-1446.sql') FROM dual;
