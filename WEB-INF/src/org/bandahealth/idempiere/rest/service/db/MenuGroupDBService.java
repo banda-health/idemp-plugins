@@ -2,8 +2,10 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.bandahealth.idempiere.base.model.MHomeScreenButton;
-import org.bandahealth.idempiere.base.model.MHomeScreenButtonGroup;
+
+
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.MenuGroupItem;
 import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
@@ -17,9 +19,8 @@ import org.compiere.util.Env;
 
 /**
  * Retrieve menu group and line items.
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class MenuGroupDBService {
 
@@ -30,7 +31,7 @@ public class MenuGroupDBService {
 
 	/**
 	 * Get group items
-	 * 
+	 *
 	 * @param pagingInfo
 	 * @return
 	 */
@@ -38,24 +39,24 @@ public class MenuGroupDBService {
 		try {
 			List<MenuGroupItem> results = new ArrayList<>();
 
-			Query query = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, null, null)
-					.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true);
+			Query query = new Query(Env.getCtx(), MDashboardButtonGroup.Table_Name, null, null)
+					.setOrderBy(MDashboardButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true);
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
 
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
-			List<MHomeScreenButtonGroup> menus = query.list();
+			List<MDashboardButtonGroup> menus = query.list();
 
 			boolean isAdmin = hasAdminPrivileges(getRoleId());
 
 			if (!menus.isEmpty()) {
-				for (MHomeScreenButtonGroup menu : menus) {
+				for (MDashboardButtonGroup menu : menus) {
 					List<MenuGroupLineItem> groupLineItems = getMenuGroupLineItems(menu.get_ID(), isAdmin);
 					if (groupLineItems != null && !groupLineItems.isEmpty()) {
 						results.add(new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
-								menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), DateUtil.parse(menu.getCreated()),
+								menu.getBH_DbrdBtnGrp_UU(), menu.isActive(), DateUtil.parse(menu.getCreated()),
 								menu.getCreatedBy(), menu.getName(), menu.getDescription(), menu.getLineNo(),
 								groupLineItems));
 					}
@@ -73,7 +74,7 @@ public class MenuGroupDBService {
 
 	/**
 	 * Retrieve all groupline items for the logged in user.
-	 * 
+	 *
 	 * @return
 	 */
 	public BaseListResponse<MenuGroupLineItem> getMenuGroupLineItems() {
@@ -90,16 +91,16 @@ public class MenuGroupDBService {
 
 	public MenuGroupItem getMenuGroupItem(String uuid) {
 		try {
-			String whereClause = MHomeScreenButtonGroup.COLUMNNAME_BH_HmScrn_ButtonGroup_UU + "=?";
-			MHomeScreenButtonGroup menu = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name, whereClause, null)
-					.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true).setParameters(uuid)
+			String whereClause = MDashboardButtonGroup.COLUMNNAME_BH_DbrdBtnGrp_UU + "=?";
+			MDashboardButtonGroup menu = new Query(Env.getCtx(), MDashboardButtonGroup.Table_Name, whereClause, null)
+					.setOrderBy(MDashboardButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true).setParameters(uuid)
 					.first();
 
 			if (menu != null) {
 				List<MenuGroupLineItem> items = getMenuGroupLineItems(menu.get_ID(), hasAdminPrivileges(getRoleId()));
 				if (items != null && !items.isEmpty()) {
 					return new MenuGroupItem(menu.getAD_Client_ID(), menu.getAD_Org_ID(),
-							menu.getBH_HmScrn_ButtonGroup_UU(), menu.isActive(), DateUtil.parse(menu.getCreated()),
+							menu.getBH_DbrdBtnGrp_UU(), menu.isActive(), DateUtil.parse(menu.getCreated()),
 							menu.getCreatedBy(), menu.getName(), menu.getDescription(), menu.getLineNo(), items);
 				}
 			}
@@ -112,16 +113,17 @@ public class MenuGroupDBService {
 
 	public boolean hasAccessToReports() {
 		// Retrieve Reports Menu
-		MHomeScreenButtonGroup menu = new Query(Env.getCtx(), MHomeScreenButtonGroup.Table_Name,
-				MHomeScreenButtonGroup.COLUMNNAME_Name + "=?", null)
-						.setOrderBy(MHomeScreenButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true)
-						.setParameters("Reports").first();
+		MDashboardButtonGroup menu = new Query(Env.getCtx(), MDashboardButtonGroup.Table_Name,
+				MDashboardButtonGroup.COLUMNNAME_Name + "=?", null)
+				.setOrderBy(MDashboardButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true)
+				.setParameters("Reports").first();
 		if (menu == null) {
 			return false;
 		}
 
 		// Get reports
-		List<MHomeScreenButton> reports = getMenuGroupLineItems(menu.get_ID(), hasAdminPrivileges(getRoleId()), null);
+		List<MDashboardButtonGroupButton> reports = getMenuGroupLineItems(menu.get_ID(), hasAdminPrivileges(getRoleId()),
+				null);
 		if (!reports.isEmpty()) {
 			return true;
 		}
@@ -131,19 +133,20 @@ public class MenuGroupDBService {
 
 	/**
 	 * Get group line items
-	 * 
+	 *
 	 * @param menuGroupItemId
 	 * @return
 	 */
 	private List<MenuGroupLineItem> getMenuGroupLineItems(int menuGroupItemId, boolean isAdmin) {
 		List<MenuGroupLineItem> results = new ArrayList<>();
 
-		List<MHomeScreenButton> menuItems = getMenuGroupLineItems(menuGroupItemId, isAdmin, "'Metrics', 'Reports'");
+		List<MDashboardButtonGroupButton> menuItems = getMenuGroupLineItems(menuGroupItemId, isAdmin, "'Metrics', " +
+				"'Reports'");
 
 		if (!menuItems.isEmpty()) {
-			for (MHomeScreenButton menuItem : menuItems) {
+			for (MDashboardButtonGroupButton menuItem : menuItems) {
 				results.add(new MenuGroupLineItem(menuItem.getAD_Client_ID(), menuItem.getAD_Org_ID(),
-						menuItem.getBH_HmScrn_ButtonGroupLine_UU(), menuItem.isActive(),
+						menuItem.getBH_DbrdBtnGrp_Btn_UU(), menuItem.isActive(),
 						DateUtil.parse(menuItem.getCreated()), menuItem.getCreatedBy(), menuItem.getName(),
 						menuItem.getDescription(), menuItem.getAD_InfoWindow_ID(), menuItem.getAD_Window_ID(),
 						menuItem.getAD_Process_ID(), menuItem.getAD_Form_ID(), menuItem.getIncludedRole_ID(),
@@ -155,19 +158,20 @@ public class MenuGroupDBService {
 		return results;
 	}
 
-	private List<MHomeScreenButton> getMenuGroupLineItems(int menuGroupItemId, boolean isAdmin, String exclude) {
+	private List<MDashboardButtonGroupButton> getMenuGroupLineItems(int menuGroupItemId, boolean isAdmin,
+			String exclude) {
 		try {
 			List<Object> parameters = new ArrayList<>();
 
 			StringBuilder whereClause = new StringBuilder();
 			if (menuGroupItemId > 0) {
 				whereClause = new StringBuilder(
-						MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID)
-								.append(" =?");
+						MDashboardButtonGroupButton.Table_Name + "." + MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_ID)
+						.append(" =?");
 				parameters.add(menuGroupItemId);
 			} else {
 				// filter out metrics and reports by default
-				whereClause.append(MHomeScreenButtonGroup.Table_Name + "." + MHomeScreenButtonGroup.COLUMNNAME_Name);
+				whereClause.append(MDashboardButtonGroup.Table_Name + "." + MDashboardButtonGroup.COLUMNNAME_Name);
 
 				if (exclude != null) {
 					whereClause.append(" NOT IN (").append(exclude).append(")");
@@ -181,20 +185,21 @@ public class MenuGroupDBService {
 				parameters.add(getRoleId());
 			}
 
-			Query query = new Query(Env.getCtx(), MHomeScreenButton.Table_Name, whereClause.toString(), null)
+			Query query = new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name, whereClause.toString(), null)
 					.setOnlyActiveRecords(true)
-					.setOrderBy(MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_LineNo);
+					.setOrderBy(MDashboardButtonGroupButton.Table_Name + "." + MDashboardButtonGroupButton.COLUMNNAME_LineNo);
 
-			// join MHomeScreenButtonGroup Table
-			query = query.addJoinClause(" JOIN " + MHomeScreenButtonGroup.Table_Name + " ON "
-					+ MHomeScreenButton.Table_Name + "." + MHomeScreenButton.COLUMNNAME_BH_HmScrn_ButtonGroup_ID + "="
-					+ MHomeScreenButtonGroup.Table_Name + "."
-					+ MHomeScreenButtonGroup.COLUMNNAME_BH_HmScrn_ButtonGroup_ID);
+			// join MDashboardButtonGroup Table
+			query = query.addJoinClause(" JOIN " + MDashboardButtonGroup.Table_Name + " ON "
+					+ MDashboardButtonGroupButton.Table_Name + "." + MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_ID + "="
+					+ MDashboardButtonGroup.Table_Name + "."
+					+ MDashboardButtonGroup.COLUMNNAME_BH_DbrdBtnGrp_ID);
 
 			if (!isAdmin) {
 				// join Role Table
-				query = query.addJoinClause(" JOIN " + MRoleIncluded.Table_Name + " ON " + MHomeScreenButton.Table_Name
-						+ "." + MHomeScreenButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
+				query =
+						query.addJoinClause(" JOIN " + MRoleIncluded.Table_Name + " ON " + MDashboardButtonGroupButton.Table_Name
+						+ "." + MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
 						+ MRoleIncluded.COLUMNNAME_Included_Role_ID);
 			}
 
