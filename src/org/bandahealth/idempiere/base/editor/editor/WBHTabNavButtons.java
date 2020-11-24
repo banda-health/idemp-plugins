@@ -226,13 +226,13 @@ public class WBHTabNavButtons extends WEditor implements StateChangeListener {
 		if (buttonIconClassName == null) {
 			buttonIconClassName = tabButton.getIconClassName();
 		}
-		String buttonText = tabButtonForTab.getButtonText();
+		String buttonText = tabButtonForTab.get_Translation(MTabNavBtnTab.COLUMNNAME_ButtonText);
 		if (buttonText == null) {
-			buttonText = tabButton.getButtonText();
+			buttonText = tabButton.get_Translation(MTabNavBtn.COLUMNNAME_ButtonText);
 		}
-		String buttonHelpText = tabButtonForTab.getButtonText();
+		String buttonHelpText = tabButtonForTab.get_Translation(MTabNavBtnTab.COLUMNNAME_ButtonHelpText);
 		if (buttonHelpText == null) {
-			buttonHelpText = tabButton.getButtonText();
+			buttonHelpText = tabButton.get_Translation(MTabNavBtn.COLUMNNAME_ButtonHelpText);
 		}
 		String buttonClassName = tabButtonForTab.getButtonClassName();
 		if (buttonClassName == null) {
