@@ -11,7 +11,9 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.DBException;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
+import org.bandahealth.idempiere.base.process.InitializeStock;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -158,5 +160,13 @@ public class InventoryDBService {
 	 */
 	private int getTotalRecordCount(String sqlWhere, List<Object> parameters) {
 		return SqlUtil.getCount(X_BH_Stocktake_v.Table_Name, sqlWhere, parameters);
+	}
+	
+	public void initializeStock(MProduct_BH product) {
+		if (product.getBH_DefaultStockLevel() != null) {
+			InitializeStock.createInitialStock(product, Env.getCtx(), null);
+			product.setBH_DefaultStockLevel(null);
+			product.saveEx();
+		}
 	}
 }

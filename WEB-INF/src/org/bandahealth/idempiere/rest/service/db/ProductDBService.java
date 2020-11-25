@@ -36,6 +36,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
+	private InventoryDBService inventoryDBService = new InventoryDBService();
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -165,6 +166,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				if (taxCategory != null) {
 					product.setC_TaxCategory_ID(taxCategory.get_ID());
 				}
+				
+				product.setBH_DefaultStockLevel(entity.getDefaultStockLevel());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
@@ -211,6 +214,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			product.setIsActive(entity.isIsActive());
 
 			product.saveEx();
+			
+			// update inventory
+			if (product.getBH_DefaultStockLevel() != null) {
+				inventoryDBService.initializeStock(product);
+			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
 		} catch (Exception ex) {
