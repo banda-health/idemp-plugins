@@ -137,7 +137,9 @@ public class ProductModelEvent extends AbstractEventHandler {
 					}
 					
 					// calculate price margin
-					product.setBH_PriceMargin(product.getBH_SellPrice().subtract(product.getBH_BuyPrice()));
+					if (product.getBH_SellPrice() != null && product.getBH_BuyPrice() != null) {
+						product.setBH_PriceMargin(product.getBH_SellPrice().subtract(product.getBH_BuyPrice()));
+					}
 
 					product.save(product.get_TrxName());
 				} else {

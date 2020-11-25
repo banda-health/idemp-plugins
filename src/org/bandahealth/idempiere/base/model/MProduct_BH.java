@@ -27,6 +27,7 @@ public class MProduct_BH extends MProduct {
 	public static String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
 	public static String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
 	public static String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
+	public static String COLUMNNAME_BH_DefaultStockLevel = "BH_DefaultStockLevel";
 
 	public MProduct_BH(Properties ctx, int M_Product_ID, String trxName) {
 		super(ctx, M_Product_ID, trxName);
@@ -152,5 +153,22 @@ public class MProduct_BH extends MProduct {
 		if (ii == null)
 			return 0;
 		return ii.intValue();
+	}
+	
+	public void setBH_DefaultStockLevel(BigDecimal bh_defaultstocklevel) {
+		set_Value(COLUMNNAME_BH_DefaultStockLevel, bh_defaultstocklevel);
+	}
+
+	/**
+	 * Get Default stock level
+	 *
+	 * @return Re-order Level
+	 */
+	public BigDecimal getBH_DefaultStockLevel() {
+		BigDecimal value = (BigDecimal) get_Value(COLUMNNAME_BH_DefaultStockLevel);
+		if (value == null)
+			return null;
+		
+		return value;
 	}
 }
