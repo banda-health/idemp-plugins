@@ -495,6 +495,34 @@ WHERE t.ad_table_id = c.ad_table_id
 	AND c.columnname IN ('ButtonHelpText','ButtonText','Name');
 
 /**********************************************************************************************************/
+-- Ensure the new dashboard is used
+/**********************************************************************************************************/
+UPDATE pa_dashboardcontent
+SET zulfilepath = '/zul/DashboardSideMenu.zul'
+WHERE zulfilepath = '/zul/DashboardMenu.zul';
+
+/**********************************************************************************************************/
+-- Add the BandaGO Admin role and include it in the Admin roles
+/**********************************************************************************************************/
+UPDATE ad_role
+SET name = 'BandaGo Admin', description = 'Give access to functionality provided in all the other sub roles  **(Has access to ALL menu items)**'
+WHERE ad_role_uu = '0520b255-2e55-41b7-b95c-4f6660e77625';
+
+INSERT INTO ad_role_included (ad_client_id, ad_org_id, ad_role_id, createdby, included_role_id, isactive, seqno, updatedby, ad_role_included_uu)
+SELECT r.ad_client_id, 0, r.ad_role_id, 100, admn.ad_role_id, 'Y', 10, 100, uuid_generate_v4()
+FROM ad_role r
+CROSS JOIN (SELECT ad_role_id FROM ad_role WHERE name = 'BandaGo Admin') admn
+WHERE r.ad_role_uu IN ('66cad621-be54-415b-9b2c-f3d0ca25db7e','11e24143-fb13-4fa9-b059-3d9ded76c24f','76fb16e6-a8ce-4d43-afbf-c4923569861a','ca79b28c-a637-42a3-92c3-1a7f4888a253','b4f7e813-6c92-4c56-89b8-16546fbab8d6','f09d551c-36de-4789-96b9-08f55ae1f9fe')
+ON CONFLICT DO NOTHING;
+
+/**********************************************************************************************************/
+-- For iDempiere 7.1, update the toolbar buttons
+/**********************************************************************************************************/
+UPDATE ad_toolbarbutton
+SET isshowmore = 'N'
+WHERE ad_toolbarbutton_uu IN ('e4f1785e-db0e-48de-a4af-ac21c647b7f9','85a6a115-51c2-4164-a96d-09bb6d5792da');
+
+/**********************************************************************************************************/
 -- Finish
 /**********************************************************************************************************/
 SELECT register_migration_script('202011191559_GO-1446.sql') FROM dual;
