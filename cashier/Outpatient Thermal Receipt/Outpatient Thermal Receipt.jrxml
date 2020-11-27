@@ -282,13 +282,18 @@ where sorder.c_order_id =  $P{billId}
 	</detail>
 	<summary>
 		<band height="21">
-			<staticText>
-				<reportElement x="0" y="0" width="162" height="21" uuid="41c7886b-79a8-4cd6-ab02-ef9f34912bd5"/>
+			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+			<textField isBlankWhenNull="true">
+				<reportElement key="" x="0" y="0" width="162" height="21" uuid="d5be11a0-03ed-4ed1-a195-13f11eb806e9">
+					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Get Well Soon]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{AD_CLIENT_ID}==1000050 ? "Exceptional Dentistry" : "Get Well Soon"]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
