@@ -32,7 +32,7 @@ public class CalloutPaymentNHIF implements IColumnCallout {
 					mTab.setValue(MPayment_BH.COLUMNNAME_bh_nhif_relationship, bpartner.getbh_nhif_relationship());
 					mTab.setValue(MPayment_BH.COLUMNNAME_BH_NHIF_MEMBER_NAME, bpartner.getbh_nhif_member_name());
 					mTab.setValue(MPayment_BH.COLUMNNAME_NHIF_Number, bpartner.getNHIF_Number());
-					mTab.setValue(MPayment_BH.COLUMNNAME_bh_nhif_member_id, bpartner.getNational_ID());
+					mTab.setValue(MPayment_BH.COLUMNNAME_bh_nhif_member_id, bpartner.getNationalID());
 					mTab.setValue(MPayment_BH.COLUMNNAME_BH_NHIF_Type, bpartner.getBH_NHIF_Type());
 				}
 			}
