@@ -81,6 +81,15 @@ BEGIN
 		SET isactive = 'N'
 		WHERE ad_reference_id = 214
 			AND Value != 'X';
+		
+
+		/**********************************************************************************************************/
+		-- Inactivate reports that aren't needed
+		/**********************************************************************************************************/
+		UPDATE bh_dbrdbtngrp_btn
+		SET isactive = 'N'
+		WHERE bh_dbrdbtngrp_btn_uu NOT IN ('975bcaac-67df-475c-9488-0cf4dbb4ee45','65b00651-9de0-4821-9dec-4334ebe63bab')
+			AND bh_dbrdbtngrp_id = (SELECT bh_dbrdbtngrp_id FROM bh_dbrdbtngrp WHERE bh_dbrdbtngrp_uu = '9b44ce0e-3113-4690-ad0b-92b95b34c741');
 	END IF;
 
 END $$ language plpgsql;
