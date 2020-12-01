@@ -8,7 +8,6 @@ import java.util.Map;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
@@ -131,7 +130,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getNationalId())) {
-				patient.setNational_ID(entity.getNationalId());
+				patient.setNationalID(entity.getNationalId());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getOccupation())) {
@@ -174,7 +173,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getBH_Phone(), address, instance.getbh_gender(), instance.getBH_EMail(),
 					instance.getbh_nhif_relationship(), instance.getbh_nhif_member_name(), instance.getNHIF_Number(),
-					instance.getBH_NHIF_Type(), instance.getNational_ID(), instance.getbh_occupation(),
+					instance.getBH_NHIF_Type(), instance.getNationalID(), instance.getbh_occupation(),
 					instance.getNextOfKin_Name(), instance.getNextOfKin_Contact(),
 					instance.getBH_Local_PatientID(), VisitDBService.getVisitsCount(instance.get_ID()), 
 					VisitDBService.getLastVisitDate(instance));
