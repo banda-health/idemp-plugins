@@ -73,6 +73,15 @@ BEGIN
 		UPDATE ad_field
 		SET name = 'Product'
 		WHERE ad_field_uu = '42874f5f-f9a4-4f6a-8b4c-d009dcb08733';
+		UPDATE ad_field
+		SET name = 'Stock Room'
+		WHERE ad_field_uu = '29857ed5-6e74-4f74-b985-f53ddb396068';
+		UPDATE ad_field
+		SET name = 'Transaction Status'
+		WHERE ad_field_uu = '787b3eed-a2db-46bc-b4a8-cb985224f5c3';
+		UPDATE ad_field
+		SET name = 'Supplier'
+		WHERE ad_field_uu = '4691cd13-aa0f-4eb4-a5b7-c856fcb38343';
 
 		/**********************************************************************************************************/
 		-- Inactivate some payment types that aren't needed
