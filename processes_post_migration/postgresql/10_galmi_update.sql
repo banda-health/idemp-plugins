@@ -81,7 +81,6 @@ BEGIN
 		SET isactive = 'N'
 		WHERE ad_reference_id = 214
 			AND Value != 'X';
-		
 
 		/**********************************************************************************************************/
 		-- Inactivate reports that aren't needed
@@ -90,6 +89,13 @@ BEGIN
 		SET isactive = 'N'
 		WHERE bh_dbrdbtngrp_btn_uu NOT IN ('975bcaac-67df-475c-9488-0cf4dbb4ee45','65b00651-9de0-4821-9dec-4334ebe63bab')
 			AND bh_dbrdbtngrp_id = (SELECT bh_dbrdbtngrp_id FROM bh_dbrdbtngrp WHERE bh_dbrdbtngrp_uu = '9b44ce0e-3113-4690-ad0b-92b95b34c741');
+		
+		/**********************************************************************************************************/
+		-- Inactivate NHIF buttons that aren't needed
+		/**********************************************************************************************************/
+		UPDATE bh_tabnavbtn
+		SET isactive = 'N'
+		WHERE bh_tabnavbtn_uu IN ('127fb899-61a7-4e55-a421-a5032f5998ce','81089221-596a-4ce2-a2ea-19c9a92d6837');
 	END IF;
 
 END $$ language plpgsql;
