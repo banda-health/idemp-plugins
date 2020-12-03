@@ -20,12 +20,15 @@ BEGIN
 		-- PRODUCTS
 		UPDATE ad_field
 		SET name = 'Buying Price'
-		WHERE ad_field_uu = 'a787d166-b3ef-4dcd-8fda-77bbbe7e3d9b';
+		WHERE ad_field_uu = '3c59e4c0-d68d-4ddc-8f43-2ef75858dbd5';
 		UPDATE ad_field
 		SET name = 'Selling Price'
 		WHERE ad_field_uu = '1b3da64b-69e0-41bc-9078-a5f6eaf4a9e9';
 
 		-- SERVICES
+		UPDATE ad_field
+		SET name = 'Buying Price'
+		WHERE ad_field_uu = 'a787d166-b3ef-4dcd-8fda-77bbbe7e3d9b';
 		UPDATE ad_field
 		SET name = 'Selling Price'
 		WHERE ad_field_uu = '9f081fd6-94e7-4e49-810a-3a1793f04d3c';
