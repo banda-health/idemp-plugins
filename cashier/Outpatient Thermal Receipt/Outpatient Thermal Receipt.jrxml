@@ -217,36 +217,40 @@ where sorder.c_order_id =  $P{billId}
 				</textElement>
 				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement key="" x="0" y="2" width="161" height="13" uuid="1c6d712b-5f9a-4daf-8590-0729204a1001"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement key="" positionType="Float" stretchType="ContainerHeight" x="0" y="2" width="161" height="18" uuid="1c6d712b-5f9a-4daf-8590-0729204a1001">
+					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[UPPER($F{org_name})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" x="0" y="16" width="161" height="13" uuid="e1eeb8f1-5c68-4f86-9ed6-b20feae87168"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement key="" x="0" y="20" width="161" height="13" uuid="e1eeb8f1-5c68-4f86-9ed6-b20feae87168"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" x="0" y="29" width="161" height="13" uuid="36ae98e3-e587-4449-9dbd-e0eddbef95f1"/>
+				<reportElement key="" x="0" y="33" width="161" height="13" uuid="36ae98e3-e587-4449-9dbd-e0eddbef95f1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{address1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" x="0" y="43" width="161" height="13" uuid="3c65c83c-c322-4606-a476-fb049baafd1f"/>
+				<reportElement key="" x="0" y="46" width="161" height="13" uuid="3c65c83c-c322-4606-a476-fb049baafd1f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" x="0" y="57" width="161" height="13" uuid="8b965e4c-bc68-47a4-8ec8-fed95f52145f"/>
+				<reportElement key="" x="0" y="59" width="161" height="13" uuid="8b965e4c-bc68-47a4-8ec8-fed95f52145f">
+					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
