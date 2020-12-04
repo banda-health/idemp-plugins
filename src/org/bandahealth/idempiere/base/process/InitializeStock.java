@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInventory;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
@@ -22,7 +23,7 @@ import org.compiere.util.Env;
 public class InitializeStock {
 
 	private static CLogger log = CLogger.getCLogger (InitializeStock.class);
-	private static int INVENTORY_DOC_TYPE = 10;
+	private static int INVENTORY_DOC_TYPE = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
 	
 	public static void createInitialStock(MProduct_BH product, Properties context, String transactionName) {
 		if (checkInventoryExists(product, transactionName)) {
@@ -39,7 +40,7 @@ public class InitializeStock {
 			warehouse = warehouses[0];
 			inventory.setM_Warehouse_ID(warehouse.get_ID());
 		}
-
+		
 		inventory.setC_DocType_ID(INVENTORY_DOC_TYPE);
 		inventory.save(transactionName);
 		
