@@ -22,6 +22,7 @@ import org.compiere.util.Env;
 public class InitializeStock {
 
 	private static CLogger log = CLogger.getCLogger (InitializeStock.class);
+	private static int INVENTORY_DOC_TYPE = 10;
 	
 	public static void createInitialStock(MProduct_BH product, Properties context, String transactionName) {
 		if (checkInventoryExists(product, transactionName)) {
@@ -39,7 +40,7 @@ public class InitializeStock {
 			inventory.setM_Warehouse_ID(warehouse.get_ID());
 		}
 
-		inventory.setC_DocType_ID(10);
+		inventory.setC_DocType_ID(INVENTORY_DOC_TYPE);
 		inventory.save(transactionName);
 		
 		MInventoryLine_BH inventoryLine = new MInventoryLine_BH(context, 0, transactionName);
