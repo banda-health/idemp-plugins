@@ -311,7 +311,9 @@ define(
             function updateLogoutButtonDisplay() {
                 // Only show the logout button to org users
                 if (!isUserOrg()) {
-                    logoutAElement.classList.add('gone');
+                    if (!logoutAElement.classList.contains('gone')) {
+                        logoutAElement.classList.add('gone');
+                    }
                 } else {
                     logoutAElement.classList.remove('gone');
                 }
