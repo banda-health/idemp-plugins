@@ -277,7 +277,9 @@ define(
         }
 
         function appendLogoutButton() {
-            if (document.getElementById(buttonIDs.LOGOUT) !== null) {
+            let logoutAElement = document.getElementById(buttonIDs.LOGOUT);
+            if (logoutAElement !== null) {
+                updateLogoutButtonDisplay();
                 return;
             }
             let ribbon = document
@@ -286,14 +288,11 @@ define(
                 return;
             }
 
-            let logoutAElement = document.createElement('a');
+            logoutAElement = document.createElement('a');
             logoutAElement.classList.add('window-container-toolbar-btn',
                 'z-toolbarbutton', 'bh-logoutbutton');
 
-            // Only show the logout button to org users
-            if (!isUserOrg()) {
-                logoutAElement.classList.add('gone');
-            }
+            updateLogoutButtonDisplay();
 
             logoutAElement.setAttribute('title', translation.LOGOUT.HELPTIP);
             logoutAElement.id = buttonIDs.LOGOUT;
@@ -308,6 +307,15 @@ define(
             logoutAElement.appendChild(logoutDivElement);
 
             logoutAElement.addEventListener('click', logout);
+
+            function updateLogoutButtonDisplay() {
+                // Only show the logout button to org users
+                if (!isUserOrg()) {
+                    logoutAElement.classList.add('gone');
+                } else {
+                    logoutAElement.classList.remove('gone');
+                }
+            }
         }
 
         function areViewingMobile() {

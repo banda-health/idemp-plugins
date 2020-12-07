@@ -11,7 +11,7 @@ define(function () {
 	self.update = function update(translationObject) {
 		let root = document.documentElement;
 		if (!translationObject.buttonTranslations) {
-			alert('Button Translations not received from server.');
+			console.log('Button Translations not received from server.');
 			return;
 		}
 		for (let i = 0; i < translationObject.buttonTranslations.length; i++) {
