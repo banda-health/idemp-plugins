@@ -162,11 +162,7 @@ public class InventoryDBService {
 		return SqlUtil.getCount(X_BH_Stocktake_v.Table_Name, sqlWhere, parameters);
 	}
 	
-	public void initializeStock(MProduct_BH product) {
-		if (product.getBH_DefaultStockLevel() != null) {
-			InitializeStock.createInitialStock(product, Env.getCtx(), null);
-			product.setBH_DefaultStockLevel(null);
-			product.saveEx();
-		}
+	public void initializeStock(MProduct_BH product, BigDecimal quantity) {
+		InitializeStock.createInitialStock(product, quantity, Env.getCtx(), null);
 	}
 }

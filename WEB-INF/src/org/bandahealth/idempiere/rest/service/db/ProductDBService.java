@@ -166,8 +166,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				if (taxCategory != null) {
 					product.setC_TaxCategory_ID(taxCategory.get_ID());
 				}
-				
-				product.setBH_DefaultStockLevel(entity.getDefaultStockLevel());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
@@ -215,9 +213,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			product.saveEx();
 			
-			// update inventory
-			if (product.getBH_DefaultStockLevel() != null) {
-				inventoryDBService.initializeStock(product);
+			// update inventory only for a new products
+			if (exists == null) {
+				inventoryDBService.initializeStock(product, entity.getTotalQuantity());
 			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
