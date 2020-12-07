@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.process;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -27,7 +28,7 @@ public class InitializeStockProcess extends SvrProcess {
 		List<MProduct_BH> products = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause, get_TrxName())
 				.setClient_ID().list();
 		for (MProduct_BH product : products) {
-			InitializeStock.createInitialStock(product, Env.getCtx(), get_TrxName());
+			InitializeStock.createInitialStock(product, BigDecimal.ONE, Env.getCtx(), get_TrxName());
 			count++;
 		}
 

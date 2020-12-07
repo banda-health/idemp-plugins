@@ -25,7 +25,7 @@ public class InitializeStock {
 	private static CLogger log = CLogger.getCLogger (InitializeStock.class);
 	private static int INVENTORY_DOC_TYPE = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
 	
-	public static void createInitialStock(MProduct_BH product, Properties context, String transactionName) {
+	public static void createInitialStock(MProduct_BH product, BigDecimal quantity, Properties context, String transactionName) {
 		if (checkInventoryExists(product, transactionName)) {
 			log.log(Level.SEVERE, "There is an existing stock for product id = " + product.get_ID());
 			return;
@@ -47,9 +47,7 @@ public class InitializeStock {
 		MInventoryLine_BH inventoryLine = new MInventoryLine_BH(context, 0, transactionName);
 		inventoryLine.setM_Product_ID(product.get_ID());
 		inventoryLine.setM_Inventory_ID(inventory.get_ID());
-		inventoryLine.setQtyCount(product.getBH_DefaultStockLevel() != null
-				&& product.getBH_DefaultStockLevel().compareTo(BigDecimal.ZERO) > 0
-				? product.getBH_DefaultStockLevel(): BigDecimal.ONE);
+		inventoryLine.setQtyCount(quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0 ? quantity: BigDecimal.ONE);
 		inventoryLine.setM_Locator_ID(warehouse.getDefaultLocator().get_ID());
 
 		inventoryLine.save(product.get_TrxName());
