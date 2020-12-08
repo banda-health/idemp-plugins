@@ -163,6 +163,9 @@ public class InventoryDBService {
 	}
 	
 	public void initializeStock(MProduct_BH product, BigDecimal quantity) {
-		InitializeStock.createInitialStock(product, quantity, Env.getCtx(), null);
+		List<MProduct_BH> products = new ArrayList<>();
+		products.add(product);
+		
+		InitializeStock.createInitialStock(products, quantity, Env.getCtx(), null);
 	}
 }
