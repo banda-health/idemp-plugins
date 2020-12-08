@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
 
 @XmlRootElement(name = "product")
 @JsonInclude(value = Include.NON_NULL)
@@ -26,6 +25,7 @@ public class Product extends BaseEntity {
 	private BigDecimal priceMargin;
 	private String productCategoryUuid;
 	private BigDecimal totalQuantity;
+	private BigDecimal defaultStockLevel;
 
 	public Product() {
 	}
@@ -171,5 +171,14 @@ public class Product extends BaseEntity {
 
 	public void setTotalQuantity(BigDecimal totalQuantity) {
 		this.totalQuantity = totalQuantity;
+	}
+
+	@XmlElement
+	public BigDecimal getDefaultStockLevel() {
+		return defaultStockLevel;
+	}
+
+	public void setDefaultStockLevel(BigDecimal defaultStockLevel) {
+		this.defaultStockLevel = defaultStockLevel;
 	}
 }
