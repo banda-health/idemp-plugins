@@ -21,16 +21,12 @@ public class InitializeStockProcess extends SvrProcess {
 		long start = System.currentTimeMillis();
 		log.log(Level.INFO, "START InitializeStockProcess");
 
-		int count = 0;
 		String whereClause = MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID + " NOT IN (SELECT "
 				+ MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + " FROM "
 				+ MStorageOnHand.Table_Name + ")";
 		List<MProduct_BH> products = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause, get_TrxName())
 				.setClient_ID().list();
-		for (MProduct_BH product : products) {
-			InitializeStock.createInitialStock(product, BigDecimal.ONE, Env.getCtx(), get_TrxName());
-			count++;
-		}
+		int count = InitializeStock.createInitialStock(products, BigDecimal.ONE, Env.getCtx(), get_TrxName());
 
 		String msg = "STOP InitializeStockProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
 				+ " mins. Processed " + count + " product(s).";
