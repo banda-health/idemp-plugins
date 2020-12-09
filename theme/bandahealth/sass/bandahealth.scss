@@ -7,7 +7,7 @@
 	@import '_openmrs.scss';
 	@import '_hacks.scss';
 	@import '_common.scss';
-	
+
 	span[instancename="C_Order0BH_NewVisit"]{
 		color:red;
 	};
@@ -19,7 +19,6 @@
 	span[title="Amount being paid"]{
 		color:red !important;
 	}
-	
 	
 	.btn {
 		@extend %button;
@@ -39,6 +38,7 @@
 			}
 		}
 	}
+
 	.bh-button-group-header {
 		padding: 5px;
 		border-bottom: 1px solid #ccc;
@@ -46,9 +46,11 @@
 		color: #333;
 		font-weight: bold;
 	}
+
 	.bh-button-group-content:not(:last-child) {
 		margin-bottom: 15px;
 	}
+
 	.bh-dashboard-content {
 		display: flex;
 		flex-direction: column;
@@ -109,6 +111,7 @@
 			cursor: pointer;
 		}
 	}
+
 	.bh-tab-nav-buttons {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(100px, 1fr));
@@ -155,9 +158,12 @@
 			}
 		}
 	}
+
 	&.client,
 	&.organization {}
+
 	&.client {}
+
 	&.organization {
 		.adwindow-layout {
 			&>div:nth-child(2) {
@@ -242,7 +248,7 @@
 						content: $icon-times;
 					}
 					&:after {
-						content: $button-text-cancel;
+						content: var(--button-text-cancel);
 					}
 					&:hover {
 						@extend %primary-hover;
@@ -257,7 +263,7 @@
 						content: $icon-plus;
 					}
 					&:after {
-						content: $button-text-new;
+						content: var(--button-text-new);
 					}
 					&:hover {
 						@extend %secondary-hover;
@@ -274,7 +280,7 @@
 						content: $icon-trash-alt;
 					}
 					&:after {
-						content: $button-text-delete;
+						content: var(--button-text-delete);
 					}
 					&:hover {
 						@extend %delete-hover;
@@ -289,7 +295,7 @@
 						content: $icon-save;
 					}
 					&:after {
-						content: $button-text-save;
+						content: var(--button-text-save);
 					}
 					&:hover {
 						@extend %confirm-hover;
@@ -305,7 +311,7 @@
 						color: black;
 					}
 					&:after {
-						content: $button-text-refresh;
+						content: var(--button-text-refresh);
 					}
 				}
 				// Search/Lookup record
@@ -318,7 +324,7 @@
 						color: black;
 					}
 					&:after {
-						content: $button-text-search;
+						content: var(--button-text-search);
 					}
 				}
 				// Grid button
@@ -331,7 +337,7 @@
 						color: black;
 					}
 					&:after {
-						content: $button-text-results;
+						content: var(--button-text-results);
 					}
 				}
 				@at-root .mobile#{&} {}
@@ -669,7 +675,7 @@
 				&.img-btn {
 					&.btn-ok {
 						&:after {
-							content: $button-text-search;
+							content: var(--button-text-search);
 						}
 					}
 				}
@@ -681,7 +687,7 @@
 							&>.z-group-header-body {
 								span:last-child {
 									&:before {
-										content: $search-more-options;
+										content: var(--search-more-options);
 									}
 								}
 							}
@@ -782,7 +788,7 @@
 					content: $icon-plus;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-new;
+					content: var(--button-text-new);
 				}
 			}
 			&.btn-ok {
@@ -793,7 +799,7 @@
 					content: $icon-check;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-ok;
+					content: var(--button-text-ok);
 				}
 				&:hover:not([disabled]) {
 					@extend %confirm-hover;
@@ -805,7 +811,7 @@
 					content: $icon-search;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-search;
+					content: var(--button-text-search);
 				}
 			}
 			&.btn-reset {
@@ -815,7 +821,7 @@
 					content: $icon-undo;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-reset;
+					content: var(--button-text-reset);
 				}
 			}
 			&.btn-customize {
@@ -824,7 +830,7 @@
 					content: $icon-sliders-h;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-customize;
+					content: var(--button-text-customize);
 				}
 			}
 			&.btn-history {
@@ -834,7 +840,7 @@
 					content: $icon-history;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-history;
+					content: var(--button-text-history);
 				}
 			}
 			&.btn-zoom {
@@ -844,7 +850,7 @@
 					content: $icon-expand;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-zoom;
+					content: var(--button-text-zoom);
 				}
 			}
 			&.btn-pattribute {
@@ -854,7 +860,7 @@
 					content: $icon-at;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-product-attributes;
+					content: var(--button-text-product-attributes);
 				}
 			}
 			&.btn-cancel {
@@ -864,7 +870,7 @@
 					content: $icon-times;
 				}
 				&:not(.txt-btn):after {
-					content: $button-text-cancel;
+					content: var(--button-text-cancel);
 				}
 				&:hover:not([disabled]) {
 					@extend %primary-hover;
@@ -872,6 +878,7 @@
 			}
 		}
 	}
+
 	&.no-tabs-present,
 	&.entity-add-or-edit {
 		.adtab-form-borderlayout {

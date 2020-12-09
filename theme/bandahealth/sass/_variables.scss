@@ -52,6 +52,24 @@ $button-text-zoom: " Zoom";
 
 $search-more-options: "More Options";
 
+// Adding these in for text options because these will need to be translated
+:root {
+	--button-text-cancel: $button-text-cancel;
+	--button-text-customize: $button-text-customize;
+	--button-text-delete: $button-text-delete;
+	--button-text-history: $button-text-history;
+	--button-text-new: $button-text-new;
+	--button-text-ok: $button-text-ok;
+	--button-text-product-attributes: $button-text-product-attributes;
+	--button-text-refresh: $button-text-refresh;
+	--button-text-reset: $button-text-reset;
+	--button-text-results: $button-text-results;
+	--button-text-save: $button-text-save;
+	--button-text-search: $button-text-search;
+	--button-text-zoom: $button-text-zoom;
+	--search-more-options: $search-more-options;
+}
+
 // Icons
 $icon-at: font-awesome-icon("f1fa");
 $icon-archive: font-awesome-icon("f187"); // fas

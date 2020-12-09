@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.webui;
 
 import org.adempiere.webui.session.SessionManager;
-import org.bandahealth.idempiere.base.model.MHomeScreenButton;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -21,34 +21,36 @@ public class DashboardMenuButtonCreation implements EventListener<Event> {
 	public boolean isSpecialForm = false;
 	public int windowOrInfoWindowId;
 
-	public void setButtonType(MHomeScreenButton mHomeScreenButton) {
-		windowOrInfoWindowId = mHomeScreenButton.getAD_Window_ID();
+	public void setButtonType(MDashboardButtonGroupButton dashboardButtonGroupButton) {
+		windowOrInfoWindowId = dashboardButtonGroupButton.getAD_Window_ID();
 
 		isReportOrProcess = false;
 		if (windowOrInfoWindowId == 0) {
-			windowOrInfoWindowId = mHomeScreenButton.getAD_Process_ID();
+			windowOrInfoWindowId = dashboardButtonGroupButton.getAD_Process_ID();
 			isReportOrProcess = true;
 		}
 		isSpecialForm = false;
 		if (windowOrInfoWindowId == 0) {
-			windowOrInfoWindowId = mHomeScreenButton.getAD_Form_ID();
+			windowOrInfoWindowId = dashboardButtonGroupButton.getAD_Form_ID();
 			isSpecialForm = true;
 		}
 	}
 
-	public Grid createButton(MHomeScreenButton mHomeScreenButton) {
-		setButtonType(mHomeScreenButton);
+	public Grid createButton(MDashboardButtonGroupButton dashboardButtonGroupButton, String usersLanguage) {
+		setButtonType(dashboardButtonGroupButton);
 		Grid buttonGrid = (Grid) Executions.createComponents("/zul/MenuButton.zul", null, null);
 		Div menuIcon = (Div) buttonGrid.query(".icn");
 		Div menuText = (Div) buttonGrid.query(".lbl");
 		Label string = (Label) buttonGrid.query("label");
-		menuIcon.setSclass(mHomeScreenButton.getIconClassName() + " i");
-		string.setValue(mHomeScreenButton.getButtonText());
+		menuIcon.setSclass(dashboardButtonGroupButton.getIconClassName() + " i");
+		string.setValue(dashboardButtonGroupButton.get_Translation(MDashboardButtonGroupButton.COLUMNNAME_ButtonText,
+				usersLanguage));
 		menuText.appendChild(string);
 		buttonGrid.setId(Integer.toString(windowOrInfoWindowId));
 		buttonGrid.setAttribute(REPORT_OR_PROCESS_ATTRIBUTE, isReportOrProcess);
 		buttonGrid.setAttribute(SPECIAL_FORM_ATTRIBUTE, isSpecialForm);
-		buttonGrid.setTooltiptext(mHomeScreenButton.getButtonHelpText());
+		buttonGrid.setTooltiptext(dashboardButtonGroupButton.get_Translation(
+				MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText, usersLanguage));
 		buttonGrid.addEventListener(Events.ON_CLICK, this);
 		return buttonGrid;
 	}

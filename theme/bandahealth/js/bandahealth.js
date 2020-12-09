@@ -5,10 +5,10 @@
 'use strict';
 
 define(
-    ['helper/util', 'domObserver', 'config/classNames',
+    ['helper/util', 'domObserver', 'config/classNames', 'config/translation',
         'helper/templateManager'
     ],
-    function (util, DomObserver, classNames, templateManager) {
+    function (util, DomObserver, classNames, translation, templateManager) {
         let self = {};
 
         let buttonIDs = {
@@ -277,7 +277,9 @@ define(
         }
 
         function appendLogoutButton() {
-            if (document.getElementById(buttonIDs.LOGOUT) !== null) {
+            let logoutAElement = document.getElementById(buttonIDs.LOGOUT);
+            if (logoutAElement !== null) {
+                updateLogoutButtonDisplay();
                 return;
             }
             let ribbon = document
@@ -286,10 +288,13 @@ define(
                 return;
             }
 
-            let logoutAElement = document.createElement('a');
+            logoutAElement = document.createElement('a');
             logoutAElement.classList.add('window-container-toolbar-btn',
                 'z-toolbarbutton', 'bh-logoutbutton');
-            logoutAElement.setAttribute('title', 'Logout');
+
+            updateLogoutButtonDisplay();
+
+            logoutAElement.setAttribute('title', translation.LOGOUT.HELPTIP);
             logoutAElement.id = buttonIDs.LOGOUT;
             ribbon.appendChild(logoutAElement);
 
@@ -298,10 +303,21 @@ define(
             logoutIElement.classList.add('fas', 'fa-sign-out-alt');
 
             let logoutDivElement = document.createElement('div');
-            logoutDivElement.innerText = 'Logout';
+            logoutDivElement.innerText = translation.LOGOUT.TRANSLATION;
             logoutAElement.appendChild(logoutDivElement);
 
             logoutAElement.addEventListener('click', logout);
+
+            function updateLogoutButtonDisplay() {
+                // Only show the logout button to org users
+                if (!isUserOrg()) {
+                    if (!logoutAElement.classList.contains('gone')) {
+                        logoutAElement.classList.add('gone');
+                    }
+                } else {
+                    logoutAElement.classList.remove('gone');
+                }
+            }
         }
 
         function areViewingMobile() {
@@ -606,6 +622,10 @@ define(
 
         function isHashEmpty() {
             return !window.location.hash || window.location.hash === '#';
+        }
+
+        function isUserOrg() {
+            return document.body.classList.contains(classNames.ORGANIZATION);
         }
 
         function logout() {
