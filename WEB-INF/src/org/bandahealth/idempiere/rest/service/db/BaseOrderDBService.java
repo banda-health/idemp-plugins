@@ -133,7 +133,12 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			mOrder.setIsActive(entity.isIsActive());
 
 			mOrder.setIsApproved(true);
-			mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
+			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus()) && 
+					entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
+				mOrder.setDocStatus(MOrder_BH.DOCSTATUS_Voided);
+			} else {
+				mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);	
+			}
 
 			beforeSave(entity, mOrder);
 
@@ -165,6 +170,11 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 			// any post save operation
 			afterSave(entity, mOrder);
+			
+			// check void docstatus
+			if (mOrder.getDocAction() == MOrder_BH.DOCACTION_Void) {
+				mOrder.processIt(MOrder_BH.DOCACTION_Void);
+			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
 
