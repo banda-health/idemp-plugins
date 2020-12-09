@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_HmScrn_ButtonGroup
+/** Generated Interface for BH_UIButton
  *  @author iDempiere (generated) 
  *  @version Release 5.1
  */
 @SuppressWarnings("all")
-public interface I_BH_HmScrn_ButtonGroup 
+public interface I_BH_UIButton 
 {
 
-    /** TableName=BH_HmScrn_ButtonGroup */
-    public static final String Table_Name = "BH_HmScrn_ButtonGroup";
+    /** TableName=BH_UIButton */
+    public static final String Table_Name = "BH_UIButton";
 
-    /** AD_Table_ID=1000005 */
+    /** AD_Table_ID=1000016 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,23 +64,23 @@ public interface I_BH_HmScrn_ButtonGroup
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_HmScrn_ButtonGroup_ID */
-    public static final String COLUMNNAME_BH_HmScrn_ButtonGroup_ID = "BH_HmScrn_ButtonGroup_ID";
+    /** Column name BH_UIButton_ID */
+    public static final String COLUMNNAME_BH_UIButton_ID = "BH_UIButton_ID";
 
-	/** Set BH_HmScrn_ButtonGroup	  */
-	public void setBH_HmScrn_ButtonGroup_ID (int BH_HmScrn_ButtonGroup_ID);
+	/** Set BH_UIButton	  */
+	public void setBH_UIButton_ID (int BH_UIButton_ID);
 
-	/** Get BH_HmScrn_ButtonGroup	  */
-	public int getBH_HmScrn_ButtonGroup_ID();
+	/** Get BH_UIButton	  */
+	public int getBH_UIButton_ID();
 
-    /** Column name BH_HmScrn_ButtonGroup_UU */
-    public static final String COLUMNNAME_BH_HmScrn_ButtonGroup_UU = "BH_HmScrn_ButtonGroup_UU";
+    /** Column name BH_UIButton_UU */
+    public static final String COLUMNNAME_BH_UIButton_UU = "BH_UIButton_UU";
 
-	/** Set BH_HmScrn_ButtonGroup_UU	  */
-	public void setBH_HmScrn_ButtonGroup_UU (String BH_HmScrn_ButtonGroup_UU);
+	/** Set BH_UIButton_UU	  */
+	public void setBH_UIButton_UU (String BH_UIButton_UU);
 
-	/** Get BH_HmScrn_ButtonGroup_UU	  */
-	public String getBH_HmScrn_ButtonGroup_UU();
+	/** Get BH_UIButton_UU	  */
+	public String getBH_UIButton_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -97,6 +97,15 @@ public interface I_BH_HmScrn_ButtonGroup
 	  * User who created this records
 	  */
 	public int getCreatedBy();
+
+    /** Column name CssVariableName */
+    public static final String COLUMNNAME_CssVariableName = "CssVariableName";
+
+	/** Set CssVariableName	  */
+	public void setCssVariableName (String CssVariableName);
+
+	/** Get CssVariableName	  */
+	public String getCssVariableName();
 
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
@@ -123,19 +132,6 @@ public interface I_BH_HmScrn_ButtonGroup
 	  * The record is active in the system
 	  */
 	public boolean isActive();
-
-    /** Column name LineNo */
-    public static final String COLUMNNAME_LineNo = "LineNo";
-
-	/** Set Line.
-	  * Line No
-	  */
-	public void setLineNo (int LineNo);
-
-	/** Get Line.
-	  * Line No
-	  */
-	public int getLineNo();
 
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";

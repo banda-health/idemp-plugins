@@ -21,16 +21,16 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_HmScrn_ButtonGroupLine
+/** Generated Interface for BH_DbrdBtnGrp_Btn
  *  @author iDempiere (generated) 
- *  @version Release 5.1
+ *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_HmScrn_ButtonGroupLine 
+public interface I_BH_DbrdBtnGrp_Btn 
 {
 
-    /** TableName=BH_HmScrn_ButtonGroupLine */
-    public static final String Table_Name = "BH_HmScrn_ButtonGroupLine";
+    /** TableName=BH_DbrdBtnGrp_Btn */
+    public static final String Table_Name = "BH_DbrdBtnGrp_Btn";
 
     /** AD_Table_ID=1000003 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
@@ -124,34 +124,34 @@ public interface I_BH_HmScrn_ButtonGroupLine
 
 	public org.compiere.model.I_AD_Window getAD_Window() throws RuntimeException;
 
-    /** Column name BH_HmScrn_ButtonGroup_ID */
-    public static final String COLUMNNAME_BH_HmScrn_ButtonGroup_ID = "BH_HmScrn_ButtonGroup_ID";
+    /** Column name BH_DbrdBtnGrp_Btn_ID */
+    public static final String COLUMNNAME_BH_DbrdBtnGrp_Btn_ID = "BH_DbrdBtnGrp_Btn_ID";
 
-	/** Set BH_HmScrn_ButtonGroup	  */
-	public void setBH_HmScrn_ButtonGroup_ID (int BH_HmScrn_ButtonGroup_ID);
+	/** Set BH_DbrdBtnGrp_Btn_ID	  */
+	public void setBH_DbrdBtnGrp_Btn_ID (int BH_DbrdBtnGrp_Btn_ID);
 
-	/** Get BH_HmScrn_ButtonGroup	  */
-	public int getBH_HmScrn_ButtonGroup_ID();
+	/** Get BH_DbrdBtnGrp_Btn_ID	  */
+	public int getBH_DbrdBtnGrp_Btn_ID();
 
-	public I_BH_HmScrn_ButtonGroup getBH_HmScrn_ButtonGroup() throws RuntimeException;
+    /** Column name BH_DbrdBtnGrp_Btn_UU */
+    public static final String COLUMNNAME_BH_DbrdBtnGrp_Btn_UU = "BH_DbrdBtnGrp_Btn_UU";
 
-    /** Column name BH_HmScrn_ButtonGroupLine_ID */
-    public static final String COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID = "BH_HmScrn_ButtonGroupLine_ID";
+	/** Set BH_DbrdBtnGrp_Btn_UU	  */
+	public void setBH_DbrdBtnGrp_Btn_UU (String BH_DbrdBtnGrp_Btn_UU);
 
-	/** Set BH_HmScrn_ButtonGroupLine	  */
-	public void setBH_HmScrn_ButtonGroupLine_ID (int BH_HmScrn_ButtonGroupLine_ID);
+	/** Get BH_DbrdBtnGrp_Btn_UU	  */
+	public String getBH_DbrdBtnGrp_Btn_UU();
 
-	/** Get BH_HmScrn_ButtonGroupLine	  */
-	public int getBH_HmScrn_ButtonGroupLine_ID();
+    /** Column name BH_DbrdBtnGrp_ID */
+    public static final String COLUMNNAME_BH_DbrdBtnGrp_ID = "BH_DbrdBtnGrp_ID";
 
-    /** Column name BH_HmScrn_ButtonGroupLine_UU */
-    public static final String COLUMNNAME_BH_HmScrn_ButtonGroupLine_UU = "BH_HmScrn_ButtonGroupLine_UU";
+	/** Set BH_DbrdBtnGrp_ID	  */
+	public void setBH_DbrdBtnGrp_ID (int BH_DbrdBtnGrp_ID);
 
-	/** Set BH_HmScrn_ButtonGroupLine_UU	  */
-	public void setBH_HmScrn_ButtonGroupLine_UU (String BH_HmScrn_ButtonGroupLine_UU);
+	/** Get BH_DbrdBtnGrp_ID	  */
+	public int getBH_DbrdBtnGrp_ID();
 
-	/** Get BH_HmScrn_ButtonGroupLine_UU	  */
-	public String getBH_HmScrn_ButtonGroupLine_UU();
+	public I_BH_DbrdBtnGrp getBH_DbrdBtnGrp() throws RuntimeException;
 
     /** Column name ButtonClassName */
     public static final String COLUMNNAME_ButtonClassName = "ButtonClassName";
@@ -233,6 +233,17 @@ public interface I_BH_HmScrn_ButtonGroupLine
 	  * The class(es) to display the correct Font Awesome icon
 	  */
 	public String getIconClassName();
+
+    /** Column name Included_Role_ID */
+    public static final String COLUMNNAME_Included_Role_ID = "Included_Role_ID";
+
+	/** Set Included Role	  */
+	public void setIncluded_Role_ID (int Included_Role_ID);
+
+	/** Get Included Role	  */
+	public int getIncluded_Role_ID();
+
+	public org.compiere.model.I_AD_Role getIncluded_Role() throws RuntimeException;
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";

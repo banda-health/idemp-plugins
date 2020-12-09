@@ -22,31 +22,31 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_HmScrn_ButtonGroupLine
+/** Generated Model for BH_DbrdBtnGrp_Btn
  *  @author iDempiere (generated) 
- *  @version Release 5.1 - $Id$ */
-public class X_BH_HmScrn_ButtonGroupLine extends PO implements I_BH_HmScrn_ButtonGroupLine, I_Persistent 
+ *  @version Release 7.1 - $Id$ */
+public class X_BH_DbrdBtnGrp_Btn extends PO implements I_BH_DbrdBtnGrp_Btn, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20181212L;
+	private static final long serialVersionUID = 20201120L;
 
     /** Standard Constructor */
-    public X_BH_HmScrn_ButtonGroupLine (Properties ctx, int BH_HmScrn_ButtonGroupLine_ID, String trxName)
+    public X_BH_DbrdBtnGrp_Btn (Properties ctx, int BH_DbrdBtnGrp_Btn_ID, String trxName)
     {
-      super (ctx, BH_HmScrn_ButtonGroupLine_ID, trxName);
-      /** if (BH_HmScrn_ButtonGroupLine_ID == 0)
+      super (ctx, BH_DbrdBtnGrp_Btn_ID, trxName);
+      /** if (BH_DbrdBtnGrp_Btn_ID == 0)
         {
-			setBH_HmScrn_ButtonGroup_ID (0);
-			setBH_HmScrn_ButtonGroupLine_ID (0);
+			setBH_DbrdBtnGrp_Btn_ID (0);
+			setBH_DbrdBtnGrp_ID (0);
 			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_HmScrn_ButtonGroupLine (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_DbrdBtnGrp_Btn (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -68,8 +68,8 @@ public class X_BH_HmScrn_ButtonGroupLine extends PO implements I_BH_HmScrn_Butto
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_BH_HmScrn_ButtonGroupLine[")
-        .append(get_ID()).append("]");
+      StringBuilder sb = new StringBuilder ("X_BH_DbrdBtnGrp_Btn[")
+        .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
 
@@ -185,63 +185,63 @@ public class X_BH_HmScrn_ButtonGroupLine extends PO implements I_BH_HmScrn_Butto
 		return ii.intValue();
 	}
 
-	public I_BH_HmScrn_ButtonGroup getBH_HmScrn_ButtonGroup() throws RuntimeException
+	/** Set BH_DbrdBtnGrp_Btn_ID.
+		@param BH_DbrdBtnGrp_Btn_ID BH_DbrdBtnGrp_Btn_ID	  */
+	public void setBH_DbrdBtnGrp_Btn_ID (int BH_DbrdBtnGrp_Btn_ID)
+	{
+		if (BH_DbrdBtnGrp_Btn_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_DbrdBtnGrp_Btn_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_BH_DbrdBtnGrp_Btn_ID, Integer.valueOf(BH_DbrdBtnGrp_Btn_ID));
+	}
+
+	/** Get BH_DbrdBtnGrp_Btn_ID.
+		@return BH_DbrdBtnGrp_Btn_ID	  */
+	public int getBH_DbrdBtnGrp_Btn_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_DbrdBtnGrp_Btn_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BH_DbrdBtnGrp_Btn_UU.
+		@param BH_DbrdBtnGrp_Btn_UU BH_DbrdBtnGrp_Btn_UU	  */
+	public void setBH_DbrdBtnGrp_Btn_UU (String BH_DbrdBtnGrp_Btn_UU)
+	{
+		set_Value (COLUMNNAME_BH_DbrdBtnGrp_Btn_UU, BH_DbrdBtnGrp_Btn_UU);
+	}
+
+	/** Get BH_DbrdBtnGrp_Btn_UU.
+		@return BH_DbrdBtnGrp_Btn_UU	  */
+	public String getBH_DbrdBtnGrp_Btn_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_DbrdBtnGrp_Btn_UU);
+	}
+
+	public I_BH_DbrdBtnGrp getBH_DbrdBtnGrp() throws RuntimeException
     {
-		return (I_BH_HmScrn_ButtonGroup)MTable.get(getCtx(), I_BH_HmScrn_ButtonGroup.Table_Name)
-			.getPO(getBH_HmScrn_ButtonGroup_ID(), get_TrxName());	}
+		return (I_BH_DbrdBtnGrp)MTable.get(getCtx(), I_BH_DbrdBtnGrp.Table_Name)
+			.getPO(getBH_DbrdBtnGrp_ID(), get_TrxName());	}
 
-	/** Set BH_HmScrn_ButtonGroup.
-		@param BH_HmScrn_ButtonGroup_ID BH_HmScrn_ButtonGroup	  */
-	public void setBH_HmScrn_ButtonGroup_ID (int BH_HmScrn_ButtonGroup_ID)
+	/** Set BH_DbrdBtnGrp_ID.
+		@param BH_DbrdBtnGrp_ID BH_DbrdBtnGrp_ID	  */
+	public void setBH_DbrdBtnGrp_ID (int BH_DbrdBtnGrp_ID)
 	{
-		if (BH_HmScrn_ButtonGroup_ID < 1) 
-			set_Value (COLUMNNAME_BH_HmScrn_ButtonGroup_ID, null);
+		if (BH_DbrdBtnGrp_ID < 1) 
+			set_Value (COLUMNNAME_BH_DbrdBtnGrp_ID, null);
 		else 
-			set_Value (COLUMNNAME_BH_HmScrn_ButtonGroup_ID, Integer.valueOf(BH_HmScrn_ButtonGroup_ID));
+			set_Value (COLUMNNAME_BH_DbrdBtnGrp_ID, Integer.valueOf(BH_DbrdBtnGrp_ID));
 	}
 
-	/** Get BH_HmScrn_ButtonGroup.
-		@return BH_HmScrn_ButtonGroup	  */
-	public int getBH_HmScrn_ButtonGroup_ID () 
+	/** Get BH_DbrdBtnGrp_ID.
+		@return BH_DbrdBtnGrp_ID	  */
+	public int getBH_DbrdBtnGrp_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_HmScrn_ButtonGroup_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_DbrdBtnGrp_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Set BH_HmScrn_ButtonGroupLine.
-		@param BH_HmScrn_ButtonGroupLine_ID BH_HmScrn_ButtonGroupLine	  */
-	public void setBH_HmScrn_ButtonGroupLine_ID (int BH_HmScrn_ButtonGroupLine_ID)
-	{
-		if (BH_HmScrn_ButtonGroupLine_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID, Integer.valueOf(BH_HmScrn_ButtonGroupLine_ID));
-	}
-
-	/** Get BH_HmScrn_ButtonGroupLine.
-		@return BH_HmScrn_ButtonGroupLine	  */
-	public int getBH_HmScrn_ButtonGroupLine_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_HmScrn_ButtonGroupLine_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set BH_HmScrn_ButtonGroupLine_UU.
-		@param BH_HmScrn_ButtonGroupLine_UU BH_HmScrn_ButtonGroupLine_UU	  */
-	public void setBH_HmScrn_ButtonGroupLine_UU (String BH_HmScrn_ButtonGroupLine_UU)
-	{
-		set_Value (COLUMNNAME_BH_HmScrn_ButtonGroupLine_UU, BH_HmScrn_ButtonGroupLine_UU);
-	}
-
-	/** Get BH_HmScrn_ButtonGroupLine_UU.
-		@return BH_HmScrn_ButtonGroupLine_UU	  */
-	public String getBH_HmScrn_ButtonGroupLine_UU () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_HmScrn_ButtonGroupLine_UU);
 	}
 
 	/** Set Button Class Name.
@@ -327,6 +327,31 @@ public class X_BH_HmScrn_ButtonGroupLine extends PO implements I_BH_HmScrn_Butto
 	public String getIconClassName () 
 	{
 		return (String)get_Value(COLUMNNAME_IconClassName);
+	}
+
+	public org.compiere.model.I_AD_Role getIncluded_Role() throws RuntimeException
+    {
+		return (org.compiere.model.I_AD_Role)MTable.get(getCtx(), org.compiere.model.I_AD_Role.Table_Name)
+			.getPO(getIncluded_Role_ID(), get_TrxName());	}
+
+	/** Set Included Role.
+		@param Included_Role_ID Included Role	  */
+	public void setIncluded_Role_ID (int Included_Role_ID)
+	{
+		if (Included_Role_ID < 1) 
+			set_Value (COLUMNNAME_Included_Role_ID, null);
+		else 
+			set_Value (COLUMNNAME_Included_Role_ID, Integer.valueOf(Included_Role_ID));
+	}
+
+	/** Get Included Role.
+		@return Included Role	  */
+	public int getIncluded_Role_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Included_Role_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Line.
