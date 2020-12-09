@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import java.io.File;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,11 +15,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.VisitDBService;
+import org.compiere.model.MOrder;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * Expose ALL Patient Visit functionality i.e create/update, view, processing
@@ -34,6 +40,15 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	public VisitRestService() {
 		dbService = new VisitDBService();
+	}
+
+	@GET
+	@Path("/graphql")
+	public List<MOrder_BH> get(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
+			@QueryParam("filter") String filterJson) {
+		return new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_IsSOTrx + "=?",
+				null).setParameters("Y").setClient_ID().setPage(10, 0).list();
 	}
 
 	@POST

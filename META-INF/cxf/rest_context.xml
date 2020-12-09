@@ -39,6 +39,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="authenticationFilter" />
 			<ref bean="duplicateEntitySaveExceptionMapper"/>
 			<ref bean="adempiereExceptionMapper"/>
+			<ref bean="contextResolver"/>
 		</jaxrs:providers>
 	</jaxrs:server>
 	
@@ -50,6 +51,9 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="jsonProvider"
 		class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+
+	<bean id="contextResolver"
+		  class="org.bandahealth.idempiere.rest.model.ObjectMapperContextResolver" />
 
 	<bean id="authenticationFilter"
 		class="org.bandahealth.idempiere.rest.filter.AuthenticationFilter" />
