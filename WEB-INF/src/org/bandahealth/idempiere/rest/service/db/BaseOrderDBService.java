@@ -172,7 +172,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			afterSave(entity, mOrder);
 			
 			// check void docstatus
-			if (mOrder.getDocAction() == MOrder_BH.DOCACTION_Void) {
+			if (mOrder.getDocAction().equals(MOrder_BH.DOCACTION_Void)) {
 				mOrder.processIt(MOrder_BH.DOCACTION_Void);
 			}
 
