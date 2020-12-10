@@ -80,4 +80,6 @@ public interface IRestConfigs {
 	String ACCOUNTS_UUID_PATH = "/account/{uuid}";
 
 	String APPLICATION_PDF = "application/pdf";
+
+	String ORDERS_PATH = AUTHENTICATION_PATH + "/orders";
 }
