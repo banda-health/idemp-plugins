@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.rest.repository;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.rest.model.PagingInfo;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrder;
@@ -12,7 +12,6 @@ import org.compiere.util.Env;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
 public class OrderRepository extends BaseRepository<MOrder_BH> {
@@ -21,7 +20,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 			"." + MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." +
 			MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
-	public List<MOrder_BH> getPurchaseOrders(String filter, String sort, PagingInfo pagingInfo) {
+	public List<MOrder_BH> getPurchaseOrders(String filter, String sort, Paging pagingInfo) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("N");
 
@@ -29,7 +28,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 				MOrder_BH.COLUMNNAME_BH_IsExpense + " IS NULL", parameters, businessPartnerJoin);
 	}
 
-	public List<MOrder_BH> getSalesOrders(String filter, String sort, PagingInfo pagingInfo) {
+	public List<MOrder_BH> getSalesOrders(String filter, String sort, Paging pagingInfo) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
@@ -37,7 +36,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 				businessPartnerJoin);
 	}
 
-	public PagingInfo getSalesOrdersPagingInfo(String filter, String sort, PagingInfo pagingInfo) {
+	public Paging getSalesOrdersPagingInfo(String filter, String sort, Paging pagingInfo) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 

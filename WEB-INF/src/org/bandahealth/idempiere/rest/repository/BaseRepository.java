@@ -2,7 +2,7 @@ package org.bandahealth.idempiere.rest.repository;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.exceptions.DBException;
-import org.bandahealth.idempiere.rest.model.PagingInfo;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.BandaQuery;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
@@ -368,7 +368,7 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param pagingInfo What page of data is needed
 	 * @return A list of entities
 	 */
-	public List<T> get(String filterJson, String sort, PagingInfo pagingInfo) {
+	public List<T> get(String filterJson, String sort, Paging pagingInfo) {
 		return this.get(filterJson, sort, pagingInfo, null, null, null);
 	}
 
@@ -381,7 +381,7 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param whereClause A WHERE clause that should be added to the query
 	 * @return A list of entities
 	 */
-	public List<T> get(String filterJson, String sort, PagingInfo pagingInfo, String whereClause,
+	public List<T> get(String filterJson, String sort, Paging pagingInfo, String whereClause,
 			List<Object> parameters) {
 		return this.get(filterJson, sort, pagingInfo, whereClause, parameters, null);
 	}
@@ -397,7 +397,7 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return A list of entities
 	 */
-	public List<T> get(String filterJson, String sortJson, PagingInfo pagingInfo, String whereClause,
+	public List<T> get(String filterJson, String sortJson, Paging pagingInfo, String whereClause,
 			List<Object> parameters, String joinClause) {
 		try {
 			BandaQuery<T> query = constructQuery(filterJson, sortJson, pagingInfo, whereClause, parameters, joinClause);
@@ -417,7 +417,7 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param pagingInfo What page of data is needed
 	 * @return The paging info for the list of entities
 	 */
-	public PagingInfo getPagingInfo(String filterJson, String sort, PagingInfo pagingInfo) {
+	public Paging getPagingInfo(String filterJson, String sort, Paging pagingInfo) {
 		return this.getPagingInfo(filterJson, sort, pagingInfo, null, null, null);
 	}
 
@@ -430,7 +430,7 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param whereClause A WHERE clause that should be added to the query
 	 * @return The paging info for the list of entities
 	 */
-	public PagingInfo getPagingInfo(String filterJson, String sort, PagingInfo pagingInfo, String whereClause,
+	public Paging getPagingInfo(String filterJson, String sort, Paging pagingInfo, String whereClause,
 			List<Object> parameters) {
 		return this.getPagingInfo(filterJson, sort, pagingInfo, whereClause, parameters, null);
 	}
@@ -446,11 +446,11 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return The paging info for the list of entities
 	 */
-	public PagingInfo getPagingInfo(String filterJson, String sortJson, PagingInfo pagingInfo, String whereClause,
+	public Paging getPagingInfo(String filterJson, String sortJson, Paging pagingInfo, String whereClause,
 			List<Object> parameters, String joinClause) {
 		try {
 			BandaQuery<T> query = constructQuery(filterJson, sortJson, pagingInfo, whereClause, parameters, joinClause);
-			pagingInfo.setTotalCount(query.count());
+			pagingInfo.setTotalRecordCount(query.count());
 			return pagingInfo;
 		} catch (Exception ex) {
 			throw new AdempiereException(ex);
@@ -468,7 +468,7 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return A list of entities
 	 */
-	private BandaQuery<T> constructQuery(String filterJson, String sortJson, PagingInfo pagingInfo, String whereClause,
+	private BandaQuery<T> constructQuery(String filterJson, String sortJson, Paging pagingInfo, String whereClause,
 			List<Object> parameters, String joinClause) {
 		if (parameters == null) {
 			parameters = new ArrayList<>();
