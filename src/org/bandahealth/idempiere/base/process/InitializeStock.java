@@ -33,6 +33,10 @@ public class InitializeStock {
 
 	public static int createInitialStock(List<MProduct_BH> products, BigDecimal quantity, Properties context,
 			String transactionName) {
+		if (products == null) {
+			log.severe("No products were passed to initialize stock.");
+			throw new AdempiereException("No products were passed to initialize stock.");
+		}
 		int count = 0;
 		List<Integer> productIdsWithStock = getProductIdsWithInventory(products, transactionName);
 
