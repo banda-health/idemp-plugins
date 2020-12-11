@@ -82,4 +82,5 @@ public interface IRestConfigs {
 	String APPLICATION_PDF = "application/pdf";
 
 	String ORDERS_PATH = AUTHENTICATION_PATH + "/orders";
+	String CLIENTS_PATH = AUTHENTICATION_PATH + "/clients";
 }

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.rest.mixin.ClientMixIn;
 import org.bandahealth.idempiere.rest.mixin.OrderMixIn;
+import org.compiere.model.MClient;
 
 import javax.ws.rs.ext.ContextResolver;
 
@@ -32,6 +34,7 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 		//mapper.setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);
 
 		mapper.addMixIn(MOrder_BH.class, OrderMixIn.class);
+		mapper.addMixIn(MClient.class, ClientMixIn.class);
 
 		return mapper;
 	}

@@ -34,6 +34,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ReceiveProductServiceBean" />
 			<ref bean="ReportServiceBean" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.OrderRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.ClientRestService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
