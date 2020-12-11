@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SortUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MUser;
@@ -92,14 +94,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo,
-																		String sortColumn, String sortOrder) {
+			String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(valueToSearch));
 		return this.search(DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-																		String sortColumn, String sortOrder) {
+			String sortColumn, String sortOrder) {
 		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
@@ -115,7 +117,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return
 	 */
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-																		String sortColumn, String sortOrder, String joinClause) {
+			String sortColumn, String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
@@ -160,7 +162,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-																		String sortOrder, String filterJson) {
+			String sortOrder, String filterJson) {
 		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
 	}
 
@@ -176,7 +178,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-																		String sortOrder, String filterJson, String joinClause) {
+			String sortOrder, String filterJson, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 			if (parameters == null) {
@@ -195,11 +197,25 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			StringBuilder dynamicJoinClause = new StringBuilder();
 			if (!getDynamicJoins().isEmpty()) {
-				String passedInJoinClause = (joinClause == null ? "" : joinClause).toLowerCase();
+				String currentJoinClause = (joinClause == null ? "" : joinClause).toLowerCase();
+				// If the current query already has a JOIN (the default), we need to get it
+				String currentQuerySql = query.getSQL();
+				if (currentQuerySql.contains("JOIN")) {
+					int firstJoinStatementIndex = currentQuerySql.indexOf("JOIN");
+					int endOfJoinStatementIndex = currentQuerySql.contains("WHERE") ? currentQuerySql.indexOf("WHERE") :
+							currentQuerySql.length();
+					currentJoinClause += " " + currentQuerySql.substring(firstJoinStatementIndex, endOfJoinStatementIndex - 1);
+				}
+
+				// Now figure out which tables are needed based on the filter/sort criteria
 				List<String> neededJoinTables = FilterUtil.getTablesNeedingJoins(filterJson);
+				if (QueryUtil.doesTableAliasExistOnColumn(sortColumn)) {
+					neededJoinTables.add(QueryUtil.getTableAliasFromColumn(sortColumn));
+				}
+				neededJoinTables = neededJoinTables.stream().distinct().collect(Collectors.toList());
 				for (String tableNeedingJoin : neededJoinTables) {
 					// If this table was already specified in a JOIN, we don't need to dynamically add it
-					if (passedInJoinClause.contains(tableNeedingJoin + ".")) {
+					if (currentJoinClause.contains(tableNeedingJoin + ".")) {
 						continue;
 					}
 					// Find the needed JOIN clause
@@ -213,7 +229,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 					// If no JOIN clause is specified in the dynamic JOIN, we need to let the user know
 					if (!foundMatchForTable) {
 						throw new AdempiereException(tableNeedingJoin
-								+ " was specified in the filter, but no dynamic JOIN clause provided");
+								+ " was specified in the filter/sort, but no dynamic JOIN clause provided");
 					}
 				}
 			}
@@ -223,12 +239,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			if (!dynamicJoinClause.toString().trim().isEmpty()) {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
-			} 
-			if (SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
-				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
-				if(joinString != null) {
-					query.addJoinClause(joinString);
-				}
 			}
 
 			String orderBy = getOrderBy(sortColumn, sortOrder);
