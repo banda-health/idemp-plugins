@@ -1,14 +1,17 @@
 package org.bandahealth.idempiere.base.process;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInventory;
 import org.compiere.model.MStorageOnHand;
@@ -20,9 +23,8 @@ import org.compiere.util.Env;
 
 /**
  * Creates an initial stock with the given quantity or with a default value of 1
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class InitializeStock {
 
@@ -31,6 +33,10 @@ public class InitializeStock {
 
 	public static int createInitialStock(List<MProduct_BH> products, BigDecimal quantity, Properties context,
 			String transactionName) {
+		if (products == null) {
+			log.severe("No products were passed to initialize stock.");
+			throw new AdempiereException("No products were passed to initialize stock.");
+		}
 		int count = 0;
 		List<Integer> productIdsWithStock = getProductIdsWithInventory(products, transactionName);
 
@@ -69,24 +75,28 @@ public class InitializeStock {
 			inventory.completeIt();
 			count++;
 		}
-		
+
 		return count;
 	}
 
 	/**
 	 * Need to verify that no mstorage record exists to avoid duplicates
-	 * 
+	 *
 	 * @param transactionName
 	 * @return
 	 */
 	private static List<Integer> getProductIdsWithInventory(List<MProduct_BH> products, String transactionName) {
-		String whereClause = MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID + " = IN (?) AND "
-				+ MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID + " IN (SELECT "
-				+ MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + " FROM "
-				+ MStorageOnHand.Table_Name + ")";
+		Set<Integer> productIDs = products.stream().map(PO::get_ID).collect(Collectors.toSet());
+		List<Object> parameters = new ArrayList<>();
+		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(productIDs, parameters);
+		String whereClause =
+				MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID + " IN (" + whereCondition + ") AND "
+						+ MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID + " IN (SELECT "
+						+ MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + " FROM "
+						+ MStorageOnHand.Table_Name + ")";
 
 		return new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause, transactionName)
-				.setParameters(products.stream().map(PO::get_ID).map(String::valueOf).collect(Collectors.joining(",")))
+				.setParameters(parameters)
 				.setClient_ID().list().stream().map(PO::get_ID).collect(Collectors.toList());
 	}
 }

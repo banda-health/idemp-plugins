@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.DBException;
@@ -194,5 +196,20 @@ public class QueryUtil {
 		}
 
 		return clientsCurrentMaxPatientId;
+	}
+
+	/**
+	 * This generates a parameter list based on a number of items (i.e. for items [1,2,3], this generates a where clause
+	 * of "?,?,?" and adds the items to the parameters)
+	 *
+	 * @param items      The items to add to the parameter list
+	 * @param parameters The parameter list
+	 * @param <T>        The type of items to add
+	 * @return A where clause with the number of question marks, comma-delimited, for the number of parameters
+	 */
+	public static <T> String getWhereClauseAndSetParametersForSet(Set<T> items, List<Object> parameters) {
+		String parameterList = "?,".repeat(items.size());
+		parameters.addAll(items);
+		return parameterList.substring(0, parameterList.length() - 1);
 	}
 }
