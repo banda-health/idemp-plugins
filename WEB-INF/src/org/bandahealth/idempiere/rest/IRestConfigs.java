@@ -83,4 +83,5 @@ public interface IRestConfigs {
 
 	String ORDERS_PATH = AUTHENTICATION_PATH + "/orders";
 	String CLIENTS_PATH = AUTHENTICATION_PATH + "/clients";
+	String ORGANIZATIONS_PATH = AUTHENTICATION_PATH + "/organizations";
 }

@@ -294,11 +294,10 @@ public abstract class BaseRepository<T extends PO> {
 	 * @param groupingFunction The grouping function to apply for these entities
 	 * @param columnToSearch   The search column to check in
 	 * @param ids              The IDs to search by
-	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
 	 * @return Entities grouped by their ID
 	 */
 	public Map<Integer, List<T>> getGroupsByIds(Function<T, Integer> groupingFunction, String columnToSearch,
-			Set<Integer> ids, Properties idempiereContext) {
+			Set<Integer> ids) {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
@@ -313,11 +312,10 @@ public abstract class BaseRepository<T extends PO> {
 	/**
 	 * Get an entity by its ID
 	 *
-	 * @param id               The ID to search by
-	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
+	 * @param id The ID to search by
 	 * @return The entity
 	 */
-	public T getById(int id, Properties idempiereContext) {
+	public T getById(int id) {
 		return getBaseQuery(getModelInstance().get_TableName() + "." +
 				getModelInstance().get_TableName() + "_ID=?", id).first();
 	}

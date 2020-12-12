@@ -7,7 +7,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.mixin.ClientMixIn;
 import org.bandahealth.idempiere.rest.mixin.OrderMixIn;
+import org.bandahealth.idempiere.rest.mixin.OrganizationMixIn;
 import org.compiere.model.MClient;
+import org.compiere.model.MOrg;
 
 import javax.ws.rs.ext.ContextResolver;
 
@@ -35,6 +37,7 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 
 		mapper.addMixIn(MOrder_BH.class, OrderMixIn.class);
 		mapper.addMixIn(MClient.class, ClientMixIn.class);
+		mapper.addMixIn(MOrg.class, OrganizationMixIn.class);
 
 		return mapper;
 	}
