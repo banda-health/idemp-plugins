@@ -67,7 +67,7 @@ public class InitializeStock {
 			inventoryLine.setM_Product_ID(product.get_ID());
 			inventoryLine.setM_Inventory_ID(inventory.get_ID());
 			inventoryLine.setQtyCount(
-					quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0 ? quantity : BigDecimal.ONE);
+					quantity != null && quantity.compareTo(BigDecimal.ZERO) >= 0 ? quantity : BigDecimal.ONE);
 			inventoryLine.setM_Locator_ID(warehouse.getDefaultLocator().get_ID());
 
 			inventoryLine.save(product.get_TrxName());
