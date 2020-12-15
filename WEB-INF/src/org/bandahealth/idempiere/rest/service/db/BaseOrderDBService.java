@@ -173,7 +173,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			
 			// check void docstatus
 			if (mOrder.getDocAction().equals(MOrder_BH.DOCACTION_Void)) {
-				mOrder.processIt(MOrder_BH.DOCACTION_Void);
+				processEntity(mOrder.getC_Order_UU(), DocAction.ACTION_Void);
 			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
@@ -210,14 +210,19 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @param uuid
 	 * @return
 	 */
-	public T processEntity(String uuid) {
+	public T processEntity(String uuid, String docAction) {
+		if (StringUtil.isNullOrEmpty(docAction)) {
+			log.severe("Missing DocAction");
+			return null;
+		}
+		
 		MOrder_BH order = getEntityByUuidFromDB(uuid);
 		if (order == null) {
 			log.severe("No order with uuid = " + uuid);
 			return null;
 		}
 
-		order.processIt(DocAction.ACTION_Complete);
+		order.processIt(docAction);
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(order.getC_Order_UU()));
 	}
@@ -244,10 +249,10 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @param entity
 	 * @return
 	 */
-	public T saveAndProcessEntity(T entity) {
+	public T saveAndProcessEntity(T entity, String docAction) {
 		T saveEntity = saveEntity(entity);
 		if (saveEntity != null) {
-			return processEntity(saveEntity.getUuid());
+			return processEntity(saveEntity.getUuid(), docAction);
 		}
 
 		return null;
