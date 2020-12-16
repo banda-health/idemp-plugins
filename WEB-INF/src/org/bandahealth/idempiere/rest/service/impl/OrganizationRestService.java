@@ -21,7 +21,7 @@ import java.util.Set;
 @Produces(MediaType.APPLICATION_JSON)
 public class OrganizationRestService {
 
-	private static OrganizationRepository organizationRepository;
+	private final OrganizationRepository organizationRepository;
 
 	public OrganizationRestService() {
 		organizationRepository = new OrganizationRepository();

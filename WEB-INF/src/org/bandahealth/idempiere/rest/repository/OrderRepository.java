@@ -16,9 +16,21 @@ import java.util.concurrent.CompletableFuture;
 
 public class OrderRepository extends BaseRepository<MOrder_BH> {
 
+	private final OrderLineRepository orderLineRepository;
+	private final BusinessPartnerRepository businessPartnerRepository;
+	private final PaymentRepository paymentRepository;
+//	private final ProcessRepository processRepository;
+
 	private final String businessPartnerJoin = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name +
 			"." + MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." +
 			MOrder_BH.COLUMNNAME_C_BPartner_ID;
+
+	public OrderRepository() {
+		orderLineRepository = new OrderLineRepository();
+		businessPartnerRepository = new BusinessPartnerRepository();
+		paymentRepository = new PaymentRepository();
+//		processRepository = new ProcessRepository();
+	}
 
 	public List<MOrder_BH> getPurchaseOrders(String filter, String sort, Paging pagingInfo) {
 		List<Object> parameters = new ArrayList<>();
@@ -67,25 +79,20 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 			MBPartner_BH businessPartner = null;
 
 			// set patient
-//			if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getC_BPartner_UU() != null) {
-//				businessPartner = businessPartnerRepository
-//						.getByUuid(entity.getBusinessPartner().getC_BPartner_UU(), idempiereContext);
-//				if (businessPartner != null) {
-//					order.setC_BPartner_ID(businessPartner.get_ID());
-//				}
-//			}
+			if (entity.getC_BPartner_ID() > 0) {
+				businessPartner = businessPartnerRepository.getById(entity.getC_BPartner_ID());
+				if (businessPartner != null) {
+					order.setC_BPartner_ID(businessPartner.get_ID());
+				}
+			}
 
 			// Set properties specifically for sales orders
 			if (order.isSOTrx()) {
 				ModelUtil.setPropertyIfPresent(entity.getbh_lab_notes(), order::setbh_lab_notes);
 				ModelUtil.setPropertyIfPresent(entity.getDescription(), order::setDescription);
 
-//				if (entity.getPatientType() != null && !StringUtil.isNullOrEmpty(entity.getPatientType().getValue())) {
-//					ModelUtil.setPropertyIfPresent(entity.getPatientType().getValue(), order::setBH_PatientType);
-//				}
-//				if (entity.getReferral() != null && !StringUtil.isNullOrEmpty(entity.getReferral().getValue())) {
-//					ModelUtil.setPropertyIfPresent(entity.getReferral().getValue(), order::setbh_referral);
-//				}
+				ModelUtil.setPropertyIfPresent(entity.getBH_PatientType(), order::setBH_PatientType);
+				ModelUtil.setPropertyIfPresent(entity.getbh_referral(), order::setbh_referral);
 
 				ModelUtil.setPropertyIfPresent(entity.isBH_NewVisit(), order::setBH_NewVisit);
 				ModelUtil.setPropertyIfPresent(entity.getBH_Chief_Complaint(), order::setBH_Chief_Complaint);
@@ -117,9 +124,9 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 	public MOrder_BH afterSave(MOrder_BH inputEntity, MOrder_BH entity) {
 //		List<String> orderLineUuidsToKeep = new ArrayList<>();
 //		// persist product/service/charge order lines
-//		List<OrderLineInput> orderLines = inputEntity.getOrderLines();
+//		List<MOrderLine_BH> orderLines = inputEntity.getOrder;
 //		if (orderLines != null && !orderLines.isEmpty()) {
-//			for (OrderLineInput orderLine : orderLines) {
+//			for (MOrderLine_BH orderLine : orderLines) {
 //				orderLine.setC_Order_ID(entity.get_ID());
 //				orderLineUuidsToKeep.add(orderLineRepository.save(orderLine, idempiereContext).getC_OrderLine_UU());
 //			}
@@ -166,7 +173,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 	 * @param uuid
 	 * @return
 	 */
-	public CompletableFuture<MOrder_BH> process(String uuid) {
+	public MOrder_BH process(String uuid) {
 		MOrder_BH order = getByUuid(uuid);
 		if (order == null) {
 			logger.severe("No order with uuid = " + uuid);
@@ -178,7 +185,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 //		cache.delete(uuid);
 //		businessPartnerRepository.cache.delete(order.getC_BPartner_ID());
 
-		return CompletableFuture.supplyAsync(() -> getByUuid(order.getC_Order_UU()));
+		return getByUuid(order.getC_Order_UU());
 	}
 
 	/**

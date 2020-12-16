@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,21 +9,30 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Payment;
+import org.bandahealth.idempiere.rest.repository.PaymentRepository;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.PaymentDBService;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Path(IRestConfigs.PAYMENTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PaymentRestService extends BaseEntityRestService<Payment> {
 
+	private final PaymentRepository paymentRepository;
 	private PaymentDBService dbService;
 
 	public PaymentRestService() {
 		dbService = new PaymentDBService();
+		paymentRepository = new PaymentRepository();
 	}
 
 	@POST
@@ -67,5 +77,31 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
+	}
+
+	@GET
+	@Path("/servicedebts")
+	public List<MPayment_BH> getServiceDebts(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return paymentRepository.getServiceDebtPayments(filterJson, sort, getPagingInfo(page, size));
+	}
+
+	@GET
+	@Path("/servicedebts/paginginfo")
+	public Paging getServiceDebtsPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return paymentRepository.getServiceDebtPaymentsPagingInfo(filterJson, sort, getPagingInfo(page, size));
+	}
+
+	@GET
+	@Path("/orders")
+	public Map<Integer, List<MPayment_BH>> getByOrderIds(@QueryParam("ids") Set<Integer> ids) {
+		return paymentRepository.getByOrderIds(ids);
+	}
+
+	@GET
+	@Path("/businesspartners")
+	public Map<Integer, List<MPayment_BH>> getByBusinessPartnerIds(@QueryParam("ids") Set<Integer> ids) {
+		return paymentRepository.getGroupsByIds(MPayment_BH::getC_BPartner_ID, MPayment_BH.COLUMNNAME_C_BPartner_ID, ids);
 	}
 }

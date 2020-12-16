@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
-import org.bandahealth.idempiere.rest.repository.ClientRepository;
-import org.compiere.model.MClient;
+import org.bandahealth.idempiere.rest.repository.UserRepository;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -14,19 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Path(IRestConfigs.CLIENTS_PATH)
+@Path(IRestConfigs.USERS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ClientRestService {
+public class UserRestService {
 
-	private final ClientRepository clientRepository;
+	private final UserRepository userRepository;
 
-	public ClientRestService() {
-		clientRepository = new ClientRepository();
+	public UserRestService() {
+		userRepository = new UserRepository();
 	}
 
 	@GET
-	public List<MClient> get(@QueryParam("ids") Set<Integer> ids) {
-		return new ArrayList<>(clientRepository.getByIds(ids).values());
+	public List<MUser_BH> get(@QueryParam("ids") Set<Integer> ids) {
+		return new ArrayList<>(userRepository.getByIds(ids).values());
 	}
 }

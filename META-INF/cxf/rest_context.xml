@@ -33,10 +33,15 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ExpenseServiceBean" />
 			<ref bean="ReceiveProductServiceBean" />
 			<ref bean="ReportServiceBean" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.AttributeSetInstanceRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.BusinessPartnerRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.ChargeRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.ClientRestService" />
-			<bean class="org.bandahealth.idempiere.rest.service.impl.OrderRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.OrganizationRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.OrderLineRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.OrderRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.UserRestService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />

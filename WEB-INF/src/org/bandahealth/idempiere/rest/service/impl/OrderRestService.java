@@ -11,29 +11,44 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Path(IRestConfigs.ORDERS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderRestService {
 
-	private static OrderRepository orderRepository;
+	private final OrderRepository orderRepository;
 
 	public OrderRestService() {
 		orderRepository = new OrderRepository();
 	}
 
 	@GET
-	public List<MOrder_BH> get(@QueryParam("page") int page, @QueryParam("size") int size,
+	public List<MOrder_BH> getByIds(@QueryParam("ids") Set<Integer> ids) {
+		return new ArrayList<>(orderRepository.getByIds(ids).values());
+	}
+
+	@GET
+	@Path("/sales")
+	public List<MOrder_BH> getSalesOrders(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
 		return orderRepository.getSalesOrders(filterJson, sort, new Paging(page, size));
 	}
 
 	@GET
-	@Path("/paginginfo")
+	@Path("/sales/paginginfo")
 	public Paging getPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
 		return orderRepository.getSalesOrdersPagingInfo(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/sales/businesspartners")
+	public Map<Integer, List<MOrder_BH>> getSalesOrdersByBusinessPartners(@QueryParam("ids") Set<Integer> ids) {
+		return orderRepository.getGroupsByIds(MOrder_BH::getC_BPartner_ID, MOrder_BH.COLUMNNAME_C_BPartner_ID, ids);
 	}
 }
