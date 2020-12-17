@@ -15,6 +15,7 @@ import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -38,8 +39,9 @@ public class PaymentRepository extends BaseRepository<MPayment_BH> {
 		List<MPayment_BH> payments = getBaseQuery(MPayment_BH.COLUMNNAME_C_Order_ID +
 						" IN (" + whereCondition + ") OR " + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " IN (" + whereCondition + ")",
 				parameters).setOnlyActiveRecords(true).list();
-		return payments.stream().collect(Collectors.groupingBy(payment ->
+		Map<Integer, List<MPayment_BH>> groupedResults = payments.stream().collect(Collectors.groupingBy(payment ->
 				payment.getC_Order_ID() == 0 ? payment.getBH_C_Order_ID() : payment.getC_Order_ID()));
+		return orderIds.stream().collect(HashMap::new, (m, v) -> m.put(v, groupedResults.get(v)), HashMap::putAll);
 	}
 
 	@Override

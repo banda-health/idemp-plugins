@@ -11,8 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Path(IRestConfigs.BUSINESS_PARTNERS_PATH)
@@ -27,8 +27,8 @@ public class BusinessPartnerRestService {
 	}
 
 	@GET
-	public List<MBPartner_BH> get(@QueryParam("ids") Set<Integer> ids) {
-		return new ArrayList<>(businessPartnerRepository.getByIds(ids).values());
+	public Map<Integer, MBPartner_BH> get(@QueryParam("ids") Set<Integer> ids) {
+		return businessPartnerRepository.getByIds(ids);
 	}
 
 	@GET

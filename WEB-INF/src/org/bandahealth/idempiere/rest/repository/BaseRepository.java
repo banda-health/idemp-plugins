@@ -306,7 +306,8 @@ public abstract class BaseRepository<T extends PO> {
 		BandaQuery<T> query = getBaseQuery(columnToSearch + " IN (" + whereCondition +
 				")", parameters).setOnlyActiveRecords(true);
 		List<T> models = query.list();
-		return models.stream().collect(Collectors.groupingBy(groupingFunction));
+		Map<Integer, List<T>> groupedResults = models.stream().collect(Collectors.groupingBy(groupingFunction));
+		return ids.stream().collect(HashMap::new, (m, v) -> m.put(v, groupedResults.get(v)), HashMap::putAll);
 	}
 
 	/**

@@ -10,8 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Path(IRestConfigs.ATTRIBUTE_SET_INSTANCES_PATH)
@@ -26,7 +25,7 @@ public class AttributeSetInstanceRestService {
 	}
 
 	@GET
-	public List<MAttributeSetInstance> get(@QueryParam("ids") Set<Integer> ids) {
-		return new ArrayList<>(attributeSetInstanceRepository.getByIds(ids).values());
+	public Map<Integer, MAttributeSetInstance> get(@QueryParam("ids") Set<Integer> ids) {
+		return attributeSetInstanceRepository.getByIds(ids);
 	}
 }

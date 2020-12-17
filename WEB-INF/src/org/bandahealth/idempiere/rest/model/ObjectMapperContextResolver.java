@@ -21,11 +21,13 @@ import org.bandahealth.idempiere.rest.mixin.OrganizationMixIn;
 import org.bandahealth.idempiere.rest.mixin.PaymentMixIn;
 import org.bandahealth.idempiere.rest.mixin.ProductMixIn;
 import org.bandahealth.idempiere.rest.mixin.ReferenceListMixIn;
+import org.bandahealth.idempiere.rest.mixin.StorageOnHandMixIn;
 import org.bandahealth.idempiere.rest.mixin.UserMixIn;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MUser;
 
 import javax.ws.rs.ext.ContextResolver;
@@ -65,6 +67,7 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 		mapper.addMixIn(MPayment_BH.class, PaymentMixIn.class);
 		mapper.addMixIn(MProduct_BH.class, ProductMixIn.class);
 		mapper.addMixIn(MRefList.class, ReferenceListMixIn.class);
+		mapper.addMixIn(MStorageOnHand.class, StorageOnHandMixIn.class);
 		mapper.addMixIn(MUser_BH.class, UserMixIn.class);
 		// Not sure why the below line is needed, but it is
 		mapper.addMixIn(MUser.class, UserMixIn.class);

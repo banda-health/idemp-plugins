@@ -10,8 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Path(IRestConfigs.CLIENTS_PATH)
@@ -26,7 +25,7 @@ public class ClientRestService {
 	}
 
 	@GET
-	public List<MClient> get(@QueryParam("ids") Set<Integer> ids) {
-		return new ArrayList<>(clientRepository.getByIds(ids).values());
+	public Map<Integer, MClient> get(@QueryParam("ids") Set<Integer> ids) {
+		return clientRepository.getByIds(ids);
 	}
 }

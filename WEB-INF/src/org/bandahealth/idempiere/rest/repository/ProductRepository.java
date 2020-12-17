@@ -5,18 +5,31 @@ import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductRepository extends BaseRepository<MProduct_BH> {
+
+	//	private final ProductCategoryRepository productCategoryRepository;
+//	private final UomRepository uomRepository;
+	private final StorageOnHandRepository storageOnHandRepository;
 
 	private final String productCategoryJoin = " JOIN " + MProductCategory_BH.Table_Name + " ON " +
 			MProductCategory_BH.Table_Name + "." + MProductCategory_BH.COLUMNNAME_M_Product_Category_ID + "=" +
 			MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_Category_ID;
+
+	public ProductRepository() {
+//		productCategoryRepository = new ProductCategoryRepository();
+//		uomRepository = new UomRepository();
+		storageOnHandRepository = new StorageOnHandRepository();
+	}
 
 	@Override
 	protected MProduct_BH createModelInstance() {
@@ -55,23 +68,23 @@ public class ProductRepository extends BaseRepository<MProduct_BH> {
 				productCategoryJoin);
 	}
 
-//	@Override
-//	public Map<String, String> getDynamicJoins() {
-//		String storageOnHandBaseSql = storageOnHandRepository.getBaseQuery(idempiereContext, null)
-//				.getSQL();
-//		int storageOnHandBaseIndexOfFrom = storageOnHandBaseSql.indexOf("FROM");
-//		int storageOnHandBaseIndexOfWhere = storageOnHandBaseSql.indexOf("WHERE");
-//		return new HashMap<>() {{
-//			put(MStorageOnHand.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.Table_Name + "." +
-//					MStorageOnHand.COLUMNNAME_M_Product_ID + "," + StorageOnHandRepository.COLUMNSELECT_QtyOnHand + " AS " +
-//					MStorageOnHand.COLUMNNAME_QtyOnHand + " " + storageOnHandBaseSql
-//					.substring(storageOnHandBaseIndexOfFrom, storageOnHandBaseIndexOfWhere) + " GROUP BY " +
-//					MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " +
-//					MStorageOnHand.Table_Name + " ON " + MStorageOnHand.Table_Name + "." +
-//					MStorageOnHand.COLUMNNAME_M_Product_ID + "=" + MProduct_BH.Table_Name + "." +
-//					MProduct_BH.COLUMNNAME_M_Product_ID);
-//		}};
-//	}
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		String storageOnHandBaseSql = storageOnHandRepository.getBaseQuery(null)
+				.getSQL();
+		int storageOnHandBaseIndexOfFrom = storageOnHandBaseSql.indexOf("FROM");
+		int storageOnHandBaseIndexOfWhere = storageOnHandBaseSql.indexOf("WHERE");
+		return new HashMap<>() {{
+			put(MStorageOnHand.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.Table_Name + "." +
+					MStorageOnHand.COLUMNNAME_M_Product_ID + "," + StorageOnHandRepository.COLUMNSELECT_QtyOnHand + " AS " +
+					MStorageOnHand.COLUMNNAME_QtyOnHand + " " + storageOnHandBaseSql
+					.substring(storageOnHandBaseIndexOfFrom, storageOnHandBaseIndexOfWhere) + " GROUP BY " +
+					MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " +
+					MStorageOnHand.Table_Name + " ON " + MStorageOnHand.Table_Name + "." +
+					MStorageOnHand.COLUMNNAME_M_Product_ID + "=" + MProduct_BH.Table_Name + "." +
+					MProduct_BH.COLUMNNAME_M_Product_ID);
+		}};
+	}
 
 	@Override
 	public MProduct_BH mapInputModelToModel(MProduct_BH entity) {

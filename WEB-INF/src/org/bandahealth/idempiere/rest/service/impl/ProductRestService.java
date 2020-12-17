@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -20,8 +19,8 @@ import org.bandahealth.idempiere.rest.repository.ProductRepository;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductDBService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Path(IRestConfigs.PRODUCTS_PATH)
@@ -29,8 +28,8 @@ import java.util.Set;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductRestService extends BaseEntityRestService<Product> {
 
-	private ProductDBService dbService;
 	private final ProductRepository productRepository;
+	private ProductDBService dbService;
 
 	public ProductRestService() {
 		dbService = new ProductDBService();
@@ -56,7 +55,7 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Product saveEntity(Product entity) {
-		return dbService.saveEntity(entity) ;
+		return dbService.saveEntity(entity);
 	}
 
 	@POST
@@ -75,8 +74,8 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	}
 
 	@GET
-	public List<MProduct_BH> get(@QueryParam("ids") Set<Integer> ids) {
-		return new ArrayList<>(productRepository.getByIds(ids).values());
+	public Map<Integer, MProduct_BH> get(@QueryParam("ids") Set<Integer> ids) {
+		return productRepository.getByIds(ids);
 	}
 
 	@GET

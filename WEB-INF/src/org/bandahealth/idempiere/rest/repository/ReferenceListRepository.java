@@ -7,6 +7,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -27,41 +28,41 @@ public class ReferenceListRepository extends BaseRepository<MRefList> {
 	public final static String PRODUCT_CATEGORY_TYPE = "BH Product Category Type";
 
 	public Map<String, MRefList> getOrderPaymentType(Set<String> referenceValues) {
-		return getTypes(ORDER_PAYMENT_TYPE, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue,
-				ref -> ref));
+		return getMappedTypes(ORDER_PAYMENT_TYPE, referenceValues);
 	}
 
 	public Map<String, MRefList> getPatientType(Set<String> referenceValues) {
-		return getTypes(PATIENT_TYPE, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue, ref -> ref));
+		return getMappedTypes(PATIENT_TYPE, referenceValues);
 	}
 
 	public Map<String, MRefList> getReferral(Set<String> referenceValues) {
-		return getTypes(REFERRAL_DROPDOWN, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue,
-				ref -> ref));
+		return getMappedTypes(REFERRAL_DROPDOWN, referenceValues);
 	}
 
 	public Map<String, MRefList> getInvoicePaymentType(Set<String> referenceValues) {
-		return getTypes(INVOICE_PAYMENT_TYPE, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue,
-				ref -> ref));
+		return getMappedTypes(INVOICE_PAYMENT_TYPE, referenceValues);
 	}
 
 	public Map<String, MRefList> getNhifType(Set<String> referenceValues) {
-		return getTypes(NHIF_TYPE, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue, ref -> ref));
+		return getMappedTypes(NHIF_TYPE, referenceValues);
 	}
 
 	public Map<String, MRefList> getNhifRelationship(Set<String> referenceValues) {
-		return getTypes(NHIF_RELATIONSHIP, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue,
-				ref -> ref));
+		return getMappedTypes(NHIF_RELATIONSHIP, referenceValues);
 	}
 
 	public Map<String, MRefList> getDocumentStatus(Set<String> referenceValues) {
-		return getTypes(DOCUMENT_STATUS, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue,
-				ref -> ref));
+		return getMappedTypes(DOCUMENT_STATUS, referenceValues);
 	}
 
 	public Map<String, MRefList> getProductCategoryType(Set<String> referenceValues) {
-		return getTypes(PRODUCT_CATEGORY_TYPE, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue,
-				ref -> ref));
+		return getMappedTypes(PRODUCT_CATEGORY_TYPE, referenceValues);
+	}
+
+	private Map<String, MRefList> getMappedTypes(String referenceName, Set<String> referenceValues) {
+		Map<String, MRefList> groupedTypes =
+				getTypes(referenceName, referenceValues).stream().collect(Collectors.toMap(MRefList::getValue, ref -> ref));
+		return referenceValues.stream().collect(HashMap::new, (m, v) -> m.put(v, groupedTypes.get(v)), HashMap::putAll);
 	}
 
 	public List<MRefList> getTypes(String referenceName) {

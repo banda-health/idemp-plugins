@@ -11,8 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Path(IRestConfigs.CHARGES_PATH)
@@ -27,8 +27,8 @@ public class ChargeRestService {
 	}
 
 	@GET
-	public List<MCharge_BH> get(@QueryParam("ids") Set<Integer> ids) {
-		return new ArrayList<>(chargeRepository.getByIds(ids).values());
+	public Map<Integer, MCharge_BH> get(@QueryParam("ids") Set<Integer> ids) {
+		return chargeRepository.getByIds(ids);
 	}
 
 	@GET

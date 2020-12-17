@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,8 +27,8 @@ public class OrganizationRestService {
 	}
 
 	@GET
-	public List<MOrg> get(@QueryParam("ids") Set<Integer> ids) {
-		return new ArrayList<>(organizationRepository.getByIds(ids).values());
+	public Map<Integer, MOrg> get(@QueryParam("ids") Set<Integer> ids) {
+		return organizationRepository.getByIds(ids);
 	}
 
 	@GET
