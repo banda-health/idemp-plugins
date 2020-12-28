@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		"c_CashPlanLine", "salesRep", "ad_User", "bill_BPartner", "bill_Location", "bill_User", "c_Activity", "c_Campaign",
 		"c_CashLine", "c_Charge", "c_ConversionType", "c_Currency", "c_DocType", "c_Opportunity", "c_OrderSource",
 		"c_Payment", "c_POS", "c_Project", "dropShip_Location", "dropShip_User", "link_Order", "m_FreightCategory",
-		"m_Shipper", "m_Warehouse", "quotationOrder", "ref_Order", "salesRep", "user1", "user2", "c_Invoice_ID"})
+		"m_Shipper", "m_Warehouse", "quotationOrder", "ref_Order", "salesRep", "user1", "user2", "c_Invoice_ID",
+		"summary"})
 public abstract class OrderMixIn extends POMixIn {
 }

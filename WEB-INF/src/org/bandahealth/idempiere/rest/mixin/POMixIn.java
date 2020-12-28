@@ -43,6 +43,11 @@ public abstract class POMixIn {
 	@JsonIgnore abstract Object get_Attribute();
 	@JsonIgnore abstract HashMap<String, Object> get_Attributes();
 	@JsonIgnore abstract KeyNamePair getKeyNamePair();
+	@JsonIgnore abstract boolean is_new();
+	@JsonIgnore abstract boolean is_Changed();
+	@JsonIgnore abstract boolean isAttachment();
+	@JsonIgnore abstract boolean isReplication();
+	@JsonIgnore abstract boolean is_ValueChanged();
 
 	@JsonProperty("id") abstract int get_ID();
 }
