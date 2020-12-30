@@ -3,11 +3,15 @@ package org.bandahealth.idempiere.rest.service.impl;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.Account;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.repository.AccountRepository;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.AccountDBService;
+import org.compiere.model.MElementValue;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * Expose Account REST functionality
@@ -21,9 +25,11 @@ import javax.ws.rs.core.MediaType;
 public class AccountRestService extends BaseEntityRestService<Account> {
 
 	private AccountDBService dbService;
+	private final AccountRepository accountRepository;
 
 	public AccountRestService() {
 		this.dbService = new AccountDBService();
+		this.accountRepository = new AccountRepository();
 	}
 
 	@POST
@@ -56,5 +62,18 @@ public class AccountRestService extends BaseEntityRestService<Account> {
 																									@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 																									@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
+	}
+
+	@GET
+	public List<MElementValue> get(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return accountRepository.get(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/paginginfo")
+	public Paging getPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return accountRepository.getPagingInfo(filterJson, sort, new Paging(page, size));
 	}
 }
