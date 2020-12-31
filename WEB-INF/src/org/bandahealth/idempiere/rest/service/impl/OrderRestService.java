@@ -40,6 +40,12 @@ public class OrderRestService {
 	}
 
 	@POST
+	@Path("/process/{uuid}")
+	public MOrder_BH process(@PathParam("uuid") String uuid) {
+		return orderRepository.process(uuid);
+	}
+
+	@POST
 	public MOrder_BH save(MOrder_BH entity) {
 		return orderRepository.save(entity);
 	}
