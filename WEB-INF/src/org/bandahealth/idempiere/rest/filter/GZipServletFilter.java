@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 
 /**
@@ -31,7 +32,7 @@ public class GZipServletFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 		if (acceptsGZipEncoding(httpRequest)) {
-			httpResponse.addHeader("Content-Encoding", "gzip");
+			httpResponse.addHeader(HttpHeaders.CONTENT_ENCODING, "gzip");
 			GZipServletResponseWrapper gzipResponse = new GZipServletResponseWrapper(httpResponse);
 			chain.doFilter(request, gzipResponse);
 			gzipResponse.close();
@@ -41,8 +42,8 @@ public class GZipServletFilter implements Filter {
 	}
 
 	private boolean acceptsGZipEncoding(HttpServletRequest httpRequest) {
-		String acceptEncoding = httpRequest.getHeader("Accept-Encoding");
+		String acceptEncoding = httpRequest.getHeader(HttpHeaders.ACCEPT_ENCODING);
 
-		return acceptEncoding != null && acceptEncoding.contains("gzip");
+		return acceptEncoding != null && acceptEncoding.contains( "gzip");
 	}
 }

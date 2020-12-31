@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.filter;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -69,6 +70,12 @@ public class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 	public ServletOutputStream getOutputStream() throws IOException {
 		if (this.printWriter != null) {
 			throw new IllegalStateException("PrintWriter obtained already - cannot get OutputStream");
+		}
+		// If the content type has already been set (i.e. the stream is closing), don't do anything with GZIP
+		if (getResponse() instanceof HttpServletResponse &&
+				((HttpServletResponse) getResponse()).containsHeader(HttpHeaders.CONTENT_LENGTH) &&
+				Integer.parseInt(((HttpServletResponse) getResponse()).getHeader(HttpHeaders.CONTENT_LENGTH)) == 0) {
+			return getResponse().getOutputStream();
 		}
 		if (this.gzipOutputStream == null) {
 			this.gzipOutputStream = new GZipServletOutputStream(getResponse().getOutputStream());
