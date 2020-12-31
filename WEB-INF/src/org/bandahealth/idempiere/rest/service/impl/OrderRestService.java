@@ -7,7 +7,9 @@ import org.bandahealth.idempiere.rest.repository.OrderRepository;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -29,6 +31,17 @@ public class OrderRestService {
 	@GET
 	public Map<Integer, MOrder_BH> getByIds(@QueryParam("ids") Set<Integer> ids) {
 		return orderRepository.getByIds(ids);
+	}
+
+	@GET
+	@Path("/{uuid}")
+	public MOrder_BH getByUuid(@PathParam("uuid") String uuid) {
+		return orderRepository.getByUuid(uuid);
+	}
+
+	@POST
+	public MOrder_BH save(MOrder_BH entity) {
+		return orderRepository.save(entity);
 	}
 
 	@GET

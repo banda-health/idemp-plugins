@@ -7,6 +7,7 @@ import org.compiere.model.MRefList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -72,5 +73,11 @@ public class ReferenceListRestService {
 	@Path("/productcategorytypes")
 	public Map<String, MRefList> getProductCategoryType(@QueryParam("referenceListValues") Set<String> referenceListValues) {
 		return referenceListRepository.getProductCategoryType(referenceListValues);
+	}
+
+	@GET
+	@Path("/{uuid}")
+	public MRefList getByUuid(@PathParam("uuid") String uuid) {
+		return referenceListRepository.getByUuid(uuid);
 	}
 }

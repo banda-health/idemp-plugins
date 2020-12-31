@@ -120,43 +120,6 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 		}
 	}
 
-	@Override
-	public MOrder_BH afterSave(MOrder_BH inputEntity, MOrder_BH entity) {
-//		List<String> orderLineUuidsToKeep = new ArrayList<>();
-//		// persist product/service/charge order lines
-//		List<MOrderLine_BH> orderLines = inputEntity.getOrder;
-//		if (orderLines != null && !orderLines.isEmpty()) {
-//			for (MOrderLine_BH orderLine : orderLines) {
-//				orderLine.setC_Order_ID(entity.get_ID());
-//				orderLineUuidsToKeep.add(orderLineRepository.save(orderLine, idempiereContext).getC_OrderLine_UU());
-//			}
-//		}
-//
-//		// delete order lines not in request
-//		orderLineRepository.deleteByOrder(entity.get_ID(), orderLineUuidsToKeep, idempiereContext);
-//
-//		// Handle payments for sales orders
-//		if (entity.isSOTrx()) {
-//			// any post save operation
-//			List<String> paymentUuidsToKeep = new ArrayList<>();
-//			List<PaymentInput> payments = inputEntity.getPayments();
-//			if (payments != null && inputEntity.isSOTrx()) {
-//				for (PaymentInput payment : inputEntity.getPayments()) {
-//					payment.setC_Order_ID(entity.get_ID());
-//					if (entity.getC_BPartner_ID() > 0) {
-//						payment.setC_BPartner_ID(entity.getC_BPartner_ID());
-//					}
-//					paymentUuidsToKeep.add(paymentRepository.save(payment, idempiereContext).getC_Payment_UU());
-//				}
-//			}
-//
-//			// delete payment lines not in request
-//			paymentRepository.deleteByOrder(entity.get_ID(), paymentUuidsToKeep, idempiereContext);
-//		}
-
-		return entity;
-	}
-
 	public MOrder_BH saveSalesOrder(MOrder_BH entity) {
 		entity.setIsSOTrx(true);
 		return save(entity);

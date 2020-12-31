@@ -62,13 +62,9 @@ public class PaymentRepository extends BaseRepository<MPayment_BH> {
 			payment.setBH_IsServiceDebt(true);
 		}
 
-//		if (entity.getBusinessPartner() != null) {
-//			MBPartner_BH bPartner = businessPartnerRepository.getByUuid(entity.getBusinessPartner().getC_BPartner_UU(),
-//					idempiereContext);
-//			if (bPartner != null) {
-		payment.setC_BPartner_ID(entity.getC_BPartner_ID());
-//			}
-//		}
+		if (entity.getC_BPartner_ID() > 0) {
+			payment.setC_BPartner_ID(entity.getC_BPartner_ID());
+		}
 
 		if (entity.getC_Charge_ID() > 0) {
 			payment.setC_Charge_ID(entity.getC_Charge_ID());

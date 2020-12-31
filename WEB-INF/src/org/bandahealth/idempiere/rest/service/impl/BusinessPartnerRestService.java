@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.repository.BusinessPartnerRepository;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -29,6 +30,12 @@ public class BusinessPartnerRestService {
 	@GET
 	public Map<Integer, MBPartner_BH> get(@QueryParam("ids") Set<Integer> ids) {
 		return businessPartnerRepository.getByIds(ids);
+	}
+
+	@GET
+	@Path("/{uuid}")
+	public MBPartner_BH getByUuid(@PathParam("uuid") String uuid) {
+		return businessPartnerRepository.getByUuid(uuid);
 	}
 
 	@GET

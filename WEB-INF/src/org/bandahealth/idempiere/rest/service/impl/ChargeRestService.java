@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.repository.ChargeRepository;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -43,5 +44,11 @@ public class ChargeRestService {
 	public Paging getPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
 		return chargeRepository.getExpenseCategoriesPagingInfo(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/{uuid}")
+	public MCharge_BH getByUuid(@PathParam("uuid") String uuid) {
+		return chargeRepository.getByUuid(uuid);
 	}
 }
