@@ -8,5 +8,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		"c_BP_Group", "c_Dunning", "c_Greeting", "c_InvoiceSchedule", "c_PaymentTerm", "c_TaxGroup", "default1099Box",
 		"invoice_PrintFormat", "m_DiscountSchema", "m_PriceList", "po_DiscountSchema", "po_PaymentTerm", "po_PriceList",
 		"salesRep"})
-public abstract class BusinessPartnerMixIn extends POMixIn {
+public abstract class BusinessPartnerMixIn implements POMixIn {
 }

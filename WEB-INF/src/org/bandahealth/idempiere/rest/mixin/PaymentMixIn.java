@@ -8,5 +8,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		"c_Campaign", "c_CashBook", "c_Charge", "c_ConversionType", "c_Currency", "c_DepositBatch", "c_DocType",
 		"c_Invoice", "c_Order", "c_PaymentBatch", "c_PaymentProcessor", "c_POSTenderType", "c_Project", "ref_Payment",
 		"reversal", "user1", "user2", "po"})
-public abstract class PaymentMixIn extends POMixIn {
+public abstract class PaymentMixIn implements POMixIn {
 }

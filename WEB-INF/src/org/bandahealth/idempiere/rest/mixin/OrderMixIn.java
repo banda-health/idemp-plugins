@@ -1,6 +1,10 @@
 package org.bandahealth.idempiere.rest.mixin;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @JsonIgnoreProperties(value = {"taxProviders", "shipments", "lines", "taxes", "invoices", "c_PaymentTerm",
 		"c_BPartner_Location", "c_DocTypeTarget", "dropShip_BPartner", "m_PriceList", "c_ConversionType", "c_BPartner",
@@ -13,5 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		"m_Shipper_ID", "c_CashPlanLine_ID", "bill_Location_ID", "bill_BPartner_ID", "quotationOrder_ID",
 		"dropShip_User_ID", "dropShip_BPartner_ID", "m_FreightCategory_ID", "dropShip_Location_ID", "salesRep_ID",
 		"sendEMail", "ad_OrgTrx_ID", "c_Campaign_ID", "c_Charge_ID", "chargeAmt", "taxIncluded", "c_ConversionType_ID"})
-public abstract class OrderMixIn extends POMixIn {
+public abstract class OrderMixIn implements POMixIn {
+	@JsonCreator
+	public OrderMixIn() {
+	}
 }
