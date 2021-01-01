@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -36,7 +37,7 @@ public class OrderLineRestService {
 
 	@POST
 	@Path("/orders/{orderId}")
-	public List<MOrderLine_BH> saveByOrder(int orderId, List<MOrderLine_BH> orderLines) {
+	public List<MOrderLine_BH> saveByOrder(@PathParam("orderId") int orderId, List<MOrderLine_BH> orderLines) {
 		List<MOrderLine_BH> savedOrderLines = new ArrayList<>();
 		// persist product/service/charge order lines
 		if (orderLines != null && !orderLines.isEmpty()) {

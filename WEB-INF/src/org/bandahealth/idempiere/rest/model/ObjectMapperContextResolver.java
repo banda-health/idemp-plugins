@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.mixin.AccountMixIn;
 import org.bandahealth.idempiere.rest.mixin.AttributeSetInstanceMixIn;
+import org.bandahealth.idempiere.rest.mixin.AttributeSetMixIn;
 import org.bandahealth.idempiere.rest.mixin.BusinessPartnerMixIn;
 import org.bandahealth.idempiere.rest.mixin.ChargeMixIn;
 import org.bandahealth.idempiere.rest.mixin.ClientMixIn;
@@ -25,6 +26,7 @@ import org.bandahealth.idempiere.rest.mixin.ProductMixIn;
 import org.bandahealth.idempiere.rest.mixin.ReferenceListMixIn;
 import org.bandahealth.idempiere.rest.mixin.StorageOnHandMixIn;
 import org.bandahealth.idempiere.rest.mixin.UserMixIn;
+import org.compiere.model.MAttributeSet;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MClient;
 import org.compiere.model.MElementValue;
@@ -61,6 +63,7 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 
 		//mapper.setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);
 
+		mapper.addMixIn(MAttributeSet.class, AttributeSetMixIn.class);
 		mapper.addMixIn(MAttributeSetInstance.class, AttributeSetInstanceMixIn.class);
 		mapper.addMixIn(MBPartner_BH.class, BusinessPartnerMixIn.class);
 		mapper.addMixIn(MCharge_BH.class, ChargeMixIn.class);

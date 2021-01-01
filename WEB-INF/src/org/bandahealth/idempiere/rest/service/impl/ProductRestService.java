@@ -105,4 +105,10 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
 		return productRepository.getServicesPagingInfo(filterJson, sort, new Paging(page, size));
 	}
+
+	@GET
+	@Path("/{uuid}")
+	public MProduct_BH getByUuid(@PathParam("uuid") String uuid) {
+		return productRepository.getByUuid(uuid);
+	}
 }

@@ -34,6 +34,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ReceiveProductServiceBean" />
 			<ref bean="ReportServiceBean" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.AttributeSetInstanceRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.AttributeSetRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.BusinessPartnerRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.ChargeRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.ClientRestService" />
@@ -49,7 +50,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="authenticationFilter" />
 			<ref bean="duplicateEntitySaveExceptionMapper"/>
 			<ref bean="adempiereExceptionMapper"/>
-			<ref bean="contextResolver"/>
+			<bean class="org.bandahealth.idempiere.rest.model.ObjectMapperContextResolver" />
 		</jaxrs:providers>
 	</jaxrs:server>
 	
@@ -61,9 +62,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="jsonProvider"
 		class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
-
-	<bean id="contextResolver"
-		  class="org.bandahealth.idempiere.rest.model.ObjectMapperContextResolver" />
 
 	<bean id="authenticationFilter"
 		class="org.bandahealth.idempiere.rest.filter.AuthenticationFilter" />

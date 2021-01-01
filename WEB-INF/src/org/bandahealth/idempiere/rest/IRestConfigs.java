@@ -83,6 +83,7 @@ public interface IRestConfigs {
 
 	// GraphQL REST
 	String ATTRIBUTE_SET_INSTANCES_PATH = AUTHENTICATION_PATH + "/attributesetinstances";
+	String ATTRIBUTE_SETS_PATH = AUTHENTICATION_PATH + "/attributesets";
 	String CHARGES_PATH = AUTHENTICATION_PATH + "/charges";
 	String BUSINESS_PARTNERS_PATH = AUTHENTICATION_PATH + "/businesspartners";
 	String CLIENTS_PATH = AUTHENTICATION_PATH + "/clients";

@@ -114,7 +114,7 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 
 	@POST
 	@Path("/orders/{orderId}")
-	public List<MPayment_BH> saveByOrder(int orderId, List<MPayment_BH> payments) {
+	public List<MPayment_BH> saveByOrder(@PathParam("orderId") int orderId, List<MPayment_BH> payments) {
 		MOrder_BH order = orderRepository.getById(orderId);
 		List<MPayment_BH> savedPaymentes = new ArrayList<>();
 		for (MPayment_BH payment : payments) {
