@@ -22,8 +22,12 @@ import org.bandahealth.idempiere.rest.mixin.OrderLineMixIn;
 import org.bandahealth.idempiere.rest.mixin.OrderMixIn;
 import org.bandahealth.idempiere.rest.mixin.OrganizationMixIn;
 import org.bandahealth.idempiere.rest.mixin.PaymentMixIn;
+import org.bandahealth.idempiere.rest.mixin.ProcessInfoParameterMixIn;
+import org.bandahealth.idempiere.rest.mixin.ProcessMixIn;
+import org.bandahealth.idempiere.rest.mixin.ProcessParameterMixIn;
 import org.bandahealth.idempiere.rest.mixin.ProductMixIn;
 import org.bandahealth.idempiere.rest.mixin.ReferenceListMixIn;
+import org.bandahealth.idempiere.rest.mixin.ReferenceMixIn;
 import org.bandahealth.idempiere.rest.mixin.StorageOnHandMixIn;
 import org.bandahealth.idempiere.rest.mixin.UserMixIn;
 import org.compiere.model.MAttributeSet;
@@ -32,9 +36,13 @@ import org.compiere.model.MClient;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
+import org.compiere.model.MProcess;
+import org.compiere.model.MProcessPara;
 import org.compiere.model.MRefList;
+import org.compiere.model.MReference;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MUser;
+import org.compiere.process.ProcessInfoParameter;
 
 import javax.ws.rs.ext.ContextResolver;
 import java.text.DateFormat;
@@ -74,12 +82,16 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 		mapper.addMixIn(MOrder_BH.class, OrderMixIn.class);
 		mapper.addMixIn(MOrderLine_BH.class, OrderLineMixIn.class);
 		mapper.addMixIn(MPayment_BH.class, PaymentMixIn.class);
+		mapper.addMixIn(MProcess.class, ProcessMixIn.class);
+		mapper.addMixIn(MProcessPara.class, ProcessParameterMixIn.class);
 		mapper.addMixIn(MProduct_BH.class, ProductMixIn.class);
+		mapper.addMixIn(MReference.class, ReferenceMixIn.class);
 		mapper.addMixIn(MRefList.class, ReferenceListMixIn.class);
 		mapper.addMixIn(MStorageOnHand.class, StorageOnHandMixIn.class);
 		mapper.addMixIn(MUser_BH.class, UserMixIn.class);
 		// Not sure why the below line is needed, but it is
 		mapper.addMixIn(MUser.class, UserMixIn.class);
+		mapper.addMixIn(ProcessInfoParameter.class, ProcessInfoParameterMixIn.class);
 
 		// Ensure dates make it through correctly in UTC
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");

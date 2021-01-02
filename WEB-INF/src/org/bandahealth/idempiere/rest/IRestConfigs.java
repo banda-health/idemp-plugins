@@ -91,6 +91,8 @@ public interface IRestConfigs {
 	String ORDERS_PATH = AUTHENTICATION_PATH + "/orders";
 	String ORDER_LINES_PATH = AUTHENTICATION_PATH + "/orderlines";
 	String ORGANIZATIONS_PATH = AUTHENTICATION_PATH + "/organizations";
+	String PROCESS_PARAMETERS_PATH = AUTHENTICATION_PATH + "/processparameters";
+	String REFERENCES_PATH = AUTHENTICATION_PATH + "/references";
 	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
 	String STORAGE_ON_HAND_PATH = AUTHENTICATION_PATH + "/storageonhand";
 	String USERS_PATH = AUTHENTICATION_PATH + "/users";

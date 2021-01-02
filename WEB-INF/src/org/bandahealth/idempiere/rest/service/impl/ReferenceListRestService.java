@@ -11,7 +11,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -79,5 +78,11 @@ public class ReferenceListRestService {
 	@Path("/{uuid}")
 	public MRefList getByUuid(@PathParam("uuid") String uuid) {
 		return referenceListRepository.getByUuid(uuid);
+	}
+
+	@GET
+	@Path("/references")
+	public Map<Integer, List<MRefList>> getByReferenceIds(@QueryParam("ids") Set<Integer> ids) {
+		return referenceListRepository.getGroupsByIds(MRefList::getAD_Reference_ID, MRefList.COLUMNNAME_AD_Reference_ID, ids);
 	}
 }

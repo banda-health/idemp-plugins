@@ -41,7 +41,9 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<bean class="org.bandahealth.idempiere.rest.service.impl.OrganizationRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.OrderLineRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.OrderRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.ProcessParameterRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.StorageOnHandRestService" />
 			<bean class="org.bandahealth.idempiere.rest.service.impl.UserRestService" />
 		</jaxrs:serviceBeans>
