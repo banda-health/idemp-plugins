@@ -78,6 +78,13 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	}
 
 	@GET
+	@Path("/paginginfo")
+	public Paging getPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return processRepository.getPagingInfo(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
 	@Path("/{uuid}")
 	public MProcess getByUuid(@PathParam("uuid") String uuid) {
 		return processRepository.getByUuid(uuid);

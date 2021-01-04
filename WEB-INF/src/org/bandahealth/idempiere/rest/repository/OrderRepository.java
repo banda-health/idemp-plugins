@@ -19,7 +19,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 	private final OrderLineRepository orderLineRepository;
 	private final BusinessPartnerRepository businessPartnerRepository;
 	private final PaymentRepository paymentRepository;
-//	private final ProcessRepository processRepository;
+	private final ProcessRepository processRepository;
 
 	private final String businessPartnerJoin = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name +
 			"." + MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." +
@@ -29,7 +29,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 		orderLineRepository = new OrderLineRepository();
 		businessPartnerRepository = new BusinessPartnerRepository();
 		paymentRepository = new PaymentRepository();
-//		processRepository = new ProcessRepository();
+		processRepository = new ProcessRepository();
 	}
 
 	public List<MOrder_BH> getPurchaseOrders(String filter, String sort, Paging pagingInfo) {
@@ -143,10 +143,7 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 			return null;
 		}
 
-//		processRepository.runOrderProcess(order.get_ID(), idempiereContext);
-//		cache.delete(order.get_ID());
-//		cache.delete(uuid);
-//		businessPartnerRepository.cache.delete(order.getC_BPartner_ID());
+		processRepository.runOrderProcess(order.get_ID());
 
 		return getByUuid(order.getC_Order_UU());
 	}
@@ -168,13 +165,13 @@ public class OrderRepository extends BaseRepository<MOrder_BH> {
 		return 0;
 	}
 
-	public CompletableFuture<Boolean> delete(String id) {
+	public Boolean delete(String id) {
 		try {
 			MOrder order = getByUuid(id);
 			if (order.isComplete()) {
 				throw new AdempiereException("Order is already completed");
 			} else {
-				return CompletableFuture.supplyAsync(() -> order.delete(false));
+				return order.delete(false);
 			}
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());

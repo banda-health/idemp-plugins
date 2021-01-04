@@ -206,7 +206,22 @@ public class ProcessRepository extends BaseRepository<MProcess> {
 
 	public List<MProcess> get(String filter, String sort, Paging pagingInfo) {
 		List<Object> parameters = new ArrayList<>();
-		List<String> reportNames = new ArrayList<>() {{
+		List<Integer> processIDs = getProcessIds();
+		String whereClause = getWhereClause(processIDs);
+
+		return super.get(filter, sort, pagingInfo, whereClause, parameters);
+	}
+
+	public Paging getPagingInfo(String filter, String sort, Paging pagingInfo) {
+		List<Object> parameters = new ArrayList<>();
+		List<Integer> processIDs = getProcessIds();
+		String whereClause = getWhereClause(processIDs);
+
+		return super.getPagingInfo(filter, sort, pagingInfo, whereClause, parameters);
+	}
+
+	private List<String> getReportNames() {
+		return new ArrayList<>() {{
 			add(INCOME_EXPENSE_REPORT);
 			add(THERMAL_RECEIPT_REPORT);
 			add(PATIENT_TRANSACTIONS_REPORT);
@@ -224,8 +239,10 @@ public class ProcessRepository extends BaseRepository<MProcess> {
 			add(PAYMENT_TRAIL_REPORT);
 			add(DIAGNOSIS_REPORT);
 		}};
+	}
 
-		String reportNameList = reportNames.stream().map(reportName -> "'" + reportName + "'")
+	private List<Integer> getProcessIds() {
+		String reportNameList = getReportNames().stream().map(reportName -> "'" + reportName + "'")
 				.collect(Collectors.joining(","));
 
 		// Get the list of IDs of de-duplicated report names
@@ -248,15 +265,17 @@ public class ProcessRepository extends BaseRepository<MProcess> {
 			logger.warning("Error fetching deduplicated process name list");
 			processIDs = new ArrayList<>();
 		}
+		return processIDs;
+	}
 
+	private String getWhereClause(List<Integer> processIDs) {
 		String whereClause = MProcess.COLUMNNAME_AD_Process_ID + " IN (" + processIDs.stream().map(Object::toString)
 				.collect(Collectors.joining(",")) + ")";
 		if (processIDs.isEmpty()) {
-			whereClause = MProcess.COLUMNNAME_Name + " IN (" + reportNames.stream()
+			whereClause = MProcess.COLUMNNAME_Name + " IN (" + getReportNames().stream()
 					.map(reportName -> "'" + reportName + "'").collect(Collectors.joining(",")) + ")";
 		}
-
-		return super.get(filter, sort, pagingInfo, whereClause, parameters);
+		return whereClause;
 	}
 
 	/**
@@ -264,8 +283,8 @@ public class ProcessRepository extends BaseRepository<MProcess> {
 	 *
 	 * @param orderId
 	 */
-	public String runOrderProcess(int orderId, Properties idempiereContext) {
-		MProcess mprocess = new Query(idempiereContext, MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?",
+	public String runOrderProcess(int orderId) {
+		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?",
 				null)
 				.setOnlyActiveRecords(true).setParameters(SALES_PROCESS_CLASS_NAME).first();
 
