@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ReceiveProductDBService;
+import org.compiere.process.DocAction;
 
 /**
  * Expense Receive Product REST functionality
@@ -67,13 +68,13 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
 	public ReceiveProduct processVisit(@PathParam("uuid") String uuid) {
-		return dbService.processEntity(uuid);
+		return dbService.processEntity(uuid, DocAction.ACTION_Complete);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
 	public ReceiveProduct saveAndProcessVisit(ReceiveProduct entity) {
-		return dbService.saveAndProcessEntity(entity);
+		return dbService.saveAndProcessEntity(entity, DocAction.ACTION_Complete);
 	}
 	
 	@DELETE

@@ -212,6 +212,8 @@ public class AuthenticationRestService {
 				response.setUsername(credentials.getUsername());
 				// status OK.
 				response.setStatus(Status.OK);
+				// isAdministrator
+				response.setIsAdministrator(user.isAdministrator());
 				return response;
 			} catch (Exception e) {
 				return new AuthResponse(Status.BAD_REQUEST);

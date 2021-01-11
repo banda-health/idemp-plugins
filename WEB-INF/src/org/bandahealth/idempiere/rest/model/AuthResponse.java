@@ -25,6 +25,7 @@ public class AuthResponse {
 	private boolean needsToResetPassword;
 	private List<String> securityQuestions;
 	private boolean hasAccessToReports;
+	private boolean isAdministrator;
 
 	public AuthResponse() {
 	}
@@ -131,4 +132,12 @@ public class AuthResponse {
 		this.hasAccessToReports = hasAccessToReports;
 	}
 
+	@XmlElement
+	public boolean isIsAdministrator() {
+		return isAdministrator;
+	}
+
+	public void setIsAdministrator(boolean isAdministrator) {
+		this.isAdministrator = isAdministrator;
+	}
 }
