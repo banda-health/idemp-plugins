@@ -33,12 +33,14 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ExpenseServiceBean" />
 			<ref bean="ReceiveProductServiceBean" />
 			<ref bean="ReportServiceBean" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
 			<ref bean="authenticationFilter" />
 			<ref bean="duplicateEntitySaveExceptionMapper"/>
 			<ref bean="adempiereExceptionMapper"/>
+			<bean class="org.bandahealth.idempiere.rest.model.ObjectMapperContextResolver" />
 		</jaxrs:providers>
 	</jaxrs:server>
 	
