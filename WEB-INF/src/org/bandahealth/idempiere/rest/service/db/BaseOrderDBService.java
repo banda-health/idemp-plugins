@@ -171,11 +171,6 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			// any post save operation
 			afterSave(entity, mOrder);
 			
-			// check void docstatus
-			if (mOrder.getDocAction().equals(MOrder_BH.DOCACTION_Void)) {
-				processEntity(mOrder.getC_Order_UU(), DocAction.ACTION_Void);
-			}
-
 			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
 
 		} catch (Exception ex) {
@@ -234,12 +229,35 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 	 * @return
 	 */
 	public T asynSaveAndProcessEntity(T entity) {
+		// check void docstatus (completed orders can't be saved/updated)
+		if (entity.getDocStatus() != null &&
+				entity.getDocStatus().equals(MOrder_BH.DOCACTION_Void)) {
+			return voidEntity(entity);
+		}
+
 		T saveEntity = saveEntity(entity);
 		if (saveEntity != null) {
 			asyncProcessEntity(saveEntity.getUuid());
 			return saveEntity;
 		}
 
+		return null;
+	}
+	
+	private T voidEntity(T entity) {
+		MOrder_BH order = getEntityByUuidFromDB(entity.getUuid());
+		if (order == null) {
+			return null;
+		}
+		
+		boolean process = order.processIt(DocAction.ACTION_Void);
+		if (process) {
+			order.setDocStatus(MOrder_BH.DOCSTATUS_Voided);
+			order.saveEx();
+		
+			return createInstanceWithAllFields(order);
+		}
+		
 		return null;
 	}
 
