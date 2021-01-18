@@ -14,6 +14,10 @@ public class Authentication {
 	private Integer roleId;
 	private Integer organizationId;
 	private Integer warehouseId;
+	/**
+	 * The language that is stored in the DB as AD_Language (e.g. en_US)
+	 */
+	private String language;
 
 	public Authentication() {
 	}
@@ -94,5 +98,13 @@ public class Authentication {
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 }
