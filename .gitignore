@@ -5,3 +5,5 @@
 *.css
 test.properties
 .classpath
+*.iml
+target
