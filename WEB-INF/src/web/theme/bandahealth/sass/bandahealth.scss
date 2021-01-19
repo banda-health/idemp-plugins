@@ -8,18 +8,18 @@
 	@import '_hacks.scss';
 	@import '_common.scss';
 
-	span[instancename="C_Order0BH_NewVisit"]{
-		color:red;
-	};
-	
-	span[title="Optional short description of the record"]{
-		color:red !important;
+	span[instancename='C_Order0BH_NewVisit'] {
+		color: red;
 	}
-	
-	span[title="Amount being paid"]{
-		color:red !important;
+
+	span[title='Optional short description of the record'] {
+		color: red !important;
 	}
-	
+
+	span[title='Amount being paid'] {
+		color: red !important;
+	}
+
 	.btn {
 		@extend %button;
 		&:hover {
@@ -56,27 +56,27 @@
 		flex-direction: column;
 	}
 
-    .bh-dashboard-button{
-        cursor: pointer;
-//         display: flex;
-        margin-bottom:3px;
-        &.z-grid > .z-grid-body{
-            overflow: hidden !important;
-            table {
-                table-layout:auto !important;
-                width:inherit;
-                tbody > tr > td:nth-child(1){
-                            width:10%;
-                        }
-                }
-            }
-        div{
-                font-size:20px;
-                text-align:center;
-                vertical-align:middle;
-                color: #363463;
-            }
-    }
+	.bh-dashboard-button {
+		cursor: pointer;
+		//         display: flex;
+		margin-bottom: 3px;
+		&.z-grid > .z-grid-body {
+			overflow: hidden !important;
+			table {
+				table-layout: auto !important;
+				width: inherit;
+				tbody > tr > td:nth-child(1) {
+					width: 10%;
+				}
+			}
+		}
+		div {
+			font-size: 20px;
+			text-align: center;
+			vertical-align: middle;
+			color: #363463;
+		}
+	}
 
 	.bh-editable-rows-container {
 		display: grid;
@@ -160,13 +160,15 @@
 	}
 
 	&.client,
-	&.organization {}
+	&.organization {
+	}
 
-	&.client {}
+	&.client {
+	}
 
 	&.organization {
 		.adwindow-layout {
-			&>div:nth-child(2) {
+			& > div:nth-child(2) {
 				.adtab-content:first-child {
 					.adtab-grid {
 						tr.highlight,
@@ -180,7 +182,7 @@
 			}
 		}
 		.adwindow-toolbar {
-			&>div.z-toolbar-start {
+			& > div.z-toolbar-start {
 				background-color: white;
 				display: flex;
 				justify-content: flex-end;
@@ -190,156 +192,158 @@
 				> span.toolbar-searchbox {
 					@extend %remove-element;
 				}
-			}
-			// Toolbar buttons at the top of each edit/view screen
-			&>a {
-				@extend %button;
-				&:hover {
-					@extend %button-hover;
-				}
-				&:before {
-					height: unset;
-				}
-				// Remove buttons we don't want people to use
-				&:nth-child(1),
-				&:nth-child(4),
-				&:nth-child(7),
-				&:nth-child(9),
-				&:nth-child(n+11):nth-child(-n+50),
-				&.disableFilter,
-				img {
-					@extend %remove-element;
-				}
-				// Move these buttons to the right by setting order: 10
-				&:nth-child(3),
-				&:nth-child(5),
-				&:nth-child(6),
-				&:nth-child(8),
-				&:nth-child(9),
-				&:nth-child(10) {
-					@extend %toolbar-button;
-					order: 10;
-					span {
-						width: auto;
-						vertical-align: middle;
-						img {
+				// Toolbar buttons at the top of each edit/view screen
+				a {
+					@extend %button;
+					&:hover {
+						@extend %button-hover;
+					}
+					&:before {
+						height: unset;
+					}
+					// Remove buttons we don't want people to use
+					&:nth-child(1),
+					&:nth-child(4),
+					&:nth-child(7),
+					&:nth-child(9),
+					&:nth-child(n + 11):nth-child(-n + 50),
+					&.disableFilter,
+					img {
+						@extend %remove-element;
+					}
+					// Move these buttons to the right by setting order: 10
+					&:nth-child(2),
+					&:nth-child(3),
+					&:nth-child(5),
+					&:nth-child(6),
+					&:nth-child(8),
+					&:nth-child(9),
+					&:nth-child(10) {
+						@extend %toolbar-button;
+						order: 10;
+						span {
+							width: auto;
+							vertical-align: middle;
+							img {
+								@extend %remove-element;
+							}
+						}
+						&:before {
+							font-size: $button-font-size-small;
+							color: white;
+						}
+						&:after {
+							font-size: $button-font-size-small;
+							vertical-align: middle;
+						}
+					}
+					// Undo/Cancel button
+					&:nth-child(8) {
+						@extend %primary;
+						order: 1;
+						&:before {
+							@extend %fas;
+							content: $icon-times;
+						}
+						&:after {
+							content: var(--button-text-cancel);
+						}
+						&:hover {
+							@extend %primary-hover;
+						}
+					}
+					// New
+					&:nth-child(3) {
+						@extend %secondary;
+						order: 2;
+						&:before {
+							@extend %fas;
+							content: $icon-plus;
+						}
+						&:after {
+							content: var(--button-text-new);
+						}
+						&:hover {
+							@extend %secondary-hover;
+						}
+						@at-root .no-add-edit-entity#{&} {
 							@extend %remove-element;
 						}
 					}
-					&:before {
-						font-size: $button-font-size-small;
-						color: white;
+					// Delete
+					&:nth-child(6) {
+						@extend %delete;
+						&:before {
+							@extend %far;
+							content: $icon-trash-alt;
+						}
+						&:after {
+							content: var(--button-text-delete);
+						}
+						&:hover {
+							@extend %delete-hover;
+						}
 					}
-					&:after {
-						font-size: $button-font-size-small;
-						vertical-align: middle;
+					// Save
+					&:nth-child(5) {
+						@extend %confirm;
+						order: 4;
+						&:before {
+							@extend %fas;
+							content: $icon-save;
+						}
+						&:after {
+							content: var(--button-text-save);
+						}
+						&:hover {
+							@extend %confirm-hover;
+						}
 					}
-				}
-				// Undo/Cancel button
-				&:nth-child(8) {
-					@extend %primary;
-					order: 1;
-					&:before {
-						@extend %fas;
-						content: $icon-times;
+					// Refresh/Re-query
+					&:nth-child(9) {
+						margin-right: 10px;
+						order: -1;
+						&:before {
+							@extend %fas;
+							content: $icon-sync;
+							color: black;
+						}
+						&:after {
+							content: var(--button-text-refresh);
+						}
 					}
-					&:after {
-						content: var(--button-text-cancel);
+					// Search/Lookup record
+					&:nth-child(2) {
+						margin-right: 10px;
+						order: 0;
+						&:before {
+							@extend %fas;
+							content: $icon-search;
+							color: black;
+						}
+						&:after {
+							content: var(--button-text-search);
+						}
 					}
-					&:hover {
-						@extend %primary-hover;
+					// Grid button
+					&:nth-child(10) {
+						margin-right: auto;
+						order: 0;
+						&:before {
+							@extend %fas;
+							content: $icon-th;
+							color: black;
+						}
+						&:after {
+							content: var(--button-text-results);
+						}
 					}
-				}
-				// New
-				&:nth-child(3) {
-					@extend %secondary;
-					order: 2;
-					&:before {
-						@extend %fas;
-						content: $icon-plus;
-					}
-					&:after {
-						content: var(--button-text-new);
-					}
-					&:hover {
-						@extend %secondary-hover;
-					}
-					@at-root .no-add-edit-entity#{&} {
-						@extend %remove-element;
-					}
-				}
-				// Delete
-				&:nth-child(6) {
-					@extend %delete;
-					&:before {
-						@extend %far;
-						content: $icon-trash-alt;
-					}
-					&:after {
-						content: var(--button-text-delete);
-					}
-					&:hover {
-						@extend %delete-hover;
-					}
-				}
-				// Save
-				&:nth-child(5) {
-					@extend %confirm;
-					order: 4;
-					&:before {
-						@extend %fas;
-						content: $icon-save;
-					}
-					&:after {
-						content: var(--button-text-save);
-					}
-					&:hover {
-						@extend %confirm-hover;
-					}
-				}
-				// Refresh/Re-query
-				&:nth-child(9) {
-					margin-right: 10px;
-					order: -1;
-					&:before {
-						@extend %fas;
-						content: $icon-sync;
-						color: black;
-					}
-					&:after {
-						content: var(--button-text-refresh);
+					@at-root .mobile#{&} {
 					}
 				}
-				// Search/Lookup record
-				&:nth-child(2) {
-					margin-right: 10px;
-					order: 0;
-					&:before {
-						@extend %fas;
-						content: $icon-search;
-						color: black;
-					}
-					&:after {
-						content: var(--button-text-search);
-					}
-				}
-				// Grid button
-				&:nth-child(10) {
-					margin-right: auto;
-					order: 0;
-					&:before {
-						@extend %fas;
-						content: $icon-th;
-						color: black;
-					}
-					&:after {
-						content: var(--button-text-results);
-					}
-				}
-				@at-root .mobile#{&} {}
 			}
 		}
-		.adwindow-breadcrumb>div {
+		.adwindow-breadcrumb > div {
 			@extend %remove-element;
 		}
 		.adwindow-detailpane {
@@ -359,7 +363,7 @@
 				.z-toolbar-start {
 					display: flex;
 					justify-content: flex-start;
-					&>a {
+					& > a {
 						width: auto;
 						span {
 							width: auto;
@@ -490,7 +494,7 @@
 		}
 		.desktop-layout {
 			.z-west {
-				background: #FFFFFF;
+				background: #ffffff;
 				.bh-dashboard-panel {
 					.z-tabbox-accordion {
 						.z-tabpanels {
@@ -512,20 +516,21 @@
 						}
 					}
 				}
-				>.z-hlayout {
+				> .z-hlayout {
 					display: flex;
 					flex-direction: column;
 				}
 			}
 			.desktop-center {
 				padding-top: 0;
-				>.z-center-body {
-					>.desktop-tabbox {}
+				> .z-center-body {
+					> .desktop-tabbox {
+					}
 				}
 			}
 		}
 		.desktop-tabbox {
-			&>.z-tabs {
+			& > .z-tabs {
 				height: 34px;
 				display: flex;
 				justify-content: flex-start;
@@ -571,7 +576,7 @@
 					}
 				}
 			}
-			&>.z-toolbar-tabs {
+			& > .z-toolbar-tabs {
 				&.z-toolbar {
 					padding: 0;
 					border: none;
@@ -589,7 +594,8 @@
 					i {
 						font-size: 2.5em;
 					}
-					&:last-child {}
+					&:last-child {
+					}
 					/*&:first-child {
 						display: inline-block !important;
 
@@ -611,7 +617,7 @@
 			}
 			.z-window-content {
 				.z-north-body {
-					&>.z-toolbar>.z-toolbar-content {
+					& > .z-toolbar > .z-toolbar-content {
 						display: flex;
 						align-items: center;
 						.z-toolbarbutton {
@@ -678,9 +684,9 @@
 			}
 			.z-grid-body {
 				.z-rows {
-					&>.z-group {
-						&>.z-group-header {
-							&>.z-group-header-body {
+					& > .z-group {
+						& > .z-group-header {
+							& > .z-group-header-body {
 								span:last-child {
 									&:before {
 										content: var(--search-more-options);
@@ -696,9 +702,9 @@
 					@extend %remove-element;
 				}
 			}
-			&>.z-window-content {
-				&>.z-vlayout {
-					&>.z-vlayout-inner:first-child {
+			& > .z-window-content {
+				& > .z-vlayout {
+					& > .z-vlayout-inner:first-child {
 						@extend %remove-element;
 					}
 				}
@@ -717,7 +723,7 @@
 			.main-parameter-layout {
 				.top-parameter-layout {
 					.input-parameter-layout {
-						>div:last-child {
+						> div:last-child {
 							@extend %remove-element;
 						}
 					}
@@ -733,10 +739,10 @@
 			.z-window-content {
 				table {
 					.z-hbox {
-						img[src*="question"] {
+						img[src*='question'] {
 							@extend %remove-element;
 						}
-						&>tbody>tr>td>table>tbody>tr>td:first-child {
+						& > tbody > tr > td > table > tbody > tr > td:first-child {
 							@extend %fas;
 							font-size: 2em;
 							&:before {
@@ -951,13 +957,13 @@
 		.desktop-center {
 			height: 100% !important;
 			top: 0 !important;
-			&>.z-center-body {
+			& > .z-center-body {
 				height: 100% !important;
-				&>.z-desktop-tabbox {
+				& > .z-desktop-tabbox {
 					height: 100% !important;
-					&>.z-tabpanels {
+					& > .z-tabpanels {
 						height: 100% !important;
-						&>.desktop-home-tabpanel {
+						& > .desktop-home-tabpanel {
 							height: 100% !important;
 						}
 					}
@@ -968,7 +974,7 @@
 			/*	@extend %remove-element; */
 		}
 	}
-	@media screen and (max-width:768px) {
+	@media screen and (max-width: 768px) {
 		.desktop-tabbox {
 			.z-tabbox {
 				.z-tabbox-top {

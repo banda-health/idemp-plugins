@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zk>
+	<script>
+	<![CDATA[
+	    var themePathPrefix = '${themePathPrefix}';
+	]]>
+	</script>
 	<script defer="true">
 	<![CDATA[
 		adempiere.set("zkTimeoutURL", "sessiontimeout.zul");

@@ -7,8 +7,11 @@ bhDefine = bhDefine || define;
 // require = null; // <-- Don't delete this one because it's used somewhere else...?
 define = null;
 
+var baseUrl = document.currentScript.src.split('/main.js')[0];
+baseUrl = baseUrl && baseUrl.split('webui/')[1];
+
 bhRequire.config({
-	baseUrl: 'theme/bandahealth/js',
+	baseUrl,
 	paths: {
 		html: '../html',
 	},
