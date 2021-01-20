@@ -1,21 +1,28 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.rest.model.*;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
+import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Language;
 
 /**
  * Retrieve All Metadata data i.e entity types (e.g nhif,patient,payment types)
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class EntityMetadataDBService {
 
@@ -28,6 +35,7 @@ public class EntityMetadataDBService {
 	public final static String PAYMENT_TYPE_LIMIT = "C_Payment Tender Type Limit";
 	public final static String DOCUMENT_STATUS = "_Document Status";
 	public final static String PRODUCT_CATEGORY_TYPE = "BH Product Category Type";
+	private final CLogger logger = CLogger.getCLogger(EntityMetadataDBService.class);
 
 	public EntityMetadata getAll() {
 		EntityMetadata metadata = new EntityMetadata();
@@ -87,7 +95,7 @@ public class EntityMetadataDBService {
 
 	/**
 	 * Get Reference List from MRefList.Table_Name
-	 * 
+	 *
 	 * @param referenceName
 	 * @param referenceValue
 	 * @return
@@ -112,11 +120,42 @@ public class EntityMetadataDBService {
 			}
 		}
 
-		return new Query(Env.getCtx(), MRefList.Table_Name, whereClause, null)
+		List<MRefList> referenceLists = new Query(Env.getCtx(), MRefList.Table_Name, whereClause, null)
 				.addJoinClause("JOIN " + MReference.Table_Name + " ON " + MReference.Table_Name + "."
 						+ MReference.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
 						+ MRefList.COLUMNNAME_AD_Reference_ID)
 				.setParameters(parameters).setOnlyActiveRecords(true).list();
+		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx()))) {
+			Map<Integer, MRefList> refListMap = referenceLists.stream().collect(
+					Collectors.toMap(MRefList::getAD_Ref_List_ID, v -> v));
+
+			// Setup translation fetching SQL
+			List<Object> translationParameters = new ArrayList<>();
+			String translationWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+					referenceLists.stream().map(MRefList::getAD_Ref_List_ID).collect(Collectors.toSet()), translationParameters);
+			String sql = "SELECT " + MRefList.COLUMNNAME_AD_Ref_List_ID + "," + MRefList.COLUMNNAME_Name + "," +
+					MRefList.COLUMNNAME_Description + " FROM " + MRefList.Table_Name + "_Trl WHERE " +
+					MRefList.COLUMNNAME_AD_Ref_List_ID + " IN(" + translationWhereClause + ")" + " AND AD_Language=?";
+			translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
+
+			// Fetch translations
+			try {
+				PreparedStatement statement = DB.prepareStatement(sql, null);
+				DB.setParameters(statement, translationParameters);
+
+				ResultSet resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					MRefList referenceListToTranslate = refListMap.get(resultSet.getInt(1));
+					referenceListToTranslate.setName(resultSet.getString(2));
+					referenceListToTranslate.setDescription(resultSet.getString(3));
+				}
+
+				referenceLists = new ArrayList<>(refListMap.values());
+			} catch (Exception e) {
+				logger.severe("Error fetching reference list translations: " + e.getMessage());
+			}
+		}
+		return referenceLists;
 	}
 
 	private List<MRefList> getTypes(String referenceName) {
