@@ -23,7 +23,10 @@ import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
+import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Language;
 
 /**
  * Retrieve All Metadata data i.e entity types (e.g nhif,patient,payment types)
