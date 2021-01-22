@@ -51,6 +51,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = "
 				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+		put(MUser.Table_Name, "LEFT JOIN  " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = "
+				+ MUser.Table_Name +  "." + MUser.COLUMNNAME_AD_User_ID);
 	}};
 
 	public VisitDBService() {
