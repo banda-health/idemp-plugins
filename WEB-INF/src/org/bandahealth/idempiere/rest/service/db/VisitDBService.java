@@ -20,12 +20,14 @@ import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Referral;
+import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
+import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BPartner;
 import org.compiere.util.Env;
@@ -122,6 +124,16 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		if (entity.getSecondDiagnosis() != null) {
 			mOrder.setBH_SecondDiagnosis(entity.getSecondDiagnosis());
+		}
+		
+		if (entity.getClinician() != null && entity.getClinician().getUuid() != null) {
+			// get user id
+			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_UU + " =?", null)
+					.setParameters(entity.getClinician().getUuid())
+					.first();
+			if (user != null) {
+				mOrder.setBH_ClinicianUserID(user.get_ID());
+			}
 		}
 
 		mOrder.setIsSOTrx(true);
@@ -221,6 +233,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			String referral = instance.get_Value(COLUMNNAME_REFERRAL) != null
 					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
 					: null;
+					
+			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_ID + " =?", null)
+					.setParameters(instance.getBH_ClinicianUserID())
+					.first();
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
@@ -231,7 +247,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
-					instance.getBH_SecondDiagnosis());
+					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
