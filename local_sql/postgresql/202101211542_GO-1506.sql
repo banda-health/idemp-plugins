@@ -3,6 +3,13 @@ DROP TABLE IF EXISTS tmp_ad_user_ids;
 CREATE TEMP TABLE tmp_ad_user_ids(
 	ad_user_id numeric(10,0) NOT NULL
 );
+
+-- add clinician role into bh_defaultincludedrole
+INSERT INTO bh_defaultincludedrole (
+	ad_client_id, ad_org_id, bh_defaultincludedrole_id, 
+	bh_defaultincludedrole_uu, createdby, db_usertype, 
+	updatedby, included_role_id) VALUES (0, 0, 1000026, uuid_generate_v4(), 100, 'C', 100, 1000047);
+
 DROP TABLE IF EXISTS tmp_ad_role;
 CREATE TEMP TABLE tmp_ad_role
 (
@@ -74,7 +81,12 @@ SELECT setval(
 );
 
 -- Set user with new role (Jeremy User)
-INSERT INTO tmp_ad_user_ids VALUES (1000029);
+INSERT INTO tmp_ad_user_ids
+SELECT ad_user_id
+FROM ad_user
+WHERE name = 'Jeremy Ogembo'
+ORDER BY ad_user_id
+LIMIT 1;
 
 -- Insert the new AD roles into a temporary table for all clients but System
 INSERT INTO tmp_ad_role (
@@ -108,11 +120,6 @@ JOIN tmp_ad_user_ids userIds
 JOIN tmp_ad_role tmpRole
 	ON tmpRole.ad_client_id = auser.ad_client_id
 WHERE auser.ad_user_id = aroles.ad_user_id;
-
--- include the BandaGo Admin role in the new roles
-INSERT INTO ad_role_included (ad_client_id, ad_org_id, ad_role_id, createdby, included_role_id, seqno, updatedby, ad_role_included_uu)
-SELECT tar.ad_client_id, 0, tar.ad_role_id, 100, 1000047, 10, 100, uuid_generate_v4()
-FROM tmp_ad_role tar;
 
 DROP TABLE tmp_ad_role;
 DROP TABLE tmp_ad_user_ids;
