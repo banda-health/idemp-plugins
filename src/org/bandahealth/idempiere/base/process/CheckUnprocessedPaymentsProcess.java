@@ -13,6 +13,8 @@ import org.compiere.process.SvrProcess;
 
 public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 
+	private final String PROCESS_NAME = this.getClass().getName();
+	
 	@Override
 	protected void prepare() {
 	}
@@ -20,7 +22,7 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 	@Override
 	protected String doIt() throws Exception {
 		long start = System.currentTimeMillis();
-		log.log(Level.INFO, "START CheckFaultPaymentsProcess");
+		log.log(Level.INFO, "START " + PROCESS_NAME);
 
 		// get drafted payments with complete orders
 		String whereClause = MPayment_BH.COLUMNNAME_DocStatus
@@ -44,7 +46,7 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 			count++;
 		}
 
-		String msg = "STOP CheckUnprocessedPaymentsProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
+		String msg = "STOP " + PROCESS_NAME + ". Took " + (System.currentTimeMillis() - start) / 1000 / 60
 				+ " mins. Processed " + count + " order(s).";
 		log.log(Level.INFO, msg);
 
