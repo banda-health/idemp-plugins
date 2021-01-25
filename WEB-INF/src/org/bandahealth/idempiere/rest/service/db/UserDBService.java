@@ -16,6 +16,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class UserDBService extends BaseDBService<User, MUser> {
+	private static final int SYSTEM_USER_ID = 1;
 
 	public BaseListResponse<User> getClinicians(Paging pagingInfo) {
 		List<User> results = new ArrayList<>();
@@ -38,7 +39,7 @@ public class UserDBService extends BaseDBService<User, MUser> {
 		MClient client = MClient.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()));
 		String searchRoleName = client.getName() + MBandaSetup.SUFFIX_CLINICIAN_USER_ROLE;
 		Query query = new Query(Env.getCtx(), MUser.Table_Name, whereClause.toString(), null)
-				.setParameters(100, searchRoleName, Env.getAD_Client_ID(Env.getCtx()))
+				.setParameters(SYSTEM_USER_ID, searchRoleName, Env.getAD_Client_ID(Env.getCtx()))
 				.setOnlyActiveRecords(true)
 				.setClient_ID()
 				.addJoinClause(joinClause.toString());
