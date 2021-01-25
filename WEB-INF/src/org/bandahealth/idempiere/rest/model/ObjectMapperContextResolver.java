@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.bandahealth.idempiere.rest.mixin.LanguageMixIn;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MLanguage;
 
 import javax.ws.rs.ext.ContextResolver;
@@ -31,12 +32,10 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
-		//mapper.setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);
-
 		mapper.addMixIn(MLanguage.class, LanguageMixIn.class);
 
 		// Ensure dates make it through correctly in UTC
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+		DateFormat dateFormat = new SimpleDateFormat(DateUtil.JACKSON_MAPPING_FORMAT);
 		dateFormat.setTimeZone(TimeZone.getDefault());
 		mapper.setDateFormat(dateFormat);
 
