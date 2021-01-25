@@ -7,7 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.bandahealth.idempiere.rest.model.*;
+import org.bandahealth.idempiere.rest.model.BaseEntity;
+import org.bandahealth.idempiere.rest.model.EntityMetadata;
+import org.bandahealth.idempiere.rest.model.NHIFRelationship;
+import org.bandahealth.idempiere.rest.model.NHIFType;
+import org.bandahealth.idempiere.rest.model.PatientType;
+import org.bandahealth.idempiere.rest.model.PaymentType;
+import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MRefList;
@@ -139,11 +145,13 @@ public class EntityMetadataDBService {
 			translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
 			// Fetch translations
+			PreparedStatement statement = null;
+			ResultSet resultSet = null;
 			try {
-				PreparedStatement statement = DB.prepareStatement(sql, null);
+				statement = DB.prepareStatement(sql, null);
 				DB.setParameters(statement, translationParameters);
 
-				ResultSet resultSet = statement.executeQuery();
+				resultSet = statement.executeQuery();
 				while (resultSet.next()) {
 					MRefList referenceListToTranslate = refListMap.get(resultSet.getInt(1));
 					referenceListToTranslate.setName(resultSet.getString(2));
@@ -153,6 +161,8 @@ public class EntityMetadataDBService {
 				referenceLists = new ArrayList<>(refListMap.values());
 			} catch (Exception e) {
 				logger.severe("Error fetching reference list translations: " + e.getMessage());
+			} finally {
+				DB.close(resultSet, statement);
 			}
 		}
 		return referenceLists;

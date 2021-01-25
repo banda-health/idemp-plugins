@@ -13,6 +13,7 @@ public class DateUtil {
 	private final static String DEFAULT_FORMAT = "yyyy-MM-dd hh:mm:ss";
 	private final static String DATE_FORMAT = "yyyy-MM-dd";
 	private final static String QUEUE_DATE_FORMAT = "E, dd MMMM - HH:mm";
+	public final static String JACKSON_MAPPING_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
 	private static CLogger log = CLogger.getCLogger(DateUtil.class);

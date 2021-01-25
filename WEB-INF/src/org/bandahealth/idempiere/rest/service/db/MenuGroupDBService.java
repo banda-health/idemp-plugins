@@ -243,11 +243,13 @@ public class MenuGroupDBService {
 				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
 				// Fetch translations
+				PreparedStatement statement = null;
+				ResultSet resultSet = null;
 				try {
-					PreparedStatement statement = DB.prepareStatement(sql, null);
+					statement = DB.prepareStatement(sql, null);
 					DB.setParameters(statement, translationParameters);
 
-					ResultSet resultSet = statement.executeQuery();
+					resultSet = statement.executeQuery();
 					while (resultSet.next()) {
 						MDashboardButtonGroupButton dashboardButtonGroupButtonToTranslate = dashboardButtonGroupButtonMap.get(
 								resultSet.getInt(1));
@@ -260,6 +262,8 @@ public class MenuGroupDBService {
 					dashboardButtonGroupButtons = new ArrayList<>(dashboardButtonGroupButtonMap.values());
 				} catch (Exception e) {
 					log.severe("Error fetching menu translations: " + e.getMessage());
+				} finally {
+					DB.close(resultSet, statement);
 				}
 			}
 			return dashboardButtonGroupButtons;
