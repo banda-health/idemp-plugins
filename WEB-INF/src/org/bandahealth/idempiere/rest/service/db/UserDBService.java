@@ -16,7 +16,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class UserDBService extends BaseDBService<User, MUser> {
-	private static final int SYSTEM_USER_ID = 1;
+	private static final int SYSTEM_USER_ID = 100;
 
 	public BaseListResponse<User> getClinicians(Paging pagingInfo) {
 		List<User> results = new ArrayList<>();
