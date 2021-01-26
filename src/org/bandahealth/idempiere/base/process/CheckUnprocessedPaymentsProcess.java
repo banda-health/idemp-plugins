@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.process;
 
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -10,6 +11,7 @@ import org.compiere.model.MClient;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.Env;
 
 public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 
@@ -23,6 +25,10 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 	protected String doIt() throws Exception {
 		long start = System.currentTimeMillis();
 		log.log(Level.INFO, "START " + PROCESS_NAME);
+		
+		MClient client = new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", get_TrxName())
+				.setParameters(Env.getAD_Client_ID(getCtx()))
+				.first();
 
 		// get drafted payments with complete orders
 		String whereClause = MPayment_BH.COLUMNNAME_DocStatus
@@ -37,12 +43,39 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 				.list();
 		
 		log.log(Level.INFO, "FAULTY PAYMENTS::::: " + payments.size());
+		
+		if (payments.isEmpty()) {
+			return null;
+		}
+		
+		// get orders
+		whereClause = MOrder_BH.COLUMNNAME_DocStatus + " = ? AND " + MOrder_BH.COLUMNNAME_C_Order_ID + " IN ("
+				+ "SELECT " + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " FROM " + MPayment_BH.Table_Name + " WHERE " 
+				+ MPayment_BH.COLUMNNAME_DocStatus + " =? )";
+		List<MOrder_BH> orders = new Query(getCtx(), MOrder_BH.Table_Name, whereClause, get_TrxName())
+				.setParameters(MOrder_BH.DOCSTATUS_Completed, MPayment_BH.DOCSTATUS_Drafted)
+				.setOnlyActiveRecords(true)
+				.setClient_ID()
+				.list();
+		
 		int count = 0;
 		for (MPayment_BH payment : payments) {
-			logInformation(payment);
-			payment.processIt(DocAction.ACTION_Complete);
-			logInformation(payment);
+			MBPartner bpartner = getBpartner(payment.getC_BPartner_ID());
+			if (bpartner == null) {
+				continue;
+			}
 			
+			MOrder_BH order = orders.stream()
+					.filter(o -> o.getC_Order_ID() == payment.getBH_C_Order_ID())
+					.findFirst()
+					.orElse(null);
+			if (order == null) {
+				continue;
+			}
+			
+			logInformation(payment, order, bpartner, client);
+			payment.processIt(DocAction.ACTION_Complete);
+			logInformation(payment, order, getBpartner(payment.getC_BPartner_ID()), client);
 			count++;
 		}
 
@@ -53,25 +86,7 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 		return msg;
 	}
 	
-	private void logInformation(MPayment_BH payment) {
-		MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + " =?", get_TrxName())
-				.setParameters(payment.getBH_C_Order_ID())
-				.first();
-		if (order == null) {
-			return;
-		}
-		
-		MBPartner bpartner = new Query(getCtx(), MBPartner.Table_Name, MBPartner.COLUMNNAME_C_BPartner_ID + " =?", get_TrxName())
-				.setParameters(order.getC_BPartner_ID())
-				.first();
-		if (bpartner == null) {
-			return;
-		}
-		
-		MClient client = new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", get_TrxName())
-				.setParameters(payment.getAD_Client_ID())
-				.first();
-		
+	private void logInformation(MPayment_BH payment, MOrder_BH order , MBPartner bpartner, MClient client) {
 		log.log(Level.INFO,
 				"Date = " + payment.getCreated()
 				+ " | Client = " + client.getName()
@@ -82,5 +97,13 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 				+ " | Payment Amount = " + payment.getPayAmt()
 				+ " | DocStatus = " + payment.getDocStatus()
 				+ " | Grand Total = " + order.getGrandTotal());
+	}
+	
+	private MBPartner getBpartner(int bpartnerId) {
+		MBPartner bpartner = new Query(getCtx(), MBPartner.Table_Name, MBPartner.COLUMNNAME_C_BPartner_ID + " =?", get_TrxName())
+				.setParameters(bpartnerId)
+				.first();
+		 
+		return bpartner;
 	}
 }
