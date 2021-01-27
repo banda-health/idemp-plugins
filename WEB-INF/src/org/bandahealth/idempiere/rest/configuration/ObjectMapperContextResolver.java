@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.rest.model;
+package org.bandahealth.idempiere.rest.configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
