@@ -183,15 +183,9 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			addLog(bandaSetup.getInfo());
 
-			if (!bandaSetup.createAdvancedUserRole(adminUserName)) {
+			if (!bandaSetup.initializeRoles(adminUserName)) {
 				rollback(bandaSetup);
-				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create advanced user role failed"));
-			}
-			addLog(bandaSetup.getInfo());
-
-			if (!bandaSetup.addDefaultIncludedRoles()) {
-				rollback(bandaSetup);
-				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Adding default roles to base roles failed"));
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
 			}
 			addLog(bandaSetup.getInfo());
 

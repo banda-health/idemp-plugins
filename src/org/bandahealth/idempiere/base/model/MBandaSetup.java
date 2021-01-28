@@ -6,9 +6,11 @@ import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
+import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProductCategoryAcct;
+import org.compiere.model.MRefList;
 import org.compiere.model.MRefTable;
 import org.compiere.model.MReference;
 import org.compiere.model.MRole;
@@ -18,6 +20,7 @@ import org.compiere.model.MTable;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
 import org.compiere.util.CLogger;
@@ -26,9 +29,14 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * Initial setup of a client, but with the additional things needed in Banda Go
@@ -417,38 +425,150 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * The roles for admin and user are created by default - add one for an advanced user that isn't an admin.
+	 * The roles for admin and user are created by default - add roles for additional ones in the system, then
+	 * handle the associated access for all roles.
 	 *
 	 * @return Whether the creation was successful
 	 */
-	public boolean createAdvancedUserRole(String adminUserName) {
-		String name = clientName + SUFFIX_ADVANCED_USER_ROLE;
-		MRole advancedUserRole = new MRole(context, 0, transaction.getTrxName());
-		advancedUserRole.setName(name);
-		advancedUserRole.setIsAccessAdvanced(false);
-		if (!advancedUserRole.save()) {
-			String err = "Advanced User Role NOT inserted";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+	public boolean initializeRoles(String adminUserName) {
+		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
+				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", transaction.getTrxName())
+				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+		if (userType == null) {
+			log.log(Level.SEVERE, "User type reference not defined");
 			return false;
 		}
-		//  OrgAccess x,y
-		MRoleOrgAccess userOrgAccess = new MRoleOrgAccess(advancedUserRole, orgId);
-		if (!userOrgAccess.save()) {
-			log.log(Level.SEVERE, "Advanced User Role_OrgAccess NOT created");
+
+		List<MRefList> userTypeValues = new Query(Env.getCtx(), MRefList.Table_Name,
+				MRefList.COLUMNNAME_AD_Reference_ID + "=?", transaction.getTrxName())
+				.setParameters(userType.getAD_Reference_ID()).list();
+
+		if (!createAdditionalRoles(userTypeValues, adminUserName)) {
+			log.log(Level.SEVERE, "Error creating additional roles");
+			return false;
 		}
-		// Update the appropriate users to have access to this new role
-		MUser clientAdminUser = new Query(context, MUser.Table_Name,
-				MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?",
+
+		// Ensure all the roles are present from this point forward
+		// Get the roles for this client
+		List<MRole> clientRoles = new Query(context, MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
 				transaction.getTrxName())
-				.setParameters(clientId, adminUserName)
-				.first();
-		if (clientAdminUser != null) {
-			MUserRoles userRole = new MUserRoles(context, clientAdminUser.getAD_User_ID(), advancedUserRole.getAD_Role_ID(),
-					transaction.getTrxName());
-			userRole.saveEx();
+				.setParameters(clientId)
+				.list();
+		Map<MRefList, MRole> rolesToConfigure = userTypeValues.stream().collect(HashMap::new, (m, v) -> m.put(v,
+				clientRoles.stream().filter(
+						cr -> cr.getName().equals(clientName + " " + v.getName())).findFirst().orElse(null)), HashMap::putAll);
+
+		// Ensure all the roles are present
+		AtomicBoolean areAllRolesPresent = new AtomicBoolean(true);
+		rolesToConfigure.forEach((key, value) -> {
+			if (value == null) {
+				String err = key + " role does not exist";
+				log.log(Level.SEVERE, err);
+				info.append(err);
+				areAllRolesPresent.set(false);
+			}
+		});
+		if (!areAllRolesPresent.get()) {
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+
+		if (!addDefaultIncludedRoles(rolesToConfigure)) {
+			log.log(Level.SEVERE, "Error adding default included roles");
+			return false;
+		}
+
+		if (handleDocumentActionAccessExclusions(rolesToConfigure)) {
+			log.log(Level.SEVERE, "Error handling default document action access exclusions");
+			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Handle removing document action access based on configured exclusion rules, if any.
+	 *
+	 * @return Whether the document action access exclusions were successfully applied
+	 */
+	private boolean handleDocumentActionAccessExclusions(Map<MRefList, MRole> rolesToConfigure) {
+		// Pull the document action access exclusion values
+		List<MBHDefaultDocActionAccessExclude> defaultDocActionAccessExclusions = new Query(context,
+				MBHDefaultDocActionAccessExclude.Table_Name, null, transaction.getTrxName())
+				.setOnlyActiveRecords(true)
+				.list();
+
+		AtomicBoolean didSuccessfullyDeleteAllDocumentAccess = new AtomicBoolean(true);
+		rolesToConfigure.forEach((userType, role) -> {
+			// Get the exclusions for this role
+			defaultDocActionAccessExclusions.stream().filter(
+					dae -> dae.getDB_UserType().equals(userType.getValue())).forEach(dae -> {
+				X_AD_Document_Action_Access documentActionAccess = new Query(Env.getCtx(),
+						X_AD_Document_Action_Access.Table_Name,
+						X_AD_Document_Action_Access.COLUMNNAME_AD_Role_ID + "=? AND " +
+								X_AD_Document_Action_Access.COLUMNNAME_C_DocType_ID + "=? AND " +
+								X_AD_Document_Action_Access.COLUMNNAME_AD_Ref_List_ID + "=?",
+						null)
+						.setParameters(role.getAD_Role_ID(), dae.getC_DocType_ID(), dae.getAD_Ref_List_ID()).first();
+				if (documentActionAccess != null) {
+					if (!documentActionAccess.save()) {
+						String err =
+								"Could not remove document action access for Role, DocType, and RefList: " + role.getAD_Role_ID() + "," +
+										" " + dae.getC_DocType_ID() + ", " + dae.getAD_Ref_List_ID();
+						log.log(Level.SEVERE, err);
+						info.append(err);
+						didSuccessfullyDeleteAllDocumentAccess.set(false);
+					}
+				}
+			});
+		});
+
+		return didSuccessfullyDeleteAllDocumentAccess.get();
+	}
+
+	/**
+	 * The roles for admin and user are created by default - add ones for additional roles defined in the DB.
+	 *
+	 * @return Whether the creation was successful
+	 */
+	private boolean createAdditionalRoles(List<MRefList> userTypeSuffixes, String adminUserName) {
+		// Filter out the roles the system adds
+		userTypeSuffixes = userTypeSuffixes.stream().filter(
+				ut -> !ut.getValue().equals(MBHDefaultIncludedRole.DB_USERTYPE_User) && !ut.getValue().equals(
+						MBHDefaultIncludedRole.DB_USERTYPE_Admin)).collect(
+				Collectors.toList());
+		AtomicBoolean didSuccessfullyAddedAllRoles = new AtomicBoolean(true);
+		// Add the new roles
+		userTypeSuffixes.forEach(userTypeSuffix -> {
+			String suffix = userTypeSuffix.getName();
+			String name = clientName + " " + suffix;
+			MRole role = new MRole(context, 0, transaction.getTrxName());
+			role.setName(name);
+			role.setIsAccessAdvanced(false);
+			if (!role.save()) {
+				String err = suffix + " Role NOT inserted";
+				log.log(Level.SEVERE, err);
+				info.append(err);
+				didSuccessfullyAddedAllRoles.set(false);
+			}
+			//  OrgAccess x,y
+			MRoleOrgAccess userOrgAccess = new MRoleOrgAccess(role, orgId);
+			if (!userOrgAccess.save()) {
+				log.log(Level.SEVERE, suffix + " Role_OrgAccess NOT created");
+			}
+			// Update the appropriate users to have access to this new role
+			MUser clientAdminUser = new Query(context, MUser.Table_Name,
+					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?",
+					transaction.getTrxName())
+					.setParameters(clientId, adminUserName)
+					.first();
+			if (clientAdminUser != null) {
+				MUserRoles userRole = new MUserRoles(context, clientAdminUser.getAD_User_ID(), role.getAD_Role_ID(),
+						transaction.getTrxName());
+				userRole.saveEx();
+			}
+		});
+		return didSuccessfullyAddedAllRoles.get();
 	}
 
 	/**
@@ -457,70 +577,29 @@ public class MBandaSetup {
 	 *
 	 * @return Whether the addition was successful
 	 */
-	public boolean addDefaultIncludedRoles() {
-		// Get the roles for this client
-		List<MRole> clientRoles = new Query(context, MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
-				transaction.getTrxName())
-				.setParameters(clientId)
-				.list();
-		MRole adminRole = null;
-		MRole advancedUserRole = null;
-		MRole userRole = null;
-		for (MRole clientRole : clientRoles) {
-			if (clientRole.getName().endsWith(SUFFIX_ADMIN_ROLE)) {
-				adminRole = clientRole;
-			} else if (clientRole.getName().endsWith(SUFFIX_ADVANCED_USER_ROLE)) {
-				advancedUserRole = clientRole;
-			} else if (clientRole.getName().endsWith(SUFFIX_USER_ROLE)) {
-				userRole = clientRole;
-			}
-		}
-		if (adminRole == null || userRole == null || advancedUserRole == null) {
-			String err;
-			if (adminRole == null) {
-				err = "Admin role does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
-			}
-			if (userRole == null) {
-				err = "User role does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
-			}
-			if (userRole == null) {
-				err = "Advanced User role does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
-			}
-			transaction.rollback();
-			transaction.close();
-			return false;
-		}
-		// Now that we have the roles, pull the default role IDs to include
+	private boolean addDefaultIncludedRoles(Map<MRefList, MRole> rolesToConfigure) {
+		// Pull the default role IDs to include
 		List<MBHDefaultIncludedRole> defaultIncludedRoles = new Query(context, MBHDefaultIncludedRole.Table_Name,
 				null, transaction.getTrxName())
 				.setOnlyActiveRecords(true)
 				.list();
-		int adminRoleSequencer = 10;
-		int userRoleSequencer = 10;
-		int advancedUserRoleSequencer = 10;
 		int sequencerIncrement = 10;
+		Map<Integer, Integer> roleSequencers = rolesToConfigure.values().stream().collect(
+				Collectors.toMap(MRole::getAD_Role_ID, v -> sequencerIncrement));
 		for (MBHDefaultIncludedRole defaultIncludedRole : defaultIncludedRoles) {
 			MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
 			roleIncluded.setIncluded_Role_ID(defaultIncludedRole.getIncluded_Role_ID());
 
-			if (defaultIncludedRole.getDB_UserType().equals(MBHDefaultIncludedRole.DB_USERTYPE_Admin)) {
-				roleIncluded.setAD_Role_ID(adminRole.getAD_Role_ID());
-				roleIncluded.setSeqNo(adminRoleSequencer);
-				adminRoleSequencer += sequencerIncrement;
-			} else if (defaultIncludedRole.getDB_UserType().equals(MBHDefaultIncludedRole.DB_USERTYPE_User)) {
-				roleIncluded.setAD_Role_ID(userRole.getAD_Role_ID());
-				roleIncluded.setSeqNo(userRoleSequencer);
-				userRoleSequencer += sequencerIncrement;
-			} else if (defaultIncludedRole.getDB_UserType().equals(MBHDefaultIncludedRole.DB_USERTYPE_AdvancedUser)) {
-				roleIncluded.setAD_Role_ID(advancedUserRole.getAD_Role_ID());
-				roleIncluded.setSeqNo(advancedUserRoleSequencer);
-				advancedUserRoleSequencer += sequencerIncrement;
+			Optional<MRole> role = rolesToConfigure.entrySet().stream().filter(
+					rtc -> defaultIncludedRole.getDB_UserType().equals(rtc.getKey().getValue())).map(
+					Map.Entry::getValue).findFirst();
+
+			if (role.isPresent()) {
+				int roleId = role.get().getAD_Role_ID();
+				roleIncluded.setAD_Role_ID(roleId);
+				int sequencerToUse = roleSequencers.get(roleId);
+				roleIncluded.setSeqNo(sequencerToUse);
+				roleSequencers.put(roleId, sequencerToUse + sequencerIncrement);
 			} else {
 				log.log(Level.INFO, "Unknown User Type: " + defaultIncludedRole.getDB_UserType());
 			}
@@ -608,7 +687,7 @@ public class MBandaSetup {
 	 * @return
 	 */
 	private boolean createAndSaveBankAccount(String clientName, String accountName, boolean isDefault,
-																					 int bankId, String inTransitAccountValue) {
+			int bankId, String inTransitAccountValue) {
 		MBankAccount bankAccount = new MBankAccount(context, 0, transaction.getTrxName());
 		bankAccount.setIsActive(true);
 		bankAccount.setIsDefault(isDefault);
