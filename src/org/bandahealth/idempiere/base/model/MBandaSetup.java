@@ -54,6 +54,14 @@ public class MBandaSetup {
 	public static final String REFERENCE_PAYMENT_REF_UU = "5943153c-cf7b-4bd1-96b7-ff36d1c0f860";
 	/* The UU of the Accounting - Accounts import format */
 	public static final String IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU = "7fbbb20b-8521-47e4-b0e1-31332f17958b";
+	/**
+	 * Admin = A
+	 */
+	public static final String DB_USERTYPE_Admin = "A";
+	/**
+	 * User = U
+	 */
+	public static final String DB_USERTYPE_User = "U";
 	private final Trx transaction = Trx.get(Trx.createTrxName("Setup"), true);
 	private final Properties context;
 	private final String language;
@@ -66,11 +74,6 @@ public class MBandaSetup {
 	private final String SUFFIX_BANK_NAME = " Bank";
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
-	// Pulled from line 228 of MSetup.java
-	private final String SUFFIX_ADMIN_ROLE = " Admin";
-	// Pulled from line 258 of MSetup.java
-	private final String SUFFIX_USER_ROLE = " User";
-	private final String SUFFIX_ADVANCED_USER_ROLE = " Advanced User";
 	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
@@ -513,7 +516,8 @@ public class MBandaSetup {
 				if (documentActionAccess != null) {
 					if (!documentActionAccess.save()) {
 						String err =
-								"Could not remove document action access for Role, DocType, and RefList: " + role.getAD_Role_ID() + "," +
+								"Could not remove document action access for Role, DocType, and RefList: " + role.getAD_Role_ID() +
+										"," +
 										" " + dae.getC_DocType_ID() + ", " + dae.getAD_Ref_List_ID();
 						log.log(Level.SEVERE, err);
 						info.append(err);
@@ -534,8 +538,7 @@ public class MBandaSetup {
 	private boolean createAdditionalRoles(List<MRefList> userTypeSuffixes, String adminUserName) {
 		// Filter out the roles the system adds
 		userTypeSuffixes = userTypeSuffixes.stream().filter(
-				ut -> !ut.getValue().equals(MBHDefaultIncludedRole.DB_USERTYPE_User) && !ut.getValue().equals(
-						MBHDefaultIncludedRole.DB_USERTYPE_Admin)).collect(
+				ut -> !ut.getValue().equals(DB_USERTYPE_User) && !ut.getValue().equals(DB_USERTYPE_Admin)).collect(
 				Collectors.toList());
 		AtomicBoolean didSuccessfullyAddedAllRoles = new AtomicBoolean(true);
 		// Add the new roles
