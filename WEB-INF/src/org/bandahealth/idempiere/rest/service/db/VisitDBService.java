@@ -224,6 +224,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	protected Visit createInstanceWithAllFields(MOrder_BH instance) {
 		try {
 			// get patient
+			// TODO: This needs to be fetched from a preloaded list
 			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
 			if (patient == null) {
 				log.severe("Missing patient");
