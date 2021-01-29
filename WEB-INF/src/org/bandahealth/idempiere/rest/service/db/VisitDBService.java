@@ -478,7 +478,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	protected void preloadRelatedEntities() {
-		users = userDBService.getActiveUserForCurrentClient();
+		users = userDBService.getActiveUsersForCurrentClient();
 	}
 
 	private MUser searchUserInPrefetchedList(Integer userId) {

@@ -91,7 +91,7 @@ public class UserDBService extends BaseDBService<User, MUser> {
 		return new MUser(Env.getCtx(), 0, null);
 	}
 
-	public List<MUser> getActiveUserForCurrentClient() {
+	public List<MUser> getActiveUsersForCurrentClient() {
 		String tableName = getModelInstance().get_TableName();
 		String selectColumns = MUser.COLUMNNAME_AD_User_UU + "," + MUser.COLUMNNAME_Name;
 
