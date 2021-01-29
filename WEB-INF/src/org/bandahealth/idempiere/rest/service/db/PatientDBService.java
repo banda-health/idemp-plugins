@@ -233,4 +233,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	protected void preloadRelatedEntities() {
+		// TODO Auto-generated method stub
+		
+	}
 }

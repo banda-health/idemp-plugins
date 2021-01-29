@@ -110,4 +110,10 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	protected void preloadRelatedEntities() {
+		// TODO Auto-generated method stub
+		
+	}
 }

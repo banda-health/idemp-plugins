@@ -321,4 +321,11 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	protected void preloadRelatedEntities() {
+		// TODO Auto-generated method stub
+		
+	}
 }

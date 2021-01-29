@@ -46,21 +46,29 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private PatientDBService patientDBService;
 	private ReportDBService reportDBService;
 	private PaymentDBService paymentDBService;
+	private UserDBService userDBService;
 	private MBPartner_BH mPatient;
-	
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = "
-				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
-		put(MUser.Table_Name, "LEFT JOIN  " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = "
-				+ MUser.Table_Name +  "." + MUser.COLUMNNAME_AD_User_ID);
-	}};
+	private List<MUser> users = new ArrayList<>();
+
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(X_C_BPartner.Table_Name,
+					"LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+							+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
+							+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+			put(MUser.Table_Name,
+					"LEFT JOIN  " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+							+ MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "."
+							+ MUser.COLUMNNAME_AD_User_ID);
+		}
+	};
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		paymentDBService = new PaymentDBService();
+		userDBService = new UserDBService();
 	}
-	
-	
+
 	@Override
 	public Map<String, String> getDynamicJoins() {
 		return dynamicJoins;
@@ -127,12 +135,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.getSecondDiagnosis() != null) {
 			mOrder.setBH_SecondDiagnosis(entity.getSecondDiagnosis());
 		}
-		
+
 		if (entity.getClinician() != null && entity.getClinician().getUuid() != null) {
 			// get user id
 			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_UU + " =?", null)
-					.setParameters(entity.getClinician().getUuid())
-					.first();
+					.setParameters(entity.getClinician().getUuid()).first();
 			if (user != null) {
 				mOrder.setBH_ClinicianUserID(user.get_ID());
 			}
@@ -235,10 +242,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			String referral = instance.get_Value(COLUMNNAME_REFERRAL) != null
 					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
 					: null;
-					
-			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_ID + " =?", null)
-					.setParameters(instance.getBH_ClinicianUserID())
-					.first();
+
+			MUser user = searchUserInPrefetchedList(instance.getBH_ClinicianUserID());
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
@@ -469,5 +474,17 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		parameters.add("Y");
 
 		return sqlWhere.toString();
+	}
+
+	@Override
+	protected void preloadRelatedEntities() {
+		users = userDBService.getActiveUserForCurrentClient();
+	}
+
+	private MUser searchUserInPrefetchedList(Integer userId) {
+		return users.stream()
+				.filter(user -> user.getAD_User_ID() == userId)
+				.findFirst()
+				.orElse(null);
 	}
 }

@@ -178,4 +178,10 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	protected void preloadRelatedEntities() {
+		// TODO Auto-generated method stub
+		
+	}
 }

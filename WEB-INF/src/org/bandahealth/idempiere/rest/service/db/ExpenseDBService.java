@@ -136,4 +136,10 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	protected void preloadRelatedEntities() {
+		// TODO Auto-generated method stub
+		
+	}
 }
