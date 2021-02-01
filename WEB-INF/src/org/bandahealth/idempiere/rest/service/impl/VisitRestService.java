@@ -30,7 +30,7 @@ import org.bandahealth.idempiere.rest.service.db.VisitDBService;
 @Produces(MediaType.APPLICATION_JSON)
 public class VisitRestService extends BaseEntityRestService<Visit> {
 
-	private VisitDBService dbService;
+	private final VisitDBService dbService;
 
 	public VisitRestService() {
 		dbService = new VisitDBService();
@@ -61,14 +61,15 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
-	public Visit processVisit(@PathParam("uuid") String uuid) {
-		return dbService.asyncProcessEntity(uuid);
+	public Visit processVisit(@PathParam("uuid") String uuid, @PathParam("processType") String docAction)
+			throws Exception {
+		return dbService.processEntity(uuid, docAction);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public Visit saveAndProcessVisit(Visit entity) {
-		return dbService.asynSaveAndProcessEntity(entity);
+	public Visit saveAndProcessVisit(Visit entity) throws Exception {
+		return dbService.asyncSaveAndCompleteEntity(entity);
 	}
 
 	@POST

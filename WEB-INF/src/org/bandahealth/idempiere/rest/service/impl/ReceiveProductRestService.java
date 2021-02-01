@@ -18,9 +18,8 @@ import org.compiere.process.DocAction;
 
 /**
  * Expense Receive Product REST functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.RECEIVE_PRODUCTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -67,16 +66,17 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
-	public ReceiveProduct processVisit(@PathParam("uuid") String uuid) {
-		return dbService.processEntity(uuid, DocAction.ACTION_Complete);
+	public ReceiveProduct processVisit(@PathParam("uuid") String uuid, @PathParam("processType") String docAction)
+			throws Exception {
+		return dbService.processEntity(uuid, docAction);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public ReceiveProduct saveAndProcessVisit(ReceiveProduct entity) {
+	public ReceiveProduct saveAndProcessVisit(ReceiveProduct entity) throws Exception {
 		return dbService.saveAndProcessEntity(entity, DocAction.ACTION_Complete);
 	}
-	
+
 	@DELETE
 	@Path(IRestConfigs.RECEIVE_PRODUCT_PATH)
 	public Boolean deleteEntity(@PathParam("uuid") String uuid) {

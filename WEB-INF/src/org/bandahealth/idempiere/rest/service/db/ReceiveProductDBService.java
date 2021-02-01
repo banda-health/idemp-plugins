@@ -23,10 +23,15 @@ import org.compiere.util.Env;
  */
 public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> {
 
-	private VendorDBService vendorDBService;
+	private final VendorDBService vendorDBService;
 
 	public ReceiveProductDBService() {
 		this.vendorDBService = new VendorDBService();
+	}
+
+	@Override
+	protected void handleEntityAsyncProcess(String uuid) {
+		// Intentionally left blank because no async process currently exists
 	}
 
 	public BaseListResponse<ReceiveProduct> getAll(
@@ -66,6 +71,11 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 
 	@Override
 	protected void afterSave(ReceiveProduct entity, MOrder_BH mOrder) {
+	}
+
+	@Override
+	protected String getDocumentTypeName() {
+		return ReferenceListDBService.DOCNAME_RECEIVE_PRODUCT;
 	}
 
 	@Override

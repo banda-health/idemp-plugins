@@ -31,27 +31,36 @@ import org.compiere.util.Env;
  *
  * @author andrew
  */
-public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
+public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	private final String CURRENCY = "KES";
 	private PatientDBService patientDBService;
 	private EntityMetadataDBService entityMetadataDBService;
-	
-
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." + MPayment_BH.COLUMNNAME_C_BPartner_ID + " = "
-				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+		put(MBPartner_BH.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." +
+				MPayment_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
-
-	@Override
-	public Map<String, String> getDynamicJoins() {
-		return dynamicJoins;
-	}
-
 
 	public PaymentDBService() {
 		patientDBService = new PatientDBService();
 		entityMetadataDBService = new EntityMetadataDBService();
+	}
+
+	@Override
+	protected void handleEntityAsyncProcess(String uuid) {
+		MPayment_BH payment = getEntityByUuidFromDB(uuid);
+		if (payment == null) {
+			log.severe("No payment with uuid = " + uuid);
+			return;
+		}
+
+		payment.processIt(DocAction.ACTION_Complete);
+	}
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
 	}
 
 	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
@@ -63,7 +72,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,
-																					String sortOrder) {
+			String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
@@ -281,39 +290,6 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	public boolean checkPaymentExists(int orderId) {
 		return new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + " =?", null)
 				.setOnlyActiveRecords(true).setClient_ID().setParameters(orderId).match();
-	}
-
-	/**
-	 * Save and Process Payment
-	 *
-	 * @param entity
-	 * @return
-	 */
-	public Payment saveAndProcessPayment(Payment entity) {
-		Payment savedEntity = saveEntity(entity);
-		if (savedEntity != null) {
-			return processPayment(savedEntity.getUuid());
-		}
-
-		return null;
-	}
-
-	/**
-	 * Process Payment
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public Payment processPayment(String uuid) {
-		MPayment_BH payment = getEntityByUuidFromDB(uuid);
-		if (payment == null) {
-			log.severe("No payment with uuid = " + uuid);
-			return null;
-		}
-
-		payment.processIt(DocAction.ACTION_Complete);
-
-		return createInstanceWithAllFields(getEntityByUuidFromDB(payment.getC_Payment_UU()));
 	}
 
 	@Override

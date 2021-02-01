@@ -14,26 +14,32 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.Query;
-import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 /**
  * Order (c_order) base functionality (billing, receive goods, track expenses).
- * 
- * @author andrew
  *
  * @param <T>
+ * @author andrew
  */
-public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<T, MOrder_BH> {
+public abstract class BaseOrderDBService<T extends Order> extends DocumentDBService<T, MOrder_BH> {
 
-	protected OrderLineDBService orderLineDBService = new OrderLineDBService();
-	private ProcessDBService processDBService = new ProcessDBService();
-	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
 	private final String PURCHASE_ORDER = "Purchase Order";
+	private final ReferenceListDBService referenceListDBService;
+	protected OrderLineDBService orderLineDBService = new OrderLineDBService();
+	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
+	protected final ProcessDBService processDBService;
+
+	public BaseOrderDBService() {
+		referenceListDBService = new ReferenceListDBService();
+		processDBService = new ProcessDBService();
+	}
 
 	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
 
 	protected abstract void afterSave(T entity, MOrder_BH mOrder);
+
+	protected abstract String getDocumentTypeName();
 
 	/**
 	 * Search an order by patient/vendor name
@@ -51,13 +57,13 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 	/**
 	 * Search an order by patient/vendor name
-	 * 
+	 *
 	 * @param value
 	 * @param pagingInfo
 	 * @param sortColumn
 	 * @param sortOrder
 	 * @param initialWhereClause an optional where clause to filter results
-	 * @param parameters an optional parameters list for use in the where clause
+	 * @param parameters         an optional parameters list for use in the where clause
 	 * @return
 	 */
 	public BaseListResponse<T> search(String value, Paging pagingInfo, String sortColumn, String sortOrder,
@@ -133,11 +139,11 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 			mOrder.setIsActive(entity.isIsActive());
 
 			mOrder.setIsApproved(true);
-			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus()) && 
+			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus()) &&
 					entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
 				mOrder.setDocStatus(MOrder_BH.DOCSTATUS_Voided);
 			} else {
-				mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);	
+				mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 			}
 
 			beforeSave(entity, mOrder);
@@ -170,7 +176,7 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 			// any post save operation
 			afterSave(entity, mOrder);
-			
+
 			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
 
 		} catch (Exception ex) {
@@ -181,101 +187,6 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 		}
 	}
 
-	/**
-	 * Asynchronously process order
-	 * 
-	 * @param uuid
-	 * @return
-	 */
-	public T asyncProcessEntity(String uuid) {
-		MOrder_BH order = getEntityByUuidFromDB(uuid);
-		if (order == null) {
-			log.severe("No order with uuid = " + uuid);
-			return null;
-		}
-
-		processDBService.runOrderProcess(order.get_ID());
-		
-		return createInstanceWithAllFields(getEntityByUuidFromDB(order.getC_Order_UU()));
-	}
-
-	/**
-	 * Synchronously process order
-	 * 
-	 * @param uuid
-	 * @return
-	 */
-	public T processEntity(String uuid, String docAction) {
-		if (StringUtil.isNullOrEmpty(docAction)) {
-			log.severe("Missing DocAction");
-			return null;
-		}
-		
-		MOrder_BH order = getEntityByUuidFromDB(uuid);
-		if (order == null) {
-			log.severe("No order with uuid = " + uuid);
-			return null;
-		}
-
-		order.processIt(docAction);
-
-		return createInstanceWithAllFields(getEntityByUuidFromDB(order.getC_Order_UU()));
-	}
-
-	/**
-	 * Save and asynchronously process order
-	 * 
-	 * @param entity
-	 * @return
-	 */
-	public T asynSaveAndProcessEntity(T entity) {
-		// check void docstatus (completed orders can't be saved/updated)
-		if (entity.getDocStatus() != null &&
-				entity.getDocStatus().equals(MOrder_BH.DOCACTION_Void)) {
-			return voidEntity(entity);
-		}
-
-		T saveEntity = saveEntity(entity);
-		if (saveEntity != null) {
-			asyncProcessEntity(saveEntity.getUuid());
-			return saveEntity;
-		}
-
-		return null;
-	}
-	
-	private T voidEntity(T entity) {
-		MOrder_BH order = getEntityByUuidFromDB(entity.getUuid());
-		if (order == null) {
-			return null;
-		}
-		
-		boolean process = order.processIt(DocAction.ACTION_Void);
-		if (process) {
-			order.setDocStatus(MOrder_BH.DOCSTATUS_Voided);
-			order.saveEx();
-		
-			return createInstanceWithAllFields(order);
-		}
-		
-		return null;
-	}
-
-	/**
-	 * Synchronously save and process order
-	 * 
-	 * @param entity
-	 * @return
-	 */
-	public T saveAndProcessEntity(T entity, String docAction) {
-		T saveEntity = saveEntity(entity);
-		if (saveEntity != null) {
-			return processEntity(saveEntity.getUuid(), docAction);
-		}
-
-		return null;
-	}
-
 	@Override
 	protected MOrder_BH getModelInstance() {
 		return new MOrder_BH(Env.getCtx(), 0, null);
@@ -283,14 +194,14 @@ public abstract class BaseOrderDBService<T extends Order> extends BaseDBService<
 
 	/**
 	 * Get Purchase Order Target Document Type
-	 * 
+	 *
 	 * @return
 	 */
 	protected int getPurchaseOrderDocumentTypeId() {
 		// set target document type
 		MDocType docType = new Query(Env.getCtx(), MDocType.Table_Name,
 				MDocType.COLUMNNAME_Name + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?", null)
-						.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
+				.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
 		if (docType != null) {
 			return docType.get_ID();
 		}

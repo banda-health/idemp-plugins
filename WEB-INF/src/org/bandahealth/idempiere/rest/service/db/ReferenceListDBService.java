@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class ReferenceListDBService {
 	private final CLogger log = CLogger.getCLogger(BaseDBService.class);
 	private final Set<String> usedDocumentTypeNames = new HashSet<>();
-	private final String DOCNAME_EXPENSES = "AP Invoice";
-	private final String DOCNAME_BILLS = "POS Order";
-	private final String DOCNAME_RECEIVE_PRODUCT = "Purchase Order";
-	private final String DOCNAME_PAYMENTS = "AR Receipt";
+	public final static String DOCNAME_EXPENSES = "AP Invoice";
+	public final static String DOCNAME_BILLS = "POS Order";
+	public final static String DOCNAME_RECEIVE_PRODUCT = "Purchase Order";
+	public final static String DOCNAME_PAYMENTS = "AR Receipt";
 
 	public ReferenceListDBService() {
 		usedDocumentTypeNames.add(DOCNAME_EXPENSES);

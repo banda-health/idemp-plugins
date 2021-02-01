@@ -54,7 +54,7 @@ public interface IRestConfigs {
 	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
 	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
 
-	String ENTITY_PROCESS_PATH = "/process/{uuid}";
+	String ENTITY_PROCESS_PATH = "/{uuid}/process/{processType}";
 	String ENTITY_SAVE_AND_PROCESS_PATH = "/saveandprocess";
 
 	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";

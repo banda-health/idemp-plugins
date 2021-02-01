@@ -31,7 +31,18 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	public ExpenseDBService() {
 		this.vendorDBService = new VendorDBService();
 	}
-	
+
+	@Override
+	protected void handleEntityAsyncProcess(String uuid) {
+		MInvoice_BH expense = getEntityByUuidFromDB(uuid);
+		if (expense == null) {
+			log.severe("No expense with uuid = " + uuid);
+			return;
+		}
+
+		processDBService.runExpenseProcess(expense.get_ID(), false);
+	}
+
 	@Override
 	public Map<String, String> getDynamicJoins() {
 		return dynamicJoins;
