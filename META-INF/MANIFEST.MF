@@ -61,15 +61,16 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  org.glassfish.hk2.locator;bundle-version="2.5.0",
  org.glassfish.hk2.utils;bundle-version="2.5.0",
  org.glassfish.jersey.bundles.repackaged.jersey-guava;bundle-version="2.22.1",
- com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;bundle-version="2.9.2",
- com.fasterxml.jackson.core.jackson-core;bundle-version="2.9.7",
- com.fasterxml.jackson.core.jackson-databind;bundle-version="2.9.7",
- com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.9.7",
  org.apache.commons.codec;bundle-version="1.6.0",
  org.bandahealth.idempiere.base;bundle-version="1.0.0",
  org.apache.commons.io;bundle-version="2.6.0"
 Bundle-ClassPath: .,
- WEB-INF/lib/java-jwt.jar
+ WEB-INF/lib/java-jwt.jar,
+ WEB-INF/lib/jackson-annotations.jar,
+ WEB-INF/lib/jackson-core.jar,
+ WEB-INF/lib/jackson-databind.jar,
+ WEB-INF/lib/jackson-jaxrs-json-provider.jar,
+ WEB-INF/lib/jackson-jaxrs-base.jar
 Web-ContextPath: BHGO
 Bundle-ActivationPolicy: lazy
 Export-Package: org.bandahealth.idempiere.rest,
