@@ -22,7 +22,6 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_BPartner;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
@@ -56,6 +55,11 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		}
 
 		payment.processIt(DocAction.ACTION_Complete);
+	}
+
+	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_PAYMENTS;
 	}
 
 	@Override

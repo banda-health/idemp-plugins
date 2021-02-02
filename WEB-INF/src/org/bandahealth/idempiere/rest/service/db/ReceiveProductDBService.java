@@ -75,7 +75,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 
 	@Override
 	protected String getDocumentTypeName() {
-		return ReferenceListDBService.DOCNAME_RECEIVE_PRODUCT;
+		return DOCUMENTNAME_RECEIVE_PRODUCT;
 	}
 
 	@Override

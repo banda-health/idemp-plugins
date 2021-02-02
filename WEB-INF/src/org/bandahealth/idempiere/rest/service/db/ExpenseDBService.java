@@ -44,6 +44,11 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	}
 
 	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_EXPENSES;
+	}
+
+	@Override
 	public Map<String, String> getDynamicJoins() {
 		return dynamicJoins;
 	}

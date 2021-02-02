@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.service.db.ReferenceListDBService;
-import org.compiere.model.MRefList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -26,8 +25,10 @@ public class ReferenceListRestService {
 
 	@GET
 	@Path("/access")
-	public Map<String, List<MRefList>> getAccessByDocumentType() {
-		return dataService.getAccessByDocumentType().entrySet().stream().collect(
-				Collectors.toMap(k -> k.getKey().getDocBaseType(), Map.Entry::getValue));
+	public Map<String, Map<String, List<String>>> getAccessMapByDocumentType() {
+		return dataService.getValidActionMapByDocumentTypeAndReferenceList(dataService.getAccessByDocumentType()).entrySet()
+				.stream().collect(Collectors.toMap(k -> k.getKey().getDocBaseType(),
+						refListMap -> refListMap.getValue().entrySet().stream()
+								.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue))));
 	}
 }

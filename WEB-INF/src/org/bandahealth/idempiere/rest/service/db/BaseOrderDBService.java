@@ -39,8 +39,6 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 
 	protected abstract void afterSave(T entity, MOrder_BH mOrder);
 
-	protected abstract String getDocumentTypeName();
-
 	/**
 	 * Search an order by patient/vendor name
 	 *

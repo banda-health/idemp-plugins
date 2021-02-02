@@ -27,7 +27,6 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_BPartner;
 import org.compiere.util.Env;
 
 /**
@@ -199,7 +198,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	protected String getDocumentTypeName() {
-		return ReferenceListDBService.DOCNAME_BILLS;
+		return DOCUMENTNAME_BILLS;
 	}
 
 	@Override

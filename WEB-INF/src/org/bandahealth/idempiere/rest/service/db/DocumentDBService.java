@@ -13,6 +13,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & DocAction> extends BaseDBService<T, S> {
+	public final static String DOCUMENTNAME_EXPENSES = "AP Invoice";
+	public final static String DOCUMENTNAME_BILLS = "POS Order";
+	public final static String DOCUMENTNAME_RECEIVE_PRODUCT = "Purchase Order";
+	public final static String DOCUMENTNAME_PAYMENTS = "AR Receipt";
 	protected final ReferenceListDBService referenceListDBService;
 	private final Map<String, String> docActionToStatusMap = new HashMap<>() {{
 		put(DocAction.ACTION_Complete, DocAction.STATUS_Completed);
@@ -26,6 +30,8 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 
 	protected abstract void handleEntityAsyncProcess(String uuid);
 
+	protected abstract String getDocumentTypeName();
+
 	/**
 	 * Synchronously process order
 	 *
@@ -37,7 +43,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 			log.severe("Missing DocAction");
 			return null;
 		}
-		if (!doesUserHaveAccessToDocAction(referenceListDBService, docAction)) {
+		if (!doesUserHaveAccessToDocAction(docAction)) {
 			log.severe("Unauthorized");
 			return null;
 		}
@@ -110,19 +116,17 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 
 		return null;
 	}
+
 	/**
 	 * Determine if the current user has access to the document action they're trying to perform
 	 *
-	 * @param referenceListDBService The Reference List DB Service to get information from
 	 * @param docAction The document action to perform (i.e. ACTION_Void, ACTION_Complete
 	 * @return Whether the user has access to process an entity a certain way
 	 */
-	private boolean doesUserHaveAccessToDocAction(ReferenceListDBService referenceListDBService,
-			String docAction) {
+	private boolean doesUserHaveAccessToDocAction(String docAction) {
 		Optional<Map.Entry<MDocType, List<MRefList>>> access =
 				referenceListDBService.getAccessByDocumentType().entrySet().stream().filter(
-						accessByDocumentType -> accessByDocumentType.getKey().getName().equals(
-								ReferenceListDBService.DOCNAME_PAYMENTS)).findFirst();
+						accessByDocumentType -> accessByDocumentType.getKey().getName().equals(getDocumentTypeName())).findFirst();
 		if (access.isEmpty()) {
 			return false;
 		}
