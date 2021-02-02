@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.BaseEntity;
 import org.bandahealth.idempiere.rest.model.EntityMetadata;
 import org.bandahealth.idempiere.rest.model.NHIFRelationship;
@@ -16,6 +17,7 @@ import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
@@ -145,25 +147,16 @@ public class EntityMetadataDBService {
 			translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
 			// Fetch translations
-			PreparedStatement statement = null;
-			ResultSet resultSet = null;
-			try {
-				statement = DB.prepareStatement(sql, null);
-				DB.setParameters(statement, translationParameters);
-
-				resultSet = statement.executeQuery();
-				while (resultSet.next()) {
+			SqlUtil.executeQuery(sql, translationParameters, null, resultSet -> {
+				try {
 					MRefList referenceListToTranslate = refListMap.get(resultSet.getInt(1));
 					referenceListToTranslate.setName(resultSet.getString(2));
 					referenceListToTranslate.setDescription(resultSet.getString(3));
+				} catch (Exception ex) {
+					logger.warning("Error processing reference list translations: " + ex.getMessage());
 				}
-
-				referenceLists = new ArrayList<>(refListMap.values());
-			} catch (Exception e) {
-				logger.severe("Error fetching reference list translations: " + e.getMessage());
-			} finally {
-				DB.close(resultSet, statement);
-			}
+			});
+			referenceLists = new ArrayList<>(refListMap.values());
 		}
 		return referenceLists;
 	}

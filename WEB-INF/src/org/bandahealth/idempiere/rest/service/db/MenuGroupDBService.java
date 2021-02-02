@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
@@ -233,38 +234,29 @@ public class MenuGroupDBService {
 					put(MDashboardButtonGroupButton.COLUMNNAME_ButtonText, 4);
 					put(MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText, 5);
 				}};
-				String orderedSelectList = columnMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).map(
-						Map.Entry::getKey).collect(Collectors.joining(","));
 				String sql =
-						"SELECT " + MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + "," + orderedSelectList +
-						" FROM " + MDashboardButtonGroupButton.Table_Name + "_Trl WHERE " +
-						MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + " IN(" + translationWhereClause + ")" +
-						" AND AD_Language=?";
+						"SELECT " + MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_Name + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_Description + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_ButtonText + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText + " FROM " +
+								MDashboardButtonGroupButton.Table_Name + "_Trl WHERE " +
+								MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + " IN(" + translationWhereClause + ")" +
+								" AND AD_Language=?";
 				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
-				// Fetch translations
-				PreparedStatement statement = null;
-				ResultSet resultSet = null;
-				try {
-					statement = DB.prepareStatement(sql, null);
-					DB.setParameters(statement, translationParameters);
-
-					resultSet = statement.executeQuery();
-					while (resultSet.next()) {
+				SqlUtil.executeQuery(sql, translationParameters, null, resultSet -> {
+					try {
 						MDashboardButtonGroupButton dashboardButtonGroupButtonToTranslate = dashboardButtonGroupButtonMap.get(
 								resultSet.getInt(1));
-						for (Map.Entry<String, Integer> columnMapEntry : columnMap.entrySet()) {
-							dashboardButtonGroupButtonToTranslate.set_ValueOfColumn(columnMapEntry.getKey(),
-									resultSet.getString(columnMapEntry.getValue()));
-						}
+						dashboardButtonGroupButtonToTranslate.setName(resultSet.getString(2));
+						dashboardButtonGroupButtonToTranslate.setDescription(resultSet.getString(3));
+						dashboardButtonGroupButtonToTranslate.setButtonText(resultSet.getString(4));
+						dashboardButtonGroupButtonToTranslate.setButtonHelpText(resultSet.getString(5));
+					} catch (Exception ex) {
+						log.warning("Error processing dashboard button group button translations: " + ex.getMessage());
 					}
-
-					dashboardButtonGroupButtons = new ArrayList<>(dashboardButtonGroupButtonMap.values());
-				} catch (Exception e) {
-					log.severe("Error fetching menu translations: " + e.getMessage());
-				} finally {
-					DB.close(resultSet, statement);
-				}
+				});
 			}
 			return dashboardButtonGroupButtons;
 		} catch (Exception ex) {

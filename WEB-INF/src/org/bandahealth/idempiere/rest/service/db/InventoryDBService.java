@@ -123,31 +123,18 @@ public class InventoryDBService {
 			}
 		}
 
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			statement = DB.prepareStatement(sqlToUse, null);
-			DB.setParameters(statement, parameters);
-
-			// get total count without pagination parameters
-			pagingInfo.setTotalRecordCount(getTotalRecordCount(sqlWhere.toString(), parameters));
-
-			resultSet = statement.executeQuery();
-			while (resultSet.next()) {
+		pagingInfo.setTotalRecordCount(getTotalRecordCount(sqlWhere.toString(), parameters));
+		SqlUtil.executeQuery(sqlToUse, parameters, null, resultSet -> {
+			try {
 				Inventory inventory = new Inventory(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
 						DateUtil.parseDateOnly(resultSet.getTimestamp(4)), resultSet.getInt(5), resultSet.getInt(6),
 						resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9),
 						DateUtil.parse(resultSet.getTimestamp(10)), resultSet.getInt(11), resultSet.getString(12));
 				results.add(inventory);
+			} catch (Exception ex) {
+				log.warning("Error processing inventory items: " + ex.getMessage());
 			}
-		} catch (SQLException e) {
-			log.log(Level.SEVERE, sqlToUse, e);
-			throw new DBException(e, sqlToUse);
-		} finally {
-			DB.close(resultSet, statement);
-			resultSet = null;
-			statement = null;
-		}
+		});
 
 		return new BaseListResponse<Inventory>(results, pagingInfo);
 	}
