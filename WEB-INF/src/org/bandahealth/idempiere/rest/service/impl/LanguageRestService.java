@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.model.Language;
 import org.bandahealth.idempiere.rest.service.db.LanguageDBService;
-import org.compiere.model.MLanguage;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,7 +22,7 @@ public class LanguageRestService {
 	}
 
 	@GET
-	public List<MLanguage> getAll() {
+	public List<Language> getAll() {
 		return languageDBService.getAll();
 	}
 }
