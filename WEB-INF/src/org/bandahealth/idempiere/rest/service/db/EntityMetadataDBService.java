@@ -1,10 +1,23 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.bandahealth.idempiere.rest.model.*;
+import org.bandahealth.idempiere.rest.function.VoidFunction;
+import org.bandahealth.idempiere.rest.model.BaseEntity;
+import org.bandahealth.idempiere.rest.model.EntityMetadata;
+import org.bandahealth.idempiere.rest.model.NHIFRelationship;
+import org.bandahealth.idempiere.rest.model.NHIFType;
+import org.bandahealth.idempiere.rest.model.PatientType;
+import org.bandahealth.idempiere.rest.model.PaymentType;
+import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
@@ -13,9 +26,8 @@ import org.compiere.util.Env;
 
 /**
  * Retrieve All Metadata data i.e entity types (e.g nhif,patient,payment types)
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class EntityMetadataDBService {
 
@@ -28,6 +40,7 @@ public class EntityMetadataDBService {
 	public final static String PAYMENT_TYPE_LIMIT = "C_Payment Tender Type Limit";
 	public final static String DOCUMENT_STATUS = "_Document Status";
 	public final static String PRODUCT_CATEGORY_TYPE = "BH Product Category Type";
+	private final CLogger logger = CLogger.getCLogger(EntityMetadataDBService.class);
 
 	public EntityMetadata getAll() {
 		EntityMetadata metadata = new EntityMetadata();
@@ -87,7 +100,7 @@ public class EntityMetadataDBService {
 
 	/**
 	 * Get Reference List from MRefList.Table_Name
-	 * 
+	 *
 	 * @param referenceName
 	 * @param referenceValue
 	 * @return
@@ -112,11 +125,37 @@ public class EntityMetadataDBService {
 			}
 		}
 
-		return new Query(Env.getCtx(), MRefList.Table_Name, whereClause, null)
+		List<MRefList> referenceLists = new Query(Env.getCtx(), MRefList.Table_Name, whereClause, null)
 				.addJoinClause("JOIN " + MReference.Table_Name + " ON " + MReference.Table_Name + "."
 						+ MReference.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
 						+ MRefList.COLUMNNAME_AD_Reference_ID)
 				.setParameters(parameters).setOnlyActiveRecords(true).list();
+		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx()))) {
+			Map<Integer, MRefList> refListMap = referenceLists.stream().collect(
+					Collectors.toMap(MRefList::getAD_Ref_List_ID, v -> v));
+
+			// Setup translation fetching SQL
+			List<Object> translationParameters = new ArrayList<>();
+			String translationWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+					referenceLists.stream().map(MRefList::getAD_Ref_List_ID).collect(Collectors.toSet()), translationParameters);
+			String sql = "SELECT " + MRefList.COLUMNNAME_AD_Ref_List_ID + "," + MRefList.COLUMNNAME_Name + "," +
+					MRefList.COLUMNNAME_Description + " FROM " + MRefList.Table_Name + "_Trl WHERE " +
+					MRefList.COLUMNNAME_AD_Ref_List_ID + " IN(" + translationWhereClause + ")" + " AND AD_Language=?";
+			translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
+
+			// Fetch translations
+			SqlUtil.executeQuery(sql, translationParameters, null, resultSet -> {
+				try {
+					MRefList referenceListToTranslate = refListMap.get(resultSet.getInt(1));
+					referenceListToTranslate.setName(resultSet.getString(2));
+					referenceListToTranslate.setDescription(resultSet.getString(3));
+				} catch (Exception ex) {
+					logger.warning("Error processing reference list translations: " + ex.getMessage());
+				}
+			});
+			referenceLists = new ArrayList<>(refListMap.values());
+		}
+		return referenceLists;
 	}
 
 	private List<MRefList> getTypes(String referenceName) {
