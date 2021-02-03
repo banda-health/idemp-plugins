@@ -228,12 +228,6 @@ public class MenuGroupDBService {
 				String translationWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
 						dashboardButtonGroupButtons.stream().map(MDashboardButtonGroupButton::getBH_DbrdBtnGrp_Btn_ID)
 								.collect(Collectors.toSet()), translationParameters);
-				Map<String, Integer> columnMap = new HashMap<>() {{
-					put(MDashboardButtonGroupButton.COLUMNNAME_Name, 2);
-					put(MDashboardButtonGroupButton.COLUMNNAME_Description, 3);
-					put(MDashboardButtonGroupButton.COLUMNNAME_ButtonText, 4);
-					put(MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText, 5);
-				}};
 				String sql =
 						"SELECT " + MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + "," +
 								MDashboardButtonGroupButton.COLUMNNAME_Name + "," +
