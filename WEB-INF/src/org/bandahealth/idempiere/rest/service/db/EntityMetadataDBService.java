@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.compiere.model.MLanguage;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
@@ -143,7 +144,8 @@ public class EntityMetadataDBService {
 					referenceLists.stream().map(MRefList::getAD_Ref_List_ID).collect(Collectors.toSet()), translationParameters);
 			String sql = "SELECT " + MRefList.COLUMNNAME_AD_Ref_List_ID + "," + MRefList.COLUMNNAME_Name + "," +
 					MRefList.COLUMNNAME_Description + " FROM " + MRefList.Table_Name + "_Trl WHERE " +
-					MRefList.COLUMNNAME_AD_Ref_List_ID + " IN(" + translationWhereClause + ")" + " AND AD_Language=?";
+					MRefList.COLUMNNAME_AD_Ref_List_ID + " IN(" + translationWhereClause + ")" + " AND " +
+					MLanguage.COLUMNNAME_AD_Language + "=?";
 			translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
 			// Fetch translations

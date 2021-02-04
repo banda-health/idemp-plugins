@@ -19,6 +19,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.compiere.model.MLanguage;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
@@ -236,7 +237,7 @@ public class MenuGroupDBService {
 								MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText + " FROM " +
 								MDashboardButtonGroupButton.Table_Name + "_Trl WHERE " +
 								MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + " IN(" + translationWhereClause + ")" +
-								" AND AD_Language=?";
+								" AND " + MLanguage.COLUMNNAME_AD_Language + "=?";
 				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
 				SqlUtil.executeQuery(sql, translationParameters, null, resultSet -> {
