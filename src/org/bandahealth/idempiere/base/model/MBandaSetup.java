@@ -66,6 +66,7 @@ public class MBandaSetup {
 	private final Properties context;
 	private final String language;
 	private final int clientId;
+	private final String clientName;
 	private final int orgId;
 	private final MAcctSchema accountSchema;
 	private final String BANK_DEFAULT_ROUTING_NUMBER = "DefaultRouteNo";
