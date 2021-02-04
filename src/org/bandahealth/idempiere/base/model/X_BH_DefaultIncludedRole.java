@@ -115,6 +115,8 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	public static final String DB_USERTYPE_User = "U";
 	/** Advanced User = V */
 	public static final String DB_USERTYPE_AdvancedUser = "V";
+	/** Clinician = C */
+	public static final String DB_USERTYPE_Clinician = "C";
 	/** Set UserType.
 		@param DB_UserType 
 		The User Type when a new client is created

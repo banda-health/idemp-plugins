@@ -7,7 +7,6 @@ import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.compiere.Adempiere;
 import org.compiere.impexp.ImpFormat;
 import org.compiere.impexp.MImpFormat;
-import org.compiere.model.*;
 import org.compiere.model.MElement;
 import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
