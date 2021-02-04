@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -24,7 +24,7 @@ public class UserRestService extends BaseEntityRestService<User> {
 		dbService = new UserDBService();
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.CLINICIANS_PATH)
 	public BaseListResponse<User> getClinicians(@QueryParam("page") int page, @QueryParam("size") int size) {
 		return dbService.getClinicians(getPagingInfo(page, size));
