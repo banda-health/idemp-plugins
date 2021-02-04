@@ -50,7 +50,6 @@ public class MBandaSetup {
 	private final Properties context;
 	private final String language;
 	private final int clientId;
-	private final String clientName;
 	private final int orgId;
 	private final MAcctSchema accountSchema;
 	private final String BANK_DEFAULT_ROUTING_NUMBER = "DefaultRouteNo";
@@ -62,14 +61,14 @@ public class MBandaSetup {
 	private final String SUFFIX_ADMIN_ROLE = " Admin";
 	// Pulled from line 258 of MSetup.java
 	private final String SUFFIX_USER_ROLE = " User";
-	private final String SUFFIX_ADVANCED_USER_ROLE = " Advanced User";
+	public static final String SUFFIX_ADVANCED_USER_ROLE = " Advanced User";
+	public static final String SUFFIX_CLINICIAN_USER_ROLE = " Clinician User";
 	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
 	public MBandaSetup(Properties ctx, String clientName, String orgName) {
 		this.context = ctx;
 		language = Env.getAD_Language(this.context);
-		this.clientName = clientName;
 
 		clientId = new Query(
 				this.context,
@@ -417,40 +416,40 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * The roles for admin and user are created by default - add one for an advanced user that isn't an admin.
+	 * Add a role
 	 *
 	 * @return Whether the creation was successful
 	 */
-	public boolean createAdvancedUserRole(String adminUserName) {
-		String name = clientName + SUFFIX_ADVANCED_USER_ROLE;
-		MRole advancedUserRole = new MRole(context, 0, transaction.getTrxName());
-		advancedUserRole.setName(name);
-		advancedUserRole.setIsAccessAdvanced(false);
-		if (!advancedUserRole.save()) {
-			String err = "Advanced User Role NOT inserted";
+	public boolean createUserRole(String userName, String roleName) {
+		MRole userRole = new MRole(context, 0, transaction.getTrxName());
+		userRole.setName(roleName);
+		userRole.setIsAccessAdvanced(false);
+		if (!userRole.save()) {
+			String err = roleName + " NOT inserted";
 			log.log(Level.SEVERE, err);
 			info.append(err);
 			return false;
 		}
 		//  OrgAccess x,y
-		MRoleOrgAccess userOrgAccess = new MRoleOrgAccess(advancedUserRole, orgId);
+		MRoleOrgAccess userOrgAccess = new MRoleOrgAccess(userRole, orgId);
 		if (!userOrgAccess.save()) {
-			log.log(Level.SEVERE, "Advanced User Role_OrgAccess NOT created");
+			log.log(Level.SEVERE, roleName + " Role_OrgAccess NOT created");
 		}
 		// Update the appropriate users to have access to this new role
-		MUser clientAdminUser = new Query(context, MUser.Table_Name,
+		MUser user = new Query(context, MUser.Table_Name,
 				MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?",
 				transaction.getTrxName())
-				.setParameters(clientId, adminUserName)
+				.setParameters(clientId, userName)
 				.first();
-		if (clientAdminUser != null) {
-			MUserRoles userRole = new MUserRoles(context, clientAdminUser.getAD_User_ID(), advancedUserRole.getAD_Role_ID(),
+		if (user != null) {
+			MUserRoles userRoles = new MUserRoles(context, user.getAD_User_ID(), userRole.getAD_Role_ID(),
 					transaction.getTrxName());
-			userRole.saveEx();
+			userRoles.saveEx();
 		}
+		
 		return true;
 	}
-
+	
 	/**
 	 * The roles created for a client need to have the Banda Health master roles included. Add the ones configured
 	 * in the system to the created roles.
@@ -466,32 +465,37 @@ public class MBandaSetup {
 		MRole adminRole = null;
 		MRole advancedUserRole = null;
 		MRole userRole = null;
+		MRole clinicianRole = null;
 		for (MRole clientRole : clientRoles) {
-			if (clientRole.getName().endsWith(SUFFIX_ADMIN_ROLE)) {
+			String roleName = clientRole.getName();
+			if (roleName.endsWith(SUFFIX_ADMIN_ROLE)) {
 				adminRole = clientRole;
-			} else if (clientRole.getName().endsWith(SUFFIX_ADVANCED_USER_ROLE)) {
+			} else if (roleName.endsWith(SUFFIX_ADVANCED_USER_ROLE)) {
 				advancedUserRole = clientRole;
-			} else if (clientRole.getName().endsWith(SUFFIX_USER_ROLE)) {
+			} else if (roleName.endsWith(SUFFIX_CLINICIAN_USER_ROLE)) {
+				clinicianRole = clientRole;
+			} else if (roleName.endsWith(SUFFIX_USER_ROLE)) {
 				userRole = clientRole;
-			}
+			}			
 		}
-		if (adminRole == null || userRole == null || advancedUserRole == null) {
-			String err;
+		if (adminRole == null || userRole == null || advancedUserRole == null || clinicianRole == null) {
+			String error = null;
 			if (adminRole == null) {
-				err = "Admin role does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				error = "Admin role does not exist";
 			}
 			if (userRole == null) {
-				err = "User role does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				error = "User role does not exist";
 			}
 			if (userRole == null) {
-				err = "Advanced User role does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				error = "Advanced User role does not exist";
 			}
+			if (clinicianRole == null) {
+				error = "Clinician User Role does not exist";
+			}
+			
+			log.log(Level.SEVERE, error);
+			info.append(error);
+			
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -505,6 +509,7 @@ public class MBandaSetup {
 		int userRoleSequencer = 10;
 		int advancedUserRoleSequencer = 10;
 		int sequencerIncrement = 10;
+		int clinicianRoleSequencer = 10;
 		for (MBHDefaultIncludedRole defaultIncludedRole : defaultIncludedRoles) {
 			MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
 			roleIncluded.setIncluded_Role_ID(defaultIncludedRole.getIncluded_Role_ID());
@@ -521,6 +526,10 @@ public class MBandaSetup {
 				roleIncluded.setAD_Role_ID(advancedUserRole.getAD_Role_ID());
 				roleIncluded.setSeqNo(advancedUserRoleSequencer);
 				advancedUserRoleSequencer += sequencerIncrement;
+			} else if (defaultIncludedRole.getDB_UserType().equals(MBHDefaultIncludedRole.DB_USERTYPE_Clinician)) {
+				roleIncluded.setAD_Role_ID(clinicianRole.getAD_Role_ID());
+				roleIncluded.setSeqNo(clinicianRoleSequencer);
+				clinicianRoleSequencer += sequencerIncrement;
 			} else {
 				log.log(Level.INFO, "Unknown User Type: " + defaultIncludedRole.getDB_UserType());
 			}

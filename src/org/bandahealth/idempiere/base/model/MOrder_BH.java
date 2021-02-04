@@ -48,6 +48,7 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_HEIGHT = "BH_Height";
 	public static final String COLUMNNAME_BH_WEIGHT = "BH_Weight";
 	public static final String COLUMNNAME_BH_SECOND_DIAGNOSIS = "BH_SecondDiagnosis";
+	public static final String COLUMMNAME_BH_CLINICIAN_USER_ID = "BH_Clinician_User_ID";
 	/**
 	 * Column name bh_referral
 	 */
@@ -525,5 +526,13 @@ public class MOrder_BH extends MOrder {
 	public void setBH_PatientType(String BH_PatientType) {
 
 		set_Value(COLUMNNAME_BH_PatientType, BH_PatientType);
+	}
+	
+	public Integer getBH_ClinicianUserID() {
+		return (Integer) get_Value(COLUMMNAME_BH_CLINICIAN_USER_ID);
+	}
+	
+	public void setBH_ClinicianUserID(Integer clinicianUserID) {
+		set_Value(COLUMMNAME_BH_CLINICIAN_USER_ID, clinicianUserID);
 	}
 }

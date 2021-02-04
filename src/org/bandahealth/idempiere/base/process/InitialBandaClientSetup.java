@@ -7,7 +7,6 @@ import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.compiere.Adempiere;
 import org.compiere.impexp.ImpFormat;
 import org.compiere.impexp.MImpFormat;
-import org.compiere.model.*;
 import org.compiere.model.MElement;
 import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
@@ -183,9 +182,17 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			addLog(bandaSetup.getInfo());
 
-			if (!bandaSetup.createAdvancedUserRole(adminUserName)) {
+			// The roles for admin and user are created by default - add one for an advanced user that isn't an admin.
+			if (!bandaSetup.createUserRole(adminUserName, clientName + MBandaSetup.SUFFIX_ADVANCED_USER_ROLE)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create advanced user role failed"));
+			}
+			addLog(bandaSetup.getInfo());
+			
+			// Add a clinician role
+			if (!bandaSetup.createUserRole(adminUserName, clientName + MBandaSetup.SUFFIX_CLINICIAN_USER_ROLE)) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create clinician user role failed"));
 			}
 			addLog(bandaSetup.getInfo());
 
