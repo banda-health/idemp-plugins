@@ -9,6 +9,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.model.SystemIDs;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -68,7 +69,7 @@ public class ReferenceListDBService {
 	 *
 	 * @return Returns a lists of document actions by document type to determine what a user has access to do
 	 */
-	public Map<MDocType, List<MRefList>> getAccessByDocumentType() {
+	public Map<MDocType, List<MRefList>> getDocumentActionAccessByDocumentType() {
 		List<Object> parameters = new ArrayList<>();
 		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(usedDocumentTypeNames, parameters);
 		// Get the doc types for this client matching what the application uses
@@ -103,16 +104,18 @@ public class ReferenceListDBService {
 	/**
 	 * Get a map of the available document actions based on a given document action
 	 *
-	 * @param accessByDocumentType The access to certain document types that this user has
 	 * @return A document map of next actions a user can take based on a given action based on a document type
 	 */
-	public Map<MDocType, Map<MRefList, List<String>>> getValidActionMapByDocumentTypeAndReferenceList(
-			Map<MDocType, List<MRefList>> accessByDocumentType) {
+	public Map<MDocType, Map<MRefList, List<String>>> getDocumentStatusActionMap() {
+		Map<MDocType, List<MRefList>> documentActionAccessByDocumentType = getDocumentActionAccessByDocumentType();
+		List<MRefList> allClientDocumentStatuses =
+				new Query(Env.getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Reference_ID + "=?", null).setParameters(
+						SystemIDs.REFERENCE_DOCUMENTSTATUS).list();
 		PO unusedNecessaryEntityForTheDocEngine = createModelInstance();
-		return accessByDocumentType.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry ->
-				entry.getValue().stream().collect(
-						Collectors.toMap(refList -> refList,
-								refList -> {
+		return documentActionAccessByDocumentType.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry ->
+				allClientDocumentStatuses.stream().collect(
+						Collectors.toMap(docStatus -> docStatus,
+								docStatus -> {
 									String[] unusedDocActions = new String[50];
 									String[] mappedDocActions = new String[50];
 									Integer tableId = 0;
@@ -122,7 +125,7 @@ public class ReferenceListDBService {
 									// Get valid nextactions based on a given document action
 									// TODO: Determine if we want to find a way to include different actions that come when the period is
 									// open
-									DocumentEngine.getValidActions(refList.getValue(), null, "", "", tableId, unusedDocActions,
+									DocumentEngine.getValidActions(docStatus.getValue(), null, "", "", tableId, unusedDocActions,
 											mappedDocActions, false, unusedNecessaryEntityForTheDocEngine);
 									// Return an array list, but first confirm the mapped actions are in what the user has access to
 									return Arrays.stream(mappedDocActions).filter(mappedAction -> entry.getValue().stream()

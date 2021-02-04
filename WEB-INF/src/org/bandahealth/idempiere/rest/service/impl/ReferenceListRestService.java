@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.service.db.ReferenceListDBService;
 
 import javax.ws.rs.Consumes;
@@ -24,9 +25,17 @@ public class ReferenceListRestService {
 	}
 
 	@GET
-	@Path("/access")
-	public Map<String, Map<String, List<String>>> getAccessMapByDocumentType() {
-		return dataService.getValidActionMapByDocumentTypeAndReferenceList(dataService.getAccessByDocumentType()).entrySet()
+	@Path("/documentActionAccess")
+	public Map<String, List<ReferenceList>> getDocumentActionAccessByDocumentType() {
+		return dataService.getDocumentActionAccessByDocumentType().entrySet()
+				.stream().collect(Collectors.toMap(k -> k.getKey().getDocBaseType(),
+						v -> v.getValue().stream().map(ReferenceList::new).collect(Collectors.toList())));
+	}
+
+	@GET
+	@Path("/documentStatusActionMap")
+	public Map<String, Map<String, List<String>>> getDocumentStatusActionMap() {
+		return dataService.getDocumentStatusActionMap().entrySet()
 				.stream().collect(Collectors.toMap(k -> k.getKey().getDocBaseType(),
 						refListMap -> refListMap.getValue().entrySet().stream()
 								.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue))));

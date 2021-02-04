@@ -125,7 +125,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	 */
 	private boolean doesUserHaveAccessToDocAction(String docAction) {
 		Optional<Map.Entry<MDocType, List<MRefList>>> access =
-				referenceListDBService.getAccessByDocumentType().entrySet().stream().filter(
+				referenceListDBService.getDocumentActionAccessByDocumentType().entrySet().stream().filter(
 						accessByDocumentType -> accessByDocumentType.getKey().getName().equals(getDocumentTypeName())).findFirst();
 		if (access.isEmpty()) {
 			return false;
