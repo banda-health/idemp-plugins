@@ -56,6 +56,7 @@ public interface IRestConfigs {
 
 	String ENTITY_PROCESS_PATH = "/{uuid}/process/{processType}";
 	String ENTITY_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+	String ENTITY_SAVE_AND_PROCESS_PATH_2 = "/save/process/{processType}";
 
 	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";
 	String VISIT_PATH = "/visit/{uuid}";

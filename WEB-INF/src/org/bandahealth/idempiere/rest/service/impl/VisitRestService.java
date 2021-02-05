@@ -67,9 +67,9 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	}
 
 	@POST
-	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public Visit saveAndProcessVisit(Visit entity) throws Exception {
-		return dbService.asyncSaveAndCompleteEntity(entity);
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH_2)
+	public Visit saveAndProcessVisit(Visit entity, @PathParam("processType") String docAction) throws Exception {
+		return dbService.saveAndProcessEntity(entity, docAction);
 	}
 
 	@POST
