@@ -135,10 +135,4 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
 	}
-
-	@Override
-	protected void preloadRelatedEntities() {
-		// TODO Auto-generated method stub
-		
-	}
 }

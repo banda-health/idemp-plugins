@@ -133,10 +133,4 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	protected void preloadRelatedEntities() {
-		// TODO Auto-generated method stub
-		
-	}
 }

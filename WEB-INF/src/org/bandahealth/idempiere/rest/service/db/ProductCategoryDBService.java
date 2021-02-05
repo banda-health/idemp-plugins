@@ -57,10 +57,4 @@ public class ProductCategoryDBService extends BaseDBService<ProductCategory, MPr
 	protected MProductCategory_BH getModelInstance() {
 		return new MProductCategory_BH(Env.getCtx(), 0, null);
 	}
-
-	@Override
-	protected void preloadRelatedEntities() {
-		// TODO Auto-generated method stub
-		
-	}
 }

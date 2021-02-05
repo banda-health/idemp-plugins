@@ -5,25 +5,34 @@ import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.User;
-import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MClient;
 import org.compiere.model.MRole;
-import org.compiere.model.MTable;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-public class UserDBService extends BaseDBService<User, MUser> {
+public class UserDBService extends BaseDBService<User, MUser_BH> {
 	private static final int SYSTEM_USER_ID = 100;
-	private SqlUtil sqlUtil = new SqlUtil();
 
-	public BaseListResponse<User> getClinicians(Paging pagingInfo) {
+	public BaseListResponse<User> getCliniciansResponse(Paging pagingInfo) {
 		List<User> results = new ArrayList<>();
 
+		List<MUser_BH> entities = getClinicians(pagingInfo);
+		if (!entities.isEmpty()) {
+			for (MUser_BH entity : entities) {
+				results.add(createInstanceWithDefaultFields(entity));
+			}
+		}
+
+		return new BaseListResponse<User>(results, pagingInfo);
+	}
+	
+	public List<MUser_BH> getClinicians(Paging pagingInfo) {
 		StringBuilder whereClause = new StringBuilder(MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
 		whereClause.append(" AND ");
 		whereClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " IN (");
@@ -32,7 +41,7 @@ public class UserDBService extends BaseDBService<User, MUser> {
 		whereClause.append(" = ? AND ");
 		whereClause.append(MRole.COLUMNNAME_AD_Client_ID + " =? ))");
 
-		StringBuilder joinClause = new StringBuilder("JOIN " + MUserRoles.Table_Name);
+		StringBuilder joinClause = new StringBuilder(" JOIN " + MUserRoles.Table_Name);
 		joinClause.append(" ON ");
 		joinClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID);
 		joinClause.append(" = ");
@@ -41,19 +50,16 @@ public class UserDBService extends BaseDBService<User, MUser> {
 		// get client name
 		MClient client = MClient.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()));
 		String searchRoleName = client.getName() + MBandaSetup.SUFFIX_CLINICIAN_USER_ROLE;
-		Query query = new Query(Env.getCtx(), MUser.Table_Name, whereClause.toString(), null)
+		
+		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause.toString(), null)
 				.setParameters(SYSTEM_USER_ID, searchRoleName, Env.getAD_Client_ID(Env.getCtx()))
 				.setOnlyActiveRecords(true).setClient_ID().addJoinClause(joinClause.toString());
 
-		pagingInfo.setTotalRecordCount(query.count());
-		List<MUser> entities = query.list();
-		if (!entities.isEmpty()) {
-			for (MUser entity : entities) {
-				results.add(createInstanceWithDefaultFields(entity));
-			}
+		if (pagingInfo != null) {
+			pagingInfo.setTotalRecordCount(query.count());
 		}
-
-		return new BaseListResponse<User>(results, pagingInfo);
+		
+		return query.list();
 	}
 
 	@Override
@@ -67,7 +73,7 @@ public class UserDBService extends BaseDBService<User, MUser> {
 	}
 
 	@Override
-	protected User createInstanceWithDefaultFields(MUser instance) {
+	protected User createInstanceWithDefaultFields(MUser_BH instance) {
 		try {
 			return new User(instance.getName(), instance.getAD_User_UU());
 		} catch (Exception ex) {
@@ -77,34 +83,17 @@ public class UserDBService extends BaseDBService<User, MUser> {
 	}
 
 	@Override
-	protected User createInstanceWithAllFields(MUser instance) {
+	protected User createInstanceWithAllFields(MUser_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override
-	protected User createInstanceWithSearchFields(MUser instance) {
+	protected User createInstanceWithSearchFields(MUser_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override
-	protected MUser getModelInstance() {
-		return new MUser(Env.getCtx(), 0, null);
-	}
-
-	public List<MUser> getActiveUsersForCurrentClient() {
-		String tableName = getModelInstance().get_TableName();
-		String selectColumns = MUser.COLUMNNAME_AD_User_UU + "," + MUser.COLUMNNAME_Name;
-
-		String sql = "SELECT " + selectColumns + " FROM " + tableName + " WHERE isActive = ? AND AD_Client_ID = ?";
-
-		Object[] parameters = new Object[2];
-		parameters[0] = true;
-		parameters[1] = Env.getAD_Client_ID(Env.getCtx());
-		
-		return sqlUtil.getResults(MTable.get(Env.getCtx(), tableName), sql, parameters, null);
-	}
-
-	@Override
-	protected void preloadRelatedEntities() {
+	protected MUser_BH getModelInstance() {
+		return new MUser_BH(Env.getCtx(), 0, null);
 	}
 }

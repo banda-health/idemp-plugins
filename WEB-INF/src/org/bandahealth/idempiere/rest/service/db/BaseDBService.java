@@ -66,8 +66,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	protected abstract S getModelInstance();
 	
-	protected abstract void preloadRelatedEntities();
-
 	private boolean checkColumnExists(String columnName) {
 		if (getModelInstance() != null) {
 			return getModelInstance().get_ColumnIndex(columnName) > -1 || columnName.contains(".");
@@ -250,7 +248,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			List<S> entities = query.list();
 
 			if (!entities.isEmpty()) {
-				preloadRelatedEntities();
 				for (S entity : entities) {
 					if (entity != null) {
 						results.add(createInstanceWithDefaultFields(entity));

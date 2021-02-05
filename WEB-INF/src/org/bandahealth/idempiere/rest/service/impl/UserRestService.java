@@ -27,7 +27,7 @@ public class UserRestService extends BaseEntityRestService<User> {
 	@GET
 	@Path(IRestConfigs.CLINICIANS_PATH)
 	public BaseListResponse<User> getClinicians(@QueryParam("page") int page, @QueryParam("size") int size) {
-		return dbService.getClinicians(getPagingInfo(page, size));
+		return dbService.getCliniciansResponse(getPagingInfo(page, size));
 	}
 
 	@Override

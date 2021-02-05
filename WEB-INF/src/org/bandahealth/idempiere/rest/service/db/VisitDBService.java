@@ -13,6 +13,7 @@ import java.util.Map;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -244,7 +245,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
 					: null;
 
-			MUser user = searchUserInPrefetchedList(instance.getBH_ClinicianUserID());
+			MUser_BH user = searchUserInPrefetchedList(instance.getBH_ClinicianUserID());
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
@@ -477,15 +478,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return sqlWhere.toString();
 	}
 
-	@Override
-	protected void preloadRelatedEntities() {
-		users = userDBService.getActiveUsersForCurrentClient();
-	}
-
-	private MUser searchUserInPrefetchedList(Integer userId) {
-		return users.stream()
-				.filter(user -> user.getAD_User_ID() == userId)
-				.findFirst()
+	private MUser_BH searchUserInPrefetchedList(Integer userId) {
+		return userDBService.getClinicians(null).stream().filter(user -> user.getAD_User_ID() == userId).findFirst()
 				.orElse(null);
 	}
 }
