@@ -1,7 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
@@ -11,11 +17,17 @@ import org.bandahealth.idempiere.rest.model.MenuGroupItem;
 import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.compiere.model.MLanguage;
+import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Language;
 
 /**
  * Retrieve menu group and line items.
@@ -199,16 +211,55 @@ public class MenuGroupDBService {
 				// join Role Table
 				query =
 						query.addJoinClause(" JOIN " + MRoleIncluded.Table_Name + " ON " + MDashboardButtonGroupButton.Table_Name
-						+ "." + MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
-						+ MRoleIncluded.COLUMNNAME_Included_Role_ID);
+								+ "." + MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
+								+ MRoleIncluded.COLUMNNAME_Included_Role_ID);
 			}
 
 			if (parameters.size() > 0) {
 				query = query.setParameters(parameters);
 			}
 
-			return query.list();
+			List<MDashboardButtonGroupButton> dashboardButtonGroupButtons = query.list();
+			if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx()))) {
+				Map<Integer, MDashboardButtonGroupButton> dashboardButtonGroupButtonMap = dashboardButtonGroupButtons
+						.stream().collect(Collectors.toMap(MDashboardButtonGroupButton::getBH_DbrdBtnGrp_Btn_ID, v -> v));
 
+				// Setup translation fetching SQL
+				List<Object> translationParameters = new ArrayList<>();
+				String translationWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+						dashboardButtonGroupButtons.stream().map(MDashboardButtonGroupButton::getBH_DbrdBtnGrp_Btn_ID)
+								.collect(Collectors.toSet()), translationParameters);
+				Map<String, Integer> columnMap = new HashMap<>() {{
+					put(MDashboardButtonGroupButton.COLUMNNAME_Name, 2);
+					put(MDashboardButtonGroupButton.COLUMNNAME_Description, 3);
+					put(MDashboardButtonGroupButton.COLUMNNAME_ButtonText, 4);
+					put(MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText, 5);
+				}};
+				String sql =
+						"SELECT " + MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_Name + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_Description + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_ButtonText + "," +
+								MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText + " FROM " +
+								MDashboardButtonGroupButton.Table_Name + "_Trl WHERE " +
+								MDashboardButtonGroupButton.COLUMNNAME_BH_DbrdBtnGrp_Btn_ID + " IN(" + translationWhereClause + ")" +
+								" AND " + MLanguage.COLUMNNAME_AD_Language + "=?";
+				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
+
+				SqlUtil.executeQuery(sql, translationParameters, null, resultSet -> {
+					try {
+						MDashboardButtonGroupButton dashboardButtonGroupButtonToTranslate = dashboardButtonGroupButtonMap.get(
+								resultSet.getInt(1));
+						dashboardButtonGroupButtonToTranslate.setName(resultSet.getString(2));
+						dashboardButtonGroupButtonToTranslate.setDescription(resultSet.getString(3));
+						dashboardButtonGroupButtonToTranslate.setButtonText(resultSet.getString(4));
+						dashboardButtonGroupButtonToTranslate.setButtonHelpText(resultSet.getString(5));
+					} catch (Exception ex) {
+						log.warning("Error processing dashboard button group button translations: " + ex.getMessage());
+					}
+				});
+			}
+			return dashboardButtonGroupButtons;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
