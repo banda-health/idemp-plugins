@@ -42,9 +42,11 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 		// Don't filter a request to get an authentication session or to change a password
-		if (requestContext.getMethod().equals(HttpMethod.POST)
-				&& (requestContext.getUriInfo().getPath().endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH) ||
-				requestContext.getUriInfo().getPath().endsWith(IRestConfigs.CHANGEPASSWORD_PATH))) {
+		String method = requestContext.getMethod();
+		String path = "/" + requestContext.getUriInfo().getPath();
+		if ((method.equals(HttpMethod.POST) && (path.endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH) ||
+				path.endsWith(IRestConfigs.CHANGEPASSWORD_PATH))) || (method.equals(HttpMethod.GET) &&
+				path.endsWith(IRestConfigs.LANGUAGES_PATH))) {
 			return;
 		}
 
@@ -72,7 +74,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
 	/**
 	 * Borrowed from
-	 * https://github.com/hengsin/idempiere-rest/blob/master/com.trekglobal.idempiere.rest.api/src/com/trekglobal/idempiere/rest/api/v1/auth/filter/RequestFilter.java#L99
+	 * https://github.com/hengsin/idempiere-rest/blob/master/com.trekglobal.idempiere.rest
+	 * .api/src/com/trekglobal/idempiere/rest/api/v1/auth/filter/RequestFilter.java#L99
 	 *
 	 * @param token
 	 * @throws IllegalArgumentException
@@ -112,6 +115,10 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 		claim = jwt.getClaim(LoginClaims.M_Warehouse_ID.name());
 		if (!claim.isNull()) {
 			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, claim.asInt());
+		}
+		claim = jwt.getClaim(LoginClaims.AD_Language.name());
+		if (!claim.isNull()) {
+			Env.setContext(Env.getCtx(), Env.LANGUAGE, claim.asString());
 		}
 
 		if (AD_Role_ID > 0) {
