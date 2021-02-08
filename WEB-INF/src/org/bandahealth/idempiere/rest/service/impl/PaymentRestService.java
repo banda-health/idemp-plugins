@@ -56,9 +56,9 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 	}
 
 	@POST
-	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public Payment saveAndProcessVisit(Payment entity) throws Exception {
-		return dbService.asyncSaveAndCompleteEntity(entity);
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH_2)
+	public Payment saveAndProcessVisit(Payment entity, @PathParam("processType") String docAction) throws Exception {
+		return dbService.saveAndProcessEntity(entity, docAction);
 	}
 
 	@POST

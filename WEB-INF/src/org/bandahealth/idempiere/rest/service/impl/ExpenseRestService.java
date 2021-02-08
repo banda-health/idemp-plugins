@@ -71,9 +71,9 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	}
 
 	@POST
-	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public Expense saveAndProcess(Expense entity) throws Exception {
-		return dbService.asyncSaveAndCompleteEntity(entity);
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH_2)
+	public Expense saveAndProcess(Expense entity, @PathParam("processType") String docAction) throws Exception {
+		return dbService.saveAndProcessEntity(entity, docAction);
 	}
 
 	@DELETE
