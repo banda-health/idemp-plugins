@@ -13,6 +13,7 @@ import java.util.Map;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -20,12 +21,14 @@ import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.Referral;
+import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
+import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BPartner;
 import org.compiere.util.Env;
@@ -44,19 +47,28 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private PatientDBService patientDBService;
 	private ReportDBService reportDBService;
 	private PaymentDBService paymentDBService;
+	private UserDBService userDBService;
 	private MBPartner_BH mPatient;
-	
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = "
-				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
-	}};
+
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(X_C_BPartner.Table_Name,
+					"LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+							+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
+							+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+			put(MUser.Table_Name,
+					"LEFT JOIN  " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+							+ MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "."
+							+ MUser.COLUMNNAME_AD_User_ID);
+		}
+	};
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		paymentDBService = new PaymentDBService();
+		userDBService = new UserDBService();
 	}
-	
-	
+
 	@Override
 	public Map<String, String> getDynamicJoins() {
 		return dynamicJoins;
@@ -122,6 +134,15 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		if (entity.getSecondDiagnosis() != null) {
 			mOrder.setBH_SecondDiagnosis(entity.getSecondDiagnosis());
+		}
+
+		if (entity.getClinician() != null && entity.getClinician().getUuid() != null) {
+			// get user id
+			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_UU + " =?", null)
+					.setParameters(entity.getClinician().getUuid()).first();
+			if (user != null) {
+				mOrder.setBH_ClinicianUserID(user.get_ID());
+			}
 		}
 
 		mOrder.setIsSOTrx(true);
@@ -203,6 +224,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	protected Visit createInstanceWithAllFields(MOrder_BH instance) {
 		try {
 			// get patient
+			// TODO: This needs to be fetched from a preloaded list
 			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
 			if (patient == null) {
 				log.severe("Missing patient");
@@ -222,6 +244,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
 					: null;
 
+			MUser_BH user = searchUserInPrefetchedList(instance.getBH_ClinicianUserID());
+
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance()),
@@ -231,7 +255,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
-					instance.getBH_SecondDiagnosis());
+					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -451,5 +475,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		parameters.add("Y");
 
 		return sqlWhere.toString();
+	}
+
+	private MUser_BH searchUserInPrefetchedList(Integer userId) {
+		return userDBService.getClinicians(null).stream().filter(user -> user.getAD_User_ID() == userId).findFirst()
+				.orElse(null);
 	}
 }

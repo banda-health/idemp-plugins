@@ -65,7 +65,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract T createInstanceWithSearchFields(S instance);
 
 	protected abstract S getModelInstance();
-
+	
 	private boolean checkColumnExists(String columnName) {
 		if (getModelInstance() != null) {
 			return getModelInstance().get_ColumnIndex(columnName) > -1 || columnName.contains(".");
