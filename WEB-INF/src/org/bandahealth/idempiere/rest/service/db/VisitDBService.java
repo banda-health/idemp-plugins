@@ -49,7 +49,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private PaymentDBService paymentDBService;
 	private UserDBService userDBService;
 	private MBPartner_BH mPatient;
-	private List<MUser> users = new ArrayList<>();
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
