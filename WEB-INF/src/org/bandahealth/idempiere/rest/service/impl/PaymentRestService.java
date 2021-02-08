@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -25,8 +26,7 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 		dbService = new PaymentDBService();
 	}
 
-	@POST
-	@Path(IRestConfigs.ROOT_PATH)
+	@GET
 	@Override
 	public BaseListResponse<Payment> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
@@ -34,15 +34,14 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
-	@POST
-	@Path(IRestConfigs.PAYMENT_PATH)
+	@GET
+	@Path(IRestConfigs.UUID_PATH)
 	@Override
 	public Payment getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
 	@POST
-	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Payment saveEntity(Payment entity) {
 		return dbService.saveEntity(entity);
@@ -56,12 +55,12 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 	}
 
 	@POST
-	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH_2)
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
 	public Payment saveAndProcessVisit(Payment entity, @PathParam("processType") String docAction) throws Exception {
 		return dbService.saveAndProcessEntity(entity, docAction);
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Payment> search(@QueryParam("value") String value, @QueryParam("page") int page,

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -31,8 +32,7 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 		this.dbService = new ReceiveProductDBService();
 	}
 
-	@POST
-	@Path(IRestConfigs.ROOT_PATH)
+	@GET
 	@Override
 	public BaseListResponse<ReceiveProduct> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
@@ -40,7 +40,7 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<ReceiveProduct> search(@QueryParam("value") String value, @QueryParam("page") int page,
@@ -49,15 +49,14 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
-	@POST
-	@Path(IRestConfigs.RECEIVE_PRODUCT_PATH)
+	@GET
+	@Path(IRestConfigs.UUID_PATH)
 	@Override
 	public ReceiveProduct getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
 	@POST
-	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public ReceiveProduct saveEntity(ReceiveProduct entity) {
 		return dbService.saveEntity(entity);
@@ -71,14 +70,14 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 	}
 
 	@POST
-	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH_2)
+	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
 	public ReceiveProduct saveAndProcessVisit(ReceiveProduct entity, @PathParam("processType") String docAction)
 			throws Exception {
 		return dbService.saveAndProcessEntity(entity, docAction);
 	}
 
 	@DELETE
-	@Path(IRestConfigs.RECEIVE_PRODUCT_PATH)
+	@Path(IRestConfigs.UUID_PATH)
 	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
 		return dbService.deleteEntity(uuid);
 	}
