@@ -1,13 +1,10 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.BaseEntity;
 import org.bandahealth.idempiere.rest.model.EntityMetadata;
 import org.bandahealth.idempiere.rest.model.NHIFRelationship;
@@ -23,7 +20,9 @@ import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
+import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Language;
 
 /**
  * Retrieve All Metadata data i.e entity types (e.g nhif,patient,payment types)
