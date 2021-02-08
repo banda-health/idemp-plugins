@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBandaSetup;
+import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
+import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.User;
 import org.compiere.model.MClient;
+import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
@@ -31,9 +33,10 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 		return new BaseListResponse<User>(results, pagingInfo);
 	}
-	
+
 	public List<MUser_BH> getClinicians(Paging pagingInfo) {
-		StringBuilder whereClause = new StringBuilder(MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
+		StringBuilder whereClause =
+				new StringBuilder(MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
 		whereClause.append(" AND ");
 		whereClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " IN (");
 		whereClause.append("(SELECT " + MRole.COLUMNNAME_AD_Role_ID + " FROM " + MRole.Table_Name);
@@ -49,8 +52,18 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 		// get client name
 		MClient client = MClient.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()));
-		String searchRoleName = client.getName() + MBandaSetup.SUFFIX_CLINICIAN_USER_ROLE;
-		
+		// Now get the clinican role suffix
+		MRefList clinicianRoleSuffix = new Query(Env.getCtx(), MRefList.Table_Name,
+				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND " + MReference_BH.Table_Name + "." +
+						MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", null).addJoinClause(" JOIN " +
+				MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "." + MReference_BH.COLUMNNAME_AD_Reference_ID +
+				"=" + MRefList.Table_Name + "." + MRefList.COLUMNNAME_AD_Reference_ID).setParameters(
+				MBHDefaultIncludedRole.DB_USERTYPE_Clinician, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+		if (clinicianRoleSuffix == null) {
+			return new ArrayList<>();
+		}
+		String searchRoleName = client.getName() + " " + clinicianRoleSuffix.getName();
+
 		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause.toString(), null)
 				.setParameters(SYSTEM_USER_ID, searchRoleName, Env.getAD_Client_ID(Env.getCtx()))
 				.setOnlyActiveRecords(true).setClient_ID().addJoinClause(joinClause.toString());
@@ -58,7 +71,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		if (pagingInfo != null) {
 			pagingInfo.setTotalRecordCount(query.count());
 		}
-		
+
 		return query.list();
 	}
 
