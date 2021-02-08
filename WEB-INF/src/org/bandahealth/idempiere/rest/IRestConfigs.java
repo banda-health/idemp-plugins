@@ -83,4 +83,6 @@ public interface IRestConfigs {
 	String CLINICIANS_PATH = "/clinicians";
 
 	String APPLICATION_PDF = "application/pdf";
+
+	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
 }
