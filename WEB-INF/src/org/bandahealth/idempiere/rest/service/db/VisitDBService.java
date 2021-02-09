@@ -30,6 +30,7 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
 import org.compiere.model.MUser;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 /**
@@ -98,13 +99,27 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
-	protected void handleEntityAsyncProcess(String uuid) {
+	public Visit processEntity(String uuid, String docAction) throws Exception {
+		// We need to do something special for completing a sales order - do it asynchronously
+		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
+			return super.processEntity(uuid, docAction);
+		}
+
+		if (!isDocActionValidForUser(docAction)) {
+			return null;
+		}
+
 		MOrder_BH order = getEntityByUuidFromDB(uuid);
 		if (order == null) {
-			log.severe("No order with uuid = " + uuid);
-			return;
+			log.severe("No entity with uuid = " + uuid);
+			return null;
 		}
 		processDBService.runOrderProcess(order.get_ID());
+
+		// Since the async process will take some time, assume it completed successfully and return the appropriate status
+		Visit visit = createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
+		visit.setDocStatus(DocAction.STATUS_Completed);
+		return visit;
 	}
 
 	@Override

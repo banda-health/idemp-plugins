@@ -29,11 +29,6 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		this.vendorDBService = new VendorDBService();
 	}
 
-	@Override
-	protected void handleEntityAsyncProcess(String uuid) {
-		// Intentionally left blank because no async process currently exists
-	}
-
 	public BaseListResponse<ReceiveProduct> getAll(
 			Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
 		List<Object> parameters = new ArrayList<>();

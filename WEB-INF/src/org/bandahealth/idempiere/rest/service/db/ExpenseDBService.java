@@ -33,17 +33,6 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	}
 
 	@Override
-	protected void handleEntityAsyncProcess(String uuid) {
-		MInvoice_BH expense = getEntityByUuidFromDB(uuid);
-		if (expense == null) {
-			log.severe("No expense with uuid = " + uuid);
-			return;
-		}
-
-		processDBService.runExpenseProcess(expense.get_ID(), false);
-	}
-
-	@Override
 	protected String getDocumentTypeName() {
 		return DOCUMENTNAME_EXPENSES;
 	}
@@ -58,11 +47,9 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 		StringBuilder whereClause = new StringBuilder()
 				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_DocStatus).append("!=?");
+				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?");
 		parameters.add("N");
 		parameters.add("Y");
-		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
 	}
 

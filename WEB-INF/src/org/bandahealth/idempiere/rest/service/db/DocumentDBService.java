@@ -28,8 +28,6 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 		referenceListDBService = new ReferenceListDBService();
 	}
 
-	protected abstract void handleEntityAsyncProcess(String uuid);
-
 	protected abstract String getDocumentTypeName();
 
 	/**
@@ -39,12 +37,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	 * @return
 	 */
 	public T processEntity(String uuid, String docAction) throws Exception {
-		if (StringUtil.isNullOrEmpty(docAction)) {
-			log.severe("Missing DocAction");
-			return null;
-		}
-		if (!doesUserHaveAccessToDocAction(docAction)) {
-			log.severe("Unauthorized");
+		if (!isDocActionValidForUser(docAction)) {
 			return null;
 		}
 
@@ -56,10 +49,28 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 
 		if (documentEntity.processIt(docAction) && docActionToStatusMap.containsKey(docAction)) {
 			documentEntity.setDocStatus(docActionToStatusMap.get(docAction));
-			documentEntity.saveEx();
 		}
+		documentEntity.saveEx();
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
+	}
+
+	/**
+	 * Determine if the user can access the specified document action
+	 *
+	 * @param docAction The document action to perform
+	 * @return Whether the user has access
+	 */
+	protected boolean isDocActionValidForUser(String docAction) {
+		if (StringUtil.isNullOrEmpty(docAction)) {
+			log.severe("Missing DocAction");
+			return false;
+		}
+		if (!doesUserHaveAccessToDocAction(docAction)) {
+			log.severe("Unauthorized");
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -72,46 +83,6 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 		T saveEntity = saveEntity(entity);
 		if (saveEntity != null) {
 			return processEntity(saveEntity.getUuid(), docAction);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Asynchronously process order
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public T asyncCompleteEntity(String uuid) {
-		S entity = getEntityByUuidFromDB(uuid);
-		if (entity == null) {
-			log.severe("No entity with uuid = " + uuid);
-			return null;
-		}
-
-		handleEntityAsyncProcess(uuid);
-
-		return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
-	}
-
-	/**
-	 * Save and asynchronously process order
-	 *
-	 * @param entity
-	 * @return
-	 */
-	public T asyncSaveAndCompleteEntity(T entity) throws Exception {
-		S dbEntity = getEntityByUuidFromDB(entity.getUuid());
-		// check void docstatus (completed orders can't be saved/updated)
-		if (dbEntity.getDocStatus() != null && dbEntity.getDocStatus().equals(DocAction.STATUS_Voided)) {
-			return processEntity(entity.getUuid(), DocAction.ACTION_Void);
-		}
-
-		T saveEntity = saveEntity(entity);
-		if (saveEntity != null) {
-			asyncCompleteEntity(saveEntity.getUuid());
-			return saveEntity;
 		}
 
 		return null;

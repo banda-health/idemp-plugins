@@ -47,17 +47,6 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	}
 
 	@Override
-	protected void handleEntityAsyncProcess(String uuid) {
-		MPayment_BH payment = getEntityByUuidFromDB(uuid);
-		if (payment == null) {
-			log.severe("No payment with uuid = " + uuid);
-			return;
-		}
-
-		payment.processIt(DocAction.ACTION_Complete);
-	}
-
-	@Override
 	protected String getDocumentTypeName() {
 		return DOCUMENTNAME_PAYMENTS;
 	}
@@ -300,5 +289,15 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	public Boolean deleteEntity(String entityUuid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Payment saveAndProcessEntity(Payment entity, String docAction) throws Exception {
+		// Payments that have already been processed can't be saved again
+		MPayment_BH payment = getEntityByUuidFromDB(entity.getUuid());
+		if (payment != null && payment.isComplete()) {
+			return processEntity(entity.getUuid(), docAction);
+		}
+		return super.saveAndProcessEntity(entity, docAction);
 	}
 }

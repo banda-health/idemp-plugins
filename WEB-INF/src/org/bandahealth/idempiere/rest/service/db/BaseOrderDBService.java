@@ -206,4 +206,14 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 
 		return 0;
 	}
+
+	@Override
+	public T saveAndProcessEntity(T entity, String docAction) throws Exception {
+		// Orders that have already been processed can't be saved again
+		MOrder_BH order = getEntityByUuidFromDB(entity.getUuid());
+		if (order != null && order.isComplete()) {
+			return processEntity(entity.getUuid(), docAction);
+		}
+		return super.saveAndProcessEntity(entity, docAction);
+	}
 }

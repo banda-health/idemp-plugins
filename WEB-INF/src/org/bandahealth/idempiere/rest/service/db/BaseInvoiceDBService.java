@@ -231,4 +231,14 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	protected void runAsyncEntityDeleteProcess(MInvoice_BH entity) {
 		processDBService.runExpenseProcess(entity.get_ID(), true);
 	}
+
+	@Override
+	public T saveAndProcessEntity(T entity, String docAction) throws Exception {
+		// Invoices that have already been processed can't be saved again
+		MInvoice_BH invoice = getEntityByUuidFromDB(entity.getUuid());
+		if (invoice != null && invoice.isComplete()) {
+			return processEntity(entity.getUuid(), docAction);
+		}
+		return super.saveAndProcessEntity(entity, docAction);
+	}
 }
