@@ -52,11 +52,13 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 
 	/**
 	 * Create an attribute set instance with guarantee date
-	 * 
+	 *
 	 * @param orderLine
 	 */
 	private void beforeSaveRequest(MOrderLine_BH orderLine) {
-		if (!orderLine.getC_Order().isSOTrx() || orderLine.getBH_Expiration() != null) {
+		MOrder order = (MOrder) orderLine.getC_Order();
+		boolean isReceiveGoods = !order.isSOTrx();
+		if (!order.isComplete() && (isReceiveGoods || orderLine.getBH_Expiration() != null)) {
 			receiveGoodsBeforeSaveRequest(orderLine);
 		}
 	}
