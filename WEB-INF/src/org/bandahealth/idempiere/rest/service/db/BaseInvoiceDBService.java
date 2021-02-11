@@ -24,7 +24,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 	protected InvoiceLineDBService invoiceLineDBService = new InvoiceLineDBService();
 	protected final ProcessDBService processDBService;
-	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
 	private final String PURCHASE_ORDER = "Purchase Order";
 
 	public BaseInvoiceDBService() {
@@ -130,7 +129,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 				invoice.setDescription(entity.getDescription());
 			}
 
-			invoice.setIsActive(entity.isIsActive());
+			invoice.setIsActive(entity.getIsActive());
 
 			invoice.setIsApproved(true);
 			invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);

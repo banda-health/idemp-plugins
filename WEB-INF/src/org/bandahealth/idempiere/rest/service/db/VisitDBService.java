@@ -269,8 +269,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Patient(patient.getName(), patient.getC_BPartner_UU()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
-					.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

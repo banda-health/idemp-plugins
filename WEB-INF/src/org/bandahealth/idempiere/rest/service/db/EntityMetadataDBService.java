@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.rest.model.NHIFRelationship;
 import org.bandahealth.idempiere.rest.model.NHIFType;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.PaymentType;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
@@ -95,6 +96,10 @@ public class EntityMetadataDBService {
 					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 					instance.getCreatedBy(), instance.getName(), instance.getDescription(), instance.getValue()));
 		}
+
+		// retrieve document statuses
+		metadata.getDocumentStatuses()
+				.addAll(getTypes(DOCUMENT_STATUS).stream().map(ReferenceList::new).collect(Collectors.toList()));
 
 		return metadata;
 	}

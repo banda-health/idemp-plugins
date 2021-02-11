@@ -22,7 +22,6 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
 import org.compiere.model.Query;
-import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 /**
@@ -151,7 +150,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 			mPayment.setDateTrx(DateUtil.getTimestamp(entity.getTransactionDate()));
 		}
 
-		mPayment.setIsActive(entity.isIsActive());
+		mPayment.setIsActive(entity.getIsActive());
 
 		mPayment.saveEx();
 
@@ -180,8 +179,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 					instance.getDescription(),
 					new NHIF(new NHIFType(nhifType), new NHIFRelationship(relationship), claimNumber, memberId, number,
 							memberName),
-					entityMetadataDBService.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS,
-							instance.getDocStatus()),
+					instance.getDocStatus(),
 					DateUtil.parseDateOnly(instance.getDateTrx()), instance.getBH_TenderAmount());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);

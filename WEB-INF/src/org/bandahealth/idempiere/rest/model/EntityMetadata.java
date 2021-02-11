@@ -19,6 +19,7 @@ public class EntityMetadata {
 	private List<NHIFRelationship> nhifRelationships;
 	private List<Referral> referrals;
 	private List<BaseEntity> productCategoryTypes;
+	private List<ReferenceList> documentStatuses;
 
 	public EntityMetadata() {
 		orderPaymentTypes = new ArrayList<>();
@@ -28,6 +29,7 @@ public class EntityMetadata {
 		nhifRelationships = new ArrayList<>();
 		referrals = new ArrayList<>();
 		productCategoryTypes = new ArrayList<>();
+		documentStatuses = new ArrayList<>();
 	}
 
 	public List<PaymentType> getOrderPaymentTypes() {
@@ -84,6 +86,14 @@ public class EntityMetadata {
 
 	public void setProductCategoryTypes(List<BaseEntity> productCategoryTypes) {
 		this.productCategoryTypes = productCategoryTypes;
+	}
+
+	public List<ReferenceList> getDocumentStatuses() {
+		return documentStatuses;
+	}
+
+	public void setDocumentStatuses(List<ReferenceList> documentStatuses) {
+		this.documentStatuses = documentStatuses;
 	}
 
 	public void addPatientType(PatientType entity) {

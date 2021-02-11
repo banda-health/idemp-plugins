@@ -134,7 +134,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				mOrder.setDescription(entity.getDescription());
 			}
 
-			mOrder.setIsActive(entity.isIsActive());
+			mOrder.setIsActive(entity.getIsActive());
 
 			mOrder.setIsApproved(true);
 			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus()) &&
