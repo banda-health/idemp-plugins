@@ -11,7 +11,6 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.User;
 import org.compiere.model.MClient;
 import org.compiere.model.MRole;
-import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -33,7 +32,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	}
 	
 	public List<MUser_BH> getClinicians(Paging pagingInfo) {
-		StringBuilder whereClause = new StringBuilder(MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
+		StringBuilder whereClause = new StringBuilder(MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
 		whereClause.append(" AND ");
 		whereClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " IN (");
 		whereClause.append("(SELECT " + MRole.COLUMNNAME_AD_Role_ID + " FROM " + MRole.Table_Name);
@@ -45,7 +44,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		joinClause.append(" ON ");
 		joinClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID);
 		joinClause.append(" = ");
-		joinClause.append(MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID);
+		joinClause.append(MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID);
 
 		// get client name
 		MClient client = MClient.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()));

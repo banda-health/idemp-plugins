@@ -478,6 +478,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	private MUser_BH searchUserInPrefetchedList(Integer userId) {
+		if (userId == null) {
+			return null;
+		}
+		
 		return userDBService.getClinicians(null).stream().filter(user -> user.getAD_User_ID() == userId).findFirst()
 				.orElse(null);
 	}
