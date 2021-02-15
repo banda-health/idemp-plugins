@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1640" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1640" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -79,6 +70,8 @@
     coalesce(nhifp.nhif,0) as nhif,
     coalesce(cccp.ccc,0) as ccc,
     coalesce(mchp.mch,0) as mch,
+    coalesce(outreachp.outreach,0) as outreach,
+    coalesce(pesapalp.pesapal,0) as pesapal,
     coalesce(otherp.other,0) as other,
     0 as totalpayment,
     0 as outstanding
@@ -99,6 +92,7 @@ where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
       AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
+order by 1
 ) as billdetails
 inner join
 (
@@ -107,11 +101,13 @@ from c_payment p
 inner join c_order co on co.c_order_id = p.bh_c_order_id
 where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
 and ((p.docstatus = 'CO')
+AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 or (p.docstatus = 'DR' and p.bh_processing = 'Y')
 or (co.docstatus = 'CO' and p.bh_processing = 'N'))
 and ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
     )
 group by bh_c_order_id
+order by 1
 ) as payments on billdetails.c_order_id = payments.bh_c_order_id
 left join
 (
@@ -121,6 +117,7 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype = 'X'
 group by cp.bh_c_order_id
+order by 1
 ) as cashp on billdetails.c_order_id = cashp.bh_c_order_id
 left join
 (
@@ -130,6 +127,7 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype = 'M'
 group by cp.bh_c_order_id
+order by 1
 ) as mpesap on billdetails.c_order_id = mpesap.bh_c_order_id
 left join
 (
@@ -139,6 +137,7 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype in ('B','L')
 group by cp.bh_c_order_id
+order by 1
 ) as billwaiverp on billdetails.c_order_id = billwaiverp.bh_c_order_id
 left join
 (
@@ -148,6 +147,7 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype = 'F'
 group by cp.bh_c_order_id
+order by 1
 ) as donorfund1p on billdetails.c_order_id = donorfund1p.bh_c_order_id
 left join
 (
@@ -157,6 +157,7 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype = 'i'
 group by cp.bh_c_order_id
+order by 1
 ) as lindamamap on billdetails.c_order_id = lindamamap.bh_c_order_id
 left join
 (
@@ -166,6 +167,7 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype = 'N'
 group by cp.bh_c_order_id
+order by 1
 ) as nhifp on billdetails.c_order_id = nhifp.bh_c_order_id
 left join
 (
@@ -175,6 +177,7 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype = 'G'
 group by cp.bh_c_order_id
+order by 1
 ) as cccp on billdetails.c_order_id = cccp.bh_c_order_id
 left join
 (
@@ -184,15 +187,37 @@ from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
     and cp.tendertype = 'H'
 group by cp.bh_c_order_id
+order by 1
 ) as mchp on billdetails.c_order_id = mchp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as outreach
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'O'
+group by cp.bh_c_order_id
+order by 1
+) as outreachp on billdetails.c_order_id = outreachp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as pesapal
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'P'
+group by cp.bh_c_order_id
+order by 1
+) as pesapalp on billdetails.c_order_id = pesapalp.bh_c_order_id
 left join
 (
 select cp.bh_c_order_id,
        sum(cp.payamt) as other
 from c_payment cp
 where cp.ad_client_id = $P{AD_CLIENT_ID}
-    and cp.tendertype not in ('X','M','B','L','F','i','N','G','H')
+    and cp.tendertype not in ('X','M','B','L','F','i','N','G','H','O','P')
 group by cp.bh_c_order_id
+order by 1
 ) as otherp on billdetails.c_order_id = otherp.bh_c_order_id
 order by billdetails.patientname asc;]]>
 		</queryString>
@@ -243,6 +268,12 @@ order by billdetails.patientname asc;]]>
 		<field name="mch" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="mch"/>
 		</field>
+		<field name="outreach" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="outreach"/>
+		</field>
+		<field name="pesapal" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="pesapal"/>
+		</field>
 		<field name="other" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="other"/>
 		</field>
@@ -253,7 +284,7 @@ order by billdetails.patientname asc;]]>
 			<property name="com.jaspersoft.studio.field.label" value="outstanding"/>
 		</field>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif}).add($F{ccc}).add($F{mch}).add($F{other})]]></variableExpression>
+			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif}).add($F{ccc}).add($F{mch}).add($F{outreach}).add($F{pesapal}).add($F{other})]]></variableExpression>
 		</variable>
 		<variable name="totalOutstanding" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
@@ -305,6 +336,14 @@ order by billdetails.patientname asc;]]>
 		<variable name="sumUnpaidAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
 		</variable>
+		<variable name="sumOutreach" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{outreach}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumPesapal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{pesapal}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
@@ -333,6 +372,7 @@ where ((co.ad_client_id = $P{AD_CLIENT_ID})
       AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
       AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
+order by 1
 ) as billdetails
 inner join
 (
@@ -343,7 +383,9 @@ where ((p.ad_client_id = $P{AD_CLIENT_ID})
 	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
     )
 group by bh_c_order_id
-) as payments on billdetails.c_order_id = payments.bh_c_order_id;]]>
+order by 1
+) as payments on billdetails.c_order_id = payments.bh_c_order_id
+limit 1;]]>
 	</queryString>
 	<field name="c_order_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -368,7 +410,7 @@ group by bh_c_order_id
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="1640" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
+				<reportElement x="0" y="0" width="1740" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -389,7 +431,7 @@ group by bh_c_order_id
 		<band height="64" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="1640" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="1740" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -846,12 +888,80 @@ group by bh_c_order_id
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
+					<jr:column width="70" uuid="a9dc504f-5020-46ab-a88e-a6c4d12fcb4f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="100" height="30" uuid="2cae0e64-f12b-4ae5-af9b-3b86d2bf3bb9"/>
+								<reportElement x="0" y="0" width="70" height="30" uuid="d11bdac4-76d4-4dd2-b592-c43a4d383ceb"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Outreach
+]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="bcf3e2eb-419e-4a7b-8eb2-b303de3cc0ee"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumOutreach}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="c5d8a25e-d2ac-432d-af0c-11cc9e39c504"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{outreach}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="d8f1e350-e97e-4f46-b2c0-54eefc0ec8ee">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30" uuid="c39bdad9-5851-43e0-9a35-328193019e59"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Pesapal]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="593588c1-bead-4d71-a350-ef6bf3bbe5d1"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumPesapal}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="c3085ca4-da1e-4706-82a6-15fffaeb2961"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{pesapal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column17"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30" uuid="2cae0e64-f12b-4ae5-af9b-3b86d2bf3bb9"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -861,7 +971,7 @@ group by bh_c_order_id
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="143bca5a-6a24-48c0-8482-9297d7f102af"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="143bca5a-6a24-48c0-8482-9297d7f102af"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -871,7 +981,7 @@ group by bh_c_order_id
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="4a84764f-dc21-4a2b-b113-e8fb46d047eb"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="4a84764f-dc21-4a2b-b113-e8fb46d047eb"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
@@ -881,7 +991,7 @@ group by bh_c_order_id
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column18"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -928,7 +1038,7 @@ group by bh_c_order_id
 		<band height="16">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement key="" x="0" y="0" width="1640" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
+				<reportElement key="" x="0" y="0" width="1740" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">

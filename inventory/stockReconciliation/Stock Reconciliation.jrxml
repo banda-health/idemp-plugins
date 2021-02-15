@@ -56,63 +56,120 @@
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
-			<![CDATA[select
-    productname.product,
-    stocktakechange.qtybalanced as quantitychange,
-    (productname.qty - coalesce(stockreceived.qtyreceived,0)) + coalesce(stocksold.qtysold,0) as newlevel,
-    stocktakechange.datechanged,
-    stocktakechange.changer
-from
-(
+			<![CDATA[;with updates_during_period as (
+	-- Get the updates that were made during this period
+	select
+		m_product_id,
+		updatedby,
+		movementdate,
+		updated,
+		sum(movementqty) as movementqty
+	from m_transaction
+	where ad_client_id = $P{AD_CLIENT_ID}  -- UPDATE - this is the CLIENT ID parameter
+		and movementdate between $P{Begin Date} and $P{End Date} -- UPDATE - these are the date range parameters
+		and movementtype in ('P+','P-')
+	group by m_product_id, updatedby, movementdate, updated
+), products_updated_during_period as (
+	-- Get a list of products that were updated (a product is unique to client & org)
+	select distinct
+		m_product_id
+	from updates_during_period
+), product_qty_now as (
+	-- Now, calculate the product quantities at the end of the period by subtracting the changes from the known total
+	select
+		soh.m_product_id,
+		soh.qtyonhand,
+		CURRENT_DATE + INTERVAL '1 day' as date
+	from (
+		select
+			soh.m_product_id,
+			sum(soh.qtyonhand) as qtyonhand
+		from m_storageonhand soh
+		left join m_attributesetinstance asi
+			on soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
+		left join m_attributeset attrs
+			on asi.m_attributeset_id = attrs.m_attributeset_id
+		where attrs.ad_client_id IS NULL OR attrs.name = 'BandaHealthProductAttributeSet'
+		group by soh.m_product_id
+	) soh
+	join products_updated_during_period pudp
+		on pudp.m_product_id = soh.m_product_id
+), sales_trx as (
+	select
+		inoutline.m_product_id,
+		inoutline.movementqty,
+		inoutline.updated,
+		inoutline.updatedby,
+		inout.movementdate
+	from m_inoutline inoutline
+	inner join m_inout inout
+		on inoutline.m_inout_id = inout.m_inout_id
+	where inoutline.ad_client_id = $P{AD_CLIENT_ID}
+		and inout.movementtype = 'C-'
+		and (date(inout.movementdate) >= $P{Begin Date})
+)
+-- With all changes calculated, just filter out to the ones we want
 select
-    mstore.m_product_id,
-    prod.name as product,
-    sum(mstore.qtyonhand) as qty
-from
-    m_storageonhand mstore
-    inner join m_product prod on mstore.m_product_id = prod.m_product_id
-where
-    mstore.ad_client_id = $P{AD_CLIENT_ID}
-    and (date(mstore.updated) <= date($P{End Date}))
-group by mstore.m_product_id, prod.name
-) as productname
-inner join
-(
-select
-    mtr.m_product_id,
-    sum(mtr.movementqty) as qtybalanced,
-    buser.name as changer,
-    mtr.updated as datechanged
-from
-    m_transaction mtr
-    inner join ad_user buser on mtr.updatedby = buser.ad_user_id
-where
-    mtr.ad_client_id = $P{AD_CLIENT_ID}
-    and mtr.movementtype in ('P+','P-')
-    and (date(mtr.movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by mtr.m_product_id, buser.name, mtr.updated
-) as stocktakechange on productname.m_product_id = stocktakechange.m_product_id
-left join
-(
-select inoutline.m_product_id,
-       coalesce(sum(inoutline.movementqty),0) as qtysold
-from m_inoutline inoutline
-inner join m_inout inout on inoutline.m_inout_id = inout.m_inout_id
-where inoutline.ad_client_id = $P{AD_CLIENT_ID}
-and inout.movementtype = 'C-'
-and (date(inout.movementdate) >= date($P{Begin Date}))
-group by inoutline.m_product_id
-) as stocksold on stocktakechange.m_product_id = stocksold.m_product_id
-left join
-(
-select m_product_id,
-       coalesce(sum(movementqty),0) as qtyreceived
-from m_transaction
-where ad_client_id = $P{AD_CLIENT_ID} and movementtype = 'V+'
-    and (date(movementdate) >= date($P{Begin Date}))
-group by m_product_id
-) as stockreceived on stocktakechange.m_product_id = stockreceived.m_product_id
-order by stocktakechange.datechanged asc;]]>
+	mp.name as product,
+	changes.movementqty * -1 as quantitychange,
+	startingqty - changes.movementqty as newlevel,
+	changes.updated as datechanged,
+	u.name as changer
+from (
+	-- Now, with changes negated, sum up all the changes
+	select
+		m_product_id,
+		movementqty,
+		updated,
+		updatedby,
+		movementtype,
+		movementdate,
+		sum(movementqty) over (partition by m_product_id order by updated desc) as startingqty
+	from (
+		-- Get all transactions (except sales ones) from the start of the period until now (when we know the current quantity)
+		select
+			trns.m_product_id,
+			trns.movementqty * -1 as movementqty,
+			trns.updated,
+			trns.updatedby,
+			trns.movementtype,
+			trns.movementdate
+		from m_transaction trns
+		join products_updated_during_period pudp
+			on pudp.m_product_id = trns.m_product_id
+		where movementdate >= $P{Begin Date} -- UPDATE - this the start date parameter
+			AND trns.movementtype != 'C-'
+		union
+		-- Select the current quantity
+		select
+			m_product_id,
+			qtyonhand,
+			date,
+			null,
+			null,
+			null
+		from product_qty_now
+		union
+		-- Get the sales transactions
+		select
+			st.m_product_id,
+			st.movementqty * -1 as movementqty,
+			st.updated,
+			st.updatedby,
+			null,
+			st.movementdate
+		from sales_trx st
+		join products_updated_during_period pudp
+			on pudp.m_product_id = st.m_product_id
+	) as changes
+) as changes
+join m_product mp
+	on mp.m_product_id = changes.m_product_id
+join ad_user u
+	on u.ad_user_id = changes.updatedby
+where changes.movementtype IN ('P+','P-')
+	and changes.movementdate between $P{Begin Date} and $P{End Date} -- UPDATE - these are the date range parameters
+order by changes.updated, mp.name, u.name]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -126,7 +183,6 @@ order by stocktakechange.datechanged asc;]]>
 		</field>
 		<field name="datechanged" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="datechanged"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="m_transaction"/>
 		</field>
 		<field name="changer" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="changer"/>
@@ -307,11 +363,11 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="120" uuid="470dc02d-d623-4891-8e87-e851f179005a">
+					<jr:column width="130" uuid="470dc02d-d623-4891-8e87-e851f179005a">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="120" height="30" uuid="7e2eb90e-bb03-4678-b309-3699f3037602"/>
+								<reportElement x="0" y="0" width="130" height="30" uuid="7e2eb90e-bb03-4678-b309-3699f3037602"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -320,8 +376,8 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="15" uuid="82029608-d29f-4d90-b151-95bf38f45547"/>
+							<textField isStretchWithOverflow="true" pattern="d/M/yyyy h:mm a" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="130" height="15" uuid="82029608-d29f-4d90-b151-95bf38f45547"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
@@ -331,11 +387,11 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="135" uuid="fe97f28e-557a-453e-990a-33ca064f6a85">
+					<jr:column width="125" uuid="fe97f28e-557a-453e-990a-33ca064f6a85">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="135" height="30" uuid="d5f92d31-ac15-4f6e-8e84-e605e5edbd55"/>
+								<reportElement x="0" y="0" width="125" height="30" uuid="d5f92d31-ac15-4f6e-8e84-e605e5edbd55"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -345,7 +401,7 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="135" height="15" uuid="0c2db98b-6648-4f6e-85d2-2099d407ef0f"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="125" height="15" uuid="0c2db98b-6648-4f6e-85d2-2099d407ef0f"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>

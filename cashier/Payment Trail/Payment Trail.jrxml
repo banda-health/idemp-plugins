@@ -73,7 +73,7 @@
 		ON p2.docstatus = 'RE'
 			AND p2.reversal_id = p1.c_payment_id
 			AND p1.c_bpartner_id = p2.c_bpartner_id
-	WHERE bp.c_bpartner_uu =  $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
+	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
 		AND p1.payamt IS NOT NULL
 		AND p2.c_payment_id IS NULL
 		AND p1.docstatus != 'RE'
@@ -124,6 +124,7 @@
 						date(o.created) as date,
 						'Visit' as "type",
 						o.grandtotal,
+						NULL as tendertype,
 						10 as sort
 					FROM adempiere.c_order o
 					INNER JOIN adempiere.c_bpartner bp
@@ -141,6 +142,7 @@
 						cp.date,
 						'Insurance, Waivers, and Deductions' as "type",
 						cp.totalpayamt * -1,
+						NULL as tendertype,
 						20 as sort
 					FROM (
 						SELECT
@@ -182,6 +184,7 @@
 						-- END as "type",
 						'Bill Payment' as "type",
 						cp.totalpayamt * -1,
+						cp.tendertype,
 						30 as sort
 					FROM (
 						SELECT
@@ -220,6 +223,7 @@
 						cp.date,
 						'Outstanding Balance Payment' as "type",
 						cp.totalpayamt * -1,
+						NULL as tendertype,
 						40 as sort
 					FROM (
 						SELECT
@@ -334,8 +338,7 @@ FROM (
 	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
-order by row
-]]>
+ORDER BY row]]>
 		</queryString>
 		<field name="name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="name"/>
@@ -380,7 +383,7 @@ order by row
 		ON p2.docstatus = 'RE'
 			AND p2.reversal_id = p1.c_payment_id
 			AND p1.c_bpartner_id = p2.c_bpartner_id
-	WHERE bp.c_bpartner_uu =  $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
+	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
 		AND p1.payamt IS NOT NULL
 		AND p2.c_payment_id IS NULL
 		AND p1.docstatus != 'RE'
@@ -431,6 +434,7 @@ order by row
 						date(o.created) as date,
 						'Visit' as "type",
 						o.grandtotal,
+						NULL as tendertype,
 						10 as sort
 					FROM adempiere.c_order o
 					INNER JOIN adempiere.c_bpartner bp
@@ -448,6 +452,7 @@ order by row
 						cp.date,
 						'Insurance, Waivers, and Deductions' as "type",
 						cp.totalpayamt * -1,
+						NULL as tendertype,
 						20 as sort
 					FROM (
 						SELECT
@@ -489,6 +494,7 @@ order by row
 						-- END as "type",
 						'Bill Payment' as "type",
 						cp.totalpayamt * -1,
+						cp.tendertype,
 						30 as sort
 					FROM (
 						SELECT
@@ -527,6 +533,7 @@ order by row
 						cp.date,
 						'Outstanding Balance Payment' as "type",
 						cp.totalpayamt * -1,
+						NULL as tendertype,
 						40 as sort
 					FROM (
 						SELECT
@@ -641,7 +648,7 @@ FROM (
 	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
-order by row
+ORDER BY row
 limit 1]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
