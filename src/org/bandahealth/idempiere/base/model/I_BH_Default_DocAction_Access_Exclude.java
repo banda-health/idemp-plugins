@@ -79,14 +79,23 @@ public interface I_BH_Default_DocAction_Access_Exclude
 
 	public org.compiere.model.I_AD_Ref_List getAD_Ref_List() throws RuntimeException;
 
-    /** Column name BH_Default_DocAction_Access_Ex */
-    public static final String COLUMNNAME_BH_Default_DocAction_Access_Ex = "BH_Default_DocAction_Access_Ex";
+    /** Column name BH_Default_DocAction_Access_Exclude_ID */
+    public static final String COLUMNNAME_BH_Default_DocAction_Access_Exclude_ID = "BH_Default_DocAction_Access_Exclude_ID";
+
+	/** Set BH_Default_DocAction_Access_Exclude_ID	  */
+	public void setBH_Default_DocAction_Access_Exclude_ID (int BH_Default_DocAction_Access_Exclude_ID);
+
+	/** Get BH_Default_DocAction_Access_Exclude_ID	  */
+	public int getBH_Default_DocAction_Access_Exclude_ID();
+
+    /** Column name BH_Default_DocAction_Access_Exclude_UU */
+    public static final String COLUMNNAME_BH_Default_DocAction_Access_Exclude_UU = "BH_Default_DocAction_Access_Exclude_UU";
 
 	/** Set BH_Default_DocAction_Access_Exclude_UU	  */
-	public void setBH_Default_DocAction_Access_Ex (String BH_Default_DocAction_Access_Ex);
+	public void setBH_Default_DocAction_Access_Exclude_UU (String BH_Default_DocAction_Access_Exclude_UU);
 
 	/** Get BH_Default_DocAction_Access_Exclude_UU	  */
-	public String getBH_Default_DocAction_Access_Ex();
+	public String getBH_Default_DocAction_Access_Exclude_UU();
 
     /** Column name C_DocType_ID */
     public static final String COLUMNNAME_C_DocType_ID = "C_DocType_ID";

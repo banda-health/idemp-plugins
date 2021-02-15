@@ -4,12 +4,16 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.compiere.Adempiere;
 import org.compiere.impexp.ImpFormat;
 import org.compiere.impexp.MImpFormat;
+import org.compiere.model.MClient;
 import org.compiere.model.MElement;
+import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.process.ImportAccount;
@@ -39,7 +43,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String CLIENTLEVEL_BASIC = "B";
 	public static final String CLIENTLEVEL_INTERMEDIATE = "I";
 	public static final String CLIENTLEVEL_ADVANCED = "A";
-	
+
 	public static final String PARAMETERNAME_IS_USING_CASH_BOX = "IsUsingCashBox";
 	public static final String PARAMETERNAME_IS_USING_MOBILE = "IsUsingMobile";
 	public static final String PARAMETERNAME_IS_USING_SAVINGS = "IsUsingSavings";
@@ -54,20 +58,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
 	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
-
-	private boolean wantsCashBoxAccount = false;
-	private boolean wantsMobileAccount = false;
-	private boolean wantsSavingsAccount = false;
-	private String clientName = null;
-	private String adminUserName = null;
-	private String orgName = null;
-	private String clientLevel = CLIENTLEVEL_BASIC;
-
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
-
-	private int usersClientId;
-	private int usersId;
-
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
 			+ File.separator + "import"
@@ -75,6 +66,15 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private final String coaBandaFile = Adempiere.getAdempiereHome() + File.separator + "data"
 			+ File.separator + "import"
 			+ File.separator + "BandaGoChartofAccounts-Basic.csv";
+	private boolean wantsCashBoxAccount = false;
+	private boolean wantsMobileAccount = false;
+	private boolean wantsSavingsAccount = false;
+	private String clientName = null;
+	private String adminUserName = null;
+	private String orgName = null;
+	private String clientLevel = CLIENTLEVEL_BASIC;
+	private int usersClientId;
+	private int usersId;
 
 	/**
 	 * Prepare
@@ -119,21 +119,28 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	}
 
 	/**
-	 * 	Process to automate the work done previously:
-	 * 		1. Create a client with the account "DO NOT USE" assigned to every default in the accounting schema
-	 * 		2. Import the desired CoA (Basic, Intermediate, Advanced)
-	 * 		3. Update default account mapping (i.e. set B_Asset = B_InTransit, etc.)
-	 * 		4. Create bank accounts for the client
-	 * 		5. Create and map Payment Types to the default Bank Account
-	 * 		6. Insert default Expense Categories (charges) for the client
-	 * 		7. Create default product categories for products so they hit the correct revenue accounts
-	 *	@return info
-	 *	@throws Exception
+	 * Process to automate the work done previously:
+	 * 1. Create a client with the account "DO NOT USE" assigned to every default in the accounting schema
+	 * 2. Import the desired CoA (Basic, Intermediate, Advanced)
+	 * 3. Update default account mapping (i.e. set B_Asset = B_InTransit, etc.)
+	 * 4. Create bank accounts for the client
+	 * 5. Create and map Payment Types to the default Bank Account
+	 * 6. Insert default Expense Categories (charges) for the client
+	 * 7. Create default product categories for products so they hit the correct revenue accounts
+	 *
+	 * @return info
+	 * @throws Exception
 	 */
 	protected String doIt() throws Exception {
 		String completeInfo = super.doIt();
 
-		MBandaSetup bandaSetup = new MBandaSetup(getCtx(), clientName, orgName);
+		MClient client = new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_Name + "=?", get_TrxName())
+				.setParameters(clientName).first();
+		MOrg organization =
+				new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_Name + "=? AND " + MOrg.COLUMNNAME_AD_Client_ID + "=?",
+						get_TrxName()).setParameters(orgName, client.getAD_Client_ID()).first();
+
+		MBandaSetup bandaSetup = new MBandaSetup(getCtx(), client, organization);
 		// If AD_Client_ID or AD_Org_ID are -1, something went wrong in setup, but no error was generated
 		// If this happens, we want to throw an error
 		if (bandaSetup.getAccountSchema() == null ||
@@ -144,6 +151,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 
 		// Set the client ID for this process so everyone gets the same ID from here, ctx, or wherever
 		getProcessInfo().setAD_Client_ID(bandaSetup.getAD_Client_ID());
+		Env.setContext(getCtx(), Env.AD_CLIENT_ID, bandaSetup.getAD_Client_ID());
 		try {
 			if (!importCoA(getCoAFileToImport())) {
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Inserting Banda Accounts failed"));
@@ -182,7 +190,14 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			addLog(bandaSetup.getInfo());
 
-			if (!bandaSetup.initializeRoles(adminUserName)) {
+			List<MUser_BH> usersToAddRolesTo = new ArrayList<>();
+			MUser_BH clientAdminUser = new Query(getCtx(), MUser.Table_Name,
+					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?", get_TrxName())
+					.setParameters(bandaSetup.getAD_Client_ID(), adminUserName).first();
+			if (clientAdminUser != null) {
+				usersToAddRolesTo.add(clientAdminUser);
+			}
+			if (!bandaSetup.initializeRoles(usersToAddRolesTo)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
 			}
@@ -260,6 +275,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	/**
 	 * This emulates the process found in WFileImport.java and the screen "Import File Loader" to upload
 	 * an account file into the system
+	 *
 	 * @param coaFileToImport The URI of the file to upload
 	 * @return True if the import succeeds
 	 * @throws IOException

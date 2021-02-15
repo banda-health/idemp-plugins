@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -17,8 +18,8 @@ import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MTable;
-import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
@@ -65,9 +66,8 @@ public class MBandaSetup {
 	private final Trx transaction = Trx.get(Trx.createTrxName("Setup"), true);
 	private final Properties context;
 	private final String language;
-	private final int clientId;
-	private final String clientName;
-	private final int orgId;
+	private final MClient client;
+	private final MOrg organization;
 	private final MAcctSchema accountSchema;
 	private final String BANK_DEFAULT_ROUTING_NUMBER = "DefaultRouteNo";
 	private final String SUFFIX_TRANSACTION_NAME = "_createClient_BH";
@@ -77,30 +77,11 @@ public class MBandaSetup {
 	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
-	public MBandaSetup(Properties ctx, String clientName, String orgName) {
+	public MBandaSetup(Properties ctx, MClient client, MOrg organization) {
 		this.context = ctx;
 		language = Env.getAD_Language(this.context);
-		this.clientName = clientName;
-
-		clientId = new Query(
-				this.context,
-				MClient.Table_Name,
-				MClient.COLUMNNAME_Name + "=?",
-				transaction.getTrxName()
-		)
-				.setParameters(clientName)
-				.firstId();
-		orgId = new Query(
-				this.context,
-				MOrg.Table_Name,
-				MOrg.COLUMNNAME_Name + "=? AND " + MOrg.COLUMNNAME_AD_Client_ID + "=?",
-				transaction.getTrxName()
-		)
-				.setParameters(orgName, clientId)
-				.firstId();
-
-		// For some reason, the client ID isn't set. Set it so entity creation doesn't error out
-		Env.setContext(this.context, Env.AD_CLIENT_ID, clientId);
+		this.client = client;
+		this.organization = organization;
 
 		accountSchema = new Query(
 				this.context,
@@ -108,8 +89,12 @@ public class MBandaSetup {
 				MAcctSchema.COLUMNNAME_AD_Client_ID + "=?",
 				transaction.getTrxName()
 		)
-				.setParameters(clientId)
+				.setParameters(getAD_Client_ID())
 				.first();
+	}
+
+	public static String getRoleName(String clientName, String roleSuffix) {
+		return clientName + " " + roleSuffix;
 	}
 
 	public void start() {
@@ -133,7 +118,7 @@ public class MBandaSetup {
 				MAcctSchemaDefault.COLUMNNAME_AD_Client_ID + "=?",
 				transaction.getTrxName()
 		)
-				.setParameters(clientId)
+				.setParameters(getAD_Client_ID())
 				.first();
 		if (acctSchemaDefault == null) {
 			log.severe("No Accounting Schema Defaults for client");
@@ -215,8 +200,6 @@ public class MBandaSetup {
 	 */
 	public boolean createBankAccounts(boolean wantsCashBox, boolean wantsMobile, boolean wantsSavings) {
 		info = new StringBuffer();
-
-		MClient client = (MClient) MTable.get(context, MClient.Table_ID).getPO(clientId, transaction.getTrxName());
 
 		String clientName = client.getName();
 
@@ -370,7 +353,7 @@ public class MBandaSetup {
 		for (MBHProductCategoryDefault defaultProductCategory : defaultProductCategories) {
 			// Create a new product category based on this default product category
 			MProductCategory_BH productCategoryToAdd = new MProductCategory_BH(context, 0, transaction.getTrxName());
-			productCategoryToAdd.setAD_Org_ID(orgId);
+			productCategoryToAdd.setAD_Org_ID(organization.getAD_Org_ID());
 			productCategoryToAdd.setName(defaultProductCategory.getName());
 			productCategoryToAdd.setIsActive(true);
 			productCategoryToAdd.setIsDefault(false);
@@ -433,7 +416,7 @@ public class MBandaSetup {
 	 *
 	 * @return Whether the creation was successful
 	 */
-	public boolean initializeRoles(String adminUserName) {
+	public boolean initializeRoles(List<MUser_BH> usersToAddRolesTo) {
 		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
 				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", transaction.getTrxName())
 				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
@@ -446,7 +429,7 @@ public class MBandaSetup {
 				MRefList.COLUMNNAME_AD_Reference_ID + "=?", transaction.getTrxName())
 				.setParameters(userType.getAD_Reference_ID()).list();
 
-		if (!createAdditionalRoles(userTypeValues, adminUserName)) {
+		if (!createAdditionalRoles(userTypeValues, usersToAddRolesTo)) {
 			log.log(Level.SEVERE, "Error creating additional roles");
 			return false;
 		}
@@ -455,11 +438,13 @@ public class MBandaSetup {
 		// Get the roles for this client
 		List<MRole> clientRoles = new Query(context, MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
 				transaction.getTrxName())
-				.setParameters(clientId)
+				.setParameters(getAD_Client_ID())
 				.list();
 		Map<MRefList, MRole> rolesToConfigure = userTypeValues.stream().collect(HashMap::new, (m, v) -> m.put(v,
 				clientRoles.stream().filter(
-						cr -> cr.getName().equals(clientName + " " + v.getName())).findFirst().orElse(null)), HashMap::putAll);
+						cr -> cr.getName().equals(MBandaSetup.getRoleName(client.getName(), v.getName()))).findFirst()
+						.orElse(null)),
+				HashMap::putAll);
 
 		// Ensure all the roles are present
 		AtomicBoolean areAllRolesPresent = new AtomicBoolean(true);
@@ -477,15 +462,66 @@ public class MBandaSetup {
 			return false;
 		}
 
+		return updateRoles(rolesToConfigure);
+	}
+
+	/**
+	 * Allows a role to be reset to what iDempiere creates out-of-the-box for User/Admin, or resets what is done
+	 * for the Banda Health roles.
+	 *
+	 * @param rolesToConfigure The roles that should be configured.
+	 * @return Whether the reset was successful
+	 */
+	public boolean resetRoles(Map<MRefList, MRole> rolesToConfigure) {
+		// Remove all included roles
+		List<Object> parameters = new ArrayList<>();
+		String whereClause = QueryUtil
+				.getWhereClauseAndSetParametersForSet(rolesToConfigure.values().stream().map(MRole::getAD_Role_ID).collect(
+						Collectors.toSet()), parameters);
+		List<MRoleIncluded> includedRoles =
+				new Query(Env.getCtx(), MRoleIncluded.Table_Name,
+						MRoleIncluded.COLUMNNAME_Included_Role_ID + " IN (" + whereClause + ")",
+						transaction.getTrxName()).setParameters(parameters).list();
+		AtomicBoolean didResetAllIncludedRoles = new AtomicBoolean(true);
+		includedRoles.forEach(includedRole -> {
+			if (!includedRole.delete(true)) {
+				String err = "Could not reset included role for Role: " + includedRole.getAD_Role_ID();
+				log.log(Level.SEVERE, err);
+				info.append(err);
+				didResetAllIncludedRoles.set(false);
+			}
+		});
+		if (!didResetAllIncludedRoles.get()) {
+			String err = "Included Roles NOT reset";
+			log.log(Level.SEVERE, err);
+			info.append(err);
+			return false;
+		}
+
+		// Reset all access
+		rolesToConfigure.values().forEach(role -> role.updateAccessRecords(true));
+
+		return true;
+	}
+
+	/**
+	 * This method is meant to be the post-creation version of #{initializeRoles}. It handles updating roles and
+	 * everything associated with them for clients that have already been created.
+	 *
+	 * @param rolesToConfigure The roles that should be configured.
+	 * @return Whether the update was successful
+	 */
+	public boolean updateRoles(Map<MRefList, MRole> rolesToConfigure) {
 		if (!addDefaultIncludedRoles(rolesToConfigure)) {
 			log.log(Level.SEVERE, "Error adding default included roles");
 			return false;
 		}
 
-		if (handleDocumentActionAccessExclusions(rolesToConfigure)) {
+		if (!handleDocumentActionAccessExclusions(rolesToConfigure)) {
 			log.log(Level.SEVERE, "Error handling default document action access exclusions");
 			return false;
 		}
+
 		return true;
 	}
 
@@ -501,24 +537,41 @@ public class MBandaSetup {
 				.setOnlyActiveRecords(true)
 				.list();
 
+		// We need to get a map of the default doc action exclusion IDs (which are for System) and map them to the ones
+		// assigned to this client
+		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that
+		List<MDocType> docTypesForSystemAndClient =
+				new Query(context, MDocType.Table_Name, MDocType.COLUMNNAME_AD_Client_ID + " IN (0,?)",
+						transaction.getTrxName()).setParameters(getAD_Client_ID()).list();
+		Map<Integer, Integer> clientDocTypeIdsBySystemDocTypeIds =
+				docTypesForSystemAndClient.stream().filter(docType -> docType.getAD_Client_ID() == 0).collect(Collectors
+						.toMap(MDocType::getC_DocType_ID, systemDocType -> docTypesForSystemAndClient.stream()
+								.filter(
+										docType -> docType.getAD_Client_ID() != 0 && docType.getName().equals(systemDocType.getName()))
+								.findFirst().map(MDocType::getC_DocType_ID).orElse(0)
+						));
+		PO.clearCrossTenantSafe(); // disable what was done previously
+
 		AtomicBoolean didSuccessfullyDeleteAllDocumentAccess = new AtomicBoolean(true);
 		rolesToConfigure.forEach((userType, role) -> {
 			// Get the exclusions for this role
 			defaultDocActionAccessExclusions.stream().filter(
 					dae -> dae.getDB_UserType().equals(userType.getValue())).forEach(dae -> {
+				// Get the document access action that has been saved for this role
 				X_AD_Document_Action_Access documentActionAccess = new Query(Env.getCtx(),
 						X_AD_Document_Action_Access.Table_Name,
 						X_AD_Document_Action_Access.COLUMNNAME_AD_Role_ID + "=? AND " +
 								X_AD_Document_Action_Access.COLUMNNAME_C_DocType_ID + "=? AND " +
 								X_AD_Document_Action_Access.COLUMNNAME_AD_Ref_List_ID + "=?",
 						null)
-						.setParameters(role.getAD_Role_ID(), dae.getC_DocType_ID(), dae.getAD_Ref_List_ID()).first();
+						.setParameters(role.getAD_Role_ID(), clientDocTypeIdsBySystemDocTypeIds.get(dae.getC_DocType_ID()),
+								dae.getAD_Ref_List_ID()).first();
+				// Remove the document action access, since the role has been configured to exclude it
 				if (documentActionAccess != null) {
-					if (!documentActionAccess.save()) {
+					if (!documentActionAccess.delete(true)) {
 						String err =
 								"Could not remove document action access for Role, DocType, and RefList: " + role.getAD_Role_ID() +
-										"," +
-										" " + dae.getC_DocType_ID() + ", " + dae.getAD_Ref_List_ID();
+										", " + dae.getC_DocType_ID() + ", " + dae.getAD_Ref_List_ID();
 						log.log(Level.SEVERE, err);
 						info.append(err);
 						didSuccessfullyDeleteAllDocumentAccess.set(false);
@@ -535,7 +588,7 @@ public class MBandaSetup {
 	 *
 	 * @return Whether the creation was successful
 	 */
-	private boolean createAdditionalRoles(List<MRefList> userTypeSuffixes, String adminUserName) {
+	private boolean createAdditionalRoles(List<MRefList> userTypeSuffixes, List<MUser_BH> usersToAddRolesTo) {
 		// Filter out the roles the system adds
 		userTypeSuffixes = userTypeSuffixes.stream().filter(
 				ut -> !ut.getValue().equals(DB_USERTYPE_User) && !ut.getValue().equals(DB_USERTYPE_Admin)).collect(
@@ -544,34 +597,40 @@ public class MBandaSetup {
 		// Add the new roles
 		userTypeSuffixes.forEach(userTypeSuffix -> {
 			String suffix = userTypeSuffix.getName();
-			String name = clientName + " " + suffix;
-			MRole role = new MRole(context, 0, transaction.getTrxName());
-			role.setName(name);
-			role.setIsAccessAdvanced(false);
-			if (!role.save()) {
-				String err = suffix + " Role NOT inserted";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+			String name = MBandaSetup.getRoleName(client.getName(), suffix);
+			if (!createRole(name, usersToAddRolesTo, new ArrayList<>() {{
+				add(organization);
+			}})) {
 				didSuccessfullyAddedAllRoles.set(false);
-			}
-			//  OrgAccess x,y
-			MRoleOrgAccess userOrgAccess = new MRoleOrgAccess(role, orgId);
-			if (!userOrgAccess.save()) {
-				log.log(Level.SEVERE, suffix + " Role_OrgAccess NOT created");
-			}
-			// Update the appropriate users to have access to this new role
-			MUser clientAdminUser = new Query(context, MUser.Table_Name,
-					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?",
-					transaction.getTrxName())
-					.setParameters(clientId, adminUserName)
-					.first();
-			if (clientAdminUser != null) {
-				MUserRoles userRole = new MUserRoles(context, clientAdminUser.getAD_User_ID(), role.getAD_Role_ID(),
-						transaction.getTrxName());
-				userRole.saveEx();
 			}
 		});
 		return didSuccessfullyAddedAllRoles.get();
+	}
+
+	public boolean createRole(String roleName, List<MUser_BH> usersToAddRoleTo, List<MOrg> organizationsToGrantToRole) {
+		MRole role = new MRole(context, 0, transaction.getTrxName());
+		role.setName(roleName);
+		role.setIsAccessAdvanced(false);
+		if (!role.save()) {
+			String err = roleName + " Role NOT inserted";
+			log.log(Level.SEVERE, err);
+			info.append(err);
+			return false;
+		}
+		//  OrgAccess x,y
+		organizationsToGrantToRole.forEach(organizationToGrantToRole -> {
+			MRoleOrgAccess userOrgAccess = new MRoleOrgAccess(role, organizationToGrantToRole.getAD_Org_ID());
+			if (!userOrgAccess.save()) {
+				log.log(Level.SEVERE, roleName + " Role_OrgAccess NOT created");
+			}
+		});
+		// Update the appropriate users to have access to this new role
+		usersToAddRoleTo.forEach(user -> {
+			MUserRoles userRole =
+					new MUserRoles(context, user.getAD_User_ID(), role.getAD_Role_ID(), transaction.getTrxName());
+			userRole.saveEx();
+		});
+		return true;
 	}
 
 	/**
@@ -664,7 +723,7 @@ public class MBandaSetup {
 		}
 		for (MReference referenceToCreatePaymentMappingsFor : referencesToCreatePaymentMappingsFor) {
 			MBHPaymentRef paymentRef = new MBHPaymentRef(context, 0, transaction.getTrxName());
-			paymentRef.setAD_Org_ID(orgId);
+			paymentRef.setAD_Org_ID(organization.getAD_Org_ID());
 			paymentRef.setAD_Reference_ID(referenceToCreatePaymentMappingsFor.getAD_Reference_ID());
 			if (!paymentRef.save()) {
 				String err = "Payment Bank Account mapping NOT inserted";
@@ -695,7 +754,7 @@ public class MBandaSetup {
 		bankAccount.setIsActive(true);
 		bankAccount.setIsDefault(isDefault);
 		bankAccount.setName(clientName + " " + accountName + SUFFIX_BANK_ACCOUNT_NAME);
-		bankAccount.setAD_Org_ID(orgId);
+		bankAccount.setAD_Org_ID(organization.getAD_Org_ID());
 		bankAccount.setC_Bank_ID(bankId);
 		bankAccount.setAccountNo(accountName + SUFFIX_BANK_ACCOUNT_NUMBER);
 		bankAccount.setC_Currency_ID(accountSchema.getC_Currency_ID());
@@ -773,7 +832,7 @@ public class MBandaSetup {
 				MElementValue.COLUMNNAME_Value + "=? AND " + MElementValue.COLUMNNAME_AD_Client_ID + "=?",
 				transaction.getTrxName()
 		)
-				.setParameters(accountValue, clientId)
+				.setParameters(accountValue, getAD_Client_ID())
 				.first();
 		if (accountElement == null) {
 			return null;
@@ -810,7 +869,7 @@ public class MBandaSetup {
 	 * @return AD_Client_ID
 	 */
 	public int getAD_Client_ID() {
-		return clientId;
+		return client.getAD_Client_ID();
 	}
 
 	/**
@@ -819,7 +878,7 @@ public class MBandaSetup {
 	 * @return AD_Org_ID
 	 */
 	public int getAD_Org_ID() {
-		return orgId;
+		return organization.getAD_Org_ID();
 	}
 
 	/**
