@@ -684,53 +684,49 @@ public class MBandaSetup {
 				Collectors.toMap(MRole::getAD_Role_ID, v -> sequencerIncrement));
 
 		// Get the inclusions already configured for these roles
-		List<MRoleIncluded> includedRolesForRolesToConfigure = new Query(context, MRoleIncluded.Table_Name,
+		List<MRoleIncluded> currentIncludedRolesForRolesToConfigure = new Query(context, MRoleIncluded.Table_Name,
 				MRoleIncluded.COLUMNNAME_AD_Role_ID + " IN (" +
 						rolesToConfigureByDBUserType.values().stream().map(role -> Integer.toString(role.getAD_Role_ID()))
 								.collect(Collectors.joining(",")) + ")",
 				getTransactionName()).list();
-		Map<Integer, List<MRoleIncluded>> includedRolesByRoleId =
-				includedRolesForRolesToConfigure.stream().collect(Collectors.groupingBy(MRoleIncluded::getAD_Role_ID));
+		Map<Integer, List<MRoleIncluded>> currentIncludedRolesByRoleId =
+				currentIncludedRolesForRolesToConfigure.stream().collect(Collectors.groupingBy(MRoleIncluded::getAD_Role_ID));
 
 		AtomicBoolean didSuccessfullyUpdateAllIncludedRoles = new AtomicBoolean(true);
-		for (MBHDefaultIncludedRole defaultIncludedRole : defaultIncludedRoles) {
-			// First, find the role that this default included role can be assigned to
-			Optional<MRole> role = rolesToConfigureByDBUserType.entrySet().stream().filter(
-					rtc -> defaultIncludedRole.getDB_UserType().equals(rtc.getKey().getValue())).map(
-					Map.Entry::getValue).findFirst();
-
-			// If we didn't find a role, or this included role already exists, continue
-			if (role.isEmpty() || (includedRolesByRoleId.containsKey(role.get().getAD_Role_ID()) &&
-					includedRolesByRoleId.get(role.get().getAD_Role_ID()).stream().anyMatch(
-							includedRole -> includedRole.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))) {
-				if (role.isEmpty()) {
-					log.log(Level.INFO, "No role to configure for user type: " + defaultIncludedRole.getDB_UserType());
-				}
-				continue;
-			}
-			MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
-			roleIncluded.setIncluded_Role_ID(defaultIncludedRole.getIncluded_Role_ID());
-			int roleId = role.get().getAD_Role_ID();
-			roleIncluded.setAD_Role_ID(roleId);
-			int sequencerToUse = roleSequencers.get(roleId);
-			roleIncluded.setSeqNo(sequencerToUse);
-			roleSequencers.put(roleId, sequencerToUse + sequencerIncrement);
-			roleIncluded.saveEx();
-		}
-
-		// Remove any included roles that aren't specified to be included
 		rolesToConfigureByDBUserType.forEach((referenceList, roleToConfigure) -> {
-			if (!includedRolesByRoleId.containsKey(roleToConfigure.getAD_Role_ID())) {
-				return;
-			}
-			includedRolesByRoleId.get(roleToConfigure.getAD_Role_ID()).stream()
-					.filter(includedRole -> defaultIncludedRoles.stream().noneMatch(
-							defaultIncludedRole -> includedRole.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
-					.forEach(includedRoleToRemove -> {
-						if (!includedRoleToRemove.delete(true)) {
-							log.severe("Could not remove included role " + includedRoleToRemove.getIncluded_Role_ID());
-						}
-					});
+			// Filter the default included roles to match this role
+			List<MBHDefaultIncludedRole> defaultIncludedRolesForRole = defaultIncludedRoles.stream()
+					.filter(defaultIncludedRole -> defaultIncludedRole.getDB_UserType().equals(referenceList.getValue())).collect(
+							Collectors.toList());
+			List<MRoleIncluded> currentIncludedRolesForThisRole =
+					currentIncludedRolesByRoleId.containsKey(roleToConfigure.getAD_Role_ID()) ?
+							currentIncludedRolesByRoleId.get(roleToConfigure.getAD_Role_ID()) : new ArrayList<>();
+
+			// For any roles that are meant to be assigned but aren't, add them
+			// Filter out roles that are already assigned
+			defaultIncludedRolesForRole.stream()
+					.filter(defaultIncludedRole -> currentIncludedRolesForThisRole.stream().noneMatch(
+							currentIncludedRole -> currentIncludedRole.getIncluded_Role_ID() ==
+									defaultIncludedRole.getIncluded_Role_ID())).forEach(includedRoleToAdd -> {
+				MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
+				roleIncluded.setIncluded_Role_ID(includedRoleToAdd.getIncluded_Role_ID());
+				roleIncluded.setAD_Role_ID(roleToConfigure.getAD_Role_ID());
+				int sequencerToUse = roleSequencers.get(roleToConfigure.getAD_Role_ID());
+				roleIncluded.setSeqNo(sequencerToUse);
+				roleSequencers.put(roleToConfigure.getAD_Role_ID(), sequencerToUse + sequencerIncrement);
+				roleIncluded.saveEx();
+			});
+
+			// For any roles that are assigned but shouldn't be, remove them
+			currentIncludedRolesForThisRole.stream()
+					.filter(currentIncludedRole -> defaultIncludedRolesForRole.stream().noneMatch(
+							defaultIncludedRole -> currentIncludedRole.getIncluded_Role_ID() ==
+									defaultIncludedRole.getIncluded_Role_ID())).forEach(includedRoleToRemove -> {
+				if (!includedRoleToRemove.delete(true)) {
+					log.severe("Could not remove included role " + includedRoleToRemove.getIncluded_Role_ID());
+					didSuccessfullyUpdateAllIncludedRoles.set(false);
+				}
+			});
 		});
 
 		if (!didSuccessfullyUpdateAllIncludedRoles.get()) {
