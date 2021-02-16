@@ -170,25 +170,25 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update default mapping failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.createBankAccounts(wantsCashBoxAccount, wantsMobileAccount, wantsSavingsAccount)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create bank accounts failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.addDefaultCharges()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create default charges failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.createDefaultProductCategories()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create default product categories failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			List<MUser_BH> usersToAddRolesTo = new ArrayList<>();
 			MUser_BH clientAdminUser = new Query(getCtx(), MUser.Table_Name,
@@ -201,7 +201,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);

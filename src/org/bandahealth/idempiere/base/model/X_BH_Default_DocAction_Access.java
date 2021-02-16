@@ -21,22 +21,22 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
 
-/** Generated Model for BH_Default_DocAction_Access_Exclude
+/** Generated Model for BH_Default_DocAction_Access
  *  @author iDempiere (generated) 
  *  @version Release 8.2 - $Id$ */
-public class X_BH_Default_DocAction_Access_Exclude extends PO implements I_BH_Default_DocAction_Access_Exclude, I_Persistent 
+public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_DocAction_Access, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210212L;
+	private static final long serialVersionUID = 20210216L;
 
     /** Standard Constructor */
-    public X_BH_Default_DocAction_Access_Exclude (Properties ctx, int BH_Default_DocAction_Access_Exclude_ID, String trxName)
+    public X_BH_Default_DocAction_Access (Properties ctx, int BH_Default_DocAction_Access_ID, String trxName)
     {
-      super (ctx, BH_Default_DocAction_Access_Exclude_ID, trxName);
-      /** if (BH_Default_DocAction_Access_Exclude_ID == 0)
+      super (ctx, BH_Default_DocAction_Access_ID, trxName);
+      /** if (BH_Default_DocAction_Access_ID == 0)
         {
 			setAD_Ref_List_ID (0);
 			setC_DocType_ID (0);
@@ -45,7 +45,7 @@ public class X_BH_Default_DocAction_Access_Exclude extends PO implements I_BH_De
     }
 
     /** Load Constructor */
-    public X_BH_Default_DocAction_Access_Exclude (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Default_DocAction_Access (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -67,7 +67,7 @@ public class X_BH_Default_DocAction_Access_Exclude extends PO implements I_BH_De
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Default_DocAction_Access_Exclude[")
+      StringBuilder sb = new StringBuilder ("X_BH_Default_DocAction_Access[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -100,38 +100,38 @@ public class X_BH_Default_DocAction_Access_Exclude extends PO implements I_BH_De
 		return ii.intValue();
 	}
 
-	/** Set BH_Default_DocAction_Access_Exclude_ID.
-		@param BH_Default_DocAction_Access_Exclude_ID BH_Default_DocAction_Access_Exclude_ID	  */
-	public void setBH_Default_DocAction_Access_Exclude_ID (int BH_Default_DocAction_Access_Exclude_ID)
+	/** Set BH_Default_DocAction_Access_ID.
+		@param BH_Default_DocAction_Access_ID BH_Default_DocAction_Access_ID	  */
+	public void setBH_Default_DocAction_Access_ID (int BH_Default_DocAction_Access_ID)
 	{
-		if (BH_Default_DocAction_Access_Exclude_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Default_DocAction_Access_Exclude_ID, null);
+		if (BH_Default_DocAction_Access_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Default_DocAction_Access_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Default_DocAction_Access_Exclude_ID, Integer.valueOf(BH_Default_DocAction_Access_Exclude_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Default_DocAction_Access_ID, Integer.valueOf(BH_Default_DocAction_Access_ID));
 	}
 
-	/** Get BH_Default_DocAction_Access_Exclude_ID.
-		@return BH_Default_DocAction_Access_Exclude_ID	  */
-	public int getBH_Default_DocAction_Access_Exclude_ID () 
+	/** Get BH_Default_DocAction_Access_ID.
+		@return BH_Default_DocAction_Access_ID	  */
+	public int getBH_Default_DocAction_Access_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Default_DocAction_Access_Exclude_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Default_DocAction_Access_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_Default_DocAction_Access_Exclude_UU.
-		@param BH_Default_DocAction_Access_Exclude_UU BH_Default_DocAction_Access_Exclude_UU	  */
-	public void setBH_Default_DocAction_Access_Exclude_UU (String BH_Default_DocAction_Access_Exclude_UU)
+	/** Set BH_Default_DocAction_Access_UU.
+		@param BH_Default_DocAction_Access_UU BH_Default_DocAction_Access_UU	  */
+	public void setBH_Default_DocAction_Access_UU (String BH_Default_DocAction_Access_UU)
 	{
-		set_Value (COLUMNNAME_BH_Default_DocAction_Access_Exclude_UU, BH_Default_DocAction_Access_Exclude_UU);
+		set_Value (COLUMNNAME_BH_Default_DocAction_Access_UU, BH_Default_DocAction_Access_UU);
 	}
 
-	/** Get BH_Default_DocAction_Access_Exclude_UU.
-		@return BH_Default_DocAction_Access_Exclude_UU	  */
-	public String getBH_Default_DocAction_Access_Exclude_UU () 
+	/** Get BH_Default_DocAction_Access_UU.
+		@return BH_Default_DocAction_Access_UU	  */
+	public String getBH_Default_DocAction_Access_UU () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_Default_DocAction_Access_Exclude_UU);
+		return (String)get_Value(COLUMNNAME_BH_Default_DocAction_Access_UU);
 	}
 
 	public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException

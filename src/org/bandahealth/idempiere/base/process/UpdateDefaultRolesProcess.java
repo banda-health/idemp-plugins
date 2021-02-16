@@ -67,14 +67,16 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 
 		// Get the associated roles for this client; if the roles don't exist, add them; if they do exist and we're
 		// supposed to update them, do so
-		List<MRole> rolesToUpdate =
-				new Query(getCtx(), MRole.Table_Name,
-						MRole.Table_Name + "." + MRole.COLUMNNAME_Name + "= " + MClient.Table_Name + "." + MClient.COLUMNNAME_Name +
-								" || ?", get_TrxName())
-						.addJoinClause(
-								" JOIN " + MClient.Table_Name + " ON " + MClient.Table_Name + "." + MClient.COLUMNNAME_AD_Client_ID +
-										"=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Client_ID)
-						.setParameters(MBandaSetup.getRoleName("", defaultRoleReferenceList.getName())).list();
+		List<MRole> rolesToUpdate = getClientRolesBySuffix(MBandaSetup.getRoleName("",
+				defaultRoleReferenceList.getName()));
+
+		// Get all the organizations for these clients
+		List<MOrg> organizations = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + " IN (" +
+				clients.stream().map(client -> Integer.toString(client.getAD_Client_ID())).collect(Collectors.joining(",")) +
+				")", get_TrxName()).list();
+		Map<Integer, List<MOrg>> organizationsByClient =
+				organizations.stream().collect(Collectors.groupingBy(MOrg::getAD_Client_ID));
+
 		// There should only be one of these roles per client, but maybe not
 		Map<Integer, List<MRole>> rolesToUpdateByClientId =
 				rolesToUpdate.stream().collect(Collectors.groupingBy(MRole::getAD_Client_ID));
@@ -84,12 +86,11 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 			try {
 				bandaSetup.start();
 				Map<MRefList, MRole> rolesToConfigure = new HashMap<>();
-				boolean canUpdateRoles = true;
+				boolean wasNewRoleCreated = false;
 				// If the client doesn't have any roles, we need to create them
 				if (!rolesToUpdateByClientId.containsKey(client.getAD_Client_ID())) {
-					List<MOrg> clientsOrganizations =
-							new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + "=?", get_TrxName())
-									.setParameters(client.getAD_Client_ID()).list();
+					// Get the organization for this client, which will never be null
+					List<MOrg> clientsOrganizations = organizationsByClient.get(client.getAD_Client_ID());
 					List<MUser_BH> usersNeedingRoles = adminUsersByClientId.containsKey(client.getAD_Client_ID()) ?
 							adminUsersByClientId.get(client.getAD_Client_ID()) : new ArrayList<>();
 					// We need to add this role to the client
@@ -100,30 +101,22 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 					}
 
 					// Now that the role has been created, we need to set them so they can be updated
+					// NOTE: We have to use the Banda setup transaction since the role was created within it's transaction
 					MRole newRoleForClient =
 							new Query(getCtx(), MRole.Table_Name,
-									MRole.COLUMNNAME_AD_Client_ID + "=? AND " + MRole.COLUMNNAME_Name + "= ?", get_TrxName())
+									MRole.COLUMNNAME_AD_Client_ID + "=? AND " + MRole.COLUMNNAME_Name + "= ?",
+									bandaSetup.getTransactionName())
 									.setParameters(client.getAD_Client_ID(), roleName)
 									.setOrderBy(MRole.COLUMNNAME_Created + " ASC").first();
 					rolesToConfigure.put(defaultRoleReferenceList, newRoleForClient);
+
+					wasNewRoleCreated = true;
 				} else {
 					rolesToConfigure.put(defaultRoleReferenceList, rolesToUpdateByClientId.get(client.getAD_Client_ID()).get(0));
-
-					// If we're updating existing clients's roles, reset them first
-					if (updateExistingClients) {
-						// First, reset the role
-						if (!bandaSetup.resetRoles(rolesToConfigure)) {
-							rollback(bandaSetup);
-							throw new AdempiereException(Msg.getMsg(getCtx(), "Resetting roles failed"));
-						}
-						addLog(bandaSetup.getInfo());
-					} else {
-						canUpdateRoles = false;
-					}
 				}
 
 				// Now update the roles
-				if (canUpdateRoles && !bandaSetup.updateRoles(rolesToConfigure)) {
+				if ((wasNewRoleCreated || updateExistingClients) && !bandaSetup.updateRoles(rolesToConfigure)) {
 					rollback(bandaSetup);
 					throw new AdempiereException(Msg.getMsg(getCtx(), "Updating roles failed"));
 				}
@@ -137,6 +130,7 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 			}
 		});
 
+		resetClientId();
 		return null;
 	}
 
@@ -171,14 +165,7 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 								MRefList.COLUMNNAME_AD_Reference_ID)
 						.setParameters(MBandaSetup.DB_USERTYPE_Admin, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 		// Now get the admin roles
-		List<MRole> adminRoles =
-				new Query(getCtx(), MRole.Table_Name,
-						MRole.Table_Name + "." + MRole.COLUMNNAME_Name + "= " + MClient.Table_Name + "." + MClient.COLUMNNAME_Name +
-								" || ?", get_TrxName())
-						.addJoinClause(
-								" JOIN " + MClient.Table_Name + " ON " + MClient.Table_Name + "." + MClient.COLUMNNAME_AD_Client_ID +
-										"=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Client_ID)
-						.setParameters(MBandaSetup.getRoleName("", adminReferenceList.getName())).list();
+		List<MRole> adminRoles = getClientRolesBySuffix(MBandaSetup.getRoleName("", adminReferenceList.getName()));
 
 		// There may be multiple roles for a client that are suffixed with the adminReferenceList value, so get the one
 		// that was created first
@@ -201,9 +188,21 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 
 		// The first user created for each client is the admin user we need
 		return usersAssignedAdminRoles.stream().collect(Collectors.groupingBy(MUser_BH::getAD_Client_ID));
-//		.entrySet()
-//				.stream().collect(Collectors.toMap(Map.Entry::getKey,
-//						v -> v.getValue().stream().sorted(Comparator.comparing(PO::getCreated)).collect(Collectors.toList())
-//								.get(0)));
+	}
+
+	/**
+	 * Gets roles for all clients by checking client name and the role name together
+	 *
+	 * @param roleSuffix The role name to check for after a client's name
+	 * @return All roles that are assigned to the client matching that role suffix
+	 */
+	private List<MRole> getClientRolesBySuffix(String roleSuffix) {
+		return new Query(getCtx(), MRole.Table_Name,
+				MRole.Table_Name + "." + MRole.COLUMNNAME_Name + "=" + MClient.Table_Name + "." + MClient.COLUMNNAME_Name +
+						" || ?", get_TrxName())
+				.addJoinClause(
+						" JOIN " + MClient.Table_Name + " ON " + MClient.Table_Name + "." + MClient.COLUMNNAME_AD_Client_ID +
+								"=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Client_ID)
+				.setParameters(roleSuffix).list();
 	}
 }

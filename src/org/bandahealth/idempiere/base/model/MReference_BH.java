@@ -7,6 +7,7 @@ import java.util.Properties;
 
 public class MReference_BH extends MReference {
 	public static final String USER_TYPE_AD_REFERENCE_UU = "5b41f508-5ce5-4b42-80de-713e10580d51";
+	public static final int DOCUMENT_ACTION_AD_REFERENCE_ID = 135;
 
 	public MReference_BH(Properties ctx, int AD_Reference_ID, String trxName) {
 		super(ctx, AD_Reference_ID, trxName);

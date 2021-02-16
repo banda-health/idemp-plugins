@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -78,10 +77,22 @@ public class MBandaSetup {
 	private StringBuffer info;
 
 	public MBandaSetup(Properties ctx, MClient client, MOrg organization) {
+		if (ctx == null) {
+			String errorMessage = "Parameter 'ctx' is required";
+			log.log(Level.SEVERE, errorMessage);
+			throw new IllegalArgumentException(errorMessage);
+		}
+		if (client == null) {
+			String errorMessage = "Parameter 'client' is required";
+			log.log(Level.SEVERE, errorMessage);
+			throw new IllegalArgumentException(errorMessage);
+		}
+
 		this.context = ctx;
 		language = Env.getAD_Language(this.context);
 		this.client = client;
 		this.organization = organization;
+		info = new StringBuffer();
 
 		accountSchema = new Query(
 				this.context,
@@ -94,6 +105,12 @@ public class MBandaSetup {
 	}
 
 	public static String getRoleName(String clientName, String roleSuffix) {
+		if (clientName == null) {
+			throw new IllegalArgumentException("Parameter 'clientName' is required");
+		}
+		if (roleSuffix == null) {
+			throw new IllegalArgumentException("Parameter 'roleSuffix' is required");
+		}
 		return clientName + " " + roleSuffix;
 	}
 
@@ -110,8 +127,6 @@ public class MBandaSetup {
 	}
 
 	public boolean updateDefaultAccountMapping() {
-		info = new StringBuffer();
-
 		MAcctSchemaDefault acctSchemaDefault = new Query(
 				context,
 				MAcctSchemaDefault.Table_Name,
@@ -140,9 +155,9 @@ public class MBandaSetup {
 		MAccount inTransitAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
 				.getPO(acctSchemaDefault.getB_InTransit_Acct(), transaction.getTrxName());
 		if (assetAccount == null || inTransitAccount == null) {
-			String err = "B_Asset and/or B_InTransit accounts do not exist";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = "B_Asset and/or B_InTransit accounts do not exist";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -150,9 +165,9 @@ public class MBandaSetup {
 		assetAccount.setAccount_ID(inTransitAccount.getAccount_ID());
 		assetAccount.setValueDescription();
 		if (!assetAccount.save()) {
-			String err = "B_Asset account NOT updated";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = "B_Asset account NOT updated";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -169,9 +184,9 @@ public class MBandaSetup {
 		MAccount liabilityAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
 				.getPO(acctSchemaDefault.getV_Liability_Acct(), transaction.getTrxName());
 		if (paymentSelectAccount == null || liabilityAccount == null) {
-			String err = "B_PaymentSelect and/or V_Liability accounts do not exist";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = "B_PaymentSelect and/or V_Liability accounts do not exist";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -179,9 +194,9 @@ public class MBandaSetup {
 		paymentSelectAccount.setAccount_ID(liabilityAccount.getAccount_ID());
 		paymentSelectAccount.setValueDescription();
 		if (!paymentSelectAccount.save()) {
-			String err = "B_PaymentSelect account NOT updated";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = "B_PaymentSelect account NOT updated";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -199,8 +214,6 @@ public class MBandaSetup {
 	 * @return
 	 */
 	public boolean createBankAccounts(boolean wantsCashBox, boolean wantsMobile, boolean wantsSavings) {
-		info = new StringBuffer();
-
 		String clientName = client.getName();
 
 		MBank clientsBank = new MBank(context, 0, transaction.getTrxName());
@@ -214,9 +227,9 @@ public class MBandaSetup {
 //		clientsBank.setC_Location_ID();
 
 		if (!clientsBank.save()) {
-			String err = "Bank NOT inserted";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = "Bank NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -250,15 +263,13 @@ public class MBandaSetup {
 	}
 
 	public boolean addDefaultCharges() {
-		info = new StringBuffer();
-
 		// First, create the default charge category
 		MChargeType_BH defaultCategory = new MChargeType_BH(context, 0, transaction.getTrxName());
 		defaultCategory.setName(MChargeType_BH.CHARGETYPENAME_DEFAULT_CATEGORY);
 		if (!defaultCategory.save()) {
-			String err = "Default Category Charge Type NOT inserted";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = "Default Category Charge Type NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -282,9 +293,9 @@ public class MBandaSetup {
 			chargeToAdd.setBH_Locked(true);
 			chargeToAdd.setC_ChargeType_ID(defaultCategory.getC_ChargeType_ID());
 			if (!chargeToAdd.save()) {
-				String err = "Default Charge NOT inserted";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Default Charge NOT inserted";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -293,9 +304,9 @@ public class MBandaSetup {
 			// Create a valid combination for this account value
 			MAccount chargeExpenseAccount = getOrCreateValidCombination(defaultCharge.getValue());
 			if (chargeExpenseAccount == null) {
-				String err = "Default Charge Valid Combination NOT inserted";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Default Charge Valid Combination NOT inserted";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -310,9 +321,9 @@ public class MBandaSetup {
 					.setParameters(chargeToAdd.getC_Charge_ID())
 					.first();
 			if (chargeAccountToModify == null) {
-				String err = "Charge Account does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Charge Account does not exist";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -320,9 +331,9 @@ public class MBandaSetup {
 			// Point the charge to our valid combination
 			chargeAccountToModify.setCh_Expense_Acct(chargeExpenseAccount.getC_ValidCombination_ID());
 			if (!chargeAccountToModify.save()) {
-				String err = "Charge Account NOT updated";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Charge Account NOT updated";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -338,8 +349,6 @@ public class MBandaSetup {
 	 * @return
 	 */
 	public boolean createDefaultProductCategories() {
-		info = new StringBuffer();
-
 		// Get all active, default product categories from the system
 		List<MBHProductCategoryDefault> defaultProductCategories = new Query(
 				context,
@@ -360,9 +369,9 @@ public class MBandaSetup {
 			productCategoryToAdd.setIsSelfService(true);
 			productCategoryToAdd.setBH_Product_Category_Type(defaultProductCategory.getBH_Product_Category_Type());
 			if (!productCategoryToAdd.save()) {
-				String err = "Default Product Category NOT inserted";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Default Product Category NOT inserted";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -371,9 +380,9 @@ public class MBandaSetup {
 			// Create a valid combination for this account value
 			MAccount productCategoryAccount = getOrCreateValidCombination(defaultProductCategory.getValue());
 			if (productCategoryAccount == null) {
-				String err = "Default Product Category Valid Combination NOT inserted";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Default Product Category Valid Combination NOT inserted";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -388,9 +397,9 @@ public class MBandaSetup {
 					.setParameters(productCategoryToAdd.getM_Product_Category_ID())
 					.first();
 			if (productCategoryAccountToModify == null) {
-				String err = "Product Category Account does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Product Category Account does not exist";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -398,9 +407,9 @@ public class MBandaSetup {
 			// Point the product category to our valid combination
 			productCategoryAccountToModify.setP_Revenue_Acct(productCategoryAccount.getC_ValidCombination_ID());
 			if (!productCategoryAccountToModify.save()) {
-				String err = "Product Category Account NOT updated";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Product Category Account NOT updated";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -417,6 +426,11 @@ public class MBandaSetup {
 	 * @return Whether the creation was successful
 	 */
 	public boolean initializeRoles(List<MUser_BH> usersToAddRolesTo) {
+		if (usersToAddRolesTo == null) {
+			log.log(Level.SEVERE, "Parameter 'usersToAddRolesTo' is required");
+			return false;
+		}
+
 		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
 				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", transaction.getTrxName())
 				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
@@ -440,19 +454,20 @@ public class MBandaSetup {
 				transaction.getTrxName())
 				.setParameters(getAD_Client_ID())
 				.list();
-		Map<MRefList, MRole> rolesToConfigure = userTypeValues.stream().collect(HashMap::new, (m, v) -> m.put(v,
-				clientRoles.stream().filter(
-						cr -> cr.getName().equals(MBandaSetup.getRoleName(client.getName(), v.getName()))).findFirst()
-						.orElse(null)),
+		Map<MRefList, MRole> rolesToConfigureByDBUserType = userTypeValues.stream().collect(HashMap::new,
+				(m, v) -> m.put(v,
+						clientRoles.stream().filter(
+								cr -> cr.getName().equals(MBandaSetup.getRoleName(client.getName(), v.getName()))).findFirst()
+								.orElse(null)),
 				HashMap::putAll);
 
 		// Ensure all the roles are present
 		AtomicBoolean areAllRolesPresent = new AtomicBoolean(true);
-		rolesToConfigure.forEach((key, value) -> {
+		rolesToConfigureByDBUserType.forEach((key, value) -> {
 			if (value == null) {
-				String err = key + " role does not exist";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = key + " role does not exist";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				areAllRolesPresent.set(false);
 			}
 		});
@@ -462,62 +477,28 @@ public class MBandaSetup {
 			return false;
 		}
 
-		return updateRoles(rolesToConfigure);
-	}
-
-	/**
-	 * Allows a role to be reset to what iDempiere creates out-of-the-box for User/Admin, or resets what is done
-	 * for the Banda Health roles.
-	 *
-	 * @param rolesToConfigure The roles that should be configured.
-	 * @return Whether the reset was successful
-	 */
-	public boolean resetRoles(Map<MRefList, MRole> rolesToConfigure) {
-		// Remove all included roles
-		List<Object> parameters = new ArrayList<>();
-		String whereClause = QueryUtil
-				.getWhereClauseAndSetParametersForSet(rolesToConfigure.values().stream().map(MRole::getAD_Role_ID).collect(
-						Collectors.toSet()), parameters);
-		List<MRoleIncluded> includedRoles =
-				new Query(Env.getCtx(), MRoleIncluded.Table_Name,
-						MRoleIncluded.COLUMNNAME_Included_Role_ID + " IN (" + whereClause + ")",
-						transaction.getTrxName()).setParameters(parameters).list();
-		AtomicBoolean didResetAllIncludedRoles = new AtomicBoolean(true);
-		includedRoles.forEach(includedRole -> {
-			if (!includedRole.delete(true)) {
-				String err = "Could not reset included role for Role: " + includedRole.getAD_Role_ID();
-				log.log(Level.SEVERE, err);
-				info.append(err);
-				didResetAllIncludedRoles.set(false);
-			}
-		});
-		if (!didResetAllIncludedRoles.get()) {
-			String err = "Included Roles NOT reset";
-			log.log(Level.SEVERE, err);
-			info.append(err);
-			return false;
-		}
-
-		// Reset all access
-		rolesToConfigure.values().forEach(role -> role.updateAccessRecords(true));
-
-		return true;
+		return updateRoles(rolesToConfigureByDBUserType);
 	}
 
 	/**
 	 * This method is meant to be the post-creation version of #{initializeRoles}. It handles updating roles and
 	 * everything associated with them for clients that have already been created.
 	 *
-	 * @param rolesToConfigure The roles that should be configured.
+	 * @param rolesToConfigureByDBUserType The roles that should be configured.
 	 * @return Whether the update was successful
 	 */
-	public boolean updateRoles(Map<MRefList, MRole> rolesToConfigure) {
-		if (!addDefaultIncludedRoles(rolesToConfigure)) {
+	public boolean updateRoles(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
+		if (rolesToConfigureByDBUserType == null) {
+			log.log(Level.SEVERE, "Parameter 'rolesToConfigureByDBUserType' is required");
+			return false;
+		}
+
+		if (!handleDefaultIncludedRoles(rolesToConfigureByDBUserType)) {
 			log.log(Level.SEVERE, "Error adding default included roles");
 			return false;
 		}
 
-		if (!handleDocumentActionAccessExclusions(rolesToConfigure)) {
+		if (!handleDocumentActionAccess(rolesToConfigureByDBUserType)) {
 			log.log(Level.SEVERE, "Error handling default document action access exclusions");
 			return false;
 		}
@@ -526,14 +507,14 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * Handle removing document action access based on configured exclusion rules, if any.
+	 * Handle updating document action access based on configured rules, if any.
 	 *
 	 * @return Whether the document action access exclusions were successfully applied
 	 */
-	private boolean handleDocumentActionAccessExclusions(Map<MRefList, MRole> rolesToConfigure) {
+	private boolean handleDocumentActionAccess(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the document action access exclusion values
-		List<MBHDefaultDocActionAccessExclude> defaultDocActionAccessExclusions = new Query(context,
-				MBHDefaultDocActionAccessExclude.Table_Name, null, transaction.getTrxName())
+		List<MBHDefaultDocActionAccess> defaultDocActionAccess = new Query(context,
+				MBHDefaultDocActionAccess.Table_Name, null, transaction.getTrxName())
 				.setOnlyActiveRecords(true)
 				.list();
 
@@ -552,35 +533,67 @@ public class MBandaSetup {
 						));
 		PO.clearCrossTenantSafe(); // disable what was done previously
 
-		AtomicBoolean didSuccessfullyDeleteAllDocumentAccess = new AtomicBoolean(true);
-		rolesToConfigure.forEach((userType, role) -> {
-			// Get the exclusions for this role
-			defaultDocActionAccessExclusions.stream().filter(
-					dae -> dae.getDB_UserType().equals(userType.getValue())).forEach(dae -> {
-				// Get the document access action that has been saved for this role
-				X_AD_Document_Action_Access documentActionAccess = new Query(Env.getCtx(),
-						X_AD_Document_Action_Access.Table_Name,
-						X_AD_Document_Action_Access.COLUMNNAME_AD_Role_ID + "=? AND " +
-								X_AD_Document_Action_Access.COLUMNNAME_C_DocType_ID + "=? AND " +
-								X_AD_Document_Action_Access.COLUMNNAME_AD_Ref_List_ID + "=?",
-						null)
-						.setParameters(role.getAD_Role_ID(), clientDocTypeIdsBySystemDocTypeIds.get(dae.getC_DocType_ID()),
-								dae.getAD_Ref_List_ID()).first();
-				// Remove the document action access, since the role has been configured to exclude it
-				if (documentActionAccess != null) {
-					if (!documentActionAccess.delete(true)) {
-						String err =
-								"Could not remove document action access for Role, DocType, and RefList: " + role.getAD_Role_ID() +
-										", " + dae.getC_DocType_ID() + ", " + dae.getAD_Ref_List_ID();
-						log.log(Level.SEVERE, err);
-						info.append(err);
-						didSuccessfullyDeleteAllDocumentAccess.set(false);
-					}
-				}
-			});
+		// Get all access for the roles we'll configure
+		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(Env.getCtx(),
+				X_AD_Document_Action_Access.Table_Name, X_AD_Document_Action_Access.COLUMNNAME_AD_Role_ID + " IN (" +
+				rolesToConfigureByDBUserType.values().stream()
+						.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
+						.collect(Collectors.joining(",")) + ")",
+				transaction.getTrxName()).list();
+		Map<Integer, List<X_AD_Document_Action_Access>> currentAccessByRole = currentAccessForRolesToConfigure.stream()
+				.collect(Collectors.groupingBy(X_AD_Document_Action_Access::getAD_Role_ID));
+
+		AtomicBoolean didSuccessfullyUpdateAllDocumentAccess = new AtomicBoolean(true);
+		rolesToConfigureByDBUserType.forEach((userType, role) -> {
+			List<MBHDefaultDocActionAccess> specifiedAccessForThisRole = defaultDocActionAccess.stream().filter(
+					documentActionAccess -> documentActionAccess.getDB_UserType().equals(userType.getValue()))
+					.collect(Collectors.toList());
+
+			// Get the document access action that has been saved for this role
+			List<X_AD_Document_Action_Access> currentAccessForThisRole =
+					currentAccessByRole.containsKey(role.getAD_Role_ID()) ? currentAccessByRole.get(role.getAD_Role_ID()) :
+							new ArrayList<>();
+
+			// Remove the document action access that is currently assigned, but wasn't specified to be assigned
+			currentAccessForThisRole.stream().filter(currentAccess -> specifiedAccessForThisRole.stream().noneMatch(
+					specifiedAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID() &&
+							currentAccess.getC_DocType_ID() ==
+									clientDocTypeIdsBySystemDocTypeIds.get(specifiedAccess.getC_DocType_ID())))
+					.forEach(accessToRemove -> {
+						if (!accessToRemove.delete(true)) {
+							String errorMessage =
+									"Could not remove document action access for Role, DocType, and RefList: " + role.getAD_Role_ID() +
+											", " + accessToRemove.getC_DocType_ID() + ", " + accessToRemove.getAD_Ref_List_ID();
+							log.log(Level.SEVERE, errorMessage);
+							info.append(errorMessage);
+							didSuccessfullyUpdateAllDocumentAccess.set(false);
+						}
+					});
+
+			// Add document access that isn't currently assigned, but was specified to be assigned
+			specifiedAccessForThisRole.stream().filter(specifiedAccess -> currentAccessForThisRole.stream().noneMatch(
+					currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID() &&
+							currentAccess.getC_DocType_ID() ==
+									clientDocTypeIdsBySystemDocTypeIds.get(specifiedAccess.getC_DocType_ID())))
+					.forEach(accessToAdd -> {
+						X_AD_Document_Action_Access clientAccess =
+								new X_AD_Document_Action_Access(context, 0, getTransactionName());
+						clientAccess.setC_DocType_ID(clientDocTypeIdsBySystemDocTypeIds.get(accessToAdd.getC_DocType_ID()));
+						clientAccess.setAD_Ref_List_ID(accessToAdd.getAD_Ref_List_ID());
+						clientAccess.setAD_Role_ID(role.getAD_Role_ID());
+
+						if (!clientAccess.save()) {
+							String errorMessage =
+									"Could not add document action access for Role, DocType, and RefList: " + role.getAD_Role_ID() +
+											", " + clientAccess.getC_DocType_ID() + ", " + clientAccess.getAD_Ref_List_ID();
+							log.log(Level.SEVERE, errorMessage);
+							info.append(errorMessage);
+							didSuccessfullyUpdateAllDocumentAccess.set(false);
+						}
+					});
 		});
 
-		return didSuccessfullyDeleteAllDocumentAccess.get();
+		return didSuccessfullyUpdateAllDocumentAccess.get();
 	}
 
 	/**
@@ -591,8 +604,8 @@ public class MBandaSetup {
 	private boolean createAdditionalRoles(List<MRefList> userTypeSuffixes, List<MUser_BH> usersToAddRolesTo) {
 		// Filter out the roles the system adds
 		userTypeSuffixes = userTypeSuffixes.stream().filter(
-				ut -> !ut.getValue().equals(DB_USERTYPE_User) && !ut.getValue().equals(DB_USERTYPE_Admin)).collect(
-				Collectors.toList());
+				userTypeSuffix -> !userTypeSuffix.getValue().equals(DB_USERTYPE_User) &&
+						!userTypeSuffix.getValue().equals(DB_USERTYPE_Admin)).collect(Collectors.toList());
 		AtomicBoolean didSuccessfullyAddedAllRoles = new AtomicBoolean(true);
 		// Add the new roles
 		userTypeSuffixes.forEach(userTypeSuffix -> {
@@ -607,14 +620,35 @@ public class MBandaSetup {
 		return didSuccessfullyAddedAllRoles.get();
 	}
 
+	/**
+	 * Create the specified role and assign it to users and make it available to organizations.
+	 *
+	 * @param roleName                   The name of the role to create
+	 * @param usersToAddRoleTo           The list of users to add this new role to
+	 * @param organizationsToGrantToRole The organizations to grant this role access to
+	 * @return Whether role creation was successful
+	 */
 	public boolean createRole(String roleName, List<MUser_BH> usersToAddRoleTo, List<MOrg> organizationsToGrantToRole) {
+		if (roleName == null || roleName.isEmpty()) {
+			log.log(Level.SEVERE, "Parameter 'roleName' is required");
+			return false;
+		}
+		if (usersToAddRoleTo == null) {
+			log.log(Level.SEVERE, "Parameter 'usersToAddRoleTo' is required");
+			return false;
+		}
+		if (organizationsToGrantToRole == null) {
+			log.log(Level.SEVERE, "Parameter 'organizationsToGrantToRole' is required");
+			return false;
+		}
+
 		MRole role = new MRole(context, 0, transaction.getTrxName());
 		role.setName(roleName);
 		role.setIsAccessAdvanced(false);
 		if (!role.save()) {
-			String err = roleName + " Role NOT inserted";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = roleName + " Role NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			return false;
 		}
 		//  OrgAccess x,y
@@ -639,35 +673,72 @@ public class MBandaSetup {
 	 *
 	 * @return Whether the addition was successful
 	 */
-	private boolean addDefaultIncludedRoles(Map<MRefList, MRole> rolesToConfigure) {
+	private boolean handleDefaultIncludedRoles(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the default role IDs to include
 		List<MBHDefaultIncludedRole> defaultIncludedRoles = new Query(context, MBHDefaultIncludedRole.Table_Name,
 				null, transaction.getTrxName())
 				.setOnlyActiveRecords(true)
 				.list();
 		int sequencerIncrement = 10;
-		Map<Integer, Integer> roleSequencers = rolesToConfigure.values().stream().collect(
+		Map<Integer, Integer> roleSequencers = rolesToConfigureByDBUserType.values().stream().collect(
 				Collectors.toMap(MRole::getAD_Role_ID, v -> sequencerIncrement));
-		for (MBHDefaultIncludedRole defaultIncludedRole : defaultIncludedRoles) {
-			MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
-			roleIncluded.setIncluded_Role_ID(defaultIncludedRole.getIncluded_Role_ID());
 
-			Optional<MRole> role = rolesToConfigure.entrySet().stream().filter(
+		// Get the inclusions already configured for these roles
+		List<MRoleIncluded> includedRolesForRolesToConfigure = new Query(context, MRoleIncluded.Table_Name,
+				MRoleIncluded.COLUMNNAME_AD_Role_ID + " IN (" +
+						rolesToConfigureByDBUserType.values().stream().map(role -> Integer.toString(role.getAD_Role_ID()))
+								.collect(Collectors.joining(",")) + ")",
+				getTransactionName()).list();
+		Map<Integer, List<MRoleIncluded>> includedRolesByRoleId =
+				includedRolesForRolesToConfigure.stream().collect(Collectors.groupingBy(MRoleIncluded::getAD_Role_ID));
+
+		AtomicBoolean didSuccessfullyUpdateAllIncludedRoles = new AtomicBoolean(true);
+		for (MBHDefaultIncludedRole defaultIncludedRole : defaultIncludedRoles) {
+			// First, find the role that this default included role can be assigned to
+			Optional<MRole> role = rolesToConfigureByDBUserType.entrySet().stream().filter(
 					rtc -> defaultIncludedRole.getDB_UserType().equals(rtc.getKey().getValue())).map(
 					Map.Entry::getValue).findFirst();
 
-			if (role.isPresent()) {
-				int roleId = role.get().getAD_Role_ID();
-				roleIncluded.setAD_Role_ID(roleId);
-				int sequencerToUse = roleSequencers.get(roleId);
-				roleIncluded.setSeqNo(sequencerToUse);
-				roleSequencers.put(roleId, sequencerToUse + sequencerIncrement);
-			} else {
-				log.log(Level.INFO, "Unknown User Type: " + defaultIncludedRole.getDB_UserType());
+			// If we didn't find a role, or this included role already exists, continue
+			if (role.isEmpty() || (includedRolesByRoleId.containsKey(role.get().getAD_Role_ID()) &&
+					includedRolesByRoleId.get(role.get().getAD_Role_ID()).stream().anyMatch(
+							includedRole -> includedRole.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))) {
+				if (role.isEmpty()) {
+					log.log(Level.INFO, "No role to configure for user type: " + defaultIncludedRole.getDB_UserType());
+				}
+				continue;
 			}
-
+			MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
+			roleIncluded.setIncluded_Role_ID(defaultIncludedRole.getIncluded_Role_ID());
+			int roleId = role.get().getAD_Role_ID();
+			roleIncluded.setAD_Role_ID(roleId);
+			int sequencerToUse = roleSequencers.get(roleId);
+			roleIncluded.setSeqNo(sequencerToUse);
+			roleSequencers.put(roleId, sequencerToUse + sequencerIncrement);
 			roleIncluded.saveEx();
 		}
+
+		// Remove any included roles that aren't specified to be included
+		rolesToConfigureByDBUserType.forEach((referenceList, roleToConfigure) -> {
+			if (!includedRolesByRoleId.containsKey(roleToConfigure.getAD_Role_ID())) {
+				return;
+			}
+			includedRolesByRoleId.get(roleToConfigure.getAD_Role_ID()).stream()
+					.filter(includedRole -> defaultIncludedRoles.stream().noneMatch(
+							defaultIncludedRole -> includedRole.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
+					.forEach(includedRoleToRemove -> {
+						if (!includedRoleToRemove.delete(true)) {
+							log.severe("Could not remove included role " + includedRoleToRemove.getIncluded_Role_ID());
+						}
+					});
+		});
+
+		if (!didSuccessfullyUpdateAllIncludedRoles.get()) {
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+
 		return true;
 	}
 
@@ -726,9 +797,9 @@ public class MBandaSetup {
 			paymentRef.setAD_Org_ID(organization.getAD_Org_ID());
 			paymentRef.setAD_Reference_ID(referenceToCreatePaymentMappingsFor.getAD_Reference_ID());
 			if (!paymentRef.save()) {
-				String err = "Payment Bank Account mapping NOT inserted";
-				log.log(Level.SEVERE, err);
-				info.append(err);
+				String errorMessage = "Payment Bank Account mapping NOT inserted";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
@@ -761,9 +832,9 @@ public class MBandaSetup {
 		bankAccount.setBankAccountType(MBankAccount.BANKACCOUNTTYPE_Cash);
 
 		if (!bankAccount.save()) {
-			String err = accountName + " Bank Account NOT inserted";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = accountName + " Bank Account NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return true;
@@ -808,9 +879,9 @@ public class MBandaSetup {
 		}
 		accountMapping.setB_Asset_Acct(accountMapping.getB_InTransit_Acct());
 		if (!accountMapping.save()) {
-			String err = "Account Mapping NOT updated";
-			log.log(Level.SEVERE, err);
-			info.append(err);
+			String errorMessage = "Account Mapping NOT updated";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
 			transaction.rollback();
 			transaction.close();
 			return false;
@@ -900,6 +971,17 @@ public class MBandaSetup {
 	}
 
 	/**
+	 * Get Info and then reset it
+	 *
+	 * @return Info
+	 */
+	public String getThenResetInfo() {
+		String infoToReturn = getInfo();
+		resetInfo();
+		return infoToReturn;
+	}
+
+	/**
 	 * Rollback Internal Transaction
 	 */
 	public void rollback() {
@@ -907,6 +989,20 @@ public class MBandaSetup {
 			transaction.rollback();
 			transaction.close();
 		} catch (Exception e) {
+			log.warning("Error occured when rolling back the internal transaction: " + e.getMessage());
 		}
+	}
+
+	/**
+	 * Get the internal transaction name for the Banda setup process
+	 *
+	 * @return The transaction name
+	 */
+	public String getTransactionName() {
+		return transaction.getTrxName();
+	}
+
+	public void resetInfo() {
+		info = new StringBuffer();
 	}
 }

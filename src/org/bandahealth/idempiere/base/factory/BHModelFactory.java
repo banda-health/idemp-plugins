@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 import org.adempiere.base.IModelFactory;
 import org.bandahealth.idempiere.base.model.MBHChargeDefault;
-import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccessExclude;
+import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
 import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
@@ -73,8 +73,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHProductCategoryDefault.class;
 		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
 			return MBHDefaultIncludedRole.class;
-		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccessExclude.Table_Name)) {
-			return MBHDefaultDocActionAccessExclude.class;
+		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccess.Table_Name)) {
+			return MBHDefaultDocActionAccess.class;
 		} else if (tableName.equalsIgnoreCase(MReference_BH.Table_Name)) {
 			return MReference_BH.class;
 		} else if (tableName.equalsIgnoreCase(MUser_BH.Table_Name)) {
@@ -126,8 +126,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHProductCategoryDefault(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
 			return new MBHDefaultIncludedRole(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccessExclude.Table_Name)) {
-			return new MBHDefaultDocActionAccessExclude(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccess.Table_Name)) {
+			return new MBHDefaultDocActionAccess(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MReference_BH.Table_Name)) {
 			return new MReference_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MUser_BH.Table_Name)) {
@@ -179,8 +179,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHProductCategoryDefault(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
 			return new MBHDefaultIncludedRole(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccessExclude.Table_Name)) {
-			return new MBHDefaultDocActionAccessExclude(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccess.Table_Name)) {
+			return new MBHDefaultDocActionAccess(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MReference_BH.Table_Name)) {
 			return new MReference_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MUser_BH.Table_Name)) {

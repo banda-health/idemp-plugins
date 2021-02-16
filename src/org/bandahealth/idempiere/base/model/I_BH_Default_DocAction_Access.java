@@ -21,16 +21,16 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Default_DocAction_Access_Exclude
+/** Generated Interface for BH_Default_DocAction_Access
  *  @author iDempiere (generated) 
  *  @version Release 8.2
  */
 @SuppressWarnings("all")
-public interface I_BH_Default_DocAction_Access_Exclude 
+public interface I_BH_Default_DocAction_Access 
 {
 
-    /** TableName=BH_Default_DocAction_Access_Exclude */
-    public static final String Table_Name = "BH_Default_DocAction_Access_Exclude";
+    /** TableName=BH_Default_DocAction_Access */
+    public static final String Table_Name = "BH_Default_DocAction_Access";
 
     /** AD_Table_ID=1000025 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
@@ -79,23 +79,23 @@ public interface I_BH_Default_DocAction_Access_Exclude
 
 	public org.compiere.model.I_AD_Ref_List getAD_Ref_List() throws RuntimeException;
 
-    /** Column name BH_Default_DocAction_Access_Exclude_ID */
-    public static final String COLUMNNAME_BH_Default_DocAction_Access_Exclude_ID = "BH_Default_DocAction_Access_Exclude_ID";
+    /** Column name BH_Default_DocAction_Access_ID */
+    public static final String COLUMNNAME_BH_Default_DocAction_Access_ID = "BH_Default_DocAction_Access_ID";
 
-	/** Set BH_Default_DocAction_Access_Exclude_ID	  */
-	public void setBH_Default_DocAction_Access_Exclude_ID (int BH_Default_DocAction_Access_Exclude_ID);
+	/** Set BH_Default_DocAction_Access_ID	  */
+	public void setBH_Default_DocAction_Access_ID (int BH_Default_DocAction_Access_ID);
 
-	/** Get BH_Default_DocAction_Access_Exclude_ID	  */
-	public int getBH_Default_DocAction_Access_Exclude_ID();
+	/** Get BH_Default_DocAction_Access_ID	  */
+	public int getBH_Default_DocAction_Access_ID();
 
-    /** Column name BH_Default_DocAction_Access_Exclude_UU */
-    public static final String COLUMNNAME_BH_Default_DocAction_Access_Exclude_UU = "BH_Default_DocAction_Access_Exclude_UU";
+    /** Column name BH_Default_DocAction_Access_UU */
+    public static final String COLUMNNAME_BH_Default_DocAction_Access_UU = "BH_Default_DocAction_Access_UU";
 
-	/** Set BH_Default_DocAction_Access_Exclude_UU	  */
-	public void setBH_Default_DocAction_Access_Exclude_UU (String BH_Default_DocAction_Access_Exclude_UU);
+	/** Set BH_Default_DocAction_Access_UU	  */
+	public void setBH_Default_DocAction_Access_UU (String BH_Default_DocAction_Access_UU);
 
-	/** Get BH_Default_DocAction_Access_Exclude_UU	  */
-	public String getBH_Default_DocAction_Access_Exclude_UU();
+	/** Get BH_Default_DocAction_Access_UU	  */
+	public String getBH_Default_DocAction_Access_UU();
 
     /** Column name C_DocType_ID */
     public static final String COLUMNNAME_C_DocType_ID = "C_DocType_ID";
