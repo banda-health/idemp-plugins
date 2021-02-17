@@ -161,14 +161,14 @@ INSERT INTO bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_
 INSERT INTO bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_org_id, bh_defaultincludedrole_uu, created, createdby, description, isactive, name, updated, updatedby, included_role_id, db_usertype) VALUES ((SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 0, 0, 'b77a888b-5289-4b85-8e0b-f97f9c11f4aa', '2021-02-16 14:32:38.660042', 100, null, 'Y', null, '2021-02-16 14:32:38.660042', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'f06c27e5-a4b9-4803-8b04-ebbe494d6fa1'), 'B') ON CONFLICT DO NOTHING;
 
 -- Insert default access all roles, then remove it from those that don't need it
-DROP TABLE IF EXISTS tmp_bh_default_docaction_access;
-CREATE TEMP TABLE tmp_bh_default_docaction_access
+DROP TABLE IF EXISTS tmp_def_docaction_access;
+CREATE TEMP TABLE tmp_def_docaction_access
 (
 	ad_client_id numeric(10) not null DEFAULT 0,
 	ad_org_id numeric(10) not null DEFAULT 0,
 	ad_ref_list_id numeric(10) not null,
-	bh_default_docaction_access_id numeric(10) default NULL::numeric not null,
-	bh_default_docaction_access_uu uuid uuid_generate_v4(), -- we don't mind UUIDs being different for these entities
+	bh_default_docaction_access_id serial not null,
+	bh_default_docaction_access_uu uuid default uuid_generate_v4(), -- we don't mind UUIDs being different for these entities
 	c_doctype_id numeric(10) not null,
 	created timestamp default statement_timestamp() not null,
 	createdby numeric(10) not null default 100,
@@ -179,12 +179,12 @@ CREATE TEMP TABLE tmp_bh_default_docaction_access
 );
 
 SELECT setval(
-	'tmp_bh_default_docaction_access_bh_default_docaction_access_id_seq',
+	'tmp_def_docaction_access_bh_default_docaction_access_id_seq',
 	1000000,
 	false
 );
 
-INSERT INTO tmp_bh_default_docaction_access (
+INSERT INTO tmp_def_docaction_access (
 	ad_ref_list_id,
 	c_doctype_id,
 	db_usertype
@@ -230,7 +230,7 @@ SELECT
 	isactive,
 	updated,
 	updatedby
-FROM tmp_bh_default_docaction_access
+FROM tmp_def_docaction_access
 ON CONFLICT DO NOTHING;
 
 UPDATE ad_sequence
@@ -321,7 +321,7 @@ SELECT setval(
 );
 
 INSERT INTO tmp_ad_role (ad_client_id, ad_org_id, isactive, createdby, name, updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner, allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-SELECT ad_client_id, 0, 'Y', 100, name || ' Clinic Admin', 100, null, '  O', null, 0, null, 'N', 'N', 'N', 'N', 'Y', 'Y', null, 'Y', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', null, null, '76b03f0e-6a90-4e27-9b05-072801a5c656', 'N', 'N', 'N', null
+SELECT ad_client_id, 0, 'Y', 100, name || ' Clinic Admin', 100, null, '  O', null, 0, null, 'N', 'N', 'N', 'N', 'Y', 'Y', null, 'Y', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', null, null, uuid_generate_v4(), 'N', 'N', 'N', null
 FROM ad_client
 WHERE ad_client_id > 999999;
 
@@ -343,55 +343,84 @@ JOIN ad_org ao
 /**********************************************************************************************************/
 -- Configure default included roles for all roles
 /**********************************************************************************************************/
+DROP TABLE IF EXISTS tmp_client_roles;
+CREATE TEMP TABLE tmp_client_roles (
+	ad_client_id numeric(10),
+	ad_role_id numeric(10),
+	db_usertype char(1)
+);
+
+INSERT INTO tmp_client_roles (
+	ad_client_id,
+	ad_role_id,
+	db_usertype
+)
+SELECT
+	c.ad_client_id,
+	r.ad_role_id,
+	rl.value
+FROM ad_client c
+JOIN ad_reference ref
+	ON ref.ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'
+JOIN ad_ref_list rl
+	ON ref.ad_reference_id = rl.ad_reference_id
+JOIN ad_role r
+	ON c.ad_client_id = r.ad_client_id
+		AND r.name = c.name || ' ' || rl.name
+WHERE c.ad_client_id > 999999;
+
 -- Remove included roles that shouldn't be there
 DELETE FROM ad_role_included ri
-USING ad_client c
+USING tmp_client_roles tcr
 WHERE included_role_id NOT IN (
 	SELECT dir.included_role_id
 	FROM bh_defaultincludedrole dir
-	JOIN ad_ref_list rl
-		ON dir.db_usertype = rl.value
-	JOIN ad_reference ref
-		ON ref.ad_reference_id = rl.ad_reference_id
-			AND ref.ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'
-	JOIN ad_role r
-		ON r.name = c.name || ' ' || rl.name
+	WHERE dir.db_usertype = tcr.db_usertype
 )
-	AND c.ad_client_id = ri.ad_client_id;
+	AND ri.ad_role_id = tcr.ad_role_id;
 
 -- Add included roles that should be there
 INSERT INTO ad_role_included (ad_client_id, ad_org_id, ad_role_id, created, createdby, included_role_id, isactive, seqno, updated, updatedby, ad_role_included_uu)
-SELECT r.ad_client_id, 0, r.ad_role_id, '2021-02-16 10:01:12.079000', 100, r.included_role_id, 'Y', 10, '2021-02-16 10:01:12.079000', 100, uuid_generate_v4()
-FROM (
-	SELECT c.ad_client_id, r.ad_role_id, dir.included_role_id
-	FROM bh_defaultincludedrole dir
-	JOIN ad_ref_list rl
-		ON rl.value = dir.db_usertype
-	JOIN ad_reference ref
-		ON ref.ad_reference_id = rl.ad_reference_id
-			AND ref.ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'
-	JOIN ad_client c
-		ON c.ad_client_id > 999999
-	JOIN ad_role r
-		ON r.ad_client_id = c.ad_client_id
-			AND r.name = c.name || ' ' || ref.name
-	WHERE included_role_id NOT IN (
-		SELECT ari.included_role_id
-		FROM ad_role_included ari
-		WHERE ari.ad_role_id = r.ad_role_id
-	)
-) r;
+SELECT tcr.ad_client_id, 0, tcr.ad_role_id, '2021-02-16 10:01:12.079000', 100, dir.included_role_id, 'Y', 10, '2021-02-16 10:01:12.079000', 100, uuid_generate_v4()
+FROM tmp_client_roles tcr
+JOIN bh_defaultincludedrole dir
+	ON dir.db_usertype = tcr.db_usertype
+WHERE dir.included_role_id NOT IN (
+	SELECT ri.included_role_id
+	FROM ad_role_included ri
+	WHERE ri.ad_role_id = tcr.ad_role_id
+);
 
 /**********************************************************************************************************/
 -- Configure document access for all roles
 /**********************************************************************************************************/
 -- Remove access that shouldn't be there
 DELETE FROM ad_document_action_access daa
-WHERE
+USING tmp_client_roles tcr
+WHERE ad_ref_list_id NOT IN (
+	SELECT ddaa.ad_ref_list_id
+	FROM bh_default_docaction_access ddaa
+	WHERE ddaa.db_usertype = tcr.db_usertype
+		AND daa.c_doctype_id = ddaa.c_doctype_id
+)
+	AND tcr.ad_role_id = daa.ad_role_id;
 
--- Add access that should be there (should be nothing, but just in case)
+-- Add access that should be there
+INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_doctype_id, ad_role_id, ad_ref_list_id, ad_document_action_access_uu)
+SELECT tcr.ad_client_id, 0, 'Y', '2021-02-16 10:01:12.079000', 100, '2021-02-16 10:01:12.079000', 100, ddaa.c_doctype_id, tcr.ad_role_id, ddaa.ad_ref_list_id, uuid_generate_v4()
+FROM tmp_client_roles tcr
+JOIN bh_default_docaction_access ddaa
+	ON tcr.db_usertype = ddaa.db_usertype
+WHERE ddaa.ad_ref_list_id NOT IN (
+	SELECT daa.ad_ref_list_id
+	FROM ad_document_action_access daa
+	WHERE tcr.ad_role_id = daa.ad_role_id
+		AND daa.c_doctype_id = ddaa.c_doctype_id
+);
 
+/**********************************************************************************************************/
 -- Update the users to have the new roles
+/**********************************************************************************************************/
 UPDATE ad_user_roles aur
 SET ad_role_id = r.ad_role_id
 FROM ad_user u
@@ -406,17 +435,20 @@ WHERE u.ad_user_id = aur.ad_user_id
 -- Add the new clinic admin role to all current admin users
 /**********************************************************************************************************/
 INSERT INTO ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, ad_user_roles_uu)
-SELECT 100, clientadminrole.ad_role_id, aur.ad_client_id, aur.ad_org_id, 'Y', '2021-02-16 10:01:12.079000', 100, '2021-02-16 10:01:12.079000', 100, uuid_generate_v4()
+SELECT aur.ad_user_id, clinicadminrole.ad_role_id, aur.ad_client_id, aur.ad_org_id, 'Y', '2021-02-16 10:01:12.079000', 100, '2021-02-16 10:01:12.079000', 100, uuid_generate_v4()
 FROM ad_user_roles aur
 JOIN ad_role adminrole
 	ON adminrole.ad_role_id = aur.ad_role_id
 JOIN ad_client c
-	ON c.ad_client_id = r.ad_client_id
-JOIN ad_role clientadminrole
+	ON c.ad_client_id = adminrole.ad_client_id
+JOIN ad_role clinicadminrole
 	ON clinicadminrole.name = c.name || ' Clinic Admin'
 WHERE adminrole.name = c.name || ' Admin';
 
 -- Clean up
-DROP TABLE tmp_bh_default_docaction_access;
+DROP TABLE tmp_def_docaction_access;
+DROP TABLE tmp_client_roles;
+DROP TABLE tmp_views;
+DROP TABLE tmp_ad_role;
 
 SELECT register_migration_script('202101280924_GO-1480.sql') FROM dual;
