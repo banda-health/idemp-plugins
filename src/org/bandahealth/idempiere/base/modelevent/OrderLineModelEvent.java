@@ -6,10 +6,10 @@ import java.util.Date;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
-import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
@@ -28,11 +28,11 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		MOrder order = null;
+		MOrder_BH order = null;
 		MOrderLine_BH orderLine = null;
 		PO persistantObject = getPO(event);
-		if (persistantObject instanceof MOrder) {
-			order = (MOrder) persistantObject;
+		if (persistantObject instanceof MOrder_BH) {
+			order = (MOrder_BH) persistantObject;
 			if (order.isSOTrx()) {
 				return;
 			}
@@ -56,7 +56,7 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 	 * @param orderLine
 	 */
 	private void beforeSaveRequest(MOrderLine_BH orderLine) {
-		MOrder order = (MOrder) orderLine.getC_Order();
+		MOrder_BH order = (MOrder_BH) orderLine.getC_Order();
 		boolean isReceiveGoods = !order.isSOTrx();
 		if (!order.isComplete() && (isReceiveGoods || orderLine.getBH_Expiration() != null)) {
 			receiveGoodsBeforeSaveRequest(orderLine);
@@ -76,7 +76,7 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 		}
 	}
 
-	private void createMaterialReceiptFromOrder(MOrder order) {
+	private void createMaterialReceiptFromOrder(MOrder_BH order) {
 		// Create Material Receipt header
 		Timestamp movementDate = order.getDateOrdered() != null ? order.getDateOrdered()
 				: new Timestamp(System.currentTimeMillis());
