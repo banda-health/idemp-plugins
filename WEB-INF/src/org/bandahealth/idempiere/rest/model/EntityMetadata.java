@@ -19,6 +19,7 @@ public class EntityMetadata {
 	private List<NHIFRelationship> nhifRelationships;
 	private List<Referral> referrals;
 	private List<BaseEntity> productCategoryTypes;
+	private List<ProcessStage> processStageList;
 
 	public EntityMetadata() {
 		orderPaymentTypes = new ArrayList<>();
@@ -28,6 +29,7 @@ public class EntityMetadata {
 		nhifRelationships = new ArrayList<>();
 		referrals = new ArrayList<>();
 		productCategoryTypes = new ArrayList<>();
+		processStageList = new ArrayList<>();
 	}
 
 	public List<PaymentType> getOrderPaymentTypes() {
@@ -112,5 +114,9 @@ public class EntityMetadata {
 
 	public void addProductCategoryType(BaseEntity entity) {
 		productCategoryTypes.add(entity);
+	}
+
+	public void addProcessStageList(ProcessStage instance) {
+		this.processStageList.add(instance);
 	}
 }

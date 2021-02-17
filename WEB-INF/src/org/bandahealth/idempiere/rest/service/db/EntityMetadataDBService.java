@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.rest.model.NHIFRelationship;
 import org.bandahealth.idempiere.rest.model.NHIFType;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.PaymentType;
+import org.bandahealth.idempiere.rest.model.ProcessStage;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
@@ -21,7 +22,6 @@ import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
 
@@ -41,6 +41,7 @@ public class EntityMetadataDBService {
 	public final static String PAYMENT_TYPE_LIMIT = "C_Payment Tender Type Limit";
 	public final static String DOCUMENT_STATUS = "_Document Status";
 	public final static String PRODUCT_CATEGORY_TYPE = "BH Product Category Type";
+	public final static String PROCESS_STAGE = "BH_Process_Stage";
 	private final CLogger logger = CLogger.getCLogger(EntityMetadataDBService.class);
 
 	public EntityMetadata getAll() {
@@ -94,6 +95,13 @@ public class EntityMetadataDBService {
 			metadata.addProductCategoryType(new BaseEntity(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
 					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 					instance.getCreatedBy(), instance.getName(), instance.getDescription(), instance.getValue()));
+		}
+		
+		// retrieve process stage
+		for (MRefList instance : getTypes(PROCESS_STAGE)) {
+			metadata.addProcessStageList(new ProcessStage(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
+					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
+					instance.getCreatedBy(), instance.getName(), instance.getValue()));
 		}
 
 		return metadata;

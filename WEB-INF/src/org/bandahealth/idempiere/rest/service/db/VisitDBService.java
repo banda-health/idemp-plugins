@@ -20,6 +20,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
+import org.bandahealth.idempiere.rest.model.ProcessStage;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
@@ -145,6 +146,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			}
 		}
 
+		if (entity.getProcessStage() != null && entity.getProcessStage().getValue() != null) {
+			mOrder.setBH_ProcessStage(entity.getProcessStage().getValue());
+		}
+
 		mOrder.setIsSOTrx(true);
 
 	}
@@ -255,7 +260,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
-					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null);
+					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null,
+					new ProcessStage(instance.getBH_ProcessStage()));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -481,7 +487,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (userId == null) {
 			return null;
 		}
-		
+
 		return userDBService.getClinicians(null).stream().filter(user -> user.getAD_User_ID() == userId).findFirst()
 				.orElse(null);
 	}
