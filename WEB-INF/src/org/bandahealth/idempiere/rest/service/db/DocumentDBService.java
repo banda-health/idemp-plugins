@@ -91,7 +91,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	/**
 	 * Determine if the current user has access to the document action they're trying to perform
 	 *
-	 * @param docAction The document action to perform (i.e. ACTION_Void, ACTION_Complete
+	 * @param docAction The document action to perform (i.e. ACTION_Void, ACTION_Complete)
 	 * @return Whether the user has access to process an entity a certain way
 	 */
 	private boolean doesUserHaveAccessToDocAction(String docAction) {

@@ -13,11 +13,8 @@ import org.compiere.model.Query;
 import org.compiere.model.SystemIDs;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
