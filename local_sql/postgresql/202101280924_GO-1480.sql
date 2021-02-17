@@ -397,20 +397,29 @@ WHERE dir.included_role_id NOT IN (
 -- Remove access that shouldn't be there
 DELETE FROM ad_document_action_access daa
 USING tmp_client_roles tcr
+JOIN c_doctype dt
+	ON daa.c_doctype_id = dt.c_doctype_id
 WHERE ad_ref_list_id NOT IN (
 	SELECT ddaa.ad_ref_list_id
 	FROM bh_default_docaction_access ddaa
+	JOIN c_doctype dts
+		ON ddaa.c_doctype_id = dts.c_doctype_id
 	WHERE ddaa.db_usertype = tcr.db_usertype
-		AND daa.c_doctype_id = ddaa.c_doctype_id
+		AND daa.name = ddaa.name
 )
 	AND tcr.ad_role_id = daa.ad_role_id;
 
 -- Add access that should be there
 INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_doctype_id, ad_role_id, ad_ref_list_id, ad_document_action_access_uu)
-SELECT tcr.ad_client_id, 0, 'Y', '2021-02-16 10:01:12.079000', 100, '2021-02-16 10:01:12.079000', 100, ddaa.c_doctype_id, tcr.ad_role_id, ddaa.ad_ref_list_id, uuid_generate_v4()
+SELECT tcr.ad_client_id, 0, 'Y', '2021-02-16 10:01:12.079000', 100, '2021-02-16 10:01:12.079000', 100, dtc.c_doctype_id, tcr.ad_role_id, ddaa.ad_ref_list_id, uuid_generate_v4()
 FROM tmp_client_roles tcr
 JOIN bh_default_docaction_access ddaa
 	ON tcr.db_usertype = ddaa.db_usertype
+JOIN c_doctype dts
+	ON ddaa.c_doctype_id = dts.c_doctype_id
+JOIN c_doctype dtc
+	ON dts.name = dtc.name
+		AND dtc.ad_client_id = tcr.ad_client_id
 WHERE ddaa.ad_ref_list_id NOT IN (
 	SELECT daa.ad_ref_list_id
 	FROM ad_document_action_access daa
