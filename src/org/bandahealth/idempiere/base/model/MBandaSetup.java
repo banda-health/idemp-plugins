@@ -520,7 +520,7 @@ public class MBandaSetup {
 
 		// We need to get a map of the default doc action exclusion IDs (which are for System) and map them to the ones
 		// assigned to this client
-		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that
+//		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient =
 				new Query(context, MDocType.Table_Name, MDocType.COLUMNNAME_AD_Client_ID + " IN (0,?)",
 						transaction.getTrxName()).setParameters(getAD_Client_ID()).list();
@@ -531,7 +531,7 @@ public class MBandaSetup {
 										docType -> docType.getAD_Client_ID() != 0 && docType.getName().equals(systemDocType.getName()))
 								.findFirst().map(MDocType::getC_DocType_ID).orElse(0)
 						));
-		PO.clearCrossTenantSafe(); // disable what was done previously
+//		PO.clearCrossTenantSafe(); // disable what was done previously // <- uncomment for iDempiere-8.2+
 
 		// Get all access for the roles we'll configure
 		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(Env.getCtx(),
