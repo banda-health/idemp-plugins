@@ -78,6 +78,11 @@ public interface IRestConfigs {
 
 	String ACCOUNTS_PATH = AUTHENTICATION_PATH + "/accounts";
 	String ACCOUNTS_UUID_PATH = "/account/{uuid}";
+	
+	String USERS_PATH = AUTHENTICATION_PATH + "/users";
+	String CLINICIANS_PATH = "/clinicians";
 
 	String APPLICATION_PDF = "application/pdf";
+
+	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
 }

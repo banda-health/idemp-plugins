@@ -33,6 +33,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="ExpenseServiceBean" />
 			<ref bean="ReceiveProductServiceBean" />
 			<ref bean="ReportServiceBean" />
+			<ref bean="UserServiceBean" />
+			<bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -104,6 +106,9 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<bean id="ReportServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.ReportRestService" />
+		
+	<bean id="UserServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.UserRestService" />
 		
 	<bean id="duplicateEntitySaveExceptionMapper" 
 		class="org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveExceptionMapper"/>

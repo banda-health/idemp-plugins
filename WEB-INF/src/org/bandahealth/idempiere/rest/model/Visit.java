@@ -26,6 +26,7 @@ public class Visit extends Order {
 	private String height;
 	private String weight;
 	private String secondDiagnosis;
+	private User clinician;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -35,7 +36,8 @@ public class Visit extends Order {
 			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis,
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
-			String respiratoryRate, String bloodPressure, String height, String weight, String secondDiagnosis) {
+			String respiratoryRate, String bloodPressure, String height, String weight, String secondDiagnosis,
+			User clinician) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
 				orderLines, payments, documentStatus);
 
@@ -53,6 +55,7 @@ public class Visit extends Order {
 		this.height = height;
 		this.weight = weight;
 		this.secondDiagnosis = secondDiagnosis;
+		this.clinician = clinician;
 
 		setIsSalesOrderTransaction(true);
 	}
@@ -211,4 +214,12 @@ public class Visit extends Order {
 		this.secondDiagnosis = secondDiagnosis;
 	}
 
+	@XmlElement
+	public User getClinician() {
+		return clinician;
+	}
+
+	public void setClinician(User clinician) {
+		this.clinician = clinician;
+	}
 }
