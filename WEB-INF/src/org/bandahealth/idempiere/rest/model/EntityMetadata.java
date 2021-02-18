@@ -87,6 +87,14 @@ public class EntityMetadata {
 	public void setProductCategoryTypes(List<BaseEntity> productCategoryTypes) {
 		this.productCategoryTypes = productCategoryTypes;
 	}
+	
+	public List<ProcessStage> getProcessStageList() {
+		return processStageList;
+	}
+
+	public void setProcessStageList(List<ProcessStage> processStageList) {
+		this.processStageList = processStageList;
+	}
 
 	public void addPatientType(PatientType entity) {
 		patientTypes.add(entity);
@@ -116,7 +124,7 @@ public class EntityMetadata {
 		productCategoryTypes.add(entity);
 	}
 
-	public void addProcessStageList(ProcessStage instance) {
-		this.processStageList.add(instance);
+	public void addProcessStageList(ProcessStage entity) {
+		processStageList.add(entity);
 	}
 }
