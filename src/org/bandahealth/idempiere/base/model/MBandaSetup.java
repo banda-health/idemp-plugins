@@ -455,9 +455,10 @@ public class MBandaSetup {
 				.setParameters(getAD_Client_ID())
 				.list();
 		Map<MRefList, MRole> rolesToConfigureByDBUserType = userTypeValues.stream().collect(HashMap::new,
-				(m, v) -> m.put(v,
+				(rolesToConfigureByDBUserTypeTemp, userTypeValue) -> rolesToConfigureByDBUserTypeTemp.put(userTypeValue,
 						clientRoles.stream().filter(
-								cr -> cr.getName().equals(MBandaSetup.getRoleName(client.getName(), v.getName()))).findFirst()
+								clientRole -> clientRole.getName()
+										.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName()))).findFirst()
 								.orElse(null)),
 				HashMap::putAll);
 
@@ -520,7 +521,8 @@ public class MBandaSetup {
 
 		// We need to get a map of the default doc action exclusion IDs (which are for System) and map them to the ones
 		// assigned to this client
-//		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for iDempiere-8.2+
+//		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for
+//		iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient =
 				new Query(context, MDocType.Table_Name, MDocType.COLUMNNAME_AD_Client_ID + " IN (0,?)",
 						transaction.getTrxName()).setParameters(getAD_Client_ID()).list();

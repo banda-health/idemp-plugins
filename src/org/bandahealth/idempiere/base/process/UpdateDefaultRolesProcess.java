@@ -164,16 +164,21 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 								MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "." +
 								MRefList.COLUMNNAME_AD_Reference_ID)
 						.setParameters(MBandaSetup.DB_USERTYPE_Admin, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+
+		// If the admin reference list doesn't exist, there's a big problem...
+		if (adminReferenceList == null) {
+			throw new AdempiereException("Admin role suffix (a reference list) not found in system");
+		}
+
 		// Now get the admin roles
-		List<MRole> adminRoles = getClientRolesBySuffix(MBandaSetup.getRoleName("", adminReferenceList.getName()));
+		List<MRole> adminRoles = getClientRolesBySuffix(clients, MBandaSetup.getRoleName("",
+				adminReferenceList.getName()));
 
 		// There may be multiple roles for a client that are suffixed with the adminReferenceList value, so get the one
 		// that was created first
 		Map<Integer, MRole> adminRolesByClientId =
 				adminRoles.stream().collect(Collectors.groupingBy(MRole::getAD_Client_ID)).entrySet().stream().collect(
-						Collectors.toMap(Map.Entry::getKey,
-								v -> v.getValue().stream().sorted(Comparator.comparing(PO::getCreated)).collect(Collectors.toList())
-										.get(0)));
+						Collectors.toMap(Map.Entry::getKey, adminRolesForClient -> adminRolesForClient.getValue().get(0)));
 
 		// Get all users assigned the admin role
 		List<Object> parameters = new ArrayList<>();
@@ -196,13 +201,15 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 	 * @param roleSuffix The role name to check for after a client's name
 	 * @return All roles that are assigned to the client matching that role suffix
 	 */
-	private List<MRole> getClientRolesBySuffix(String roleSuffix) {
+	private List<MRole> getClientRolesBySuffix(List<MClient> clients, String roleSuffix) {
 		return new Query(getCtx(), MRole.Table_Name,
 				MRole.Table_Name + "." + MRole.COLUMNNAME_Name + "=" + MClient.Table_Name + "." + MClient.COLUMNNAME_Name +
-						" || ?", get_TrxName())
+						" || ? AND " + MClient.Table_Name + "." + MClient.COLUMNNAME_AD_Client_ID + " IN (" +
+						clients.stream().map(client -> Integer.toString(client.getAD_Client_ID())).collect(
+								Collectors.joining(",")) + ")", get_TrxName())
 				.addJoinClause(
 						" JOIN " + MClient.Table_Name + " ON " + MClient.Table_Name + "." + MClient.COLUMNNAME_AD_Client_ID +
 								"=" + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Client_ID)
-				.setParameters(roleSuffix).list();
+				.setParameters(roleSuffix).setOrderBy(MRole.Table_Name + "." + MRole.COLUMNNAME_Created + " ASC").list();
 	}
 }

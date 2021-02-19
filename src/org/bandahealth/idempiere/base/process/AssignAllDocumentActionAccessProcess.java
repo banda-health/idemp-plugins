@@ -67,9 +67,9 @@ public class AssignAllDocumentActionAccessProcess extends SvrProcess {
 						.setParameters(MReference_BH.DOCUMENT_ACTION_AD_REFERENCE_ID).list();
 
 		// Do a cross join on our lists to get what all doc action access should be
-		List<Integer[]> docActionAccess = new ArrayList<>();
+		List<Integer[]> documentActionAccessList = new ArrayList<>();
 		documentTypes.forEach(documentType -> documentActions.forEach(documentAction -> {
-			docActionAccess.add(new Integer[]{documentType.getC_DocType_ID(), documentAction.getAD_Ref_List_ID()});
+			documentActionAccessList.add(new Integer[]{documentType.getC_DocType_ID(), documentAction.getAD_Ref_List_ID()});
 		}));
 
 		// Get the currently assigned access
@@ -79,9 +79,9 @@ public class AssignAllDocumentActionAccessProcess extends SvrProcess {
 
 		// For each access that isn't already added, add it
 		AtomicInteger rowsAdded = new AtomicInteger(0);
-		docActionAccess.stream().filter(access -> currentDefaultAccess.stream().noneMatch(
-				defaultAccess -> defaultAccess.getC_DocType_ID() == access[0] &&
-						defaultAccess.getAD_Ref_List_ID() == access[1])).forEach(accessToAdd -> {
+		documentActionAccessList.stream().filter(documentActionAccess -> currentDefaultAccess.stream().noneMatch(
+				defaultAccess -> defaultAccess.getC_DocType_ID() == documentActionAccess[0] &&
+						defaultAccess.getAD_Ref_List_ID() == documentActionAccess[1])).forEach(accessToAdd -> {
 			MBHDefaultDocActionAccess defaultDocActionAccess = new MBHDefaultDocActionAccess(getCtx(), 0, get_TrxName());
 			defaultDocActionAccess.setC_DocType_ID(accessToAdd[0]);
 			defaultDocActionAccess.setAD_Ref_List_ID(accessToAdd[1]);
