@@ -28,16 +28,20 @@ public class ReferenceListRestService {
 	@Path("/documentActionAccess")
 	public Map<String, List<ReferenceList>> getDocumentActionAccessByDocumentType() {
 		return dataService.getDocumentActionAccessByDocumentType().entrySet()
-				.stream().collect(Collectors.toMap(k -> k.getKey().getDocBaseType(),
-						v -> v.getValue().stream().map(ReferenceList::new).collect(Collectors.toList())));
+				.stream().collect(Collectors.toMap(
+						documentActionAccessByDocumentTypeEntry -> documentActionAccessByDocumentTypeEntry.getKey()
+								.getDocBaseType(),
+						documentActionAccessByDocumentTypeEntry -> documentActionAccessByDocumentTypeEntry.getValue().stream()
+								.map(ReferenceList::new).collect(Collectors.toList())));
 	}
 
 	@GET
 	@Path("/documentStatusActionMap")
 	public Map<String, Map<String, List<String>>> getDocumentStatusActionMap() {
 		return dataService.getDocumentStatusActionMap().entrySet()
-				.stream().collect(Collectors.toMap(k -> k.getKey().getDocBaseType(),
-						refListMap -> refListMap.getValue().entrySet().stream()
-								.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue))));
+				.stream().collect(
+						Collectors.toMap(documentStatusActionMapEntry -> documentStatusActionMapEntry.getKey().getDocBaseType(),
+								documentStatusActionMapEntry -> documentStatusActionMapEntry.getValue().entrySet().stream()
+										.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue))));
 	}
 }
