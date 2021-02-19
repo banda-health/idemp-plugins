@@ -25,6 +25,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * This is responsible for updating existing clients with changes made to the default roles
+ */
 public class UpdateDefaultRolesProcess extends SvrProcess {
 	public static final String PARAMETERNAME_AD_REF_LIST_ID = "ad_ref_list_id";
 	public static final String PARAMETERNAME_UPDATE_EXISTING = "updateexisting";
@@ -57,7 +60,8 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 	protected String doIt() throws Exception {
 		// Get all clients in the system with IDs greater than 999999
 		List<MClient> clients =
-				new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + ">999999", get_TrxName()).list();
+				new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + ">999999", get_TrxName())
+						.setOnlyActiveRecords(true).list();
 		MRefList defaultRoleReferenceList =
 				new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_ID + "=?", get_TrxName())
 						.setParameters(referenceListId).first();
@@ -67,7 +71,7 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 
 		// Get the associated roles for this client; if the roles don't exist, add them; if they do exist and we're
 		// supposed to update them, do so
-		List<MRole> rolesToUpdate = getClientRolesBySuffix(MBandaSetup.getRoleName("",
+		List<MRole> rolesToUpdate = getClientRolesBySuffix(clients, MBandaSetup.getRoleName("",
 				defaultRoleReferenceList.getName()));
 
 		// Get all the organizations for these clients

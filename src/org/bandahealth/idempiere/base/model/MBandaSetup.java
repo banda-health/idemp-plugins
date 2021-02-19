@@ -18,7 +18,6 @@ import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -98,7 +96,7 @@ public class MBandaSetup {
 				this.context,
 				MAcctSchema.Table_Name,
 				MAcctSchema.COLUMNNAME_AD_Client_ID + "=?",
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setParameters(getAD_Client_ID())
 				.first();
@@ -131,7 +129,7 @@ public class MBandaSetup {
 				context,
 				MAcctSchemaDefault.Table_Name,
 				MAcctSchemaDefault.COLUMNNAME_AD_Client_ID + "=?",
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setParameters(getAD_Client_ID())
 				.first();
@@ -151,9 +149,9 @@ public class MBandaSetup {
 		 * to B_Asset. So, we need to make the B_Asset account match the B_InTransit account.
 		 */
 		MAccount assetAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getB_Asset_Acct(), transaction.getTrxName());
+				.getPO(acctSchemaDefault.getB_Asset_Acct(), getTransactionName());
 		MAccount inTransitAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getB_InTransit_Acct(), transaction.getTrxName());
+				.getPO(acctSchemaDefault.getB_InTransit_Acct(), getTransactionName());
 		if (assetAccount == null || inTransitAccount == null) {
 			String errorMessage = "B_Asset and/or B_InTransit accounts do not exist";
 			log.log(Level.SEVERE, errorMessage);
@@ -180,9 +178,9 @@ public class MBandaSetup {
 		 * B_PaymentSelect account match the V_Liability account.
 		 */
 		MAccount paymentSelectAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getB_PaymentSelect_Acct(), transaction.getTrxName());
+				.getPO(acctSchemaDefault.getB_PaymentSelect_Acct(), getTransactionName());
 		MAccount liabilityAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
-				.getPO(acctSchemaDefault.getV_Liability_Acct(), transaction.getTrxName());
+				.getPO(acctSchemaDefault.getV_Liability_Acct(), getTransactionName());
 		if (paymentSelectAccount == null || liabilityAccount == null) {
 			String errorMessage = "B_PaymentSelect and/or V_Liability accounts do not exist";
 			log.log(Level.SEVERE, errorMessage);
@@ -216,7 +214,7 @@ public class MBandaSetup {
 	public boolean createBankAccounts(boolean wantsCashBox, boolean wantsMobile, boolean wantsSavings) {
 		String clientName = client.getName();
 
-		MBank clientsBank = new MBank(context, 0, transaction.getTrxName());
+		MBank clientsBank = new MBank(context, 0, getTransactionName());
 		clientsBank.setName(clientName + SUFFIX_BANK_NAME);
 		clientsBank.setDescription(clientsBank.getName());
 		clientsBank.setRoutingNo(BANK_DEFAULT_ROUTING_NUMBER);
@@ -264,7 +262,7 @@ public class MBandaSetup {
 
 	public boolean addDefaultCharges() {
 		// First, create the default charge category
-		MChargeType_BH defaultCategory = new MChargeType_BH(context, 0, transaction.getTrxName());
+		MChargeType_BH defaultCategory = new MChargeType_BH(context, 0, getTransactionName());
 		defaultCategory.setName(MChargeType_BH.CHARGETYPENAME_DEFAULT_CATEGORY);
 		if (!defaultCategory.save()) {
 			String errorMessage = "Default Category Charge Type NOT inserted";
@@ -280,14 +278,14 @@ public class MBandaSetup {
 				context,
 				MBHChargeDefault.Table_Name,
 				null,
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setOnlyActiveRecords(true)
 				.list();
 
 		for (MBHChargeDefault defaultCharge : defaultCharges) {
 			// Create a new charge based on this default charge
-			MCharge_BH chargeToAdd = new MCharge_BH(context, 0, transaction.getTrxName());
+			MCharge_BH chargeToAdd = new MCharge_BH(context, 0, getTransactionName());
 			chargeToAdd.setName(defaultCharge.getName());
 			chargeToAdd.setDescription(defaultCharge.getDescription());
 			chargeToAdd.setBH_Locked(true);
@@ -316,7 +314,7 @@ public class MBandaSetup {
 					context,
 					X_C_Charge_Acct.Table_Name,
 					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
-					transaction.getTrxName()
+					getTransactionName()
 			)
 					.setParameters(chargeToAdd.getC_Charge_ID())
 					.first();
@@ -354,15 +352,15 @@ public class MBandaSetup {
 				context,
 				MBHProductCategoryDefault.Table_Name,
 				null,
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setOnlyActiveRecords(true)
 				.list();
 
 		for (MBHProductCategoryDefault defaultProductCategory : defaultProductCategories) {
 			// Create a new product category based on this default product category
-			MProductCategory_BH productCategoryToAdd = new MProductCategory_BH(context, 0, transaction.getTrxName());
-			productCategoryToAdd.setAD_Org_ID(organization.getAD_Org_ID());
+			MProductCategory_BH productCategoryToAdd = new MProductCategory_BH(context, 0, getTransactionName());
+			productCategoryToAdd.setAD_Org_ID(getAD_Org_ID());
 			productCategoryToAdd.setName(defaultProductCategory.getName());
 			productCategoryToAdd.setIsActive(true);
 			productCategoryToAdd.setIsDefault(false);
@@ -392,7 +390,7 @@ public class MBandaSetup {
 					context,
 					MProductCategoryAcct.Table_Name,
 					MProductCategoryAcct.COLUMNNAME_M_Product_Category_ID + "=?",
-					transaction.getTrxName()
+					getTransactionName()
 			)
 					.setParameters(productCategoryToAdd.getM_Product_Category_ID())
 					.first();
@@ -432,7 +430,7 @@ public class MBandaSetup {
 		}
 
 		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
-				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", transaction.getTrxName())
+				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
 				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 		if (userType == null) {
 			log.log(Level.SEVERE, "User type reference not defined");
@@ -440,7 +438,7 @@ public class MBandaSetup {
 		}
 
 		List<MRefList> userTypeValues = new Query(Env.getCtx(), MRefList.Table_Name,
-				MRefList.COLUMNNAME_AD_Reference_ID + "=?", transaction.getTrxName())
+				MRefList.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
 				.setParameters(userType.getAD_Reference_ID()).list();
 
 		if (!createAdditionalRoles(userTypeValues, usersToAddRolesTo)) {
@@ -451,7 +449,7 @@ public class MBandaSetup {
 		// Ensure all the roles are present from this point forward
 		// Get the roles for this client
 		List<MRole> clientRoles = new Query(context, MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
-				transaction.getTrxName())
+				getTransactionName())
 				.setParameters(getAD_Client_ID())
 				.list();
 		Map<MRefList, MRole> rolesToConfigureByDBUserType = userTypeValues.stream().collect(HashMap::new,
@@ -515,7 +513,7 @@ public class MBandaSetup {
 	private boolean handleDocumentActionAccess(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the document action access exclusion values
 		List<MBHDefaultDocActionAccess> defaultDocActionAccess = new Query(context,
-				MBHDefaultDocActionAccess.Table_Name, null, transaction.getTrxName())
+				MBHDefaultDocActionAccess.Table_Name, null, getTransactionName())
 				.setOnlyActiveRecords(true)
 				.list();
 
@@ -525,7 +523,7 @@ public class MBandaSetup {
 //		iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient =
 				new Query(context, MDocType.Table_Name, MDocType.COLUMNNAME_AD_Client_ID + " IN (0,?)",
-						transaction.getTrxName()).setParameters(getAD_Client_ID()).list();
+						getTransactionName()).setParameters(getAD_Client_ID()).list();
 		Map<Integer, Integer> clientDocTypeIdsBySystemDocTypeIds =
 				docTypesForSystemAndClient.stream().filter(docType -> docType.getAD_Client_ID() == 0).collect(Collectors
 						.toMap(MDocType::getC_DocType_ID, systemDocType -> docTypesForSystemAndClient.stream()
@@ -541,7 +539,7 @@ public class MBandaSetup {
 				rolesToConfigureByDBUserType.values().stream()
 						.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
 						.collect(Collectors.joining(",")) + ")",
-				transaction.getTrxName()).list();
+				getTransactionName()).list();
 		Map<Integer, List<X_AD_Document_Action_Access>> currentAccessByRole = currentAccessForRolesToConfigure.stream()
 				.collect(Collectors.groupingBy(X_AD_Document_Action_Access::getAD_Role_ID));
 
@@ -644,7 +642,7 @@ public class MBandaSetup {
 			return false;
 		}
 
-		MRole role = new MRole(context, 0, transaction.getTrxName());
+		MRole role = new MRole(context, 0, getTransactionName());
 		role.setName(roleName);
 		role.setIsAccessAdvanced(false);
 		if (!role.save()) {
@@ -663,7 +661,7 @@ public class MBandaSetup {
 		// Update the appropriate users to have access to this new role
 		usersToAddRoleTo.forEach(user -> {
 			MUserRoles userRole =
-					new MUserRoles(context, user.getAD_User_ID(), role.getAD_Role_ID(), transaction.getTrxName());
+					new MUserRoles(context, user.getAD_User_ID(), role.getAD_Role_ID(), getTransactionName());
 			userRole.saveEx();
 		});
 		return true;
@@ -678,7 +676,7 @@ public class MBandaSetup {
 	private boolean handleDefaultIncludedRoles(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the default role IDs to include
 		List<MBHDefaultIncludedRole> defaultIncludedRoles = new Query(context, MBHDefaultIncludedRole.Table_Name,
-				null, transaction.getTrxName())
+				null, getTransactionName())
 				.setOnlyActiveRecords(true)
 				.list();
 		int sequencerIncrement = 10;
@@ -710,7 +708,7 @@ public class MBandaSetup {
 					.filter(defaultIncludedRole -> currentIncludedRolesForThisRole.stream().noneMatch(
 							currentIncludedRole -> currentIncludedRole.getIncluded_Role_ID() ==
 									defaultIncludedRole.getIncluded_Role_ID())).forEach(includedRoleToAdd -> {
-				MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, transaction.getTrxName());
+				MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, getTransactionName());
 				roleIncluded.setIncluded_Role_ID(includedRoleToAdd.getIncluded_Role_ID());
 				roleIncluded.setAD_Role_ID(roleToConfigure.getAD_Role_ID());
 				int sequencerToUse = roleSequencers.get(roleToConfigure.getAD_Role_ID());
@@ -754,7 +752,7 @@ public class MBandaSetup {
 				context,
 				MReference.Table_Name,
 				MReference.COLUMNNAME_AD_Reference_UU + "=?",
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setParameters(MBandaSetup.REFERENCE_PAYMENT_REF_UU)
 				.first();
@@ -768,7 +766,7 @@ public class MBandaSetup {
 				context,
 				MRefTable.Table_Name,
 				MRefTable.COLUMNNAME_AD_Reference_ID + "=?",
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setParameters(paymentBankAccountMappingReference.getAD_Reference_ID())
 				.first();
@@ -784,15 +782,15 @@ public class MBandaSetup {
 				context,
 				MReference.Table_Name,
 				paymentBankAccountMappingsReferenceLimiting.getWhereClause(),
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.list();
 		if (referencesToCreatePaymentMappingsFor == null) {
 			referencesToCreatePaymentMappingsFor = new ArrayList<MReference>();
 		}
 		for (MReference referenceToCreatePaymentMappingsFor : referencesToCreatePaymentMappingsFor) {
-			MBHPaymentRef paymentRef = new MBHPaymentRef(context, 0, transaction.getTrxName());
-			paymentRef.setAD_Org_ID(organization.getAD_Org_ID());
+			MBHPaymentRef paymentRef = new MBHPaymentRef(context, 0, getTransactionName());
+			paymentRef.setAD_Org_ID(getAD_Org_ID());
 			paymentRef.setAD_Reference_ID(referenceToCreatePaymentMappingsFor.getAD_Reference_ID());
 			if (!paymentRef.save()) {
 				String errorMessage = "Payment Bank Account mapping NOT inserted";
@@ -819,11 +817,11 @@ public class MBandaSetup {
 	 */
 	private boolean createAndSaveBankAccount(String clientName, String accountName, boolean isDefault,
 			int bankId, String inTransitAccountValue) {
-		MBankAccount bankAccount = new MBankAccount(context, 0, transaction.getTrxName());
+		MBankAccount bankAccount = new MBankAccount(context, 0, getTransactionName());
 		bankAccount.setIsActive(true);
 		bankAccount.setIsDefault(isDefault);
 		bankAccount.setName(clientName + " " + accountName + SUFFIX_BANK_ACCOUNT_NAME);
-		bankAccount.setAD_Org_ID(organization.getAD_Org_ID());
+		bankAccount.setAD_Org_ID(getAD_Org_ID());
 		bankAccount.setC_Bank_ID(bankId);
 		bankAccount.setAccountNo(accountName + SUFFIX_BANK_ACCOUNT_NUMBER);
 		bankAccount.setC_Currency_ID(accountSchema.getC_Currency_ID());
@@ -862,7 +860,7 @@ public class MBandaSetup {
 				context,
 				X_C_BankAccount_Acct.Table_Name,
 				X_C_BankAccount_Acct.COLUMNNAME_C_BankAccount_ID + "=?",
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setParameters(bankAccount.getC_BankAccount_ID())
 				.first();
@@ -899,7 +897,7 @@ public class MBandaSetup {
 				context,
 				MElementValue.Table_Name,
 				MElementValue.COLUMNNAME_Value + "=? AND " + MElementValue.COLUMNNAME_AD_Client_ID + "=?",
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setParameters(accountValue, getAD_Client_ID())
 				.first();
@@ -911,7 +909,7 @@ public class MBandaSetup {
 				context,
 				MAccount.Table_Name,
 				MAccount.COLUMNNAME_AD_Client_ID + "=? AND " + MAccount.COLUMNNAME_Account_ID + "=?",
-				transaction.getTrxName()
+				getTransactionName()
 		)
 				.setParameters(accountElement.getAD_Client_ID(), accountElement.getC_ElementValue_ID())
 				.first();
@@ -919,7 +917,7 @@ public class MBandaSetup {
 			return account;
 		}
 
-		account = new MAccount(context, 0, transaction.getTrxName());
+		account = new MAccount(context, 0, getTransactionName());
 		account.setC_AcctSchema_ID(accountSchema.getC_AcctSchema_ID());
 		account.setAccount_ID(accountElement.getC_ElementValue_ID());
 		account.setValueDescription();

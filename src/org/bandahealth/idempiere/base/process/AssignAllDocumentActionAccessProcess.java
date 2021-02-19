@@ -28,6 +28,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * This is meant to assign all document actions to a new default role that's created (rather than the user having
+ * to manually add all 658 of them)
+ */
 public class AssignAllDocumentActionAccessProcess extends SvrProcess {
 	public static final String PARAMETERNAME_AD_REF_LIST_ID = "ad_ref_list_id";
 
@@ -54,6 +58,10 @@ public class AssignAllDocumentActionAccessProcess extends SvrProcess {
 		MRefList userTypeRefList =
 				new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_ID + "=?", get_TrxName())
 						.setParameters(referenceListId).first();
+		if (userTypeRefList == null) {
+			throw new AdempiereException("Reference List ID passed in doesn't match any in the system.");
+		}
+
 		String dbUserTypeValue = userTypeRefList.getValue();
 
 		// Get a list of all document types (that aren't the **New** one)
