@@ -99,9 +99,7 @@ public class EntityMetadataDBService {
 		
 		// retrieve process stage
 		for (MRefList instance : getTypes(PROCESS_STAGE)) {
-			metadata.addProcessStageList(new ProcessStage(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
-					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-					instance.getCreatedBy(), instance.getName(), instance.getValue()));
+			metadata.addProcessStageList(new ProcessStage(instance));
 		}
 
 		return metadata;
