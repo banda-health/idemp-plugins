@@ -424,7 +424,7 @@ WHERE ddaa.ad_ref_list_id NOT IN (
 	SELECT daa.ad_ref_list_id
 	FROM ad_document_action_access daa
 	WHERE tcr.ad_role_id = daa.ad_role_id
-		AND daa.c_doctype_id = ddaa.c_doctype_id
+		AND dtc.name = dts.name
 );
 
 /**********************************************************************************************************/
