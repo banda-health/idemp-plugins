@@ -397,17 +397,17 @@ WHERE dir.included_role_id NOT IN (
 -- Remove access that shouldn't be there
 DELETE FROM ad_document_action_access daa
 USING tmp_client_roles tcr
-JOIN c_doctype dt
-	ON daa.c_doctype_id = dt.c_doctype_id
+CROSS JOIN c_doctype dtc
 WHERE ad_ref_list_id NOT IN (
 	SELECT ddaa.ad_ref_list_id
 	FROM bh_default_docaction_access ddaa
 	JOIN c_doctype dts
 		ON ddaa.c_doctype_id = dts.c_doctype_id
 	WHERE ddaa.db_usertype = tcr.db_usertype
-		AND daa.name = ddaa.name
+		AND dtc.name = dts.name
 )
-	AND tcr.ad_role_id = daa.ad_role_id;
+	AND tcr.ad_role_id = daa.ad_role_id
+	AND daa.c_doctype_id = dtc.c_doctype_id;
 
 -- Add access that should be there
 INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_doctype_id, ad_role_id, ad_ref_list_id, ad_document_action_access_uu)
