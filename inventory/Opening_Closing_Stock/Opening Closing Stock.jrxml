@@ -86,7 +86,6 @@ select m_product_id,
 from m_product_stock_v
 where ad_client_id = $P{AD_CLIENT_ID}
     and isactive = 'Y'
-    and qtyonhand >= 0
     and (date(updated) <= date($P{End Date}))
 group by m_product_id
      ) as currentqty on currentqty.m_product_id = productname.m_product_id
@@ -264,7 +263,7 @@ limit 1;]]>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</jr:columnFooter>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="280" height="15" uuid="5787820a-0aaf-40bf-bd59-0afac03294e6"/>
 								<textElement verticalAlignment="Middle">
 									<paragraph leftIndent="2"/>
