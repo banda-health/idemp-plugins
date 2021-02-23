@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.base.process;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -66,8 +67,8 @@ public class AssignAllDocumentActionAccessProcess extends SvrProcess {
 
 		// Get a list of all document types (that aren't the **New** one)
 		List<MDocType> documentTypes =
-				new Query(getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_C_DocType_ID + ">0", get_TrxName()).setClient_ID()
-						.list();
+				new Query(getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_C_DocType_ID + ">?", get_TrxName()).setParameters(
+						MDocType_BH.DOCTYPEID_NEW).setClient_ID().list();
 
 		// Get a list of the right reference lists
 		List<MRefList> documentActions =

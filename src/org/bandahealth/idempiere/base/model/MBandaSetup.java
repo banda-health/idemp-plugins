@@ -522,8 +522,8 @@ public class MBandaSetup {
 //		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for
 //		iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient =
-				new Query(context, MDocType.Table_Name, MDocType.COLUMNNAME_AD_Client_ID + " IN (0,?)",
-						getTransactionName()).setParameters(getAD_Client_ID()).list();
+				new Query(context, MDocType.Table_Name, MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)",
+						getTransactionName()).setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
 		Map<Integer, Integer> clientDocTypeIdsBySystemDocTypeIds =
 				docTypesForSystemAndClient.stream().filter(docType -> docType.getAD_Client_ID() == 0).collect(Collectors
 						.toMap(MDocType::getC_DocType_ID, systemDocType -> docTypesForSystemAndClient.stream()

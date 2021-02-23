@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.process;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -60,8 +61,8 @@ public class UpdateDefaultRolesProcess extends SvrProcess {
 	protected String doIt() throws Exception {
 		// Get all clients in the system with IDs greater than 999999
 		List<MClient> clients =
-				new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + ">999999", get_TrxName())
-						.setOnlyActiveRecords(true).list();
+				new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + ">?", get_TrxName()).setParameters(
+						MClient_BH.CLIENTID_LAST_SYSTEM).setOnlyActiveRecords(true).list();
 		MRefList defaultRoleReferenceList =
 				new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_ID + "=?", get_TrxName())
 						.setParameters(referenceListId).first();
