@@ -263,7 +263,7 @@ limit 1;]]>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</jr:columnFooter>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField textAdjust="StretchHeight">
+-							<textField isStretchWithOverflow="true">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="280" height="15" uuid="5787820a-0aaf-40bf-bd59-0afac03294e6"/>
 								<textElement verticalAlignment="Middle">
 									<paragraph leftIndent="2"/>
