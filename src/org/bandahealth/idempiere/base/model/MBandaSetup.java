@@ -999,6 +999,6 @@ public class MBandaSetup {
 	}
 
 	public void resetInfo() {
-		info = new StringBuffer();
+		info.setLength(0);
 	}
 }
