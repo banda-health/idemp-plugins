@@ -19,10 +19,14 @@ public class ModelUtil {
 		if (propertyValue == null) {
 			return;
 		}
-		if (propertyValue instanceof String && !StringUtil.isNullOrEmpty(propertyValue.toString())) {
-			propertySetter.apply(propertyValue);
-		} else if (propertyValue instanceof List<?> && !((List<?>) propertyValue).isEmpty()) {
-			propertySetter.apply(propertyValue);
+		if (propertyValue instanceof String) {
+			if (!StringUtil.isNullOrEmpty(propertyValue.toString())) {
+				propertySetter.apply(propertyValue);
+			}
+		} else if (propertyValue instanceof List<?>) {
+			if (!((List<?>) propertyValue).isEmpty()) {
+				propertySetter.apply(propertyValue);
+			}
 		} else {
 			propertySetter.apply(propertyValue);
 		}
