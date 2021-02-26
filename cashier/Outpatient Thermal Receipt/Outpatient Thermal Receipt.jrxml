@@ -233,9 +233,7 @@ where sorder.c_order_id =  $P{billId}
 				<reportElement key="" x="0" y="1" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
 			</line>
 			<line>
-				<reportElement key="" x="0" y="100" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240">
-					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
-				</reportElement>
+				<reportElement key="" x="0" y="100" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
 			</line>
 			<staticText>
 				<reportElement key="" x="2" y="52" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
@@ -259,7 +257,7 @@ where sorder.c_order_id =  $P{billId}
 				<text><![CDATA[File No:]]></text>
 			</staticText>
 			<textField>
-				<reportElement key="" style="style1" x="52" y="68" width="109" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
+				<reportElement key="" style="style1" x="52" y="68" width="109" height="16" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
