@@ -222,9 +222,6 @@ GROUP BY
 	<field name="finances_mortgage" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="finances_mortgage"/>
 	</field>
-	<variable name="sumExpensesV" class="java.math.BigDecimal">
-		<variableExpression><![CDATA[$F{med_supp}.add($F{sum_facility}).add($F{sum_personnel}).add($F{sum_vehicle}).add($F{sum_finances}).add($F{sum_services})]]></variableExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
