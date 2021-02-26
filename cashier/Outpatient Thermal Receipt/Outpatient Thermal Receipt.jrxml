@@ -37,7 +37,8 @@
   billDetails.cashierName as cashierName,
   billDetails.patientName as patientName,
   billDetails.fileNumber as fileNumber,
-  billDetails.bill_id as bill_id
+  billDetails.bill_id as bill_id,
+    billDetails.clinicianname
 from
 (
 select
@@ -62,13 +63,15 @@ select
   sorder.c_order_id as receipt_number,
   cashier.name as cashierName,
   patient.name as patientName,
-  patientid.bh_patientid as fileNumber
+  patientid.bh_patientid as fileNumber,
+    clinician.name as clinicianname
 from c_order sorder
   inner join ad_user patient on sorder.ad_user_id = patient.ad_user_id
   inner join c_bpartner patientid on patient.c_bpartner_id = patientid.c_bpartner_id
   inner join ad_user cashier on sorder.createdby = cashier.ad_user_id
+left join c_bpartner clinician on sorder.bh_clinician_user_id = clinician.c_bpartner_id
 where sorder.c_order_id =  $P{billId}
-) as billDetails on billheader.orgID = billDetails.orgID;]]>
+) as billDetails on billheader.orgID = billDetails.orgID]]>
 	</queryString>
 	<field name="orgid" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="orgid"/>
@@ -120,6 +123,9 @@ where sorder.c_order_id =  $P{billId}
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
+	<field name="clinicianname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clinicianname"/>
+	</field>
 	<variable name="totalCost" class="java.math.BigDecimal">
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
@@ -127,29 +133,7 @@ where sorder.c_order_id =  $P{billId}
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="177" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
-				<reportElement key="" style="style1" x="70" y="113" width="91" height="17" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
-				<textElement>
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{receipt_number}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement key="" x="52" y="96" width="109" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
-				<textElement>
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy").format($F{bill_date})]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement key="" x="52" y="145" width="109" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
-				<textElement>
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
-			</textField>
+		<band height="94" splitType="Stretch">
 			<staticText>
 				<reportElement key="" x="0" y="77" width="161" height="17" uuid="c583cfb7-4b4a-4320-a203-d61ae2e3311f"/>
 				<textElement textAlignment="Center">
@@ -157,66 +141,9 @@ where sorder.c_order_id =  $P{billId}
 				</textElement>
 				<text><![CDATA[Receipt]]></text>
 			</staticText>
-			<staticText>
-				<reportElement key="" x="2" y="113" width="59" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Receipt #:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="" x="2" y="96" width="50" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Billed On:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="" x="2" y="130" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Served By:]]></text>
-			</staticText>
 			<line>
 				<reportElement x="0" y="72" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
 			</line>
-			<line>
-				<reportElement key="" x="0" y="94" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
-			</line>
-			<line>
-				<reportElement key="" x="0" y="176" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</line>
-			<staticText>
-				<reportElement key="" x="2" y="145" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Patient:]]></text>
-			</staticText>
-			<textField>
-				<reportElement key="" x="61" y="130" width="99" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
-				<textElement>
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement key="" x="2" y="160" width="50" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[File No:]]></text>
-			</staticText>
-			<textField>
-				<reportElement key="" style="style1" x="52" y="160" width="109" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
-				<textElement>
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
-			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement key="" positionType="Float" stretchType="ContainerHeight" x="0" y="2" width="161" height="18" uuid="1c6d712b-5f9a-4daf-8590-0729204a1001">
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
@@ -259,6 +186,105 @@ where sorder.c_order_id =  $P{billId}
 		</band>
 	</title>
 	<detail>
+		<band height="101">
+			<textField>
+				<reportElement key="" style="style1" x="70" y="20" width="91" height="17" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{receipt_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="52" y="3" width="109" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy").format($F{bill_date})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="52" y="52" width="109" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="" x="2" y="20" width="59" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Receipt #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="2" y="3" width="50" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Billed On:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="2" y="37" width="56" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Served By:]]></text>
+			</staticText>
+			<line>
+				<reportElement key="" x="0" y="1" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240"/>
+			</line>
+			<line>
+				<reportElement key="" x="0" y="100" width="161" height="1" uuid="3da84233-25c2-471f-be29-1e9532a22240">
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement key="" x="2" y="52" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Patient:]]></text>
+			</staticText>
+			<textField>
+				<reportElement key="" x="61" y="37" width="99" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="" x="2" y="68" width="50" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[File No:]]></text>
+			</staticText>
+			<textField>
+				<reportElement key="" style="style1" x="52" y="68" width="109" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="52" y="84" width="109" height="16" isRemoveLineWhenBlank="true" uuid="46547160-0dd1-4c29-b5b7-dd5bdb24eca4">
+					<printWhenExpression><![CDATA[$F{clinicianname} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clinicianname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="" x="2" y="84" width="50" height="16" isRemoveLineWhenBlank="true" uuid="4f465785-034c-4372-8180-40b1a16bf748">
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+					<printWhenExpression><![CDATA[$F{clinicianname} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Clinician:]]></text>
+			</staticText>
+		</band>
 		<band height="31" splitType="Stretch">
 			<subreport>
 				<reportElement key="" x="0" y="5" width="161" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
