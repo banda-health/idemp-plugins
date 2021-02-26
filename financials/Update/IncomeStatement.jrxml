@@ -961,7 +961,7 @@ LEFT JOIN (
 					<font size="13" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[TOTAL ACTUAL INCOME RECEIVED]]></text>
+				<text><![CDATA[TOTAL CHARGES]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="435" y="428" width="82" height="18" forecolor="#000000" backcolor="#8EA9DB" uuid="d71f8791-e1bf-405d-b55e-0902d88be082">
