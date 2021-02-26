@@ -252,23 +252,21 @@ where sorder.c_order_id =  $P{billId}
 				<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="2" y="84" width="50" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
+				<reportElement key="" x="2" y="68" width="50" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[File No:]]></text>
 			</staticText>
 			<textField>
-				<reportElement key="" style="style1" x="52" y="84" width="109" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d">
-					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
-				</reportElement>
+				<reportElement key="" style="style1" x="52" y="68" width="109" height="17" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement key="" x="52" y="68" width="109" height="16" isRemoveLineWhenBlank="true" uuid="46547160-0dd1-4c29-b5b7-dd5bdb24eca4">
+				<reportElement key="" x="52" y="84" width="109" height="16" isRemoveLineWhenBlank="true" uuid="46547160-0dd1-4c29-b5b7-dd5bdb24eca4">
 					<printWhenExpression><![CDATA[$F{clinicianname} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement>
@@ -277,7 +275,8 @@ where sorder.c_order_id =  $P{billId}
 				<textFieldExpression><![CDATA[$F{clinicianname}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="2" y="68" width="50" height="16" isRemoveLineWhenBlank="true" uuid="4f465785-034c-4372-8180-40b1a16bf748">
+				<reportElement key="" x="2" y="84" width="50" height="16" isRemoveLineWhenBlank="true" uuid="4f465785-034c-4372-8180-40b1a16bf748">
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<printWhenExpression><![CDATA[$F{clinicianname} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement>
