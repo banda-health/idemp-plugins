@@ -69,7 +69,7 @@ from c_order sorder
   inner join ad_user patient on sorder.ad_user_id = patient.ad_user_id
   inner join c_bpartner patientid on patient.c_bpartner_id = patientid.c_bpartner_id
   inner join ad_user cashier on sorder.createdby = cashier.ad_user_id
-left join c_bpartner clinician on sorder.bh_clinician_user_id = clinician.c_bpartner_id
+left join ad_user clinician on sorder.bh_clinician_user_id = clinician.ad_user_id
 where sorder.c_order_id =  $P{billId}
 ) as billDetails on billheader.orgID = billDetails.orgID]]>
 	</queryString>
