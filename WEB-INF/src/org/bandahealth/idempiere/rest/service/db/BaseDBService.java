@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -28,7 +30,6 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
 
-
 /**
  * Abstract common db service functionality
  *
@@ -50,6 +51,13 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public static final String DEFAULT_SEARCH_COLUMN = MUser.COLUMNNAME_Name;
 	public static final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 	protected static CLogger log = CLogger.getCLogger(BaseDBService.class);
+	protected final CLogger logger;
+
+	public BaseDBService() {
+		Class<?> childClass =
+				((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+		logger = CLogger.getCLogger(childClass);
+	}
 
 	public abstract T saveEntity(T entity);
 
@@ -483,5 +491,42 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		}
 
 		return searchValue;
+	}
+
+	/**
+	 * Get a list of this entity grouped by IDs
+	 *
+	 * @param groupingFunction The grouping function to apply for these entities
+	 * @param columnToSearch   The search column to check in
+	 * @param ids              The IDs to search by
+	 * @return Entities grouped by their ID
+	 */
+	public Map<Integer, List<S>> getGroupsByIds(Function<S, Integer> groupingFunction, String columnToSearch,
+			Set<Integer> ids) {
+		List<Object> parameters = new ArrayList<>();
+		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
+		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
+			columnToSearch = getModelInstance().get_TableName() + "." + columnToSearch;
+		}
+		List<S> models =
+				new Query(Env.getCtx(), getModelInstance().get_TableName(), columnToSearch + " IN (" + whereCondition +
+						")", null).setParameters(parameters).setOnlyActiveRecords(true).list();
+		return models.stream().collect(Collectors.groupingBy(groupingFunction));
+	}
+
+	/**
+	 * Get a list of entities by their IDs
+	 *
+	 * @param ids The IDs to search by
+	 * @return A map of entities by the ID searched
+	 */
+	public Map<Integer, S> getByIds(Set<Integer> ids) {
+		List<Object> parameters = new ArrayList<>();
+		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
+		String tableName = getModelInstance().get_TableName();
+		List<S> models =
+				new Query(Env.getCtx(), tableName, tableName + "." + tableName + "_ID IN (" + whereCondition + ")", null)
+						.setParameters(parameters).list();
+		return models.stream().collect(Collectors.toMap(S::get_ID, m -> m));
 	}
 }
