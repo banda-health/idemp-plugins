@@ -8,7 +8,6 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.Query;
-import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 import java.util.ArrayList;
@@ -21,12 +20,15 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class BaseInvoiceDBService<T extends Invoice> extends BaseDBService<T, MInvoice_BH> {
+public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDBService<T, MInvoice_BH> {
 
 	protected InvoiceLineDBService invoiceLineDBService = new InvoiceLineDBService();
-	private ProcessDBService processDBService = new ProcessDBService();
-	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
+	protected final ProcessDBService processDBService;
 	private final String PURCHASE_ORDER = "Purchase Order";
+
+	public BaseInvoiceDBService() {
+		processDBService = new ProcessDBService();
+	}
 
 	protected abstract void beforeSave(T entity, MInvoice_BH invoice);
 
@@ -127,7 +129,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends BaseDBServ
 				invoice.setDescription(entity.getDescription());
 			}
 
-			invoice.setIsActive(entity.isIsActive());
+			invoice.setIsActive(entity.getIsActive());
 
 			invoice.setIsApproved(true);
 			invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
@@ -174,81 +176,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends BaseDBServ
 
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
-	}
-
-	/**
-	 * Asynchronously process invoice
-	 * 
-	 * @param uuid
-	 * @return
-	 */
-	public T asyncProcessEntity(String uuid) {
-		MInvoice_BH invoice = getEntityByUuidFromDB(uuid);
-		if (invoice == null) {
-			log.severe("No order with uuid = " + uuid);
-			return null;
-		}
-
-		this.runAsyncEntityProcess(invoice);
-		
-		return createInstanceWithAllFields(getEntityByUuidFromDB(invoice.getC_Invoice_UU()));
-	}
-
-	/**
-	 * Override this for invoices that need a different process
-	 * @param entity
-	 */
-	protected void runAsyncEntityProcess(MInvoice_BH entity) {
-		processDBService.runExpenseProcess(entity.get_ID(), false);
-	}
-
-	/**
-	 * Synchronously process invoice
-	 * 
-	 * @param uuid
-	 * @return
-	 */
-	public T processEntity(String uuid) {
-		MInvoice_BH invoice = getEntityByUuidFromDB(uuid);
-		if (invoice == null) {
-			log.severe("No order with uuid = " + uuid);
-			return null;
-		}
-
-		invoice.processIt(DocAction.ACTION_Complete);
-
-		return createInstanceWithAllFields(getEntityByUuidFromDB(invoice.getC_Invoice_UU()));
-	}
-
-	/**
-	 * Save and asynchronously process order
-	 * 
-	 * @param entity
-	 * @return
-	 */
-	public T asyncSaveAndProcessEntity(T entity) {
-		T saveEntity = saveEntity(entity);
-		if (saveEntity != null) {
-			asyncProcessEntity(saveEntity.getUuid());
-			return saveEntity;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Synchronously save and process order
-	 * 
-	 * @param entity
-	 * @return
-	 */
-	public T saveAndProcessEntity(T entity) {
-		T saveEntity = saveEntity(entity);
-		if (saveEntity != null) {
-			return processEntity(saveEntity.getUuid());
-		}
-
-		return null;
 	}
 
 	@Override
@@ -302,5 +229,15 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends BaseDBServ
 	 */
 	protected void runAsyncEntityDeleteProcess(MInvoice_BH entity) {
 		processDBService.runExpenseProcess(entity.get_ID(), true);
+	}
+
+	@Override
+	public T saveAndProcessEntity(T entity, String docAction) throws Exception {
+		// Invoices that have already been processed can't be saved again
+		MInvoice_BH invoice = getEntityByUuidFromDB(entity.getUuid());
+		if (invoice != null && invoice.isComplete()) {
+			return processEntity(entity.getUuid(), docAction);
+		}
+		return super.saveAndProcessEntity(entity, docAction);
 	}
 }

@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.rest.model.MenuGroupItem;
 import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MLanguage;
@@ -244,10 +245,14 @@ public class MenuGroupDBService {
 					try {
 						MDashboardButtonGroupButton dashboardButtonGroupButtonToTranslate = dashboardButtonGroupButtonMap.get(
 								resultSet.getInt(1));
-						dashboardButtonGroupButtonToTranslate.setName(resultSet.getString(2));
-						dashboardButtonGroupButtonToTranslate.setDescription(resultSet.getString(3));
-						dashboardButtonGroupButtonToTranslate.setButtonText(resultSet.getString(4));
-						dashboardButtonGroupButtonToTranslate.setButtonHelpText(resultSet.getString(5));
+						ModelUtil.setPropertyIfPresent(resultSet.getString(2), dashboardButtonGroupButtonToTranslate::setName);
+						ModelUtil
+								.setPropertyIfPresent(resultSet.getString(3), dashboardButtonGroupButtonToTranslate::setDescription);
+						ModelUtil
+								.setPropertyIfPresent(resultSet.getString(4), dashboardButtonGroupButtonToTranslate::setButtonText);
+						ModelUtil
+								.setPropertyIfPresent(resultSet.getString(5),
+										dashboardButtonGroupButtonToTranslate::setButtonHelpText);
 					} catch (Exception ex) {
 						log.warning("Error processing dashboard button group button translations: " + ex.getMessage());
 					}

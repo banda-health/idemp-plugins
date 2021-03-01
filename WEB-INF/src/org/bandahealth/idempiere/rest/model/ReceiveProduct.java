@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 
 @XmlRootElement(name = "receiveproduct")
 @JsonInclude(value = Include.NON_NULL)
@@ -19,6 +21,12 @@ public class ReceiveProduct extends Order {
 
 	public ReceiveProduct() {
 		setIsSalesOrderTransaction(false);
+	}
+
+	public ReceiveProduct(MOrder_BH model, MBPartner_BH businessPartner, List<OrderLine> orderLines) {
+		super(model, null, orderLines, null);
+
+		this.vendor = new Vendor(businessPartner);
 	}
 
 	public ReceiveProduct(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
