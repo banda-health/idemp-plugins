@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
+import org.compiere.model.PO;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class BaseEntity extends BaseMetadata {
@@ -11,6 +13,13 @@ public class BaseEntity extends BaseMetadata {
 
 	public BaseEntity() {
 		super();
+	}
+
+	public BaseEntity(PO entity, String name, String description, String value) {
+		super(entity);
+		this.description = description;
+		this.name = name;
+		this.value = value;
 	}
 
 	public BaseEntity(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,

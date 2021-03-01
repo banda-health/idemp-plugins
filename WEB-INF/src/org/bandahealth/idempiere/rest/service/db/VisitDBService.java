@@ -30,7 +30,7 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
 import org.compiere.model.MUser;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_BPartner;
+import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 /**
@@ -50,23 +50,76 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private UserDBService userDBService;
 	private MBPartner_BH mPatient;
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {
-		{
-			put(X_C_BPartner.Table_Name,
-					"LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
-							+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
-							+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
-			put(MUser.Table_Name,
-					"LEFT JOIN  " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "."
-							+ MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "."
-							+ MUser.COLUMNNAME_AD_User_ID);
-		}
-	};
+	private Map<String, String> dynamicJoins = new HashMap<>() {{
+		put(MBPartner_BH.Table_Name, "LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." +
+				MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+		put(MUser.Table_Name, "LEFT JOIN " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "." +
+				MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID);
+	}};
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		paymentDBService = new PaymentDBService();
 		userDBService = new UserDBService();
+	}
+
+	public static int getVisitsCount(Integer patientId) {
+		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
+				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_IsActive)
+				.append(" = ?");
+
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+
+		parameters.add(patientId);
+		parameters.add("Y");
+
+		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
+	}
+
+	public static String getLastVisitDate(MBPartner_BH patient) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		parameters.add(patient.get_ID());
+
+		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name,
+				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
+				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true).list();
+
+		if (results.isEmpty()) {
+			return null;
+		}
+		List<Date> dates = new ArrayList<>();
+		for (MOrder_BH mOrder_BH : results) {
+			dates.add(mOrder_BH.getDateOrdered());
+		}
+		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
+		return DateUtil.parseDateOnly(ts);
+	}
+
+	@Override
+	public Visit processEntity(String uuid, String docAction) throws Exception {
+		// We need to do something special for completing a sales order - do it asynchronously
+		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
+			return super.processEntity(uuid, docAction);
+		}
+
+		if (!isDocActionValidForUser(docAction)) {
+			return null;
+		}
+
+		MOrder_BH order = getEntityByUuidFromDB(uuid);
+		if (order == null) {
+			log.severe("No entity with uuid = " + uuid);
+			return null;
+		}
+		processDBService.runOrderProcess(order.get_ID());
+
+		// Since the async process will take some time, assume it completed successfully and return the appropriate status
+		Visit visit = createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
+		visit.setDocStatus(DocAction.STATUS_Completed);
+		return visit;
 	}
 
 	@Override
@@ -175,6 +228,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_BILLS;
+	}
+
+	@Override
 	public Boolean deleteEntity(String uuid) {
 		try {
 			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU + "=?", null)
@@ -211,8 +269,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Patient(patient.getName(), patient.getC_BPartner_UU()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -299,7 +356,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-							.setClient_ID().setOnlyActiveRecords(true);
+					.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);
@@ -393,43 +450,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return null;
 	}
 
-	public static int getVisitsCount(Integer patientId) {
-		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
-				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_IsActive)
-				.append(" = ?");
-
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-
-		parameters.add(patientId);
-		parameters.add("Y");
-
-		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
-	}
-
-	public static String getLastVisitDate(MBPartner_BH patient) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-		parameters.add(patient.get_ID());
-
-		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name,
-				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true).list();
-
-		if (results.isEmpty()) {
-			return null;
-		}
-		List<Date> dates = new ArrayList<>();
-		for (MOrder_BH mOrder_BH : results) {
-			dates.add(mOrder_BH.getDateOrdered());
-		}
-		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
-		return DateUtil.parseDateOnly(ts);
-	}
-
 	/**
 	 * Get Open Visits (exclude today's visits) Count
-	 * 
+	 *
 	 * @return count
 	 */
 	public Integer getOpenVisitDraftsCount() {
@@ -442,7 +465,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	/**
 	 * Get Open Visits
-	 * 
+	 *
 	 * @param pagingInfo
 	 * @param sortColumn
 	 * @param sortOrder

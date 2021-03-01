@@ -27,7 +27,7 @@ public class AccountDBService extends BaseDBService<Account, MElementValue> {
 				account.setDescription(entity.getDescription());
 			}
 
-			account.setIsActive(entity.isIsActive());
+			account.setIsActive(entity.getIsActive());
 
 			account.saveEx();
 

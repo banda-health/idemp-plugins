@@ -54,7 +54,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 				}
 			}
 
-			charge.setIsActive(entity.isIsActive());
+			charge.setIsActive(entity.getIsActive());
 
 			MChargeType_BH expenseCategoryChargeType = new Query(
 					Env.getCtx(),

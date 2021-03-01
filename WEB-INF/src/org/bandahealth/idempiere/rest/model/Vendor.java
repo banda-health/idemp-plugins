@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 
 @XmlRootElement(name = "supplier")
 @JsonInclude(value = Include.NON_NULL)
@@ -17,6 +18,13 @@ public class Vendor extends BusinessPartner {
 	private String emailAddress;
 
 	public Vendor() {
+	}
+
+	public Vendor(MBPartner_BH model) {
+		super(model);
+
+		this.emailAddress = model.getBH_EMail();
+		this.phoneNumber = model.getBH_Phone();
 	}
 
 	public Vendor(String name) {

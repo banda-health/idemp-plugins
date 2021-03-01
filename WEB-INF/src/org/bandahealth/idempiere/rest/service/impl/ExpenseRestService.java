@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -33,8 +33,7 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 		this.dbService = new ExpenseDBService();
 	}
 
-	@POST
-	@Path(IRestConfigs.ROOT_PATH)
+	@GET
 	@Override
 	public BaseListResponse<Expense> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
@@ -42,7 +41,7 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Expense> search(@QueryParam("value") String value, @QueryParam("page") int page,
@@ -51,15 +50,14 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
-	@POST
-	@Path(IRestConfigs.EXPENSE_PATH)
+	@GET
+	@Path(IRestConfigs.UUID_PATH)
 	@Override
 	public Expense getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
 	@POST
-	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Expense saveEntity(Expense entity) {
 		return dbService.saveEntity(entity);
@@ -67,14 +65,14 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
-	public Expense process(@PathParam("uuid") String uuid) {
-		return dbService.processEntity(uuid);
+	public Expense process(@PathParam("uuid") String uuid, @PathParam("processType") String docAction) throws Exception {
+		return dbService.processEntity(uuid, docAction);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public Expense saveAndProcess(Expense entity) {
-		return dbService.asyncSaveAndProcessEntity(entity);
+	public Expense saveAndProcess(Expense entity, @PathParam("processType") String docAction) throws Exception {
+		return dbService.saveAndProcessEntity(entity, docAction);
 	}
 
 	@DELETE
