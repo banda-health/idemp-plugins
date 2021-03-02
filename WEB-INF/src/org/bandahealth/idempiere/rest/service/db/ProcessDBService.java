@@ -358,20 +358,26 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		return processes;
 	}
 
-	public File generateReport(org.bandahealth.idempiere.rest.model.ProcessInfo processInfoInput) {
-		MProcess process = getEntityByUuidFromDB(processInfoInput.getProcess().getUuid());
-
+	/**
+	 * Generate an iDempiere report
+	 *
+	 * @param process               The report (which is a process in iDempiere) to run
+	 * @param reportOutput          What output the report should be
+	 * @param processInfoParameters The parameters to pass to the report
+	 * @return A file of the generated report, or null if an error occurred
+	 */
+	public File generateReport(MProcess process, ReportOutput reportOutput,
+			List<org.bandahealth.idempiere.rest.model.ProcessInfoParameter> processInfoParameters) {
 		if (process == null) {
 			throw new AdempiereException("Could not find report");
 		}
 
-		ReportOutput reportOutput = processInfoInput.getReportOutputType();
 		if (reportOutput == null) {
 			reportOutput = ReportOutput.PDF;
 		}
 
+		// Initialize report info
 		MPInstance mpInstance = new MPInstance(process, 0);
-
 		ProcessInfo processInfo = new ProcessInfo(process.getName(), process.getAD_Process_ID());
 		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
 		processInfo.setAD_Process_UU(process.getAD_Process_UU());
@@ -381,6 +387,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		processInfo.setExportFileExtension(reportOutput.toString().toLowerCase());
 
 		// Let's process the parameters (really, we only need to convert dates if they're dates)
+		// First, batch DB requests so we can avoid many queries
 		Map<String, MProcessPara> processParametersByUuidMap = processParameterDBService
 				.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
 						new HashSet<>(Collections.singletonList(process.get_ID()))).get(process.get_ID()).stream()
@@ -388,19 +395,23 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		Map<Integer, MReference_BH> referencesByIdMap = referenceDBService
 				.getByIds(processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
 						.collect(Collectors.toSet()));
+
 		List<ProcessInfoParameter> processedInfoParameters = new ArrayList<>();
 		// Now, cycle through and process each parameter passed in
-		processInfoInput.getParameters().forEach(processInfoParameter -> {
+		processInfoParameters.forEach(processInfoParameter -> {
 			// Get the process parameter
 			MProcessPara processParameter =
-					processParametersByUuidMap.get(processInfoParameter.getProcessParameter().getUuid());
+					processParametersByUuidMap.get(processInfoParameter.getProcessParameterUuid());
+
 			// Get the reference to help determine what type of parameter this is
 			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
 			Object parameter = processInfoParameter.getParameter();
 			if (referenceForParameter.getName().equalsIgnoreCase("Date")) {
 				parameter = DateUtil.parseDate(processInfoParameter.getParameter().toString());
 			}
-			// Until we update reports to use UUIDs, we have to do this bad stuff
+
+			// Since some reports want IDs, we need to convert UUIDs to IDs
+			// TODO: Update all reports to use UUIDs instead of IDs
 			if (processParameter.getName().toLowerCase().endsWith("id")) {
 				if (process.getName().equalsIgnoreCase(ReportDBService.THERMAL_RECEIPT_REPORT)) {
 					MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name,
@@ -414,9 +425,10 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 					parameter = BigDecimal.valueOf(payment.get_ID());
 				}
 			}
+
 			// Create a new process info parameter with the name fetched from MProcessParam
 			processedInfoParameters.add(new ProcessInfoParameter(
-					processParametersByUuidMap.get(processInfoParameter.getProcessParameter().getUuid()).getName(),
+					processParametersByUuidMap.get(processInfoParameter.getProcessParameterUuid()).getName(),
 					parameter,
 					processInfoParameter.getParameterTo(),
 					processInfoParameter.getInfo(),
@@ -428,6 +440,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			processInfo.setParameter(processedInfoParameters.toArray(ProcessInfoParameter[]::new));
 		}
 
+		// Run the report
 		ServerProcessCtl.process(processInfo, null);
 
 		if (processInfo.isError()) {
