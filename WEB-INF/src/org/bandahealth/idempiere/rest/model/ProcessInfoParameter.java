@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 public class ProcessInfoParameter extends BaseMetadata {
-	private String processParameterId;
+	private ProcessParameter processParameter;
 	private String parameterName;
 	private Object parameter;
 	private Object parameterTo;
@@ -49,11 +49,11 @@ public class ProcessInfoParameter extends BaseMetadata {
 		this.infoTo = infoTo;
 	}
 
-	public String getProcessParameterId() {
-		return processParameterId;
+	public ProcessParameter getProcessParameter() {
+		return processParameter;
 	}
 
-	public void setProcessParameterId(String processParameterId) {
-		this.processParameterId = processParameterId;
+	public void setProcessParameter(ProcessParameter processParameter) {
+		this.processParameter = processParameter;
 	}
 }

@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.rest.model;
 import java.util.List;
 
 public class ProcessInfo extends BaseEntity {
-	private String processId;
+	private Process process;
 	private String title;
 	private List<ProcessInfoParameter> parameters;
 	private ReportOutput reportOutputType;
@@ -32,11 +32,11 @@ public class ProcessInfo extends BaseEntity {
 		this.reportOutputType = reportOutputType;
 	}
 
-	public String getProcessId() {
-		return processId;
+	public Process getProcess() {
+		return process;
 	}
 
-	public void setProcessId(String processId) {
-		this.processId = processId;
+	public void setProcess(Process process) {
+		this.process = process;
 	}
 }

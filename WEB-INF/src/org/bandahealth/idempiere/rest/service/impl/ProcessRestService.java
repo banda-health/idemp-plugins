@@ -19,6 +19,8 @@ import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MProcess;
 
 import java.io.File;
 
@@ -50,16 +52,24 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 
 	@POST
 	@Path("/generateReport")
+	@Produces(IRestConfigs.APPLICATION_PDF)
 	public Response generateReport(ProcessInfo processInfo) {
+		if (processInfo == null || processInfo.getProcess() == null ||
+				StringUtil.isNullOrEmpty(processInfo.getProcess().getUuid())) {
+			log.severe("Report not specified");
+			return null;
+		}
+		MProcess process = processDBService.getEntityByUuidFromDB(processInfo.getProcess().getUuid());
+
 		File report = processDBService.generateReport(processInfo);
 
 		if (report == null) {
-			log.severe("Error Generating report " + processInfo.getName());
+			log.severe("Error Generating report " + process.getName());
 			return null;
 		}
 
 		Response.ResponseBuilder response = Response.ok((Object) report);
-		response.header("Content-Disposition", "attachment; filename=\"" + processInfo.getName() + "\"." +
+		response.header("Content-Disposition", "attachment; filename=\"" + process.getName() + "\"." +
 				processInfo.getReportOutputType().toString().toLowerCase() + "\"");
 		return response.build();
 	}

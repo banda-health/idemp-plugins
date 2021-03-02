@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -358,7 +359,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	}
 
 	public File generateReport(org.bandahealth.idempiere.rest.model.ProcessInfo processInfoInput) {
-		MProcess process = getEntityByUuidFromDB(processInfoInput.getProcessId());
+		MProcess process = getEntityByUuidFromDB(processInfoInput.getProcess().getUuid());
 
 		if (process == null) {
 			throw new AdempiereException("Could not find report");
@@ -381,11 +382,9 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 
 		// Let's process the parameters (really, we only need to convert dates if they're dates)
 		Map<String, MProcessPara> processParametersByUuidMap = processParameterDBService
-				.getGroupsByIds(MProcessPara::getAD_Process_ID,
-						MProcessPara.COLUMNNAME_AD_Process_ID, new HashSet<>(new ArrayList<>() {{
-							add(process.get_ID());
-						}})).get(process.get_ID()).stream().collect(
-						Collectors.toMap(MProcessPara::getAD_Process_Para_UU, processParameter -> processParameter));
+				.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
+						new HashSet<>(Collections.singletonList(process.get_ID()))).get(process.get_ID()).stream()
+				.collect(Collectors.toMap(MProcessPara::getAD_Process_Para_UU, processParameter -> processParameter));
 		Map<Integer, MReference_BH> referencesByIdMap = referenceDBService
 				.getByIds(processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
 						.collect(Collectors.toSet()));
@@ -393,7 +392,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		// Now, cycle through and process each parameter passed in
 		processInfoInput.getParameters().forEach(processInfoParameter -> {
 			// Get the process parameter
-			MProcessPara processParameter = processParametersByUuidMap.get(processInfoParameter.getProcessParameterId());
+			MProcessPara processParameter =
+					processParametersByUuidMap.get(processInfoParameter.getProcessParameter().getUuid());
 			// Get the reference to help determine what type of parameter this is
 			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
 			Object parameter = processInfoParameter.getParameter();
@@ -416,7 +416,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			}
 			// Create a new process info parameter with the name fetched from MProcessParam
 			processedInfoParameters.add(new ProcessInfoParameter(
-					processParametersByUuidMap.get(processInfoParameter.getProcessParameterId()).getName(),
+					processParametersByUuidMap.get(processInfoParameter.getProcessParameter().getUuid()).getName(),
 					parameter,
 					processInfoParameter.getParameterTo(),
 					processInfoParameter.getInfo(),
