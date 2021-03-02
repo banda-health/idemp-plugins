@@ -11,13 +11,12 @@ public interface IRestConfigs {
 	String CHANGEPASSWORD_PATH = AUTHENTICATION_SESSION_PATH + "/changePassword";
 
 	String SAVE_PATH = "/save";
-	String DELETE_PATH = "/delete";
 
 	String SEARCH_PATH = "/search";
 
 	String UUID_PATH = "/{uuid}";
 
-	String PRINT_RECEIPT_PATH = "/printreceipt/{uuid}";
+	String PRINT_RECEIPT_PATH = UUID_PATH + "/printreceipt";
 
 	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";
 	String PATIENT_PATH = "/patient/{uuid}";
@@ -54,35 +53,30 @@ public interface IRestConfigs {
 	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
 	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
 
-	String ENTITY_PROCESS_PATH = "/process/{uuid}";
-	String ENTITY_SAVE_AND_PROCESS_PATH = "/saveandprocess";
+	String ENTITY_PROCESS_PATH = "/{uuid}/process/{processType}";
+	String ENTITY_SAVE_AND_PROCESS_PATH = "/process/{processType}";
 
 	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";
-	String VISIT_PATH = "/visit/{uuid}";
 	String VISIT_QUEUE_PATH = "/visitqueue";
 	String VISIT_OPEN_DRAFTS = "/opendrafts";
 	String VISIT_OPEN_DRAFTS_COUNT = VISIT_OPEN_DRAFTS + "/count";
 
 	String PAYMENTS_PATH = AUTHENTICATION_PATH + "/payments";
-	String PAYMENT_PATH = "/payment/{uuid}";
 
 	String METADATA_PATH = AUTHENTICATION_PATH + "/metadata";
 
 	String RECEIVE_PRODUCTS_PATH = AUTHENTICATION_PATH + "/receiveproducts";
-	String RECEIVE_PRODUCT_PATH = "/receiveproduct/{uuid}";
-	String RECEIVE_PRODUCT_PROCESS_PATH = "/process/{uuid}";
-	String RECEIVE_PRODUCT_SAVE_AND_PROCESS_PATH = "/saveandprocess";
 
 	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
-	String EXPENSE_PATH = "/expense/{uuid}";
 
 	String ACCOUNTS_PATH = AUTHENTICATION_PATH + "/accounts";
 	String ACCOUNTS_UUID_PATH = "/account/{uuid}";
-	
+
 	String USERS_PATH = AUTHENTICATION_PATH + "/users";
 	String CLINICIANS_PATH = "/clinicians";
 
 	String APPLICATION_PDF = "application/pdf";
 
+	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
 	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
 }

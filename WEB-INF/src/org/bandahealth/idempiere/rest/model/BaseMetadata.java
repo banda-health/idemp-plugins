@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.PO;
 
 public class BaseMetadata implements Serializable {
 
@@ -17,6 +19,15 @@ public class BaseMetadata implements Serializable {
 	private int createdBy;
 
 	public BaseMetadata() {
+	}
+
+	public BaseMetadata(PO entity) {
+		clientId = entity.getAD_Client_ID();
+		orgId = entity.getAD_Org_ID();
+		uuid = entity.get_Value(entity.getUUIDColumnName()).toString();
+		isActive = entity.isActive();
+		created = DateUtil.parse(entity.getCreated());
+		createdBy = entity.getCreatedBy();
 	}
 
 	public BaseMetadata(Integer clientId, Integer orgId, String uuid, boolean isActive, String created,
@@ -57,7 +68,7 @@ public class BaseMetadata implements Serializable {
 	}
 
 	@XmlElement
-	public boolean isIsActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
 

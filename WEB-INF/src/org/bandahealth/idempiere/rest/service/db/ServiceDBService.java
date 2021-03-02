@@ -92,7 +92,7 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 				}
 			}
 
-			service.setIsActive(entity.isIsActive());
+			service.setIsActive(entity.getIsActive());
 
 			service.saveEx();
 

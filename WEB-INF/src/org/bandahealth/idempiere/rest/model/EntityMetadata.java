@@ -20,6 +20,7 @@ public class EntityMetadata {
 	private List<Referral> referrals;
 	private List<BaseEntity> productCategoryTypes;
 	private List<ProcessStage> processStageList;
+	private List<ReferenceList> documentStatuses;
 
 	public EntityMetadata() {
 		orderPaymentTypes = new ArrayList<>();
@@ -30,6 +31,7 @@ public class EntityMetadata {
 		referrals = new ArrayList<>();
 		productCategoryTypes = new ArrayList<>();
 		processStageList = new ArrayList<>();
+		documentStatuses = new ArrayList<>();
 	}
 
 	public List<PaymentType> getOrderPaymentTypes() {
@@ -94,6 +96,14 @@ public class EntityMetadata {
 
 	public void setProcessStageList(List<ProcessStage> processStageList) {
 		this.processStageList = processStageList;
+	}
+
+	public List<ReferenceList> getDocumentStatuses() {
+		return documentStatuses;
+	}
+
+	public void setDocumentStatuses(List<ReferenceList> documentStatuses) {
+		this.documentStatuses = documentStatuses;
 	}
 
 	public void addPatientType(PatientType entity) {
