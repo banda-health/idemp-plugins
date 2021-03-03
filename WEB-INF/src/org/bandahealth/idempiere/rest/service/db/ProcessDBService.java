@@ -11,12 +11,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
+import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.bandahealth.idempiere.rest.model.ReportOutput;
@@ -26,7 +28,10 @@ import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.compiere.model.MLanguage;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
@@ -38,6 +43,7 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
+import org.compiere.util.Language;
 
 /**
  * A simple POJO that runs iDempiere processes
@@ -482,5 +488,13 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	@Override
 	protected MProcess getModelInstance() {
 		return new MProcess(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	protected Map<String, Function<MProcess, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>() {{
+			put(MProcess.COLUMNNAME_Name, entity -> entity::setName);
+			put(MProcess.COLUMNNAME_Description, entity -> entity::setDescription);
+		}};
 	}
 }

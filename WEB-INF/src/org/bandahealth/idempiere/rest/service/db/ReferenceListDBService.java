@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MDocType;
+import org.compiere.model.MProcess;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.PO;

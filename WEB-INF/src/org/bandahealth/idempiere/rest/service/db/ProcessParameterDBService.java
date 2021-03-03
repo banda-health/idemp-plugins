@@ -1,8 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.compiere.model.MProcessPara;
+import org.compiere.model.MRefList;
 import org.compiere.util.Env;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 public class ProcessParameterDBService extends BaseDBService<ProcessParameter, MProcessPara> {
 	@Override
@@ -33,5 +39,13 @@ public class ProcessParameterDBService extends BaseDBService<ProcessParameter, M
 	@Override
 	protected MProcessPara getModelInstance() {
 		return new MProcessPara(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	protected Map<String, Function<MProcessPara, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>() {{
+			put(MProcessPara.COLUMNNAME_Name, entity -> entity::setName);
+			put(MProcessPara.COLUMNNAME_Description, entity -> entity::setDescription);
+		}};
 	}
 }

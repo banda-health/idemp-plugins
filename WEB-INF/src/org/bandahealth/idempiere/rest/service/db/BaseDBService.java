@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.lang.reflect.ParameterizedType;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -83,6 +84,74 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract T createInstanceWithSearchFields(S instance);
 
 	protected abstract S getModelInstance();
+
+	/**
+	 * Given a list of models, apply translations for them, if their are any needed
+	 *
+	 * @param models The models to translate
+	 * @return The models with translated properties, if any
+	 */
+	protected List<S> getTranslations(List<S> models) {
+		// Get columns to translate and their associated setter functions
+		Map<String, Function<S, VoidFunction<String>>> columnsToTranslate = getColumnsToTranslate();
+		// Only translate if we need to translate and there are columns to translate
+		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx())) && columnsToTranslate.size() > 0) {
+			Map<Integer, S> modelsById = models.stream().collect(Collectors.toMap(S::get_ID, v -> v));
+			String idColumnName = getModelInstance().get_TableName() + "_ID";
+
+			// Setup translation fetching SQL
+			List<Object> translationParameters = new ArrayList<>();
+			String translationWhereClause = QueryUtil
+					.getWhereClauseAndSetParametersForSet(models.stream().map(S::get_ID).collect(Collectors.toSet()),
+							translationParameters);
+
+			// Ensure that the columns are ordered appropriately for the fetch and set
+			AtomicInteger index = new AtomicInteger(2);
+			Map<Integer, String> indexedColumnNames = columnsToTranslate.keySet().stream().collect(
+					Collectors.toMap(columnToTranslate -> index.getAndIncrement(), columnToTranslate -> columnToTranslate));
+
+			// Construct the SQL
+			StringBuilder sql = new StringBuilder("SELECT ").append(idColumnName);
+			// To ensure proper ordering of columns, increment up them
+			for (int i = 1; i <= columnsToTranslate.size(); i++) {
+				sql.append(",");
+				sql.append(indexedColumnNames.get(i));
+			}
+			sql.append(" FROM ").append(getModelInstance().get_TableName()).append("_Trl WHERE ")
+					.append(getModelInstance().get_TableName()).append("_ID IN(").append(translationWhereClause).append(") AND ")
+					.append(MLanguage.COLUMNNAME_AD_Language).append("=?");
+			translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
+
+			// Fetch translations
+			SqlUtil.executeQuery(sql.toString(), translationParameters, null, resultSet -> {
+				try {
+					// The first property passed in above was the entity ID, so use it to get the entity we're updating
+					S modelToTranslate = modelsById.get(resultSet.getInt(1));
+					indexedColumnNames.forEach((columnIndex, columnName) -> {
+						try {
+							ModelUtil.setPropertyIfPresent(resultSet.getString(columnIndex),
+									columnsToTranslate.get(columnName).apply(modelToTranslate));
+						} catch (Exception ex) {
+							logger.warning("Error processing reference list translations: " + ex.getMessage());
+						}
+					});
+				} catch (Exception ex) {
+					logger.warning("Error processing reference list translations: " + ex.getMessage());
+				}
+			});
+		}
+		return models;
+	}
+
+	/**
+	 * Get a list of columns that need translation, along with setter functions for values in each column
+	 *
+	 * @return A map of column names and an appropriate function to call to pass in a model to translate and to get a
+	 * setter function
+	 */
+	protected Map<String, Function<S, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>();
+	}
 
 	/**
 	 * Given a list of models, apply translations for them, if there are any needed
@@ -511,7 +580,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<S> models =
 				new Query(Env.getCtx(), getModelInstance().get_TableName(), columnToSearch + " IN (" + whereCondition +
 						")", null).setParameters(parameters).setOnlyActiveRecords(true).list();
-		return models.stream().collect(Collectors.groupingBy(groupingFunction));
+		return getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
 	}
 
 	/**
@@ -527,6 +596,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<S> models =
 				new Query(Env.getCtx(), tableName, tableName + "." + tableName + "_ID IN (" + whereCondition + ")", null)
 						.setParameters(parameters).list();
-		return models.stream().collect(Collectors.toMap(S::get_ID, m -> m));
+		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, m -> m));
 	}
 }
