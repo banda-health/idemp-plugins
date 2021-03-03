@@ -77,7 +77,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract S getModelInstance();
 
 	/**
-	 * Given a list of models, apply translations for them, if their are any needed
+	 * Given a list of models, apply translations for them, if there are any needed
 	 *
 	 * @param models The models to translate
 	 * @return The models with translated properties, if any
@@ -93,6 +93,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			try {
 				Map<Integer, S> modelsById = models.stream().collect(Collectors.toMap(S::get_ID, v -> v));
 				String idColumnName = modelInstance.get_TableName() + "_ID";
+				String translationTableName = modelInstance.get_TableName() + "_Trl";
 
 				// Setup translation fetching SQL
 				List<Object> translationParameters = new ArrayList<>();
@@ -112,10 +113,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 					sql.append(",");
 					sql.append(indexedColumnNames.get(i + 1)); // Since the first column is the ID column
 				}
-				sql.append(" FROM ").append(modelInstance.get_TableName()).append("_Trl WHERE ")
-						.append(modelInstance.get_TableName()).append("_ID IN(").append(translationWhereClause)
-						.append(") AND ")
-						.append(MLanguage.COLUMNNAME_AD_Language).append("=?");
+				sql.append(" FROM ").append(translationTableName).append(" WHERE ").append(idColumnName).append(" IN(")
+						.append(translationWhereClause).append(") AND ").append(MLanguage.COLUMNNAME_AD_Language).append("=?");
 				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
 				// Fetch translations
