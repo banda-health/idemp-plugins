@@ -65,6 +65,15 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract T createInstanceWithSearchFields(S instance);
 
 	protected abstract S getModelInstance();
+
+	/**
+	 * Whether the client ID from the context should be automatically used in any DB queries
+	 *
+	 * @return Whether the client ID from the iDempiere context will be used
+	 */
+	protected boolean shouldUseContextClientId() {
+		return true;
+	}
 	
 	private boolean checkColumnExists(String columnName) {
 		if (getModelInstance() != null) {
@@ -190,8 +199,11 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				whereClause += " AND " + filterWhereClause;
 			}
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
-					.setClient_ID();
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null);
+			// If we should use the client ID in the context, add it
+			if (shouldUseContextClientId()) {
+				query.setClient_ID();
+			}
 
 			StringBuilder dynamicJoinClause = new StringBuilder();
 			if (!getDynamicJoins().isEmpty()) {
