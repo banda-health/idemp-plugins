@@ -86,7 +86,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract S getModelInstance();
 
 	/**
-	 * Given a list of models, apply translations for them, if their are any needed
+	 * Given a list of models, apply translations for them, if there are any needed
 	 *
 	 * @param models The models to translate
 	 * @return The models with translated properties, if any
