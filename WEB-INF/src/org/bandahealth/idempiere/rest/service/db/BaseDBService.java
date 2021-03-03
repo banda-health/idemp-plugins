@@ -106,10 +106,11 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 				// Construct the SQL
 				StringBuilder sql = new StringBuilder("SELECT ").append(idColumnName);
-				// To ensure proper ordering of columns, increment up them
+				// To ensure proper ordering of columns, increment up them (we start at 1 since result set fetching is
+				// 1-indexed, not 0-indexed)
 				for (int i = 1; i <= columnsToTranslate.size(); i++) {
 					sql.append(",");
-					sql.append(indexedColumnNames.get(i));
+					sql.append(indexedColumnNames.get(i + 1)); // Since the first column is the ID column
 				}
 				sql.append(" FROM ").append(modelInstance.get_TableName()).append("_Trl WHERE ")
 						.append(modelInstance.get_TableName()).append("_ID IN(").append(translationWhereClause)
