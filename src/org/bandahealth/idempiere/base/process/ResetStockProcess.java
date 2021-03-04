@@ -30,7 +30,7 @@ public class ResetStockProcess extends SvrProcess {
 		List<MStorageOnHand> stocks = new Query(getCtx(), MStorageOnHand.Table_Name, whereClause, get_TrxName())
 				.setClient_ID().setOnlyActiveRecords(true).list();
 		for (MStorageOnHand stock : stocks) {
-			UpdateStock.updateStock(stock, BigDecimal.ZERO);
+			UpdateStock.updateStock(stock, BigDecimal.ONE);
 			count++;
 		}
 
