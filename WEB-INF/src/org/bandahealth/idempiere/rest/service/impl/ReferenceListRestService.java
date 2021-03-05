@@ -1,7 +1,9 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.repository.ReferenceListRepository;
+import org.bandahealth.idempiere.rest.service.db.ReferenceListDBService;
 import org.compiere.model.MRefList;
 
 import javax.ws.rs.Consumes;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Path(IRestConfigs.REFERENCE_LISTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -21,9 +24,11 @@ import java.util.Set;
 public class ReferenceListRestService {
 
 	private static ReferenceListRepository referenceListRepository;
+	private final ReferenceListDBService dataService;
 
 	public ReferenceListRestService() {
 		referenceListRepository = new ReferenceListRepository();
+		dataService = new ReferenceListDBService();
 	}
 
 	@GET
@@ -46,7 +51,8 @@ public class ReferenceListRestService {
 
 	@GET
 	@Path("/invoicepaymenttypes")
-	public Map<String, MRefList> getInvoicePaymentType(@QueryParam("referenceListValues") Set<String> referenceListValues) {
+	public Map<String, MRefList> getInvoicePaymentType(
+			@QueryParam("referenceListValues") Set<String> referenceListValues) {
 		return referenceListRepository.getInvoicePaymentType(referenceListValues);
 	}
 
@@ -70,7 +76,8 @@ public class ReferenceListRestService {
 
 	@GET
 	@Path("/productcategorytypes")
-	public Map<String, MRefList> getProductCategoryType(@QueryParam("referenceListValues") Set<String> referenceListValues) {
+	public Map<String, MRefList> getProductCategoryType(
+			@QueryParam("referenceListValues") Set<String> referenceListValues) {
 		return referenceListRepository.getProductCategoryType(referenceListValues);
 	}
 
@@ -83,9 +90,10 @@ public class ReferenceListRestService {
 	@GET
 	@Path("/references")
 	public Map<Integer, List<MRefList>> getByReferenceIds(@QueryParam("ids") Set<Integer> ids) {
-		return referenceListRepository.getGroupsByIds(MRefList::getAD_Reference_ID, MRefList.COLUMNNAME_AD_Reference_ID, ids);
+		return referenceListRepository
+				.getGroupsByIds(MRefList::getAD_Reference_ID, MRefList.COLUMNNAME_AD_Reference_ID, ids);
 	}
-	
+
 	@GET
 	@Path("/documentActionAccess")
 	public Map<String, List<ReferenceList>> getDocumentActionAccessByDocumentType() {

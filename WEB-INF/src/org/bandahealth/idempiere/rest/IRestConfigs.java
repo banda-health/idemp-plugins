@@ -77,6 +77,8 @@ public interface IRestConfigs {
 
 	String APPLICATION_PDF = "application/pdf";
 
+	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
+
 	// GraphQL REST
 	String ATTRIBUTE_SET_INSTANCES_PATH = AUTHENTICATION_PATH + "/attributesetinstances";
 	String ATTRIBUTE_SETS_PATH = AUTHENTICATION_PATH + "/attributesets";
