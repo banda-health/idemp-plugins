@@ -12,6 +12,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.Map;
 import java.util.Set;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.User;
+import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
+import org.bandahealth.idempiere.rest.service.db.UserDBService;
 
 @Path(IRestConfigs.USERS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -19,13 +23,21 @@ import java.util.Set;
 public class UserRestService {
 
 	private final UserRepository userRepository;
+	private UserDBService dbService;
 
 	public UserRestService() {
 		userRepository = new UserRepository();
+		dbService = new UserDBService();
 	}
 
 	@GET
 	public Map<Integer, MUser_BH> get(@QueryParam("ids") Set<Integer> ids) {
 		return userRepository.getByIds(ids);
+	}
+
+	@GET
+	@Path(IRestConfigs.CLINICIANS_PATH)
+	public BaseListResponse<User> getClinicians(@QueryParam("page") int page, @QueryParam("size") int size) {
+		return dbService.getCliniciansResponse(getPagingInfo(page, size));
 	}
 }

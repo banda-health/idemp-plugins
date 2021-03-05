@@ -13,21 +13,25 @@ import java.util.Map;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
+import org.bandahealth.idempiere.rest.model.ProcessStage;
 import org.bandahealth.idempiere.rest.model.Referral;
+import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.MScheduler;
+import org.compiere.model.MUser;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_BPartner;
+import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 /**
@@ -44,19 +48,81 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private PatientDBService patientDBService;
 	private ReportDBService reportDBService;
 	private PaymentDBService paymentDBService;
+	private UserDBService userDBService;
 	private MBPartner_BH mPatient;
-	
+
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = "
-				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+		put(MBPartner_BH.Table_Name, "LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." +
+				MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+		put(MUser.Table_Name, "LEFT JOIN " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "." +
+				MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID);
 	}};
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		paymentDBService = new PaymentDBService();
+		userDBService = new UserDBService();
 	}
-	
-	
+
+	public static int getVisitsCount(Integer patientId) {
+		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
+				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_IsActive)
+				.append(" = ?");
+
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+
+		parameters.add(patientId);
+		parameters.add("Y");
+
+		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
+	}
+
+	public static String getLastVisitDate(MBPartner_BH patient) {
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		parameters.add(patient.get_ID());
+
+		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name,
+				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
+				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true).list();
+
+		if (results.isEmpty()) {
+			return null;
+		}
+		List<Date> dates = new ArrayList<>();
+		for (MOrder_BH mOrder_BH : results) {
+			dates.add(mOrder_BH.getDateOrdered());
+		}
+		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
+		return DateUtil.parseDateOnly(ts);
+	}
+
+	@Override
+	public Visit processEntity(String uuid, String docAction) throws Exception {
+		// We need to do something special for completing a sales order - do it asynchronously
+		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
+			return super.processEntity(uuid, docAction);
+		}
+
+		if (!isDocActionValidForUser(docAction)) {
+			return null;
+		}
+
+		MOrder_BH order = getEntityByUuidFromDB(uuid);
+		if (order == null) {
+			log.severe("No entity with uuid = " + uuid);
+			return null;
+		}
+		processDBService.runOrderProcess(order.get_ID());
+
+		// Since the async process will take some time, assume it completed successfully and return the appropriate status
+		Visit visit = createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
+		visit.setDocStatus(DocAction.STATUS_Completed);
+		return visit;
+	}
+
 	@Override
 	public Map<String, String> getDynamicJoins() {
 		return dynamicJoins;
@@ -124,6 +190,19 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setBH_SecondDiagnosis(entity.getSecondDiagnosis());
 		}
 
+		if (entity.getClinician() != null && entity.getClinician().getUuid() != null) {
+			// get user id
+			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_UU + " =?", null)
+					.setParameters(entity.getClinician().getUuid()).first();
+			if (user != null) {
+				mOrder.setBH_ClinicianUserID(user.get_ID());
+			}
+		}
+
+		if (entity.getProcessStage() != null && entity.getProcessStage().getValue() != null) {
+			mOrder.setBH_ProcessStage(entity.getProcessStage().getValue());
+		}
+
 		mOrder.setIsSOTrx(true);
 
 	}
@@ -151,6 +230,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		// delete payment lines not in request
 		paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds);
+	}
+
+	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_BILLS;
 	}
 
 	@Override
@@ -190,8 +274,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Patient(patient.getName(), patient.getC_BPartner_UU()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -203,6 +286,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	protected Visit createInstanceWithAllFields(MOrder_BH instance) {
 		try {
 			// get patient
+			// TODO: This needs to be fetched from a preloaded list
 			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
 			if (patient == null) {
 				log.severe("Missing patient");
@@ -222,6 +306,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
 					: null;
 
+			MUser_BH user = searchUserInPrefetchedList(instance.getBH_ClinicianUserID());
+
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance()),
@@ -231,7 +317,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
-					instance.getBH_SecondDiagnosis());
+					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null,
+					new ProcessStage(instance.getBH_ProcessStage()));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -275,7 +362,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-							.setClient_ID().setOnlyActiveRecords(true);
+					.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);
@@ -369,43 +456,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return null;
 	}
 
-	public static int getVisitsCount(Integer patientId) {
-		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
-				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_IsActive)
-				.append(" = ?");
-
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-
-		parameters.add(patientId);
-		parameters.add("Y");
-
-		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
-	}
-
-	public static String getLastVisitDate(MBPartner_BH patient) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-		parameters.add(patient.get_ID());
-
-		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name,
-				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true).list();
-
-		if (results.isEmpty()) {
-			return null;
-		}
-		List<Date> dates = new ArrayList<>();
-		for (MOrder_BH mOrder_BH : results) {
-			dates.add(mOrder_BH.getDateOrdered());
-		}
-		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
-		return DateUtil.parseDateOnly(ts);
-	}
-
 	/**
 	 * Get Open Visits (exclude today's visits) Count
-	 * 
+	 *
 	 * @return count
 	 */
 	public Integer getOpenVisitDraftsCount() {
@@ -418,7 +471,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	/**
 	 * Get Open Visits
-	 * 
+	 *
 	 * @param pagingInfo
 	 * @param sortColumn
 	 * @param sortOrder
@@ -451,5 +504,14 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		parameters.add("Y");
 
 		return sqlWhere.toString();
+	}
+
+	private MUser_BH searchUserInPrefetchedList(Integer userId) {
+		if (userId == null) {
+			return null;
+		}
+
+		return userDBService.getClinicians(null).stream().filter(user -> user.getAD_User_ID() == userId).findFirst()
+				.orElse(null);
 	}
 }

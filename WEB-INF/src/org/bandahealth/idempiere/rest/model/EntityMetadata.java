@@ -19,6 +19,8 @@ public class EntityMetadata {
 	private List<NHIFRelationship> nhifRelationships;
 	private List<Referral> referrals;
 	private List<BaseEntity> productCategoryTypes;
+	private List<ProcessStage> processStageList;
+	private List<ReferenceList> documentStatuses;
 
 	public EntityMetadata() {
 		orderPaymentTypes = new ArrayList<>();
@@ -28,6 +30,8 @@ public class EntityMetadata {
 		nhifRelationships = new ArrayList<>();
 		referrals = new ArrayList<>();
 		productCategoryTypes = new ArrayList<>();
+		processStageList = new ArrayList<>();
+		documentStatuses = new ArrayList<>();
 	}
 
 	public List<PaymentType> getOrderPaymentTypes() {
@@ -85,6 +89,22 @@ public class EntityMetadata {
 	public void setProductCategoryTypes(List<BaseEntity> productCategoryTypes) {
 		this.productCategoryTypes = productCategoryTypes;
 	}
+	
+	public List<ProcessStage> getProcessStageList() {
+		return processStageList;
+	}
+
+	public void setProcessStageList(List<ProcessStage> processStageList) {
+		this.processStageList = processStageList;
+	}
+
+	public List<ReferenceList> getDocumentStatuses() {
+		return documentStatuses;
+	}
+
+	public void setDocumentStatuses(List<ReferenceList> documentStatuses) {
+		this.documentStatuses = documentStatuses;
+	}
 
 	public void addPatientType(PatientType entity) {
 		patientTypes.add(entity);
@@ -112,5 +132,9 @@ public class EntityMetadata {
 
 	public void addProductCategoryType(BaseEntity entity) {
 		productCategoryTypes.add(entity);
+	}
+
+	public void addProcessStageList(ProcessStage entity) {
+		processStageList.add(entity);
 	}
 }

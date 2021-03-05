@@ -36,7 +36,7 @@ import org.compiere.util.Env;
 @Produces(MediaType.APPLICATION_JSON)
 public class VisitRestService extends BaseEntityRestService<Visit> {
 
-	private VisitDBService dbService;
+	private final VisitDBService dbService;
 
 	public VisitRestService() {
 		dbService = new VisitDBService();
@@ -51,8 +51,7 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 				null).setParameters("Y").setClient_ID().setPage(10, 0).list();
 	}
 
-	@POST
-	@Path(IRestConfigs.ROOT_PATH)
+	@GET
 	@Override
 	public BaseListResponse<Visit> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
@@ -60,15 +59,14 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
-	@POST
-	@Path(IRestConfigs.VISIT_PATH)
+	@GET
+	@Path(IRestConfigs.UUID_PATH)
 	@Override
 	public Visit getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
 	@POST
-	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Visit saveEntity(Visit entity) {
 		return dbService.saveEntity(entity);
@@ -76,23 +74,24 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
-	public Visit processVisit(@PathParam("uuid") String uuid) {
-		return dbService.asyncProcessEntity(uuid);
+	public Visit processVisit(@PathParam("uuid") String uuid, @PathParam("processType") String docAction)
+			throws Exception {
+		return dbService.processEntity(uuid, docAction);
 	}
 
 	@POST
 	@Path(IRestConfigs.ENTITY_SAVE_AND_PROCESS_PATH)
-	public Visit saveAndProcessVisit(Visit entity) {
-		return dbService.asynSaveAndProcessEntity(entity);
+	public Visit saveAndProcessVisit(Visit entity, @PathParam("processType") String docAction) throws Exception {
+		return dbService.saveAndProcessEntity(entity, docAction);
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.VISIT_QUEUE_PATH)
 	public BaseListResponse<Visit> getVisitQueue(@QueryParam("page") int page, @QueryParam("size") int size) {
 		return dbService.getVisitQueue(getPagingInfo(page, size));
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Visit> search(@QueryParam("value") String value, @QueryParam("page") int page,
@@ -101,7 +100,7 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.PRINT_RECEIPT_PATH)
 	@Produces(IRestConfigs.APPLICATION_PDF)
 	public Response generateReceipt(@PathParam("uuid") String uuid) {
@@ -116,19 +115,19 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	}
 	
 	@DELETE
-	@Path(IRestConfigs.VISIT_PATH)
+	@Path(IRestConfigs.UUID_PATH)
 	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
 		return dbService.deleteEntity(uuid);
 	}
 	
-	@POST
+	@GET
 	@Path(IRestConfigs.VISIT_OPEN_DRAFTS)
 	public BaseListResponse<Visit> getListOpenDrafts(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder) {
 		return dbService.getOpenVisitDrafts(getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 	
-	@POST
+	@GET
 	@Path(IRestConfigs.VISIT_OPEN_DRAFTS_COUNT)
 	public Integer getOpenDraftsCount() {
 		return dbService.getOpenVisitDraftsCount();

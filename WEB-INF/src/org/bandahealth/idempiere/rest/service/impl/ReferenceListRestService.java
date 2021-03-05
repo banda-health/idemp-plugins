@@ -85,4 +85,25 @@ public class ReferenceListRestService {
 	public Map<Integer, List<MRefList>> getByReferenceIds(@QueryParam("ids") Set<Integer> ids) {
 		return referenceListRepository.getGroupsByIds(MRefList::getAD_Reference_ID, MRefList.COLUMNNAME_AD_Reference_ID, ids);
 	}
+	
+	@GET
+	@Path("/documentActionAccess")
+	public Map<String, List<ReferenceList>> getDocumentActionAccessByDocumentType() {
+		return dataService.getDocumentActionAccessByDocumentType().entrySet()
+				.stream().collect(Collectors.toMap(
+						documentActionAccessByDocumentTypeEntry -> documentActionAccessByDocumentTypeEntry.getKey()
+								.getDocBaseType(),
+						documentActionAccessByDocumentTypeEntry -> documentActionAccessByDocumentTypeEntry.getValue().stream()
+								.map(ReferenceList::new).collect(Collectors.toList())));
+	}
+
+	@GET
+	@Path("/documentStatusActionMap")
+	public Map<String, Map<String, List<String>>> getDocumentStatusActionMap() {
+		return dataService.getDocumentStatusActionMap().entrySet()
+				.stream().collect(
+						Collectors.toMap(documentStatusActionMapEntry -> documentStatusActionMapEntry.getKey().getDocBaseType(),
+								documentStatusActionMapEntry -> documentStatusActionMapEntry.getValue().entrySet().stream()
+										.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue))));
+	}
 }

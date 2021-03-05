@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -8,12 +9,13 @@ import javax.xml.bind.annotation.XmlElement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 /**
  * Representation of iDempiere's MOrder (C_Order).
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @JsonInclude(value = Include.NON_NULL)
 public class Order extends BaseMetadata {
@@ -31,6 +33,19 @@ public class Order extends BaseMetadata {
 	private String docStatus;
 
 	public Order() {
+	}
+
+	public Order(MOrder_BH model, BusinessPartner businessPartner, List<OrderLine> orderLines, List<Payment> payments) {
+		super(model);
+
+		this.businessPartner = businessPartner == null ? new BusinessPartner() : businessPartner;
+		this.dateOrdered = DateUtil.parseDateOnly(model.getDateOrdered());
+		this.grandTotal = model.getGrandTotal();
+		this.isSalesOrderTransaction = model.isSOTrx();
+		this.description = model.getDescription();
+		this.docStatus = model.getDocStatus();
+		this.orderLines = orderLines == null ? new ArrayList<>() : orderLines;
+		this.payments = payments == null ? new ArrayList<>() : payments;
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
