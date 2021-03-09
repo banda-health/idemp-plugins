@@ -25,6 +25,7 @@ import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
@@ -205,6 +206,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		mOrder.setIsSOTrx(true);
 
+		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), mOrder::setBH_ReferredFromTo);
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateOrdered);
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setBH_VisitDate);
 	}
 
 	@Override
@@ -318,7 +322,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
 					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null,
-					new ProcessStage(instance.getBH_ProcessStage()));
+					new ProcessStage(instance.getBH_ProcessStage()), instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

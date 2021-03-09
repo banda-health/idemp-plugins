@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 
 @XmlRootElement(name = "visit")
 @JsonInclude(value = Include.NON_NULL)
@@ -28,6 +30,8 @@ public class Visit extends Order {
 	private String secondDiagnosis;
 	private User clinician;
 	private ProcessStage processStage;
+	private String referredFromTo;
+	private Timestamp visitDate;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -38,7 +42,7 @@ public class Visit extends Order {
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
 			String respiratoryRate, String bloodPressure, String height, String weight, String secondDiagnosis,
-			User clinician, ProcessStage processStage) {
+			User clinician, ProcessStage processStage, MOrder_BH order) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
 				orderLines, payments, documentStatus);
 
@@ -58,6 +62,10 @@ public class Visit extends Order {
 		this.secondDiagnosis = secondDiagnosis;
 		this.clinician = clinician;
 		this.processStage = processStage;
+		if (order != null) {
+			this.referredFromTo = order.getBH_ReferredFromTo();
+			this.visitDate = order.getBH_VisitDate();
+		}
 
 		setIsSalesOrderTransaction(true);
 	}
@@ -232,5 +240,21 @@ public class Visit extends Order {
 
 	public void setProcessStage(ProcessStage processStage) {
 		this.processStage = processStage;
+	}
+
+	public String getReferredFromTo() {
+		return referredFromTo;
+	}
+
+	public void setReferredFromTo(String referredFromTo) {
+		this.referredFromTo = referredFromTo;
+	}
+
+	public Timestamp getVisitDate() {
+		return visitDate;
+	}
+
+	public void setVisitDate(Timestamp visitDate) {
+		this.visitDate = visitDate;
 	}
 }
