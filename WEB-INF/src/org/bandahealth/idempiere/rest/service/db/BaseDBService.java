@@ -318,6 +318,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				}
 			}
 
+			// TODO: Add translation tables via a JOIN because sorting will not work on translated columns at the moment
 			String orderBy = getOrderBy(sortColumn, sortOrder);
 			if (orderBy != null) {
 				query = query.setOrderBy(orderBy);
