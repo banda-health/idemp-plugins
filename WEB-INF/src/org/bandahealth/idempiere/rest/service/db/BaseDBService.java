@@ -67,14 +67,15 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract S getModelInstance();
 
 	/**
-	 * Whether the client ID from the context should be automatically used in any DB queries
+	 * Whether the client ID from the context should be automatically used by default in DB queries. WARNING: If this is
+	 * overridden, data from one client may be visible to another client
 	 *
 	 * @return Whether the client ID from the iDempiere context will be used
 	 */
-	protected boolean shouldUseContextClientId() {
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return true;
 	}
-	
+
 	private boolean checkColumnExists(String columnName) {
 		if (getModelInstance() != null) {
 			return getModelInstance().get_ColumnIndex(columnName) > -1 || columnName.contains(".");
@@ -101,14 +102,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo,
-																		String sortColumn, String sortOrder) {
+			String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(valueToSearch));
 		return this.search(DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-																		String sortColumn, String sortOrder) {
+			String sortColumn, String sortOrder) {
 		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
@@ -124,7 +125,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return
 	 */
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-																		String sortColumn, String sortOrder, String joinClause) {
+			String sortColumn, String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
@@ -168,24 +169,57 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
+
+	/**
+	 * A base method to get all entities from the DB
+	 *
+	 * @param whereClause The WHERE clause to use in searching the DB
+	 * @param parameters  Any parameters that the query needs.
+	 * @param pagingInfo  Paging information to use to limit the query.
+	 * @param sortColumn  A column to sort by.
+	 * @param sortOrder   The direction to sort the previous column by
+	 * @param filterJson  Any filter criteria to use to limit the results
+	 * @return A list of the data, plus pagination information
+	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-																		String sortOrder, String filterJson) {
+			String sortOrder, String filterJson) {
 		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
 	}
 
 	/**
-	 * Get all with the inclusion of a join clause for joined cases of sorting
+	 * A base method to get all entities from the DB, with the addition of a JOIN clause.
 	 *
-	 * @param whereClause
-	 * @param parameters
-	 * @param pagingInfo
-	 * @param sortColumn
-	 * @param sortOrder
+	 * @param whereClause The WHERE clause to use in searching the DB
+	 * @param parameters  Any parameters that the query needs.
+	 * @param pagingInfo  Paging information to use to limit the query.
+	 * @param sortColumn  A column to sort by.
+	 * @param sortOrder   The direction to sort the previous column by
+	 * @param filterJson  Any filter criteria to use to limit the results
 	 * @param joinClause  Use to specify a linked table so joining can occur
-	 * @return
+	 * @return A list of the data, plus pagination information
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-																		String sortOrder, String filterJson, String joinClause) {
+			String sortOrder, String filterJson, String joinClause) {
+		return getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, joinClause,
+				isClientIdFromTheContextNeededByDefaultForThisEntity());
+	}
+
+	/**
+	 * A base method to get all entities from the DB, with the addition of a JOIN clause and ability to specify whether
+	 * the Client ID should be used.
+	 *
+	 * @param whereClause              The WHERE clause to use in searching the DB
+	 * @param parameters               Any parameters that the query needs.
+	 * @param pagingInfo               Paging information to use to limit the query.
+	 * @param sortColumn               A column to sort by.
+	 * @param sortOrder                The direction to sort the previous column by
+	 * @param filterJson               Any filter criteria to use to limit the results
+	 * @param joinClause               Use to specify a linked table so joining can occur
+	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
+	 * @return A list of the data, plus pagination information
+	 */
+	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder, String filterJson, String joinClause, boolean shouldUseContextClientId) {
 		try {
 			List<T> results = new ArrayList<>();
 			if (parameters == null) {
@@ -201,7 +235,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null);
 			// If we should use the client ID in the context, add it
-			if (shouldUseContextClientId()) {
+			if (shouldUseContextClientId) {
 				query.setClient_ID();
 			}
 
@@ -235,10 +269,10 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			if (!dynamicJoinClause.toString().trim().isEmpty()) {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
-			} 
+			}
 			if (SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
 				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
-				if(joinString != null) {
+				if (joinString != null) {
 					query.addJoinClause(joinString);
 				}
 			}
