@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.lang.reflect.ParameterizedType;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -238,6 +238,40 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 */
 	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return true;
+	}
+
+	/**
+	 * The default method to create a Query for this entity type.
+	 *
+	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
+	 * @param whereClause              The WHERE clause to add to the query
+	 * @param parameters               Any parameters needed for the WHERE clause
+	 * @return A query that can be used to fetch data
+	 */
+	public Query getBaseQuery(boolean shouldUseContextClientId, String whereClause, Object... parameters) {
+		// Set up the query. Also, we don't want virtual columns because those were used in GO and greatly slow down
+		// queries. If they're needed, the query should be written in the repositories as a column/JOIN
+		Query query =
+				new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setNoVirtualColumn(true);
+		// If we should use the client ID in the context, add it
+		if (shouldUseContextClientId) {
+			query.setClient_ID();
+		}
+		List<Object> parametersToUse = new ArrayList<>();
+		// Handle any that were passed in
+		if (parameters != null) {
+			Arrays.stream(parameters).forEach(parameter -> {
+				if (parameter instanceof List<?>) {
+					parametersToUse.addAll((List<?>) parameter);
+				} else {
+					parametersToUse.add(parameter);
+				}
+			});
+		}
+		if (!parametersToUse.isEmpty()) {
+			query.setParameters(parametersToUse);
+		}
+		return query;
 	}
 
 	private boolean checkColumnExists(String columnName) {
@@ -572,14 +606,28 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 */
 	public Map<Integer, List<S>> getGroupsByIds(Function<S, Integer> groupingFunction, String columnToSearch,
 			Set<Integer> ids) {
+		return getGroupsByIds(isClientIdFromTheContextNeededByDefaultForThisEntity(), groupingFunction, columnToSearch,
+				ids);
+	}
+
+	/**
+	 * Get a list of this entity grouped by IDs
+	 *
+	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
+	 * @param groupingFunction         The grouping function to apply for these entities
+	 * @param columnToSearch           The search column to check in
+	 * @param ids                      The IDs to search by
+	 * @return Entities grouped by their ID
+	 */
+	public Map<Integer, List<S>> getGroupsByIds(boolean shouldUseContextClientId, Function<S, Integer> groupingFunction,
+			String columnToSearch, Set<Integer> ids) {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = getModelInstance().get_TableName() + "." + columnToSearch;
 		}
 		List<S> models =
-				new Query(Env.getCtx(), getModelInstance().get_TableName(), columnToSearch + " IN (" + whereCondition +
-						")", null).setParameters(parameters).setOnlyActiveRecords(true).list();
+				getBaseQuery(shouldUseContextClientId, columnToSearch + " IN (" + whereCondition + ")", parameters).list();
 		return getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
 	}
 
@@ -590,12 +638,23 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A map of entities by the ID searched
 	 */
 	public Map<Integer, S> getByIds(Set<Integer> ids) {
+		return getByIds(isClientIdFromTheContextNeededByDefaultForThisEntity(), ids);
+	}
+
+	/**
+	 * Get a list of entities by their IDs
+	 *
+	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
+	 * @param ids                      The IDs to search by
+	 * @return A map of entities by the ID searched
+	 */
+	public Map<Integer, S> getByIds(boolean shouldUseContextClientId, Set<Integer> ids) {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		String tableName = getModelInstance().get_TableName();
 		List<S> models =
-				new Query(Env.getCtx(), tableName, tableName + "." + tableName + "_ID IN (" + whereCondition + ")", null)
-						.setParameters(parameters).list();
+				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
+						parameters).list();
 		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, m -> m));
 	}
 }

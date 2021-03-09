@@ -28,10 +28,7 @@ import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.utils.ModelUtil;
-import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
-import org.compiere.model.MLanguage;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
@@ -43,7 +40,6 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
-import org.compiere.util.Language;
 
 /**
  * A simple POJO that runs iDempiere processes
@@ -165,7 +161,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	}
 
 	@Override
-	protected boolean shouldUseContextClientId() {
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return false;
 	}
 
