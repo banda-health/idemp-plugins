@@ -1,22 +1,32 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SortUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MLanguage;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Language;
 
 
 /**
@@ -65,6 +75,83 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	protected abstract T createInstanceWithSearchFields(S instance);
 
 	protected abstract S getModelInstance();
+
+	/**
+	 * Given a list of models, apply translations for them, if there are any needed
+	 *
+	 * @param models The models to translate
+	 * @return The models with translated properties, if any
+	 */
+	protected List<S> getTranslations(List<S> models) {
+		// Get columns to translate and their associated setter functions
+		Map<String, Function<S, VoidFunction<String>>> columnsToTranslate = getColumnsToTranslate();
+		// Only translate if we need to translate and there are columns to translate
+		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx())) && columnsToTranslate.size() > 0 &&
+				!models.isEmpty()) {
+			S modelInstance = getModelInstance();
+			// If anything errors, just skip translations
+			try {
+				Map<Integer, S> modelsById = models.stream().collect(Collectors.toMap(S::get_ID, v -> v));
+				String idColumnName = modelInstance.get_TableName() + "_ID";
+				String translationTableName = modelInstance.get_TableName() + "_Trl";
+
+				// Setup translation fetching SQL
+				List<Object> translationParameters = new ArrayList<>();
+				String translationWhereClause =
+						QueryUtil.getWhereClauseAndSetParametersForSet(modelsById.keySet(), translationParameters);
+
+				// Ensure that the columns are ordered appropriately for the fetch and set
+				AtomicInteger index = new AtomicInteger(2);
+				Map<Integer, String> indexedColumnNames = columnsToTranslate.keySet().stream().collect(
+						Collectors.toMap(columnToTranslate -> index.getAndIncrement(), columnToTranslate -> columnToTranslate));
+
+				// Construct the SQL
+				StringBuilder sql = new StringBuilder("SELECT ").append(idColumnName);
+				// To ensure proper ordering of columns, increment up them (we start at 1 since result set fetching is
+				// 1-indexed, not 0-indexed)
+				for (int i = 1; i <= columnsToTranslate.size(); i++) {
+					sql.append(",");
+					sql.append(indexedColumnNames.get(i + 1)); // Since the first column is the ID column
+				}
+				sql.append(" FROM ").append(translationTableName).append(" WHERE ").append(idColumnName).append(" IN(")
+						.append(translationWhereClause).append(") AND ").append(MLanguage.COLUMNNAME_AD_Language).append("=?");
+				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
+
+				// Fetch translations
+				SqlUtil.executeQuery(sql.toString(), translationParameters, null, resultSet -> {
+					try {
+						// The first property passed in above was the entity ID, so use it to get the entity we're updating
+						S modelToTranslate = modelsById.get(resultSet.getInt(1));
+						indexedColumnNames.forEach((columnIndex, columnName) -> {
+							try {
+								ModelUtil.setPropertyIfPresent(resultSet.getString(columnIndex),
+										columnsToTranslate.get(columnName).apply(modelToTranslate));
+							} catch (Exception ex) {
+								log.severe("Error processing record translations for table " + modelInstance.get_TableName() + ":" +
+										ex.getMessage());
+							}
+						});
+					} catch (Exception ex) {
+						log.severe("Error processing record translations for table " + modelInstance.get_TableName() + ":" +
+								ex.getMessage());
+					}
+				});
+			} catch (Exception ex) {
+				log.severe("Error processing translations for table " + modelInstance.get_TableName() + ":" + ex.getMessage());
+			}
+		}
+		return models;
+	}
+
+	/**
+	 * Get a list of columns that need translation, along with setter functions for values in each column
+	 *
+	 * @return A map of column names and an appropriate function to call to pass in a model to translate and to get a
+	 * setter function
+	 */
+	protected Map<String, Function<S, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>();
+	}
 
 	/**
 	 * Whether the client ID from the context should be automatically used by default in DB queries. WARNING: If this is
@@ -277,6 +364,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				}
 			}
 
+			// TODO: Add translation tables via a JOIN because sorting will not work on translated columns at the moment
 			String orderBy = getOrderBy(sortColumn, sortOrder);
 			if (orderBy != null) {
 				query = query.setOrderBy(orderBy);
@@ -291,7 +379,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
-			List<S> entities = query.list();
+			List<S> entities = getTranslations(query.list());
 
 			if (!entities.isEmpty()) {
 				for (S entity : entities) {
@@ -347,6 +435,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			S entity = new Query(Env.getCtx(), getModelInstance().get_TableName(), columnUuid + "=?", null)
 					.setParameters(uuid).first();
+			if (entity != null) {
+				entity = getTranslations(Collections.singletonList(entity)).get(0);
+			}
 			return entity;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -372,6 +463,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			S entity = new Query(Env.getCtx(), getModelInstance().get_TableName(), columnId + "=?", null)
 					.setParameters(id).first();
+			if (entity != null) {
+				entity = getTranslations(Collections.singletonList(entity)).get(0);
+			}
 			return entity;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
