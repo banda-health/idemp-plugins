@@ -4,6 +4,8 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.function.VoidFunction;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
@@ -24,10 +26,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class ReferenceListDBService {
+public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefList> {
 	private final CLogger log = CLogger.getCLogger(BaseDBService.class);
 	private final Set<String> usedDocumentTypeNames = new HashSet<>();
 	private final Map<String, Integer> documentTypeNameToADTableIdMap = new HashMap<>();
@@ -42,6 +45,31 @@ public class ReferenceListDBService {
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_BILLS, MOrder_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_RECEIVE_PRODUCT, MOrder_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_PAYMENTS, MPayment_BH.Table_ID);
+	}
+
+	@Override
+	public ReferenceList saveEntity(ReferenceList entity) {
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		return null;
+	}
+
+	@Override
+	protected ReferenceList createInstanceWithDefaultFields(MRefList instance) {
+		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	protected ReferenceList createInstanceWithAllFields(MRefList instance) {
+		return new ReferenceList(instance);
+	}
+
+	@Override
+	protected ReferenceList createInstanceWithSearchFields(MRefList instance) {
+		return createInstanceWithAllFields(instance);
 	}
 
 	/**
@@ -191,5 +219,13 @@ public class ReferenceListDBService {
 		});
 
 		return documentActionAccess;
+	}
+
+	@Override
+	protected Map<String, Function<MRefList, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>() {{
+			put(MRefList.COLUMNNAME_Name, entity -> entity::setName);
+			put(MRefList.COLUMNNAME_Description, entity -> entity::setDescription);
+		}};
 	}
 }
