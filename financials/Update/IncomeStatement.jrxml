@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -249,15 +249,16 @@ LEFT JOIN (
 				<text><![CDATA[Payment type]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="77" y="44" width="358" height="18" forecolor="#FFFFFF" backcolor="#CC0000" uuid="5f5e6ea8-8ca0-4cc6-8936-46c33f525e71">
+				<reportElement positionType="Float" mode="Opaque" x="77" y="44" width="358" height="17" forecolor="#FFFFFF" backcolor="#CC0000" uuid="5f5e6ea8-8ca0-4cc6-8936-46c33f525e71">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -267,15 +268,16 @@ LEFT JOIN (
 				<text><![CDATA[Total expenses]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="435" y="44" width="82" height="18" forecolor="#FFFFFF" backcolor="#CC0000" uuid="5d5d7197-a9f0-4447-9f06-3a9e0dd81173">
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="435" y="44" width="82" height="17" forecolor="#FFFFFF" backcolor="#CC0000" uuid="5d5d7197-a9f0-4447-9f06-3a9e0dd81173">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="1.0" lineStyle="Dotted" lineColor="#FFFFFF"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="false"/>
@@ -284,9 +286,9 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{expensetotal}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;(#,##0)" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="435" y="62" width="82" height="18" forecolor="#FFFFFF" backcolor="#00B050" uuid="7f714730-64ed-4425-9269-9b4648be61b7">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="435" y="61" width="82" height="19" forecolor="#FFFFFF" backcolor="#00B050" uuid="7f714730-64ed-4425-9269-9b4648be61b7">
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -301,10 +303,12 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{debtrevenue}).subtract($F{expensetotal})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="77" y="62" width="358" height="18" forecolor="#FFFFFF" backcolor="#00B050" uuid="8ea8b9dd-110e-4b9e-97c3-2365e7977bb8">
+				<reportElement positionType="Float" mode="Opaque" x="77" y="61" width="358" height="19" forecolor="#FFFFFF" backcolor="#00B050" uuid="8ea8b9dd-110e-4b9e-97c3-2365e7977bb8">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineWidth="0.0"/>
@@ -626,10 +630,9 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{credit_debit_check}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="435" y="256" width="82" height="18" forecolor="#000000" backcolor="#305496" uuid="ad4f33ae-0b7a-466d-be87-0b12f07fbbfd">
+				<reportElement mode="Transparent" x="435" y="256" width="82" height="17" forecolor="#000000" backcolor="#305496" uuid="ad4f33ae-0b7a-466d-be87-0b12f07fbbfd">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -637,7 +640,7 @@ LEFT JOIN (
 					<pen lineColor="#000000"/>
 					<topPen lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -647,27 +650,28 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{debtrevenue}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Transparent" x="77" y="256" width="358" height="18" forecolor="#000000" backcolor="#D9D9D9" uuid="18471232-bffe-49c9-9464-a0d1a7d54178">
+				<reportElement positionType="Float" mode="Transparent" x="77" y="256" width="358" height="17" forecolor="#000000" backcolor="#D9D9D9" uuid="18471232-bffe-49c9-9464-a0d1a7d54178">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
 					<topPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Open balances (incl. from previous periods)]]></text>
+				<text><![CDATA[Open balances paid (incl. from previous periods)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="77" y="274" width="358" height="18" forecolor="#FFFFFF" backcolor="#305496" uuid="379ef7da-078d-49d8-83d0-e4cfafacb770">
+				<reportElement positionType="Float" mode="Opaque" x="77" y="273" width="358" height="19" forecolor="#FFFFFF" backcolor="#305496" uuid="379ef7da-078d-49d8-83d0-e4cfafacb770">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -683,12 +687,10 @@ LEFT JOIN (
 				<text><![CDATA[TOTAL ACTUAL INCOME RECEIVED]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="435" y="274" width="82" height="18" forecolor="#FFFFFF" backcolor="#305496" uuid="d7f0d139-c0f4-4706-b508-49b5529c5a56">
+				<reportElement mode="Opaque" x="435" y="273" width="82" height="19" forecolor="#FFFFFF" backcolor="#305496" uuid="d7f0d139-c0f4-4706-b508-49b5529c5a56">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -754,7 +756,7 @@ LEFT JOIN (
 					<font size="11" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Income Category]]></text>
+				<text><![CDATA[Income category]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="77" y="338" width="358" height="18" uuid="668e3f21-913f-4440-b9a1-f90ec8e0d676">
@@ -909,16 +911,15 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{radiologysales}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="77" y="410" width="358" height="18" uuid="d2b30030-8aa9-40c2-86d9-5619349f23df">
+				<reportElement x="77" y="410" width="358" height="17" uuid="d2b30030-8aa9-40c2-86d9-5619349f23df">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
@@ -928,16 +929,15 @@ LEFT JOIN (
 				<text><![CDATA[Other]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="435" y="410" width="82" height="18" uuid="91ae97c7-e51a-4532-a253-e6be5feb331a">
+				<reportElement stretchType="ContainerBottom" x="435" y="410" width="82" height="17" uuid="91ae97c7-e51a-4532-a253-e6be5feb331a">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -947,8 +947,10 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{othersales}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="77" y="428" width="358" height="18" forecolor="#000000" backcolor="#8EA9DB" uuid="0b7dd309-88fd-46ca-a81e-4af3e68f8a4f">
+				<reportElement positionType="Float" mode="Opaque" x="77" y="427" width="358" height="19" forecolor="#000000" backcolor="#8EA9DB" uuid="0b7dd309-88fd-46ca-a81e-4af3e68f8a4f">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -964,11 +966,11 @@ LEFT JOIN (
 				<text><![CDATA[TOTAL CHARGES]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="435" y="428" width="82" height="18" forecolor="#000000" backcolor="#8EA9DB" uuid="d71f8791-e1bf-405d-b55e-0902d88be082">
+				<reportElement mode="Opaque" x="435" y="427" width="82" height="19" forecolor="#000000" backcolor="#8EA9DB" uuid="d71f8791-e1bf-405d-b55e-0902d88be082">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -1016,7 +1018,7 @@ LEFT JOIN (
 					<font size="11" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Income Category]]></text>
+				<text><![CDATA[Future external payors]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="77" y="492" width="358" height="18" uuid="61d389ca-3727-4361-84b3-77425f673e8d">
@@ -1093,15 +1095,14 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{otherpayments}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="77" y="528" width="358" height="18" uuid="f2a59c48-4259-40c7-90c7-92b093e356ae">
+				<reportElement x="77" y="528" width="358" height="17" uuid="f2a59c48-4259-40c7-90c7-92b093e356ae">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
@@ -1111,16 +1112,15 @@ LEFT JOIN (
 				<text><![CDATA[Donor]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="435" y="528" width="82" height="18" uuid="87d4d27c-ef79-4930-80dc-2cddd83d8790">
+				<reportElement stretchType="ContainerBottom" x="435" y="528" width="82" height="17" uuid="87d4d27c-ef79-4930-80dc-2cddd83d8790">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -1130,8 +1130,10 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{donorfund}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="77" y="546" width="358" height="18" forecolor="#000000" backcolor="#8EA9DB" uuid="ce280904-80f2-4708-9b92-cbcd19684ab0">
+				<reportElement positionType="Float" mode="Opaque" x="77" y="545" width="358" height="19" forecolor="#000000" backcolor="#8EA9DB" uuid="ce280904-80f2-4708-9b92-cbcd19684ab0">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -1147,11 +1149,11 @@ LEFT JOIN (
 				<text><![CDATA[TOTAL FOR FUTURE REFUND]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="435" y="546" width="82" height="18" forecolor="#000000" backcolor="#8EA9DB" uuid="0fb2fd9e-31a0-4fe7-8c2c-6228578e173e">
+				<reportElement mode="Opaque" x="435" y="545" width="82" height="19" forecolor="#000000" backcolor="#8EA9DB" uuid="0fb2fd9e-31a0-4fe7-8c2c-6228578e173e">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -1221,15 +1223,14 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{waiver}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="77" y="600" width="358" height="18" uuid="5c9018dd-657a-4468-9d3b-a24073c578a5">
+				<reportElement x="77" y="600" width="358" height="17" uuid="5c9018dd-657a-4468-9d3b-a24073c578a5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
@@ -1239,16 +1240,15 @@ LEFT JOIN (
 				<text><![CDATA[Unpaid balance]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="435" y="600" width="82" height="18" uuid="4bc8cc5e-3a85-449e-a498-13d753f59b1f">
+				<reportElement stretchType="ContainerBottom" x="435" y="600" width="82" height="17" uuid="4bc8cc5e-3a85-449e-a498-13d753f59b1f">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -1258,8 +1258,10 @@ LEFT JOIN (
 				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{salesrevenue})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="77" y="618" width="358" height="18" forecolor="#000000" backcolor="#8EA9DB" uuid="86a5da29-7e63-44e1-87bc-dc6ce8ea6253">
+				<reportElement positionType="Float" mode="Opaque" x="77" y="617" width="358" height="19" forecolor="#000000" backcolor="#8EA9DB" uuid="86a5da29-7e63-44e1-87bc-dc6ce8ea6253">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -1275,11 +1277,11 @@ LEFT JOIN (
 				<text><![CDATA[TOTAL NON-PAYMENTS]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="435" y="618" width="82" height="18" forecolor="#000000" backcolor="#8EA9DB" uuid="1d840f68-24e3-449c-a0f6-2d7b8a416462">
+				<reportElement mode="Opaque" x="435" y="617" width="82" height="19" forecolor="#000000" backcolor="#8EA9DB" uuid="1d840f68-24e3-449c-a0f6-2d7b8a416462">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -1294,6 +1296,95 @@ LEFT JOIN (
 				</textElement>
 				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{salesrevenue}).add($F{waiver})]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="77" y="63" width="440" height="1" uuid="91f7fa24-bafb-48ba-96a6-823393e0400f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="275" width="440" height="1" uuid="72f9fd3f-d9ed-4202-8857-fa40a912dbc6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="429" width="440" height="1" uuid="29dbc938-f621-447b-b642-45e8768651a7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="547" width="440" height="1" uuid="acbf0dd7-421d-4f20-a9a0-3671a73d8746">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="619" width="440" height="1" uuid="42df96b4-acca-494d-b318-53f22fede005">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="61" width="440" height="1" uuid="fc71ca68-be1d-446f-b8c3-ec50bb30c5d3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="273" width="440" height="1" uuid="d7152820-ed90-44af-85e6-8262e7f61fc4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="427" width="440" height="1" uuid="65070c8c-b4c8-49c9-bb7c-6fe798c8f53a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="545" width="440" height="1" uuid="5bb31d33-6de1-4f4b-bd89-acc45c1a3a63">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="77" y="617" width="440" height="1" uuid="fd8c7702-6746-4d50-926a-c95ba99ef16d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>

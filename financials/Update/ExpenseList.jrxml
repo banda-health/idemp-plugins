@@ -1456,6 +1456,7 @@ GROUP BY
 			</textField>
 		</band>
 		<band height="234">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="358" height="18" forecolor="#000000" backcolor="#FF7D7D" uuid="5f563f20-963f-4153-8985-c11e678ec15d">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
@@ -1873,14 +1874,15 @@ GROUP BY
 				<textFieldExpression><![CDATA[$F{services_it}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="198" width="358" height="18" forecolor="#000000" backcolor="#FF7D7D" uuid="d6f9cbf8-7cb2-454c-94c3-b13038c571ee">
+				<reportElement positionType="Float" mode="Opaque" x="0" y="198" width="358" height="17" forecolor="#000000" backcolor="#FF7D7D" uuid="d6f9cbf8-7cb2-454c-94c3-b13038c571ee">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -1890,16 +1892,15 @@ GROUP BY
 				<text><![CDATA[Other]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" mode="Opaque" x="358" y="198" width="82" height="18" backcolor="#FF7D7D" uuid="a6a96231-f72a-426f-a3ff-66ab916881ec">
+				<reportElement stretchType="ContainerBottom" mode="Opaque" x="358" y="198" width="82" height="17" backcolor="#FF7D7D" uuid="a6a96231-f72a-426f-a3ff-66ab916881ec">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -1909,12 +1910,10 @@ GROUP BY
 				<textFieldExpression><![CDATA[$F{other}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="358" y="216" width="82" height="18" forecolor="#FFFFFF" backcolor="#C00000" uuid="4dc7536d-767a-4142-a5c5-66c87161aeab">
+				<reportElement mode="Opaque" x="358" y="215" width="82" height="19" forecolor="#FFFFFF" backcolor="#C00000" uuid="4dc7536d-767a-4142-a5c5-66c87161aeab">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -1930,9 +1929,9 @@ GROUP BY
 				<textFieldExpression><![CDATA[$F{total_expenses}.add($F{lab_total}).add($F{pharmacy_total}).add($F{radiology_total}).add($F{other_total})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="216" width="358" height="18" forecolor="#FFFFFF" backcolor="#C00000" uuid="d01f5388-9761-440e-877f-cc7b18349ba3">
+				<reportElement positionType="Float" mode="Opaque" x="0" y="215" width="358" height="19" forecolor="#FFFFFF" backcolor="#C00000" uuid="d01f5388-9761-440e-877f-cc7b18349ba3">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<pen lineColor="#000000"/>
@@ -1947,6 +1946,24 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[TOTAL EXPENSES DURING THIS PERIOD]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="217" width="440" height="1" uuid="ac2f83f2-ec3b-4578-b2f6-7d92a3131b45">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="215" width="440" height="1" uuid="f253e23d-d498-4c14-9362-4ecbf8c12fe0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
 		</band>
 	</detail>
 </jasperReport>
