@@ -1,5 +1,5 @@
 ALTER TABLE c_order
-  ADD IF NOT EXISTS bh_visitdate timestamp;
+  ADD IF NOT EXISTS bh_visitdate timestamp default now();
 
 UPDATE c_order SET bh_visitdate = dateordered + interval '12 hours' WHERE bh_visitdate IS NULL;
 
