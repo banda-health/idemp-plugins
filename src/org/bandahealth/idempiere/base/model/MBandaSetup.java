@@ -418,6 +418,22 @@ public class MBandaSetup {
 	}
 
 	/**
+	 * Perform any resets on the user role that was automatically created by iDempiere
+	 *
+	 * @return Whether the user role was successfully reset or not
+	 */
+	public boolean resetUserRole() {
+		MRole userRole = new Query(Env.getCtx(), MRole.Table_Name, MRole.COLUMNNAME_Name + "=?", getTransactionName())
+				.setParameters(getRoleName(client.getName(), "User")).setClient_ID().first();
+		if (userRole == null) {
+			log.log(Level.SEVERE, "User role not defined for client");
+			return false;
+		}
+		userRole.setIsManual(true);
+		return userRole.save();
+	}
+
+	/**
 	 * The roles for admin and user are created by default - add roles for additional ones in the system, then
 	 * handle the associated access for all roles.
 	 *
@@ -647,6 +663,16 @@ public class MBandaSetup {
 		role.setIsAccessAdvanced(false);
 		if (!role.save()) {
 			String errorMessage = roleName + " Role NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
+			return false;
+		}
+		// Set manual so that access doesn't get changed after a DB update or a new thing to access is added to the system
+		// This is set after the role is added so that all the right access can be granted (NOTE: This will be undone and
+		// better handled when the role refactor has occurred)
+		role.setIsManual(true);
+		if (!role.save()) {
+			String errorMessage = roleName + " Role NOT set to manual";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
 			return false;

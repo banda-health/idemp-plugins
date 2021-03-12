@@ -190,6 +190,13 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			addLog(bandaSetup.getThenResetInfo());
 
+			// Update the user role that iDempiere automatically created
+			if (!bandaSetup.resetUserRole()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Reset user role failed"));
+			}
+			addLog(bandaSetup.getThenResetInfo());
+
 			List<MUser_BH> usersToAddRolesTo = new ArrayList<>();
 			MUser_BH clientAdminUser = new Query(getCtx(), MUser.Table_Name,
 					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?", get_TrxName())
