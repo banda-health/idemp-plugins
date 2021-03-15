@@ -423,8 +423,22 @@ public class MBandaSetup {
 	 * @return Whether the user role was successfully reset or not
 	 */
 	public boolean resetUserRole() {
+		MRefList userRoleReferenceList =
+				new Query(Env.getCtx(), MRefList.Table_Name, MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND" +
+						" " + MReference_BH.Table_Name + "." + MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
+						.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "." +
+								MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "." +
+								MRefList.COLUMNNAME_AD_Reference_ID)
+						.setParameters(DB_USERTYPE_User, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+
+		// If the admin reference list doesn't exist, there's a big problem...
+		if (userRoleReferenceList == null) {
+			log.log(Level.SEVERE, "User role suffix (a reference list) not found in system");
+			return false;
+		}
+
 		MRole userRole = new Query(Env.getCtx(), MRole.Table_Name, MRole.COLUMNNAME_Name + "=?", getTransactionName())
-				.setParameters(getRoleName(client.getName(), "User")).setClient_ID().first();
+				.setParameters(getRoleName(client.getName(), userRoleReferenceList.getName())).setClient_ID().first();
 		if (userRole == null) {
 			log.log(Level.SEVERE, "User role not defined for client");
 			return false;
