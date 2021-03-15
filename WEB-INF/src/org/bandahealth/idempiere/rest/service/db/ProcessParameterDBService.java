@@ -48,4 +48,9 @@ public class ProcessParameterDBService extends BaseDBService<ProcessParameter, M
 			put(MProcessPara.COLUMNNAME_Description, entity -> entity::setDescription);
 		}};
 	}
+
+	@Override
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
+	}
 }

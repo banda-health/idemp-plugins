@@ -34,4 +34,9 @@ public class ReferenceDBService extends BaseDBService<Reference, MReference_BH> 
 	protected MReference_BH getModelInstance() {
 		return new MReference_BH(Env.getCtx(), 0, null);
 	}
+
+	@Override
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
+	}
 }

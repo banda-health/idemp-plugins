@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,6 +46,25 @@ import org.compiere.util.Env;
  * @author andrew
  */
 public class ProcessDBService extends BaseDBService<Process, MProcess> {
+
+	// TODO: Remove these when this information is stored in iDempiere
+	// report names
+	public static final String INCOME_EXPENSE_REPORT = "Income & Expenses";
+	public static final String THERMAL_RECEIPT_REPORT = "BH Thermal Receipt";
+	public static final String PATIENT_TRANSACTIONS_REPORT = "Patient Transactions";
+	public static final String STOCK_REORDER_REPORT = "Stock to be Ordered";
+	public static final String PRODUCT_AND_PRICES_REPORT = "Products and Prices";
+	public static final String VALUE_OPENING_CLOSING_STOCK_REPORT = "Value of Opening and Closing Stock";
+	public static final String MOH705A_PATIENT_VISITS_REFERRALS_REPORT = "MoH705A Patient Visits and Referrals";
+	public static final String MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT = "MoH705A Out Patient Under 5yr Summary";
+	public static final String MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT = "MoH717 New and Revisit Patient Count";
+	public static final String MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT = "MoH705B Out Patient Over 5yr Summary";
+	public static final String INVENTORY_SOLD_REPORT = "Inventory Sold Report";
+	public static final String STOCK_DISCREPANCY_REPORT = "Stock Discrepancy Report";
+	public static final String DONOR_FUND_REPORT = "Donor Fund Report";
+	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
+	public static final String PAYMENT_TRAIL_REPORT = "Payment Trail report";
+	public static final String DIAGNOSIS_REPORT = "Diagnosis Report";
 
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
@@ -263,24 +281,25 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * @return A list of processes and their child info
 	 */
 	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, Paging pagingInfo) {
+		// TODO: Remove all this when this information can be pulled from iDempiere
 		List<Object> parameters = new ArrayList<>();
 		List<String> reportNames = new ArrayList<>() {{
-			add(ReportDBService.INCOME_EXPENSE_REPORT);
-			add(ReportDBService.THERMAL_RECEIPT_REPORT);
-			add(ReportDBService.PATIENT_TRANSACTIONS_REPORT);
-			add(ReportDBService.STOCK_REORDER_REPORT);
-			add(ReportDBService.PRODUCT_AND_PRICES_REPORT);
-			add(ReportDBService.VALUE_OPENING_CLOSING_STOCK_REPORT);
-			add(ReportDBService.MOH705A_PATIENT_VISITS_REFERRALS_REPORT);
-			add(ReportDBService.MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT);
-			add(ReportDBService.MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT);
-			add(ReportDBService.MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT);
-			add(ReportDBService.INVENTORY_SOLD_REPORT);
-			add(ReportDBService.STOCK_DISCREPANCY_REPORT);
-			add(ReportDBService.DONOR_FUND_REPORT);
-			add(ReportDBService.DEBT_PAYMENT_RECEIPT);
-			add(ReportDBService.PAYMENT_TRAIL_REPORT);
-			add(ReportDBService.DIAGNOSIS_REPORT);
+			add(INCOME_EXPENSE_REPORT);
+			add(THERMAL_RECEIPT_REPORT);
+			add(PATIENT_TRANSACTIONS_REPORT);
+			add(STOCK_REORDER_REPORT);
+			add(PRODUCT_AND_PRICES_REPORT);
+			add(VALUE_OPENING_CLOSING_STOCK_REPORT);
+			add(MOH705A_PATIENT_VISITS_REFERRALS_REPORT);
+			add(MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT);
+			add(MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT);
+			add(MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT);
+			add(INVENTORY_SOLD_REPORT);
+			add(STOCK_DISCREPANCY_REPORT);
+			add(DONOR_FUND_REPORT);
+			add(DEBT_PAYMENT_RECEIPT);
+			add(PAYMENT_TRAIL_REPORT);
+			add(DIAGNOSIS_REPORT);
 		}};
 
 		String reportNameList = reportNames.stream().map(reportName -> "'" + reportName + "'")
@@ -415,12 +434,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			// Since some reports want IDs, we need to convert UUIDs to IDs
 			// TODO: Update all reports to use UUIDs instead of IDs
 			if (processParameter.getName().toLowerCase().endsWith("id")) {
-				if (process.getName().equalsIgnoreCase(ReportDBService.THERMAL_RECEIPT_REPORT)) {
+				if (process.getName().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
 					MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 							MOrder_BH.COLUMNNAME_C_Order_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
 					parameter = BigDecimal.valueOf(order.get_ID());
-				} else if (process.getName().equalsIgnoreCase(ReportDBService.DEBT_PAYMENT_RECEIPT)) {
+				} else if (process.getName().equalsIgnoreCase(DEBT_PAYMENT_RECEIPT)) {
 					MPayment_BH payment = new Query(Env.getCtx(), MPayment_BH.Table_Name,
 							MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
