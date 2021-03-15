@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.rest.model.ProcessInfoParameter;
-import org.bandahealth.idempiere.rest.model.ReportOutput;
+import org.bandahealth.idempiere.rest.model.ReportType;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.IProcessRestService;
 import org.bandahealth.idempiere.rest.service.db.ProcessDBService;
@@ -53,17 +53,17 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	}
 
 	@POST
-	@Path("/generate/{reportUuid}/{reportOutput}")
+	@Path("/generate/{reportUuid}/{reportType}")
 	@Produces(IRestConfigs.APPLICATION_PDF)
-	public Response generateReport(@PathParam("reportUuid") String reportUuid, @PathParam("reportOutput")
-			ReportOutput reportOutput, List<ProcessInfoParameter> processInfoParameters) {
+	public Response generateReport(@PathParam("reportUuid") String reportUuid, @PathParam("reportType")
+			ReportType reportType, List<ProcessInfoParameter> processInfoParameters) {
 		if (StringUtil.isNullOrEmpty(reportUuid)) {
 			log.severe("Report not specified");
 			return null;
 		}
 		MProcess process = processDBService.getEntityByUuidFromDB(reportUuid);
 
-		File report = processDBService.generateReport(process, reportOutput, processInfoParameters);
+		File report = processDBService.generateReport(process, reportType, processInfoParameters);
 
 		if (report == null) {
 			log.severe("Error Generating report " + process.getName());
@@ -72,7 +72,7 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 
 		Response.ResponseBuilder response = Response.ok((Object) report);
 		response.header("Content-Disposition", "attachment; filename=\"" + process.getName() + "\"." +
-				reportOutput.toString().toLowerCase() + "\"");
+				reportType.toString().toLowerCase() + "\"");
 		return response.build();
 	}
 

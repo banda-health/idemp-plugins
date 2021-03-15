@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.rest.model;
 /**
  * The available formats to output a report in.
  */
-public enum ReportOutput {
+public enum ReportType {
 	PDF,
 	HTML,
 	XLS,

@@ -655,6 +655,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<S> models =
 				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
 						parameters).list();
-		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, m -> m));
+		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, model -> model));
 	}
 }

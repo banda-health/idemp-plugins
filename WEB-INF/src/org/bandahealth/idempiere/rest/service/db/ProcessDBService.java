@@ -20,7 +20,7 @@ import org.bandahealth.idempiere.base.process.ExpenseProcess;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
-import org.bandahealth.idempiere.rest.model.ReportOutput;
+import org.bandahealth.idempiere.rest.model.ReportType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
@@ -74,12 +74,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	private final ProcessParameterDBService processParameterDBService;
 	private final ReferenceDBService referenceDBService;
 	private final ReferenceListDBService referenceListDBService;
-	private final Map<ReportOutput, String> contentTypes = new HashMap<>() {{
-		put(ReportOutput.CSV, "text/csv");
-		put(ReportOutput.HTML, "text/html");
-		put(ReportOutput.PDF, "application/pdf");
-		put(ReportOutput.XLS, "application/vnd.ms-excel");
-		put(ReportOutput.XLSX, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	private final Map<ReportType, String> contentTypes = new HashMap<>() {{
+		put(ReportType.CSV, "text/csv");
+		put(ReportType.HTML, "text/html");
+		put(ReportType.PDF, "application/pdf");
+		put(ReportType.XLS, "application/vnd.ms-excel");
+		put(ReportType.XLSX, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 	}};
 
 	public ProcessDBService() {
@@ -383,18 +383,18 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * Generate an iDempiere report
 	 *
 	 * @param process               The report (which is a process in iDempiere) to run
-	 * @param reportOutput          What output the report should be
+	 * @param reportType          What output the report should be
 	 * @param processInfoParameters The parameters to pass to the report
 	 * @return A file of the generated report, or null if an error occurred
 	 */
-	public File generateReport(MProcess process, ReportOutput reportOutput,
+	public File generateReport(MProcess process, ReportType reportType,
 			List<org.bandahealth.idempiere.rest.model.ProcessInfoParameter> processInfoParameters) {
 		if (process == null) {
 			throw new AdempiereException("Could not find report");
 		}
 
-		if (reportOutput == null) {
-			reportOutput = ReportOutput.PDF;
+		if (reportType == null) {
+			reportType = ReportType.PDF;
 		}
 
 		// Initialize report info
@@ -404,8 +404,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		processInfo.setAD_Process_UU(process.getAD_Process_UU());
 		processInfo.setIsBatch(true);
 		processInfo.setExport(true);
-		processInfo.setReportType(reportOutput.toString().toUpperCase());
-		processInfo.setExportFileExtension(reportOutput.toString().toLowerCase());
+		processInfo.setReportType(reportType.toString().toUpperCase());
+		processInfo.setExportFileExtension(reportType.toString().toLowerCase());
 
 		// Let's process the parameters (really, we only need to convert dates if they're dates)
 		// First, batch DB requests so we can avoid many queries
