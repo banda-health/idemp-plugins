@@ -815,5 +815,6 @@ JOIN ad_org ao
 /**********************************************************************************************************/
 -- Delete the old roles
 /**********************************************************************************************************/
+-- Reset access for the Clinic Admin and Clinician User (now named Clinician/Nurse)
 
 SELECT register_migration_script('202103161336_GO-1569.sql') FROM dual;
