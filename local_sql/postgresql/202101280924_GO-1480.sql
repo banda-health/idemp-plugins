@@ -1,6 +1,6 @@
 -- Create a missed index from before to ensure duplicate included roles can't be assigned to a usertype
--- create unique index if not exists bh_defaultincludedrole_unique
--- 	on bh_defaultincludedrole (db_usertype, included_role_id);
+create unique index if not exists bh_defaultincludedrole_unique
+	on bh_defaultincludedrole (db_usertype, included_role_id);
 
 -- Make the columnname allowance longer
 ALTER TABLE ad_element ALTER COLUMN columnname TYPE varchar(100);
