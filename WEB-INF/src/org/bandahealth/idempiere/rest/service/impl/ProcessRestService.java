@@ -53,17 +53,17 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	}
 
 	@POST
-	@Path("/generate/{reportUuid}/{reportType}")
+	@Path("/runandexport/{processUuid}/{reportType}")
 	@Produces(IRestConfigs.APPLICATION_PDF)
-	public Response generateReport(@PathParam("reportUuid") String reportUuid, @PathParam("reportType")
+	public Response runAndExport(@PathParam("processUuid") String processUuid, @PathParam("reportType")
 			ReportType reportType, List<ProcessInfoParameter> processInfoParameters) {
-		if (StringUtil.isNullOrEmpty(reportUuid)) {
+		if (StringUtil.isNullOrEmpty(processUuid)) {
 			log.severe("Report not specified");
 			return null;
 		}
-		MProcess process = processDBService.getEntityByUuidFromDB(reportUuid);
+		MProcess process = processDBService.getEntityByUuidFromDB(processUuid);
 
-		File report = processDBService.generateReport(process, reportType, processInfoParameters);
+		File report = processDBService.runAndExport(process, reportType, processInfoParameters);
 
 		if (report == null) {
 			log.severe("Error Generating report " + process.getName());
@@ -71,7 +71,7 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 		}
 
 		Response.ResponseBuilder response = Response.ok((Object) report);
-		response.header("Content-Disposition", "attachment; filename=\"" + process.getName() + "\"." +
+		response.header("Content-Disposition", "attachment; filename=\"" + process.getName() + "." +
 				reportType.toString().toLowerCase() + "\"");
 		return response.build();
 	}

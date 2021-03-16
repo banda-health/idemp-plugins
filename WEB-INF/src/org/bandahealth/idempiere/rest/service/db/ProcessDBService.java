@@ -380,14 +380,14 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	}
 
 	/**
-	 * Generate an iDempiere report
+	 * Run an iDempiere process and get it's export
 	 *
 	 * @param process               The report (which is a process in iDempiere) to run
 	 * @param reportType          What output the report should be
 	 * @param processInfoParameters The parameters to pass to the report
 	 * @return A file of the generated report, or null if an error occurred
 	 */
-	public File generateReport(MProcess process, ReportType reportType,
+	public File runAndExport(MProcess process, ReportType reportType,
 			List<org.bandahealth.idempiere.rest.model.ProcessInfoParameter> processInfoParameters) {
 		if (process == null) {
 			throw new AdempiereException("Could not find report");
