@@ -1,4 +1,6 @@
+/**********************************************************************************************************/
 -- Insert the "Must Haves" role
+/**********************************************************************************************************/
 INSERT INTO ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner, allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype) VALUES ((SELECT MAX(ad_role_id) + 1 FROM ad_role), 0, 0, 'Y', '2021-03-16 12:56:30.672000', 100, '2021-03-16 12:56:36.726000', 'Must Haves', 100, null, 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', 0, 0, 'baec9412-d994-4313-815c-31332357863a', 'N', 'Y', 'Y', null) ON CONFLICT DO NOTHING;
 
 -- Insert process access
@@ -627,5 +629,45 @@ INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, create
 INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_doctype_id, ad_role_id, ad_ref_list_id, ad_document_action_access_uu) VALUES (0, 0, 'Y', '2021-03-16 12:56:30.853283', 100, '2021-03-16 12:56:30.853283', 100, (SELECT c_doctype_id FROM c_doctype WHERE c_doctype_uu = '8c398b42-9022-49a7-b1f5-ecca8a2baeeb'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'), 345, null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_doctype_id, ad_role_id, ad_ref_list_id, ad_document_action_access_uu) VALUES (0, 0, 'Y', '2021-03-16 12:56:30.853283', 100, '2021-03-16 12:56:30.853283', 100, (SELECT c_doctype_id FROM c_doctype WHERE c_doctype_uu = '8c398b42-9022-49a7-b1f5-ecca8a2baeeb'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'), 347, null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_doctype_id, ad_role_id, ad_ref_list_id, ad_document_action_access_uu) VALUES (0, 0, 'Y', '2021-03-16 12:56:30.853283', 100, '2021-03-16 12:56:30.853283', 100, (SELECT c_doctype_id FROM c_doctype WHERE c_doctype_uu = '8c398b42-9022-49a7-b1f5-ecca8a2baeeb'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'), 691, null) ON CONFLICT DO NOTHING;
+
+/**********************************************************************************************************/
+-- Insert the "Clinical Admin" role
+/**********************************************************************************************************/
+
+/**********************************************************************************************************/
+-- Insert the "Cashier/Registration" role
+/**********************************************************************************************************/
+
+/**********************************************************************************************************/
+-- Insert the "Inventory/Pharmacy" role
+/**********************************************************************************************************/
+
+/**********************************************************************************************************/
+-- Insert the "Clinician/Nurse" role
+/**********************************************************************************************************/
+
+/**********************************************************************************************************/
+-- Insert the "Lab/Radiology" role
+/**********************************************************************************************************/
+
+/**********************************************************************************************************/
+-- Insert the "Accounting" role
+/**********************************************************************************************************/
+
+
+/**********************************************************************************************************/
+-- Add the new base roles to each client
+/**********************************************************************************************************/
+-- Make sure these are manual
+-- May want to get rid of existing roles that resemble these new ones
+
+
+/**********************************************************************************************************/
+-- Map existing users to the new roles
+/**********************************************************************************************************/
+
+/**********************************************************************************************************/
+-- Delete the old roles
+/**********************************************************************************************************/
 
 SELECT register_migration_script('202103161336_GO-1569.sql') FROM dual;
