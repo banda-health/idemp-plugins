@@ -347,7 +347,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			// AD_Reference_Value property is the AD_Reference for the available values
 			Set<Integer> referencesThatAreListsAndNeedAcceptableValues = allProcessParameters.stream().filter(
 					processParameter -> referencesById.containsKey(processParameter.getAD_Reference_ID()) &&
-							referencesById.get(processParameter.getAD_Reference_ID()).getName().equalsIgnoreCase("List")
+							processParameter.getAD_Reference_ID() == MReference_BH.LIST_AD_REFERENCE_ID
 			).map(MProcessPara::getAD_Reference_Value_ID).collect(Collectors.toSet());
 			Map<Integer, List<MRefList>> referenceListsByReference = referenceListDBService
 					.getGroupsByIds(MRefList::getAD_Reference_ID, MRefList.COLUMNNAME_AD_Reference_ID,
@@ -383,7 +383,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * Run an iDempiere process and get it's export
 	 *
 	 * @param process               The report (which is a process in iDempiere) to run
-	 * @param reportType          What output the report should be
+	 * @param reportType            What output the report should be
 	 * @param processInfoParameters The parameters to pass to the report
 	 * @return A file of the generated report, or null if an error occurred
 	 */
@@ -427,13 +427,13 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			// Get the reference to help determine what type of parameter this is
 			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
 			Object parameter = processInfoParameter.getParameter();
-			if (referenceForParameter.getName().equalsIgnoreCase("Date")) {
+			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATE_AD_REFERENCE_ID) {
 				parameter = DateUtil.parseDate(processInfoParameter.getParameter().toString());
 			}
 
 			// Since some reports want IDs, we need to convert UUIDs to IDs
 			// TODO: Update all reports to use UUIDs instead of IDs
-			if (processParameter.getName().toLowerCase().endsWith("id")) {
+			if (processParameter.getName().toLowerCase().endsWith(MReference_BH.SUFFIX_ID)) {
 				if (process.getName().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
 					MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 							MOrder_BH.COLUMNNAME_C_Order_UU + "=?", null)

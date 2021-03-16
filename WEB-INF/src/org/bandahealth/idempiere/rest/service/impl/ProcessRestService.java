@@ -20,6 +20,7 @@ import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.utils.HttpHeaderUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProcess;
 
@@ -53,7 +54,7 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	}
 
 	@POST
-	@Path("/runandexport/{processUuid}/{reportType}")
+	@Path(IRestConfigs.RUN_AND_EXPORT_PATH + "/{processUuid}/{reportType}")
 	@Produces(IRestConfigs.APPLICATION_PDF)
 	public Response runAndExport(@PathParam("processUuid") String processUuid, @PathParam("reportType")
 			ReportType reportType, List<ProcessInfoParameter> processInfoParameters) {
@@ -71,8 +72,7 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 		}
 
 		Response.ResponseBuilder response = Response.ok((Object) report);
-		response.header("Content-Disposition", "attachment; filename=\"" + process.getName() + "." +
-				reportType.toString().toLowerCase() + "\"");
+		HttpHeaderUtil.setContentDisposition(response, process.getName() + "." + reportType.toString().toLowerCase());
 		return response.build();
 	}
 
