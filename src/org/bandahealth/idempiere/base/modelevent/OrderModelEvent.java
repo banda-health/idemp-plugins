@@ -5,6 +5,7 @@ import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInOut;
 import org.compiere.model.MOrder;
 import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MUserOrgAccess;
@@ -44,9 +45,26 @@ public class OrderModelEvent extends AbstractEventHandler {
 //			afterSaveRequest(businessPartner);
 		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
 			if (!isPurchase) {
-				beforeSalesOrderUpdateRequest(order);	
+				beforeSalesOrderUpdateRequest(order);
+			}
+		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_VOID)) {
+			if (isPurchase) {
+				afterPurchaseOrderVoid(order);
 			}
 		}
+	}
+
+	private void afterPurchaseOrderVoid(MOrder_BH order) {
+		// Get the material receipt associated with this order, if any
+		MInOut materialReceipt =
+				new Query(Env.getCtx(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?", order.get_TrxName())
+						.setParameters(order.getC_Order_ID()).setClient_ID().first();
+		if (materialReceipt == null) {
+			return;
+		}
+		// "Void" the material receipt as well, which is a "RA" for them
+		materialReceipt.processIt(MInOut.ACTION_Reverse_Accrual);
+		materialReceipt.saveEx();
 	}
 
 	private void beforeSalesOrderSaveRequest(MOrder_BH salesOrder) {
@@ -62,9 +80,9 @@ public class OrderModelEvent extends AbstractEventHandler {
 		}
 
 		salesOrder.setSalesRep_ID(userId);
-		
+
 		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
-		
+
 		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
 				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
 				.firstId();
@@ -73,16 +91,16 @@ public class OrderModelEvent extends AbstractEventHandler {
 
 		salesOrder.setPaymentRule(MOrder.PAYMENTRULE_Cash);
 	}
-	
+
 	private void beforeSalesOrderUpdateRequest(MOrder_BH salesOrder) {
 		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
-		
+
 		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
 				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
 				.firstId();
-		
+
 		MDocType docType = MDocType.get(Env.getCtx(), posOrderDocTypeId);
-		
+
 		if (docType.getAD_Client_ID() != clientId) {
 			salesOrder.setC_DocType_ID(posOrderDocTypeId);
 			salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
@@ -104,7 +122,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 					QueryConstants.ROLE_ID_COLUMN_NAME,
 					QueryConstants.CLIENT_ID_COLUMN_NAME,
 					QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
-			query = new Query(Env.getCtx(), MRoleOrgAccess.Table_Name,  whereClause, null)
+			query = new Query(Env.getCtx(), MRoleOrgAccess.Table_Name, whereClause, null)
 					.setParameters(roleId, clientId, QueryConstants.BASE_ORGANIZATION_ID);
 		}
 
@@ -119,5 +137,6 @@ public class OrderModelEvent extends AbstractEventHandler {
 	protected void initialize() {
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MOrder_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MOrder_BH.Table_Name);
+		registerTableEvent(IEventTopics.DOC_AFTER_VOID, MOrder_BH.Table_Name);
 	}
 }
