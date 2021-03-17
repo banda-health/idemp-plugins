@@ -62,8 +62,10 @@ public class ProductModelEvent extends AbstractEventHandler {
 		
 		attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 		if (attributeSet != null) {
-			Integer attributeSetId = attributeSet.get_ID();
-			product.setM_AttributeSet_ID(attributeSetId);
+			if (product.isBH_HasExpiration()) {
+				Integer attributeSetId = attributeSet.get_ID();
+				product.setM_AttributeSet_ID(attributeSetId);
+			} 
 		} else {
 			// failed to find or create product attribute set
 			throw new AdempiereException(
