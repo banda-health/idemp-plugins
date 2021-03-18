@@ -64,6 +64,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 		}
 		// "Void" the material receipt as well, which is a "RA" for them
 		materialReceipt.processIt(MInOut.ACTION_Reverse_Accrual);
+		// Since processing an entity doesn't save it, now save it
 		materialReceipt.saveEx();
 	}
 
