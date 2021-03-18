@@ -29,7 +29,6 @@ import org.compiere.util.Env;
 public class InitializeStock {
 
 	private static CLogger log = CLogger.getCLogger(InitializeStock.class);
-	private static int INVENTORY_DOC_TYPE = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
 
 	public static int createInitialStock(List<MProduct_BH> products, BigDecimal quantity, Properties context,
 			String transactionName) {
@@ -49,6 +48,7 @@ public class InitializeStock {
 			throw new AdempiereException("No warehouses defined for organization.");
 		}
 
+		int inventoryDocTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
 		for (MProduct_BH product : products) {
 			if (productIdsWithStock.contains(product.get_ID())) {
 				log.log(Level.SEVERE, "There is an existing stock for product id = " + product.get_ID());
@@ -60,7 +60,7 @@ public class InitializeStock {
 
 			inventory.setM_Warehouse_ID(warehouse.get_ID());
 
-			inventory.setC_DocType_ID(INVENTORY_DOC_TYPE);
+			inventory.setC_DocType_ID(inventoryDocTypeId);
 			inventory.save(transactionName);
 
 			MInventoryLine_BH inventoryLine = new MInventoryLine_BH(context, 0, transactionName);
