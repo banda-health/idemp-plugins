@@ -779,7 +779,7 @@ CREATE TEMP TABLE tmp_ad_role
 SELECT setval(
 	'tmp_ad_role_ad_role_id_seq',
 	(
-		SELECT currentnext
+		SELECT currentnext + 1 -- we already added to the table above (and this hasn't been updated), so increment by one
 		FROM ad_sequence
 		WHERE name = 'AD_Role'
 		LIMIT 1
