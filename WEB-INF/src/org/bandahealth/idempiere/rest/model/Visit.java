@@ -71,7 +71,7 @@ public class Visit extends Order {
 	}
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
-			PatientType patientType, String dateOrdered, BigDecimal grandTotal, String documentStatus) {
+			PatientType patientType, String dateOrdered, BigDecimal grandTotal, String documentStatus, MOrder_BH order) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, null, null,
 				null, documentStatus);
 
@@ -79,6 +79,9 @@ public class Visit extends Order {
 		this.patient = patient;
 
 		setIsSalesOrderTransaction(true);
+		if (order != null) {
+			this.visitDate = order.getBH_VisitDate();
+		}
 	}
 
 	public Visit getVisitQueue(String created, String uuid, Patient patient, OrderStatus status) {

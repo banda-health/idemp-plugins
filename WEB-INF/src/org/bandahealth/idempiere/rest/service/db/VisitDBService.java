@@ -278,7 +278,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Patient(patient.getName(), patient.getC_BPartner_UU()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus());
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus(),
+					instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -314,8 +315,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance(),patient.getBH_PatientID(), DateUtil.parseDateOnly(patient.getBH_Birthday()),
-							patient.getBH_Phone(), patient.getBH_EMail(), DateUtil.parse(patient.getCreated()), patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
+					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance(),
+							patient.getBH_PatientID(), DateUtil.parseDateOnly(patient.getBH_Birthday()),
+							patient.getBH_Phone(), patient.getBH_EMail(), DateUtil.parse(patient.getCreated()),
+							patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
 							getVisitsCount(patient.get_ID()), getLastVisitDate(patient)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
 					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
