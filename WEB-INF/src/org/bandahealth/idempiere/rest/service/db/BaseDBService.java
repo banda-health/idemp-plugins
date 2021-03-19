@@ -95,50 +95,59 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		// Get columns to translate and their associated setter functions
 		Map<String, Function<S, VoidFunction<String>>> columnsToTranslate = getColumnsToTranslate();
 		// Only translate if we need to translate and there are columns to translate
-		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx())) && columnsToTranslate.size() > 0) {
-			Map<Integer, S> modelsById = models.stream().collect(Collectors.toMap(S::get_ID, v -> v));
-			String idColumnName = getModelInstance().get_TableName() + "_ID";
+		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx())) && columnsToTranslate.size() > 0 &&
+				!models.isEmpty()) {
+			S modelInstance = getModelInstance();
+			// If anything errors, just skip translations
+			try {
+				Map<Integer, S> modelsById = models.stream().collect(Collectors.toMap(S::get_ID, v -> v));
+				String idColumnName = modelInstance.get_TableName() + "_ID";
+				String translationTableName = modelInstance.get_TableName() + "_Trl";
 
-			// Setup translation fetching SQL
-			List<Object> translationParameters = new ArrayList<>();
-			String translationWhereClause = QueryUtil
-					.getWhereClauseAndSetParametersForSet(models.stream().map(S::get_ID).collect(Collectors.toSet()),
-							translationParameters);
+				// Setup translation fetching SQL
+				List<Object> translationParameters = new ArrayList<>();
+				String translationWhereClause =
+						QueryUtil.getWhereClauseAndSetParametersForSet(modelsById.keySet(), translationParameters);
 
-			// Ensure that the columns are ordered appropriately for the fetch and set
-			AtomicInteger index = new AtomicInteger(2);
-			Map<Integer, String> indexedColumnNames = columnsToTranslate.keySet().stream().collect(
-					Collectors.toMap(columnToTranslate -> index.getAndIncrement(), columnToTranslate -> columnToTranslate));
+				// Ensure that the columns are ordered appropriately for the fetch and set
+				AtomicInteger index = new AtomicInteger(2);
+				Map<Integer, String> indexedColumnNames = columnsToTranslate.keySet().stream().collect(
+						Collectors.toMap(columnToTranslate -> index.getAndIncrement(), columnToTranslate -> columnToTranslate));
 
-			// Construct the SQL
-			StringBuilder sql = new StringBuilder("SELECT ").append(idColumnName);
-			// To ensure proper ordering of columns, increment up them
-			for (int i = 1; i <= columnsToTranslate.size(); i++) {
-				sql.append(",");
-				sql.append(indexedColumnNames.get(i));
-			}
-			sql.append(" FROM ").append(getModelInstance().get_TableName()).append("_Trl WHERE ")
-					.append(getModelInstance().get_TableName()).append("_ID IN(").append(translationWhereClause).append(") AND ")
-					.append(MLanguage.COLUMNNAME_AD_Language).append("=?");
-			translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
-
-			// Fetch translations
-			SqlUtil.executeQuery(sql.toString(), translationParameters, null, resultSet -> {
-				try {
-					// The first property passed in above was the entity ID, so use it to get the entity we're updating
-					S modelToTranslate = modelsById.get(resultSet.getInt(1));
-					indexedColumnNames.forEach((columnIndex, columnName) -> {
-						try {
-							ModelUtil.setPropertyIfPresent(resultSet.getString(columnIndex),
-									columnsToTranslate.get(columnName).apply(modelToTranslate));
-						} catch (Exception ex) {
-							logger.warning("Error processing reference list translations: " + ex.getMessage());
-						}
-					});
-				} catch (Exception ex) {
-					logger.warning("Error processing reference list translations: " + ex.getMessage());
+				// Construct the SQL
+				StringBuilder sql = new StringBuilder("SELECT ").append(idColumnName);
+				// To ensure proper ordering of columns, increment up them (we start at 1 since result set fetching is
+				// 1-indexed, not 0-indexed)
+				for (int i = 1; i <= columnsToTranslate.size(); i++) {
+					sql.append(",");
+					sql.append(indexedColumnNames.get(i + 1)); // Since the first column is the ID column
 				}
-			});
+				sql.append(" FROM ").append(translationTableName).append(" WHERE ").append(idColumnName).append(" IN(")
+						.append(translationWhereClause).append(") AND ").append(MLanguage.COLUMNNAME_AD_Language).append("=?");
+				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
+
+				// Fetch translations
+				SqlUtil.executeQuery(sql.toString(), translationParameters, null, resultSet -> {
+					try {
+						// The first property passed in above was the entity ID, so use it to get the entity we're updating
+						S modelToTranslate = modelsById.get(resultSet.getInt(1));
+						indexedColumnNames.forEach((columnIndex, columnName) -> {
+							try {
+								ModelUtil.setPropertyIfPresent(resultSet.getString(columnIndex),
+										columnsToTranslate.get(columnName).apply(modelToTranslate));
+							} catch (Exception ex) {
+								log.severe("Error processing record translations for table " + modelInstance.get_TableName() + ":" +
+										ex.getMessage());
+							}
+						});
+					} catch (Exception ex) {
+						log.severe("Error processing record translations for table " + modelInstance.get_TableName() + ":" +
+								ex.getMessage());
+					}
+				});
+			} catch (Exception ex) {
+				log.severe("Error processing translations for table " + modelInstance.get_TableName() + ":" + ex.getMessage());
+			}
 		}
 		return models;
 	}
