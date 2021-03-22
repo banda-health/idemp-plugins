@@ -88,7 +88,12 @@ public class Paging {
 	}
 
 	public Integer getTotalPages(int pageSize) {
-		return (int) Math.ceil((double) getTotalRecordCount() / (double) pageSize);
+		Integer totalRecordCount = getTotalRecordCount();
+		if (totalRecordCount == null) {
+			return 0;
+		}
+		
+		return (int) Math.ceil((double) totalRecordCount / (double) pageSize);
 	}
 
 	@XmlElement
