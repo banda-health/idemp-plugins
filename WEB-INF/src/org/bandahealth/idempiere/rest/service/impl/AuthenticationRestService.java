@@ -23,7 +23,6 @@ import org.bandahealth.idempiere.rest.model.Org;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
-import org.bandahealth.idempiere.rest.service.db.ReportDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;

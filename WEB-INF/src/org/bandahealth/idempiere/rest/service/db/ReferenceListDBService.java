@@ -228,4 +228,9 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 			put(MRefList.COLUMNNAME_Description, entity -> entity::setDescription);
 		}};
 	}
+
+	@Override
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
+	}
 }

@@ -25,6 +25,7 @@ import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
@@ -46,7 +47,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
-	private ReportDBService reportDBService;
 	private PaymentDBService paymentDBService;
 	private UserDBService userDBService;
 	private MBPartner_BH mPatient;
@@ -205,6 +205,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		mOrder.setIsSOTrx(true);
 
+		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), mOrder::setBH_ReferredFromTo);
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateOrdered);
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setBH_VisitDate);
 	}
 
 	@Override
@@ -274,7 +277,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Patient(patient.getName(), patient.getC_BPartner_UU()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus());
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus(),
+					instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -310,8 +314,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance(),patient.getBH_PatientID(), DateUtil.parseDateOnly(patient.getBH_Birthday()),
-							patient.getBH_Phone(), patient.getBH_EMail(), DateUtil.parse(patient.getCreated()), patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
+					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance(),
+							patient.getBH_PatientID(), DateUtil.parseDateOnly(patient.getBH_Birthday()),
+							patient.getBH_Phone(), patient.getBH_EMail(), DateUtil.parse(patient.getCreated()),
+							patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
 							getVisitsCount(patient.get_ID()), getLastVisitDate(patient)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
 					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
@@ -320,7 +326,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
 					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null,
-					new ProcessStage(instance.getBH_ProcessStage()));
+					new ProcessStage(instance.getBH_ProcessStage()), instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -440,22 +446,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				return OrderStatus.PENDING_COMPLETION;
 			}
 		}
-	}
-
-	/**
-	 * Generates Thermal receipt
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public File generateThermalReceipt(String uuid) {
-		MOrder_BH visit = getEntityByUuidFromDB(uuid);
-		if (visit != null) {
-			reportDBService = new ReportDBService(MScheduler.REPORTOUTPUTTYPE_PDF);
-			return reportDBService.generateThermalReceipt(new BigDecimal(visit.get_ID()));
-		}
-
-		return null;
 	}
 
 	/**
