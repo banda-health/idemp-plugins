@@ -85,20 +85,6 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 			@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
-
-	@GET
-	@Path(IRestConfigs.PRINT_RECEIPT_PATH)
-	@Produces(IRestConfigs.APPLICATION_PDF)
-	public Response generateReceipt(@PathParam("uuid") String uuid) {
-		File receipt = dbService.generateThermalReceipt(uuid);
-		if (receipt != null) {
-			ResponseBuilder response = Response.ok((Object) receipt);
-			response.header("Content-Disposition", "attachment; filename=\"receipt.pdf\"");
-			return response.build();
-		}
-
-		return null;
-	}
 	
 	@DELETE
 	@Path(IRestConfigs.UUID_PATH)

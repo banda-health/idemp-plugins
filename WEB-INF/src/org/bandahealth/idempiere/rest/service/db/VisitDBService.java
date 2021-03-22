@@ -46,7 +46,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	private PatientDBService patientDBService;
-	private ReportDBService reportDBService;
 	private PaymentDBService paymentDBService;
 	private UserDBService userDBService;
 	private MBPartner_BH mPatient;
@@ -440,22 +439,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				return OrderStatus.PENDING_COMPLETION;
 			}
 		}
-	}
-
-	/**
-	 * Generates Thermal receipt
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public File generateThermalReceipt(String uuid) {
-		MOrder_BH visit = getEntityByUuidFromDB(uuid);
-		if (visit != null) {
-			reportDBService = new ReportDBService(MScheduler.REPORTOUTPUTTYPE_PDF);
-			return reportDBService.generateThermalReceipt(new BigDecimal(visit.get_ID()));
-		}
-
-		return null;
 	}
 
 	/**
