@@ -55,19 +55,23 @@ WHERE ad_language = 'fr_FR'
 -- Not needed: Payment rules, NHIF-related data
 /**********************************************************************************************************/
 -- Document Statuses
-UPDATE ad_ref_list SET name = 'Annulé' WHERE ad_ref_list_uu = 'd35dfd1d-1eb2-46ef-ab2f-23973d68a570';
-UPDATE ad_ref_list SET name = 'Inconnue' WHERE ad_ref_list_uu = '0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2';
-UPDATE ad_ref_list SET name = 'Clos' WHERE ad_ref_list_uu = '50702660-bbfc-422a-8acc-5ed3a2dce204';
-UPDATE ad_ref_list SET name = 'Projeté' WHERE ad_ref_list_uu = 'd27f8a6b-e8b5-4fea-a6b2-3e7049c473ec'
+UPDATE ad_ref_list_trl SET name = 'Annulé' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd35dfd1d-1eb2-46ef-ab2f-23973d68a570') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Inconnue' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Clos' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '50702660-bbfc-422a-8acc-5ed3a2dce204') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Projeté' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd27f8a6b-e8b5-4fea-a6b2-3e7049c473ec)' AND ad_language = 'fr_FR';
 
 -- Product Category Types
-UPDATE ad_ref_list SET name = 'Produit' WHERE ad_ref_list_uu = '305558d1-db4a-456f-9c25-057750949060';
+UPDATE ad_ref_list_trl SET name = 'Produit' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '305558d1-db4a-456f-9c25-057750949060') AND ad_language = 'fr_FR';
 
 -- Patient types
-UPDATE ad_ref_list SET name = 'Malade ambulatoire' WHERE ad_ref_list_uu = '0a48b24a-8c67-4067-beb5-4eb3bc7daeb1';
-UPDATE ad_ref_list SET name = 'Patient hospitalisé' WHERE ad_ref_list_uu = '46d397b3-103d-4663-86b2-27e395dd158d';
+UPDATE ad_ref_list_trl SET name = 'Malade ambulatoire' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '0a48b24a-8c67-4067-beb5-4eb3bc7daeb1') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Patient hospitalisé' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '46d397b3-103d-4663-86b2-27e395dd158d') AND ad_language = 'fr_FR';
 
--- Referral - need!
+-- Referrals
+UPDATE ad_ref_list_trl SET name = 'Référence de l''unité communautaire' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '4274fce2-29b8-4e4f-a58e-dd77ec039f53') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Référence des établissements de santé' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd8a8e37e-18ff-4445-9469-775eea1408e4') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Référence à l''unité communautaire' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'e1d9d266-cefd-4749-94de-20ad020c7d91') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Référence vers un autre établissement de santé' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'bffef4a3-34ef-4af3-9cf5-8471bfda5cd7') AND ad_language = 'fr_FR';
 
 -- Tender Types - need!
 
