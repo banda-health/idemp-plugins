@@ -65,6 +65,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
 	public static final String PAYMENT_TRAIL_REPORT = "Payment Trail report";
 	public static final String DIAGNOSIS_REPORT = "Diagnosis Report";
+	public static final String SERVICES_CHARGED_REPORT = "Services Charged Report";
 
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
@@ -300,6 +301,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			add(DEBT_PAYMENT_RECEIPT);
 			add(PAYMENT_TRAIL_REPORT);
 			add(DIAGNOSIS_REPORT);
+			add(SERVICES_CHARGED_REPORT);
 		}};
 
 		String reportNameList = reportNames.stream().map(reportName -> "'" + reportName + "'")
