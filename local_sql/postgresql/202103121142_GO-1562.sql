@@ -1,5 +1,5 @@
 -- Insert reference value for the clinician user role
-INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-03-12 11:45:23.999000', 100, '2021-03-12 11:45:23.999000', 100, 'C', 'Clinician User', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'), null, null, 'U', '2a444310-ac8b-4e40-a0b9-fc6d1e66dc41', 'N', 'N')
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-03-12 11:45:23.999000', 100, '2021-03-12 11:45:23.999000', 100, 'C', 'Clinician User', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'), null, null, 'U', '2a444310-ac8b-4e40-a0b9-fc6d1e66dc41')
 ON CONFLICT DO NOTHING;
 
 -- Update the org access tables
