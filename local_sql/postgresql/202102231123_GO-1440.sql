@@ -56,29 +56,30 @@ WHERE ad_language = 'fr_FR'
 /**********************************************************************************************************/
 -- Document Statuses
 UPDATE ad_ref_list_trl SET name = 'Annulé' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd35dfd1d-1eb2-46ef-ab2f-23973d68a570') AND ad_language = 'fr_FR';
-UPDATE ad_ref_list_trl SET name = 'Inconnue' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2') AND ad_language = 'fr_FR';
-UPDATE ad_ref_list_trl SET name = 'Clos' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '50702660-bbfc-422a-8acc-5ed3a2dce204') AND ad_language = 'fr_FR';
-UPDATE ad_ref_list_trl SET name = 'Projeté' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd27f8a6b-e8b5-4fea-a6b2-3e7049c473ec)' AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Inconnue' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Clos' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '50702660-bbfc-422a-8acc-5ed3a2dce204') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Projeté' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd27f8a6b-e8b5-4fea-a6b2-3e7049c473ec') AND ad_language = 'fr_FR';
 
 -- Product Category Types
-UPDATE ad_ref_list_trl SET name = 'Produit' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '305558d1-db4a-456f-9c25-057750949060') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Produit' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '305558d1-db4a-456f-9c25-057750949060') AND ad_language = 'fr_FR';
 
 -- Patient types
-UPDATE ad_ref_list_trl SET name = 'Malade ambulatoire' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '0a48b24a-8c67-4067-beb5-4eb3bc7daeb1') AND ad_language = 'fr_FR';
-UPDATE ad_ref_list_trl SET name = 'Patient hospitalisé' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '46d397b3-103d-4663-86b2-27e395dd158d') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Malade ambulatoire' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '0a48b24a-8c67-4067-beb5-4eb3bc7daeb1') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Patient hospitalisé' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '46d397b3-103d-4663-86b2-27e395dd158d') AND ad_language = 'fr_FR';
 
 -- Referrals
-UPDATE ad_ref_list_trl SET name = 'Référence de l''unité communautaire' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '4274fce2-29b8-4e4f-a58e-dd77ec039f53') AND ad_language = 'fr_FR';
-UPDATE ad_ref_list_trl SET name = 'Référence des établissements de santé' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd8a8e37e-18ff-4445-9469-775eea1408e4') AND ad_language = 'fr_FR';
-UPDATE ad_ref_list_trl SET name = 'Référence à l''unité communautaire' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'e1d9d266-cefd-4749-94de-20ad020c7d91') AND ad_language = 'fr_FR';
-UPDATE ad_ref_list_trl SET name = 'Référence vers un autre établissement de santé' WHERE ad_ref_list_uu = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'bffef4a3-34ef-4af3-9cf5-8471bfda5cd7') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Référence de l''unité communautaire' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '4274fce2-29b8-4e4f-a58e-dd77ec039f53') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Référence des établissements de santé' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'd8a8e37e-18ff-4445-9469-775eea1408e4') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Référence à l''unité communautaire' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'e1d9d266-cefd-4749-94de-20ad020c7d91') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Référence vers un autre établissement de santé' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'bffef4a3-34ef-4af3-9cf5-8471bfda5cd7') AND ad_language = 'fr_FR';
 
--- Tender Types - need!
-
-/**********************************************************************************************************/
--- Update expense categories
-/**********************************************************************************************************/
-
+-- Tender Types (Bill Waiver still needed)
+UPDATE ad_ref_list_trl SET name = 'Espèces' WHERE ad_ref_list_id IN (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu IN ('52c6c5a6-83ce-48c4-b874-721f8cd4e66b','917130e3-2144-496c-9344-6cf4f7136293')) AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'chèque' WHERE ad_ref_list_id IN (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu IN ('900adbf9-5069-4f56-9d97-0313c6372af3','056e0d26-2ff4-41c6-bde6-b35d888e555e')) AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Carte de crédit' WHERE ad_ref_list_id IN (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu IN ('d3874573-b7bf-4556-9b9c-3644698c959e','68dda00d-c015-498e-b91c-811bab809dab')) AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Dépôt direct' WHERE ad_ref_list_id IN (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu IN ('220f3864-24b8-42ba-9a91-a247f4697530','50bc3b86-6106-44df-88ee-1000243a9fcf')) AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Fonds des donateurs' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = 'e24511d1-9180-491c-9cc6-354b8a08e1ff') AND ad_language = 'fr_FR';
+UPDATE ad_ref_list_trl SET name = 'Prélèvement automatique' WHERE ad_ref_list_id = (SELECT ad_ref_list_id FROM ad_ref_list WHERE ad_ref_list_uu = '2c5f0a44-1d35-4528-802f-9204e46be31e') AND ad_language = 'fr_FR';
 
 /**********************************************************************************************************/
 -- Finish
