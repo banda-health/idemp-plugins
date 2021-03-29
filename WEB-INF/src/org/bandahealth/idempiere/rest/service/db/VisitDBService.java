@@ -150,6 +150,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
 			mPatient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
 			if (mPatient != null) {
+				// Reset the patient info in the entity so it can be passed for saving (used for payments below)
+				entity.setPatient(new Patient(mPatient.getName(), mPatient.getC_BPartner_UU()));
 				mOrder.setC_BPartner_ID(mPatient.get_ID());
 			}
 		}
@@ -219,8 +221,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			int count = 0;
 			for (Payment payment : entity.getPayments()) {
 				payment.setOrderId(mOrder.get_ID());
-				if (mPatient != null) {
-					payment.setPatient(new Patient(mPatient.getName(), mPatient.getC_BPartner_UU()));
+				// Read the patient assigned to the entity
+				// NOTE: DO NOT use the mPatient property because this class is a singleton and there exists the possibility
+				// that the property has been overridden by another save request between when it was set for this order and now
+				if (entity.getPatient() != null) {
+					payment.setPatient(entity.getPatient());
 				}
 
 				Payment response = paymentDBService.saveEntity(payment);
