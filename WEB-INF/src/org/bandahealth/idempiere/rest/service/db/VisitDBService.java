@@ -148,11 +148,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		// set patient
 		if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
-			mPatient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
-			if (mPatient != null) {
+			MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
+			if (patient != null) {
 				// Reset the patient info in the entity so it can be passed for saving (used for payments below)
-				entity.setPatient(new Patient(mPatient.getName(), mPatient.getC_BPartner_UU()));
-				mOrder.setC_BPartner_ID(mPatient.get_ID());
+				entity.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
+				mOrder.setC_BPartner_ID(patient.get_ID());
 			}
 		}
 
