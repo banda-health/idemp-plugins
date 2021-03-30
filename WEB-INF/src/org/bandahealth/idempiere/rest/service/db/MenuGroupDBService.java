@@ -221,6 +221,16 @@ public class MenuGroupDBService {
 			}
 
 			List<MDashboardButtonGroupButton> dashboardButtonGroupButtons = query.list();
+//			//Get the current login role
+//			MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+//			//Get the included roles for this role
+//			List<MRole> includedRoles = role.getIncludedRoles(true); 
+//			//get all the window access ids in included roles
+//			dashboardButtonGroupButtons = dashboardButtonGroupButtons.stream().peek(
+//					button -> includedRoles.forEach(irole -> irole.getWindowAccess(button.getAD_Window_ID()))).collect(Collectors.toList());
+//			
+//			//for each button in the menu list, check if the window id matches any included in the role's 
+
 			if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx()))) {
 				Map<Integer, MDashboardButtonGroupButton> dashboardButtonGroupButtonMap = dashboardButtonGroupButtons
 						.stream().collect(Collectors.toMap(MDashboardButtonGroupButton::getBH_DbrdBtnGrp_Btn_ID, v -> v));
