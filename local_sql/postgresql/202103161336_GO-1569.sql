@@ -6,6 +6,43 @@ UPDATE ad_window_access SET bh_candeactivate = 'Y' WHERE bh_candeactivate IS NUL
 alter table ad_window_access alter column bh_candeactivate set not null;
 
 /**********************************************************************************************************/
+-- The access updates below will affect the roles table and it needs to be updated, so update it first
+/**********************************************************************************************************/
+-- Some views depend on ad_role's fieldlength, so those have to be dropped and recreated
+DROP TABLE IF EXISTS tmp_views;
+CREATE TEMP TABLE tmp_views(
+	viewname varchar,
+	viewscript varchar
+);
+INSERT INTO tmp_views SELECT 'ad_allroles_v', pg_get_viewdef('ad_allroles_v');
+DROP VIEW ad_allroles_v;
+INSERT INTO tmp_views SELECT 'ad_alluserroles_v', pg_get_viewdef('ad_alluserroles_v');
+DROP VIEW ad_alluserroles_v;
+INSERT INTO tmp_views SELECT 'ad_sessioninfo_v', pg_get_viewdef('ad_sessioninfo_v');
+DROP VIEW ad_sessioninfo_v;
+INSERT INTO tmp_views SELECT 'ad_user_roles_v', pg_get_viewdef('ad_user_roles_v');
+DROP VIEW ad_user_roles_v;
+
+-- Some of the role names are now getting very long, so update the length of the role's name field
+alter table ad_role alter column name type varchar(200) using name::varchar(200);
+UPDATE ad_column SET fieldlength = 200 WHERE ad_column_uu = '8be89244-01ff-44dd-89b2-5b6f9c30adce';
+
+-- Now re-create the views
+DO
+LANGUAGE plpgsql
+$$
+DECLARE
+  stmt text;
+BEGIN
+  FOR stmt IN
+    SELECT 'CREATE VIEW ' || viewname || ' AS ' || viewscript FROM tmp_views
+  LOOP
+    EXECUTE stmt;
+  END LOOP;
+END;
+$$;
+
+/**********************************************************************************************************/
 -- Insert the "Must Haves" role
 /**********************************************************************************************************/
 INSERT INTO ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner, allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype) VALUES ((SELECT MAX(ad_role_id) + 1 FROM ad_role), 0, 0, 'Y', '2021-03-16 12:56:30.672000', 100, '2021-03-16 12:56:36.726000', 'Must Haves', 100, null, 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', 0, 0, 'baec9412-d994-4313-815c-31332357863a', 'N', 'Y', 'Y', null) ON CONFLICT DO NOTHING;
@@ -958,40 +995,6 @@ INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, crea
 /**********************************************************************************************************/
 -- Add the new base roles to each client
 /**********************************************************************************************************/
--- Some views depend on ad_role's fieldlength, so those have to be dropped and recreated
-DROP TABLE IF EXISTS tmp_views;
-CREATE TEMP TABLE tmp_views(
-	viewname varchar,
-	viewscript varchar
-);
-INSERT INTO tmp_views SELECT 'ad_allroles_v', pg_get_viewdef('ad_allroles_v');
-DROP VIEW ad_allroles_v;
-INSERT INTO tmp_views SELECT 'ad_alluserroles_v', pg_get_viewdef('ad_alluserroles_v');
-DROP VIEW ad_alluserroles_v;
-INSERT INTO tmp_views SELECT 'ad_sessioninfo_v', pg_get_viewdef('ad_sessioninfo_v');
-DROP VIEW ad_sessioninfo_v;
-INSERT INTO tmp_views SELECT 'ad_user_roles_v', pg_get_viewdef('ad_user_roles_v');
-DROP VIEW ad_user_roles_v;
-
--- Some of the role names are now getting very long, so update the length of the role's name field
-alter table ad_role alter column name type varchar(200) using name::varchar(200);
-UPDATE ad_column SET fieldlength = 200 WHERE ad_column_uu = '8be89244-01ff-44dd-89b2-5b6f9c30adce';
-
--- Now re-create the views
-DO
-LANGUAGE plpgsql
-$$
-DECLARE
-  stmt text;
-BEGIN
-  FOR stmt IN
-    SELECT 'CREATE VIEW ' || viewname || ' AS ' || viewscript FROM tmp_views
-  LOOP
-    EXECUTE stmt;
-  END LOOP;
-END;
-$$;
-
 -- Update the name of the clinician user
 UPDATE ad_role r
 SET name = c.name || ' ' || rl.name
@@ -1067,10 +1070,7 @@ CREATE TEMP TABLE tmp_ad_role
 SELECT setval(
 	'tmp_ad_role_ad_role_id_seq',
 	(
-		SELECT currentnext + 1 -- we already added to the table above (and this hasn't been updated), so increment by one
-		FROM ad_sequence
-		WHERE name = 'AD_Role'
-		LIMIT 1
+		SELECT MAX(ad_role_id) + 1 FROM ad_role
 	)::INT,
 	false
 );
@@ -1106,5 +1106,3 @@ JOIN ad_org ao
 -- Reset access for the Clinic Admin and Clinician User (now named Clinician/Nurse)
 
 SELECT register_migration_script('202103290922_GO-1569.sql') FROM dual;
-
-
