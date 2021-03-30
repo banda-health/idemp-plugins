@@ -14,6 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
@@ -33,6 +34,7 @@ import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
+import org.compiere.model.MRole;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
@@ -282,59 +284,32 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * @return A list of processes and their child info
 	 */
 	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, Paging pagingInfo) {
-		// TODO: Remove all this when this information can be pulled from iDempiere
+		// Get processes for GL
 		List<Object> parameters = new ArrayList<>();
-		List<String> reportNames = new ArrayList<>() {{
-			add(INCOME_EXPENSE_REPORT);
-			add(THERMAL_RECEIPT_REPORT);
-			add(PATIENT_TRANSACTIONS_REPORT);
-			add(STOCK_REORDER_REPORT);
-			add(PRODUCT_AND_PRICES_REPORT);
-			add(VALUE_OPENING_CLOSING_STOCK_REPORT);
-			add(MOH705A_PATIENT_VISITS_REFERRALS_REPORT);
-			add(MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT);
-			add(MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT);
-			add(MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT);
-			add(INVENTORY_SOLD_REPORT);
-			add(STOCK_DISCREPANCY_REPORT);
-			add(DONOR_FUND_REPORT);
-			add(DEBT_PAYMENT_RECEIPT);
-			add(PAYMENT_TRAIL_REPORT);
-			add(DIAGNOSIS_REPORT);
-			add(SERVICES_CHARGED_REPORT);
-		}};
-
-		String reportNameList = reportNames.stream().map(reportName -> "'" + reportName + "'")
-				.collect(Collectors.joining(","));
-
-		// Get the list of IDs of de-duplicated report names
-		String query = "SELECT " + MProcess.COLUMNNAME_AD_Process_ID + " FROM " + MProcess.Table_Name +
-				" ap JOIN (SELECT " + MProcess.COLUMNNAME_Name + ", MAX(" + MProcess.COLUMNNAME_Updated + ") AS " +
-				MProcess.COLUMNNAME_Updated + " FROM " + MProcess.Table_Name + " WHERE " + MProcess.COLUMNNAME_Name + " IN (" +
-				reportNameList + ") GROUP BY " + MProcess.COLUMNNAME_Name + ") apgroup ON ap." + MProcess.COLUMNNAME_Name +
-				"=apgroup." + MProcess.COLUMNNAME_Name + " AND ap." + MProcess.COLUMNNAME_Updated + "=apgroup." +
-				MProcess.COLUMNNAME_Updated;
-		final List<Integer> processIDs = new ArrayList<>();
-		SqlUtil.executeQuery(query, null, null, resultSet -> {
-			try {
-				processIDs.add(resultSet.getInt(1));
-			} catch (Exception exception) {
-				logger.warning("Error fetching deduplicated process name list");
-			}
-		});
-
-		String whereClause = MProcess.COLUMNNAME_AD_Process_ID + " IN (" + processIDs.stream().map(Object::toString)
-				.collect(Collectors.joining(",")) + ")";
-		if (processIDs.isEmpty()) {
-			whereClause = MProcess.COLUMNNAME_Name + " IN (" + reportNames.stream()
-					.map(reportName -> "'" + reportName + "'").collect(Collectors.joining(",")) + ")";
-		}
-
 		BaseListResponse<Process> processes =
-				super.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filter);
+				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">999999", parameters, pagingInfo, sortColumn, sortOrder,
+						filter);
+
 
 		// Map the process parameters to entities
-		if (processes != null && processes.getResults() != null && !processes.getResults().isEmpty()) {
+		if (processes.getResults() != null && !processes.getResults().isEmpty()) {
+			// Determine which processes are visible in the dropdown
+			List<MDashboardButtonGroupButton> processesToShowOnUI =
+					new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name,
+							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).list();
+			// Determine which processes the user has access to
+			MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+			// Filter out processes the user can't see and then determine which processes are manually run-able
+			processes
+					.setResults(processes.getResults().stream().filter(process -> usersRole.getProcessAccess(process.getId()))
+							.peek(process -> {
+								if (processesToShowOnUI.stream().anyMatch(report -> report.getAD_Process_ID() == process.getId())) {
+									// Set display property true
+									process.setIsManualProcess(true);
+								}
+							})
+							.collect(Collectors.toList()));
+
 			// Get all the process info information for these processes
 			Map<Integer, List<MProcessPara>> processParametersByProcess = processParameterDBService
 					.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,

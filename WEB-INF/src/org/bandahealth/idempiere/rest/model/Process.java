@@ -27,6 +27,7 @@ public class Process extends BaseEntity {
 	private boolean isDirectPrint;
 	private boolean isReport;
 	private List<ProcessParameter> parameters = new ArrayList<>();
+	private boolean isManualProcess;
 
 	public Process() {
 		super();
@@ -166,4 +167,11 @@ public class Process extends BaseEntity {
 		this.parameters = parameters;
 	}
 
+	public boolean getIsManualProcess() {
+		return this.isManualProcess;
+	}
+
+	public void setIsManualProcess(boolean isManualProcess) {
+		this.isManualProcess = isManualProcess;
+	}
 }

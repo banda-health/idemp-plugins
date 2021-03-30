@@ -124,26 +124,6 @@ public class MenuGroupDBService {
 		return null;
 	}
 
-	public boolean hasAccessToReports() {
-		// Retrieve Reports Menu
-		MDashboardButtonGroup menu = new Query(Env.getCtx(), MDashboardButtonGroup.Table_Name,
-				MDashboardButtonGroup.COLUMNNAME_Name + "=?", null)
-				.setOrderBy(MDashboardButtonGroup.COLUMNNAME_LineNo).setOnlyActiveRecords(true)
-				.setParameters("Reports").first();
-		if (menu == null) {
-			return false;
-		}
-
-		// Get reports
-		List<MDashboardButtonGroupButton> reports = getMenuGroupLineItems(menu.get_ID(), hasAdminPrivileges(getRoleId()),
-				null);
-		if (!reports.isEmpty()) {
-			return true;
-		}
-
-		return false;
-	}
-
 	/**
 	 * Get group line items
 	 *

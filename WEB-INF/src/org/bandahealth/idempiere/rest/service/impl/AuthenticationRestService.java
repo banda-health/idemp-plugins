@@ -207,8 +207,6 @@ public class AuthenticationRestService {
 			response.setUserId(user.getAD_User_ID());
 
 			try {
-				// has access to reports
-				response.setHasAccessToReports(menuDbservice.hasAccessToReports());
 				// generate session token
 				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
 				// has accepted terms of use?
