@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -225,12 +226,15 @@ public class MenuGroupDBService {
 //			MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
 //			//Get the included roles for this role
 //			List<MRole> includedRoles = role.getIncludedRoles(true); 
-//			//get all the window access ids in included roles
-//			dashboardButtonGroupButtons = dashboardButtonGroupButtons.stream().peek(
-//					button -> includedRoles.forEach(irole -> irole.getWindowAccess(button.getAD_Window_ID()))).collect(Collectors.toList());
 //			
-//			//for each button in the menu list, check if the window id matches any included in the role's 
-
+//			//Loop though all buttons and compare window id with that in included roles
+//			List<MDashboardButtonGroupButton> filterButtons = dashboardButtonGroupButtons
+//					.stream()
+//					.filter(button -> includedRoles
+//							.stream()
+//							.filter(icRole -> icRole.getWindowAccess(button.getAD_Window_ID()) != null;))
+//							.findFirst()).collect(Collectors.toList()));
+//							dashboardButtonGroupButtons = filterButtons;
 			if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx()))) {
 				Map<Integer, MDashboardButtonGroupButton> dashboardButtonGroupButtonMap = dashboardButtonGroupButtons
 						.stream().collect(Collectors.toMap(MDashboardButtonGroupButton::getBH_DbrdBtnGrp_Btn_ID, v -> v));
