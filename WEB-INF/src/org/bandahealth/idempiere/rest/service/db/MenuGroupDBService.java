@@ -192,12 +192,12 @@ public class MenuGroupDBService {
 				}
 			}
 
-			if (!isAdmin) {
-				whereClause.append(" AND ");
-
-				whereClause.append(MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=?");
-				parameters.add(getRoleId());
-			}
+//			if (!isAdmin) {
+//				whereClause.append(" AND ");
+//
+//				whereClause.append(MRoleIncluded.Table_Name + "." + MRoleIncluded.COLUMNNAME_AD_Role_ID + "=?");
+//				parameters.add(getRoleId());
+//			}
 
 			Query query = new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name, whereClause.toString(), null)
 					.setOnlyActiveRecords(true)
@@ -209,32 +209,24 @@ public class MenuGroupDBService {
 					+ MDashboardButtonGroup.Table_Name + "."
 					+ MDashboardButtonGroup.COLUMNNAME_BH_DbrdBtnGrp_ID);
 
-			if (!isAdmin) {
-				// join Role Table
-				query =
-						query.addJoinClause(" JOIN " + MRoleIncluded.Table_Name + " ON " + MDashboardButtonGroupButton.Table_Name
-								+ "." + MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
-								+ MRoleIncluded.COLUMNNAME_Included_Role_ID);
-			}
+//			if (!isAdmin) {
+//				// join Role Table
+//				query =
+//						query.addJoinClause(" JOIN " + MRoleIncluded.Table_Name + " ON " + MDashboardButtonGroupButton.Table_Name
+//								+ "." + MDashboardButtonGroupButton.COLUMNNAME_Included_Role_ID + "=" + MRoleIncluded.Table_Name + "."
+//								+ MRoleIncluded.COLUMNNAME_Included_Role_ID);
+//			}
 
 			if (parameters.size() > 0) {
 				query = query.setParameters(parameters);
 			}
 
 			List<MDashboardButtonGroupButton> dashboardButtonGroupButtons = query.list();
-//			//Get the current login role
-//			MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
-//			//Get the included roles for this role
-//			List<MRole> includedRoles = role.getIncludedRoles(true); 
-//			
-//			//Loop though all buttons and compare window id with that in included roles
-//			List<MDashboardButtonGroupButton> filterButtons = dashboardButtonGroupButtons
-//					.stream()
-//					.filter(button -> includedRoles
-//							.stream()
-//							.filter(icRole -> icRole.getWindowAccess(button.getAD_Window_ID()) != null;))
-//							.findFirst()).collect(Collectors.toList()));
-//							dashboardButtonGroupButtons = filterButtons;
+							
+							MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+							List<MDashboardButtonGroupButton> filterButtons = dashboardButtonGroupButtons.stream().filter(button -> role.getWindowAccess(button.getAD_Window_ID()) != null).collect(Collectors.toList());
+							
+							dashboardButtonGroupButtons = filterButtons; //remove later
 			if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx()))) {
 				Map<Integer, MDashboardButtonGroupButton> dashboardButtonGroupButtonMap = dashboardButtonGroupButtons
 						.stream().collect(Collectors.toMap(MDashboardButtonGroupButton::getBH_DbrdBtnGrp_Btn_ID, v -> v));
