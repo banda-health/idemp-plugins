@@ -257,6 +257,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			if (order.isComplete()) {
 				throw new AdempiereException("Visit is already completed");
 			} else {
+				// Make sure to delete any payments that might've been saved
+				paymentDBService.deletePaymentLinesByOrder(order.get_ID(), null);
+				// Delete the order
 				return order.delete(false);
 			}
 		} catch (Exception ex) {
