@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ExpenseList" pageWidth="500" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="495" leftMargin="0" rightMargin="5" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true" isIgnorePagination="true" uuid="230b7086-feea-40b6-bd16-c1cfb713351d">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ExpenseList" pageWidth="500" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="495" leftMargin="0" rightMargin="5" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true" uuid="230b7086-feea-40b6-bd16-c1cfb713351d">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="261"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="739"/>
@@ -81,14 +81,14 @@ CROSS JOIN (
     WHERE o.issotrx = 'N'
         AND o.bh_isexpense IS NULL
         AND o.docstatus = 'CO'
-        AND o.ad_client_id = 1000000
-        AND (date(o.dateordered) BETWEEN date('2020-01-01') AND date('2021-02-01'))
+        AND o.ad_client_id = $P{AD_CLIENT_ID}
+        AND (date(o.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) meds_supplies
 WHERE
-    ci.ad_client_id = 1000000
+    ci.ad_client_id = $P{AD_CLIENT_ID}
     AND ci.docstatus = 'CO'
     AND ci.bh_isexpense = 'Y'
-    AND (date(ci.dateinvoiced) BETWEEN date('2020-01-01') AND date('2021-02-01'))
+    AND (date(ci.dateinvoiced) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 GROUP BY
     meds_supplies.lab_total,
     meds_supplies.pharmacy_total,
