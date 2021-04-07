@@ -1,21 +1,38 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
+import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
+import org.bandahealth.idempiere.rest.model.ReportType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
+import org.compiere.model.MRefList;
+import org.compiere.model.MReference;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
@@ -25,111 +42,56 @@ import org.compiere.util.Env;
 
 /**
  * A simple POJO that runs iDempiere processes
- * 
- * @author andrew
  *
+ * @author andrew
  */
-public class ProcessDBService {
+public class ProcessDBService extends BaseDBService<Process, MProcess> {
+
+	// TODO: Remove these when this information is stored in iDempiere
+	// report names
+	public static final String INCOME_EXPENSE_REPORT = "Income & Expenses";
+	public static final String THERMAL_RECEIPT_REPORT = "BH Thermal Receipt";
+	public static final String PATIENT_TRANSACTIONS_REPORT = "Patient Transactions";
+	public static final String STOCK_REORDER_REPORT = "Stock to be Ordered";
+	public static final String PRODUCT_AND_PRICES_REPORT = "Products and Prices";
+	public static final String VALUE_OPENING_CLOSING_STOCK_REPORT = "Value of Opening and Closing Stock";
+	public static final String MOH705A_PATIENT_VISITS_REFERRALS_REPORT = "MoH705A Patient Visits and Referrals";
+	public static final String MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT = "MoH705A Out Patient Under 5yr Summary";
+	public static final String MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT = "MoH717 New and Revisit Patient Count";
+	public static final String MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT = "MoH705B Out Patient Over 5yr Summary";
+	public static final String INVENTORY_SOLD_REPORT = "Inventory Sold Report";
+	public static final String STOCK_DISCREPANCY_REPORT = "Stock Discrepancy Report";
+	public static final String DONOR_FUND_REPORT = "Donor Fund Report";
+	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
+	public static final String PAYMENT_TRAIL_REPORT = "Payment Trail report";
+	public static final String DIAGNOSIS_REPORT = "Diagnosis Report";
+	public static final String SERVICES_CHARGED_REPORT = "Services Charged Report";
 
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
 	private final String EXPENSE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.ExpenseProcess";
 	private final String QUANTITY = "QUANTITY";
 
+	private final ProcessParameterDBService processParameterDBService;
+	private final ReferenceDBService referenceDBService;
+	private final ReferenceListDBService referenceListDBService;
+	private final Map<ReportType, String> contentTypes = new HashMap<>() {{
+		put(ReportType.CSV, "text/csv");
+		put(ReportType.HTML, "text/html");
+		put(ReportType.PDF, "application/pdf");
+		put(ReportType.XLS, "application/vnd.ms-excel");
+		put(ReportType.XLSX, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	}};
+
 	public ProcessDBService() {
-	}
-
-	/**
-	 * Call and run the SalesProcess
-	 * 
-	 * @param orderId
-	 */
-	public String runOrderProcess(int orderId) {
-		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
-				.setOnlyActiveRecords(true).setParameters(SALES_PROCESS_CLASS_NAME).first();
-
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
-
-		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
-		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
-		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
-
-		processInfo.setParameter(new ProcessInfoParameter[] {
-				new ProcessInfoParameter(MOrder_BH.COLUMNNAME_C_Order_ID, orderId, null, null, null) });
-
-		ServerProcessCtl.process(processInfo, null);
-
-		return Process.PROCESSING_MESSAGE;
-	}
-
-	/**
-	 * Call and run the SalesProcess
-	 *
-	 * @param invoiceId
-	 */
-	public String runExpenseProcess(int invoiceId, boolean delete) {
-		MProcess mprocess = new Query(
-				Env.getCtx(),
-				MProcess.Table_Name,
-				MProcess.COLUMNNAME_Classname + "=?",
-				null
-		)
-				.setOnlyActiveRecords(true).setParameters(EXPENSE_PROCESS_CLASS_NAME).first();
-
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
-
-		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
-		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
-		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
-
-		processInfo.setParameter(new ProcessInfoParameter[] {
-				new ProcessInfoParameter(ExpenseProcess.PARAMETERNAME_C_INVOICE_ID, invoiceId, null, null, null),
-				new ProcessInfoParameter(
-						ExpenseProcess.PARAMETERNAME_PROCESS_ACTION,
-						delete ? ExpenseProcess.PROCESSACTION_Remove : ExpenseProcess.PROCESSACTION_Complete,
-						null,
-						null,
-						null
-				)
-		});
-
-		ServerProcessCtl.process(processInfo, null);
-
-		return Process.PROCESSING_MESSAGE;
-	}
-
-	/**
-	 * Call and run StockTake process
-	 * 
-	 * @param productID
-	 * @param attributeSetInstanceId
-	 * @param quantity
-	 */
-	public String runStockTakeProcess(int productID, int attributeSetInstanceId, int quantity) {
-		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
-				.setOnlyActiveRecords(true).setParameters(STOCKTAKE_PROCESS_CLASS_NAME).first();
-
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
-
-		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
-		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
-		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
-
-		processInfo
-				.setParameter(new ProcessInfoParameter[] {
-						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_Product_ID, productID, null, null, null),
-						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID,
-								attributeSetInstanceId, null, null, null),
-						new ProcessInfoParameter(QUANTITY, quantity, null, null, null) });
-
-		ServerProcessCtl.process(processInfo, null);
-
-		return processInfo.getSummary();
+		processParameterDBService = new ProcessParameterDBService();
+		referenceDBService = new ReferenceDBService();
+		referenceListDBService = new ReferenceListDBService();
 	}
 
 	/**
 	 * Run process
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 */
@@ -164,41 +126,8 @@ public class ProcessDBService {
 	}
 
 	/**
-	 * Return all active processes for the logged in client
-	 * 
-	 * @param pagingInfo
-	 * @return
-	 */
-	public static BaseListResponse<Process> getAll(Paging pagingInfo) {
-		List<Process> results = new ArrayList<>();
-		List<MProcess> processes;
-		Query query = new Query(Env.getCtx(), MProcess.Table_Name, null, null).setOnlyActiveRecords(true)
-				.setParameters(true).setClient_ID();
-
-		pagingInfo.setTotalRecordCount(query.count());
-		query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
-		processes = query.list();
-
-		if (!processes.isEmpty()) {
-			for (MProcess process : processes) {
-				List<MProcessPara> params = new Query(Env.getCtx(), MProcessPara.Table_Name,
-						MProcessPara.COLUMNNAME_AD_Process_ID + "=?", null).setOnlyActiveRecords(true)
-								.setParameters(process.get_ID()).list();
-				List<ProcessParameter> parameters = new ArrayList<>();
-				for (MProcessPara param : params) {
-					parameters.add(createProcessParameterInstance(param));
-				}
-
-				results.add(createProcessInstance(process, parameters));
-			}
-		}
-
-		return new BaseListResponse<Process>(results, pagingInfo);
-	}
-
-	/**
 	 * Retrieve process with the given uuid
-	 * 
+	 *
 	 * @param uuid
 	 * @return
 	 */
@@ -209,7 +138,7 @@ public class ProcessDBService {
 		if (process != null) {
 			List<MProcessPara> params = new Query(Env.getCtx(), MProcessPara.Table_Name,
 					MProcessPara.COLUMNNAME_AD_Process_ID + "=?", null).setOnlyActiveRecords(true)
-							.setParameters(process.get_ID()).list();
+					.setParameters(process.get_ID()).list();
 			List<ProcessParameter> parameters = new ArrayList<>();
 			for (MProcessPara param : params) {
 				parameters.add(createProcessParameterInstance(param));
@@ -248,5 +177,341 @@ public class ProcessDBService {
 		}
 
 		return results;
+	}
+
+	@Override
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
+	}
+
+	/**
+	 * Call and run the SalesProcess
+	 *
+	 * @param orderId
+	 */
+	public String runOrderProcess(int orderId) {
+		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
+				.setOnlyActiveRecords(true).setParameters(SALES_PROCESS_CLASS_NAME).first();
+
+		MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+
+		processInfo.setParameter(new ProcessInfoParameter[]{
+				new ProcessInfoParameter(MOrder_BH.COLUMNNAME_C_Order_ID, orderId, null, null, null)});
+
+		ServerProcessCtl.process(processInfo, null);
+
+		return Process.PROCESSING_MESSAGE;
+	}
+
+	/**
+	 * Call and run the SalesProcess
+	 *
+	 * @param invoiceId
+	 */
+	public String runExpenseProcess(int invoiceId, boolean delete) {
+		MProcess mprocess = new Query(
+				Env.getCtx(),
+				MProcess.Table_Name,
+				MProcess.COLUMNNAME_Classname + "=?",
+				null
+		)
+				.setOnlyActiveRecords(true).setParameters(EXPENSE_PROCESS_CLASS_NAME).first();
+
+		MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+
+		processInfo.setParameter(new ProcessInfoParameter[]{
+				new ProcessInfoParameter(ExpenseProcess.PARAMETERNAME_C_INVOICE_ID, invoiceId, null, null, null),
+				new ProcessInfoParameter(
+						ExpenseProcess.PARAMETERNAME_PROCESS_ACTION,
+						delete ? ExpenseProcess.PROCESSACTION_Remove : ExpenseProcess.PROCESSACTION_Complete,
+						null,
+						null,
+						null
+				)
+		});
+
+		ServerProcessCtl.process(processInfo, null);
+
+		return Process.PROCESSING_MESSAGE;
+	}
+
+	/**
+	 * Call and run StockTake process
+	 *
+	 * @param productID
+	 * @param attributeSetInstanceId
+	 * @param quantity
+	 */
+	public String runStockTakeProcess(int productID, int attributeSetInstanceId, int quantity) {
+		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
+				.setOnlyActiveRecords(true).setParameters(STOCKTAKE_PROCESS_CLASS_NAME).first();
+
+		MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+
+		processInfo
+				.setParameter(new ProcessInfoParameter[]{
+						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_Product_ID, productID, null, null, null),
+						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID,
+								attributeSetInstanceId, null, null, null),
+						new ProcessInfoParameter(QUANTITY, quantity, null, null, null)});
+
+		ServerProcessCtl.process(processInfo, null);
+
+		return processInfo.getSummary();
+	}
+
+	/**
+	 * Return all active processes for the logged in client
+	 *
+	 * @param filter     The filter JSON in case any reports should be filtered
+	 * @param sortColumn The column to sort the results by
+	 * @param sortOrder  The order by which to sort the results
+	 * @param pagingInfo The paging info object to udpate with data from the DB
+	 * @return A list of processes and their child info
+	 */
+	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, Paging pagingInfo) {
+		// TODO: Remove all this when this information can be pulled from iDempiere
+		List<Object> parameters = new ArrayList<>();
+		List<String> reportNames = new ArrayList<>() {{
+			add(INCOME_EXPENSE_REPORT);
+			add(THERMAL_RECEIPT_REPORT);
+			add(PATIENT_TRANSACTIONS_REPORT);
+			add(STOCK_REORDER_REPORT);
+			add(PRODUCT_AND_PRICES_REPORT);
+			add(VALUE_OPENING_CLOSING_STOCK_REPORT);
+			add(MOH705A_PATIENT_VISITS_REFERRALS_REPORT);
+			add(MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT);
+			add(MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT);
+			add(MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT);
+			add(INVENTORY_SOLD_REPORT);
+			add(STOCK_DISCREPANCY_REPORT);
+			add(DONOR_FUND_REPORT);
+			add(DEBT_PAYMENT_RECEIPT);
+			add(PAYMENT_TRAIL_REPORT);
+			add(DIAGNOSIS_REPORT);
+			add(SERVICES_CHARGED_REPORT);
+		}};
+
+		String reportNameList = reportNames.stream().map(reportName -> "'" + reportName + "'")
+				.collect(Collectors.joining(","));
+
+		// Get the list of IDs of de-duplicated report names
+		String query = "SELECT " + MProcess.COLUMNNAME_AD_Process_ID + " FROM " + MProcess.Table_Name +
+				" ap JOIN (SELECT " + MProcess.COLUMNNAME_Name + ", MAX(" + MProcess.COLUMNNAME_Updated + ") AS " +
+				MProcess.COLUMNNAME_Updated + " FROM " + MProcess.Table_Name + " WHERE " + MProcess.COLUMNNAME_Name + " IN (" +
+				reportNameList + ") GROUP BY " + MProcess.COLUMNNAME_Name + ") apgroup ON ap." + MProcess.COLUMNNAME_Name +
+				"=apgroup." + MProcess.COLUMNNAME_Name + " AND ap." + MProcess.COLUMNNAME_Updated + "=apgroup." +
+				MProcess.COLUMNNAME_Updated;
+		final List<Integer> processIDs = new ArrayList<>();
+		SqlUtil.executeQuery(query, null, null, resultSet -> {
+			try {
+				processIDs.add(resultSet.getInt(1));
+			} catch (Exception exception) {
+				logger.warning("Error fetching deduplicated process name list");
+			}
+		});
+
+		String whereClause = MProcess.COLUMNNAME_AD_Process_ID + " IN (" + processIDs.stream().map(Object::toString)
+				.collect(Collectors.joining(",")) + ")";
+		if (processIDs.isEmpty()) {
+			whereClause = MProcess.COLUMNNAME_Name + " IN (" + reportNames.stream()
+					.map(reportName -> "'" + reportName + "'").collect(Collectors.joining(",")) + ")";
+		}
+
+		BaseListResponse<Process> processes =
+				super.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filter);
+
+		// Map the process parameters to entities
+		if (processes != null && processes.getResults() != null && !processes.getResults().isEmpty()) {
+			// Get all the process info information for these processes
+			Map<Integer, List<MProcessPara>> processParametersByProcess = processParameterDBService
+					.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
+							processes.getResults().stream().map(Process::getId).collect(Collectors.toSet()));
+
+			// We need to get the reference and reference values for the process parameters
+			List<MProcessPara> allProcessParameters =
+					processParametersByProcess.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+			Map<Integer, MReference_BH> referencesById = referenceDBService.getByIds(
+					allProcessParameters.stream().map(MProcessPara::getAD_Reference_ID).collect(Collectors.toSet()));
+			// If the reference assigned to a process parameter equals "List", then the value stored in it's
+			// AD_Reference_Value property is the AD_Reference for the available values
+			Set<Integer> referencesThatAreListsAndNeedAcceptableValues = allProcessParameters.stream().filter(
+					processParameter -> referencesById.containsKey(processParameter.getAD_Reference_ID()) &&
+							processParameter.getAD_Reference_ID() == MReference_BH.LIST_AD_REFERENCE_ID
+			).map(MProcessPara::getAD_Reference_Value_ID).collect(Collectors.toSet());
+			Map<Integer, List<MRefList>> referenceListsByReference = referenceListDBService
+					.getGroupsByIds(MRefList::getAD_Reference_ID, MRefList.COLUMNNAME_AD_Reference_ID,
+							referencesThatAreListsAndNeedAcceptableValues);
+
+			processes.getResults().forEach(process -> {
+				if (!processParametersByProcess.containsKey(process.getId())) {
+					return;
+				}
+				process.setParameters(
+						processParametersByProcess.get(process.getId()).stream()
+								.map(ProcessDBService::createProcessParameterInstance)
+								.collect(Collectors.toList()));
+				if (process.getParameters() != null) {
+					process.getParameters().forEach(processParameter -> {
+						if (referencesById.containsKey(processParameter.getAdReferenceId())) {
+							processParameter.setReference(referenceDBService
+									.createInstanceWithAllFields(referencesById.get(processParameter.getAdReferenceId())));
+						}
+						if (referenceListsByReference.containsKey(processParameter.getAdReferenceValueId())) {
+							processParameter.setReferenceValues(
+									referenceListsByReference.get(processParameter.getAdReferenceValueId()).stream()
+											.map(referenceListDBService::createInstanceWithAllFields).collect(Collectors.toList()));
+						}
+					});
+				}
+			});
+		}
+		return processes;
+	}
+
+	/**
+	 * Run an iDempiere process and get it's export
+	 *
+	 * @param process               The report (which is a process in iDempiere) to run
+	 * @param reportType            What output the report should be
+	 * @param processInfoParameters The parameters to pass to the report
+	 * @return A file of the generated report, or null if an error occurred
+	 */
+	public File runAndExport(MProcess process, ReportType reportType,
+			List<org.bandahealth.idempiere.rest.model.ProcessInfoParameter> processInfoParameters) {
+		if (process == null) {
+			throw new AdempiereException("Could not find report");
+		}
+
+		if (reportType == null) {
+			reportType = ReportType.PDF;
+		}
+
+		// Initialize report info
+		MPInstance mpInstance = new MPInstance(process, 0);
+		ProcessInfo processInfo = new ProcessInfo(process.getName(), process.getAD_Process_ID());
+		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+		processInfo.setAD_Process_UU(process.getAD_Process_UU());
+		processInfo.setIsBatch(true);
+		processInfo.setExport(true);
+		processInfo.setReportType(reportType.toString().toUpperCase());
+		processInfo.setExportFileExtension(reportType.toString().toLowerCase());
+
+		// Let's process the parameters (really, we only need to convert dates if they're dates)
+		// First, batch DB requests so we can avoid many queries
+		Map<String, MProcessPara> processParametersByUuidMap = processParameterDBService
+				.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
+						new HashSet<>(Collections.singletonList(process.get_ID()))).get(process.get_ID()).stream()
+				.collect(Collectors.toMap(MProcessPara::getAD_Process_Para_UU, processParameter -> processParameter));
+		Map<Integer, MReference_BH> referencesByIdMap = referenceDBService
+				.getByIds(processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
+						.collect(Collectors.toSet()));
+
+		List<ProcessInfoParameter> processedInfoParameters = new ArrayList<>();
+		// Now, cycle through and process each parameter passed in
+		processInfoParameters.forEach(processInfoParameter -> {
+			// Get the process parameter
+			MProcessPara processParameter =
+					processParametersByUuidMap.get(processInfoParameter.getProcessParameterUuid());
+
+			// Get the reference to help determine what type of parameter this is
+			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
+			Object parameter = processInfoParameter.getParameter();
+			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATE_AD_REFERENCE_ID) {
+				parameter = DateUtil.parseDate(processInfoParameter.getParameter().toString());
+			}
+
+			// Since some reports want IDs, we need to convert UUIDs to IDs
+			// TODO: Update all reports to use UUIDs instead of IDs
+			if (processParameter.getName().toLowerCase().endsWith(MReference_BH.SUFFIX_ID)) {
+				if (process.getName().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
+					MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name,
+							MOrder_BH.COLUMNNAME_C_Order_UU + "=?", null)
+							.setParameters(parameter.toString()).first();
+					parameter = BigDecimal.valueOf(order.get_ID());
+				} else if (process.getName().equalsIgnoreCase(DEBT_PAYMENT_RECEIPT)) {
+					MPayment_BH payment = new Query(Env.getCtx(), MPayment_BH.Table_Name,
+							MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", null)
+							.setParameters(parameter.toString()).first();
+					parameter = BigDecimal.valueOf(payment.get_ID());
+				}
+			}
+
+			// Create a new process info parameter with the name fetched from MProcessParam
+			processedInfoParameters.add(new ProcessInfoParameter(
+					processParametersByUuidMap.get(processInfoParameter.getProcessParameterUuid()).getName(),
+					parameter,
+					processInfoParameter.getParameterTo(),
+					processInfoParameter.getInfo(),
+					processInfoParameter.getInfoTo()
+			));
+		});
+
+		if (!processedInfoParameters.isEmpty()) {
+			processInfo.setParameter(processedInfoParameters.toArray(ProcessInfoParameter[]::new));
+		}
+
+		// Run the report
+		ServerProcessCtl.process(processInfo, null);
+
+		if (processInfo.isError()) {
+			throw new AdempiereException("Could not generate report " + process.getName());
+		}
+
+		if (processInfo.getExportFile() != null) {
+			return processInfo.getExportFile();
+		}
+
+		return null;
+	}
+
+	@Override
+	public Process saveEntity(Process entity) {
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		return null;
+	}
+
+	@Override
+	protected Process createInstanceWithDefaultFields(MProcess instance) {
+		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	protected Process createInstanceWithAllFields(MProcess instance) {
+		return new Process(instance, null);
+	}
+
+	@Override
+	protected Process createInstanceWithSearchFields(MProcess instance) {
+		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	protected MProcess getModelInstance() {
+		return new MProcess(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	protected Map<String, Function<MProcess, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>() {{
+			put(MProcess.COLUMNNAME_Name, entity -> entity::setName);
+			put(MProcess.COLUMNNAME_Description, entity -> entity::setDescription);
+		}};
 	}
 }

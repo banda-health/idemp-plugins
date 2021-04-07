@@ -209,7 +209,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				product.setBH_PriceMargin(entity.getSellPrice().subtract(entity.getBuyPrice()));
 			}
 
-			product.setIsActive(entity.isIsActive());
+			product.setIsActive(entity.getIsActive());
 
 			product.saveEx();
 			

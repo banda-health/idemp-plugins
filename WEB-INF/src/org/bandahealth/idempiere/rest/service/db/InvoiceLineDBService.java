@@ -10,7 +10,6 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.*;
 import org.compiere.util.Env;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,7 +72,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 			invoiceLine.setM_AttributeSetInstance_ID(entity.getAttributeSetInstanceId());
 		}
 
-		invoiceLine.setIsActive(entity.isIsActive());
+		invoiceLine.setIsActive(entity.getIsActive());
 		invoiceLine.setDescription(entity.getDescription());
 
 		invoiceLine.saveEx();

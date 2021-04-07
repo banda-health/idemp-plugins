@@ -20,10 +20,11 @@ import org.compiere.model.X_C_BPartner;
  * @author andrew
  */
 public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
-	
+
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MInvoice_BH.Table_Name + "." + MInvoice_BH.COLUMNNAME_C_BPartner_ID + " = "
-				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MInvoice_BH.Table_Name + "." +
+				MInvoice_BH.COLUMNNAME_C_BPartner_ID + " = "
+				+ MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
 
 	private VendorDBService vendorDBService;
@@ -31,7 +32,12 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	public ExpenseDBService() {
 		this.vendorDBService = new VendorDBService();
 	}
-	
+
+	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_EXPENSES;
+	}
+
 	@Override
 	public Map<String, String> getDynamicJoins() {
 		return dynamicJoins;
@@ -42,11 +48,9 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 		StringBuilder whereClause = new StringBuilder()
 				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_DocStatus).append("!=?");
+				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?");
 		parameters.add("N");
 		parameters.add("Y");
-		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
 	}
 
@@ -93,8 +97,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 			return new Expense(
 					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(), instance.isActive(),
 					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
-					DateUtil.parseDateOnly(instance.getDateInvoiced()), entityMetadataDBService
-					.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					DateUtil.parseDateOnly(instance.getDateInvoiced()), instance.getDocStatus(),
 					instance.getGrandTotal(), instance.getPaymentRule());
 
 		} catch (Exception ex) {
@@ -114,9 +117,8 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 			return new Expense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
-					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), entityMetadataDBService
-					.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
+					new Vendor(vendor.getC_BPartner_UU(), vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
+					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), instance.getDocStatus(),
 					instance.getGrandTotal(), instance.getPaymentRule());
 
 		} catch (Exception ex) {

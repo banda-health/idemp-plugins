@@ -22,8 +22,6 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_BPartner;
-import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 
 /**
@@ -31,27 +29,30 @@ import org.compiere.util.Env;
  *
  * @author andrew
  */
-public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
+public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	private final String CURRENCY = "KES";
 	private PatientDBService patientDBService;
 	private EntityMetadataDBService entityMetadataDBService;
-	
-
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." + MPayment_BH.COLUMNNAME_C_BPartner_ID + " = "
-				+ MBPartner_BH.Table_Name +  "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+		put(MBPartner_BH.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." +
+				MPayment_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
+				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
-
-	@Override
-	public Map<String, String> getDynamicJoins() {
-		return dynamicJoins;
-	}
-
 
 	public PaymentDBService() {
 		patientDBService = new PatientDBService();
 		entityMetadataDBService = new EntityMetadataDBService();
+	}
+
+	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_PAYMENTS;
+	}
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
 	}
 
 	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
@@ -63,7 +64,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,
-																					String sortOrder) {
+			String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
@@ -149,7 +150,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 			mPayment.setDateTrx(DateUtil.getTimestamp(entity.getTransactionDate()));
 		}
 
-		mPayment.setIsActive(entity.isIsActive());
+		mPayment.setIsActive(entity.getIsActive());
 
 		mPayment.saveEx();
 
@@ -178,8 +179,7 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 					instance.getDescription(),
 					new NHIF(new NHIFType(nhifType), new NHIFRelationship(relationship), claimNumber, memberId, number,
 							memberName),
-					entityMetadataDBService.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS,
-							instance.getDocStatus()),
+					instance.getDocStatus(),
 					DateUtil.parseDateOnly(instance.getDateTrx()), instance.getBH_TenderAmount());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
@@ -283,42 +283,19 @@ public class PaymentDBService extends BaseDBService<Payment, MPayment_BH> {
 				.setOnlyActiveRecords(true).setClient_ID().setParameters(orderId).match();
 	}
 
-	/**
-	 * Save and Process Payment
-	 *
-	 * @param entity
-	 * @return
-	 */
-	public Payment saveAndProcessPayment(Payment entity) {
-		Payment savedEntity = saveEntity(entity);
-		if (savedEntity != null) {
-			return processPayment(savedEntity.getUuid());
-		}
-
-		return null;
-	}
-
-	/**
-	 * Process Payment
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public Payment processPayment(String uuid) {
-		MPayment_BH payment = getEntityByUuidFromDB(uuid);
-		if (payment == null) {
-			log.severe("No payment with uuid = " + uuid);
-			return null;
-		}
-
-		payment.processIt(DocAction.ACTION_Complete);
-
-		return createInstanceWithAllFields(getEntityByUuidFromDB(payment.getC_Payment_UU()));
-	}
-
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Payment saveAndProcessEntity(Payment entity, String docAction) throws Exception {
+		// Payments that have already been processed can't be saved again
+		MPayment_BH payment = getEntityByUuidFromDB(entity.getUuid());
+		if (payment != null && payment.isComplete()) {
+			return processEntity(entity.getUuid(), docAction);
+		}
+		return super.saveAndProcessEntity(entity, docAction);
 	}
 }

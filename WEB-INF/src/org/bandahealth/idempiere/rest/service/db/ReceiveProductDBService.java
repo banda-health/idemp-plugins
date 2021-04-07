@@ -23,7 +23,7 @@ import org.compiere.util.Env;
  */
 public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> {
 
-	private VendorDBService vendorDBService;
+	private final VendorDBService vendorDBService;
 
 	public ReceiveProductDBService() {
 		this.vendorDBService = new VendorDBService();
@@ -69,6 +69,11 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 	}
 
 	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_RECEIVE_PRODUCT;
+	}
+
+	@Override
 	protected ReceiveProduct createInstanceWithDefaultFields(MOrder_BH instance) {
 		try {
 			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
@@ -77,13 +82,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				return null;
 			}
 
-			return new ReceiveProduct(
-					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(), instance.isActive(),
-					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()),
-					instance.getGrandTotal());
-
+			return new ReceiveProduct(instance, vendor, null);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -99,13 +98,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				return null;
 			}
 
-			return new ReceiveProduct(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Vendor(vendor.getC_BPartner_UU(), vendor.getName()),
-					DateUtil.parseDateOnly(instance.getDateOrdered()),
-					orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.DOCUMENT_STATUS, instance.getDocStatus()));
-
+			return new ReceiveProduct(instance, vendor, orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

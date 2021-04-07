@@ -11,8 +11,11 @@ import org.bandahealth.idempiere.rest.model.NHIFRelationship;
 import org.bandahealth.idempiere.rest.model.NHIFType;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.PaymentType;
+import org.bandahealth.idempiere.rest.model.ProcessStage;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MLanguage;
@@ -21,7 +24,6 @@ import org.compiere.model.MReference;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
 
@@ -41,6 +43,7 @@ public class EntityMetadataDBService {
 	public final static String PAYMENT_TYPE_LIMIT = "C_Payment Tender Type Limit";
 	public final static String DOCUMENT_STATUS = "_Document Status";
 	public final static String PRODUCT_CATEGORY_TYPE = "BH Product Category Type";
+	public final static String PROCESS_STAGE = "BH_Process_Stage";
 	private final CLogger logger = CLogger.getCLogger(EntityMetadataDBService.class);
 
 	public EntityMetadata getAll() {
@@ -95,6 +98,15 @@ public class EntityMetadataDBService {
 					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 					instance.getCreatedBy(), instance.getName(), instance.getDescription(), instance.getValue()));
 		}
+		
+		// retrieve process stage
+		for (MRefList instance : getTypes(PROCESS_STAGE)) {
+			metadata.addProcessStageList(new ProcessStage(instance));
+		}
+
+		// retrieve document statuses
+		metadata.getDocumentStatuses()
+				.addAll(getTypes(DOCUMENT_STATUS).stream().map(ReferenceList::new).collect(Collectors.toList()));
 
 		return metadata;
 	}
@@ -149,8 +161,8 @@ public class EntityMetadataDBService {
 			SqlUtil.executeQuery(sql, translationParameters, null, resultSet -> {
 				try {
 					MRefList referenceListToTranslate = refListMap.get(resultSet.getInt(1));
-					referenceListToTranslate.setName(resultSet.getString(2));
-					referenceListToTranslate.setDescription(resultSet.getString(3));
+					ModelUtil.setPropertyIfPresent(resultSet.getString(2), referenceListToTranslate::setName);
+					ModelUtil.setPropertyIfPresent(resultSet.getString(3), referenceListToTranslate::setDescription);
 				} catch (Exception ex) {
 					logger.warning("Error processing reference list translations: " + ex.getMessage());
 				}

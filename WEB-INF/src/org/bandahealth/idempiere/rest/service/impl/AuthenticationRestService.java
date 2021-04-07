@@ -23,7 +23,6 @@ import org.bandahealth.idempiere.rest.model.Org;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
-import org.bandahealth.idempiere.rest.service.db.ReportDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
@@ -33,6 +32,7 @@ import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.PO;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
@@ -57,7 +57,7 @@ import java.util.List;
 public class AuthenticationRestService {
 
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
-	
+
 	private MenuGroupDBService menuDbservice = new MenuGroupDBService();
 
 	public AuthenticationRestService() {
@@ -88,7 +88,8 @@ public class AuthenticationRestService {
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
 		if (Util.isEmpty(credentials.getPassword())) {
-			throw new IllegalArgumentException(org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
+			throw new IllegalArgumentException(
+					org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
 		}
 
 		if (Util.isEmpty(credentials.getNewPassword())) {
@@ -115,7 +116,9 @@ public class AuthenticationRestService {
 	}
 
 	/**
-	 * Handle everything related to updating a user's password. Largely copied from ChangePasswordPanel > validateChangePassword
+	 * Handle everything related to updating a user's password. Largely copied from ChangePasswordPanel >
+	 * validateChangePassword
+	 *
 	 * @param credentials
 	 * @param clients
 	 */
@@ -135,7 +138,8 @@ public class AuthenticationRestService {
 					throw new AdempiereException(ERROR_USER_NOT_FOUND);
 				}
 
-				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password, credentials.getNewPassword()); // will be hashed and validate on saveEx
+				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password,
+						credentials.getNewPassword()); // will be hashed and validate on saveEx
 				clientUser.setIsExpired(false);
 				// TODO: Add this back in if we start using these
 //				clientUser.setSecurityQuestion(credentials.getSecurityQuestion());
@@ -291,57 +295,67 @@ public class AuthenticationRestService {
 	 * @param response
 	 */
 	private void setDefaultLoginProperties(KeyNamePair[] clients, MUser user, Builder builder, AuthResponse response) {
-		// parse all clients that the user has access to.
-		for (KeyNamePair client : clients) {
-			Client clientResponse = new Client(client.getKey(), client.getName());
+		// For querying roles, we'll need to change the client IDs that are used from the context, so store what's there
+		// now
+		int clientId = Env.getAD_Client_ID(Env.getCtx());
+//		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		try {
+			// parse all clients that the user has access to.
+			for (KeyNamePair client : clients) {
+				Client clientResponse = new Client(client.getKey(), client.getName());
 
-			// set default client
-			if (clients.length == 1) {
-				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
-				builder.withClaim(LoginClaims.AD_Client_ID.name(), clientResponse.getId());
-			}
-
-			// check orgs.
-			MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), clientResponse.getId(), null));
-			for (MOrg org : orgs) {
-				Org orgResponse = new Org(org.get_ID(), org.getName());
-
-				// set default org
-				if (orgs.length == 1) {
-					Env.setContext(Env.getCtx(), Env.AD_ORG_ID, orgResponse.getId());
-					builder.withClaim(LoginClaims.AD_Org_ID.name(), orgResponse.getId());
+				// set default client
+				if (clients.length == 1) {
+					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
+					builder.withClaim(LoginClaims.AD_Client_ID.name(), clientResponse.getId());
 				}
 
-				// check roles
-				MRole[] roles = user.getRoles(orgResponse.getId());
-				for (MRole role : roles) {
-					Role roleResponse = new Role(role.get_ID(), role.getName());
-					orgResponse.getRoles().add(roleResponse);
+				// check orgs.
+				MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), clientResponse.getId(), null));
+				for (MOrg org : orgs) {
+					Org orgResponse = new Org(org.get_ID(), org.getName());
 
-					if (roles.length == 1) {
-						Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, roleResponse.getId());
-						builder.withClaim(LoginClaims.AD_Role_ID.name(), roleResponse.getId());
-						response.setRoleId(roleResponse.getId());
+					// set default org
+					if (orgs.length == 1) {
+						Env.setContext(Env.getCtx(), Env.AD_ORG_ID, orgResponse.getId());
+						builder.withClaim(LoginClaims.AD_Org_ID.name(), orgResponse.getId());
 					}
-				}
 
-				// check warehouses
-				MWarehouse[] warehouses = MWarehouse.getForOrg(Env.getCtx(), orgResponse.getId());
-				for (MWarehouse warehouse : warehouses) {
-					Warehouse warehouseResponse = new Warehouse(warehouse.get_ID(), warehouse.getName());
-					orgResponse.getWarehouses().add(warehouseResponse);
+					// check roles
+					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
+					MRole[] roles = user.getRoles(orgResponse.getId());
+					for (MRole role : roles) {
+						Role roleResponse = new Role(role.get_ID(), role.getName());
+						orgResponse.getRoles().add(roleResponse);
 
-					// set default warehouse
-					if (warehouses.length == 1) {
-						Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getId());
-						builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getId());
+						if (roles.length == 1) {
+							Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, roleResponse.getId());
+							builder.withClaim(LoginClaims.AD_Role_ID.name(), roleResponse.getId());
+							response.setRoleId(roleResponse.getId());
+						}
 					}
+
+					// check warehouses
+					MWarehouse[] warehouses = MWarehouse.getForOrg(Env.getCtx(), orgResponse.getId());
+					for (MWarehouse warehouse : warehouses) {
+						Warehouse warehouseResponse = new Warehouse(warehouse.get_ID(), warehouse.getName());
+						orgResponse.getWarehouses().add(warehouseResponse);
+
+						// set default warehouse
+						if (warehouses.length == 1) {
+							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getId());
+							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getId());
+						}
+					}
+
+					clientResponse.getOrgs().add(orgResponse);
 				}
 
-				clientResponse.getOrgs().add(orgResponse);
+				response.getClients().add(clientResponse);
 			}
-
-			response.getClients().add(clientResponse);
+		} finally {
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
+//			PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		}
 	}
 

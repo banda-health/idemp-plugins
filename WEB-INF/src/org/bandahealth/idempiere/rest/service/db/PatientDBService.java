@@ -149,7 +149,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 				patient.setBH_Local_PatientID(entity.getLocalPatientNumber());
 			}
 
-			patient.setIsActive(entity.isIsActive());
+			patient.setIsActive(entity.getIsActive());
 
 			patient.saveEx();
 
