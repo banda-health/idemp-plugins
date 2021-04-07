@@ -9,7 +9,7 @@ import org.compiere.model.MAttributeSet;
 public class InternalSetupConfig {
 
 	public static void configureNewProductAttribSet(Properties context) {
-		MAttributeSet attribSet = new MAttributeSet(context, null, null);
+		MAttributeSet attribSet = new MAttributeSet(context, 0, null);
 		attribSet.setName(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 		attribSet.setIsGuaranteeDate(true);
 		attribSet.setIsLot(false);

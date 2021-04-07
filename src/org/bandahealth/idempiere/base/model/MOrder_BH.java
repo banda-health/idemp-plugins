@@ -49,6 +49,7 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_WEIGHT = "BH_Weight";
 	public static final String COLUMNNAME_BH_SECOND_DIAGNOSIS = "BH_SecondDiagnosis";
 	public static final String COLUMMNAME_BH_CLINICIAN_USER_ID = "BH_Clinician_User_ID";
+	public static final String COLUMNNAME_BH_PROCESS_STAGE = "BH_Process_Stage";
 	/**
 	 * Column name bh_referral
 	 */
@@ -85,6 +86,15 @@ public class MOrder_BH extends MOrder {
 	 * Inpatient (IPD) = I
 	 */
 	public static final String BH_PATIENTTYPE_InpatientIPD = "I";
+	/**
+	 * Column name BH_ReferredFromTo
+	 */
+	public static final String COLUMNNAME_BH_ReferredFromTo = "BH_ReferredFromTo";
+
+	/**
+	 * Column name BH_VisitDate
+	 */
+	public static final String COLUMNNAME_BH_VisitDate = "BH_VisitDate";
 	private static final long serialVersionUID = 1L;
 
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
@@ -253,8 +263,9 @@ public class MOrder_BH extends MOrder {
 
 		if (totalPayments.compareTo(getGrandTotal()) < 0) {
 			// update TOB
-			MBPartner bpartner = new Query(getCtx(), MBPartner.Table_Name, MBPartner.COLUMNNAME_C_BPartner_ID + " =?", get_TrxName())
-					.setParameters(getC_BPartner_ID()).first();
+			MBPartner bpartner =
+					new Query(getCtx(), MBPartner.Table_Name, MBPartner.COLUMNNAME_C_BPartner_ID + " =?", get_TrxName())
+							.setParameters(getC_BPartner_ID()).first();
 			BigDecimal newOpenBalance = bpartner.getTotalOpenBalance().add(totalPayments);
 			bpartner.setTotalOpenBalance(newOpenBalance);
 			bpartner.save(get_TrxName());
@@ -275,8 +286,9 @@ public class MOrder_BH extends MOrder {
 		if (log.isLoggable(Level.INFO)) log.info(dt.toString());
 
 		// check if there is an associated invoice for this order
-		MInvoice existingInvoice = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
-				.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
+		MInvoice existingInvoice =
+				new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
+						.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
 
 		if (existingInvoice != null) {
 			return new MInvoice_BH(existingInvoice);
@@ -527,12 +539,52 @@ public class MOrder_BH extends MOrder {
 
 		set_Value(COLUMNNAME_BH_PatientType, BH_PatientType);
 	}
-	
+
 	public Integer getBH_ClinicianUserID() {
 		return (Integer) get_Value(COLUMMNAME_BH_CLINICIAN_USER_ID);
 	}
-	
+
 	public void setBH_ClinicianUserID(Integer clinicianUserID) {
 		set_Value(COLUMMNAME_BH_CLINICIAN_USER_ID, clinicianUserID);
+	}
+
+	public String getBH_ProcessStage() {
+		return (String) get_Value(COLUMNNAME_BH_PROCESS_STAGE);
+	}
+
+	public void setBH_ProcessStage(String BH_ProcessStage) {
+		set_Value(COLUMNNAME_BH_PROCESS_STAGE, BH_ProcessStage);
+	}
+
+	/**
+	 * Get Referred From/To.
+	 *
+	 * @return Referred From/To
+	 */
+	public String getBH_ReferredFromTo() {
+		return (String) get_Value(COLUMNNAME_BH_ReferredFromTo);
+	}
+
+	/**
+	 * Set Referred From/To.
+	 *
+	 * @param BH_ReferredFromTo Referred From/To
+	 */
+	public void setBH_ReferredFromTo(String BH_ReferredFromTo) {
+		set_Value(COLUMNNAME_BH_ReferredFromTo, BH_ReferredFromTo);
+	}
+
+	/** Set Visit Date.
+	 @param BH_VisitDate Visit Date	  */
+	public void setBH_VisitDate (Timestamp BH_VisitDate)
+	{
+		set_Value (COLUMNNAME_BH_VisitDate, BH_VisitDate);
+	}
+
+	/** Get Visit Date.
+	 @return Visit Date	  */
+	public Timestamp getBH_VisitDate ()
+	{
+		return (Timestamp)get_Value(COLUMNNAME_BH_VisitDate);
 	}
 }
