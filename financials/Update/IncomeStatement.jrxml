@@ -21,7 +21,7 @@ SELECT
     coalesce(billdetails.saleslineitemtotals,0) AS billtotal,
     coalesce(payments.revenuesales,0) AS salesrevenue,
     coalesce(debtPayments.debtpaymentamount,0) AS debtrevenue,
-    coalesce(expenses.totalexpenses + received_products.total,0) AS expensetotal,
+    coalesce(expenses.totalexpenses,0) + coalesce(received_products.total,0) AS expensetotal,
     coalesce(charges.pharmacysales,0) AS pharmacysales,
     coalesce(charges.servicessales,0) AS servicessales,
     coalesce(charges.labsales,0) AS labsales,
@@ -88,20 +88,19 @@ LEFT JOIN (
 LEFT JOIN (
     SELECT
         ci.ad_client_id,
-        SUM(ci.totallines) as totalexpenses
+        SUM(ci.grandtotal) as totalexpenses
     FROM c_invoice ci
-        INNER JOIN c_invoiceline expenseline ON ci.c_invoice_id = expenseline.c_invoice_id
-        INNER JOIN c_charge expense ON expenseline.c_charge_id = expense.c_charge_id
     JOIN params ON ci.ad_client_id = params.ad_client_id
     WHERE
         ci.docstatus = 'CO'
+        AND ci.bh_isexpense = 'Y'
         AND (date(ci.dateinvoiced) BETWEEN params.start_date AND params.end_date)
     GROUP BY 1
 ) AS expenses ON billdetails.ad_client_id = expenses.ad_client_id
 LEFT JOIN (
     SELECT
         o.ad_client_id,
-        coalesce(sum(o.totallines) FILTER ( WHERE pc.name IN ('Laboratory', 'Pharmacy', 'Radiology', 'Other', 'Standard') ), 0) AS total
+        coalesce(sum(ol.linenetamt) FILTER ( WHERE pc.name IN ('Laboratory', 'Pharmacy', 'Radiology', 'Other', 'Standard') ), 0) AS total
     FROM c_order o
     JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
     JOIN m_product p ON ol.m_product_id = p.m_product_id
@@ -195,7 +194,7 @@ LEFT JOIN (
 	<variable name="totalPayments" class="java.math.BigDecimal">
 		<variableExpression><![CDATA[$F{salesrevenue}.add($F{debtrevenue})]]></variableExpression>
 	</variable>
-	<variable name="totalExpenses" class="java.math.BigDecimal">
+	<variable name="totalExpenses" class="java.math.BigDecimal" calculation="Variance">
 		<variableExpression><![CDATA[$F{expensetotal}]]></variableExpression>
 	</variable>
 	<background>
@@ -224,7 +223,7 @@ LEFT JOIN (
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[UPPER("INCOME and expenses STATEMENT" )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[UPPER("INCOME and expenses overview" )]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -1255,7 +1254,7 @@ LEFT JOIN (
 					<font size="11"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{salesrevenue})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{donorfund}).subtract($F{nhifns}).subtract($F{nhifffs}).subtract($F{otherpayments}).subtract($F{cash}).subtract($F{mpesa}).subtract($F{debtrevenue}).subtract($F{credit_debit_check}).subtract($F{pesa_pal}).subtract($F{waiver})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="77" y="617" width="358" height="19" forecolor="#000000" backcolor="#8EA9DB" uuid="86a5da29-7e63-44e1-87bc-dc6ce8ea6253">
@@ -1294,7 +1293,7 @@ LEFT JOIN (
 					<font size="11" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{salesrevenue}).add($F{waiver})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{donorfund}).subtract($F{nhifns}).subtract($F{nhifffs}).subtract($F{otherpayments}).subtract($F{cash}).subtract($F{mpesa}).subtract($F{debtrevenue}).subtract($F{credit_debit_check}).subtract($F{pesa_pal})]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="77" y="63" width="440" height="1" uuid="91f7fa24-bafb-48ba-96a6-823393e0400f">
