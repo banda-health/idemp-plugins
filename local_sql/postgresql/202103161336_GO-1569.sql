@@ -1009,12 +1009,6 @@ INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_i
 INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_process_access_uu) VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '93365778-a2d9-433b-b962-87fb150db4fa'), 0, 0, 'Y', '2021-04-08 06:31:21.888000', 100, '2021-04-08 06:31:21.888000', 100, 'N', 'c9939eff-7922-45f7-8c70-562fe2429188') ON CONFLICT DO NOTHING;
 INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_process_access_uu) VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '03ba009a-68bb-4b12-a5bc-e58a9bce1545'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '93365778-a2d9-433b-b962-87fb150db4fa'), 0, 0, 'Y', '2021-04-08 11:25:18.898000', 100, '2021-04-08 11:25:18.898000', 100, 'N', 'fa9fdb76-cc23-494f-8dd2-0f9e401a8264') ON CONFLICT DO NOTHING;
 
---Document Access
-INSERT INTO ad_document_action_access (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_doctype_id, ad_role_id, ad_ref_list_id, ad_document_action_access_uu) VALUES (0, 0, 'Y', '2021-03-18 13:34:31.689000', (SELECT ad_role_id FROM ad_role WHERE ad_role_uu='93365778-a2d9-433b-b962-87fb150db4fa'), '2021-03-18 13:34:31.689000', 100
-, 1002400, 1000415, 178, '408a8e40-cafb-409c-8bfb-6f46a628f79d') ON CONFLICT DO NOTHING;
-
-
-
 /**********************************************************************************************************/
 -- Update default roles functionality
 /**********************************************************************************************************/
