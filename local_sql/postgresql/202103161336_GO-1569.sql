@@ -1243,4 +1243,4 @@ JOIN ad_org ao
 /**********************************************************************************************************/
 -- Reset access for the Clinic Admin and Clinician User (now named Clinician/Nurse)
 
-SELECT register_migration_script('202103290922_GO-1569.sql') FROM dual;
+SELECT register_migration_script('202103161336_GO-1569.sql') FROM dual;
