@@ -1,0 +1,4 @@
+-- Update all columns in bh_dbrd* or bh_tabnav* to be marked as translatable so inserts in their translation tables don't fail
+UPDATE ad_column SET istranslated = 'Y' WHERE ad_column_uu IN ('a0b13968-75ba-4dc2-831c-5556d1e65dad','cfd48e2d-3d5e-4803-afa7-5996db9bb0f1','122f35dd-aa90-49dd-8d11-04cb0e0ef4b4','61a8636f-fbae-43ab-b472-6e34818d257f','519e6d75-c54b-4ab4-9f07-16f967a644c5','6387ac61-3297-4c46-be4a-a5607d64c61c','9a1a4aa1-5a48-4b56-8a32-3a0624f29ef9','d05b9ac5-7485-41f8-9c8c-39e86f417977','23cfdbf3-71b9-493e-a9f0-0c4d797b1cad','4d7963c6-fdb7-42e3-81d7-7da2a44c1efb','c8fb6884-01b4-4d0f-bb8a-9ccc615f937b','eb4cb908-e455-457c-9fe6-1bebcc4ff0b8','0eebd09d-d005-4a51-9a5e-81b0cacb688f','c7ee8248-f417-47fe-b03b-b485db5bdac3');
+
+SELECT register_migration_script('202103251516_GO-1598.sql') FROM dual;
