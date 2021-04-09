@@ -290,91 +290,95 @@ public class MOrder_BH extends MOrder {
 				new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
 						.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
 
+		MInvoice_BH invoice;
 		if (existingInvoice != null) {
-			return new MInvoice_BH(existingInvoice);
-		}
+			invoice = new MInvoice_BH(existingInvoice);
+		} else {
 
-		MInvoice_BH invoice = new MInvoice_BH(this, dt.getC_DocTypeInvoice_ID(), invoiceDate);
-		if (!invoice.save(get_TrxName())) {
-			m_processMsg = "Could not create Invoice";
-			return null;
-		}
-
-		//	If we have a Shipment - use that as a base
-		if (shipment != null) {
-			if (!INVOICERULE_AfterDelivery.equals(getInvoiceRule()))
-				setInvoiceRule(INVOICERULE_AfterDelivery);
-			//
-			MInOutLine[] sLines = shipment.getLines(false);
-			for (int i = 0; i < sLines.length; i++) {
-				MInOutLine sLine = sLines[i];
-				//
-				MInvoiceLine iLine = new MInvoiceLine(invoice);
-				iLine.setShipLine(sLine);
-				//	Qty = Delivered
-				if (sLine.sameOrderLineUOM())
-					iLine.setQtyEntered(sLine.getQtyEntered());
-				else
-					iLine.setQtyEntered(sLine.getMovementQty());
-				iLine.setQtyInvoiced(sLine.getMovementQty());
-				if (!iLine.save(get_TrxName())) {
-					m_processMsg = "Could not create Invoice Line from Shipment Line";
-					return null;
-				}
-				//
-				sLine.setIsInvoiced(true);
-				if (!sLine.save(get_TrxName())) {
-					log.warning("Could not update Shipment line: " + sLine);
-				}
-			}
-		} else  //	Create Invoice from Order
-		{
-			if (!INVOICERULE_Immediate.equals(getInvoiceRule()))
-				setInvoiceRule(INVOICERULE_Immediate);
-			//
-			MOrderLine[] oLines = getLines();
-			for (int i = 0; i < oLines.length; i++) {
-				MOrderLine oLine = oLines[i];
-				//
-				MInvoiceLine iLine = new MInvoiceLine(invoice);
-				iLine.setOrderLine(oLine);
-				//	Qty = Ordered - Invoiced
-				iLine.setQtyInvoiced(oLine.getQtyOrdered().subtract(oLine.getQtyInvoiced()));
-				if (oLine.getQtyOrdered().compareTo(oLine.getQtyEntered()) == 0)
-					iLine.setQtyEntered(iLine.getQtyInvoiced());
-				else
-					iLine.setQtyEntered(iLine.getQtyInvoiced().multiply(oLine.getQtyEntered())
-							.divide(oLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
-				if (!iLine.save(get_TrxName())) {
-					m_processMsg = "Could not create Invoice Line from Order Line";
-					return null;
-				}
-			}
-		}
-
-		// Copy payment schedule from order to invoice if any
-		for (MOrderPaySchedule ops : MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0, get_TrxName())) {
-			MInvoicePaySchedule ips = new MInvoicePaySchedule(getCtx(), 0, get_TrxName());
-			PO.copyValues(ops, ips);
-			ips.setC_Invoice_ID(invoice.getC_Invoice_ID());
-			ips.setAD_Org_ID(ops.getAD_Org_ID());
-			ips.setProcessing(ops.isProcessing());
-			ips.setIsActive(ops.isActive());
-			if (!ips.save()) {
-				m_processMsg = "ERROR: creating pay schedule for invoice from : " + ops.toString();
+			invoice = new MInvoice_BH(this, dt.getC_DocTypeInvoice_ID(), invoiceDate);
+			if (!invoice.save(get_TrxName())) {
+				m_processMsg = "Could not create Invoice";
 				return null;
 			}
+
+			//	If we have a Shipment - use that as a base
+			if (shipment != null) {
+				if (!INVOICERULE_AfterDelivery.equals(getInvoiceRule()))
+					setInvoiceRule(INVOICERULE_AfterDelivery);
+				//
+				MInOutLine[] sLines = shipment.getLines(false);
+				for (int i = 0; i < sLines.length; i++) {
+					MInOutLine sLine = sLines[i];
+					//
+					MInvoiceLine iLine = new MInvoiceLine(invoice);
+					iLine.setShipLine(sLine);
+					//	Qty = Delivered
+					if (sLine.sameOrderLineUOM())
+						iLine.setQtyEntered(sLine.getQtyEntered());
+					else
+						iLine.setQtyEntered(sLine.getMovementQty());
+					iLine.setQtyInvoiced(sLine.getMovementQty());
+					if (!iLine.save(get_TrxName())) {
+						m_processMsg = "Could not create Invoice Line from Shipment Line";
+						return null;
+					}
+					//
+					sLine.setIsInvoiced(true);
+					if (!sLine.save(get_TrxName())) {
+						log.warning("Could not update Shipment line: " + sLine);
+					}
+				}
+			} else  //	Create Invoice from Order
+			{
+				if (!INVOICERULE_Immediate.equals(getInvoiceRule()))
+					setInvoiceRule(INVOICERULE_Immediate);
+				//
+				MOrderLine[] oLines = getLines();
+				for (int i = 0; i < oLines.length; i++) {
+					MOrderLine oLine = oLines[i];
+					//
+					MInvoiceLine iLine = new MInvoiceLine(invoice);
+					iLine.setOrderLine(oLine);
+					//	Qty = Ordered - Invoiced
+					iLine.setQtyInvoiced(oLine.getQtyOrdered().subtract(oLine.getQtyInvoiced()));
+					if (oLine.getQtyOrdered().compareTo(oLine.getQtyEntered()) == 0)
+						iLine.setQtyEntered(iLine.getQtyInvoiced());
+					else
+						iLine.setQtyEntered(iLine.getQtyInvoiced().multiply(oLine.getQtyEntered())
+								.divide(oLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
+					if (!iLine.save(get_TrxName())) {
+						m_processMsg = "Could not create Invoice Line from Order Line";
+						return null;
+					}
+				}
+			}
+
+			// Copy payment schedule from order to invoice if any
+			for (MOrderPaySchedule ops : MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0, get_TrxName())) {
+				MInvoicePaySchedule ips = new MInvoicePaySchedule(getCtx(), 0, get_TrxName());
+				PO.copyValues(ops, ips);
+				ips.setC_Invoice_ID(invoice.getC_Invoice_ID());
+				ips.setAD_Org_ID(ops.getAD_Org_ID());
+				ips.setProcessing(ops.isProcessing());
+				ips.setIsActive(ops.isActive());
+				if (!ips.save()) {
+					m_processMsg = "ERROR: creating pay schedule for invoice from : " + ops.toString();
+					return null;
+				}
+			}
 		}
 
-		// added AdempiereException by zuhri
-		if (!invoice.processIt(DocAction.ACTION_Complete))
-			throw new AdempiereException("Failed when processing document - " + invoice.getProcessMsg());
-		// end added
-		invoice.saveEx(get_TrxName());
-		setC_CashLine_ID(invoice.getC_CashLine_ID());
-		if (!DOCSTATUS_Completed.equals(invoice.getDocStatus())) {
-			m_processMsg = "@C_Invoice_ID@: " + invoice.getProcessMsg();
-			return null;
+		if (!DocAction.STATUS_Completed.equals(invoice.getDocStatus())) {
+			// added AdempiereException by zuhri
+			if (!invoice.processIt(DocAction.ACTION_Complete))
+				throw new AdempiereException("Failed when processing document - " + invoice.getProcessMsg());
+			// end added
+			invoice.saveEx(get_TrxName());
+			setC_CashLine_ID(invoice.getC_CashLine_ID());
+			if (!DOCSTATUS_Completed.equals(invoice.getDocStatus())) {
+				m_processMsg = "@C_Invoice_ID@: " + invoice.getProcessMsg();
+				return null;
+			}
 		}
 		return invoice;
 	}  //	createInvoice
