@@ -15,6 +15,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
+import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
@@ -226,28 +227,6 @@ public class AuthenticationRestService {
 				response.setStatus(Status.OK);
 				// isAdministrator
 				response.setIsAdministrator(user.isAdministrator());
-//
-//				MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
-//				Map<Integer, MWindow> windowsInGLByID = new HashMap<>(); // <- How to get this?
-//				List<MWindowAccess> windowAccessList =
-//						new Query(Env.getCtx(), MWindowAccess.Table_Name, MWindowAccess.COLUMNNAME_AD_Role_ID + "? AND "
-//								+ MWindowAccess.COLUMNNAME_AD_Window_ID + " IN (?)", null).list();
-//				Map<String, Object> access =
-//						windowAccessList.stream()
-//								.filter((windowAccess) -> windowsInGLByID.containsKey(windowAccess.getAD_Window_ID()))
-//								.collect(Collectors.toMap(
-//										(windowAccess) -> windowsInGLByID.get(windowsInGLByID.get(windowAccess.getAD_Window_ID()))
-//												.getAD_Window_UU(), (windowAccess) -> {
-//											Object customAccessObject;
-//											if (windowAccess.isReadWrite()) {
-//												// User can edit!
-//											}
-//											if (windowAccess.canDeactivate()) {
-//												// User can deactivate!
-//											}
-//											return customAccessObject;
-//										}));
-
 				return response;
 			} catch (Exception e) {
 				return new AuthResponse(Status.BAD_REQUEST);
