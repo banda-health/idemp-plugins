@@ -26,6 +26,7 @@ import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
+import org.bandahealth.idempiere.rest.utils.RoleUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
@@ -227,6 +228,8 @@ public class AuthenticationRestService {
 				response.setStatus(Status.OK);
 				// isAdministrator
 				response.setIsAdministrator(user.isAdministrator());
+				//record read-write and deactivate privileges on each window for this role 
+				response.setWindowAccessLevel(RoleUtil.accessLevelsForRole());
 				return response;
 			} catch (Exception e) {
 				return new AuthResponse(Status.BAD_REQUEST);

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -10,6 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import org.bandahealth.idempiere.rest.utils.*;
 
 @XmlRootElement(name = "response")
 @JsonInclude(value = Include.NON_NULL)
@@ -26,6 +29,7 @@ public class AuthResponse {
 	private List<String> securityQuestions;
 	private boolean hasAccessToReports;
 	private boolean isAdministrator;
+	private Map<String, RoleUtil.AccessLevel> windowAccessLevel;
 
 	public AuthResponse() {
 	}
@@ -140,4 +144,14 @@ public class AuthResponse {
 	public void setIsAdministrator(boolean isAdministrator) {
 		this.isAdministrator = isAdministrator;
 	}
+
+	public Map<String, RoleUtil.AccessLevel> getWindowAccessLevel() {
+		return windowAccessLevel;
+	}
+
+	public void setWindowAccessLevel(Map<String, RoleUtil.AccessLevel> windowAccessLevel) {
+		this.windowAccessLevel = windowAccessLevel;
+	}
+	
+	
 }
