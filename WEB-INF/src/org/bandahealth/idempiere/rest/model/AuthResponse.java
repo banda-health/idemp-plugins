@@ -29,7 +29,7 @@ public class AuthResponse {
 	private List<String> securityQuestions;
 	private boolean hasAccessToReports;
 	private boolean isAdministrator;
-	private Map<String, RoleUtil.AccessLevel> windowAccessLevel;
+	private Map<String, AccessLevel> windowAccessLevel;
 
 	public AuthResponse() {
 	}
@@ -145,11 +145,11 @@ public class AuthResponse {
 		this.isAdministrator = isAdministrator;
 	}
 
-	public Map<String, RoleUtil.AccessLevel> getWindowAccessLevel() {
+	public Map<String, AccessLevel> getWindowAccessLevel() {
 		return windowAccessLevel;
 	}
 
-	public void setWindowAccessLevel(Map<String, RoleUtil.AccessLevel> windowAccessLevel) {
+	public void setWindowAccessLevel(Map<String, AccessLevel> windowAccessLevel) {
 		this.windowAccessLevel = windowAccessLevel;
 	}
 	
