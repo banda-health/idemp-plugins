@@ -14,6 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
@@ -28,7 +29,6 @@ import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
@@ -286,26 +286,29 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, Paging pagingInfo) {
 		// Get processes for GL
 		List<Object> parameters = new ArrayList<>();
+		parameters.add(MClient_BH.CLIENTID_LAST_SYSTEM);
 		BaseListResponse<Process> processes =
-				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">999999", parameters, pagingInfo, sortColumn, sortOrder,
+				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">?", parameters, pagingInfo, sortColumn, sortOrder,
 						filter);
 
 
 		// Map the process parameters to entities
 		if (processes.getResults() != null && !processes.getResults().isEmpty()) {
-			// Determine which processes are visible in the dropdown
-			List<MDashboardButtonGroupButton> processesToShowOnUI =
+			// Determine which processes are visible in the dropdown based on the buttons configured in iDempiere
+			List<MDashboardButtonGroupButton> processButtons =
 					new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name,
 							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).list();
+			Set<Integer> processIdsFromProcessButtons =
+					processButtons.stream().map(MDashboardButtonGroupButton::getAD_Process_ID).collect(Collectors.toSet());
 			// Determine which processes the user has access to
 			MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
 			// Filter out processes the user can't see and then determine which processes are manually run-able
 			processes
 					.setResults(processes.getResults().stream().filter(process -> usersRole.getProcessAccess(process.getId()))
 							.peek(process -> {
-								if (processesToShowOnUI.stream().anyMatch(report -> report.getAD_Process_ID() == process.getId())) {
-									// Set display property true
-									process.setIsManualProcess(true);
+								// If the button is present, it means the user needs to manually provide input to run the report
+								if (processIdsFromProcessButtons.contains(process.getId())) {
+									process.setNeedsManualInput(true);
 								}
 							})
 							.collect(Collectors.toList()));
