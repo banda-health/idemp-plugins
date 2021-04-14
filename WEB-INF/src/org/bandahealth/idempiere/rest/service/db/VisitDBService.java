@@ -84,19 +84,15 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		parameters.add("Y");
 		parameters.add(patient.get_ID());
 
-		List<MOrder_BH> results = new Query(Env.getCtx(), MOrder_BH.Table_Name,
+		MOrder_BH latestVisit = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true).list();
+				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
+				.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
 
-		if (results.isEmpty()) {
+		if (latestVisit == null) {
 			return null;
 		}
-		List<Date> dates = new ArrayList<>();
-		for (MOrder_BH mOrder_BH : results) {
-			dates.add(mOrder_BH.getDateOrdered());
-		}
-		Timestamp ts = new Timestamp(Collections.max(dates).getTime());
-		return DateUtil.parseDateOnly(ts);
+		return DateUtil.parseDateOnly(latestVisit.getBH_VisitDate());
 	}
 
 	@Override
@@ -257,6 +253,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			if (order.isComplete()) {
 				throw new AdempiereException("Visit is already completed");
 			} else {
+				// Make sure to delete any payments that might've been saved
+				paymentDBService.deletePaymentLinesByOrder(order.get_ID(), null);
+				// Delete the order
 				return order.delete(false);
 			}
 		} catch (Exception ex) {
