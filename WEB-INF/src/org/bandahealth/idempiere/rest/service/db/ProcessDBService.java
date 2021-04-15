@@ -304,14 +304,15 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
 			// Filter out processes the user can't see and then determine which processes are manually run-able
 			processes
-					.setResults(processes.getResults().stream().filter(process -> usersRole.getProcessAccess(process.getId()))
-							.peek(process -> {
-								// If the button is present, it means the user needs to manually provide input to run the report
-								if (processIdsFromProcessButtons.contains(process.getId())) {
-									process.setNeedsManualInput(true);
-								}
-							})
-							.collect(Collectors.toList()));
+					.setResults(
+							processes.getResults().stream().filter(process -> usersRole.getProcessAccess(process.getId()) != null)
+									.peek(process -> {
+										// If the button is present, it means the user needs to manually provide input to run the report
+										if (processIdsFromProcessButtons.contains(process.getId())) {
+											process.setNeedsManualInput(true);
+										}
+									})
+									.collect(Collectors.toList()));
 
 			// Get all the process info information for these processes
 			Map<Integer, List<MProcessPara>> processParametersByProcess = processParameterDBService
