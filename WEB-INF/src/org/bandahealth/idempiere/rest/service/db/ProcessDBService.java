@@ -49,25 +49,9 @@ import org.compiere.util.Env;
  */
 public class ProcessDBService extends BaseDBService<Process, MProcess> {
 
-	// TODO: Remove these when this information is stored in iDempiere
-	// report names
-	public static final String INCOME_EXPENSE_REPORT = "Income & Expenses";
-	public static final String THERMAL_RECEIPT_REPORT = "BH Thermal Receipt";
-	public static final String PATIENT_TRANSACTIONS_REPORT = "Patient Transactions";
-	public static final String STOCK_REORDER_REPORT = "Stock to be Ordered";
-	public static final String PRODUCT_AND_PRICES_REPORT = "Products and Prices";
-	public static final String VALUE_OPENING_CLOSING_STOCK_REPORT = "Value of Opening and Closing Stock";
-	public static final String MOH705A_PATIENT_VISITS_REFERRALS_REPORT = "MoH705A Patient Visits and Referrals";
-	public static final String MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT = "MoH705A Out Patient Under 5yr Summary";
-	public static final String MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT = "MoH717 New and Revisit Patient Count";
-	public static final String MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT = "MoH705B Out Patient Over 5yr Summary";
-	public static final String INVENTORY_SOLD_REPORT = "Inventory Sold Report";
-	public static final String STOCK_DISCREPANCY_REPORT = "Stock Discrepancy Report";
-	public static final String DONOR_FUND_REPORT = "Donor Fund Report";
-	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
-	public static final String PAYMENT_TRAIL_REPORT = "Payment Trail report";
-	public static final String DIAGNOSIS_REPORT = "Diagnosis Report";
-	public static final String SERVICES_CHARGED_REPORT = "Services Charged Report";
+	// report UUIDs
+	public static final String THERMAL_RECEIPT_REPORT = "30dd7243-11c1-4584-af26-5d977d117c84";
+	public static final String DEBT_PAYMENT_RECEIPT = "173a691b-ba89-4987-9216-9b3f0a60c864";
 
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
@@ -415,12 +399,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			// Since some reports want IDs, we need to convert UUIDs to IDs
 			// TODO: Update all reports to use UUIDs instead of IDs
 			if (processParameter.getName().toLowerCase().endsWith(MReference_BH.SUFFIX_ID)) {
-				if (process.getName().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
+				if (process.getAD_Process_UU().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
 					MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 							MOrder_BH.COLUMNNAME_C_Order_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
 					parameter = BigDecimal.valueOf(order.get_ID());
-				} else if (process.getName().equalsIgnoreCase(DEBT_PAYMENT_RECEIPT)) {
+				} else if (process.getAD_Process_UU().equalsIgnoreCase(DEBT_PAYMENT_RECEIPT)) {
 					MPayment_BH payment = new Query(Env.getCtx(), MPayment_BH.Table_Name,
 							MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
