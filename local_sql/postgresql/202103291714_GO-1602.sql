@@ -7,4 +7,4 @@ LEFT JOIN c_allocationline al ON i.c_invoice_id = al.c_invoice_id
 WHERE o.c_bpartner_id != p.c_bpartner_id
   AND (o.c_order_id = p.bh_c_order_id OR al.c_payment_id = p.c_payment_id);
 
-SELECT register_migration_script('202103291714_GO-1602') FROM dual;
+SELECT register_migration_script('202103291714_GO-1602.sql') FROM dual;

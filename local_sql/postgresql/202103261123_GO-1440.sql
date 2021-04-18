@@ -84,4 +84,4 @@ UPDATE ad_ref_list_trl SET name = 'Prélèvement automatique' WHERE ad_ref_list_
 /**********************************************************************************************************/
 -- Finish
 /**********************************************************************************************************/
-SELECT register_migration_script('202102231123_GO-1440.sql') FROM dual;
+SELECT register_migration_script('202103261123_GO-1440.sql') FROM dual;
