@@ -1,14 +1,13 @@
 package org.bandahealth.idempiere.rest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "response")
 @JsonInclude(value = Include.NON_NULL)
 public class AccessLevel {
+	
 
+	private String windowUuid;
 	private boolean canWrite = false;
 	private boolean canDeactivate = false;
 	
@@ -28,5 +27,13 @@ public class AccessLevel {
 
 	public void setCanDeactivate(boolean canDeactivate) {
 		this.canDeactivate = canDeactivate;
+	}
+
+	public String getWindowUuid() {
+		return windowUuid;
+	}
+
+	public void setWindowUuid(String windowUuid) {
+		this.windowUuid = windowUuid;
 	}
 }
