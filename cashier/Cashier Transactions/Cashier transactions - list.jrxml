@@ -68,6 +68,91 @@ select receipt_number,
        u.name as cashier,
        bill_date,
        bill_total,
+       total_payment,
+       unpaid_balance
+from (
+    select o.c_order_id as receipt_number,
+           o.c_bpartner_id,
+           date(o.bh_visitdate) as bill_date,
+           o.totallines as bill_total,
+           sum(p.payamt) as total_payment,
+           p.createdby as cashier_id,
+           o.totallines - coalesce(sum(p.payamt), 0) as unpaid_balance
+    from c_order o
+        left join c_payment p on o.c_order_id = p.bh_c_order_id
+        cross join params
+    where o.ad_client_id = params.ad_client_id
+      AND o.docstatus <> 'VO'
+      AND date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date
+      AND (
+          params.patient_type = '''' OR o.bh_patienttype = params.patient_type
+          )
+    GROUP BY o.c_order_id, o.c_bpartner_id, date(o.bh_visitdate), o.totallines, p.createdby
+    UNION
+    SELECT p.c_payment_id AS receipt_number,
+           c_bpartner_id,
+           date(datetrx) as bill_date,
+           0 as bill_total,
+           payamt as total_payment,
+           p.createdby as cashier_id,
+           0 as unpaid_balance
+    FROM c_payment p
+    JOIN params ON params.ad_client_id = p.ad_client_id
+                       AND date(p.datetrx) BETWEEN params.start_date AND params.end_date
+                       AND (
+                           params.payment_mode = '''' OR p.tendertype = params.payment_mode
+                           )
+    WHERE bh_c_order_id IS NULL
+) as transactions
+    join c_bpartner bp on bp.c_bpartner_id = transactions.c_bpartner_id
+    join ad_user u on u.ad_user_id = transactions.cashier_id
+order by bill_date]]>
+		</queryString>
+		<field name="receipt_number" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value=""/>
+		</field>
+		<field name="bill_date" class="java.sql.Date">
+			<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
+		</field>
+		<field name="patient" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="patient"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
+		<field name="patient_number" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="patient_number"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
+		<field name="cashier" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="cashier"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value=""/>
+		</field>
+		<field name="bill_total" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="bill_total"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+		</field>
+		<field name="total_payment" class="java.math.BigDecimal"/>
+		<field name="unpaid_balance" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Patient Type" class="java.lang.String"/>
+	<parameter name="Payment Mode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[;WITH params AS (
+     SELECT $P{AD_CLIENT_ID} AS ad_client_id,
+            date($P{Begin Date}) AS start_date,
+            date($P{End Date}) AS end_date,
+            coalesce($P{Patient Type}, '''') AS patient_type,
+            coalesce($P{Payment Mode}, '''') AS payment_mode
+)
+select receipt_number,
+       bp.name as patient,
+       coalesce(bp.bh_local_patientid, bp.bh_patientid) as patient_number,
+       u.name as cashier,
+       bill_date,
+       bill_total,
        total_payment
 from (
     select o.c_order_id as receipt_number,
@@ -103,128 +188,25 @@ from (
 ) as transactions
     join c_bpartner bp on bp.c_bpartner_id = transactions.c_bpartner_id
     join ad_user u on u.ad_user_id = transactions.cashier_id]]>
-		</queryString>
-		<field name="c_order_id" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
-		</field>
-		<field name="billdate" class="java.sql.Date">
-			<property name="com.jaspersoft.studio.field.label" value="billdate"/>
-		</field>
-		<field name="patientname" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="patientname"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-		</field>
-		<field name="nhifnumber" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="nhifnumber"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-		</field>
-		<field name="patientnhiftype" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="patientnhiftype"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
-		</field>
-		<field name="billtotal" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
-		</field>
-		<field name="cash" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="cash"/>
-		</field>
-		<field name="mpesa" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="mpesa"/>
-		</field>
-		<field name="billwaiver" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="billwaiver"/>
-		</field>
-		<field name="donorfund1" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="donorfund1"/>
-		</field>
-		<field name="lindamama" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="lindamama"/>
-		</field>
-		<field name="nhif" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="nhif"/>
-		</field>
-		<field name="ccc" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="ccc"/>
-		</field>
-		<field name="mch" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="mch"/>
-		</field>
-		<field name="outreach" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="outreach"/>
-		</field>
-		<field name="pesapal" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="pesapal"/>
-		</field>
-		<field name="other" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="other"/>
-		</field>
-		<field name="totalpayment" class="java.lang.Integer">
-			<property name="com.jaspersoft.studio.field.label" value="totalpayment"/>
-		</field>
-		<field name="outstanding" class="java.lang.Integer">
-			<property name="com.jaspersoft.studio.field.label" value="outstanding"/>
-		</field>
-	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="Patient Type" class="java.lang.String"/>
-	<parameter name="Payment Mode" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[select
-    billdetails.c_order_id,
-    billdetails.bill_date as billdate,
-    billdetails.patientname as patientname,
-    billdetails.nhif_number as nhifnumber,
-    billdetails.lineitemtotals as billtotal
-from
-(
-select co.c_order_id,
-       cb.c_bpartner_id,
-       date(co.dateordered) as bill_date,
-       cb.name as patientname,
-       cb.nhif_number,
-       co.totallines as lineitemtotals,
-       co.grandtotal as totals
-from c_order co
-    inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-where ((co.ad_client_id = $P{AD_CLIENT_ID})
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
-    )
-order by 1
-) as billdetails
-inner join
-(
-select bh_c_order_id
-from c_payment p
-where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
-	and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
-    )
-group by bh_c_order_id
-order by 1
-) as payments on billdetails.c_order_id = payments.bh_c_order_id
-limit 1;]]>
 	</queryString>
-	<field name="c_order_id" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	<field name="receipt_number" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value=""/>
 	</field>
-	<field name="billdate" class="java.sql.Date">
+	<field name="bill_date" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
 	</field>
-	<field name="patientname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
+	<field name="cashier" class="java.lang.String"/>
+	<field name="total_payment" class="java.math.BigDecimal"/>
+	<field name="patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patient"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
-	<field name="nhifnumber" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="nhifnumber"/>
+	<field name="patient_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patient_number"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
-	<field name="billtotal" class="java.math.BigDecimal">
+	<field name="bill_total" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
@@ -245,7 +227,7 @@ limit 1;]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Patient transaction and Payment Totals Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cashier transaction and Payment Totals Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -414,7 +396,7 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{billtotal}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{bill_total}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -727,6 +709,7 @@ limit 1;]]>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph rightIndent="5"/>
 								</textElement>
+								<textFieldExpression><![CDATA[$F{unpaid_balance}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
