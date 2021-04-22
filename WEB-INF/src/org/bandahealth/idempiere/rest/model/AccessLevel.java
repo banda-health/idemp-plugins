@@ -8,8 +8,8 @@ public class AccessLevel {
 	
 
 	private String windowUuid;
-	private boolean canWrite = false;
-	private boolean canDeactivate = false;
+	private boolean canWrite;
+	private boolean canDeactivate;
 	
 	public AccessLevel() { } 
 

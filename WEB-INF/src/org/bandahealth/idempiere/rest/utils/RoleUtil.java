@@ -29,16 +29,15 @@ public class RoleUtil {
 	public static Map<String, AccessLevel> accessLevelsForRole() {
 
 		List<Object> optionParams = new ArrayList<>();
-		MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+		MRole userRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
 
-		List<MRole> allUsersRoles = usersRole.getIncludedRoles(true);
-		allUsersRoles.add(usersRole);
-		List<Integer> roleIds = allUsersRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
+		List<MRole> allUserRoles = userRole.getIncludedRoles(true);
+		allUserRoles.add(userRole);
+		List<Integer> roleIds = allUserRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
 
 		// Get all the windows assigned to this role
 		String roleInClause = QueryUtil.getWhereClauseAndSetParametersForSet(new HashSet<>(roleIds), optionParams);
-		String whereClause = MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID + " IN (" + roleInClause + ") AND "
-				+ MRole.Table_Name + "." + MRole.COLUMNNAME_IsMasterRole + "=\'Y\'";
+		String whereClause = MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID + " IN (" + roleInClause + ")";
 
 		Query queryWindows = new Query(Env.getCtx(), MWindow.Table_Name, whereClause, null).setParameters(optionParams)
 				.addJoinClause(" JOIN " + MWindowAccess_BH.Table_Name + " ON " + MWindow.Table_Name + "."
@@ -64,7 +63,7 @@ public class RoleUtil {
 
 		Map<String, AccessLevel> windowsAccessLevels = new HashMap<>();
 		for (MWindowAccess_BH windowAccess : windowAccessList) {
-			if (windowsSetForRole.keySet().contains(windowAccess.get_Value(0))) {
+			if (windowsSetForRole.keySet().contains(windowAccess.get_ID())) {
 				// create the accessLevel map
 				AccessLevel accessLevel = new AccessLevel();
 				if (windowAccess.isReadWrite()) {

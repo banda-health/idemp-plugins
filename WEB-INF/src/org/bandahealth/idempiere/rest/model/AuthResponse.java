@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import org.bandahealth.idempiere.rest.utils.*;
 
 @XmlRootElement(name = "response")
 @JsonInclude(value = Include.NON_NULL)
