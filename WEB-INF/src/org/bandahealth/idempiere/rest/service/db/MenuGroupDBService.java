@@ -42,7 +42,7 @@ public class MenuGroupDBService extends BaseDBService<MenuGroupLineItem, MDashbo
 			sortOrder = ASCENDING_ORDER;
 		}
 			 
-			BaseListResponse<MenuGroupLineItem> dashboardButtonGroupButtons = super.getAll(null, null, pagingInfo, sortColumn, sortOrder, filterJson, null);
+			BaseListResponse<MenuGroupLineItem> dashboardButtonGroupButtons = super.getAll( MDashboardButtonGroupButton.Table_Name + "." + MDashboardButtonGroupButton.COLUMNNAME_IsActive + "='Y'", null, pagingInfo, sortColumn, sortOrder, filterJson, null);
 			
 
 			MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
