@@ -2,11 +2,14 @@ package org.bandahealth.idempiere.base.process;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 
 import org.compiere.model.MProduct;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTransaction;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 
 /**
@@ -52,5 +55,21 @@ public class UpdateStock {
 
 		mStorage.setQtyOnHand(updatedQuantity);
 		mStorage.save();
+	}
+
+	public static void updateStock(Properties context, String transactionName, int productID,
+			int attributeSetInstanceId, BigDecimal quantity) {
+		// get original stock
+		List<MStorageOnHand> listExistingStorage = new Query(context, MStorageOnHand.Table_Name,
+				MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID
+						+ "=?",
+				transactionName).setParameters(productID, attributeSetInstanceId).setOnlyActiveRecords(true).list();
+		if (listExistingStorage == null) {
+			return;
+		}
+		
+		for (MStorageOnHand existingStorage : listExistingStorage) {
+			updateStock(existingStorage, quantity);
+		}
 	}
 }
