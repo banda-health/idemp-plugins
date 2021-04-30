@@ -12,6 +12,6 @@ PS: All the plugins should be contained in a common directory location.
 
 ##### To build all bandaGo projects, run:
 
-`mvn verify -Didempiere.home.dir=<absolute_path_to_idemp_repo/>/org.idempiere.p2/target/repository`
+`mvn verify -Didempiere.home.dir=<absolute_path_to_idemp_repo/>`
 Example: 
-`mvn verify -Didempiere.home.dir=/home/user1/idempiere/org.idempiere.p2/target/repository`
+`mvn verify -Didempiere.home.dir=/home/user1/idempiere/`
