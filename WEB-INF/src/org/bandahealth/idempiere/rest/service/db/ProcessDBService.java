@@ -413,10 +413,11 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		// First, batch DB requests so we can avoid many queries
 		Map<String, MProcessPara> processParametersByUuidMap = processParameterDBService
 				.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
-						new HashSet<>(Collections.singletonList(process.get_ID()))).get(process.get_ID()).stream()
+						new HashSet<>(Collections.singletonList(process.get_ID())))
+				.getOrDefault(process.get_ID(), new ArrayList<>()).stream()
 				.collect(Collectors.toMap(MProcessPara::getAD_Process_Para_UU, processParameter -> processParameter));
-		Map<Integer, MReference_BH> referencesByIdMap = referenceDBService
-				.getByIds(processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
+		Map<Integer, MReference_BH> referencesByIdMap =
+				referenceDBService.getByIds(processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
 						.collect(Collectors.toSet()));
 
 		List<ProcessInfoParameter> processedInfoParameters = new ArrayList<>();
