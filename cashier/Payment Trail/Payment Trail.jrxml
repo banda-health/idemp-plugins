@@ -431,7 +431,7 @@ ORDER BY row]]>
 						o.c_order_id,
 						bp.name,
 						o.c_bpartner_id,
-						date(o.created) as date,
+						date(o.bh_visitdate) as date,
 						'Visit' as "type",
 						o.grandtotal,
 						NULL as tendertype,
