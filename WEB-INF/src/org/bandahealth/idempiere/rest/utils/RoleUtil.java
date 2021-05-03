@@ -37,15 +37,12 @@ public class RoleUtil {
 
 		// Get all the windows assigned to this role
 		String roleInClause = QueryUtil.getWhereClauseAndSetParametersForSet(new HashSet<>(roleIds), optionParams);
-		String whereClause = MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID + " IN (" + roleInClause + ")";
+		String whereClause = MWindowAccess_BH.Table_Name + "." + MWindowAccess_BH.COLUMNNAME_AD_Role_ID + " IN (" + roleInClause + ")";
 
 		Query queryWindows = new Query(Env.getCtx(), MWindow.Table_Name, whereClause, null).setParameters(optionParams)
 				.addJoinClause(" JOIN " + MWindowAccess_BH.Table_Name + " ON " + MWindow.Table_Name + "."
 						+ MWindow.COLUMNNAME_AD_Window_ID + "=" + MWindowAccess_BH.Table_Name + "."
-						+ MWindowAccess_BH.COLUMNNAME_AD_Window_ID)
-				.addJoinClause(" JOIN " + MRole.Table_Name + " ON " + MWindowAccess_BH.Table_Name + "."
-						+ MWindowAccess_BH.COLUMNNAME_AD_Role_ID + " = " + MRole.Table_Name + "."
-						+ MRole.COLUMNNAME_AD_Role_ID);
+						+ MWindowAccess_BH.COLUMNNAME_AD_Window_ID);
 		List<MWindow> results = queryWindows.list();
 
 		final Map<Integer, MWindow> windowsSetForRole = results.stream()
