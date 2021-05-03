@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
 
@@ -36,7 +37,7 @@ public class MenuLineRestService extends BaseEntityRestService<MenuGroupLineItem
 	public BaseListResponse<MenuGroupLineItem> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
-		return dbService.getMenuGroupLineItems();
+		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
 	@Override
@@ -56,5 +57,15 @@ public class MenuLineRestService extends BaseEntityRestService<MenuGroupLineItem
 			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder) {
 		return null;
+	}
+	
+	@Override
+	protected Paging getPagingInfo(int page, int size) {
+		Paging paging = new Paging(page, size);
+		if (!Paging.isValid(paging)) {
+			paging = Paging.ALL.getInstance();
+		}
+
+		return paging;
 	}
 }

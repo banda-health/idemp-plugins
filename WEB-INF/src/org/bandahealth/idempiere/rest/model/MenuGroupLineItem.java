@@ -3,6 +3,10 @@ package org.bandahealth.idempiere.rest.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
+import org.compiere.model.MWindow;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -14,18 +18,21 @@ public class MenuGroupLineItem extends BaseEntity {
 	private int lineNumber;
 	private String iconClassName;
 	private String buttonClassName;
+	private String windowUuid;
+	@JsonIgnore
+	private Integer windowId;
 
-	public MenuGroupLineItem(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			String name, String description, int infoWindowId, int windowId, int processId, int formId,
-			int includedRoleId, int lineNumber, String buttonText, String iconClassName, String buttonClassName) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
-
-		this.lineNumber = lineNumber;
-		this.iconClassName = iconClassName;
-		this.buttonClassName = buttonClassName;
+   public MenuGroupLineItem(MDashboardButtonGroupButton button, MWindow window) {
+		super(button, button.getName(), button.getDescription(), null); 
+		this.lineNumber = button.getLineNo();
+		this.iconClassName = button.getIconClassName();
+		this.buttonClassName = button.getButtonClassName();
+		this.windowId = window.getAD_Window_ID();
+		if(window != null ) {
+			this.windowUuid = window.getAD_Window_UU();
+		}
 	}
 
-	@XmlElement
 	public int getLineNumber() {
 		return lineNumber;
 	}
@@ -34,7 +41,6 @@ public class MenuGroupLineItem extends BaseEntity {
 		this.lineNumber = lineNumber;
 	}
 
-	@XmlElement
 	public String getIconClassName() {
 		return iconClassName;
 	}
@@ -43,7 +49,6 @@ public class MenuGroupLineItem extends BaseEntity {
 		this.iconClassName = iconClassName;
 	}
 
-	@XmlElement
 	public String getButtonClassName() {
 		return buttonClassName;
 	}
@@ -52,4 +57,21 @@ public class MenuGroupLineItem extends BaseEntity {
 		this.buttonClassName = buttonClassName;
 	}
 
+	public Integer getWindowId() {
+		return windowId;
+	}
+
+	public void setWindowId(Integer windowId) {
+		this.windowId = windowId;
+	}
+
+	public String getWindowUuid() {
+		return windowUuid;
+	}
+
+	public void setWindowUuid(String windowUuid) {
+		this.windowUuid = windowUuid;
+	}
+	
+	
 }
