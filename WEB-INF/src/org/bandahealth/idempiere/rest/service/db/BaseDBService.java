@@ -553,6 +553,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 */
 	public Map<Integer, List<S>> getGroupsByIds(boolean shouldUseContextClientId, Function<S, Integer> groupingFunction,
 			String columnToSearch, Set<Integer> ids) {
+		if (ids.isEmpty()) {
+			return new HashMap<>();
+		}
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
@@ -581,6 +584,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A map of entities by the ID searched
 	 */
 	public Map<Integer, S> getByIds(boolean shouldUseContextClientId, Set<Integer> ids) {
+		if (ids.isEmpty()) {
+			return new HashMap<>();
+		}
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		String tableName = getModelInstance().get_TableName();
