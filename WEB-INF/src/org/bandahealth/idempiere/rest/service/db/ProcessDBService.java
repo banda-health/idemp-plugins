@@ -14,6 +14,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
@@ -27,12 +29,12 @@ import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
+import org.compiere.model.MRole;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
@@ -47,25 +49,9 @@ import org.compiere.util.Env;
  */
 public class ProcessDBService extends BaseDBService<Process, MProcess> {
 
-	// TODO: Remove these when this information is stored in iDempiere
-	// report names
-	public static final String INCOME_EXPENSE_REPORT = "Income & Expenses";
-	public static final String THERMAL_RECEIPT_REPORT = "BH Thermal Receipt";
-	public static final String PATIENT_TRANSACTIONS_REPORT = "Patient Transactions";
-	public static final String STOCK_REORDER_REPORT = "Stock to be Ordered";
-	public static final String PRODUCT_AND_PRICES_REPORT = "Products and Prices";
-	public static final String VALUE_OPENING_CLOSING_STOCK_REPORT = "Value of Opening and Closing Stock";
-	public static final String MOH705A_PATIENT_VISITS_REFERRALS_REPORT = "MoH705A Patient Visits and Referrals";
-	public static final String MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT = "MoH705A Out Patient Under 5yr Summary";
-	public static final String MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT = "MoH717 New and Revisit Patient Count";
-	public static final String MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT = "MoH705B Out Patient Over 5yr Summary";
-	public static final String INVENTORY_SOLD_REPORT = "Inventory Sold Report";
-	public static final String STOCK_DISCREPANCY_REPORT = "Stock Discrepancy Report";
-	public static final String DONOR_FUND_REPORT = "Donor Fund Report";
-	public static final String DEBT_PAYMENT_RECEIPT = "Debt Payment Receipt";
-	public static final String PAYMENT_TRAIL_REPORT = "Payment Trail report";
-	public static final String DIAGNOSIS_REPORT = "Diagnosis Report";
-	public static final String SERVICES_CHARGED_REPORT = "Services Charged Report";
+	// report UUIDs
+	public static final String THERMAL_RECEIPT_REPORT = "30dd7243-11c1-4584-af26-5d977d117c84";
+	public static final String DEBT_PAYMENT_RECEIPT = "173a691b-ba89-4987-9216-9b3f0a60c864";
 
 	private final String SALES_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.SalesProcess";
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
@@ -282,59 +268,36 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * @return A list of processes and their child info
 	 */
 	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, Paging pagingInfo) {
-		// TODO: Remove all this when this information can be pulled from iDempiere
+		// Get processes for GL
 		List<Object> parameters = new ArrayList<>();
-		List<String> reportNames = new ArrayList<>() {{
-			add(INCOME_EXPENSE_REPORT);
-			add(THERMAL_RECEIPT_REPORT);
-			add(PATIENT_TRANSACTIONS_REPORT);
-			add(STOCK_REORDER_REPORT);
-			add(PRODUCT_AND_PRICES_REPORT);
-			add(VALUE_OPENING_CLOSING_STOCK_REPORT);
-			add(MOH705A_PATIENT_VISITS_REFERRALS_REPORT);
-			add(MOH705A_OUTPATIENT_UNDER_5_SUMMARY_REPORT);
-			add(MOH717_NEW_REVISIT_PATIENT_COUNT_REPORT);
-			add(MOH705B_OUTPATIENT_OVER5_SUMMARY_REPORT);
-			add(INVENTORY_SOLD_REPORT);
-			add(STOCK_DISCREPANCY_REPORT);
-			add(DONOR_FUND_REPORT);
-			add(DEBT_PAYMENT_RECEIPT);
-			add(PAYMENT_TRAIL_REPORT);
-			add(DIAGNOSIS_REPORT);
-			add(SERVICES_CHARGED_REPORT);
-		}};
-
-		String reportNameList = reportNames.stream().map(reportName -> "'" + reportName + "'")
-				.collect(Collectors.joining(","));
-
-		// Get the list of IDs of de-duplicated report names
-		String query = "SELECT " + MProcess.COLUMNNAME_AD_Process_ID + " FROM " + MProcess.Table_Name +
-				" ap JOIN (SELECT " + MProcess.COLUMNNAME_Name + ", MAX(" + MProcess.COLUMNNAME_Updated + ") AS " +
-				MProcess.COLUMNNAME_Updated + " FROM " + MProcess.Table_Name + " WHERE " + MProcess.COLUMNNAME_Name + " IN (" +
-				reportNameList + ") GROUP BY " + MProcess.COLUMNNAME_Name + ") apgroup ON ap." + MProcess.COLUMNNAME_Name +
-				"=apgroup." + MProcess.COLUMNNAME_Name + " AND ap." + MProcess.COLUMNNAME_Updated + "=apgroup." +
-				MProcess.COLUMNNAME_Updated;
-		final List<Integer> processIDs = new ArrayList<>();
-		SqlUtil.executeQuery(query, null, null, resultSet -> {
-			try {
-				processIDs.add(resultSet.getInt(1));
-			} catch (Exception exception) {
-				logger.warning("Error fetching deduplicated process name list");
-			}
-		});
-
-		String whereClause = MProcess.COLUMNNAME_AD_Process_ID + " IN (" + processIDs.stream().map(Object::toString)
-				.collect(Collectors.joining(",")) + ")";
-		if (processIDs.isEmpty()) {
-			whereClause = MProcess.COLUMNNAME_Name + " IN (" + reportNames.stream()
-					.map(reportName -> "'" + reportName + "'").collect(Collectors.joining(",")) + ")";
-		}
-
+		parameters.add(MClient_BH.CLIENTID_LAST_SYSTEM);
 		BaseListResponse<Process> processes =
-				super.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filter);
+				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">?", parameters, pagingInfo, sortColumn, sortOrder,
+						filter);
+
 
 		// Map the process parameters to entities
-		if (processes != null && processes.getResults() != null && !processes.getResults().isEmpty()) {
+		if (processes.getResults() != null && !processes.getResults().isEmpty()) {
+			// Determine which processes are visible in the dropdown based on the buttons configured in iDempiere
+			List<MDashboardButtonGroupButton> processButtons =
+					new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name,
+							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).list();
+			Set<Integer> processIdsFromProcessButtons =
+					processButtons.stream().map(MDashboardButtonGroupButton::getAD_Process_ID).collect(Collectors.toSet());
+			// Determine which processes the user has access to
+			MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+			// Filter out processes the user can't see and then determine which processes are manually run-able
+			processes
+					.setResults(
+							processes.getResults().stream().filter(process -> usersRole.getProcessAccess(process.getId()) != null)
+									.peek(process -> {
+										// If the button is present, it means the user needs to manually provide input to run the report
+										if (processIdsFromProcessButtons.contains(process.getId())) {
+											process.setNeedsManualInput(true);
+										}
+									})
+									.collect(Collectors.toList()));
+
 			// Get all the process info information for these processes
 			Map<Integer, List<MProcessPara>> processParametersByProcess = processParameterDBService
 					.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
@@ -413,10 +376,11 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		// First, batch DB requests so we can avoid many queries
 		Map<String, MProcessPara> processParametersByUuidMap = processParameterDBService
 				.getGroupsByIds(MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
-						new HashSet<>(Collections.singletonList(process.get_ID()))).get(process.get_ID()).stream()
+						new HashSet<>(Collections.singletonList(process.get_ID())))
+				.getOrDefault(process.get_ID(), new ArrayList<>()).stream()
 				.collect(Collectors.toMap(MProcessPara::getAD_Process_Para_UU, processParameter -> processParameter));
-		Map<Integer, MReference_BH> referencesByIdMap = referenceDBService
-				.getByIds(processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
+		Map<Integer, MReference_BH> referencesByIdMap =
+				referenceDBService.getByIds(processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
 						.collect(Collectors.toSet()));
 
 		List<ProcessInfoParameter> processedInfoParameters = new ArrayList<>();
@@ -436,12 +400,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			// Since some reports want IDs, we need to convert UUIDs to IDs
 			// TODO: Update all reports to use UUIDs instead of IDs
 			if (processParameter.getName().toLowerCase().endsWith(MReference_BH.SUFFIX_ID)) {
-				if (process.getName().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
+				if (process.getAD_Process_UU().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
 					MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 							MOrder_BH.COLUMNNAME_C_Order_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
 					parameter = BigDecimal.valueOf(order.get_ID());
-				} else if (process.getName().equalsIgnoreCase(DEBT_PAYMENT_RECEIPT)) {
+				} else if (process.getAD_Process_UU().equalsIgnoreCase(DEBT_PAYMENT_RECEIPT)) {
 					MPayment_BH payment = new Query(Env.getCtx(), MPayment_BH.Table_Name,
 							MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", null)
 							.setParameters(parameter.toString()).first();

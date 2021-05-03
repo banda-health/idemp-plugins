@@ -15,6 +15,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
+import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
@@ -25,6 +26,8 @@ import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
+import org.bandahealth.idempiere.rest.utils.RoleUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
@@ -32,7 +35,10 @@ import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.MWindow;
+import org.compiere.model.MWindowAccess;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
@@ -42,7 +48,10 @@ import org.compiere.util.Util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Authentication Service Accepts Username, password and generates a session
@@ -207,8 +216,6 @@ public class AuthenticationRestService {
 			response.setUserId(user.getAD_User_ID());
 
 			try {
-				// has access to reports
-				response.setHasAccessToReports(menuDbservice.hasAccessToReports());
 				// generate session token
 				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
 				// has accepted terms of use?
@@ -219,6 +226,8 @@ public class AuthenticationRestService {
 				response.setStatus(Status.OK);
 				// isAdministrator
 				response.setIsAdministrator(user.isAdministrator());
+				//record read-write and deactivate privileges on each window for this role 
+				response.setWindowAccessLevel(RoleUtil.accessLevelsForRole());
 				return response;
 			} catch (Exception e) {
 				return new AuthResponse(Status.BAD_REQUEST);
