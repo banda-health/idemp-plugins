@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -103,10 +104,21 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 	public Map<MDocType, List<MRefList>> getDocumentActionAccessByDocumentType() {
 		List<Object> parameters = new ArrayList<>();
 		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(usedDocumentTypeNames, parameters);
-		// Get the doc types for this client matching what the application uses
+
+		// Previously, all document action access was assigned to a role on the client (so ad_client_id checks on access
+		// would work). However, now we use master roles to house the document action, and those are assigned to the
+		// system client. So, we need to search both when getting document types associated document types
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(MClient_BH.CLIENTID_SYSTEM);
+
+//		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+
+		// Get the doc types for this user matching what the application uses
 		List<MDocType> usedDocumentTypes = new Query(Env.getCtx(), MDocType.Table_Name,
-				MDocType.COLUMNNAME_Name + " IN (" + whereClause + ")", null).setParameters(parameters)
-				.setClient_ID().list();
+				MDocType.COLUMNNAME_Name + " IN (" + whereClause + ") AND " + MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)",
+				null).setParameters(parameters).list();
+
+//		PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 
 		// Now get the available document actions for these document types
 		Map<Integer, List<Integer>> documentActionAccess = getDocumentActionAccess(
@@ -184,7 +196,12 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 	private Map<Integer, List<Integer>> getDocumentActionAccess(int clientId, int roleId,
 			List<Integer> docTypeIds) {
 		final List<Object> optionParams = new ArrayList<>();
+
+		// Previously, all document action access was assigned to a role on the client (so ad_client_id checks on access
+		// would work). However, now we use master roles to house the document action, and those are assigned to the
+		// system client. So, we need to search both when getting document action access
 		optionParams.add(clientId);
+		optionParams.add(MClient_BH.CLIENTID_SYSTEM);
 
 		// Get all roles assigned to this user
 		MRole usersRole = MRole.get(Env.getCtx(), roleId);
@@ -201,7 +218,7 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 				+ " FROM AD_Document_Action_Access a"
 				+ " INNER JOIN AD_Ref_List rl ON (rl.AD_Reference_ID=135 and rl.AD_Ref_List_ID=a.AD_Ref_List_ID)"
 				+ " INNER JOIN C_DocType ty ON (ty.C_DocType_ID=a.C_DocType_ID)"
-				+ " WHERE a.AD_Client_ID=? AND a.C_DocType_ID IN (" + docTypeInClause + ")"
+				+ " WHERE a.AD_Client_ID IN (?,?) AND a.C_DocType_ID IN (" + docTypeInClause + ")"
 				+ " AND a.AD_Role_ID IN (" + roleInClause + ") AND a.IsActive=?";
 		optionParams.add("Y");
 		Map<Integer, List<Integer>> documentActionAccess = new HashMap<>();
