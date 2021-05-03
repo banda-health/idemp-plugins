@@ -49,7 +49,7 @@ public class RoleUtil {
 		List<MWindow> results = queryWindows.list();
 
 		final Map<Integer, MWindow> windowsSetForRole = results.stream()
-				.collect(Collectors.toMap(MWindow::get_ID, window -> window));
+				.collect(Collectors.toMap(MWindow::get_ID, window -> window, (existing, replacement)-> existing));
 
 //		// get list of read/write and deactivate window access for each window
 		Query queryWindowAccess = new Query(Env.getCtx(), MWindowAccess.Table_Name,
@@ -68,9 +68,9 @@ public class RoleUtil {
 				AccessLevel accessLevel = new AccessLevel();
 				if (windowAccess.isReadWrite()) {
 					accessLevel.setCanWrite(true);
-				}
-				if (windowAccess.isBH_CanDeactivate()) {
-					accessLevel.setCanDeactivate(true);
+					if (windowAccess.isBH_CanDeactivate()) {
+						accessLevel.setCanDeactivate(true);
+					}
 				}
 				windowsAccessLevels.put(windowsSetForRole.get(windowAccess.getAD_Window_ID()).getAD_Window_UU(),
 						accessLevel);
