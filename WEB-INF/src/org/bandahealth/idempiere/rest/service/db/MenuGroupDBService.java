@@ -33,33 +33,38 @@ public class MenuGroupDBService extends BaseDBService<MenuGroupLineItem, MDashbo
 
 	/**
 	 * Retrieve all groupline items for the logged in user.
+	 *
 	 * @return MenuLineItems
 	 */
-	public BaseListResponse<MenuGroupLineItem> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
-		
-		if (StringUtil.isNullOrEmpty(sortOrder)) {
+	public BaseListResponse<MenuGroupLineItem> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
+			String filterJson) {
+
+		if (StringUtil.isNullOrEmpty(sortColumn)) {
 			sortColumn = MDashboardButtonGroupButton.COLUMNNAME_LineNo;
 			sortOrder = ASCENDING_ORDER;
 		}
-			 
-			BaseListResponse<MenuGroupLineItem> dashboardButtonGroupButtons = super.getAll( MDashboardButtonGroupButton.Table_Name + "." + MDashboardButtonGroupButton.COLUMNNAME_IsActive + "='Y'", null, pagingInfo, sortColumn, sortOrder, filterJson, null);
-			
 
-			MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
-			dashboardButtonGroupButtons.setResults(dashboardButtonGroupButtons.getResults().stream()
-					.filter(button -> button.getWindowId() != null && role.getWindowAccess(button.getWindowId()) != null)
-					.collect(Collectors.toList()));
+		BaseListResponse<MenuGroupLineItem> dashboardButtonGroupButtons = super
+				.getAll(MDashboardButtonGroupButton.Table_Name + "." + MDashboardButtonGroupButton.COLUMNNAME_IsActive +
+								"='Y'",
+						null, pagingInfo, sortColumn, sortOrder, filterJson, null);
 
-			Set<Integer> windowIDs = dashboardButtonGroupButtons.getResults().stream()
-					.map(MenuGroupLineItem::getWindowId).collect(Collectors.toSet());
-			Map<Integer, MWindow> windows = windowDBService.getByIds(windowIDs);
 
-			dashboardButtonGroupButtons.getResults().forEach(menuGroupLineItem -> {
-				if(windows.containsKey(menuGroupLineItem.getWindowId())) {
-					menuGroupLineItem.setWindowUuid(windows.get(menuGroupLineItem.getWindowId()).getAD_Window_UU());
-				}
-			});
-			return dashboardButtonGroupButtons;
+		MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+		dashboardButtonGroupButtons.setResults(dashboardButtonGroupButtons.getResults().stream()
+				.filter(button -> button.getWindowId() != null && role.getWindowAccess(button.getWindowId()) != null)
+				.collect(Collectors.toList()));
+
+		Set<Integer> windowIDs = dashboardButtonGroupButtons.getResults().stream()
+				.map(MenuGroupLineItem::getWindowId).collect(Collectors.toSet());
+		Map<Integer, MWindow> windows = windowDBService.getByIds(windowIDs);
+
+		dashboardButtonGroupButtons.getResults().forEach(menuGroupLineItem -> {
+			if (windows.containsKey(menuGroupLineItem.getWindowId())) {
+				menuGroupLineItem.setWindowUuid(windows.get(menuGroupLineItem.getWindowId()).getAD_Window_UU());
+			}
+		});
+		return dashboardButtonGroupButtons;
 	}
 
 	@Override
@@ -79,7 +84,7 @@ public class MenuGroupDBService extends BaseDBService<MenuGroupLineItem, MDashbo
 
 	@Override
 	protected MenuGroupLineItem createInstanceWithAllFields(MDashboardButtonGroupButton instance) {
-		
+
 		return new MenuGroupLineItem(instance, (MWindow) instance.getAD_Window());
 	}
 
@@ -97,14 +102,17 @@ public class MenuGroupDBService extends BaseDBService<MenuGroupLineItem, MDashbo
 	public boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return false;
 	}
-	
-	@Override 
+
+	@Override
 	protected Map<String, Function<MDashboardButtonGroupButton, VoidFunction<String>>> getColumnsToTranslate() {
 		return new HashMap<>() {{
 			put(MDashboardButtonGroupButton.COLUMNNAME_Name, menuDashBoardLineItem -> menuDashBoardLineItem::setName);
-			put(MDashboardButtonGroupButton.COLUMNNAME_Description, menuDashBoardLineItem -> menuDashBoardLineItem::setDescription);
-			put(MDashboardButtonGroupButton.COLUMNNAME_ButtonText, menuDashBoardLineItem -> menuDashBoardLineItem::setButtonText);
-			put(MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText, menuDashBoardLineItem -> menuDashBoardLineItem::setButtonHelpText);
+			put(MDashboardButtonGroupButton.COLUMNNAME_Description,
+					menuDashBoardLineItem -> menuDashBoardLineItem::setDescription);
+			put(MDashboardButtonGroupButton.COLUMNNAME_ButtonText,
+					menuDashBoardLineItem -> menuDashBoardLineItem::setButtonText);
+			put(MDashboardButtonGroupButton.COLUMNNAME_ButtonHelpText,
+					menuDashBoardLineItem -> menuDashBoardLineItem::setButtonHelpText);
 		}};
 	}
 }
