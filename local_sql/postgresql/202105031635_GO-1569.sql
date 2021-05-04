@@ -20,6 +20,15 @@ INSERT INTO bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_
 INSERT INTO bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_org_id, bh_defaultincludedrole_uu, created, createdby, description, isactive, name, updated, updatedby, included_role_id, db_usertype) VALUES ((SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 0, 0, '26f93037-ffc8-4d35-8f53-97833f13b364', '2021-05-03 17:10:16.376000', 100, null, 'Y', null, '2021-05-03 17:10:16.376000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu='baec9412-d994-4313-815c-31332357863a'), 'X') ON CONFLICT DO NOTHING;
 
 -- Update all report access to be read/write so reports can be run
-UPDATE ad_process_access
+UPDATE ad_process_access SET isreadwrite = 'Y'
+WHERE ad_role_id IN (SELECT ad_role_id FROM ad_role WHERE ad_role_uu IN ('93365778-a2d9-433b-b962-87fb150db4fa','09eb7fc8-9cc5-44b0-9d14-15258a066038','461b31c5-cae2-449d-8a0c-7385b12f4685','98617c31-55ff-48f9-bd44-253ef323d960','ec17fee0-a53a-4dbb-b946-423ce14880eb','097feff0-3aa6-41fe-bf76-936b03859846'));
+
+-- Update the donor fund report to be the correct one assigned
+UPDATE ad_process_access SET ad_process_id = (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'ad3da529-459a-4804-8020-5f192360fed0')
+WHERE ad_process_id = (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '3478d341-c6d9-4f52-a865-5bf0ba8a7607')
+	AND ad_role_id IN (SELECT ad_role_id FROM ad_role WHERE ad_role_uu IN ('93365778-a2d9-433b-b962-87fb150db4fa','09eb7fc8-9cc5-44b0-9d14-15258a066038','461b31c5-cae2-449d-8a0c-7385b12f4685','98617c31-55ff-48f9-bd44-253ef323d960','ec17fee0-a53a-4dbb-b946-423ce14880eb','097feff0-3aa6-41fe-bf76-936b03859846'));
+
+-- Add a report button for the "Stock to be Ordered" report so it can show up in the UI
+INSERT INTO bh_dbrdbtngrp_btn (bh_dbrdbtngrp_btn_id, ad_client_id, ad_infowindow_id, ad_org_id, ad_window_id, bh_dbrdbtngrp_btn_uu, buttonclassname, buttonhelptext, buttontext, created, createdby, description, iconclassname, isactive, lineno, name, updated, updatedby, bh_dbrdbtngrp_id, ad_process_id, ad_form_id, included_role_id) VALUES ((SELECT MAX(bh_dbrdbtngrp_btn_id) + 1 FROM bh_dbrdbtngrp_btn), 0, null, 0, null, '7f3c4250-0014-4c31-a760-52190ca4af90', 'button app big', null, null, '2021-05-04 15:27:26.615000', 100, 'Stock to be Ordered', null, 'Y', 0, 'Stock to be Ordered', '2021-05-04 15:27:26.615000', 100, (SELECT bh_dbrdbtngrp_id FROM bh_dbrdbtngrp WHERE bh_dbrdbtngrp_uu = '9b44ce0e-3113-4690-ad0b-92b95b34c741'), (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '03ba009a-68bb-4b12-a5bc-e58a9bce1545'), null, null) ON CONFLICT DO NOTHING;
 
 SELECT register_migration_script('202105031635_GO-1569.sql') FROM dual;
