@@ -19,4 +19,7 @@ INSERT INTO bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_
 INSERT INTO bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_org_id, bh_defaultincludedrole_uu, created, createdby, description, isactive, name, updated, updatedby, included_role_id, db_usertype) VALUES ((SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 0, 0, '0927e9f3-692e-402d-b826-a96f7f20e16c', '2021-05-03 17:09:58.860000', 100, null, 'Y', null, '2021-05-03 17:09:58.860000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu='baec9412-d994-4313-815c-31332357863a'), 'R') ON CONFLICT DO NOTHING;
 INSERT INTO bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_org_id, bh_defaultincludedrole_uu, created, createdby, description, isactive, name, updated, updatedby, included_role_id, db_usertype) VALUES ((SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 0, 0, '26f93037-ffc8-4d35-8f53-97833f13b364', '2021-05-03 17:10:16.376000', 100, null, 'Y', null, '2021-05-03 17:10:16.376000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu='baec9412-d994-4313-815c-31332357863a'), 'X') ON CONFLICT DO NOTHING;
 
+-- Update all report access to be read/write so reports can be run
+UPDATE ad_process_access
+
 SELECT register_migration_script('202105031635_GO-1569.sql') FROM dual;
