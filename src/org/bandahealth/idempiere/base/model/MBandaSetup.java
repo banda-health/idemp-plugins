@@ -675,18 +675,10 @@ public class MBandaSetup {
 		MRole role = new MRole(context, 0, getTransactionName());
 		role.setName(roleName);
 		role.setIsAccessAdvanced(false);
-		if (!role.save()) {
-			String errorMessage = roleName + " Role NOT inserted";
-			log.log(Level.SEVERE, errorMessage);
-			info.append(errorMessage);
-			return false;
-		}
-		// Set manual so that access doesn't get changed after a DB update or a new thing to access is added to the system
-		// This is set after the role is added so that all the right access can be granted (NOTE: This will be undone and
-		// better handled when the role refactor has occurred)
+		// Set manual so that access isn't automatically updated - access updates will be handled via the master roles
 		role.setIsManual(true);
 		if (!role.save()) {
-			String errorMessage = roleName + " Role NOT set to manual";
+			String errorMessage = roleName + " Role NOT inserted";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
 			return false;
