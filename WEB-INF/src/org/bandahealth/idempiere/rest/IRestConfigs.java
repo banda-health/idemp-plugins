@@ -80,4 +80,6 @@ public interface IRestConfigs {
 
 	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
 	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
+
+	String CHARGE_PATH = AUTHENTICATION_PATH + "/charges";
 }

@@ -62,7 +62,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 					MChargeType_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MChargeType_BH.COLUMNNAME_Name + "=?",
 					null
 			)
-					.setParameters(entity.getClientId(), MChargeType_BH.CHARGETYPENAME_DEFAULT_CATEGORY)
+					.setParameters(entity.getClientId(), MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY)
 					.first();
 			if (expenseCategoryChargeType == null) {
 				throw new AdempiereException("Expense Category Charge Type not defined for client");
