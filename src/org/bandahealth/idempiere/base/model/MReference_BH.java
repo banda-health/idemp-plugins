@@ -7,6 +7,8 @@ import java.util.Properties;
 
 public class MReference_BH extends MReference {
 	public static final String USER_TYPE_AD_REFERENCE_UU = "5b41f508-5ce5-4b42-80de-713e10580d51";
+	public static final String NON_PATIENT_PAYMENT_AD_REFERENCE_UU = "b313a870-0826-4c1d-a9af-f9ec990b4375";
+	public static final String CHARGE_INFO_DATA_TYPE_AD_REFERENCE_UU = "15b3f5d7-205a-4d91-84c0-5e38ec36b6c6";
 	/**
 	 * This represents the reference IDs for all document actions in the system
 	 */

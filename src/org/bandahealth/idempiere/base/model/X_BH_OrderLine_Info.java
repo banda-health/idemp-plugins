@@ -22,10 +22,10 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_ChargeDefault
+/** Generated Model for BH_OrderLine_Info
  *  @author iDempiere (generated) 
  *  @version Release 8.2 - $Id$ */
-public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Persistent 
+public class X_BH_OrderLine_Info extends PO implements I_BH_OrderLine_Info, I_Persistent 
 {
 
 	/**
@@ -34,25 +34,26 @@ public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Pers
 	private static final long serialVersionUID = 20210505L;
 
     /** Standard Constructor */
-    public X_BH_ChargeDefault (Properties ctx, int BH_ChargeDefault_ID, String trxName)
+    public X_BH_OrderLine_Info (Properties ctx, int BH_OrderLine_Info_ID, String trxName)
     {
-      super (ctx, BH_ChargeDefault_ID, trxName);
-      /** if (BH_ChargeDefault_ID == 0)
+      super (ctx, BH_OrderLine_Info_ID, trxName);
+      /** if (BH_OrderLine_Info_ID == 0)
         {
-			setBH_ChargeDefault_ID (0);
+			setBH_Charge_Info_ID (0);
+			setBH_OrderLine_Info_ID (0);
+			setC_OrderLine_ID (0);
 			setName (null);
-			setValue (null);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_ChargeDefault (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_OrderLine_Info (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
 
     /** AccessLevel
-      * @return 4 - System 
+      * @return 3 - Client - Org 
       */
     protected int get_AccessLevel()
     {
@@ -68,65 +69,93 @@ public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Pers
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_ChargeDefault[")
+      StringBuilder sb = new StringBuilder ("X_BH_OrderLine_Info[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
 
-	/** Set BH_ChargeDefault.
-		@param BH_ChargeDefault_ID BH_ChargeDefault	  */
-	public void setBH_ChargeDefault_ID (int BH_ChargeDefault_ID)
+	public I_BH_Charge_Info getBH_Charge_Info() throws RuntimeException
+    {
+		return (I_BH_Charge_Info)MTable.get(getCtx(), I_BH_Charge_Info.Table_Name)
+			.getPO(getBH_Charge_Info_ID(), get_TrxName());	}
+
+	/** Set Charge Info.
+		@param BH_Charge_Info_ID Charge Info	  */
+	public void setBH_Charge_Info_ID (int BH_Charge_Info_ID)
 	{
-		if (BH_ChargeDefault_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_ChargeDefault_ID, null);
+		if (BH_Charge_Info_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Charge_Info_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_ChargeDefault_ID, Integer.valueOf(BH_ChargeDefault_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Charge_Info_ID, Integer.valueOf(BH_Charge_Info_ID));
 	}
 
-	/** Get BH_ChargeDefault.
-		@return BH_ChargeDefault	  */
-	public int getBH_ChargeDefault_ID () 
+	/** Get Charge Info.
+		@return Charge Info	  */
+	public int getBH_Charge_Info_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_ChargeDefault_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Charge_Info_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_ChargeDefault_UU.
-		@param BH_ChargeDefault_UU BH_ChargeDefault_UU	  */
-	public void setBH_ChargeDefault_UU (String BH_ChargeDefault_UU)
+	/** Set Order Line Info.
+		@param BH_OrderLine_Info_ID Order Line Info	  */
+	public void setBH_OrderLine_Info_ID (int BH_OrderLine_Info_ID)
 	{
-		set_Value (COLUMNNAME_BH_ChargeDefault_UU, BH_ChargeDefault_UU);
-	}
-
-	/** Get BH_ChargeDefault_UU.
-		@return BH_ChargeDefault_UU	  */
-	public String getBH_ChargeDefault_UU () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_ChargeDefault_UU);
-	}
-
-	public I_BH_ChargeTypeDefault getBH_ChargeTypeDefault() throws RuntimeException
-    {
-		return (I_BH_ChargeTypeDefault)MTable.get(getCtx(), I_BH_ChargeTypeDefault.Table_Name)
-			.getPO(getBH_ChargeTypeDefault_ID(), get_TrxName());	}
-
-	/** Set Charge Type Default.
-		@param BH_ChargeTypeDefault_ID Charge Type Default	  */
-	public void setBH_ChargeTypeDefault_ID (int BH_ChargeTypeDefault_ID)
-	{
-		if (BH_ChargeTypeDefault_ID < 1) 
-			set_Value (COLUMNNAME_BH_ChargeTypeDefault_ID, null);
+		if (BH_OrderLine_Info_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_OrderLine_Info_ID, null);
 		else 
-			set_Value (COLUMNNAME_BH_ChargeTypeDefault_ID, Integer.valueOf(BH_ChargeTypeDefault_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_OrderLine_Info_ID, Integer.valueOf(BH_OrderLine_Info_ID));
 	}
 
-	/** Get Charge Type Default.
-		@return Charge Type Default	  */
-	public int getBH_ChargeTypeDefault_ID () 
+	/** Get Order Line Info.
+		@return Order Line Info	  */
+	public int getBH_OrderLine_Info_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_ChargeTypeDefault_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_OrderLine_Info_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BH_OrderLine_Info_UU.
+		@param BH_OrderLine_Info_UU BH_OrderLine_Info_UU	  */
+	public void setBH_OrderLine_Info_UU (String BH_OrderLine_Info_UU)
+	{
+		set_Value (COLUMNNAME_BH_OrderLine_Info_UU, BH_OrderLine_Info_UU);
+	}
+
+	/** Get BH_OrderLine_Info_UU.
+		@return BH_OrderLine_Info_UU	  */
+	public String getBH_OrderLine_Info_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_OrderLine_Info_UU);
+	}
+
+	public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_OrderLine)MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
+			.getPO(getC_OrderLine_ID(), get_TrxName());	}
+
+	/** Set Sales Order Line.
+		@param C_OrderLine_ID 
+		Sales Order Line
+	  */
+	public void setC_OrderLine_ID (int C_OrderLine_ID)
+	{
+		if (C_OrderLine_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_C_OrderLine_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_C_OrderLine_ID, Integer.valueOf(C_OrderLine_ID));
+	}
+
+	/** Get Sales Order Line.
+		@return Sales Order Line
+	  */
+	public int getC_OrderLine_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_OrderLine_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -173,21 +202,4 @@ public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Pers
     {
         return new KeyNamePair(get_ID(), getName());
     }
-
-	/** Set Search Key.
-		@param Value 
-		Search key for the record in the format required - must be unique
-	  */
-	public void setValue (String Value)
-	{
-		set_Value (COLUMNNAME_Value, Value);
-	}
-
-	/** Get Search Key.
-		@return Search key for the record in the format required - must be unique
-	  */
-	public String getValue () 
-	{
-		return (String)get_Value(COLUMNNAME_Value);
-	}
 }

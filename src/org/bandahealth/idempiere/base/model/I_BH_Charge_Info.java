@@ -21,25 +21,25 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_ChargeDefault
+/** Generated Interface for BH_Charge_Info
  *  @author iDempiere (generated) 
  *  @version Release 8.2
  */
 @SuppressWarnings("all")
-public interface I_BH_ChargeDefault 
+public interface I_BH_Charge_Info 
 {
 
-    /** TableName=BH_ChargeDefault */
-    public static final String Table_Name = "BH_ChargeDefault";
+    /** TableName=BH_Charge_Info */
+    public static final String Table_Name = "BH_Charge_Info";
 
-    /** AD_Table_ID=1000016 */
+    /** AD_Table_ID=1000027 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
-    /** AccessLevel = 4 - System 
+    /** AccessLevel = 3 - Client - Org 
      */
-    BigDecimal accessLevel = BigDecimal.valueOf(4);
+    BigDecimal accessLevel = BigDecimal.valueOf(3);
 
     /** Load Meta Data */
 
@@ -64,34 +64,56 @@ public interface I_BH_ChargeDefault
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_ChargeDefault_ID */
-    public static final String COLUMNNAME_BH_ChargeDefault_ID = "BH_ChargeDefault_ID";
+    /** Column name BH_Charge_Info_ID */
+    public static final String COLUMNNAME_BH_Charge_Info_ID = "BH_Charge_Info_ID";
 
-	/** Set BH_ChargeDefault	  */
-	public void setBH_ChargeDefault_ID (int BH_ChargeDefault_ID);
+	/** Set Charge Info	  */
+	public void setBH_Charge_Info_ID (int BH_Charge_Info_ID);
 
-	/** Get BH_ChargeDefault	  */
-	public int getBH_ChargeDefault_ID();
+	/** Get Charge Info	  */
+	public int getBH_Charge_Info_ID();
 
-    /** Column name BH_ChargeDefault_UU */
-    public static final String COLUMNNAME_BH_ChargeDefault_UU = "BH_ChargeDefault_UU";
+    /** Column name BH_Charge_Info_UU */
+    public static final String COLUMNNAME_BH_Charge_Info_UU = "BH_Charge_Info_UU";
 
-	/** Set BH_ChargeDefault_UU	  */
-	public void setBH_ChargeDefault_UU (String BH_ChargeDefault_UU);
+	/** Set BH_Charge_Info_UU	  */
+	public void setBH_Charge_Info_UU (String BH_Charge_Info_UU);
 
-	/** Get BH_ChargeDefault_UU	  */
-	public String getBH_ChargeDefault_UU();
+	/** Get BH_Charge_Info_UU	  */
+	public String getBH_Charge_Info_UU();
 
-    /** Column name BH_ChargeTypeDefault_ID */
-    public static final String COLUMNNAME_BH_ChargeTypeDefault_ID = "BH_ChargeTypeDefault_ID";
+    /** Column name BH_ChargeInfoDataType */
+    public static final String COLUMNNAME_BH_ChargeInfoDataType = "BH_ChargeInfoDataType";
 
-	/** Set Charge Type Default	  */
-	public void setBH_ChargeTypeDefault_ID (int BH_ChargeTypeDefault_ID);
+	/** Set Charge Info Data Type	  */
+	public void setBH_ChargeInfoDataType (String BH_ChargeInfoDataType);
 
-	/** Get Charge Type Default	  */
-	public int getBH_ChargeTypeDefault_ID();
+	/** Get Charge Info Data Type	  */
+	public String getBH_ChargeInfoDataType();
 
-	public I_BH_ChargeTypeDefault getBH_ChargeTypeDefault() throws RuntimeException;
+    /** Column name BH_FillFromPatient */
+    public static final String COLUMNNAME_BH_FillFromPatient = "BH_FillFromPatient";
+
+	/** Set Fill From Patient	  */
+	public void setBH_FillFromPatient (boolean BH_FillFromPatient);
+
+	/** Get Fill From Patient	  */
+	public boolean isBH_FillFromPatient();
+
+    /** Column name C_Charge_ID */
+    public static final String COLUMNNAME_C_Charge_ID = "C_Charge_ID";
+
+	/** Set Charge.
+	  * Additional document charges
+	  */
+	public void setC_Charge_ID (int C_Charge_ID);
+
+	/** Get Charge.
+	  * Additional document charges
+	  */
+	public int getC_Charge_ID();
+
+	public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -135,6 +157,19 @@ public interface I_BH_ChargeDefault
 	  */
 	public boolean isActive();
 
+    /** Column name Line */
+    public static final String COLUMNNAME_Line = "Line";
+
+	/** Set Line No.
+	  * Unique line for this document
+	  */
+	public void setLine (int Line);
+
+	/** Get Line No.
+	  * Unique line for this document
+	  */
+	public int getLine();
+
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
 
@@ -163,17 +198,4 @@ public interface I_BH_ChargeDefault
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
-
-    /** Column name Value */
-    public static final String COLUMNNAME_Value = "Value";
-
-	/** Set Search Key.
-	  * Search key for the record in the format required - must be unique
-	  */
-	public void setValue (String Value);
-
-	/** Get Search Key.
-	  * Search key for the record in the format required - must be unique
-	  */
-	public String getValue();
 }

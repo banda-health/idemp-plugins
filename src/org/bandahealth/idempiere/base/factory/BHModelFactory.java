@@ -3,9 +3,16 @@ package org.bandahealth.idempiere.base.factory;
 import java.sql.ResultSet;
 
 import org.adempiere.base.IModelFactory;
+import org.bandahealth.idempiere.base.model.MBHBPartnerInfo;
 import org.bandahealth.idempiere.base.model.MBHChargeDefault;
+import org.bandahealth.idempiere.base.model.MBHChargeInfo;
+import org.bandahealth.idempiere.base.model.MBHChargeInfoDefault;
+import org.bandahealth.idempiere.base.model.MBHChargeInfoValue;
+import org.bandahealth.idempiere.base.model.MBHChargeInfoValueDefault;
+import org.bandahealth.idempiere.base.model.MBHChargeTypeDefault;
 import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
+import org.bandahealth.idempiere.base.model.MBHOrderLineInfo;
 import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
@@ -82,6 +89,20 @@ public class BHModelFactory implements IModelFactory {
 			return MUser_BH.class;
 		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
 			return MWindowAccess_BH.class;
+		} else if (tableName.equalsIgnoreCase(MBHChargeTypeDefault.Table_Name)) {
+			return MBHChargeTypeDefault.class;
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfo.Table_Name)) {
+			return MBHChargeInfo.class;
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValue.Table_Name)) {
+			return MBHChargeInfoValue.class;
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoDefault.Table_Name)) {
+			return MBHChargeInfoDefault.class;
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValueDefault.Table_Name)) {
+			return MBHChargeInfoValueDefault.class;
+		} else if (tableName.equalsIgnoreCase(MBHOrderLineInfo.Table_Name)) {
+			return MBHOrderLineInfo.class;
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerInfo.Table_Name)) {
+			return MBHBPartnerInfo.class;
 		}
 
 		return null;
@@ -137,6 +158,20 @@ public class BHModelFactory implements IModelFactory {
 			return new MUser_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
 			return new MWindowAccess_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeTypeDefault.Table_Name)) {
+			return new MBHChargeTypeDefault(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfo.Table_Name)) {
+			return new MBHChargeInfo(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValue.Table_Name)) {
+			return new MBHChargeInfoValue(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoDefault.Table_Name)) {
+			return new MBHChargeInfoDefault(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValueDefault.Table_Name)) {
+			return new MBHChargeInfoValueDefault(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHOrderLineInfo.Table_Name)) {
+			return new MBHOrderLineInfo(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerInfo.Table_Name)) {
+			return new MBHBPartnerInfo(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -192,6 +227,20 @@ public class BHModelFactory implements IModelFactory {
 			return new MUser_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
 			return new MWindowAccess_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeTypeDefault.Table_Name)) {
+			return new MBHChargeTypeDefault(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfo.Table_Name)) {
+			return new MBHChargeInfo(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValue.Table_Name)) {
+			return new MBHChargeInfoValue(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoDefault.Table_Name)) {
+			return new MBHChargeInfoDefault(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValueDefault.Table_Name)) {
+			return new MBHChargeInfoValueDefault(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHOrderLineInfo.Table_Name)) {
+			return new MBHOrderLineInfo(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerInfo.Table_Name)) {
+			return new MBHBPartnerInfo(Env.getCtx(), rs, trxName);
 		}
 
 		return null;

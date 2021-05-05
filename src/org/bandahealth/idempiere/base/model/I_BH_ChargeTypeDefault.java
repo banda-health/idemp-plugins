@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_ChargeDefault
+/** Generated Interface for BH_ChargeTypeDefault
  *  @author iDempiere (generated) 
  *  @version Release 8.2
  */
 @SuppressWarnings("all")
-public interface I_BH_ChargeDefault 
+public interface I_BH_ChargeTypeDefault 
 {
 
-    /** TableName=BH_ChargeDefault */
-    public static final String Table_Name = "BH_ChargeDefault";
+    /** TableName=BH_ChargeTypeDefault */
+    public static final String Table_Name = "BH_ChargeTypeDefault";
 
-    /** AD_Table_ID=1000016 */
+    /** AD_Table_ID=1000026 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,24 +64,6 @@ public interface I_BH_ChargeDefault
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_ChargeDefault_ID */
-    public static final String COLUMNNAME_BH_ChargeDefault_ID = "BH_ChargeDefault_ID";
-
-	/** Set BH_ChargeDefault	  */
-	public void setBH_ChargeDefault_ID (int BH_ChargeDefault_ID);
-
-	/** Get BH_ChargeDefault	  */
-	public int getBH_ChargeDefault_ID();
-
-    /** Column name BH_ChargeDefault_UU */
-    public static final String COLUMNNAME_BH_ChargeDefault_UU = "BH_ChargeDefault_UU";
-
-	/** Set BH_ChargeDefault_UU	  */
-	public void setBH_ChargeDefault_UU (String BH_ChargeDefault_UU);
-
-	/** Get BH_ChargeDefault_UU	  */
-	public String getBH_ChargeDefault_UU();
-
     /** Column name BH_ChargeTypeDefault_ID */
     public static final String COLUMNNAME_BH_ChargeTypeDefault_ID = "BH_ChargeTypeDefault_ID";
 
@@ -91,7 +73,14 @@ public interface I_BH_ChargeDefault
 	/** Get Charge Type Default	  */
 	public int getBH_ChargeTypeDefault_ID();
 
-	public I_BH_ChargeTypeDefault getBH_ChargeTypeDefault() throws RuntimeException;
+    /** Column name BH_ChargeTypeDefault_UU */
+    public static final String COLUMNNAME_BH_ChargeTypeDefault_UU = "BH_ChargeTypeDefault_UU";
+
+	/** Set BH_ChargeTypeDefault_UU	  */
+	public void setBH_ChargeTypeDefault_UU (String BH_ChargeTypeDefault_UU);
+
+	/** Get BH_ChargeTypeDefault_UU	  */
+	public String getBH_ChargeTypeDefault_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -163,17 +152,4 @@ public interface I_BH_ChargeDefault
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
-
-    /** Column name Value */
-    public static final String COLUMNNAME_Value = "Value";
-
-	/** Set Search Key.
-	  * Search key for the record in the format required - must be unique
-	  */
-	public void setValue (String Value);
-
-	/** Get Search Key.
-	  * Search key for the record in the format required - must be unique
-	  */
-	public String getValue();
 }
