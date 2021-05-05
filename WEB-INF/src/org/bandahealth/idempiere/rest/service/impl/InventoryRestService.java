@@ -12,7 +12,6 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.InventoryDBService;
-import org.bandahealth.idempiere.rest.service.db.ProcessDBService;
 
 @Path(IRestConfigs.STOCK_TAKE_ITEMS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -20,11 +19,9 @@ import org.bandahealth.idempiere.rest.service.db.ProcessDBService;
 public class InventoryRestService extends BaseEntityRestService<Inventory> {
 
 	private InventoryDBService inventoryDBService;
-	private ProcessDBService processDBService;
 
 	public InventoryRestService() {
 		inventoryDBService = new InventoryDBService();
-		processDBService = new ProcessDBService();
 	}
 
 	@POST
@@ -45,8 +42,7 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Inventory saveEntity(Inventory entity) {
-		processDBService.runStockTakeProcess(entity.getProductId(), entity.getAttributeSetInstanceId(),
-				entity.getQuantity());
+		inventoryDBService.updateStock(entity);
 
 		return entity;
 	}

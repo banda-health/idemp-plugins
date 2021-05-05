@@ -14,6 +14,7 @@ import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.base.process.InitializeStock;
+import org.bandahealth.idempiere.base.process.UpdateStock;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -154,5 +155,10 @@ public class InventoryDBService {
 		products.add(product);
 		
 		InitializeStock.createInitialStock(products, quantity, Env.getCtx(), null);
+	}
+	
+	public void updateStock(Inventory entity) {
+		UpdateStock.updateStock(Env.getCtx(), null, entity.getProductId(), entity.getAttributeSetInstanceId(),
+				new BigDecimal(entity.getQuantity()));
 	}
 }
