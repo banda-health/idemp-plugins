@@ -26,6 +26,7 @@ import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
 import org.bandahealth.idempiere.base.model.MUIButton;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
 
@@ -79,6 +80,8 @@ public class BHModelFactory implements IModelFactory {
 			return MReference_BH.class;
 		} else if (tableName.equalsIgnoreCase(MUser_BH.Table_Name)) {
 			return MUser_BH.class;
+		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
+			return MWindowAccess_BH.class;
 		}
 
 		return null;
@@ -132,6 +135,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MReference_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MUser_BH.Table_Name)) {
 			return new MUser_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
+			return new MWindowAccess_BH(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -185,6 +190,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MReference_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MUser_BH.Table_Name)) {
 			return new MUser_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
+			return new MWindowAccess_BH(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
