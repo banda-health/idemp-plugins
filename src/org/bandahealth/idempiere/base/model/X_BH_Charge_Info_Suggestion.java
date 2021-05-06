@@ -22,10 +22,10 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_Charge_Info_Default
+/** Generated Model for BH_Charge_Info_Suggestion
  *  @author iDempiere (generated) 
  *  @version Release 8.2 - $Id$ */
-public class X_BH_Charge_Info_Default extends PO implements I_BH_Charge_Info_Default, I_Persistent 
+public class X_BH_Charge_Info_Suggestion extends PO implements I_BH_Charge_Info_Suggestion, I_Persistent
 {
 
 	/**
@@ -34,12 +34,12 @@ public class X_BH_Charge_Info_Default extends PO implements I_BH_Charge_Info_Def
 	private static final long serialVersionUID = 20210505L;
 
     /** Standard Constructor */
-    public X_BH_Charge_Info_Default (Properties ctx, int BH_Charge_Info_Default_ID, String trxName)
+    public X_BH_Charge_Info_Suggestion(Properties ctx, int BH_Charge_Info_Suggestion_ID, String trxName)
     {
-      super (ctx, BH_Charge_Info_Default_ID, trxName);
-      /** if (BH_Charge_Info_Default_ID == 0)
+      super (ctx, BH_Charge_Info_Suggestion_ID, trxName);
+      /** if (BH_Charge_Info_Suggestion_ID == 0)
         {
-			setBH_Charge_Info_Default_ID (0);
+			setBH_Charge_Info_Suggestion_ID (0);
 			setBH_ChargeInfoDataType (null);
 // T
 			setBH_FillFromPatient (false);
@@ -52,7 +52,7 @@ public class X_BH_Charge_Info_Default extends PO implements I_BH_Charge_Info_Def
     }
 
     /** Load Constructor */
-    public X_BH_Charge_Info_Default (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Charge_Info_Suggestion(Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -74,43 +74,43 @@ public class X_BH_Charge_Info_Default extends PO implements I_BH_Charge_Info_Def
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Charge_Info_Default[")
+      StringBuilder sb = new StringBuilder ("X_BH_Charge_Info_Suggestion[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
 
-	/** Set Charge Info Default.
-		@param BH_Charge_Info_Default_ID Charge Info Default	  */
-	public void setBH_Charge_Info_Default_ID (int BH_Charge_Info_Default_ID)
+	/** Set Charge Info Suggestion.
+		@param BH_Charge_Info_Suggestion_ID Charge Info Suggestion	  */
+	public void setBH_Charge_Info_Suggestion_ID (int BH_Charge_Info_Suggestion_ID)
 	{
-		if (BH_Charge_Info_Default_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Charge_Info_Default_ID, null);
+		if (BH_Charge_Info_Suggestion_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_Charge_Info_Suggestion_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Charge_Info_Default_ID, Integer.valueOf(BH_Charge_Info_Default_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Charge_Info_Suggestion_ID, Integer.valueOf(BH_Charge_Info_Suggestion_ID));
 	}
 
-	/** Get Charge Info Default.
-		@return Charge Info Default	  */
-	public int getBH_Charge_Info_Default_ID () 
+	/** Get Charge Info Suggestion.
+		@return Charge Info Suggestion	  */
+	public int getBH_Charge_Info_Suggestion_ID ()
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Charge_Info_Default_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Charge_Info_Suggestion_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_Charge_Info_Default_UU.
-		@param BH_Charge_Info_Default_UU BH_Charge_Info_Default_UU	  */
-	public void setBH_Charge_Info_Default_UU (String BH_Charge_Info_Default_UU)
+	/** Set BH_Charge_Info_Suggestion_UU.
+		@param BH_Charge_Info_Suggestion_UU BH_Charge_Info_Suggestion_UU	  */
+	public void setBH_Charge_Info_Suggestion_UU (String BH_Charge_Info_Suggestion_UU)
 	{
-		set_Value (COLUMNNAME_BH_Charge_Info_Default_UU, BH_Charge_Info_Default_UU);
+		set_Value (COLUMNNAME_BH_Charge_Info_Suggestion_UU, BH_Charge_Info_Suggestion_UU);
 	}
 
-	/** Get BH_Charge_Info_Default_UU.
-		@return BH_Charge_Info_Default_UU	  */
-	public String getBH_Charge_Info_Default_UU () 
+	/** Get BH_Charge_Info_Suggestion_UU.
+		@return BH_Charge_Info_Suggestion_UU	  */
+	public String getBH_Charge_Info_Suggestion_UU ()
 	{
-		return (String)get_Value(COLUMNNAME_BH_Charge_Info_Default_UU);
+		return (String)get_Value(COLUMNNAME_BH_Charge_Info_Suggestion_UU);
 	}
 
 	/** Text = T */

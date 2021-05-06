@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Charge_Info_Default
+/** Generated Interface for BH_Charge_Info_Values_Suggestion
  *  @author iDempiere (generated) 
  *  @version Release 8.2
  */
 @SuppressWarnings("all")
-public interface I_BH_Charge_Info_Default 
+public interface I_BH_Charge_Info_Values_Suggestion
 {
 
-    /** TableName=BH_Charge_Info_Default */
-    public static final String Table_Name = "BH_Charge_Info_Default";
+    /** TableName=BH_Charge_Info_Values_Suggestion */
+    public static final String Table_Name = "BH_Charge_Info_Values_Suggestion";
 
-    /** AD_Table_ID=1000029 */
+    /** AD_Table_ID=1000030 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,54 +64,34 @@ public interface I_BH_Charge_Info_Default
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Charge_Info_Default_ID */
-    public static final String COLUMNNAME_BH_Charge_Info_Default_ID = "BH_Charge_Info_Default_ID";
+    /** Column name BH_Charge_Info_Suggestion_ID */
+    public static final String COLUMNNAME_BH_Charge_Info_Suggestion_ID = "BH_Charge_Info_Suggestion_ID";
 
-	/** Set Charge Info Default	  */
-	public void setBH_Charge_Info_Default_ID (int BH_Charge_Info_Default_ID);
+	/** Set Charge Info Suggestion	  */
+	public void setBH_Charge_Info_Suggestion_ID (int BH_Charge_Info_Suggestion_ID);
 
-	/** Get Charge Info Default	  */
-	public int getBH_Charge_Info_Default_ID();
+	/** Get Charge Info Suggestion	  */
+	public int getBH_Charge_Info_Suggestion_ID();
 
-    /** Column name BH_Charge_Info_Default_UU */
-    public static final String COLUMNNAME_BH_Charge_Info_Default_UU = "BH_Charge_Info_Default_UU";
+	public I_BH_Charge_Info_Suggestion getBH_Charge_Info_Suggestion() throws RuntimeException;
 
-	/** Set BH_Charge_Info_Default_UU	  */
-	public void setBH_Charge_Info_Default_UU (String BH_Charge_Info_Default_UU);
+    /** Column name BH_Charge_Info_Values_Suggestion_ID */
+    public static final String COLUMNNAME_BH_Charge_Info_Values_Suggestion_ID = "BH_Charge_Info_Values_Suggestion_ID";
 
-	/** Get BH_Charge_Info_Default_UU	  */
-	public String getBH_Charge_Info_Default_UU();
+	/** Set Charge Info Values Suggestion	  */
+	public void setBH_Charge_Info_Values_Suggestion_ID (int BH_Charge_Info_Values_Suggestion_ID);
 
-    /** Column name BH_ChargeInfoDataType */
-    public static final String COLUMNNAME_BH_ChargeInfoDataType = "BH_ChargeInfoDataType";
+	/** Get Charge Info Values Suggestion	  */
+	public int getBH_Charge_Info_Values_Suggestion_ID();
 
-	/** Set Charge Info Data Type	  */
-	public void setBH_ChargeInfoDataType (String BH_ChargeInfoDataType);
+    /** Column name BH_Charge_Info_Values_Suggestion_UU */
+    public static final String COLUMNNAME_BH_Charge_Info_Values_Suggestion_UU = "BH_Charge_Info_Values_Suggestion_UU";
 
-	/** Get Charge Info Data Type	  */
-	public String getBH_ChargeInfoDataType();
+	/** Set BH_Charge_Info_Values_Suggestion_UU	  */
+	public void setBH_Charge_Info_Values_Suggestion_UU (String BH_Charge_Info_Values_Suggestion_UU);
 
-    /** Column name BH_FillFromPatient */
-    public static final String COLUMNNAME_BH_FillFromPatient = "BH_FillFromPatient";
-
-	/** Set Fill From Patient	  */
-	public void setBH_FillFromPatient (boolean BH_FillFromPatient);
-
-	/** Get Fill From Patient	  */
-	public boolean isBH_FillFromPatient();
-
-    /** Column name BH_SubType */
-    public static final String COLUMNNAME_BH_SubType = "BH_SubType";
-
-	/** Set Sub Type.
-	  * Meant to be a sub-type of the charge type
-	  */
-	public void setBH_SubType (String BH_SubType);
-
-	/** Get Sub Type.
-	  * Meant to be a sub-type of the charge type
-	  */
-	public String getBH_SubType();
+	/** Get BH_Charge_Info_Values_Suggestion_UU	  */
+	public String getBH_Charge_Info_Values_Suggestion_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
