@@ -400,7 +400,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			if (!dynamicJoinClause.toString().trim().isEmpty()) {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
 			}
-			if (SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
+			if (!StringUtil.isNullOrEmpty(sortColumn) && SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
 				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
 				if (joinString != null) {
 					query.addJoinClause(joinString);

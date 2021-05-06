@@ -32,6 +32,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
             <ref bean="ExpenseServiceBean"/>
             <ref bean="ReceiveProductServiceBean"/>
             <ref bean="UserServiceBean"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeInfoSuggestionRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>

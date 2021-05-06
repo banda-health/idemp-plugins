@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
+import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.service.db.ReferenceListDBService;
@@ -43,5 +44,19 @@ public class ReferenceListRestService {
 						Collectors.toMap(documentStatusActionMapEntry -> documentStatusActionMapEntry.getKey().getDocBaseType(),
 								documentStatusActionMapEntry -> documentStatusActionMapEntry.getValue().entrySet().stream()
 										.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue))));
+	}
+
+	@GET
+	@Path("/nonPatientPaymentSubTypes")
+	public List<ReferenceList> getNonPatientPaymentSubTypes() {
+		return dataService.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU, null).stream()
+				.map(ReferenceList::new).collect(Collectors.toList());
+	}
+
+	@GET
+	@Path("/chargeInfoDataTypes")
+	public List<ReferenceList> getChargeInfoDataTypes() {
+		return dataService.getTypes(MReference_BH.CHARGE_INFO_DATA_TYPE_AD_REFERENCE_UU, null).stream()
+				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 }
