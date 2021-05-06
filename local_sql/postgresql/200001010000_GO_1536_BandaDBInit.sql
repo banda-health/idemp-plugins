@@ -114,4 +114,36 @@ create unique index if not exists c_payment_uu_idx
 create index if not exists idxc_payment_proc_on
     on c_payment (posted, processed, processedon, ad_client_id);
 
+-- Create table bh-stocktake
+
+create table bh_stocktake
+(
+    ad_client_id              numeric(10)                                 not null,
+    ad_org_id                 numeric(10)                                 not null
+        constraint adorg_bhstocktake
+            references ad_org
+            deferrable initially deferred,
+    bh_docaction              char(2)     default NULL::bpchar,
+    created                   timestamp   default statement_timestamp()   not null,
+    createdby                 numeric(10)                                 not null,
+    docaction                 char(2)     default 'CO'::bpchar            not null,
+    docstatus                 varchar(2)  default 'DR'::character varying not null,
+    processed                 char                                        not null
+        constraint bh_stocktake_processed_check
+            check (processed = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    processedon               numeric,
+    processing                char        default NULL::bpchar,
+    updated                   timestamp   default statement_timestamp()   not null,
+    updatedby                 numeric(10)                                 not null,
+    m_attributesetinstance_id numeric(10) default NULL::numeric
+        constraint mattributesetinstance_bhstockt
+            references m_attributesetinstance
+            deferrable initially deferred
+);
+
+alter table bh_stocktake
+    owner to adempiere;
+
+
+
 
