@@ -457,6 +457,76 @@ create table if not exists bh_stocktake
 );
 
 alter table bh_stocktake
+    owner to adempiere;                                                          
+
+alter table ad_ref_list
+add column if not exists bh_update_existing char        default NULL::bpchar,
+add column  if not exists bh_add_all        char        default NULL::bpchar;
+
+
+-- Table bh_uibutton
+create table if not exists bh_uibutton
+(
+    ad_client_id    numeric(10)                                  not null
+        constraint adclient_bhuibutton
+            references ad_client,
+    ad_org_id       numeric(10)                                  not null
+        constraint adorg_bhuibutton
+            references ad_org,
+    bh_uibutton_id  numeric(10)                                  not null
+        constraint bh_uibutton_key
+            primary key,
+    bh_uibutton_uu  varchar(36)
+        constraint bh_uibutton_uu_idx
+            unique,
+    created         timestamp    default statement_timestamp()   not null,
+    createdby       numeric(10)                                  not null,
+    description     varchar(255),
+    isactive        char         default 'Y'::bpchar             not null
+        constraint bh_uibutton_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name            varchar(60)                                  not null,
+    updated         timestamp    default statement_timestamp()   not null,
+    updatedby       numeric(10)                                  not null,
+    cssvariablename varchar(100) default NULL::character varying not null
+);
+
+alter table bh_uibutton
     owner to adempiere;
+
+--table bh_uibutton_trl
+create table if not exists bh_uibutton_trl
+(
+    ad_client_id       numeric(10)                             not null,
+    ad_language        varchar(6)                              not null
+        constraint adlanguage_bhuibuttontrl
+            references ad_language,
+    ad_org_id          numeric(10)                             not null,
+    bh_uibutton_id     numeric(10)                             not null
+        constraint bhuibutton_bhuibuttontrl
+            references bh_uibutton,
+    bh_uibutton_trl_uu varchar(36)
+        constraint bh_uibutton_trl_uu_idx
+            unique,
+    created            timestamp default statement_timestamp() not null,
+    createdby          numeric(10)                             not null,
+    description        varchar(255),
+    help               varchar(2000),
+    isactive           char      default 'Y'::bpchar           not null
+        constraint bh_uibutton_trl_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    istranslated       char                                    not null
+        constraint bh_uibutton_trl_istranslated_check
+            check (istranslated = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name               varchar(60)                             not null,
+    updated            timestamp default statement_timestamp() not null,
+    updatedby          numeric(10)                             not null,
+    constraint pk_bh_uibutton_trl
+        primary key (bh_uibutton_id, ad_language)
+);
+
+alter table bh_uibutton_trl
+    owner to adempiere;
+
 
 
