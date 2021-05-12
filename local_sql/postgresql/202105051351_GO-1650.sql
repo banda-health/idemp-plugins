@@ -129,12 +129,12 @@ create table if not exists bh_charge_info_values
 		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
 );
 
-create table if not exists bh_charge_info_default
+create table if not exists bh_charge_info_suggestion
 (
 	ad_client_id numeric(10) not null,
 	ad_org_id numeric(10) not null,
-	bh_charge_info_default_id numeric(10) not null,
-	bh_charge_info_default_uu varchar(36) default NULL::character varying,
+	bh_charge_info_suggestion_id numeric(10) not null,
+	bh_charge_info_suggestion_uu varchar(36) default NULL::character varying,
 	bh_chargeinfodatatype varchar(2) default 'T'::character varying not null,
 	bh_fillfrompatient char default 'N'::bpchar not null,
 	bh_subtype varchar(2) default 'I'::character varying not null,
@@ -146,29 +146,29 @@ create table if not exists bh_charge_info_default
 	name varchar(60) not null,
 	updated timestamp default statement_timestamp() not null,
 	updatedby numeric(10) not null,
-	constraint bh_charge_info_default_key
-		primary key (bh_charge_info_default_id),
-	constraint bh_charge_info_default_uu_idx
-		unique (bh_charge_info_default_uu),
+	constraint bh_charge_info_suggestion_key
+		primary key (bh_charge_info_suggestion_id),
+	constraint bh_charge_info_suggestion_uu_idx
+		unique (bh_charge_info_suggestion_uu),
 	constraint adclient_bhchargeinfodefault
 		foreign key (ad_client_id) references ad_client
 			deferrable initially deferred,
 	constraint adorg_bhchargeinfodefault
 		foreign key (ad_org_id) references ad_org
 			deferrable initially deferred,
-	constraint bh_charge_info_default_bh_fillfrompatient_check
+	constraint bh_charge_info_suggestion_bh_fillfrompatient_check
 		check (bh_fillfrompatient = ANY (ARRAY['Y'::bpchar, 'N'::bpchar])),
-	constraint bh_charge_info_default_isactive_check
+	constraint bh_charge_info_suggestion_isactive_check
 		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
 );
 
-create table if not exists bh_charge_info_values_default
+create table if not exists bh_charge_info_values_suggestion
 (
 	ad_client_id numeric(10) not null,
 	ad_org_id numeric(10) not null,
-	bh_charge_info_default_id numeric(10) not null,
-	bh_charge_info_values_default_id numeric(10) not null,
-	bh_charge_info_values_default_uu varchar(36) default NULL::character varying,
+	bh_charge_info_suggestion_id numeric(10) not null,
+	bh_charge_info_values_suggestion_id numeric(10) not null,
+	bh_charge_info_values_suggestion_uu varchar(36) default NULL::character varying,
 	created timestamp default statement_timestamp() not null,
 	createdby numeric(10) not null,
 	description varchar(255) default NULL::character varying,
@@ -178,7 +178,7 @@ create table if not exists bh_charge_info_values_default
 	updated timestamp default statement_timestamp() not null,
 	updatedby numeric(10) not null,
 	constraint bh_charge_info_values_defa_key
-		primary key (bh_charge_info_values_default_id),
+		primary key (bh_charge_info_values_suggestion_id),
 	constraint adclient_bhchargeinfovaluesdef
 		foreign key (ad_client_id) references ad_client
 			deferrable initially deferred,
@@ -186,9 +186,9 @@ create table if not exists bh_charge_info_values_default
 		foreign key (ad_org_id) references ad_org
 			deferrable initially deferred,
 	constraint bhchargeinfodefault_bhchargein
-		foreign key (bh_charge_info_default_id) references bh_charge_info_default
+		foreign key (bh_charge_info_suggestion_id) references bh_charge_info_suggestion
 			deferrable initially deferred,
-	constraint bh_charge_info_values_default_isactive_check
+	constraint bh_charge_info_values_suggestion_isactive_check
 		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
 );
 
