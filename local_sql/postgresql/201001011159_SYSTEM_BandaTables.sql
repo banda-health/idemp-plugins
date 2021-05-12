@@ -528,5 +528,58 @@ create table if not exists bh_uibutton_trl
 alter table bh_uibutton_trl
     owner to adempiere;
 
+ALTER TABLE c_bpartner
+  ADD IF NOT EXISTS bh_local_patientid character varying(100);
 
+ALTER TABLE c_bpartner
+  ADD IF NOT EXISTS bh_patientid character varying(100);
 
+ALTER TABLE c_bpartner
+  ADD IF NOT EXISTS bh_ispatient char default NULL::bpchar;
+
+ALTER TABLE m_product
+  ADD IF NOT EXISTS bh_reorder_level numeric(10);
+
+alter table m_product
+	add IF NOT EXISTS bh_reorder_quantity numeric(10) default NULL::numeric;
+
+alter table ad_user
+	add IF NOT EXISTS eve_bpartners varchar(36) default NULL::character varying;
+
+alter table ad_user
+	add IF NOT EXISTS bandahealth_bpartners varchar(36) default NULL::character varying;
+
+alter table ad_user
+	add IF NOT EXISTS bh_hasacceptedtermsofuse char default 'N'::bpchar not null;
+
+alter table ad_user
+	add IF NOT EXISTS bh_tos_date_accepted timestamp;
+
+alter table m_product
+	add IF NOT EXISTS bh_hasexpiration char default 'Y'::bpchar not null;
+
+alter table m_product
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
+
+alter table m_product
+	add IF NOT EXISTS bh_reorder_level numeric(10);
+
+alter table m_product
+	add IF NOT EXISTS bh_reorder_quantity numeric(10) default NULL::numeric;
+
+alter table m_product
+	add IF NOT EXISTS bh_buyprice numeric;
+
+alter table m_product
+	add IF NOT EXISTS bh_sellprice numeric;
+
+alter table m_product
+	add IF NOT EXISTS bh_pricemargin numeric;
+
+alter table m_product
+	add IF NOT EXISTS bh_product_category_type char default NULL::bpchar;
+
+alter table c_orderline
+	add IF NOT EXISTS bh_expiration timestamp;
+
+SELECT register_migration_script('201001011159_SYSTEM_BandaTables.sql') FROM dual;
