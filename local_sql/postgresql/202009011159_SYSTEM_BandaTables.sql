@@ -428,7 +428,6 @@ create index if not exists idxc_payment_proc_on
     on c_payment (posted, processed, processedon, ad_client_id);
 
 -- Create table bh-stocktake
-
 create table if not exists bh_stocktake
 (
     ad_client_id              numeric(10)                                 not null,
@@ -526,300 +525,115 @@ create table if not exists bh_uibutton_trl
 alter table bh_uibutton_trl
     owner to adempiere;
 
-ALTER TABLE c_bpartner
-  ADD IF NOT EXISTS bh_local_patientid character varying(100);
-
-ALTER TABLE c_bpartner
-  ADD IF NOT EXISTS bh_patientid character varying(100);
-
-ALTER TABLE c_bpartner
-  ADD IF NOT EXISTS bh_ispatient char default NULL::bpchar;
-
-ALTER TABLE m_product
-  ADD IF NOT EXISTS bh_reorder_level numeric(10);
-
-alter table m_product
-	add IF NOT EXISTS bh_reorder_quantity numeric(10) default NULL::numeric;
-
 alter table ad_user
-	add IF NOT EXISTS eve_bpartners varchar(36) default NULL::character varying;
-
-alter table ad_user
-	add IF NOT EXISTS bandahealth_bpartners varchar(36) default NULL::character varying;
-
-alter table ad_user
+	add IF NOT EXISTS bh_tos_date_accepted timestamp,
+	add IF NOT EXISTS eve_bpartners varchar(36) default NULL::character varying,
+	add IF NOT EXISTS bandahealth_bpartners varchar(36) default NULL::character varying,
 	add IF NOT EXISTS bh_hasacceptedtermsofuse char default 'N'::bpchar not null;
 
 alter table ad_user
 	add IF NOT EXISTS bh_tos_date_accepted timestamp;
 
-alter table m_product
-	add IF NOT EXISTS bh_hasexpiration char default 'Y'::bpchar not null;
-
-alter table m_product
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table m_product
-	add IF NOT EXISTS bh_reorder_level numeric(10);
-
-alter table m_product
-	add IF NOT EXISTS bh_reorder_quantity numeric(10) default NULL::numeric;
-
-alter table m_product
-	add IF NOT EXISTS bh_buyprice numeric;
-
-alter table m_product
-	add IF NOT EXISTS bh_sellprice numeric;
-
-alter table m_product
-	add IF NOT EXISTS bh_pricemargin numeric;
-
-alter table m_product
-	add IF NOT EXISTS bh_product_category_type char default NULL::bpchar;
-
-alter table c_orderline
-	add IF NOT EXISTS bh_expiration timestamp;
-
-alter table c_invoice
-	add IF NOT EXISTS bh_docaction char(2) default NULL::bpchar;
-
-alter table c_invoice
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table c_invoice
-	add IF NOT EXISTS bh_isexpense char default 'N'::bpchar;
-
-alter table c_invoice
-	add IF NOT EXISTS bh_processing char default 'N'::bpchar;
-
-alter table c_invoice
-	add IF NOT EXISTS bh_docaction_2 char(2) default NULL::bpchar;
-
-alter table c_invoiceline
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_payments varchar(36);
-
-alter table c_order
-	add IF NOT EXISTS bh_docaction char(2) default NULL::bpchar;
-
-alter table c_order
-	add IF NOT EXISTS bh_navbuttons varchar(36);
-
-alter table c_order
-	add IF NOT EXISTS bh_printaction char(100);
-
-alter table c_order
-	add IF NOT EXISTS bh_isexpense char default NULL::bpchar;
-
-alter table c_order
-	add IF NOT EXISTS bh_printnhifreportaction char(100) default NULL::bpchar;
-
-alter table c_order
-	add IF NOT EXISTS bh_printnhifffsreportaction char(100) default NULL::bpchar;
-
-alter table c_order
-	add IF NOT EXISTS bh_referral varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_newvisit char default 'N'::bpchar;
-
-alter table c_order
-	add IF NOT EXISTS bh_patienttype char default 'O'::bpchar;
-
-alter table c_order
-	add IF NOT EXISTS bh_lab_notes text;
-
-alter table c_order
-	add IF NOT EXISTS bh_bloodpressure varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_chiefcomplaint varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_height varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_pulse varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_respiratoryrate varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_temperature varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_weight varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_seconddiagnosis text;
-
-alter table c_order
-	add IF NOT EXISTS bh_clinician_user_id numeric(10) default NULL::numeric;
-
-alter table c_order
-	add IF NOT EXISTS bh_visitdate timestamp;
-
-alter table c_order
-	add IF NOT EXISTS bh_process_stage varchar(100) default NULL::character varying;
-
-alter table c_order
-	add IF NOT EXISTS bh_referredfromto varchar(100) default NULL::character varying;
-
-alter table c_orderline
-	add IF NOT EXISTS bh_expiration timestamp;
-
-alter table c_orderline
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table c_orderline
-	add IF NOT EXISTS qtyavailable numeric;
-
-alter table c_orderline
-	add IF NOT EXISTS bh_instructions varchar(255) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_c_order_id numeric(10);
-
-alter table c_payment
-	add IF NOT EXISTS bh_mpesaphntrx_num varchar(36) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_nhif_valid char default NULL::bpchar;
-
-alter table c_payment
-	add IF NOT EXISTS bh_nhif_claim_number varchar(100) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS nhif_number varchar(10) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_nhif_member_id varchar(10) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_nhif_member_name varchar(100) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_nhif_relationship varchar(100) default 'P'::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_nhif_linda_mama varchar(100) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_processing char default 'N'::bpchar;
-
-alter table c_payment
-	add IF NOT EXISTS bh_nhif_type varchar(100) default NULL::character varying;
-
-alter table c_payment
-	add IF NOT EXISTS bh_tender_amount numeric;
-
-alter table c_payment
-	add IF NOT EXISTS bh_isservicedebt char default NULL::bpchar;
-
-alter table m_inventory
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table m_inventoryline
-	add IF NOT EXISTS bh_expiration timestamp;
-
-alter table m_inventoryline
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table m_product
-	add IF NOT EXISTS bh_hasexpiration char default 'Y'::bpchar not null;
-
-alter table m_product
-	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
-
-alter table m_product
-	add IF NOT EXISTS bh_reorder_level numeric(10);
-
-alter table m_product
-	add IF NOT EXISTS bh_reorder_quantity numeric(10) default NULL::numeric;
-
-alter table m_product
-	add IF NOT EXISTS bh_buyprice numeric;
-
-alter table m_product
-	add IF NOT EXISTS bh_sellprice numeric;
-
-alter table m_product
-	add IF NOT EXISTS bh_pricemargin numeric;
-
-alter table m_product
+ALTER TABLE c_bpartner
+    ADD IF NOT EXISTS bh_local_patientid character varying(100),
+    ADD IF NOT EXISTS bh_patientid character varying(100),
+    ADD IF NOT EXISTS bh_ispatient char default NULL::bpchar,
+    add IF NOT EXISTS bh_c_location_id numeric(10) default NULL::numeric,
+    add IF NOT EXISTS bh_birthday timestamp,
+    add IF NOT EXISTS bh_approximateyears numeric,
+    add IF NOT EXISTS bh_email varchar(60) default NULL::character varying,
+    add IF NOT EXISTS bh_phone varchar(40) default NULL::character varying,
+    add IF NOT EXISTS nationalid varchar(10),
+    add IF NOT EXISTS nhif_number varchar(10),
+    add IF NOT EXISTS nextofkin_name varchar(100) default NULL::character varying,
+    add IF NOT EXISTS nextofkin_contact varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_occupation varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_gender varchar(10) default NULL::character varying,
+    add IF NOT EXISTS bh_patient_notes varchar(2000) default NULL::character varying,
+    add IF NOT EXISTS bh_nextappointmentdate timestamp,
+    add IF NOT EXISTS bh_nhif_member_name varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_nhif_relationship varchar(100) default 'P'::character varying,
+    add IF NOT EXISTS isnewpatient char default 'Y'::bpchar,
+    add IF NOT EXISTS bh_nhif_type varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_lastpatientid varchar(100) default NULL::character varying;
+
+ALTER TABLE m_product
+    ADD IF NOT EXISTS bh_reorder_level numeric(10),
+	add IF NOT EXISTS bh_reorder_quantity numeric(10) default NULL::numeric,
+	add IF NOT EXISTS eve_bpartners varchar(36) default NULL::character varying,
+	add IF NOT EXISTS bandahealth_bpartners varchar(36) default NULL::character varying,
+	add IF NOT EXISTS bh_hasacceptedtermsofuse char default 'N'::bpchar not null,
+	add IF NOT EXISTS bh_hasexpiration char default 'Y'::bpchar not null,
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying,
+	add IF NOT EXISTS bh_buyprice numeric,
+	add IF NOT EXISTS bh_sellprice numeric,
+	add IF NOT EXISTS bh_pricemargin numeric,
 	add IF NOT EXISTS bh_product_category_type char default NULL::bpchar;
 
 alter table m_productprice
 	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
 
+alter table m_inventory
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
 
-alter table c_bpartner
-add IF NOT EXISTS bh_c_location_id numeric(10) default NULL::numeric;
+alter table m_inventoryline
+	add IF NOT EXISTS bh_expiration timestamp,
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
 
-alter table c_bpartner
-add IF NOT EXISTS bh_birthday timestamp;
+alter table c_order
+    add IF NOT EXISTS bh_payments varchar(36),
+    add IF NOT EXISTS bh_docaction char(2) default NULL::bpchar,
+    add IF NOT EXISTS bh_navbuttons varchar(36),
+    add IF NOT EXISTS bh_printaction char(100),
+    add IF NOT EXISTS bh_isexpense char default NULL::bpchar,
+    add IF NOT EXISTS bh_printnhifreportaction char(100) default NULL::bpchar,
+    add IF NOT EXISTS bh_printnhifffsreportaction char(100) default NULL::bpchar,
+    add IF NOT EXISTS bh_referral varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_newvisit char default 'N'::bpchar,
+    add IF NOT EXISTS bh_patienttype char default 'O'::bpchar,
+    add IF NOT EXISTS bh_lab_notes text,
+    add IF NOT EXISTS bh_bloodpressure varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_chiefcomplaint varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_height varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_pulse varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_respiratoryrate varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_temperature varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_weight varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_seconddiagnosis text,
+    add IF NOT EXISTS bh_clinician_user_id numeric(10) default NULL::numeric,
+    add IF NOT EXISTS bh_visitdate timestamp,
+    add IF NOT EXISTS bh_process_stage varchar(100) default NULL::character varying,
+    add IF NOT EXISTS bh_referredfromto varchar(100) default NULL::character varying;
 
-alter table c_bpartner
-add IF NOT EXISTS bh_approximateyears numeric;
+alter table c_orderline
+    add IF NOT EXISTS bh_expiration timestamp,
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying,
+	add IF NOT EXISTS qtyavailable numeric,
+	add IF NOT EXISTS bh_instructions varchar(255) default NULL::character varying;
 
-alter table c_bpartner
-add IF NOT EXISTS bh_email varchar(60) default NULL::character varying;
+alter table c_invoice
+	add IF NOT EXISTS bh_docaction char(2) default NULL::bpchar,
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying,
+	add IF NOT EXISTS bh_isexpense char default 'N'::bpchar,
+	add IF NOT EXISTS bh_processing char default 'N'::bpchar,
+	add IF NOT EXISTS bh_docaction_2 char(2) default NULL::bpchar,
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
 
-alter table c_bpartner
-add IF NOT EXISTS bh_phone varchar(40) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_ispatient char default NULL::bpchar;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_patientid varchar(22);
-
-alter table c_bpartner
-add IF NOT EXISTS nationalid varchar(10);
-
-alter table c_bpartner
-add IF NOT EXISTS nhif_number varchar(10);
-
-alter table c_bpartner
-add IF NOT EXISTS nextofkin_name varchar(100) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS nextofkin_contact varchar(100) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_occupation varchar(100) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_gender varchar(10) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_patient_notes varchar(2000) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_nextappointmentdate timestamp;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_nhif_member_name varchar(100) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_nhif_relationship varchar(100) default 'P'::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS isnewpatient char default 'Y'::bpchar;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_nhif_type varchar(100) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_lastpatientid varchar(100) default NULL::character varying;
-
-alter table c_bpartner
-add IF NOT EXISTS bh_local_patientid varchar(100);
+alter table c_payment
+	add IF NOT EXISTS bh_c_order_id numeric(10),
+	add IF NOT EXISTS bh_mpesaphntrx_num varchar(36) default NULL::character varying,
+	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying,
+	add IF NOT EXISTS bh_nhif_valid char default NULL::bpchar,
+	add IF NOT EXISTS bh_nhif_claim_number varchar(100) default NULL::character varying,
+	add IF NOT EXISTS nhif_number varchar(10) default NULL::character varying,
+	add IF NOT EXISTS bh_nhif_member_id varchar(10) default NULL::character varying,
+	add IF NOT EXISTS bh_nhif_member_name varchar(100) default NULL::character varying,
+	add IF NOT EXISTS bh_nhif_relationship varchar(100) default 'P'::character varying,
+	add IF NOT EXISTS bh_nhif_linda_mama varchar(100) default NULL::character varying,
+	add IF NOT EXISTS bh_processing char default 'N'::bpchar,
+	add IF NOT EXISTS bh_nhif_type varchar(100) default NULL::character varying,
+	add IF NOT EXISTS bh_tender_amount numeric,
+	add IF NOT EXISTS bh_isservicedebt char default NULL::bpchar;
 
 --set banda theme as default
 update ad_sysconfig set value='bandahealth' where ad_sysconfig.name='ZK_THEME';
