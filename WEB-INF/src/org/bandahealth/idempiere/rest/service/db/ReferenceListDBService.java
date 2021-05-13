@@ -197,25 +197,18 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 			List<Integer> docTypeIds) {
 		final List<Object> optionParams = new ArrayList<>();
 
+		// Previously, all document action access was assigned to a role on the client (so ad_client_id checks on access
+		// would work). However, now we use master roles to house the document action, and those are assigned to the
+		// system client. So, we need to search both when getting document action access
+		optionParams.add(clientId);
+		optionParams.add(MClient_BH.CLIENTID_SYSTEM);
+
 		// Get all roles assigned to this user
 		MRole usersRole = MRole.get(Env.getCtx(), roleId);
 		List<MRole> allUsersRoles = usersRole.getIncludedRoles(true);
 		allUsersRoles.add(usersRole);
 		List<Integer> roleIds = allUsersRoles.stream().map(MRole::getAD_Role_ID).collect(
 				Collectors.toList());
-
-		// Previously, all document action access was assigned to a role on the client (so ad_client_id checks on access
-		// would work). However, now we use master roles to house the document action, and those are assigned to the
-		// system client. So, we need to search both when getting document action access
-		optionParams.add(clientId);
-		// If this role is a manual role, it's access will be at the system level. Otherwise, it will be at the client
-		// level
-		if (usersRole.isManual()) {
-			optionParams.add(MClient_BH.CLIENTID_SYSTEM);
-		} else {
-			// Add the client ID again since it doesn't hurt
-			optionParams.add(clientId);
-		}
 
 		String docTypeInClause = QueryUtil.getWhereClauseAndSetParametersForSet(new HashSet<>(docTypeIds), optionParams);
 		String roleInClause = QueryUtil.getWhereClauseAndSetParametersForSet(new HashSet<>(roleIds), optionParams);
