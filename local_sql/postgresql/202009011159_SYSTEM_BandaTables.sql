@@ -531,9 +531,6 @@ alter table ad_user
 	add IF NOT EXISTS bandahealth_bpartners varchar(36) default NULL::character varying,
 	add IF NOT EXISTS bh_hasacceptedtermsofuse char default 'N'::bpchar not null;
 
-alter table ad_user
-	add IF NOT EXISTS bh_tos_date_accepted timestamp;
-
 ALTER TABLE c_bpartner
     ADD IF NOT EXISTS bh_local_patientid character varying(100),
     ADD IF NOT EXISTS bh_patientid character varying(100),
