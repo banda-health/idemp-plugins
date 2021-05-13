@@ -15,6 +15,11 @@ public class ChargeInfo extends BaseEntity {
 	@JsonIgnore
 	private int chargeId;
 
+	/**
+	 * Empty constructor needed for deserialization
+	 */
+	public ChargeInfo() {}
+
 	public ChargeInfo(MBHChargeInfo entity) {
 		this(entity, null);
 	}

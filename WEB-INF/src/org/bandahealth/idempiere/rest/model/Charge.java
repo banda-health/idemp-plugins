@@ -14,6 +14,11 @@ public class Charge extends BaseEntity {
 	private Account account;
 	private ChargeType chargeType;
 
+	/**
+	 * Empty constructor needed for deserialization
+	 */
+	public Charge() {}
+
 	public Charge(MCharge_BH entity) {
 		this(entity, null);
 	}

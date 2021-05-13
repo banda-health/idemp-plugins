@@ -82,5 +82,6 @@ public interface IRestConfigs {
 	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
 
 	String CHARGE_PATH = AUTHENTICATION_PATH + "/charges";
+	String NON_PATIENT_PAYMENTS_PATH = "/nonpatientpayments";
 	String CHARGE_INFO_SUGGESTION_PATH = AUTHENTICATION_PATH + "/chargeinfosuggestions";
 }

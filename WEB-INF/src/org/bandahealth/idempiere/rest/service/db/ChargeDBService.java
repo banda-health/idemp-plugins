@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MRefList;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.util.ArrayList;
@@ -53,6 +54,21 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		return super.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, joinClause);
 	}
 
+	public Charge saveNonPatientPayment(Charge entity) {
+		MChargeType_BH nonPatientPaymentChargeType =
+				new Query(Env.getCtx(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_Name + "=?", null).setClient_ID()
+						.setParameters(MChargeType_BH.CHARGETYPENAME_NON_PATIENT_PAYMENT).first();
+		// TODO: Replace this with a process that initializes clients correctly after they've been created
+		// If this is null, create it for this client and save it to the DB
+		if (nonPatientPaymentChargeType == null) {
+			nonPatientPaymentChargeType = new MChargeType_BH(Env.getCtx(), 0, null);
+			nonPatientPaymentChargeType.setName(MChargeType_BH.CHARGETYPENAME_NON_PATIENT_PAYMENT);
+			nonPatientPaymentChargeType.saveEx();
+		}
+		entity.setChargeType(new ChargeType(nonPatientPaymentChargeType));
+		return saveEntity(entity);
+	}
+
 	@Override
 	public Charge saveEntity(Charge entity) {
 		// Save to the DB
@@ -84,6 +100,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		}
 
 		charge.saveEx();
+		entity.setId(charge.getC_Charge_ID());
 
 		// If it has info & values, we need to update those
 		if (entity.getChargeInfoList() != null) {

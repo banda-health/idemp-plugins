@@ -8,6 +8,12 @@ public class ChargeInfoValue extends BaseEntity {
 	@JsonIgnore
 	private int chargeInfoId;
 
+	/**
+	 * Empty constructor needed for deserialization
+	 */
+	public ChargeInfoValue() {
+	}
+
 	public ChargeInfoValue(MBHChargeInfoValue entity) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 		setChargeInfoId(entity.getBH_Charge_Info_ID());

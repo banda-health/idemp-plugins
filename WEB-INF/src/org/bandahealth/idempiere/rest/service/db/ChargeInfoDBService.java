@@ -33,6 +33,7 @@ public class ChargeInfoDBService extends BaseDBService<ChargeInfo, MBHChargeInfo
 		ModelUtil.setPropertyIfPresent(entity.getDescription(), chargeInfo::setDescription);
 
 		chargeInfo.saveEx();
+		entity.setId(chargeInfo.getBH_Charge_Info_ID());
 
 		// Save the values, if any
 		if (entity.getValues() != null) {

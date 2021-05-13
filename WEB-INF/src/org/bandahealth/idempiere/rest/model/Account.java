@@ -10,6 +10,11 @@ import org.compiere.model.MElementValue;
 @XmlRootElement(name = "account")
 @JsonInclude(value = Include.NON_NULL)
 public class Account extends BaseEntity {
+	/**
+	 * Empty constructor needed for deserialization
+	 */
+	public Account() {}
+
 	public Account(MElementValue entity) {
 		super(entity, entity.getName(), entity.getDescription(), entity.getValue());
 	}
