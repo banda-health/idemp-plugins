@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_ChargeDefault
  *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
+ *  @version Release 7.1 - $Id$ */
 public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Persistent 
 {
 

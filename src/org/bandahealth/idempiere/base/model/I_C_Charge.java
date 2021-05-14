@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for C_Charge
  *  @author iDempiere (generated) 
- *  @version Release 8.2
+ *  @version Release 7.1
  */
 @SuppressWarnings("all")
 public interface I_C_Charge 
