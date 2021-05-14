@@ -50,8 +50,7 @@ public class DefaultTokenSecretProvider implements ITokenSecretProvider {
 				keyList = new ArrayList<>();
 			}
 
-//			keyList.add(UUID.randomUUID().toString());
-			keyList.add("c758bacb-503c-44d0-b35c-baa0119b69e0"); // This is so I don't have to keep logging in...
+			keyList.add(UUID.randomUUID().toString());
 		}
 	}
 
