@@ -4,13 +4,16 @@ import org.bandahealth.idempiere.base.model.MBHChargeInfo;
 import org.bandahealth.idempiere.rest.model.ChargeInfo;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MRefList;
 import org.compiere.util.Env;
 
 public class ChargeInfoDBService extends BaseDBService<ChargeInfo, MBHChargeInfo> {
 	private final ChargeInfoValueDBService chargeInfoValueDBService;
+	private final ReferenceListDBService referenceListDBService;
 
 	public ChargeInfoDBService() {
 		chargeInfoValueDBService = new ChargeInfoValueDBService();
+		referenceListDBService = new ReferenceListDBService();
 	}
 
 	@Override
@@ -27,7 +30,10 @@ public class ChargeInfoDBService extends BaseDBService<ChargeInfo, MBHChargeInfo
 		chargeInfo.setLine(entity.getLineNumber());
 		chargeInfo.setName(entity.getName());
 		if (entity.getDataType() != null) {
-			chargeInfo.setBH_ChargeInfoDataType(entity.getDataType().getValue());
+			MRefList dataType = referenceListDBService.getEntityByUuidFromDB(entity.getDataType().getUuid());
+			if (dataType != null) {
+				chargeInfo.setBH_ChargeInfoDataType(dataType.getValue());
+			}
 		}
 
 		ModelUtil.setPropertyIfPresent(entity.getDescription(), chargeInfo::setDescription);

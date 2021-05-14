@@ -91,11 +91,19 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		}
 
 		charge.setIsActive(entity.getIsActive());
+		charge.setBH_NeedAdditionalVisitInfo(entity.isNeedAdditionalVisitInformation());
 
 		if (entity.getChargeType() != null) {
 			MChargeType_BH chargeType = chargeTypeDBService.getEntityByUuidFromDB(entity.getChargeType().getUuid());
 			if (chargeType != null) {
 				charge.setC_ChargeType_ID(chargeType.getC_ChargeType_ID());
+			}
+		}
+
+		if (entity.getSubType() != null) {
+			MRefList referenceList = referenceListDBService.getEntityByUuidFromDB(entity.getSubType().getUuid());
+			if (referenceList != null) {
+				charge.setBH_SubType(referenceList.getValue());
 			}
 		}
 
@@ -111,6 +119,11 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		}
 
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(charge.getC_Charge_UU()))).get(0);
+	}
+
+	@Override
+	public Charge getEntity(String uuid) {
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 	}
 
 	@Override
