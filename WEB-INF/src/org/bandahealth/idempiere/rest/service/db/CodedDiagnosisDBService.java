@@ -95,8 +95,8 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 
 	@Override
 	protected CodedDiagnosis createInstanceWithDefaultFields(MBHCodedDiagnosis instance) {
-		return new CodedDiagnosis(instance.getBH_CeilName(), instance.getBH_CeilId(), instance.getBH_ConceptClass(),
-				instance.getBH_ICD10());
+		return new CodedDiagnosis(instance.getBH_CodedDiagnosis_UU(), instance.getBH_CeilName(),
+				instance.getBH_ConceptClass(), instance.getDescription());
 	}
 
 	@Override
@@ -112,5 +112,10 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 	@Override
 	protected MBHCodedDiagnosis getModelInstance() {
 		return new MBHCodedDiagnosis(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
 	}
 }

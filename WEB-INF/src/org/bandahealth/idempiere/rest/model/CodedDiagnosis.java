@@ -21,6 +21,7 @@ public class CodedDiagnosis extends BaseMetadata {
 	private int synomedNP;
 	private String synonyms;
 	private String shortNames;
+	private String description;
 
 	public CodedDiagnosis() {
 	}
@@ -35,13 +36,14 @@ public class CodedDiagnosis extends BaseMetadata {
 		setSynomedNP(entity.getBH_SynomedNP());
 		setSynonyms(entity.getBH_Synonyms());
 		setShortNames(entity.getBH_ShortNames());
+		setDescription(entity.getDescription());
 	}
 
-	public CodedDiagnosis(String ceilName, int ceilId, String conceptClass, String icd10) {
+	public CodedDiagnosis(String uuid, String ceilName, String conceptClass, String description) {
+		setUuid(uuid);
 		setCeilName(ceilName);
-		setCeilId(ceilId);
 		setConceptClass(conceptClass);
-		setIcd10(icd10);
+		setDescription(description);
 	}
 
 	public String getCeilName() {
@@ -114,5 +116,13 @@ public class CodedDiagnosis extends BaseMetadata {
 
 	public void setShortNames(String shortNames) {
 		this.shortNames = shortNames;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

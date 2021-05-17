@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,7 +26,7 @@ public class CodedDiagnosisRestService extends BaseEntityRestService<CodedDiagno
 		this.dbService = new CodedDiagnosisDBService();
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
 	public BaseListResponse<CodedDiagnosis> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
@@ -34,7 +35,7 @@ public class CodedDiagnosisRestService extends BaseEntityRestService<CodedDiagno
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<CodedDiagnosis> search(@QueryParam("value") String value, @QueryParam("page") int page,
@@ -43,14 +44,14 @@ public class CodedDiagnosisRestService extends BaseEntityRestService<CodedDiagno
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
-	@POST
+	@GET
 	@Path(IRestConfigs.CODED_DIAGNOSIS_PATH)
 	@Override
 	public CodedDiagnosis getEntity(@PathParam("uuid") String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
-	@POST
+	@PUT
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public CodedDiagnosis saveEntity(CodedDiagnosis entity) {
