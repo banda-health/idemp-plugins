@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.utils;
 
 import org.adempiere.exceptions.AdempiereException;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,7 +91,7 @@ public class FilterUtil {
 	 * @throws JsonMappingException 
 	 */
 	private static Map<String, Object> parseJsonString(String filterJson) throws JsonMappingException,
-			JsonProcessingException {
+			JsonProcessingException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(filterJson, HashMap.class);
 	}
