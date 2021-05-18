@@ -22,6 +22,8 @@ public class CodedDiagnosis extends BaseMetadata {
 	private String synonyms;
 	private String shortNames;
 	private String description;
+	private String moh705aLessthan5;
+	private String moh705bGreaterthan5;
 
 	public CodedDiagnosis() {
 	}
@@ -37,6 +39,8 @@ public class CodedDiagnosis extends BaseMetadata {
 		setSynonyms(entity.getBH_Synonyms());
 		setShortNames(entity.getBH_ShortNames());
 		setDescription(entity.getDescription());
+		setMoh705aLessthan5(entity.getBH_MoH705ALessThan5());
+		setMoh705bGreaterthan5(entity.getBH_MoH705BGreaterThan5());
 	}
 
 	public CodedDiagnosis(String uuid, String ceilName, String conceptClass, String description) {
@@ -124,5 +128,21 @@ public class CodedDiagnosis extends BaseMetadata {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getMoh705aLessthan5() {
+		return moh705aLessthan5;
+	}
+
+	public void setMoh705aLessthan5(String moh705aLessthan5) {
+		this.moh705aLessthan5 = moh705aLessthan5;
+	}
+
+	public String getMoh705bGreaterthan5() {
+		return moh705bGreaterthan5;
+	}
+
+	public void setMoh705bGreaterthan5(String moh705bGreaterthan5) {
+		this.moh705bGreaterthan5 = moh705bGreaterthan5;
 	}
 }
