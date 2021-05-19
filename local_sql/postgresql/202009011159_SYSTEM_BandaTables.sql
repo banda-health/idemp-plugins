@@ -757,4 +757,71 @@ alter table m_product
 alter table m_productprice
 	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying;
 
+
+alter table c_bpartner
+add IF NOT EXISTS bh_c_location_id numeric(10) default NULL::numeric;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_birthday timestamp;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_approximateyears numeric;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_email varchar(60) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_phone varchar(40) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_ispatient char default NULL::bpchar;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_patientid varchar(22);
+
+alter table c_bpartner
+add IF NOT EXISTS nationalid varchar(10);
+
+alter table c_bpartner
+add IF NOT EXISTS nhif_number varchar(10);
+
+alter table c_bpartner
+add IF NOT EXISTS nextofkin_name varchar(100) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS nextofkin_contact varchar(100) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_occupation varchar(100) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_gender varchar(10) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_patient_notes varchar(2000) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_nextappointmentdate timestamp;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_nhif_member_name varchar(100) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_nhif_relationship varchar(100) default 'P'::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS isnewpatient char default 'Y'::bpchar;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_nhif_type varchar(100) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_lastpatientid varchar(100) default NULL::character varying;
+
+alter table c_bpartner
+add IF NOT EXISTS bh_local_patientid varchar(100);
+
+--set banda theme as default
+update ad_sysconfig set value='bandahealth' where ad_sysconfig.name='ZK_THEME';
+
 SELECT register_migration_script('201001011159_SYSTEM_BandaTables.sql') FROM dual;
