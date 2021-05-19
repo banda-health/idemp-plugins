@@ -632,7 +632,7 @@ alter table c_payment
 	add IF NOT EXISTS bh_tender_amount numeric,
 	add IF NOT EXISTS bh_isservicedebt char default NULL::bpchar;
 
---set banda theme as default
-update ad_sysconfig set value='bandahealth' where ad_sysconfig.name='ZK_THEME';
+alter table ad_orginfo
+    add if not exists bh_extrainfo  varchar(1000) default NULL::character varying;
 
 SELECT register_migration_script('201001011159_SYSTEM_BandaTables.sql') FROM dual;

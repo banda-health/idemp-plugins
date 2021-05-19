@@ -1231,6 +1231,9 @@ INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, crea
 INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited, istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth, isorglevelsequence, orgcolumn) VALUES ((SELECT MAX(ad_sequence_id + 1) FROM ad_sequence), 0, 0, 'Y', '2020-09-03 06:53:05.017000', 100, '2020-09-03 06:53:05.017000', 100, 'BH_PaymentRef', 'Table BH_PaymentRef', null, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', null, null, 'N', null, null, '978dd6da-8410-4acb-8454-a1974b5e0d4a', 'N', 'N', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited, istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth, isorglevelsequence, orgcolumn) VALUES ((SELECT MAX(ad_sequence_id + 1) FROM ad_sequence), 0, 0, 'Y', '2020-09-03 06:53:06.465000', 100, '2020-09-03 06:53:06.465000', 100, 'BH_PaymentRef_BankAcct', 'Table BH_PaymentRef_BankAcct', null, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', null, null, 'N', null, null, '15477de9-3b7f-4c8c-a2aa-6e53fdbe0c30', 'N', 'N', null) ON CONFLICT DO NOTHING;
 
+--set banda theme as default
+update ad_sysconfig set value='bandahealth' where ad_sysconfig.name='ZK_THEME';
+
 SELECT update_sequences();
 
 SELECT register_migration_script('201001011200_GO-1536_BandaDBInit.sql') FROM dual;
