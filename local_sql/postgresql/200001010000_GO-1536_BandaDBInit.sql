@@ -116,7 +116,7 @@ create index if not exists idxc_payment_proc_on
 
 -- Create table bh-stocktake
 
-create table bh_stocktake
+create table if not exists bh_stocktake
 (
     ad_client_id              numeric(10)                                 not null,
     ad_org_id                 numeric(10)                                 not null
@@ -143,6 +143,348 @@ create table bh_stocktake
 
 alter table bh_stocktake
     owner to adempiere;
+
+--Tab navigation table
+create table if not exists bh_tabnavbtn
+(
+    bh_tabnavbtn_id numeric(10)                                 not null
+        constraint bh_tabnavbtn_key
+            primary key,
+    ad_client_id    numeric(10)                                 not null
+        constraint adclient_bhtabnavbtn
+            references ad_client
+            deferrable initially deferred,
+    ad_org_id       numeric(10)                                 not null
+        constraint adorg_bhtabnavbtn
+            references ad_org
+            deferrable initially deferred,
+    bh_tabnavbtn_uu varchar(36)   default NULL::character varying
+        constraint bh_tabnavbtn_uu_idx
+            unique,
+    created         timestamp     default statement_timestamp() not null,
+    createdby       numeric(10)                                 not null,
+    description     varchar(255)  default NULL::character varying,
+    isactive        char          default 'Y'::bpchar           not null
+        constraint bh_tabnavbtn_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name            varchar(60)                                 not null,
+    updated         timestamp     default statement_timestamp() not null,
+    updatedby       numeric(10)                                 not null,
+    buttontext      varchar(100)  default NULL::character varying,
+    buttonhelptext  varchar(100)  default NULL::character varying,
+    buttonclassname varchar(100)  default NULL::character varying,
+    iconclassname   varchar(100)  default NULL::character varying,
+    ad_tab_id       numeric(10)   default NULL::numeric
+        constraint adtab_bhtabnavbtn
+            references ad_tab
+            deferrable initially deferred,
+    ad_window_id    numeric(10)   default NULL::numeric
+        constraint adwindow_bhtabnavbtn
+            references ad_window
+            deferrable initially deferred,
+    buttonaction    char                                        not null,
+    buttonlocation  char          default 'R'::bpchar           not null,
+    ad_table_id     numeric(10)   default NULL::numeric
+        constraint adtable_bhtabnavbtn
+            references ad_table
+            deferrable initially deferred,
+    ad_column_id    numeric(10)   default NULL::numeric
+        constraint adcolumn_bhtabnavbtn
+            references ad_column
+            deferrable initially deferred,
+    displaylogic    varchar(2000) default NULL::character varying
+);
+
+alter table bh_tabnavbtn
+    owner to adempiere;
+
+create index if not exists bh_tabnavbtn_tabid_index
+    on bh_tabnavbtn (ad_tab_id, isactive);
+
+--tab navigation translations table
+create table if not exists bh_tabnavbtn_trl
+(
+    ad_client_id        numeric(10)                             not null,
+    ad_language         varchar(6)                              not null
+        constraint adlanguage_bhtabnavbtntrl
+            references ad_language,
+    ad_org_id           numeric(10)                             not null,
+    bh_tabnavbtn_id     numeric(10)                             not null
+        constraint bhtabnavbtn_bhtabnavbtntrl
+            references bh_tabnavbtn,
+    bh_tabnavbtn_trl_uu varchar(36)
+        constraint bh_tabnavbtn_trl_uu_idx
+            unique,
+    buttonhelptext      varchar(100),
+    buttontext          varchar(100),
+    created             timestamp default statement_timestamp() not null,
+    createdby           numeric(10)                             not null,
+    description         varchar(255),
+    help                varchar(2000),
+    isactive            char      default 'Y'::bpchar           not null
+        constraint bh_tabnavbtn_trl_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    istranslated        char                                    not null
+        constraint bh_tabnavbtn_trl_istranslated_check
+            check (istranslated = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name                varchar(60)                             not null,
+    updated             timestamp default statement_timestamp() not null,
+    updatedby           numeric(10)                             not null,
+    constraint pk_bh_tabnavbtn_trl
+        primary key (bh_tabnavbtn_id, ad_language)
+);
+
+alter table bh_tabnavbtn_trl
+    owner to adempiere;
+
+--tab navigation tabs table
+create table if not exists bh_tabnavbtn_tab
+(
+    bh_tabnavbtn_tab_id numeric(10)                                 not null
+        constraint bh_tabnavbtn_tab_key
+            primary key,
+    ad_client_id        numeric(10)                                 not null
+        constraint adclient_bhtabnavbtntab
+            references ad_client
+            deferrable initially deferred,
+    ad_org_id           numeric(10)                                 not null
+        constraint adorg_bhtabnavbtntab
+            references ad_org
+            deferrable initially deferred,
+    bh_tabnavbtn_tab_uu varchar(36)   default NULL::character varying
+        constraint bh_tabnavbtn_tab_uu_idx
+            unique,
+    created             timestamp     default statement_timestamp() not null,
+    createdby           numeric(10)                                 not null,
+    description         varchar(255)  default NULL::character varying,
+    isactive            char          default 'Y'::bpchar           not null
+        constraint bh_tabnavbtn_tab_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name                varchar(60)                                 not null,
+    updated             timestamp     default statement_timestamp() not null,
+    updatedby           numeric(10)                                 not null,
+    ad_tab_id           numeric(10)                                 not null
+        constraint adtab_bhtabnavbtntab
+            references ad_tab
+            deferrable initially deferred,
+    bh_tabnavbtn_id     numeric(10)                                 not null
+        constraint bhtabnavbtn_bhtabnavbtntab
+            references bh_tabnavbtn
+            deferrable initially deferred,
+    buttonclassname     varchar(100)  default NULL::character varying,
+    buttonhelptext      varchar(100)  default NULL::character varying,
+    buttontext          varchar(100)  default NULL::character varying,
+    iconclassname       varchar(100)  default NULL::character varying,
+    buttonlocation      char          default NULL::bpchar,
+    displaylogic        varchar(2000) default NULL::character varying
+);
+
+alter table bh_tabnavbtn_tab
+    owner to adempiere;
+
+--tab navigation tabs translations table
+create table if not exists bh_tabnavbtn_tab_trl
+(
+    ad_client_id            numeric(10)                             not null,
+    ad_language             varchar(6)                              not null
+        constraint adlanguage_bhtabnavbtntabtrl
+            references ad_language,
+    ad_org_id               numeric(10)                             not null,
+    bh_tabnavbtn_tab_id     numeric(10)                             not null
+        constraint bhtabnavbtntab_bhtabnavbtntabt
+            references bh_tabnavbtn_tab,
+    bh_tabnavbtn_tab_trl_uu varchar(36)
+        constraint bh_tabnavbtn_tab_trl_uu_idx
+            unique,
+    buttonhelptext          varchar(100),
+    buttontext              varchar(100),
+    created                 timestamp default statement_timestamp() not null,
+    createdby               numeric(10)                             not null,
+    description             varchar(255),
+    help                    varchar(2000),
+    isactive                char      default 'Y'::bpchar           not null
+        constraint bh_tabnavbtn_tab_trl_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    istranslated            char                                    not null
+        constraint bh_tabnavbtn_tab_trl_istranslated_check
+            check (istranslated = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name                    varchar(60)                             not null,
+    updated                 timestamp default statement_timestamp() not null,
+    updatedby               numeric(10)                             not null,
+    constraint pk_bh_tabnavbtn_tab_trl
+        primary key (bh_tabnavbtn_tab_id, ad_language)
+);
+
+alter table bh_tabnavbtn_tab_trl
+    owner to adempiere;
+
+--dashboard button groups table
+create table if not exists bh_dbrdbtngrp
+(
+    bh_dbrdbtngrp_id numeric(10)                                not null
+        constraint bh_hmscrn_buttongroup_key
+            primary key,
+    ad_client_id     numeric(10)                                not null
+        constraint adclient_bhhmscrnbuttongroup
+            references ad_client
+            deferrable initially deferred,
+    ad_org_id        numeric(10)                                not null
+        constraint adorg_bhhmscrnbuttongroup
+            references ad_org
+            deferrable initially deferred,
+    bh_dbrdbtngrp_uu varchar(36)  default NULL::character varying
+        constraint bh_hmscrn_buttongroup_uu_idx
+            unique,
+    created          timestamp    default statement_timestamp() not null,
+    createdby        numeric(10)                                not null,
+    description      varchar(255) default NULL::character varying,
+    isactive         char         default 'Y'::bpchar           not null
+        constraint bh_hmscrn_buttongroup_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name             varchar(60)                                not null,
+    updated          timestamp    default statement_timestamp() not null,
+    updatedby        numeric(10)                                not null,
+    lineno           numeric(10)  default NULL::numeric
+);
+
+alter table bh_dbrdbtngrp
+    owner to adempiere;
+
+--dashboard button group translations table
+create table if not exists bh_dbrdbtngrp_trl
+(
+    ad_client_id         numeric(10)                             not null,
+    ad_language          varchar(6)                              not null
+        constraint adlanguage_bhdbrdbtngrptrl
+            references ad_language,
+    ad_org_id            numeric(10)                             not null,
+    bh_dbrdbtngrp_id     numeric(10)                             not null
+        constraint bhdbrdbtngrp_bhdbrdbtngrptrl
+            references bh_dbrdbtngrp,
+    bh_dbrdbtngrp_trl_uu varchar(36)
+        constraint bh_dbrdbtngrp_trl_uu_idx
+            unique,
+    created              timestamp default statement_timestamp() not null,
+    createdby            numeric(10)                             not null,
+    description          varchar(255),
+    help                 varchar(2000),
+    isactive             char      default 'Y'::bpchar           not null
+        constraint bh_dbrdbtngrp_trl_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    istranslated         char                                    not null
+        constraint bh_dbrdbtngrp_trl_istranslated_check
+            check (istranslated = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name                 varchar(60)                             not null,
+    updated              timestamp default statement_timestamp() not null,
+    updatedby            numeric(10)                             not null,
+    bh_dbrdbtngrp_trl_id numeric(10),
+    constraint pk_bh_dbrdbtngrp_trl
+        primary key (bh_dbrdbtngrp_id, ad_language)
+);
+
+alter table bh_dbrdbtngrp_trl
+    owner to adempiere;
+
+--dashboard group buttons table
+create table if not exists bh_dbrdbtngrp_btn
+(
+    bh_dbrdbtngrp_btn_id numeric(10)                                not null
+        constraint bh_hmscrn_buttongroupline_key
+            primary key,
+    ad_client_id         numeric(10)                                not null
+        constraint adclient_bhhmscrnbuttongroupli
+            references ad_client
+            deferrable initially deferred,
+    ad_infowindow_id     numeric(10)  default NULL::numeric
+        constraint adinfowindow_bhhmscrnbuttongro
+            references ad_infowindow
+            deferrable initially deferred,
+    ad_org_id            numeric(10)                                not null
+        constraint adorg_bhhmscrnbuttongroupline
+            references ad_org
+            deferrable initially deferred,
+    ad_window_id         numeric(10)  default NULL::numeric
+        constraint adwindow_bhhmscrnbuttongroupli
+            references ad_window
+            deferrable initially deferred,
+    bh_dbrdbtngrp_btn_uu varchar(36)  default NULL::character varying
+        constraint bh_hmscrn_buttongrouplineuuidx
+            unique,
+    buttonclassname      varchar(100) default NULL::character varying,
+    buttonhelptext       varchar(100) default NULL::character varying,
+    buttontext           varchar(100) default NULL::character varying,
+    created              timestamp    default statement_timestamp() not null,
+    createdby            numeric(10)                                not null,
+    description          varchar(255) default NULL::character varying,
+    iconclassname        varchar(100) default NULL::character varying,
+    isactive             char         default 'Y'::bpchar           not null
+        constraint bh_hmscrn_buttongroupline_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    lineno               numeric(10)  default NULL::numeric,
+    name                 varchar(60)                                not null,
+    updated              timestamp    default statement_timestamp() not null,
+    updatedby            numeric(10)                                not null,
+    bh_dbrdbtngrp_id     numeric(10)                                not null
+        constraint bhhmscrnbuttongroup_bhhmscrnbu
+            references bh_dbrdbtngrp
+            deferrable initially deferred,
+    ad_process_id        numeric(10)  default NULL::numeric
+        constraint adprocess_bhhmscrnbuttongroupl
+            references ad_process
+            deferrable initially deferred,
+    ad_form_id           numeric(10)
+        constraint adform_bhhmscrnbuttongroupline
+            references ad_form
+            deferrable initially deferred,
+    included_role_id     numeric(10)  default NULL::numeric
+        constraint includedrole_bhhmscrnbuttongro
+            references ad_role
+            deferrable initially deferred,
+    ad_window_uu         varchar(36),
+    windowmapping        varchar(36)
+);
+
+alter table bh_dbrdbtngrp_btn
+    owner to adempiere;
+
+--dashboard group buttons translations table
+create table if not exists bh_dbrdbtngrp_btn_trl
+(
+    ad_client_id             numeric(10)                             not null,
+    ad_language              varchar(6)                              not null
+        constraint adlanguage_bhdbrdbtngrpbtntrl
+            references ad_language,
+    ad_org_id                numeric(10)                             not null,
+    bh_dbrdbtngrp_btn_trl_uu varchar(36)
+        constraint bh_dbrdbtngrp_btn_trl_uu_idx
+            unique,
+    created                  timestamp default statement_timestamp() not null,
+    createdby                numeric(10)                             not null,
+    description              varchar(255),
+    help                     varchar(2000),
+    isactive                 char      default 'Y'::bpchar           not null
+        constraint bh_dbrdbtngrp_btn_trl_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    istranslated             char                                    not null
+        constraint bh_dbrdbtngrp_btn_trl_istranslated_check
+            check (istranslated = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    name                     varchar(60)                             not null,
+    updated                  timestamp default statement_timestamp() not null,
+    updatedby                numeric(10)                             not null,
+    bh_dbrdbtngrp_btn_id     numeric(10)                             not null
+        constraint bhdbrdbtngr_bhdbrdbtngrpbtntrl
+            references bh_dbrdbtngrp_btn,
+    buttonhelptext           varchar(100),
+    buttontext               varchar(100),
+    bh_dbrdbtngrp_btn_trl_id numeric(10),
+    constraint pk_bh_dbrdbtngrp_btn_trl
+        primary key (bh_dbrdbtngrp_btn_id, ad_language)
+);
+
+alter table bh_dbrdbtngrp_btn_trl
+    owner to adempiere;
+
+select register_migration_script('200001010000_GO-1536_BandaInit.sql') FROM dual;
 
 
 
