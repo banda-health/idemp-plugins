@@ -246,4 +246,24 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	public String getBH_ShortNames() {
 		return (String) get_Value(COLUMNNAME_BH_ShortNames);
 	}
+
+	@Override
+	public void setBH_MoH705ALessThan5(String bh_moh705a_lessthan5) {
+		set_Value(COLUMNNAME_BH_MoH705A_LessThan5, bh_moh705a_lessthan5);
+	}
+
+	@Override
+	public String getBH_MoH705ALessThan5() {
+		return (String) get_Value(COLUMNNAME_BH_MoH705A_LessThan5);
+	}
+
+	@Override
+	public void setBH_MoH705BGreaterThan5(String bh_moh705b_greaterthan5) {
+		set_Value(COLUMNNAME_BH_MoH705B_GreaterThan5, bh_moh705b_greaterthan5);
+	}
+
+	@Override
+	public String getBH_MoH705BGreaterThan5() {
+		return (String) get_Value(COLUMNNAME_BH_MoH705B_GreaterThan5);
+	}
 }

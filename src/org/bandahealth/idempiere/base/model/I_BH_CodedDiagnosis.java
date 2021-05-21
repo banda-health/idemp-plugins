@@ -200,4 +200,16 @@ public interface I_BH_CodedDiagnosis
 	public void setBH_ShortNames (String bh_shortnames);
 
 	public String getBH_ShortNames();
+	
+	public static final String COLUMNNAME_BH_MoH705A_LessThan5 = "bh_moh705a_lessthan5";
+
+	public void setBH_MoH705ALessThan5 (String bh_moh705a_lessthan5);
+
+	public String getBH_MoH705ALessThan5();
+
+	public static final String COLUMNNAME_BH_MoH705B_GreaterThan5 = "bh_moh705b_greaterthan5";
+
+	public void setBH_MoH705BGreaterThan5 (String bh_moh705b_greaterthan5);
+
+	public String getBH_MoH705BGreaterThan5();
 }
