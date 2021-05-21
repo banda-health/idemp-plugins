@@ -1,13 +1,17 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCodedDiagnosis> {
@@ -63,11 +67,11 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		if (StringUtil.isNotNullAndEmpty(entity.getShortNames())) {
 			mCodedDiagnosis.setBH_ShortNames(entity.getShortNames());
 		}
-		
+
 		if (StringUtil.isNotNullAndEmpty(entity.getMoh705aLessthan5())) {
 			mCodedDiagnosis.setBH_MoH705ALessThan5(entity.getMoh705aLessthan5());
 		}
-		
+
 		if (StringUtil.isNotNullAndEmpty(entity.getMoh705bGreaterthan5())) {
 			mCodedDiagnosis.setBH_MoH705BGreaterThan5(entity.getMoh705bGreaterthan5());
 		}
@@ -103,8 +107,8 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 
 	@Override
 	protected CodedDiagnosis createInstanceWithDefaultFields(MBHCodedDiagnosis instance) {
-		return new CodedDiagnosis(instance.getBH_CodedDiagnosis_UU(), instance.getBH_CeilName(),
-				instance.getBH_ConceptClass(), instance.getDescription());
+		return new CodedDiagnosis(instance.getBH_CodedDiagnosis_UU(), instance.getBH_CeilName(), instance.getBH_ICD10(),
+				instance.getBH_Synonyms());
 	}
 
 	@Override
@@ -125,5 +129,22 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 	@Override
 	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return false;
+	}
+
+	public List<MBHCodedDiagnosis> getCodedDiagnosesByIds(List<Integer> ids) {
+		return searchCodedDiagnosesIn(new HashSet<>(ids), MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_ID);
+	}
+
+	public List<MBHCodedDiagnosis> getCodedDiagnosesByUuids(List<String> uuids) {
+		return searchCodedDiagnosesIn(new HashSet<>(uuids), MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_UU);
+	}
+
+	private List<MBHCodedDiagnosis> searchCodedDiagnosesIn(Set<Object> ids, String searchColumn) {
+		List<Object> parameters = new ArrayList<>();
+		String constructPreparedParameter = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
+
+		return new Query(Env.getCtx(), MBHCodedDiagnosis.Table_Name,
+				searchColumn + " IN (" + constructPreparedParameter + ")", null).setParameters(parameters).list();
+
 	}
 }

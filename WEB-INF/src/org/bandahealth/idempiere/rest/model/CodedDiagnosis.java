@@ -28,7 +28,13 @@ public class CodedDiagnosis extends BaseMetadata {
 	public CodedDiagnosis() {
 	}
 
+	public CodedDiagnosis(String uuid, String ceilName) {
+		setUuid(uuid);
+		setCeilName(ceilName);
+	}
+
 	public CodedDiagnosis(MBHCodedDiagnosis entity) {
+		setUuid(entity.getBH_CodedDiagnosis_UU());
 		setCeilName(entity.getBH_CeilName());
 		setCeilId(entity.getBH_CeilId());
 		setConceptClass(entity.getBH_ConceptClass());
@@ -43,11 +49,11 @@ public class CodedDiagnosis extends BaseMetadata {
 		setMoh705bGreaterthan5(entity.getBH_MoH705BGreaterThan5());
 	}
 
-	public CodedDiagnosis(String uuid, String ceilName, String conceptClass, String description) {
+	public CodedDiagnosis(String uuid, String ceilName, String icd10, String synonyms) {
 		setUuid(uuid);
 		setCeilName(ceilName);
-		setConceptClass(conceptClass);
-		setDescription(description);
+		setIcd10(icd10);
+		setSynonyms(synonyms);
 	}
 
 	public String getCeilName() {
