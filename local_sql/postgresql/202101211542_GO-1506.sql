@@ -5,8 +5,8 @@ CREATE TEMP TABLE tmp_ad_user_ids(
 );
 
 -- add clinician role into bh_defaultincludedrole
-INSERT INTO bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, createdby, db_usertype, description, isactive, name, updatedby, included_role_id) VALUES (0, 0, (SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 'b50146e2-c05a-48cb-b053-14c9197b6a62', 100, 'C', null, 'Y', null, 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e0a36cce-cf9f-456b-a431-71bc41285983'));
-INSERT INTO bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, createdby, db_usertype, description, isactive, name, updatedby, included_role_id) VALUES (0, 0, (SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 'd90353f7-d29c-4cdc-b859-5c3a9916b654', 100, 'C', null, 'Y', null, 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '6c608685-6874-47e1-9c55-06a62f67f340'));
+INSERT INTO bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, createdby, db_usertype, description, isactive, name, updatedby, included_role_id) VALUES (0, 0, (SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 'b50146e2-c05a-48cb-b053-14c9197b6a62', 100, 'C', null, 'Y', null, 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e0a36cce-cf9f-456b-a431-71bc41285983')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, createdby, db_usertype, description, isactive, name, updatedby, included_role_id) VALUES (0, 0, (SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 'd90353f7-d29c-4cdc-b859-5c3a9916b654', 100, 'C', null, 'Y', null, 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '6c608685-6874-47e1-9c55-06a62f67f340')) ON CONFLICT DO NOTHING;
 
 DROP TABLE IF EXISTS tmp_ad_role;
 CREATE TEMP TABLE tmp_ad_role
