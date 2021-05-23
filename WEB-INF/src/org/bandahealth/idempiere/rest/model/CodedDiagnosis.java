@@ -16,11 +16,9 @@ public class CodedDiagnosis extends BaseMetadata {
 	private int ceilId;
 	private String conceptClass;
 	private String icd10;
-	private String searchTerms;
 	private int synomedCT;
 	private int synomedNP;
 	private String synonyms;
-	private String shortNames;
 	private String description;
 	private String moh705aLessthan5;
 	private String moh705bGreaterthan5;
@@ -39,11 +37,9 @@ public class CodedDiagnosis extends BaseMetadata {
 		setCeilId(entity.getBH_CeilId());
 		setConceptClass(entity.getBH_ConceptClass());
 		setIcd10(entity.getBH_ICD10());
-		setSearchTerms(entity.getBH_SearchTerms());
 		setSynomedCT(entity.getBH_SynomedCT());
 		setSynomedNP(entity.getBH_SynomedNP());
 		setSynonyms(entity.getBH_Synonyms());
-		setShortNames(entity.getBH_ShortNames());
 		setDescription(entity.getDescription());
 		setMoh705aLessthan5(entity.getBH_MoH705ALessThan5());
 		setMoh705bGreaterthan5(entity.getBH_MoH705BGreaterThan5());
@@ -88,14 +84,6 @@ public class CodedDiagnosis extends BaseMetadata {
 		this.icd10 = icd10;
 	}
 
-	public String getSearchTerms() {
-		return searchTerms;
-	}
-
-	public void setSearchTerms(String searchTerms) {
-		this.searchTerms = searchTerms;
-	}
-
 	public int getSynomedCT() {
 		return synomedCT;
 	}
@@ -118,14 +106,6 @@ public class CodedDiagnosis extends BaseMetadata {
 
 	public void setSynonyms(String synonyms) {
 		this.synonyms = synonyms;
-	}
-
-	public String getShortNames() {
-		return shortNames;
-	}
-
-	public void setShortNames(String shortNames) {
-		this.shortNames = shortNames;
 	}
 
 	public String getDescription() {

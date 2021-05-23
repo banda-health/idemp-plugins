@@ -48,10 +48,6 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 			mCodedDiagnosis.setBH_ICD10(entity.getIcd10());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getSearchTerms())) {
-			mCodedDiagnosis.setBH_SearchTerms(entity.getSearchTerms());
-		}
-
 		if (entity.getSynomedCT() > 0) {
 			mCodedDiagnosis.setBH_SynomedCT(entity.getSynomedCT());
 		}
@@ -62,10 +58,6 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 
 		if (StringUtil.isNotNullAndEmpty(entity.getSynonyms())) {
 			mCodedDiagnosis.setBH_Synonyms(entity.getSynonyms());
-		}
-
-		if (StringUtil.isNotNullAndEmpty(entity.getShortNames())) {
-			mCodedDiagnosis.setBH_ShortNames(entity.getShortNames());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getMoh705aLessthan5())) {
