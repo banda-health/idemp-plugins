@@ -190,17 +190,6 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	}
 
 	@Override
-	public void setBH_SearchTerms(String bh_searchterms) {
-		set_Value(COLUMNNAME_BH_SearchTerms, bh_searchterms);
-
-	}
-
-	@Override
-	public String getBH_SearchTerms() {
-		return (String) get_Value(COLUMNNAME_BH_SearchTerms);
-	}
-
-	@Override
 	public void setBH_SynomedCT(int bh_synomed_ct) {
 		set_Value(COLUMNNAME_BH_SynomedCT, bh_synomed_ct);
 	}
@@ -234,17 +223,6 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	@Override
 	public String getBH_Synonyms() {
 		return (String) get_Value(COLUMNNAME_BH_Synonyms);
-	}
-
-	@Override
-	public void setBH_ShortNames(String bh_shortnames) {
-		set_Value(COLUMNNAME_BH_ShortNames, bh_shortnames);
-
-	}
-
-	@Override
-	public String getBH_ShortNames() {
-		return (String) get_Value(COLUMNNAME_BH_ShortNames);
 	}
 
 	@Override

@@ -171,12 +171,6 @@ public interface I_BH_CodedDiagnosis
 
 	public String getBH_ICD10();
 
-	public static final String COLUMNNAME_BH_SearchTerms = "bh_searchterms";
-
-	public void setBH_SearchTerms (String bh_searchterms);
-
-	public String getBH_SearchTerms();
-
 	public static final String COLUMNNAME_BH_SynomedCT = "bh_synomed_ct";
 
 	public void setBH_SynomedCT (int bh_synomed_ct);
@@ -195,12 +189,6 @@ public interface I_BH_CodedDiagnosis
 
 	public String getBH_Synonyms();
 
-	public static final String COLUMNNAME_BH_ShortNames = "bh_shortnames";
-
-	public void setBH_ShortNames (String bh_shortnames);
-
-	public String getBH_ShortNames();
-	
 	public static final String COLUMNNAME_BH_MoH705A_LessThan5 = "bh_moh705a_lessthan5";
 
 	public void setBH_MoH705ALessThan5 (String bh_moh705a_lessthan5);
