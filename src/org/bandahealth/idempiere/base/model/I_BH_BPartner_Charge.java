@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_BPartner_Info
+/** Generated Interface for BH_BPartner_Charge
  *  @author iDempiere (generated) 
  *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_BPartner_Info 
+public interface I_BH_BPartner_Charge 
 {
 
-    /** TableName=BH_BPartner_Info */
-    public static final String Table_Name = "BH_BPartner_Info";
+    /** TableName=BH_BPartner_Charge */
+    public static final String Table_Name = "BH_BPartner_Charge";
 
-    /** AD_Table_ID=1000032 */
+    /** AD_Table_ID=1000034 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,34 +64,23 @@ public interface I_BH_BPartner_Info
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_BPartner_Info_ID */
-    public static final String COLUMNNAME_BH_BPartner_Info_ID = "BH_BPartner_Info_ID";
+    /** Column name BH_BPartner_Charge_ID */
+    public static final String COLUMNNAME_BH_BPartner_Charge_ID = "BH_BPartner_Charge_ID";
 
-	/** Set Business Partner Info	  */
-	public void setBH_BPartner_Info_ID (int BH_BPartner_Info_ID);
+	/** Set Business Partner Charges	  */
+	public void setBH_BPartner_Charge_ID (int BH_BPartner_Charge_ID);
 
-	/** Get Business Partner Info	  */
-	public int getBH_BPartner_Info_ID();
+	/** Get Business Partner Charges	  */
+	public int getBH_BPartner_Charge_ID();
 
-    /** Column name BH_BPartner_Info_UU */
-    public static final String COLUMNNAME_BH_BPartner_Info_UU = "BH_BPartner_Info_UU";
+    /** Column name BH_BPartner_Charge_UU */
+    public static final String COLUMNNAME_BH_BPartner_Charge_UU = "BH_BPartner_Charge_UU";
 
-	/** Set BH_BPartner_Info_UU	  */
-	public void setBH_BPartner_Info_UU (String BH_BPartner_Info_UU);
+	/** Set BH_BPartner_Charge_UU	  */
+	public void setBH_BPartner_Charge_UU (String BH_BPartner_Charge_UU);
 
-	/** Get BH_BPartner_Info_UU	  */
-	public String getBH_BPartner_Info_UU();
-
-    /** Column name BH_Charge_Info_ID */
-    public static final String COLUMNNAME_BH_Charge_Info_ID = "BH_Charge_Info_ID";
-
-	/** Set Charge Info	  */
-	public void setBH_Charge_Info_ID (int BH_Charge_Info_ID);
-
-	/** Get Charge Info	  */
-	public int getBH_Charge_Info_ID();
-
-	public I_BH_Charge_Info getBH_Charge_Info() throws RuntimeException;
+	/** Get BH_BPartner_Charge_UU	  */
+	public String getBH_BPartner_Charge_UU();
 
     /** Column name C_BPartner_ID */
     public static final String COLUMNNAME_C_BPartner_ID = "C_BPartner_ID";
@@ -107,6 +96,21 @@ public interface I_BH_BPartner_Info
 	public int getC_BPartner_ID();
 
 	public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException;
+
+    /** Column name C_Charge_ID */
+    public static final String COLUMNNAME_C_Charge_ID = "C_Charge_ID";
+
+	/** Set Charge.
+	  * Additional document charges
+	  */
+	public void setC_Charge_ID (int C_Charge_ID);
+
+	/** Get Charge.
+	  * Additional document charges
+	  */
+	public int getC_Charge_ID();
+
+	public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

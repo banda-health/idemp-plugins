@@ -22,32 +22,32 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_BPartner_Info
+/** Generated Model for BH_BPartner_Charge_Info
  *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
-public class X_BH_BPartner_Info extends PO implements I_BH_BPartner_Info, I_Persistent 
+ *  @version Release 8.2 - $Id$ */
+public class X_BH_BPartner_Charge_Info extends PO implements I_BH_BPartner_Charge_Info, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210505L;
+	private static final long serialVersionUID = 20210521L;
 
     /** Standard Constructor */
-    public X_BH_BPartner_Info (Properties ctx, int BH_BPartner_Info_ID, String trxName)
+    public X_BH_BPartner_Charge_Info (Properties ctx, int BH_BPartner_Charge_Info_ID, String trxName)
     {
-      super (ctx, BH_BPartner_Info_ID, trxName);
-      /** if (BH_BPartner_Info_ID == 0)
+      super (ctx, BH_BPartner_Charge_Info_ID, trxName);
+      /** if (BH_BPartner_Charge_Info_ID == 0)
         {
-			setBH_BPartner_Info_ID (0);
+			setBH_BPartner_Charge_ID (0);
+			setBH_BPartner_Charge_Info_ID (0);
 			setBH_Charge_Info_ID (0);
-			setC_BPartner_ID (0);
 			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_BPartner_Info (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_BPartner_Charge_Info (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -69,43 +69,68 @@ public class X_BH_BPartner_Info extends PO implements I_BH_BPartner_Info, I_Pers
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_BPartner_Info[")
+      StringBuilder sb = new StringBuilder ("X_BH_BPartner_Charge_Info[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
 
-	/** Set Business Partner Info.
-		@param BH_BPartner_Info_ID Business Partner Info	  */
-	public void setBH_BPartner_Info_ID (int BH_BPartner_Info_ID)
+	public I_BH_BPartner_Charge getBH_BPartner_Charge() throws RuntimeException
+    {
+		return (I_BH_BPartner_Charge)MTable.get(getCtx(), I_BH_BPartner_Charge.Table_Name)
+			.getPO(getBH_BPartner_Charge_ID(), get_TrxName());	}
+
+	/** Set Business Partner Charges.
+		@param BH_BPartner_Charge_ID Business Partner Charges	  */
+	public void setBH_BPartner_Charge_ID (int BH_BPartner_Charge_ID)
 	{
-		if (BH_BPartner_Info_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_BPartner_Info_ID, null);
+		if (BH_BPartner_Charge_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_BPartner_Charge_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_BPartner_Info_ID, Integer.valueOf(BH_BPartner_Info_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_BPartner_Charge_ID, Integer.valueOf(BH_BPartner_Charge_ID));
 	}
 
-	/** Get Business Partner Info.
-		@return Business Partner Info	  */
-	public int getBH_BPartner_Info_ID () 
+	/** Get Business Partner Charges.
+		@return Business Partner Charges	  */
+	public int getBH_BPartner_Charge_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_BPartner_Info_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_BPartner_Charge_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_BPartner_Info_UU.
-		@param BH_BPartner_Info_UU BH_BPartner_Info_UU	  */
-	public void setBH_BPartner_Info_UU (String BH_BPartner_Info_UU)
+	/** Set Business Partner Charge Info.
+		@param BH_BPartner_Charge_Info_ID Business Partner Charge Info	  */
+	public void setBH_BPartner_Charge_Info_ID (int BH_BPartner_Charge_Info_ID)
 	{
-		set_Value (COLUMNNAME_BH_BPartner_Info_UU, BH_BPartner_Info_UU);
+		if (BH_BPartner_Charge_Info_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_BPartner_Charge_Info_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_BH_BPartner_Charge_Info_ID, Integer.valueOf(BH_BPartner_Charge_Info_ID));
 	}
 
-	/** Get BH_BPartner_Info_UU.
-		@return BH_BPartner_Info_UU	  */
-	public String getBH_BPartner_Info_UU () 
+	/** Get Business Partner Charge Info.
+		@return Business Partner Charge Info	  */
+	public int getBH_BPartner_Charge_Info_ID () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_BPartner_Info_UU);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_BPartner_Charge_Info_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BH_BPartner_Charge_Info_UU.
+		@param BH_BPartner_Charge_Info_UU BH_BPartner_Charge_Info_UU	  */
+	public void setBH_BPartner_Charge_Info_UU (String BH_BPartner_Charge_Info_UU)
+	{
+		set_Value (COLUMNNAME_BH_BPartner_Charge_Info_UU, BH_BPartner_Charge_Info_UU);
+	}
+
+	/** Get BH_BPartner_Charge_Info_UU.
+		@return BH_BPartner_Charge_Info_UU	  */
+	public String getBH_BPartner_Charge_Info_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_BPartner_Charge_Info_UU);
 	}
 
 	public I_BH_Charge_Info getBH_Charge_Info() throws RuntimeException
@@ -128,34 +153,6 @@ public class X_BH_BPartner_Info extends PO implements I_BH_BPartner_Info, I_Pers
 	public int getBH_Charge_Info_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Charge_Info_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-			.getPO(getC_BPartner_ID(), get_TrxName());	}
-
-	/** Set Business Partner .
-		@param C_BPartner_ID 
-		Identifies a Business Partner
-	  */
-	public void setC_BPartner_ID (int C_BPartner_ID)
-	{
-		if (C_BPartner_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_BPartner_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
-	}
-
-	/** Get Business Partner .
-		@return Identifies a Business Partner
-	  */
-	public int getC_BPartner_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_C_BPartner_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

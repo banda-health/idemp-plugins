@@ -3,7 +3,8 @@ package org.bandahealth.idempiere.base.factory;
 import java.sql.ResultSet;
 
 import org.adempiere.base.IModelFactory;
-import org.bandahealth.idempiere.base.model.MBHBPartnerInfo;
+import org.bandahealth.idempiere.base.model.MBHBPartnerCharge;
+import org.bandahealth.idempiere.base.model.MBHBPartnerChargeInfo;
 import org.bandahealth.idempiere.base.model.MBHChargeDefault;
 import org.bandahealth.idempiere.base.model.MBHChargeInfo;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoSuggestion;
@@ -101,8 +102,10 @@ public class BHModelFactory implements IModelFactory {
 			return MBHChargeInfoValueSuggestion.class;
 		} else if (tableName.equalsIgnoreCase(MBHOrderLineInfo.Table_Name)) {
 			return MBHOrderLineInfo.class;
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerInfo.Table_Name)) {
-			return MBHBPartnerInfo.class;
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerChargeInfo.Table_Name)) {
+			return MBHBPartnerChargeInfo.class;
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerCharge.Table_Name)) {
+			return MBHBPartnerCharge.class;
 		}
 
 		return null;
@@ -170,8 +173,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHChargeInfoValueSuggestion(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOrderLineInfo.Table_Name)) {
 			return new MBHOrderLineInfo(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerInfo.Table_Name)) {
-			return new MBHBPartnerInfo(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerChargeInfo.Table_Name)) {
+			return new MBHBPartnerChargeInfo(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerCharge.Table_Name)) {
+			return new MBHBPartnerCharge(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -239,8 +244,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHChargeInfoValueSuggestion(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOrderLineInfo.Table_Name)) {
 			return new MBHOrderLineInfo(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerInfo.Table_Name)) {
-			return new MBHBPartnerInfo(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerChargeInfo.Table_Name)) {
+			return new MBHBPartnerChargeInfo(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerCharge.Table_Name)) {
+			return new MBHBPartnerCharge(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
