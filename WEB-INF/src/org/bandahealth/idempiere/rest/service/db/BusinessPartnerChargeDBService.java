@@ -3,13 +3,13 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHBPartnerCharge;
 import org.bandahealth.idempiere.base.model.MBHBPartnerChargeInfo;
+import org.bandahealth.idempiere.base.model.MBHChargeInfo;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerCharge;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerChargeInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.util.AdempiereSystemError;
 import org.compiere.util.Env;
 
 import java.util.ArrayList;
@@ -22,12 +22,14 @@ import java.util.stream.Collectors;
 public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartnerCharge, MBHBPartnerCharge> {
 	private final BusinessPartnerDBService businessPartnerDBService;
 	private final ChargeDBService chargeDBService;
+	private final ChargeInformationDBService chargeInformationDBService;
 	private final BusinessPartnerChargeInformationDBService businessPartnerChargeInformationDBService;
 
 	public BusinessPartnerChargeDBService() {
 		businessPartnerDBService = new BusinessPartnerDBService();
 		chargeDBService = new ChargeDBService();
 		businessPartnerChargeInformationDBService = new BusinessPartnerChargeInformationDBService();
+		chargeInformationDBService = new ChargeInformationDBService();
 	}
 
 	@Override
@@ -89,11 +91,9 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 						MBHBPartnerChargeInfo.COLUMNNAME_BH_BPartner_Charge_ID,
 						Collections.singleton(businessPartnerCharge.getBH_BPartner_Charge_ID()))
 				.getOrDefault(businessPartnerCharge.getBH_BPartner_Charge_ID(), new ArrayList<>());
-		boolean wereChildrenDeletesSuccessful =
-				businessPartnerChargeInformationList.stream().map(
-						businessPartnerChargeInformation -> businessPartnerChargeInformationDBService
-								.deleteEntity(businessPartnerChargeInformation.getBH_BPartner_Charge_Info_UU()))
-						.anyMatch(successfulDelete -> !successfulDelete);
+		boolean wereChildrenDeletesSuccessful = businessPartnerChargeInformationList.stream().allMatch(
+				businessPartnerChargeInformation -> businessPartnerChargeInformationDBService
+						.deleteEntity(businessPartnerChargeInformation.getBH_BPartner_Charge_Info_UU()));
 		if (!wereChildrenDeletesSuccessful) {
 			throw new AdempiereException("There was an error deleting this business partner's information");
 		}
@@ -108,7 +108,7 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 
 	@Override
 	protected BusinessPartnerCharge createInstanceWithAllFields(MBHBPartnerCharge instance) {
-		return null;
+		return new BusinessPartnerCharge(instance);
 	}
 
 	@Override
@@ -138,6 +138,10 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 						MBHBPartnerChargeInfo.COLUMNNAME_BH_BPartner_Charge_ID, businessPartnerChargeIds);
 		Map<Integer, MCharge_BH> chargesByIds = chargeDBService.getByIds(chargeIds);
 		Map<Integer, MBPartner_BH> businessPartnersByIds = businessPartnerDBService.getByIds(businessPartnerIds);
+		Map<Integer, MBHChargeInfo> chargeInformationByIds = chargeInformationDBService.getByIds(
+				businessPartnerChargeInfoByBusinessPartnerCharge.values().stream().flatMap(
+						businessPartnerChargeInformation -> businessPartnerChargeInformation.stream()
+								.map(MBHBPartnerChargeInfo::getBH_Charge_Info_ID)).collect(Collectors.toSet()));
 
 		return dbModels.stream().map(this::createInstanceWithAllFields).peek(businessPartnerCharge -> {
 			// Set the uuids
@@ -147,7 +151,12 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 			// Set the children
 			businessPartnerCharge.setBusinessPartnerChargeInformationList(businessPartnerChargeInfoByBusinessPartnerCharge
 					.getOrDefault(businessPartnerCharge.getId(), new ArrayList<>()).stream()
-					.map(BusinessPartnerChargeInformation::new).collect(Collectors.toList()));
+					.map(BusinessPartnerChargeInformation::new).peek(
+							businessPartnerChargeInformation -> {
+								businessPartnerChargeInformation.setChargeInformationUuid(
+										chargeInformationByIds.get(businessPartnerChargeInformation.getChargeInformationId())
+												.getBH_Charge_Info_UU());
+							}).collect(Collectors.toList()));
 		}).collect(Collectors.toList());
 	}
 }

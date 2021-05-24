@@ -38,11 +38,10 @@ public class BusinessPartnerRestService {
 		if (businessPartner == null) {
 			return new ArrayList<>();
 		}
-		return businessPartnerChargeDBService
+		return businessPartnerChargeDBService.transformData(businessPartnerChargeDBService
 				.getGroupsByIds(MBHBPartnerCharge::getC_BPartner_ID, MBHBPartnerCharge.COLUMNNAME_C_BPartner_ID,
 						Collections.singleton(businessPartner.getC_BPartner_ID()))
-				.getOrDefault(businessPartner.getC_BPartner_ID(), new ArrayList<>()).stream().map(BusinessPartnerCharge::new)
-				.collect(Collectors.toList());
+				.getOrDefault(businessPartner.getC_BPartner_ID(), new ArrayList<>()));
 	}
 
 	@POST
@@ -61,6 +60,9 @@ public class BusinessPartnerRestService {
 		List<MBHBPartnerCharge> currentCharges = businessPartnerChargeDBService
 				.getGroupsByIds(MBHBPartnerCharge::getC_BPartner_ID, MBHBPartnerCharge.COLUMNNAME_C_BPartner_ID,
 						Collections.singleton(businessPartner.getC_BPartner_ID())).get(businessPartner.getC_BPartner_ID());
+		if (currentCharges == null) {
+			currentCharges = new ArrayList<>();
+		}
 		currentCharges.stream().filter(currentCharge -> savedCharges.stream()
 				.noneMatch(savedCharge -> savedCharge.getUuid().equals(currentCharge.getBH_BPartner_Charge_UU()))).forEach(
 				currentCharge -> businessPartnerChargeDBService.deleteEntity(currentCharge.getBH_BPartner_Charge_UU()));

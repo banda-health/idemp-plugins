@@ -58,7 +58,7 @@ public class BusinessPartnerChargeInformationDBService
 
 	@Override
 	protected BusinessPartnerChargeInformation createInstanceWithAllFields(MBHBPartnerChargeInfo instance) {
-		return null;
+		return new BusinessPartnerChargeInformation(instance);
 	}
 
 	@Override
