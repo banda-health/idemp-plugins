@@ -1,23 +1,23 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MBHChargeInfo;
-import org.bandahealth.idempiere.rest.model.ChargeInfo;
+import org.bandahealth.idempiere.rest.model.ChargeInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
 
-public class ChargeInfoDBService extends BaseDBService<ChargeInfo, MBHChargeInfo> {
-	private final ChargeInfoValueDBService chargeInfoValueDBService;
+public class ChargeInformationDBService extends BaseDBService<ChargeInformation, MBHChargeInfo> {
+	private final ChargeInformationValueDBService chargeInformationValueDBService;
 	private final ReferenceListDBService referenceListDBService;
 
-	public ChargeInfoDBService() {
-		chargeInfoValueDBService = new ChargeInfoValueDBService();
+	public ChargeInformationDBService() {
+		chargeInformationValueDBService = new ChargeInformationValueDBService();
 		referenceListDBService = new ReferenceListDBService();
 	}
 
 	@Override
-	public ChargeInfo saveEntity(ChargeInfo entity) {
+	public ChargeInformation saveEntity(ChargeInformation entity) {
 		MBHChargeInfo chargeInfo = getEntityByUuidFromDB(entity.getUuid());
 		if (chargeInfo == null) {
 			chargeInfo = getModelInstance();
@@ -45,7 +45,7 @@ public class ChargeInfoDBService extends BaseDBService<ChargeInfo, MBHChargeInfo
 		if (entity.getValues() != null) {
 			entity.getValues().forEach(chargeInfoValue -> {
 				chargeInfoValue.setChargeInfoId(entity.getId());
-				chargeInfoValueDBService.saveEntity(chargeInfoValue);
+				chargeInformationValueDBService.saveEntity(chargeInfoValue);
 			});
 		}
 
@@ -58,17 +58,17 @@ public class ChargeInfoDBService extends BaseDBService<ChargeInfo, MBHChargeInfo
 	}
 
 	@Override
-	protected ChargeInfo createInstanceWithDefaultFields(MBHChargeInfo instance) {
+	protected ChargeInformation createInstanceWithDefaultFields(MBHChargeInfo instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected ChargeInfo createInstanceWithAllFields(MBHChargeInfo instance) {
-		return new ChargeInfo(instance);
+	protected ChargeInformation createInstanceWithAllFields(MBHChargeInfo instance) {
+		return new ChargeInformation(instance);
 	}
 
 	@Override
-	protected ChargeInfo createInstanceWithSearchFields(MBHChargeInfo instance) {
+	protected ChargeInformation createInstanceWithSearchFields(MBHChargeInfo instance) {
 		return createInstanceWithAllFields(instance);
 	}
 

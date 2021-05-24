@@ -10,7 +10,7 @@ import java.util.List;
 public class Charge extends BaseEntity {
 	private ReferenceList subType;
 	private boolean needAdditionalVisitInformation;
-	private List<ChargeInfo> chargeInfoList = new ArrayList<>();
+	private List<ChargeInformation> chargeInformationList = new ArrayList<>();
 	private Account account;
 	private ChargeType chargeType;
 
@@ -54,12 +54,12 @@ public class Charge extends BaseEntity {
 		this.subType = subType;
 	}
 
-	public List<ChargeInfo> getChargeInfoList() {
-		return chargeInfoList;
+	public List<ChargeInformation> getChargeInfoList() {
+		return chargeInformationList;
 	}
 
-	public void setChargeInfoList(List<ChargeInfo> chargeInfoList) {
-		this.chargeInfoList = chargeInfoList;
+	public void setChargeInfoList(List<ChargeInformation> chargeInformationList) {
+		this.chargeInformationList = chargeInformationList;
 	}
 
 	public Account getAccount() {

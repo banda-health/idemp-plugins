@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.ChargeInfoSuggestion;
+import org.bandahealth.idempiere.rest.model.ChargeInformationSuggestion;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
-import org.bandahealth.idempiere.rest.service.db.ChargeInfoSuggestionDBService;
+import org.bandahealth.idempiere.rest.service.db.ChargeInformationSuggestionDBService;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,22 +19,22 @@ import java.util.List;
 @Path(IRestConfigs.CHARGE_INFO_SUGGESTION_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ChargeInfoSuggestionRestService extends BaseEntityRestService<ChargeInfoSuggestion> {
-	private final ChargeInfoSuggestionDBService chargeInfoSuggestionDBService;
+public class ChargeInfoSuggestionRestService extends BaseEntityRestService<ChargeInformationSuggestion> {
+	private final ChargeInformationSuggestionDBService chargeInformationSuggestionDBService;
 
 	public ChargeInfoSuggestionRestService() {
-		chargeInfoSuggestionDBService = new ChargeInfoSuggestionDBService();
+		chargeInformationSuggestionDBService = new ChargeInformationSuggestionDBService();
 	}
 
 	@GET
-	public List<ChargeInfoSuggestion> get() {
-		return chargeInfoSuggestionDBService.get();
+	public List<ChargeInformationSuggestion> get() {
+		return chargeInformationSuggestionDBService.get();
 	}
 
 	@Override
 	@GET
 	@Path("all")
-	public BaseListResponse<ChargeInfoSuggestion> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+	public BaseListResponse<ChargeInformationSuggestion> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
 			@QueryParam("filter") String filterJson) {
 		throw new UnsupportedOperationException("Not implemented");
@@ -43,20 +43,20 @@ public class ChargeInfoSuggestionRestService extends BaseEntityRestService<Charg
 	@Override
 	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
-	public BaseListResponse<ChargeInfoSuggestion> search(String value, int page, int size, String sortColumn, String sortOrder) {
+	public BaseListResponse<ChargeInformationSuggestion> search(String value, int page, int size, String sortColumn, String sortOrder) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	@GET
 	@Path(IRestConfigs.UUID_PATH)
-	public ChargeInfoSuggestion getEntity(@PathParam("uuid") String uuid) {
+	public ChargeInformationSuggestion getEntity(@PathParam("uuid") String uuid) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	@POST
-	public ChargeInfoSuggestion saveEntity(ChargeInfoSuggestion entity) {
+	public ChargeInformationSuggestion saveEntity(ChargeInformationSuggestion entity) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 }

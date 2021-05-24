@@ -8,8 +8,8 @@ import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Account;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Charge;
-import org.bandahealth.idempiere.rest.model.ChargeInfo;
-import org.bandahealth.idempiere.rest.model.ChargeInfoValue;
+import org.bandahealth.idempiere.rest.model.ChargeInformation;
+import org.bandahealth.idempiere.rest.model.ChargeInformationValue;
 import org.bandahealth.idempiere.rest.model.ChargeType;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
@@ -30,15 +30,15 @@ import java.util.stream.Collectors;
 public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 	private final AccountDBService accountDBService;
 	private final ChargeTypeDBService chargeTypeDBService;
-	private final ChargeInfoDBService chargeInfoDBService;
-	private final ChargeInfoValueDBService chargeInfoValueDBService;
+	private final ChargeInformationDBService chargeInformationDBService;
+	private final ChargeInformationValueDBService chargeInformationValueDBService;
 	private final ReferenceListDBService referenceListDBService;
 
 	public ChargeDBService() {
 		accountDBService = new AccountDBService();
 		chargeTypeDBService = new ChargeTypeDBService();
-		chargeInfoDBService = new ChargeInfoDBService();
-		chargeInfoValueDBService = new ChargeInfoValueDBService();
+		chargeInformationDBService = new ChargeInformationDBService();
+		chargeInformationValueDBService = new ChargeInformationValueDBService();
 		referenceListDBService = new ReferenceListDBService();
 	}
 
@@ -112,9 +112,9 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 
 		// If it has info & values, we need to update those
 		if (entity.getChargeInfoList() != null) {
-			entity.getChargeInfoList().forEach(chargeInfo -> {
-				chargeInfo.setChargeId(entity.getId());
-				chargeInfoDBService.saveEntity(chargeInfo);
+			entity.getChargeInfoList().forEach(chargeInformation -> {
+				chargeInformation.setChargeId(entity.getId());
+				chargeInformationDBService.saveEntity(chargeInformation);
 			});
 		}
 
@@ -158,7 +158,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		}
 		Set<Integer> chargeIds = dbModels.stream().map(MCharge_BH::getC_Charge_ID).collect(Collectors.toSet());
 		// Batch call to get charge info
-		Map<Integer, List<MBHChargeInfo>> chargeInfoByCharge = chargeInfoDBService
+		Map<Integer, List<MBHChargeInfo>> chargeInfoByCharge = chargeInformationDBService
 				.getGroupsByIds(MBHChargeInfo::getC_Charge_ID, MBHChargeInfo.COLUMNNAME_C_Charge_ID, chargeIds);
 
 		// Batch call to get accounts
@@ -169,7 +169,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		Set<Integer> chargeInfoIds = chargeInfoByCharge.values().stream()
 				.flatMap(chargeInfoList -> chargeInfoList.stream().map(MBHChargeInfo::getBH_Charge_Info_ID))
 				.collect(Collectors.toSet());
-		Map<Integer, List<MBHChargeInfoValue>> chargeInfoValueListsByChargeInfo = chargeInfoValueDBService
+		Map<Integer, List<MBHChargeInfoValue>> chargeInfoValueListsByChargeInfo = chargeInformationValueDBService
 				.getGroupsByIds(MBHChargeInfoValue::getBH_Charge_Info_ID, MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID,
 						chargeInfoIds);
 
@@ -200,20 +200,20 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 			}
 			if (chargeInfoByCharge.containsKey(charge.get_ID())) {
 				chargeToReturn.setChargeInfoList(chargeInfoByCharge.get(charge.getC_Charge_ID()).stream().map(chargeInfo -> {
-					ChargeInfo chargeInfoToReturn = new ChargeInfo(chargeInfo);
+					ChargeInformation chargeInformationToReturn = new ChargeInformation(chargeInfo);
 
 					// Now fill in the child data
 					if (!StringUtil.isNullOrEmpty(chargeInfo.getBH_ChargeInfoDataType())) {
-						chargeInfoToReturn
+						chargeInformationToReturn
 								.setDataType(new ReferenceList(dataTypesByValue.get(chargeInfo.getBH_ChargeInfoDataType())));
 					}
 					if (chargeInfoValueListsByChargeInfo.containsKey(chargeInfo.get_ID())) {
-						chargeInfoToReturn.setValues(
-								chargeInfoValueListsByChargeInfo.get(chargeInfo.get_ID()).stream().map(ChargeInfoValue::new)
+						chargeInformationToReturn.setValues(
+								chargeInfoValueListsByChargeInfo.get(chargeInfo.get_ID()).stream().map(ChargeInformationValue::new)
 										.collect(Collectors.toList()));
 					}
 
-					return chargeInfoToReturn;
+					return chargeInformationToReturn;
 				}).collect(Collectors.toList()));
 			}
 			if (accountsById.containsKey(charge.getC_ElementValue_ID())) {

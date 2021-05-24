@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValue;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
 
-public class ChargeInfoValueSuggestion extends BaseEntity {
+public class ChargeInformationValueSuggestion extends BaseEntity {
 	private int lineNumber;
 	@JsonIgnore
 	private int chargeInfoSuggestionId;
 
-	public ChargeInfoValueSuggestion(MBHChargeInfoValueSuggestion entity) {
+	public ChargeInformationValueSuggestion(MBHChargeInfoValueSuggestion entity) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 		setChargeInfoSuggestionId(entity.getBH_Charge_Info_Suggestion_ID());
 		setLineNumber(entity.getLine());

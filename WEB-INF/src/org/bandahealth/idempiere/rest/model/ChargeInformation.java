@@ -2,33 +2,33 @@ package org.bandahealth.idempiere.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MBHChargeInfo;
-import org.bandahealth.idempiere.base.model.MBHChargeInfoSuggestion;
 import org.compiere.model.MRefList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChargeInfoSuggestion extends BaseEntity {
+public class ChargeInformation extends BaseEntity {
 	private boolean shouldFillFromPatient;
 	private int lineNumber;
 	private ReferenceList dataType;
+	private List<ChargeInformationValue> values = new ArrayList<>();
 	@JsonIgnore
-	private String dataTypeValue;
-	private List<ChargeInfoValueSuggestion> values = new ArrayList<>();
-	private ReferenceList subType;
-	@JsonIgnore
-	private String subTypeValue;
+	private int chargeId;
 
-	public ChargeInfoSuggestion(MBHChargeInfoSuggestion entity) {
+	/**
+	 * Empty constructor needed for deserialization
+	 */
+	public ChargeInformation() {}
+
+	public ChargeInformation(MBHChargeInfo entity) {
 		this(entity, null);
 	}
 
-	public ChargeInfoSuggestion(MBHChargeInfoSuggestion entity, MRefList dataType) {
+	public ChargeInformation(MBHChargeInfo entity, MRefList dataType) {
 		super(entity, entity.getName(), entity.getDescription(), null);
+		setChargeId(entity.getC_Charge_ID());
 		setShouldFillFromPatient(entity.isBH_FillFromPatient());
 		setLineNumber(entity.getLine());
-		setDataTypeValue(entity.getBH_ChargeInfoDataType());
-		setSubTypeValue(entity.getBH_SubType());
 		if (dataType != null) {
 			setDataType(new ReferenceList(dataType));
 		}
@@ -58,35 +58,19 @@ public class ChargeInfoSuggestion extends BaseEntity {
 		this.dataType = dataType;
 	}
 
-	public List<ChargeInfoValueSuggestion> getValues() {
+	public List<ChargeInformationValue> getValues() {
 		return values;
 	}
 
-	public void setValues(List<ChargeInfoValueSuggestion> values) {
+	public void setValues(List<ChargeInformationValue> values) {
 		this.values = values;
 	}
 
-	public ReferenceList getSubType() {
-		return subType;
+	public int getChargeId() {
+		return chargeId;
 	}
 
-	public void setSubType(ReferenceList subType) {
-		this.subType = subType;
-	}
-
-	public String getDataTypeValue() {
-		return dataTypeValue;
-	}
-
-	public void setDataTypeValue(String dataTypeValue) {
-		this.dataTypeValue = dataTypeValue;
-	}
-
-	public String getSubTypeValue() {
-		return subTypeValue;
-	}
-
-	public void setSubTypeValue(String subTypeValue) {
-		this.subTypeValue = subTypeValue;
+	public void setChargeId(int chargeId) {
+		this.chargeId = chargeId;
 	}
 }

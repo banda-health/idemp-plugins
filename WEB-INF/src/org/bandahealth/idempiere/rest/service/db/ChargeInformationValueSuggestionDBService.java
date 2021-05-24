@@ -1,13 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
-import org.bandahealth.idempiere.rest.model.ChargeInfoValueSuggestion;
+import org.bandahealth.idempiere.rest.model.ChargeInformationValueSuggestion;
 import org.compiere.util.Env;
 
-public class ChargeInfoValueSuggestionDBService
-		extends BaseDBService<ChargeInfoValueSuggestion, MBHChargeInfoValueSuggestion> {
+public class ChargeInformationValueSuggestionDBService
+		extends BaseDBService<ChargeInformationValueSuggestion, MBHChargeInfoValueSuggestion> {
 	@Override
-	public ChargeInfoValueSuggestion saveEntity(ChargeInfoValueSuggestion entity) {
+	public ChargeInformationValueSuggestion saveEntity(ChargeInformationValueSuggestion entity) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
@@ -17,17 +17,17 @@ public class ChargeInfoValueSuggestionDBService
 	}
 
 	@Override
-	protected ChargeInfoValueSuggestion createInstanceWithDefaultFields(MBHChargeInfoValueSuggestion instance) {
+	protected ChargeInformationValueSuggestion createInstanceWithDefaultFields(MBHChargeInfoValueSuggestion instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected ChargeInfoValueSuggestion createInstanceWithAllFields(MBHChargeInfoValueSuggestion instance) {
-		return new ChargeInfoValueSuggestion(instance);
+	protected ChargeInformationValueSuggestion createInstanceWithAllFields(MBHChargeInfoValueSuggestion instance) {
+		return new ChargeInformationValueSuggestion(instance);
 	}
 
 	@Override
-	protected ChargeInfoValueSuggestion createInstanceWithSearchFields(MBHChargeInfoValueSuggestion instance) {
+	protected ChargeInformationValueSuggestion createInstanceWithSearchFields(MBHChargeInfoValueSuggestion instance) {
 		return createInstanceWithAllFields(instance);
 	}
 

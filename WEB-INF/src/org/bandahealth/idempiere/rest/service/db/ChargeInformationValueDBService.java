@@ -1,14 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValue;
-import org.bandahealth.idempiere.rest.model.ChargeInfoValue;
+import org.bandahealth.idempiere.rest.model.ChargeInformationValue;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
 
-public class ChargeInfoValueDBService extends BaseDBService<ChargeInfoValue, MBHChargeInfoValue> {
+public class ChargeInformationValueDBService extends BaseDBService<ChargeInformationValue, MBHChargeInfoValue> {
 	@Override
-	public ChargeInfoValue saveEntity(ChargeInfoValue entity) {
+	public ChargeInformationValue saveEntity(ChargeInformationValue entity) {
 		MBHChargeInfoValue chargeInfoValue = getEntityByUuidFromDB(entity.getUuid());
 		if (chargeInfoValue == null) {
 			chargeInfoValue = getModelInstance();
@@ -33,17 +33,17 @@ public class ChargeInfoValueDBService extends BaseDBService<ChargeInfoValue, MBH
 	}
 
 	@Override
-	protected ChargeInfoValue createInstanceWithDefaultFields(MBHChargeInfoValue instance) {
+	protected ChargeInformationValue createInstanceWithDefaultFields(MBHChargeInfoValue instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected ChargeInfoValue createInstanceWithAllFields(MBHChargeInfoValue instance) {
-		return new ChargeInfoValue(instance);
+	protected ChargeInformationValue createInstanceWithAllFields(MBHChargeInfoValue instance) {
+		return new ChargeInformationValue(instance);
 	}
 
 	@Override
-	protected ChargeInfoValue createInstanceWithSearchFields(MBHChargeInfoValue instance) {
+	protected ChargeInformationValue createInstanceWithSearchFields(MBHChargeInfoValue instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
