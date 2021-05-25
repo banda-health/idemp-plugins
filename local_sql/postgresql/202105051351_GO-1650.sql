@@ -227,14 +227,14 @@ create table if not exists bh_orderline_info
 		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
 );
 
-create table if not exists bh_bpartner_info
+create table if not exists bh_bpartner_charge
 (
 	ad_client_id numeric(10) not null,
 	ad_org_id numeric(10) not null,
-	bh_bpartner_info_id numeric(10) not null,
-	bh_bpartner_info_uu varchar(36) default NULL::character varying,
-	bh_charge_info_id numeric(10) not null,
+	bh_bpartner_charge_id numeric(10) not null,
+	bh_bpartner_charge_uu varchar(36) default NULL::character varying,
 	c_bpartner_id numeric(10) not null,
+	c_charge_id numeric(10) not null,
 	created timestamp default statement_timestamp() not null,
 	createdby numeric(10) not null,
 	description varchar(255) default NULL::character varying,
@@ -242,25 +242,64 @@ create table if not exists bh_bpartner_info
 	name varchar(60) not null,
 	updated timestamp default statement_timestamp() not null,
 	updatedby numeric(10) not null,
-	constraint bh_bpartner_info_key
-		primary key (bh_bpartner_info_id),
-	constraint bh_bpartner_info_uu_idx
-		unique (bh_bpartner_info_uu),
-	constraint adclient_bhbpartnerinfo
+	constraint bh_bpartner_charge_key
+		primary key (bh_bpartner_charge_id),
+	constraint bh_bpartner_charge_uu_idx
+		unique (bh_bpartner_charge_uu),
+	constraint adclient_bhbpartnercharge
 		foreign key (ad_client_id) references ad_client
 			deferrable initially deferred,
-	constraint adorg_bhbpartnerinfo
+	constraint adorg_bhbpartnercharge
 		foreign key (ad_org_id) references ad_org
 			deferrable initially deferred,
-	constraint bhchargeinfo_bhbpartnerinfo
-		foreign key (bh_charge_info_id) references bh_charge_info
-			deferrable initially deferred,
-	constraint cbpartner_bhbpartnerinfo
+	constraint cbpartner_bhbpartnercharge
 		foreign key (c_bpartner_id) references c_bpartner
 			deferrable initially deferred,
-	constraint bh_bpartner_info_isactive_check
-		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
+	constraint ccharge_bhbpartnercharge
+		foreign key (c_charge_id) references c_charge
+			deferrable initially deferred
 );
+
+alter table bh_bpartner_charge
+	add constraint bh_bpartner_charge_isactive_check
+		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
+
+create table if not exists bh_bpartner_charge_info
+(
+	ad_client_id numeric(10) not null,
+	ad_org_id numeric(10) not null,
+	bh_bpartner_charge_id numeric(10) not null,
+	bh_bpartner_charge_info_id numeric(10) not null,
+	bh_bpartner_charge_info_uu varchar(36) default NULL::character varying,
+	bh_charge_info_id numeric(10) not null,
+	created timestamp default statement_timestamp() not null,
+	createdby numeric(10) not null,
+	description varchar(255) default NULL::character varying,
+	isactive char default 'Y'::bpchar not null,
+	name varchar(60) not null,
+	updated timestamp default statement_timestamp() not null,
+	updatedby numeric(10) not null,
+	constraint bh_bpartner_charge_info_key
+		primary key (bh_bpartner_charge_info_id),
+	constraint bh_bpartner_charge_info_uu_idx
+		unique (bh_bpartner_charge_info_uu),
+	constraint adclient_bhbpartnerchargeinfo
+		foreign key (ad_client_id) references ad_client
+			deferrable initially deferred,
+	constraint adorg_bhbpartnerchargeinfo
+		foreign key (ad_org_id) references ad_org
+			deferrable initially deferred,
+	constraint bhbpartnercharge_bhbpartnercha
+		foreign key (bh_bpartner_charge_id) references bh_bpartner_charge
+			deferrable initially deferred,
+	constraint bhchargeinfo_bhbpartnerchargei
+		foreign key (bh_charge_info_id) references bh_charge_info
+			deferrable initially deferred
+);
+
+alter table bh_bpartner_charge_info
+	add constraint bh_bpartner_charge_info_isactive_check
+		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
 -- Go add default charges for all clients, and update all clients to have the renamed expense category charge type
 UPDATE c_chargetype SET name = 'Default Expense Category - DO NOT CHANGE' WHERE name = 'Default Category';
