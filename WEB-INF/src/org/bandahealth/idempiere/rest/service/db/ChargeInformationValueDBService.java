@@ -19,6 +19,7 @@ public class ChargeInformationValueDBService extends BaseDBService<ChargeInforma
 		chargeInfoValue.setName(entity.getName());
 		chargeInfoValue.setLine(entity.getLineNumber());
 		chargeInfoValue.setBH_Charge_Info_ID(entity.getChargeInfoId());
+		chargeInfoValue.setIsActive(entity.getIsActive());
 
 		ModelUtil.setPropertyIfPresent(entity.getDescription(), chargeInfoValue::setDescription);
 

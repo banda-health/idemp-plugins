@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.compiere.model.MRefList;
@@ -13,6 +14,8 @@ public class Charge extends BaseEntity {
 	private List<ChargeInformation> chargeInformationList = new ArrayList<>();
 	private Account account;
 	private ChargeType chargeType;
+	@JsonProperty("isLocked")
+	private boolean isLocked;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -76,5 +79,13 @@ public class Charge extends BaseEntity {
 
 	public void setChargeType(ChargeType chargeType) {
 		this.chargeType = chargeType;
+	}
+
+	public boolean isLocked() {
+		return isLocked;
+	}
+
+	public void setLocked(boolean locked) {
+		isLocked = locked;
 	}
 }

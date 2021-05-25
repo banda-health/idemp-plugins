@@ -29,6 +29,7 @@ public class ChargeInformationDBService extends BaseDBService<ChargeInformation,
 		chargeInfo.setBH_FillFromPatient(entity.isShouldFillFromPatient());
 		chargeInfo.setLine(entity.getLineNumber());
 		chargeInfo.setName(entity.getName());
+		chargeInfo.setIsActive(entity.getIsActive());
 		if (entity.getDataType() != null) {
 			MRefList dataType = referenceListDBService.getEntityByUuidFromDB(entity.getDataType().getUuid());
 			if (dataType != null) {

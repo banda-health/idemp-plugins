@@ -71,13 +71,15 @@ public class BusinessPartnerRestService {
 	}
 
 	@POST
-	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES + "/single")
+	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES + "/{businessPartnerChargeUuid}")
 	public BusinessPartnerCharge saveSingleCharge(@PathParam("uuid") String uuid,
+			@PathParam("businessPartnerChargeUuid") String businessPartnerChargeUuid,
 			BusinessPartnerCharge businessPartnerCharge) {
 		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByUuidFromDB(uuid);
 		if (businessPartner == null) {
 			return null;
 		}
+		businessPartnerCharge.setUuid(businessPartnerChargeUuid);
 		businessPartnerCharge.setBusinessPartnerId(businessPartner.getC_BPartner_ID());
 		return businessPartnerChargeDBService.saveEntity(businessPartnerCharge);
 	}

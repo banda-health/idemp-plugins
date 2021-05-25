@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
 
 @XmlRootElement(name = "payment")
 @JsonInclude(value = Include.NON_NULL)
@@ -16,6 +18,8 @@ public class Payment extends BaseMetadata {
 	private int chargeId;
 	private int orderId;
 	private BigDecimal payAmount;
+	@JsonIgnore
+	private String tenderType;
 	private PaymentType paymentType;
 	private String description;
 	private NHIF nhif;
@@ -28,7 +32,7 @@ public class Payment extends BaseMetadata {
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Patient patient, int orderId, BigDecimal payAmount, PaymentType paymentType, String description, NHIF nhif,
-			String docStatus, String transactionDate, BigDecimal tenderAmount) {
+			String docStatus, String transactionDate, BigDecimal tenderAmount, MPayment_BH entity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.patient = patient;
@@ -40,6 +44,7 @@ public class Payment extends BaseMetadata {
 		this.docStatus = docStatus;
 		this.transactionDate = transactionDate;
 		this.tenderAmount = tenderAmount;
+		setTenderType(entity.getTenderType());
 	}
 
 	public Patient getPatient() {
@@ -120,5 +125,13 @@ public class Payment extends BaseMetadata {
 
 	public void setTenderAmount(BigDecimal tenderAmount) {
 		this.tenderAmount = tenderAmount;
+	}
+
+	public String getTenderType() {
+		return tenderType;
+	}
+
+	public void setTenderType(String tenderType) {
+		this.tenderType = tenderType;
 	}
 }
