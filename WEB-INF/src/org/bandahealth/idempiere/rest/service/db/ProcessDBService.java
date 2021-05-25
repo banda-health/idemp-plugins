@@ -151,7 +151,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 				param.getDescription(), param.getAD_Element_ID(), param.getAD_Reference_ID(),
 				param.getAD_Reference_Value_ID(), param.getAD_Val_Rule_ID(), param.getDefaultValue(),
 				param.getDefaultValue2(), param.getDisplayLogic(), param.getEntityType(), param.getFieldLength(),
-				param.isEncrypted(), param.isMandatory(), param.isRange(), param.getMandatoryLogic());
+				param.isEncrypted(), param.isMandatory(), param.isRange(), param.getMandatoryLogic(), param);
 	}
 
 	private static ProcessInfoParameter[] getInfoParameters(List<BHProcessInfoParameter> params) {
