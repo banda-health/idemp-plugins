@@ -281,7 +281,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			// Determine which processes are visible in the dropdown based on the buttons configured in iDempiere
 			List<MDashboardButtonGroupButton> processButtons =
 					new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name,
-							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).list();
+							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).setOnlyActiveRecords(true)
+							.list();
 			Set<Integer> processIdsFromProcessButtons =
 					processButtons.stream().map(MDashboardButtonGroupButton::getAD_Process_ID).collect(Collectors.toSet());
 			// Determine which processes the user has access to
