@@ -43,7 +43,7 @@ public class OrderLine extends BaseMetadata {
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Integer orderId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
 			String expiration, String instructions, MOrderLine_BH entity) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
+		super(entity);
 
 		this.orderId = orderId;
 		this.product = product;
@@ -59,7 +59,7 @@ public class OrderLine extends BaseMetadata {
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			ExpenseCategory expenseCategory, Integer orderId, BigDecimal price, BigDecimal quantity,
 			BigDecimal lineNetAmount, MOrderLine_BH entity) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
+		super(entity);
 
 		this.expenseCategory = expenseCategory;
 		this.orderId = orderId;

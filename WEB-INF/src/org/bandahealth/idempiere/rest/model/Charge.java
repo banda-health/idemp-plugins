@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
@@ -16,6 +17,10 @@ public class Charge extends BaseEntity {
 	private ChargeType chargeType;
 	@JsonProperty("isLocked")
 	private boolean isLocked;
+	@JsonIgnore
+	private int chargeTypeId;
+	@JsonIgnore
+	private String subTypeValue;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -33,6 +38,8 @@ public class Charge extends BaseEntity {
 	public Charge(MCharge_BH entity, MChargeType_BH chargeType, MRefList subType) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 		setNeedAdditionalVisitInformation(entity.isBH_NeedAdditionalVisitInfo());
+		setChargeTypeId(entity.getC_ChargeType_ID());
+		setSubTypeValue(entity.getBH_SubType());
 		if (chargeType != null) {
 			setChargeType(new ChargeType(chargeType));
 		}
@@ -87,5 +94,21 @@ public class Charge extends BaseEntity {
 
 	public void setLocked(boolean locked) {
 		isLocked = locked;
+	}
+
+	public int getChargeTypeId() {
+		return chargeTypeId;
+	}
+
+	public void setChargeTypeId(int chargeTypeId) {
+		this.chargeTypeId = chargeTypeId;
+	}
+
+	public String getSubTypeValue() {
+		return subTypeValue;
+	}
+
+	public void setSubTypeValue(String subTypeValue) {
+		this.subTypeValue = subTypeValue;
 	}
 }

@@ -8,21 +8,26 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHChargeInfo;
 import org.bandahealth.idempiere.base.model.MBHOrderLineInfo;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Charge;
 import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.OrderLineChargeInformation;
 import org.bandahealth.idempiere.rest.model.Product;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MProduct;
+import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Ref_List;
 import org.compiere.util.Env;
 
 /**
@@ -34,6 +39,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 	private final OrderLineChargeInformationDBService orderLineChargeInformationDBService;
 	private final ChargeDBService chargeDBService;
+	private final ChargeInformationDBService chargeInformationDBService;
+	private final ReferenceListDBService referenceListDBService;
 	private ProductDBService productDBService;
 	private ExpenseCategoryDBService expenseCategoryDBService;
 	private AccountDBService accountDBService;
@@ -44,6 +51,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		this.accountDBService = new AccountDBService();
 		orderLineChargeInformationDBService = new OrderLineChargeInformationDBService();
 		chargeDBService = new ChargeDBService();
+		chargeInformationDBService = new ChargeInformationDBService();
+		referenceListDBService = new ReferenceListDBService();
 	}
 
 	@Override
@@ -193,15 +202,27 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Map<Integer, MCharge_BH> chargesById = chargeDBService.getByIds(chargeIds);
 		Map<Integer, List<MBHOrderLineInfo>> orderLineChargeInformationByOrderLine = orderLineChargeInformationDBService
 				.getGroupsByIds(MBHOrderLineInfo::getC_OrderLine_ID, MBHOrderLineInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
+		Map<String, MRefList> chargeSubTypeByValue = referenceListDBService
+				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
+						chargesById.values().stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet())).stream()
+				.collect(Collectors.toMap(X_AD_Ref_List::getValue, referenceList -> referenceList));
+		Map<Integer, MBHChargeInfo> chargeInformationById = chargeInformationDBService.getByIds(
+				orderLineChargeInformationByOrderLine.values().stream().flatMap(
+						orderLineChargeInformationList -> orderLineChargeInformationList.stream()
+								.map(MBHOrderLineInfo::getBH_Charge_Info_ID)).collect(Collectors.toSet()));
 
 		orderLines.forEach(orderLine -> {
 			if (orderLine.getChargeId() > 0) {
 				orderLine.setCharge(new Charge(chargesById.get(orderLine.getChargeId())));
+				orderLine.getCharge()
+						.setSubType(new ReferenceList(chargeSubTypeByValue.get(orderLine.getCharge().getSubTypeValue())));
 			}
 			if (orderLineChargeInformationByOrderLine.containsKey(orderLine.getId())) {
 				orderLine.setChargeInformationList(
 						orderLineChargeInformationByOrderLine.get(orderLine.getId()).stream().map(OrderLineChargeInformation::new)
-								.collect(Collectors.toList()));
+								.peek(orderLineChargeInformation -> orderLineChargeInformation.setChargeInformationUuid(
+										chargeInformationById.get(orderLineChargeInformation.getChargeInformationId())
+												.getBH_Charge_Info_UU())).collect(Collectors.toList()));
 			}
 		});
 
