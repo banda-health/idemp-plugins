@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Drug Profit/Loss" language="groovy" pageWidth="595" pageHeight="850" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
@@ -28,10 +28,10 @@
     p.qtyordered AS Quantity_Ordered,
     p.pricesold AS Price_Sold,
     p.pricebought AS Price_Bought,
-    p.dateordered AS Date_Ordered
+    p.bh_visitdate AS Date_Ordered
     FROM bh_drug_profit_loss_v AS p
 WHERE ad_client_id =  $P{AD_CLIENT_ID}   
-AND dateordered BETWEEN $P{beginDate} AND  $P{endDate}]]>
+AND bh_visitdate BETWEEN $P{beginDate} AND  $P{endDate}]]>
 	</queryString>
 	<field name="Client_Name" class="java.lang.String"/>
 	<field name="Product_Name" class="java.lang.String"/>

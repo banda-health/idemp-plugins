@@ -52,7 +52,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString>
 			<![CDATA[select
-    date(corder.dateordered) as calendar,
+    date(corder.bh_visitdate) as calendar,
     corder.description as diagnosis,
     count(corder.description) as noofdiagnosis
 from c_order corder
@@ -60,7 +60,7 @@ from c_order corder
 where
     corder.ad_client_id = $P{AD_CLIENT_ID} and corder.description is not null
     and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
-    and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(corder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by calendar, diagnosis
 order by calendar asc;]]>
 		</queryString>
@@ -80,14 +80,13 @@ order by calendar asc;]]>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
-    date(corder.dateordered) as calendar
+    date(corder.bh_visitdate) as calendar
 from c_order corder
     inner join c_bpartner patient on corder.c_bpartner_id = patient.c_bpartner_id
 where
     corder.ad_client_id = $P{AD_CLIENT_ID} and corder.description is not null
     and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
-    and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}));
-]]>
+    and (date(corder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}));]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="calendar"/>

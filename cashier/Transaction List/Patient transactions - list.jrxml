@@ -79,7 +79,7 @@ from
 (
 select co.c_order_id,
        cb.c_bpartner_id,
-       date(co.dateordered) as bill_date,
+       date(co.bh_visitdate) as bill_date,
        cb.name as patientname,
        cb.nhif_number,
        co.totallines as lineitemtotals,
@@ -89,7 +89,7 @@ from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
     left join ad_ref_list nhifType on nhifType.value = cb.bh_nhif_type
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
       AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
 order by 1
@@ -101,7 +101,7 @@ from c_payment p
 inner join c_order co on co.c_order_id = p.bh_c_order_id
 where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
 and ((p.docstatus = 'CO')
-AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 or (p.docstatus = 'DR' and p.bh_processing = 'Y')
 or (co.docstatus = 'CO' and p.bh_processing = 'N'))
 and ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
@@ -361,7 +361,7 @@ from
 (
 select co.c_order_id,
        cb.c_bpartner_id,
-       date(co.dateordered) as bill_date,
+       date(co.bh_visitdate) as bill_date,
        cb.name as patientname,
        cb.nhif_number,
        co.totallines as lineitemtotals,
@@ -369,7 +369,7 @@ select co.c_order_id,
 from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID})
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
       AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
 order by 1

@@ -63,15 +63,16 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
 			<![CDATA[select
-    date(invoice.dateordered) as bill_date,
+    date(o.bh_visitdate) as bill_date,
     cb.name as patientname,
     invoice.grandtotal as billtotal
 from c_invoice invoice
     inner join c_bpartner cb on invoice.c_bpartner_id = cb.c_bpartner_id
+    join c_order o on invoice.c_order_id = o.c_order_id
 where invoice.ad_client_id = $P{AD_CLIENT_ID}
     and invoice.ispaid = 'N' and invoice.c_payment_id is null
     and invoice.docstatus = 'CO'
-    and date(invoice.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})
+    and date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})
 order by cb.name asc;]]>
 		</queryString>
 		<field name="bill_date" class="java.sql.Date">

@@ -55,7 +55,7 @@
 		</parameter>
 		<queryString language="SQL">
 			<![CDATA[select
-  sorder.dateordered as date,
+  sorder.bh_visitdate as date,
   patient.name as name,
   '' as ke_NO,
   patientID.bh_patientid as opd_NO,
@@ -69,9 +69,9 @@ from c_order sorder
   inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
 where
   payment.tendertype = 'F' and payment.ad_org_id =  $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.dateordered) BETWEEN  $P{Begin Date} AND  $P{End Date})
-group by sorder.dateordered, patient.name, patientID.bh_patientid, invoice.description
-order by sorder.dateordered asc;]]>
+  and (date(sorder.bh_visitdate) BETWEEN  $P{Begin Date} AND  $P{End Date})
+group by sorder.bh_visitdate, patient.name, patientID.bh_patientid, invoice.description
+order by sorder.bh_visitdate asc;]]>
 		</queryString>
 		<field name="date" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="date"/>
@@ -112,7 +112,7 @@ from c_order sorder
   inner join ad_client clienName on payment.ad_client_id = clienName.ad_client_id
 where
   payment.tendertype = 'F' and payment.ad_org_id = $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.dateordered) BETWEEN $P{Begin Date} AND  $P{End Date})
+  and (date(sorder.bh_visitdate) BETWEEN $P{Begin Date} AND  $P{End Date})
 LIMIT 1;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">

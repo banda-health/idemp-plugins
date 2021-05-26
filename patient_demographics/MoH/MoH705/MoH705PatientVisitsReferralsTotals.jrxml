@@ -64,11 +64,11 @@ inner join
 (
 select
     cobilldate.c_bpartner_id,
-    date(cobilldate.dateordered) as billdate
+    date(cobilldate.bh_visitdate) as billdate
 from c_order cobilldate
 where
     cobilldate.ad_client_id = $P{AD_CLIENT_ID}
-    and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(cobilldate.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) as orderbilldate on regPatient.c_bpartner_id = orderbilldate.c_bpartner_id
 left join
 (
@@ -78,7 +78,7 @@ select
 from c_order conewvisit
 where
     conewvisit.ad_client_id = $P{AD_CLIENT_ID} and conewvisit.bh_newvisit = 'Y'
-    and (date(conewvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(conewvisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by conewvisit.c_bpartner_id
 ) as newvisitcount on orderbilldate.c_bpartner_id = newvisitcount.c_bpartner_id
 left join
@@ -89,7 +89,7 @@ select
 from c_order coreattendace
 where
     coreattendace.ad_client_id = $P{AD_CLIENT_ID} and coreattendace.bh_newvisit = 'N'
-    and (date(coreattendace.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(coreattendace.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreattendace.c_bpartner_id
 ) as reattendacecount on orderbilldate.c_bpartner_id = reattendacecount.c_bpartner_id
 left join
@@ -100,7 +100,7 @@ select
 from c_order coreferralsfromhf
 where
     coreferralsfromhf.ad_client_id = $P{AD_CLIENT_ID} and coreferralsfromhf.bh_referral = 'hf'
-    and (date(coreferralsfromhf.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(coreferralsfromhf.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferralsfromhf.c_bpartner_id
 ) as referralsfromhfcount on orderbilldate.c_bpartner_id = referralsfromhfcount.c_bpartner_id
 left join
@@ -111,7 +111,7 @@ select
 from c_order coreferralstootherhf
 where
     coreferralstootherhf.ad_client_id = $P{AD_CLIENT_ID} and coreferralstootherhf.bh_referral = 'OHF'
-    and (date(coreferralstootherhf.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(coreferralstootherhf.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferralstootherhf.c_bpartner_id
 ) as referralstootherhfcount on orderbilldate.c_bpartner_id = referralstootherhfcount.c_bpartner_id
 left join
@@ -122,7 +122,7 @@ select
 from c_order coreferalsfromcu
 where
     coreferalsfromcu.ad_client_id = $P{AD_CLIENT_ID} and coreferalsfromcu.bh_referral = 'fcu'
-    and (date(coreferalsfromcu.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(coreferalsfromcu.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferalsfromcu.c_bpartner_id
 ) as referalsfromcucount on orderbilldate.c_bpartner_id = referalsfromcucount.c_bpartner_id
 left join
@@ -133,7 +133,7 @@ select
 from c_order coreferaltocu
 where
     coreferaltocu.ad_client_id = $P{AD_CLIENT_ID} and coreferaltocu.bh_referral = 'tcu'
-    and (date(coreferaltocu.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(coreferaltocu.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by coreferaltocu.c_bpartner_id
 ) as referaltocucount on orderbilldate.c_bpartner_id = referaltocucount.c_bpartner_id
 group by orderbilldate.billdate
@@ -200,10 +200,10 @@ inner join
 (
 select
     cobilldate.c_bpartner_id,
-    date(cobilldate.dateordered) as billdate
+    date(cobilldate.bh_visitdate) as billdate
 from c_order cobilldate
 where
-    cobilldate.ad_client_id =  $P{AD_CLIENT_ID} and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    cobilldate.ad_client_id =  $P{AD_CLIENT_ID} and (date(cobilldate.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) as orderbilldate on regPatient.c_bpartner_id = orderbilldate.c_bpartner_id
 group by orderbilldate.billdate;]]>
 	</queryString>

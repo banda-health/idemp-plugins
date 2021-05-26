@@ -89,7 +89,7 @@ from
 (
 select co.c_order_id,
        cb.c_bpartner_id,
-       date(co.dateordered) as bill_date,
+       date(co.bh_visitdate) as bill_date,
        cb.bh_patientid,
        case when co.bh_newvisit = 'N' then 'Y' else 'N' end as revisit,
        cb.name as patientname,
@@ -111,7 +111,7 @@ from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
     left join c_location addresslocation on cb.bh_c_location_id = addresslocation.c_location_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 ) as billdetails
 inner join
@@ -216,11 +216,11 @@ from
 (
 select co.c_order_id,
        cb.c_bpartner_id,
-       date(co.dateordered) as billdate
+       date(co.bh_visitdate) as billdate
 from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 ) as billdetails
 inner join

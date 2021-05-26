@@ -61,7 +61,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
 			<![CDATA[select bill.c_order_id as billid,
-       date(bill.dateordered) as billdate,
+       date(bill.bh_visitdate) as billdate,
        client.name as clientname,
        patient.name as patientname,
        bill.grandtotal as grandtotal,
@@ -73,7 +73,7 @@ inner join ad_user patient on bill.ad_user_id = patient.ad_user_id
 inner join ad_user cashier on bill.updatedby = cashier.ad_user_id
 inner join c_payment payments on bill.c_order_id = payments.bh_c_order_id
 where bill.docstatus = 'IN' or payments.docstatus = 'IN'
-group by bill.grandtotal, client.name, patient.name, date(bill.dateordered), bill.c_order_id
+group by bill.grandtotal, client.name, patient.name, date(bill.bh_visitdate), bill.c_order_id
 order by client.name, billdate asc;]]>
 		</queryString>
 		<field name="billid" class="java.math.BigDecimal">
@@ -101,7 +101,7 @@ order by client.name, billdate asc;]]>
 	</subDataset>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[select date(bill.dateordered) as billdate,
+		<![CDATA[select date(bill.bh_visitdate) as billdate,
        client.name as clientname
 from c_order bill
 inner join ad_client client on bill.ad_client_id = client.ad_client_id

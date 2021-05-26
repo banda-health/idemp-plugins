@@ -68,7 +68,7 @@ inner join
 select
   sorder.c_order_id as bill_id,
   sorder.ad_org_id as orgID,
-  sorder.dateordered as bill_date,
+  sorder.bh_visitdate as bill_date,
   sorder.c_order_id as receipt_number,
   cashier.name as cashierName,
   patient.name as patientName,

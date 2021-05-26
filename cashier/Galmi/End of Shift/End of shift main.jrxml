@@ -37,7 +37,7 @@ from
 select co.c_order_id
 from c_order co
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 ) as billdetails
 inner join
