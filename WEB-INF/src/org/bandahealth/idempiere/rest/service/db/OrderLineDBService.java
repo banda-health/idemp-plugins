@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -132,6 +133,20 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				orderLineChargeInformation.setOrderLineId(entity.getId());
 				orderLineChargeInformationDBService.saveEntity(orderLineChargeInformation);
 			});
+		} else {
+			entity.setChargeInformationList(new ArrayList<>());
+		}
+		// Delete what is no longer there
+		List<MBHOrderLineInfo> orderLineChargeInformationList = orderLineChargeInformationDBService
+				.getGroupsByIds(MBHOrderLineInfo::getC_OrderLine_ID, MBHOrderLineInfo.COLUMNNAME_C_OrderLine_ID,
+						Collections.singleton(entity.getId())).get(entity.getId());
+		if (orderLineChargeInformationList != null) {
+			orderLineChargeInformationList.stream().filter(
+					existingOrderLineChargeInformation -> entity.getChargeInformationList().stream().noneMatch(
+							newOrderLineChargeInformation -> newOrderLineChargeInformation.getUuid()
+									.equals(existingOrderLineChargeInformation.getBH_OrderLine_Info_UU()))).forEach(
+					orderLineChargeInformation -> orderLineChargeInformationDBService
+							.deleteEntity(orderLineChargeInformation.getBH_OrderLine_Info_UU()));
 		}
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(mOrderLine.getC_OrderLine_UU()));
