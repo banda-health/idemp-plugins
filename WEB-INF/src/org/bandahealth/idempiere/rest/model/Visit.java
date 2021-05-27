@@ -65,6 +65,7 @@ public class Visit extends Order {
 		if (order != null) {
 			this.referredFromTo = order.getBH_ReferredFromTo();
 			this.visitDate = order.getBH_VisitDate();
+			setId(order.get_ID());
 		}
 
 		setIsSalesOrderTransaction(true);
@@ -78,9 +79,11 @@ public class Visit extends Order {
 		this.patientType = patientType;
 		this.patient = patient;
 
+		setId(order.get_ID());
 		setIsSalesOrderTransaction(true);
 		if (order != null) {
 			this.visitDate = order.getBH_VisitDate();
+			setId(order.get_ID());
 		}
 	}
 
