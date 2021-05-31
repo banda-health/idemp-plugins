@@ -21,16 +21,16 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_OrderLine_Info
+/** Generated Interface for BH_OrderLine_Charge_Info
  *  @author iDempiere (generated) 
  *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_OrderLine_Info 
+public interface I_BH_OrderLine_Charge_Info 
 {
 
-    /** TableName=BH_OrderLine_Info */
-    public static final String Table_Name = "BH_OrderLine_Info";
+    /** TableName=BH_OrderLine_Charge_Info */
+    public static final String Table_Name = "BH_OrderLine_Charge_Info";
 
     /** AD_Table_ID=1000031 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
@@ -75,23 +75,23 @@ public interface I_BH_OrderLine_Info
 
 	public I_BH_Charge_Info getBH_Charge_Info() throws RuntimeException;
 
-    /** Column name BH_OrderLine_Info_ID */
-    public static final String COLUMNNAME_BH_OrderLine_Info_ID = "BH_OrderLine_Info_ID";
+    /** Column name BH_OrderLine_Charge_Info_ID */
+    public static final String COLUMNNAME_BH_OrderLine_Charge_Info_ID = "BH_OrderLine_Charge_Info_ID";
 
-	/** Set Order Line Info	  */
-	public void setBH_OrderLine_Info_ID (int BH_OrderLine_Info_ID);
+	/** Set Order Line Charge Information	  */
+	public void setBH_OrderLine_Charge_Info_ID (int BH_OrderLine_Charge_Info_ID);
 
-	/** Get Order Line Info	  */
-	public int getBH_OrderLine_Info_ID();
+	/** Get Order Line Charge Information	  */
+	public int getBH_OrderLine_Charge_Info_ID();
 
-    /** Column name BH_OrderLine_Info_UU */
-    public static final String COLUMNNAME_BH_OrderLine_Info_UU = "BH_OrderLine_Info_UU";
+    /** Column name BH_OrderLine_Charge_Info_UU */
+    public static final String COLUMNNAME_BH_OrderLine_Charge_Info_UU = "BH_OrderLine_Charge_Info_UU";
 
-	/** Set BH_OrderLine_Info_UU	  */
-	public void setBH_OrderLine_Info_UU (String BH_OrderLine_Info_UU);
+	/** Set BH_OrderLine_Charge_Info_UU	  */
+	public void setBH_OrderLine_Charge_Info_UU (String BH_OrderLine_Charge_Info_UU);
 
-	/** Get BH_OrderLine_Info_UU	  */
-	public String getBH_OrderLine_Info_UU();
+	/** Get BH_OrderLine_Charge_Info_UU	  */
+	public String getBH_OrderLine_Charge_Info_UU();
 
     /** Column name C_OrderLine_ID */
     public static final String COLUMNNAME_C_OrderLine_ID = "C_OrderLine_ID";

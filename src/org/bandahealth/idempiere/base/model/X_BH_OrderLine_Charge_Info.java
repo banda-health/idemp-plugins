@@ -22,32 +22,31 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_OrderLine_Info
+/** Generated Model for BH_OrderLine_Charge_Info
  *  @author iDempiere (generated) 
  *  @version Release 7.1 - $Id$ */
-public class X_BH_OrderLine_Info extends PO implements I_BH_OrderLine_Info, I_Persistent 
+public class X_BH_OrderLine_Charge_Info extends PO implements I_BH_OrderLine_Charge_Info, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210505L;
+	private static final long serialVersionUID = 20210531L;
 
     /** Standard Constructor */
-    public X_BH_OrderLine_Info (Properties ctx, int BH_OrderLine_Info_ID, String trxName)
+    public X_BH_OrderLine_Charge_Info (Properties ctx, int BH_OrderLine_Charge_Info_ID, String trxName)
     {
-      super (ctx, BH_OrderLine_Info_ID, trxName);
-      /** if (BH_OrderLine_Info_ID == 0)
+      super (ctx, BH_OrderLine_Charge_Info_ID, trxName);
+      /** if (BH_OrderLine_Charge_Info_ID == 0)
         {
 			setBH_Charge_Info_ID (0);
-			setBH_OrderLine_Info_ID (0);
+			setBH_OrderLine_Charge_Info_ID (0);
 			setC_OrderLine_ID (0);
-			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_OrderLine_Info (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_OrderLine_Charge_Info (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -69,7 +68,7 @@ public class X_BH_OrderLine_Info extends PO implements I_BH_OrderLine_Info, I_Pe
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_OrderLine_Info[")
+      StringBuilder sb = new StringBuilder ("X_BH_OrderLine_Charge_Info[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
@@ -99,38 +98,38 @@ public class X_BH_OrderLine_Info extends PO implements I_BH_OrderLine_Info, I_Pe
 		return ii.intValue();
 	}
 
-	/** Set Order Line Info.
-		@param BH_OrderLine_Info_ID Order Line Info	  */
-	public void setBH_OrderLine_Info_ID (int BH_OrderLine_Info_ID)
+	/** Set Order Line Charge Information.
+		@param BH_OrderLine_Charge_Info_ID Order Line Charge Information	  */
+	public void setBH_OrderLine_Charge_Info_ID (int BH_OrderLine_Charge_Info_ID)
 	{
-		if (BH_OrderLine_Info_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_OrderLine_Info_ID, null);
+		if (BH_OrderLine_Charge_Info_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_OrderLine_Charge_Info_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_OrderLine_Info_ID, Integer.valueOf(BH_OrderLine_Info_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_OrderLine_Charge_Info_ID, Integer.valueOf(BH_OrderLine_Charge_Info_ID));
 	}
 
-	/** Get Order Line Info.
-		@return Order Line Info	  */
-	public int getBH_OrderLine_Info_ID () 
+	/** Get Order Line Charge Information.
+		@return Order Line Charge Information	  */
+	public int getBH_OrderLine_Charge_Info_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_OrderLine_Info_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_OrderLine_Charge_Info_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_OrderLine_Info_UU.
-		@param BH_OrderLine_Info_UU BH_OrderLine_Info_UU	  */
-	public void setBH_OrderLine_Info_UU (String BH_OrderLine_Info_UU)
+	/** Set BH_OrderLine_Charge_Info_UU.
+		@param BH_OrderLine_Charge_Info_UU BH_OrderLine_Charge_Info_UU	  */
+	public void setBH_OrderLine_Charge_Info_UU (String BH_OrderLine_Charge_Info_UU)
 	{
-		set_Value (COLUMNNAME_BH_OrderLine_Info_UU, BH_OrderLine_Info_UU);
+		set_Value (COLUMNNAME_BH_OrderLine_Charge_Info_UU, BH_OrderLine_Charge_Info_UU);
 	}
 
-	/** Get BH_OrderLine_Info_UU.
-		@return BH_OrderLine_Info_UU	  */
-	public String getBH_OrderLine_Info_UU () 
+	/** Get BH_OrderLine_Charge_Info_UU.
+		@return BH_OrderLine_Charge_Info_UU	  */
+	public String getBH_OrderLine_Charge_Info_UU () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_OrderLine_Info_UU);
+		return (String)get_Value(COLUMNNAME_BH_OrderLine_Charge_Info_UU);
 	}
 
 	public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException
