@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bandahealth.idempiere.base.model.MBHOrderLineInfo;
+import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
 
 public class OrderLineChargeInformation extends BaseEntity {
 	@JsonIgnore
@@ -15,7 +15,7 @@ public class OrderLineChargeInformation extends BaseEntity {
 	 */
 	public OrderLineChargeInformation() {}
 
-	public OrderLineChargeInformation(MBHOrderLineInfo entity) {
+	public OrderLineChargeInformation(MBHOrderLineChargeInfo entity) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 
 		setOrderLineId(entity.getC_OrderLine_ID());

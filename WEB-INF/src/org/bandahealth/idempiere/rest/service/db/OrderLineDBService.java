@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHChargeInfo;
-import org.bandahealth.idempiere.base.model.MBHOrderLineInfo;
+import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -137,8 +137,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			entity.setChargeInformationList(new ArrayList<>());
 		}
 		// Delete what is no longer there
-		List<MBHOrderLineInfo> orderLineChargeInformationList = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineInfo::getC_OrderLine_ID, MBHOrderLineInfo.COLUMNNAME_C_OrderLine_ID,
+		List<MBHOrderLineChargeInfo> orderLineChargeInformationList = orderLineChargeInformationDBService
+				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID,
 						Collections.singleton(entity.getId())).get(entity.getId());
 		if (orderLineChargeInformationList != null) {
 			orderLineChargeInformationList.stream().filter(
@@ -215,8 +215,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::get_ID).collect(Collectors.toSet());
 
 		Map<Integer, MCharge_BH> chargesById = chargeDBService.getByIds(chargeIds);
-		Map<Integer, List<MBHOrderLineInfo>> orderLineChargeInformationByOrderLine = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineInfo::getC_OrderLine_ID, MBHOrderLineInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
+		Map<Integer, List<MBHOrderLineChargeInfo>> orderLineChargeInformationByOrderLine = orderLineChargeInformationDBService
+				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
 		Map<String, MRefList> chargeSubTypeByValue = referenceListDBService
 				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
 						chargesById.values().stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet())).stream()
@@ -224,7 +224,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Map<Integer, MBHChargeInfo> chargeInformationById = chargeInformationDBService.getByIds(
 				orderLineChargeInformationByOrderLine.values().stream().flatMap(
 						orderLineChargeInformationList -> orderLineChargeInformationList.stream()
-								.map(MBHOrderLineInfo::getBH_Charge_Info_ID)).collect(Collectors.toSet()));
+								.map(MBHOrderLineChargeInfo::getBH_Charge_Info_ID)).collect(Collectors.toSet()));
 
 		orderLines.forEach(orderLine -> {
 			if (orderLine.getChargeId() > 0) {
@@ -261,7 +261,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		// Get the associated order line charge information and delete it
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::getC_OrderLine_ID).collect(Collectors.toSet());
 		boolean wereChildrenDeletesSuccessful = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineInfo::getC_OrderLine_ID, MBHOrderLineInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
+				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
 				.values().stream().flatMap(Collection::stream).allMatch(
 						businessPartnerChargeInformation -> orderLineChargeInformationDBService
 								.deleteEntity(businessPartnerChargeInformation.getBH_OrderLine_Info_UU()));

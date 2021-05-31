@@ -1,13 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MBHChargeInfo;
-import org.bandahealth.idempiere.base.model.MBHOrderLineInfo;
+import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
 import org.bandahealth.idempiere.rest.model.OrderLineChargeInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
 
-public class OrderLineChargeInformationDBService extends BaseDBService<OrderLineChargeInformation, MBHOrderLineInfo> {
+public class OrderLineChargeInformationDBService extends BaseDBService<OrderLineChargeInformation, MBHOrderLineChargeInfo> {
 	private final ChargeInformationDBService chargeInformationDBService;
 
 	public OrderLineChargeInformationDBService() {
@@ -16,7 +16,7 @@ public class OrderLineChargeInformationDBService extends BaseDBService<OrderLine
 
 	@Override
 	public OrderLineChargeInformation saveEntity(OrderLineChargeInformation entity) {
-		MBHOrderLineInfo orderChargeInformation = getEntityByUuidFromDB(entity.getUuid());
+		MBHOrderLineChargeInfo orderChargeInformation = getEntityByUuidFromDB(entity.getUuid());
 		if (orderChargeInformation == null) {
 			orderChargeInformation = getModelInstance();
 			if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
@@ -51,22 +51,22 @@ public class OrderLineChargeInformationDBService extends BaseDBService<OrderLine
 	}
 
 	@Override
-	protected OrderLineChargeInformation createInstanceWithDefaultFields(MBHOrderLineInfo instance) {
+	protected OrderLineChargeInformation createInstanceWithDefaultFields(MBHOrderLineChargeInfo instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected OrderLineChargeInformation createInstanceWithAllFields(MBHOrderLineInfo instance) {
+	protected OrderLineChargeInformation createInstanceWithAllFields(MBHOrderLineChargeInfo instance) {
 		return new OrderLineChargeInformation(instance);
 	}
 
 	@Override
-	protected OrderLineChargeInformation createInstanceWithSearchFields(MBHOrderLineInfo instance) {
+	protected OrderLineChargeInformation createInstanceWithSearchFields(MBHOrderLineChargeInfo instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected MBHOrderLineInfo getModelInstance() {
-		return new MBHOrderLineInfo(Env.getCtx(), 0, null);
+	protected MBHOrderLineChargeInfo getModelInstance() {
+		return new MBHOrderLineChargeInfo(Env.getCtx(), 0, null);
 	}
 }

@@ -8,18 +8,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.bandahealth.idempiere.base.model.MBHOrderLineInfo;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MCharge_BH;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Charge;
 import org.bandahealth.idempiere.rest.model.NHIF;
 import org.bandahealth.idempiere.rest.model.NHIFRelationship;
 import org.bandahealth.idempiere.rest.model.NHIFType;
-import org.bandahealth.idempiere.rest.model.OrderLineChargeInformation;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.Payment;
