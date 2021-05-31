@@ -244,4 +244,14 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	public String getBH_MoH705BGreaterThan5() {
 		return (String) get_Value(COLUMNNAME_BH_MoH705B_GreaterThan5);
 	}
+	
+	@Override
+	public void setBH_SearchTerms(String bh_searchterms) {
+		set_Value(COLUMNNAME_BH_SEARCHTERMS, bh_searchterms);
+	}
+	
+	@Override
+	public String getBH_SearchTerms() {
+		return (String) get_Value(COLUMNNAME_BH_SEARCHTERMS);
+	}
 }

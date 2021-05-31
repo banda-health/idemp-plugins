@@ -200,4 +200,11 @@ public interface I_BH_CodedDiagnosis
 	public void setBH_MoH705BGreaterThan5 (String bh_moh705b_greaterthan5);
 
 	public String getBH_MoH705BGreaterThan5();
+
+	public static final String COLUMNNAME_BH_SEARCHTERMS = "bh_searchterms";
+
+	public void setBH_SearchTerms (String bh_searchterms);
+
+	public String getBH_SearchTerms();
+
 }
