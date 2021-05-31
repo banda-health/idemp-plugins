@@ -22,6 +22,7 @@ public class CodedDiagnosis extends BaseMetadata {
 	private String description;
 	private String moh705aLessthan5;
 	private String moh705bGreaterthan5;
+	private String searchTerms;
 
 	public CodedDiagnosis() {
 	}
@@ -43,6 +44,7 @@ public class CodedDiagnosis extends BaseMetadata {
 		setDescription(entity.getDescription());
 		setMoh705aLessthan5(entity.getBH_MoH705ALessThan5());
 		setMoh705bGreaterthan5(entity.getBH_MoH705BGreaterThan5());
+		setSearchTerms(entity.getBH_SearchTerms());
 	}
 
 	public CodedDiagnosis(String uuid, String ceilName, String icd10, String synonyms) {
@@ -130,5 +132,13 @@ public class CodedDiagnosis extends BaseMetadata {
 
 	public void setMoh705bGreaterthan5(String moh705bGreaterthan5) {
 		this.moh705bGreaterthan5 = moh705bGreaterthan5;
+	}
+
+	public String getSearchTerms() {
+		return searchTerms;
+	}
+
+	public void setSearchTerms(String searchTerms) {
+		this.searchTerms = searchTerms;
 	}
 }

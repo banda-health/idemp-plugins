@@ -68,6 +68,10 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 			mCodedDiagnosis.setBH_MoH705BGreaterThan5(entity.getMoh705bGreaterthan5());
 		}
 
+		if (StringUtil.isNotNullAndEmpty(entity.getSearchTerms())) {
+			mCodedDiagnosis.setBH_SearchTerms(entity.getSearchTerms());
+		}
+
 		mCodedDiagnosis.setIsActive(entity.getIsActive());
 
 		mCodedDiagnosis.saveEx();
