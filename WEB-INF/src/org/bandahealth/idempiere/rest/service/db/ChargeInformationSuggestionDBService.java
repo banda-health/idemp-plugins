@@ -46,7 +46,7 @@ public class ChargeInformationSuggestionDBService extends BaseDBService<ChargeIn
 						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getSubTypeValue).collect(Collectors.toSet()))
 				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 		Map<String, MRefList> dataTypesByValue = referenceListDBService
-				.getTypes(MReference_BH.CHARGE_INFO_DATA_TYPE_AD_REFERENCE_UU,
+				.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU,
 						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getDataTypeValue).collect(Collectors.toSet()))
 				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 

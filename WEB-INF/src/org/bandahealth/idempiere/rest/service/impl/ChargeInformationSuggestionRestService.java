@@ -16,13 +16,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path(IRestConfigs.CHARGE_INFO_SUGGESTION_PATH)
+@Path(IRestConfigs.CHARGE_INFORMATION_SUGGESTION_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ChargeInfoSuggestionRestService extends BaseEntityRestService<ChargeInformationSuggestion> {
+public class ChargeInformationSuggestionRestService extends BaseEntityRestService<ChargeInformationSuggestion> {
 	private final ChargeInformationSuggestionDBService chargeInformationSuggestionDBService;
 
-	public ChargeInfoSuggestionRestService() {
+	public ChargeInformationSuggestionRestService() {
 		chargeInformationSuggestionDBService = new ChargeInformationSuggestionDBService();
 	}
 

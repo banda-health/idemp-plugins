@@ -185,7 +185,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 
 		// Batch call to get reference lists for charge info
 		Map<String, MRefList> dataTypesByValue = referenceListDBService
-				.getTypes(MReference_BH.CHARGE_INFO_DATA_TYPE_AD_REFERENCE_UU, chargeInfoByCharge.values().stream()
+				.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU, chargeInfoByCharge.values().stream()
 						.flatMap(chargeInfoList -> chargeInfoList.stream().map(MBHChargeInfo::getBH_ChargeInfoDataType))
 						.collect(Collectors.toSet())).stream()
 				.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));

@@ -54,9 +54,9 @@ public class ReferenceListRestService {
 	}
 
 	@GET
-	@Path("/chargeInfoDataTypes")
-	public List<ReferenceList> getChargeInfoDataTypes() {
-		return dataService.getTypes(MReference_BH.CHARGE_INFO_DATA_TYPE_AD_REFERENCE_UU, null).stream()
+	@Path("/chargeInformationDataTypes")
+	public List<ReferenceList> getChargeInformationDataTypes() {
+		return dataService.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 }
