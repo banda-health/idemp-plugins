@@ -64,11 +64,11 @@ public class Charge extends BaseEntity {
 		this.subType = subType;
 	}
 
-	public List<ChargeInformation> getChargeInfoList() {
+	public List<ChargeInformation> getChargeInformationList() {
 		return chargeInformationList;
 	}
 
-	public void setChargeInfoList(List<ChargeInformation> chargeInformationList) {
+	public void setChargeInformationList(List<ChargeInformation> chargeInformationList) {
 		this.chargeInformationList = chargeInformationList;
 	}
 

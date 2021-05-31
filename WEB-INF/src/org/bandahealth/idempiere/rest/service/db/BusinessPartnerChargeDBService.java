@@ -67,9 +67,9 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 		entity.setId(businessPartnerCharge.get_ID());
 
 		// If there is info, we need to handle it
-		if (entity.getBusinessPartnerChargeInformationList() != null) {
+		if (entity.getChargeInformationList() != null) {
 			// Save what's currently on the entity
-			entity.getBusinessPartnerChargeInformationList().forEach(businessPartnerChargeInformation -> {
+			entity.getChargeInformationList().forEach(businessPartnerChargeInformation -> {
 				businessPartnerChargeInformation.setBusinessPartnerChargeId(entity.getId());
 				businessPartnerChargeInformationDBService.saveEntity(businessPartnerChargeInformation);
 			});
@@ -149,7 +149,7 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 			businessPartnerCharge.setBusinessPartnerUuid(
 					businessPartnersByIds.get(businessPartnerCharge.getBusinessPartnerId()).getC_BPartner_UU());
 			// Set the children
-			businessPartnerCharge.setBusinessPartnerChargeInformationList(businessPartnerChargeInfoByBusinessPartnerCharge
+			businessPartnerCharge.setChargeInformationList(businessPartnerChargeInfoByBusinessPartnerCharge
 					.getOrDefault(businessPartnerCharge.getId(), new ArrayList<>()).stream()
 					.map(BusinessPartnerChargeInformation::new).peek(
 							businessPartnerChargeInformation -> {

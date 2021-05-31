@@ -13,7 +13,7 @@ public class BusinessPartnerCharge extends BaseEntity {
 	private int businessPartnerId;
 	private String chargeUuid;
 	private String businessPartnerUuid;
-	List<BusinessPartnerChargeInformation> businessPartnerChargeInformationList = new ArrayList<>();
+	List<BusinessPartnerChargeInformation> chargeInformationList = new ArrayList<>();
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -58,12 +58,12 @@ public class BusinessPartnerCharge extends BaseEntity {
 		this.businessPartnerUuid = businessPartnerUuid;
 	}
 
-	public List<BusinessPartnerChargeInformation> getBusinessPartnerChargeInformationList() {
-		return businessPartnerChargeInformationList;
+	public List<BusinessPartnerChargeInformation> getChargeInformationList() {
+		return chargeInformationList;
 	}
 
-	public void setBusinessPartnerChargeInformationList(
-			List<BusinessPartnerChargeInformation> businessPartnerChargeInformationList) {
-		this.businessPartnerChargeInformationList = businessPartnerChargeInformationList;
+	public void setChargeInformationList(
+			List<BusinessPartnerChargeInformation> chargeInformationList) {
+		this.chargeInformationList = chargeInformationList;
 	}
 }

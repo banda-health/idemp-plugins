@@ -111,8 +111,8 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		entity.setId(charge.getC_Charge_ID());
 
 		// If it has info & values, we need to update those
-		if (entity.getChargeInfoList() != null) {
-			entity.getChargeInfoList().forEach(chargeInformation -> {
+		if (entity.getChargeInformationList() != null) {
+			entity.getChargeInformationList().forEach(chargeInformation -> {
 				chargeInformation.setChargeId(entity.getId());
 				chargeInformationDBService.saveEntity(chargeInformation);
 			});
@@ -199,7 +199,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 				chargeToReturn.setSubType(new ReferenceList(subTypeByValue.get(charge.getBH_SubType())));
 			}
 			if (chargeInfoByCharge.containsKey(charge.get_ID())) {
-				chargeToReturn.setChargeInfoList(chargeInfoByCharge.get(charge.getC_Charge_ID()).stream().map(chargeInfo -> {
+				chargeToReturn.setChargeInformationList(chargeInfoByCharge.get(charge.getC_Charge_ID()).stream().map(chargeInfo -> {
 					ChargeInformation chargeInformationToReturn = new ChargeInformation(chargeInfo);
 
 					// Now fill in the child data
