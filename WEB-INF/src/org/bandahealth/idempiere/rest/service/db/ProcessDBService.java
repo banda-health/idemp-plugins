@@ -151,7 +151,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 				param.getDescription(), param.getAD_Element_ID(), param.getAD_Reference_ID(),
 				param.getAD_Reference_Value_ID(), param.getAD_Val_Rule_ID(), param.getDefaultValue(),
 				param.getDefaultValue2(), param.getDisplayLogic(), param.getEntityType(), param.getFieldLength(),
-				param.isEncrypted(), param.isMandatory(), param.isRange(), param.getMandatoryLogic());
+				param.isEncrypted(), param.isMandatory(), param.isRange(), param.getMandatoryLogic(), param);
 	}
 
 	private static ProcessInfoParameter[] getInfoParameters(List<BHProcessInfoParameter> params) {
@@ -281,7 +281,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			// Determine which processes are visible in the dropdown based on the buttons configured in iDempiere
 			List<MDashboardButtonGroupButton> processButtons =
 					new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name,
-							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).list();
+							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).setOnlyActiveRecords(true)
+							.list();
 			Set<Integer> processIdsFromProcessButtons =
 					processButtons.stream().map(MDashboardButtonGroupButton::getAD_Process_ID).collect(Collectors.toSet());
 			// Determine which processes the user has access to
