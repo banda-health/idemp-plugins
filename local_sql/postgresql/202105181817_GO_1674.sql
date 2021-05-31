@@ -1,4 +1,38 @@
--- ADD NEW DIAGNOSIS COLUMNS
+-- CREATE BH_Coded_Diagnosis table
+create table bh_coded_diagnosis
+(
+    ad_client_id            numeric(10) not null,
+    ad_org_id               numeric(10) not null,
+    bh_ceilname             varchar(100) default NULL::character varying,
+    bh_ciel_id              numeric(10),
+    bh_coded_diagnosis_id   numeric(10) not null
+        constraint bh_coded_diagnosis_key
+            primary key,
+    bh_coded_diagnosis_uu   varchar(36)  default NULL::character varying
+        constraint bh_coded_diagnosis_uu_idx
+            unique,
+    bh_concept_class        varchar(50)  default NULL::character varying,
+    bh_icd10who             varchar(20)  default NULL::character varying,
+    bh_searchterms          varchar(255) default NULL::character varying,
+    bh_synomed_ct           numeric(10),
+    bh_synomed_np           numeric(10),
+    bh_synonyms             varchar(255) default NULL::character varying,
+    created                 timestamp    default statement_timestamp(),
+    createdby               numeric(10)  default NULL::numeric,
+    description             text,
+    isactive                char         default 'Y'::bpchar
+        constraint bh_coded_diagnosis_isactive_check
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
+    updated                 timestamp    default statement_timestamp(),
+    updatedby               numeric(10)  default NULL::numeric,
+    bh_shortnames           varchar(50)  default NULL::character varying,
+    bh_moh705a_lessthan5    varchar(100) default NULL::character varying,
+    bh_moh705b_greaterthan5 varchar(100) default NULL::character varying
+);
+
+-- FINAL CODED DIAGNOSIS IMPORT WILL GO HERE
+
+-- ADD NEW DIAGNOSIS COLUMNS TO C_Order
 ALTER TABLE c_order 
   ADD IF NOT EXISTS BH_PrimaryCodedDiagnosis_ID DECIMAL(10,0) DEFAULT NULL,
   ADD IF NOT EXISTS BH_SecondaryCodedDiagnosis_ID DECIMAL(10,0) DEFAULT NULL,
