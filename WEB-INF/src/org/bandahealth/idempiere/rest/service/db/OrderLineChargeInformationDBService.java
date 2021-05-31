@@ -20,7 +20,7 @@ public class OrderLineChargeInformationDBService extends BaseDBService<OrderLine
 		if (orderChargeInformation == null) {
 			orderChargeInformation = getModelInstance();
 			if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
-				orderChargeInformation.setBH_OrderLine_Info_UU(entity.getUuid());
+				orderChargeInformation.setBH_OrderLine_Charge_Info_UU(entity.getUuid());
 			}
 		}
 
@@ -40,7 +40,7 @@ public class OrderLineChargeInformationDBService extends BaseDBService<OrderLine
 
 		orderChargeInformation.saveEx();
 		OrderLineChargeInformation newEntity = createInstanceWithAllFields(
-				getEntityByUuidFromDB(orderChargeInformation.getBH_OrderLine_Info_UU()));
+				getEntityByUuidFromDB(orderChargeInformation.getBH_OrderLine_Charge_Info_UU()));
 		newEntity.setChargeInformationUuid(entity.getChargeInformationUuid());
 		return newEntity;
 	}

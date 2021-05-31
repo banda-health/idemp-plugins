@@ -144,9 +144,9 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			orderLineChargeInformationList.stream().filter(
 					existingOrderLineChargeInformation -> entity.getChargeInformationList().stream().noneMatch(
 							newOrderLineChargeInformation -> newOrderLineChargeInformation.getUuid()
-									.equals(existingOrderLineChargeInformation.getBH_OrderLine_Info_UU()))).forEach(
+									.equals(existingOrderLineChargeInformation.getBH_OrderLine_Charge_Info_UU()))).forEach(
 					orderLineChargeInformation -> orderLineChargeInformationDBService
-							.deleteEntity(orderLineChargeInformation.getBH_OrderLine_Info_UU()));
+							.deleteEntity(orderLineChargeInformation.getBH_OrderLine_Charge_Info_UU()));
 		}
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(mOrderLine.getC_OrderLine_UU()));
@@ -264,7 +264,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
 				.values().stream().flatMap(Collection::stream).allMatch(
 						businessPartnerChargeInformation -> orderLineChargeInformationDBService
-								.deleteEntity(businessPartnerChargeInformation.getBH_OrderLine_Info_UU()));
+								.deleteEntity(businessPartnerChargeInformation.getBH_OrderLine_Charge_Info_UU()));
 		if (!wereChildrenDeletesSuccessful) {
 			throw new AdempiereException("There was an error deleting information");
 		}
