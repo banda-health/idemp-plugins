@@ -67,7 +67,7 @@ from c_order corder
 where
     corder.ad_client_id = $P{AD_CLIENT_ID}
     and lower(corder.description) like lower('%$P!{Diagnosis}%')
-    and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(corder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 order by 2 asc;]]>
 		</queryString>
 		<field name="diagnosis" class="java.lang.String">
@@ -101,7 +101,7 @@ from c_order corder
 where
     corder.ad_client_id = $P{AD_CLIENT_ID}
     and lower(corder.description) like lower('%' || COALESCE($P{Diagnosis}, '') || '%')
-    and (date(corder.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(corder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 order by 2 asc
 limit 1;]]>
 	</queryString>

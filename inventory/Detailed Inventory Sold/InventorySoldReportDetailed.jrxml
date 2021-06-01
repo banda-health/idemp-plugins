@@ -76,10 +76,10 @@
 from
 (
 select co.c_order_id,
-       date(co.dateordered) as bill_date
+       date(co.bh_visitdate) as bill_date
 from c_order co
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 ) as billdetails
 inner join
@@ -101,8 +101,9 @@ inner join
 from c_orderline as corderline
   inner join m_product item on corderline.m_product_id = item.m_product_id
   inner join m_warehouse dispensepoint on corderline.m_warehouse_id = dispensepoint.m_warehouse_id
+  join c_order o on o.c_order_id = corderline.c_order_id
 where corderline.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y' and producttype = 'I'
-group by corderline.c_order_id, item.name, date(corderline.dateordered), corderline.priceactual, dispensepoint.name
+group by corderline.c_order_id, item.name, date(o.bh_visitdate), corderline.priceactual, dispensepoint.name
 ) as billitems on payments.bh_c_order_id = billitems.c_order_id
 group by billdetails.bill_date, billitems.item_name, billitems.price, billitems.dispensepoint
 order by billdetails.bill_date, billitems.item_name asc;]]>
@@ -140,10 +141,10 @@ order by billdetails.bill_date, billitems.item_name asc;]]>
 from
 (
 select co.c_order_id,
-       date(co.dateordered) as bill_date
+       date(co.bh_visitdate) as bill_date
 from c_order co
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 ) as billdetails
 inner join
@@ -165,8 +166,9 @@ inner join
 from c_orderline as corderline
   inner join m_product item on corderline.m_product_id = item.m_product_id
   inner join m_warehouse dispensepoint on corderline.m_warehouse_id = dispensepoint.m_warehouse_id
+  join c_order o on o.c_order_id = corderline.c_order_id
 where corderline.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y' and producttype = 'I'
-group by corderline.c_order_id, item.name, date(corderline.dateordered), corderline.priceactual, dispensepoint.name
+group by corderline.c_order_id, item.name, date(o.bh_visitdate), corderline.priceactual, dispensepoint.name
 ) as billitems on payments.bh_c_order_id = billitems.c_order_id
 order by billdetails.bill_date, billitems.item_name asc
 limit 1;]]>

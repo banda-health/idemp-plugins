@@ -48,7 +48,7 @@ FROM (
     WHERE
         co.docstatus = 'CO'
         AND co.bh_isexpense = 'N'
-        AND (DATE(co.dateordered) BETWEEN params.start_date AND params.end_date)
+        AND (DATE(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
     GROUP BY 1,2
 ) AS billdetails
 INNER JOIN (
@@ -69,7 +69,7 @@ INNER JOIN (
     JOIN params ON p.ad_client_id = params.ad_client_id
     WHERE
         (((p.docstatus = 'CO') OR (p.docstatus = 'DR' AND p.bh_processing = 'Y'))
-        AND (date(co.dateordered) BETWEEN params.start_date AND params.end_date)
+        AND (date(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
         AND co.docstatus IN ('CO','DR'))
     GROUP BY 1
 ) AS payments on billdetails.ad_client_id = payments.ad_client_id
@@ -109,7 +109,7 @@ LEFT JOIN (
     WHERE o.issotrx = 'N'
         AND o.bh_isexpense IS NULL
         AND o.docstatus = 'CO'
-        AND (date(o.dateordered) BETWEEN params.start_date AND params.end_date)
+        AND (date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date)
     GROUP BY 1
 ) received_products ON billdetails.ad_client_id = received_products.ad_client_id
 LEFT JOIN (
@@ -128,7 +128,7 @@ LEFT JOIN (
     WHERE
         co.docstatus = 'CO'
         AND co.bh_isexpense = 'N'
-        AND (DATE(co.dateordered) BETWEEN params.start_date AND params.end_date)
+        AND (DATE(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
     GROUP BY 1
 ) AS charges ON billdetails.ad_client_id = charges.ad_client_id
 ;]]>

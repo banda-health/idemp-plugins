@@ -35,11 +35,11 @@ inner join
 (
 select
     cobilldate.c_bpartner_id,
-    date(cobilldate.dateordered) as billdate
+    date(cobilldate.bh_visitdate) as billdate
 from c_order cobilldate
 where
     cobilldate.ad_client_id = $P{AD_CLIENT_ID} 
-    and (date(cobilldate.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(cobilldate.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) as orderbilldate on regPatient.c_bpartner_id = orderbilldate.c_bpartner_id
 left join
 (
@@ -52,7 +52,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
-    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(newvisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5malecountNV on orderbilldate.c_bpartner_id = over5malecountNV.c_bpartner_id
 left join
@@ -66,7 +66,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
-    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(newvisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5malecountNV on orderbilldate.c_bpartner_id = under5malecountNV.c_bpartner_id
 left join
@@ -80,7 +80,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
-    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(newvisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5femalecountNV on orderbilldate.c_bpartner_id = over5femalecountNV.c_bpartner_id
 left join
@@ -94,7 +94,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
-    and (date(newvisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(newvisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5femalecountNV on orderbilldate.c_bpartner_id = under5femalecountNV.c_bpartner_id
 left join
@@ -108,7 +108,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
-    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(revisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5malecountRV on orderbilldate.c_bpartner_id = over5malecountRV.c_bpartner_id
 left join
@@ -122,7 +122,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'male' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
-    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(revisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5malecountRV on orderbilldate.c_bpartner_id = under5malecountRV.c_bpartner_id
 left join
@@ -133,11 +133,11 @@ select
 from c_bpartner patient
     inner join c_order revisit on patient.c_bpartner_id = revisit.c_bpartner_id
     and revisit.bh_newvisit = 'N'
-    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(revisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5
-    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(revisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as over5femalecountRV on orderbilldate.c_bpartner_id = over5femalecountRV.c_bpartner_id
 left join
@@ -151,7 +151,7 @@ from c_bpartner patient
 where
     patient.ad_client_id = $P{AD_CLIENT_ID} and patient.bh_gender = 'female' and
     EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5
-    and (date(revisit.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(revisit.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by patient.c_bpartner_id
 ) as under5femalecountRV on orderbilldate.c_bpartner_id = under5femalecountRV.c_bpartner_id
 left join
@@ -162,7 +162,7 @@ select
 from c_order copatientcount
 where
     copatientcount.ad_client_id = $P{AD_CLIENT_ID} 
-    and (date(copatientcount.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and (date(copatientcount.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 group by copatientcount.c_bpartner_id
 ) as patientbillcount on regPatient.c_bpartner_id = patientbillcount.c_bpartner_id;]]>
 	</queryString>

@@ -82,7 +82,7 @@ CROSS JOIN (
         AND o.bh_isexpense IS NULL
         AND o.docstatus = 'CO'
         AND o.ad_client_id = $P{AD_CLIENT_ID}
-        AND (date(o.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+        AND (date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) meds_supplies
 WHERE
     ci.ad_client_id = $P{AD_CLIENT_ID}

@@ -82,7 +82,7 @@ from
 (
 select co.c_order_id,
        cb.c_bpartner_id,
-       date(co.dateordered) as bill_date,
+       date(co.bh_visitdate) as bill_date,
        cb.name as patientname,
        co.totallines as lineitemtotals,
        co.grandtotal as totals,
@@ -91,7 +91,7 @@ from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
     left join ad_ref_list nhifType on nhifType.value = cb.bh_nhif_type
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus = 'VO')
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 ) as billdetails
 inner join
@@ -232,14 +232,14 @@ from
 (
 select co.c_order_id,
        cb.c_bpartner_id,
-       date(co.dateordered) as bill_date,
+       date(co.bh_visitdate) as bill_date,
        cb.name as patientname,
        co.totallines as lineitemtotals,
        co.grandtotal as totals
 from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID})
-      AND (date(co.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
 ) as billdetails
 inner join

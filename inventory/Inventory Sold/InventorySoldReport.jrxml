@@ -105,7 +105,7 @@ from c_orderline coline
     inner join m_product item on coline.m_product_id = item.m_product_id
     and item.producttype = 'I'
 where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
-    and (date(coline.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
+    and (date(sorder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
 ) as billdetails on billitems.m_product_id = billdetails.m_product_id
 left join
 (
@@ -170,7 +170,7 @@ from c_orderline coline
     inner join m_product item on coline.m_product_id = item.m_product_id
     and item.producttype = 'I'
 where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
-    and (date(coline.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
+    and (date(sorder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
 group by item.name
 order by item.name asc
 limit 1;]]>
