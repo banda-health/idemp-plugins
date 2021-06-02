@@ -1236,4 +1236,4 @@ update ad_sysconfig set value='bandahealth' where ad_sysconfig.name='ZK_THEME';
 
 SELECT update_sequences();
 
-SELECT register_migration_script('201001011200_GO-1536_BandaDBInit.sql') FROM dual;
+SELECT register_migration_script('202009011200_GO-1536_BandaDBInit.sql') FROM dual;
