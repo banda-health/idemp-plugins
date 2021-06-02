@@ -55,8 +55,8 @@ INSERT INTO adempiere.bh_dbrdbtngrp_btn (bh_dbrdbtngrp_btn_id, ad_client_id, ad_
 
 -- update roles
 
--- give bandago admin read/write access
-INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '1f29f7ab-bc9a-427c-b35b-87589e4612b5'), (select ad_role_id FROM ad_role where ad_role_uu = '0520b255-2e55-41b7-b95c-4f6660e77625'), 0, 0, 'Y', '2021-05-31 11:00:19.506000', 100, '2021-05-31 11:00:19.506000', 100, 'Y', '6432f60e-72b8-4b3a-99e5-e5ec1bfffe18', 'Y') ON CONFLICT DO NOTHING;
+-- give Banda Health Management Admin read/write access
+INSERT INTO adempiere.ad_window_accesss (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '58c4ffdb-955a-4097-8bfe-52fd9fcf74da'), (select ad_role_id FROM ad_role where ad_role_uu = '0520b255-2e55-41b7-b95c-4f6660e77625'), 0, 0, 'Y', '2021-05-31 11:00:19.506000', 100, '2021-05-31 11:00:19.506000', 100, 'Y', '6432f60e-72b8-4b3a-99e5-e5ec1bfffe18', 'Y') ON CONFLICT DO NOTHING;
 
 -- give casher/registration readonly access
 INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '1f29f7ab-bc9a-427c-b35b-87589e4612b5'), (select ad_role_id FROM ad_role where ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'), 0, 0, 'Y', '2021-05-31 10:46:50.796000', 100, '2021-05-31 10:46:59.793000', 100, 'N', '0bb84633-d507-43f3-95d4-3397a438b786', 'N') ON CONFLICT DO NOTHING;
