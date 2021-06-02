@@ -635,4 +635,4 @@ alter table c_payment
 alter table ad_orginfo
     add if not exists bh_extrainfo  varchar(1000) default NULL::character varying;
 
-SELECT register_migration_script('201001011159_SYSTEM_BandaTables.sql') FROM dual;
+SELECT register_migration_script('202009011159_SYSTEM_BandaTables.sql') FROM dual;
