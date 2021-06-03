@@ -30,6 +30,7 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		if (mCodedDiagnosis == null) {
 			mCodedDiagnosis = new MBHCodedDiagnosis(Env.getCtx(), 0, null);
 			mCodedDiagnosis.setAD_Org_ID(Env.getAD_Org_ID(Env.getCtx()));
+			mCodedDiagnosis.setBH_CodedDiagnosis_UU(entity.getUuid());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getCeilName())) {

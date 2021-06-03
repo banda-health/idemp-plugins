@@ -46,7 +46,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private PatientDBService patientDBService;
 	private PaymentDBService paymentDBService;
 	private UserDBService userDBService;
-	private CodedDiagnosisDBService codedDiagnosisDBService;
+	private final CodedDiagnosisDBService codedDiagnosisDBService;
 	private MBPartner_BH mPatient;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
