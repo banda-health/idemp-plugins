@@ -14,7 +14,17 @@
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select
+		<![CDATA[SELECT
+    ol.c_order_id as bill_id,
+    c.name as name,
+    SUM(ol.linenetamt) * -1 as linenetamt
+FROM c_orderline ol
+JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
+WHERE c_order_id = $P{billId}
+    AND c.c_charge_id IS NOT NULL
+GROUP BY ol.c_order_id, c.name
+UNION
+select
   payment.bh_c_order_id as bill_id,
   tendertype.name as name,
   coalesce(sum(payment.bh_tender_amount), sum(payment.payamt)) as amount_tendered
