@@ -386,4 +386,700 @@ INSERT INTO bh_charge_info_values_suggestion (ad_client_id, ad_org_id, bh_charge
 -- Update the sequences
 SELECT update_sequences();
 
+/**********************************************************************************************************/
+-- Insert charges, information, and values for each client
+/**********************************************************************************************************/
+-- Add donation accounting information to each client
+DROP TABLE IF EXISTS tmp_c_elementvalue;
+CREATE TEMP TABLE tmp_c_elementvalue (
+	c_elementvalue_id serial NOT NULL,
+	ad_client_id numeric(10,0) NOT NULL,
+	ad_org_id numeric(10,0) NOT NULL DEFAULT 0,
+	createdby numeric(10,0) NOT NULL DEFAULT 100,
+	updatedby numeric(10,0) NOT NULL DEFAULT 100,
+	value character varying(40) COLLATE pg_catalog."default" NOT NULL,
+	name character varying(120) COLLATE pg_catalog."default" NOT NULL,
+	description character varying(255) COLLATE pg_catalog."default",
+	accounttype character(1) COLLATE pg_catalog."default" NOT NULL,
+	accountsign character(1) COLLATE pg_catalog."default" NOT NULL,
+	c_element_id numeric(10,0) NOT NULL,
+	issummary character(1) COLLATE pg_catalog."default" NOT NULL DEFAULT 'N'::bpchar,
+	c_elementvalue_uu uuid NOT NULL DEFAULT uuid_generate_v4()
+);
+DROP TABLE IF EXISTS tmp_c_validcombination;
+CREATE TEMP TABLE tmp_c_validcombination (
+	c_validcombination_id serial NOT NULL,
+	ad_client_id numeric(10,0) NOT NULL,
+	ad_org_id numeric(10,0) NOT NULL DEFAULT 0,
+	createdby numeric(10,0) NOT NULL DEFAULT 1001875, -- Jeremy's ID
+	updatedby numeric(10,0) NOT NULL DEFAULT 1001875, -- Jeremy's ID
+	combination character varying(60) COLLATE pg_catalog."default",
+	description character varying(255) COLLATE pg_catalog."default",
+	c_acctschema_id numeric(10,0) NOT NULL,
+	account_id numeric(10,0) NOT NULL,
+	c_validcombination_uu uuid NOT NULL DEFAULT uuid_generate_v4()
+);
+
+-- Alter the sequence so the correct IDs will be inserted since iDempiere tracks this manually
+SELECT setval(
+	'tmp_c_elementvalue_c_elementvalue_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'C_ElementValue'
+		LIMIT 1
+	)::INT,
+	false
+);
+SELECT setval(
+	'tmp_c_validcombination_c_validcombination_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'C_ValidCombination'
+		LIMIT 1
+	)::INT,
+	false
+);
+
+-- Create the dontions summary account
+INSERT INTO tmp_c_elementvalue (
+	ad_client_id,
+	value,
+	name,
+	accounttype,
+	accountsign,
+	c_element_id,
+	issummary
+)
+SELECT
+	c.ad_client_id,
+	'127',--value
+	'Accounts Receivable - Donations',--name
+	'A',--accounttype
+	'N',--accountsign
+	e.c_element_id,
+	'Y'--issummary
+FROM ad_client c
+JOIN c_element e
+	ON e.ad_client_id = ac.ad_client_id
+WHERE c.ad_client_id > 999999;
+
+-- Create the dontions account
+INSERT INTO tmp_c_elementvalue (
+	ad_client_id,
+	value,
+	name,
+	accounttype,
+	accountsign,
+	c_element_id,
+	issummary
+)
+SELECT
+	c.ad_client_id,
+	'12710',--value
+	'Donor Fund',--name
+	'A',--accounttype
+	'N',--accountsign
+	e.c_element_id
+FROM ad_client c
+JOIN c_element e
+	ON e.ad_client_id = ac.ad_client_id
+WHERE c.ad_client_id > 999999;
+
+-- Add these accounts officially to iDempiere
+INSERT INTO c_elementvalue (
+	c_elementvalue_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	value,
+	name,
+	description,
+	accounttype,
+	accountsign,
+	c_element_id,
+	issummary,
+	c_elementvalue_uu
+)
+SELECT
+	c_elementvalue_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	value,
+	name,
+	description,
+	accounttype,
+	accountsign,
+	c_element_id,
+	issummary,
+	c_elementvalue_uu
+FROM tmp_c_elementvalue;
+
+-- Add the new account to the Element Value tree so it shows up in the UI
+INSERT INTO ad_treenode (
+	ad_tree_id,
+	node_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	parent_id,
+	seqno,
+	ad_treenode_uu
+)
+SELECT
+	tr.ad_tree_id,
+	ev.c_elementvalue_id,
+	ev.ad_client_id,
+	0,
+	100,
+	100,
+	0,
+	999,
+	uuid_generate_v4()
+FROM tmp_c_elementvalue ev
+INNER JOIN ad_tree tr
+	ON tr.ad_client_id = ad.ad_client_id
+		AND tr.name like '%Element Value';
+	
+-- Create combinations for each new element that was added
+INSERT INTO tmp_c_validcombination (
+	ad_client_id,
+	combination,
+	description,
+	c_acctschema_id,
+	account_id
+)
+SELECT
+	ev.ad_client_id,
+	'*-'||ev.value||'-_-_',
+	'*-'||ev.name||'-_-_',
+	accts.c_acctschema_id,
+	ev.c_elementvalue_id
+FROM tmp_c_elementvalue ev
+INNER JOIN ad_client c
+	ON c.ad_client_id = ev.ad_client_id
+INNER JOIN c_acctschema accts
+	ON accts.ad_client_id = c.ad_client_id;
+
+-- Insert the valid combination into the real table
+INSERT INTO adempiere.c_validcombination (
+	c_validcombination_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	combination,
+	description,
+	c_acctschema_id,
+	account_id,
+	c_validcombination_uu
+)
+SELECT
+	c_validcombination_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	combination,
+	description,
+	c_acctschema_id,
+	account_id,
+	c_validcombination_uu
+FROM tmp_c_validcombination;
+
+/**********************************************************************************************************/
+-- Insert charges, information, and values for each client
+/**********************************************************************************************************/
+DROP TABLE IF EXISTS tmp_c_charge;
+CREATE TEMP TABLE tmp_c_charge (
+	c_charge_id serial not null,
+	ad_client_id numeric(10) not null,
+	ad_org_id numeric(10) not null,
+	isactive char default 'Y'::bpchar not null,
+	created timestamp default now() not null,
+	createdby numeric(10) default 100 not null,
+	updated timestamp default now() not null,
+	updatedby numeric(10) default 100 not null,
+	name varchar(60) not null,
+	description varchar(255),
+	chargeamt numeric default 0 not null,
+	issametax char default 'N'::bpchar not null,
+	issamecurrency char default 'N'::bpchar not null,
+	c_taxcategory_id numeric(10),
+	istaxincluded char default 'N'::bpchar not null,
+	c_bpartner_id numeric(10),
+	c_chargetype_id numeric(10),
+	c_charge_uu varchar(36) default NULL::character varying,
+	c_elementvalue_id numeric(10) default NULL::numeric,
+	bh_locked char default 'N'::bpchar,
+	bh_subtype varchar(2) default NULL::character varying,
+	bh_needadditionalvisitinfo char default 'N'::bpchar not null
+);
+DROP TABLE IF EXISTS tmp_bh_charge_info;
+CREATE TEMP TABLE tmp_bh_charge_info (
+	ad_client_id numeric(10) not null,
+	ad_org_id numeric(10) default 0 not null,
+	bh_charge_info_id serial not null,
+	bh_charge_info_uu varchar(36) default uuid_generate_v4(),
+	bh_chargeinfodatatype varchar(2) default 'T'::character varying not null,
+	bh_fillfrompatient char default 'N'::bpchar not null,
+	c_charge_id numeric(10) not null,
+	created timestamp default now() not null,
+	createdby numeric(10) default 100 not null,
+	description varchar(255) default NULL::character varying,
+	isactive char default 'Y'::bpchar not null,
+	line numeric(10) not null,
+	name varchar(60) not null,
+	updated timestamp default now() not null,
+	updatedby numeric(10) default 100 not null
+);
+DROP TABLE IF EXISTS tmp_bh_charge_info_values;
+CREATE TEMP TABLE tmp_bh_charge_info_values (
+	ad_client_id numeric(10) not null,
+	ad_org_id numeric(10) default 0 not null,
+	bh_charge_info_id numeric(10) not null,
+	bh_charge_info_values_id serial not null,
+	bh_charge_info_values_uu varchar(36) default uuid_generate_v4(),
+	created timestamp default now() not null,
+	createdby numeric(10) default 100 not null,
+	description varchar(255) default NULL::character varying,
+	isactive char default 'Y'::bpchar not null,
+	line numeric(10) default NULL::numeric,
+	name varchar(60) not null,
+	updated timestamp default now() not null,
+	updatedby numeric(10) default 100 not null
+);
+
+SELECT setval(
+	'tmp_c_charge_c_charge_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'C_Charge'
+		LIMIT 1
+	)::INT,
+	false
+);
+SELECT setval(
+	'tmp_bh_charge_info_bh_charge_info_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'BH_Charge_Info'
+		LIMIT 1
+	)::INT,
+	false
+);
+SELECT setval(
+	'tmp_bh_charge_info_values_bh_charge_info_values_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'BH_Charge_Info_Values'
+		LIMIT 1
+	)::INT,
+	false
+);
+
+INSERT INTO tmp_c_charge (
+	ad_client_id,
+	ad_org_id,
+	isactive,
+	name,
+	description,
+	chargeamt,
+	issametax,
+	issamecurrency,
+	c_taxcategory_id,
+	istaxincluded,
+	c_bpartner_id,
+	c_chargetype_id,
+	c_charge_uu,
+	c_elementvalue_id,
+	bh_locked,
+	bh_subtype,
+	bh_needadditionalvisitinfo
+)
+SELECT
+	ev.ad_client_id,
+	0, -- ad_org_id,
+	'Y', --isactive,
+	i.name,
+	null, --description,
+	0,--chargeamt,
+	'N',--issametax,
+	'N',--issamecurrency,
+	null,--c_taxcategory_id,
+	'N',--istaxincluded,
+	null,--c_bpartner_id,
+	ct.c_chargetype_id,
+	uuid_generate_v4(),--c_charge_uu,
+	ev.c_elementvalue_id,
+	'Y',--bh_locked,
+	i.bh_subType,
+	'Y'--bh_needadditionalvisitinfo
+FROM c_elementvalue ev
+JOIN (
+	SELECT 'NHIF National Scheme' as name, 'I' as bh_subType, '12310' as c_elementvalue_value UNION
+	SELECT 'NHIF Fixed FFS', 'I', '12320' UNION
+	SELECT 'NHIF FFS', 'I', '12320' UNION
+	SELECT 'EduAfya FFS', 'I', '12330' UNION
+	SELECT 'Linda Mama', 'I', '12330' UNION
+	SELECT 'Liason Insurance', 'I', '12330' UNION
+	SELECT 'Jubilee Insurance', 'I', '12330' UNION
+	SELECT 'Bill Waiver', 'W', '49100' UNION
+	SELECT 'Donor Fund', 'D', '12710' UNION
+	SELECT 'CCC', 'I', '12330' UNION
+	SELECT 'MCH', 'I', '12330'
+) i ON ev.value = i.c_elementvalue_value
+JOIN c_chargetype ct ON ct.ad_client_id = ev.ad_client_id AND ct.name = 'Non-Patient Payment - DO NOT CHANGE'
+WHERE ev.ad_client_id > 999999;
+
+-- Insert the charges
+INSERT INTO c_charge (
+	c_charge_id,
+	ad_client_id,
+	ad_org_id,
+	isactive,
+	created,
+	createdby,
+	updated,
+	updatedby,
+	name,
+	description,
+	chargeamt,
+	issametax,
+	issamecurrency,
+	c_taxcategory_id,
+	istaxincluded,
+	c_bpartner_id,
+	c_chargetype_id,
+	c_charge_uu,
+	c_elementvalue_id,
+	bh_locked,
+	bh_subtype,
+	bh_needadditionalvisitinfo
+)
+SELECT
+	c_charge_id,
+	ad_client_id,
+	ad_org_id,
+	isactive,
+	created,
+	createdby,
+	updated,
+	updatedby,
+	name,
+	description,
+	chargeamt,
+	issametax,
+	issamecurrency,
+	c_taxcategory_id,
+	istaxincluded,
+	c_bpartner_id,
+	c_chargetype_id,
+	c_charge_uu,
+	c_elementvalue_id,
+	bh_locked,
+	bh_subtype,
+	bh_needadditionalvisitinfo
+FROM tmp_c_charge;
+
+-- Insert the information for each of these charges
+INSERT INTO tmp_bh_charge_info (
+	ad_client_id,
+	bh_chargeinfodatatype,
+	bh_fillfrompatient,
+	c_charge_id,
+	line,
+	name
+)
+SELECT
+	c.ad_client_id,
+	i.bh_chargeinfodatatype,
+	i.bh_fillfrompatient,
+	c.c_charge_id,
+	i.charge_info_line,--line,
+	i.charge_info_name--name
+FROM tmp_c_charge c
+JOIN (
+	SELECT charge_name, charge_info_name, charge_info_line, bh_fillfrompatient, bh_chargeinfodatatype
+	FROM (
+		SELECT 'NHIF National Scheme' as charge_name UNION
+		SELECT 'NHIF Fixed FFS' UNION
+		SELECT 'NHIF FFS' UNION
+		SELECT 'EduAfya FFS' UNION
+		SELECT 'Linda Mama' UNION
+		SELECT 'Liason Insurance' UNION
+		SELECT 'Jubilee Insurance'
+	) c
+	CROSS JOIN (
+		SELECT 'Member ID' as charge_info_name, 0 as charge_info_line, 'Y' as bh_fillfrompatient, 'T' as bh_chargeinfodatatype UNION
+		SELECT 'Member Name', 10, 'Y', 'T' UNION
+		SELECT 'Relationship', 20, 'Y', 'L' UNION
+		SELECT 'Claim Number', 30, 'N', 'T'
+	) v
+	UNION
+	SELECT 'CCC', 'Patient ID', 0, 'Y', 'T'
+	UNION
+	SELECT 'CCC', 'Patient Name', 10, 'Y', 'T'
+	UNION
+	SELECT 'MCH', 'Patient ID', 0, 'Y', 'T'
+	UNION
+	SELECT 'MCH', 'Mother''s Name', 10, 'Y', 'T'
+) i ON i.charge_name = c.name;
+
+INSERT INTO bh_charge_info (
+	ad_client_id,
+	ad_org_id,
+	bh_charge_info_id,
+	bh_charge_info_uu,
+	bh_chargeinfodatatype,
+	bh_fillfrompatient,
+	c_charge_id,
+	created,
+	createdby,
+	description,
+	isactive,
+	line,
+	name,
+	updated,
+	updatedby
+)
+SELECT
+	ad_client_id,
+	ad_org_id,
+	bh_charge_info_id,
+	bh_charge_info_uu,
+	bh_chargeinfodatatype,
+	bh_fillfrompatient,
+	c_charge_id,
+	created,
+	createdby,
+	description,
+	isactive,
+	line,
+	name,
+	updated,
+	updatedby
+FROM tmp_bh_charge_info;
+
+-- Lastly, insert the list values for all that charge information...
+INSERT INTO tmp_bh_charge_info_values (
+	ad_client_id,
+	bh_charge_info_id,
+	line,
+	name
+)
+SELECT
+	ci.ad_client_id,
+	ci.bh_charge_info_id,
+	v.line,
+	v.name
+FROM tmp_bh_charge_info ci
+CROSS JOIN (
+	SELECT 'Principle Member' as name, 0 as line UNION
+	SELECT 'Spouse', 10 UNION
+	SELECT 'Child', 20
+) v
+WHERE ci.bh_chargeinfodatatype = 'L';
+
+INSERT INTO bh_charge_info_values (
+	ad_client_id,
+	ad_org_id,
+	bh_charge_info_id,
+	bh_charge_info_values_id,
+	bh_charge_info_values_uu,
+	created,
+	createdby,
+	description,
+	isactive,
+	line,
+	name,
+	updated,
+	updatedby
+)
+SELECT
+	ad_client_id,
+	ad_org_id,
+	bh_charge_info_id,
+	bh_charge_info_values_id,
+	bh_charge_info_values_uu,
+	created,
+	createdby,
+	description,
+	isactive,
+	line,
+	name,
+	updated,
+	updatedby
+FROM tmp_bh_charge_info_values;
+
+/**********************************************************************************************************/
+-- Copy over values stored in the payment columns to be on the bh_orderline_charge_info table
+/**********************************************************************************************************/
+DROP TABLE IF EXISTS tmp_bh_orderline_charge_info;
+CREATE TEMP TABLE tmp_bh_orderline_charge_info (
+	ad_client_id numeric(10) not null,
+	ad_org_id numeric(10) not null,
+	bh_charge_info_id numeric(10) not null,
+	bh_orderline_charge_info_id serial not null,
+	bh_orderline_charge_info_uu varchar(36) default uuid_generate_v4(),
+	c_orderline_id numeric(10) not null,
+	created timestamp default now() not null,
+	createdby numeric(10) default 100 not null,
+	description varchar(255) default NULL::character varying,
+	isactive char default 'Y'::bpchar not null,
+	name varchar(60),
+	updated timestamp default now() not null,
+	updatedby numeric(10) default 100 not null
+);
+DROP TABLE IF EXISTS tmp_c_orderline;
+CREATE TEMP TABLE tmp_c_orderline (
+	c_orderline_id serial not null,
+	ad_client_id numeric(10) not null,
+	ad_org_id numeric(10) not null,
+	createdby numeric(10) default 100 not null,
+	updatedby numeric(10) default 100 not null,
+	c_order_id numeric(10) not null,
+	line numeric(10) not null,
+	c_bpartner_id numeric(10),
+	c_bpartner_location_id numeric(10),
+	dateordered timestamp not null,
+	datepromised timestamp,
+	datedelivered timestamp,
+	description varchar(255),
+	m_warehouse_id numeric(10) not null,
+	c_uom_id numeric(10) default 100 not null,
+	qtyordered numeric default 1 not null,
+	qtydelivered numeric default 1 not null,
+	qtyinvoiced numeric default 1 not null,
+	c_currency_id numeric(10) not null,
+	priceactual numeric default 0 not null,
+	linenetamt numeric default 0 not null,
+	c_charge_id numeric(10),
+	c_tax_id numeric(10) not null,
+	processed char default 'N'::bpchar not null,
+	qtyentered numeric default 1 not null,
+	priceentered numeric not null,
+	c_orderline_uu varchar(36) default uuid_generate_v4()
+);
+
+SELECT setval(
+	'tmp_bh_orderline_charge_info_bh_orderline_charge_info_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'BH_OrderLine_Charge_Info'
+		LIMIT 1
+	)::INT,
+	false
+);
+SELECT setval(
+	'tmp_c_orderline_c_orderline_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'C_OrderLine'
+		LIMIT 1
+	)::INT,
+	false
+);
+
+-- Insert new order lines for these entities
+WITH payments_to_map as (
+	SELECT
+		c_payment_id,
+		c_currency_id,
+		payamt,
+		description,
+		bh_c_order_id as c_order_id,
+		bh_nhif_claim_number,
+		nhif_number,
+		bh_nhif_member_id,
+		bh_nhif_member_name,
+		bh_nhif_relationship,
+		bh_nhif_linda_mama
+	FROM c_payment
+	WHERE coalesce(bh_nhif_claim_number,bh_nhif_linda_mama,bh_nhif_member_id,bh_nhif_member_name,bh_nhif_type) is not null
+), associated_orderline as (
+	SELECT
+		ol.ad_client_id,
+		ol.ad_org_id,
+		ol.c_order_id,
+		ol.c_bpartner_id,
+		ol.c_bpartner_location_id,
+		ol.dateordered,
+		ol.datepromised,
+		ol.datedelivered,
+		ol.m_warehouse_id,
+		ol.c_tax_id,
+		ol.processed,
+		ol.line
+	FROM c_orderline ol
+	JOIN payments_to_map ptm ON ol.c_order_id = ptm.c_order_id
+	JOIN (
+		SELECT ol.c_order_id, MAX(ol.line) as line
+		FROM c_orderline ol
+		JOIN payments_to_map ptm ON ol.c_order_id = ptm.c_order_id
+		GROUP BY ol.c_order_id
+	) m ON m.line = ol.line
+)
+INSERT INTO tmp_c_orderline (
+	ad_client_id,
+	ad_org_id,
+	c_order_id,
+	line,
+	c_bpartner_id,
+	c_bpartner_location_id,
+	dateordered,
+	datepromised,
+	datedelivered,
+	m_warehouse_id,
+	c_currency_id,
+	priceactual,
+	linenetamt,
+	c_charge_id,
+	c_tax_id,
+	processed,
+	priceentered
+)
+SELECT
+	ol.ad_client_id,
+	ol.ad_org_id,
+	ol.c_order_id,
+	row_number() --line,
+	c_bpartner_id,
+	c_bpartner_location_id,
+	dateordered,
+	datepromised,
+	datedelivered,
+	m_warehouse_id,
+	c_currency_id,
+	priceactual,
+	linenetamt,
+	c_charge_id,
+	c_tax_id,
+	processed,
+	priceentered
+FROM payments_to_map ptm
+JOIN associated_orderline ol ON ol.c_order_id = ptm.c_order_id;
+
+INSERT INTO tmp_bh_orderline_charge_info (
+	ad_client_id,
+	ad_org_id,
+	bh_charge_info_id,
+	c_orderline_id,
+	name
+)
+
+
+-- Update the sequences
+SELECT update_sequences();
+
 SELECT register_migration_script('202105051351_GO-1650.sql') FROM dual;
