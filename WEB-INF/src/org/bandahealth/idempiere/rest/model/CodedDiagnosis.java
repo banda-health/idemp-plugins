@@ -20,8 +20,8 @@ public class CodedDiagnosis extends BaseMetadata {
 	private int synomedNP;
 	private String synonyms;
 	private String description;
-	private String moh705aLessthan5;
-	private String moh705bGreaterthan5;
+	private String moh705aLessThan5;
+	private String moh705bGreaterThan5;
 	private String searchTerms;
 
 	public CodedDiagnosis() {
@@ -42,8 +42,8 @@ public class CodedDiagnosis extends BaseMetadata {
 		setSynomedNP(entity.getBH_SynomedNP());
 		setSynonyms(entity.getBH_Synonyms());
 		setDescription(entity.getDescription());
-		setMoh705aLessthan5(entity.getBH_MoH705ALessThan5());
-		setMoh705bGreaterthan5(entity.getBH_MoH705BGreaterThan5());
+		setMoh705aLessThan5(entity.getBH_MoH705ALessThan5());
+		setMoh705bGreaterThan5(entity.getBH_MoH705BGreaterThan5());
 		setSearchTerms(entity.getBH_SearchTerms());
 	}
 
@@ -119,19 +119,19 @@ public class CodedDiagnosis extends BaseMetadata {
 	}
 
 	public String getMoh705aLessthan5() {
-		return moh705aLessthan5;
+		return moh705aLessThan5;
 	}
 
-	public void setMoh705aLessthan5(String moh705aLessthan5) {
-		this.moh705aLessthan5 = moh705aLessthan5;
+	public void setMoh705aLessThan5(String moh705aLessthan5) {
+		this.moh705aLessThan5 = moh705aLessthan5;
 	}
 
-	public String getMoh705bGreaterthan5() {
-		return moh705bGreaterthan5;
+	public String getMoh705bGreaterThan5() {
+		return moh705bGreaterThan5;
 	}
 
-	public void setMoh705bGreaterthan5(String moh705bGreaterthan5) {
-		this.moh705bGreaterthan5 = moh705bGreaterthan5;
+	public void setMoh705bGreaterThan5(String moh705bGreaterThan5) {
+		this.moh705bGreaterThan5 = moh705bGreaterThan5;
 	}
 
 	public String getSearchTerms() {
