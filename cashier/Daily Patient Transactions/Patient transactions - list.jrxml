@@ -150,7 +150,6 @@ from (
                 from bh_orderline_charge_info olci
                     join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
                 where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-                limit 1
             ) as olci on olci.c_orderline_id = ol.c_orderline_id
         where date(o.bh_visitdate) between p.begin_date and p.end_date
         group by ol.c_order_id, olci.name
