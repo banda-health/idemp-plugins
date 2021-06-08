@@ -68,16 +68,16 @@ select
     billdetails.bill_date as billdate,
     billdetails.patientname as patientname,
     non_patient_payments.member_id,
-    billdetails.lineitemtotals as billtotal,
-    patient_payments.cash,
-    patient_payments.mobile,
-    patient_payments.credit_debit,
-    patient_payments.bank,
-    patient_payments."check",
-    patient_payments.other,
-    non_patient_payments.insurance,
-    non_patient_payments.waiver,
-    non_patient_payments.donation
+    coalesce(billdetails.lineitemtotals, 0) as billtotal,
+    coalesce(patient_payments.cash, 0) as cash,
+    coalesce(patient_payments.mobile, 0) as mobile,
+    coalesce(patient_payments.credit_debit, 0) as credit_debit,
+    coalesce(patient_payments.bank, 0) as bank,
+    coalesce(patient_payments."check", 0) as "check",
+    coalesce(patient_payments.other, 0) as other,
+    coalesce(non_patient_payments.insurance, 0) as insurance,
+    coalesce(non_patient_payments.waiver, 0) as waiver,
+    coalesce(non_patient_payments.donation, 0) as donation
 from (
     select co.c_order_id,
            cb.c_bpartner_id,
@@ -293,10 +293,6 @@ limit 1;]]>
 	</field>
 	<field name="patientname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="nhifnumber" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="nhifnumber"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="billtotal" class="java.math.BigDecimal">
