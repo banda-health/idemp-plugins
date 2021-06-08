@@ -1151,7 +1151,7 @@ LEFT JOIN (
 					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["Insurance Income.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Insurance Income.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="126">

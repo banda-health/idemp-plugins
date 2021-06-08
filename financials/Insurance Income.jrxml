@@ -25,12 +25,20 @@
     c.name,
     coalesce(SUM(ol.linenetamt), 0) * -1 as insurance_amount
 FROM c_charge c
-    LEFT JOIN c_orderline ol ON c.c_charge_id = ol.c_charge_id
-    LEFT JOIN c_order o ON ol.c_order_id = o.c_order_id AND o.issotrx = 'Y'
+    LEFT JOIN (
+        SELECT ol.c_charge_id, ol.linenetamt
+        FROM c_order o
+        JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
+        WHERE
+            o.ad_client_id = $P{AD_CLIENT_ID}
+            AND (date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+            AND o.docstatus IN ('CO','DR')
+            AND ol.c_charge_id IS NOT NULL
+    ) ol ON c.c_charge_id = ol.c_charge_id
+    JOIN c_chargetype ct ON ct.c_chargetype_id = c.c_chargetype_id
 WHERE
-    ci.ad_client_id = $P{AD_CLIENT_ID}
-    AND (date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-    AND o.docstatus IN ('CO','DR')
+    c.ad_client_id = $P{AD_CLIENT_ID}
+    AND ct.name = 'Non-Patient Payment - DO NOT CHANGE'
 GROUP BY
     c.name
 ORDER BY c.name

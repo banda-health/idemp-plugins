@@ -59,8 +59,8 @@
     coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Services -%' ), 0) AS sum_services,
     coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Services - Maintenance & Cleaning' ), 0) AS services_maintenance,
     coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Services - IT, Accounting & Clinical' ), 0) AS services_it,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Services -%' OR expense.name LIKE 'Finances -%' OR expense.name LIKE 'Vehicle -%'
-                            OR expense.name LIKE 'Personnel -%' OR expense.name LIKE 'Facilities -%' OR expense.name = 'Medications & Supplies'), 0) AS other,
+    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name NOT LIKE 'Services -%' AND expense.name NOT LIKE 'Finances -%' AND expense.name NOT LIKE 'Vehicle -%'
+                            AND expense.name NOT LIKE 'Personnel -%' AND expense.name NOT LIKE 'Facilities -%' AND expense.name != 'Medications & Supplies'), 0) AS other,
     coalesce(meds_supplies.lab_total, 0) as lab_total,
     coalesce(meds_supplies.pharmacy_total, 0) as pharmacy_total,
     coalesce(meds_supplies.radiology_total, 0) as radiology_total,
