@@ -73,7 +73,7 @@ from (
         left join c_payment p on o.c_order_id = p.bh_c_order_id
         cross join params
     where o.ad_client_id = params.ad_client_id
-      AND o.docstatus <> 'VO'
+      AND o.docstatus NOT IN ('VO','DR')
       AND date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date
       AND (
           params.patient_type = '''' OR o.bh_patienttype = params.patient_type
@@ -104,6 +104,12 @@ order by u.name]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
 		<field name="total_payment" class="java.math.BigDecimal"/>
+		<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{bill_total}]]></variableExpression>
+		</variable>
+		<variable name="sumPayment" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_payment}]]></variableExpression>
+		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
@@ -129,7 +135,7 @@ from (
         left join c_payment p on o.c_order_id = p.bh_c_order_id
         cross join params
     where o.ad_client_id = params.ad_client_id
-      AND o.docstatus <> 'VO'
+      AND o.docstatus NOT IN ('VO','DR')
       AND date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date
       AND (
           params.patient_type = '''' OR o.bh_patienttype = params.patient_type
@@ -157,6 +163,12 @@ order by u.name]]>
 		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
+	<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{bill_total}]]></variableExpression>
+	</variable>
+	<variable name="sumPayment" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_payment}]]></variableExpression>
+	</variable>
 	<pageHeader>
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -243,6 +255,15 @@ order by u.name]]>
 								<text><![CDATA[Bill Total]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="17" uuid="2b790481-3eb7-4844-a74a-03c50e720c30"/>
+								<textElement textAlignment="Right">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumBillTotal}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
@@ -267,6 +288,16 @@ order by u.name]]>
 								<text><![CDATA[Total Received]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="88ac9238-cf20-4beb-a672-0f68bf6d3bab"/>
+								<textElement textAlignment="Right">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumPayment}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69"/>
@@ -290,6 +321,15 @@ order by u.name]]>
 								<text><![CDATA[Difference]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="17" uuid="5f083714-6eda-4edd-bd9e-004d165210a2"/>
+								<textElement textAlignment="Right">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumBillTotal}.subtract( $V{sumPayment} )]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="c2eba509-a324-401d-afd2-08b6cb4b3e33">
