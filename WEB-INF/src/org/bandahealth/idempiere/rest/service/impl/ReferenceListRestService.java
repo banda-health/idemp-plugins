@@ -43,7 +43,23 @@ public class ReferenceListRestService {
 				.stream().collect(
 						Collectors.toMap(documentStatusActionMapEntry -> documentStatusActionMapEntry.getKey().getDocBaseType(),
 								documentStatusActionMapEntry -> documentStatusActionMapEntry.getValue().entrySet().stream()
-										.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue))));
+										.collect(Collectors.toMap(refList -> refList.getKey().getValue(), Map.Entry::getValue)),
+								(existingStatusActionMap, newStatusActionMap) -> {
+									// This is what happens when there's a merge
+									newStatusActionMap.forEach((newDocumentStatus, newActionList) -> {
+										// If the document status doesn't exist already, so add it and move on
+										if (!existingStatusActionMap.containsKey(newDocumentStatus)) {
+											existingStatusActionMap.put(newDocumentStatus, newActionList);
+											return;
+										}
+										// The document type does exist, so we need to merge action lists
+										List<String> existingActionList = existingStatusActionMap.get(newDocumentStatus);
+										existingActionList.addAll(newActionList);
+										existingStatusActionMap.replace(newDocumentStatus,
+												existingActionList.stream().distinct().collect(Collectors.toList()));
+									});
+									return existingStatusActionMap;
+								}));
 	}
 
 	@GET

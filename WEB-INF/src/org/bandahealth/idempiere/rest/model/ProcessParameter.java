@@ -31,6 +31,7 @@ public class ProcessParameter extends BaseEntity {
 	private String mandatoryLogic;
 	private Reference reference;
 	private List<ReferenceList> referenceValues = new ArrayList<>();
+	private int sequenceNumber;
 
 	public ProcessParameter() {
 		super();
@@ -39,7 +40,8 @@ public class ProcessParameter extends BaseEntity {
 	public ProcessParameter(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String name, String description, int adElementId, int adReferenceId, int adReferenceValueId,
 			int adValueRuleId, String defaultValue, String defaultValue2, String displayLogic, String entityType,
-			int fieldLength, boolean isEncrypted, boolean isMandatory, boolean isRange, String mandatoryLogic) {
+			int fieldLength, boolean isEncrypted, boolean isMandatory, boolean isRange, String mandatoryLogic,
+			MProcessPara processParameter) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.adElementId = adElementId;
@@ -55,6 +57,7 @@ public class ProcessParameter extends BaseEntity {
 		this.isMandatory = isMandatory;
 		this.isRange = isRange;
 		this.mandatoryLogic = mandatoryLogic;
+		this.sequenceNumber = processParameter.getSeqNo();
 	}
 
 	public ProcessParameter(MProcessPara model, Reference reference, List<ReferenceList> referenceValues) {
@@ -75,6 +78,7 @@ public class ProcessParameter extends BaseEntity {
 		this.mandatoryLogic = model.getMandatoryLogic();
 		this.reference = reference;
 		this.referenceValues = referenceValues != null ? referenceValues : this.referenceValues;
+		this.sequenceNumber = model.getSeqNo();
 	}
 
 	@XmlElement
@@ -208,5 +212,13 @@ public class ProcessParameter extends BaseEntity {
 
 	public void setReferenceValues(List<ReferenceList> referenceValues) {
 		this.referenceValues = referenceValues;
+	}
+
+	public int getSequenceNumber() {
+		return sequenceNumber;
+	}
+
+	public void setSequenceNumber(int sequenceNumber) {
+		this.sequenceNumber = sequenceNumber;
 	}
 }
