@@ -66,8 +66,9 @@ from c_order corder
     inner join c_bpartner cb on corder.c_bpartner_id = cb.c_bpartner_id
 where
     corder.ad_client_id = $P{AD_CLIENT_ID}
-    and lower(corder.description) like lower('%$P!{Diagnosis}%')
+    and lower(corder.description) like lower('%' || COALESCE($P{Diagnosis}, '') || '%')
     and (date(corder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+    and corder.docstatus <> 'VO'
 order by 2 asc;]]>
 		</queryString>
 		<field name="diagnosis" class="java.lang.String">
