@@ -369,6 +369,7 @@ UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '52fc8585-3c61-45b8
 
 -- Insert the new window
 INSERT INTO ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2021-05-14 13:15:17.874000', 100, '2021-05-14 13:15:17.874000', 100, 'Non-Patient Payments', 'This records has no associated tabs or tables as all that will be handled in GL. It''s only here for access assingnment and it''s UUID.', null, 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d', null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, ad_table_id, ad_window_id, seqno, tablevel, issinglerow, isinfotab, istranslationtab, isreadonly, ad_column_id, hastree, whereclause, orderbyclause, commitwarning, ad_process_id, processing, ad_image_id, importfields, ad_columnsortorder_id, ad_columnsortyesno_id, issorttab, entitytype, included_tab_id, readonlylogic, displaylogic, isinsertrecord, isadvancedtab, parent_column_id, ad_tab_uu, ad_ctxhelp_id, treedisplayedon, maxqueryrecords, islookuponlyselection, isallowadvancedlookup) VALUES ((SELECT MAX(ad_tab_id) + 1 FROM ad_tab), 0, 0, 'Y', '2021-06-08 15:42:02.974000', 100, '2021-06-08 15:42:02.974000', 100, 'Non-Patient Payments', null, null, 313, (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'), 10, 0, 'Y', 'N', 'N', 'N', null, 'N', null, null, null, null, 'N', null, 'N', null, null, 'N', 'U', null, null, null, 'Y', 'N', null, '012fd982-4703-4a95-81b0-7f0f2767087d', null, 'B', 0, 'N', 'Y') ON CONFLICT DO NOTHING;
 
 -- Insert a new row for the menu item
 INSERT INTO bh_dbrdbtngrp_btn (bh_dbrdbtngrp_btn_id, ad_client_id, ad_infowindow_id, ad_org_id, ad_window_id, bh_dbrdbtngrp_btn_uu, buttonclassname, buttonhelptext, buttontext, created, createdby, description, iconclassname, isactive, lineno, name, updated, updatedby, bh_dbrdbtngrp_id, ad_process_id, ad_form_id, included_role_id) VALUES ((SELECT MAX(bh_dbrdbtngrp_btn_id) + 1 FROM bh_dbrdbtngrp_btn), 0, null, 0, (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'), '6a79762d-b480-4fa0-9e2e-67278fa8ee94', 'button app big', 'Non-Patient Payments', 'Non-Patient Payments', '2021-05-14 13:19:25.102000', 100, '/nonpatientpayments', 'fas fa-hand-holding-usd', 'Y', 110, 'Non-Patient Payments', '2021-05-14 13:22:16.230000', 100, (SELECT bh_dbrdbtngrp_id FROM bh_dbrdbtngrp WHERE bh_dbrdbtngrp_uu = 'bdd761f1-7979-4d87-9c5e-137c6210e9a1'), null, null, null) ON CONFLICT DO NOTHING;
@@ -812,8 +813,18 @@ JOIN (
 	FROM (
 		SELECT 'NHIF National Scheme' as charge_name UNION
 		SELECT 'NHIF Fixed FFS' UNION
-		SELECT 'NHIF FFS' UNION
-		SELECT 'EduAfya FFS' UNION
+		SELECT 'NHIF FFS'
+	) c
+	CROSS JOIN (
+		SELECT 'NHIF Number' as charge_info_name, 0 as charge_info_line, 'Y' as bh_fillfrompatient, 'T' as bh_chargeinfodatatype UNION
+		SELECT 'Member Name', 10, 'Y', 'T' UNION
+		SELECT 'Relationship', 20, 'Y', 'L' UNION
+		SELECT 'Claim Number', 30, 'N', 'T'
+	) v
+	UNION
+	SELECT charge_name, charge_info_name, charge_info_line, bh_fillfrompatient, bh_chargeinfodatatype
+	FROM (
+		SELECT 'EduAfya FFS' as charge_name UNION
 		SELECT 'Linda Mama' UNION
 		SELECT 'Liason Insurance' UNION
 		SELECT 'Jubilee Insurance'
