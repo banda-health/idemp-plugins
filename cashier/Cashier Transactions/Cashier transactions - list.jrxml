@@ -133,6 +133,15 @@ order by bill_date]]>
 		</field>
 		<field name="total_payment" class="java.math.BigDecimal"/>
 		<field name="unpaid_balance" class="java.math.BigDecimal"/>
+		<variable name="sumBillTotal" class="java.lang.String" calculation="Sum">
+			<variableExpression><![CDATA[$F{bill_total}]]></variableExpression>
+		</variable>
+		<variable name="sumTotalPayment" class="java.lang.String" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_payment}]]></variableExpression>
+		</variable>
+		<variable name="sumUnpaidAmount" class="java.lang.String" calculation="Sum">
+			<variableExpression><![CDATA[$F{unpaid_balance}]]></variableExpression>
+		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
@@ -389,6 +398,16 @@ from (
 								<text><![CDATA[Bill Total]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="110" height="17" uuid="46151fa5-1bc6-4ac9-840e-31878b152691"/>
+								<textElement textAlignment="Right">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumBillTotal}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
@@ -413,6 +432,15 @@ from (
 								<text><![CDATA[Total Payment]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="17" uuid="51f80ca0-c10e-4e01-bb87-57438b5cfb22"/>
+								<textElement textAlignment="Right">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumTotalPayment}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69"/>
@@ -699,6 +727,15 @@ from (
 								<text><![CDATA[Unpaid Amount]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="17" uuid="3705f68d-2564-496f-9038-77cf88d7ebe2"/>
+								<textElement textAlignment="Right">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumUnpaidAmount}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="a5a192b8-1f1f-48d9-b728-881187d1f860">
