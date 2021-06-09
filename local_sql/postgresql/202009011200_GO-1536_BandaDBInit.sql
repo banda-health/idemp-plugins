@@ -1233,6 +1233,7 @@ INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, crea
 
 --set banda theme as default
 update ad_sysconfig set value='bandahealth' where ad_sysconfig.name='ZK_THEME';
+UPDATE ad_sysconfig set value='N' where ad_sysconfig_uu='f473c472-1285-4936-8bb8-2f36f68de12e';
 
 SELECT update_sequences();
 
