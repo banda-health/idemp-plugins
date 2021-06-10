@@ -35,6 +35,7 @@
   billHeader.extrainfo as extrainfo,
   billHeader.clientuuid as clientuuid,
   billHeader.binarydata as logoimage,
+  billHeader.receiptfootermsg as receiptfooter,
   billDetails.bill_date as bill_date,
   billDetails.receipt_number as receipt_number,
   billDetails.cashierName as cashierName,
@@ -54,7 +55,8 @@ select
   orgLocation.city as city,
   orgInfo.bh_extrainfo as extrainfo,
   client.ad_client_uu as clientuuid,
-  logo.binarydata
+  logo.binarydata,
+  orgInfo.receiptfootermsg
 from ad_org org
   inner join ad_orginfo orgInfo on org.ad_org_id = orgInfo.ad_org_id
   inner join ad_client client on org.ad_client_id = client.ad_client_id
@@ -119,6 +121,10 @@ where sorder.c_order_id =  $P{billId}
 	<field name="logoimage" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.label" value="logoimage"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_image"/>
+	</field>
+	<field name="receiptfooter" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="receiptfooter"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_orginfo"/>
 	</field>
 	<field name="bill_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
@@ -369,7 +375,7 @@ where sorder.c_order_id =  $P{billId}
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{clientuuid}.equals("d17695e3-57f5-4af6-be41-cf0528725c40") ? "Exceptional Dentistry" : "Get Well Soon"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{receiptfooter}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
