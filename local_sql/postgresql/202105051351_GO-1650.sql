@@ -1149,7 +1149,6 @@ SELECT
 		WHEN ci.name = 'Relationship' AND ptm.bh_nhif_relationship = 'S' THEN 'Spouse'
 		WHEN ci.name = 'Relationship' AND ptm.bh_nhif_relationship = 'C' THEN 'Child'
 		WHEN ci.name = 'Member Name' THEN ptm.bh_nhif_member_name
-		ELSE 'panic!'
 	END -- name
 FROM tmp_c_orderline ol
 	JOIN tmp_c_charge c ON ol.c_charge_id = c.c_charge_id
