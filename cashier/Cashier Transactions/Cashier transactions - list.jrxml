@@ -133,13 +133,13 @@ order by bill_date]]>
 		</field>
 		<field name="total_payment" class="java.math.BigDecimal"/>
 		<field name="unpaid_balance" class="java.math.BigDecimal"/>
-		<variable name="sumBillTotal" class="java.lang.String" calculation="Sum">
+		<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{bill_total}]]></variableExpression>
 		</variable>
-		<variable name="sumTotalPayment" class="java.lang.String" calculation="Sum">
+		<variable name="sumTotalPayment" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{total_payment}]]></variableExpression>
 		</variable>
-		<variable name="sumUnpaidAmount" class="java.lang.String" calculation="Sum">
+		<variable name="sumUnpaidAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{unpaid_balance}]]></variableExpression>
 		</variable>
 	</subDataset>
