@@ -55,14 +55,12 @@ ORDER BY c.name
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="18">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		<band height="16">
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="358" y="0" width="82" height="18" uuid="82cb374a-e573-42da-a01c-74d1b7ce0f53">
+				<reportElement stretchType="ContainerBottom" x="358" y="0" width="82" height="16" uuid="82cb374a-e573-42da-a01c-74d1b7ce0f53">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -78,10 +76,9 @@ ORDER BY c.name
 				<textFieldExpression><![CDATA[$F{insurance_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="358" height="18" uuid="7bab8365-2c49-4490-a1f0-98f857628830">
+				<reportElement x="0" y="0" width="358" height="16" uuid="7bab8365-2c49-4490-a1f0-98f857628830">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
 				<box>
