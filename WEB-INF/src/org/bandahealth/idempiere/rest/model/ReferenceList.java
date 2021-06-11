@@ -9,6 +9,6 @@ public class ReferenceList extends BaseEntity {
 	public ReferenceList() {}
 
 	public ReferenceList(MRefList model) {
-		super(model, model.getDescription(), model.getName(), model.getValue());
+		super(model, model.getName(), model.getDescription(), model.getValue());
 	}
 }

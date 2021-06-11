@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -20,6 +21,7 @@ public class BaseMetadata implements Serializable {
 	private boolean isActive = true;
 	private String created;
 	private int createdBy;
+	private Timestamp createdTimestamp;
 
 	public BaseMetadata() {
 	}
@@ -31,6 +33,7 @@ public class BaseMetadata implements Serializable {
 		uuid = entity.get_Value(entity.getUUIDColumnName()).toString();
 		isActive = entity.isActive();
 		created = DateUtil.parse(entity.getCreated());
+		createdTimestamp = entity.getCreated();
 		createdBy = entity.getCreatedBy();
 	}
 
@@ -104,5 +107,13 @@ public class BaseMetadata implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Timestamp getCreatedTimestamp() {
+		return createdTimestamp;
+	}
+
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
 	}
 }

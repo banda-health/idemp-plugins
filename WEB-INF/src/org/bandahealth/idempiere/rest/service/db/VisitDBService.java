@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -429,8 +431,23 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson, null);
+		BaseListResponse<Visit> visits = super
+				.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
+
+		// Since non-patient payments are negative, they'll change order totals
+		// Get updated order totals for these visits
+		Map<Integer, List<MOrderLine_BH>> orderLinesByOrder = orderLineDBService
+				.getGroupsByIds(MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
+						visits.getResults().stream().map(Visit::getId).collect(Collectors.toSet()));
+
+		// Update the totals to exclude negative values in the lines
+		visits.getResults().forEach(visit -> {
+			visit.setGrandTotal(orderLinesByOrder.get(visit.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
+					.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
+					.reduce(new BigDecimal(0), BigDecimal::add));
+		});
+
+		return visits;
 	}
 
 	/**

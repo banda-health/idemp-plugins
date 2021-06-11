@@ -72,6 +72,7 @@ public class Visit extends Order {
 			this.visitDate = order.getBH_VisitDate();
 			this.primaryUnCodedDiagnosis = order.getBH_PrimaryUnCodedDiagnosis();
 			this.secondaryUnCodedDiagnosis = order.getBH_SecondaryUnCodedDiagnosis();
+			setId(order.get_ID());
 		}
 
 		setIsSalesOrderTransaction(true);
@@ -86,9 +87,11 @@ public class Visit extends Order {
 		this.patientType = patientType;
 		this.patient = patient;
 
+		setId(order.get_ID());
 		setIsSalesOrderTransaction(true);
 		if (order != null) {
 			this.visitDate = order.getBH_VisitDate();
+			setId(order.get_ID());
 		}
 	}
 
