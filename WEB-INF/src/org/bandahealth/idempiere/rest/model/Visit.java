@@ -27,11 +27,14 @@ public class Visit extends Order {
 	private String bloodPressure;
 	private String height;
 	private String weight;
-	private String secondDiagnosis;
 	private User clinician;
 	private ProcessStage processStage;
 	private String referredFromTo;
 	private Timestamp visitDate;
+	private CodedDiagnosis primaryCodedDiagnosis;
+	private CodedDiagnosis secondaryCodedDiagnosis;
+	private String primaryUnCodedDiagnosis;
+	private String secondaryUnCodedDiagnosis;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -41,8 +44,9 @@ public class Visit extends Order {
 			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis,
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
-			String respiratoryRate, String bloodPressure, String height, String weight, String secondDiagnosis,
-			User clinician, ProcessStage processStage, MOrder_BH order) {
+			String respiratoryRate, String bloodPressure, String height, String weight,
+			CodedDiagnosis secondaryCodedDiagnosis, CodedDiagnosis primaryCodedDiagnosis, User clinician,
+			ProcessStage processStage, MOrder_BH order) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
 				orderLines, payments, documentStatus);
 
@@ -59,19 +63,23 @@ public class Visit extends Order {
 		this.bloodPressure = bloodPressure;
 		this.height = height;
 		this.weight = weight;
-		this.secondDiagnosis = secondDiagnosis;
+		this.secondaryCodedDiagnosis = secondaryCodedDiagnosis;
+		this.primaryCodedDiagnosis = primaryCodedDiagnosis;
 		this.clinician = clinician;
 		this.processStage = processStage;
 		if (order != null) {
 			this.referredFromTo = order.getBH_ReferredFromTo();
 			this.visitDate = order.getBH_VisitDate();
+			this.primaryUnCodedDiagnosis = order.getBH_PrimaryUnCodedDiagnosis();
+			this.secondaryUnCodedDiagnosis = order.getBH_SecondaryUnCodedDiagnosis();
 		}
 
 		setIsSalesOrderTransaction(true);
 	}
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
-			PatientType patientType, String dateOrdered, BigDecimal grandTotal, String documentStatus, MOrder_BH order) {
+			PatientType patientType, String dateOrdered, BigDecimal grandTotal, String documentStatus,
+			MOrder_BH order) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, null, null,
 				null, documentStatus);
 
@@ -219,15 +227,6 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public String getSecondDiagnosis() {
-		return secondDiagnosis;
-	}
-
-	public void setSecondDiagnosis(String secondDiagnosis) {
-		this.secondDiagnosis = secondDiagnosis;
-	}
-
-	@XmlElement
 	public User getClinician() {
 		return clinician;
 	}
@@ -259,5 +258,37 @@ public class Visit extends Order {
 
 	public void setVisitDate(Timestamp visitDate) {
 		this.visitDate = visitDate;
+	}
+
+	public CodedDiagnosis getPrimaryCodedDiagnosis() {
+		return primaryCodedDiagnosis;
+	}
+
+	public void setPrimaryCodedDiagnosis(CodedDiagnosis primaryCodedDiagnosis) {
+		this.primaryCodedDiagnosis = primaryCodedDiagnosis;
+	}
+
+	public CodedDiagnosis getSecondaryCodedDiagnosis() {
+		return secondaryCodedDiagnosis;
+	}
+
+	public void setSecondaryCodedDiagnosis(CodedDiagnosis secondaryCodedDiagnosis) {
+		this.secondaryCodedDiagnosis = secondaryCodedDiagnosis;
+	}
+
+	public String getPrimaryUnCodedDiagnosis() {
+		return primaryUnCodedDiagnosis;
+	}
+
+	public void setPrimaryUnCodedDiagnosis(String primaryUnCodedDiagnosis) {
+		this.primaryUnCodedDiagnosis = primaryUnCodedDiagnosis;
+	}
+
+	public String getSecondaryUnCodedDiagnosis() {
+		return secondaryUnCodedDiagnosis;
+	}
+
+	public void setSecondaryUnCodedDiagnosis(String secondaryUnCodedDiagnosis) {
+		this.secondaryUnCodedDiagnosis = secondaryUnCodedDiagnosis;
 	}
 }
