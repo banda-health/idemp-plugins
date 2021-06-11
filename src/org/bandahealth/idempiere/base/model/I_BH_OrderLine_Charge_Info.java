@@ -21,25 +21,25 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Default_DocAction_Access
+/** Generated Interface for BH_OrderLine_Charge_Info
  *  @author iDempiere (generated) 
  *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_Default_DocAction_Access 
+public interface I_BH_OrderLine_Charge_Info 
 {
 
-    /** TableName=BH_Default_DocAction_Access */
-    public static final String Table_Name = "BH_Default_DocAction_Access";
+    /** TableName=BH_OrderLine_Charge_Info */
+    public static final String Table_Name = "BH_OrderLine_Charge_Info";
 
-    /** AD_Table_ID=1000025 */
+    /** AD_Table_ID=1000031 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
-    /** AccessLevel = 4 - System 
+    /** AccessLevel = 3 - Client - Org 
      */
-    BigDecimal accessLevel = BigDecimal.valueOf(4);
+    BigDecimal accessLevel = BigDecimal.valueOf(3);
 
     /** Load Meta Data */
 
@@ -64,53 +64,49 @@ public interface I_BH_Default_DocAction_Access
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name AD_Ref_List_ID */
-    public static final String COLUMNNAME_AD_Ref_List_ID = "AD_Ref_List_ID";
+    /** Column name BH_Charge_Info_ID */
+    public static final String COLUMNNAME_BH_Charge_Info_ID = "BH_Charge_Info_ID";
 
-	/** Set Reference List.
-	  * Reference List based on Table
+	/** Set Charge Info	  */
+	public void setBH_Charge_Info_ID (int BH_Charge_Info_ID);
+
+	/** Get Charge Info	  */
+	public int getBH_Charge_Info_ID();
+
+	public I_BH_Charge_Info getBH_Charge_Info() throws RuntimeException;
+
+    /** Column name BH_OrderLine_Charge_Info_ID */
+    public static final String COLUMNNAME_BH_OrderLine_Charge_Info_ID = "BH_OrderLine_Charge_Info_ID";
+
+	/** Set Order Line Charge Information	  */
+	public void setBH_OrderLine_Charge_Info_ID (int BH_OrderLine_Charge_Info_ID);
+
+	/** Get Order Line Charge Information	  */
+	public int getBH_OrderLine_Charge_Info_ID();
+
+    /** Column name BH_OrderLine_Charge_Info_UU */
+    public static final String COLUMNNAME_BH_OrderLine_Charge_Info_UU = "BH_OrderLine_Charge_Info_UU";
+
+	/** Set BH_OrderLine_Charge_Info_UU	  */
+	public void setBH_OrderLine_Charge_Info_UU (String BH_OrderLine_Charge_Info_UU);
+
+	/** Get BH_OrderLine_Charge_Info_UU	  */
+	public String getBH_OrderLine_Charge_Info_UU();
+
+    /** Column name C_OrderLine_ID */
+    public static final String COLUMNNAME_C_OrderLine_ID = "C_OrderLine_ID";
+
+	/** Set Sales Order Line.
+	  * Sales Order Line
 	  */
-	public void setAD_Ref_List_ID (int AD_Ref_List_ID);
+	public void setC_OrderLine_ID (int C_OrderLine_ID);
 
-	/** Get Reference List.
-	  * Reference List based on Table
+	/** Get Sales Order Line.
+	  * Sales Order Line
 	  */
-	public int getAD_Ref_List_ID();
+	public int getC_OrderLine_ID();
 
-	public org.compiere.model.I_AD_Ref_List getAD_Ref_List() throws RuntimeException;
-
-    /** Column name BH_Default_DocAction_Access_ID */
-    public static final String COLUMNNAME_BH_Default_DocAction_Access_ID = "BH_Default_DocAction_Access_ID";
-
-	/** Set BH_Default_DocAction_Access_ID	  */
-	public void setBH_Default_DocAction_Access_ID (int BH_Default_DocAction_Access_ID);
-
-	/** Get BH_Default_DocAction_Access_ID	  */
-	public int getBH_Default_DocAction_Access_ID();
-
-    /** Column name BH_Default_DocAction_Access_UU */
-    public static final String COLUMNNAME_BH_Default_DocAction_Access_UU = "BH_Default_DocAction_Access_UU";
-
-	/** Set BH_Default_DocAction_Access_UU	  */
-	public void setBH_Default_DocAction_Access_UU (String BH_Default_DocAction_Access_UU);
-
-	/** Get BH_Default_DocAction_Access_UU	  */
-	public String getBH_Default_DocAction_Access_UU();
-
-    /** Column name C_DocType_ID */
-    public static final String COLUMNNAME_C_DocType_ID = "C_DocType_ID";
-
-	/** Set Document Type.
-	  * Document type or rules
-	  */
-	public void setC_DocType_ID (int C_DocType_ID);
-
-	/** Get Document Type.
-	  * Document type or rules
-	  */
-	public int getC_DocType_ID();
-
-	public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException;
+	public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -128,18 +124,18 @@ public interface I_BH_Default_DocAction_Access
 	  */
 	public int getCreatedBy();
 
-    /** Column name DB_UserType */
-    public static final String COLUMNNAME_DB_UserType = "DB_UserType";
+    /** Column name Description */
+    public static final String COLUMNNAME_Description = "Description";
 
-	/** Set UserType.
-	  * The User Type when a new client is created
+	/** Set Description.
+	  * Optional short description of the record
 	  */
-	public void setDB_UserType (String DB_UserType);
+	public void setDescription (String Description);
 
-	/** Get UserType.
-	  * The User Type when a new client is created
+	/** Get Description.
+	  * Optional short description of the record
 	  */
-	public String getDB_UserType();
+	public String getDescription();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
@@ -153,6 +149,19 @@ public interface I_BH_Default_DocAction_Access
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
+
+	/** Set Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name);
+
+	/** Get Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getName();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
