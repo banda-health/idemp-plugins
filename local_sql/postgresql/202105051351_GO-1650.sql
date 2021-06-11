@@ -222,12 +222,10 @@ create table if not exists bh_orderline_charge_info
 			deferrable initially deferred,
 	constraint corderline_bhorderlinechargein
 		foreign key (c_orderline_id) references c_orderline
-			deferrable initially deferred
+			deferrable initially deferred,
+	constraint bh_orderline_charge_info_isactive_check
+		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
 );
-
-alter table bh_orderline_charge_info
-	add constraint bh_orderline_charge_info_isactive_check
-		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
 create table if not exists bh_bpartner_charge
 (
@@ -259,12 +257,10 @@ create table if not exists bh_bpartner_charge
 			deferrable initially deferred,
 	constraint ccharge_bhbpartnercharge
 		foreign key (c_charge_id) references c_charge
-			deferrable initially deferred
+			deferrable initially deferred,
+	constraint bh_bpartner_charge_isactive_check
+		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
 );
-
-alter table bh_bpartner_charge
-	add constraint bh_bpartner_charge_isactive_check
-		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
 create table if not exists bh_bpartner_charge_info
 (
@@ -296,12 +292,10 @@ create table if not exists bh_bpartner_charge_info
 			deferrable initially deferred,
 	constraint bhchargeinfo_bhbpartnerchargei
 		foreign key (bh_charge_info_id) references bh_charge_info
-			deferrable initially deferred
+			deferrable initially deferred,
+	constraint bh_bpartner_charge_info_isactive_check
+		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]))
 );
-
-alter table bh_bpartner_charge_info
-	add constraint bh_bpartner_charge_info_isactive_check
-		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
 -- Insert the sequences for all the tables
 INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited, istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth, isorglevelsequence, orgcolumn) VALUES ((SELECT MAX(ad_sequence_id) + 1 FROM ad_sequence), 0, 0, 'Y', '2021-05-31 16:16:25.339000', 100, '2021-05-31 16:16:25.339000', 100, 'BH_OrderLine_Charge_Info', 'Table BH_OrderLine_Charge_Info', null, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', null, null, 'N', null, null, 'b5f6d583-42a6-4bea-b6fa-3fc1cffa500d', 'N', 'N', null) ON CONFLICT DO NOTHING;
@@ -385,17 +379,17 @@ INSERT INTO bh_charge_info_values_suggestion (ad_client_id, ad_org_id, bh_charge
 INSERT INTO bh_charge_info_values_suggestion (ad_client_id, ad_org_id, bh_charge_info_suggestion_id, bh_charge_info_values_suggestion_id, bh_charge_info_values_suggestion_uu, created, createdby, description, isactive, line, name, updated, updatedby) VALUES (0, 0, 1000003, 1000003, '669fac83-9d83-43de-86a5-dd96a2514be4', '2021-05-06 15:56:56.637000', 100, null, 'Y', 20, 'Child', '2021-05-06 15:56:56.637000', 100) ON CONFLICT DO NOTHING;
 
 -- insert default charges
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '7376f030-c7d6-4aba-9da1-c805801e90ec', '2021-06-07 13:56:30.946000', 100, null, 'Y', 'NHIF National Scheme', '2021-06-07 20:04:43.177000', 100, '12310', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'db6198fe-997d-4483-860a-b9073bce8692', '2021-06-07 13:56:52.412000', 100, null, 'Y', 'NHIF Fixed FFS', '2021-06-07 20:04:51.022000', 100, '12320', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '17820836-ae71-48b2-b6db-a6068dd54115', '2021-06-07 13:57:09.886000', 100, null, 'Y', 'NHIF FFS', '2021-06-07 20:05:01.409000', 100, '12320', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'aae954aa-2298-4650-b296-b7813a8c66ed', '2021-06-07 13:58:35.061000', 100, null, 'Y', 'Donor Fund', '2021-06-07 20:05:24.639000', 100, '12710', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '793b0965-9e9e-4970-8a5a-cb7090aee8c5', '2021-06-07 13:58:09.931000', 100, null, 'Y', 'Jubilee Insurance', '2021-06-07 20:12:38.394000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'ea7437c8-6c1a-45d8-a9a9-dca930877c00', '2021-06-07 13:57:53.969000', 100, null, 'Y', 'Liason Insurance', '2021-06-07 20:12:44.025000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '7c572a9c-6851-4207-b7cc-1feb58206e20', '2021-06-07 13:57:29.496000', 100, null, 'Y', 'EduAfya FFS', '2021-06-07 13:57:29.496000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '9340e073-1d80-44af-b6b9-b4c95de46398', '2021-06-07 13:57:40.047000', 100, null, 'Y', 'Linda Mama', '2021-06-07 13:57:40.047000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '50ffbef5-64f4-4216-8c06-ec6ab2111ef1', '2021-06-07 13:58:24.012000', 100, null, 'Y', 'Bill Waiver', '2021-06-07 13:58:24.012000', 100, '49100', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'c0a9e42a-97b8-4496-b29d-10abdab6eb58', '2021-06-07 13:58:44.490000', 100, null, 'Y', 'CCC', '2021-06-07 13:58:44.490000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
-INSERT INTO adempiere.bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'b23e1bbe-2f93-48a4-b026-e9b696c691f1', '2021-06-07 13:58:52.136000', 100, null, 'Y', 'MCH', '2021-06-07 13:58:52.136000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa'));
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '7376f030-c7d6-4aba-9da1-c805801e90ec', '2021-06-07 13:56:30.946000', 100, null, 'Y', 'NHIF National Scheme', '2021-06-07 20:04:43.177000', 100, '12310', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'db6198fe-997d-4483-860a-b9073bce8692', '2021-06-07 13:56:52.412000', 100, null, 'Y', 'NHIF Fixed FFS', '2021-06-07 20:04:51.022000', 100, '12320', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '17820836-ae71-48b2-b6db-a6068dd54115', '2021-06-07 13:57:09.886000', 100, null, 'Y', 'NHIF FFS', '2021-06-07 20:05:01.409000', 100, '12320', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'aae954aa-2298-4650-b296-b7813a8c66ed', '2021-06-07 13:58:35.061000', 100, null, 'Y', 'Donor Fund', '2021-06-07 20:05:24.639000', 100, '12710', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '793b0965-9e9e-4970-8a5a-cb7090aee8c5', '2021-06-07 13:58:09.931000', 100, null, 'Y', 'Jubilee Insurance', '2021-06-07 20:12:38.394000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'ea7437c8-6c1a-45d8-a9a9-dca930877c00', '2021-06-07 13:57:53.969000', 100, null, 'Y', 'Liason Insurance', '2021-06-07 20:12:44.025000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '7c572a9c-6851-4207-b7cc-1feb58206e20', '2021-06-07 13:57:29.496000', 100, null, 'Y', 'EduAfya FFS', '2021-06-07 13:57:29.496000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '9340e073-1d80-44af-b6b9-b4c95de46398', '2021-06-07 13:57:40.047000', 100, null, 'Y', 'Linda Mama', '2021-06-07 13:57:40.047000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, '50ffbef5-64f4-4216-8c06-ec6ab2111ef1', '2021-06-07 13:58:24.012000', 100, null, 'Y', 'Bill Waiver', '2021-06-07 13:58:24.012000', 100, '49100', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'c0a9e42a-97b8-4496-b29d-10abdab6eb58', '2021-06-07 13:58:44.490000', 100, null, 'Y', 'CCC', '2021-06-07 13:58:44.490000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
+INSERT INTO bh_chargedefault (bh_chargedefault_id, ad_client_id, ad_org_id, bh_chargedefault_uu, created, createdby, description, isactive, name, updated, updatedby, value, bh_chargetypedefault_id) VALUES ((SELECT MAX(bh_chargedefault.bh_chargedefault_id) + 1 FROM bh_chargedefault), 0, 0, 'b23e1bbe-2f93-48a4-b026-e9b696c691f1', '2021-06-07 13:58:52.136000', 100, null, 'Y', 'MCH', '2021-06-07 13:58:52.136000', 100, '12330', (SELECT bh_chargetypedefault_id FROM bh_chargetypedefault WHERE bh_chargetypedefault_uu = '478f9619-0aba-49a1-ae75-a4dbac1ac8aa')) ON CONFLICT DO NOTHING;
 
 -- Update the sequences
 SELECT update_sequences();
@@ -477,7 +471,7 @@ SELECT
 FROM ad_client c
 JOIN c_element e
 	ON e.ad_client_id = c.ad_client_id
-WHERE c.ad_client_id > 999999;
+WHERE c.ad_client_id > 999999 AND c.ad_client_id NOT IN (SELECT ad_client_id FROM c_elementvalue WHERE value = '127');
 
 -- Create the dontions account
 INSERT INTO tmp_c_elementvalue (
@@ -496,11 +490,11 @@ SELECT
 	'A',--accounttype
 	'N',--accountsign
 	e.c_element_id,
-	'N'
+    'N'
 FROM ad_client c
 JOIN c_element e
 	ON e.ad_client_id = c.ad_client_id
-WHERE c.ad_client_id > 999999;
+WHERE c.ad_client_id > 999999 AND c.ad_client_id NOT IN (SELECT ad_client_id FROM c_elementvalue WHERE value = '12710');
 
 -- Add these accounts officially to iDempiere
 INSERT INTO c_elementvalue (
@@ -582,7 +576,7 @@ INNER JOIN c_acctschema accts
 	ON accts.ad_client_id = c.ad_client_id;
 
 -- Insert the valid combination into the real table
-INSERT INTO adempiere.c_validcombination (
+INSERT INTO c_validcombination (
 	c_validcombination_id,
 	ad_client_id,
 	ad_org_id,
@@ -1256,8 +1250,8 @@ FROM tmp_bh_orderline_charge_info;
 -- Update the grand total lines on the orders we added information to
 DROP TABLE IF EXISTS tmp_c_order;
 SELECT
-	c_order_id,
-	SUM(linenetamt) as linenetamt
+    c_order_id,
+    SUM(linenetamt) as linenetamt
 INTO TEMP TABLE tmp_c_order
 FROM c_orderline
 WHERE c_order_id IN (SELECT c_order_id FROM tmp_payments_to_map)
