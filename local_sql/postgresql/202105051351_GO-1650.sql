@@ -51,14 +51,14 @@ ALTER TABLE C_Charge ADD IF NOT EXISTS BH_NeedAdditionalVisitInfo CHAR(1) DEFAUL
 
 -- Add the non-patient payment reference list
 INSERT INTO ad_reference (ad_reference_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, validationtype, vformat, entitytype, isorderbyvalue, ad_reference_uu, ad_element_id) VALUES ((SELECT MAX(ad_reference_id) + 1 FROM ad_reference), 0, 0, 'Y', '2021-05-05 15:11:46.386000', 100, '2021-05-05 15:11:46.386000', 100, 'Non-Patient Payment Category', 'A category to help differentiate non-patient payment charges', null, 'L', null, 'U', 'N', 'b313a870-0826-4c1d-a9af-f9ec990b4375', null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:11:58.103000', 100, '2021-05-05 15:11:58.103000', 100, 'I', 'Insurance', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'), null, null, 'U', 'd8547f6d-5ad0-4025-b8f8-0f4796cf9d0f', null, null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:12:04.235000', 100, '2021-05-05 15:12:04.235000', 100, 'W', 'Waiver', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'), null, null, 'U', '406d22a4-b3ee-48e4-9bba-7031f653aa06', null, null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:12:10.450000', 100, '2021-05-05 15:12:10.450000', 100, 'D', 'Donation', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'), null, null, 'U', '4782b135-a84e-4eb9-ae3d-88c872a030ce', null, null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:11:58.103000', 100, '2021-05-05 15:11:58.103000', 100, 'I', 'Insurance', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'), null, null, 'U', 'd8547f6d-5ad0-4025-b8f8-0f4796cf9d0f') ON CONFLICT DO NOTHING;
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:12:04.235000', 100, '2021-05-05 15:12:04.235000', 100, 'W', 'Waiver', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'), null, null, 'U', '406d22a4-b3ee-48e4-9bba-7031f653aa06') ON CONFLICT DO NOTHING;
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:12:10.450000', 100, '2021-05-05 15:12:10.450000', 100, 'D', 'Donation', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'), null, null, 'U', '4782b135-a84e-4eb9-ae3d-88c872a030ce') ON CONFLICT DO NOTHING;
 
 -- Add the charge info data type reference list
 INSERT INTO ad_reference (ad_reference_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, validationtype, vformat, entitytype, isorderbyvalue, ad_reference_uu, ad_element_id) VALUES ((SELECT MAX(ad_reference_id) + 1 FROM ad_reference), 0, 0, 'Y', '2021-05-05 15:33:16.543000', 100, '2021-05-05 15:33:16.543000', 100, 'Charge Info Data Type', null, null, 'L', null, 'U', 'N', '15b3f5d7-205a-4d91-84c0-5e38ec36b6c6', null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:33:46.220000', 100, '2021-05-05 15:33:46.220000', 100, 'T', 'Text', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '15b3f5d7-205a-4d91-84c0-5e38ec36b6c6'), null, null, 'U', '30c39cd3-e132-4b80-811e-74c5e06f8fae', null, null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:33:50.594000', 100, '2021-05-05 15:33:50.594000', 100, 'L', 'List', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '15b3f5d7-205a-4d91-84c0-5e38ec36b6c6'), null, null, 'U', '5be1018a-8aa1-4f9a-8ec9-a022fa3675b9', null, null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:33:46.220000', 100, '2021-05-05 15:33:46.220000', 100, 'T', 'Text', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '15b3f5d7-205a-4d91-84c0-5e38ec36b6c6'), null, null, 'U', '30c39cd3-e132-4b80-811e-74c5e06f8fae') ON CONFLICT DO NOTHING;
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu) VALUES ((SELECT MAX(ad_ref_list_id) + 1 FROM ad_ref_list), 0, 0, 'Y', '2021-05-05 15:33:50.594000', 100, '2021-05-05 15:33:50.594000', 100, 'L', 'List', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '15b3f5d7-205a-4d91-84c0-5e38ec36b6c6'), null, null, 'U', '5be1018a-8aa1-4f9a-8ec9-a022fa3675b9') ON CONFLICT DO NOTHING;
 
 -- Add tables that hold all the new info
 create table if not exists bh_charge_info
@@ -369,7 +369,7 @@ UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '52fc8585-3c61-45b8
 
 -- Insert the new window
 INSERT INTO ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2021-05-14 13:15:17.874000', 100, '2021-05-14 13:15:17.874000', 100, 'Non-Patient Payments', 'This records has no associated tabs or tables as all that will be handled in GL. It''s only here for access assingnment and it''s UUID.', null, 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d', null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, ad_table_id, ad_window_id, seqno, tablevel, issinglerow, isinfotab, istranslationtab, isreadonly, ad_column_id, hastree, whereclause, orderbyclause, commitwarning, ad_process_id, processing, ad_image_id, importfields, ad_columnsortorder_id, ad_columnsortyesno_id, issorttab, entitytype, included_tab_id, readonlylogic, displaylogic, isinsertrecord, isadvancedtab, parent_column_id, ad_tab_uu, ad_ctxhelp_id, treedisplayedon, maxqueryrecords, islookuponlyselection, isallowadvancedlookup) VALUES ((SELECT MAX(ad_tab_id) + 1 FROM ad_tab), 0, 0, 'Y', '2021-06-08 15:42:02.974000', 100, '2021-06-08 15:42:02.974000', 100, 'Non-Patient Payments', null, null, 313, (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'), 10, 0, 'Y', 'N', 'N', 'N', null, 'N', null, null, null, null, 'N', null, 'N', null, null, 'N', 'U', null, null, null, 'Y', 'N', null, '012fd982-4703-4a95-81b0-7f0f2767087d', null, 'B', 0, 'N', 'Y') ON CONFLICT DO NOTHING;
+INSERT INTO ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, ad_table_id, ad_window_id, seqno, tablevel, issinglerow, isinfotab, istranslationtab, isreadonly, ad_column_id, hastree, whereclause, orderbyclause, commitwarning, ad_process_id, processing, ad_image_id, importfields, ad_columnsortorder_id, ad_columnsortyesno_id, issorttab, entitytype, included_tab_id, readonlylogic, displaylogic, isinsertrecord, isadvancedtab, parent_column_id, ad_tab_uu, ad_ctxhelp_id, treedisplayedon, maxqueryrecords) VALUES ((SELECT MAX(ad_tab_id) + 1 FROM ad_tab), 0, 0, 'Y', '2021-06-08 15:42:02.974000', 100, '2021-06-08 15:42:02.974000', 100, 'Non-Patient Payments', null, null, 313, (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'), 10, 0, 'Y', 'N', 'N', 'N', null, 'N', null, null, null, null, 'N', null, 'N', null, null, 'N', 'U', null, null, null, 'Y', 'N', null, '012fd982-4703-4a95-81b0-7f0f2767087d', null, 'B', 0) ON CONFLICT DO NOTHING;
 
 -- Insert a new row for the menu item
 INSERT INTO bh_dbrdbtngrp_btn (bh_dbrdbtngrp_btn_id, ad_client_id, ad_infowindow_id, ad_org_id, ad_window_id, bh_dbrdbtngrp_btn_uu, buttonclassname, buttonhelptext, buttontext, created, createdby, description, iconclassname, isactive, lineno, name, updated, updatedby, bh_dbrdbtngrp_id, ad_process_id, ad_form_id, included_role_id) VALUES ((SELECT MAX(bh_dbrdbtngrp_btn_id) + 1 FROM bh_dbrdbtngrp_btn), 0, null, 0, (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'), '6a79762d-b480-4fa0-9e2e-67278fa8ee94', 'button app big', 'Non-Patient Payments', 'Non-Patient Payments', '2021-05-14 13:19:25.102000', 100, '/nonpatientpayments', 'fas fa-hand-holding-usd', 'Y', 110, 'Non-Patient Payments', '2021-05-14 13:22:16.230000', 100, (SELECT bh_dbrdbtngrp_id FROM bh_dbrdbtngrp WHERE bh_dbrdbtngrp_uu = 'bdd761f1-7979-4d87-9c5e-137c6210e9a1'), null, null, null) ON CONFLICT DO NOTHING;
@@ -476,7 +476,7 @@ SELECT
 	'Y'--issummary
 FROM ad_client c
 JOIN c_element e
-	ON e.ad_client_id = ac.ad_client_id
+	ON e.ad_client_id = c.ad_client_id
 WHERE c.ad_client_id > 999999;
 
 -- Create the dontions account
@@ -495,10 +495,11 @@ SELECT
 	'Donor Fund',--name
 	'A',--accounttype
 	'N',--accountsign
-	e.c_element_id
+	e.c_element_id,
+	'N'
 FROM ad_client c
 JOIN c_element e
-	ON e.ad_client_id = ac.ad_client_id
+	ON e.ad_client_id = c.ad_client_id
 WHERE c.ad_client_id > 999999;
 
 -- Add these accounts officially to iDempiere
@@ -557,9 +558,9 @@ SELECT
 	uuid_generate_v4()
 FROM tmp_c_elementvalue ev
 INNER JOIN ad_tree tr
-	ON tr.ad_client_id = ad.ad_client_id
+	ON tr.ad_client_id = ev.ad_client_id
 		AND tr.name like '%Element Value';
-	
+
 -- Create combinations for each new element that was added
 INSERT INTO tmp_c_validcombination (
 	ad_client_id,
@@ -1190,7 +1191,7 @@ INSERT INTO c_orderline (
 	qtyentered,
 	priceentered,
 	c_orderline_uu
-);
+)
 SELECT
 	c_orderline_id,
 	ad_client_id,
@@ -1253,11 +1254,19 @@ SELECT
 FROM tmp_bh_orderline_charge_info;
 
 -- Update the grand total lines on the orders we added information to
+DROP TABLE IF EXISTS tmp_c_order;
+SELECT
+	c_order_id,
+	SUM(linenetamt) as linenetamt
+INTO TEMP TABLE tmp_c_order
+FROM c_orderline
+WHERE c_order_id IN (SELECT c_order_id FROM tmp_payments_to_map)
+GROUP BY c_order_id;
+
 UPDATE c_order o
-SET totallines = SUM(ol.linenetamt), grandtotal = SUM(ol.linenetamt)
-FROM c_orderline ol
-WHERE ol.c_order_id = o.c_order_id
-	AND ol.c_order_id IN (SELECT c_order_id FROM tmp_payments_to_map);
+SET totallines = tmp_o.linenetamt, grandtotal = tmp_o.linenetamt
+FROM tmp_c_order tmp_o
+WHERE tmp_o.c_order_id = o.c_order_id;
 
 -- Update the sequences
 SELECT update_sequences();
