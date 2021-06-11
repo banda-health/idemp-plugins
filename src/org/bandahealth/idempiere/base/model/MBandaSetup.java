@@ -261,16 +261,44 @@ public class MBandaSetup {
 		return createPaymentBankAccountMappings();
 	}
 
+	/**
+	 * Add the default charge types configured in the system to the client to be used on the default charges
+	 *
+	 * @return A map of default charge type IDs to the charge type that was added for the client
+	 */
+	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
+		List<MBHChargeTypeDefault> defaultChargeTypes =
+				new Query(context, MBHChargeTypeDefault.Table_Name, null, getTransactionName()).setOnlyActiveRecords(true)
+						.list();
+
+		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = new HashMap<>();
+		for (MBHChargeTypeDefault defaultChargeType : defaultChargeTypes) {
+			MChargeType_BH clientsDefaultChargeType = new MChargeType_BH(context, 0, getTransactionName());
+			clientsDefaultChargeType.setName(defaultChargeType.getName());
+			clientsDefaultChargeType.setDescription(defaultChargeType.getDescription());
+			if (!clientsDefaultChargeType.save()) {
+				String errorMessage = "Default Charge Type NOT inserted";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
+				transaction.rollback();
+				transaction.close();
+				return null;
+			}
+			defaultChargeTypeToChargeTypeMap.put(defaultChargeType.getBH_ChargeTypeDefault_ID(), clientsDefaultChargeType);
+		}
+
+		return defaultChargeTypeToChargeTypeMap;
+	}
+
+	/**
+	 * Add the charges that should be included on a new client by default (pulled from the default charges table
+	 *
+	 * @return Whether the charges were added successfully or not
+	 */
 	public boolean addDefaultCharges() {
-		// First, create the default charge category
-		MChargeType_BH defaultCategory = new MChargeType_BH(context, 0, getTransactionName());
-		defaultCategory.setName(MChargeType_BH.CHARGETYPENAME_DEFAULT_CATEGORY);
-		if (!defaultCategory.save()) {
-			String errorMessage = "Default Category Charge Type NOT inserted";
-			log.log(Level.SEVERE, errorMessage);
-			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+		// First, create the default charge types
+		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = addDefaultChargeTypes();
+		if (defaultChargeTypeToChargeTypeMap == null || defaultChargeTypeToChargeTypeMap.isEmpty()) {
 			return false;
 		}
 
@@ -290,7 +318,8 @@ public class MBandaSetup {
 			chargeToAdd.setName(defaultCharge.getName());
 			chargeToAdd.setDescription(defaultCharge.getDescription());
 			chargeToAdd.setBH_Locked(true);
-			chargeToAdd.setC_ChargeType_ID(defaultCategory.getC_ChargeType_ID());
+			chargeToAdd.setC_ChargeType_ID(
+					defaultChargeTypeToChargeTypeMap.get(defaultCharge.getBH_ChargeTypeDefault_ID()).getC_ChargeType_ID());
 			if (!chargeToAdd.save()) {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -426,7 +455,8 @@ public class MBandaSetup {
 	public boolean resetUserRole() {
 		MRefList userRoleReferenceList =
 				new Query(Env.getCtx(), MRefList.Table_Name, MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND" +
-						" " + MReference_BH.Table_Name + "." + MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
+						" " + MReference_BH.Table_Name + "." + MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
+						getTransactionName())
 						.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "." +
 								MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "." +
 								MRefList.COLUMNNAME_AD_Reference_ID)

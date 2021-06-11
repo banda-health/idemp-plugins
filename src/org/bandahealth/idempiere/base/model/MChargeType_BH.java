@@ -7,8 +7,10 @@ import java.util.Properties;
 
 public class MChargeType_BH extends X_C_ChargeType {
 
-	/* Default Charge Type Name */
-	public static final String CHARGETYPENAME_DEFAULT_CATEGORY = "Default Category";
+	/* Default Expense Category Charge Type Name (added by default in MBandaSetup.java) */
+	public static final String CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY = "Default Expense Category - DO NOT CHANGE";
+	/* Non-Patient Payment Charge Type Name (added by default in MBandaSetup.java) */
+	public static final String CHARGETYPENAME_NON_PATIENT_PAYMENT = "Non-Patient Payment - DO NOT CHANGE";
 
 	public MChargeType_BH(Properties ctx, int C_ChargeType_ID, String trxName) {
 		super(ctx, C_ChargeType_ID, trxName);

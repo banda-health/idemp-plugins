@@ -18,8 +18,7 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import org.compiere.model.MTable;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_ChargeDefault
@@ -82,6 +81,17 @@ public interface I_BH_ChargeDefault
 
 	/** Get BH_ChargeDefault_UU	  */
 	public String getBH_ChargeDefault_UU();
+
+    /** Column name BH_ChargeTypeDefault_ID */
+    public static final String COLUMNNAME_BH_ChargeTypeDefault_ID = "BH_ChargeTypeDefault_ID";
+
+	/** Set Charge Type Default	  */
+	public void setBH_ChargeTypeDefault_ID (int BH_ChargeTypeDefault_ID);
+
+	/** Get Charge Type Default	  */
+	public int getBH_ChargeTypeDefault_ID();
+
+	public I_BH_ChargeTypeDefault getBH_ChargeTypeDefault() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -157,9 +167,13 @@ public interface I_BH_ChargeDefault
     /** Column name Value */
     public static final String COLUMNNAME_Value = "Value";
 
-	/** Set Account Number	  */
+	/** Set Search Key.
+	  * Search key for the record in the format required - must be unique
+	  */
 	public void setValue (String Value);
 
-	/** Get Account Number	  */
+	/** Get Search Key.
+	  * Search key for the record in the format required - must be unique
+	  */
 	public String getValue();
 }
