@@ -8,8 +8,10 @@ import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
+import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -249,5 +251,36 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 	@Override
 	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return false;
+	}
+
+	/**
+	 * Get Reference List from MRefList.Table_Name
+	 *
+	 * @param referenceUuid   A reference UUID
+	 * @param referenceValues A list of values to fetch data for
+	 * @return The reference list data
+	 */
+	public List<MRefList> getTypes(String referenceUuid, Set<String> referenceValues) {
+		List<MRefList> values = new ArrayList<>();
+		if (StringUtil.isNullOrEmpty(referenceUuid)) {
+			return values;
+		}
+		List<Object> parameters = new ArrayList<>();
+
+		String whereClause = MReference.Table_Name + "." + MReference.COLUMNNAME_AD_Reference_UU + "=? ";
+		parameters.add(referenceUuid);
+
+		values = new Query(Env.getCtx(), MRefList.Table_Name, whereClause, null)
+				.addJoinClause("JOIN " + MReference.Table_Name + " ON " + MReference.Table_Name + "."
+						+ MReference.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
+						+ MRefList.COLUMNNAME_AD_Reference_ID)
+				.setParameters(parameters).setOnlyActiveRecords(true).setNoVirtualColumn(true)
+				.list();
+
+		if (referenceValues == null) {
+			return values;
+		}
+		return values.stream().filter(referenceList -> referenceValues.contains(referenceList.getValue()))
+				.collect(Collectors.toList());
 	}
 }
