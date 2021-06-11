@@ -259,8 +259,12 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		try {
 			List<T> results = new ArrayList<>();
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID();
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null);
 
+			if (isClientIdFromTheContextNeededByDefaultForThisEntity()) {
+				query = query.setClient_ID();
+			}
+			
 			if (joinClause != null) {
 				query.addJoinClause(joinClause);
 			}
@@ -281,7 +285,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 
 			List<S> entities = query.list();
-
+			
 			if (!entities.isEmpty()) {
 				for (S entity : entities) {
 					if (entity != null) {
