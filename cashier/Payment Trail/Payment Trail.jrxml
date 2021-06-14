@@ -433,44 +433,53 @@ ORDER BY row]]>
 						o.c_bpartner_id,
 						date(o.bh_visitdate) as date,
 						'Visit' as "type",
-						ol.grandtotal,
+						o.grandtotal,
 						NULL as tendertype,
 						10 as sort
 					FROM adempiere.c_order o
-					JOIN (
-					    SELECT c_order_id, SUM(linenetamt) as grandtotal FROM c_orderline
-					    WHERE c_charge_id IS NULL
-					    GROUP BY c_order_id
-					) ol ON o.c_order_id = ol.c_order_id
-					JOIN adempiere.c_bpartner bp
+					INNER JOIN adempiere.c_bpartner bp
 						ON o.c_bpartner_id = bp.c_bpartner_id
-					JOIN payments cp
+					INNER JOIN payments cp
 						ON cp.c_bpartner_id = bp.c_bpartner_id
 					WHERE o.issotrx='Y'
 						AND o.docstatus='CO'
 					UNION
 					-- Insurance, waivers, and deductions
 					SELECT
-						o.c_order_id,
+						co.c_order_id,
 						bp.name,
-						o.c_bpartner_id,
-						date(o.bh_visitdate) as date,
+						cp.c_bpartner_id,
+						cp.date,
 						'Insurance, Waivers, and Deductions' as "type",
-						ol.grandtotal,
+						cp.totalpayamt * -1,
 						NULL as tendertype,
-						10 as sort
-					FROM adempiere.c_order o
-					JOIN (
-					    SELECT c_order_id, SUM(linenetamt) as grandtotal FROM c_orderline
-					    WHERE c_charge_id IS NOT NULL
-					    GROUP BY c_order_id
-					) ol ON o.c_order_id = ol.c_order_id
-					JOIN adempiere.c_bpartner bp
-						ON o.c_bpartner_id = bp.c_bpartner_id
-					JOIN payments cp
+						20 as sort
+					FROM (
+						SELECT
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date,
+							SUM(payamt) as totalpayamt
+						FROM payments
+						WHERE tendertype NOT IN ('A','C','K','X','D','M','MT')
+						GROUP BY
+							c_payment_id,
+							c_bpartner_id,
+							bh_c_order_id,
+							date
+					) cp
+					INNER JOIN adempiere.c_bpartner bp
 						ON cp.c_bpartner_id = bp.c_bpartner_id
-					WHERE o.issotrx='Y'
-						AND o.docstatus='CO'
+					LEFT JOIN adempiere.c_allocationline cal
+						ON cal.c_payment_id = cp.c_payment_id
+					LEFT JOIN adempiere.c_invoice i
+						ON i.c_invoice_id = cal.c_invoice_id
+					INNER JOIN adempiere.c_order co
+						ON i.c_order_id = co.c_order_id
+								OR co.c_order_id = cp.bh_c_order_id
+					WHERE co.issotrx='Y'
+						AND co.docstatus='CO'
 					UNION
 					-- Bill Payments
 					SELECT
@@ -496,6 +505,7 @@ ORDER BY row]]>
 							tendertype,
 							SUM(payamt) as totalpayamt
 						FROM payments
+						WHERE tendertype IN ('A','C','K','X','D','M','MT')
 						GROUP BY
 							c_payment_id,
 							c_bpartner_id,
@@ -638,7 +648,8 @@ FROM (
 	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
 ) as payments
-ORDER BY row]]>
+ORDER BY row
+limit 1]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>

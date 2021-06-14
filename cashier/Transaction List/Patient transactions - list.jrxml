@@ -55,106 +55,171 @@
 		<parameter name="Payment Mode" class="java.lang.String"/>
 		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
-        date($P{Begin Date}) AS begin_date,
-        date($P{End Date}) AS end_date,
-        coalesce($P{Patient Type}, '''') AS patient_type,
-        coalesce($P{Payment Mode}, '''') AS payment_mode
-)
-select
+			<![CDATA[select
     billdetails.c_order_id,
     billdetails.bill_date as billdate,
     billdetails.patientname as patientname,
-    non_patient_payments.member_id,
-    coalesce(billdetails.lineitemtotals, 0) as billtotal,
-    coalesce(patient_payments.cash, 0) as cash,
-    coalesce(patient_payments.mobile, 0) as mobile,
-    coalesce(patient_payments.credit_debit, 0) as credit_debit,
-    coalesce(patient_payments.bank, 0) as bank,
-    coalesce(patient_payments."check", 0) as "check",
-    coalesce(patient_payments.other, 0) as other,
-    coalesce(non_patient_payments.insurance, 0) as insurance,
-    coalesce(non_patient_payments.waiver, 0) as waiver,
-    coalesce(non_patient_payments.donation, 0) as donation
-from (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           date(co.bh_visitdate) as bill_date,
-           cb.name as patientname,
-           sum(ol.linenetamt) as lineitemtotals
-    from c_order co
-        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        join c_orderline ol on co.c_order_id = ol.c_order_id
-        cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
-          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-          AND (p.patient_type = '''' OR co.bh_patienttype = p.patient_type)
-        )
-        AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name
-    order by 1
+    billdetails.nhif_number as nhifnumber,
+    billdetails.nhiftype as patientnhiftype,
+    billdetails.lineitemtotals as billtotal,
+    coalesce(cashp.cash,0) as cash,
+    coalesce(mpesap.mpesa, 0) as mpesa,
+    coalesce(billwaiverp.billwaiver,0) as billwaiver,
+    coalesce(donorfund1p.donorfund1,0) as donorfund1,
+    coalesce(lindamamap.lindamama,0) as lindamama,
+    coalesce(nhifp.nhif,0) as nhif,
+    coalesce(cccp.ccc,0) as ccc,
+    coalesce(mchp.mch,0) as mch,
+    coalesce(outreachp.outreach,0) as outreach,
+    coalesce(pesapalp.pesapal,0) as pesapal,
+    coalesce(otherp.other,0) as other,
+    0 as totalpayment,
+    0 as outstanding
+from
+(
+select co.c_order_id,
+       cb.c_bpartner_id,
+       date(co.bh_visitdate) as bill_date,
+       cb.name as patientname,
+       cb.nhif_number,
+       co.totallines as lineitemtotals,
+       co.grandtotal as totals,
+       nhifType.name as nhiftype
+from c_order co
+    inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
+    left join ad_ref_list nhifType on nhifType.value = cb.bh_nhif_type
+where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
+      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
+    )
+order by 1
 ) as billdetails
-    inner join (
-        select bh_c_order_id
-        from c_payment p
-        inner join c_order co on co.c_order_id = p.bh_c_order_id
-        cross join params par
-        where ((p.ad_client_id = par.ad_client_id)
-            and ((p.docstatus = 'CO')
-            AND (date(co.bh_visitdate) BETWEEN par.begin_date AND par.end_date)
-            or (p.docstatus = 'DR' and p.bh_processing = 'Y')
-            or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-            and (par.payment_mode = '''' OR tendertype = par.payment_mode)
-            )
-        group by bh_c_order_id
-        union
-        select o.c_order_id
-        from c_order o
-            join c_orderline ol on ol.c_order_id = o.c_order_id
-            cross join params p
-        where ol.c_charge_id IS NOT NULL
-            AND ((o.ad_client_id = p.ad_client_id) AND (o.docstatus <> 'VO')
-                AND (date(o.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-                AND (p.patient_type = '''' OR o.bh_patienttype = p.patient_type)
-            )
-            AND p.payment_mode = ''''
-        order by 1
-    ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
-    left join (
-        select p.bh_c_order_id as c_order_id,
-               sum(p.payamt) filter ( where tendertype = 'X' ) as cash,
-               sum(p.payamt) filter ( where tendertype = 'M' ) as mobile,
-               sum(p.payamt) filter ( where tendertype = 'C' ) as credit_debit,
-               sum(p.payamt) filter ( where tendertype = 'B' ) as bank,
-               sum(p.payamt) filter ( where tendertype = 'K' ) as "check",
-               sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'B', 'K') ) as other
-        from c_payment p
-            cross join params
-        where p.ad_client_id = params.ad_client_id
-        group by p.bh_c_order_id
-    ) as patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join (
-        select ol.c_order_id,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
-               olci.name as member_id
-        from c_orderline ol
-            join c_order o on ol.c_order_id = o.c_order_id
-            cross join params p
-            join c_charge c on ol.c_charge_id = c.c_charge_id
-            left join (
-                select olci.c_orderline_id, olci.name
-                from bh_orderline_charge_info olci
-                    join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
-                where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-            ) as olci on olci.c_orderline_id = ol.c_orderline_id
-        where date(o.bh_visitdate) between p.begin_date and p.end_date
-        group by ol.c_order_id, olci.name
-    ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by billdetails.patientname;]]>
+inner join
+(
+select bh_c_order_id
+from c_payment p
+inner join c_order co on co.c_order_id = p.bh_c_order_id
+where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
+and ((p.docstatus = 'CO')
+AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+or (p.docstatus = 'DR' and p.bh_processing = 'Y')
+or (co.docstatus = 'CO' and p.bh_processing = 'N'))
+and ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
+    )
+group by bh_c_order_id
+order by 1
+) as payments on billdetails.c_order_id = payments.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as cash
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'X'
+group by cp.bh_c_order_id
+order by 1
+) as cashp on billdetails.c_order_id = cashp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as mpesa
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'M'
+group by cp.bh_c_order_id
+order by 1
+) as mpesap on billdetails.c_order_id = mpesap.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as billwaiver
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype in ('B','L')
+group by cp.bh_c_order_id
+order by 1
+) as billwaiverp on billdetails.c_order_id = billwaiverp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as donorfund1
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'F'
+group by cp.bh_c_order_id
+order by 1
+) as donorfund1p on billdetails.c_order_id = donorfund1p.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as lindamama
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'i'
+group by cp.bh_c_order_id
+order by 1
+) as lindamamap on billdetails.c_order_id = lindamamap.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as nhif
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'N'
+group by cp.bh_c_order_id
+order by 1
+) as nhifp on billdetails.c_order_id = nhifp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as ccc
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'G'
+group by cp.bh_c_order_id
+order by 1
+) as cccp on billdetails.c_order_id = cccp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as mch
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'H'
+group by cp.bh_c_order_id
+order by 1
+) as mchp on billdetails.c_order_id = mchp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as outreach
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'O'
+group by cp.bh_c_order_id
+order by 1
+) as outreachp on billdetails.c_order_id = outreachp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as pesapal
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype = 'P'
+group by cp.bh_c_order_id
+order by 1
+) as pesapalp on billdetails.c_order_id = pesapalp.bh_c_order_id
+left join
+(
+select cp.bh_c_order_id,
+       sum(cp.payamt) as other
+from c_payment cp
+where cp.ad_client_id = $P{AD_CLIENT_ID}
+    and cp.tendertype not in ('X','M','B','L','F','i','N','G','H','O','P')
+group by cp.bh_c_order_id
+order by 1
+) as otherp on billdetails.c_order_id = otherp.bh_c_order_id
+order by billdetails.patientname asc;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -167,29 +232,59 @@ order by billdetails.patientname;]]>
 			<property name="com.jaspersoft.studio.field.label" value="patientname"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
-		<field name="member_id" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="member_id"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="member_id"/>
+		<field name="nhifnumber" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="nhifnumber"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
+		<field name="patientnhiftype" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="patientnhiftype"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
 		</field>
 		<field name="billtotal" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
 		<field name="cash" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value=""/>
+			<property name="com.jaspersoft.studio.field.label" value="cash"/>
 		</field>
-		<field name="mobile" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value=""/>
+		<field name="mpesa" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="mpesa"/>
 		</field>
-		<field name="credit_debit" class="java.math.BigDecimal"/>
-		<field name="bank" class="java.math.BigDecimal"/>
-		<field name="check" class="java.math.BigDecimal"/>
-		<field name="other" class="java.math.BigDecimal"/>
-		<field name="insurance" class="java.math.BigDecimal"/>
-		<field name="waiver" class="java.math.BigDecimal"/>
-		<field name="donation" class="java.math.BigDecimal"/>
+		<field name="billwaiver" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="billwaiver"/>
+		</field>
+		<field name="donorfund1" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="donorfund1"/>
+		</field>
+		<field name="lindamama" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="lindamama"/>
+		</field>
+		<field name="nhif" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="nhif"/>
+		</field>
+		<field name="ccc" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="ccc"/>
+		</field>
+		<field name="mch" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="mch"/>
+		</field>
+		<field name="outreach" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="outreach"/>
+		</field>
+		<field name="pesapal" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="pesapal"/>
+		</field>
+		<field name="other" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="other"/>
+		</field>
+		<field name="totalpayment" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="totalpayment"/>
+		</field>
+		<field name="outstanding" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="outstanding"/>
+		</field>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{cash}.add($F{mobile}).add($F{credit_debit}).add($F{bank}).add($F{check}).add($F{other}).add($F{insurance}).add($F{waiver}).add($F{donation})]]></variableExpression>
+			<variableExpression><![CDATA[$F{cash}.add($F{mpesa}).add($F{billwaiver}).add($F{donorfund1}).add($F{lindamama}).add($F{nhif}).add($F{ccc}).add($F{mch}).add($F{outreach}).add($F{pesapal}).add($F{other})]]></variableExpression>
 		</variable>
 		<variable name="totalOutstanding" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
@@ -206,40 +301,48 @@ order by billdetails.patientname;]]>
 			<variableExpression><![CDATA[$F{cash}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
-		<variable name="sumMobile" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{mobile}]]></variableExpression>
+		<variable name="sumMpesa" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{mpesa}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
-		<variable name="sumCreditDebit" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{credit_debit}]]></variableExpression>
+		<variable name="sumNHIF" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{nhif}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
-		<variable name="sumBank" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{bank}]]></variableExpression>
+		<variable name="sumNHIFLindaMama" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{lindamama}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
-		<variable name="sumCheck" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{check}]]></variableExpression>
+		<variable name="sumDonorFund" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{donorfund1}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
-		<variable name="sumOther" class="java.math.BigDecimal" calculation="Sum">
+		<variable name="sumBillWaiver" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{billwaiver}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumCCC" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{ccc}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumMCH" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{mch}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumOtherPayments" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{other}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
-		</variable>
-		<variable name="sumInsurance" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{insurance}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
-		</variable>
-		<variable name="sumWaiver" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{waiver}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
-		</variable>
-		<variable name="sumDonation" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{donation}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="sumUnpaidAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
+		</variable>
+		<variable name="sumOutreach" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{outreach}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumPesapal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{pesapal}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
@@ -252,6 +355,7 @@ order by billdetails.patientname;]]>
     billdetails.c_order_id,
     billdetails.bill_date as billdate,
     billdetails.patientname as patientname,
+    billdetails.nhif_number as nhifnumber,
     billdetails.lineitemtotals as billtotal
 from
 (
@@ -259,15 +363,15 @@ select co.c_order_id,
        cb.c_bpartner_id,
        date(co.bh_visitdate) as bill_date,
        cb.name as patientname,
-       co.totallines as lineitemtotals
+       cb.nhif_number,
+       co.totallines as lineitemtotals,
+       co.grandtotal as totals
 from c_order co
     inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-    join c_orderline ol on co.c_order_id = ol.c_order_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID})
       AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
       AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
     )
-    AND ol.c_charge_id IS NULL
 order by 1
 ) as billdetails
 inner join
@@ -292,6 +396,10 @@ limit 1;]]>
 	</field>
 	<field name="patientname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="nhifnumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nhifnumber"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="billtotal" class="java.math.BigDecimal">
@@ -405,7 +513,7 @@ limit 1;]]>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Insurance Member ID]]></text>
+								<text><![CDATA[NHIF Type]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
@@ -415,12 +523,36 @@ limit 1;]]>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{member_id}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{patientnhiftype}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="e2970a6e-a581-458c-8521-c170085c6ba7">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="46eba97f-5827-44ff-a1be-122b76dde8d3"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NHIF Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="8cc531f8-111d-4dd5-81d8-f96e18f29ed2"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nhifnumber}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="110" uuid="11f224aa-d428-4312-9f07-ac270a70ed25">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="110" height="30" uuid="b79b3aad-bd79-4c3a-a7d9-5549f5be65bb"/>
@@ -453,7 +585,7 @@ limit 1;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="8a17b70a-6a6b-4b98-8143-08c36f936108">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -487,7 +619,7 @@ limit 1;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="d321bd45-33d3-467c-96f1-585332650ead">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="302fd58a-20d3-48f0-9856-7c525f053e97"/>
@@ -520,7 +652,7 @@ limit 1;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="975ec13c-a4ac-4b87-b8aa-57fc77405cd3">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="bbc264bb-c760-4f91-bb8e-397df07a630e"/>
@@ -528,7 +660,7 @@ limit 1;]]>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Mobile Money]]></text>
+								<text><![CDATA[MPesa]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
@@ -538,7 +670,7 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumMobile}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumMpesa}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
@@ -548,12 +680,12 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{mpesa}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="70" uuid="80fa6c29-c146-4bef-92d3-fc7e6e14c9b0">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="70" height="30" uuid="434ee692-9c17-4d53-96a8-1a55a9a2712e"/>
@@ -561,7 +693,7 @@ limit 1;]]>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Credit/ Debit]]></text>
+								<text><![CDATA[NHIF]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
@@ -571,7 +703,7 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumCreditDebit}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumNHIF}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
@@ -582,12 +714,12 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{credit_debit}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{nhif}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="831c7d31-2db6-4a3a-9b68-4bd6484a8297">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="30" uuid="41f5e47a-eab3-43d3-8c33-84e790168290"/>
@@ -595,7 +727,7 @@ limit 1;]]>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Bank Transfer]]></text>
+								<text><![CDATA[ NHIF LindaMama]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
@@ -605,7 +737,7 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumBank}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumNHIFLindaMama}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
@@ -616,45 +748,45 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{bank}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{lindamama}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="a768f23c-7696-4123-9b85-612429f412a1">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+					<jr:column width="110" uuid="a768f23c-7696-4123-9b85-612429f412a1">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="a89f1dfb-f63c-4473-bf7c-5734aa8f40de"/>
+								<reportElement x="0" y="0" width="110" height="30" uuid="a89f1dfb-f63c-4473-bf7c-5734aa8f40de"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Cheque]]></text>
+								<text><![CDATA[Donor Fund]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="59672b23-e32a-4779-9ac0-018b95e1748c"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="59672b23-e32a-4779-9ac0-018b95e1748c"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumCheck}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumDonorFund}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="c8b75400-512d-4fac-9f46-9e759505a17c"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="c8b75400-512d-4fac-9f46-9e759505a17c"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{check}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{donorfund1}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="bb372198-7ca5-45c7-90d9-d605b3c4315f">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -663,7 +795,7 @@ limit 1;]]>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Insurance]]></text>
+								<text><![CDATA[Bill Waiver]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
@@ -673,7 +805,7 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumInsurance}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumBillWaiver}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
@@ -683,12 +815,12 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{insurance}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{billwaiver}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="60" uuid="87866248-734d-4d03-ac0b-f0470f323112">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -697,7 +829,7 @@ limit 1;]]>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Waiver]]></text>
+								<text><![CDATA[CCC]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
@@ -707,7 +839,7 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumWaiver}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumCCC}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
@@ -717,46 +849,115 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{waiver}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{ccc}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80" uuid="0de33cc5-790e-4d35-8fd4-d06ad8afc9f7">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+					<jr:column width="60" uuid="0de33cc5-790e-4d35-8fd4-d06ad8afc9f7">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="30" uuid="595b60dc-9617-4248-a5a2-9e13bdac7c9b"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="595b60dc-9617-4248-a5a2-9e13bdac7c9b"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Donations]]></text>
+								<text><![CDATA[MCH
+]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="7f642c67-f610-41a3-898e-1d09003e6f2a"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="7f642c67-f610-41a3-898e-1d09003e6f2a"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumDonation}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumMCH}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="d0f1f6cb-fbd8-49f1-87ad-8e772e2ce2e9"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="d0f1f6cb-fbd8-49f1-87ad-8e772e2ce2e9"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{donation}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{mch}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="a9dc504f-5020-46ab-a88e-a6c4d12fcb4f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="30" uuid="d11bdac4-76d4-4dd2-b592-c43a4d383ceb"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Outreach
+]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="bcf3e2eb-419e-4a7b-8eb2-b303de3cc0ee"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumOutreach}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="c5d8a25e-d2ac-432d-af0c-11cc9e39c504"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{outreach}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="d8f1e350-e97e-4f46-b2c0-54eefc0ec8ee">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30" uuid="c39bdad9-5851-43e0-9a35-328193019e59"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Pesapal]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="593588c1-bead-4d71-a350-ef6bf3bbe5d1"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumPesapal}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="c3085ca4-da1e-4706-82a6-15fffaeb2961"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{pesapal}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="65" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column17"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -775,7 +976,7 @@ limit 1;]]>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{sumOther}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{sumOtherPayments}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
@@ -790,7 +991,7 @@ limit 1;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column18"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>

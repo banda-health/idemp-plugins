@@ -58,34 +58,22 @@
   cashier.name as cashiername,
   tendertype.name as paymentmode,
   sum(p.payamt) as paymentamount
-from c_payment p
+from
+  c_payment p
     inner join c_order co on p.bh_c_order_id = co.c_order_id
-        and co.docstatus <> 'VO'
+    and co.docstatus <> 'VO'
     inner join ad_user cashier on p.createdby = cashier.ad_user_id
     inner join AD_Ref_List tendertype on p.tendertype = tendertype.value
-        and AD_Reference_ID=214
-where p.ad_client_id = $P{AD_CLIENT_ID}
-   	and (p.docstatus = 'CO' or (p.docstatus = 'DR' and p.bh_processing = 'Y') or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-    and date(co.bh_visitdate) between date($P{Begin Date}) and date($P{End Date})
-    and ($P{Payment Mode} is null or $P{Payment Mode} = '' or $P{Payment Mode} IN ('I', 'W', 'D') or tendertype = $P{Payment Mode})
-    and ($P{Patient Type} is null or $P{Patient Type} = '' or co.bh_patienttype = $P{Patient Type})
-group by cashier.name, tendertype.name
-UNION
-SELECT
-    u.name,
-    rl.name,
-    sum(coalesce(ol.linenetamt, 0) * -1)
-FROM c_order o
-    JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
-    JOIN c_charge c on ol.c_charge_id = c.c_charge_id
-    JOIN ad_ref_list rl ON c.bh_subtype = rl.value
-    JOIN ad_reference r ON rl.ad_reference_id = r.ad_reference_id AND r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
-    JOIN ad_user u ON o.createdby = u.ad_user_id
-WHERE o.docstatus <> 'VO'
-    AND date(o.bh_visitdate) between  date($P{Begin Date}) and date($P{End Date})
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR $P{Payment Mode} IN ('X', 'K', 'C', 'D') OR c.bh_subtype = CASE WHEN $P{Payment Mode} = 'T' THEN 'D' ELSE $P{Payment Mode} END)
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR o.bh_patienttype = $P{Patient Type})
-group by u.name, rl.name;]]>
+    and AD_Reference_ID=214
+where
+   ((p.ad_client_id = $P{AD_CLIENT_ID}) 
+   	and ((p.docstatus = 'CO')
+	or (p.docstatus = 'DR' and p.bh_processing = 'Y')
+	or (co.docstatus = 'CO' and p.bh_processing = 'N'))
+    and (date(co.bh_visitdate) between  date($P{Begin Date}) and date($P{End Date})) )
+    and ($P{Payment Mode} is null or $P{Payment Mode} = '''' or tendertype = $P{Payment Mode})
+    and ($P{Patient Type} is null or $P{Patient Type} = '''' or co.bh_patienttype = $P{Patient Type})
+group by cashier.name, tendertype.name;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
@@ -115,19 +103,8 @@ group by u.name, rl.name;]]>
 where
    ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
     AND (date(co.bh_visitdate) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR $P{Payment Mode} IN ('I', 'W', 'T') OR tendertype = $P{Payment Mode})
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR co.bh_patienttype = $P{Patient Type})
-UNION
-SELECT u.name as cashiername
-FROM c_order o
-    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-    JOIN ad_user u ON ol.updatedby = u.ad_user_id
-    JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
-WHERE o.ad_client_id = $P{AD_CLIENT_ID}
-    AND o.docstatus <> 'VO'
-    AND date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR $P{Payment Mode} IN ('X', 'K', 'C', 'D') OR c.bh_subtype = CASE WHEN $P{Payment Mode} = 'T' THEN 'D' ELSE $P{Payment Mode} END)
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR o.bh_patienttype = $P{Patient Type})
+    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
+    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
 limit 1;]]>
 	</queryString>
 	<field name="cashiername" class="java.lang.String">
