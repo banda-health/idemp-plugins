@@ -51,6 +51,10 @@ public class OrderModelEvent extends AbstractEventHandler {
 			if (isPurchase) {
 				afterPurchaseOrderVoid(order);
 			}
+		}else if (event.getTopic().equals(IEventTopics.DOC_AFTER_COMPLETE)) {
+			if (!isPurchase) {
+				order.setBH_ProcessStage("");
+			}
 		}
 	}
 
@@ -139,5 +143,6 @@ public class OrderModelEvent extends AbstractEventHandler {
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MOrder_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MOrder_BH.Table_Name);
 		registerTableEvent(IEventTopics.DOC_AFTER_VOID, MOrder_BH.Table_Name);
+		registerTableEvent(IEventTopics.DOC_AFTER_COMPLETE, MOrder_BH.Table_Name);
 	}
 }

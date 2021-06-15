@@ -18,21 +18,21 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import org.compiere.model.*;
+
+import org.compiere.model.MTable;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Default_DocAction_Access
+/** Generated Interface for BH_Coded_Diagnosis
  *  @author iDempiere (generated) 
  *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_Default_DocAction_Access 
+public interface I_BH_CodedDiagnosis 
 {
 
-    /** TableName=BH_Default_DocAction_Access */
-    public static final String Table_Name = "BH_Default_DocAction_Access";
+    /** TableName=BH_Coded_Diagnosis */
+    public static final String Table_Name = "BH_Coded_Diagnosis";
 
-    /** AD_Table_ID=1000025 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,53 +64,23 @@ public interface I_BH_Default_DocAction_Access
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name AD_Ref_List_ID */
-    public static final String COLUMNNAME_AD_Ref_List_ID = "AD_Ref_List_ID";
+    /** Column name BH_Coded_Diagnosis_ID */
+    public static final String COLUMNNAME_BH_Coded_Diagnosis_ID = "BH_Coded_Diagnosis_ID";
 
-	/** Set Reference List.
-	  * Reference List based on Table
-	  */
-	public void setAD_Ref_List_ID (int AD_Ref_List_ID);
+	/** Set BH_CodedDiagnosis	  */
+	public void setBH_CodedDiagnosis_ID (int BH_CodedDiagnosis_ID);
 
-	/** Get Reference List.
-	  * Reference List based on Table
-	  */
-	public int getAD_Ref_List_ID();
+	/** Get BH_CodedDiagnosis	  */
+	public int getBH_CodedDiagnosis_ID();
 
-	public org.compiere.model.I_AD_Ref_List getAD_Ref_List() throws RuntimeException;
+    /** Column name BH_CodedDiagnosis_UU */
+    public static final String COLUMNNAME_BH_Coded_Diagnosis_UU = "BH_Coded_Diagnosis_UU";
 
-    /** Column name BH_Default_DocAction_Access_ID */
-    public static final String COLUMNNAME_BH_Default_DocAction_Access_ID = "BH_Default_DocAction_Access_ID";
+	/** Set BH_CodedDiagnosis_UU	  */
+	public void setBH_CodedDiagnosis_UU (String BH_CodedDiagnosis_UU);
 
-	/** Set BH_Default_DocAction_Access_ID	  */
-	public void setBH_Default_DocAction_Access_ID (int BH_Default_DocAction_Access_ID);
-
-	/** Get BH_Default_DocAction_Access_ID	  */
-	public int getBH_Default_DocAction_Access_ID();
-
-    /** Column name BH_Default_DocAction_Access_UU */
-    public static final String COLUMNNAME_BH_Default_DocAction_Access_UU = "BH_Default_DocAction_Access_UU";
-
-	/** Set BH_Default_DocAction_Access_UU	  */
-	public void setBH_Default_DocAction_Access_UU (String BH_Default_DocAction_Access_UU);
-
-	/** Get BH_Default_DocAction_Access_UU	  */
-	public String getBH_Default_DocAction_Access_UU();
-
-    /** Column name C_DocType_ID */
-    public static final String COLUMNNAME_C_DocType_ID = "C_DocType_ID";
-
-	/** Set Document Type.
-	  * Document type or rules
-	  */
-	public void setC_DocType_ID (int C_DocType_ID);
-
-	/** Get Document Type.
-	  * Document type or rules
-	  */
-	public int getC_DocType_ID();
-
-	public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException;
+	/** Get BH_CodedDiagnosis_UU	  */
+	public String getBH_CodedDiagnosis_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -128,18 +98,18 @@ public interface I_BH_Default_DocAction_Access
 	  */
 	public int getCreatedBy();
 
-    /** Column name DB_UserType */
-    public static final String COLUMNNAME_DB_UserType = "DB_UserType";
+    /** Column name Description */
+    public static final String COLUMNNAME_Description = "Description";
 
-	/** Set UserType.
-	  * The User Type when a new client is created
+	/** Set Description.
+	  * Optional short description of the record
 	  */
-	public void setDB_UserType (String DB_UserType);
+	public void setDescription (String Description);
 
-	/** Get UserType.
-	  * The User Type when a new client is created
+	/** Get Description.
+	  * Optional short description of the record
 	  */
-	public String getDB_UserType();
+	public String getDescription();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
@@ -169,4 +139,72 @@ public interface I_BH_Default_DocAction_Access
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+	/** Column name bh_ceilname */
+    public static final String COLUMNNAME_BH_CeilName = "bh_ceilname";
+
+	/** Set bh_ceilname.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setBH_CeilName (String bh_ceilname);
+
+	/** Get bh_ceilname.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getBH_CeilName();
+	
+	public static final String COLUMNNAME_BH_CeilId = "bh_ciel_id";
+
+	public void setBH_CeilId (int bh_ceilId);
+
+	public int getBH_CeilId();
+	
+	public static final String COLUMNNAME_BH_ConceptClass = "bh_concept_class";
+
+	public void setBH_ConceptClass (String bh_conceptClass);
+
+	public String getBH_ConceptClass();
+
+	public static final String COLUMNNAME_BH_ICD10 = "bh_icd10who";
+
+	public void setBH_ICD10 (String bh_icd10who);
+
+	public String getBH_ICD10();
+
+	public static final String COLUMNNAME_BH_SynomedCT = "bh_synomed_ct";
+
+	public void setBH_SynomedCT (int bh_synomed_ct);
+
+	public int getBH_SynomedCT();
+
+	public static final String COLUMNNAME_BH_SynomedNP = "bh_synomed_np";
+
+	public void setBH_SynomedNP (int bh_synomed_np);
+
+	public int getBH_SynomedNP();
+
+	public static final String COLUMNNAME_BH_Synonyms = "bh_synonyms";
+
+	public void setBH_Synonyms (String bh_synonyms);
+
+	public String getBH_Synonyms();
+
+	public static final String COLUMNNAME_BH_MoH705A_LessThan5 = "bh_moh705a_lessthan5";
+
+	public void setBH_MoH705ALessThan5 (String bh_moh705a_lessthan5);
+
+	public String getBH_MoH705ALessThan5();
+
+	public static final String COLUMNNAME_BH_MoH705B_GreaterThan5 = "bh_moh705b_greaterthan5";
+
+	public void setBH_MoH705BGreaterThan5 (String bh_moh705b_greaterthan5);
+
+	public String getBH_MoH705BGreaterThan5();
+
+	public static final String COLUMNNAME_BH_SEARCHTERMS = "bh_searchterms";
+
+	public void setBH_SearchTerms (String bh_searchterms);
+
+	public String getBH_SearchTerms();
+
 }
