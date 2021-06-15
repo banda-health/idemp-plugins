@@ -89,7 +89,9 @@ from (
                        AND (
                            params.payment_mode = '''' OR p.tendertype = params.payment_mode
                            )
-    WHERE bh_c_order_id IS NULL
+    WHERE p.c_invoice_id IS NULL
+      AND p.isallocated = 'N'
+      AND p.bh_c_order_id = 0
 ) as transactions
     join ad_user u on u.ad_user_id = transactions.cashier_id
 group by u.name
@@ -151,7 +153,9 @@ from (
                        AND (
                            params.payment_mode = '''' OR p.tendertype = params.payment_mode
                            )
-    WHERE bh_c_order_id IS NULL
+    WHERE p.c_invoice_id IS NULL
+      AND p.isallocated = 'N'
+      AND p.bh_c_order_id = 0
 ) as transactions
     join ad_user u on u.ad_user_id = transactions.cashier_id
 group by u.name
