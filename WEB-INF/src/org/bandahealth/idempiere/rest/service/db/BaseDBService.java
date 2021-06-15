@@ -259,8 +259,12 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		try {
 			List<T> results = new ArrayList<>();
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setClient_ID();
+			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null);
 
+			if (isClientIdFromTheContextNeededByDefaultForThisEntity()) {
+				query = query.setClient_ID();
+			}
+			
 			if (joinClause != null) {
 				query.addJoinClause(joinClause);
 			}
@@ -281,7 +285,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 
 			List<S> entities = query.list();
-
+			
 			if (!entities.isEmpty()) {
 				for (S entity : entities) {
 					if (entity != null) {
@@ -400,7 +404,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			if (!dynamicJoinClause.toString().trim().isEmpty()) {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
 			}
-			if (SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
+			if (!StringUtil.isNullOrEmpty(sortColumn) && SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
 				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
 				if (joinString != null) {
 					query.addJoinClause(joinString);
@@ -424,13 +428,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 			List<S> entities = getTranslations(query.list());
 
-			if (!entities.isEmpty()) {
-				for (S entity : entities) {
-					if (entity != null) {
-						results.add(createInstanceWithDefaultFields(entity));
-					}
-				}
-			}
+			results = transformData(entities);
 
 			return new BaseListResponse<T>(results, pagingInfo);
 
@@ -594,5 +592,18 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
 						parameters).list();
 		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, model -> model));
+	}
+
+	/**
+	 * Transform data, including batch fetching of child data, for these entities
+	 *
+	 * @param dbModels The data fetched from the database
+	 * @return The transformed data into idemp-rest models
+	 */
+	public List<T> transformData(List<S> dbModels) {
+		if (dbModels != null) {
+			return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
+		}
+		return new ArrayList<>();
 	}
 }

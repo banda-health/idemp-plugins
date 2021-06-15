@@ -32,8 +32,12 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
             <ref bean="ExpenseServiceBean"/>
             <ref bean="ReceiveProductServiceBean"/>
             <ref bean="UserServiceBean"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.BusinessPartnerRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeInformationSuggestionRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>
+			<ref bean="CodedDiagnosisServiceBean" />
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
@@ -108,5 +112,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
     <bean id="adempiereExceptionMapper"
           class="org.bandahealth.idempiere.rest.exceptions.AdempiereExceptionMapper"/>
+
+	<bean id="CodedDiagnosisServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.CodedDiagnosisRestService" />
 
 </beans>
