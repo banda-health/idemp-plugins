@@ -264,7 +264,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			if (isClientIdFromTheContextNeededByDefaultForThisEntity()) {
 				query = query.setClient_ID();
 			}
-			
+
 			if (joinClause != null) {
 				query.addJoinClause(joinClause);
 			}
@@ -285,7 +285,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 
 			List<S> entities = query.list();
-			
+
 			if (!entities.isEmpty()) {
 				for (S entity : entities) {
 					if (entity != null) {
@@ -561,7 +561,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		}
 		List<S> models =
 				getBaseQuery(shouldUseContextClientId, columnToSearch + " IN (" + whereCondition + ")", parameters).list();
-		return getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
+		Map<Integer, List<S>> groupedValues =
+				getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
+		return ids.stream().collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
 	}
 
 	/**
