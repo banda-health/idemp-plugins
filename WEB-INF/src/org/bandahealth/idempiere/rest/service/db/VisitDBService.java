@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
