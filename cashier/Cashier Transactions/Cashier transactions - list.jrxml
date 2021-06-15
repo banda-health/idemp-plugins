@@ -193,9 +193,9 @@ from (
                        AND (
                            params.payment_mode = '''' OR p.tendertype = params.payment_mode
                            )
-    WHERE cp.c_invoice_id IS NULL
-      AND cp.isallocated = 'N'
-      AND cp.bh_c_order_id = 0
+    WHERE p.c_invoice_id IS NULL
+      AND p.isallocated = 'N'
+      AND p.bh_c_order_id = 0
 ) as transactions
     join c_bpartner bp on bp.c_bpartner_id = transactions.c_bpartner_id
     join ad_user u on u.ad_user_id = transactions.cashier_id]]>
