@@ -151,8 +151,7 @@ from (
                        AND (
                            params.payment_mode = '''' OR p.tendertype = params.payment_mode
                            )
-    WHERE
-      AND cp.c_invoice_id IS NULL
+    WHERE cp.c_invoice_id IS NULL
       AND cp.isallocated = 'N'
       AND cp.bh_c_order_id = 0
 ) as transactions
