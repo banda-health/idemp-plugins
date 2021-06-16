@@ -1279,4 +1279,24 @@ WHERE tmp_o.c_order_id = o.c_order_id;
 -- Update the sequences
 SELECT update_sequences();
 
+-- Since the sequence updates also need the columns (which we didn't insert here), we're just going to update the sequences manually
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_ChargeTypeDefault_id) + 1 FROM BH_ChargeTypeDefault)
+WHERE name = 'BH_ChargeTypeDefault';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_id) + 1 FROM BH_Charge_Info)
+WHERE name = 'BH_Charge_Info';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_Suggestion_id) + 1 FROM BH_Charge_Info_Suggestion)
+WHERE name = 'BH_Charge_Info_Suggestion';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_Values_id) + 1 FROM BH_Charge_Info_Values)
+WHERE name = 'BH_Charge_Info_Values';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_Values_Suggestion_id) + 1 FROM BH_Charge_Info_Values_Suggestion)
+WHERE name = 'BH_Charge_Info_Values_Suggestion';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_OrderLine_Charge_Info_id) + 1 FROM BH_OrderLine_Charge_Info)
+WHERE name = 'BH_OrderLine_Charge_Info';
+
 SELECT register_migration_script('202105051351_GO-1650.sql') FROM dual;
