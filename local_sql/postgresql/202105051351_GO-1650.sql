@@ -483,6 +483,29 @@ JOIN c_element e
 	ON e.ad_client_id = c.ad_client_id
 WHERE c.ad_client_id > 999999 AND c.ad_client_id NOT IN (SELECT ad_client_id FROM c_elementvalue WHERE value = '12710');
 
+-- Create the NHIF National Scheme account
+INSERT INTO tmp_c_elementvalue (
+	ad_client_id,
+	value,
+	name,
+	accounttype,
+	accountsign,
+	c_element_id,
+	issummary
+)
+SELECT
+	c.ad_client_id,
+	'12310',--value
+	'A/R - NHIF National Scheme',--name
+	'A',--accounttype
+	'N',--accountsign
+	e.c_element_id,
+  'N'
+FROM ad_client c
+JOIN c_element e
+	ON e.ad_client_id = c.ad_client_id
+WHERE c.ad_client_id > 999999 AND c.ad_client_id NOT IN (SELECT ad_client_id FROM c_elementvalue WHERE value = '12310');
+
 -- Add these accounts officially to iDempiere
 INSERT INTO c_elementvalue (
 	c_elementvalue_id,
@@ -534,13 +557,18 @@ SELECT
 	0,
 	100,
 	100,
-	0,
+	CASE
+		WHEN ev.value = '127' THEN (SELECT c_elementvalue_id FROM c_elementvalue WHERE ad_client_id = ev.ad_client_id AND value = '12')
+		WHEN ev.value = '12710' THEN (SELECT c_elementvalue_id FROM c_elementvalue WHERE ad_client_id = ev.ad_client_id AND value = '127')
+		WHEN ev.value = '12310' THEN (SELECT c_elementvalue_id FROM c_elementvalue WHERE ad_client_id = ev.ad_client_id AND value = '123')
+		ELSE 0
+	END,
 	999,
 	uuid_generate_v4()
 FROM tmp_c_elementvalue ev
-INNER JOIN ad_tree tr
-	ON tr.ad_client_id = ev.ad_client_id
-		AND tr.name like '%Element Value';
+	INNER JOIN ad_tree tr
+		ON tr.ad_client_id = ev.ad_client_id
+			AND tr.name like '%Element Value';
 
 -- Create combinations for each new element that was added
 INSERT INTO tmp_c_validcombination (
