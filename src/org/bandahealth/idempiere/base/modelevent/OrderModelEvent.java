@@ -51,9 +51,9 @@ public class OrderModelEvent extends AbstractEventHandler {
 			if (isPurchase) {
 				afterPurchaseOrderVoid(order);
 			}
-		}else if (event.getTopic().equals(IEventTopics.DOC_AFTER_COMPLETE)) {
+		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_COMPLETE)) {
 			if (!isPurchase) {
-				order.setBH_ProcessStage("");
+				order.setBH_ProcessStage(null);
 			}
 		}
 	}
