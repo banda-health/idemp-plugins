@@ -9,8 +9,9 @@ $$
         current_table        varchar(40);
         current_col  varchar(40);
         total_processed      integer     := 0;
+        temp_table_name varchar(100);
     begin
-        set search_path to adempiere, pg_catalog, public;
+        set search_path to adempiere, public, migration;
         for current_rec in select distinct lower(tablename) as tbl, ac.columnname as colname
                            from ad_table t
                                     join ad_column ac on ac.ad_table_id = t.ad_table_id
@@ -26,11 +27,11 @@ $$
                                current_col) into records using 1;
                 raise info 'current table: %   current column: %', current_table, current_col;
                 if records > 0 then
-                    --get these records and export to file/add
                     res_count = res_count + 1;
+                    execute format('create table public.%I as select * from %I',current_table, current_table);
                 end if;
             end loop;
         raise info 'Total tables processed: %', total_processed;
         raise info 'Total tables with target records: %', res_count;
-    end ;
+    end;
 $$
