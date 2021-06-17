@@ -1,4 +1,4 @@
-
+--temp function to create required tables for exporting config client
 
 DO
 $$
