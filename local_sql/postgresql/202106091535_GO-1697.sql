@@ -24,14 +24,24 @@ $$
                 current_table = current_rec.tbl;
                 current_col = lower(current_rec.colname);
                 execute format('select count(*) from %I where %I = $1', current_table,
-                               current_col) into records using 1;
+                               current_col) into records using 2;
                 raise info 'current table: %   current column: %', current_table, current_col;
                 if records > 0 then
                     res_count = res_count + 1;
-                    execute format('create table public.%I as select * from %I',current_table, current_table);
+                    execute format('create table migration.%I as select * from %I where %I = $1',current_table, current_table, current_col) using 2;
                 end if;
             end loop;
         raise info 'Total tables processed: %', total_processed;
         raise info 'Total tables with target records: %', res_count;
     end;
 $$
+
+
+
+--config client data
+
+
+
+
+
+
