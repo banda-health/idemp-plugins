@@ -10,6 +10,7 @@ $$
         current_col  varchar(40);
         total_processed      integer     := 0;
         temp_table_name varchar(100);
+        client_config_id integer :=1000064;
     begin
         set search_path to adempiere, public, migration;
         for current_rec in select distinct lower(tablename) as tbl, ac.columnname as colname
@@ -24,11 +25,11 @@ $$
                 current_table = current_rec.tbl;
                 current_col = lower(current_rec.colname);
                 execute format('select count(*) from %I where %I = $1', current_table,
-                               current_col) into records using 2;
+                               current_col) into records using client_config_id;
                 raise info 'current table: %   current column: %', current_table, current_col;
                 if records > 0 then
                     res_count = res_count + 1;
-                    execute format('create table migration.%I as select * from %I where %I = $1',current_table, current_table, current_col) using 2;
+                    execute format('create table template.%I as select * from %I where %I = $1',current_table, current_table, current_col) using client_config_id;
                 end if;
             end loop;
         raise info 'Total tables processed: %', total_processed;
