@@ -10,6 +10,20 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+
+--Define sequences ids in tables for this client
+SELECT setval(
+	'tmp_ad_role_ad_role_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE name = 'AD_Role'
+		LIMIT 1
+	)::INT,
+	false
+);
+
+
 --
 -- Data for Name: ad_client; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
 --
@@ -42,6 +56,148 @@ INSERT INTO adempiere.ad_clientinfo (ad_client_id, ad_org_id, isactive, created,
 VALUES (2, 0, 'Y', '2021-06-21 17:16:59.552', 100, '2021-06-21 17:16:59.552', 100, 'N', 1000064, 1000064, NULL, NULL,
         NULL, NULL, 10, 1000514, 1000513, 1000519, 1000515, 1000512, 1020365, 1082226, NULL, 1000517, 1000516, NULL,
         NULL, NULL, '18ffd460-a2af-4efc-979e-b38c5a2ac629', NULL, NULL, NULL, NULL, 'N', 'N', NULL);
+
+
+--
+-- Data for Name: ad_role; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000670, 2, 0, 'Y', '2021-06-21 17:16:59.746', 100, '2021-06-21 17:16:59.746', 'SambaClient Admin', 100, NULL,
+        ' CO', NULL, 0, NULL, 'N', 'Y', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'C', 'N', 'N', NULL, 0, 0, NULL, 'Y',
+        'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        '7e43c2e6-cf08-45e1-85ef-33d65bffbb59', 'N', 'N', 'Y', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000671, 2, 0, 'Y', '2021-06-21 17:16:59.977', 100, '2021-06-21 17:17:28.517', 'SambaClient User', 100, NULL,
+        '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL, 'Y',
+        'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        '52c84c81-92d7-484b-a4d7-2883a5fb2662', 'N', 'N', 'N', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000672, 2, 0, 'Y', '2021-06-21 17:17:28.542', 100, '2021-06-21 17:17:28.542', 'SambaClient Advanced User', 100,
+        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
+        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        '6a9d0752-582a-493f-be17-1006c8233cdb', 'N', 'N', 'N', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000673, 2, 0, 'Y', '2021-06-21 17:17:28.571', 100, '2021-06-21 17:17:28.571', 'SambaClient Clinic Admin', 100,
+        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
+        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        '218b2199-e88c-4f91-b721-c0a20daa948d', 'N', 'N', 'N', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000674, 2, 0, 'Y', '2021-06-21 17:17:28.586', 100, '2021-06-21 17:17:28.586', 'SambaClient Clinician/Nurse',
+        100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0,
+        NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        'b7b41a58-b81f-4fd1-ba4e-f627ae52004b', 'N', 'N', 'N', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000675, 2, 0, 'Y', '2021-06-21 17:17:28.599', 100, '2021-06-21 17:17:28.599',
+        'SambaClient Cashier/Registration', 100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y',
+        'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N',
+        'N', 'N', 'N', NULL, NULL, '176be5bf-748e-41fe-bb45-92de42c0c281', 'N', 'N', 'N', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000676, 2, 0, 'Y', '2021-06-21 17:17:28.612', 100, '2021-06-21 17:17:28.612', 'SambaClient Inventory/Pharmacy',
+        100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0,
+        NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        '274a4ddc-6347-487d-87d8-05b2a12eaca7', 'N', 'N', 'N', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000677, 2, 0, 'Y', '2021-06-21 17:17:28.625', 100, '2021-06-21 17:17:28.625', 'SambaClient Lab/Radiology', 100,
+        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
+        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        '9ce44958-45e5-49cb-8f97-6fb6c133d6e7', 'N', 'N', 'N', NULL);
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
+                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
+                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
+                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
+                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
+                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
+                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
+                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
+                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
+VALUES (1000678, 2, 0, 'Y', '2021-06-21 17:17:28.638', 100, '2021-06-21 17:17:28.638', 'SambaClient Accounting', 100,
+        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
+        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
+        'aca6ac7f-5b45-49ed-b0ed-b77b17da0449', 'N', 'N', 'N', NULL);
+
 
 
 --
@@ -312,6 +468,48 @@ VALUES (2, NULL, 200007, 0, 1000671, '2021-06-21 17:17:00.068676', 100, 'Y', '20
 INSERT INTO adempiere.ad_infowindow_access (ad_client_id, ad_infowindow_access_uu, ad_infowindow_id, ad_org_id,
                                            ad_role_id, created, createdby, isactive, updated, updatedby)
 VALUES (2, NULL, 1000000, 0, 1000671, '2021-06-21 17:17:00.068676', 100, 'Y', '2021-06-21 17:17:00.068676', 100);
+
+
+--
+-- Data for Name: c_location; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
+                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
+                                 isvalid, c_addressvalidation_id, address5, comments)
+VALUES (1085969, 2, 0, 'Y', '2021-06-21 17:17:07.696', 100, '2021-06-21 17:17:07.696', 100, NULL, NULL, NULL, NULL,
+        NULL, 100, NULL, NULL, NULL, NULL, NULL, 'b5d98667-02e2-4bce-b3ca-1bf84e0a6e38', NULL, NULL, 'N', NULL, NULL,
+        NULL);
+INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
+                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
+                                 isvalid, c_addressvalidation_id, address5, comments)
+VALUES (1085970, 2, 0, 'Y', '2021-06-21 17:17:07.956', 100, '2021-06-21 17:17:07.956', 100, NULL, NULL, NULL, NULL,
+        NULL, 100, NULL, NULL, NULL, NULL, NULL, '2f8d567b-bd07-4f38-9dcd-2c8213d46bac', NULL, NULL, 'N', NULL, NULL,
+        NULL);
+INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
+                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
+                                 isvalid, c_addressvalidation_id, address5, comments)
+VALUES (1085971, 2, 0, 'Y', '2021-06-21 17:17:07.974', 100, '2021-06-21 17:17:07.974', 100, NULL, NULL, NULL, NULL,
+        NULL, 100, NULL, NULL, NULL, NULL, NULL, '327e30d5-8e7e-4d54-a30a-62ce34bab045', NULL, NULL, 'N', NULL, NULL,
+        NULL);
+INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
+                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
+                                 isvalid, c_addressvalidation_id, address5, comments)
+VALUES (1085972, 2, 0, 'Y', '2021-06-21 17:17:08.179', 100, '2021-06-21 17:17:08.179', 100, NULL, NULL, NULL, NULL,
+        NULL, 100, NULL, NULL, NULL, NULL, NULL, '046df693-e5a1-4e62-bcc7-ad57a46adc34', NULL, NULL, 'N', NULL, NULL,
+        NULL);
+INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
+                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
+                                 isvalid, c_addressvalidation_id, address5, comments)
+VALUES (1085973, 2, 0, 'Y', '2021-06-21 17:17:08.273', 100, '2021-06-21 17:17:08.273', 100, NULL, NULL, NULL, NULL,
+        NULL, 100, NULL, NULL, NULL, NULL, NULL, '67bd7760-ae1b-4408-b4ff-004343e049b7', NULL, NULL, 'N', NULL, NULL,
+        NULL);
+
 
 
 --
@@ -2917,146 +3115,6 @@ INSERT INTO adempiere.ad_process_access (ad_process_id, ad_role_id, ad_client_id
 VALUES (1000020, 1000671, 2, 0, 'Y', '2021-06-21 17:17:00.051286', 100, '2021-06-21 17:17:00.051286', 100, 'Y', NULL);
 
 
---
--- Data for Name: ad_role; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000670, 2, 0, 'Y', '2021-06-21 17:16:59.746', 100, '2021-06-21 17:16:59.746', 'SambaClient Admin', 100, NULL,
-        ' CO', NULL, 0, NULL, 'N', 'Y', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'C', 'N', 'N', NULL, 0, 0, NULL, 'Y',
-        'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        '7e43c2e6-cf08-45e1-85ef-33d65bffbb59', 'N', 'N', 'Y', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000671, 2, 0, 'Y', '2021-06-21 17:16:59.977', 100, '2021-06-21 17:17:28.517', 'SambaClient User', 100, NULL,
-        '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL, 'Y',
-        'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        '52c84c81-92d7-484b-a4d7-2883a5fb2662', 'N', 'N', 'N', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000672, 2, 0, 'Y', '2021-06-21 17:17:28.542', 100, '2021-06-21 17:17:28.542', 'SambaClient Advanced User', 100,
-        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
-        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        '6a9d0752-582a-493f-be17-1006c8233cdb', 'N', 'N', 'N', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000673, 2, 0, 'Y', '2021-06-21 17:17:28.571', 100, '2021-06-21 17:17:28.571', 'SambaClient Clinic Admin', 100,
-        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
-        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        '218b2199-e88c-4f91-b721-c0a20daa948d', 'N', 'N', 'N', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000674, 2, 0, 'Y', '2021-06-21 17:17:28.586', 100, '2021-06-21 17:17:28.586', 'SambaClient Clinician/Nurse',
-        100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0,
-        NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        'b7b41a58-b81f-4fd1-ba4e-f627ae52004b', 'N', 'N', 'N', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000675, 2, 0, 'Y', '2021-06-21 17:17:28.599', 100, '2021-06-21 17:17:28.599',
-        'SambaClient Cashier/Registration', 100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y',
-        'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N',
-        'N', 'N', 'N', NULL, NULL, '176be5bf-748e-41fe-bb45-92de42c0c281', 'N', 'N', 'N', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000676, 2, 0, 'Y', '2021-06-21 17:17:28.612', 100, '2021-06-21 17:17:28.612', 'SambaClient Inventory/Pharmacy',
-        100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0,
-        NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        '274a4ddc-6347-487d-87d8-05b2a12eaca7', 'N', 'N', 'N', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000677, 2, 0, 'Y', '2021-06-21 17:17:28.625', 100, '2021-06-21 17:17:28.625', 'SambaClient Lab/Radiology', 100,
-        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
-        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        '9ce44958-45e5-49cb-8f97-6fb6c133d6e7', 'N', 'N', 'N', NULL);
-INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
-                              updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual,
-                              isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id,
-                              iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit,
-                              isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords,
-                              connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
-                              allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order,
-                              allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule,
-                              userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
-                              isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
-                              ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000678, 2, 0, 'Y', '2021-06-21 17:17:28.638', 100, '2021-06-21 17:17:28.638', 'SambaClient Accounting', 100,
-        NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
-        'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
-        'aca6ac7f-5b45-49ed-b0ed-b77b17da0449', 'N', 'N', 'N', NULL);
-
 
 --
 -- Data for Name: ad_role_included; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
@@ -4604,24 +4662,6 @@ INSERT INTO adempiere.ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isac
 VALUES (1011674, 2, 0, 'Y', '2021-06-21 17:17:02.914', 100, '2021-06-21 17:17:02.914', 100, 'Warehouse Order',
         'Warehouse Order', NULL, 'Y', 1, 70000, 70000, 7000, 'N', 'N', NULL, NULL, 'N', NULL, NULL,
         'a25292f4-decb-4c80-a47e-819c18436824', 'N', 'N', NULL);
-
-
---
--- Data for Name: ad_session; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.ad_session (ad_session_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, websession, remote_addr, remote_host, processed, description, ad_role_id,
-                                 logindate, ad_session_uu, servername)
-VALUES (1034718, 2, 1000064, 'Y', '2021-06-21 17:21:47.14', 100, '2021-06-21 18:21:51.389', 100,
-        'node01pza7r5z2nv1p1xo57iftza71u1', '127.0.0.1', '127.0.0.1', 'Y', 'Release 7.1_2019-11-22 iDempiere
-User Agent: Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36
-Time Zone: GMT+03:00
-Screen Size: 1366 x 768
-Browser Desktop Size: 1366 x 574
-Orientation: landscape
-Color Depth: 24
-Pixel Ratio: 1.0', 1000678, '2021-06-21 00:00:00', '0537722b-9255-4422-8003-df974dc1a3c0', 'localhost:192.168.8.193');
 
 
 --
@@ -7775,217 +7815,6 @@ INSERT INTO adempiere.ad_workflow_access (ad_workflow_id, ad_role_id, ad_client_
 VALUES (112, 1000671, 2, 0, 'Y', '2021-06-21 17:17:00.063189', 100, '2021-06-21 17:17:00.063189', 100, 'Y', NULL);
 
 
---
--- Data for Name: bh_paymentref; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.bh_paymentref (bh_paymentref_id, ad_client_id, ad_org_id, bh_paymentref_uu, created, createdby,
-                                    description, isactive, name, updated, updatedby, ad_reference_id,
-                                    bh_paymentref_action)
-VALUES (1000128, 2, 1000064, '8e23c76e-21b9-404c-9a35-9a080625ce79', '2021-06-21 17:17:25.934', 100, NULL, 'Y',
-        '_Payment Rule', '2021-06-21 17:17:25.934', 100, 195, NULL);
-INSERT INTO adempiere.bh_paymentref (bh_paymentref_id, ad_client_id, ad_org_id, bh_paymentref_uu, created, createdby,
-                                    description, isactive, name, updated, updatedby, ad_reference_id,
-                                    bh_paymentref_action)
-VALUES (1000129, 2, 1000064, '3ab5f6bd-393d-409d-bc91-639aedced469', '2021-06-21 17:17:26.039', 100, NULL, 'Y',
-        'C_Payment Tender Type', '2021-06-21 17:17:26.039', 100, 214, NULL);
-
-
---
--- Data for Name: bh_paymentref_bankacct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001566, 2, 1000064, '790db8b2-3bd1-44b4-afc7-202b067e7cbf', '2021-06-21 17:17:25.955', 100, NULL, 'Y',
-        'Direct Deposit', '2021-06-21 17:17:25.955', 100, 334, 1000161, 1000128, 'T');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001567, 2, 1000064, '2581f285-d463-40ee-8780-5aa7c29a8845', '2021-06-21 17:17:25.968', 100, NULL, 'Y',
-        'Direct Debit', '2021-06-21 17:17:25.968', 100, 652, 1000161, 1000128, 'D');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001568, 2, 1000064, 'cae4507d-01c4-4e3a-a90e-bf3cbd019e74', '2021-06-21 17:17:25.977', 100, NULL, 'Y',
-        'Mobile Account', '2021-06-21 17:17:25.977', 100, 1000056, 1000161, 1000128, 'A');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001569, 2, 1000064, 'c586c057-a4ee-4d4a-9105-2a3da52f5f79', '2021-06-21 17:17:25.985', 100, NULL, 'Y',
-        'Credit Card', '2021-06-21 17:17:25.985', 100, 333, 1000161, 1000128, 'K');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001570, 2, 1000064, '625dc19d-2f73-47ac-8dc7-bd3f7cab445f', '2021-06-21 17:17:25.993', 100, NULL, 'Y',
-        'Mixed POS Payment', '2021-06-21 17:17:25.993', 100, 52000, 1000161, 1000128, 'M');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001571, 2, 1000064, '46d5d411-29a0-44ca-bd90-07b9f5de1f1a', '2021-06-21 17:17:26', 100, NULL, 'Y', 'On Credit',
-        '2021-06-21 17:17:26', 100, 337, 1000161, 1000128, 'P');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001572, 2, 1000064, 'bf22be10-d7a4-46a8-88d6-74f69302ee20', '2021-06-21 17:17:26.009', 100, NULL, 'Y', 'Check',
-        '2021-06-21 17:17:26.009', 100, 335, 1000161, 1000128, 'S');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001573, 2, 1000064, '6e6246ad-e7c3-4d5a-bf36-a5de592448a8', '2021-06-21 17:17:26.018', 100, NULL, 'Y', 'Cash',
-        '2021-06-21 17:17:26.018', 100, 332, 1000161, 1000128, 'B');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001574, 2, 1000064, '6174ba58-7138-4796-bbfd-8e421d723479', '2021-06-21 17:17:26.026', 100, NULL, 'Y',
-        'Cash Drawer', '2021-06-21 17:17:26.026', 100, 1000057, 1000161, 1000128, 'b');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001575, 2, 1000064, '502bf298-6b7f-4f3a-a0a6-a28288b4530d', '2021-06-21 17:17:26.053', 100, NULL, 'Y',
-        'Direct Deposit', '2021-06-21 17:17:26.053', 100, 402, 1000161, 1000129, 'A');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001576, 2, 1000064, '4af05704-62f5-4fbf-9bf8-ec40bd4f2377', '2021-06-21 17:17:26.062', 100, NULL, 'Y', 'Cash',
-        '2021-06-21 17:17:26.062', 100, 53438, 1000161, 1000129, 'X');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001577, 2, 1000064, '920d65b9-be1f-42eb-b3d4-dc7bf18ca031', '2021-06-21 17:17:26.071', 100, NULL, 'Y',
-        'Cheque', '2021-06-21 17:17:26.071', 100, 401, 1000161, 1000129, 'K');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001578, 2, 1000064, 'fd6434f7-29fc-4e2c-8a85-de3efa1600ff', '2021-06-21 17:17:26.078', 100, NULL, 'Y',
-        'Donor Fund', '2021-06-21 17:17:26.078', 100, 1000023, 1000161, 1000129, 'F');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001579, 2, 1000064, 'b2afa84d-a1d9-4811-8aa5-7f53b97513bd', '2021-06-21 17:17:26.089', 100, NULL, 'Y', 'CCC',
-        '2021-06-21 17:17:26.089', 100, 1000052, 1000161, 1000129, 'G');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001580, 2, 1000064, '27a75b61-ef30-4ab3-b83e-39094634240b', '2021-06-21 17:17:26.098', 100, NULL, 'Y', 'MCH',
-        '2021-06-21 17:17:26.098', 100, 1000053, 1000161, 1000129, 'H');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001581, 2, 1000064, 'a37bd84d-1235-4767-9e95-ff853806f337', '2021-06-21 17:17:26.106', 100, NULL, 'Y',
-        'Linda Mama', '2021-06-21 17:17:26.106', 100, 1000035, 1000161, 1000129, 'i');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001582, 2, 1000064, '2f522fa5-8d05-41d0-a7a2-d5c0e35ab763', '2021-06-21 17:17:26.114', 100, NULL, 'Y', 'NHIF',
-        '2021-06-21 17:17:26.114', 100, 1000020, 1000161, 1000129, 'N');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001583, 2, 1000064, 'e1f6bb3d-8189-4905-9907-ec74deac1dac', '2021-06-21 17:17:26.122', 100, NULL, 'Y',
-        'Outreach', '2021-06-21 17:17:26.122', 100, 1000054, 1000161, 1000129, 'O');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001584, 2, 1000064, 'd698036c-2a38-4536-a28c-78403cbc6545', '2021-06-21 17:17:26.133', 100, NULL, 'Y',
-        'M-TIBA', '2021-06-21 17:17:26.133', 100, 1000013, 1000161, 1000129, 'L');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001585, 2, 1000064, '1bde33d5-0bc5-40dd-b521-7718d5ff7790', '2021-06-21 17:17:26.143', 100, NULL, 'Y',
-        'PesaPal', '2021-06-21 17:17:26.143', 100, 1000066, 1000161, 1000129, 'P');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001586, 2, 1000064, '24b2d077-0e84-4181-9348-d7a102c5e5d1', '2021-06-21 17:17:26.15', 100, NULL, 'Y',
-        'Liason insurance', '2021-06-21 17:17:26.15', 100, 1000068, 1000161, 1000129, 'V');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001587, 2, 1000064, '0cec21db-164f-4d45-9674-805d00d1370d', '2021-06-21 17:17:26.159', 100, NULL, 'Y',
-        'Bill Waiver', '2021-06-21 17:17:26.159', 100, 1000012, 1000161, 1000129, 'B');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001588, 2, 1000064, '247d2ba3-17d6-4bb3-878e-b04f2e4b6ccd', '2021-06-21 17:17:26.168', 100, NULL, 'Y',
-        'Credit or Debit Card', '2021-06-21 17:17:26.168', 100, 400, 1000161, 1000129, 'C');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001589, 2, 1000064, '056812ca-a973-44f8-beec-3d28f4795c1b', '2021-06-21 17:17:26.176', 100, NULL, 'Y',
-        'Bank Transfer', '2021-06-21 17:17:26.176', 100, 651, 1000161, 1000129, 'D');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001590, 2, 1000064, '45d4bcd9-bcc5-4882-8ccc-e65d927d3051', '2021-06-21 17:17:26.185', 100, NULL, 'Y',
-        'Mobile Money', '2021-06-21 17:17:26.185', 100, 1000011, 1000161, 1000129, 'M');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001591, 2, 1000064, '0e3a077b-1409-4a7e-b45c-cb5428b53280', '2021-06-21 17:17:26.193', 100, NULL, 'Y',
-        'Account', '2021-06-21 17:17:26.193', 100, 53351, 1000161, 1000129, 'T');
-INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
-                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
-                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
-                                             bh_paymentreflist_value)
-VALUES (1001592, 2, 1000064, 'cec193e0-240c-4136-bc2f-ea9fda8553c9', '2021-06-21 17:17:26.203', 100, NULL, 'Y',
-        'Jubilee insurance', '2021-06-21 17:17:26.203', 100, 1000067, 1000161, 1000129, 'U');
-
-
---
--- Data for Name: c_acctprocessor; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_acctprocessor (c_acctprocessor_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                      updated, updatedby, name, description, frequencytype, frequency, datelastrun,
-                                      datenextrun, supervisor_id, keeplogdays, processing, c_acctschema_id, ad_table_id,
-                                      c_acctprocessor_uu, ad_schedule_id)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.198', 100, '2021-06-21 17:17:00.198', 100,
-        'SambaClient - Accounting Processor', NULL, NULL, NULL, NULL, '2021-06-21 17:27:00.199', 1082126, 7, 'N', NULL,
-        NULL, '0a2a8936-c123-4038-9528-5e62bcafdafc', 200002);
-
-
---
--- Data for Name: c_acctschema; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_acctschema (c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                   updatedby, name, description, gaap, isaccrual, costingmethod, c_currency_id,
-                                   autoperiodcontrol, c_period_id, period_openhistory, period_openfuture, separator,
-                                   hasalias, hascombination, istradediscountposted, isdiscountcorrectstax,
-                                   m_costtype_id, costinglevel, isadjustcogs, ad_orgonly_id, ispostservices,
-                                   isexplicitcostadjustment, commitmenttype, processing, taxcorrectiontype,
-                                   isallownegativeposting, ispostifclearingequal, c_acctschema_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.679', 100, '2021-06-21 17:17:00.679', 100,
-        'SambaClient UN/35 US Dollar', NULL, 'UN', 'Y', 'S', 100, 'Y', NULL, 2, 2, '-', 'Y', 'N', 'N', 'N', 1000064,
-        'C', 'N', NULL, 'N', 'N', 'N', 'N', 'N', 'Y', 'Y', '5ff2ae99-3edd-457f-8b09-60b7571a80ff');
 
 
 --
@@ -8026,2000 +7855,6 @@ VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.869', 100, '2021-06-21 17:17:00
         1005473, 1005482, 1005480, NULL, NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476,
         'e6bc915d-ffc5-4eb5-912a-7701ff7e9e0a', 1005486);
 
-
---
--- Data for Name: c_acctschema_element; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
-                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
-                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
-                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
-                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
-VALUES (1000252, 'Y', '2021-06-21 17:17:00.738951', 0, '2021-06-21 17:17:00.738951', 0, 0, 1000064, 'OO',
-        'Organization', 10, NULL, 2, 'Y', 'Y', 1000064, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        '7665c3dd-eba6-410b-b660-c5b582818592');
-INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
-                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
-                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
-                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
-                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
-VALUES (1000253, 'Y', '2021-06-21 17:17:00.744821', 0, '2021-06-21 17:17:00.744821', 0, 0, 1000064, 'AC', 'Account', 20,
-        1000064, 2, 'Y', 'N', NULL, 1010716, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        '43b0fae6-6881-4576-a5cd-94e1ef1d3d02');
-INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
-                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
-                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
-                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
-                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
-VALUES (1000255, 'Y', '2021-06-21 17:17:00.753016', 0, '2021-06-21 17:17:00.753016', 0, 0, 1000064, 'BP', 'BPartner',
-        40, NULL, 2, 'N', 'N', NULL, NULL, NULL, 1082226, NULL, NULL, NULL, NULL, NULL, NULL,
-        '181999dc-1ee4-4cef-892f-b1ac3df120cf');
-INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
-                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
-                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
-                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
-                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
-VALUES (1000254, 'Y', '2021-06-21 17:17:00.748923', 0, '2021-06-21 17:17:00.748923', 0, 0, 1000064, 'PR', 'Product', 30,
-        NULL, 2, 'N', 'N', NULL, NULL, 1020365, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        '85146250-c32e-49a2-9ffa-5be5ed8d5973');
-
-
---
--- Data for Name: c_acctschema_gl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_acctschema_gl (c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                      updatedby, usesuspensebalancing, suspensebalancing_acct, usesuspenseerror,
-                                      suspenseerror_acct, usecurrencybalancing, currencybalancing_acct,
-                                      retainedearning_acct, incomesummary_acct, intercompanydueto_acct,
-                                      intercompanyduefrom_acct, ppvoffset_acct, commitmentoffset_acct,
-                                      commitmentoffsetsales_acct, c_acctschema_gl_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.758', 100, '2021-06-21 17:17:00.758', 100, 'Y', 1005458, 'Y', NULL,
-        'Y', 1005454, NULL, NULL, 1005456, 1005455, 1005457, 1005452, 1005453, '97dde5d2-dbcf-4a37-8f90-791d3cd16a0a');
-
-
---
--- Data for Name: c_activity; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_activity (c_activity_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, value, name, description, issummary, help, c_activity_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.563392', 0, '2021-06-21 17:17:07.563392', 0, 'Standard', 'Standard',
-        NULL, 'N', NULL, '99e4c215-9d01-4fa8-8e9a-842afc1ffd45');
-
-
---
--- Data for Name: c_activity_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_activity_trl (ad_client_id, ad_language, ad_org_id, c_activity_id, c_activity_trl_uu, created,
-                                     createdby, description, help, isactive, istranslated, name, updated, updatedby)
-VALUES (2, 'zh_CN', 0, 1000064, '148589e9-7289-4aa2-98dc-373841105abe', '2021-06-21 17:17:07.563392', 0, NULL, NULL,
-        'Y', 'N', 'Standard', '2021-06-21 17:17:07.563392', 0);
-INSERT INTO adempiere.c_activity_trl (ad_client_id, ad_language, ad_org_id, c_activity_id, c_activity_trl_uu, created,
-                                     createdby, description, help, isactive, istranslated, name, updated, updatedby)
-VALUES (2, 'fr_FR', 0, 1000064, 'd45c2f25-c760-4073-8471-96cce565c636', '2021-06-21 17:17:07.563392', 0, NULL, NULL,
-        'Y', 'N', 'Standard', '2021-06-21 17:17:07.563392', 0);
-
-
---
--- Data for Name: c_bank; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bank (c_bank_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
-                             routingno, c_location_id, swiftcode, isownbank, description, c_bank_uu)
-VALUES (1000065, 2, 0, 'Y', '2021-06-21 17:17:25.721', 100, '2021-06-21 17:17:25.721', 100, 'SambaClient Bank',
-        'DefaultRouteNo', NULL, NULL, 'Y', 'SambaClient Bank', 'ec062e05-a130-4d9d-9afa-26348dbda81e');
-
-
---
--- Data for Name: c_bankaccount; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
-                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
-                                    c_bankaccount_uu, name, value)
-VALUES (1000161, 2, 1000064, 'Y', '2021-06-21 17:17:25.735', 100, '2021-06-21 17:17:25.735', 100, 1000065, 100, 'B',
-        'DefaultAccountNo', 0.0, 0.0, 'Y', NULL, NULL, NULL, NULL, 'fb3ee6b4-6de8-487a-98e2-958405e736a9',
-        'SambaClient Default Account', '1000000');
-INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
-                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
-                                    c_bankaccount_uu, name, value)
-VALUES (1000162, 2, 1000064, 'Y', '2021-06-21 17:17:25.781', 100, '2021-06-21 17:17:25.781', 100, 1000065, 100, 'B',
-        'Cash BoxAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, '40ab76a0-dba4-40a2-92e2-56a1755b1892',
-        'SambaClient Cash Box Account', '1000001');
-INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
-                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
-                                    c_bankaccount_uu, name, value)
-VALUES (1000163, 2, 1000064, 'Y', '2021-06-21 17:17:25.837', 100, '2021-06-21 17:17:25.837', 100, 1000065, 100, 'B',
-        'MobileAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, 'd3b1fd35-94d1-4ad1-a83f-4afe44948daa',
-        'SambaClient Mobile Account', '1000002');
-INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
-                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
-                                    c_bankaccount_uu, name, value)
-VALUES (1000164, 2, 1000064, 'Y', '2021-06-21 17:17:25.877', 100, '2021-06-21 17:17:25.877', 100, 1000065, 100, 'B',
-        'SavingsAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, '9b6415f2-0864-4641-80f4-4e5ff991524f',
-        'SambaClient Savings Account', '1000003');
-
-
---
--- Data for Name: c_bankaccount_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
-                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
-                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
-                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
-                                         c_bankaccount_acct_uu)
-VALUES (1000161, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.76654', 100, '2021-06-21 17:17:25.779', 100, 1005462, 1005462,
-        NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL, 'acf28e83-1964-4b02-8015-315935d34902');
-INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
-                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
-                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
-                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
-                                         c_bankaccount_acct_uu)
-VALUES (1000162, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.815897', 100, '2021-06-21 17:17:25.835', 100, 1005505,
-        1005505, NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL,
-        '14b9f5ad-df83-4cf9-a086-c2507221550d');
-INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
-                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
-                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
-                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
-                                         c_bankaccount_acct_uu)
-VALUES (1000163, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.864247', 100, '2021-06-21 17:17:25.876', 100, 1005506,
-        1005506, NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL,
-        '0528df27-5971-4b31-bf1c-6df163522012');
-INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
-                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
-                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
-                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
-                                         c_bankaccount_acct_uu)
-VALUES (1000164, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.903779', 100, '2021-06-21 17:17:25.916', 100, 1005507,
-        1005507, NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL,
-        'ce72be32-c8e1-482b-9f58-9b8471f1e0f7');
-
-
---
--- Data for Name: c_bp_customer_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bp_customer_acct (c_bpartner_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                         createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
-                                         c_receivable_services_acct, c_bp_customer_acct_uu)
-VALUES (1082226, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.667063', 100, '2021-06-21 17:17:07.667063', 100, 1005472,
-        1005471, 1005473, 'bb5ff5cd-6a08-4a3a-9298-08b869b9b6c3');
-INSERT INTO adempiere.c_bp_customer_acct (c_bpartner_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                         createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
-                                         c_receivable_services_acct, c_bp_customer_acct_uu)
-VALUES (1082227, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.15982', 100, '2021-06-21 17:17:08.15982', 100, 1005472,
-        1005471, 1005473, '16880622-50ed-42ea-a0ff-284a18462e4f');
-INSERT INTO adempiere.c_bp_customer_acct (c_bpartner_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                         createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
-                                         c_receivable_services_acct, c_bp_customer_acct_uu)
-VALUES (1082228, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.255425', 100, '2021-06-21 17:17:08.255425', 100, 1005472,
-        1005471, 1005473, '9f652b14-6ed0-4959-a232-9f54d20f8ef6');
-
-
---
--- Data for Name: c_bp_group; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bp_group (c_bp_group_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, value, name, description, isdefault, ad_printcolor_id, isconfidentialinfo,
-                                 prioritybase, m_pricelist_id, po_pricelist_id, m_discountschema_id,
-                                 po_discountschema_id, creditwatchpercent, pricematchtolerance, c_dunning_id,
-                                 c_bp_group_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.57', 100, '2021-06-21 17:17:07.57', 100, 'Standard', 'Standard', NULL,
-        'Y', NULL, 'N', 'S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '85686f2e-5044-4573-bf80-1184b1c1c51f');
-
-
---
--- Data for Name: c_bp_group_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bp_group_acct (c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, isactive, created,
-                                      createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
-                                      v_liability_acct, v_liability_services_acct, v_prepayment_acct,
-                                      paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct,
-                                      notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct,
-                                      notinvoicedreceivables_acct, processing, c_receivable_services_acct,
-                                      c_bp_group_acct_uu)
-VALUES (1000064, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.603091', 100, '2021-06-21 17:17:07.603091', 100, 1005472,
-        1005471, 1005500, 1005501, 1005502, 1005477, 1005478, 1005504, 1005474, 1005497, NULL, NULL, NULL, 1005473,
-        '0ac0c9c3-08f1-4cb3-9147-f7f63b16a884');
-
-
---
--- Data for Name: c_bp_vendor_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bp_vendor_acct (c_acctschema_id, c_bpartner_id, ad_client_id, ad_org_id, isactive, created,
-                                       createdby, updated, updatedby, v_liability_acct, v_liability_services_acct,
-                                       v_prepayment_acct, c_bp_vendor_acct_uu)
-VALUES (1000064, 1082226, 2, 0, 'Y', '2021-06-21 17:17:07.685354', 100, '2021-06-21 17:17:07.685354', 100, 1005500,
-        1005501, 1005502, '3ab57075-76f2-4ecb-adfe-91a6918d4961');
-INSERT INTO adempiere.c_bp_vendor_acct (c_acctschema_id, c_bpartner_id, ad_client_id, ad_org_id, isactive, created,
-                                       createdby, updated, updatedby, v_liability_acct, v_liability_services_acct,
-                                       v_prepayment_acct, c_bp_vendor_acct_uu)
-VALUES (1000064, 1082227, 2, 0, 'Y', '2021-06-21 17:17:08.177244', 100, '2021-06-21 17:17:08.177244', 100, 1005500,
-        1005501, 1005502, 'ab983225-e44d-4bc8-9a0c-7bf286bfb504');
-INSERT INTO adempiere.c_bp_vendor_acct (c_acctschema_id, c_bpartner_id, ad_client_id, ad_org_id, isactive, created,
-                                       createdby, updated, updatedby, v_liability_acct, v_liability_services_acct,
-                                       v_prepayment_acct, c_bp_vendor_acct_uu)
-VALUES (1000064, 1082228, 2, 0, 'Y', '2021-06-21 17:17:08.272245', 100, '2021-06-21 17:17:08.272245', 100, 1005500,
-        1005501, 1005502, '050d32a9-7fc2-4444-a3c3-2ac3a7dfc6cb');
-
-
---
--- Data for Name: c_bpartner; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, value, name, name2, description, issummary, c_bp_group_id, isonetime,
-                                 isprospect, isvendor, iscustomer, isemployee, issalesrep, referenceno, duns, url,
-                                 ad_language, taxid, istaxexempt, c_invoiceschedule_id, rating, salesvolume,
-                                 numberemployees, naics, firstsale, acqusitioncost, potentiallifetimevalue,
-                                 actuallifetimevalue, shareofcustomer, paymentrule, so_creditlimit, so_creditused,
-                                 c_paymentterm_id, m_pricelist_id, m_discountschema_id, c_dunning_id, isdiscountprinted,
-                                 so_description, poreference, paymentrulepo, po_pricelist_id, po_discountschema_id,
-                                 po_paymentterm_id, documentcopies, c_greeting_id, invoicerule, deliveryrule,
-                                 freightcostrule, deliveryviarule, salesrep_id, sendemail, bpartner_parent_id,
-                                 invoice_printformat_id, socreditstatus, shelflifeminpct, ad_orgbp_id, flatdiscount,
-                                 totalopenbalance, dunninggrace, c_taxgroup_id, logo_id, ispotaxexempt, ismanufacturer,
-                                 c_bpartner_uu, customerprofileid, default1099box_id, is1099vendor, bh_c_location_id,
-                                 bh_birthday, bh_approximateyears, bh_email, bh_phone, bh_ispatient, bh_patientid,
-                                 nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
-                                 bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
-                                 isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
-VALUES (1082226, 2, 0, 'Y', '2021-06-21 17:17:07.61', 100, '2021-06-21 17:17:07.61', 100, 'Standard', 'Standard', NULL,
-        NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'N', 'N', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL, NULL,
-        NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N', 'N',
-        'a834b054-6c35-4827-8e63-9a28d8e9b082', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', 'Y', NULL, NULL, NULL);
-INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, value, name, name2, description, issummary, c_bp_group_id, isonetime,
-                                 isprospect, isvendor, iscustomer, isemployee, issalesrep, referenceno, duns, url,
-                                 ad_language, taxid, istaxexempt, c_invoiceschedule_id, rating, salesvolume,
-                                 numberemployees, naics, firstsale, acqusitioncost, potentiallifetimevalue,
-                                 actuallifetimevalue, shareofcustomer, paymentrule, so_creditlimit, so_creditused,
-                                 c_paymentterm_id, m_pricelist_id, m_discountschema_id, c_dunning_id, isdiscountprinted,
-                                 so_description, poreference, paymentrulepo, po_pricelist_id, po_discountschema_id,
-                                 po_paymentterm_id, documentcopies, c_greeting_id, invoicerule, deliveryrule,
-                                 freightcostrule, deliveryviarule, salesrep_id, sendemail, bpartner_parent_id,
-                                 invoice_printformat_id, socreditstatus, shelflifeminpct, ad_orgbp_id, flatdiscount,
-                                 totalopenbalance, dunninggrace, c_taxgroup_id, logo_id, ispotaxexempt, ismanufacturer,
-                                 c_bpartner_uu, customerprofileid, default1099box_id, is1099vendor, bh_c_location_id,
-                                 bh_birthday, bh_approximateyears, bh_email, bh_phone, bh_ispatient, bh_patientid,
-                                 nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
-                                 bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
-                                 isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
-VALUES (1082227, 2, 0, 'Y', '2021-06-21 17:17:08.115', 100, '2021-06-21 17:17:08.115', 100, 'sambaUser', 'sambaUser',
-        NULL, NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL,
-        NULL, NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N',
-        'N', '7f43c4fd-b68a-4182-83e1-12f2952ac394', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', 'Y', NULL, NULL, NULL);
-INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, value, name, name2, description, issummary, c_bp_group_id, isonetime,
-                                 isprospect, isvendor, iscustomer, isemployee, issalesrep, referenceno, duns, url,
-                                 ad_language, taxid, istaxexempt, c_invoiceschedule_id, rating, salesvolume,
-                                 numberemployees, naics, firstsale, acqusitioncost, potentiallifetimevalue,
-                                 actuallifetimevalue, shareofcustomer, paymentrule, so_creditlimit, so_creditused,
-                                 c_paymentterm_id, m_pricelist_id, m_discountschema_id, c_dunning_id, isdiscountprinted,
-                                 so_description, poreference, paymentrulepo, po_pricelist_id, po_discountschema_id,
-                                 po_paymentterm_id, documentcopies, c_greeting_id, invoicerule, deliveryrule,
-                                 freightcostrule, deliveryviarule, salesrep_id, sendemail, bpartner_parent_id,
-                                 invoice_printformat_id, socreditstatus, shelflifeminpct, ad_orgbp_id, flatdiscount,
-                                 totalopenbalance, dunninggrace, c_taxgroup_id, logo_id, ispotaxexempt, ismanufacturer,
-                                 c_bpartner_uu, customerprofileid, default1099box_id, is1099vendor, bh_c_location_id,
-                                 bh_birthday, bh_approximateyears, bh_email, bh_phone, bh_ispatient, bh_patientid,
-                                 nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
-                                 bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
-                                 isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
-VALUES (1082228, 2, 0, 'Y', '2021-06-21 17:17:08.2', 100, '2021-06-21 17:17:08.2', 100, 'sambaAdmin', 'sambaAdmin',
-        NULL, NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL,
-        NULL, NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N',
-        'N', 'b10cfffd-165a-462e-b129-7099fe7971c6', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', 'Y', NULL, NULL, NULL);
-
-
---
--- Data for Name: c_bpartner_location; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_bpartner_location (c_bpartner_location_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                          updated, updatedby, name, isbillto, isshipto, ispayfrom, isremitto, phone,
-                                          phone2, fax, isdn, c_salesregion_id, c_bpartner_id, c_location_id,
-                                          c_bpartner_location_uu, customeraddressid, ispreservecustomname)
-VALUES (1082165, 2, 0, 'Y', '2021-06-21 17:17:07.713', 100, '2021-06-21 17:17:07.713', 100, '#1085969', 'Y', 'Y', 'Y',
-        'Y', NULL, NULL, NULL, NULL, NULL, 1082226, 1085969, '8eb52e73-f0fe-422b-aebe-69bde23b34e2', NULL, NULL);
-INSERT INTO adempiere.c_bpartner_location (c_bpartner_location_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                          updated, updatedby, name, isbillto, isshipto, ispayfrom, isremitto, phone,
-                                          phone2, fax, isdn, c_salesregion_id, c_bpartner_id, c_location_id,
-                                          c_bpartner_location_uu, customeraddressid, ispreservecustomname)
-VALUES (1082166, 2, 0, 'Y', '2021-06-21 17:17:08.188', 100, '2021-06-21 17:17:08.188', 100, '#1085972', 'Y', 'Y', 'Y',
-        'Y', NULL, NULL, NULL, NULL, NULL, 1082227, 1085972, '2113862b-d14d-4c08-91e7-c70b59fd0a83', NULL, NULL);
-INSERT INTO adempiere.c_bpartner_location (c_bpartner_location_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                          updated, updatedby, name, isbillto, isshipto, ispayfrom, isremitto, phone,
-                                          phone2, fax, isdn, c_salesregion_id, c_bpartner_id, c_location_id,
-                                          c_bpartner_location_uu, customeraddressid, ispreservecustomname)
-VALUES (1082167, 2, 0, 'Y', '2021-06-21 17:17:08.282', 100, '2021-06-21 17:17:08.282', 100, '#1085973', 'Y', 'Y', 'Y',
-        'Y', NULL, NULL, NULL, NULL, NULL, 1082228, 1085973, '6d9c4928-b0f1-43f4-9bb5-5a95125b29fa', NULL, NULL);
-
-
---
--- Data for Name: c_calendar; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_calendar (c_calendar_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, name, description, c_calendar_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.235', 100, '2021-06-21 17:17:00.235', 100, 'SambaClient Calendar',
-        NULL, '9cb92ba1-c993-4f0e-a41e-8920bbb47abe');
-
-
---
--- Data for Name: c_campaign; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_campaign (c_campaign_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, value, name, description, c_channel_id, startdate, enddate, costs,
-                                 issummary, c_campaign_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.545509', 0, '2021-06-21 17:17:07.545509', 0, 'Standard', 'Standard',
-        NULL, 1000064, NULL, NULL, 0, 'N', '88df236c-b8cf-41f7-b9a2-b85cf680c364');
-
-
---
--- Data for Name: c_campaign_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_campaign_trl (ad_client_id, ad_language, ad_org_id, c_campaign_id, c_campaign_trl_uu, created,
-                                     createdby, description, isactive, istranslated, name, updated, updatedby)
-VALUES (2, 'zh_CN', 0, 1000064, 'f4d8b9d5-ed7b-486e-8181-f0e9a988288a', '2021-06-21 17:17:07.545509', 0, NULL, 'Y', 'N',
-        'Standard', '2021-06-21 17:17:07.545509', 0);
-INSERT INTO adempiere.c_campaign_trl (ad_client_id, ad_language, ad_org_id, c_campaign_id, c_campaign_trl_uu, created,
-                                     createdby, description, isactive, istranslated, name, updated, updatedby)
-VALUES (2, 'fr_FR', 0, 1000064, '7e2b964f-78c1-4f60-b1bf-5601af49be0a', '2021-06-21 17:17:07.545509', 0, NULL, 'Y', 'N',
-        'Standard', '2021-06-21 17:17:07.545509', 0);
-
-
---
--- Data for Name: c_cashbook; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_cashbook (c_cashbook_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, name, description, isdefault, c_currency_id, c_cashbook_uu)
-VALUES (1000064, 2, 1000064, 'Y', '2021-06-21 17:17:08.308', 100, '2021-06-21 17:17:08.308', 100, 'Standard', NULL, 'N',
-        100, '51dae4d8-efcf-474f-9e72-c91593adfc4a');
-
-
---
--- Data for Name: c_cashbook_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_cashbook_acct (c_cashbook_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                      createdby, updated, updatedby, cb_asset_acct, cb_cashtransfer_acct,
-                                      cb_differences_acct, cb_expense_acct, cb_receipt_acct, c_cashbook_acct_uu)
-VALUES (1000064, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.33467', 100, '2021-06-21 17:17:08.33467', 100, 1005465,
-        1005466, 1005467, 1005468, 1005469, '55dba187-d84d-404e-88e1-3385c87ecb74');
-
-
---
--- Data for Name: c_channel; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_channel (c_channel_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, description, ad_printcolor_id, c_channel_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.540908', 0, '2021-06-21 17:17:07.540908', 0, 'Standard', NULL, NULL,
-        '05fef026-ab79-44b9-9b72-36af700e95d6');
-
-
---
--- Data for Name: c_charge; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002984, 2, 0, 'Y', '2021-06-21 17:17:26.258', 100, '2021-06-21 17:17:26.326', 100,
-        'Facilities - Computer And Accessories (Software/Hardware)', 'Computer and Accessories', 0.0, 'N', 'N', NULL,
-        'N', NULL, 1000116, '19d7a23e-0d6d-4d9f-9666-a9d1aae36485', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002985, 2, 0, 'Y', '2021-06-21 17:17:26.356', 100, '2021-06-21 17:17:26.411', 100, 'Facilities - Furniture',
-        'Furniture', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '6c84ac12-4c90-4ab1-9b61-a97760fd2d30', 1010716, 'Y',
-        NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002986, 2, 0, 'Y', '2021-06-21 17:17:26.428', 100, '2021-06-21 17:17:26.469', 100,
-        'Facilities - Medical Equipment', 'Medical equipment', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        'b0104fe2-cfcc-4c5b-bc3a-a8e23aa54b63', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002987, 2, 0, 'Y', '2021-06-21 17:17:26.488', 100, '2021-06-21 17:17:26.533', 100,
-        'Facilities - Miscellaneous/Other', 'General occupancy costs', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '61a25fc2-0152-4358-8776-8f689823a84a', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002988, 2, 0, 'Y', '2021-06-21 17:17:26.556', 100, '2021-06-21 17:17:26.6', 100,
-        'Facilities - Mortgage (House Loan)', 'Mortgage', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        'efc2c21d-7423-43d6-8e73-34525437412c', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002989, 2, 0, 'Y', '2021-06-21 17:17:26.616', 100, '2021-06-21 17:17:26.665', 100,
-        'Facilities - Office Equipment', 'Office equipment', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        'e429a2ab-5cce-44ed-ad96-913f54505bd3', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002990, 2, 0, 'Y', '2021-06-21 17:17:26.686', 100, '2021-06-21 17:17:26.722', 100, 'Facilities - Rent', 'Rent',
-        0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '124cb4f1-40a4-48f1-a62a-9cf4e63277f3', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002991, 2, 0, 'Y', '2021-06-21 17:17:26.74', 100, '2021-06-21 17:17:26.779', 100,
-        'Facilities - Utilities - Electricity', 'Utilities', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '5f7dd62b-9c8e-49e8-bdbf-db3ea5812e24', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002992, 2, 0, 'Y', '2021-06-21 17:17:26.796', 100, '2021-06-21 17:17:26.834', 100,
-        'Facilities - Utilities - Garbage', 'Other Contacted Services', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '907c2136-8006-4036-8e95-f4df6c3af730', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002993, 2, 0, 'Y', '2021-06-21 17:17:26.853', 100, '2021-06-21 17:17:26.891', 100,
-        'Facilities - Utilities - Internet', 'Internet', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '35766d89-a835-4368-bf86-29736028f78d', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002994, 2, 0, 'Y', '2021-06-21 17:17:26.906', 100, '2021-06-21 17:17:26.945', 100,
-        'Facilities - Utilities - Mobile', 'Mobile charges', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        'd9611686-d7b6-4dad-bd2c-c9f9e0d658b7', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002995, 2, 0, 'Y', '2021-06-21 17:17:26.961', 100, '2021-06-21 17:17:27.006', 100,
-        'Facilities - Utilities - Water', 'Utilities', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        'bbb87006-2ce7-46d6-af0f-84827a88d2d1', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002996, 2, 0, 'Y', '2021-06-21 17:17:27.012', 100, '2021-06-21 17:17:27.054', 100, 'Finances - Insurance',
-        'Business Insurance', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '055ad193-19cf-4c47-aa65-73b6a6aae23d', 1010716,
-        'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002997, 2, 0, 'Y', '2021-06-21 17:17:27.07', 100, '2021-06-21 17:17:27.114', 100,
-        'Finances - Licenses, Memberships, & Permits', 'License fees', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '014628a1-92a7-40d4-8834-f559a9112708', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002998, 2, 0, 'Y', '2021-06-21 17:17:27.13', 100, '2021-06-21 17:17:27.176', 100, 'Finances - Loan',
-        'Long Term Obligation', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '79d83023-2b11-4948-a72f-823245fef488',
-        1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1002999, 2, 0, 'Y', '2021-06-21 17:17:27.198', 100, '2021-06-21 17:17:27.239', 100, 'Finances - Marketing',
-        'Advertising Expense', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '913f42ee-0c82-4581-a7cc-a4eb68ed9cb0', 1010716,
-        'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003000, 2, 0, 'Y', '2021-06-21 17:17:27.255', 100, '2021-06-21 17:17:27.294', 100,
-        'Finances - Miscellaneous/Other', 'Miscellaneous Expense', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '39dd8fb5-96e0-4a78-9175-29019cf839a6', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003001, 2, 0, 'Y', '2021-06-21 17:17:27.309', 100, '2021-06-21 17:17:27.347', 100, 'Finances - Savings',
-        'Savings Accounts', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '4367a39d-772a-46f2-a2e6-0b430976b0aa', 1010716,
-        'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003002, 2, 0, 'Y', '2021-06-21 17:17:27.354', 100, '2021-06-21 17:17:27.463', 100,
-        'Finances - Tax - KRA Corporate', 'KRA taxes', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '658205f3-26fa-425c-823a-5b9917298be3', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003003, 2, 0, 'Y', '2021-06-21 17:17:27.477', 100, '2021-06-21 17:17:27.556', 100, 'Medications & Supplies',
-        'Inventory Account', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '285dcbd5-8802-478b-b225-90aa09a1b63f', 1010716,
-        'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003004, 2, 0, 'Y', '2021-06-21 17:17:27.567', 100, '2021-06-21 17:17:27.628', 100,
-        'Personnel - Miscellaneous/Other', 'Other Payroll Expenses', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '92611546-d32a-4421-a2ce-610ab6d4a0ba', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003005, 2, 0, 'Y', '2021-06-21 17:17:27.653', 100, '2021-06-21 17:17:27.717', 100, 'Personnel - NHIF',
-        'NHIF payroll', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, 'bc30fd0d-ea6a-439c-b7ab-e21b4db5dfe5', 1010716, 'Y',
-        NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003006, 2, 0, 'Y', '2021-06-21 17:17:27.741', 100, '2021-06-21 17:17:27.788', 100, 'Personnel - NSSF',
-        'NSSF payroll', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '6ecc6624-485c-4e66-919b-ec427d56ac37', 1010716, 'Y',
-        NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003007, 2, 0, 'Y', '2021-06-21 17:17:27.801', 100, '2021-06-21 17:17:27.841', 100, 'Personnel - PAYE',
-        'PAYE payroll', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '758e4ba0-185e-41c6-879a-8de8b653f7d7', 1010716, 'Y',
-        NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003008, 2, 0, 'Y', '2021-06-21 17:17:27.857', 100, '2021-06-21 17:17:27.895', 100, 'Personnel - Salaries',
-        'Staff wages', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, 'a9b88458-e4b7-471c-bc68-61ee7bc135ac', 1010716, 'Y',
-        NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003009, 2, 0, 'Y', '2021-06-21 17:17:27.908', 100, '2021-06-21 17:17:27.946', 100,
-        'Services - IT, Accounting & Clinical', 'Accounting and Clinical IT solutions', 0.0, 'N', 'N', NULL, 'N', NULL,
-        1000116, '905e34c5-74e1-4463-b3d4-e2734229a4aa', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003010, 2, 0, 'Y', '2021-06-21 17:17:27.96', 100, '2021-06-21 17:17:27.998', 100,
-        'Services - Maintenance & Cleaning', 'General occupancy costs', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        '20fe054b-4d1f-40c2-803f-017662a2323d', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003011, 2, 0, 'Y', '2021-06-21 17:17:28.004', 100, '2021-06-21 17:17:28.041', 100, 'Vehicle - Fuel',
-        'Vehicle Expense', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '39615d72-a179-4a91-bdbd-1d7c68608d2b', 1010716,
-        'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003012, 2, 0, 'Y', '2021-06-21 17:17:28.056', 100, '2021-06-21 17:17:28.095', 100, 'Vehicle - Insurance',
-        'Vehicle Insurance', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '4da8d148-a627-428f-85d2-903ccd80af2d', 1010716,
-        'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003013, 2, 0, 'Y', '2021-06-21 17:17:28.109', 100, '2021-06-21 17:17:28.146', 100, 'Vehicle - Lease/Loan',
-        'Long Term Obligation', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '5ff8f834-b81f-4c52-b4cb-829191dd29bf',
-        1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003014, 2, 0, 'Y', '2021-06-21 17:17:28.153', 100, '2021-06-21 17:17:28.191', 100,
-        'Vehicle - Maintenance & Cleaning', 'Vehicle Repairs & Maintenance', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
-        'd36f8c74-6ad6-4d51-85cf-0cfca0443fde', 1010716, 'Y', NULL, 'N');
-INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
-                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
-                               bh_needadditionalvisitinfo)
-VALUES (1003015, 2, 0, 'Y', '2021-06-21 17:17:28.204', 100, '2021-06-21 17:17:28.247', 100, 'Vehicle - Purchase',
-        'Vehicles', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '686dd7a5-ba85-4bed-a43d-f6ebec4ef32f', 1010716, 'Y', NULL,
-        'N');
-
-
---
--- Data for Name: c_charge_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002984, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.303005', 100, '2021-06-21 17:17:26.354', 100, 1005508, NULL,
-        '081ab6d3-97b6-463d-bbcd-cb77d8aa0d6b');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002985, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.395956', 100, '2021-06-21 17:17:26.427', 100, 1005509, NULL,
-        'b2afd4bb-c51f-4442-9e14-8d9e8031e4e0');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002986, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.463627', 100, '2021-06-21 17:17:26.487', 100, 1005510, NULL,
-        'c9c8291c-917d-43a6-ac1d-997b39128066');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002987, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.525895', 100, '2021-06-21 17:17:26.555', 100, 1005511, NULL,
-        '508de1d7-5d28-4313-9726-b9c1474611f7');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002988, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.593296', 100, '2021-06-21 17:17:26.615', 100, 1005512, NULL,
-        'd3bd563c-4770-4801-a895-3b7368b0eab4');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002989, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.657499', 100, '2021-06-21 17:17:26.683', 100, 1005513, NULL,
-        'ed7e0e73-6908-49a3-a10e-28efdde7c87b');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002990, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.717288', 100, '2021-06-21 17:17:26.739', 100, 1005514, NULL,
-        'df088525-ad7d-467b-99cc-3bcfa0cbaad3');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002991, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.773377', 100, '2021-06-21 17:17:26.795', 100, 1005515, NULL,
-        'f1957c4e-a213-43f9-b47c-fa647492fc42');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002992, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.828337', 100, '2021-06-21 17:17:26.852', 100, 1005516, NULL,
-        '0d69275a-f078-4e96-b5a7-026c9fb61932');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002993, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.88571', 100, '2021-06-21 17:17:26.905', 100, 1005517, NULL,
-        'd3317795-55af-4d32-a51b-dabc9f593cd5');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002994, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.939512', 100, '2021-06-21 17:17:26.96', 100, 1005518, NULL,
-        '93762b55-3118-4a83-8179-db6440ed8c95');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002995, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.999185', 100, '2021-06-21 17:17:27.011', 100, 1005515, NULL,
-        '7f0967d9-2430-40ac-b937-887a6bd50929');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002996, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.04808', 100, '2021-06-21 17:17:27.069', 100, 1005519, NULL,
-        'fcda44d8-575a-47a1-82e3-4d0d9a0cca5c');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002997, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.108679', 100, '2021-06-21 17:17:27.128', 100, 1005520, NULL,
-        '0895ea6e-9f91-4cc0-a5fc-07c58dbfaac6');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002998, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.169135', 100, '2021-06-21 17:17:27.196', 100, 1005521, NULL,
-        '325ab90e-8045-4223-9fbe-1a3723a6041d');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1002999, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.233411', 100, '2021-06-21 17:17:27.254', 100, 1005522, NULL,
-        '2784c25b-be17-4dd3-9792-eba2a5947be4');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003000, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.288081', 100, '2021-06-21 17:17:27.308', 100, 1005523, NULL,
-        'fdfe7ea2-b82d-40c0-b5b2-96a0f0bb58e1');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003001, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.340546', 100, '2021-06-21 17:17:27.353', 100, 1005507, NULL,
-        '159b8fb4-7c96-487c-ac60-a79de0ec10aa');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003002, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.447061', 100, '2021-06-21 17:17:27.475', 100, 1005496, NULL,
-        'e3b8e308-dbc7-4f5e-9b6a-54bda3b4ad87');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003003, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.545386', 100, '2021-06-21 17:17:27.565', 100, 1005475, NULL,
-        '4a036d06-5a7a-4b8c-918c-663cf0cf43c9');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003004, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.618575', 100, '2021-06-21 17:17:27.65', 100, 1005524, NULL,
-        'df78c2f5-5428-4770-a158-2078969c7429');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003005, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.706804', 100, '2021-06-21 17:17:27.74', 100, 1005525, NULL,
-        '5e9017c4-f386-4c71-80a5-5dc7334ef3db');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003006, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.783287', 100, '2021-06-21 17:17:27.8', 100, 1005526, NULL,
-        'fd9562f6-5876-481d-bf02-871a94e64c86');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003007, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.835667', 100, '2021-06-21 17:17:27.856', 100, 1005527, NULL,
-        '843b4611-ac5c-40db-a9cd-ca621226528f');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003008, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.888605', 100, '2021-06-21 17:17:27.907', 100, 1005528, NULL,
-        '74e7877a-f5b3-4e86-a043-3c6bf7bf7cbe');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003009, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.940166', 100, '2021-06-21 17:17:27.959', 100, 1005529, NULL,
-        'e94b8b9c-0b8e-4f22-8b51-6f039ba84d6c');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003010, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.992318', 100, '2021-06-21 17:17:28.002', 100, 1005511, NULL,
-        'e896ac04-3906-463b-8cde-bd362a860f18');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003011, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.034954', 100, '2021-06-21 17:17:28.055', 100, 1005530, NULL,
-        '0399707a-87ae-4631-b840-e2eaa78ea31e');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003012, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.08892', 100, '2021-06-21 17:17:28.108', 100, 1005531, NULL,
-        '54e1b0e3-9ffb-4c53-a1fc-a9c83f5bf2a3');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003013, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.140031', 100, '2021-06-21 17:17:28.152', 100, 1005521, NULL,
-        'ecb813f7-f870-4813-83d4-37eb7cbf6a4b');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003014, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.185321', 100, '2021-06-21 17:17:28.203', 100, 1005532, NULL,
-        'b147913a-4941-45d5-a6a2-a10436eac544');
-INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
-VALUES (1003015, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.240771', 100, '2021-06-21 17:17:28.26', 100, 1005533, NULL,
-        'fc98c265-08bb-4272-8aad-9991a5387f16');
-
-
---
--- Data for Name: c_charge_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003000, '2021-06-21 17:17:27.255', 100, 'Miscellaneous Expense', 'Y', 'N',
-        'Finances - Miscellaneous/Other', '2021-06-21 17:17:27.255', 100, '00d2d9c2-d344-4b2d-8fc3-0852c25b8dd2');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003000, '2021-06-21 17:17:27.255', 100, 'Miscellaneous Expense', 'Y', 'N',
-        'Finances - Miscellaneous/Other', '2021-06-21 17:17:27.255', 100, '17b4c7da-d69b-4893-8fc7-321fd0470a81');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003001, '2021-06-21 17:17:27.309', 100, 'Savings Accounts', 'Y', 'N', 'Finances - Savings',
-        '2021-06-21 17:17:27.309', 100, '5c108da0-fcd0-4900-81d5-84250d79e0d0');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003001, '2021-06-21 17:17:27.309', 100, 'Savings Accounts', 'Y', 'N', 'Finances - Savings',
-        '2021-06-21 17:17:27.309', 100, '51306a71-345e-4bd4-9a12-98e7bb79e2ca');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003002, '2021-06-21 17:17:27.354', 100, 'KRA taxes', 'Y', 'N', 'Finances - Tax - KRA Corporate',
-        '2021-06-21 17:17:27.354', 100, '7982d3b5-53d3-4629-b8f7-1f9e03c8493e');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003002, '2021-06-21 17:17:27.354', 100, 'KRA taxes', 'Y', 'N', 'Finances - Tax - KRA Corporate',
-        '2021-06-21 17:17:27.354', 100, '516fd960-0f02-4213-b804-3cf196d9781a');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003003, '2021-06-21 17:17:27.477', 100, 'Inventory Account', 'Y', 'N', 'Medications & Supplies',
-        '2021-06-21 17:17:27.477', 100, 'ddf06fa8-3602-4f7f-9008-897d6442e506');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003003, '2021-06-21 17:17:27.477', 100, 'Inventory Account', 'Y', 'N', 'Medications & Supplies',
-        '2021-06-21 17:17:27.477', 100, '13436f3e-23f5-45f6-92ca-ba1f3a5eabbe');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003004, '2021-06-21 17:17:27.567', 100, 'Other Payroll Expenses', 'Y', 'N',
-        'Personnel - Miscellaneous/Other', '2021-06-21 17:17:27.567', 100, '6c92b2cf-b1c7-4c3a-bc30-63017318f994');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003004, '2021-06-21 17:17:27.567', 100, 'Other Payroll Expenses', 'Y', 'N',
-        'Personnel - Miscellaneous/Other', '2021-06-21 17:17:27.567', 100, '092ae8ce-c82c-483f-9160-e3385236d401');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003005, '2021-06-21 17:17:27.653', 100, 'NHIF payroll', 'Y', 'N', 'Personnel - NHIF',
-        '2021-06-21 17:17:27.653', 100, '6c5754df-08b2-48f6-8797-bdddf635167c');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003005, '2021-06-21 17:17:27.653', 100, 'NHIF payroll', 'Y', 'N', 'Personnel - NHIF',
-        '2021-06-21 17:17:27.653', 100, '2e7fd985-7a93-4866-86d7-124de240d02b');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003006, '2021-06-21 17:17:27.741', 100, 'NSSF payroll', 'Y', 'N', 'Personnel - NSSF',
-        '2021-06-21 17:17:27.741', 100, '439b193e-e8f0-411d-840b-14fe945b4107');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003006, '2021-06-21 17:17:27.741', 100, 'NSSF payroll', 'Y', 'N', 'Personnel - NSSF',
-        '2021-06-21 17:17:27.741', 100, 'bff1626f-7819-4581-bc15-e01320baa9ac');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002984, '2021-06-21 17:17:26.258', 100, 'Computer and Accessories', 'Y', 'N',
-        'Facilities - Computer And Accessories (Software/Hardware)', '2021-06-21 17:17:26.258', 100,
-        '8fc87296-1d3c-49b9-8c1a-518c5be96a69');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002984, '2021-06-21 17:17:26.258', 100, 'Computer and Accessories', 'Y', 'N',
-        'Facilities - Computer And Accessories (Software/Hardware)', '2021-06-21 17:17:26.258', 100,
-        '25b5ad53-7fbc-441d-9a45-d3d98e34af29');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002985, '2021-06-21 17:17:26.356', 100, 'Furniture', 'Y', 'N', 'Facilities - Furniture',
-        '2021-06-21 17:17:26.356', 100, '552f2cdb-065c-4fff-9655-a4b19883a9e3');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002985, '2021-06-21 17:17:26.356', 100, 'Furniture', 'Y', 'N', 'Facilities - Furniture',
-        '2021-06-21 17:17:26.356', 100, 'fe9f0e13-a891-41cf-872a-8eeaedeaacc0');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002986, '2021-06-21 17:17:26.428', 100, 'Medical equipment', 'Y', 'N',
-        'Facilities - Medical Equipment', '2021-06-21 17:17:26.428', 100, 'be57244d-8651-4298-9007-baad033eca11');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002986, '2021-06-21 17:17:26.428', 100, 'Medical equipment', 'Y', 'N',
-        'Facilities - Medical Equipment', '2021-06-21 17:17:26.428', 100, '9c5fb721-99d3-40e7-acf8-71cfe720c2c2');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002987, '2021-06-21 17:17:26.488', 100, 'General occupancy costs', 'Y', 'N',
-        'Facilities - Miscellaneous/Other', '2021-06-21 17:17:26.488', 100, 'c35b59d5-1215-4d45-b7ac-3ae8e9a55986');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002987, '2021-06-21 17:17:26.488', 100, 'General occupancy costs', 'Y', 'N',
-        'Facilities - Miscellaneous/Other', '2021-06-21 17:17:26.488', 100, '73a8f835-f204-48e9-9cb5-eab361a89cb5');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002988, '2021-06-21 17:17:26.556', 100, 'Mortgage', 'Y', 'N',
-        'Facilities - Mortgage (House Loan)', '2021-06-21 17:17:26.556', 100, '6eea1abd-8634-4607-b76a-48ad8f7c9ef5');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002988, '2021-06-21 17:17:26.556', 100, 'Mortgage', 'Y', 'N',
-        'Facilities - Mortgage (House Loan)', '2021-06-21 17:17:26.556', 100, '3fe7a908-d69b-4515-a34f-95c310230c09');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002989, '2021-06-21 17:17:26.616', 100, 'Office equipment', 'Y', 'N',
-        'Facilities - Office Equipment', '2021-06-21 17:17:26.616', 100, 'f213fdd9-6f94-413d-836d-70b31b6a8969');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002989, '2021-06-21 17:17:26.616', 100, 'Office equipment', 'Y', 'N',
-        'Facilities - Office Equipment', '2021-06-21 17:17:26.616', 100, 'cc93b68d-1ae8-4a0b-988d-4d256f5be319');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002990, '2021-06-21 17:17:26.686', 100, 'Rent', 'Y', 'N', 'Facilities - Rent',
-        '2021-06-21 17:17:26.686', 100, 'fef2cb1b-7f0c-4ae6-8bbe-f496b4950134');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002990, '2021-06-21 17:17:26.686', 100, 'Rent', 'Y', 'N', 'Facilities - Rent',
-        '2021-06-21 17:17:26.686', 100, '7e028963-3507-4d6b-b747-091a9162f024');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002991, '2021-06-21 17:17:26.74', 100, 'Utilities', 'Y', 'N',
-        'Facilities - Utilities - Electricity', '2021-06-21 17:17:26.74', 100, '6747a219-3732-4edf-9648-e6203e638019');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002991, '2021-06-21 17:17:26.74', 100, 'Utilities', 'Y', 'N',
-        'Facilities - Utilities - Electricity', '2021-06-21 17:17:26.74', 100, '22e2ab2a-c1b7-489c-90c9-70c63e69cb0d');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002992, '2021-06-21 17:17:26.796', 100, 'Other Contacted Services', 'Y', 'N',
-        'Facilities - Utilities - Garbage', '2021-06-21 17:17:26.796', 100, '2607a2eb-642f-43d6-8ad3-12d5e4c789d9');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002992, '2021-06-21 17:17:26.796', 100, 'Other Contacted Services', 'Y', 'N',
-        'Facilities - Utilities - Garbage', '2021-06-21 17:17:26.796', 100, 'c03d8d01-9146-4f8e-80d7-818741e5322e');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002993, '2021-06-21 17:17:26.853', 100, 'Internet', 'Y', 'N',
-        'Facilities - Utilities - Internet', '2021-06-21 17:17:26.853', 100, 'd8e77830-61a1-463f-a67b-e7ccc221f676');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002993, '2021-06-21 17:17:26.853', 100, 'Internet', 'Y', 'N',
-        'Facilities - Utilities - Internet', '2021-06-21 17:17:26.853', 100, 'd213561e-b686-4bb2-883c-40faf9abb064');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002994, '2021-06-21 17:17:26.906', 100, 'Mobile charges', 'Y', 'N',
-        'Facilities - Utilities - Mobile', '2021-06-21 17:17:26.906', 100, '17caa0e6-67bc-4dfd-a580-b7f361d2c3fe');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002994, '2021-06-21 17:17:26.906', 100, 'Mobile charges', 'Y', 'N',
-        'Facilities - Utilities - Mobile', '2021-06-21 17:17:26.906', 100, '8f2d476d-cea9-4429-889f-14fcc661a9ef');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002995, '2021-06-21 17:17:26.961', 100, 'Utilities', 'Y', 'N', 'Facilities - Utilities - Water',
-        '2021-06-21 17:17:26.961', 100, 'b58927bd-1113-4a02-abf0-53005a000fdb');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002995, '2021-06-21 17:17:26.961', 100, 'Utilities', 'Y', 'N', 'Facilities - Utilities - Water',
-        '2021-06-21 17:17:26.961', 100, '892f6496-d556-4597-b386-1f4379653750');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002996, '2021-06-21 17:17:27.012', 100, 'Business Insurance', 'Y', 'N', 'Finances - Insurance',
-        '2021-06-21 17:17:27.012', 100, 'cc3a92be-87b2-4f1a-9271-bb936d251674');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002996, '2021-06-21 17:17:27.012', 100, 'Business Insurance', 'Y', 'N', 'Finances - Insurance',
-        '2021-06-21 17:17:27.012', 100, '7bcaaa69-c040-44c8-81a2-f594d3166e8d');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002997, '2021-06-21 17:17:27.07', 100, 'License fees', 'Y', 'N',
-        'Finances - Licenses, Memberships, & Permits', '2021-06-21 17:17:27.07', 100,
-        'df399ec6-b1f0-4951-8d01-11f4b393ee41');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002997, '2021-06-21 17:17:27.07', 100, 'License fees', 'Y', 'N',
-        'Finances - Licenses, Memberships, & Permits', '2021-06-21 17:17:27.07', 100,
-        'c15095fe-8a60-4546-b606-093df1c7fe3d');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002998, '2021-06-21 17:17:27.13', 100, 'Long Term Obligation', 'Y', 'N', 'Finances - Loan',
-        '2021-06-21 17:17:27.13', 100, '53c67b70-e33d-4875-adad-727dc063220d');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002998, '2021-06-21 17:17:27.13', 100, 'Long Term Obligation', 'Y', 'N', 'Finances - Loan',
-        '2021-06-21 17:17:27.13', 100, 'edf38bb5-81af-476b-a1e5-fe5fe36e3706');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1002999, '2021-06-21 17:17:27.198', 100, 'Advertising Expense', 'Y', 'N', 'Finances - Marketing',
-        '2021-06-21 17:17:27.198', 100, '8f944a91-1bb5-4cc5-8e2f-9e0b04ca7884');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1002999, '2021-06-21 17:17:27.198', 100, 'Advertising Expense', 'Y', 'N', 'Finances - Marketing',
-        '2021-06-21 17:17:27.198', 100, 'd5acd760-caf5-4bee-a4f1-f1352559c173');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003007, '2021-06-21 17:17:27.801', 100, 'PAYE payroll', 'Y', 'N', 'Personnel - PAYE',
-        '2021-06-21 17:17:27.801', 100, '843c6da8-9043-483b-95c8-bbd8939c3891');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003007, '2021-06-21 17:17:27.801', 100, 'PAYE payroll', 'Y', 'N', 'Personnel - PAYE',
-        '2021-06-21 17:17:27.801', 100, '9e7d31e1-c314-42ff-ba6c-f68aa3965b3d');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003008, '2021-06-21 17:17:27.857', 100, 'Staff wages', 'Y', 'N', 'Personnel - Salaries',
-        '2021-06-21 17:17:27.857', 100, '30065ba6-b7c8-40ff-8806-cb2a4cc10d6e');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003008, '2021-06-21 17:17:27.857', 100, 'Staff wages', 'Y', 'N', 'Personnel - Salaries',
-        '2021-06-21 17:17:27.857', 100, '613a1f86-174b-491f-892d-d4d0e2568804');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003009, '2021-06-21 17:17:27.908', 100, 'Accounting and Clinical IT solutions', 'Y', 'N',
-        'Services - IT, Accounting & Clinical', '2021-06-21 17:17:27.908', 100, 'cad42a45-80d6-4f6b-bbae-4e5f63a2a1c0');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003009, '2021-06-21 17:17:27.908', 100, 'Accounting and Clinical IT solutions', 'Y', 'N',
-        'Services - IT, Accounting & Clinical', '2021-06-21 17:17:27.908', 100, 'abb62bb2-e7f7-4963-93cb-98a6eafc1ae3');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003010, '2021-06-21 17:17:27.96', 100, 'General occupancy costs', 'Y', 'N',
-        'Services - Maintenance & Cleaning', '2021-06-21 17:17:27.96', 100, '9ba866ec-ddac-4c0e-95ce-f4fcf35d20ac');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003010, '2021-06-21 17:17:27.96', 100, 'General occupancy costs', 'Y', 'N',
-        'Services - Maintenance & Cleaning', '2021-06-21 17:17:27.96', 100, 'a8931dd1-e9b5-4145-918e-4189bd8fc5c4');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003011, '2021-06-21 17:17:28.004', 100, 'Vehicle Expense', 'Y', 'N', 'Vehicle - Fuel',
-        '2021-06-21 17:17:28.004', 100, '5685e9fd-fa13-4854-a1d0-a5e50d68f982');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003011, '2021-06-21 17:17:28.004', 100, 'Vehicle Expense', 'Y', 'N', 'Vehicle - Fuel',
-        '2021-06-21 17:17:28.004', 100, '509f4f61-491e-4a35-bd08-d776f6eacb19');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003012, '2021-06-21 17:17:28.056', 100, 'Vehicle Insurance', 'Y', 'N', 'Vehicle - Insurance',
-        '2021-06-21 17:17:28.056', 100, '7a075499-459d-42ac-9904-a53cdf6ffc98');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003012, '2021-06-21 17:17:28.056', 100, 'Vehicle Insurance', 'Y', 'N', 'Vehicle - Insurance',
-        '2021-06-21 17:17:28.056', 100, '8776f0ca-fd6b-4e35-aa80-1ac16e7bae4e');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003013, '2021-06-21 17:17:28.109', 100, 'Long Term Obligation', 'Y', 'N',
-        'Vehicle - Lease/Loan', '2021-06-21 17:17:28.109', 100, '5cfd45ad-1676-42cf-8668-dc05d6872f92');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003013, '2021-06-21 17:17:28.109', 100, 'Long Term Obligation', 'Y', 'N',
-        'Vehicle - Lease/Loan', '2021-06-21 17:17:28.109', 100, 'e8673492-5eb1-4f19-8489-789a283f9a77');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003014, '2021-06-21 17:17:28.153', 100, 'Vehicle Repairs & Maintenance', 'Y', 'N',
-        'Vehicle - Maintenance & Cleaning', '2021-06-21 17:17:28.153', 100, '07934052-34ba-47cc-80c7-2ed8236d34d8');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003014, '2021-06-21 17:17:28.153', 100, 'Vehicle Repairs & Maintenance', 'Y', 'N',
-        'Vehicle - Maintenance & Cleaning', '2021-06-21 17:17:28.153', 100, '5b81c639-8563-44d3-9e29-c2d43bd7bf32');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'zh_CN', 0, 1003015, '2021-06-21 17:17:28.204', 100, 'Vehicles', 'Y', 'N', 'Vehicle - Purchase',
-        '2021-06-21 17:17:28.204', 100, '89830fdd-ea80-415f-b39c-6abb64b92e68');
-INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
-                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
-VALUES (2, 'fr_FR', 0, 1003015, '2021-06-21 17:17:28.204', 100, 'Vehicles', 'Y', 'N', 'Vehicle - Purchase',
-        '2021-06-21 17:17:28.204', 100, '6aeda1e6-f50c-43e4-82f9-7ba87e19ffb3');
-
-
---
--- Data for Name: c_chargetype; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_chargetype (ad_client_id, ad_org_id, c_chargetype_id, created, createdby, description, help,
-                                   isactive, name, updated, updatedby, value, c_chargetype_uu)
-VALUES (2, 0, 1000116, '2021-06-21 17:17:26.218', 100, 'For an expense category added by default', NULL, 'Y',
-        'Default Expense Category - DO NOT CHANGE', '2021-06-21 17:17:26.218', 100, '1000000',
-        'f546a4b1-eca8-4e00-a276-df59aa90fad5');
-INSERT INTO adempiere.c_chargetype (ad_client_id, ad_org_id, c_chargetype_id, created, createdby, description, help,
-                                   isactive, name, updated, updatedby, value, c_chargetype_uu)
-VALUES (2, 0, 1000117, '2021-06-21 17:17:26.24', 100,
-        'Meant to differentiate "payments" that come from a patient (i.e. Insurance, Donations, etc.)', NULL, 'Y',
-        'Non-Patient Payment - DO NOT CHANGE', '2021-06-21 17:17:26.24', 100, '1000001',
-        '9afc794b-5319-4beb-8435-77c6dfaf6431');
-
-
---
--- Data for Name: c_cycle; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_cycle (c_cycle_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                              name, description, c_currency_id, c_cycle_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:08.302018', 0, '2021-06-21 17:17:08.302018', 0, 'Standard', NULL, 100,
-        'c4a0b564-3b90-4882-9498-2f2b4b32e7c9');
-
-
---
--- Data for Name: c_doctype; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003086, 2, 0, 'Y', '2021-06-21 17:17:02.825', 100, '2021-06-21 17:17:02.825', 100, 'Customer Return Material',
-        'Customer Return Material Authorization', NULL, 'SOO', 'Y', 'RM', 'N', NULL, 1003070, 1003059, 'Y', 1011671,
-        1000769, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
-        '65ed68a0-e768-445e-91a2-d4e815cf3570', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003087, 2, 0, 'Y', '2021-06-21 17:17:02.855', 100, '2021-06-21 17:17:02.855', 100, 'Standard Order',
-        'Order Confirmation', NULL, 'SOO', 'Y', 'SO', 'N', NULL, 1003066, 1003057, 'Y', 1011672, 1000769, 'N', NULL,
-        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
-        '8f5019d2-3cd0-4f98-a8a1-5aeea1893ca6', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003088, 2, 0, 'Y', '2021-06-21 17:17:02.894', 100, '2021-06-21 17:17:02.894', 100, 'Credit Order',
-        'Order Confirmation', NULL, 'SOO', 'Y', 'WI', 'N', NULL, 1003067, 1003057, 'Y', 1011673, 1000769, 'N', NULL,
-        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
-        'e937c4b2-2954-4356-9362-11721adf5b3a', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003089, 2, 0, 'Y', '2021-06-21 17:17:02.939', 100, '2021-06-21 17:17:02.939', 100, 'Warehouse Order',
-        'Order Confirmation', NULL, 'SOO', 'Y', 'WP', 'N', NULL, 1003066, 1003057, 'Y', 1011674, 1000769, 'N', NULL,
-        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
-        'e8d97c7a-f7a2-4c98-bfb8-3fe3457f38f7', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003090, 2, 0, 'Y', '2021-06-21 17:17:02.981', 100, '2021-06-21 17:17:02.981', 100, 'Manufacturing Order',
-        'Manufacturing Order', NULL, 'MOP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011675, 1000777, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '9e4f13e2-7db4-4ea5-b552-16111f1da682', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003091, 2, 0, 'Y', '2021-06-21 17:17:03.01', 100, '2021-06-21 17:17:03.01', 100,
-        'Manufacturing Cost Collector', 'Cost Collector', NULL, 'MCC', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011676,
-        1000777, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
-        '83f50221-acfc-4dca-97a7-61fc900f2c80', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003092, 2, 0, 'Y', '2021-06-21 17:17:03.039', 100, '2021-06-21 17:17:03.039', 100, 'Maintenance Order',
-        'Maintenance Order', NULL, 'MOF', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011677, 1000777, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '90b76b96-a592-49bd-a54a-db1e6e17ded4', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003093, 2, 0, 'Y', '2021-06-21 17:17:03.068', 100, '2021-06-21 17:17:03.068', 100, 'Quality Order',
-        'Quality Order', NULL, 'MQO', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011678, 1000777, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '52682693-fda0-4d0a-ae57-d98f28a1e2c6', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003094, 2, 0, 'Y', '2021-06-21 17:17:03.104', 100, '2021-06-21 17:17:03.104', 100, 'Distribution Order',
-        'Distribution Order', NULL, 'DOO', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011679, 1000778, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'cd125f36-da06-4ab1-a087-b7a01db0a9db', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003095, 2, 0, 'Y', '2021-06-21 17:17:03.14', 100, '2021-06-21 17:17:03.14', 100, 'Payroll', 'Payroll', NULL,
-        'HRP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011680, 1000779, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
-        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '7ac7a8fa-d8c4-4f7c-9259-943322baf18d', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003096, 2, 0, 'Y', '2021-06-21 17:17:03.169', 100, '2021-06-21 17:17:03.169', 100, 'POS Order',
-        'Order Confirmation', NULL, 'SOO', 'Y', 'WR', 'N', NULL, 1003067, 1003058, 'Y', 1011681, 1000769, 'N', NULL,
-        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
-        'f2705415-3608-4a4d-acb0-520a55580e6f', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003097, 2, 0, 'Y', '2021-06-21 17:17:03.203', 100, '2021-06-21 17:17:03.203', 100, 'AR Pro Forma Invoice',
-        'AR Pro Forma Invoice', NULL, 'ARF', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '31b9f617-f4a7-47c5-a6c6-8a6c55f20a02', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003098, 2, 0, 'Y', '2021-06-21 17:17:03.228', 100, '2021-06-21 17:17:03.228', 100, 'GL Document',
-        'GL Document', NULL, 'GLD', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0, NULL, 'N',
-        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '23882d79-c607-4498-9279-fa4db3f4c836', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003099, 2, 0, 'Y', '2021-06-21 17:17:03.253', 100, '2021-06-21 17:17:03.253', 100, 'Fixed Assets Disposal',
-        'Fixed Assets Disposal', NULL, 'FAD', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '90a34481-c156-4935-9554-8eccaa20b762', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003100, 2, 0, 'Y', '2021-06-21 17:17:03.28', 100, '2021-06-21 17:17:03.28', 100, 'Fixed Assets Addition',
-        'Fixed Assets Addition', NULL, 'FAA', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '12e09f7e-3bb0-4f28-bdbd-f70b3ccca5f5', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003101, 2, 0, 'Y', '2021-06-21 17:17:03.309', 100, '2021-06-21 17:17:03.309', 100, 'Fixed Assets Depreciation',
-        'Fixed Assets Depreciation', NULL, 'FDP', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N',
-        0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'f1b540a3-ce4d-4074-90af-368be06aafb0',
-        'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003055, 2, 0, 'Y', '2021-06-21 17:17:01.873', 100, '2021-06-21 17:17:01.873', 100, 'GL Journal', 'Journal',
-        NULL, 'GLJ', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011645, 1000770, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
-        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'b19b2b9e-28a1-4cb4-86c4-b67989218870', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003056, 2, 0, 'Y', '2021-06-21 17:17:01.91', 100, '2021-06-21 17:17:01.91', 100, 'GL Journal Batch',
-        'Journal Batch', NULL, 'GLJ', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011646, 1000770, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '8d68ffb0-68af-444e-b68c-f55585a662a4', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003057, 2, 0, 'Y', '2021-06-21 17:17:01.954', 100, '2021-06-21 17:17:01.954', 100, 'AR Invoice', 'Invoice',
-        NULL, 'ARI', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011647, 1000771, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
-        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '3b520ac5-1ba2-4220-8b07-3f0b3c9e152e', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003058, 2, 0, 'Y', '2021-06-21 17:17:01.986', 100, '2021-06-21 17:17:01.986', 100, 'AR Invoice Indirect',
-        'Invoice', NULL, 'ARI', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011648, 1000771, 'N', NULL, 'N', 0, NULL, 'N',
-        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '068bc19f-6f83-41e4-b10d-a79045efef06', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003059, 2, 0, 'Y', '2021-06-21 17:17:02.019', 100, '2021-06-21 17:17:02.019', 100, 'AR Credit Memo',
-        'Credit Memo', NULL, 'ARC', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011649, 1000771, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '7ce48a00-dc40-4356-ae73-66e67cdda496', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003060, 2, 0, 'Y', '2021-06-21 17:17:02.042', 100, '2021-06-21 17:17:02.042', 100, 'AP Invoice', 'Invoice',
-        NULL, 'API', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000774, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
-        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '078fd017-c2d3-4f6c-8e5b-9363502fc754', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003061, 2, 0, 'Y', '2021-06-21 17:17:02.068', 100, '2021-06-21 17:17:02.068', 100, 'AP CreditMemo',
-        'Credit Memo', NULL, 'APC', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000774, 'N', NULL, 'N', 0, NULL, 'N',
-        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '88da9621-8fe6-4641-b569-8425049e83f9', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003062, 2, 0, 'Y', '2021-06-21 17:17:02.105', 100, '2021-06-21 17:17:02.105', 100, 'Match Invoice',
-        'Match Invoice', NULL, 'MXI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011650, 1000774, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '3597a86e-b363-42da-98e9-3cfb30c03a2d', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003063, 2, 0, 'Y', '2021-06-21 17:17:02.13', 100, '2021-06-21 17:17:02.13', 100, 'AR Receipt', 'Payment', NULL,
-        'ARR', 'Y', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000772, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N',
-        NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '6fec35a1-3a19-41b3-b975-57cb304fb67f', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003064, 2, 0, 'Y', '2021-06-21 17:17:02.154', 100, '2021-06-21 17:17:02.154', 100, 'AP Payment', 'Payment',
-        NULL, 'APP', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000775, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
-        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'c88ee7a5-f839-40bf-924c-ee49a03f6adc', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003065, 2, 0, 'Y', '2021-06-21 17:17:02.187', 100, '2021-06-21 17:17:02.187', 100, 'Allocation', 'Allocation',
-        NULL, 'CMA', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011651, 1000776, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
-        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'f6d5b71c-1dfa-4335-a6de-e7d27267391a', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003066, 2, 0, 'Y', '2021-06-21 17:17:02.218', 100, '2021-06-21 17:17:02.218', 100, 'MM Shipment',
-        'Delivery Note', NULL, 'MMS', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011652, 1000773, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '1763f9c7-dcf3-4791-8ed6-4059cacb340c', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003067, 2, 0, 'Y', '2021-06-21 17:17:02.251', 100, '2021-06-21 17:17:02.251', 100, 'MM Shipment Indirect',
-        'Delivery Note', NULL, 'MMS', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011653, 1000773, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'c26c16d0-d68b-4a38-b721-dba3637834f1', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003068, 2, 0, 'Y', '2021-06-21 17:17:02.28', 100, '2021-06-21 17:17:02.28', 100, 'MM Vendor Return',
-        'Vendor Return', NULL, 'MMS', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011654, 1000773, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'd3210d40-05d5-474b-97ad-47b006e5f25f', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003069, 2, 0, 'Y', '2021-06-21 17:17:02.3', 100, '2021-06-21 17:17:02.3', 100, 'MM Receipt', 'Vendor Delivery',
-        NULL, 'MMR', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000773, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
-        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'c450635f-fc98-4be0-a682-97410d7b8972', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003070, 2, 0, 'Y', '2021-06-21 17:17:02.331', 100, '2021-06-21 17:17:02.331', 100, 'MM Customer Return',
-        'Customer Return', NULL, 'MMR', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011655, 1000773, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '9abe0b9b-86bc-404b-8013-aa4c3754a8d8', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003071, 2, 0, 'Y', '2021-06-21 17:17:02.36', 100, '2021-06-21 17:17:02.36', 100, 'Purchase Order',
-        'Purchase Order', NULL, 'POO', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011656, 1000769, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'f9b121f4-fe16-4d75-b2db-a1f0068d9c36', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003072, 2, 0, 'Y', '2021-06-21 17:17:02.388', 100, '2021-06-21 17:17:02.388', 100, 'Match PO', 'Match PO',
-        NULL, 'MXP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011657, 1000769, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
-        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '36091bf7-8e9b-47d5-b989-3fc46751746f', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003073, 2, 0, 'Y', '2021-06-21 17:17:02.426', 100, '2021-06-21 17:17:02.426', 100, 'Purchase Requisition',
-        'Requisition', NULL, 'POR', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011658, 1000769, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'cfc367fb-b9f6-49b8-8e37-e8555296bfa4', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003074, 2, 0, 'Y', '2021-06-21 17:17:02.454', 100, '2021-06-21 17:17:02.454', 100, 'Vendor Return Material',
-        'Vendor Return Material Authorization', NULL, 'POO', 'N', 'RM', 'N', NULL, 1003068, 1003061, 'Y', 1011659,
-        1000773, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
-        '70618830-af2e-47c3-80ca-da7f0cc0d090', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003075, 2, 0, 'Y', '2021-06-21 17:17:02.487', 100, '2021-06-21 17:17:02.487', 100, 'Bank Statement',
-        'Bank Statement', NULL, 'CMB', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011660, 1000776, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '557a6053-6d10-49ee-9392-93ec05870f9c', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003076, 2, 0, 'Y', '2021-06-21 17:17:02.525', 100, '2021-06-21 17:17:02.525', 100, 'Cash Journal',
-        'Cash Journal', NULL, 'CMC', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011661, 1000776, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '12cdd430-da8f-48ba-bf8d-8d0dfafa4259', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003077, 2, 0, 'Y', '2021-06-21 17:17:02.555', 100, '2021-06-21 17:17:02.555', 100, 'Material Movement',
-        'Inventory Move', NULL, 'MMM', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011662, 1000773, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'aafe5784-cc13-4680-93c6-861405fbca4f', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003078, 2, 0, 'Y', '2021-06-21 17:17:02.585', 100, '2021-06-21 17:17:02.585', 100, 'Physical Inventory',
-        'Phys.Inventory', NULL, 'MMI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011663, 1000773, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'ce6da403-a94e-4a2e-a1f4-200077710017', 'N',
-        'PI');
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003079, 2, 0, 'Y', '2021-06-21 17:17:02.614', 100, '2021-06-21 17:17:02.614', 100, 'Material Production',
-        'Production', NULL, 'MMP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011664, 1000773, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'd36ce52f-25a8-46a3-88d0-1096207722c9', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003080, 2, 0, 'Y', '2021-06-21 17:17:02.642', 100, '2021-06-21 17:17:02.642', 100, 'Project Issue',
-        'Project Issue', NULL, 'PJI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011665, 1000773, 'N', NULL, 'N', 0, NULL,
-        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'ecbca2f2-868e-4052-8ab2-aef3646000d5', 'N',
-        NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003081, 2, 0, 'Y', '2021-06-21 17:17:02.679', 100, '2021-06-21 17:17:02.679', 100, 'Internal Use Inventory',
-        'Internal Use Inventory', NULL, 'MMI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011666, 1000773, 'N', NULL, 'N',
-        0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '4fc8ac3e-8d15-4a6a-8256-5af72843342f',
-        'N', 'IU');
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003082, 2, 0, 'Y', '2021-06-21 17:17:02.71', 100, '2021-06-21 17:17:02.71', 100, 'Cost Adjustment',
-        'Cost Adjustment', NULL, 'MMI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011667, 1000773, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '69fc9319-4592-4566-a7a0-bb6897cc387f', 'N',
-        'CA');
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003083, 2, 0, 'Y', '2021-06-21 17:17:02.738', 100, '2021-06-21 17:17:02.738', 100, 'Binding offer',
-        'Quotation', NULL, 'SOO', 'Y', 'OB', 'N', NULL, NULL, NULL, 'Y', 1011668, 1000769, 'N', NULL, 'N', 0, NULL, 'N',
-        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'dc2d1360-48f7-499d-b5d5-cc328956f1bf', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003084, 2, 0, 'Y', '2021-06-21 17:17:02.766', 100, '2021-06-21 17:17:02.766', 100, 'Non binding offer',
-        'Proposal', NULL, 'SOO', 'Y', 'ON', 'N', NULL, NULL, NULL, 'Y', 1011669, 1000769, 'N', NULL, 'N', 0, NULL, 'N',
-        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'a78c5715-12e5-44a1-b69a-c933b327ffb9', 'N', NULL);
-INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
-                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
-                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
-                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
-                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
-                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
-                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
-VALUES (1003085, 2, 0, 'Y', '2021-06-21 17:17:02.796', 100, '2021-06-21 17:17:02.796', 100, 'Prepay Order',
-        'Prepay Order', NULL, 'SOO', 'Y', 'PR', 'N', NULL, 1003066, 1003057, 'Y', 1011670, 1000769, 'N', NULL, 'N', 0,
-        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '7196cf6d-6301-4e88-8a46-8373426fa617', 'N',
-        NULL);
-
-
---
--- Data for Name: c_doctype_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003094, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.104', 100, '2021-06-21 17:17:03.104', 100,
-        'Distribution Order', 'Distribution Order', NULL, 'N', 'a396b838-7566-4ad2-ab2e-ddf337438792');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003095, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.14', 100, '2021-06-21 17:17:03.14', 100, 'Payroll', 'Payroll',
-        NULL, 'N', '7a29cb55-cb28-463e-8fd9-97e86be8abd3');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003095, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.14', 100, '2021-06-21 17:17:03.14', 100, 'Payroll', 'Payroll',
-        NULL, 'N', '6bbaccec-a2ad-44c0-8a65-b681e7ae3108');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003096, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.169', 100, '2021-06-21 17:17:03.169', 100, 'POS Order',
-        'Order Confirmation', NULL, 'N', '24bf770c-77f8-4759-ae4e-589cda4c0e1a');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003096, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.169', 100, '2021-06-21 17:17:03.169', 100, 'POS Order',
-        'Order Confirmation', NULL, 'N', 'fdefbde8-aded-4dfe-af95-d440077b1466');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003097, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.203', 100, '2021-06-21 17:17:03.203', 100,
-        'AR Pro Forma Invoice', 'AR Pro Forma Invoice', NULL, 'N', '3292aaa1-28aa-4a84-8411-9adafdcf92e8');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003097, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.203', 100, '2021-06-21 17:17:03.203', 100,
-        'AR Pro Forma Invoice', 'AR Pro Forma Invoice', NULL, 'N', 'e684eee8-d171-4443-a818-51dd0ab816d9');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003098, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.228', 100, '2021-06-21 17:17:03.228', 100, 'GL Document',
-        'GL Document', NULL, 'N', 'c57708cb-52f4-400d-b600-1e12242db7b5');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003098, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.228', 100, '2021-06-21 17:17:03.228', 100, 'GL Document',
-        'GL Document', NULL, 'N', '6f15ec0f-5dd6-43b9-8e16-01f4f9213ffa');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003099, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.253', 100, '2021-06-21 17:17:03.253', 100,
-        'Fixed Assets Disposal', 'Fixed Assets Disposal', NULL, 'N', 'd5f3330c-b5fa-449c-95ca-59808542a724');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003099, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.253', 100, '2021-06-21 17:17:03.253', 100,
-        'Fixed Assets Disposal', 'Fixed Assets Disposal', NULL, 'N', '2bc6d61e-4a69-4afe-884e-15a11e751504');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003100, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.28', 100, '2021-06-21 17:17:03.28', 100,
-        'Fixed Assets Addition', 'Fixed Assets Addition', NULL, 'N', '4d7a6345-4788-4fd2-868b-4f2206387910');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003100, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.28', 100, '2021-06-21 17:17:03.28', 100,
-        'Fixed Assets Addition', 'Fixed Assets Addition', NULL, 'N', '3e5b4c36-88bd-4350-9426-699677b23d08');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003101, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.309', 100, '2021-06-21 17:17:03.309', 100,
-        'Fixed Assets Depreciation', 'Fixed Assets Depreciation', NULL, 'N', 'd4bc3dc7-a6fb-4add-9345-8b973f369ffa');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003101, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.309', 100, '2021-06-21 17:17:03.309', 100,
-        'Fixed Assets Depreciation', 'Fixed Assets Depreciation', NULL, 'N', 'd022a5bc-9ac5-45bb-ad7f-c0cfb71e42af');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003055, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.873', 100, '2021-06-21 17:17:01.873', 100, 'GL Journal',
-        'Journal', NULL, 'N', 'c7c43890-e290-4556-a3b5-c38d066cf027');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003055, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.873', 100, '2021-06-21 17:17:01.873', 100, 'GL Journal',
-        'Journal', NULL, 'N', 'ee6d151b-03ec-4734-806b-ececac01e778');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003056, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.91', 100, '2021-06-21 17:17:01.91', 100, 'GL Journal Batch',
-        'Journal Batch', NULL, 'N', '274f5b8e-2c75-4dcf-8d8f-0bdded9af3ec');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003056, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.91', 100, '2021-06-21 17:17:01.91', 100, 'GL Journal Batch',
-        'Journal Batch', NULL, 'N', 'd38dedae-c520-47e3-969e-50099b835e32');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003057, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.954', 100, '2021-06-21 17:17:01.954', 100, 'AR Invoice',
-        'Invoice', NULL, 'N', 'f40028e0-3726-4dcf-aef3-bf2cb84c54db');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003057, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.954', 100, '2021-06-21 17:17:01.954', 100, 'AR Invoice',
-        'Invoice', NULL, 'N', 'f7574be0-7b51-43b0-a102-532bcc66ad4a');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003058, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.986', 100, '2021-06-21 17:17:01.986', 100,
-        'AR Invoice Indirect', 'Invoice', NULL, 'N', 'd65c48c0-aa28-4fa3-a97e-b866d170bf5b');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003058, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.986', 100, '2021-06-21 17:17:01.986', 100,
-        'AR Invoice Indirect', 'Invoice', NULL, 'N', '05280c6d-8dbd-40a7-8ea0-241eac473c6e');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003059, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.019', 100, '2021-06-21 17:17:02.019', 100, 'AR Credit Memo',
-        'Credit Memo', NULL, 'N', 'c8cd4200-80e4-4221-b4fa-8126b0689bfe');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003059, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.019', 100, '2021-06-21 17:17:02.019', 100, 'AR Credit Memo',
-        'Credit Memo', NULL, 'N', '223045a9-956b-4247-a501-d2aa072845cb');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003060, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.042', 100, '2021-06-21 17:17:02.042', 100, 'AP Invoice',
-        'Invoice', NULL, 'N', '67b371c1-e1c0-48cb-a6f4-99ce1a81e4fb');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003060, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.042', 100, '2021-06-21 17:17:02.042', 100, 'AP Invoice',
-        'Invoice', NULL, 'N', '1c281eaa-585f-455d-88aa-bc3c08c72beb');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003061, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.068', 100, '2021-06-21 17:17:02.068', 100, 'AP CreditMemo',
-        'Credit Memo', NULL, 'N', '54b293b0-464a-4ab2-b772-b33639b6ccaf');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003061, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.068', 100, '2021-06-21 17:17:02.068', 100, 'AP CreditMemo',
-        'Credit Memo', NULL, 'N', 'f51b0e8d-93f8-4a35-a2b3-152eea300ef6');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003062, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.105', 100, '2021-06-21 17:17:02.105', 100, 'Match Invoice',
-        'Match Invoice', NULL, 'N', 'f674b6e4-1df0-4249-b180-8cc7a65d59ce');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003062, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.105', 100, '2021-06-21 17:17:02.105', 100, 'Match Invoice',
-        'Match Invoice', NULL, 'N', '8e887eec-3c28-4109-9066-677548e567ec');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003063, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.13', 100, '2021-06-21 17:17:02.13', 100, 'AR Receipt',
-        'Payment', NULL, 'N', '9769cf89-0a97-48d4-ab18-129f65d911c7');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003063, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.13', 100, '2021-06-21 17:17:02.13', 100, 'AR Receipt',
-        'Payment', NULL, 'N', '9d08f195-15f3-4ab0-b7aa-11a6f2b3b3a6');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003064, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.154', 100, '2021-06-21 17:17:02.154', 100, 'AP Payment',
-        'Payment', NULL, 'N', 'da43bf03-6266-4466-870b-e83d420f6c7b');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003064, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.154', 100, '2021-06-21 17:17:02.154', 100, 'AP Payment',
-        'Payment', NULL, 'N', '48df5d1c-03ef-4552-a551-13da980df2ec');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003065, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.187', 100, '2021-06-21 17:17:02.187', 100, 'Allocation',
-        'Allocation', NULL, 'N', '45b0b88b-d1ba-4e01-92f1-9132808fd739');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003065, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.187', 100, '2021-06-21 17:17:02.187', 100, 'Allocation',
-        'Allocation', NULL, 'N', '99ef7c23-cc7b-4ed5-952c-52b6c1991b74');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003066, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.218', 100, '2021-06-21 17:17:02.218', 100, 'MM Shipment',
-        'Delivery Note', NULL, 'N', '6ccb8b80-acd5-49ca-8a2c-2352a7044882');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003066, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.218', 100, '2021-06-21 17:17:02.218', 100, 'MM Shipment',
-        'Delivery Note', NULL, 'N', '4656076e-d1cb-49f6-a6dd-ca56239b10e3');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003067, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.251', 100, '2021-06-21 17:17:02.251', 100,
-        'MM Shipment Indirect', 'Delivery Note', NULL, 'N', '93d5591f-3b76-4404-a9a0-3e4971fd3f37');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003067, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.251', 100, '2021-06-21 17:17:02.251', 100,
-        'MM Shipment Indirect', 'Delivery Note', NULL, 'N', '2644d358-d82b-410e-8227-7e781b3d5bb8');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003068, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.28', 100, '2021-06-21 17:17:02.28', 100, 'MM Vendor Return',
-        'Vendor Return', NULL, 'N', 'ec5fe62e-f3b4-4447-b633-d7d24066293d');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003068, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.28', 100, '2021-06-21 17:17:02.28', 100, 'MM Vendor Return',
-        'Vendor Return', NULL, 'N', '880c3ff5-ac5f-4caf-8158-6db0b0b904ba');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003069, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.3', 100, '2021-06-21 17:17:02.3', 100, 'MM Receipt',
-        'Vendor Delivery', NULL, 'N', '3fa2558e-c067-4d44-9507-d379099b75d8');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003069, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.3', 100, '2021-06-21 17:17:02.3', 100, 'MM Receipt',
-        'Vendor Delivery', NULL, 'N', 'badd169f-40de-48a9-b171-a78bbeb154a4');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003070, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.331', 100, '2021-06-21 17:17:02.331', 100,
-        'MM Customer Return', 'Customer Return', NULL, 'N', '1e76d195-3d8b-414c-96e2-2ad4b5df6cfd');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003070, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.331', 100, '2021-06-21 17:17:02.331', 100,
-        'MM Customer Return', 'Customer Return', NULL, 'N', 'cf1e3d03-72ba-4fc1-b7a5-0206a650badb');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003071, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.36', 100, '2021-06-21 17:17:02.36', 100, 'Purchase Order',
-        'Purchase Order', NULL, 'N', 'd58b5b57-78c4-4832-a4a7-83b11edda73b');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003071, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.36', 100, '2021-06-21 17:17:02.36', 100, 'Purchase Order',
-        'Purchase Order', NULL, 'N', '198724e8-90bb-411b-beff-12df327f8cad');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003072, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.388', 100, '2021-06-21 17:17:02.388', 100, 'Match PO',
-        'Match PO', NULL, 'N', '30b00a69-a909-4fae-af96-3fd9864d1dd6');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003072, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.388', 100, '2021-06-21 17:17:02.388', 100, 'Match PO',
-        'Match PO', NULL, 'N', '9203f02e-4e9d-41c0-870b-5bda2b40cd1f');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003073, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.426', 100, '2021-06-21 17:17:02.426', 100,
-        'Purchase Requisition', 'Requisition', NULL, 'N', '06db123d-7fd2-42da-bca0-be68d476717c');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003073, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.426', 100, '2021-06-21 17:17:02.426', 100,
-        'Purchase Requisition', 'Requisition', NULL, 'N', '77ec9de6-b6f9-4c0b-828b-82a4f4b980a6');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003074, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.454', 100, '2021-06-21 17:17:02.454', 100,
-        'Vendor Return Material', 'Vendor Return Material Authorization', NULL, 'N',
-        '351de296-4867-4834-b310-ad9dc4384421');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003074, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.454', 100, '2021-06-21 17:17:02.454', 100,
-        'Vendor Return Material', 'Vendor Return Material Authorization', NULL, 'N',
-        '80fc18ba-8bbe-4fd0-83bf-cdc0dfac3952');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003075, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.487', 100, '2021-06-21 17:17:02.487', 100, 'Bank Statement',
-        'Bank Statement', NULL, 'N', 'bfe83ab0-7cb6-4293-905b-0a8fce44f358');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003075, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.487', 100, '2021-06-21 17:17:02.487', 100, 'Bank Statement',
-        'Bank Statement', NULL, 'N', '89761a51-cdb1-4935-988d-62d2d5919b02');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003076, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.525', 100, '2021-06-21 17:17:02.525', 100, 'Cash Journal',
-        'Cash Journal', NULL, 'N', '17d41160-b8a9-468e-8b4e-a26308d696bd');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003076, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.525', 100, '2021-06-21 17:17:02.525', 100, 'Cash Journal',
-        'Cash Journal', NULL, 'N', '894e9f8b-f2f7-48f5-aca3-b49030205547');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003077, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.555', 100, '2021-06-21 17:17:02.555', 100,
-        'Material Movement', 'Inventory Move', NULL, 'N', '9d6aa1c8-6d62-4364-a138-2ebf0cf22156');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003077, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.555', 100, '2021-06-21 17:17:02.555', 100,
-        'Material Movement', 'Inventory Move', NULL, 'N', '6c619e81-e3fe-4639-ab18-a6c0e525302b');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003078, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.585', 100, '2021-06-21 17:17:02.585', 100,
-        'Physical Inventory', 'Phys.Inventory', NULL, 'N', 'df69cac7-490c-42e5-8b52-d93a59385df5');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003078, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.585', 100, '2021-06-21 17:17:02.585', 100,
-        'Physical Inventory', 'Phys.Inventory', NULL, 'N', '57531df1-e71b-4aab-af07-c85265fbc813');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003079, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.614', 100, '2021-06-21 17:17:02.614', 100,
-        'Material Production', 'Production', NULL, 'N', 'd505691f-0a50-49ca-af50-f605a50efc2c');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003079, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.614', 100, '2021-06-21 17:17:02.614', 100,
-        'Material Production', 'Production', NULL, 'N', '7ed7b91a-283a-40f3-b76e-7a5a58f6167d');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003080, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.642', 100, '2021-06-21 17:17:02.642', 100, 'Project Issue',
-        'Project Issue', NULL, 'N', '7c3a2d96-aa2c-4205-8629-b0dec360cd44');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003080, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.642', 100, '2021-06-21 17:17:02.642', 100, 'Project Issue',
-        'Project Issue', NULL, 'N', 'a6e5b14e-092f-4eb2-a055-c2d24f2bd229');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003081, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.679', 100, '2021-06-21 17:17:02.679', 100,
-        'Internal Use Inventory', 'Internal Use Inventory', NULL, 'N', 'bb75eaca-1e11-499d-b3e7-a18b2bd07973');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003081, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.679', 100, '2021-06-21 17:17:02.679', 100,
-        'Internal Use Inventory', 'Internal Use Inventory', NULL, 'N', '0593fa5c-828e-4595-8f6f-b686a59e5ca6');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003082, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.71', 100, '2021-06-21 17:17:02.71', 100, 'Cost Adjustment',
-        'Cost Adjustment', NULL, 'N', '227563d4-522c-4ac6-859c-7cdcba092bc3');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003082, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.71', 100, '2021-06-21 17:17:02.71', 100, 'Cost Adjustment',
-        'Cost Adjustment', NULL, 'N', 'b84e067d-a520-46b2-9c23-d4c7da2d31b0');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003083, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.738', 100, '2021-06-21 17:17:02.738', 100, 'Binding offer',
-        'Quotation', NULL, 'N', '073f83e2-7aeb-4dc8-b235-70c0c2480c53');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003083, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.738', 100, '2021-06-21 17:17:02.738', 100, 'Binding offer',
-        'Quotation', NULL, 'N', '76337772-9283-4f0e-aff8-b69c62ea3db0');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003084, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.766', 100, '2021-06-21 17:17:02.766', 100,
-        'Non binding offer', 'Proposal', NULL, 'N', 'f56db291-667e-49f4-b18c-ce3d81c13c3c');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003084, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.766', 100, '2021-06-21 17:17:02.766', 100,
-        'Non binding offer', 'Proposal', NULL, 'N', '96a12b06-e5e9-4b8a-874e-cc3781910a74');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003085, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.796', 100, '2021-06-21 17:17:02.796', 100, 'Prepay Order',
-        'Prepay Order', NULL, 'N', '2360cbfc-2a0c-43cf-b712-18cb33634ded');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003085, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.796', 100, '2021-06-21 17:17:02.796', 100, 'Prepay Order',
-        'Prepay Order', NULL, 'N', 'aa1502b7-b64b-484f-b755-1b70374b76e7');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003086, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.825', 100, '2021-06-21 17:17:02.825', 100,
-        'Customer Return Material', 'Customer Return Material Authorization', NULL, 'N',
-        'cc90150f-339f-4193-aa33-f09cb7da6373');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003086, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.825', 100, '2021-06-21 17:17:02.825', 100,
-        'Customer Return Material', 'Customer Return Material Authorization', NULL, 'N',
-        '9c8a4fd4-edd4-40b0-aee2-93072434a44a');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003087, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.855', 100, '2021-06-21 17:17:02.855', 100, 'Standard Order',
-        'Order Confirmation', NULL, 'N', '3eae6ec9-2733-47d2-8582-9a8f64c506f8');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003087, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.855', 100, '2021-06-21 17:17:02.855', 100, 'Standard Order',
-        'Order Confirmation', NULL, 'N', '5cf38739-1e16-4722-bce9-cf34793a4eca');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003088, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.894', 100, '2021-06-21 17:17:02.894', 100, 'Credit Order',
-        'Order Confirmation', NULL, 'N', 'a186c557-2b1d-428b-9190-1281ecf520de');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003088, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.894', 100, '2021-06-21 17:17:02.894', 100, 'Credit Order',
-        'Order Confirmation', NULL, 'N', 'bcad111a-cd11-499c-9c3c-4c94791ee0f1');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003089, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.939', 100, '2021-06-21 17:17:02.939', 100, 'Warehouse Order',
-        'Order Confirmation', NULL, 'N', '1b52e248-ad18-409e-899c-1b53161544fe');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003089, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.939', 100, '2021-06-21 17:17:02.939', 100, 'Warehouse Order',
-        'Order Confirmation', NULL, 'N', '1041eda3-54b8-4f80-8a33-3beba6f0395c');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003090, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.981', 100, '2021-06-21 17:17:02.981', 100,
-        'Manufacturing Order', 'Manufacturing Order', NULL, 'N', '86a5d230-a94b-41af-a6fb-d4d9f3a23276');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003090, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.981', 100, '2021-06-21 17:17:02.981', 100,
-        'Manufacturing Order', 'Manufacturing Order', NULL, 'N', 'e063e0d9-d2df-4456-ad6d-98f29e4f5611');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003091, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.01', 100, '2021-06-21 17:17:03.01', 100,
-        'Manufacturing Cost Collector', 'Cost Collector', NULL, 'N', 'd9c0aba9-407d-4caf-a81e-5be6c3640afe');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003091, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.01', 100, '2021-06-21 17:17:03.01', 100,
-        'Manufacturing Cost Collector', 'Cost Collector', NULL, 'N', '990f452b-a534-4ea9-b7a1-ed9aa9a8f656');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003092, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.039', 100, '2021-06-21 17:17:03.039', 100,
-        'Maintenance Order', 'Maintenance Order', NULL, 'N', '24424e71-8e98-4392-87ac-afc0d487a010');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003092, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.039', 100, '2021-06-21 17:17:03.039', 100,
-        'Maintenance Order', 'Maintenance Order', NULL, 'N', 'cb70e75d-fe55-4be4-8f14-1ad41840180a');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003093, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.068', 100, '2021-06-21 17:17:03.068', 100, 'Quality Order',
-        'Quality Order', NULL, 'N', '08b4a212-64bd-4257-9170-0a5bfe793bf7');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003093, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.068', 100, '2021-06-21 17:17:03.068', 100, 'Quality Order',
-        'Quality Order', NULL, 'N', 'f8d7f775-b923-455a-9977-e1b394b3d51c');
-INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
-VALUES (1003094, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.104', 100, '2021-06-21 17:17:03.104', 100,
-        'Distribution Order', 'Distribution Order', NULL, 'N', '10df4b5c-6657-4852-a4dd-2373d33353e0');
 
 
 --
@@ -11686,47 +9521,2571 @@ INSERT INTO adempiere.c_elementvalue_trl (c_elementvalue_id, ad_language, ad_cli
 VALUES (1010795, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:25.19', 100, '2021-06-21 17:17:25.19', 100, 'License Fees', NULL,
         'N', '4af6163a-4ee6-4c07-b712-cf68f7d1e69c');
 
+--
+-- Data for Name: m_pricelist; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_pricelist (m_pricelist_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                  updatedby, name, description, basepricelist_id, istaxincluded, issopricelist,
+                                  isdefault, c_currency_id, enforcepricelimit, priceprecision, ismandatory,
+                                  ispresentforproduct, m_pricelist_uu)
+VALUES (1000195, 2, 0, 'Y', '2021-06-21 17:17:08.033', 100, '2021-06-21 17:17:08.033', 100, 'Standard', NULL, NULL, 'N',
+        'N', 'Y', 100, 'N', 2, 'N', 'N', '3248a507-bbad-4d96-a508-8aa12ebe0961');
+
 
 --
--- Data for Name: c_location; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+-- Data for Name: m_pricelist_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
 --
 
-INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
-                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
-                                 isvalid, c_addressvalidation_id, address5, comments)
-VALUES (1085969, 2, 0, 'Y', '2021-06-21 17:17:07.696', 100, '2021-06-21 17:17:07.696', 100, NULL, NULL, NULL, NULL,
-        NULL, 100, NULL, NULL, NULL, NULL, NULL, 'b5d98667-02e2-4bce-b3ca-1bf84e0a6e38', NULL, NULL, 'N', NULL, NULL,
+INSERT INTO adempiere.m_pricelist_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description, isactive,
+                                      istranslated, m_pricelist_id, m_pricelist_trl_uu, name, updated, updatedby)
+VALUES (2, 'zh_CN', 0, '2021-06-21 17:17:08.033', 100, NULL, 'Y', 'N', 1000195, '2a36c909-a0de-4aee-839a-2c0e9e47b343',
+        'Standard', '2021-06-21 17:17:08.033', 100);
+INSERT INTO adempiere.m_pricelist_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description, isactive,
+                                      istranslated, m_pricelist_id, m_pricelist_trl_uu, name, updated, updatedby)
+VALUES (2, 'fr_FR', 0, '2021-06-21 17:17:08.033', 100, NULL, 'Y', 'N', 1000195, 'c1b35e28-ee7c-4bcb-a0be-f5ef9d61da14',
+        'Standard', '2021-06-21 17:17:08.033', 100);
+
+
+--
+-- Data for Name: m_pricelist_version; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_pricelist_version (m_pricelist_version_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                          updated, updatedby, name, description, m_pricelist_id, m_discountschema_id,
+                                          validfrom, proccreate, m_pricelist_version_base_id, m_pricelist_version_uu)
+VALUES (1000194, 2, 0, 'Y', '2021-06-21 17:17:08.071', 100, '2021-06-21 17:17:08.071', 100, '06/21/2021', NULL, 1000195,
+        1000064, '2021-06-21 00:00:00', NULL, NULL, 'ad82e364-a924-4680-b85f-29023e0cee2f');
+
+
+--
+-- Data for Name: m_pricelist_version_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_pricelist_version_trl (ad_client_id, ad_language, ad_org_id, created, createdby, isactive,
+                                              istranslated, m_pricelist_version_id, m_pricelist_version_trl_uu, name,
+                                              updated, updatedby)
+VALUES (2, 'zh_CN', 0, '2021-06-21 17:17:08.071', 100, 'Y', 'N', 1000194, 'a48da2ea-abd0-42eb-a626-7647cbaba0b1',
+        '06/21/2021', '2021-06-21 17:17:08.071', 100);
+INSERT INTO adempiere.m_pricelist_version_trl (ad_client_id, ad_language, ad_org_id, created, createdby, isactive,
+                                              istranslated, m_pricelist_version_id, m_pricelist_version_trl_uu, name,
+                                              updated, updatedby)
+VALUES (2, 'fr_FR', 0, '2021-06-21 17:17:08.071', 100, 'Y', 'N', 1000194, '318f5f5c-bb02-477e-b415-aaa9bb4bb33d',
+        '06/21/2021', '2021-06-21 17:17:08.071', 100);
+
+    --
+-- Data for Name: m_product_category; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
+                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
+                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
+VALUES (1000324, 2, 0, 'Y', '2021-06-21 17:17:07.748', 100, '2021-06-21 17:17:07.748', 100, 'Standard', 'Standard',
+        NULL, 'Y', 0.0, NULL, 'Y', NULL, 'F', NULL, 'fba03f83-48c8-4865-a48e-98caa5714a6d', NULL);
+INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
+                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
+                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
+VALUES (1000325, 2, 1000064, 'Y', '2021-06-21 17:17:28.264', 100, '2021-06-21 17:17:28.264', 100, '1000000',
+        'Laboratory', NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, 'e4dd23f4-e26c-403f-8495-d762b5a5bbaa', 'P');
+INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
+                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
+                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
+VALUES (1000326, 2, 1000064, 'Y', '2021-06-21 17:17:28.317', 100, '2021-06-21 17:17:28.317', 100, '1000001', 'Other',
+        NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, 'a71a6b7f-c7c2-46fc-89f7-aba73886d8cc', 'P');
+INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
+                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
+                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
+VALUES (1000327, 2, 1000064, 'Y', '2021-06-21 17:17:28.364', 100, '2021-06-21 17:17:28.364', 100, '1000002', 'Pharmacy',
+        NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, '72e90d7e-cc7b-4dc4-8dfd-9ff7502ce841', 'P');
+INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
+                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
+                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
+VALUES (1000328, 2, 1000064, 'Y', '2021-06-21 17:17:28.412', 100, '2021-06-21 17:17:28.412', 100, '1000003',
+        'Radiology', NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, '1b95d790-93c5-4126-9f52-50c01ca3e6c4', 'P');
+INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
+                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
+                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
+VALUES (1000329, 2, 1000064, 'Y', '2021-06-21 17:17:28.459', 100, '2021-06-21 17:17:28.459', 100, '1000004', 'Services',
+        NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, '70aaee68-ac65-4e91-900c-890076203744', 'S');
+
+
+--
+-- Data for Name: m_product_category_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
+                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
+                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
+                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
+                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
+                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
+                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
+                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
+                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
+                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
+                                              p_landedcostclearing_acct)
+VALUES (1000324, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.801535', 100, '2021-06-21 17:17:07.801535', 100, 1005489,
+        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
+        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '0b71aa89-675c-4653-a369-ce0130f7e3a8',
+        1005486);
+INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
+                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
+                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
+                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
+                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
+                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
+                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
+                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
+                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
+                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
+                                              p_landedcostclearing_acct)
+VALUES (1000325, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.302412', 100, '2021-06-21 17:17:28.315', 100, 1005534,
+        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
+        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '686c9413-7ae1-4148-a47f-136059316e30',
+        1005486);
+INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
+                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
+                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
+                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
+                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
+                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
+                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
+                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
+                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
+                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
+                                              p_landedcostclearing_acct)
+VALUES (1000326, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.35254', 100, '2021-06-21 17:17:28.363', 100, 1005535, 1005481,
+        1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL, NULL,
+        NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '680012c3-21a8-491b-abed-875fdff00aea',
+        1005486);
+INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
+                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
+                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
+                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
+                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
+                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
+                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
+                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
+                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
+                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
+                                              p_landedcostclearing_acct)
+VALUES (1000327, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.399841', 100, '2021-06-21 17:17:28.411', 100, 1005536,
+        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
+        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, 'd43df923-c144-4614-b6e5-0388e76d37b8',
+        1005486);
+INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
+                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
+                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
+                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
+                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
+                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
+                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
+                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
+                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
+                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
+                                              p_landedcostclearing_acct)
+VALUES (1000328, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.446795', 100, '2021-06-21 17:17:28.458', 100, 1005537,
+        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
+        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, 'b22e0506-09e0-4c33-b005-d3ea55dff714',
+        1005486);
+INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
+                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
+                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
+                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
+                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
+                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
+                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
+                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
+                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
+                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
+                                              p_landedcostclearing_acct)
+VALUES (1000329, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.495484', 100, '2021-06-21 17:17:28.506', 100, 1005538,
+        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
+        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '395fa84d-df91-4a4d-af1d-761e7fea1d1c',
+        1005486);
+
+
+--
+-- Data for Name: m_product_category_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'zh_CN', 0, '2021-06-21 17:17:07.748', 100, NULL, 'Y', 'N', 1000324, '3f2518c9-9aa0-447a-ba7e-54daca67bbb9',
+        'Standard', '2021-06-21 17:17:07.748', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'fr_FR', 0, '2021-06-21 17:17:07.748', 100, NULL, 'Y', 'N', 1000324, '236da9ba-e052-4532-bc9a-b946c0562100',
+        'Standard', '2021-06-21 17:17:07.748', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.264', 100, NULL, 'Y', 'N', 1000325,
+        '4c537703-76f3-4cc3-baf4-3e53fcfad96d', 'Laboratory', '2021-06-21 17:17:28.264', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.264', 100, NULL, 'Y', 'N', 1000325,
+        '322ba81a-a49c-40e3-b817-053c36154a57', 'Laboratory', '2021-06-21 17:17:28.264', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.317', 100, NULL, 'Y', 'N', 1000326,
+        '16a5509f-7dc2-4448-b0d1-96de0abddcf8', 'Other', '2021-06-21 17:17:28.317', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.317', 100, NULL, 'Y', 'N', 1000326,
+        '3b175e93-0e62-4eec-a071-25a8c7cb7647', 'Other', '2021-06-21 17:17:28.317', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.364', 100, NULL, 'Y', 'N', 1000327,
+        '8bf45f68-ad6b-4702-8931-6a0785087403', 'Pharmacy', '2021-06-21 17:17:28.364', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.364', 100, NULL, 'Y', 'N', 1000327,
+        'b715f475-43f9-47e3-b73d-8e56ab962562', 'Pharmacy', '2021-06-21 17:17:28.364', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.412', 100, NULL, 'Y', 'N', 1000328,
+        '484c5a9d-f491-46e2-9069-44ae5c44c1bd', 'Radiology', '2021-06-21 17:17:28.412', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.412', 100, NULL, 'Y', 'N', 1000328,
+        '7551e20e-089c-4b09-84ac-15f0b3993ef0', 'Radiology', '2021-06-21 17:17:28.412', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.459', 100, NULL, 'Y', 'N', 1000329,
+        '67ba1e28-df82-4777-b95c-15d5da6f27cd', 'Services', '2021-06-21 17:17:28.459', 100);
+INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
+                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
+                                             name, updated, updatedby)
+VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.459', 100, NULL, 'Y', 'N', 1000329,
+        'f48e645c-fd0a-4f98-b3a6-169ef256ea42', 'Services', '2021-06-21 17:17:28.459', 100);
+
+--
+-- Data for Name: m_product; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_product (m_product_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                value, name, description, documentnote, help, upc, sku, c_uom_id, salesrep_id,
+                                issummary, isstocked, ispurchased, issold, isbom, isinvoiceprintdetails,
+                                ispicklistprintdetails, isverified, c_revenuerecognition_id, m_product_category_id,
+                                classification, volume, weight, shelfwidth, shelfheight, shelfdepth, unitsperpallet,
+                                c_taxcategory_id, s_resource_id, discontinued, discontinuedby, processing,
+                                s_expensetype_id, producttype, imageurl, descriptionurl, guaranteedays, r_mailtext_id,
+                                versionno, m_attributeset_id, m_attributesetinstance_id, downloadurl,
+                                m_freightcategory_id, m_locator_id, guaranteedaysmin, iswebstorefeatured, isselfservice,
+                                c_subscriptiontype_id, isdropship, isexcludeautodelivery, group1, group2, istoformule,
+                                lowlevel, unitsperpack, discontinuedat, copyfrom, m_product_uu, m_parttype_id, iskanban,
+                                ismanufactured, isphantom, isownbox, bh_hasexpiration, bh_navbuttons, bh_reorder_level,
+                                bh_reorder_quantity, bh_buyprice, bh_sellprice, bh_pricemargin,
+                                bh_product_category_type, eve_bpartners, bandahealth_bpartners,
+                                bh_hasacceptedtermsofuse)
+VALUES (1020365, 2, 0, 'Y', '2021-06-21 17:17:07.862', 100, '2021-06-21 17:17:07.862', 100, 'Standard', 'Standard',
+        NULL, NULL, NULL, NULL, NULL, 100, NULL, 'N', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'N', NULL, 1000324, NULL, 0, 0,
+        NULL, NULL, NULL, NULL, 1000064, NULL, 'N', NULL, 'N', NULL, 'I', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL,
+        NULL, NULL, NULL, 'N', 'Y', NULL, 'N', 'N', NULL, NULL, NULL, 0, 1, NULL, NULL,
+        'f33e6039-a0c6-4dd8-a4af-63453c54ad1f', NULL, 'N', 'N', 'N', 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, 'N');
+
+
+--
+-- Data for Name: m_product_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_product_acct (m_product_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                     createdby, updated, updatedby, p_revenue_acct, p_expense_acct, p_asset_acct,
+                                     p_purchasepricevariance_acct, p_invoicepricevariance_acct, p_cogs_acct,
+                                     p_tradediscountrec_acct, p_tradediscountgrant_acct, p_inventoryclearing_acct,
+                                     p_costadjustment_acct, p_wip_acct, p_methodchangevariance_acct,
+                                     p_usagevariance_acct, p_ratevariance_acct, p_mixvariance_acct, p_floorstock_acct,
+                                     p_costofproduction_acct, p_labor_acct, p_burden_acct, p_outsideprocessing_acct,
+                                     p_overhead_acct, p_scrap_acct, p_averagecostvariance_acct, m_product_acct_uu,
+                                     p_landedcostclearing_acct)
+VALUES (1020365, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.912077', 100, '2021-06-21 17:17:07.912077', 100, 1005489,
+        1005481, 1005475, 1005487, 1005483, 1005479, 1005491, 1005490, 1005482, 1005480, NULL, NULL, NULL, 1005488,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '6587f4a9-466e-4ee7-8594-e8bf72a4fd1e', 1005486);
+
+
+
+--
+-- Data for Name: m_product_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_product_trl (m_product_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, documentnote, istranslated, description, m_product_trl_uu)
+VALUES (1020365, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:07.862', 100, '2021-06-21 17:17:07.862', 100, 'Standard', NULL,
+        'N', NULL, 'd73d2bdb-6521-4762-95ac-9a579c1234fe');
+INSERT INTO adempiere.m_product_trl (m_product_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, documentnote, istranslated, description, m_product_trl_uu)
+VALUES (1020365, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:07.862', 100, '2021-06-21 17:17:07.862', 100, 'Standard', NULL,
+        'N', NULL, 'f0c7fe7e-35ff-4d0a-8125-55803c74015e');
+
+
+--
+-- Data for Name: m_productprice; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_productprice (m_pricelist_version_id, m_product_id, ad_client_id, ad_org_id, isactive, created,
+                                     createdby, updated, updatedby, pricelist, pricestd, pricelimit, m_productprice_uu,
+                                     m_productprice_id, bh_navbuttons)
+VALUES (1000194, 1020365, 2, 0, 'Y', '2021-06-21 17:17:08.094', 100, '2021-06-21 17:17:08.094', 100, 1.00, 1.00, 1.00,
+        '5ffecf08-5e2d-4238-aade-3bee377d7614', 1035478, NULL);
+
+
+--
+-- Data for Name: m_warehouse; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_warehouse (m_warehouse_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                  updatedby, value, name, description, c_location_id, separator, m_warehousesource_id,
+                                  replenishmentclass, isintransit, isdisallownegativeinv, m_warehouse_uu,
+                                  m_reservelocator_id)
+VALUES (1000126, 2, 1000064, 'Y', '2021-06-21 17:17:07.986', 100, '2021-06-21 17:17:07.986', 100, 'Standard',
+        'Standard', NULL, 1085971, '*', NULL, NULL, 'N', 'N', '84d974b9-348f-40d1-a3cc-a27b0822b50b', NULL);
+
+
+--
+-- Data for Name: m_warehouse_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_warehouse_acct (m_warehouse_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                       createdby, updated, updatedby, w_inventory_acct, w_invactualadjust_acct,
+                                       w_differences_acct, w_revaluation_acct, m_warehouse_acct_uu)
+VALUES (1000126, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.014784', 100, '2021-06-21 17:17:08.014784', 100, NULL, NULL,
+        1005503, NULL, 'cd8959e5-d20a-4e60-a2ba-f6e6f27a729f');
+
+
+
+--
+-- Data for Name: m_costtype; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_costtype (m_costtype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, name, description, help, m_costtype_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.681', 100, '2021-06-21 17:17:00.681', 100,
+        'SambaClient UN/35 US Dollar', NULL, NULL, '28af4d46-3b6f-41a0-b164-27e7c5521b74');
+
+
+
+--
+-- Data for Name: c_acctschema; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_acctschema (c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                   updatedby, name, description, gaap, isaccrual, costingmethod, c_currency_id,
+                                   autoperiodcontrol, c_period_id, period_openhistory, period_openfuture, separator,
+                                   hasalias, hascombination, istradediscountposted, isdiscountcorrectstax,
+                                   m_costtype_id, costinglevel, isadjustcogs, ad_orgonly_id, ispostservices,
+                                   isexplicitcostadjustment, commitmenttype, processing, taxcorrectiontype,
+                                   isallownegativeposting, ispostifclearingequal, c_acctschema_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.679', 100, '2021-06-21 17:17:00.679', 100,
+        'SambaClient UN/35 US Dollar', NULL, 'UN', 'Y', 'S', 100, 'Y', NULL, 2, 2, '-', 'Y', 'N', 'N', 'N', 1000064,
+        'C', 'N', NULL, 'N', 'N', 'N', 'N', 'N', 'Y', 'Y', '5ff2ae99-3edd-457f-8b09-60b7571a80ff');
+
+
+--
+-- Data for Name: m_cost; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.m_cost (ad_client_id, ad_org_id, m_product_id, m_costtype_id, c_acctschema_id, m_costelement_id,
+                             m_attributesetinstance_id, isactive, created, createdby, updated, updatedby,
+                             currentcostprice, currentqty, cumulatedamt, cumulatedqty, futurecostprice, description,
+                             percent, currentcostpricell, futurecostpricell, iscostfrozen, m_cost_uu)
+VALUES (2, 0, 1020365, 1000064, 1000064, 1000064, 0, 'Y', '2021-06-21 17:17:07.936', 100, '2021-06-21 17:17:07.936',
+        100, 0.0, 0.0, 0.0, 0.0, 0.0, NULL, 0, 0, NULL, 'N', 'd826d015-3a5f-4315-8365-c0c310f71b21');
+
+
+
+--
+-- Data for Name: c_acctschema_element; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
+                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
+                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
+                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
+                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
+VALUES (1000252, 'Y', '2021-06-21 17:17:00.738951', 0, '2021-06-21 17:17:00.738951', 0, 0, 1000064, 'OO',
+        'Organization', 10, NULL, 2, 'Y', 'Y', 1000064, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        '7665c3dd-eba6-410b-b660-c5b582818592');
+INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
+                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
+                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
+                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
+                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
+VALUES (1000253, 'Y', '2021-06-21 17:17:00.744821', 0, '2021-06-21 17:17:00.744821', 0, 0, 1000064, 'AC', 'Account', 20,
+        1000064, 2, 'Y', 'N', NULL, 1010716, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        '43b0fae6-6881-4576-a5cd-94e1ef1d3d02');
+INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
+                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
+                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
+                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
+                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
+VALUES (1000255, 'Y', '2021-06-21 17:17:00.753016', 0, '2021-06-21 17:17:00.753016', 0, 0, 1000064, 'BP', 'BPartner',
+        40, NULL, 2, 'N', 'N', NULL, NULL, NULL, 1082226, NULL, NULL, NULL, NULL, NULL, NULL,
+        '181999dc-1ee4-4cef-892f-b1ac3df120cf');
+INSERT INTO adempiere.c_acctschema_element (c_acctschema_element_id, isactive, created, createdby, updated, ad_org_id,
+                                           updatedby, c_acctschema_id, elementtype, name, seqno, c_element_id,
+                                           ad_client_id, ismandatory, isbalanced, org_id, c_elementvalue_id,
+                                           m_product_id, c_bpartner_id, c_location_id, c_salesregion_id, c_project_id,
+                                           c_campaign_id, c_activity_id, ad_column_id, c_acctschema_element_uu)
+VALUES (1000254, 'Y', '2021-06-21 17:17:00.748923', 0, '2021-06-21 17:17:00.748923', 0, 0, 1000064, 'PR', 'Product', 30,
+        NULL, 2, 'N', 'N', NULL, NULL, 1020365, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        '85146250-c32e-49a2-9ffa-5be5ed8d5973');
+
+
+--
+-- Data for Name: c_acctschema_gl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_acctschema_gl (c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                      updatedby, usesuspensebalancing, suspensebalancing_acct, usesuspenseerror,
+                                      suspenseerror_acct, usecurrencybalancing, currencybalancing_acct,
+                                      retainedearning_acct, incomesummary_acct, intercompanydueto_acct,
+                                      intercompanyduefrom_acct, ppvoffset_acct, commitmentoffset_acct,
+                                      commitmentoffsetsales_acct, c_acctschema_gl_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.758', 100, '2021-06-21 17:17:00.758', 100, 'Y', 1005458, 'Y', NULL,
+        'Y', 1005454, NULL, NULL, 1005456, 1005455, 1005457, 1005452, 1005453, '97dde5d2-dbcf-4a37-8f90-791d3cd16a0a');
+
+
+
+
+--
+-- Data for Name: c_bank; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bank (c_bank_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
+                             routingno, c_location_id, swiftcode, isownbank, description, c_bank_uu)
+VALUES (1000065, 2, 0, 'Y', '2021-06-21 17:17:25.721', 100, '2021-06-21 17:17:25.721', 100, 'SambaClient Bank',
+        'DefaultRouteNo', NULL, NULL, 'Y', 'SambaClient Bank', 'ec062e05-a130-4d9d-9afa-26348dbda81e');
+
+--
+-- Data for Name: c_bankaccount; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
+                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
+                                    c_bankaccount_uu, name, value)
+VALUES (1000161, 2, 1000064, 'Y', '2021-06-21 17:17:25.735', 100, '2021-06-21 17:17:25.735', 100, 1000065, 100, 'B',
+        'DefaultAccountNo', 0.0, 0.0, 'Y', NULL, NULL, NULL, NULL, 'fb3ee6b4-6de8-487a-98e2-958405e736a9',
+        'SambaClient Default Account', '1000000');
+INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
+                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
+                                    c_bankaccount_uu, name, value)
+VALUES (1000162, 2, 1000064, 'Y', '2021-06-21 17:17:25.781', 100, '2021-06-21 17:17:25.781', 100, 1000065, 100, 'B',
+        'Cash BoxAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, '40ab76a0-dba4-40a2-92e2-56a1755b1892',
+        'SambaClient Cash Box Account', '1000001');
+INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
+                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
+                                    c_bankaccount_uu, name, value)
+VALUES (1000163, 2, 1000064, 'Y', '2021-06-21 17:17:25.837', 100, '2021-06-21 17:17:25.837', 100, 1000065, 100, 'B',
+        'MobileAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, 'd3b1fd35-94d1-4ad1-a83f-4afe44948daa',
+        'SambaClient Mobile Account', '1000002');
+INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                    updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
+                                    creditlimit, isdefault, iban, description, bban, paymentexportclass,
+                                    c_bankaccount_uu, name, value)
+VALUES (1000164, 2, 1000064, 'Y', '2021-06-21 17:17:25.877', 100, '2021-06-21 17:17:25.877', 100, 1000065, 100, 'B',
+        'SavingsAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, '9b6415f2-0864-4641-80f4-4e5ff991524f',
+        'SambaClient Savings Account', '1000003');
+
+
+--
+-- Data for Name: c_bankaccount_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
+                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
+                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
+                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
+                                         c_bankaccount_acct_uu)
+VALUES (1000161, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.76654', 100, '2021-06-21 17:17:25.779', 100, 1005462, 1005462,
+        NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL, 'acf28e83-1964-4b02-8015-315935d34902');
+INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
+                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
+                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
+                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
+                                         c_bankaccount_acct_uu)
+VALUES (1000162, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.815897', 100, '2021-06-21 17:17:25.835', 100, 1005505,
+        1005505, NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL,
+        '14b9f5ad-df83-4cf9-a086-c2507221550d');
+INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
+                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
+                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
+                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
+                                         c_bankaccount_acct_uu)
+VALUES (1000163, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.864247', 100, '2021-06-21 17:17:25.876', 100, 1005506,
+        1005506, NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL,
+        '0528df27-5971-4b31-bf1c-6df163522012');
+INSERT INTO adempiere.c_bankaccount_acct (c_bankaccount_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                         createdby, updated, updatedby, b_intransit_acct, b_asset_acct, b_expense_acct,
+                                         b_interestrev_acct, b_interestexp_acct, b_unidentified_acct,
+                                         b_unallocatedcash_acct, b_paymentselect_acct, b_settlementgain_acct,
+                                         b_settlementloss_acct, b_revaluationgain_acct, b_revaluationloss_acct,
+                                         c_bankaccount_acct_uu)
+VALUES (1000164, 1000064, 2, 0, 'Y', '2021-06-21 17:17:25.903779', 100, '2021-06-21 17:17:25.916', 100, 1005507,
+        1005507, NULL, 1005461, 1005460, NULL, 1005464, 1005463, NULL, NULL, NULL, NULL,
+        'ce72be32-c8e1-482b-9f58-9b8471f1e0f7');
+
+--
+-- Data for Name: bh_paymentref_bankacct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001566, 2, 1000064, '790db8b2-3bd1-44b4-afc7-202b067e7cbf', '2021-06-21 17:17:25.955', 100, NULL, 'Y',
+        'Direct Deposit', '2021-06-21 17:17:25.955', 100, 334, 1000161, 1000128, 'T');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001567, 2, 1000064, '2581f285-d463-40ee-8780-5aa7c29a8845', '2021-06-21 17:17:25.968', 100, NULL, 'Y',
+        'Direct Debit', '2021-06-21 17:17:25.968', 100, 652, 1000161, 1000128, 'D');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001568, 2, 1000064, 'cae4507d-01c4-4e3a-a90e-bf3cbd019e74', '2021-06-21 17:17:25.977', 100, NULL, 'Y',
+        'Mobile Account', '2021-06-21 17:17:25.977', 100, 1000056, 1000161, 1000128, 'A');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001569, 2, 1000064, 'c586c057-a4ee-4d4a-9105-2a3da52f5f79', '2021-06-21 17:17:25.985', 100, NULL, 'Y',
+        'Credit Card', '2021-06-21 17:17:25.985', 100, 333, 1000161, 1000128, 'K');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001570, 2, 1000064, '625dc19d-2f73-47ac-8dc7-bd3f7cab445f', '2021-06-21 17:17:25.993', 100, NULL, 'Y',
+        'Mixed POS Payment', '2021-06-21 17:17:25.993', 100, 52000, 1000161, 1000128, 'M');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001571, 2, 1000064, '46d5d411-29a0-44ca-bd90-07b9f5de1f1a', '2021-06-21 17:17:26', 100, NULL, 'Y', 'On Credit',
+        '2021-06-21 17:17:26', 100, 337, 1000161, 1000128, 'P');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001572, 2, 1000064, 'bf22be10-d7a4-46a8-88d6-74f69302ee20', '2021-06-21 17:17:26.009', 100, NULL, 'Y', 'Check',
+        '2021-06-21 17:17:26.009', 100, 335, 1000161, 1000128, 'S');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001573, 2, 1000064, '6e6246ad-e7c3-4d5a-bf36-a5de592448a8', '2021-06-21 17:17:26.018', 100, NULL, 'Y', 'Cash',
+        '2021-06-21 17:17:26.018', 100, 332, 1000161, 1000128, 'B');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001574, 2, 1000064, '6174ba58-7138-4796-bbfd-8e421d723479', '2021-06-21 17:17:26.026', 100, NULL, 'Y',
+        'Cash Drawer', '2021-06-21 17:17:26.026', 100, 1000057, 1000161, 1000128, 'b');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001575, 2, 1000064, '502bf298-6b7f-4f3a-a0a6-a28288b4530d', '2021-06-21 17:17:26.053', 100, NULL, 'Y',
+        'Direct Deposit', '2021-06-21 17:17:26.053', 100, 402, 1000161, 1000129, 'A');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001576, 2, 1000064, '4af05704-62f5-4fbf-9bf8-ec40bd4f2377', '2021-06-21 17:17:26.062', 100, NULL, 'Y', 'Cash',
+        '2021-06-21 17:17:26.062', 100, 53438, 1000161, 1000129, 'X');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001577, 2, 1000064, '920d65b9-be1f-42eb-b3d4-dc7bf18ca031', '2021-06-21 17:17:26.071', 100, NULL, 'Y',
+        'Cheque', '2021-06-21 17:17:26.071', 100, 401, 1000161, 1000129, 'K');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001578, 2, 1000064, 'fd6434f7-29fc-4e2c-8a85-de3efa1600ff', '2021-06-21 17:17:26.078', 100, NULL, 'Y',
+        'Donor Fund', '2021-06-21 17:17:26.078', 100, 1000023, 1000161, 1000129, 'F');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001579, 2, 1000064, 'b2afa84d-a1d9-4811-8aa5-7f53b97513bd', '2021-06-21 17:17:26.089', 100, NULL, 'Y', 'CCC',
+        '2021-06-21 17:17:26.089', 100, 1000052, 1000161, 1000129, 'G');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001580, 2, 1000064, '27a75b61-ef30-4ab3-b83e-39094634240b', '2021-06-21 17:17:26.098', 100, NULL, 'Y', 'MCH',
+        '2021-06-21 17:17:26.098', 100, 1000053, 1000161, 1000129, 'H');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001581, 2, 1000064, 'a37bd84d-1235-4767-9e95-ff853806f337', '2021-06-21 17:17:26.106', 100, NULL, 'Y',
+        'Linda Mama', '2021-06-21 17:17:26.106', 100, 1000035, 1000161, 1000129, 'i');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001582, 2, 1000064, '2f522fa5-8d05-41d0-a7a2-d5c0e35ab763', '2021-06-21 17:17:26.114', 100, NULL, 'Y', 'NHIF',
+        '2021-06-21 17:17:26.114', 100, 1000020, 1000161, 1000129, 'N');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001583, 2, 1000064, 'e1f6bb3d-8189-4905-9907-ec74deac1dac', '2021-06-21 17:17:26.122', 100, NULL, 'Y',
+        'Outreach', '2021-06-21 17:17:26.122', 100, 1000054, 1000161, 1000129, 'O');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001584, 2, 1000064, 'd698036c-2a38-4536-a28c-78403cbc6545', '2021-06-21 17:17:26.133', 100, NULL, 'Y',
+        'M-TIBA', '2021-06-21 17:17:26.133', 100, 1000013, 1000161, 1000129, 'L');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001585, 2, 1000064, '1bde33d5-0bc5-40dd-b521-7718d5ff7790', '2021-06-21 17:17:26.143', 100, NULL, 'Y',
+        'PesaPal', '2021-06-21 17:17:26.143', 100, 1000066, 1000161, 1000129, 'P');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001586, 2, 1000064, '24b2d077-0e84-4181-9348-d7a102c5e5d1', '2021-06-21 17:17:26.15', 100, NULL, 'Y',
+        'Liason insurance', '2021-06-21 17:17:26.15', 100, 1000068, 1000161, 1000129, 'V');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001587, 2, 1000064, '0cec21db-164f-4d45-9674-805d00d1370d', '2021-06-21 17:17:26.159', 100, NULL, 'Y',
+        'Bill Waiver', '2021-06-21 17:17:26.159', 100, 1000012, 1000161, 1000129, 'B');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001588, 2, 1000064, '247d2ba3-17d6-4bb3-878e-b04f2e4b6ccd', '2021-06-21 17:17:26.168', 100, NULL, 'Y',
+        'Credit or Debit Card', '2021-06-21 17:17:26.168', 100, 400, 1000161, 1000129, 'C');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001589, 2, 1000064, '056812ca-a973-44f8-beec-3d28f4795c1b', '2021-06-21 17:17:26.176', 100, NULL, 'Y',
+        'Bank Transfer', '2021-06-21 17:17:26.176', 100, 651, 1000161, 1000129, 'D');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001590, 2, 1000064, '45d4bcd9-bcc5-4882-8ccc-e65d927d3051', '2021-06-21 17:17:26.185', 100, NULL, 'Y',
+        'Mobile Money', '2021-06-21 17:17:26.185', 100, 1000011, 1000161, 1000129, 'M');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001591, 2, 1000064, '0e3a077b-1409-4a7e-b45c-cb5428b53280', '2021-06-21 17:17:26.193', 100, NULL, 'Y',
+        'Account', '2021-06-21 17:17:26.193', 100, 53351, 1000161, 1000129, 'T');
+INSERT INTO adempiere.bh_paymentref_bankacct (bh_paymentref_bankacct_id, ad_client_id, ad_org_id,
+                                             bh_paymentref_bankacct_uu, created, createdby, description, isactive, name,
+                                             updated, updatedby, ad_ref_list_id, c_bankaccount_id, bh_paymentref_id,
+                                             bh_paymentreflist_value)
+VALUES (1001592, 2, 1000064, 'cec193e0-240c-4136-bc2f-ea9fda8553c9', '2021-06-21 17:17:26.203', 100, NULL, 'Y',
+        'Jubilee insurance', '2021-06-21 17:17:26.203', 100, 1000067, 1000161, 1000129, 'U');
+
+
+--
+-- Data for Name: c_acctprocessor; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_acctprocessor (c_acctprocessor_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                      updated, updatedby, name, description, frequencytype, frequency, datelastrun,
+                                      datenextrun, supervisor_id, keeplogdays, processing, c_acctschema_id, ad_table_id,
+                                      c_acctprocessor_uu, ad_schedule_id)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.198', 100, '2021-06-21 17:17:00.198', 100,
+        'SambaClient - Accounting Processor', NULL, NULL, NULL, NULL, '2021-06-21 17:27:00.199', 1082126, 7, 'N', NULL,
+        NULL, '0a2a8936-c123-4038-9528-5e62bcafdafc', 200002);
+
+
+--
+-- Data for Name: c_activity; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_activity (c_activity_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, value, name, description, issummary, help, c_activity_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.563392', 0, '2021-06-21 17:17:07.563392', 0, 'Standard', 'Standard',
+        NULL, 'N', NULL, '99e4c215-9d01-4fa8-8e9a-842afc1ffd45');
+
+
+--
+-- Data for Name: c_activity_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_activity_trl (ad_client_id, ad_language, ad_org_id, c_activity_id, c_activity_trl_uu, created,
+                                     createdby, description, help, isactive, istranslated, name, updated, updatedby)
+VALUES (2, 'zh_CN', 0, 1000064, '148589e9-7289-4aa2-98dc-373841105abe', '2021-06-21 17:17:07.563392', 0, NULL, NULL,
+        'Y', 'N', 'Standard', '2021-06-21 17:17:07.563392', 0);
+INSERT INTO adempiere.c_activity_trl (ad_client_id, ad_language, ad_org_id, c_activity_id, c_activity_trl_uu, created,
+                                     createdby, description, help, isactive, istranslated, name, updated, updatedby)
+VALUES (2, 'fr_FR', 0, 1000064, 'd45c2f25-c760-4073-8471-96cce565c636', '2021-06-21 17:17:07.563392', 0, NULL, NULL,
+        'Y', 'N', 'Standard', '2021-06-21 17:17:07.563392', 0);
+
+
+
+
+--
+-- Data for Name: c_bp_customer_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bp_customer_acct (c_bpartner_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                         createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
+                                         c_receivable_services_acct, c_bp_customer_acct_uu)
+VALUES (1082226, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.667063', 100, '2021-06-21 17:17:07.667063', 100, 1005472,
+        1005471, 1005473, 'bb5ff5cd-6a08-4a3a-9298-08b869b9b6c3');
+INSERT INTO adempiere.c_bp_customer_acct (c_bpartner_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                         createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
+                                         c_receivable_services_acct, c_bp_customer_acct_uu)
+VALUES (1082227, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.15982', 100, '2021-06-21 17:17:08.15982', 100, 1005472,
+        1005471, 1005473, '16880622-50ed-42ea-a0ff-284a18462e4f');
+INSERT INTO adempiere.c_bp_customer_acct (c_bpartner_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                         createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
+                                         c_receivable_services_acct, c_bp_customer_acct_uu)
+VALUES (1082228, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.255425', 100, '2021-06-21 17:17:08.255425', 100, 1005472,
+        1005471, 1005473, '9f652b14-6ed0-4959-a232-9f54d20f8ef6');
+
+
+--
+-- Data for Name: c_bp_group; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bp_group (c_bp_group_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, value, name, description, isdefault, ad_printcolor_id, isconfidentialinfo,
+                                 prioritybase, m_pricelist_id, po_pricelist_id, m_discountschema_id,
+                                 po_discountschema_id, creditwatchpercent, pricematchtolerance, c_dunning_id,
+                                 c_bp_group_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.57', 100, '2021-06-21 17:17:07.57', 100, 'Standard', 'Standard', NULL,
+        'Y', NULL, 'N', 'S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '85686f2e-5044-4573-bf80-1184b1c1c51f');
+
+
+--
+-- Data for Name: c_bp_group_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bp_group_acct (c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, isactive, created,
+                                      createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct,
+                                      v_liability_acct, v_liability_services_acct, v_prepayment_acct,
+                                      paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct,
+                                      notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct,
+                                      notinvoicedreceivables_acct, processing, c_receivable_services_acct,
+                                      c_bp_group_acct_uu)
+VALUES (1000064, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.603091', 100, '2021-06-21 17:17:07.603091', 100, 1005472,
+        1005471, 1005500, 1005501, 1005502, 1005477, 1005478, 1005504, 1005474, 1005497, NULL, NULL, NULL, 1005473,
+        '0ac0c9c3-08f1-4cb3-9147-f7f63b16a884');
+
+
+--
+-- Data for Name: c_bp_vendor_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bp_vendor_acct (c_acctschema_id, c_bpartner_id, ad_client_id, ad_org_id, isactive, created,
+                                       createdby, updated, updatedby, v_liability_acct, v_liability_services_acct,
+                                       v_prepayment_acct, c_bp_vendor_acct_uu)
+VALUES (1000064, 1082226, 2, 0, 'Y', '2021-06-21 17:17:07.685354', 100, '2021-06-21 17:17:07.685354', 100, 1005500,
+        1005501, 1005502, '3ab57075-76f2-4ecb-adfe-91a6918d4961');
+INSERT INTO adempiere.c_bp_vendor_acct (c_acctschema_id, c_bpartner_id, ad_client_id, ad_org_id, isactive, created,
+                                       createdby, updated, updatedby, v_liability_acct, v_liability_services_acct,
+                                       v_prepayment_acct, c_bp_vendor_acct_uu)
+VALUES (1000064, 1082227, 2, 0, 'Y', '2021-06-21 17:17:08.177244', 100, '2021-06-21 17:17:08.177244', 100, 1005500,
+        1005501, 1005502, 'ab983225-e44d-4bc8-9a0c-7bf286bfb504');
+INSERT INTO adempiere.c_bp_vendor_acct (c_acctschema_id, c_bpartner_id, ad_client_id, ad_org_id, isactive, created,
+                                       createdby, updated, updatedby, v_liability_acct, v_liability_services_acct,
+                                       v_prepayment_acct, c_bp_vendor_acct_uu)
+VALUES (1000064, 1082228, 2, 0, 'Y', '2021-06-21 17:17:08.272245', 100, '2021-06-21 17:17:08.272245', 100, 1005500,
+        1005501, 1005502, '050d32a9-7fc2-4444-a3c3-2ac3a7dfc6cb');
+
+
+--
+-- Data for Name: c_bpartner; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, value, name, name2, description, issummary, c_bp_group_id, isonetime,
+                                 isprospect, isvendor, iscustomer, isemployee, issalesrep, referenceno, duns, url,
+                                 ad_language, taxid, istaxexempt, c_invoiceschedule_id, rating, salesvolume,
+                                 numberemployees, naics, firstsale, acqusitioncost, potentiallifetimevalue,
+                                 actuallifetimevalue, shareofcustomer, paymentrule, so_creditlimit, so_creditused,
+                                 c_paymentterm_id, m_pricelist_id, m_discountschema_id, c_dunning_id, isdiscountprinted,
+                                 so_description, poreference, paymentrulepo, po_pricelist_id, po_discountschema_id,
+                                 po_paymentterm_id, documentcopies, c_greeting_id, invoicerule, deliveryrule,
+                                 freightcostrule, deliveryviarule, salesrep_id, sendemail, bpartner_parent_id,
+                                 invoice_printformat_id, socreditstatus, shelflifeminpct, ad_orgbp_id, flatdiscount,
+                                 totalopenbalance, dunninggrace, c_taxgroup_id, logo_id, ispotaxexempt, ismanufacturer,
+                                 c_bpartner_uu, customerprofileid, default1099box_id, is1099vendor, bh_c_location_id,
+                                 bh_birthday, bh_approximateyears, bh_email, bh_phone, bh_ispatient, bh_patientid,
+                                 nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
+                                 bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
+                                 isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
+VALUES (1082226, 2, 0, 'Y', '2021-06-21 17:17:07.61', 100, '2021-06-21 17:17:07.61', 100, 'Standard', 'Standard', NULL,
+        NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'N', 'N', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL, NULL,
+        NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N', 'N',
+        'a834b054-6c35-4827-8e63-9a28d8e9b082', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', 'Y', NULL, NULL, NULL);
+INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, value, name, name2, description, issummary, c_bp_group_id, isonetime,
+                                 isprospect, isvendor, iscustomer, isemployee, issalesrep, referenceno, duns, url,
+                                 ad_language, taxid, istaxexempt, c_invoiceschedule_id, rating, salesvolume,
+                                 numberemployees, naics, firstsale, acqusitioncost, potentiallifetimevalue,
+                                 actuallifetimevalue, shareofcustomer, paymentrule, so_creditlimit, so_creditused,
+                                 c_paymentterm_id, m_pricelist_id, m_discountschema_id, c_dunning_id, isdiscountprinted,
+                                 so_description, poreference, paymentrulepo, po_pricelist_id, po_discountschema_id,
+                                 po_paymentterm_id, documentcopies, c_greeting_id, invoicerule, deliveryrule,
+                                 freightcostrule, deliveryviarule, salesrep_id, sendemail, bpartner_parent_id,
+                                 invoice_printformat_id, socreditstatus, shelflifeminpct, ad_orgbp_id, flatdiscount,
+                                 totalopenbalance, dunninggrace, c_taxgroup_id, logo_id, ispotaxexempt, ismanufacturer,
+                                 c_bpartner_uu, customerprofileid, default1099box_id, is1099vendor, bh_c_location_id,
+                                 bh_birthday, bh_approximateyears, bh_email, bh_phone, bh_ispatient, bh_patientid,
+                                 nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
+                                 bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
+                                 isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
+VALUES (1082227, 2, 0, 'Y', '2021-06-21 17:17:08.115', 100, '2021-06-21 17:17:08.115', 100, 'sambaUser', 'sambaUser',
+        NULL, NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL,
+        NULL, NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N',
+        'N', '7f43c4fd-b68a-4182-83e1-12f2952ac394', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', 'Y', NULL, NULL, NULL);
+INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, value, name, name2, description, issummary, c_bp_group_id, isonetime,
+                                 isprospect, isvendor, iscustomer, isemployee, issalesrep, referenceno, duns, url,
+                                 ad_language, taxid, istaxexempt, c_invoiceschedule_id, rating, salesvolume,
+                                 numberemployees, naics, firstsale, acqusitioncost, potentiallifetimevalue,
+                                 actuallifetimevalue, shareofcustomer, paymentrule, so_creditlimit, so_creditused,
+                                 c_paymentterm_id, m_pricelist_id, m_discountschema_id, c_dunning_id, isdiscountprinted,
+                                 so_description, poreference, paymentrulepo, po_pricelist_id, po_discountschema_id,
+                                 po_paymentterm_id, documentcopies, c_greeting_id, invoicerule, deliveryrule,
+                                 freightcostrule, deliveryviarule, salesrep_id, sendemail, bpartner_parent_id,
+                                 invoice_printformat_id, socreditstatus, shelflifeminpct, ad_orgbp_id, flatdiscount,
+                                 totalopenbalance, dunninggrace, c_taxgroup_id, logo_id, ispotaxexempt, ismanufacturer,
+                                 c_bpartner_uu, customerprofileid, default1099box_id, is1099vendor, bh_c_location_id,
+                                 bh_birthday, bh_approximateyears, bh_email, bh_phone, bh_ispatient, bh_patientid,
+                                 nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
+                                 bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
+                                 isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
+VALUES (1082228, 2, 0, 'Y', '2021-06-21 17:17:08.2', 100, '2021-06-21 17:17:08.2', 100, 'sambaAdmin', 'sambaAdmin',
+        NULL, NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL,
+        NULL, NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N',
+        'N', 'b10cfffd-165a-462e-b129-7099fe7971c6', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'P', 'Y', NULL, NULL, NULL);
+
+
+--
+-- Data for Name: c_bpartner_location; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_bpartner_location (c_bpartner_location_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                          updated, updatedby, name, isbillto, isshipto, ispayfrom, isremitto, phone,
+                                          phone2, fax, isdn, c_salesregion_id, c_bpartner_id, c_location_id,
+                                          c_bpartner_location_uu, customeraddressid, ispreservecustomname)
+VALUES (1082165, 2, 0, 'Y', '2021-06-21 17:17:07.713', 100, '2021-06-21 17:17:07.713', 100, '#1085969', 'Y', 'Y', 'Y',
+        'Y', NULL, NULL, NULL, NULL, NULL, 1082226, 1085969, '8eb52e73-f0fe-422b-aebe-69bde23b34e2', NULL, NULL);
+INSERT INTO adempiere.c_bpartner_location (c_bpartner_location_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                          updated, updatedby, name, isbillto, isshipto, ispayfrom, isremitto, phone,
+                                          phone2, fax, isdn, c_salesregion_id, c_bpartner_id, c_location_id,
+                                          c_bpartner_location_uu, customeraddressid, ispreservecustomname)
+VALUES (1082166, 2, 0, 'Y', '2021-06-21 17:17:08.188', 100, '2021-06-21 17:17:08.188', 100, '#1085972', 'Y', 'Y', 'Y',
+        'Y', NULL, NULL, NULL, NULL, NULL, 1082227, 1085972, '2113862b-d14d-4c08-91e7-c70b59fd0a83', NULL, NULL);
+INSERT INTO adempiere.c_bpartner_location (c_bpartner_location_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                          updated, updatedby, name, isbillto, isshipto, ispayfrom, isremitto, phone,
+                                          phone2, fax, isdn, c_salesregion_id, c_bpartner_id, c_location_id,
+                                          c_bpartner_location_uu, customeraddressid, ispreservecustomname)
+VALUES (1082167, 2, 0, 'Y', '2021-06-21 17:17:08.282', 100, '2021-06-21 17:17:08.282', 100, '#1085973', 'Y', 'Y', 'Y',
+        'Y', NULL, NULL, NULL, NULL, NULL, 1082228, 1085973, '6d9c4928-b0f1-43f4-9bb5-5a95125b29fa', NULL, NULL);
+
+
+--
+-- Data for Name: c_calendar; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_calendar (c_calendar_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, name, description, c_calendar_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.235', 100, '2021-06-21 17:17:00.235', 100, 'SambaClient Calendar',
+        NULL, '9cb92ba1-c993-4f0e-a41e-8920bbb47abe');
+
+
+--
+-- Data for Name: c_campaign; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_campaign (c_campaign_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, value, name, description, c_channel_id, startdate, enddate, costs,
+                                 issummary, c_campaign_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.545509', 0, '2021-06-21 17:17:07.545509', 0, 'Standard', 'Standard',
+        NULL, 1000064, NULL, NULL, 0, 'N', '88df236c-b8cf-41f7-b9a2-b85cf680c364');
+
+
+--
+-- Data for Name: c_campaign_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_campaign_trl (ad_client_id, ad_language, ad_org_id, c_campaign_id, c_campaign_trl_uu, created,
+                                     createdby, description, isactive, istranslated, name, updated, updatedby)
+VALUES (2, 'zh_CN', 0, 1000064, 'f4d8b9d5-ed7b-486e-8181-f0e9a988288a', '2021-06-21 17:17:07.545509', 0, NULL, 'Y', 'N',
+        'Standard', '2021-06-21 17:17:07.545509', 0);
+INSERT INTO adempiere.c_campaign_trl (ad_client_id, ad_language, ad_org_id, c_campaign_id, c_campaign_trl_uu, created,
+                                     createdby, description, isactive, istranslated, name, updated, updatedby)
+VALUES (2, 'fr_FR', 0, 1000064, '7e2b964f-78c1-4f60-b1bf-5601af49be0a', '2021-06-21 17:17:07.545509', 0, NULL, 'Y', 'N',
+        'Standard', '2021-06-21 17:17:07.545509', 0);
+
+
+--
+-- Data for Name: c_cashbook; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_cashbook (c_cashbook_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                                 updatedby, name, description, isdefault, c_currency_id, c_cashbook_uu)
+VALUES (1000064, 2, 1000064, 'Y', '2021-06-21 17:17:08.308', 100, '2021-06-21 17:17:08.308', 100, 'Standard', NULL, 'N',
+        100, '51dae4d8-efcf-474f-9e72-c91593adfc4a');
+
+
+--
+-- Data for Name: c_cashbook_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_cashbook_acct (c_cashbook_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
+                                      createdby, updated, updatedby, cb_asset_acct, cb_cashtransfer_acct,
+                                      cb_differences_acct, cb_expense_acct, cb_receipt_acct, c_cashbook_acct_uu)
+VALUES (1000064, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.33467', 100, '2021-06-21 17:17:08.33467', 100, 1005465,
+        1005466, 1005467, 1005468, 1005469, '55dba187-d84d-404e-88e1-3385c87ecb74');
+
+
+--
+-- Data for Name: c_channel; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_channel (c_channel_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, description, ad_printcolor_id, c_channel_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:07.540908', 0, '2021-06-21 17:17:07.540908', 0, 'Standard', NULL, NULL,
+        '05fef026-ab79-44b9-9b72-36af700e95d6');
+
+--
+-- Data for Name: c_chargetype; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_chargetype (ad_client_id, ad_org_id, c_chargetype_id, created, createdby, description, help,
+                                   isactive, name, updated, updatedby, value, c_chargetype_uu)
+VALUES (2, 0, 1000116, '2021-06-21 17:17:26.218', 100, 'For an expense category added by default', NULL, 'Y',
+        'Default Expense Category - DO NOT CHANGE', '2021-06-21 17:17:26.218', 100, '1000000',
+        'f546a4b1-eca8-4e00-a276-df59aa90fad5');
+INSERT INTO adempiere.c_chargetype (ad_client_id, ad_org_id, c_chargetype_id, created, createdby, description, help,
+                                   isactive, name, updated, updatedby, value, c_chargetype_uu)
+VALUES (2, 0, 1000117, '2021-06-21 17:17:26.24', 100,
+        'Meant to differentiate "payments" that come from a patient (i.e. Insurance, Donations, etc.)', NULL, 'Y',
+        'Non-Patient Payment - DO NOT CHANGE', '2021-06-21 17:17:26.24', 100, '1000001',
+        '9afc794b-5319-4beb-8435-77c6dfaf6431');
+
+
+
+--
+-- Data for Name: c_charge; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002984, 2, 0, 'Y', '2021-06-21 17:17:26.258', 100, '2021-06-21 17:17:26.326', 100,
+        'Facilities - Computer And Accessories (Software/Hardware)', 'Computer and Accessories', 0.0, 'N', 'N', NULL,
+        'N', NULL, 1000116, '19d7a23e-0d6d-4d9f-9666-a9d1aae36485', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002985, 2, 0, 'Y', '2021-06-21 17:17:26.356', 100, '2021-06-21 17:17:26.411', 100, 'Facilities - Furniture',
+        'Furniture', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '6c84ac12-4c90-4ab1-9b61-a97760fd2d30', 1010716, 'Y',
+        NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002986, 2, 0, 'Y', '2021-06-21 17:17:26.428', 100, '2021-06-21 17:17:26.469', 100,
+        'Facilities - Medical Equipment', 'Medical equipment', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        'b0104fe2-cfcc-4c5b-bc3a-a8e23aa54b63', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002987, 2, 0, 'Y', '2021-06-21 17:17:26.488', 100, '2021-06-21 17:17:26.533', 100,
+        'Facilities - Miscellaneous/Other', 'General occupancy costs', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '61a25fc2-0152-4358-8776-8f689823a84a', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002988, 2, 0, 'Y', '2021-06-21 17:17:26.556', 100, '2021-06-21 17:17:26.6', 100,
+        'Facilities - Mortgage (House Loan)', 'Mortgage', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        'efc2c21d-7423-43d6-8e73-34525437412c', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002989, 2, 0, 'Y', '2021-06-21 17:17:26.616', 100, '2021-06-21 17:17:26.665', 100,
+        'Facilities - Office Equipment', 'Office equipment', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        'e429a2ab-5cce-44ed-ad96-913f54505bd3', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002990, 2, 0, 'Y', '2021-06-21 17:17:26.686', 100, '2021-06-21 17:17:26.722', 100, 'Facilities - Rent', 'Rent',
+        0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '124cb4f1-40a4-48f1-a62a-9cf4e63277f3', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002991, 2, 0, 'Y', '2021-06-21 17:17:26.74', 100, '2021-06-21 17:17:26.779', 100,
+        'Facilities - Utilities - Electricity', 'Utilities', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '5f7dd62b-9c8e-49e8-bdbf-db3ea5812e24', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002992, 2, 0, 'Y', '2021-06-21 17:17:26.796', 100, '2021-06-21 17:17:26.834', 100,
+        'Facilities - Utilities - Garbage', 'Other Contacted Services', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '907c2136-8006-4036-8e95-f4df6c3af730', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002993, 2, 0, 'Y', '2021-06-21 17:17:26.853', 100, '2021-06-21 17:17:26.891', 100,
+        'Facilities - Utilities - Internet', 'Internet', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '35766d89-a835-4368-bf86-29736028f78d', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002994, 2, 0, 'Y', '2021-06-21 17:17:26.906', 100, '2021-06-21 17:17:26.945', 100,
+        'Facilities - Utilities - Mobile', 'Mobile charges', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        'd9611686-d7b6-4dad-bd2c-c9f9e0d658b7', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002995, 2, 0, 'Y', '2021-06-21 17:17:26.961', 100, '2021-06-21 17:17:27.006', 100,
+        'Facilities - Utilities - Water', 'Utilities', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        'bbb87006-2ce7-46d6-af0f-84827a88d2d1', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002996, 2, 0, 'Y', '2021-06-21 17:17:27.012', 100, '2021-06-21 17:17:27.054', 100, 'Finances - Insurance',
+        'Business Insurance', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '055ad193-19cf-4c47-aa65-73b6a6aae23d', 1010716,
+        'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002997, 2, 0, 'Y', '2021-06-21 17:17:27.07', 100, '2021-06-21 17:17:27.114', 100,
+        'Finances - Licenses, Memberships, & Permits', 'License fees', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '014628a1-92a7-40d4-8834-f559a9112708', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002998, 2, 0, 'Y', '2021-06-21 17:17:27.13', 100, '2021-06-21 17:17:27.176', 100, 'Finances - Loan',
+        'Long Term Obligation', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '79d83023-2b11-4948-a72f-823245fef488',
+        1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1002999, 2, 0, 'Y', '2021-06-21 17:17:27.198', 100, '2021-06-21 17:17:27.239', 100, 'Finances - Marketing',
+        'Advertising Expense', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '913f42ee-0c82-4581-a7cc-a4eb68ed9cb0', 1010716,
+        'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003000, 2, 0, 'Y', '2021-06-21 17:17:27.255', 100, '2021-06-21 17:17:27.294', 100,
+        'Finances - Miscellaneous/Other', 'Miscellaneous Expense', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '39dd8fb5-96e0-4a78-9175-29019cf839a6', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003001, 2, 0, 'Y', '2021-06-21 17:17:27.309', 100, '2021-06-21 17:17:27.347', 100, 'Finances - Savings',
+        'Savings Accounts', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '4367a39d-772a-46f2-a2e6-0b430976b0aa', 1010716,
+        'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003002, 2, 0, 'Y', '2021-06-21 17:17:27.354', 100, '2021-06-21 17:17:27.463', 100,
+        'Finances - Tax - KRA Corporate', 'KRA taxes', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '658205f3-26fa-425c-823a-5b9917298be3', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003003, 2, 0, 'Y', '2021-06-21 17:17:27.477', 100, '2021-06-21 17:17:27.556', 100, 'Medications & Supplies',
+        'Inventory Account', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '285dcbd5-8802-478b-b225-90aa09a1b63f', 1010716,
+        'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003004, 2, 0, 'Y', '2021-06-21 17:17:27.567', 100, '2021-06-21 17:17:27.628', 100,
+        'Personnel - Miscellaneous/Other', 'Other Payroll Expenses', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '92611546-d32a-4421-a2ce-610ab6d4a0ba', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003005, 2, 0, 'Y', '2021-06-21 17:17:27.653', 100, '2021-06-21 17:17:27.717', 100, 'Personnel - NHIF',
+        'NHIF payroll', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, 'bc30fd0d-ea6a-439c-b7ab-e21b4db5dfe5', 1010716, 'Y',
+        NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003006, 2, 0, 'Y', '2021-06-21 17:17:27.741', 100, '2021-06-21 17:17:27.788', 100, 'Personnel - NSSF',
+        'NSSF payroll', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '6ecc6624-485c-4e66-919b-ec427d56ac37', 1010716, 'Y',
+        NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003007, 2, 0, 'Y', '2021-06-21 17:17:27.801', 100, '2021-06-21 17:17:27.841', 100, 'Personnel - PAYE',
+        'PAYE payroll', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '758e4ba0-185e-41c6-879a-8de8b653f7d7', 1010716, 'Y',
+        NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003008, 2, 0, 'Y', '2021-06-21 17:17:27.857', 100, '2021-06-21 17:17:27.895', 100, 'Personnel - Salaries',
+        'Staff wages', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, 'a9b88458-e4b7-471c-bc68-61ee7bc135ac', 1010716, 'Y',
+        NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003009, 2, 0, 'Y', '2021-06-21 17:17:27.908', 100, '2021-06-21 17:17:27.946', 100,
+        'Services - IT, Accounting & Clinical', 'Accounting and Clinical IT solutions', 0.0, 'N', 'N', NULL, 'N', NULL,
+        1000116, '905e34c5-74e1-4463-b3d4-e2734229a4aa', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003010, 2, 0, 'Y', '2021-06-21 17:17:27.96', 100, '2021-06-21 17:17:27.998', 100,
+        'Services - Maintenance & Cleaning', 'General occupancy costs', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        '20fe054b-4d1f-40c2-803f-017662a2323d', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003011, 2, 0, 'Y', '2021-06-21 17:17:28.004', 100, '2021-06-21 17:17:28.041', 100, 'Vehicle - Fuel',
+        'Vehicle Expense', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '39615d72-a179-4a91-bdbd-1d7c68608d2b', 1010716,
+        'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003012, 2, 0, 'Y', '2021-06-21 17:17:28.056', 100, '2021-06-21 17:17:28.095', 100, 'Vehicle - Insurance',
+        'Vehicle Insurance', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '4da8d148-a627-428f-85d2-903ccd80af2d', 1010716,
+        'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003013, 2, 0, 'Y', '2021-06-21 17:17:28.109', 100, '2021-06-21 17:17:28.146', 100, 'Vehicle - Lease/Loan',
+        'Long Term Obligation', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '5ff8f834-b81f-4c52-b4cb-829191dd29bf',
+        1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003014, 2, 0, 'Y', '2021-06-21 17:17:28.153', 100, '2021-06-21 17:17:28.191', 100,
+        'Vehicle - Maintenance & Cleaning', 'Vehicle Repairs & Maintenance', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116,
+        'd36f8c74-6ad6-4d51-85cf-0cfca0443fde', 1010716, 'Y', NULL, 'N');
+INSERT INTO adempiere.c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                               name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded,
+                               c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype,
+                               bh_needadditionalvisitinfo)
+VALUES (1003015, 2, 0, 'Y', '2021-06-21 17:17:28.204', 100, '2021-06-21 17:17:28.247', 100, 'Vehicle - Purchase',
+        'Vehicles', 0.0, 'N', 'N', NULL, 'N', NULL, 1000116, '686dd7a5-ba85-4bed-a43d-f6ebec4ef32f', 1010716, 'Y', NULL,
+        'N');
+
+
+--
+-- Data for Name: c_charge_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002984, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.303005', 100, '2021-06-21 17:17:26.354', 100, 1005508, NULL,
+        '081ab6d3-97b6-463d-bbcd-cb77d8aa0d6b');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002985, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.395956', 100, '2021-06-21 17:17:26.427', 100, 1005509, NULL,
+        'b2afd4bb-c51f-4442-9e14-8d9e8031e4e0');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002986, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.463627', 100, '2021-06-21 17:17:26.487', 100, 1005510, NULL,
+        'c9c8291c-917d-43a6-ac1d-997b39128066');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002987, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.525895', 100, '2021-06-21 17:17:26.555', 100, 1005511, NULL,
+        '508de1d7-5d28-4313-9726-b9c1474611f7');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002988, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.593296', 100, '2021-06-21 17:17:26.615', 100, 1005512, NULL,
+        'd3bd563c-4770-4801-a895-3b7368b0eab4');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002989, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.657499', 100, '2021-06-21 17:17:26.683', 100, 1005513, NULL,
+        'ed7e0e73-6908-49a3-a10e-28efdde7c87b');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002990, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.717288', 100, '2021-06-21 17:17:26.739', 100, 1005514, NULL,
+        'df088525-ad7d-467b-99cc-3bcfa0cbaad3');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002991, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.773377', 100, '2021-06-21 17:17:26.795', 100, 1005515, NULL,
+        'f1957c4e-a213-43f9-b47c-fa647492fc42');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002992, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.828337', 100, '2021-06-21 17:17:26.852', 100, 1005516, NULL,
+        '0d69275a-f078-4e96-b5a7-026c9fb61932');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002993, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.88571', 100, '2021-06-21 17:17:26.905', 100, 1005517, NULL,
+        'd3317795-55af-4d32-a51b-dabc9f593cd5');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002994, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.939512', 100, '2021-06-21 17:17:26.96', 100, 1005518, NULL,
+        '93762b55-3118-4a83-8179-db6440ed8c95');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002995, 1000064, 2, 0, 'Y', '2021-06-21 17:17:26.999185', 100, '2021-06-21 17:17:27.011', 100, 1005515, NULL,
+        '7f0967d9-2430-40ac-b937-887a6bd50929');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002996, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.04808', 100, '2021-06-21 17:17:27.069', 100, 1005519, NULL,
+        'fcda44d8-575a-47a1-82e3-4d0d9a0cca5c');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002997, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.108679', 100, '2021-06-21 17:17:27.128', 100, 1005520, NULL,
+        '0895ea6e-9f91-4cc0-a5fc-07c58dbfaac6');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002998, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.169135', 100, '2021-06-21 17:17:27.196', 100, 1005521, NULL,
+        '325ab90e-8045-4223-9fbe-1a3723a6041d');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1002999, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.233411', 100, '2021-06-21 17:17:27.254', 100, 1005522, NULL,
+        '2784c25b-be17-4dd3-9792-eba2a5947be4');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003000, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.288081', 100, '2021-06-21 17:17:27.308', 100, 1005523, NULL,
+        'fdfe7ea2-b82d-40c0-b5b2-96a0f0bb58e1');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003001, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.340546', 100, '2021-06-21 17:17:27.353', 100, 1005507, NULL,
+        '159b8fb4-7c96-487c-ac60-a79de0ec10aa');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003002, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.447061', 100, '2021-06-21 17:17:27.475', 100, 1005496, NULL,
+        'e3b8e308-dbc7-4f5e-9b6a-54bda3b4ad87');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003003, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.545386', 100, '2021-06-21 17:17:27.565', 100, 1005475, NULL,
+        '4a036d06-5a7a-4b8c-918c-663cf0cf43c9');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003004, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.618575', 100, '2021-06-21 17:17:27.65', 100, 1005524, NULL,
+        'df78c2f5-5428-4770-a158-2078969c7429');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003005, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.706804', 100, '2021-06-21 17:17:27.74', 100, 1005525, NULL,
+        '5e9017c4-f386-4c71-80a5-5dc7334ef3db');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003006, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.783287', 100, '2021-06-21 17:17:27.8', 100, 1005526, NULL,
+        'fd9562f6-5876-481d-bf02-871a94e64c86');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003007, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.835667', 100, '2021-06-21 17:17:27.856', 100, 1005527, NULL,
+        '843b4611-ac5c-40db-a9cd-ca621226528f');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003008, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.888605', 100, '2021-06-21 17:17:27.907', 100, 1005528, NULL,
+        '74e7877a-f5b3-4e86-a043-3c6bf7bf7cbe');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003009, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.940166', 100, '2021-06-21 17:17:27.959', 100, 1005529, NULL,
+        'e94b8b9c-0b8e-4f22-8b51-6f039ba84d6c');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003010, 1000064, 2, 0, 'Y', '2021-06-21 17:17:27.992318', 100, '2021-06-21 17:17:28.002', 100, 1005511, NULL,
+        'e896ac04-3906-463b-8cde-bd362a860f18');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003011, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.034954', 100, '2021-06-21 17:17:28.055', 100, 1005530, NULL,
+        '0399707a-87ae-4631-b840-e2eaa78ea31e');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003012, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.08892', 100, '2021-06-21 17:17:28.108', 100, 1005531, NULL,
+        '54e1b0e3-9ffb-4c53-a1fc-a9c83f5bf2a3');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003013, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.140031', 100, '2021-06-21 17:17:28.152', 100, 1005521, NULL,
+        'ecb813f7-f870-4813-83d4-37eb7cbf6a4b');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003014, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.185321', 100, '2021-06-21 17:17:28.203', 100, 1005532, NULL,
+        'b147913a-4941-45d5-a6a2-a10436eac544');
+INSERT INTO adempiere.c_charge_acct (c_charge_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, ch_expense_acct, ch_revenue_acct, c_charge_acct_uu)
+VALUES (1003015, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.240771', 100, '2021-06-21 17:17:28.26', 100, 1005533, NULL,
+        'fc98c265-08bb-4272-8aad-9991a5387f16');
+
+
+--
+-- Data for Name: c_charge_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003000, '2021-06-21 17:17:27.255', 100, 'Miscellaneous Expense', 'Y', 'N',
+        'Finances - Miscellaneous/Other', '2021-06-21 17:17:27.255', 100, '00d2d9c2-d344-4b2d-8fc3-0852c25b8dd2');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003000, '2021-06-21 17:17:27.255', 100, 'Miscellaneous Expense', 'Y', 'N',
+        'Finances - Miscellaneous/Other', '2021-06-21 17:17:27.255', 100, '17b4c7da-d69b-4893-8fc7-321fd0470a81');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003001, '2021-06-21 17:17:27.309', 100, 'Savings Accounts', 'Y', 'N', 'Finances - Savings',
+        '2021-06-21 17:17:27.309', 100, '5c108da0-fcd0-4900-81d5-84250d79e0d0');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003001, '2021-06-21 17:17:27.309', 100, 'Savings Accounts', 'Y', 'N', 'Finances - Savings',
+        '2021-06-21 17:17:27.309', 100, '51306a71-345e-4bd4-9a12-98e7bb79e2ca');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003002, '2021-06-21 17:17:27.354', 100, 'KRA taxes', 'Y', 'N', 'Finances - Tax - KRA Corporate',
+        '2021-06-21 17:17:27.354', 100, '7982d3b5-53d3-4629-b8f7-1f9e03c8493e');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003002, '2021-06-21 17:17:27.354', 100, 'KRA taxes', 'Y', 'N', 'Finances - Tax - KRA Corporate',
+        '2021-06-21 17:17:27.354', 100, '516fd960-0f02-4213-b804-3cf196d9781a');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003003, '2021-06-21 17:17:27.477', 100, 'Inventory Account', 'Y', 'N', 'Medications & Supplies',
+        '2021-06-21 17:17:27.477', 100, 'ddf06fa8-3602-4f7f-9008-897d6442e506');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003003, '2021-06-21 17:17:27.477', 100, 'Inventory Account', 'Y', 'N', 'Medications & Supplies',
+        '2021-06-21 17:17:27.477', 100, '13436f3e-23f5-45f6-92ca-ba1f3a5eabbe');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003004, '2021-06-21 17:17:27.567', 100, 'Other Payroll Expenses', 'Y', 'N',
+        'Personnel - Miscellaneous/Other', '2021-06-21 17:17:27.567', 100, '6c92b2cf-b1c7-4c3a-bc30-63017318f994');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003004, '2021-06-21 17:17:27.567', 100, 'Other Payroll Expenses', 'Y', 'N',
+        'Personnel - Miscellaneous/Other', '2021-06-21 17:17:27.567', 100, '092ae8ce-c82c-483f-9160-e3385236d401');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003005, '2021-06-21 17:17:27.653', 100, 'NHIF payroll', 'Y', 'N', 'Personnel - NHIF',
+        '2021-06-21 17:17:27.653', 100, '6c5754df-08b2-48f6-8797-bdddf635167c');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003005, '2021-06-21 17:17:27.653', 100, 'NHIF payroll', 'Y', 'N', 'Personnel - NHIF',
+        '2021-06-21 17:17:27.653', 100, '2e7fd985-7a93-4866-86d7-124de240d02b');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003006, '2021-06-21 17:17:27.741', 100, 'NSSF payroll', 'Y', 'N', 'Personnel - NSSF',
+        '2021-06-21 17:17:27.741', 100, '439b193e-e8f0-411d-840b-14fe945b4107');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003006, '2021-06-21 17:17:27.741', 100, 'NSSF payroll', 'Y', 'N', 'Personnel - NSSF',
+        '2021-06-21 17:17:27.741', 100, 'bff1626f-7819-4581-bc15-e01320baa9ac');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002984, '2021-06-21 17:17:26.258', 100, 'Computer and Accessories', 'Y', 'N',
+        'Facilities - Computer And Accessories (Software/Hardware)', '2021-06-21 17:17:26.258', 100,
+        '8fc87296-1d3c-49b9-8c1a-518c5be96a69');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002984, '2021-06-21 17:17:26.258', 100, 'Computer and Accessories', 'Y', 'N',
+        'Facilities - Computer And Accessories (Software/Hardware)', '2021-06-21 17:17:26.258', 100,
+        '25b5ad53-7fbc-441d-9a45-d3d98e34af29');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002985, '2021-06-21 17:17:26.356', 100, 'Furniture', 'Y', 'N', 'Facilities - Furniture',
+        '2021-06-21 17:17:26.356', 100, '552f2cdb-065c-4fff-9655-a4b19883a9e3');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002985, '2021-06-21 17:17:26.356', 100, 'Furniture', 'Y', 'N', 'Facilities - Furniture',
+        '2021-06-21 17:17:26.356', 100, 'fe9f0e13-a891-41cf-872a-8eeaedeaacc0');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002986, '2021-06-21 17:17:26.428', 100, 'Medical equipment', 'Y', 'N',
+        'Facilities - Medical Equipment', '2021-06-21 17:17:26.428', 100, 'be57244d-8651-4298-9007-baad033eca11');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002986, '2021-06-21 17:17:26.428', 100, 'Medical equipment', 'Y', 'N',
+        'Facilities - Medical Equipment', '2021-06-21 17:17:26.428', 100, '9c5fb721-99d3-40e7-acf8-71cfe720c2c2');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002987, '2021-06-21 17:17:26.488', 100, 'General occupancy costs', 'Y', 'N',
+        'Facilities - Miscellaneous/Other', '2021-06-21 17:17:26.488', 100, 'c35b59d5-1215-4d45-b7ac-3ae8e9a55986');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002987, '2021-06-21 17:17:26.488', 100, 'General occupancy costs', 'Y', 'N',
+        'Facilities - Miscellaneous/Other', '2021-06-21 17:17:26.488', 100, '73a8f835-f204-48e9-9cb5-eab361a89cb5');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002988, '2021-06-21 17:17:26.556', 100, 'Mortgage', 'Y', 'N',
+        'Facilities - Mortgage (House Loan)', '2021-06-21 17:17:26.556', 100, '6eea1abd-8634-4607-b76a-48ad8f7c9ef5');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002988, '2021-06-21 17:17:26.556', 100, 'Mortgage', 'Y', 'N',
+        'Facilities - Mortgage (House Loan)', '2021-06-21 17:17:26.556', 100, '3fe7a908-d69b-4515-a34f-95c310230c09');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002989, '2021-06-21 17:17:26.616', 100, 'Office equipment', 'Y', 'N',
+        'Facilities - Office Equipment', '2021-06-21 17:17:26.616', 100, 'f213fdd9-6f94-413d-836d-70b31b6a8969');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002989, '2021-06-21 17:17:26.616', 100, 'Office equipment', 'Y', 'N',
+        'Facilities - Office Equipment', '2021-06-21 17:17:26.616', 100, 'cc93b68d-1ae8-4a0b-988d-4d256f5be319');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002990, '2021-06-21 17:17:26.686', 100, 'Rent', 'Y', 'N', 'Facilities - Rent',
+        '2021-06-21 17:17:26.686', 100, 'fef2cb1b-7f0c-4ae6-8bbe-f496b4950134');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002990, '2021-06-21 17:17:26.686', 100, 'Rent', 'Y', 'N', 'Facilities - Rent',
+        '2021-06-21 17:17:26.686', 100, '7e028963-3507-4d6b-b747-091a9162f024');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002991, '2021-06-21 17:17:26.74', 100, 'Utilities', 'Y', 'N',
+        'Facilities - Utilities - Electricity', '2021-06-21 17:17:26.74', 100, '6747a219-3732-4edf-9648-e6203e638019');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002991, '2021-06-21 17:17:26.74', 100, 'Utilities', 'Y', 'N',
+        'Facilities - Utilities - Electricity', '2021-06-21 17:17:26.74', 100, '22e2ab2a-c1b7-489c-90c9-70c63e69cb0d');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002992, '2021-06-21 17:17:26.796', 100, 'Other Contacted Services', 'Y', 'N',
+        'Facilities - Utilities - Garbage', '2021-06-21 17:17:26.796', 100, '2607a2eb-642f-43d6-8ad3-12d5e4c789d9');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002992, '2021-06-21 17:17:26.796', 100, 'Other Contacted Services', 'Y', 'N',
+        'Facilities - Utilities - Garbage', '2021-06-21 17:17:26.796', 100, 'c03d8d01-9146-4f8e-80d7-818741e5322e');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002993, '2021-06-21 17:17:26.853', 100, 'Internet', 'Y', 'N',
+        'Facilities - Utilities - Internet', '2021-06-21 17:17:26.853', 100, 'd8e77830-61a1-463f-a67b-e7ccc221f676');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002993, '2021-06-21 17:17:26.853', 100, 'Internet', 'Y', 'N',
+        'Facilities - Utilities - Internet', '2021-06-21 17:17:26.853', 100, 'd213561e-b686-4bb2-883c-40faf9abb064');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002994, '2021-06-21 17:17:26.906', 100, 'Mobile charges', 'Y', 'N',
+        'Facilities - Utilities - Mobile', '2021-06-21 17:17:26.906', 100, '17caa0e6-67bc-4dfd-a580-b7f361d2c3fe');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002994, '2021-06-21 17:17:26.906', 100, 'Mobile charges', 'Y', 'N',
+        'Facilities - Utilities - Mobile', '2021-06-21 17:17:26.906', 100, '8f2d476d-cea9-4429-889f-14fcc661a9ef');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002995, '2021-06-21 17:17:26.961', 100, 'Utilities', 'Y', 'N', 'Facilities - Utilities - Water',
+        '2021-06-21 17:17:26.961', 100, 'b58927bd-1113-4a02-abf0-53005a000fdb');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002995, '2021-06-21 17:17:26.961', 100, 'Utilities', 'Y', 'N', 'Facilities - Utilities - Water',
+        '2021-06-21 17:17:26.961', 100, '892f6496-d556-4597-b386-1f4379653750');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002996, '2021-06-21 17:17:27.012', 100, 'Business Insurance', 'Y', 'N', 'Finances - Insurance',
+        '2021-06-21 17:17:27.012', 100, 'cc3a92be-87b2-4f1a-9271-bb936d251674');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002996, '2021-06-21 17:17:27.012', 100, 'Business Insurance', 'Y', 'N', 'Finances - Insurance',
+        '2021-06-21 17:17:27.012', 100, '7bcaaa69-c040-44c8-81a2-f594d3166e8d');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002997, '2021-06-21 17:17:27.07', 100, 'License fees', 'Y', 'N',
+        'Finances - Licenses, Memberships, & Permits', '2021-06-21 17:17:27.07', 100,
+        'df399ec6-b1f0-4951-8d01-11f4b393ee41');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002997, '2021-06-21 17:17:27.07', 100, 'License fees', 'Y', 'N',
+        'Finances - Licenses, Memberships, & Permits', '2021-06-21 17:17:27.07', 100,
+        'c15095fe-8a60-4546-b606-093df1c7fe3d');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002998, '2021-06-21 17:17:27.13', 100, 'Long Term Obligation', 'Y', 'N', 'Finances - Loan',
+        '2021-06-21 17:17:27.13', 100, '53c67b70-e33d-4875-adad-727dc063220d');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002998, '2021-06-21 17:17:27.13', 100, 'Long Term Obligation', 'Y', 'N', 'Finances - Loan',
+        '2021-06-21 17:17:27.13', 100, 'edf38bb5-81af-476b-a1e5-fe5fe36e3706');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1002999, '2021-06-21 17:17:27.198', 100, 'Advertising Expense', 'Y', 'N', 'Finances - Marketing',
+        '2021-06-21 17:17:27.198', 100, '8f944a91-1bb5-4cc5-8e2f-9e0b04ca7884');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1002999, '2021-06-21 17:17:27.198', 100, 'Advertising Expense', 'Y', 'N', 'Finances - Marketing',
+        '2021-06-21 17:17:27.198', 100, 'd5acd760-caf5-4bee-a4f1-f1352559c173');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003007, '2021-06-21 17:17:27.801', 100, 'PAYE payroll', 'Y', 'N', 'Personnel - PAYE',
+        '2021-06-21 17:17:27.801', 100, '843c6da8-9043-483b-95c8-bbd8939c3891');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003007, '2021-06-21 17:17:27.801', 100, 'PAYE payroll', 'Y', 'N', 'Personnel - PAYE',
+        '2021-06-21 17:17:27.801', 100, '9e7d31e1-c314-42ff-ba6c-f68aa3965b3d');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003008, '2021-06-21 17:17:27.857', 100, 'Staff wages', 'Y', 'N', 'Personnel - Salaries',
+        '2021-06-21 17:17:27.857', 100, '30065ba6-b7c8-40ff-8806-cb2a4cc10d6e');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003008, '2021-06-21 17:17:27.857', 100, 'Staff wages', 'Y', 'N', 'Personnel - Salaries',
+        '2021-06-21 17:17:27.857', 100, '613a1f86-174b-491f-892d-d4d0e2568804');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003009, '2021-06-21 17:17:27.908', 100, 'Accounting and Clinical IT solutions', 'Y', 'N',
+        'Services - IT, Accounting & Clinical', '2021-06-21 17:17:27.908', 100, 'cad42a45-80d6-4f6b-bbae-4e5f63a2a1c0');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003009, '2021-06-21 17:17:27.908', 100, 'Accounting and Clinical IT solutions', 'Y', 'N',
+        'Services - IT, Accounting & Clinical', '2021-06-21 17:17:27.908', 100, 'abb62bb2-e7f7-4963-93cb-98a6eafc1ae3');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003010, '2021-06-21 17:17:27.96', 100, 'General occupancy costs', 'Y', 'N',
+        'Services - Maintenance & Cleaning', '2021-06-21 17:17:27.96', 100, '9ba866ec-ddac-4c0e-95ce-f4fcf35d20ac');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003010, '2021-06-21 17:17:27.96', 100, 'General occupancy costs', 'Y', 'N',
+        'Services - Maintenance & Cleaning', '2021-06-21 17:17:27.96', 100, 'a8931dd1-e9b5-4145-918e-4189bd8fc5c4');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003011, '2021-06-21 17:17:28.004', 100, 'Vehicle Expense', 'Y', 'N', 'Vehicle - Fuel',
+        '2021-06-21 17:17:28.004', 100, '5685e9fd-fa13-4854-a1d0-a5e50d68f982');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003011, '2021-06-21 17:17:28.004', 100, 'Vehicle Expense', 'Y', 'N', 'Vehicle - Fuel',
+        '2021-06-21 17:17:28.004', 100, '509f4f61-491e-4a35-bd08-d776f6eacb19');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003012, '2021-06-21 17:17:28.056', 100, 'Vehicle Insurance', 'Y', 'N', 'Vehicle - Insurance',
+        '2021-06-21 17:17:28.056', 100, '7a075499-459d-42ac-9904-a53cdf6ffc98');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003012, '2021-06-21 17:17:28.056', 100, 'Vehicle Insurance', 'Y', 'N', 'Vehicle - Insurance',
+        '2021-06-21 17:17:28.056', 100, '8776f0ca-fd6b-4e35-aa80-1ac16e7bae4e');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003013, '2021-06-21 17:17:28.109', 100, 'Long Term Obligation', 'Y', 'N',
+        'Vehicle - Lease/Loan', '2021-06-21 17:17:28.109', 100, '5cfd45ad-1676-42cf-8668-dc05d6872f92');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003013, '2021-06-21 17:17:28.109', 100, 'Long Term Obligation', 'Y', 'N',
+        'Vehicle - Lease/Loan', '2021-06-21 17:17:28.109', 100, 'e8673492-5eb1-4f19-8489-789a283f9a77');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003014, '2021-06-21 17:17:28.153', 100, 'Vehicle Repairs & Maintenance', 'Y', 'N',
+        'Vehicle - Maintenance & Cleaning', '2021-06-21 17:17:28.153', 100, '07934052-34ba-47cc-80c7-2ed8236d34d8');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003014, '2021-06-21 17:17:28.153', 100, 'Vehicle Repairs & Maintenance', 'Y', 'N',
+        'Vehicle - Maintenance & Cleaning', '2021-06-21 17:17:28.153', 100, '5b81c639-8563-44d3-9e29-c2d43bd7bf32');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'zh_CN', 0, 1003015, '2021-06-21 17:17:28.204', 100, 'Vehicles', 'Y', 'N', 'Vehicle - Purchase',
+        '2021-06-21 17:17:28.204', 100, '89830fdd-ea80-415f-b39c-6abb64b92e68');
+INSERT INTO adempiere.c_charge_trl (ad_client_id, ad_language, ad_org_id, c_charge_id, created, createdby, description,
+                                   isactive, istranslated, name, updated, updatedby, c_charge_trl_uu)
+VALUES (2, 'fr_FR', 0, 1003015, '2021-06-21 17:17:28.204', 100, 'Vehicles', 'Y', 'N', 'Vehicle - Purchase',
+        '2021-06-21 17:17:28.204', 100, '6aeda1e6-f50c-43e4-82f9-7ba87e19ffb3');
+
+--
+-- Data for Name: c_cycle; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_cycle (c_cycle_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                              name, description, c_currency_id, c_cycle_uu)
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:08.302018', 0, '2021-06-21 17:17:08.302018', 0, 'Standard', NULL, 100,
+        'c4a0b564-3b90-4882-9498-2f2b4b32e7c9');
+
+
+--
+-- Data for Name: c_doctype; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003086, 2, 0, 'Y', '2021-06-21 17:17:02.825', 100, '2021-06-21 17:17:02.825', 100, 'Customer Return Material',
+        'Customer Return Material Authorization', NULL, 'SOO', 'Y', 'RM', 'N', NULL, 1003070, 1003059, 'Y', 1011671,
+        1000769, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
+        '65ed68a0-e768-445e-91a2-d4e815cf3570', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003087, 2, 0, 'Y', '2021-06-21 17:17:02.855', 100, '2021-06-21 17:17:02.855', 100, 'Standard Order',
+        'Order Confirmation', NULL, 'SOO', 'Y', 'SO', 'N', NULL, 1003066, 1003057, 'Y', 1011672, 1000769, 'N', NULL,
+        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
+        '8f5019d2-3cd0-4f98-a8a1-5aeea1893ca6', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003088, 2, 0, 'Y', '2021-06-21 17:17:02.894', 100, '2021-06-21 17:17:02.894', 100, 'Credit Order',
+        'Order Confirmation', NULL, 'SOO', 'Y', 'WI', 'N', NULL, 1003067, 1003057, 'Y', 1011673, 1000769, 'N', NULL,
+        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
+        'e937c4b2-2954-4356-9362-11721adf5b3a', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003089, 2, 0, 'Y', '2021-06-21 17:17:02.939', 100, '2021-06-21 17:17:02.939', 100, 'Warehouse Order',
+        'Order Confirmation', NULL, 'SOO', 'Y', 'WP', 'N', NULL, 1003066, 1003057, 'Y', 1011674, 1000769, 'N', NULL,
+        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
+        'e8d97c7a-f7a2-4c98-bfb8-3fe3457f38f7', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003090, 2, 0, 'Y', '2021-06-21 17:17:02.981', 100, '2021-06-21 17:17:02.981', 100, 'Manufacturing Order',
+        'Manufacturing Order', NULL, 'MOP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011675, 1000777, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '9e4f13e2-7db4-4ea5-b552-16111f1da682', 'N',
         NULL);
-INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
-                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
-                                 isvalid, c_addressvalidation_id, address5, comments)
-VALUES (1085970, 2, 0, 'Y', '2021-06-21 17:17:07.956', 100, '2021-06-21 17:17:07.956', 100, NULL, NULL, NULL, NULL,
-        NULL, 100, NULL, NULL, NULL, NULL, NULL, '2f8d567b-bd07-4f38-9dcd-2c8213d46bac', NULL, NULL, 'N', NULL, NULL,
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003091, 2, 0, 'Y', '2021-06-21 17:17:03.01', 100, '2021-06-21 17:17:03.01', 100,
+        'Manufacturing Cost Collector', 'Cost Collector', NULL, 'MCC', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011676,
+        1000777, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
+        '83f50221-acfc-4dca-97a7-61fc900f2c80', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003092, 2, 0, 'Y', '2021-06-21 17:17:03.039', 100, '2021-06-21 17:17:03.039', 100, 'Maintenance Order',
+        'Maintenance Order', NULL, 'MOF', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011677, 1000777, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '90b76b96-a592-49bd-a54a-db1e6e17ded4', 'N',
         NULL);
-INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
-                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
-                                 isvalid, c_addressvalidation_id, address5, comments)
-VALUES (1085971, 2, 0, 'Y', '2021-06-21 17:17:07.974', 100, '2021-06-21 17:17:07.974', 100, NULL, NULL, NULL, NULL,
-        NULL, 100, NULL, NULL, NULL, NULL, NULL, '327e30d5-8e7e-4d54-a30a-62ce34bab045', NULL, NULL, 'N', NULL, NULL,
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003093, 2, 0, 'Y', '2021-06-21 17:17:03.068', 100, '2021-06-21 17:17:03.068', 100, 'Quality Order',
+        'Quality Order', NULL, 'MQO', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011678, 1000777, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '52682693-fda0-4d0a-ae57-d98f28a1e2c6', 'N',
         NULL);
-INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
-                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
-                                 isvalid, c_addressvalidation_id, address5, comments)
-VALUES (1085972, 2, 0, 'Y', '2021-06-21 17:17:08.179', 100, '2021-06-21 17:17:08.179', 100, NULL, NULL, NULL, NULL,
-        NULL, 100, NULL, NULL, NULL, NULL, NULL, '046df693-e5a1-4e62-bcc7-ad57a46adc34', NULL, NULL, 'N', NULL, NULL,
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003094, 2, 0, 'Y', '2021-06-21 17:17:03.104', 100, '2021-06-21 17:17:03.104', 100, 'Distribution Order',
+        'Distribution Order', NULL, 'DOO', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011679, 1000778, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'cd125f36-da06-4ab1-a087-b7a01db0a9db', 'N',
         NULL);
-INSERT INTO adempiere.c_location (c_location_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, address1, address2, city, postal, postal_add, c_country_id, c_region_id,
-                                 c_city_id, regionname, address3, address4, c_location_uu, validateaddress, result,
-                                 isvalid, c_addressvalidation_id, address5, comments)
-VALUES (1085973, 2, 0, 'Y', '2021-06-21 17:17:08.273', 100, '2021-06-21 17:17:08.273', 100, NULL, NULL, NULL, NULL,
-        NULL, 100, NULL, NULL, NULL, NULL, NULL, '67bd7760-ae1b-4408-b4ff-004343e049b7', NULL, NULL, 'N', NULL, NULL,
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003095, 2, 0, 'Y', '2021-06-21 17:17:03.14', 100, '2021-06-21 17:17:03.14', 100, 'Payroll', 'Payroll', NULL,
+        'HRP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011680, 1000779, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
+        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '7ac7a8fa-d8c4-4f7c-9259-943322baf18d', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003096, 2, 0, 'Y', '2021-06-21 17:17:03.169', 100, '2021-06-21 17:17:03.169', 100, 'POS Order',
+        'Order Confirmation', NULL, 'SOO', 'Y', 'WR', 'N', NULL, 1003067, 1003058, 'Y', 1011681, 1000769, 'N', NULL,
+        'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
+        'f2705415-3608-4a4d-acb0-520a55580e6f', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003097, 2, 0, 'Y', '2021-06-21 17:17:03.203', 100, '2021-06-21 17:17:03.203', 100, 'AR Pro Forma Invoice',
+        'AR Pro Forma Invoice', NULL, 'ARF', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '31b9f617-f4a7-47c5-a6c6-8a6c55f20a02', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003098, 2, 0, 'Y', '2021-06-21 17:17:03.228', 100, '2021-06-21 17:17:03.228', 100, 'GL Document',
+        'GL Document', NULL, 'GLD', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0, NULL, 'N',
+        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '23882d79-c607-4498-9279-fa4db3f4c836', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003099, 2, 0, 'Y', '2021-06-21 17:17:03.253', 100, '2021-06-21 17:17:03.253', 100, 'Fixed Assets Disposal',
+        'Fixed Assets Disposal', NULL, 'FAD', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '90a34481-c156-4935-9554-8eccaa20b762', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003100, 2, 0, 'Y', '2021-06-21 17:17:03.28', 100, '2021-06-21 17:17:03.28', 100, 'Fixed Assets Addition',
+        'Fixed Assets Addition', NULL, 'FAA', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '12e09f7e-3bb0-4f28-bdbd-f70b3ccca5f5', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003101, 2, 0, 'Y', '2021-06-21 17:17:03.309', 100, '2021-06-21 17:17:03.309', 100, 'Fixed Assets Depreciation',
+        'Fixed Assets Depreciation', NULL, 'FDP', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000768, 'N', NULL, 'N',
+        0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'f1b540a3-ce4d-4074-90af-368be06aafb0',
+        'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003055, 2, 0, 'Y', '2021-06-21 17:17:01.873', 100, '2021-06-21 17:17:01.873', 100, 'GL Journal', 'Journal',
+        NULL, 'GLJ', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011645, 1000770, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
+        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'b19b2b9e-28a1-4cb4-86c4-b67989218870', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003056, 2, 0, 'Y', '2021-06-21 17:17:01.91', 100, '2021-06-21 17:17:01.91', 100, 'GL Journal Batch',
+        'Journal Batch', NULL, 'GLJ', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011646, 1000770, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '8d68ffb0-68af-444e-b68c-f55585a662a4', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003057, 2, 0, 'Y', '2021-06-21 17:17:01.954', 100, '2021-06-21 17:17:01.954', 100, 'AR Invoice', 'Invoice',
+        NULL, 'ARI', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011647, 1000771, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
+        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '3b520ac5-1ba2-4220-8b07-3f0b3c9e152e', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003058, 2, 0, 'Y', '2021-06-21 17:17:01.986', 100, '2021-06-21 17:17:01.986', 100, 'AR Invoice Indirect',
+        'Invoice', NULL, 'ARI', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011648, 1000771, 'N', NULL, 'N', 0, NULL, 'N',
+        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '068bc19f-6f83-41e4-b10d-a79045efef06', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003059, 2, 0, 'Y', '2021-06-21 17:17:02.019', 100, '2021-06-21 17:17:02.019', 100, 'AR Credit Memo',
+        'Credit Memo', NULL, 'ARC', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011649, 1000771, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '7ce48a00-dc40-4356-ae73-66e67cdda496', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003060, 2, 0, 'Y', '2021-06-21 17:17:02.042', 100, '2021-06-21 17:17:02.042', 100, 'AP Invoice', 'Invoice',
+        NULL, 'API', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000774, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
+        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '078fd017-c2d3-4f6c-8e5b-9363502fc754', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003061, 2, 0, 'Y', '2021-06-21 17:17:02.068', 100, '2021-06-21 17:17:02.068', 100, 'AP CreditMemo',
+        'Credit Memo', NULL, 'APC', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000774, 'N', NULL, 'N', 0, NULL, 'N',
+        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '88da9621-8fe6-4641-b569-8425049e83f9', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003062, 2, 0, 'Y', '2021-06-21 17:17:02.105', 100, '2021-06-21 17:17:02.105', 100, 'Match Invoice',
+        'Match Invoice', NULL, 'MXI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011650, 1000774, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '3597a86e-b363-42da-98e9-3cfb30c03a2d', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003063, 2, 0, 'Y', '2021-06-21 17:17:02.13', 100, '2021-06-21 17:17:02.13', 100, 'AR Receipt', 'Payment', NULL,
+        'ARR', 'Y', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000772, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N',
+        NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '6fec35a1-3a19-41b3-b975-57cb304fb67f', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003064, 2, 0, 'Y', '2021-06-21 17:17:02.154', 100, '2021-06-21 17:17:02.154', 100, 'AP Payment', 'Payment',
+        NULL, 'APP', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000775, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
+        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'c88ee7a5-f839-40bf-924c-ee49a03f6adc', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003065, 2, 0, 'Y', '2021-06-21 17:17:02.187', 100, '2021-06-21 17:17:02.187', 100, 'Allocation', 'Allocation',
+        NULL, 'CMA', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011651, 1000776, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
+        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'f6d5b71c-1dfa-4335-a6de-e7d27267391a', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003066, 2, 0, 'Y', '2021-06-21 17:17:02.218', 100, '2021-06-21 17:17:02.218', 100, 'MM Shipment',
+        'Delivery Note', NULL, 'MMS', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011652, 1000773, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '1763f9c7-dcf3-4791-8ed6-4059cacb340c', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003067, 2, 0, 'Y', '2021-06-21 17:17:02.251', 100, '2021-06-21 17:17:02.251', 100, 'MM Shipment Indirect',
+        'Delivery Note', NULL, 'MMS', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011653, 1000773, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'c26c16d0-d68b-4a38-b721-dba3637834f1', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003068, 2, 0, 'Y', '2021-06-21 17:17:02.28', 100, '2021-06-21 17:17:02.28', 100, 'MM Vendor Return',
+        'Vendor Return', NULL, 'MMS', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011654, 1000773, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'd3210d40-05d5-474b-97ad-47b006e5f25f', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003069, 2, 0, 'Y', '2021-06-21 17:17:02.3', 100, '2021-06-21 17:17:02.3', 100, 'MM Receipt', 'Vendor Delivery',
+        NULL, 'MMR', 'N', NULL, 'N', NULL, NULL, NULL, 'N', NULL, 1000773, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N',
+        'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'c450635f-fc98-4be0-a682-97410d7b8972', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003070, 2, 0, 'Y', '2021-06-21 17:17:02.331', 100, '2021-06-21 17:17:02.331', 100, 'MM Customer Return',
+        'Customer Return', NULL, 'MMR', 'Y', NULL, 'N', NULL, NULL, NULL, 'Y', 1011655, 1000773, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '9abe0b9b-86bc-404b-8013-aa4c3754a8d8', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003071, 2, 0, 'Y', '2021-06-21 17:17:02.36', 100, '2021-06-21 17:17:02.36', 100, 'Purchase Order',
+        'Purchase Order', NULL, 'POO', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011656, 1000769, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'f9b121f4-fe16-4d75-b2db-a1f0068d9c36', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003072, 2, 0, 'Y', '2021-06-21 17:17:02.388', 100, '2021-06-21 17:17:02.388', 100, 'Match PO', 'Match PO',
+        NULL, 'MXP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011657, 1000769, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N',
+        'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '36091bf7-8e9b-47d5-b989-3fc46751746f', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003073, 2, 0, 'Y', '2021-06-21 17:17:02.426', 100, '2021-06-21 17:17:02.426', 100, 'Purchase Requisition',
+        'Requisition', NULL, 'POR', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011658, 1000769, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'cfc367fb-b9f6-49b8-8e37-e8555296bfa4', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003074, 2, 0, 'Y', '2021-06-21 17:17:02.454', 100, '2021-06-21 17:17:02.454', 100, 'Vendor Return Material',
+        'Vendor Return Material Authorization', NULL, 'POO', 'N', 'RM', 'N', NULL, 1003068, 1003061, 'Y', 1011659,
+        1000773, 'N', NULL, 'N', 0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y',
+        '70618830-af2e-47c3-80ca-da7f0cc0d090', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003075, 2, 0, 'Y', '2021-06-21 17:17:02.487', 100, '2021-06-21 17:17:02.487', 100, 'Bank Statement',
+        'Bank Statement', NULL, 'CMB', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011660, 1000776, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '557a6053-6d10-49ee-9392-93ec05870f9c', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003076, 2, 0, 'Y', '2021-06-21 17:17:02.525', 100, '2021-06-21 17:17:02.525', 100, 'Cash Journal',
+        'Cash Journal', NULL, 'CMC', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011661, 1000776, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '12cdd430-da8f-48ba-bf8d-8d0dfafa4259', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003077, 2, 0, 'Y', '2021-06-21 17:17:02.555', 100, '2021-06-21 17:17:02.555', 100, 'Material Movement',
+        'Inventory Move', NULL, 'MMM', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011662, 1000773, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'aafe5784-cc13-4680-93c6-861405fbca4f', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003078, 2, 0, 'Y', '2021-06-21 17:17:02.585', 100, '2021-06-21 17:17:02.585', 100, 'Physical Inventory',
+        'Phys.Inventory', NULL, 'MMI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011663, 1000773, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'ce6da403-a94e-4a2e-a1f4-200077710017', 'N',
+        'PI');
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003079, 2, 0, 'Y', '2021-06-21 17:17:02.614', 100, '2021-06-21 17:17:02.614', 100, 'Material Production',
+        'Production', NULL, 'MMP', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011664, 1000773, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'd36ce52f-25a8-46a3-88d0-1096207722c9', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003080, 2, 0, 'Y', '2021-06-21 17:17:02.642', 100, '2021-06-21 17:17:02.642', 100, 'Project Issue',
+        'Project Issue', NULL, 'PJI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011665, 1000773, 'N', NULL, 'N', 0, NULL,
+        'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'ecbca2f2-868e-4052-8ab2-aef3646000d5', 'N',
+        NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003081, 2, 0, 'Y', '2021-06-21 17:17:02.679', 100, '2021-06-21 17:17:02.679', 100, 'Internal Use Inventory',
+        'Internal Use Inventory', NULL, 'MMI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011666, 1000773, 'N', NULL, 'N',
+        0, NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '4fc8ac3e-8d15-4a6a-8256-5af72843342f',
+        'N', 'IU');
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003082, 2, 0, 'Y', '2021-06-21 17:17:02.71', 100, '2021-06-21 17:17:02.71', 100, 'Cost Adjustment',
+        'Cost Adjustment', NULL, 'MMI', 'N', NULL, 'N', NULL, NULL, NULL, 'Y', 1011667, 1000773, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '69fc9319-4592-4566-a7a0-bb6897cc387f', 'N',
+        'CA');
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003083, 2, 0, 'Y', '2021-06-21 17:17:02.738', 100, '2021-06-21 17:17:02.738', 100, 'Binding offer',
+        'Quotation', NULL, 'SOO', 'Y', 'OB', 'N', NULL, NULL, NULL, 'Y', 1011668, 1000769, 'N', NULL, 'N', 0, NULL, 'N',
+        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'dc2d1360-48f7-499d-b5d5-cc328956f1bf', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003084, 2, 0, 'Y', '2021-06-21 17:17:02.766', 100, '2021-06-21 17:17:02.766', 100, 'Non binding offer',
+        'Proposal', NULL, 'SOO', 'Y', 'ON', 'N', NULL, NULL, NULL, 'Y', 1011669, 1000769, 'N', NULL, 'N', 0, NULL, 'N',
+        'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', 'a78c5715-12e5-44a1-b69a-c933b327ffb9', 'N', NULL);
+INSERT INTO adempiere.c_doctype (c_doctype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+                                name, printname, description, docbasetype, issotrx, docsubtypeso, hasproforma,
+                                c_doctypeproforma_id, c_doctypeshipment_id, c_doctypeinvoice_id, isdocnocontrolled,
+                                docnosequence_id, gl_category_id, hascharges, documentnote, isdefault, documentcopies,
+                                ad_printformat_id, isdefaultcounterdoc, isshipconfirm, ispickqaconfirm, isintransit,
+                                issplitwhendifference, c_doctypedifference_id, iscreatecounter, isindexed,
+                                isoverwriteseqoncomplete, definitesequence_id, isoverwritedateoncomplete,
+                                ispreparesplitdocument, c_doctype_uu, ischargeorproductmandatory, docsubtypeinv)
+VALUES (1003085, 2, 0, 'Y', '2021-06-21 17:17:02.796', 100, '2021-06-21 17:17:02.796', 100, 'Prepay Order',
+        'Prepay Order', NULL, 'SOO', 'Y', 'PR', 'N', NULL, 1003066, 1003057, 'Y', 1011670, 1000769, 'N', NULL, 'N', 0,
+        NULL, 'N', 'N', 'N', 'N', 'N', NULL, 'Y', 'Y', 'N', NULL, 'N', 'Y', '7196cf6d-6301-4e88-8a46-8373426fa617', 'N',
         NULL);
 
+
+--
+-- Data for Name: c_doctype_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003094, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.104', 100, '2021-06-21 17:17:03.104', 100,
+        'Distribution Order', 'Distribution Order', NULL, 'N', 'a396b838-7566-4ad2-ab2e-ddf337438792');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003095, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.14', 100, '2021-06-21 17:17:03.14', 100, 'Payroll', 'Payroll',
+        NULL, 'N', '7a29cb55-cb28-463e-8fd9-97e86be8abd3');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003095, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.14', 100, '2021-06-21 17:17:03.14', 100, 'Payroll', 'Payroll',
+        NULL, 'N', '6bbaccec-a2ad-44c0-8a65-b681e7ae3108');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003096, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.169', 100, '2021-06-21 17:17:03.169', 100, 'POS Order',
+        'Order Confirmation', NULL, 'N', '24bf770c-77f8-4759-ae4e-589cda4c0e1a');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003096, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.169', 100, '2021-06-21 17:17:03.169', 100, 'POS Order',
+        'Order Confirmation', NULL, 'N', 'fdefbde8-aded-4dfe-af95-d440077b1466');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003097, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.203', 100, '2021-06-21 17:17:03.203', 100,
+        'AR Pro Forma Invoice', 'AR Pro Forma Invoice', NULL, 'N', '3292aaa1-28aa-4a84-8411-9adafdcf92e8');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003097, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.203', 100, '2021-06-21 17:17:03.203', 100,
+        'AR Pro Forma Invoice', 'AR Pro Forma Invoice', NULL, 'N', 'e684eee8-d171-4443-a818-51dd0ab816d9');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003098, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.228', 100, '2021-06-21 17:17:03.228', 100, 'GL Document',
+        'GL Document', NULL, 'N', 'c57708cb-52f4-400d-b600-1e12242db7b5');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003098, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.228', 100, '2021-06-21 17:17:03.228', 100, 'GL Document',
+        'GL Document', NULL, 'N', '6f15ec0f-5dd6-43b9-8e16-01f4f9213ffa');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003099, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.253', 100, '2021-06-21 17:17:03.253', 100,
+        'Fixed Assets Disposal', 'Fixed Assets Disposal', NULL, 'N', 'd5f3330c-b5fa-449c-95ca-59808542a724');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003099, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.253', 100, '2021-06-21 17:17:03.253', 100,
+        'Fixed Assets Disposal', 'Fixed Assets Disposal', NULL, 'N', '2bc6d61e-4a69-4afe-884e-15a11e751504');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003100, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.28', 100, '2021-06-21 17:17:03.28', 100,
+        'Fixed Assets Addition', 'Fixed Assets Addition', NULL, 'N', '4d7a6345-4788-4fd2-868b-4f2206387910');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003100, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.28', 100, '2021-06-21 17:17:03.28', 100,
+        'Fixed Assets Addition', 'Fixed Assets Addition', NULL, 'N', '3e5b4c36-88bd-4350-9426-699677b23d08');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003101, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.309', 100, '2021-06-21 17:17:03.309', 100,
+        'Fixed Assets Depreciation', 'Fixed Assets Depreciation', NULL, 'N', 'd4bc3dc7-a6fb-4add-9345-8b973f369ffa');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003101, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.309', 100, '2021-06-21 17:17:03.309', 100,
+        'Fixed Assets Depreciation', 'Fixed Assets Depreciation', NULL, 'N', 'd022a5bc-9ac5-45bb-ad7f-c0cfb71e42af');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003055, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.873', 100, '2021-06-21 17:17:01.873', 100, 'GL Journal',
+        'Journal', NULL, 'N', 'c7c43890-e290-4556-a3b5-c38d066cf027');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003055, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.873', 100, '2021-06-21 17:17:01.873', 100, 'GL Journal',
+        'Journal', NULL, 'N', 'ee6d151b-03ec-4734-806b-ececac01e778');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003056, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.91', 100, '2021-06-21 17:17:01.91', 100, 'GL Journal Batch',
+        'Journal Batch', NULL, 'N', '274f5b8e-2c75-4dcf-8d8f-0bdded9af3ec');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003056, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.91', 100, '2021-06-21 17:17:01.91', 100, 'GL Journal Batch',
+        'Journal Batch', NULL, 'N', 'd38dedae-c520-47e3-969e-50099b835e32');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003057, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.954', 100, '2021-06-21 17:17:01.954', 100, 'AR Invoice',
+        'Invoice', NULL, 'N', 'f40028e0-3726-4dcf-aef3-bf2cb84c54db');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003057, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.954', 100, '2021-06-21 17:17:01.954', 100, 'AR Invoice',
+        'Invoice', NULL, 'N', 'f7574be0-7b51-43b0-a102-532bcc66ad4a');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003058, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:01.986', 100, '2021-06-21 17:17:01.986', 100,
+        'AR Invoice Indirect', 'Invoice', NULL, 'N', 'd65c48c0-aa28-4fa3-a97e-b866d170bf5b');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003058, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:01.986', 100, '2021-06-21 17:17:01.986', 100,
+        'AR Invoice Indirect', 'Invoice', NULL, 'N', '05280c6d-8dbd-40a7-8ea0-241eac473c6e');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003059, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.019', 100, '2021-06-21 17:17:02.019', 100, 'AR Credit Memo',
+        'Credit Memo', NULL, 'N', 'c8cd4200-80e4-4221-b4fa-8126b0689bfe');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003059, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.019', 100, '2021-06-21 17:17:02.019', 100, 'AR Credit Memo',
+        'Credit Memo', NULL, 'N', '223045a9-956b-4247-a501-d2aa072845cb');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003060, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.042', 100, '2021-06-21 17:17:02.042', 100, 'AP Invoice',
+        'Invoice', NULL, 'N', '67b371c1-e1c0-48cb-a6f4-99ce1a81e4fb');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003060, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.042', 100, '2021-06-21 17:17:02.042', 100, 'AP Invoice',
+        'Invoice', NULL, 'N', '1c281eaa-585f-455d-88aa-bc3c08c72beb');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003061, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.068', 100, '2021-06-21 17:17:02.068', 100, 'AP CreditMemo',
+        'Credit Memo', NULL, 'N', '54b293b0-464a-4ab2-b772-b33639b6ccaf');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003061, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.068', 100, '2021-06-21 17:17:02.068', 100, 'AP CreditMemo',
+        'Credit Memo', NULL, 'N', 'f51b0e8d-93f8-4a35-a2b3-152eea300ef6');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003062, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.105', 100, '2021-06-21 17:17:02.105', 100, 'Match Invoice',
+        'Match Invoice', NULL, 'N', 'f674b6e4-1df0-4249-b180-8cc7a65d59ce');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003062, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.105', 100, '2021-06-21 17:17:02.105', 100, 'Match Invoice',
+        'Match Invoice', NULL, 'N', '8e887eec-3c28-4109-9066-677548e567ec');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003063, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.13', 100, '2021-06-21 17:17:02.13', 100, 'AR Receipt',
+        'Payment', NULL, 'N', '9769cf89-0a97-48d4-ab18-129f65d911c7');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003063, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.13', 100, '2021-06-21 17:17:02.13', 100, 'AR Receipt',
+        'Payment', NULL, 'N', '9d08f195-15f3-4ab0-b7aa-11a6f2b3b3a6');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003064, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.154', 100, '2021-06-21 17:17:02.154', 100, 'AP Payment',
+        'Payment', NULL, 'N', 'da43bf03-6266-4466-870b-e83d420f6c7b');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003064, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.154', 100, '2021-06-21 17:17:02.154', 100, 'AP Payment',
+        'Payment', NULL, 'N', '48df5d1c-03ef-4552-a551-13da980df2ec');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003065, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.187', 100, '2021-06-21 17:17:02.187', 100, 'Allocation',
+        'Allocation', NULL, 'N', '45b0b88b-d1ba-4e01-92f1-9132808fd739');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003065, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.187', 100, '2021-06-21 17:17:02.187', 100, 'Allocation',
+        'Allocation', NULL, 'N', '99ef7c23-cc7b-4ed5-952c-52b6c1991b74');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003066, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.218', 100, '2021-06-21 17:17:02.218', 100, 'MM Shipment',
+        'Delivery Note', NULL, 'N', '6ccb8b80-acd5-49ca-8a2c-2352a7044882');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003066, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.218', 100, '2021-06-21 17:17:02.218', 100, 'MM Shipment',
+        'Delivery Note', NULL, 'N', '4656076e-d1cb-49f6-a6dd-ca56239b10e3');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003067, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.251', 100, '2021-06-21 17:17:02.251', 100,
+        'MM Shipment Indirect', 'Delivery Note', NULL, 'N', '93d5591f-3b76-4404-a9a0-3e4971fd3f37');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003067, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.251', 100, '2021-06-21 17:17:02.251', 100,
+        'MM Shipment Indirect', 'Delivery Note', NULL, 'N', '2644d358-d82b-410e-8227-7e781b3d5bb8');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003068, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.28', 100, '2021-06-21 17:17:02.28', 100, 'MM Vendor Return',
+        'Vendor Return', NULL, 'N', 'ec5fe62e-f3b4-4447-b633-d7d24066293d');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003068, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.28', 100, '2021-06-21 17:17:02.28', 100, 'MM Vendor Return',
+        'Vendor Return', NULL, 'N', '880c3ff5-ac5f-4caf-8158-6db0b0b904ba');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003069, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.3', 100, '2021-06-21 17:17:02.3', 100, 'MM Receipt',
+        'Vendor Delivery', NULL, 'N', '3fa2558e-c067-4d44-9507-d379099b75d8');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003069, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.3', 100, '2021-06-21 17:17:02.3', 100, 'MM Receipt',
+        'Vendor Delivery', NULL, 'N', 'badd169f-40de-48a9-b171-a78bbeb154a4');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003070, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.331', 100, '2021-06-21 17:17:02.331', 100,
+        'MM Customer Return', 'Customer Return', NULL, 'N', '1e76d195-3d8b-414c-96e2-2ad4b5df6cfd');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003070, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.331', 100, '2021-06-21 17:17:02.331', 100,
+        'MM Customer Return', 'Customer Return', NULL, 'N', 'cf1e3d03-72ba-4fc1-b7a5-0206a650badb');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003071, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.36', 100, '2021-06-21 17:17:02.36', 100, 'Purchase Order',
+        'Purchase Order', NULL, 'N', 'd58b5b57-78c4-4832-a4a7-83b11edda73b');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003071, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.36', 100, '2021-06-21 17:17:02.36', 100, 'Purchase Order',
+        'Purchase Order', NULL, 'N', '198724e8-90bb-411b-beff-12df327f8cad');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003072, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.388', 100, '2021-06-21 17:17:02.388', 100, 'Match PO',
+        'Match PO', NULL, 'N', '30b00a69-a909-4fae-af96-3fd9864d1dd6');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003072, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.388', 100, '2021-06-21 17:17:02.388', 100, 'Match PO',
+        'Match PO', NULL, 'N', '9203f02e-4e9d-41c0-870b-5bda2b40cd1f');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003073, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.426', 100, '2021-06-21 17:17:02.426', 100,
+        'Purchase Requisition', 'Requisition', NULL, 'N', '06db123d-7fd2-42da-bca0-be68d476717c');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003073, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.426', 100, '2021-06-21 17:17:02.426', 100,
+        'Purchase Requisition', 'Requisition', NULL, 'N', '77ec9de6-b6f9-4c0b-828b-82a4f4b980a6');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003074, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.454', 100, '2021-06-21 17:17:02.454', 100,
+        'Vendor Return Material', 'Vendor Return Material Authorization', NULL, 'N',
+        '351de296-4867-4834-b310-ad9dc4384421');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003074, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.454', 100, '2021-06-21 17:17:02.454', 100,
+        'Vendor Return Material', 'Vendor Return Material Authorization', NULL, 'N',
+        '80fc18ba-8bbe-4fd0-83bf-cdc0dfac3952');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003075, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.487', 100, '2021-06-21 17:17:02.487', 100, 'Bank Statement',
+        'Bank Statement', NULL, 'N', 'bfe83ab0-7cb6-4293-905b-0a8fce44f358');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003075, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.487', 100, '2021-06-21 17:17:02.487', 100, 'Bank Statement',
+        'Bank Statement', NULL, 'N', '89761a51-cdb1-4935-988d-62d2d5919b02');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003076, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.525', 100, '2021-06-21 17:17:02.525', 100, 'Cash Journal',
+        'Cash Journal', NULL, 'N', '17d41160-b8a9-468e-8b4e-a26308d696bd');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003076, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.525', 100, '2021-06-21 17:17:02.525', 100, 'Cash Journal',
+        'Cash Journal', NULL, 'N', '894e9f8b-f2f7-48f5-aca3-b49030205547');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003077, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.555', 100, '2021-06-21 17:17:02.555', 100,
+        'Material Movement', 'Inventory Move', NULL, 'N', '9d6aa1c8-6d62-4364-a138-2ebf0cf22156');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003077, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.555', 100, '2021-06-21 17:17:02.555', 100,
+        'Material Movement', 'Inventory Move', NULL, 'N', '6c619e81-e3fe-4639-ab18-a6c0e525302b');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003078, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.585', 100, '2021-06-21 17:17:02.585', 100,
+        'Physical Inventory', 'Phys.Inventory', NULL, 'N', 'df69cac7-490c-42e5-8b52-d93a59385df5');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003078, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.585', 100, '2021-06-21 17:17:02.585', 100,
+        'Physical Inventory', 'Phys.Inventory', NULL, 'N', '57531df1-e71b-4aab-af07-c85265fbc813');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003079, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.614', 100, '2021-06-21 17:17:02.614', 100,
+        'Material Production', 'Production', NULL, 'N', 'd505691f-0a50-49ca-af50-f605a50efc2c');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003079, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.614', 100, '2021-06-21 17:17:02.614', 100,
+        'Material Production', 'Production', NULL, 'N', '7ed7b91a-283a-40f3-b76e-7a5a58f6167d');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003080, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.642', 100, '2021-06-21 17:17:02.642', 100, 'Project Issue',
+        'Project Issue', NULL, 'N', '7c3a2d96-aa2c-4205-8629-b0dec360cd44');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003080, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.642', 100, '2021-06-21 17:17:02.642', 100, 'Project Issue',
+        'Project Issue', NULL, 'N', 'a6e5b14e-092f-4eb2-a055-c2d24f2bd229');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003081, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.679', 100, '2021-06-21 17:17:02.679', 100,
+        'Internal Use Inventory', 'Internal Use Inventory', NULL, 'N', 'bb75eaca-1e11-499d-b3e7-a18b2bd07973');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003081, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.679', 100, '2021-06-21 17:17:02.679', 100,
+        'Internal Use Inventory', 'Internal Use Inventory', NULL, 'N', '0593fa5c-828e-4595-8f6f-b686a59e5ca6');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003082, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.71', 100, '2021-06-21 17:17:02.71', 100, 'Cost Adjustment',
+        'Cost Adjustment', NULL, 'N', '227563d4-522c-4ac6-859c-7cdcba092bc3');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003082, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.71', 100, '2021-06-21 17:17:02.71', 100, 'Cost Adjustment',
+        'Cost Adjustment', NULL, 'N', 'b84e067d-a520-46b2-9c23-d4c7da2d31b0');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003083, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.738', 100, '2021-06-21 17:17:02.738', 100, 'Binding offer',
+        'Quotation', NULL, 'N', '073f83e2-7aeb-4dc8-b235-70c0c2480c53');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003083, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.738', 100, '2021-06-21 17:17:02.738', 100, 'Binding offer',
+        'Quotation', NULL, 'N', '76337772-9283-4f0e-aff8-b69c62ea3db0');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003084, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.766', 100, '2021-06-21 17:17:02.766', 100,
+        'Non binding offer', 'Proposal', NULL, 'N', 'f56db291-667e-49f4-b18c-ce3d81c13c3c');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003084, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.766', 100, '2021-06-21 17:17:02.766', 100,
+        'Non binding offer', 'Proposal', NULL, 'N', '96a12b06-e5e9-4b8a-874e-cc3781910a74');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003085, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.796', 100, '2021-06-21 17:17:02.796', 100, 'Prepay Order',
+        'Prepay Order', NULL, 'N', '2360cbfc-2a0c-43cf-b712-18cb33634ded');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003085, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.796', 100, '2021-06-21 17:17:02.796', 100, 'Prepay Order',
+        'Prepay Order', NULL, 'N', 'aa1502b7-b64b-484f-b755-1b70374b76e7');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003086, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.825', 100, '2021-06-21 17:17:02.825', 100,
+        'Customer Return Material', 'Customer Return Material Authorization', NULL, 'N',
+        'cc90150f-339f-4193-aa33-f09cb7da6373');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003086, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.825', 100, '2021-06-21 17:17:02.825', 100,
+        'Customer Return Material', 'Customer Return Material Authorization', NULL, 'N',
+        '9c8a4fd4-edd4-40b0-aee2-93072434a44a');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003087, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.855', 100, '2021-06-21 17:17:02.855', 100, 'Standard Order',
+        'Order Confirmation', NULL, 'N', '3eae6ec9-2733-47d2-8582-9a8f64c506f8');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003087, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.855', 100, '2021-06-21 17:17:02.855', 100, 'Standard Order',
+        'Order Confirmation', NULL, 'N', '5cf38739-1e16-4722-bce9-cf34793a4eca');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003088, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.894', 100, '2021-06-21 17:17:02.894', 100, 'Credit Order',
+        'Order Confirmation', NULL, 'N', 'a186c557-2b1d-428b-9190-1281ecf520de');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003088, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.894', 100, '2021-06-21 17:17:02.894', 100, 'Credit Order',
+        'Order Confirmation', NULL, 'N', 'bcad111a-cd11-499c-9c3c-4c94791ee0f1');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003089, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.939', 100, '2021-06-21 17:17:02.939', 100, 'Warehouse Order',
+        'Order Confirmation', NULL, 'N', '1b52e248-ad18-409e-899c-1b53161544fe');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003089, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.939', 100, '2021-06-21 17:17:02.939', 100, 'Warehouse Order',
+        'Order Confirmation', NULL, 'N', '1041eda3-54b8-4f80-8a33-3beba6f0395c');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003090, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:02.981', 100, '2021-06-21 17:17:02.981', 100,
+        'Manufacturing Order', 'Manufacturing Order', NULL, 'N', '86a5d230-a94b-41af-a6fb-d4d9f3a23276');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003090, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:02.981', 100, '2021-06-21 17:17:02.981', 100,
+        'Manufacturing Order', 'Manufacturing Order', NULL, 'N', 'e063e0d9-d2df-4456-ad6d-98f29e4f5611');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003091, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.01', 100, '2021-06-21 17:17:03.01', 100,
+        'Manufacturing Cost Collector', 'Cost Collector', NULL, 'N', 'd9c0aba9-407d-4caf-a81e-5be6c3640afe');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003091, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.01', 100, '2021-06-21 17:17:03.01', 100,
+        'Manufacturing Cost Collector', 'Cost Collector', NULL, 'N', '990f452b-a534-4ea9-b7a1-ed9aa9a8f656');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003092, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.039', 100, '2021-06-21 17:17:03.039', 100,
+        'Maintenance Order', 'Maintenance Order', NULL, 'N', '24424e71-8e98-4392-87ac-afc0d487a010');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003092, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.039', 100, '2021-06-21 17:17:03.039', 100,
+        'Maintenance Order', 'Maintenance Order', NULL, 'N', 'cb70e75d-fe55-4be4-8f14-1ad41840180a');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003093, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.068', 100, '2021-06-21 17:17:03.068', 100, 'Quality Order',
+        'Quality Order', NULL, 'N', '08b4a212-64bd-4257-9170-0a5bfe793bf7');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003093, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:03.068', 100, '2021-06-21 17:17:03.068', 100, 'Quality Order',
+        'Quality Order', NULL, 'N', 'f8d7f775-b923-455a-9977-e1b394b3d51c');
+INSERT INTO adempiere.c_doctype_trl (c_doctype_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
+                                    updated, updatedby, name, printname, documentnote, istranslated, c_doctype_trl_uu)
+VALUES (1003094, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:03.104', 100, '2021-06-21 17:17:03.104', 100,
+        'Distribution Order', 'Distribution Order', NULL, 'N', '10df4b5c-6657-4852-a4dd-2373d33353e0');
 
 --
 -- Data for Name: c_paymentterm; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
@@ -15578,16 +15937,6 @@ VALUES (1011394, 2, 0, 'Y', 100, '2021-06-21 17:17:22.097329', '2021-06-21 17:17
         'Y', NULL, NULL, 'N', 'Y', NULL);
 
 
---
--- Data for Name: m_cost; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_cost (ad_client_id, ad_org_id, m_product_id, m_costtype_id, c_acctschema_id, m_costelement_id,
-                             m_attributesetinstance_id, isactive, created, createdby, updated, updatedby,
-                             currentcostprice, currentqty, cumulatedamt, cumulatedqty, futurecostprice, description,
-                             percent, currentcostpricell, futurecostpricell, iscostfrozen, m_cost_uu)
-VALUES (2, 0, 1020365, 1000064, 1000064, 1000064, 0, 'Y', '2021-06-21 17:17:07.936', 100, '2021-06-21 17:17:07.936',
-        100, 0.0, 0.0, 0.0, 0.0, 0.0, NULL, 0, 0, NULL, 'N', 'd826d015-3a5f-4315-8365-c0c310f71b21');
 
 
 --
@@ -15599,16 +15948,6 @@ INSERT INTO adempiere.m_costelement (m_costelement_id, ad_client_id, ad_org_id, 
                                     m_costelement_uu)
 VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.699', 100, '2021-06-21 17:17:00.699', 100, 'Standard Costing', NULL,
         'M', 'S', 'N', '1323523b-30f6-422e-84c6-884a7992b65d');
-
-
---
--- Data for Name: m_costtype; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_costtype (m_costtype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                 updatedby, name, description, help, m_costtype_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.681', 100, '2021-06-21 17:17:00.681', 100,
-        'SambaClient UN/35 US Dollar', NULL, NULL, '28af4d46-3b6f-41a0-b164-27e7c5521b74');
 
 
 --
@@ -15632,355 +15971,6 @@ INSERT INTO adempiere.m_locator (m_locator_id, ad_client_id, ad_org_id, isactive
 VALUES (1000127, 2, 1000064, 'Y', '2021-06-21 17:17:08.018', 100, '2021-06-21 17:17:08.018', 100, 'Standard', 1000126,
         50, 'Y', '0', '0', '0', '5ed74763-672a-4257-90da-191e6228813f', NULL);
 
-
---
--- Data for Name: m_pricelist; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_pricelist (m_pricelist_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                  updatedby, name, description, basepricelist_id, istaxincluded, issopricelist,
-                                  isdefault, c_currency_id, enforcepricelimit, priceprecision, ismandatory,
-                                  ispresentforproduct, m_pricelist_uu)
-VALUES (1000195, 2, 0, 'Y', '2021-06-21 17:17:08.033', 100, '2021-06-21 17:17:08.033', 100, 'Standard', NULL, NULL, 'N',
-        'N', 'Y', 100, 'N', 2, 'N', 'N', '3248a507-bbad-4d96-a508-8aa12ebe0961');
-
-
---
--- Data for Name: m_pricelist_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_pricelist_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description, isactive,
-                                      istranslated, m_pricelist_id, m_pricelist_trl_uu, name, updated, updatedby)
-VALUES (2, 'zh_CN', 0, '2021-06-21 17:17:08.033', 100, NULL, 'Y', 'N', 1000195, '2a36c909-a0de-4aee-839a-2c0e9e47b343',
-        'Standard', '2021-06-21 17:17:08.033', 100);
-INSERT INTO adempiere.m_pricelist_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description, isactive,
-                                      istranslated, m_pricelist_id, m_pricelist_trl_uu, name, updated, updatedby)
-VALUES (2, 'fr_FR', 0, '2021-06-21 17:17:08.033', 100, NULL, 'Y', 'N', 1000195, 'c1b35e28-ee7c-4bcb-a0be-f5ef9d61da14',
-        'Standard', '2021-06-21 17:17:08.033', 100);
-
-
---
--- Data for Name: m_pricelist_version; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_pricelist_version (m_pricelist_version_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                          updated, updatedby, name, description, m_pricelist_id, m_discountschema_id,
-                                          validfrom, proccreate, m_pricelist_version_base_id, m_pricelist_version_uu)
-VALUES (1000194, 2, 0, 'Y', '2021-06-21 17:17:08.071', 100, '2021-06-21 17:17:08.071', 100, '06/21/2021', NULL, 1000195,
-        1000064, '2021-06-21 00:00:00', NULL, NULL, 'ad82e364-a924-4680-b85f-29023e0cee2f');
-
-
---
--- Data for Name: m_pricelist_version_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_pricelist_version_trl (ad_client_id, ad_language, ad_org_id, created, createdby, isactive,
-                                              istranslated, m_pricelist_version_id, m_pricelist_version_trl_uu, name,
-                                              updated, updatedby)
-VALUES (2, 'zh_CN', 0, '2021-06-21 17:17:08.071', 100, 'Y', 'N', 1000194, 'a48da2ea-abd0-42eb-a626-7647cbaba0b1',
-        '06/21/2021', '2021-06-21 17:17:08.071', 100);
-INSERT INTO adempiere.m_pricelist_version_trl (ad_client_id, ad_language, ad_org_id, created, createdby, isactive,
-                                              istranslated, m_pricelist_version_id, m_pricelist_version_trl_uu, name,
-                                              updated, updatedby)
-VALUES (2, 'fr_FR', 0, '2021-06-21 17:17:08.071', 100, 'Y', 'N', 1000194, '318f5f5c-bb02-477e-b415-aaa9bb4bb33d',
-        '06/21/2021', '2021-06-21 17:17:08.071', 100);
-
-
---
--- Data for Name: m_product; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_product (m_product_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
-                                value, name, description, documentnote, help, upc, sku, c_uom_id, salesrep_id,
-                                issummary, isstocked, ispurchased, issold, isbom, isinvoiceprintdetails,
-                                ispicklistprintdetails, isverified, c_revenuerecognition_id, m_product_category_id,
-                                classification, volume, weight, shelfwidth, shelfheight, shelfdepth, unitsperpallet,
-                                c_taxcategory_id, s_resource_id, discontinued, discontinuedby, processing,
-                                s_expensetype_id, producttype, imageurl, descriptionurl, guaranteedays, r_mailtext_id,
-                                versionno, m_attributeset_id, m_attributesetinstance_id, downloadurl,
-                                m_freightcategory_id, m_locator_id, guaranteedaysmin, iswebstorefeatured, isselfservice,
-                                c_subscriptiontype_id, isdropship, isexcludeautodelivery, group1, group2, istoformule,
-                                lowlevel, unitsperpack, discontinuedat, copyfrom, m_product_uu, m_parttype_id, iskanban,
-                                ismanufactured, isphantom, isownbox, bh_hasexpiration, bh_navbuttons, bh_reorder_level,
-                                bh_reorder_quantity, bh_buyprice, bh_sellprice, bh_pricemargin,
-                                bh_product_category_type, eve_bpartners, bandahealth_bpartners,
-                                bh_hasacceptedtermsofuse)
-VALUES (1020365, 2, 0, 'Y', '2021-06-21 17:17:07.862', 100, '2021-06-21 17:17:07.862', 100, 'Standard', 'Standard',
-        NULL, NULL, NULL, NULL, NULL, 100, NULL, 'N', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'N', NULL, 1000324, NULL, 0, 0,
-        NULL, NULL, NULL, NULL, 1000064, NULL, 'N', NULL, 'N', NULL, 'I', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL,
-        NULL, NULL, NULL, 'N', 'Y', NULL, 'N', 'N', NULL, NULL, NULL, 0, 1, NULL, NULL,
-        'f33e6039-a0c6-4dd8-a4af-63453c54ad1f', NULL, 'N', 'N', 'N', 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, 'N');
-
-
---
--- Data for Name: m_product_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_product_acct (m_product_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                     createdby, updated, updatedby, p_revenue_acct, p_expense_acct, p_asset_acct,
-                                     p_purchasepricevariance_acct, p_invoicepricevariance_acct, p_cogs_acct,
-                                     p_tradediscountrec_acct, p_tradediscountgrant_acct, p_inventoryclearing_acct,
-                                     p_costadjustment_acct, p_wip_acct, p_methodchangevariance_acct,
-                                     p_usagevariance_acct, p_ratevariance_acct, p_mixvariance_acct, p_floorstock_acct,
-                                     p_costofproduction_acct, p_labor_acct, p_burden_acct, p_outsideprocessing_acct,
-                                     p_overhead_acct, p_scrap_acct, p_averagecostvariance_acct, m_product_acct_uu,
-                                     p_landedcostclearing_acct)
-VALUES (1020365, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.912077', 100, '2021-06-21 17:17:07.912077', 100, 1005489,
-        1005481, 1005475, 1005487, 1005483, 1005479, 1005491, 1005490, 1005482, 1005480, NULL, NULL, NULL, 1005488,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '6587f4a9-466e-4ee7-8594-e8bf72a4fd1e', 1005486);
-
-
---
--- Data for Name: m_product_category; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
-                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
-                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
-VALUES (1000324, 2, 0, 'Y', '2021-06-21 17:17:07.748', 100, '2021-06-21 17:17:07.748', 100, 'Standard', 'Standard',
-        NULL, 'Y', 0.0, NULL, 'Y', NULL, 'F', NULL, 'fba03f83-48c8-4865-a48e-98caa5714a6d', NULL);
-INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
-                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
-                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
-VALUES (1000325, 2, 1000064, 'Y', '2021-06-21 17:17:28.264', 100, '2021-06-21 17:17:28.264', 100, '1000000',
-        'Laboratory', NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, 'e4dd23f4-e26c-403f-8495-d762b5a5bbaa', 'P');
-INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
-                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
-                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
-VALUES (1000326, 2, 1000064, 'Y', '2021-06-21 17:17:28.317', 100, '2021-06-21 17:17:28.317', 100, '1000001', 'Other',
-        NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, 'a71a6b7f-c7c2-46fc-89f7-aba73886d8cc', 'P');
-INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
-                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
-                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
-VALUES (1000327, 2, 1000064, 'Y', '2021-06-21 17:17:28.364', 100, '2021-06-21 17:17:28.364', 100, '1000002', 'Pharmacy',
-        NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, '72e90d7e-cc7b-4dc4-8dfd-9ff7502ce841', 'P');
-INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
-                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
-                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
-VALUES (1000328, 2, 1000064, 'Y', '2021-06-21 17:17:28.412', 100, '2021-06-21 17:17:28.412', 100, '1000003',
-        'Radiology', NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, '1b95d790-93c5-4126-9f52-50c01ca3e6c4', 'P');
-INSERT INTO adempiere.m_product_category (m_product_category_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                         updated, updatedby, value, name, description, isdefault, plannedmargin,
-                                         a_asset_group_id, isselfservice, ad_printcolor_id, mmpolicy,
-                                         m_product_category_parent_id, m_product_category_uu, bh_product_category_type)
-VALUES (1000329, 2, 1000064, 'Y', '2021-06-21 17:17:28.459', 100, '2021-06-21 17:17:28.459', 100, '1000004', 'Services',
-        NULL, 'N', 0.0, NULL, 'Y', NULL, 'F', NULL, '70aaee68-ac65-4e91-900c-890076203744', 'S');
-
-
---
--- Data for Name: m_product_category_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
-                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
-                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
-                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
-                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
-                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
-                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
-                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
-                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
-                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
-                                              p_landedcostclearing_acct)
-VALUES (1000324, 1000064, 2, 0, 'Y', '2021-06-21 17:17:07.801535', 100, '2021-06-21 17:17:07.801535', 100, 1005489,
-        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
-        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '0b71aa89-675c-4653-a369-ce0130f7e3a8',
-        1005486);
-INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
-                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
-                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
-                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
-                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
-                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
-                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
-                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
-                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
-                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
-                                              p_landedcostclearing_acct)
-VALUES (1000325, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.302412', 100, '2021-06-21 17:17:28.315', 100, 1005534,
-        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
-        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '686c9413-7ae1-4148-a47f-136059316e30',
-        1005486);
-INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
-                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
-                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
-                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
-                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
-                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
-                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
-                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
-                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
-                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
-                                              p_landedcostclearing_acct)
-VALUES (1000326, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.35254', 100, '2021-06-21 17:17:28.363', 100, 1005535, 1005481,
-        1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL, NULL,
-        NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '680012c3-21a8-491b-abed-875fdff00aea',
-        1005486);
-INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
-                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
-                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
-                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
-                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
-                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
-                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
-                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
-                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
-                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
-                                              p_landedcostclearing_acct)
-VALUES (1000327, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.399841', 100, '2021-06-21 17:17:28.411', 100, 1005536,
-        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
-        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, 'd43df923-c144-4614-b6e5-0388e76d37b8',
-        1005486);
-INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
-                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
-                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
-                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
-                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
-                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
-                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
-                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
-                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
-                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
-                                              p_landedcostclearing_acct)
-VALUES (1000328, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.446795', 100, '2021-06-21 17:17:28.458', 100, 1005537,
-        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
-        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, 'b22e0506-09e0-4c33-b005-d3ea55dff714',
-        1005486);
-INSERT INTO adempiere.m_product_category_acct (m_product_category_id, c_acctschema_id, ad_client_id, ad_org_id, isactive,
-                                              created, createdby, updated, updatedby, p_revenue_acct, p_expense_acct,
-                                              p_asset_acct, p_cogs_acct, p_purchasepricevariance_acct,
-                                              p_invoicepricevariance_acct, p_tradediscountrec_acct,
-                                              p_tradediscountgrant_acct, processing, costingmethod, costinglevel,
-                                              p_inventoryclearing_acct, p_costadjustment_acct, p_floorstock_acct,
-                                              p_wip_acct, p_methodchangevariance_acct, p_usagevariance_acct,
-                                              p_ratevariance_acct, p_mixvariance_acct, p_costofproduction_acct,
-                                              p_labor_acct, p_burden_acct, p_outsideprocessing_acct, p_overhead_acct,
-                                              p_scrap_acct, p_averagecostvariance_acct, m_product_category_acct_uu,
-                                              p_landedcostclearing_acct)
-VALUES (1000329, 1000064, 2, 0, 'Y', '2021-06-21 17:17:28.495484', 100, '2021-06-21 17:17:28.506', 100, 1005538,
-        1005481, 1005475, 1005479, 1005487, 1005483, 1005491, 1005490, NULL, NULL, NULL, 1005482, 1005480, NULL, NULL,
-        NULL, NULL, 1005488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1005476, '395fa84d-df91-4a4d-af1d-761e7fea1d1c',
-        1005486);
-
-
---
--- Data for Name: m_product_category_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'zh_CN', 0, '2021-06-21 17:17:07.748', 100, NULL, 'Y', 'N', 1000324, '3f2518c9-9aa0-447a-ba7e-54daca67bbb9',
-        'Standard', '2021-06-21 17:17:07.748', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'fr_FR', 0, '2021-06-21 17:17:07.748', 100, NULL, 'Y', 'N', 1000324, '236da9ba-e052-4532-bc9a-b946c0562100',
-        'Standard', '2021-06-21 17:17:07.748', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.264', 100, NULL, 'Y', 'N', 1000325,
-        '4c537703-76f3-4cc3-baf4-3e53fcfad96d', 'Laboratory', '2021-06-21 17:17:28.264', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.264', 100, NULL, 'Y', 'N', 1000325,
-        '322ba81a-a49c-40e3-b817-053c36154a57', 'Laboratory', '2021-06-21 17:17:28.264', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.317', 100, NULL, 'Y', 'N', 1000326,
-        '16a5509f-7dc2-4448-b0d1-96de0abddcf8', 'Other', '2021-06-21 17:17:28.317', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.317', 100, NULL, 'Y', 'N', 1000326,
-        '3b175e93-0e62-4eec-a071-25a8c7cb7647', 'Other', '2021-06-21 17:17:28.317', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.364', 100, NULL, 'Y', 'N', 1000327,
-        '8bf45f68-ad6b-4702-8931-6a0785087403', 'Pharmacy', '2021-06-21 17:17:28.364', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.364', 100, NULL, 'Y', 'N', 1000327,
-        'b715f475-43f9-47e3-b73d-8e56ab962562', 'Pharmacy', '2021-06-21 17:17:28.364', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.412', 100, NULL, 'Y', 'N', 1000328,
-        '484c5a9d-f491-46e2-9069-44ae5c44c1bd', 'Radiology', '2021-06-21 17:17:28.412', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.412', 100, NULL, 'Y', 'N', 1000328,
-        '7551e20e-089c-4b09-84ac-15f0b3993ef0', 'Radiology', '2021-06-21 17:17:28.412', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'zh_CN', 1000064, '2021-06-21 17:17:28.459', 100, NULL, 'Y', 'N', 1000329,
-        '67ba1e28-df82-4777-b95c-15d5da6f27cd', 'Services', '2021-06-21 17:17:28.459', 100);
-INSERT INTO adempiere.m_product_category_trl (ad_client_id, ad_language, ad_org_id, created, createdby, description,
-                                             isactive, istranslated, m_product_category_id, m_product_category_trl_uu,
-                                             name, updated, updatedby)
-VALUES (2, 'fr_FR', 1000064, '2021-06-21 17:17:28.459', 100, NULL, 'Y', 'N', 1000329,
-        'f48e645c-fd0a-4f98-b3a6-169ef256ea42', 'Services', '2021-06-21 17:17:28.459', 100);
-
-
---
--- Data for Name: m_product_trl; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_product_trl (m_product_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, documentnote, istranslated, description, m_product_trl_uu)
-VALUES (1020365, 'zh_CN', 2, 0, 'Y', '2021-06-21 17:17:07.862', 100, '2021-06-21 17:17:07.862', 100, 'Standard', NULL,
-        'N', NULL, 'd73d2bdb-6521-4762-95ac-9a579c1234fe');
-INSERT INTO adempiere.m_product_trl (m_product_id, ad_language, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, name, documentnote, istranslated, description, m_product_trl_uu)
-VALUES (1020365, 'fr_FR', 2, 0, 'Y', '2021-06-21 17:17:07.862', 100, '2021-06-21 17:17:07.862', 100, 'Standard', NULL,
-        'N', NULL, 'f0c7fe7e-35ff-4d0a-8125-55803c74015e');
-
-
---
--- Data for Name: m_productprice; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_productprice (m_pricelist_version_id, m_product_id, ad_client_id, ad_org_id, isactive, created,
-                                     createdby, updated, updatedby, pricelist, pricestd, pricelimit, m_productprice_uu,
-                                     m_productprice_id, bh_navbuttons)
-VALUES (1000194, 1020365, 2, 0, 'Y', '2021-06-21 17:17:08.094', 100, '2021-06-21 17:17:08.094', 100, 1.00, 1.00, 1.00,
-        '5ffecf08-5e2d-4238-aade-3bee377d7614', 1035478, NULL);
-
-
---
--- Data for Name: m_warehouse; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_warehouse (m_warehouse_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-                                  updatedby, value, name, description, c_location_id, separator, m_warehousesource_id,
-                                  replenishmentclass, isintransit, isdisallownegativeinv, m_warehouse_uu,
-                                  m_reservelocator_id)
-VALUES (1000126, 2, 1000064, 'Y', '2021-06-21 17:17:07.986', 100, '2021-06-21 17:17:07.986', 100, 'Standard',
-        'Standard', NULL, 1085971, '*', NULL, NULL, 'N', 'N', '84d974b9-348f-40d1-a3cc-a27b0822b50b', NULL);
-
-
---
--- Data for Name: m_warehouse_acct; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
---
-
-INSERT INTO adempiere.m_warehouse_acct (m_warehouse_id, c_acctschema_id, ad_client_id, ad_org_id, isactive, created,
-                                       createdby, updated, updatedby, w_inventory_acct, w_invactualadjust_acct,
-                                       w_differences_acct, w_revaluation_acct, m_warehouse_acct_uu)
-VALUES (1000126, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.014784', 100, '2021-06-21 17:17:08.014784', 100, NULL, NULL,
-        1005503, NULL, 'cd8959e5-d20a-4e60-a2ba-f6e6f27a729f');
 
 
 --
@@ -16043,6 +16033,24 @@ INSERT INTO adempiere.r_requestprocessor (r_requestprocessor_id, ad_client_id, a
 VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.211', 100, '2021-06-21 17:17:00.211', 100,
         'SambaClient - Request Processor', NULL, 1, NULL, NULL, '2021-06-21 17:32:00.212', 'N', 0, 0, 1082126, 7, 0, 0,
         NULL, 'a76287b8-13d9-4d8f-8226-3586fb12fa79', 200003);
+
+
+--
+-- Data for Name: bh_paymentref; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
+--
+
+INSERT INTO adempiere.bh_paymentref (bh_paymentref_id, ad_client_id, ad_org_id, bh_paymentref_uu, created, createdby,
+                                    description, isactive, name, updated, updatedby, ad_reference_id,
+                                    bh_paymentref_action)
+VALUES (1000128, 2, 1000064, '8e23c76e-21b9-404c-9a35-9a080625ce79', '2021-06-21 17:17:25.934', 100, NULL, 'Y',
+        '_Payment Rule', '2021-06-21 17:17:25.934', 100, 195, NULL);
+INSERT INTO adempiere.bh_paymentref (bh_paymentref_id, ad_client_id, ad_org_id, bh_paymentref_uu, created, createdby,
+                                    description, isactive, name, updated, updatedby, ad_reference_id,
+                                    bh_paymentref_action)
+VALUES (1000129, 2, 1000064, '3ab5f6bd-393d-409d-bc91-639aedced469', '2021-06-21 17:17:26.039', 100, NULL, 'Y',
+        'C_Payment Tender Type', '2021-06-21 17:17:26.039', 100, 214, NULL);
+
+
 
 
 --
