@@ -10,7 +10,7 @@ $$
         current_col  varchar(40);
         total_processed      integer     := 0;
         temp_table_name varchar(100);
-        client_config_id integer :=1000064;
+        client_config_id integer :=2;
     begin
         set search_path to adempiere, public, migration;
         for current_rec in select distinct lower(tablename) as tbl, ac.columnname as colname
