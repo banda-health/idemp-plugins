@@ -55,60 +55,85 @@
 		<parameter name="Payment Mode" class="java.lang.String"/>
 		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[;WITH params AS (
-     SELECT $P{AD_CLIENT_ID} AS ad_client_id,
-            date($P{Begin Date}) AS start_date,
-            date($P{End Date}) AS end_date,
-            coalesce($P{Patient Type}, '''') AS patient_type,
-            coalesce($P{Payment Mode}, '''') AS payment_mode
+			<![CDATA[WITH params AS (
+    SELECT
+        $P{AD_CLIENT_ID} AS ad_client_id,
+        date($P{Begin Date}) AS begin_date,
+        date($P{End Date}) AS end_date,
+        coalesce($P{Patient Type}, '''') AS patient_type,
+        coalesce($P{Payment Mode}, '''') AS payment_mode
 )
-select receipt_number,
-       bp.name as patient,
-       coalesce(bp.bh_local_patientid, bp.bh_patientid) as patient_number,
-       u.name as cashier,
-       bill_date,
-       bill_total,
-       total_payment,
-       unpaid_balance
+select
+    billdetails.c_order_id as receipt_number,
+    billdetails.bill_date as bill_date,
+    billdetails.patient_number as patient_number,
+    billdetails.patientname as patient,
+    u.name as cashier,
+    coalesce(billdetails.lineitemtotals, 0) as bill_total,
+    coalesce(patient_payments.total, 0) + coalesce(non_patient_payments.total, 0) as total_payment,
+    coalesce(billdetails.lineitemtotals, 0) - coalesce(patient_payments.total, 0) - coalesce(non_patient_payments.total, 0) as unpaid_balance
 from (
-    select o.c_order_id as receipt_number,
-           o.c_bpartner_id,
-           date(o.bh_visitdate) as bill_date,
-           o.totallines as bill_total,
-           sum(p.payamt) as total_payment,
-           p.createdby as cashier_id,
-           o.totallines - coalesce(sum(p.payamt), 0) as unpaid_balance
-    from c_order o
-        left join c_payment p on o.c_order_id = p.bh_c_order_id
-        cross join params
-    where o.ad_client_id = params.ad_client_id
-      AND o.docstatus <> 'VO'
-      AND date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date
-      AND (
-          params.patient_type = '''' OR o.bh_patienttype = params.patient_type
-          )
-    GROUP BY o.c_order_id, o.c_bpartner_id, date(o.bh_visitdate), o.totallines, p.createdby
-    UNION
-    SELECT p.c_payment_id AS receipt_number,
-           c_bpartner_id,
-           date(datetrx) as bill_date,
-           0 as bill_total,
-           payamt as total_payment,
-           p.createdby as cashier_id,
-           0 as unpaid_balance
-    FROM c_payment p
-    JOIN params ON params.ad_client_id = p.ad_client_id
-                       AND date(p.datetrx) BETWEEN params.start_date AND params.end_date
-                       AND (
-                           params.payment_mode = '''' OR p.tendertype = params.payment_mode
-                           )
-    WHERE p.c_invoice_id IS NULL
-      AND p.isallocated = 'N'
-      AND p.bh_c_order_id = 0
-) as transactions
-    join c_bpartner bp on bp.c_bpartner_id = transactions.c_bpartner_id
-    join ad_user u on u.ad_user_id = transactions.cashier_id
-order by bill_date]]>
+    select co.c_order_id,
+           cb.c_bpartner_id,
+           date(co.bh_visitdate) as bill_date,
+           cb.name as patientname,
+           coalesce(cb.bh_local_patientid, cb.bh_patientid) as patient_number,
+           sum(ol.linenetamt) as lineitemtotals,
+           co.createdby as cashier_id
+    from c_order co
+        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
+        join c_orderline ol on co.c_order_id = ol.c_order_id
+        cross join params p
+    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
+          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
+          AND (p.patient_type = '''' OR co.bh_patienttype = p.patient_type)
+        )
+        AND ol.c_charge_id IS NULL
+    group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
+    order by 1
+) as billdetails
+    inner join (
+        select bh_c_order_id
+        from c_payment p
+        inner join c_order co on co.c_order_id = p.bh_c_order_id
+        cross join params par
+        where ((p.ad_client_id = par.ad_client_id)
+            and ((p.docstatus = 'CO')
+            or (p.docstatus = 'DR' and p.bh_processing = 'Y')
+            or (co.docstatus = 'CO' and p.bh_processing = 'N'))
+            and (par.payment_mode = '''' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+            )
+        group by bh_c_order_id
+        union
+        select o.c_order_id
+        from c_order o
+            join c_orderline ol on ol.c_order_id = o.c_order_id
+            join c_charge c on ol.c_charge_id = c.c_charge_id
+            cross join params p
+        where ol.c_charge_id IS NOT NULL
+            and (p.payment_mode = '''' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
+        order by 1
+    ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
+    left join (
+        select p.bh_c_order_id as c_order_id,
+               sum(p.payamt) as total
+        from c_payment p
+            cross join params
+        where p.ad_client_id = params.ad_client_id
+        group by p.bh_c_order_id
+    ) as patient_payments on billdetails.c_order_id = patient_payments.c_order_id
+    left join (
+        select ol.c_order_id,
+               sum(ol.linenetamt) * -1 as total
+        from c_orderline ol
+            join c_order o on ol.c_order_id = o.c_order_id
+            cross join params p
+            join c_charge c on ol.c_charge_id = c.c_charge_id
+        where date(o.bh_visitdate) between p.begin_date and p.end_date
+        group by ol.c_order_id
+    ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
+    join ad_user u on u.ad_user_id = billdetails.cashier_id
+order by billdetails.bill_date;]]>
 		</queryString>
 		<field name="receipt_number" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
@@ -151,56 +176,86 @@ order by bill_date]]>
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[;WITH params AS (
-     SELECT $P{AD_CLIENT_ID} AS ad_client_id,
-            date($P{Begin Date}) AS start_date,
-            date($P{End Date}) AS end_date,
-            coalesce($P{Patient Type}, '''') AS patient_type,
-            coalesce($P{Payment Mode}, '''') AS payment_mode
+		<![CDATA[WITH params AS (
+    SELECT
+        $P{AD_CLIENT_ID} AS ad_client_id,
+        date($P{Begin Date}) AS begin_date,
+        date($P{End Date}) AS end_date,
+        coalesce($P{Patient Type}, '''') AS patient_type,
+        coalesce($P{Payment Mode}, '''') AS payment_mode
 )
-select receipt_number,
-       bp.name as patient,
-       coalesce(bp.bh_local_patientid, bp.bh_patientid) as patient_number,
-       u.name as cashier,
-       bill_date,
-       bill_total,
-       total_payment
+select
+    billdetails.c_order_id as receipt_number,
+    billdetails.bill_date as bill_date,
+    billdetails.patient_number as patient_number,
+    billdetails.patientname as patient,
+    u.name as cashier,
+    coalesce(billdetails.lineitemtotals, 0) as bill_total,
+    coalesce(patient_payments.total, 0) + coalesce(non_patient_payments.total, 0) as total_payment,
+    coalesce(billdetails.lineitemtotals, 0) - coalesce(patient_payments.total, 0) - coalesce(non_patient_payments.total, 0) as unpaid_balance
 from (
-    select o.c_order_id as receipt_number,
-           o.c_bpartner_id,
-           date(o.bh_visitdate) as bill_date,
-           o.totallines as bill_total,
-           sum(p.payamt) as total_payment,
-           p.createdby as cashier_id
-    from c_order o
-        left join c_payment p on o.c_order_id = p.bh_c_order_id
-        cross join params
-    where o.ad_client_id = params.ad_client_id
-      AND o.docstatus <> 'VO'
-      AND date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date
-      AND (
-          params.patient_type = '''' OR o.bh_patienttype = params.patient_type
-          )
-    GROUP BY o.c_order_id, o.c_bpartner_id, date(o.bh_visitdate), o.totallines, p.createdby
-    UNION
-    SELECT p.c_payment_id AS receipt_number,
-           c_bpartner_id,
-           date(datetrx) as bill_date,
-           0 as bill_total,
-           payamt as total_payment,
-           p.createdby as cashier_id
-    FROM c_payment p
-    JOIN params ON params.ad_client_id = p.ad_client_id
-                       AND date(p.datetrx) BETWEEN params.start_date AND params.end_date
-                       AND (
-                           params.payment_mode = '''' OR p.tendertype = params.payment_mode
-                           )
-    WHERE p.c_invoice_id IS NULL
-      AND p.isallocated = 'N'
-      AND p.bh_c_order_id = 0
-) as transactions
-    join c_bpartner bp on bp.c_bpartner_id = transactions.c_bpartner_id
-    join ad_user u on u.ad_user_id = transactions.cashier_id]]>
+    select co.c_order_id,
+           cb.c_bpartner_id,
+           date(co.bh_visitdate) as bill_date,
+           cb.name as patientname,
+           coalesce(cb.bh_local_patientid, cb.bh_patientid) as patient_number,
+           sum(ol.linenetamt) as lineitemtotals,
+           co.createdby as cashier_id
+    from c_order co
+        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
+        join c_orderline ol on co.c_order_id = ol.c_order_id
+        cross join params p
+    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
+          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
+          AND (p.patient_type = '''' OR co.bh_patienttype = p.patient_type)
+        )
+        AND ol.c_charge_id IS NULL
+    group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
+    order by 1
+) as billdetails
+    inner join (
+        select bh_c_order_id
+        from c_payment p
+        inner join c_order co on co.c_order_id = p.bh_c_order_id
+        cross join params par
+        where ((p.ad_client_id = par.ad_client_id)
+            and ((p.docstatus = 'CO')
+            or (p.docstatus = 'DR' and p.bh_processing = 'Y')
+            or (co.docstatus = 'CO' and p.bh_processing = 'N'))
+            and (par.payment_mode = '''' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+            )
+        group by bh_c_order_id
+        union
+        select o.c_order_id
+        from c_order o
+            join c_orderline ol on ol.c_order_id = o.c_order_id
+            join c_charge c on ol.c_charge_id = c.c_charge_id
+            cross join params p
+        where ol.c_charge_id IS NOT NULL
+            and (p.payment_mode = '''' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
+        order by 1
+    ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
+    left join (
+        select p.bh_c_order_id as c_order_id,
+               sum(p.payamt) as total
+        from c_payment p
+            cross join params
+        where p.ad_client_id = params.ad_client_id
+        group by p.bh_c_order_id
+    ) as patient_payments on billdetails.c_order_id = patient_payments.c_order_id
+    left join (
+        select ol.c_order_id,
+               sum(ol.linenetamt) * -1 as total
+        from c_orderline ol
+            join c_order o on ol.c_order_id = o.c_order_id
+            cross join params p
+            join c_charge c on ol.c_charge_id = c.c_charge_id
+        where date(o.bh_visitdate) between p.begin_date and p.end_date
+        group by ol.c_order_id
+    ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
+    join ad_user u on u.ad_user_id = billdetails.cashier_id
+order by billdetails.bill_date
+limit 1;]]>
 	</queryString>
 	<field name="receipt_number" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
@@ -404,20 +459,26 @@ from (
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField>
-								<reportElement x="0" y="0" width="110" height="17" uuid="46151fa5-1bc6-4ac9-840e-31878b152691"/>
+							<textField pattern="#,##0.00">
+								<reportElement x="0" y="0" width="110" height="17" uuid="46151fa5-1bc6-4ac9-840e-31878b152691">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
 								<textElement textAlignment="Right">
-									<font size="12"/>
+									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumBillTotal}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{bill_total}]]></textFieldExpression>
 							</textField>
@@ -437,20 +498,26 @@ from (
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="100" height="17" uuid="51f80ca0-c10e-4e01-bb87-57438b5cfb22"/>
+							<textField pattern="#,##0.00">
+								<reportElement x="0" y="0" width="100" height="17" uuid="51f80ca0-c10e-4e01-bb87-57438b5cfb22">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
 								<textElement textAlignment="Right">
-									<font size="12"/>
+									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumTotalPayment}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{total_payment}]]></textFieldExpression>
 							</textField>
@@ -732,10 +799,13 @@ from (
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="100" height="17" uuid="3705f68d-2564-496f-9038-77cf88d7ebe2"/>
+							<textField pattern="#,##0.00">
+								<reportElement x="0" y="0" width="100" height="17" uuid="3705f68d-2564-496f-9038-77cf88d7ebe2">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
 								<textElement textAlignment="Right">
-									<font size="12"/>
+									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumUnpaidAmount}]]></textFieldExpression>
 							</textField>

@@ -103,23 +103,19 @@ from (
         cross join params par
         where ((p.ad_client_id = par.ad_client_id)
             and ((p.docstatus = 'CO')
-            AND (date(co.bh_visitdate) BETWEEN par.begin_date AND par.end_date)
             or (p.docstatus = 'DR' and p.bh_processing = 'Y')
             or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-            and (par.payment_mode = '''' OR tendertype = par.payment_mode)
+            and (par.payment_mode = '''' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
             )
         group by bh_c_order_id
         union
         select o.c_order_id
         from c_order o
             join c_orderline ol on ol.c_order_id = o.c_order_id
+            join c_charge c on ol.c_charge_id = c.c_charge_id
             cross join params p
         where ol.c_charge_id IS NOT NULL
-            AND ((o.ad_client_id = p.ad_client_id) AND (o.docstatus <> 'VO')
-                AND (date(o.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-                AND (p.patient_type = '''' OR o.bh_patienttype = p.patient_type)
-            )
-            AND p.payment_mode = ''''
+            and (par.payment_mode = '''' OR par.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN par.payment_mode = 'T' THEN 'D' ELSE par.payment_mode END and par.payment_mode IN ('I', 'W', 'T')))
         order by 1
     ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
     left join (
@@ -127,9 +123,9 @@ from (
                sum(p.payamt) filter ( where tendertype = 'X' ) as cash,
                sum(p.payamt) filter ( where tendertype = 'M' ) as mobile,
                sum(p.payamt) filter ( where tendertype = 'C' ) as credit_debit,
-               sum(p.payamt) filter ( where tendertype = 'B' ) as bank,
+               sum(p.payamt) filter ( where tendertype = 'D' ) as bank,
                sum(p.payamt) filter ( where tendertype = 'K' ) as "check",
-               sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'B', 'K') ) as other
+               sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) as other
         from c_payment p
             cross join params
         where p.ad_client_id = params.ad_client_id
