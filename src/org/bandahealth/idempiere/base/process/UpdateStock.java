@@ -90,39 +90,34 @@ public class UpdateStock {
 				updateStock(mostRecentStorageRecord, quantity.subtract(quantityBesidesMostRecent));
 			}
 		} else {
-			// Now, we have to do some magic. If the requested quantity would not require us setting stock of the most recent
-			// storage record below zero (i.e. quantity minus all other stock besides the most recent record is greater than
-			// or equal to zero), we just set the most recent value
-			if (quantity.subtract(quantityBesidesMostRecent).compareTo(BigDecimal.ZERO) >= 0) {
-				updateStock(mostRecentStorageRecord, quantity.subtract(quantityBesidesMostRecent));
-			} else {
-				// Else, we need to keep altering storage on hand to get down to the right value
-				// As a helpful example, imagine we have a list of storage records with the following quantities: 4, 3, 2, 5, 1
-				// This would show a total of 15 on the UI. Say the user wants it now to be 10. We now have to cycle through
-				// those values so the quantities now become the following for the records: 4, 3, 2, 1, 0
-				BigDecimal newTotal = BigDecimal.ZERO;
-				for (MStorageOnHand storageToUpdate : listExistingStorage) {
-					// If this record has no quantity, just skip it
-					if (storageToUpdate.getQtyOnHand().compareTo(BigDecimal.ZERO) == 0) {
-						continue;
-					}
-					// If the we're already at the requested total and there are still records to handle, set this record's
-					// quantity to zero
-					if (newTotal.compareTo(quantity) == 0) {
-						updateStock(storageToUpdate, BigDecimal.ZERO);
-						continue;
-					}
-					newTotal = newTotal.add(storageToUpdate.getQtyOnHand());
-					// If this storage quantity pushes the total over the requested quantity, reduce it's current quantity so
-					// that the new quantity matches the total requested by the user
-					if (newTotal.compareTo(quantity) > 0) {
-						// Following our example above: By the time we get to the fourth record, storageToUpdate.getQtyOnHand()
-						// will be 5, the requested quantity will still be 10, and newTotal is now 14. So, we'll get the new
-						// quantity for this record by doing 5 - 14 + 10 = 1
-						updateStock(storageToUpdate, storageToUpdate.getQtyOnHand().subtract(newTotal).add(quantity));
-						// Since the above adjustment will make the new total and requested quantity match, just set that
-						newTotal = quantity;
-					}
+			// Now, we have to do some magic. To be consistent, we'll skip the case where we could just update the most
+			// recent record (assuming it would still have a quantity greater than zero) and just start reducing the quantities of
+			// old records
+			// As a helpful example, imagine we have a list of storage records with the following quantities: 4, 3, 2, 5, 1
+			// This would show a total of 15 on the UI. Say the user wants it now to be 10. We now have to cycle through
+			// those values so the quantities now become the following for the records: 4, 3, 2, 1, 0
+			BigDecimal newTotal = BigDecimal.ZERO;
+			for (MStorageOnHand storageToUpdate : listExistingStorage) {
+				// If this record has no quantity, just skip it
+				if (storageToUpdate.getQtyOnHand().compareTo(BigDecimal.ZERO) == 0) {
+					continue;
+				}
+				// If the we're already at the requested total and there are still records to handle, set this record's
+				// quantity to zero
+				if (newTotal.compareTo(quantity) == 0) {
+					updateStock(storageToUpdate, BigDecimal.ZERO);
+					continue;
+				}
+				newTotal = newTotal.add(storageToUpdate.getQtyOnHand());
+				// If this storage quantity pushes the total over the requested quantity, reduce it's current quantity so
+				// that the new quantity matches the total requested by the user
+				if (newTotal.compareTo(quantity) > 0) {
+					// Following our example above: By the time we get to the fourth record, storageToUpdate.getQtyOnHand()
+					// will be 5, the requested quantity will still be 10, and newTotal is now 14. So, we'll get the new
+					// quantity for this record by doing 5 - 14 + 10 = 1
+					updateStock(storageToUpdate, storageToUpdate.getQtyOnHand().subtract(newTotal).add(quantity));
+					// Since the above adjustment will make the new total and requested quantity match, just set that
+					newTotal = quantity;
 				}
 			}
 		}
