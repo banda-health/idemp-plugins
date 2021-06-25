@@ -116,7 +116,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 				for (Inventory inventory : inventoryList.getResults()) {
 					// exclude expired products
-					if(inventory.getShelfLife() <= 0) {
+					if (inventory.getShelfLife() < 0) {
 						continue;
 					}
 					// get expiry date and id
@@ -133,7 +133,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				result.setTotalQuantity(totalQuantity);
 			}
 
-			results.add(result);
+			// If a product has no quantity, don't return it in the list
+			if (result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0) {
+				results.add(result);
+			}
 		}
 
 		return new BaseListResponse<SearchProduct>(results, pagingInfo);
