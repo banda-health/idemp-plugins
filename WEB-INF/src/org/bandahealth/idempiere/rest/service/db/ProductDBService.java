@@ -132,11 +132,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 				result.setTotalQuantity(totalQuantity);
 			}
-
-			// If a product has no quantity, don't return it in the list
-			if (result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0) {
-				results.add(result);
-			}
 		}
 
 		return new BaseListResponse<SearchProduct>(results, pagingInfo);
