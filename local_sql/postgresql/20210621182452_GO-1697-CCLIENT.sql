@@ -1,3 +1,4 @@
+begin;
 --Create a configuration client for Banda
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -9,20 +10,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
-
---Define sequences ids in tables for this client
-SELECT setval(
-	'tmp_ad_role_ad_role_id_seq',
-	(
-		SELECT currentnext
-		FROM ad_sequence
-		WHERE name = 'AD_Role'
-		LIMIT 1
-	)::INT,
-	false
-);
-
 
 --
 -- Data for Name: ad_client; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
@@ -73,7 +60,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000670, 2, 0, 'Y', '2021-06-21 17:16:59.746', 100, '2021-06-21 17:16:59.746', 'SambaClient Admin', 100, NULL,
+VALUES (1000670, 2, 0, 'Y', '2021-06-21 17:16:59.746', 100, '2021-06-21 17:16:59.746', 'ConfigClient Admin', 100, NULL,
         ' CO', NULL, 0, NULL, 'N', 'Y', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'C', 'N', 'N', NULL, 0, 0, NULL, 'Y',
         'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         '7e43c2e6-cf08-45e1-85ef-33d65bffbb59', 'N', 'N', 'Y', NULL);
@@ -88,7 +75,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000671, 2, 0, 'Y', '2021-06-21 17:16:59.977', 100, '2021-06-21 17:17:28.517', 'SambaClient User', 100, NULL,
+VALUES (1000671, 2, 0, 'Y', '2021-06-21 17:16:59.977', 100, '2021-06-21 17:17:28.517', 'ConfigClient User', 100, NULL,
         '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL, 'Y',
         'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         '52c84c81-92d7-484b-a4d7-2883a5fb2662', 'N', 'N', 'N', NULL);
@@ -103,7 +90,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000672, 2, 0, 'Y', '2021-06-21 17:17:28.542', 100, '2021-06-21 17:17:28.542', 'SambaClient Advanced User', 100,
+VALUES (1000672, 2, 0, 'Y', '2021-06-21 17:17:28.542', 100, '2021-06-21 17:17:28.542', 'ConfigClient Advanced User', 100,
         NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
         'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         '6a9d0752-582a-493f-be17-1006c8233cdb', 'N', 'N', 'N', NULL);
@@ -118,7 +105,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000673, 2, 0, 'Y', '2021-06-21 17:17:28.571', 100, '2021-06-21 17:17:28.571', 'SambaClient Clinic Admin', 100,
+VALUES (1000673, 2, 0, 'Y', '2021-06-21 17:17:28.571', 100, '2021-06-21 17:17:28.571', 'ConfigClient Clinic Admin', 100,
         NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
         'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         '218b2199-e88c-4f91-b721-c0a20daa948d', 'N', 'N', 'N', NULL);
@@ -133,7 +120,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000674, 2, 0, 'Y', '2021-06-21 17:17:28.586', 100, '2021-06-21 17:17:28.586', 'SambaClient Clinician/Nurse',
+VALUES (1000674, 2, 0, 'Y', '2021-06-21 17:17:28.586', 100, '2021-06-21 17:17:28.586', 'ConfigClient Clinician/Nurse',
         100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0,
         NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         'b7b41a58-b81f-4fd1-ba4e-f627ae52004b', 'N', 'N', 'N', NULL);
@@ -149,7 +136,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
 VALUES (1000675, 2, 0, 'Y', '2021-06-21 17:17:28.599', 100, '2021-06-21 17:17:28.599',
-        'SambaClient Cashier/Registration', 100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y',
+        'ConfigClient Cashier/Registration', 100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y',
         'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N',
         'N', 'N', 'N', NULL, NULL, '176be5bf-748e-41fe-bb45-92de42c0c281', 'N', 'N', 'N', NULL);
 INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name,
@@ -163,7 +150,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000676, 2, 0, 'Y', '2021-06-21 17:17:28.612', 100, '2021-06-21 17:17:28.612', 'SambaClient Inventory/Pharmacy',
+VALUES (1000676, 2, 0, 'Y', '2021-06-21 17:17:28.612', 100, '2021-06-21 17:17:28.612', 'ConfigClient Inventory/Pharmacy',
         100, NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0,
         NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         '274a4ddc-6347-487d-87d8-05b2a12eaca7', 'N', 'N', 'N', NULL);
@@ -178,7 +165,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000677, 2, 0, 'Y', '2021-06-21 17:17:28.625', 100, '2021-06-21 17:17:28.625', 'SambaClient Lab/Radiology', 100,
+VALUES (1000677, 2, 0, 'Y', '2021-06-21 17:17:28.625', 100, '2021-06-21 17:17:28.625', 'ConfigClient Lab/Radiology', 100,
         NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
         'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         '9ce44958-45e5-49cb-8f97-6fb6c133d6e7', 'N', 'N', 'N', NULL);
@@ -193,7 +180,7 @@ INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, cr
                               userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                               isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
                               ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-VALUES (1000678, 2, 0, 'Y', '2021-06-21 17:17:28.638', 100, '2021-06-21 17:17:28.638', 'SambaClient Accounting', 100,
+VALUES (1000678, 2, 0, 'Y', '2021-06-21 17:17:28.638', 100, '2021-06-21 17:17:28.638', 'ConfigClient Accounting', 100,
         NULL, '  O', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y', NULL, 'Y', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL,
         'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL, 'N', 'N', 'N', 'N', NULL, NULL,
         'aca6ac7f-5b45-49ed-b0ed-b77b17da0449', 'N', 'N', 'N', NULL);
@@ -4672,49 +4659,49 @@ INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, cre
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000512, 2, 0, '2021-06-21 17:16:59.244', 100, '2021-06-21 17:16:59.244', 100, 'Y', 'SambaClient Product', NULL,
+VALUES (1000512, 2, 0, '2021-06-21 17:16:59.244', 100, '2021-06-21 17:16:59.244', 100, 'Y', 'ConfigClient Product', NULL,
         'PR', 'Y', 'N', 'N', '39bd2025-78b9-4ac2-b2eb-2e15bc2dd69c', 'N', NULL, 'Y', 'N', NULL);
 INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive,
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000513, 2, 0, '2021-06-21 17:16:59.325', 100, '2021-06-21 17:16:59.325', 100, 'Y', 'SambaClient BPartner',
+VALUES (1000513, 2, 0, '2021-06-21 17:16:59.325', 100, '2021-06-21 17:16:59.325', 100, 'Y', 'ConfigClient BPartner',
         NULL, 'BP', 'Y', 'N', 'N', '250a52be-b9e9-4536-88d9-8722987bfa5f', 'N', NULL, 'Y', 'N', NULL);
 INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive,
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000514, 2, 0, '2021-06-21 17:16:59.367', 100, '2021-06-21 17:16:59.367', 100, 'Y', 'SambaClient Organization',
+VALUES (1000514, 2, 0, '2021-06-21 17:16:59.367', 100, '2021-06-21 17:16:59.367', 100, 'Y', 'ConfigClient Organization',
         NULL, 'OO', 'Y', 'N', 'N', 'f074326f-65a7-47c8-b645-159ff26f6711', 'N', NULL, 'Y', 'N', NULL);
 INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive,
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000515, 2, 0, '2021-06-21 17:16:59.419', 100, '2021-06-21 17:16:59.419', 100, 'Y', 'SambaClient Sales Region',
+VALUES (1000515, 2, 0, '2021-06-21 17:16:59.419', 100, '2021-06-21 17:16:59.419', 100, 'Y', 'ConfigClient Sales Region',
         NULL, 'SR', 'Y', 'N', 'N', '6e297543-4e56-4c29-866b-9e14d8c0f9d6', 'N', NULL, 'Y', 'N', NULL);
 INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive,
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000516, 2, 0, '2021-06-21 17:16:59.449', 100, '2021-06-21 17:16:59.449', 100, 'Y', 'SambaClient Campaign',
+VALUES (1000516, 2, 0, '2021-06-21 17:16:59.449', 100, '2021-06-21 17:16:59.449', 100, 'Y', 'ConfigClient Campaign',
         NULL, 'MC', 'Y', 'N', 'N', '787dd0c9-8660-48d8-9d4a-07fc0dfe2dca', 'N', NULL, 'Y', 'N', NULL);
 INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive,
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000517, 2, 0, '2021-06-21 17:16:59.474', 100, '2021-06-21 17:16:59.474', 100, 'Y', 'SambaClient Activity',
+VALUES (1000517, 2, 0, '2021-06-21 17:16:59.474', 100, '2021-06-21 17:16:59.474', 100, 'Y', 'ConfigClient Activity',
         NULL, 'AY', 'Y', 'N', 'N', '8fb1d865-dd41-452c-a16f-2730546889a9', 'N', NULL, 'Y', 'N', NULL);
 INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive,
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000518, 2, 0, '2021-06-21 17:16:59.495', 100, '2021-06-21 17:16:59.495', 100, 'Y', 'SambaClient Element Value',
+VALUES (1000518, 2, 0, '2021-06-21 17:16:59.495', 100, '2021-06-21 17:16:59.495', 100, 'Y', 'ConfigClient Element Value',
         NULL, 'EV', 'Y', 'N', 'N', '3cd53fb0-856a-4e7e-b501-a4e23a0ddc30', 'N', NULL, 'Y', 'N', NULL);
 INSERT INTO adempiere.ad_tree (ad_tree_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive,
                               name, description, treetype, isallnodes, processing, isdefault, ad_tree_uu,
                               istreedrivenbyvalue, ad_table_id, isloadallnodesimmediately, isvaluedisplayed,
                               parent_column_id)
-VALUES (1000519, 2, 0, '2021-06-21 17:16:59.521', 100, '2021-06-21 17:16:59.521', 100, 'Y', 'SambaClient Project', NULL,
+VALUES (1000519, 2, 0, '2021-06-21 17:16:59.521', 100, '2021-06-21 17:16:59.521', 100, 'Y', 'ConfigClient Project', NULL,
         'PJ', 'Y', 'N', 'N', '207ae6de-d4ce-4d05-999c-c3d62c3cd307', 'N', NULL, 'Y', 'N', NULL);
 
 
@@ -5148,10 +5135,10 @@ INSERT INTO adempiere.ad_user (ad_user_id, ad_client_id, ad_org_id, isactive, cr
                               bp_location_id, isaddmailtextautomatically, r_defaultmailtext_id, ad_image_id,
                               eve_bpartners, bandahealth_bpartners, bh_hasacceptedtermsofuse, bh_tos_date_accepted,
                               isnoexpire, issupportuser)
-VALUES (1082127, 2, 0, 'Y', '2021-06-21 17:17:00.17', 100, '2021-06-21 17:17:00.17', 100, 'sambaUser', 'sambaUser',
+VALUES (1082127, 2, 0, 'Y', '2021-06-21 17:17:00.17', 100, '2021-06-21 17:17:00.17', 100, 'ConfigUser', 'ConfigUser',
         '56d23161c825d4b787f47b7c515c10455eeeaaf50c069ee0f8b87db360d6fb410a5af2b51119415001e15ebd02bda36e044cd0320a91b17b6a7fb8009a1b2d72',
         NULL, NULL, 1082227, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, 'X', 'Y', NULL, NULL, NULL, 'sambause', NULL, 'N', '34181315-7742-4432-8881-9782fb42a98a', NULL,
+        NULL, 'X', 'Y', NULL, NULL, NULL, 'Configuse', NULL, 'N', '34181315-7742-4432-8881-9782fb42a98a', NULL,
         '5ae537a16263e33d', 'N', NULL, 0, NULL, NULL, 'N', 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, 'N', NULL, 'N', 'N');
 INSERT INTO adempiere.ad_user (ad_user_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
@@ -5166,10 +5153,10 @@ INSERT INTO adempiere.ad_user (ad_user_id, ad_client_id, ad_org_id, isactive, cr
                               bp_location_id, isaddmailtextautomatically, r_defaultmailtext_id, ad_image_id,
                               eve_bpartners, bandahealth_bpartners, bh_hasacceptedtermsofuse, bh_tos_date_accepted,
                               isnoexpire, issupportuser)
-VALUES (1082126, 2, 0, 'Y', '2021-06-21 17:17:00.131', 100, '2021-06-21 17:17:00.131', 100, 'sambaAdmin', 'sambaAdmin',
+VALUES (1082126, 2, 0, 'Y', '2021-06-21 17:17:00.131', 100, '2021-06-21 17:17:00.131', 100, 'ConfigAdmin', 'ConfigAdmin',
         '5580a6ffd078373da9e1b1fa708c136ae1fb73f87e191506cf1065cb6faaed79c920296a268bc5a3514732d8880b2331a650d6962c339b72f8337ced5bb5572f',
         NULL, NULL, 1082228, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, 'X', 'Y', NULL, NULL, NULL, 'sambaadm', NULL, 'N', 'a7ad2eff-8f91-4dbc-8321-e5092322b8ba', NULL,
+        NULL, 'X', 'Y', NULL, NULL, NULL, 'Configadm', NULL, 'N', 'a7ad2eff-8f91-4dbc-8321-e5092322b8ba', NULL,
         'be052bc5982c25f3', 'N', NULL, 0, NULL, NULL, 'N', 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, 'N', NULL, 'N', 'N');
 
@@ -5178,10 +5165,12 @@ VALUES (1082126, 2, 0, 'Y', '2021-06-21 17:17:00.131', 100, '2021-06-21 17:17:00
 -- Data for Name: ad_user_roles; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
 --
 
+
 INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
                                     updated, updatedby, ad_user_roles_uu)
 VALUES (100, 1000670, 2, 1000064, 'Y', '2021-06-21 17:16:59.766', 100, '2021-06-21 17:16:59.766', 100,
         '578a83e2-f075-4021-84d4-b11e78c399d7');
+
 INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
                                     updated, updatedby, ad_user_roles_uu)
 VALUES (100, 1000671, 2, 1000064, 'Y', '2021-06-21 17:16:59.987', 100, '2021-06-21 17:16:59.987', 100,
@@ -7864,7 +7853,7 @@ VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.869', 100, '2021-06-21 17:17:00
 INSERT INTO adempiere.c_element (c_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
                                 name, description, vformat, elementtype, isbalancing, isnaturalaccount, ad_tree_id,
                                 c_element_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.504', 100, '2021-06-21 17:17:00.504', 100, 'SambaClient Account', NULL,
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.504', 100, '2021-06-21 17:17:00.504', 100, 'ConfigClient Account', NULL,
         NULL, 'A', 'N', 'Y', 1000518, '29ddb911-3fce-4419-ad0b-07030a73dfa6');
 
 
@@ -9878,7 +9867,7 @@ VALUES (1000126, 1000064, 2, 0, 'Y', '2021-06-21 17:17:08.014784', 100, '2021-06
 INSERT INTO adempiere.m_costtype (m_costtype_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
                                  updatedby, name, description, help, m_costtype_uu)
 VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.681', 100, '2021-06-21 17:17:00.681', 100,
-        'SambaClient UN/35 US Dollar', NULL, NULL, '28af4d46-3b6f-41a0-b164-27e7c5521b74');
+        'ConfigClient UN/35 US Dollar', NULL, NULL, '28af4d46-3b6f-41a0-b164-27e7c5521b74');
 
 
 
@@ -9894,7 +9883,7 @@ INSERT INTO adempiere.c_acctschema (c_acctschema_id, ad_client_id, ad_org_id, is
                                    isexplicitcostadjustment, commitmenttype, processing, taxcorrectiontype,
                                    isallownegativeposting, ispostifclearingequal, c_acctschema_uu)
 VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.679', 100, '2021-06-21 17:17:00.679', 100,
-        'SambaClient UN/35 US Dollar', NULL, 'UN', 'Y', 'S', 100, 'Y', NULL, 2, 2, '-', 'Y', 'N', 'N', 'N', 1000064,
+        'ConfigClient UN/35 US Dollar', NULL, 'UN', 'Y', 'S', 100, 'Y', NULL, 2, 2, '-', 'Y', 'N', 'N', 'N', 1000064,
         'C', 'N', NULL, 'N', 'N', 'N', 'N', 'N', 'Y', 'Y', '5ff2ae99-3edd-457f-8b09-60b7571a80ff');
 
 
@@ -9971,8 +9960,8 @@ VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.758', 100, '2021-06-21 17:17:00
 
 INSERT INTO adempiere.c_bank (c_bank_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
                              routingno, c_location_id, swiftcode, isownbank, description, c_bank_uu)
-VALUES (1000065, 2, 0, 'Y', '2021-06-21 17:17:25.721', 100, '2021-06-21 17:17:25.721', 100, 'SambaClient Bank',
-        'DefaultRouteNo', NULL, NULL, 'Y', 'SambaClient Bank', 'ec062e05-a130-4d9d-9afa-26348dbda81e');
+VALUES (1000065, 2, 0, 'Y', '2021-06-21 17:17:25.721', 100, '2021-06-21 17:17:25.721', 100, 'ConfigClient Bank',
+        'DefaultRouteNo', NULL, NULL, 'Y', 'ConfigClient Bank', 'ec062e05-a130-4d9d-9afa-26348dbda81e');
 
 --
 -- Data for Name: c_bankaccount; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
@@ -9984,28 +9973,28 @@ INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, 
                                     c_bankaccount_uu, name, value)
 VALUES (1000161, 2, 1000064, 'Y', '2021-06-21 17:17:25.735', 100, '2021-06-21 17:17:25.735', 100, 1000065, 100, 'B',
         'DefaultAccountNo', 0.0, 0.0, 'Y', NULL, NULL, NULL, NULL, 'fb3ee6b4-6de8-487a-98e2-958405e736a9',
-        'SambaClient Default Account', '1000000');
+        'ConfigClient Default Account', '1000000');
 INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
                                     updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
                                     creditlimit, isdefault, iban, description, bban, paymentexportclass,
                                     c_bankaccount_uu, name, value)
 VALUES (1000162, 2, 1000064, 'Y', '2021-06-21 17:17:25.781', 100, '2021-06-21 17:17:25.781', 100, 1000065, 100, 'B',
         'Cash BoxAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, '40ab76a0-dba4-40a2-92e2-56a1755b1892',
-        'SambaClient Cash Box Account', '1000001');
+        'ConfigClient Cash Box Account', '1000001');
 INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
                                     updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
                                     creditlimit, isdefault, iban, description, bban, paymentexportclass,
                                     c_bankaccount_uu, name, value)
 VALUES (1000163, 2, 1000064, 'Y', '2021-06-21 17:17:25.837', 100, '2021-06-21 17:17:25.837', 100, 1000065, 100, 'B',
         'MobileAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, 'd3b1fd35-94d1-4ad1-a83f-4afe44948daa',
-        'SambaClient Mobile Account', '1000002');
+        'ConfigClient Mobile Account', '1000002');
 INSERT INTO adempiere.c_bankaccount (c_bankaccount_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
                                     updatedby, c_bank_id, c_currency_id, bankaccounttype, accountno, currentbalance,
                                     creditlimit, isdefault, iban, description, bban, paymentexportclass,
                                     c_bankaccount_uu, name, value)
 VALUES (1000164, 2, 1000064, 'Y', '2021-06-21 17:17:25.877', 100, '2021-06-21 17:17:25.877', 100, 1000065, 100, 'B',
         'SavingsAccountNo', 0.0, 0.0, 'N', NULL, NULL, NULL, NULL, '9b6415f2-0864-4641-80f4-4e5ff991524f',
-        'SambaClient Savings Account', '1000003');
+        'ConfigClient Savings Account', '1000003');
 
 
 --
@@ -10225,7 +10214,7 @@ INSERT INTO adempiere.c_acctprocessor (c_acctprocessor_id, ad_client_id, ad_org_
                                       datenextrun, supervisor_id, keeplogdays, processing, c_acctschema_id, ad_table_id,
                                       c_acctprocessor_uu, ad_schedule_id)
 VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.198', 100, '2021-06-21 17:17:00.198', 100,
-        'SambaClient - Accounting Processor', NULL, NULL, NULL, NULL, '2021-06-21 17:27:00.199', 1082126, 7, 'N', NULL,
+        'ConfigClient - Accounting Processor', NULL, NULL, NULL, NULL, '2021-06-21 17:27:00.199', 1082126, 7, 'N', NULL,
         NULL, '0a2a8936-c123-4038-9528-5e62bcafdafc', 200002);
 
 
@@ -10370,7 +10359,7 @@ INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isacti
                                  nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
                                  bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
                                  isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
-VALUES (1082227, 2, 0, 'Y', '2021-06-21 17:17:08.115', 100, '2021-06-21 17:17:08.115', 100, 'sambaUser', 'sambaUser',
+VALUES (1082227, 2, 0, 'Y', '2021-06-21 17:17:08.115', 100, '2021-06-21 17:17:08.115', 100, 'ConfigUser', 'ConfigUser',
         NULL, NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL,
         NULL, NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N',
@@ -10393,7 +10382,7 @@ INSERT INTO adempiere.c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isacti
                                  nationalid, nhif_number, nextofkin_name, nextofkin_contact, bh_occupation, bh_gender,
                                  bh_patient_notes, bh_nextappointmentdate, bh_nhif_member_name, bh_nhif_relationship,
                                  isnewpatient, bh_nhif_type, bh_lastpatientid, bh_local_patientid)
-VALUES (1082228, 2, 0, 'Y', '2021-06-21 17:17:08.2', 100, '2021-06-21 17:17:08.2', 100, 'sambaAdmin', 'sambaAdmin',
+VALUES (1082228, 2, 0, 'Y', '2021-06-21 17:17:08.2', 100, '2021-06-21 17:17:08.2', 100, 'ConfigAdmin', 'ConfigAdmin',
         NULL, NULL, 'N', 1000064, 'N', 'Y', 'N', 'Y', 'Y', 'Y', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 0, NULL,
         NULL, NULL, 0.0, 0.0, 0.0, 0, NULL, 0.0, 0.0, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL,
         NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, 'X', NULL, NULL, NULL, 0.0, NULL, NULL, NULL, 'N',
@@ -10431,7 +10420,7 @@ VALUES (1082167, 2, 0, 'Y', '2021-06-21 17:17:08.282', 100, '2021-06-21 17:17:08
 
 INSERT INTO adempiere.c_calendar (c_calendar_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
                                  updatedby, name, description, c_calendar_uu)
-VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.235', 100, '2021-06-21 17:17:00.235', 100, 'SambaClient Calendar',
+VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.235', 100, '2021-06-21 17:17:00.235', 100, 'ConfigClient Calendar',
         NULL, '9cb92ba1-c993-4f0e-a41e-8920bbb47abe');
 
 
@@ -15174,7 +15163,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011334, 2, 0, 'Y', 100, '2021-06-21 17:17:21.747494', '2021-06-21 17:17:22.344', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010717, '1', 'ASSETS', NULL, 'A', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y', NULL,
+        'ConfigClient Account', 1010717, '1', 'ASSETS', NULL, 'A', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y', NULL,
         NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15183,7 +15172,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011335, 2, 0, 'Y', 100, '2021-06-21 17:17:21.753446', '2021-06-21 17:17:22.384', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010718, '11', 'Cash', NULL, 'A', 'N', 'N', 'Y', '1', 1010717, 'Y', 'Y', 'Y', 'Y', NULL,
+        'ConfigClient Account', 1010718, '11', 'Cash', NULL, 'A', 'N', 'N', 'Y', '1', 1010717, 'Y', 'Y', 'Y', 'Y', NULL,
         NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15192,7 +15181,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011337, 2, 0, 'Y', 100, '2021-06-21 17:17:21.766246', '2021-06-21 17:17:22.46', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010720, '11300', 'Savings Accounts', 'Savings Accounts', 'A', 'N', 'N', 'N', '11',
+        'ConfigClient Account', 1010720, '11300', 'Savings Accounts', 'Savings Accounts', 'A', 'N', 'N', 'N', '11',
         1010718, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15201,7 +15190,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011338, 2, 0, 'Y', 100, '2021-06-21 17:17:21.773951', '2021-06-21 17:17:22.496', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010721, '11400', 'Mobile Money Accounts', NULL, 'A', 'N', 'N', 'N', '11', 1010718, 'Y',
+        'ConfigClient Account', 1010721, '11400', 'Mobile Money Accounts', NULL, 'A', 'N', 'N', 'N', '11', 1010718, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15210,7 +15199,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011339, 2, 0, 'Y', 100, '2021-06-21 17:17:21.777894', '2021-06-21 17:17:22.532', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010722, '11800', 'Cash Box', NULL, 'A', 'N', 'N', 'N', '11', 1010718, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010722, '11800', 'Cash Box', NULL, 'A', 'N', 'N', 'N', '11', 1010718, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15219,7 +15208,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011340, 2, 0, 'Y', 100, '2021-06-21 17:17:21.7815', '2021-06-21 17:17:22.569', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010723, '12', 'Accounts Receivable', NULL, 'A', 'N', 'N', 'Y', '1', 1010717, 'Y', 'Y',
+        'ConfigClient Account', 1010723, '12', 'Accounts Receivable', NULL, 'A', 'N', 'N', 'Y', '1', 1010717, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15228,7 +15217,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011341, 2, 0, 'Y', 100, '2021-06-21 17:17:21.785334', '2021-06-21 17:17:22.603', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010724, '121', 'Accounts Receivable - Clients', NULL, 'A', 'N', 'N', 'Y', '12', 1010723,
+        'ConfigClient Account', 1010724, '121', 'Accounts Receivable - Clients', NULL, 'A', 'N', 'N', 'Y', '12', 1010723,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15237,7 +15226,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011343, 2, 0, 'Y', 100, '2021-06-21 17:17:21.797971', '2021-06-21 17:17:22.674', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010726, '123', 'Accounts Receivable - Insurance', NULL, 'A', 'N', 'N', 'Y', '12',
+        'ConfigClient Account', 1010726, '123', 'Accounts Receivable - Insurance', NULL, 'A', 'N', 'N', 'Y', '12',
         1010723, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15246,7 +15235,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011344, 2, 0, 'Y', 100, '2021-06-21 17:17:21.803182', '2021-06-21 17:17:22.71', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010727, '12310', 'A/R - NHIF National Scheme', NULL, 'A', 'N', 'N', 'N', '123', 1010726,
+        'ConfigClient Account', 1010727, '12310', 'A/R - NHIF National Scheme', NULL, 'A', 'N', 'N', 'N', '123', 1010726,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15255,7 +15244,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011345, 2, 0, 'Y', 100, '2021-06-21 17:17:21.8078', '2021-06-21 17:17:22.745', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010728, '12320', 'A/R - NHIF FFS', NULL, 'A', 'N', 'N', 'N', '123', 1010726, 'Y', 'Y',
+        'ConfigClient Account', 1010728, '12320', 'A/R - NHIF FFS', NULL, 'A', 'N', 'N', 'N', '123', 1010726, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15264,7 +15253,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011346, 2, 0, 'Y', 100, '2021-06-21 17:17:21.811713', '2021-06-21 17:17:22.78', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010729, '12330', 'A/R - Insurance #3', NULL, 'A', 'N', 'N', 'N', '123', 1010726, 'Y',
+        'ConfigClient Account', 1010729, '12330', 'A/R - Insurance #3', NULL, 'A', 'N', 'N', 'N', '123', 1010726, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15273,7 +15262,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011388, 2, 0, 'Y', 100, '2021-06-21 17:17:22.064808', '2021-06-21 17:17:24.35', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010771, '60', 'Payroll Expenses', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010771, '60', 'Payroll Expenses', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15282,7 +15271,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011347, 2, 0, 'Y', 100, '2021-06-21 17:17:21.816037', '2021-06-21 17:17:22.814', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010730, '127', 'Accounts Receivable - Donations', NULL, 'A', 'N', 'N', 'Y', '12',
+        'ConfigClient Account', 1010730, '127', 'Accounts Receivable - Donations', NULL, 'A', 'N', 'N', 'Y', '12',
         1010723, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15291,7 +15280,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011348, 2, 0, 'Y', 100, '2021-06-21 17:17:21.823983', '2021-06-21 17:17:22.852', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010731, '12710', 'Donor Fund', NULL, 'A', 'N', 'N', 'N', '127', 1010730, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010731, '12710', 'Donor Fund', NULL, 'A', 'N', 'N', 'N', '127', 1010730, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15300,7 +15289,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011349, 2, 0, 'Y', 100, '2021-06-21 17:17:21.829926', '2021-06-21 17:17:22.885', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010732, '14', 'Inventory', NULL, 'A', 'N', 'N', 'Y', '1', 1010717, 'Y', 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010732, '14', 'Inventory', NULL, 'A', 'N', 'N', 'Y', '1', 1010717, 'Y', 'Y', 'Y', 'Y',
         NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15309,7 +15298,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011351, 2, 0, 'Y', 100, '2021-06-21 17:17:21.843537', '2021-06-21 17:17:22.965', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010734, '14120', 'Inventory category 2', 'Product Inventory Account', 'A', 'N', 'Y',
+        'ConfigClient Account', 1010734, '14120', 'Inventory category 2', 'Product Inventory Account', 'A', 'N', 'Y',
         'N', '14', 1010732, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15318,7 +15307,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011352, 2, 0, 'Y', 100, '2021-06-21 17:17:21.852587', '2021-06-21 17:17:23.001', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010735, '17', 'Furniture, Fixtures & Equipment', NULL, 'A', 'N', 'N', 'Y', '1', 1010717,
+        'ConfigClient Account', 1010735, '17', 'Furniture, Fixtures & Equipment', NULL, 'A', 'N', 'N', 'Y', '1', 1010717,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15327,7 +15316,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011353, 2, 0, 'Y', 100, '2021-06-21 17:17:21.857524', '2021-06-21 17:17:23.036', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010736, '17100', 'Furniture', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010736, '17100', 'Furniture', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15336,7 +15325,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011354, 2, 0, 'Y', 100, '2021-06-21 17:17:21.862703', '2021-06-21 17:17:23.082', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010737, '17300', 'Equipment - Medical', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y',
+        'ConfigClient Account', 1010737, '17300', 'Equipment - Medical', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15345,7 +15334,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011355, 2, 0, 'Y', 100, '2021-06-21 17:17:21.870943', '2021-06-21 17:17:23.114', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010738, '17400', 'Vehicles', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010738, '17400', 'Vehicles', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15354,7 +15343,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011356, 2, 0, 'Y', 100, '2021-06-21 17:17:21.877427', '2021-06-21 17:17:23.148', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010739, '17500', 'Computer and Accessories', NULL, 'A', 'N', 'N', 'N', '17', 1010735,
+        'ConfigClient Account', 1010739, '17500', 'Computer and Accessories', NULL, 'A', 'N', 'N', 'N', '17', 1010735,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15363,7 +15352,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011357, 2, 0, 'Y', 100, '2021-06-21 17:17:21.884158', '2021-06-21 17:17:23.182', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010740, '17700', 'Equipment  - Office', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y',
+        'ConfigClient Account', 1010740, '17700', 'Equipment  - Office', NULL, 'A', 'N', 'N', 'N', '17', 1010735, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15372,7 +15361,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011358, 2, 0, 'Y', 100, '2021-06-21 17:17:21.896114', '2021-06-21 17:17:23.216', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010741, '2', 'LIABILITIES', NULL, 'L', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010741, '2', 'LIABILITIES', NULL, 'L', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y',
         NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15381,7 +15370,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011359, 2, 0, 'Y', 100, '2021-06-21 17:17:21.906242', '2021-06-21 17:17:23.252', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010742, '21', 'Accounts Payables', NULL, 'L', 'N', 'N', 'Y', '2', 1010741, 'Y', 'Y',
+        'ConfigClient Account', 1010742, '21', 'Accounts Payables', NULL, 'L', 'N', 'N', 'Y', '2', 1010741, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15390,7 +15379,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011361, 2, 0, 'Y', 100, '2021-06-21 17:17:21.920257', '2021-06-21 17:17:23.33', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010744, '24', 'Non-Current Liabilities', NULL, 'L', 'N', 'N', 'Y', '2', 1010741, 'Y',
+        'ConfigClient Account', 1010744, '24', 'Non-Current Liabilities', NULL, 'L', 'N', 'N', 'Y', '2', 1010741, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15399,7 +15388,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011362, 2, 0, 'Y', 100, '2021-06-21 17:17:21.928226', '2021-06-21 17:17:23.375', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010745, '24100', 'Long Term Obligation', NULL, 'L', 'N', 'N', 'N', '24', 1010744, 'Y',
+        'ConfigClient Account', 1010745, '24100', 'Long Term Obligation', NULL, 'L', 'N', 'N', 'N', '24', 1010744, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15408,7 +15397,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011363, 2, 0, 'Y', 100, '2021-06-21 17:17:21.933152', '2021-06-21 17:17:23.417', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010746, '24200', 'Mortgage', NULL, 'L', 'N', 'N', 'N', '24', 1010744, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010746, '24200', 'Mortgage', NULL, 'L', 'N', 'N', 'N', '24', 1010744, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15417,7 +15406,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011364, 2, 0, 'Y', 100, '2021-06-21 17:17:21.938364', '2021-06-21 17:17:23.452', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010747, '25', 'Liability Payments', NULL, 'L', 'N', 'N', 'Y', '2', 1010741, 'Y', 'Y',
+        'ConfigClient Account', 1010747, '25', 'Liability Payments', NULL, 'L', 'N', 'N', 'Y', '2', 1010741, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15426,7 +15415,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011366, 2, 0, 'Y', 100, '2021-06-21 17:17:21.94894', '2021-06-21 17:17:23.52', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010749, '25200', 'NHIF National Scheme Payments', 'Payments that come from capitation',
+        'ConfigClient Account', 1010749, '25200', 'NHIF National Scheme Payments', 'Payments that come from capitation',
         'L', 'N', 'N', 'N', '25', 1010747, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15435,7 +15424,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011367, 2, 0, 'Y', 100, '2021-06-21 17:17:21.954513', '2021-06-21 17:17:23.555', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010750, '3', 'OWNER EQUITY', NULL, 'O', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010750, '3', 'OWNER EQUITY', NULL, 'O', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y',
         NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15444,7 +15433,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011368, 2, 0, 'Y', 100, '2021-06-21 17:17:21.958965', '2021-06-21 17:17:23.589', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010751, '32', 'Earnings', NULL, 'O', 'N', 'N', 'Y', '3', 1010750, 'Y', 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010751, '32', 'Earnings', NULL, 'O', 'N', 'N', 'Y', '3', 1010750, 'Y', 'Y', 'Y', 'Y',
         NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15453,7 +15442,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011369, 2, 0, 'Y', 100, '2021-06-21 17:17:21.965142', '2021-06-21 17:17:23.626', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010752, '32900', 'Retained Earnings',
+        'ConfigClient Account', 1010752, '32900', 'Retained Earnings',
         'Year end processing to balance account (Income Summary)', 'O', 'N', 'Y', 'N', '32', 1010751, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
@@ -15463,7 +15452,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011370, 2, 0, 'Y', 100, '2021-06-21 17:17:21.970633', '2021-06-21 17:17:23.674', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010753, '4', 'REVENUE', NULL, 'R', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y', NULL,
+        'ConfigClient Account', 1010753, '4', 'REVENUE', NULL, 'R', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y', NULL,
         NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15472,7 +15461,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011371, 2, 0, 'Y', 100, '2021-06-21 17:17:21.975241', '2021-06-21 17:17:23.708', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010754, '41', 'Patient Revenue', 'Default Product or Service revenue', 'R', 'N', 'N',
+        'ConfigClient Account', 1010754, '41', 'Patient Revenue', 'Default Product or Service revenue', 'R', 'N', 'N',
         'Y', '4', 1010753, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15481,7 +15470,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011372, 2, 0, 'Y', 100, '2021-06-21 17:17:21.979993', '2021-06-21 17:17:23.741', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010755, '41100', 'Patient Revenue - Services', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
+        'ConfigClient Account', 1010755, '41100', 'Patient Revenue - Services', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15490,7 +15479,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011373, 2, 0, 'Y', 100, '2021-06-21 17:17:21.984544', '2021-06-21 17:17:23.777', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010756, '41110', 'Patient Revenue - Pharmacy', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
+        'ConfigClient Account', 1010756, '41110', 'Patient Revenue - Pharmacy', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15499,7 +15488,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011374, 2, 0, 'Y', 100, '2021-06-21 17:17:21.98888', '2021-06-21 17:17:23.815', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010757, '41120', 'Patient Revenue - Laboratory', NULL, 'R', 'N', 'N', 'N', '41',
+        'ConfigClient Account', 1010757, '41120', 'Patient Revenue - Laboratory', NULL, 'R', 'N', 'N', 'N', '41',
         1010754, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15508,7 +15497,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011375, 2, 0, 'Y', 100, '2021-06-21 17:17:21.993253', '2021-06-21 17:17:23.849', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010758, '41130', 'Patient Revenue - Radiology', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
+        'ConfigClient Account', 1010758, '41130', 'Patient Revenue - Radiology', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15517,7 +15506,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011376, 2, 0, 'Y', 100, '2021-06-21 17:17:21.998074', '2021-06-21 17:17:23.884', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010759, '41140', 'Patient Revenue - Other', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
+        'ConfigClient Account', 1010759, '41140', 'Patient Revenue - Other', NULL, 'R', 'N', 'N', 'N', '41', 1010754,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15526,7 +15515,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011378, 2, 0, 'Y', 100, '2021-06-21 17:17:22.010941', '2021-06-21 17:17:23.956', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010761, '44', 'Insurance Revenue', NULL, 'R', 'N', 'N', 'Y', '4', 1010753, 'Y', 'Y',
+        'ConfigClient Account', 1010761, '44', 'Insurance Revenue', NULL, 'R', 'N', 'N', 'Y', '4', 1010753, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15535,7 +15524,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011379, 2, 0, 'Y', 100, '2021-06-21 17:17:22.019013', '2021-06-21 17:17:23.991', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010762, '44100', 'NHIF National Scheme Revenue', NULL, 'R', 'N', 'N', 'N', '44',
+        'ConfigClient Account', 1010762, '44100', 'NHIF National Scheme Revenue', NULL, 'R', 'N', 'N', 'N', '44',
         1010761, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15544,7 +15533,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011380, 2, 0, 'Y', 100, '2021-06-21 17:17:22.026065', '2021-06-21 17:17:24.033', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010763, '49', 'Sales Discounts', NULL, 'R', 'N', 'N', 'Y', '4', 1010753, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010763, '49', 'Sales Discounts', NULL, 'R', 'N', 'N', 'Y', '4', 1010753, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15553,7 +15542,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011383, 2, 0, 'Y', 100, '2021-06-21 17:17:22.040341', '2021-06-21 17:17:24.147', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010766, '5', 'Purchased Goods (to be sold)', NULL, 'E', 'N', 'N', 'Y', NULL, NULL, 'Y',
+        'ConfigClient Account', 1010766, '5', 'Purchased Goods (to be sold)', NULL, 'E', 'N', 'N', 'Y', NULL, NULL, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15562,7 +15551,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011385, 2, 0, 'Y', 100, '2021-06-21 17:17:22.050596', '2021-06-21 17:17:24.218', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010768, '56', 'Inventory CoGs', NULL, 'E', 'N', 'N', 'Y', '5', 1010766, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010768, '56', 'Inventory CoGs', NULL, 'E', 'N', 'N', 'Y', '5', 1010766, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15571,7 +15560,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011386, 2, 0, 'Y', 100, '2021-06-21 17:17:22.055823', '2021-06-21 17:17:24.275', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010769, '56300', 'Inventory Adjustment', 'Inventory Actual Accounting Value Adjustment',
+        'ConfigClient Account', 1010769, '56300', 'Inventory Adjustment', 'Inventory Actual Accounting Value Adjustment',
         'E', 'N', 'Y', 'N', '56', 1010768, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15580,7 +15569,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011387, 2, 0, 'Y', 100, '2021-06-21 17:17:22.060616', '2021-06-21 17:17:24.308', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010770, '6', 'EXPENSES', NULL, 'E', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y', NULL,
+        'ConfigClient Account', 1010770, '6', 'EXPENSES', NULL, 'E', 'N', 'N', 'Y', NULL, NULL, 'Y', 'Y', 'Y', 'Y', NULL,
         NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15589,7 +15578,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011389, 2, 0, 'Y', 100, '2021-06-21 17:17:22.070828', '2021-06-21 17:17:24.391', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010772, '60110', 'Wages', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010772, '60110', 'Wages', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y', 'Y',
         NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15598,7 +15587,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011390, 2, 0, 'Y', 100, '2021-06-21 17:17:22.076962', '2021-06-21 17:17:24.431', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010773, '60410', 'NSSF Paid', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010773, '60410', 'NSSF Paid', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15607,7 +15596,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011395, 2, 0, 'Y', 100, '2021-06-21 17:17:22.102245', '2021-06-21 17:17:24.628', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010778, '61100', 'Rent Expense', NULL, 'E', 'N', 'N', 'N', '61', 1010777, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010778, '61100', 'Rent Expense', NULL, 'E', 'N', 'N', 'N', '61', 1010777, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15616,7 +15605,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011396, 2, 0, 'Y', 100, '2021-06-21 17:17:22.110472', '2021-06-21 17:17:24.663', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010779, '61200', 'Utilities', NULL, 'E', 'N', 'N', 'N', '61', 1010777, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010779, '61200', 'Utilities', NULL, 'E', 'N', 'N', 'N', '61', 1010777, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15625,7 +15614,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011397, 2, 0, 'Y', 100, '2021-06-21 17:17:22.115255', '2021-06-21 17:17:24.698', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010780, '61300', 'Other Occupancy Costs', NULL, 'E', 'N', 'N', 'N', '61', 1010777, 'Y',
+        'ConfigClient Account', 1010780, '61300', 'Other Occupancy Costs', NULL, 'E', 'N', 'N', 'N', '61', 1010777, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15634,7 +15623,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011398, 2, 0, 'Y', 100, '2021-06-21 17:17:22.119265', '2021-06-21 17:17:24.731', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010781, '61600', 'Other Contracted Services', 'Garbage, etc.', 'E', 'N', 'N', 'N', '61',
+        'ConfigClient Account', 1010781, '61600', 'Other Contracted Services', 'Garbage, etc.', 'E', 'N', 'N', 'N', '61',
         1010777, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15643,7 +15632,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011400, 2, 0, 'Y', 100, '2021-06-21 17:17:22.128799', '2021-06-21 17:17:24.801', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010783, '62100', 'Advertising Expense', NULL, 'E', 'N', 'N', 'N', '62', 1010782, 'Y',
+        'ConfigClient Account', 1010783, '62100', 'Advertising Expense', NULL, 'E', 'N', 'N', 'N', '62', 1010782, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15652,7 +15641,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011401, 2, 0, 'Y', 100, '2021-06-21 17:17:22.132834', '2021-06-21 17:17:24.836', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010784, '63', 'Telephone and Communications', NULL, 'E', 'N', 'N', 'Y', '6', 1010770,
+        'ConfigClient Account', 1010784, '63', 'Telephone and Communications', NULL, 'E', 'N', 'N', 'Y', '6', 1010770,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15661,7 +15650,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011402, 2, 0, 'Y', 100, '2021-06-21 17:17:22.137888', '2021-06-21 17:17:24.871', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010785, '63200', 'Mobile Telephone Charges', NULL, 'E', 'N', 'N', 'N', '63', 1010784,
+        'ConfigClient Account', 1010785, '63200', 'Mobile Telephone Charges', NULL, 'E', 'N', 'N', 'N', '63', 1010784,
         'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15670,7 +15659,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011403, 2, 0, 'Y', 100, '2021-06-21 17:17:22.147604', '2021-06-21 17:17:24.907', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010786, '63300', 'Internet Charges', NULL, 'E', 'N', 'N', 'N', '63', 1010784, 'Y', 'Y',
+        'ConfigClient Account', 1010786, '63300', 'Internet Charges', NULL, 'E', 'N', 'N', 'N', '63', 1010784, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15679,7 +15668,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011404, 2, 0, 'Y', 100, '2021-06-21 17:17:22.152527', '2021-06-21 17:17:24.941', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010787, '66', 'Data Processing (Accounting, Patient Records, etc)', NULL, 'E', 'N', 'N',
+        'ConfigClient Account', 1010787, '66', 'Data Processing (Accounting, Patient Records, etc)', NULL, 'E', 'N', 'N',
         'Y', '6', 1010770, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15688,7 +15677,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011405, 2, 0, 'Y', 100, '2021-06-21 17:17:22.156828', '2021-06-21 17:17:24.981', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010788, '66300', 'Accounting and Clinical IT solutions', NULL, 'E', 'N', 'N', 'N', '66',
+        'ConfigClient Account', 1010788, '66300', 'Accounting and Clinical IT solutions', NULL, 'E', 'N', 'N', 'N', '66',
         1010787, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15697,7 +15686,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011406, 2, 0, 'Y', 100, '2021-06-21 17:17:22.160919', '2021-06-21 17:17:25.014', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010789, '69', 'Insurance', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010789, '69', 'Insurance', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y', 'Y',
         NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15706,7 +15695,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011407, 2, 0, 'Y', 100, '2021-06-21 17:17:22.165411', '2021-06-21 17:17:25.048', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010790, '69100', 'Business Insurance', NULL, 'E', 'N', 'N', 'N', '69', 1010789, 'Y',
+        'ConfigClient Account', 1010790, '69100', 'Business Insurance', NULL, 'E', 'N', 'N', 'N', '69', 1010789, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15715,7 +15704,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011408, 2, 0, 'Y', 100, '2021-06-21 17:17:22.16907', '2021-06-21 17:17:25.083', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010791, '69300', 'Vehicle Insurance', NULL, 'E', 'N', 'N', 'N', '69', 1010789, 'Y', 'Y',
+        'ConfigClient Account', 1010791, '69300', 'Vehicle Insurance', NULL, 'E', 'N', 'N', 'N', '69', 1010789, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15724,7 +15713,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011409, 2, 0, 'Y', 100, '2021-06-21 17:17:22.173351', '2021-06-21 17:17:25.118', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010792, '74', 'Taxes and Licenses', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y',
+        'ConfigClient Account', 1010792, '74', 'Taxes and Licenses', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15733,7 +15722,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011411, 2, 0, 'Y', 100, '2021-06-21 17:17:22.181427', '2021-06-21 17:17:25.189', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010794, '74200', 'Tax Payment Category 2', NULL, 'E', 'N', 'N', 'N', '74', 1010792, 'Y',
+        'ConfigClient Account', 1010794, '74200', 'Tax Payment Category 2', NULL, 'E', 'N', 'N', 'N', '74', 1010792, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15742,7 +15731,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011412, 2, 0, 'Y', 100, '2021-06-21 17:17:22.185476', '2021-06-21 17:17:25.223', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010795, '74900', 'License Fees', NULL, 'E', 'N', 'N', 'N', '74', 1010792, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010795, '74900', 'License Fees', NULL, 'E', 'N', 'N', 'N', '74', 1010792, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15751,7 +15740,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011413, 2, 0, 'Y', 100, '2021-06-21 17:17:22.189439', '2021-06-21 17:17:25.258', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010796, '77', 'Repairs & Maintenance', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y',
+        'ConfigClient Account', 1010796, '77', 'Repairs & Maintenance', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15760,7 +15749,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011414, 2, 0, 'Y', 100, '2021-06-21 17:17:22.193439', '2021-06-21 17:17:25.292', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010797, '77500', 'Vehicle Repairs & Maintenance', NULL, 'E', 'N', 'N', 'N', '77',
+        'ConfigClient Account', 1010797, '77500', 'Vehicle Repairs & Maintenance', NULL, 'E', 'N', 'N', 'N', '77',
         1010796, 'Y', 'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15769,7 +15758,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011415, 2, 0, 'Y', 100, '2021-06-21 17:17:22.197076', '2021-06-21 17:17:25.326', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010798, '78', 'Other Operating Expenses', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y',
+        'ConfigClient Account', 1010798, '78', 'Other Operating Expenses', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15778,7 +15767,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011417, 2, 0, 'Y', 100, '2021-06-21 17:17:22.205893', '2021-06-21 17:17:25.395', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010800, '78500', 'Vehicle Expense', NULL, 'E', 'N', 'N', 'N', '78', 1010798, 'Y', 'Y',
+        'ConfigClient Account', 1010800, '78500', 'Vehicle Expense', NULL, 'E', 'N', 'N', 'N', '78', 1010798, 'Y', 'Y',
         'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15787,7 +15776,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011418, 2, 0, 'Y', 100, '2021-06-21 17:17:22.210085', '2021-06-21 17:17:25.428', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010801, '78900', 'Miscellaneous Expense', NULL, 'E', 'N', 'N', 'N', '78', 1010798, 'Y',
+        'ConfigClient Account', 1010801, '78900', 'Miscellaneous Expense', NULL, 'E', 'N', 'N', 'N', '78', 1010798, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15796,7 +15785,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011336, 2, 0, 'Y', 100, '2021-06-21 17:17:21.759005', '2021-06-21 17:17:22.423', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010719, '11100', 'Current Account 1', 'Bank Asset', 'A', 'N', 'Y', 'N', '11', 1010718,
+        'ConfigClient Account', 1010719, '11100', 'Current Account 1', 'Bank Asset', 'A', 'N', 'Y', 'N', '11', 1010718,
         'Y', 'Y', 'Y', 'Y', 'B_INTRANSIT_ACCT', 4860, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15805,7 +15794,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011342, 2, 0, 'Y', 100, '2021-06-21 17:17:21.789599', '2021-06-21 17:17:22.64', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010725, '12110', 'Accounts Receivable - Clients', 'Accounts Receivables', 'A', 'N', 'Y',
+        'ConfigClient Account', 1010725, '12110', 'Accounts Receivable - Clients', 'Accounts Receivables', 'A', 'N', 'Y',
         'N', '121', 1010724, 'Y', 'Y', 'Y', 'Y', 'C_RECEIVABLE_ACCT', 3451, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15814,7 +15803,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011350, 2, 0, 'Y', 100, '2021-06-21 17:17:21.835353', '2021-06-21 17:17:22.93', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010733, '14100', 'Medication and Supplies', 'Inventory Account', 'A', 'N', 'Y', 'N',
+        'ConfigClient Account', 1010733, '14100', 'Medication and Supplies', 'Inventory Account', 'A', 'N', 'Y', 'N',
         '14', 1010732, 'Y', 'Y', 'Y', 'Y', 'P_ASSET_ACCT', 3447, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15823,7 +15812,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011360, 2, 0, 'Y', 100, '2021-06-21 17:17:21.912846', '2021-06-21 17:17:23.288', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010743, '21100', 'Accounts Payable - Vendors', 'Accounts Payables', 'L', 'N', 'Y', 'N',
+        'ConfigClient Account', 1010743, '21100', 'Accounts Payable - Vendors', 'Accounts Payables', 'L', 'N', 'Y', 'N',
         '21', 1010742, 'Y', 'Y', 'Y', 'Y', 'V_LIABILITY_ACCT', 3453, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15832,7 +15821,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011365, 2, 0, 'Y', 100, '2021-06-21 17:17:21.943183', '2021-06-21 17:17:23.487', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010748, '25100', 'Patient Prepayments', 'Prepayments for future revenue', 'L', 'N', 'Y',
+        'ConfigClient Account', 1010748, '25100', 'Patient Prepayments', 'Prepayments for future revenue', 'L', 'N', 'Y',
         'N', '25', 1010747, 'Y', 'Y', 'Y', 'Y', 'C_PREPAYMENT_ACCT', 3452, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15841,7 +15830,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011377, 2, 0, 'Y', 100, '2021-06-21 17:17:22.006103', '2021-06-21 17:17:23.917', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010760, '41150', 'Patient Revenue - Unassigned', NULL, 'R', 'N', 'N', 'N', '41',
+        'ConfigClient Account', 1010760, '41150', 'Patient Revenue - Unassigned', NULL, 'R', 'N', 'N', 'N', '41',
         1010754, 'Y', 'Y', 'Y', 'Y', 'P_REVENUE_ACCT', 3445, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15850,7 +15839,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011381, 2, 0, 'Y', 100, '2021-06-21 17:17:22.031357', '2021-06-21 17:17:24.077', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010764, '49100', 'Charity Services Waiver',
+        'ConfigClient Account', 1010764, '49100', 'Charity Services Waiver',
         'Granted Trade discounts (corrects Product Revenue)', 'R', 'N', 'Y', 'N', '49', 1010763, 'Y', 'Y', 'Y', 'Y',
         'P_TRADEDISCOUNTGRANT_ACCT', 6113, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
@@ -15860,7 +15849,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011382, 2, 0, 'Y', 100, '2021-06-21 17:17:22.036255', '2021-06-21 17:17:24.113', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010765, '49200', 'Payment discount expense',
+        'ConfigClient Account', 1010765, '49200', 'Payment discount expense',
         'Granted early payment discount to customers', 'R', 'N', 'Y', 'N', '49', 1010763, 'Y', 'Y', 'Y', 'Y',
         'PAYDISCOUNT_EXP_ACCT', 4846, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
@@ -15870,7 +15859,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011384, 2, 0, 'Y', 100, '2021-06-21 17:17:22.04552', '2021-06-21 17:17:24.183', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010767, '51100', 'Product CoGs', 'Cost of Goods Sold', 'E', 'N', 'Y', 'N', '5', 1010766,
+        'ConfigClient Account', 1010767, '51100', 'Product CoGs', 'Cost of Goods Sold', 'E', 'N', 'Y', 'N', '5', 1010766,
         'Y', 'Y', 'Y', 'Y', 'P_COGS_ACCT', 3448, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15879,7 +15868,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011410, 2, 0, 'Y', 100, '2021-06-21 17:17:22.17758', '2021-06-21 17:17:25.154', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010793, '74100', 'KRA Corporate Tax Payment', 'Sales Tax paid to Vendors', 'E', 'N',
+        'ConfigClient Account', 1010793, '74100', 'KRA Corporate Tax Payment', 'Sales Tax paid to Vendors', 'E', 'N',
         'Y', 'N', '74', 1010792, 'Y', 'Y', 'Y', 'Y', 'T_EXPENSE_ACCT', 4855, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15888,7 +15877,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011416, 2, 0, 'Y', 100, '2021-06-21 17:17:22.201529', '2021-06-21 17:17:25.361', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010799, '78100', 'Bad Debts Write-off', 'Receivables write-off - bad debt', 'E', 'N',
+        'ConfigClient Account', 1010799, '78100', 'Bad Debts Write-off', 'Receivables write-off - bad debt', 'E', 'N',
         'Y', 'N', '78', 1010798, 'Y', 'Y', 'Y', 'Y', 'WRITEOFF_ACCT', 4847, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15897,7 +15886,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011399, 2, 0, 'Y', 100, '2021-06-21 17:17:22.124185', '2021-06-21 17:17:24.767', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010782, '62', 'Advertising', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010782, '62', 'Advertising', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y', 'Y',
         NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15906,7 +15895,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011391, 2, 0, 'Y', 100, '2021-06-21 17:17:22.081298', '2021-06-21 17:17:24.469', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010774, '60430', 'PAYE Paid', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010774, '60430', 'PAYE Paid', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15915,7 +15904,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011392, 2, 0, 'Y', 100, '2021-06-21 17:17:22.087616', '2021-06-21 17:17:24.506', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010775, '60510', 'NHIF Paid', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010775, '60510', 'NHIF Paid', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15924,7 +15913,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011393, 2, 0, 'Y', 100, '2021-06-21 17:17:22.093187', '2021-06-21 17:17:24.541', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010776, '60930', 'Other Payroll Expenses', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y',
+        'ConfigClient Account', 1010776, '60930', 'Other Payroll Expenses', NULL, 'E', 'N', 'N', 'N', '60', 1010771, 'Y',
         'Y', 'Y', 'Y', NULL, NULL, 'N', 'Y', NULL);
 INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id, isactive, createdby, created, updated,
                                      updatedby, i_isimported, i_errormsg, c_element_id, elementname, c_elementvalue_id,
@@ -15933,7 +15922,7 @@ INSERT INTO adempiere.i_elementvalue (i_elementvalue_id, ad_client_id, ad_org_id
                                      postencumbrance, default_account, ad_column_id, processing, processed,
                                      i_elementvalue_uu)
 VALUES (1011394, 2, 0, 'Y', 100, '2021-06-21 17:17:22.097329', '2021-06-21 17:17:24.575', 100, 'Y', ' ', 1000064,
-        'SambaClient Account', 1010777, '61', 'Occupancy Cost', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y',
+        'ConfigClient Account', 1010777, '61', 'Occupancy Cost', NULL, 'E', 'N', 'N', 'Y', '6', 1010770, 'Y', 'Y', 'Y',
         'Y', NULL, NULL, 'N', 'Y', NULL);
 
 
@@ -16031,7 +16020,7 @@ INSERT INTO adempiere.r_requestprocessor (r_requestprocessor_id, ad_client_id, a
                                          keeplogdays, reminddays, inactivityalertdays, r_requesttype_id,
                                          r_requestprocessor_uu, ad_schedule_id)
 VALUES (1000064, 2, 0, 'Y', '2021-06-21 17:17:00.211', 100, '2021-06-21 17:17:00.211', 100,
-        'SambaClient - Request Processor', NULL, 1, NULL, NULL, '2021-06-21 17:32:00.212', 'N', 0, 0, 1082126, 7, 0, 0,
+        'ConfigClient - Request Processor', NULL, 1, NULL, NULL, '2021-06-21 17:32:00.212', 'N', 0, 0, 1082126, 7, 0, 0,
         NULL, 'a76287b8-13d9-4d8f-8226-3586fb12fa79', 200003);
 
 
@@ -16051,9 +16040,7 @@ VALUES (1000129, 2, 1000064, '3ab5f6bd-393d-409d-bc91-639aedced469', '2021-06-21
         'C_Payment Tender Type', '2021-06-21 17:17:26.039', 100, 214, NULL);
 
 
-
-
 --
 -- PostgreSQL database dump complete
 --
-
+rollback;
