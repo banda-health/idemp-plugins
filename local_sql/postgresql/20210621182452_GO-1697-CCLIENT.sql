@@ -5165,7 +5165,6 @@ VALUES (1082126, 2, 0, 'Y', '2021-06-21 17:17:00.131', 100, '2021-06-21 17:17:00
 -- Data for Name: ad_user_roles; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
 --
 
-
 INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
                                     updated, updatedby, ad_user_roles_uu)
 VALUES (100, 1000670, 2, 1000064, 'Y', '2021-06-21 17:16:59.766', 100, '2021-06-21 17:16:59.766', 100,
@@ -5243,43 +5242,6 @@ INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_or
                                     updated, updatedby, ad_user_roles_uu)
 VALUES (1082126, 1000678, 2, 0, 'Y', '2021-06-21 17:17:28.657', 100, '2021-06-21 17:17:28.657', 100,
         '5321346c-11fb-4aaf-af06-98cb34997ae2');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000670, 2, 1000064, 'Y', '2021-06-21 17:19:12.633', 100, '2021-06-21 17:19:12.633', 100,
-        '2bee9f68-7330-43e2-bffa-218411e4abfc');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000671, 2, 1000064, 'Y', '2021-06-21 17:19:12.636', 100, '2021-06-21 17:19:12.636', 100,
-        '1be14e78-9329-4a6c-9eee-89d217fad210');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000672, 2, 1000064, 'Y', '2021-06-21 17:19:12.638', 100, '2021-06-21 17:19:12.638', 100,
-        '0e7d8267-9a81-4007-812b-fef858c1e57d');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000673, 2, 1000064, 'Y', '2021-06-21 17:19:12.64', 100, '2021-06-21 17:19:12.64', 100,
-        'cdf16a3f-f5de-42d1-a234-b9e4ad5323e3');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000674, 2, 1000064, 'Y', '2021-06-21 17:19:12.641', 100, '2021-06-21 17:19:12.641', 100,
-        '169d2344-d067-4014-9d91-0a543a7ff0d5');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000675, 2, 1000064, 'Y', '2021-06-21 17:19:12.645', 100, '2021-06-21 17:19:12.645', 100,
-        '7e1f7bba-46b1-442f-8265-3748f1907011');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000676, 2, 1000064, 'Y', '2021-06-21 17:19:12.647', 100, '2021-06-21 17:19:12.647', 100,
-        '03a4e209-968c-44b7-a6c6-2a487321d12a');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000677, 2, 1000064, 'Y', '2021-06-21 17:19:12.649', 100, '2021-06-21 17:19:12.649', 100,
-        'a95a7578-845d-4cb0-a2f9-b2ddf0ddbc24');
-INSERT INTO adempiere.ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                                    updated, updatedby, ad_user_roles_uu)
-VALUES (100, 1000678, 2, 1000064, 'Y', '2021-06-21 17:19:12.652', 100, '2021-06-21 17:19:12.652', 100,
-        '6ec3257e-474f-42ac-b8fd-003e4c8fd518');
-
 
 --
 -- Data for Name: ad_userpreference; Type: TABLE DATA; Schema: adempiere; Owner: adempiere
@@ -16043,4 +16005,4 @@ VALUES (1000129, 2, 1000064, '3ab5f6bd-393d-409d-bc91-639aedced469', '2021-06-21
 --
 -- PostgreSQL database dump complete
 --
-rollback;
+commit;
