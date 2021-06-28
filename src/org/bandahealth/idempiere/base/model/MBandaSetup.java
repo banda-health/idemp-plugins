@@ -261,21 +261,18 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * Add the default charge types configured in the system to the client to be used on the default charges
+	 * Add the default charge types configured in the config client.
 	 *
 	 * @return A map of default charge type IDs to the charge type that was added for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
-		List<MBHChargeTypeDefault> defaultChargeTypes =
-				new Query(context, MBHChargeTypeDefault.Table_Name, null, getTransactionName()).setOnlyActiveRecords(true)
+		List<MChargeType_BH> defaultChargeTypes =
+				new Query(context, MChargeType_BH.Table_Name, null, getTransactionName()).setOnlyActiveRecords(true)
 						.list();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = new HashMap<>();
-		for (MBHChargeTypeDefault defaultChargeType : defaultChargeTypes) {
-			MChargeType_BH clientsDefaultChargeType = new MChargeType_BH(context, 0, getTransactionName());
-			clientsDefaultChargeType.setName(defaultChargeType.getName());
-			clientsDefaultChargeType.setDescription(defaultChargeType.getDescription());
-			if (!clientsDefaultChargeType.save()) {
+		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
+			if (!defaultChargeType.save()) {
 				String errorMessage = "Default Charge Type NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
@@ -283,7 +280,7 @@ public class MBandaSetup {
 				transaction.close();
 				return null;
 			}
-			defaultChargeTypeToChargeTypeMap.put(defaultChargeType.getBH_ChargeTypeDefault_ID(), clientsDefaultChargeType);
+			defaultChargeTypeToChargeTypeMap.put(defaultChargeType.get_ID(), defaultChargeType);
 		}
 
 		return defaultChargeTypeToChargeTypeMap;
