@@ -44,7 +44,7 @@
 FROM adempiere.c_bpartner bp
 JOIN adempiere.c_payment cp ON bp.c_bpartner_id = cp.c_bpartner_id
      WHERE iscustomer='Y'
-     AND bp.ad_client_id =1000016
+     AND bp.ad_client_id =$P{AD_CLIENT_ID}
 AND bp.totalopenbalance > 0
 GROUP BY bp.name, bp.c_bpartner_id, bp.bh_patientid, bp.totalopenbalance
 ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
@@ -60,12 +60,12 @@ ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
 			<variableExpression><![CDATA[$V{sumOf}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[SELECT SUM(bp.totalopenbalance) AS sum FROM adempiere.c_bpartner bp
 WHERE iscustomer='Y'
 AND bp.totalopenbalance > 0
-AND bp.ad_client_id = 1000016]]>
+AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 	</queryString>
 	<field name="sum" class="java.lang.Integer"/>
 	<variable name="sumOf" class="java.lang.String"/>
