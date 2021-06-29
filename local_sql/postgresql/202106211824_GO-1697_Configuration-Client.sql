@@ -1329,8 +1329,6 @@ INSERT INTO ad_treenodepr (ad_tree_id, node_id, ad_client_id, ad_org_id, isactiv
 INSERT INTO ad_user (ad_user_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, password, email, supervisor_id, c_bpartner_id, processing, emailuser, emailuserpw, c_bpartner_location_id, c_greeting_id, title, comments, phone, phone2, fax, lastcontact, lastresult, birthday, ad_orgtrx_id, emailverify, emailverifydate, notificationtype, isfullbpaccess, c_job_id, ldapuser, connectionprofile, value, userpin, isinpayroll, ad_user_uu, ismenuautoexpand, salt, islocked, dateaccountlocked, failedlogincount, datepasswordchanged, datelastlogin, isnopasswordreset, isexpired, securityquestion, answer, issaleslead, c_location_id, leadsource, leadstatus, leadsourcedescription, leadstatusdescription, c_campaign_id, salesrep_id, bpname, bp_location_id, isaddmailtextautomatically, r_defaultmailtext_id, ad_image_id, isnoexpire, issupportuser, isbillto, isshipto, bh_tos_date_accepted, eve_bpartners, bandahealth_bpartners, bh_hasacceptedtermsofuse, isvendorlead) VALUES (190001, 2, 0, 'Y', '2021-06-29 11:25:19.794000', 100, '2021-06-29 11:25:19.794000', 100, 'Configuration User', 'Configuration User', 'Configuration User', null, null, 190001, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'X', 'Y', null, null, null, 'cuser', null, 'N', 'cd2f9ecb-dd45-4013-bcef-f27993b2b135', null, null, 'N', null, 0, '2021-06-29 11:25:19.798000', null, 'N', 'N', null, null, 'N', null, null, null, null, null, null, null, null, null, 'N', null, null, 'N', 'N', 'N', 'N', null, null, null, 'N', 'N');
 INSERT INTO ad_user (ad_user_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, password, email, supervisor_id, c_bpartner_id, processing, emailuser, emailuserpw, c_bpartner_location_id, c_greeting_id, title, comments, phone, phone2, fax, lastcontact, lastresult, birthday, ad_orgtrx_id, emailverify, emailverifydate, notificationtype, isfullbpaccess, c_job_id, ldapuser, connectionprofile, value, userpin, isinpayroll, ad_user_uu, ismenuautoexpand, salt, islocked, dateaccountlocked, failedlogincount, datepasswordchanged, datelastlogin, isnopasswordreset, isexpired, securityquestion, answer, issaleslead, c_location_id, leadsource, leadstatus, leadsourcedescription, leadstatusdescription, c_campaign_id, salesrep_id, bpname, bp_location_id, isaddmailtextautomatically, r_defaultmailtext_id, ad_image_id, isnoexpire, issupportuser, isbillto, isshipto, bh_tos_date_accepted, eve_bpartners, bandahealth_bpartners, bh_hasacceptedtermsofuse, isvendorlead) VALUES (190000, 2, 0, 'Y', '2021-06-29 11:25:19.758000', 100, '2021-06-29 11:25:19.758000', 100, 'Configuration Admin', 'Configuration Admin', 'Configuration Admin', null, null, 190002, 'N', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'X', 'Y', null, null, null, 'cadmin', null, 'N', 'c8e30fdb-bcd2-4198-b0a2-c7b778e7c6bc', null, null, 'N', null, 0, '2021-06-29 11:25:19.771000', null, 'N', 'N', null, null, 'N', null, null, null, null, null, null, null, null, null, 'N', null, null, 'N', 'N', 'N', 'N', null, null, null, 'N', 'N');
 
--- TODO ! add stuff so system admins can use this client
-
 --
 -- Data for Name: ad_user_roles
 --
@@ -1353,6 +1351,29 @@ INSERT INTO ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isac
 INSERT INTO ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, ad_user_roles_uu) VALUES (190000, 190007, 2, 0, 'Y', '2021-06-29 11:25:51.931000', 100, '2021-06-29 11:25:51.931000', 100, '82b33dc7-7d04-4ae7-acb5-cdbfd0820dde');
 INSERT INTO ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, ad_user_roles_uu) VALUES (100, 190008, 2, 0, 'Y', '2021-06-29 11:25:51.942000', 100, '2021-06-29 11:25:51.942000', 100, '6ec3ad19-c3fb-4396-9a97-4d9e2cecd5d6');
 INSERT INTO ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, ad_user_roles_uu) VALUES (190000, 190008, 2, 0, 'Y', '2021-06-29 11:25:51.946000', 100, '2021-06-29 11:25:51.946000', 100, 'c7e7d0c6-12c1-4948-9b56-5702b71f4fbe');
+
+-- Make sure all system admin users have accessto this client's roles
+INSERT INTO ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, ad_user_roles_uu)
+SELECT
+	u.ad_user_id,
+	r.ad_role_id,
+	2, -- ad_client_id
+	0, -- ad_org_id,
+	'Y', -- isactive
+	now(), -- created
+	100, -- createdby
+	now(), -- updated
+	100, -- updatedby
+	uuid_generate_v4() -- ad_user_roles_uu
+FROM ad_user u
+	JOIN ad_role r ON r.ad_client_id = 2
+WHERE u.ad_client_id > 999999
+	AND u.ad_user_id IN (
+		SELECT ur.ad_user_id
+		FROM ad_role r
+			JOIN ad_user_roles ur ON ur.ad_role_id = r.ad_role_id
+		WHERE r.ad_role_id = 0
+	);
 
 --
 -- Data for Name: ad_window_access
