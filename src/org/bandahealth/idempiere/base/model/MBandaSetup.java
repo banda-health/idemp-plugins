@@ -29,6 +29,7 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -359,7 +360,49 @@ public class MBandaSetup {
 				return false;
 			}
 		}
+		addNonPatientPayments();
 
+		return true;
+	}
+	
+	/**
+	 * Add non-Patient payments for this client
+	 */
+	private boolean addNonPatientPayments() {
+		List<MBHChargeInfo> defaultchargeInfoList =
+				new Query(context, MBHChargeInfo.Table_Name, null, getTransactionName()).setOnlyActiveRecords(true)
+						.list();
+
+		Map<Integer, MBHChargeInfo> defaultChargeInfoMap = new HashMap<>();
+		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
+			if (!defaultChargeInfo.save()) {
+				String errorMessage = "Default Charge Info NOT inserted";
+				log.log(Level.SEVERE, errorMessage);
+				info.append(errorMessage);
+				transaction.rollback();
+				transaction.close();
+				return false;
+			}
+			//get the info-values for this entry and save them as well
+			String whereClause = MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID + " = ?";
+			List<MBHChargeInfoValue> defaultchargeInfoValuesList =
+					new Query(context, MBHChargeInfoValue.Table_Name, whereClause, getTransactionName()).setOnlyActiveRecords(true)
+							.list();
+			if(defaultchargeInfoValuesList.isEmpty())
+				continue;
+			for(MBHChargeInfoValue value : defaultchargeInfoValuesList) {
+				if(!value.save()) {
+					String errorMessage = "ChargeInfo value NOT saved";
+					log.log(Level.SEVERE, errorMessage);
+					info.append(errorMessage);
+					transaction.rollback();
+					transaction.close();
+					return false;
+					
+				}
+			}
+			defaultChargeInfoMap.put(defaultChargeInfo.get_ID(), defaultChargeInfo);
+		}
 		return true;
 	}
 
@@ -690,6 +733,7 @@ public class MBandaSetup {
 			log.log(Level.SEVERE, "Parameter 'usersToAddRoleTo' is required");
 			return false;
 		}
+		
 		if (organizationsToGrantToRole == null) {
 			log.log(Level.SEVERE, "Parameter 'organizationsToGrantToRole' is required");
 			return false;
