@@ -5,6 +5,7 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
+import org.compiere.model.MCharge;
 import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
@@ -297,26 +298,20 @@ public class MBandaSetup {
 		if (defaultChargeTypeToChargeTypeMap == null || defaultChargeTypeToChargeTypeMap.isEmpty()) {
 			return false;
 		}
-
-		// Get all active, default charges from the system
-		List<MBHChargeDefault> defaultCharges = new Query(
+		String whereClause = "AD_Client_ID = " + MClient_BH.CLIENTID_CONFIG;
+		// Get all active, default charges from the default client 
+		List<MCharge> defaultCharges = new Query(
 				context,
-				MBHChargeDefault.Table_Name,
-				null,
+				whereClause,
+				MCharge.Table_Name,
 				getTransactionName()
 		)
 				.setOnlyActiveRecords(true)
 				.list();
 
-		for (MBHChargeDefault defaultCharge : defaultCharges) {
-			// Create a new charge based on this default charge
-			MCharge_BH chargeToAdd = new MCharge_BH(context, 0, getTransactionName());
-			chargeToAdd.setName(defaultCharge.getName());
-			chargeToAdd.setDescription(defaultCharge.getDescription());
-			chargeToAdd.setBH_Locked(true);
-			chargeToAdd.setC_ChargeType_ID(
-					defaultChargeTypeToChargeTypeMap.get(defaultCharge.getBH_ChargeTypeDefault_ID()).getC_ChargeType_ID());
-			if (!chargeToAdd.save()) {
+		for (MCharge defaultCharge : defaultCharges) {
+			// Create a new charge for new client based on this default charge
+			if (!defaultCharge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
@@ -326,7 +321,8 @@ public class MBandaSetup {
 			}
 
 			// Create a valid combination for this account value
-			MAccount chargeExpenseAccount = getOrCreateValidCombination(defaultCharge.getValue());
+			String accountValue = defaultCharge.getAccount(getAD_Client_ID(), accountSchema).get_Value("value").toString();
+			MAccount chargeExpenseAccount = getOrCreateValidCombination(accountValue);
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -342,7 +338,7 @@ public class MBandaSetup {
 					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
 					getTransactionName()
 			)
-					.setParameters(chargeToAdd.getC_Charge_ID())
+					.setParameters(defaultCharge.getC_Charge_ID())
 					.first();
 			if (chargeAccountToModify == null) {
 				String errorMessage = "Charge Account does not exist";
