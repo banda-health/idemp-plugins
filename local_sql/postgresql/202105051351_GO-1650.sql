@@ -363,10 +363,10 @@ UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '52fc8585-3c61-45b8
 
 -- Update existing payments to use the new values above
 -- Update PesaPal/M-TIBA to be Mobile Money
-UPDATE payment SET tendertype = 'M' WHERE tendertype = 'P';
-UPDATE payment SET tendertype = 'M' WHERE tendertype = 'L';
+UPDATE c_payment SET tendertype = 'M' WHERE tendertype = 'P';
+UPDATE c_payment SET tendertype = 'M' WHERE tendertype = 'L';
 -- Update Direct Debit to be Credit or Debit Card
-UPDATE payment SET tendertype = 'C' WHERE tendertype = 'D';
+UPDATE c_payment SET tendertype = 'C' WHERE tendertype = 'D';
 
 -- Migrate the PTR tender types
 UPDATE ad_ref_list SET value = 'C', name = 'Credit or Debit Card' WHERE ad_ref_list_uu = '3a9c61f4-0097-42b8-b485-9f79958bf566'; -- Bill Waiver
@@ -420,8 +420,8 @@ CREATE TEMP TABLE tmp_c_validcombination (
 	c_validcombination_id serial NOT NULL,
 	ad_client_id numeric(10,0) NOT NULL,
 	ad_org_id numeric(10,0) NOT NULL DEFAULT 0,
-	createdby numeric(10,0) NOT NULL DEFAULT 1001875, -- Jeremy's ID
-	updatedby numeric(10,0) NOT NULL DEFAULT 1001875, -- Jeremy's ID
+	createdby numeric(10,0) NOT NULL DEFAULT 100,
+	updatedby numeric(10,0) NOT NULL DEFAULT 100,
 	combination character varying(60) COLLATE pg_catalog."default",
 	description character varying(255) COLLATE pg_catalog."default",
 	c_acctschema_id numeric(10,0) NOT NULL,
