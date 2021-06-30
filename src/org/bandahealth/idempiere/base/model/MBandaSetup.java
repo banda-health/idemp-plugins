@@ -294,7 +294,8 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * Add the charges that should be included on a new client by default (pulled from the default charges table
+	 * Add the charges that should be included on a new client by default (pulled
+	 * from the default charges table
 	 *
 	 * @return Whether the charges were added successfully or not
 	 */
@@ -304,20 +305,16 @@ public class MBandaSetup {
 		if (defaultChargeTypeToChargeTypeMap == null || defaultChargeTypeToChargeTypeMap.isEmpty()) {
 			return false;
 		}
-		String whereClause = "AD_Client_ID = " + MClient_BH.CLIENTID_CONFIG;
-		// Get all active, default charges from the default client 
-		List<MCharge> defaultCharges = new Query(
-				context,
-				whereClause,
-				MCharge.Table_Name,
-				getTransactionName()
-		)
-				.setOnlyActiveRecords(true)
-				.list();
+		// Get all active, default charges from the default client
+		List<MCharge> defaultCharges = new Query(context, MCharge.COLUMNNAME_AD_Client_ID + "?", MCharge.Table_Name,
+				getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		for (MCharge defaultCharge : defaultCharges) {
 			// Create a new charge for new client based on this default charge
-			if (!defaultCharge.save()) {
+			MCharge charge = new MCharge(context, 0, getTransactionName());
+			charge.setName(defaultCharge.getName());
+			charge.setDescription(defaultCharge.getDescription());
+			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
@@ -327,8 +324,7 @@ public class MBandaSetup {
 			}
 
 			// Create a valid combination for this account value
-			String accountValue = defaultCharge.getAccount(getAD_Client_ID(), accountSchema).get_Value("value").toString();
-			MAccount chargeExpenseAccount = getOrCreateValidCombination(accountValue);
+			MAccount chargeExpenseAccount = getOrCreateValidCombination(defaultCharge.get_ValueAsString("value"));
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -338,14 +334,9 @@ public class MBandaSetup {
 				return false;
 			}
 			// Now get the charge's accounting mapping
-			X_C_Charge_Acct chargeAccountToModify = new Query(
-					context,
-					X_C_Charge_Acct.Table_Name,
-					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
-					getTransactionName()
-			)
-					.setParameters(defaultCharge.getC_Charge_ID())
-					.first();
+			X_C_Charge_Acct chargeAccountToModify = new Query(context, X_C_Charge_Acct.Table_Name,
+					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?", getTransactionName())
+							.setParameters(defaultCharge.getC_Charge_ID()).first();
 			if (chargeAccountToModify == null) {
 				String errorMessage = "Charge Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
@@ -365,17 +356,19 @@ public class MBandaSetup {
 				return false;
 			}
 		}
-		addNonPatientPayments();
-
+		if (!addChargeInformation()) {
+			return false;
+		}
 		return true;
 	}
 	
 	/**
 	 * Add non-Patient payments for this client
 	 */
-	private boolean addNonPatientPayments() {
-		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name, null,
-				getTransactionName()).setOnlyActiveRecords(true).list();
+	private boolean addChargeInformation() {
+		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
+				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "?", getTransactionName()).setOnlyActiveRecords(true)
+						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		Map<Integer, MBHChargeInfo> defaultChargeInfoMap = new HashMap<>();
 		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
@@ -388,9 +381,9 @@ public class MBandaSetup {
 				return false;
 			}
 			// get the info-values for this entry and save them as well
-			String whereClause = MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID + " = ?";
 			List<MBHChargeInfoValue> defaultchargeInfoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
-					whereClause, getTransactionName()).setOnlyActiveRecords(true).list();
+					MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID + "=?", getTransactionName())
+							.setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
 			if (defaultchargeInfoValuesList.isEmpty())
 				continue;
 			for (MBHChargeInfoValue value : defaultchargeInfoValuesList) {
