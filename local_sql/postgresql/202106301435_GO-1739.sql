@@ -12,7 +12,7 @@ create table bh_voided_reason
             check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
     updated                 timestamp    default statement_timestamp(),
     updatedby               numeric(10)  default NULL::numeric,
-    bh_window_id	     decimal(10,0) default null,
+    bh_window_id	     numeric(10) default null,
     bh_voided_reason_id   numeric(10) not null
         constraint bh_voided_reason_key
             primary key,
@@ -24,7 +24,7 @@ create table bh_voided_reason
 
 -- ADD bh_voided_reason TO C_Order
 ALTER TABLE c_order 
-  ADD IF NOT EXISTS bh_voided_reason_id DECIMAL(10,0) DEFAULT NULL;
+  ADD IF NOT EXISTS bh_voided_reason_id numeric(10) DEFAULT NULL;
 
 -- insert bh_voided_reason table
 INSERT INTO adempiere.bh_voided_reason (ad_client_id, ad_org_id, created, createdby, name, description, isactive, updated, updatedby, bh_window_id, bh_voided_reason_id, bh_voided_reason_uu, lineno) VALUES (0, 0, 0, '2021-06-30 14:35:25.982661', 100, 'Wrong payment type or amount paid entered', null, 'Y', '2021-06-30 14:35:25.982661', 100, (SELECT ad_window_id FROM ad_window WHERE name = 'Patient Bill' AND isActive = 'Y'), 1, '2de54da3-25f8-4f51-abe8-bccbd8171bcf', 10);
