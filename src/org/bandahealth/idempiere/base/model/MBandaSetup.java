@@ -265,16 +265,21 @@ public class MBandaSetup {
 	/**
 	 * Add the default charge types configured in the config client.
 	 *
-	 * @return A map of default charge type IDs to the charge type that was added for the client
+	 * @return A map of default charge type IDs to the charge type that was added
+	 *         for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
-		List<MChargeType_BH> defaultChargeTypes =
-				new Query(context, MChargeType_BH.Table_Name, null, getTransactionName()).setOnlyActiveRecords(true)
-						.list();
+		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
+				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
+						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = new HashMap<>();
 		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
-			if (!defaultChargeType.save()) {
+			MChargeType_BH charge = new MChargeType_BH(context,0, getTransactionName());
+			charge.setName(defaultChargeType.getName());
+			charge.setDescription(defaultChargeType.getDescription());
+			charge.setValue(defaultChargeType.getValue());
+			if (!charge.save()) {
 				String errorMessage = "Default Charge Type NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
@@ -369,9 +374,8 @@ public class MBandaSetup {
 	 * Add non-Patient payments for this client
 	 */
 	private boolean addNonPatientPayments() {
-		List<MBHChargeInfo> defaultchargeInfoList =
-				new Query(context, MBHChargeInfo.Table_Name, null, getTransactionName()).setOnlyActiveRecords(true)
-						.list();
+		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name, null,
+				getTransactionName()).setOnlyActiveRecords(true).list();
 
 		Map<Integer, MBHChargeInfo> defaultChargeInfoMap = new HashMap<>();
 		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
@@ -383,22 +387,21 @@ public class MBandaSetup {
 				transaction.close();
 				return false;
 			}
-			//get the info-values for this entry and save them as well
+			// get the info-values for this entry and save them as well
 			String whereClause = MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID + " = ?";
-			List<MBHChargeInfoValue> defaultchargeInfoValuesList =
-					new Query(context, MBHChargeInfoValue.Table_Name, whereClause, getTransactionName()).setOnlyActiveRecords(true)
-							.list();
-			if(defaultchargeInfoValuesList.isEmpty())
+			List<MBHChargeInfoValue> defaultchargeInfoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
+					whereClause, getTransactionName()).setOnlyActiveRecords(true).list();
+			if (defaultchargeInfoValuesList.isEmpty())
 				continue;
-			for(MBHChargeInfoValue value : defaultchargeInfoValuesList) {
-				if(!value.save()) {
+			for (MBHChargeInfoValue value : defaultchargeInfoValuesList) {
+				if (!value.save()) {
 					String errorMessage = "ChargeInfo value NOT saved";
 					log.log(Level.SEVERE, errorMessage);
 					info.append(errorMessage);
 					transaction.rollback();
 					transaction.close();
 					return false;
-					
+
 				}
 			}
 			defaultChargeInfoMap.put(defaultChargeInfo.get_ID(), defaultChargeInfo);
