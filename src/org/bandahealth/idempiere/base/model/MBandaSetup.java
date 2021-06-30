@@ -306,14 +306,16 @@ public class MBandaSetup {
 			return false;
 		}
 		// Get all active, default charges from the default client
-		List<MCharge> defaultCharges = new Query(context, MCharge.COLUMNNAME_AD_Client_ID + "?", MCharge.Table_Name,
+		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.COLUMNNAME_AD_Client_ID + "?", MCharge_BH.Table_Name,
 				getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
-		for (MCharge defaultCharge : defaultCharges) {
+		for (MCharge_BH defaultCharge : defaultCharges) {
 			// Create a new charge for new client based on this default charge
-			MCharge charge = new MCharge(context, 0, getTransactionName());
+			MCharge_BH charge = new MCharge_BH(context, 0, getTransactionName());
 			charge.setName(defaultCharge.getName());
 			charge.setDescription(defaultCharge.getDescription());
+			charge.setC_ChargeType_ID(defaultCharge.getC_Charge_ID());
+			charge.setBH_Locked(defaultCharge.isBH_Locked());
 			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -382,8 +384,7 @@ public class MBandaSetup {
 			}
 			// get the info-values for this entry and save them as well
 			List<MBHChargeInfoValue> defaultchargeInfoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
-					MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID + "=?", getTransactionName())
-							.setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+					MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID + "=?", getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
 			if (defaultchargeInfoValuesList.isEmpty())
 				continue;
 			for (MBHChargeInfoValue value : defaultchargeInfoValuesList) {
