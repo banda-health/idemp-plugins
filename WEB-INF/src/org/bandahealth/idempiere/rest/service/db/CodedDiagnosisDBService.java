@@ -89,10 +89,12 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
+		parameters.add(searchValueParameter);
 
 		String searchClause = "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_CeilName + ") " + LIKE_COMPARATOR + " ? OR "
 				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_ICD10 + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR + " ? ";
+				+ MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER(" +
+				MBHCodedDiagnosis.COLUMNNAME_BH_SEARCHTERMS + ") LIKE ?";
 
 		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder);
 	}
