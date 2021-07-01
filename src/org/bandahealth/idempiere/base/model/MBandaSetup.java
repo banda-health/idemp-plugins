@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.compiere.model.I_C_ElementValue;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -19,6 +21,7 @@ import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
+import org.compiere.model.M_Element;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
@@ -27,6 +30,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -300,8 +304,11 @@ public class MBandaSetup {
 	 * @return Whether the charges were added successfully or not
 	 */
 	public boolean addDefaultCharges() {
+		//Get collection of account_element_values mapped on the default charges
+		Map<Integer, String> chargeToElementValuesMapping = getChargesElementValues();
 		// First, create the default charge types
 		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = addDefaultChargeTypes();
+		
 		if (defaultChargeTypeToChargeTypeMap == null || defaultChargeTypeToChargeTypeMap.isEmpty()) {
 			return false;
 		}
@@ -316,6 +323,8 @@ public class MBandaSetup {
 			charge.setDescription(defaultCharge.getDescription());
 			charge.setC_ChargeType_ID(defaultCharge.getC_Charge_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
+			charge.setBH_SubType(defaultCharge.getBH_SubType());
+			charge.setBH_NeedAdditionalVisitInfo(defaultCharge.isBH_NeedAdditionalVisitInfo());
 			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -326,7 +335,7 @@ public class MBandaSetup {
 			}
 
 			// Create a valid combination for this account value
-			MAccount chargeExpenseAccount = getOrCreateValidCombination(defaultCharge.get_ValueAsString("value"));
+			MAccount chargeExpenseAccount = getOrCreateValidCombination(chargeToElementValuesMapping.get(defaultCharge.get_ID()));
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -1024,6 +1033,23 @@ public class MBandaSetup {
 			return null;
 		}
 		return account;
+	}
+	
+	/**
+	 * Get a mapping of all charges and related c_elementvalue_id
+	 * 
+	 * @return map of charge_element_value
+	 */
+	private Map<Integer, String> getChargesElementValues() {
+		Map<Integer, String> chargeValues = new HashMap<>();
+		List<MBHChargeDefault> accountElementValues = new Query(context, MBHChargeDefault.Table_Name,
+				MBHChargeDefault.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		accountElementValues.stream().map(value -> {
+			return chargeValues.put(value.get_ID(), value.getValue());
+		});
+
+		return chargeValues;
 	}
 
 	/**
