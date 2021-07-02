@@ -1369,6 +1369,20 @@ ALTER TABLE r_request DROP CONSTRAINT cpayment_rrequest;
 ALTER TABLE r_requestaction DROP CONSTRAINT cpayment_rrequestaction;
 ALTER TABLE c_payment DROP CONSTRAINT c_payment_pkey;
 
+UPDATE c_order o
+SET c_payment_id = NULL
+FROM c_payment p
+WHERE p.c_payment_id = o.c_payment_id
+    AND tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
+	AND p.ad_client_id > 999999;
+
+UPDATE c_invoice i
+SET c_payment_id = NULL
+FROM c_payment p
+WHERE p.c_payment_id = i.c_payment_id
+    AND tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
+	AND p.ad_client_id > 999999;
+
 DELETE FROM c_payment
 WHERE tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
 	AND ad_client_id > 999999;
