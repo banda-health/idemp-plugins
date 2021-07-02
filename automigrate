@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#copy local_sql, postgres and zip_2pack to idempiere migration directory
+
+destinationDir=/home/icarus/Projects/BandaHealth/idempiere/migration
+if [ -d $destinationDir ]
+then
+	echo "Starting copy..."
+	cp -R local_sql $destinationDir && echo "local_sql copying done!"
+	cp -R zip_2pack $destinationDir && echo "zip_2pack copying done!"
+	cp -R processes_post_migration $destinationDir && echo "processes_post_migration copying done!"
+	echo "Completed!"
+else
+	echo "Destination directory could not be found. Failed."
+	exit 1 #exit with error code
+fi
+# Run migration script
+migrationScript=/home/icarus/Projects/BandaHealth/idempiere/RUN_SyncDBDev.sh
+if [ -f "$migrationScript" ];
+then
+	echo "Starting db sync..."
+	source $migrationScript
+else
+	echo "Could not run db sync script"
+	exit 1
+fi

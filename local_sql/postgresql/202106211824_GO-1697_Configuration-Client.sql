@@ -1,8 +1,9 @@
+begin;
 --Create a configuration client for Banda
 --
 -- Data for Name: ad_client
 --
-INSERT INTO ad_client (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, smtphost, requestemail, requestuser, requestuserpw, requestfolder, ad_language, ismultilingualdocument, issmtpauthorization, isusebetafunctions, ldapquery, modelvalidationclasses, autoarchive, mmpolicy, emailtest, isserveremail, documentdir, ispostimmediate, iscostimmediate, storeattachmentsonfilesystem, windowsattachmentpath, unixattachmentpath, storearchiveonfilesystem, windowsarchivepath, unixarchivepath, isuseasp, ad_replicationstrategy_id, ad_client_uu, ad_passwordrule_id, issecuresmtp, smtpport) VALUES (2, 0, 'Y', '2021-06-29 11:25:17.082000', 100, '2021-06-29 11:25:17.082000', 100, 'Configuration', 'Configuration', null, null, null, null, null, null, 'en_US', 'N', 'N', 'Y', null, null, 'N', 'F', null, null, null, 'N', 'N', 'N', null, null, 'N', null, null, 'N', null, '0e8268dd-3c1b-41dd-a0d3-f2028824f3e5', null, 'N', null);
+INSERT INTO ad_client (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, smtphost, requestemail, requestuser, requestuserpw, requestfolder, ad_language, ismultilingualdocument, issmtpauthorization, isusebetafunctions, ldapquery, modelvalidationclasses, autoarchive, mmpolicy, emailtest, isserveremail, documentdir, ispostimmediate, iscostimmediate, storeattachmentsonfilesystem, windowsattachmentpath, unixattachmentpath, storearchiveonfilesystem, windowsarchivepath, unixarchivepath, isuseasp, ad_replicationstrategy_id, ad_client_uu, ad_passwordrule_id, issecuresmtp, smtpport) VALUES (2, 0, 'Y', '2021-06-29 11:25:17.082000', 100, '2021-06-29 11:25:17.082000', 100, 'Configuration', 'Configuration', null, null, null, null, null, null, 'en_US', 'N', 'N', 'Y', null, null, 'N', 'F', null, 'N', null, 'N', 'N', 'N', null, null, 'N', null, null, 'N', null, '0e8268dd-3c1b-41dd-a0d3-f2028824f3e5', null, 'N', null);
 
 --
 -- Data for Name: ad_tree
@@ -3152,3 +3153,5 @@ INSERT INTO r_requestprocessor (r_requestprocessor_id, ad_client_id, ad_org_id, 
 INSERT INTO ad_clientinfo (ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isdiscountlineamt, c_calendar_id, c_acctschema1_id, c_uom_volume_id, c_uom_weight_id, c_uom_length_id, c_uom_time_id, ad_tree_menu_id, ad_tree_org_id, ad_tree_bpartner_id, ad_tree_project_id, ad_tree_salesregion_id, ad_tree_product_id, m_productfreight_id, c_bpartnercashtrx_id, keeplogdays, ad_tree_activity_id, ad_tree_campaign_id, logo_id, logoreport_id, logoweb_id, ad_clientinfo_uu, ad_storageprovider_id, storagearchive_id, c_chargefreight_id, fy_startdate, isconfirmondocclose, isconfirmondocvoid, storageimage_id) VALUES (2, 0, 'Y', '2021-06-29 11:25:19.089000', 100, '2021-06-29 11:25:19.089000', 100, 'N', 190000, 190000, null, null, null, null, 10, 190002, 190001, 190007, 190003, 190000, 190000, 190000, null, 190005, 190004, null, null, null, '6b133b2e-a23a-44f0-822e-e444aeba8bb7', null, null, null, null, 'N', 'N', null);
 
 SELECT register_migration_script('202106211824_GO-1697_Configuration-Client.sql') FROM dual;
+
+rollback;
