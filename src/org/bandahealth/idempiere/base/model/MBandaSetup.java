@@ -298,8 +298,8 @@ public class MBandaSetup {
 			return false;
 		}
 		// Get all active, default charges from the default client
-		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.COLUMNNAME_AD_Client_ID + "?",
-				MCharge_BH.Table_Name, getTransactionName()).setOnlyActiveRecords(true)
+		List<MCharge_BH> defaultCharges = new Query(context,
+				MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		for (MCharge_BH defaultCharge : defaultCharges) {
@@ -1006,12 +1006,12 @@ public class MBandaSetup {
 	 */
 	private Map<Integer, String> getChargesElementValues() {
 		Map<Integer, String> chargeValues = new HashMap<>();
-		List<MBHChargeDefault> accountElementValues = new Query(context, MBHChargeDefault.Table_Name,
-				MBHChargeDefault.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		accountElementValues.stream().map(value -> {
-			return chargeValues.put(value.get_ID(), value.getValue());
-		});
+		List<MCharge_BH> accountElementValues = new Query(context, MCharge_BH.Table_Name,
+				MCharge_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MCharge_BH.COLUMNNAME_BH_SubType + " IS NOT NULL",
+				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		for (MCharge_BH charge : accountElementValues) {
+			chargeValues.put(charge.get_ID(), String.valueOf(charge.getC_ElementValue_ID()));
+		}
 
 		return chargeValues;
 	}
