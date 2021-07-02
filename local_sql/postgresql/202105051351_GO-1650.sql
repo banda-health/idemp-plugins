@@ -1346,8 +1346,27 @@ WHERE al.c_payment_id = p.c_payment_id
   AND p.tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
 	AND p.ad_client_id > 999999;
 
+ALTER TABLE b_buyerfunds DROP CONSTRAINT cpayment_bbuyerfunds;
+ALTER TABLE b_sellerfunds DROP CONSTRAINT cpayment_bsellerfunds;
+ALTER TABLE c_allocationline DROP CONSTRAINT c_allocationline_c_payment_id_fkey;
+ALTER TABLE c_bankstatementline DROP CONSTRAINT cpayment_cbankstmtline;
+ALTER TABLE c_cashline DROP CONSTRAINT cpayment_ccashline;
+ALTER TABLE c_depositbatchline DROP CONSTRAINT cpayment_cdepositbatchline;
+ALTER TABLE c_dunningrunline DROP CONSTRAINT cpayment_cdunningrunline;
+ALTER TABLE c_invoice DROP CONSTRAINT c_invoice_c_payment_id_fkey;
+ALTER TABLE c_order DROP CONSTRAINT c_order_c_payment_id_fkey;
 ALTER TABLE c_payment DROP CONSTRAINT c_payment_ref_payment_id_fkey;
 ALTER TABLE c_payment DROP CONSTRAINT c_payment_reversal_id_fkey;
+ALTER TABLE c_paymentallocate DROP CONSTRAINT cpayment_cpaymentallocate;
+ALTER TABLE c_paymenttransaction DROP CONSTRAINT cpayment_cpaymenttransaction;
+ALTER TABLE c_payselectioncheck DROP CONSTRAINT cpayment_cpayselectioncheck;
+ALTER TABLE c_pospayment DROP CONSTRAINT cpayment_cpospayment;
+ALTER TABLE c_recurring DROP CONSTRAINT cpayment_crecurring;
+ALTER TABLE c_recurring_run DROP CONSTRAINT cpayment_crecurringrun;
+ALTER TABLE i_bankstatement DROP CONSTRAINT cpayment_ibankstatement;
+ALTER TABLE i_payment DROP CONSTRAINT cpayment_ipayment;
+ALTER TABLE r_request DROP CONSTRAINT cpayment_rrequest;
+ALTER TABLE r_requestaction DROP CONSTRAINT cpayment_rrequestaction;
 ALTER TABLE c_payment DROP CONSTRAINT c_payment_pkey;
 
 DELETE FROM c_payment
@@ -1355,7 +1374,27 @@ WHERE tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
 	AND ad_client_id > 999999;
 
 ALTER TABLE c_payment ADD CONSTRAINT c_payment_pkey PRIMARY KEY (c_payment_id);
+ALTER TABLE r_requestaction ADD CONSTRAINT cpayment_rrequestaction FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE r_request ADD CONSTRAINT cpayment_rrequest FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE i_payment ADD CONSTRAINT cpayment_ipayment FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE i_bankstatement ADD CONSTRAINT cpayment_ibankstatement FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_recurring_run ADD CONSTRAINT cpayment_crecurringrun FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_recurring ADD CONSTRAINT cpayment_crecurring FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_pospayment ADD CONSTRAINT cpayment_cpospayment FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_payselectioncheck ADD CONSTRAINT cpayment_cpayselectioncheck FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_paymenttransaction ADD CONSTRAINT cpayment_cpaymenttransaction FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_paymentallocate ADD CONSTRAINT cpayment_cpaymentallocate FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_payment ADD CONSTRAINT c_payment_reversal_id_fkey FOREIGN KEY (reversal_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_payment ADD CONSTRAINT c_payment_ref_payment_id_fkey FOREIGN KEY (ref_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_order ADD CONSTRAINT c_order_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_invoice ADD CONSTRAINT c_invoice_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_dunningrunline ADD CONSTRAINT cpayment_cdunningrunline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_depositbatchline ADD CONSTRAINT cpayment_cdepositbatchline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_cashline ADD CONSTRAINT cpayment_ccashline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_bankstatementline ADD CONSTRAINT cpayment_cbankstmtline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_allocationline ADD CONSTRAINT c_allocationline_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE b_sellerfunds ADD CONSTRAINT cpayment_bsellerfunds FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE b_buyerfunds ADD CONSTRAINT cpayment_bbuyerfunds FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+
 
 SELECT register_migration_script('202105051351_GO-1650.sql') FROM dual;
