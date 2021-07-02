@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
@@ -29,10 +31,12 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	protected OrderLineDBService orderLineDBService = new OrderLineDBService();
 	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
 	protected final ProcessDBService processDBService;
+	protected final VoidedReasonDBService voidedReasonDBService;
 
 	public BaseOrderDBService() {
 		referenceListDBService = new ReferenceListDBService();
 		processDBService = new ProcessDBService();
+		voidedReasonDBService = new VoidedReasonDBService();
 	}
 
 	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
@@ -61,7 +65,8 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	 * @param sortColumn
 	 * @param sortOrder
 	 * @param initialWhereClause an optional where clause to filter results
-	 * @param parameters         an optional parameters list for use in the where clause
+	 * @param parameters         an optional parameters list for use in the where
+	 *                           clause
 	 * @return
 	 */
 	public BaseListResponse<T> search(String value, Paging pagingInfo, String sortColumn, String sortOrder,
@@ -70,7 +75,8 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			parameters = new ArrayList<>();
 		}
 
-		// Do this first because parameters would've already been added to the array if so
+		// Do this first because parameters would've already been added to the array if
+		// so
 		StringBuilder whereClause = new StringBuilder();
 		if (initialWhereClause != null && !initialWhereClause.isEmpty()) {
 			whereClause.append(initialWhereClause).append(AND_OPERATOR);
@@ -137,9 +143,17 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			mOrder.setIsActive(entity.getIsActive());
 
 			mOrder.setIsApproved(true);
-			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus()) &&
-					entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
+			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus())
+					&& entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
 				mOrder.setDocStatus(MOrder_BH.DOCSTATUS_Voided);
+				// set voided reason
+				VoidedReason voidedReason = entity.getVoidedReason();
+				if (voidedReason != null && StringUtil.isNotNullAndEmpty(voidedReason.getUuid())) {
+					MBHVoidedReason mVoidedReason = voidedReasonDBService.getEntityByUuidFromDB(voidedReason.getUuid());
+					if (mVoidedReason != null) {
+						mOrder.setBH_VoidedReasonID(mVoidedReason.get_ID());
+					}
+				}
 			} else {
 				mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 			}
@@ -199,7 +213,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		// set target document type
 		MDocType docType = new Query(Env.getCtx(), MDocType.Table_Name,
 				MDocType.COLUMNNAME_Name + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?", null)
-				.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
+						.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
 		if (docType != null) {
 			return docType.get_ID();
 		}

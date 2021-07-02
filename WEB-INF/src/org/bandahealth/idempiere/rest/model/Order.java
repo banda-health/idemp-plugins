@@ -31,6 +31,7 @@ public class Order extends BaseMetadata {
 	private List<Payment> payments;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
+	private VoidedReason voidedReason;
 
 	public Order() {
 	}
@@ -178,5 +179,13 @@ public class Order extends BaseMetadata {
 
 	public void setDocStatus(String docStatus) {
 		this.docStatus = docStatus;
+	}
+
+	public VoidedReason getVoidedReason() {
+		return voidedReason;
+	}
+
+	public void setVoidedReason(VoidedReason voidedReason) {
+		this.voidedReason = voidedReason;
 	}
 }

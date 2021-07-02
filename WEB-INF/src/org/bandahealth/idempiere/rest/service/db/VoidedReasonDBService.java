@@ -8,11 +8,13 @@ public class VoidedReasonDBService extends BaseDBService<VoidedReason, MBHVoided
 
 	@Override
 	public VoidedReason saveEntity(VoidedReason entity) {
+		// We don't have a requirement to allow this
 		return null;
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
+		// We don't have a requirement to allow this
 		return null;
 	}
 
