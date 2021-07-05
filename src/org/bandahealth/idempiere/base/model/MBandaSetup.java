@@ -292,7 +292,7 @@ public class MBandaSetup {
 		// First, create the default charge types
 		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = addDefaultChargeTypes();
 		// Get collection of account_element_values mapped on the default charges
-		Map<Integer, String> chargeToElementValuesMapping = getChargesElementValues();
+		Map<Integer, MElementValue> elementValuesMapping = getAllElementValues();
 
 		if (defaultChargeTypeToChargeTypeMap == null || defaultChargeTypeToChargeTypeMap.isEmpty()) {
 			return false;
@@ -322,7 +322,7 @@ public class MBandaSetup {
 
 			// Create a valid combination for this account value
 			MAccount chargeExpenseAccount = getOrCreateValidCombination(
-					chargeToElementValuesMapping.get(defaultCharge.get_ID()));
+					elementValuesMapping.get(defaultCharge.getC_ElementValue_ID()).getValue());
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -1004,16 +1004,16 @@ public class MBandaSetup {
 	 * 
 	 * @return map of charge_element_value
 	 */
-	private Map<Integer, String> getChargesElementValues() {
-		Map<Integer, String> chargeValues = new HashMap<>();
-		List<MCharge_BH> accountElementValues = new Query(context, MCharge_BH.Table_Name,
-				MCharge_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MCharge_BH.COLUMNNAME_BH_SubType + " IS NOT NULL",
+	private Map<Integer, MElementValue> getAllElementValues() {
+		Map<Integer, MElementValue> elementValues = new HashMap<>();
+		List<MElementValue> accountElementValues = new Query(context, MElementValue.Table_Name,
+				MElementValue.COLUMNNAME_AD_Client_ID + "=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		for (MCharge_BH charge : accountElementValues) {
-			chargeValues.put(charge.get_ID(), String.valueOf(charge.getC_ElementValue_ID()));
+		for (MElementValue elementValue : accountElementValues) {
+			elementValues.put(elementValue.get_ID(), elementValue);
 		}
 
-		return chargeValues;
+		return elementValues;
 	}
 
 	/**
