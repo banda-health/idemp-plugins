@@ -307,7 +307,7 @@ public class MBandaSetup {
 			MCharge_BH charge = new MCharge_BH(context, 0, getTransactionName());
 			charge.setName(defaultCharge.getName());
 			charge.setDescription(defaultCharge.getDescription());
-			charge.setC_ChargeType_ID(defaultCharge.getC_Charge_ID());
+			charge.setC_ChargeType_ID(defaultChargeTypeToChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
 			charge.setBH_SubType(defaultCharge.getBH_SubType());
 			charge.setBH_NeedAdditionalVisitInfo(defaultCharge.isBH_NeedAdditionalVisitInfo());
@@ -365,7 +365,7 @@ public class MBandaSetup {
 	 */
 	private boolean addChargeInformation() {
 		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
-				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "?", getTransactionName()).setOnlyActiveRecords(true)
+				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		Map<Integer, MBHChargeInfo> defaultChargeInfoMap = new HashMap<>();
