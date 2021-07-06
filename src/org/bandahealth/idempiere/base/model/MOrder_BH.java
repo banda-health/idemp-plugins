@@ -291,13 +291,13 @@ public class MOrder_BH extends MOrder {
 			log.info(dt.toString());
 
 		// check if there is an associated invoice for this order
-		MInvoice existingInvoice = new Query(getCtx(), MInvoice_BH.Table_Name,
-				MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName()).setParameters(getC_Order_ID())
-						.setOnlyActiveRecords(true).first();
+		MInvoice_BH existingInvoice =
+				new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
+						.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
 
 		MInvoice_BH invoice;
 		if (existingInvoice != null) {
-			invoice = new MInvoice_BH(existingInvoice);
+			invoice = existingInvoice;
 		} else {
 
 			invoice = new MInvoice_BH(this, dt.getC_DocTypeInvoice_ID(), invoiceDate);
