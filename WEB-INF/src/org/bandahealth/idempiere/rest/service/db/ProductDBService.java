@@ -132,6 +132,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 				result.setTotalQuantity(totalQuantity);
 			}
+
+			results.add(result);
 		}
 
 		return new BaseListResponse<SearchProduct>(results, pagingInfo);
