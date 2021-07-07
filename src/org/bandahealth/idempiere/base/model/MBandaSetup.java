@@ -298,8 +298,8 @@ public class MBandaSetup {
 			return false;
 		}
 		// Get all active, default charges from the default client
-		List<MCharge_BH> defaultCharges = new Query(context,
-				MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
+		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.Table_Name,
+				MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		for (MCharge_BH defaultCharge : defaultCharges) {
@@ -307,7 +307,8 @@ public class MBandaSetup {
 			MCharge_BH charge = new MCharge_BH(context, 0, getTransactionName());
 			charge.setName(defaultCharge.getName());
 			charge.setDescription(defaultCharge.getDescription());
-			charge.setC_ChargeType_ID(defaultChargeTypeToChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
+			charge.setC_ChargeType_ID(
+					defaultChargeTypeToChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
 			charge.setBH_SubType(defaultCharge.getBH_SubType());
 			charge.setC_ElementValue_ID(defaultCharge.getC_ElementValue_ID());
@@ -365,29 +366,37 @@ public class MBandaSetup {
 	 * Add non-Patient payments for this client
 	 */
 	private boolean addChargeInformation() {
+		Map<Integer, MBHChargeInfoValue> infoValues = getAllInfoValuesMap();
+
 		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
 				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		MBHChargeInfo chargeInfo = new MBHChargeInfo(context, getAD_Client_ID(), null);
 
 		Map<Integer, MBHChargeInfo> defaultChargeInfoMap = new HashMap<>();
 		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
-			if (!defaultChargeInfo.save()) {
-				String errorMessage = "Default Charge Info NOT inserted";
+			chargeInfo.setBH_ChargeInfoDataType(defaultChargeInfo.getBH_ChargeInfoDataType());
+			chargeInfo.setBH_FillFromPatient(defaultChargeInfo.isBH_FillFromPatient());
+			chargeInfo.setC_Charge_ID(defaultChargeInfo.getC_Charge_ID());
+			chargeInfo.setName(defaultChargeInfo.getName());
+			if (!chargeInfo.save()) {
+				String errorMessage = "Charge Info NOT saved";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
 				transaction.rollback();
 				transaction.close();
 				return false;
 			}
-			// get the info-values for this entry and save them as well
-			List<MBHChargeInfoValue> defaultchargeInfoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
-					MBHChargeInfoValue.COLUMNNAME_BH_Charge_Info_ID + "=?", getTransactionName())
-							.setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
-			if (defaultchargeInfoValuesList.isEmpty())
-				continue;
-			for (MBHChargeInfoValue value : defaultchargeInfoValuesList) {
-				if (!value.save()) {
-					String errorMessage = "ChargeInfo value NOT saved";
+
+			MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, getAD_Client_ID(), null);
+			for (Map.Entry<Integer, MBHChargeInfoValue> value : infoValues.entrySet()) {
+				if (Integer.valueOf(value.getValue().getBH_Charge_Info_ID())
+						.equals(chargeInfo.getBH_Charge_Info_ID())) {
+					chargeInfoValue.setName(value.getValue().getName());
+					chargeInfoValue.setBH_Charge_Info_ID(value.getValue().getBH_Charge_Info_ID());
+				}
+				if (!chargeInfoValue.save()) {
+					String errorMessage = "ChargeInfoValue value NOT saved";
 					log.log(Level.SEVERE, errorMessage);
 					info.append(errorMessage);
 					transaction.rollback();
@@ -1008,13 +1017,25 @@ public class MBandaSetup {
 	private Map<Integer, MElementValue> getAllElementValues() {
 		Map<Integer, MElementValue> elementValues = new HashMap<>();
 		List<MElementValue> accountElementValues = new Query(context, MElementValue.Table_Name,
-				MElementValue.COLUMNNAME_AD_Client_ID + "=?",
-				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				MElementValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		for (MElementValue elementValue : accountElementValues) {
 			elementValues.put(elementValue.get_ID(), elementValue);
 		}
 
 		return elementValues;
+	}
+
+	/**
+	 * Get map of all info values
+	 */
+	private Map<Integer, MBHChargeInfoValue> getAllInfoValuesMap() {
+		Map<Integer, MBHChargeInfoValue> infoValuesMap = new HashMap<>();
+		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
+				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		infoValuesList.stream().map(infoValue -> infoValuesMap.put(infoValue.get_ID(), infoValue));
+		return infoValuesMap;
 	}
 
 	/**
