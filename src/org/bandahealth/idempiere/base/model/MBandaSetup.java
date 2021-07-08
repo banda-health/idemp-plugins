@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -368,7 +369,7 @@ public class MBandaSetup {
 	private boolean addChargeInformation() {
 		Map<Integer, MBHChargeInfoValue> infoValues = getAllInfoValuesMap();
 
-		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
+List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
 				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		MBHChargeInfo chargeInfo = new MBHChargeInfo(context, getAD_Client_ID(), null);
@@ -389,11 +390,12 @@ public class MBandaSetup {
 			}
 
 			MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, getAD_Client_ID(), null);
-			for (Map.Entry<Integer, MBHChargeInfoValue> value : infoValues.entrySet()) {
-				if (Integer.valueOf(value.getValue().getBH_Charge_Info_ID())
-						.equals(chargeInfo.getBH_Charge_Info_ID())) {
-					chargeInfoValue.setName(value.getValue().getName());
-					chargeInfoValue.setBH_Charge_Info_ID(value.getValue().getBH_Charge_Info_ID());
+			
+			//We need to get all charge info values mapped for this charge info from the map.
+			for (Map.Entry<Integer, MBHChargeInfoValue> currentInfoValue : infoValues.entrySet()) {
+				if (currentInfoValue.getValue().getBH_Charge_Info_ID() == defaultChargeInfo.getBH_Charge_Info_ID()) {
+					chargeInfoValue.setName(currentInfoValue.getValue().getName());
+					chargeInfoValue.setBH_Charge_Info_ID(currentInfoValue.getValue().getBH_Charge_Info_ID());
 				}
 				if (!chargeInfoValue.save()) {
 					String errorMessage = "ChargeInfoValue value NOT saved";
@@ -1027,15 +1029,14 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * Get map of all info values
+	 * Fetch all info values from the configuration client 
+	 * @return a map of the info values
 	 */
 	private Map<Integer, MBHChargeInfoValue> getAllInfoValuesMap() {
-		Map<Integer, MBHChargeInfoValue> infoValuesMap = new HashMap<>();
 		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
 				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		infoValuesList.stream().map(infoValue -> infoValuesMap.put(infoValue.get_ID(), infoValue));
-		return infoValuesMap;
+		return infoValuesList.stream().collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
 
 	/**
