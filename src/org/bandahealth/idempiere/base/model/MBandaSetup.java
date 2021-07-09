@@ -32,6 +32,7 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
+import org.compiere.model.X_C_ElementValue;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
@@ -122,7 +123,7 @@ public class MBandaSetup {
 	public boolean updateDefaultAccountMapping() {
 		MAcctSchemaDefault acctSchemaDefault = new Query(context, MAcctSchemaDefault.Table_Name,
 				MAcctSchemaDefault.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-						.setParameters(getAD_Client_ID()).first();
+				.setParameters(getAD_Client_ID()).first();
 		if (acctSchemaDefault == null) {
 			log.severe("No Accounting Schema Defaults for client");
 			transaction.rollback();
@@ -256,12 +257,12 @@ public class MBandaSetup {
 	 * Add the default charge types configured in the config client.
 	 *
 	 * @return A map of default charge type IDs to the charge type that was added
-	 *         for the client
+	 * for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
 				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeMap = new HashMap<>();
 		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
@@ -301,7 +302,7 @@ public class MBandaSetup {
 		// Get all active, default charges from the default client
 		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.Table_Name,
 				MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
 		for (MCharge_BH defaultCharge : defaultCharges) {
 			// Create a new charge for new client based on this default charge
@@ -312,7 +313,7 @@ public class MBandaSetup {
 					defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
 			charge.setBH_SubType(defaultCharge.getBH_SubType());
-			charge.setC_ElementValue_ID(defaultCharge.getC_ElementValue_ID());
+			charge.setC_ElementValue_ID(elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getC_ElementValue_ID());
 			charge.setBH_NeedAdditionalVisitInfo(defaultCharge.isBH_NeedAdditionalVisitInfo());
 			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
@@ -324,8 +325,8 @@ public class MBandaSetup {
 			}
 
 			// Create a valid combination for this account value
-			MAccount chargeExpenseAccount = getOrCreateValidCombination(
-					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
+			MAccount chargeExpenseAccount =
+					getOrCreateValidCombination(elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -337,7 +338,7 @@ public class MBandaSetup {
 			// Now get the charge's accounting mapping
 			X_C_Charge_Acct chargeAccountToModify = new Query(context, X_C_Charge_Acct.Table_Name,
 					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?", getTransactionName())
-							.setParameters(defaultCharge.getC_Charge_ID()).first();
+					.setParameters(defaultCharge.getC_Charge_ID()).first();
 			if (chargeAccountToModify == null) {
 				String errorMessage = "Charge Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
@@ -369,9 +370,9 @@ public class MBandaSetup {
 	private boolean addChargeInformation() {
 		Map<Integer, MBHChargeInfoValue> infoValues = getAllInfoValuesMap();
 
-List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
+		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
 				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		MBHChargeInfo chargeInfo = new MBHChargeInfo(context, getAD_Client_ID(), null);
 
 		Map<Integer, MBHChargeInfo> defaultChargeInfoMap = new HashMap<>();
@@ -390,7 +391,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 			}
 
 			MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, getAD_Client_ID(), null);
-			
+
 			//We need to get all charge info values mapped for this charge info from the map.
 			for (Map.Entry<Integer, MBHChargeInfoValue> currentInfoValue : infoValues.entrySet()) {
 				if (currentInfoValue.getValue().getBH_Charge_Info_ID() == defaultChargeInfo.getBH_Charge_Info_ID()) {
@@ -453,7 +454,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 			// Now get the product category's accounting mapping
 			MProductCategoryAcct productCategoryAccountToModify = new Query(context, MProductCategoryAcct.Table_Name,
 					MProductCategoryAcct.COLUMNNAME_M_Product_Category_ID + "=?", getTransactionName())
-							.setParameters(productCategoryToAdd.getM_Product_Category_ID()).first();
+					.setParameters(productCategoryToAdd.getM_Product_Category_ID()).first();
 			if (productCategoryAccountToModify == null) {
 				String errorMessage = "Product Category Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
@@ -488,10 +489,10 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND" + " " + MReference_BH.Table_Name + "."
 						+ MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
 				getTransactionName())
-						.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
-								+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
-								+ MRefList.COLUMNNAME_AD_Reference_ID)
-						.setParameters(DB_USERTYPE_User, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+				.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
+						+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
+						+ MRefList.COLUMNNAME_AD_Reference_ID)
+				.setParameters(DB_USERTYPE_User, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 
 		// If the admin reference list doesn't exist, there's a big problem...
 		if (userRoleReferenceList == null) {
@@ -524,7 +525,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 
 		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
 				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
-						.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 		if (userType == null) {
 			log.log(Level.SEVERE, "User type reference not defined");
 			return false;
@@ -532,7 +533,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 
 		List<MRefList> userTypeValues = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
-						.setParameters(userType.getAD_Reference_ID()).list();
+				.setParameters(userType.getAD_Reference_ID()).list();
 
 		if (!createAdditionalRoles(userTypeValues, usersToAddRolesTo)) {
 			log.log(Level.SEVERE, "Error creating additional roles");
@@ -601,7 +602,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 	 * Handle updating document action access based on configured rules, if any.
 	 *
 	 * @return Whether the document action access exclusions were successfully
-	 *         applied
+	 * applied
 	 */
 	private boolean handleDocumentActionAccess(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the document action access exclusion values
@@ -615,7 +616,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 //		iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient = new Query(context, MDocType.Table_Name,
 				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
-						.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
+				.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
 		Map<Integer, Integer> clientDocTypeIdsBySystemDocTypeIds = docTypesForSystemAndClient.stream()
 				.filter(docType -> docType.getAD_Client_ID() == 0)
 				.collect(Collectors.toMap(MDocType::getC_DocType_ID,
@@ -630,8 +631,8 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 				X_AD_Document_Action_Access.Table_Name,
 				X_AD_Document_Action_Access.COLUMNNAME_AD_Role_ID + " IN ("
 						+ rolesToConfigureByDBUserType.values().stream()
-								.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
-								.collect(Collectors.joining(","))
+						.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
+						.collect(Collectors.joining(","))
 						+ ")",
 				getTransactionName()).list();
 		Map<Integer, List<X_AD_Document_Action_Access>> currentAccessByRole = currentAccessForRolesToConfigure.stream()
@@ -653,7 +654,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 					.filter(currentAccess -> specifiedAccessForThisRole.stream().noneMatch(
 							specifiedAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
 									&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-											.get(specifiedAccess.getC_DocType_ID())))
+									.get(specifiedAccess.getC_DocType_ID())))
 					.forEach(accessToRemove -> {
 						if (!accessToRemove.delete(true)) {
 							String errorMessage = "Could not remove document action access for Role, DocType, and RefList: "
@@ -670,7 +671,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 			specifiedAccessForThisRole.stream().filter(specifiedAccess -> currentAccessForThisRole.stream()
 					.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
 							&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-									.get(specifiedAccess.getC_DocType_ID())))
+							.get(specifiedAccess.getC_DocType_ID())))
 					.forEach(accessToAdd -> {
 						X_AD_Document_Action_Access clientAccess = new X_AD_Document_Action_Access(context, 0,
 								getTransactionName());
@@ -792,7 +793,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 		List<MRoleIncluded> currentIncludedRolesForRolesToConfigure = new Query(context, MRoleIncluded.Table_Name,
 				MRoleIncluded.COLUMNNAME_AD_Role_ID + " IN ("
 						+ rolesToConfigureByDBUserType.values().stream()
-								.map(role -> Integer.toString(role.getAD_Role_ID())).collect(Collectors.joining(","))
+						.map(role -> Integer.toString(role.getAD_Role_ID())).collect(Collectors.joining(","))
 						+ ")",
 				getTransactionName()).list();
 		Map<Integer, List<MRoleIncluded>> currentIncludedRolesByRoleId = currentIncludedRolesForRolesToConfigure
@@ -806,7 +807,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 					.collect(Collectors.toList());
 			List<MRoleIncluded> currentIncludedRolesForThisRole = currentIncludedRolesByRoleId.containsKey(
 					roleToConfigure.getAD_Role_ID()) ? currentIncludedRolesByRoleId.get(roleToConfigure.getAD_Role_ID())
-							: new ArrayList<>();
+					: new ArrayList<>();
 
 			// For any roles that are meant to be assigned but aren't, add them
 			// Filter out roles that are already assigned
@@ -858,7 +859,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 	private boolean createPaymentBankAccountMappings() {
 		MReference paymentBankAccountMappingReference = new Query(context, MReference.Table_Name,
 				MReference.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
-						.setParameters(MBandaSetup.REFERENCE_PAYMENT_REF_UU).first();
+				.setParameters(MBandaSetup.REFERENCE_PAYMENT_REF_UU).first();
 		if (paymentBankAccountMappingReference == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
 			transaction.rollback();
@@ -867,7 +868,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 		}
 		MRefTable paymentBankAccountMappingsReferenceLimiting = new Query(context, MRefTable.Table_Name,
 				MRefTable.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
-						.setParameters(paymentBankAccountMappingReference.getAD_Reference_ID()).first();
+				.setParameters(paymentBankAccountMappingReference.getAD_Reference_ID()).first();
 		if (paymentBankAccountMappingsReferenceLimiting == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
 			transaction.rollback();
@@ -952,7 +953,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 	private boolean updateAccountMappingsForBankAccount(MBankAccount bankAccount, MAccount inTransitAccount) {
 		X_C_BankAccount_Acct accountMapping = new Query(context, X_C_BankAccount_Acct.Table_Name,
 				X_C_BankAccount_Acct.COLUMNNAME_C_BankAccount_ID + "=?", getTransactionName())
-						.setParameters(bankAccount.getC_BankAccount_ID()).first();
+				.setParameters(bankAccount.getC_BankAccount_ID()).first();
 		if (accountMapping == null) {
 			log.severe("No Account Mapping for Bank Account");
 			transaction.rollback();
@@ -993,7 +994,7 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 		MAccount account = new Query(context, MAccount.Table_Name,
 				MAccount.COLUMNNAME_AD_Client_ID + "=? AND " + MAccount.COLUMNNAME_Account_ID + "=?",
 				getTransactionName())
-						.setParameters(accountElement.getAD_Client_ID(), accountElement.getC_ElementValue_ID()).first();
+				.setParameters(accountElement.getAD_Client_ID(), accountElement.getC_ElementValue_ID()).first();
 		if (account != null) {
 			return account;
 		}
@@ -1013,30 +1014,35 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 
 	/**
 	 * Get a map of all accounts for this client
-	 * 
+	 *
 	 * @return map of accounts
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
-		Map<Integer, MElementValue> elementValues = new HashMap<>();
-		List<MElementValue> accountElementValues = new Query(context, MElementValue.Table_Name,
-				MElementValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		for (MElementValue elementValue : accountElementValues) {
-			elementValues.put(elementValue.get_ID(), elementValue);
-		}
+		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
+				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)",
+				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
 
-		return elementValues;
+		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
+				.filter(elementValue -> elementValue.getAD_Client_ID() == getAD_Client_ID())
+				.collect(Collectors.toMap(MElementValue::getValue, elementValue -> elementValue));
+
+		return accountElementsForTwoClients.stream()
+				.filter(elementValue -> elementValue.getAD_Client_ID() == MClient_BH.CLIENTID_CONFIG).collect(Collectors
+						.toMap(MElementValue::getC_ElementValue_ID, elementValue -> newClientAccountElementIdsByValue
+								.getOrDefault(elementValue.getValue(), new MElementValue(Env.getCtx(), 0, null))));
 	}
 
 	/**
-	 * Fetch all info values from the configuration client 
+	 * Fetch all info values from the configuration client
+	 *
 	 * @return a map of the info values
 	 */
 	private Map<Integer, MBHChargeInfoValue> getAllInfoValuesMap() {
 		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
 				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		return infoValuesList.stream().collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		return infoValuesList.stream()
+				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
 
 	/**
