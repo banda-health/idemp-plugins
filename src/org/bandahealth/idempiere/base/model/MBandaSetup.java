@@ -263,7 +263,7 @@ public class MBandaSetup {
 				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 
-		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = new HashMap<>();
+		Map<Integer, MChargeType_BH> defaultChargeTypeMap = new HashMap<>();
 		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
 			MChargeType_BH chargeType = new MChargeType_BH(context, 0, getTransactionName());
 			chargeType.setName(defaultChargeType.getName());
@@ -277,10 +277,10 @@ public class MBandaSetup {
 				transaction.close();
 				return null;
 			}
-			defaultChargeTypeToChargeTypeMap.put(defaultChargeType.get_ID(), chargeType);
+			defaultChargeTypeMap.put(defaultChargeType.get_ID(), chargeType);
 		}
 
-		return defaultChargeTypeToChargeTypeMap;
+		return defaultChargeTypeMap;
 	}
 
 	/**
@@ -291,11 +291,11 @@ public class MBandaSetup {
 	 */
 	public boolean addDefaultCharges() {
 		// First, create the default charge types
-		Map<Integer, MChargeType_BH> defaultChargeTypeToChargeTypeMap = addDefaultChargeTypes();
+		Map<Integer, MChargeType_BH> defaultChargeTypeMap = addDefaultChargeTypes();
 		// Get collection of account_element_values mapped on the default charges
 		Map<Integer, MElementValue> elementValuesMapping = getAllElementValues();
 
-		if (defaultChargeTypeToChargeTypeMap == null || defaultChargeTypeToChargeTypeMap.isEmpty()) {
+		if (defaultChargeTypeMap == null || defaultChargeTypeMap.isEmpty()) {
 			return false;
 		}
 		// Get all active, default charges from the default client
@@ -309,7 +309,7 @@ public class MBandaSetup {
 			charge.setName(defaultCharge.getName());
 			charge.setDescription(defaultCharge.getDescription());
 			charge.setC_ChargeType_ID(
-					defaultChargeTypeToChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
+					defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
 			charge.setBH_SubType(defaultCharge.getBH_SubType());
 			charge.setC_ElementValue_ID(defaultCharge.getC_ElementValue_ID());
