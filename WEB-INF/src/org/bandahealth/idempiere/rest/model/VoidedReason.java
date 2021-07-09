@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class VoidedReason extends BaseEntity {
 
 	private static final long serialVersionUID = -7966806468293136098L;
-	
+
 	private int lineNo;
 
 	public VoidedReason() {
@@ -20,6 +20,7 @@ public class VoidedReason extends BaseEntity {
 
 	public VoidedReason(MBHVoidedReason entity) {
 		setName(entity.getName());
+		setUuid(entity.getBH_VoidedReason_UU());
 		setDescription(entity.getDescription());
 		setIsActive(entity.isActive());
 		setLineNo(entity.getLineNo());
