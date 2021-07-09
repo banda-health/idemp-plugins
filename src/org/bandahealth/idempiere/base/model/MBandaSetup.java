@@ -293,7 +293,7 @@ public class MBandaSetup {
 		// First, create the default charge types
 		Map<Integer, MChargeType_BH> defaultChargeTypeMap = addDefaultChargeTypes();
 		// Get collection of account_element_values mapped on the default charges
-		Map<Integer, MElementValue> elementValuesMapping = getAllElementValues();
+		Map<Integer, MElementValue> elementValuesMap = getAllElementValues();
 
 		if (defaultChargeTypeMap == null || defaultChargeTypeMap.isEmpty()) {
 			return false;
@@ -325,7 +325,7 @@ public class MBandaSetup {
 
 			// Create a valid combination for this account value
 			MAccount chargeExpenseAccount = getOrCreateValidCombination(
-					elementValuesMapping.get(defaultCharge.getC_ElementValue_ID()).getValue());
+					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -1012,9 +1012,9 @@ List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Tab
 	}
 
 	/**
-	 * Get a mapping of all charges and related c_elementvalue_id
+	 * Get a map of all accounts for this client
 	 * 
-	 * @return map of charge_element_value
+	 * @return map of accounts
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
 		Map<Integer, MElementValue> elementValues = new HashMap<>();
