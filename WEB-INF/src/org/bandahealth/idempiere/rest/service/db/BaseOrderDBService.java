@@ -124,6 +124,9 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			MOrder_BH mOrder = getEntityByUuidFromDB(entity.getUuid());
 			if (mOrder == null) {
 				mOrder = getModelInstance();
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					mOrder.setC_Order_UU(entity.getUuid());
+				}
 			}
 
 			if (entity.getDateOrdered() != null) {

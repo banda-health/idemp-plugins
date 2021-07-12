@@ -92,6 +92,9 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		MPayment_BH mPayment = getEntityByUuidFromDB(entity.getUuid());
 		if (mPayment == null) {
 			mPayment = getModelInstance();
+			if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+				mPayment.setC_Payment_UU(entity.getUuid());
+			}
 		}
 
 		if (entity.getOrderId() > 0) {

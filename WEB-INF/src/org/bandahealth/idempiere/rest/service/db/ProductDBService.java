@@ -149,6 +149,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			} else {
 				product = getModelInstance();
 				product.setProductType(MProduct_BH.PRODUCTTYPE_Item);
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					product.setM_Product_UU(entity.getUuid());
+				}
 
 				// set default uom (unit of measure).
 				MUOM uom = new Query(Env.getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_Name + "=?", null)
