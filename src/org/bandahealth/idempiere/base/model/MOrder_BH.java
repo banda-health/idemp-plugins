@@ -47,9 +47,15 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_BLOOD_PRESSURE = "BH_BloodPressure";
 	public static final String COLUMNNAME_BH_HEIGHT = "BH_Height";
 	public static final String COLUMNNAME_BH_WEIGHT = "BH_Weight";
-	public static final String COLUMNNAME_BH_SECOND_DIAGNOSIS = "BH_SecondDiagnosis";
 	public static final String COLUMMNAME_BH_CLINICIAN_USER_ID = "BH_Clinician_User_ID";
 	public static final String COLUMNNAME_BH_PROCESS_STAGE = "BH_Process_Stage";
+	public static final String COLUMNNAME_BH_PRIMARY_CODED_DIAGNOSIS_ID = "BH_PrimaryCodedDiagnosis_ID";
+	public static final String COLUMNNAME_BH_SECONDARY_CODED_DIAGNOSIS_ID = "BH_SecondaryCodedDiagnosis_ID";
+	public static final String COLUMNNAME_BH_PRIMARY_UNCODED_DIAGNOSIS = "BH_PrimaryUncodedDiagnosis"; // previously
+																										// Description
+	public static final String COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS = "BH_SecondaryUncodedDiagnosis"; // previously
+																											// bh_seconddiagnosis
+
 	/**
 	 * Column name bh_referral
 	 */
@@ -113,7 +119,7 @@ public class MOrder_BH extends MOrder {
 		MDocType dt = MDocType.get(getCtx(), getC_DocType_ID());
 		String DocSubTypeSO = dt.getDocSubTypeSO();
 
-		//	Just prepare
+		// Just prepare
 		if (DOCACTION_Prepare.equals(getDocAction())) {
 			setProcessed(false);
 			return DocAction.STATUS_InProgress;
@@ -122,10 +128,10 @@ public class MOrder_BH extends MOrder {
 		// Set the definite document number after completed (if needed)
 		setDefiniteDocumentNo();
 
-		//	Offers
+		// Offers
 		if (MDocType.DOCSUBTYPESO_Proposal.equals(DocSubTypeSO)
 				|| MDocType.DOCSUBTYPESO_Quotation.equals(DocSubTypeSO)) {
-			//	Binding
+			// Binding
 			if (MDocType.DOCSUBTYPESO_Quotation.equals(DocSubTypeSO))
 				reserveStock(dt, getLines(true, MOrderLine.COLUMNNAME_M_Product_ID));
 			m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_COMPLETE);
@@ -137,15 +143,14 @@ public class MOrder_BH extends MOrder {
 			setProcessed(true);
 			return DocAction.STATUS_Completed;
 		}
-		//	Waiting Payment - until we have a payment
-		if (!m_forceCreation
-				&& MDocType.DOCSUBTYPESO_PrepayOrder.equals(DocSubTypeSO)
-				&& getC_Payment_ID() == 0 && getC_CashLine_ID() == 0) {
+		// Waiting Payment - until we have a payment
+		if (!m_forceCreation && MDocType.DOCSUBTYPESO_PrepayOrder.equals(DocSubTypeSO) && getC_Payment_ID() == 0
+				&& getC_CashLine_ID() == 0) {
 			setProcessed(true);
 			return DocAction.STATUS_WaitingPayment;
 		}
 
-		//	Re-Check
+		// Re-Check
 		if (!m_justPrepared) {
 			String status = prepareIt();
 			m_justPrepared = false;
@@ -157,20 +162,21 @@ public class MOrder_BH extends MOrder {
 		if (m_processMsg != null)
 			return DocAction.STATUS_Invalid;
 
-		//	Implicit Approval
+		// Implicit Approval
 		if (!isApproved())
 			approveIt();
 		getLines(true, null);
-		if (log.isLoggable(Level.INFO)) log.info(toString());
+		if (log.isLoggable(Level.INFO))
+			log.info(toString());
 		StringBuilder info = new StringBuilder();
 
 		boolean realTimePOS = MSysConfig.getBooleanValue(MSysConfig.REAL_TIME_POS, false, getAD_Client_ID());
 
-		//	Create SO Shipment - Force Shipment
+		// Create SO Shipment - Force Shipment
 		MInOut shipment = null;
-		if (MDocType.DOCSUBTYPESO_OnCreditOrder.equals(DocSubTypeSO)    //	(W)illCall(I)nvoice
-				|| MDocType.DOCSUBTYPESO_WarehouseOrder.equals(DocSubTypeSO)  //	(W)illCall(P)ickup
-				|| MDocType.DOCSUBTYPESO_POSOrder.equals(DocSubTypeSO)      //	(W)alkIn(R)eceipt
+		if (MDocType.DOCSUBTYPESO_OnCreditOrder.equals(DocSubTypeSO) // (W)illCall(I)nvoice
+				|| MDocType.DOCSUBTYPESO_WarehouseOrder.equals(DocSubTypeSO) // (W)illCall(P)ickup
+				|| MDocType.DOCSUBTYPESO_POSOrder.equals(DocSubTypeSO) // (W)alkIn(R)eceipt
 				|| MDocType.DOCSUBTYPESO_PrepayOrder.equals(DocSubTypeSO)) {
 			if (!DELIVERYRULE_Force.equals(getDeliveryRule())) {
 				MWarehouse wh = new MWarehouse(getCtx(), getM_Warehouse_ID(), get_TrxName());
@@ -185,10 +191,9 @@ public class MOrder_BH extends MOrder {
 			String msg = shipment.getProcessMsg();
 			if (msg != null && msg.length() > 0)
 				info.append(" (").append(msg).append(")");
-		}  //	Shipment
+		} // Shipment
 
-
-		//	Create SO Invoice - Always invoice complete Order
+		// Create SO Invoice - Always invoice complete Order
 		if (MDocType.DOCSUBTYPESO_POSOrder.equals(DocSubTypeSO)
 				|| MDocType.DOCSUBTYPESO_OnCreditOrder.equals(DocSubTypeSO)
 				|| MDocType.DOCSUBTYPESO_PrepayOrder.equals(DocSubTypeSO)) {
@@ -199,7 +204,7 @@ public class MOrder_BH extends MOrder {
 			String msg = invoice.getProcessMsg();
 			if (msg != null && msg.length() > 0)
 				info.append(" (").append(msg).append(")");
-		}  //	Invoice
+		} // Invoice
 
 		String msg = createPOSPayments();
 		if (msg != null) {
@@ -207,11 +212,11 @@ public class MOrder_BH extends MOrder {
 			return DocAction.STATUS_Invalid;
 		}
 
-		//	Counter Documents
+		// Counter Documents
 		MOrder counter = createCounterDoc();
 		if (counter != null)
 			info.append(" - @CounterDoc@: @Order@=").append(counter.getDocumentNo());
-		//	User Validation
+		// User Validation
 		String valid = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_COMPLETE);
 		if (valid != null) {
 			if (info.length() > 0)
@@ -221,7 +226,7 @@ public class MOrder_BH extends MOrder {
 			return DocAction.STATUS_Invalid;
 		}
 
-		//landed cost
+		// landed cost
 		if (!isSOTrx()) {
 			String error = landedCostAllocation();
 			if (!Util.isEmpty(error)) {
@@ -235,7 +240,7 @@ public class MOrder_BH extends MOrder {
 		//
 		setDocAction(DOCACTION_Close);
 		return DocAction.STATUS_Completed;
-	}  //	completeIt
+	} // completeIt
 
 	/**
 	 * Make sure the total open balance updated accordingly
@@ -254,8 +259,8 @@ public class MOrder_BH extends MOrder {
 				+ MPayment_BH.COLUMNNAME_C_Invoice_ID + " = " + MInvoice.Table_Name + "."
 				+ MInvoice.COLUMNNAME_C_Invoice_ID;
 		List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name, where, get_TrxName())
-				.addJoinClause(join)
-				.setParameters(getC_Order_ID()).setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID).list();
+				.addJoinClause(join).setParameters(getC_Order_ID()).setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID)
+				.list();
 		BigDecimal totalPayments = new BigDecimal(0);
 		for (MPayment_BH orderPayment : orderPayments) {
 			totalPayments = totalPayments.add(orderPayment.getPayAmt());
@@ -263,9 +268,8 @@ public class MOrder_BH extends MOrder {
 
 		if (totalPayments.compareTo(getGrandTotal()) < 0) {
 			// update TOB
-			MBPartner bpartner =
-					new Query(getCtx(), MBPartner.Table_Name, MBPartner.COLUMNNAME_C_BPartner_ID + " =?", get_TrxName())
-							.setParameters(getC_BPartner_ID()).first();
+			MBPartner bpartner = new Query(getCtx(), MBPartner.Table_Name, MBPartner.COLUMNNAME_C_BPartner_ID + " =?",
+					get_TrxName()).setParameters(getC_BPartner_ID()).first();
 			BigDecimal newOpenBalance = bpartner.getTotalOpenBalance().add(totalPayments);
 			bpartner.setTotalOpenBalance(newOpenBalance);
 			bpartner.save(get_TrxName());
@@ -283,7 +287,8 @@ public class MOrder_BH extends MOrder {
 	 * @return invoice or null
 	 */
 	protected MInvoice_BH createInvoice(MDocType dt, MInOut shipment, Timestamp invoiceDate) {
-		if (log.isLoggable(Level.INFO)) log.info(dt.toString());
+		if (log.isLoggable(Level.INFO))
+			log.info(dt.toString());
 
 		// check if there is an associated invoice for this order
 		MInvoice_BH existingInvoice =
@@ -301,7 +306,7 @@ public class MOrder_BH extends MOrder {
 				return null;
 			}
 
-			//	If we have a Shipment - use that as a base
+			// If we have a Shipment - use that as a base
 			if (shipment != null) {
 				if (!INVOICERULE_AfterDelivery.equals(getInvoiceRule()))
 					setInvoiceRule(INVOICERULE_AfterDelivery);
@@ -312,7 +317,7 @@ public class MOrder_BH extends MOrder {
 					//
 					MInvoiceLine iLine = new MInvoiceLine(invoice);
 					iLine.setShipLine(sLine);
-					//	Qty = Delivered
+					// Qty = Delivered
 					if (sLine.sameOrderLineUOM())
 						iLine.setQtyEntered(sLine.getQtyEntered());
 					else
@@ -328,7 +333,7 @@ public class MOrder_BH extends MOrder {
 						log.warning("Could not update Shipment line: " + sLine);
 					}
 				}
-			} else  //	Create Invoice from Order
+			} else // Create Invoice from Order
 			{
 				if (!INVOICERULE_Immediate.equals(getInvoiceRule()))
 					setInvoiceRule(INVOICERULE_Immediate);
@@ -339,7 +344,7 @@ public class MOrder_BH extends MOrder {
 					//
 					MInvoiceLine iLine = new MInvoiceLine(invoice);
 					iLine.setOrderLine(oLine);
-					//	Qty = Ordered - Invoiced
+					// Qty = Ordered - Invoiced
 					iLine.setQtyInvoiced(oLine.getQtyOrdered().subtract(oLine.getQtyInvoiced()));
 					if (oLine.getQtyOrdered().compareTo(oLine.getQtyEntered()) == 0)
 						iLine.setQtyEntered(iLine.getQtyInvoiced());
@@ -354,7 +359,8 @@ public class MOrder_BH extends MOrder {
 			}
 
 			// Copy payment schedule from order to invoice if any
-			for (MOrderPaySchedule ops : MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0, get_TrxName())) {
+			for (MOrderPaySchedule ops : MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0,
+					get_TrxName())) {
 				MInvoicePaySchedule ips = new MInvoicePaySchedule(getCtx(), 0, get_TrxName());
 				PO.copyValues(ops, ips);
 				ips.setC_Invoice_ID(invoice.getC_Invoice_ID());
@@ -381,7 +387,7 @@ public class MOrder_BH extends MOrder {
 			}
 		}
 		return invoice;
-	}  //	createInvoice
+	} // createInvoice
 
 	/**
 	 * Get Payments.
@@ -480,12 +486,50 @@ public class MOrder_BH extends MOrder {
 		set_Value(COLUMNNAME_BH_WEIGHT, BH_Weight);
 	}
 
-	public String getBH_SecondDiagnosis() {
-		return (String) get_Value(COLUMNNAME_BH_SECOND_DIAGNOSIS);
+	public int getBH_PrimaryCodedDiagnosisID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_PRIMARY_CODED_DIAGNOSIS_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 
-	public void setBH_SecondDiagnosis(String BH_SecondDiagnosis) {
-		set_Value(COLUMNNAME_BH_SECOND_DIAGNOSIS, BH_SecondDiagnosis);
+	public void setBH_PrimaryCodedDiagnosisID(int BH_PrimaryDiagnosis_ID) {
+		if (BH_PrimaryDiagnosis_ID < 1) {
+			set_Value(COLUMNNAME_BH_PRIMARY_CODED_DIAGNOSIS_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_PRIMARY_CODED_DIAGNOSIS_ID, Integer.valueOf(BH_PrimaryDiagnosis_ID));
+		}
+	}
+
+	public String getBH_PrimaryUnCodedDiagnosis() {
+		return (String) get_Value(COLUMNNAME_BH_PRIMARY_UNCODED_DIAGNOSIS);
+	}
+
+	public void setBH_PrimaryUnCodedDiagnosis(String BH_PrimaryUncodedDiagnosis) {
+		set_Value(COLUMNNAME_BH_PRIMARY_UNCODED_DIAGNOSIS, BH_PrimaryUncodedDiagnosis);
+	}
+
+	public int getBH_SecondaryCodedDiagnosisID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_SECONDARY_CODED_DIAGNOSIS_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
+	}
+
+	public void setBH_SecondaryCodedDiagnosisID(int BH_SecondaryDiagnosis_ID) {
+		if (BH_SecondaryDiagnosis_ID < 1) {
+			set_Value(COLUMNNAME_BH_SECONDARY_CODED_DIAGNOSIS_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_SECONDARY_CODED_DIAGNOSIS_ID, Integer.valueOf(BH_SecondaryDiagnosis_ID));
+		}
+	}
+
+	public String getBH_SecondaryUnCodedDiagnosis() {
+		return (String) get_Value(COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS);
+	}
+
+	public void setBH_SecondaryUnCodedDiagnosis(String BH_SecondaryUncodedDiagnosis) {
+		set_Value(COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS, BH_SecondaryUncodedDiagnosis);
 	}
 
 	/**
@@ -578,17 +622,21 @@ public class MOrder_BH extends MOrder {
 		set_Value(COLUMNNAME_BH_ReferredFromTo, BH_ReferredFromTo);
 	}
 
-	/** Set Visit Date.
-	 @param BH_VisitDate Visit Date	  */
-	public void setBH_VisitDate (Timestamp BH_VisitDate)
-	{
-		set_Value (COLUMNNAME_BH_VisitDate, BH_VisitDate);
+	/**
+	 * Set Visit Date.
+	 * 
+	 * @param BH_VisitDate Visit Date
+	 */
+	public void setBH_VisitDate(Timestamp BH_VisitDate) {
+		set_Value(COLUMNNAME_BH_VisitDate, BH_VisitDate);
 	}
 
-	/** Get Visit Date.
-	 @return Visit Date	  */
-	public Timestamp getBH_VisitDate ()
-	{
-		return (Timestamp)get_Value(COLUMNNAME_BH_VisitDate);
+	/**
+	 * Get Visit Date.
+	 * 
+	 * @return Visit Date
+	 */
+	public Timestamp getBH_VisitDate() {
+		return (Timestamp) get_Value(COLUMNNAME_BH_VisitDate);
 	}
 }
