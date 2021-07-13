@@ -80,4 +80,14 @@ public interface IRestConfigs {
 
 	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
 	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
+	
+	String CODED_DIAGNOSES_PATH = AUTHENTICATION_PATH + "/codeddiagnoses";
+	String CODED_DIAGNOSIS_PATH = "/codeddiagnosis/{uuid}";
+
+	String CHARGES = "/charges";
+	String CHARGE_PATH = AUTHENTICATION_PATH + "/charges";
+	String NON_PATIENT_PAYMENTS_PATH = "/nonpatientpayments";
+	String CHARGE_INFORMATION_SUGGESTION_PATH = AUTHENTICATION_PATH + "/chargeInformationSuggestions";
+
+	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/businessPartners";
 }

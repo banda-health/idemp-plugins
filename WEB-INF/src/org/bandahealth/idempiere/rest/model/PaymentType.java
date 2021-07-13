@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.compiere.model.MRefList;
 
 @XmlRootElement(name = "paymentType")
 @JsonInclude(value = Include.NON_NULL)
@@ -23,5 +24,9 @@ public class PaymentType extends BaseEntity {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, null);
 
 		setValue(value);
+	}
+
+	public PaymentType(MRefList entity) {
+		super(entity, entity.getName(), entity.getDescription(), entity.getValue());
 	}
 }

@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.NHIF;
 import org.bandahealth.idempiere.rest.model.NHIFRelationship;
@@ -21,6 +24,7 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCurrency;
+import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -32,6 +36,7 @@ import org.compiere.util.Env;
 public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	private final String CURRENCY = "KES";
+	private final ReferenceListDBService referenceListDBService;
 	private PatientDBService patientDBService;
 	private EntityMetadataDBService entityMetadataDBService;
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
@@ -43,6 +48,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	public PaymentDBService() {
 		patientDBService = new PatientDBService();
 		entityMetadataDBService = new EntityMetadataDBService();
+		referenceListDBService = new ReferenceListDBService();
 	}
 
 	@Override
@@ -180,7 +186,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 					new NHIF(new NHIFType(nhifType), new NHIFRelationship(relationship), claimNumber, memberId, number,
 							memberName),
 					instance.getDocStatus(),
-					DateUtil.parseDateOnly(instance.getDateTrx()), instance.getBH_TenderAmount());
+					DateUtil.parseDateOnly(instance.getDateTrx()), instance.getBH_TenderAmount(), instance);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -249,6 +255,21 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		for (MPayment_BH mPayment : mPayments) {
 			payments.add(createInstanceWithDefaultFields(mPayment));
 		}
+
+		// Batch calls for charges and charge information
+		Set<String> paymentTypeValues = mPayments.stream().map(MPayment_BH::getTenderType).collect(Collectors.toSet());
+
+		Map<String, MRefList> paymentTypeReferenceListByValues =
+				referenceListDBService.getTypes(MReference_BH.TENDER_TYPE_AD_REFERENCE_UU, paymentTypeValues).stream()
+						.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
+
+		payments.forEach(payment -> {
+			if (paymentTypeReferenceListByValues.containsKey(payment.getTenderType())) {
+				payment.setPaymentType(new PaymentType(paymentTypeReferenceListByValues.get(payment.getTenderType())));
+			} else {
+				payment.setPaymentType(new PaymentType());
+			}
+		});
 
 		return payments;
 	}

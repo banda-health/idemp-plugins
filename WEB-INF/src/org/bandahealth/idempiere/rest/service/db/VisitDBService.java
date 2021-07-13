@@ -1,20 +1,21 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
@@ -29,7 +30,6 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
-import org.compiere.model.MScheduler;
 import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
@@ -49,20 +49,27 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	private PatientDBService patientDBService;
 	private PaymentDBService paymentDBService;
 	private UserDBService userDBService;
+	private final CodedDiagnosisDBService codedDiagnosisDBService;
 	private MBPartner_BH mPatient;
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(MBPartner_BH.Table_Name, "LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "." +
-				MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
-				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
-		put(MUser.Table_Name, "LEFT JOIN " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "." +
-				MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID);
-	}};
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(MBPartner_BH.Table_Name,
+					"LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+							+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
+							+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+			put(MUser.Table_Name,
+					"LEFT JOIN " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "."
+							+ MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "."
+							+ MUser.COLUMNNAME_AD_User_ID);
+		}
+	};
 
 	public VisitDBService() {
 		patientDBService = new PatientDBService();
 		paymentDBService = new PaymentDBService();
 		userDBService = new UserDBService();
+		codedDiagnosisDBService = new CodedDiagnosisDBService();
 	}
 
 	public static int getVisitsCount(Integer patientId) {
@@ -86,8 +93,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		MOrder_BH latestVisit = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
-				.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
+						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
+						.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
 
 		if (latestVisit == null) {
 			return null;
@@ -97,7 +104,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
-		// We need to do something special for completing a sales order - do it asynchronously
+		// We need to do something special for completing a sales order - do it
+		// asynchronously
 		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
 			return super.processEntity(uuid, docAction);
 		}
@@ -113,7 +121,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 		processDBService.runOrderProcess(order.get_ID());
 
-		// Since the async process will take some time, assume it completed successfully and return the appropriate status
+		// Since the async process will take some time, assume it completed successfully
+		// and return the appropriate status
 		Visit visit = createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
 		visit.setDocStatus(DocAction.STATUS_Completed);
 		return visit;
@@ -146,7 +155,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
 			MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
 			if (patient != null) {
-				// Reset the patient info in the entity so it can be passed for saving (used for payments below)
+				// Reset the patient info in the entity so it can be passed for saving (used for
+				// payments below)
 				entity.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
 				mOrder.setC_BPartner_ID(patient.get_ID());
 			}
@@ -184,8 +194,38 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			mOrder.setBH_Weight(entity.getWeight());
 		}
 
-		if (entity.getSecondDiagnosis() != null) {
-			mOrder.setBH_SecondDiagnosis(entity.getSecondDiagnosis());
+		if (entity.getPrimaryCodedDiagnosis() != null || entity.getSecondaryCodedDiagnosis() != null) {
+			List<String> uuids = new ArrayList<>();
+
+			uuids.add(entity.getPrimaryCodedDiagnosis().getUuid());
+			uuids.add(entity.getSecondaryCodedDiagnosis().getUuid());
+			// prefetch coded diagnosis list
+			List<MBHCodedDiagnosis> prefetchedCodedDiagnosisList = codedDiagnosisDBService
+					.getCodedDiagnosesByUuids(uuids);
+
+			if (entity.getPrimaryCodedDiagnosis() != null) {
+				MBHCodedDiagnosis primaryCodedDiagnosis = searchPrefetchCodedDiagnosisListByUuid(
+						entity.getPrimaryCodedDiagnosis().getUuid(), prefetchedCodedDiagnosisList);
+				if (primaryCodedDiagnosis != null) {
+					mOrder.setBH_PrimaryCodedDiagnosisID(primaryCodedDiagnosis.get_ID());
+				}
+			}
+
+			if (entity.getSecondaryCodedDiagnosis() != null) {
+				MBHCodedDiagnosis secondaryCodedDiagnosis = searchPrefetchCodedDiagnosisListByUuid(
+						entity.getSecondaryCodedDiagnosis().getUuid(), prefetchedCodedDiagnosisList);
+				if (secondaryCodedDiagnosis != null) {
+					mOrder.setBH_SecondaryCodedDiagnosisID(secondaryCodedDiagnosis.get_ID());
+				}
+			}
+		}
+
+		if (entity.getPrimaryUnCodedDiagnosis() != null) {
+			mOrder.setBH_PrimaryUnCodedDiagnosis(entity.getPrimaryUnCodedDiagnosis());
+		}
+
+		if (entity.getSecondaryUnCodedDiagnosis() != null) {
+			mOrder.setBH_SecondaryUnCodedDiagnosis(entity.getSecondaryUnCodedDiagnosis());
 		}
 
 		if (entity.getClinician() != null && entity.getClinician().getUuid() != null) {
@@ -218,8 +258,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			for (Payment payment : entity.getPayments()) {
 				payment.setOrderId(mOrder.get_ID());
 				// Read the patient assigned to the entity
-				// NOTE: DO NOT use the mPatient property because this class is a singleton and there exists the possibility
-				// that the property has been overridden by another save request between when it was set for this order and now
+				// NOTE: DO NOT use the mPatient property because this class is a singleton and
+				// there exists the possibility
+				// that the property has been overridden by another save request between when it
+				// was set for this order and now
 				if (entity.getPatient() != null) {
 					payment.setPatient(entity.getPatient());
 				}
@@ -281,8 +323,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Patient(patient.getName(), patient.getC_BPartner_UU()),
 					new PatientType(entityMetadataDBService
 							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(), instance.getDocStatus(),
-					instance);
+					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
+					instance.getDocStatus(), instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -314,7 +356,35 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
 					: null;
 
+			// THIS NEEDS TO BE REVISED! The `createInstanceWithAllFields` call does not
+			// happen in a loop, hence it makes no sense pre-fetching a list of all users
+			// only to filter out one user. This logic will only make sense if the
+			// `createInstanceWithAllFields` is called in a loop, and even so, we only need
+			// to make sure the prefetchedList is retrieved once..
 			MUser_BH user = searchUserInPrefetchedList(instance.getBH_ClinicianUserID());
+
+			List<Integer> codedDiagnosisIds = new ArrayList<>();
+
+			MBHCodedDiagnosis primaryCodedDiagnosis = null;
+			MBHCodedDiagnosis secondaryCodedDiagnosis = null;
+			if (instance.getBH_PrimaryCodedDiagnosisID() > 0) {
+				codedDiagnosisIds.add(instance.getBH_PrimaryCodedDiagnosisID());
+			}
+
+			if (instance.getBH_SecondaryCodedDiagnosisID() > 0) {
+				codedDiagnosisIds.add(instance.getBH_SecondaryCodedDiagnosisID());
+			}
+
+			if (!codedDiagnosisIds.isEmpty()) {
+				List<MBHCodedDiagnosis> prefetchCodedDiagnosisList = codedDiagnosisDBService
+						.getCodedDiagnosesByIds(codedDiagnosisIds);
+
+				primaryCodedDiagnosis = searchPrefetchCodedDiagnosisListById(instance.getBH_PrimaryCodedDiagnosisID(),
+						prefetchCodedDiagnosisList);
+				secondaryCodedDiagnosis = searchPrefetchCodedDiagnosisListById(
+						instance.getBH_SecondaryCodedDiagnosisID(), prefetchCodedDiagnosisList);
+
+			}
 
 			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
@@ -329,7 +399,15 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
-					instance.getBH_SecondDiagnosis(), user != null ? new User(user.getAD_User_UU()) : null,
+					secondaryCodedDiagnosis != null
+							? new CodedDiagnosis(secondaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
+									secondaryCodedDiagnosis.getBH_CeilName())
+							: null,
+					primaryCodedDiagnosis != null
+							? new CodedDiagnosis(primaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
+									primaryCodedDiagnosis.getBH_CeilName())
+							: null,
+					user != null ? new User(user.getAD_User_UU()) : null,
 					new ProcessStage(instance.getBH_ProcessStage()), instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -354,8 +432,23 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson, null);
+		BaseListResponse<Visit> visits = super
+				.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
+
+		// Since non-patient payments are negative, they'll change order totals
+		// Get updated order totals for these visits
+		Map<Integer, List<MOrderLine_BH>> orderLinesByOrder = orderLineDBService
+				.getGroupsByIds(MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
+						visits.getResults().stream().map(Visit::getId).collect(Collectors.toSet()));
+
+		// Update the totals to exclude negative values in the lines
+		visits.getResults().forEach(visit -> {
+			visit.setGrandTotal(orderLinesByOrder.get(visit.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
+					.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
+					.reduce(new BigDecimal(0), BigDecimal::add));
+		});
+
+		return visits;
 	}
 
 	/**
@@ -374,7 +467,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-					.setClient_ID().setOnlyActiveRecords(true);
+							.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);
@@ -509,5 +602,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return userDBService.getClinicians(null).stream().filter(user -> user.getAD_User_ID() == userId).findFirst()
 				.orElse(null);
+	}
+
+	private MBHCodedDiagnosis searchPrefetchCodedDiagnosisListById(int codedDiagnosisId,
+			List<MBHCodedDiagnosis> prefetchedList) {
+		return prefetchedList.stream()
+				.filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_ID() == codedDiagnosisId).findFirst()
+				.orElse(null);
+	}
+
+	private MBHCodedDiagnosis searchPrefetchCodedDiagnosisListByUuid(String uuid,
+			List<MBHCodedDiagnosis> prefetchedList) {
+		return prefetchedList.stream().filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_UU().equals(uuid))
+				.findFirst().orElse(null);
 	}
 }
