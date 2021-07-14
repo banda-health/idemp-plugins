@@ -36,4 +36,16 @@ public class MReference_BH extends MReference {
 	public MReference_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
+
+	public MReference_BH(MReference copy) {
+		super(copy);
+	}
+
+	public MReference_BH(Properties ctx, MReference copy) {
+		super(ctx, copy);
+	}
+
+	public MReference_BH(Properties ctx, MReference copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
 }
