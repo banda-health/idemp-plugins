@@ -264,7 +264,11 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 						.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 
 		payments.forEach(payment -> {
-			payment.setPaymentType(new PaymentType(paymentTypeReferenceListByValues.get(payment.getTenderType())));
+			if (paymentTypeReferenceListByValues.containsKey(payment.getTenderType())) {
+				payment.setPaymentType(new PaymentType(paymentTypeReferenceListByValues.get(payment.getTenderType())));
+			} else {
+				payment.setPaymentType(new PaymentType());
+			}
 		});
 
 		return payments;
