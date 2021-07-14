@@ -345,21 +345,35 @@ WHERE name = 'Default Expense Category - DO NOT CHANGE';
 
 -- Migrate the payment types to deactivate some and rename others
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = 'ade64e84-cd1b-43bc-a85c-c17a14963305'; -- Bill Waiver
-UPDATE ad_ref_list SET name = 'Credit or Debit Card' WHERE ad_ref_list_uu = 'd3874573-b7bf-4556-9b9c-3644698c959e';
-UPDATE ad_ref_list SET name = 'Bank Transfer' WHERE ad_ref_list_uu = '487227e8-c88e-45ef-8e6d-c0a480fdd0de';
+UPDATE ad_ref_list SET name = 'Credit or Debit Card' WHERE ad_ref_list_uu = 'd3874573-b7bf-4556-9b9c-3644698c959e'; -- Previously Credit Card
+UPDATE ad_ref_list SET name = 'Bank Transfer' WHERE ad_ref_list_uu = '487227e8-c88e-45ef-8e6d-c0a480fdd0de'; -- Previously Direct Debit
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = 'e24511d1-9180-491c-9cc6-354b8a08e1ff'; -- Donor Fund
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = 'bb077404-71a4-4348-9afa-2b99ae9e1381'; -- CCC
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '55df64a7-1c7f-43f2-846b-f542c9cafa45'; -- MCH
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '5b4b4fcf-85c0-4d7c-851d-ab0db2e84b6d'; -- Linda Mama
-UPDATE ad_ref_list SET name = 'Cheque' WHERE ad_ref_list_uu = '900adbf9-5069-4f56-9d97-0313c6372af3';
+UPDATE ad_ref_list SET name = 'Cheque' WHERE ad_ref_list_uu = '900adbf9-5069-4f56-9d97-0313c6372af3'; -- Previously Check
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '7449ae78-c7d3-463b-921e-62a82a5e1a59'; -- M-TIBA
-UPDATE ad_ref_list SET name = 'Mobile Money' WHERE ad_ref_list_uu = '7a78334e-3494-4d40-a718-c42cb053eea6';
+UPDATE ad_ref_list SET name = 'Mobile Money' WHERE ad_ref_list_uu = '7a78334e-3494-4d40-a718-c42cb053eea6'; -- Previously M-Pesa
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '28617687-cb93-494a-8f03-bc453da32658'; -- NHIF
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '4caa3109-804f-4773-8115-9bdb116f329b'; -- Outreach
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '64e8ad21-7c9d-442b-9655-f5223d76140c'; -- PesaPal
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = 'bd6f5227-483d-4bcf-b1fe-a840a3142327'; -- Account
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '97e54f17-fbae-40de-8dbd-e8ad7f884732'; -- Jubilee insurance
 UPDATE ad_ref_list SET isactive = 'N' WHERE ad_ref_list_uu = '52fc8585-3c61-45b8-a0dd-db10c1e7d79c'; -- Liason insurance
+
+-- Update existing payments to use the new values above
+-- Update PesaPal/M-TIBA to be Mobile Money
+UPDATE c_payment SET tendertype = 'M' WHERE tendertype = 'P';
+UPDATE c_payment SET tendertype = 'M' WHERE tendertype = 'L';
+-- Update Direct Debit to be Credit or Debit Card
+UPDATE c_payment SET tendertype = 'C' WHERE tendertype = 'D';
+
+-- Migrate the PTR tender types
+UPDATE ad_ref_list SET value = 'C', name = 'Credit or Debit Card' WHERE ad_ref_list_uu = '3a9c61f4-0097-42b8-b485-9f79958bf566'; -- Bill Waiver
+UPDATE ad_ref_list SET value = 'D', name = 'Bank Transfer' WHERE ad_ref_list_uu = 'a63c8768-3aa1-4a1e-830c-2019d6208116'; -- Donor Fund
+UPDATE ad_ref_list SET value = 'I', name = 'Insurance' WHERE ad_ref_list_uu = '3d12c6d9-92f9-495f-b2f0-d35baedc614e'; -- NHIF
+UPDATE ad_ref_list SET value = 'K', name = 'Cheque' WHERE ad_ref_list_uu = 'c90e2164-68dd-4996-831d-c7aa02b37177'; -- Linda Mama
+UPDATE ad_ref_list SET value = 'M', name = 'Mobile Money' WHERE ad_ref_list_uu = '1eae83ac-e3a7-4e18-afb5-574fd11dd43f'; -- M-Pesa
 
 -- Insert the new window
 INSERT INTO ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2021-05-14 13:15:17.874000', 100, '2021-05-14 13:15:17.874000', 100, 'Non-Patient Payments', 'This records has no associated tabs or tables as all that will be handled in GL. It''s only here for access assingnment and it''s UUID.', null, 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d', null) ON CONFLICT DO NOTHING;
@@ -406,8 +420,8 @@ CREATE TEMP TABLE tmp_c_validcombination (
 	c_validcombination_id serial NOT NULL,
 	ad_client_id numeric(10,0) NOT NULL,
 	ad_org_id numeric(10,0) NOT NULL DEFAULT 0,
-	createdby numeric(10,0) NOT NULL DEFAULT 1001875, -- Jeremy's ID
-	updatedby numeric(10,0) NOT NULL DEFAULT 1001875, -- Jeremy's ID
+	createdby numeric(10,0) NOT NULL DEFAULT 100,
+	updatedby numeric(10,0) NOT NULL DEFAULT 100,
 	combination character varying(60) COLLATE pg_catalog."default",
 	description character varying(255) COLLATE pg_catalog."default",
 	c_acctschema_id numeric(10,0) NOT NULL,
@@ -483,6 +497,29 @@ JOIN c_element e
 	ON e.ad_client_id = c.ad_client_id
 WHERE c.ad_client_id > 999999 AND c.ad_client_id NOT IN (SELECT ad_client_id FROM c_elementvalue WHERE value = '12710');
 
+-- Create the NHIF National Scheme account
+INSERT INTO tmp_c_elementvalue (
+	ad_client_id,
+	value,
+	name,
+	accounttype,
+	accountsign,
+	c_element_id,
+	issummary
+)
+SELECT
+	c.ad_client_id,
+	'12310',--value
+	'A/R - NHIF National Scheme',--name
+	'A',--accounttype
+	'N',--accountsign
+	e.c_element_id,
+  'N'
+FROM ad_client c
+JOIN c_element e
+	ON e.ad_client_id = c.ad_client_id
+WHERE c.ad_client_id > 999999 AND c.ad_client_id NOT IN (SELECT ad_client_id FROM c_elementvalue WHERE value = '12310');
+
 -- Add these accounts officially to iDempiere
 INSERT INTO c_elementvalue (
 	c_elementvalue_id,
@@ -534,13 +571,18 @@ SELECT
 	0,
 	100,
 	100,
-	0,
+	CASE
+		WHEN ev.value = '127' THEN (SELECT c_elementvalue_id FROM c_elementvalue WHERE ad_client_id = ev.ad_client_id AND value = '12')
+		WHEN ev.value = '12710' THEN (SELECT c_elementvalue_id FROM c_elementvalue WHERE ad_client_id = ev.ad_client_id AND value = '127')
+		WHEN ev.value = '12310' THEN (SELECT c_elementvalue_id FROM c_elementvalue WHERE ad_client_id = ev.ad_client_id AND value = '123')
+		ELSE 0
+	END,
 	999,
 	uuid_generate_v4()
 FROM tmp_c_elementvalue ev
-INNER JOIN ad_tree tr
-	ON tr.ad_client_id = ev.ad_client_id
-		AND tr.name like '%Element Value';
+	INNER JOIN ad_tree tr
+		ON tr.ad_client_id = ev.ad_client_id
+			AND tr.name like '%Element Value';
 
 -- Create combinations for each new element that was added
 INSERT INTO tmp_c_validcombination (
@@ -981,6 +1023,7 @@ DROP TABLE IF EXISTS tmp_payments_to_charges;
 -- Get the payments we're going to map
 SELECT
 	c_payment_id,
+	tendertype,
 	c_currency_id,
 	payamt,
 	description,
@@ -994,32 +1037,55 @@ SELECT
 	bh_nhif_linda_mama
 INTO TEMP TABLE tmp_payments_to_map
 FROM c_payment
-WHERE coalesce(bh_nhif_claim_number,bh_nhif_linda_mama,bh_nhif_member_id,bh_nhif_member_name,bh_nhif_type) IS NOT NULL
-	AND payamt > 0 AND (bh_c_order_id IS NOT NULL OR c_order_id IS NOT NULL);
+WHERE (
+		coalesce(bh_nhif_claim_number,bh_nhif_linda_mama,bh_nhif_member_id,bh_nhif_member_name,bh_nhif_type) IS NOT NULL OR
+			tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
+	)
+	AND payamt != 0 AND (bh_c_order_id IS NOT NULL OR c_order_id IS NOT NULL) AND tendertype NOT IN ('X', 'M');
 
 -- Map the payments to map to the appropriate charges
-SELECT charge_name, c_order_id, c_payment_id, row_number() over (PARTITION BY c_order_id) as line
+SELECT charge_name, c_order_id, c_payment_id, needs_information, row_number() over (PARTITION BY c_order_id) as line
 INTO TEMP TABLE tmp_payments_to_charges
 FROM (
-	SELECT 'NHIF National Scheme' as charge_name, c_order_id, c_payment_id
+	SELECT 'NHIF National Scheme' as charge_name, c_order_id, c_payment_id, 'Y' as needs_information
 	FROM tmp_payments_to_map
-	WHERE bh_nhif_type = '10000002' OR bh_nhif_type IS NULL
+	WHERE bh_nhif_type = '10000002' OR (bh_nhif_type IS NULL AND tendertype = 'N')
 	UNION
-	SELECT 'NHIF Fixed FFS' as charge_name, c_order_id, c_payment_id
+	SELECT 'NHIF Fixed FFS' as charge_name, c_order_id, c_payment_id, 'Y'
 	FROM tmp_payments_to_map
 	WHERE bh_nhif_type = '10000003'
 	UNION
-	SELECT 'NHIF FFS' as charge_name, c_order_id, c_payment_id
+	SELECT 'NHIF FFS' as charge_name, c_order_id, c_payment_id, 'Y'
 	FROM tmp_payments_to_map
 	WHERE bh_nhif_type = '10000004'
 	UNION
-	SELECT 'EduAfya FFS' as charge_name, c_order_id, c_payment_id
+	SELECT 'EduAfya FFS' as charge_name, c_order_id, c_payment_id, 'Y'
 	FROM tmp_payments_to_map
 	WHERE bh_nhif_type = '10000005'
 	UNION
-	SELECT 'Linda Mama' as charge_name, c_order_id, c_payment_id
+	SELECT 'Linda Mama' as charge_name, c_order_id, c_payment_id, 'Y'
 	FROM tmp_payments_to_map
-	WHERE bh_nhif_linda_mama IS NOT NULL AND bh_nhif_type IS NOT NULL
+	WHERE bh_nhif_linda_mama IS NOT NULL AND bh_nhif_type IS NOT NULL OR tendertype = 'i'
+	UNION
+	SELECT 'Jubilee insurance' as charge_name, c_order_id, c_payment_id, 'N'
+	FROM tmp_payments_to_map
+	WHERE tendertype = 'U'
+	UNION
+	SELECT 'Liason insurance' as charge_name, c_order_id, c_payment_id, 'N'
+	FROM tmp_payments_to_map
+	WHERE tendertype = 'V'
+	UNION
+	SELECT 'Bill Waiver' as charge_name, c_order_id, c_payment_id, 'N'
+	FROM tmp_payments_to_map
+	WHERE tendertype IN ('O', 'B')
+	UNION
+	SELECT 'CCC' as charge_name, c_order_id, c_payment_id, 'N'
+	FROM tmp_payments_to_map
+	WHERE tendertype = 'G'
+	UNION
+	SELECT 'MCH' as charge_name, c_order_id, c_payment_id, 'N'
+	FROM tmp_payments_to_map
+	WHERE tendertype = 'H'
 ) c;
 
 SELECT setval(
@@ -1115,6 +1181,7 @@ JOIN tmp_payments_to_charges ptc ON ptm.c_payment_id = ptc.c_payment_id
 JOIN associated_orderline ol ON ol.c_order_id = ptm.c_order_id
 JOIN tmp_c_charge c ON c.name = ptc.charge_name AND c.ad_client_id = ol.ad_client_id;
 
+-- We'll only map the NHIF stuff, because that's the only stuff that had additional information stored in columns for payments
 INSERT INTO tmp_bh_orderline_charge_info (
 	ad_client_id,
 	ad_org_id,
@@ -1141,7 +1208,8 @@ FROM tmp_c_orderline ol
 	JOIN tmp_c_charge c ON ol.c_charge_id = c.c_charge_id
 	JOIN tmp_bh_charge_info ci ON ci.c_charge_id = c.c_charge_id
 	JOIN tmp_payments_to_charges ptc ON ptc.charge_name = c.name AND ptc.c_order_id = ol.c_order_id
-	JOIN tmp_payments_to_map ptm ON ptm.c_payment_id = ptc.c_payment_id;
+	JOIN tmp_payments_to_map ptm ON ptm.c_payment_id = ptc.c_payment_id
+WHERE ptc.needs_information = 'Y';
 
 INSERT INTO c_orderline (
 	c_orderline_id,
@@ -1236,8 +1304,8 @@ FROM tmp_bh_orderline_charge_info;
 -- Update the grand total lines on the orders we added information to
 DROP TABLE IF EXISTS tmp_c_order;
 SELECT
-    c_order_id,
-    SUM(linenetamt) as linenetamt
+	c_order_id,
+	SUM(linenetamt) as linenetamt
 INTO TEMP TABLE tmp_c_order
 FROM c_orderline
 WHERE c_order_id IN (SELECT c_order_id FROM tmp_payments_to_map)
@@ -1250,5 +1318,97 @@ WHERE tmp_o.c_order_id = o.c_order_id;
 
 -- Update the sequences
 SELECT update_sequences();
+
+-- Since the sequence updates also need the columns (which we didn't insert here), we're just going to update the sequences manually
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_ChargeTypeDefault_id) + 1 FROM BH_ChargeTypeDefault)
+WHERE name = 'BH_ChargeTypeDefault';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_id) + 1 FROM BH_Charge_Info)
+WHERE name = 'BH_Charge_Info';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_Suggestion_id) + 1 FROM BH_Charge_Info_Suggestion)
+WHERE name = 'BH_Charge_Info_Suggestion';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_Values_id) + 1 FROM BH_Charge_Info_Values)
+WHERE name = 'BH_Charge_Info_Values';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_Charge_Info_Values_Suggestion_id) + 1 FROM BH_Charge_Info_Values_Suggestion)
+WHERE name = 'BH_Charge_Info_Values_Suggestion';
+UPDATE ad_sequence
+SET currentnext = (SELECT MAX(BH_OrderLine_Charge_Info_id) + 1 FROM BH_OrderLine_Charge_Info)
+WHERE name = 'BH_OrderLine_Charge_Info';
+
+-- Delete the current c_payments that were mapped so we don't have douple the number of charges
+DELETE FROM c_allocationline al
+USING c_payment p
+WHERE al.c_payment_id = p.c_payment_id
+  AND p.tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
+	AND p.ad_client_id > 999999;
+
+ALTER TABLE b_buyerfunds DROP CONSTRAINT cpayment_bbuyerfunds;
+ALTER TABLE b_sellerfunds DROP CONSTRAINT cpayment_bsellerfunds;
+ALTER TABLE c_allocationline DROP CONSTRAINT c_allocationline_c_payment_id_fkey;
+ALTER TABLE c_bankstatementline DROP CONSTRAINT cpayment_cbankstmtline;
+ALTER TABLE c_cashline DROP CONSTRAINT cpayment_ccashline;
+ALTER TABLE c_depositbatchline DROP CONSTRAINT cpayment_cdepositbatchline;
+ALTER TABLE c_dunningrunline DROP CONSTRAINT cpayment_cdunningrunline;
+ALTER TABLE c_invoice DROP CONSTRAINT c_invoice_c_payment_id_fkey;
+ALTER TABLE c_order DROP CONSTRAINT c_order_c_payment_id_fkey;
+ALTER TABLE c_payment DROP CONSTRAINT c_payment_ref_payment_id_fkey;
+ALTER TABLE c_payment DROP CONSTRAINT c_payment_reversal_id_fkey;
+ALTER TABLE c_paymentallocate DROP CONSTRAINT cpayment_cpaymentallocate;
+ALTER TABLE c_paymenttransaction DROP CONSTRAINT cpayment_cpaymenttransaction;
+ALTER TABLE c_payselectioncheck DROP CONSTRAINT cpayment_cpayselectioncheck;
+ALTER TABLE c_pospayment DROP CONSTRAINT cpayment_cpospayment;
+ALTER TABLE c_recurring DROP CONSTRAINT cpayment_crecurring;
+ALTER TABLE c_recurring_run DROP CONSTRAINT cpayment_crecurringrun;
+ALTER TABLE i_bankstatement DROP CONSTRAINT cpayment_ibankstatement;
+ALTER TABLE i_payment DROP CONSTRAINT cpayment_ipayment;
+ALTER TABLE r_request DROP CONSTRAINT cpayment_rrequest;
+ALTER TABLE r_requestaction DROP CONSTRAINT cpayment_rrequestaction;
+ALTER TABLE c_payment DROP CONSTRAINT c_payment_pkey;
+
+UPDATE c_order o
+SET c_payment_id = NULL
+FROM c_payment p
+WHERE p.c_payment_id = o.c_payment_id
+    AND tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
+	AND p.ad_client_id > 999999;
+
+UPDATE c_invoice i
+SET c_payment_id = NULL
+FROM c_payment p
+WHERE p.c_payment_id = i.c_payment_id
+    AND tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
+	AND p.ad_client_id > 999999;
+
+DELETE FROM c_payment
+WHERE tendertype IN ('V', 'U', 'N', 'i', 'B', 'G', 'H', 'O')
+	AND ad_client_id > 999999;
+
+ALTER TABLE c_payment ADD CONSTRAINT c_payment_pkey PRIMARY KEY (c_payment_id);
+ALTER TABLE r_requestaction ADD CONSTRAINT cpayment_rrequestaction FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE r_request ADD CONSTRAINT cpayment_rrequest FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE i_payment ADD CONSTRAINT cpayment_ipayment FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE i_bankstatement ADD CONSTRAINT cpayment_ibankstatement FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_recurring_run ADD CONSTRAINT cpayment_crecurringrun FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_recurring ADD CONSTRAINT cpayment_crecurring FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_pospayment ADD CONSTRAINT cpayment_cpospayment FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_payselectioncheck ADD CONSTRAINT cpayment_cpayselectioncheck FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_paymenttransaction ADD CONSTRAINT cpayment_cpaymenttransaction FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_paymentallocate ADD CONSTRAINT cpayment_cpaymentallocate FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_payment ADD CONSTRAINT c_payment_reversal_id_fkey FOREIGN KEY (reversal_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_payment ADD CONSTRAINT c_payment_ref_payment_id_fkey FOREIGN KEY (ref_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_order ADD CONSTRAINT c_order_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_invoice ADD CONSTRAINT c_invoice_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_dunningrunline ADD CONSTRAINT cpayment_cdunningrunline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_depositbatchline ADD CONSTRAINT cpayment_cdepositbatchline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_cashline ADD CONSTRAINT cpayment_ccashline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_bankstatementline ADD CONSTRAINT cpayment_cbankstmtline FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_allocationline ADD CONSTRAINT c_allocationline_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE b_sellerfunds ADD CONSTRAINT cpayment_bsellerfunds FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE b_buyerfunds ADD CONSTRAINT cpayment_bbuyerfunds FOREIGN KEY (c_payment_id) REFERENCES c_payment(c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+
 
 SELECT register_migration_script('202105051351_GO-1650.sql') FROM dual;
