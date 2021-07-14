@@ -58,7 +58,7 @@ FROM (
         AND (DATE(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
     GROUP BY 1,2
 ) AS billdetails
-INNER JOIN (
+LEFT JOIN (
     SELECT
         p.ad_client_id,
         sum(p.payamt) AS revenuesales,
@@ -77,7 +77,7 @@ INNER JOIN (
         AND co.docstatus IN ('CO','DR'))
     GROUP BY 1
 ) AS payments on billdetails.ad_client_id = payments.ad_client_id
-JOIN (
+LEFT JOIN (
     SELECT
         ol.ad_client_id,
         sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'W' ) as waivers,
