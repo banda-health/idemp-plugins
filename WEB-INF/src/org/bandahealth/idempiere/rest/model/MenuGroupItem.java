@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.rest.model;
+
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@XmlRootElement(name = "menugroupitem")
+@JsonInclude(value = Include.NON_NULL)
+public class MenuGroupItem extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
+	private int lineNumber;
+	private List<MenuGroupLineItem> items;
+
+	public MenuGroupItem(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
+			String name, String description, int lineNumber, List<MenuGroupLineItem> groupLineItems) {
+		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
+
+		this.lineNumber = lineNumber;
+		this.items = groupLineItems;
+	}
+
+	@XmlElement
+	public int getLineNumber() {
+		return lineNumber;
+	}
+
+	@XmlElement
+	public List<MenuGroupLineItem> getGroupLineItems() {
+		return items;
+	}
+}
