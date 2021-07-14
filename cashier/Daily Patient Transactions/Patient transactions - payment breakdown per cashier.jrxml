@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - payment breakdown per cashier" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b86d88f7-9fa4-4e6a-967d-f4d312b4ce2b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
@@ -54,22 +54,22 @@
 		<parameter name="Payment Mode" class="java.lang.String"/>
 		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[select
-  cashier.name as cashiername,
-  tendertype.name as paymentmode,
-  sum(p.payamt) as paymentamount
-from c_payment p
-    inner join c_order co on p.bh_c_order_id = co.c_order_id
-        and co.docstatus <> 'VO'
-    inner join ad_user cashier on p.createdby = cashier.ad_user_id
-    inner join AD_Ref_List tendertype on p.tendertype = tendertype.value
-        and AD_Reference_ID=214
-where p.ad_client_id = $P{AD_CLIENT_ID}
-   	and (p.docstatus = 'CO' or (p.docstatus = 'DR' and p.bh_processing = 'Y') or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-    and date(co.bh_visitdate) between date($P{Begin Date}) and date($P{End Date})
-    and ($P{Payment Mode} is null or $P{Payment Mode} = '' or $P{Payment Mode} IN ('I', 'W', 'D') or tendertype = $P{Payment Mode})
-    and ($P{Patient Type} is null or $P{Patient Type} = '' or co.bh_patienttype = $P{Patient Type})
-group by cashier.name, tendertype.name
+			<![CDATA[SELECT
+    cashier.name AS cashiername,
+    tendertype.name AS paymentmode,
+    sum(p.payamt) AS paymentamount
+FROM c_payment p
+    JOIN c_order co ON p.bh_c_order_id = co.c_order_id
+    AND co.docstatus <> 'VO'
+    JOIN ad_user cashier ON p.createdby = cashier.ad_user_id
+    JOIN AD_Ref_List tendertype ON p.tendertype = tendertype.value
+    AND AD_Reference_ID=214
+WHERE p.ad_client_id = $P{AD_CLIENT_ID}
+   	AND (p.docstatus = 'CO' OR (p.docstatus = 'DR' AND p.bh_processing = 'Y') OR (co.docstatus = 'CO' and p.bh_processing = 'N'))
+    AND DATE(co.bh_visitdate) BETWEEN DATE($P{Begin Date}) AND DATE($P{End Date})
+    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR $P{Payment Mode} IN ('I', 'W', 'D') OR tendertype = $P{Payment Mode})
+    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR co.bh_patienttype = $P{Patient Type})
+GROUP BY cashier.name, tendertype.name
 UNION
 SELECT
     u.name,
@@ -77,15 +77,16 @@ SELECT
     sum(coalesce(ol.linenetamt, 0) * -1)
 FROM c_order o
     JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
-    JOIN c_charge c on ol.c_charge_id = c.c_charge_id
+    JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
     JOIN ad_ref_list rl ON c.bh_subtype = rl.value
     JOIN ad_reference r ON rl.ad_reference_id = r.ad_reference_id AND r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
     JOIN ad_user u ON o.createdby = u.ad_user_id
 WHERE o.docstatus <> 'VO'
-    AND date(o.bh_visitdate) between  date($P{Begin Date}) and date($P{End Date})
+    AND o.ad_client_id = $P{AD_CLIENT_ID}
+    AND DATE(o.bh_visitdate) BETWEEN  DATE($P{Begin Date}) AND DATE($P{End Date})
     AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR $P{Payment Mode} IN ('X', 'K', 'C', 'D') OR c.bh_subtype = CASE WHEN $P{Payment Mode} = 'T' THEN 'D' ELSE $P{Payment Mode} END)
     AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR o.bh_patienttype = $P{Patient Type})
-group by u.name, rl.name;]]>
+GROUP BY u.name, rl.name;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
