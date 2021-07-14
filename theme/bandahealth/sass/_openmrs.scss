@@ -1,0 +1,166 @@
+.openmrs {
+	font-family: "OpenSans", Arial, sans-serif;
+	-webkit-font-smoothing: subpixel-antialiased;
+	margin: 10px auto;
+	background: #eeeeee;
+	color: #363463;
+	font-size: 16px;
+
+	/* line 1232 OpenMRS Reference App CSS */
+	.button, button, input[type="submit"], input[type="button"], input[type="submit"], a.button {
+		@extend %button;
+		color: #363463;
+
+		&:hover {
+			@extend %button-hover;
+		}
+
+		&.active {
+			background: #d8d8d8;
+			border-color: #d0d0d0;
+		}
+
+		.i, i {
+			font-size: 1.2em;
+			margin: 0;
+			padding: 0;
+			line-height: .5em;
+		}
+
+		&.big, &.medium {
+			.i, i {
+				display: block;
+				font-size: 50px;
+				margin: 0 auto;
+				padding: 10px;
+			}
+		}
+
+		/* line 1291 OpenMRS Reference App CSS */
+		&.app, &.app:hover {
+			padding: 20px 10px;
+			width: 150px;
+			min-height: 90px;
+			vertical-align: top;
+			line-height: 1.3em;
+			margin: 10px;
+			text-align: center;
+		}
+
+		&.confirm {
+			@extend %confirm;
+
+			&:hover {
+				@extend %confirm-hover;
+			}
+
+			&.active {
+				background: #81a726;
+				border-color: #779b23;
+			}
+
+			.i, i {
+				font-size: 1.2em;
+				margin: 0;
+				padding: 0;
+				line-height: .5em;
+			}
+
+			&.big, &.medium {
+				.i, i {
+					display: block;
+					font-size: 50px;
+					margin: 0 auto;
+					padding: 10px;
+				}
+			}
+
+			&.medium {
+				font-size: 34px;
+			}
+
+			&.disabled, &:disabled {
+				background: #EEE;
+				border: #cccccc 1px solid;
+				color: #CCC;
+				cursor: default;
+			}
+
+			&.print {
+				padding: 10px;
+
+				.i, i {
+					font-size: 1.5em;
+				}
+			}
+
+			&.app {
+				padding: 20px 10px;
+				width: 150px;
+				min-height: 90px;
+				vertical-align: top;
+				line-height: 1.3em;
+				margin: 10px;
+				text-align: center;
+			}
+
+			&.arrow {
+				box-sizing: border-box;
+				position: relative;
+				padding: 9px 5px;
+				margin-left: -10px;
+				background: #81a726;
+				color: white;
+				border-color: #BBB;
+				height: 68px;
+
+				span {
+					display: block;
+					line-height: 1em;
+				}
+
+				.i, i {
+					line-height: 1em;
+					font-size: 2em;
+				}
+
+				.arrow-button {
+					width: 0;
+					height: 0;
+					top: 0;
+					right: -17px;
+					border-bottom: 34px solid transparent;
+					border-top: 33px solid transparent;
+					border-left: 18px solid #81a726;
+					position: absolute;
+				}
+
+				.arrow-border-button {
+					width: 0;
+					height: 0;
+					top: 0;
+					right: -18px;
+					border-bottom: 34px solid transparent;
+					border-top: 33px solid transparent;
+					border-left: 18px solid #bbbbbb;
+					position: absolute;
+				}
+
+				&.disabled {
+					background: #EEE;
+					border: #cccccc 1px solid;
+					color: #CCC;
+					cursor: default;
+
+					.arrow-button {
+						border-left: 18px solid #eeeeee;
+					}
+
+					.arrow-border-button {
+						border-left: 18px solid #cccccc;
+					}
+				}
+			}
+		}
+	}
+}

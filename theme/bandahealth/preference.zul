@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+	<script defer="true">
+	<![CDATA[
+		adempiere.set("zkTimeoutURL", "sessiontimeout.zul");
+	]]>
+	</script>
+	<script src="/theme/bandahealth/js/polyfills.js"/>
+	<script src="/theme/bandahealth/js/jquery.extensions.js"/>
+	<script src="/theme/bandahealth/js/require.js"/>
+	<script src="/theme/bandahealth/js/main.js"/>
+	<zscript>
+	<![CDATA[
+		import org.compiere.util.Env;
+		import org.adempiere.webui.theme.ITheme;
+		import org.compiere.model.MSysConfig;
+
+		Env.setContext(Env.getCtx(), ITheme.ZK_TOOLBAR_BUTTON_SIZE, "24");
+		/* Set the next variable if you want to control browser title in theme */
+		Env.setContext(Env.getCtx(), "#ZK_BROWSER_TITLE", "Banda Health");
+		Env.setContext(Env.getCtx(), ITheme.USE_CSS_FOR_WINDOW_SIZE, "Y");
+		Env.setContext(Env.getCtx(), ITheme.USE_FONT_ICON_FOR_IMAGE, MSysConfig.getBooleanValue(MSysConfig.ZK_THEME_USE_FONT_ICON_FOR_IMAGE, false));
+	]]>
+	</zscript>
+</zk>
