@@ -307,7 +307,7 @@ public class AuthenticationRestService {
 		// For querying roles, we'll need to change the client IDs that are used from the context, so store what's there
 		// now
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
-//		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		PO.setCrossTenantSafe();
 		try {
 			// parse all clients that the user has access to.
 			for (KeyNamePair client : clients) {
@@ -364,7 +364,7 @@ public class AuthenticationRestService {
 			}
 		} finally {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-//			PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+			PO.clearCrossTenantSafe();
 		}
 	}
 
