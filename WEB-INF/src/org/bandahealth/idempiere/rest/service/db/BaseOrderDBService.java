@@ -146,14 +146,6 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus())
 					&& entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
 				mOrder.setDocStatus(MOrder_BH.DOCSTATUS_Voided);
-				// set voided reason
-				VoidedReason voidedReason = entity.getVoidedReason();
-				if (voidedReason != null && StringUtil.isNotNullAndEmpty(voidedReason.getUuid())) {
-					MBHVoidedReason mVoidedReason = voidedReasonDBService.getEntityByUuidFromDB(voidedReason.getUuid());
-					if (mVoidedReason != null) {
-						mOrder.setBH_VoidedReasonID(mVoidedReason.get_ID());
-					}
-				}
 			} else {
 				mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 			}
@@ -225,9 +217,26 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	public T saveAndProcessEntity(T entity, String docAction) throws Exception {
 		// Orders that have already been processed can't be saved again
 		MOrder_BH order = getEntityByUuidFromDB(entity.getUuid());
-		if (order != null && order.isComplete()) {
-			return processEntity(entity.getUuid(), docAction);
+
+		if (order != null) {
+			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus())
+					&& entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
+				// set voided reason
+				VoidedReason voidedReason = entity.getVoidedReason();
+				if (voidedReason != null && StringUtil.isNotNullAndEmpty(voidedReason.getUuid())) {
+					MBHVoidedReason mVoidedReason = voidedReasonDBService.getEntityByUuidFromDB(voidedReason.getUuid());
+					if (mVoidedReason != null) {
+						order.setBH_VoidedReasonID(mVoidedReason.get_ID());
+						order.saveEx();
+					}
+				}
+			}
+
+			if (order.isComplete()) {
+				return processEntity(entity.getUuid(), docAction);
+			}
 		}
+
 		return super.saveAndProcessEntity(entity, docAction);
 	}
 }
