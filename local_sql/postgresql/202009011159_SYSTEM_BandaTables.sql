@@ -564,7 +564,9 @@ ALTER TABLE m_product
 	add IF NOT EXISTS bh_navbuttons varchar(36) default NULL::character varying,
 	add IF NOT EXISTS bh_buyprice numeric,
 	add IF NOT EXISTS bh_sellprice numeric,
-	add IF NOT EXISTS bh_pricemargin numeric,
+	add IF NOT EXISTS bh_pricemargin numeric;
+
+ALTER TABLE m_product_category
 	add IF NOT EXISTS bh_product_category_type char default NULL::bpchar;
 
 alter table m_productprice
