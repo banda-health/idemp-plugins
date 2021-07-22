@@ -143,12 +143,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			mOrder.setIsActive(entity.getIsActive());
 
 			mOrder.setIsApproved(true);
-			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus())
-					&& entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
-				mOrder.setDocStatus(MOrder_BH.DOCSTATUS_Voided);
-			} else {
-				mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
-			}
+			mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 
 			beforeSave(entity, mOrder);
 
@@ -230,6 +225,8 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 						order.saveEx();
 					}
 				}
+				
+				return processEntity(entity.getUuid(), docAction);
 			}
 
 			if (order.isComplete()) {
