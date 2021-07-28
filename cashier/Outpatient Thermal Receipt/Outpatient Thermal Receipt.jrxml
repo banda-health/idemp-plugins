@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="252"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="build DO UAT "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="573"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="417"/>
@@ -62,7 +62,7 @@ from ad_org org
   inner join ad_client client on org.ad_client_id = client.ad_client_id
   inner join ad_clientinfo clientInfo on client.ad_client_id = clientInfo.ad_client_id
   left join c_location orgLocation on orgInfo.c_location_id = orgLocation.c_location_id
-  left join ad_image logo on clientInfo.logoreport_id = logo.ad_image_id
+  left join ad_image logo on orgInfo.logo_id = logo.ad_image_id
 where org.ad_org_id =  $P{AD_CLIENT_ID}
 ) as billHeader
 inner join
