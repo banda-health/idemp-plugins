@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxrs
+http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+    <!-- JAX-RS -->
+    <jaxrs:server id="bhgoRest" address="/rs">
+        <jaxrs:serviceBeans>
+            <ref bean="PatientServiceBean"/>
+            <ref bean="ProcessServiceBean"/>
+            <ref bean="AuthenticationServiceBean"/>
+            <ref bean="VendorServiceBean"/>
+            <ref bean="MenuLineServiceBean"/>
+            <ref bean="PatientSummaryServiceBean"/>
+            <ref bean="ServiceRestServiceBean"/>
+            <ref bean="ExpenseCategoryServiceBean"/>
+            <ref bean="ProductCategoryServiceBean"/>
+            <ref bean="AccountServiceBean"/>
+            <ref bean="ProductServiceBean"/>
+            <ref bean="VisitServiceBean"/>
+            <ref bean="PaymentServiceBean"/>
+            <ref bean="StockTakeServiceBean"/>
+            <ref bean="EntityMetadataServiceBean"/>
+            <ref bean="ExpenseServiceBean"/>
+            <ref bean="ReceiveProductServiceBean"/>
+            <ref bean="UserServiceBean"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.BusinessPartnerRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeInformationSuggestionRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>
+			<ref bean="CodedDiagnosisServiceBean" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider"/>
+            <ref bean="authenticationFilter"/>
+            <ref bean="duplicateEntitySaveExceptionMapper"/>
+            <ref bean="adempiereExceptionMapper"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <bean id="PatientServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.PatientRestService"/>
+
+    <bean id="ProcessServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.ProcessRestService"/>
+
+    <bean id="jsonProvider"
+          class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+
+    <bean id="authenticationFilter"
+          class="org.bandahealth.idempiere.rest.filter.AuthenticationFilter"/>
+
+    <bean id="AuthenticationServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.AuthenticationRestService"/>
+
+    <bean id="VendorServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.VendorRestService"/>
+
+    <bean id="MenuLineServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.MenuLineRestService"/>
+
+    <bean id="PatientSummaryServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.PatientSummaryRestService"/>
+
+    <bean id="ServiceRestServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.ServiceRestService"/>
+
+    <bean id="ExpenseCategoryServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.ExpenseCategoryRestService"/>
+
+    <bean id="ProductCategoryServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.ProductCategoryRestService"/>
+
+    <bean id="AccountServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.AccountRestService"/>
+
+    <bean id="ProductServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.ProductRestService"/>
+
+    <bean id="VisitServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.VisitRestService"/>
+
+    <bean id="PaymentServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.PaymentRestService"/>
+
+    <bean id="StockTakeServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.InventoryRestService"/>
+
+    <bean id="EntityMetadataServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.EntityMetadataRestService"/>
+
+    <bean id="ExpenseServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.ExpenseRestService"/>
+
+    <bean id="ReceiveProductServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.ReceiveProductRestService"/>
+
+    <bean id="UserServiceBean"
+          class="org.bandahealth.idempiere.rest.service.impl.UserRestService"/>
+
+    <bean id="duplicateEntitySaveExceptionMapper"
+          class="org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveExceptionMapper"/>
+
+    <bean id="adempiereExceptionMapper"
+          class="org.bandahealth.idempiere.rest.exceptions.AdempiereExceptionMapper"/>
+
+	<bean id="CodedDiagnosisServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.CodedDiagnosisRestService" />
+
+</beans>
