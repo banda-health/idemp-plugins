@@ -5,9 +5,9 @@
        xmlns:jaxws="http://cxf.apache.org/jaxws"
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
+classpath:META-INF/cxf/spring-beans.xsd
 http://cxf.apache.org/jaxrs
-http://cxf.apache.org/schemas/jaxrs.xsd">
+classpath:META-INF/cxf/jaxrs.xsd">
 
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
@@ -18,7 +18,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
             <ref bean="ProcessServiceBean"/>
             <ref bean="AuthenticationServiceBean"/>
             <ref bean="VendorServiceBean"/>
-            <ref bean="MenuServiceBean"/>
             <ref bean="MenuLineServiceBean"/>
             <ref bean="PatientSummaryServiceBean"/>
             <ref bean="ServiceRestServiceBean"/>
@@ -32,17 +31,21 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
             <ref bean="EntityMetadataServiceBean"/>
             <ref bean="ExpenseServiceBean"/>
             <ref bean="ReceiveProductServiceBean"/>
-            <ref bean="ReportServiceBean"/>
-            <bean class="org.bandahealth.idempiere.rest.service.impl.AttributeSetRestService"/>
+            <ref bean="UserServiceBean"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.BusinessPartnerRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeInformationSuggestionRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>
+			<ref bean="CodedDiagnosisServiceBean" />
+            <bean class="org.bandahealth.idempiere.rest.service.impl.AttributeSetRestService"/>
+
             <bean class="org.bandahealth.idempiere.rest.service.impl.ClientRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.OrganizationRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.OrderLineRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.OrderRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ProcessParameterRestService"/>
-            <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.UserRestService"/>
         </jaxrs:serviceBeans>
@@ -72,9 +75,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
     <bean id="VendorServiceBean"
           class="org.bandahealth.idempiere.rest.service.impl.VendorRestService"/>
-
-    <bean id="MenuServiceBean"
-          class="org.bandahealth.idempiere.rest.service.impl.MenuRestService"/>
 
     <bean id="MenuLineServiceBean"
           class="org.bandahealth.idempiere.rest.service.impl.MenuLineRestService"/>
@@ -115,9 +115,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     <bean id="ReceiveProductServiceBean"
           class="org.bandahealth.idempiere.rest.service.impl.ReceiveProductRestService"/>
 
-    <bean id="ReportServiceBean"
-          class="org.bandahealth.idempiere.rest.service.impl.ReportRestService"/>
-
     <bean id="UserServiceBean"
           class="org.bandahealth.idempiere.rest.service.impl.UserRestService"/>
 
@@ -126,5 +123,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
     <bean id="adempiereExceptionMapper"
           class="org.bandahealth.idempiere.rest.exceptions.AdempiereExceptionMapper"/>
+
+	<bean id="CodedDiagnosisServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.CodedDiagnosisRestService" />
 
 </beans>

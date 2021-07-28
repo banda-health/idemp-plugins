@@ -5,6 +5,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.compiere.model.MProcessPara;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlRootElement(name = "parameter")
 @JsonInclude(value = Include.NON_NULL)
@@ -25,6 +29,9 @@ public class ProcessParameter extends BaseEntity {
 	private boolean isMandatory;
 	private boolean isRange;
 	private String mandatoryLogic;
+	private Reference reference;
+	private List<ReferenceList> referenceValues = new ArrayList<>();
+	private int sequenceNumber;
 
 	public ProcessParameter() {
 		super();
@@ -33,7 +40,8 @@ public class ProcessParameter extends BaseEntity {
 	public ProcessParameter(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			String name, String description, int adElementId, int adReferenceId, int adReferenceValueId,
 			int adValueRuleId, String defaultValue, String defaultValue2, String displayLogic, String entityType,
-			int fieldLength, boolean isEncrypted, boolean isMandatory, boolean isRange, String mandatoryLogic) {
+			int fieldLength, boolean isEncrypted, boolean isMandatory, boolean isRange, String mandatoryLogic,
+			MProcessPara model) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.adElementId = adElementId;
@@ -49,6 +57,28 @@ public class ProcessParameter extends BaseEntity {
 		this.isMandatory = isMandatory;
 		this.isRange = isRange;
 		this.mandatoryLogic = mandatoryLogic;
+		setSequenceNumber(model.getSeqNo());
+	}
+
+	public ProcessParameter(MProcessPara model, Reference reference, List<ReferenceList> referenceValues) {
+		super(model, model.getName(), model.getDescription(), null);
+
+		this.adElementId = model.getAD_Element_ID();
+		this.adReferenceId = model.getAD_Reference_ID();
+		this.adReferenceValueId = model.getAD_Reference_Value_ID();
+		this.adValueRuleId = model.getAD_Val_Rule_ID();
+		this.defaultValue = model.getDefaultValue();
+		this.defaultValue2 = model.getDefaultValue2();
+		this.displayLogic = model.getDisplayLogic();
+		this.entityType = model.getEntityType();
+		this.fieldLength = model.getFieldLength();
+		this.isEncrypted = model.isEncrypted();
+		this.isMandatory = model.isMandatory();
+		this.isRange = model.isRange();
+		this.mandatoryLogic = model.getMandatoryLogic();
+		this.reference = reference;
+		this.referenceValues = referenceValues != null ? referenceValues : this.referenceValues;
+		setSequenceNumber(model.getSeqNo());
 	}
 
 	@XmlElement
@@ -168,4 +198,27 @@ public class ProcessParameter extends BaseEntity {
 		this.mandatoryLogic = mandatoryLogic;
 	}
 
+	public Reference getReference() {
+		return reference;
+	}
+
+	public void setReference(Reference reference) {
+		this.reference = reference;
+	}
+
+	public List<ReferenceList> getReferenceValues() {
+		return referenceValues;
+	}
+
+	public void setReferenceValues(List<ReferenceList> referenceValues) {
+		this.referenceValues = referenceValues;
+	}
+
+	public int getSequenceNumber() {
+		return sequenceNumber;
+	}
+
+	public void setSequenceNumber(int sequenceNumber) {
+		this.sequenceNumber = sequenceNumber;
+	}
 }

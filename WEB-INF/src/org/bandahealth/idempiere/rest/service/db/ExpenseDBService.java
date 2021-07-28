@@ -117,7 +117,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 			return new Expense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Vendor(vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
+					new Vendor(vendor.getC_BPartner_UU(), vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
 					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), instance.getDocStatus(),
 					instance.getGrandTotal(), instance.getPaymentRule());
 

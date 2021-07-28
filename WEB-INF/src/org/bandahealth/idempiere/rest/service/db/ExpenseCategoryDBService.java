@@ -18,15 +18,14 @@ import java.util.List;
 
 /**
  * Expense Category (charge) related db operations
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCharge_BH> {
 
 	private CLogger log = CLogger.getCLogger(ExpenseCategoryDBService.class);
 	private AccountDBService accountDBService;
-	
+
 	public ExpenseCategoryDBService() {
 		accountDBService = new AccountDBService();
 	}
@@ -62,7 +61,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 					MChargeType_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MChargeType_BH.COLUMNNAME_Name + "=?",
 					null
 			)
-					.setParameters(entity.getClientId(), MChargeType_BH.CHARGETYPENAME_DEFAULT_CATEGORY)
+					.setParameters(entity.getClientId(), MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY)
 					.first();
 			if (expenseCategoryChargeType == null) {
 				throw new AdempiereException("Expense Category Charge Type not defined for client");
@@ -78,16 +77,30 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 		}
 	}
 
-	public BaseListResponse<ExpenseCategory> getAll(
-			Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
-		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder, filterJson);
+	public BaseListResponse<ExpenseCategory> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
+			String filterJson) {
+		String whereClause = MChargeType_BH.Table_Name + "." + MChargeType_BH.COLUMNNAME_Name + "=?";
+		List<Object> parameters = new ArrayList<>() {{
+			add(MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY);
+		}};
+		String joinClause = "JOIN " + MChargeType_BH.Table_Name + " ON " + MChargeType_BH.Table_Name + "." +
+				MChargeType_BH.COLUMNNAME_C_ChargeType_ID + "=" + MCharge_BH.Table_Name + "." +
+				MCharge_BH.COLUMNNAME_C_ChargeType_ID;
+		return super.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, joinClause);
 	}
 
-	public BaseListResponse<ExpenseCategory> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
+	public BaseListResponse<ExpenseCategory> search(String value, Paging pagingInfo, String sortColumn,
+			String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(value));
+		parameters.add(MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY);
+		String whereClause =
+				DEFAULT_SEARCH_CLAUSE + " " + MChargeType_BH.Table_Name + "." + MChargeType_BH.COLUMNNAME_Name + "=?";
+		String joinClause = "JOIN " + MChargeType_BH.Table_Name + " ON " + MChargeType_BH.Table_Name + "." +
+				MChargeType_BH.COLUMNNAME_C_ChargeType_ID + "=" + MCharge_BH.Table_Name + "." +
+				MCharge_BH.COLUMNNAME_C_ChargeType_ID;
 
-		return this.search(this.DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
+		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, joinClause);
 	}
 
 	@Override

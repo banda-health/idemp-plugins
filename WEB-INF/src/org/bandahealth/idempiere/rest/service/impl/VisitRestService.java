@@ -1,8 +1,6 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import java.io.File;
 import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,8 +10,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
@@ -98,20 +94,6 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
-	}
-
-	@GET
-	@Path(IRestConfigs.PRINT_RECEIPT_PATH)
-	@Produces(IRestConfigs.APPLICATION_PDF)
-	public Response generateReceipt(@PathParam("uuid") String uuid) {
-		File receipt = dbService.generateThermalReceipt(uuid);
-		if (receipt != null) {
-			ResponseBuilder response = Response.ok((Object) receipt);
-			response.header("Content-Disposition", "attachment; filename=\"receipt.pdf\"");
-			return response.build();
-		}
-
-		return null;
 	}
 	
 	@DELETE

@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -7,15 +8,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.compiere.model.MProcess;
 
 @XmlRootElement(name = "process")
 @JsonInclude(value = Include.NON_NULL)
 public class Process extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-
 	public final static String PROCESSING_MESSAGE = "Processing Transaction";
-
+	private static final long serialVersionUID = 1L;
 	private int adFormId;
 	private int adReportViewId;
 	private int adWorkflowId;
@@ -26,7 +26,8 @@ public class Process extends BaseEntity {
 	private String executionType;
 	private boolean isDirectPrint;
 	private boolean isReport;
-	private List<ProcessParameter> parameters;
+	private List<ProcessParameter> parameters = new ArrayList<>();
+	private boolean needsManualInput;
 
 	public Process() {
 		super();
@@ -49,6 +50,22 @@ public class Process extends BaseEntity {
 		this.isDirectPrint = isDirectPrint;
 		this.isReport = isReport;
 		this.parameters = parameters;
+	}
+
+	public Process(MProcess model, List<ProcessParameter> parameters) {
+		super(model, model.getName(), model.getDescription(), null);
+
+		this.adFormId = model.getAD_Form_ID();
+		this.adReportViewId = model.getAD_ReportView_ID();
+		this.adWorkflowId = model.getAD_Workflow_ID();
+		this.allowMultipleExecution = model.getAllowMultipleExecution();
+		this.classname = model.getClassname();
+		this.copyFromProcess = model.getCopyFromProcess();
+		this.entityType = model.getEntityType();
+		this.executionType = model.getExecutionType();
+		this.isDirectPrint = model.isDirectPrint();
+		this.isReport = model.isReport();
+		this.parameters = parameters != null ? parameters : this.parameters;
 	}
 
 	@XmlElement
@@ -150,4 +167,11 @@ public class Process extends BaseEntity {
 		this.parameters = parameters;
 	}
 
+	public boolean getNeedsManualInput() {
+		return this.needsManualInput;
+	}
+
+	public void setNeedsManualInput(boolean needsManualInput) {
+		this.needsManualInput = needsManualInput;
+	}
 }

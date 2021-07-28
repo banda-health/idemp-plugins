@@ -33,6 +33,7 @@ public interface IRestConfigs {
 	String MENU_LINE_PATH = "/menulines/{uuid}";
 
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
+	String RUN_AND_EXPORT_PATH = "/runandexport";
 
 	String REPORTS_PATH = AUTHENTICATION_PATH + "/reports";
 	String GENERATE_PATH = "/generate";
@@ -93,4 +94,14 @@ public interface IRestConfigs {
 	String REFERENCES_PATH = AUTHENTICATION_PATH + "/references";
 	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
 	String STORAGE_ON_HAND_PATH = AUTHENTICATION_PATH + "/storageonhand";
+	
+	String CODED_DIAGNOSES_PATH = AUTHENTICATION_PATH + "/codeddiagnoses";
+	String CODED_DIAGNOSIS_PATH = "/codeddiagnosis/{uuid}";
+
+	String CHARGES = "/charges";
+	String CHARGE_PATH = AUTHENTICATION_PATH + "/charges";
+	String NON_PATIENT_PAYMENTS_PATH = "/nonpatientpayments";
+	String CHARGE_INFORMATION_SUGGESTION_PATH = AUTHENTICATION_PATH + "/chargeInformationSuggestions";
+
+	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/businessPartners";
 }

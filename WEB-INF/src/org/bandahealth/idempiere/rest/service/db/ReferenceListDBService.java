@@ -1,12 +1,17 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.function.VoidFunction;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
+import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -24,10 +29,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class ReferenceListDBService {
+public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefList> {
 	private final CLogger log = CLogger.getCLogger(BaseDBService.class);
 	private final Set<String> usedDocumentTypeNames = new HashSet<>();
 	private final Map<String, Integer> documentTypeNameToADTableIdMap = new HashMap<>();
@@ -42,6 +48,31 @@ public class ReferenceListDBService {
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_BILLS, MOrder_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_RECEIVE_PRODUCT, MOrder_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_PAYMENTS, MPayment_BH.Table_ID);
+	}
+
+	@Override
+	public ReferenceList saveEntity(ReferenceList entity) {
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		return null;
+	}
+
+	@Override
+	protected ReferenceList createInstanceWithDefaultFields(MRefList instance) {
+		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	protected ReferenceList createInstanceWithAllFields(MRefList instance) {
+		return new ReferenceList(instance);
+	}
+
+	@Override
+	protected ReferenceList createInstanceWithSearchFields(MRefList instance) {
+		return createInstanceWithAllFields(instance);
 	}
 
 	/**
@@ -75,10 +106,21 @@ public class ReferenceListDBService {
 	public Map<MDocType, List<MRefList>> getDocumentActionAccessByDocumentType() {
 		List<Object> parameters = new ArrayList<>();
 		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(usedDocumentTypeNames, parameters);
-		// Get the doc types for this client matching what the application uses
+
+		// Previously, all document action access was assigned to a role on the client (so ad_client_id checks on access
+		// would work). However, now we use master roles to house the document action, and those are assigned to the
+		// system client. So, we need to search both when getting document types associated document types
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(MClient_BH.CLIENTID_SYSTEM);
+
+//		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+
+		// Get the doc types for this user matching what the application uses
 		List<MDocType> usedDocumentTypes = new Query(Env.getCtx(), MDocType.Table_Name,
-				MDocType.COLUMNNAME_Name + " IN (" + whereClause + ")", null).setParameters(parameters)
-				.setClient_ID().list();
+				MDocType.COLUMNNAME_Name + " IN (" + whereClause + ") AND " + MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)",
+				null).setParameters(parameters).list();
+
+//		PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 
 		// Now get the available document actions for these document types
 		Map<Integer, List<Integer>> documentActionAccess = getDocumentActionAccess(
@@ -156,7 +198,12 @@ public class ReferenceListDBService {
 	private Map<Integer, List<Integer>> getDocumentActionAccess(int clientId, int roleId,
 			List<Integer> docTypeIds) {
 		final List<Object> optionParams = new ArrayList<>();
+
+		// Previously, all document action access was assigned to a role on the client (so ad_client_id checks on access
+		// would work). However, now we use master roles to house the document action, and those are assigned to the
+		// system client. So, we need to search both when getting document action access
 		optionParams.add(clientId);
+		optionParams.add(MClient_BH.CLIENTID_SYSTEM);
 
 		// Get all roles assigned to this user
 		MRole usersRole = MRole.get(Env.getCtx(), roleId);
@@ -173,7 +220,7 @@ public class ReferenceListDBService {
 				+ " FROM AD_Document_Action_Access a"
 				+ " INNER JOIN AD_Ref_List rl ON (rl.AD_Reference_ID=135 and rl.AD_Ref_List_ID=a.AD_Ref_List_ID)"
 				+ " INNER JOIN C_DocType ty ON (ty.C_DocType_ID=a.C_DocType_ID)"
-				+ " WHERE a.AD_Client_ID=? AND a.C_DocType_ID IN (" + docTypeInClause + ")"
+				+ " WHERE a.AD_Client_ID IN (?,?) AND a.C_DocType_ID IN (" + docTypeInClause + ")"
 				+ " AND a.AD_Role_ID IN (" + roleInClause + ") AND a.IsActive=?";
 		optionParams.add("Y");
 		Map<Integer, List<Integer>> documentActionAccess = new HashMap<>();
@@ -191,5 +238,49 @@ public class ReferenceListDBService {
 		});
 
 		return documentActionAccess;
+	}
+
+	@Override
+	protected Map<String, Function<MRefList, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>() {{
+			put(MRefList.COLUMNNAME_Name, entity -> entity::setName);
+			put(MRefList.COLUMNNAME_Description, entity -> entity::setDescription);
+		}};
+	}
+
+	@Override
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
+	}
+
+	/**
+	 * Get Reference List from MRefList.Table_Name
+	 *
+	 * @param referenceUuid   A reference UUID
+	 * @param referenceValues A list of values to fetch data for
+	 * @return The reference list data
+	 */
+	public List<MRefList> getTypes(String referenceUuid, Set<String> referenceValues) {
+		List<MRefList> values = new ArrayList<>();
+		if (StringUtil.isNullOrEmpty(referenceUuid)) {
+			return values;
+		}
+		List<Object> parameters = new ArrayList<>();
+
+		String whereClause = MReference.Table_Name + "." + MReference.COLUMNNAME_AD_Reference_UU + "=? ";
+		parameters.add(referenceUuid);
+
+		values = new Query(Env.getCtx(), MRefList.Table_Name, whereClause, null)
+				.addJoinClause("JOIN " + MReference.Table_Name + " ON " + MReference.Table_Name + "."
+						+ MReference.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
+						+ MRefList.COLUMNNAME_AD_Reference_ID)
+				.setParameters(parameters).setOnlyActiveRecords(true).setNoVirtualColumn(true)
+				.list();
+
+		if (referenceValues == null) {
+			return values;
+		}
+		return values.stream().filter(referenceList -> referenceValues.contains(referenceList.getValue()))
+				.collect(Collectors.toList());
 	}
 }
