@@ -36,5 +36,15 @@
 		<session-timeout>15</session-timeout>
 	</session-config>
 
+	<filter>
+		<filter-name>GzipFilter</filter-name>
+		<filter-class>org.bandahealth.idempiere.rest.filter.GZipServletFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>GzipFilter</filter-name>
+		<servlet-name>CXFServlet</servlet-name>
+	</filter-mapping>
+
 </web-app>
 <!-- END SNIPPET: webxml -->

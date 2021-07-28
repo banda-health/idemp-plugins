@@ -51,6 +51,47 @@ public class SqlUtil {
 		return count;
 	}
 
+	public static Integer getCount(String sqlFromAndWhereClause, List<Object> parameters) {
+		String sql = "SELECT COUNT(*) " + sqlFromAndWhereClause;
+		Integer count = null;
+
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			statement = DB.prepareStatement(sql.toString(), null);
+			DB.setParameters(statement, parameters);
+
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			log.log(Level.SEVERE, sql.toString(), e);
+			throw new DBException(e, sql.toString());
+		} finally {
+			DB.close(resultSet, statement);
+		}
+
+		return count;
+	}
+
+	/**
+	 * The will only work for PostgresQL JDBC, but gets the wrapped SQL string to handle parameters dealings.
+	 *
+	 * @param preparedStatement The DB prepared statement
+	 * @return A string containing the DB statement with parameters filled in
+	 */
+	public static String getSql(PreparedStatement preparedStatement) {
+		String statement = preparedStatement.toString();
+		if (!statement.contains(" SELECT ")) {
+			return null;
+		}
+		int indexOfSelect = statement.indexOf("SELECT ");
+		int lastIndexOfBox = statement.lastIndexOf("]");
+		return statement.substring(indexOfSelect, lastIndexOfBox);
+	}
+
 	/**
 	 * Executes a given query and lets the handler function deal with the result sets
 	 *

@@ -17,12 +17,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 
+/**
+ * The utility to parse and read filter JSON coming from the server and work with it
+ */
 public class FilterUtil {
 	public static final String DEFAULT_WHERE_CLAUSE = "(1=1)";
 
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
-	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
 	private static final String MALFORMED_FILTER_STRING_ERROR = "Filter criteria doesn't meet the standard form.";
+	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
 
 	/**
 	 * This takes in a filter JSON model generated and converts it into an appropriate WHERE clause to pass to the DB.
@@ -53,6 +56,8 @@ public class FilterUtil {
 	 * "$ntext": text exclusion filter value
 	 * "$null": column is null filter value
 	 * "$nnull": column is not null filter value
+	 * "$sw": text search starts with
+	 * "$nsw": text search not starts with
 	 * }
 	 * }
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
@@ -87,8 +92,8 @@ public class FilterUtil {
 	 *
 	 * @param filterJson The JSON string received for filtering
 	 * @return The filter expressions
-	 * @throws JsonProcessingException 
-	 * @throws JsonMappingException 
+	 * @throws JsonProcessingException
+	 * @throws JsonMappingException
 	 */
 	private static Map<String, Object> parseJsonString(String filterJson) throws JsonMappingException,
 			JsonProcessingException, IOException {
@@ -232,7 +237,7 @@ public class FilterUtil {
 		// The keys of the comparison object are DB column names
 		for (String dbColumnName : comparisonQuerySelectors.keySet()) {
 			// We won't allow filtering of DB IDs
-			if (dbColumnName.toLowerCase().endsWith("_id")) {
+			if (dbColumnName.toLowerCase().endsWith("_id") || QueryUtil.doesDBStringHaveInvalidCharacters(dbColumnName)) {
 				continue;
 			}
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
@@ -240,7 +245,7 @@ public class FilterUtil {
 			boolean dbColumnIsDateType = false;
 			// If the column already has an alias, we won't check the property on the model (because aliases should only be
 			// supplied when filtering from a joined table)
-			if (!doesTableAliasExistOnColumn(dbColumnName)) {
+			if (!QueryUtil.doesTableAliasExistOnColumn(dbColumnName)) {
 				// Try to see if this property should be a date
 				try {
 					Object columnValue = dbModel.get_Value(dbColumnName);
@@ -273,6 +278,8 @@ public class FilterUtil {
 			Map<String, Object> comparisonMap = (Map<String, Object>) comparisons;
 			for (String comparison : comparisonMap.keySet()) {
 				whereClause.append(canPrependSeparator ? separator : "");
+				// We don't have to check this value for invalid characters because it will eventually be added by the
+				// DB.prepareStatement method, which handles SQL injection
 				Object filterValue = comparisonMap.get(comparison);
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
@@ -333,8 +340,9 @@ public class FilterUtil {
 					case "$nin":
 						listOperatorValues = (List<?>) filterValue;
 						parameterClause = "?,".repeat(listOperatorValues.size());
-						whereClause.append(dbColumnName).append(negate ? " " : " NOT ").append("IN (")
+						whereClause.append("?").append(negate ? " " : " NOT ").append("IN (")
 								.append(parameterClause, 0, parameterClause.length() - 1).append(")");
+						parameters.add(dbColumnName);
 						parameters.addAll(listOperatorValues);
 						break;
 					case "$text":
@@ -344,6 +352,14 @@ public class FilterUtil {
 					case "$ntext":
 						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
 								.append("LIKE '%").append(filterValue.toString().toLowerCase()).append("%'");
+						break;
+					case "$sw":
+						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ")
+								.append("LIKE '").append(filterValue.toString().toLowerCase()).append("%'");
+						break;
+					case "$nsw":
+						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
+								.append("LIKE '").append(filterValue.toString().toLowerCase()).append("%'");
 						break;
 					case "$null":
 						whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
@@ -398,26 +414,6 @@ public class FilterUtil {
 	}
 
 	/**
-	 * Check to see if the table alias already exists on the column (aka Table_Name.ColumnName vs just ColumnName)
-	 *
-	 * @param dbColumn The dbColumn string to check
-	 * @return Whether a table alias is present on the dbColumn
-	 */
-	private static boolean doesTableAliasExistOnColumn(String dbColumn) {
-		return dbColumn.contains(".");
-	}
-
-	/**
-	 * Get the table alias provided in the column
-	 *
-	 * @param dbColumn The dbColumn string to check
-	 * @return The table alias on the dbColumn
-	 */
-	private static String getTableAliasFromColumn(String dbColumn) {
-		return dbColumn.substring(0, dbColumn.indexOf("."));
-	}
-
-	/**
 	 * Parse through the field names and return a list of aliases.
 	 *
 	 * @param filterJson
@@ -448,8 +444,9 @@ public class FilterUtil {
 		for (String logicalQuerySelectorOrDbColumnName : expression.keySet()) {
 			if (!LOGICAL_QUERY_SELECTORS.contains(logicalQuerySelectorOrDbColumnName)) {
 				// It is a DB column
-				if (doesTableAliasExistOnColumn(logicalQuerySelectorOrDbColumnName)) {
-					neededJoinTables.add(getTableAliasFromColumn(logicalQuerySelectorOrDbColumnName));
+				if (!QueryUtil.doesDBStringHaveInvalidCharacters(logicalQuerySelectorOrDbColumnName) &&
+						QueryUtil.doesTableAliasExistOnColumn(logicalQuerySelectorOrDbColumnName)) {
+					neededJoinTables.add(QueryUtil.getTableAliasFromColumn(logicalQuerySelectorOrDbColumnName));
 				}
 				continue;
 			}

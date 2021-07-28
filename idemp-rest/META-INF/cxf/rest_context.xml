@@ -38,12 +38,23 @@ classpath:META-INF/cxf/jaxrs.xsd">
             <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>
 			<ref bean="CodedDiagnosisServiceBean" />
+            <bean class="org.bandahealth.idempiere.rest.service.impl.AttributeSetRestService"/>
+
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ClientRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.OrganizationRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.OrderLineRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.OrderRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ProcessParameterRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceRestService"/>
+            <bean class="org.bandahealth.idempiere.rest.service.impl.UserRestService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
             <ref bean="authenticationFilter"/>
             <ref bean="duplicateEntitySaveExceptionMapper"/>
             <ref bean="adempiereExceptionMapper"/>
+            <bean class="org.bandahealth.idempiere.rest.model.ObjectMapperContextResolver"/>
         </jaxrs:providers>
     </jaxrs:server>
 

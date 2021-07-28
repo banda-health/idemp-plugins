@@ -78,8 +78,22 @@ public interface IRestConfigs {
 
 	String APPLICATION_PDF = "application/pdf";
 
-	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
 	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
+
+	// GraphQL REST
+	String ATTRIBUTE_SET_INSTANCES_PATH = AUTHENTICATION_PATH + "/attributesetinstances";
+	String ATTRIBUTE_SETS_PATH = AUTHENTICATION_PATH + "/attributesets";
+	String CHARGES_PATH = AUTHENTICATION_PATH + "/charges";
+	String BUSINESS_PARTNERS_PATH = AUTHENTICATION_PATH + "/businesspartners";
+	String CLIENTS_PATH = AUTHENTICATION_PATH + "/clients";
+	String LOCATIONGS_PATH = AUTHENTICATION_PATH + "/locations";
+	String ORDERS_PATH = AUTHENTICATION_PATH + "/orders";
+	String ORDER_LINES_PATH = AUTHENTICATION_PATH + "/orderlines";
+	String ORGANIZATIONS_PATH = AUTHENTICATION_PATH + "/organizations";
+	String PROCESS_PARAMETERS_PATH = AUTHENTICATION_PATH + "/processparameters";
+	String REFERENCES_PATH = AUTHENTICATION_PATH + "/references";
+	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
+	String STORAGE_ON_HAND_PATH = AUTHENTICATION_PATH + "/storageonhand";
 	
 	String CODED_DIAGNOSES_PATH = AUTHENTICATION_PATH + "/codeddiagnoses";
 	String CODED_DIAGNOSIS_PATH = "/codeddiagnosis/{uuid}";

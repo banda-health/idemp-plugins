@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.rest.service.impl;
 import org.bandahealth.idempiere.base.model.MBHBPartnerCharge;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
-import org.bandahealth.idempiere.rest.model.BusinessPartnerCharge;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerChargeDBService;
-import org.bandahealth.idempiere.rest.service.db.BusinessPartnerDBService;
+import org.bandahealth.idempiere.rest.repository.BusinessPartnerRepository;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,22 +13,26 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Set;
 
-@Path(IRestConfigs.BUSINESS_PARTNER_PATH)
+@Path(IRestConfigs.BUSINESS_PARTNERS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class BusinessPartnerRestService {
 	private final BusinessPartnerChargeDBService businessPartnerChargeDBService;
+	private final BusinessPartnerRepository businessPartnerRepository;
 	private final BusinessPartnerDBService businessPartnerDBService;
 
 	public BusinessPartnerRestService() {
 		businessPartnerChargeDBService = new BusinessPartnerChargeDBService();
 		businessPartnerDBService = new BusinessPartnerDBService();
+		businessPartnerRepository = new BusinessPartnerRepository();
 	}
 
 	@GET
@@ -82,5 +86,44 @@ public class BusinessPartnerRestService {
 		businessPartnerCharge.setUuid(businessPartnerChargeUuid);
 		businessPartnerCharge.setBusinessPartnerId(businessPartner.getC_BPartner_ID());
 		return businessPartnerChargeDBService.saveEntity(businessPartnerCharge);
+	}
+
+	@GET
+	public Map<Integer, MBPartner_BH> get(@QueryParam("ids") Set<Integer> ids) {
+		return businessPartnerRepository.getByIds(ids);
+	}
+
+	@GET
+	@Path("/{uuid}")
+	public MBPartner_BH getByUuid(@PathParam("uuid") String uuid) {
+		return businessPartnerRepository.getByUuid(uuid);
+	}
+
+	@GET
+	@Path("/customers")
+	public List<MBPartner_BH> getCustomers(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return businessPartnerRepository.getCustomers(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/customers/paginginfo")
+	public Paging getCustomersPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return businessPartnerRepository.getCustomersPagingInfo(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/vendors")
+	public List<MBPartner_BH> getVendors(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return businessPartnerRepository.getVendors(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/vendors/paginginfo")
+	public Paging getVendorsPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return businessPartnerRepository.getVendorsPagingInfo(filterJson, sort, new Paging(page, size));
 	}
 }

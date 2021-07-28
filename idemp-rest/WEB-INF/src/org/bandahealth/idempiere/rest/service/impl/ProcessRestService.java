@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
+import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.repository.ProcessRepository;
 import org.bandahealth.idempiere.rest.model.ProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.ReportType;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
@@ -23,6 +25,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.utils.HttpHeaderUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProcess;
+import org.compiere.process.ProcessInfoParameter;
 
 import java.io.File;
 import java.util.List;
@@ -32,10 +35,12 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProcessRestService extends BaseEntityRestService<Process> implements IProcessRestService<Process> {
 
+	private final ProcessRepository processRepository;
 	private final ProcessDBService processDBService;
 
 	public ProcessRestService() {
 		processDBService = new ProcessDBService();
+		processRepository = new ProcessRepository();
 	}
 
 	@POST
@@ -94,5 +99,31 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	public BaseListResponse<Process> search(String value, int page, int size, String sortColumn,
 			String sortOrder) {
 		return null;
+	}
+
+	@GET
+	public List<MProcess> get(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return processRepository.get(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/paginginfo")
+	public Paging getPagingInfo(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sort") String sort, @QueryParam("filter") String filterJson) {
+		return processRepository.getPagingInfo(filterJson, sort, new Paging(page, size));
+	}
+
+	@GET
+	@Path("/{uuid}")
+	public MProcess getByUuid(@PathParam("uuid") String uuid) {
+		return processRepository.getByUuid(uuid);
+	}
+
+	@POST
+	@Path("/generate/{uuid}/{reportOutputType}")
+	public String generateReport(@PathParam("uuid") String processUuid,
+			@PathParam("reportOutputType") String reportOutputType, List<ProcessInfoParameter> processInfoParameters) {
+		return processRepository.generateReport(processUuid, reportOutputType, processInfoParameters);
 	}
 }

@@ -375,11 +375,25 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			StringBuilder dynamicJoinClause = new StringBuilder();
 			if (!getDynamicJoins().isEmpty()) {
-				String passedInJoinClause = (joinClause == null ? "" : joinClause).toLowerCase();
+				String currentJoinClause = (joinClause == null ? "" : joinClause).toLowerCase();
+				// If the current query already has a JOIN (the default), we need to get it
+				String currentQuerySql = query.getSQL();
+				if (currentQuerySql.contains("JOIN")) {
+					int firstJoinStatementIndex = currentQuerySql.indexOf("JOIN");
+					int endOfJoinStatementIndex = currentQuerySql.contains("WHERE") ? currentQuerySql.indexOf("WHERE") :
+							currentQuerySql.length();
+					currentJoinClause += " " + currentQuerySql.substring(firstJoinStatementIndex, endOfJoinStatementIndex - 1);
+				}
+
+				// Now figure out which tables are needed based on the filter/sort criteria
 				List<String> neededJoinTables = FilterUtil.getTablesNeedingJoins(filterJson);
+				if (QueryUtil.doesTableAliasExistOnColumn(sortColumn)) {
+					neededJoinTables.add(QueryUtil.getTableAliasFromColumn(sortColumn));
+				}
+				neededJoinTables = neededJoinTables.stream().distinct().collect(Collectors.toList());
 				for (String tableNeedingJoin : neededJoinTables) {
 					// If this table was already specified in a JOIN, we don't need to dynamically add it
-					if (passedInJoinClause.contains(tableNeedingJoin + ".")) {
+					if (currentJoinClause.contains(tableNeedingJoin + ".")) {
 						continue;
 					}
 					// Find the needed JOIN clause
@@ -393,7 +407,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 					// If no JOIN clause is specified in the dynamic JOIN, we need to let the user know
 					if (!foundMatchForTable) {
 						throw new AdempiereException(tableNeedingJoin
-								+ " was specified in the filter, but no dynamic JOIN clause provided");
+								+ " was specified in the filter/sort, but no dynamic JOIN clause provided");
 					}
 				}
 			}
@@ -403,12 +417,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			if (!dynamicJoinClause.toString().trim().isEmpty()) {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
-			}
-			if (!StringUtil.isNullOrEmpty(sortColumn) && SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
-				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
-				if (joinString != null) {
-					query.addJoinClause(joinString);
-				}
 			}
 
 			// TODO: Add translation tables via a JOIN because sorting will not work on translated columns at the moment
