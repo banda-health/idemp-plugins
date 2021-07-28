@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 
 @XmlRootElement(name = "product")
 @JsonInclude(value = Include.NON_NULL)
@@ -30,9 +31,10 @@ public class Product extends BaseEntity {
 	public Product() {
 	}
 
-	public Product(String name, String uuid, String type) {
+	public Product(String name, String uuid, String type, MProduct_BH entity) {
 		this.setName(name);
 		this.setUuid(uuid);
+		this.setHasExpiration(entity.isBH_HasExpiration());
 
 		this.type = type;
 	}

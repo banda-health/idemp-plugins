@@ -119,6 +119,9 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			MInvoice_BH invoice = getEntityByUuidFromDB(entity.getUuid());
 			if (invoice == null) {
 				invoice = getModelInstance();
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					invoice.setC_Invoice_UU(entity.getUuid());
+				}
 			}
 
 			if (entity.getDateInvoiced() != null) {

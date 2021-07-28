@@ -19,9 +19,8 @@ import org.compiere.util.Env;
 
 /**
  * Patient Database Operations
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
@@ -63,7 +62,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 		String whereClause = "(" + DEFAULT_SEARCH_CLAUSE + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_PatientID + " "
 				+ LIKE_COMPARATOR + " ?" + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Phone + " " + LIKE_COMPARATOR
-				+ " ? " + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Local_PatientID + " " + LIKE_COMPARATOR + " ?" + ")" + AND_OPERATOR
+				+ " ? " + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Local_PatientID + " " + LIKE_COMPARATOR + " ?" + ")" +
+				AND_OPERATOR
 				+ MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
 
 		return search(whereClause, parameters, pagingInfo, sortColumn, sortOrder);
@@ -79,6 +79,9 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			if (patient == null) {
 				patient = getModelInstance();
 				patient.setBH_IsPatient(true);
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					patient.setC_BPartner_UU(entity.getUuid());
+				}
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
@@ -166,7 +169,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			if (instance.getBH_C_Location() != null) {
 				address = instance.getBH_C_Location().getAddress1();
 			}
-			
+
 			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
@@ -175,7 +178,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getbh_nhif_relationship(), instance.getbh_nhif_member_name(), instance.getNHIF_Number(),
 					instance.getBH_NHIF_Type(), instance.getNationalID(), instance.getbh_occupation(),
 					instance.getNextOfKin_Name(), instance.getNextOfKin_Contact(),
-					instance.getBH_Local_PatientID(), VisitDBService.getVisitsCount(instance.get_ID()), 
+					instance.getBH_Local_PatientID(), VisitDBService.getVisitsCount(instance.get_ID()),
 					VisitDBService.getLastVisitDate(instance));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -210,7 +213,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getBH_Phone(), address, DateUtil.parseDateOnly(instance.getCreated()),
 					instance.getbh_gender(), instance.isActive(), instance.getBH_Local_PatientID(),
-					VisitDBService.getVisitsCount(instance.get_ID()), 
+					VisitDBService.getVisitsCount(instance.get_ID()),
 					VisitDBService.getLastVisitDate(instance));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

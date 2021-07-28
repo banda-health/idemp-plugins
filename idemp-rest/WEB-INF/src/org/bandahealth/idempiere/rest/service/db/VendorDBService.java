@@ -44,6 +44,9 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 			vendor = new MBPartner_BH(Env.getCtx(), 0, null);
 			vendor.setBH_IsPatient(false);
 			vendor.setIsVendor(true);
+			if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+				vendor.setC_BPartner_UU(entity.getUuid());
+			}
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getName())) {

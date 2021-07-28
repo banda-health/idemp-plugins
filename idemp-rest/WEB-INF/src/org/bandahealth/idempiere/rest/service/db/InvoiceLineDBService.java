@@ -7,7 +7,9 @@ import org.bandahealth.idempiere.rest.model.InvoiceLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.*;
+import org.compiere.model.MElementValue;
+import org.compiere.model.MInvoiceLine;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.util.List;
@@ -41,7 +43,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 		}
 
 		if (entity.getExpenseCategory() != null) {
-			MCharge charge = expenseCategoryDBService.getEntityByUuidFromDB(entity.getExpenseCategory().getUuid());
+			MCharge_BH charge = expenseCategoryDBService.getEntityByUuidFromDB(entity.getExpenseCategory().getUuid());
 
 			if (charge != null) {
 				invoiceLine.setC_Charge_ID(charge.get_ID());
@@ -88,12 +90,12 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 	@Override
 	protected InvoiceLine createInstanceWithAllFields(MInvoiceLine instance) {
 		try {
-			MProduct product = productDBService.getProductByID(instance.getM_Product_ID());
+			MProduct_BH product = productDBService.getEntityByIdFromDB(instance.getM_Product_ID());
 			if (product != null) {
 				return new InvoiceLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_InvoiceLine_UU(),
 						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 						instance.getC_Invoice_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType()),
+						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), product),
 						instance.getPriceActual(), instance.getQtyInvoiced(), instance.getLineNetAmt(), instance.getDescription());
 			} else {
 				// check charge
