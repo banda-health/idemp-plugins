@@ -13,8 +13,8 @@ public class BHProcessFactory implements IProcessFactory {
 	@Override
 	public ProcessCall newProcessInstance(String className) {
 
-		if (className.equals(SalesProcess.class.getName())) {
-			return new SalesProcess();
+		if (className.equals(OrderProcess.class.getName())) {
+			return new OrderProcess();
 		} else if (className.equals(StockTakeProcess.class.getName())) {
 			return new StockTakeProcess();
 		} else if (className.equals(InitializeStockProcess.class.getName())) {

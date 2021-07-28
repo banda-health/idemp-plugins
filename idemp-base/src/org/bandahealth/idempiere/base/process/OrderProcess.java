@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.process;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -10,14 +11,26 @@ import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.process.call.SalesProcessAsyncCall;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.Adempiere;
+import org.compiere.acct.Doc;
+import org.compiere.model.*;
 import org.compiere.model.MClient;
+import org.compiere.model.MInOut;
+import org.compiere.model.MInOutLine;
+import org.compiere.model.MOrder;
+import org.compiere.model.MOrderLine;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_DocType;
+import org.compiere.model.X_M_InOut;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.DB;
+import org.compiere.util.Env;
 
-public class SalesProcess extends SvrProcess {
+public class OrderProcess extends SvrProcess {
 
 	private int orderId;
 
@@ -43,11 +56,13 @@ public class SalesProcess extends SvrProcess {
 		MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?", get_TrxName())
 				.setParameters(orderId).first();
 		if (!order.isSOTrx()) {
-			order.setBH_Isexpense(true);
-			order.processIt(DocAction.ACTION_Complete);
-			return null;
+			return doReceiveGoods(order);
 		}
-		
+
+		return doCompletePatientBill();
+	}
+
+	private String doCompletePatientBill() {
 		setPaymentStatus(true, null, null);
 
 		// async call.
@@ -68,6 +83,47 @@ public class SalesProcess extends SvrProcess {
 								createHTMLBody(error, client.getName()), null, true);
 					}
 				}), 0, TimeUnit.MILLISECONDS);
+
+		return null;
+	}
+
+	private String doReceiveGoods(MOrder_BH order) {
+		order.processIt(MOrder_BH.DOCACTION_Complete);
+		order.save();
+		// Create Material Receipt header
+		Timestamp movementDate = order.getDateOrdered() != null ? order.getDateOrdered()
+				: new Timestamp(System.currentTimeMillis());
+		int documentTypeId = new Query(
+				Env.getCtx(),
+				X_C_DocType.Table_Name,
+				X_C_DocType.COLUMNNAME_DocBaseType + "=? AND " + X_C_DocType.COLUMNNAME_AD_Client_ID + "=?" +
+						" AND " + X_C_DocType.COLUMNNAME_IsSOTrx + "=?",
+				order.get_TrxName()
+		)
+				.setParameters(Doc.DOCTYPE_MatReceipt,Env.getAD_Client_ID(Env.getCtx()), "N")
+				.firstId();
+		MInOut mReceipt = new MInOut(order, documentTypeId, movementDate);
+
+		mReceipt.setDateOrdered(mReceipt.getMovementDate());
+//		mReceipt.setCreateFrom("N");
+//		mReceipt.setGenerateTo("N");
+		mReceipt.save();
+
+		// add lines if any
+		MOrderLine[] oLines = order.getLines(true, MOrderLine.COLUMNNAME_M_Product_ID);
+		if (oLines.length > 0) {
+			MWarehouse mWarehouse = new MWarehouse(Env.getCtx(), order.getM_Warehouse_ID(), order.get_TrxName());
+			for (MOrderLine oLine : oLines) {
+				MInOutLine line = new MInOutLine(mReceipt);
+				line.setOrderLine(oLine, mWarehouse.getDefaultLocator().get_ID(), Env.ZERO);
+				line.setQty(oLine.getQtyOrdered());
+				line.saveEx(order.get_TrxName());
+			}
+		}
+
+		// complete operation
+		mReceipt.processIt(X_M_InOut.DOCACTION_Complete);
+		mReceipt.save();
 
 		return null;
 	}
