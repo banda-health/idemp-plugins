@@ -19,22 +19,19 @@ package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
-
-import org.compiere.model.I_Persistent;
-import org.compiere.model.PO;
-import org.compiere.model.POInfo;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_ChargeDefault
  *  @author iDempiere (generated) 
  *  @version Release 7.1 - $Id$ */
-public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Persistent
+public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200526L;
+	private static final long serialVersionUID = 20210505L;
 
     /** Standard Constructor */
     public X_BH_ChargeDefault (Properties ctx, int BH_ChargeDefault_ID, String trxName)
@@ -44,6 +41,7 @@ public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Pers
         {
 			setBH_ChargeDefault_ID (0);
 			setName (null);
+			setValue (null);
         } */
     }
 
@@ -61,8 +59,7 @@ public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Pers
       return accessLevel.intValue();
     }
 
-    /** Load Meta Data
-		 * @return*/
+    /** Load Meta Data */
     protected POInfo initPO (Properties ctx)
     {
       POInfo poi = POInfo.getPOInfo (ctx, Table_ID, get_TrxName());
@@ -110,6 +107,31 @@ public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Pers
 		return (String)get_Value(COLUMNNAME_BH_ChargeDefault_UU);
 	}
 
+	public I_BH_ChargeTypeDefault getBH_ChargeTypeDefault() throws RuntimeException
+    {
+		return (I_BH_ChargeTypeDefault)MTable.get(getCtx(), I_BH_ChargeTypeDefault.Table_Name)
+			.getPO(getBH_ChargeTypeDefault_ID(), get_TrxName());	}
+
+	/** Set Charge Type Default.
+		@param BH_ChargeTypeDefault_ID Charge Type Default	  */
+	public void setBH_ChargeTypeDefault_ID (int BH_ChargeTypeDefault_ID)
+	{
+		if (BH_ChargeTypeDefault_ID < 1) 
+			set_Value (COLUMNNAME_BH_ChargeTypeDefault_ID, null);
+		else 
+			set_Value (COLUMNNAME_BH_ChargeTypeDefault_ID, Integer.valueOf(BH_ChargeTypeDefault_ID));
+	}
+
+	/** Get Charge Type Default.
+		@return Charge Type Default	  */
+	public int getBH_ChargeTypeDefault_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_ChargeTypeDefault_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Description.
 		@param Description 
 		Optional short description of the record
@@ -152,15 +174,18 @@ public class X_BH_ChargeDefault extends PO implements I_BH_ChargeDefault, I_Pers
         return new KeyNamePair(get_ID(), getName());
     }
 
-	/** Set Account Number.
-		@param Value Account Number	  */
+	/** Set Search Key.
+		@param Value 
+		Search key for the record in the format required - must be unique
+	  */
 	public void setValue (String Value)
 	{
 		set_Value (COLUMNNAME_Value, Value);
 	}
 
-	/** Get Account Number.
-		@return Account Number	  */
+	/** Get Search Key.
+		@return Search key for the record in the format required - must be unique
+	  */
 	public String getValue () 
 	{
 		return (String)get_Value(COLUMNNAME_Value);

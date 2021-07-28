@@ -57,8 +57,8 @@ public class MBPartner_BH extends MBPartner {
 	/** Column name BH_Phone */
 	public static final String COLUMNNAME_BH_Phone = "BH_Phone";
 
-	/** Column name National_ID */
-	public static final String COLUMNNAME_National_ID = "National_ID";
+	/** Column name NationalID */
+	public static final String COLUMNNAME_NationalID = "NationalID";
 
 	/** Column name NextOfKin_Contact */
 	public static final String COLUMNNAME_NextOfKin_Contact = "NextOfKin_Contact";
@@ -347,20 +347,20 @@ public class MBPartner_BH extends MBPartner {
 	}
 
 	/** Set NationalID.
-	 @param National_ID
+	 @param NationalID
 	 Patient Identity number
 	 */
-	public void setNational_ID (String National_ID)
+	public void setNationalID(String NationalID)
 	{
-		set_Value (COLUMNNAME_National_ID, National_ID);
+		set_Value (COLUMNNAME_NationalID, NationalID);
 	}
 
 	/** Get NationalID.
 	 @return Patient Identity number
 	 */
-	public String getNational_ID ()
+	public String getNationalID()
 	{
-		return (String)get_Value(COLUMNNAME_National_ID);
+		return (String)get_Value(COLUMNNAME_NationalID);
 	}
 
 	/** Set Next of Kin Contact.
@@ -409,7 +409,7 @@ public class MBPartner_BH extends MBPartner {
 	}
 	
 	/** Set Local Patient ID.
-	 @param BH_PatientID
+	 @param BH_Local_PatientID
 	 A unique identifier for users to manually enter
 	 */
 	public void setBH_Local_PatientID (String BH_Local_PatientID)

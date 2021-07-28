@@ -56,17 +56,20 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	private void beforeSaveRequest(MProduct_BH product) {
 		product.setValue(product.getName());
-		if (product.isBH_HasExpiration()) {
-			attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
-			if (attributeSet != null) {
+		if (product.getM_AttributeSet_ID() > 0) {
+			return;
+		}
+		
+		attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
+		if (attributeSet != null) {
+			if (product.isBH_HasExpiration()) {
 				Integer attributeSetId = attributeSet.get_ID();
 				product.setM_AttributeSet_ID(attributeSetId);
-			} else {
-				// failed to find or create product attribute set
-				throw new AdempiereException(
-						"Attribute Set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET + "' not found!");
-			}
-
+			} 
+		} else {
+			// failed to find or create product attribute set
+			throw new AdempiereException(
+					"Attribute Set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET + "' not found!");
 		}
 	}
 
@@ -137,7 +140,9 @@ public class ProductModelEvent extends AbstractEventHandler {
 					}
 					
 					// calculate price margin
-					product.setBH_PriceMargin(product.getBH_SellPrice().subtract(product.getBH_BuyPrice()));
+					if (product.getBH_SellPrice() != null && product.getBH_BuyPrice() != null) {
+						product.setBH_PriceMargin(product.getBH_SellPrice().subtract(product.getBH_BuyPrice()));
+					}
 
 					product.save(product.get_TrxName());
 				} else {

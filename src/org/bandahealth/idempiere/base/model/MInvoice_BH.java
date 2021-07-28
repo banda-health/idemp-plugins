@@ -8,8 +8,10 @@ import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Properties;
 
 public class MInvoice_BH extends MInvoice {
@@ -130,6 +132,12 @@ public class MInvoice_BH extends MInvoice {
 		super(order, C_DocTypeTarget_ID, invoiceDate);
 	}
 	
+	public MInvoice_BH (MInvoice invoice) {
+		super(invoice.getCtx(), 0, invoice.get_TrxName());
+
+		PO.copyValues (invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
+	}
+
 	/**
 	 * 	Complete Document
 	 * 	@return new status (Complete, In Progress, Invalid, Waiting ..)
@@ -141,8 +149,15 @@ public class MInvoice_BH extends MInvoice {
 		if (getBH_IsExpense()) {
 			//	Create Payment
 			createExpensePayment(info);
+		} else if (isSOTrx()) {
+			createPatientBillPayments(info);
 		}
+		// iDemp auto-creates payments if the payment rule is cash, so change this invoice's payment type
+		String currentPaymentRule = getPaymentRule();
+		setPaymentRule(PAYMENTRULE_BHCashAccount);
 		String docStatus = super.completeIt();
+		setPaymentRule(currentPaymentRule);
+		saveEx();
 		info.insert(0, getProcessMsg());
 		setProcessMessage(info.toString());
 		return docStatus;
@@ -240,6 +255,58 @@ public class MInvoice_BH extends MInvoice {
 		testAllocation(true);
 
 		return DocAction.ACTION_Complete;
+	}
+
+	/**
+	 * Create the payments that exist on the patient bill
+	 * @param info The builder that will be logged after process completion
+	 * @return The total amount of the payments
+	 */
+	private BigDecimal createPatientBillPayments(StringBuilder info) {
+		// Go through and add the payment with the amount specified on the order
+		String where = MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?";
+		List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name, where, get_TrxName())
+				.setParameters(getC_Order_ID())
+				.setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID)
+				.list();
+		BigDecimal totalPayments = new BigDecimal(0);
+		BigDecimal remainingAmount = getGrandTotal();
+		for (MPayment_BH orderPayment : orderPayments) {
+			// set payment received to bh_tender_amount
+			orderPayment.setBH_TenderAmount(orderPayment.getPayAmt());
+
+			if (remainingAmount.compareTo(BigDecimal.ZERO) <= 0) {
+				orderPayment.setPayAmt(BigDecimal.ZERO);
+			} else if (orderPayment.getBH_TenderAmount().compareTo(remainingAmount) < 0) {
+				// set payment amount to tender type if less than the remaining grand total
+				orderPayment.setPayAmt(orderPayment.getBH_TenderAmount());
+			} else {
+				// set payment amount as the remaining amount.
+				orderPayment.setPayAmt(remainingAmount);
+			}
+
+			orderPayment.setC_Invoice_ID(getC_Invoice_ID());
+			orderPayment.saveEx(get_TrxName());
+
+			boolean paymentIsComplete = orderPayment.processIt(DocAction.ACTION_Complete);
+			if (!paymentIsComplete) {
+				log.severe("Error auto-processing payment " + orderPayment.getC_Payment_ID()
+						+ "and associating it to invoice " + getC_Invoice_ID());
+			}
+
+			info.append("@C_Payment_ID@: " + orderPayment.getDocumentInfo());
+
+			// IDEMPIERE-2588 - add the allocation generation with the payment
+			if (orderPayment.getJustCreatedAllocInv() != null)
+				addDocsPostProcess(orderPayment.getJustCreatedAllocInv());
+
+			remainingAmount = remainingAmount.subtract(orderPayment.getBH_TenderAmount());
+
+			// sum all tender amounts
+			totalPayments = totalPayments.add(orderPayment.getBH_TenderAmount());
+		}
+
+		return totalPayments;
 	}
 
 	/**

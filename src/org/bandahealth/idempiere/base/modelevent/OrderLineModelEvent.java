@@ -5,8 +5,8 @@ import java.util.Date;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.PO;
 import org.osgi.service.event.Event;
@@ -22,11 +22,11 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		MOrder order = null;
+		MOrder_BH order = null;
 		MOrderLine_BH orderLine = null;
 		PO persistantObject = getPO(event);
-		if (persistantObject instanceof MOrder) {
-			order = (MOrder) persistantObject;
+		if (persistantObject instanceof MOrder_BH) {
+			order = (MOrder_BH) persistantObject;
 			if (order.isSOTrx()) {
 				return;
 			}
@@ -44,11 +44,13 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 
 	/**
 	 * Create an attribute set instance with guarantee date
-	 * 
+	 *
 	 * @param orderLine
 	 */
 	private void beforeSaveRequest(MOrderLine_BH orderLine) {
-		if (!orderLine.getC_Order().isSOTrx() || orderLine.getBH_Expiration() != null) {
+		MOrder_BH order = (MOrder_BH) orderLine.getC_Order();
+		boolean isReceiveGoods = !order.isSOTrx();
+		if (!order.isComplete() && (isReceiveGoods || orderLine.getBH_Expiration() != null)) {
 			receiveGoodsBeforeSaveRequest(orderLine);
 		}
 	}

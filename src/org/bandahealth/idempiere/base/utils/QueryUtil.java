@@ -1,21 +1,34 @@
 package org.bandahealth.idempiere.base.utils;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+import java.util.logging.Level;
 
+import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 public class QueryUtil {
 
+	private static CLogger logger = CLogger.getCLogger(QueryUtil.class);
+
 	/**
 	 * Retrieve the first row of a given table by organization and client.
-	 * 
+	 *
 	 * @param clientId
 	 * @param organizationId
 	 * @param ctx
@@ -25,14 +38,14 @@ public class QueryUtil {
 	 * @return
 	 */
 	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx,
-			String tableName, String whereClause, String trxName) {
+																													String tableName, String whereClause, String trxName) {
 
 		return getQueryByOrgAndClient(clientId, organizationId, ctx, tableName, whereClause, trxName).first();
 	}
 
 	/**
 	 * Gets the query object to allow for further modification by a user if desired
-	 * 
+	 *
 	 * @param clientId
 	 * @param organizationId
 	 * @param ctx
@@ -42,7 +55,7 @@ public class QueryUtil {
 	 * @return
 	 */
 	public static Query getQueryByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
-			String whereClause, String trxName) {
+																						 String whereClause, String trxName) {
 
 		String clientAndOrg = String.format(" and %1$s = ? and %2$s = ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
 				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
@@ -71,7 +84,7 @@ public class QueryUtil {
 	}
 
 	public static int createExpirationDateAttributeInstance(int attributeSetInstanceId, Timestamp expirationDate,
-			String trxName, Properties ctx) {
+																													String trxName, Properties ctx) {
 		MAttributeSetInstance asi = null;
 
 		if (attributeSetInstanceId > 0) {
@@ -130,24 +143,73 @@ public class QueryUtil {
 
 	/**
 	 * Generates The Next Patient ID for a given client.
-	 * 
+	 *
 	 * @return
 	 */
 	public static Object generateNextBHPatientId() {
 		// default patient id
-		Integer numericCreatedPatientId = 100000;
+		Integer initialClientPatientId = 100000;
 
-		// check the last created patient id
-		MBPartner_BH lastCreatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", null).setClient_ID().setOrderBy(
-						MBPartner_BH.COLUMNNAME_Created + " DESC, " + MBPartner_BH.COLUMNNAME_BH_PatientID + " DESC")
-						.setParameters("Y").first();
+		// First, try to see if we can fetch their current maximum numeric Banda patient id
+		StringBuilder sqlQuery = new StringBuilder("SELECT MAX(CAST(").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
+				.append(" AS NUMERIC)) FROM ").append(MBPartner_BH.Table_Name).append(" WHERE ")
+				.append(MBPartner_BH.COLUMNNAME_AD_Client_ID).append("=? AND isnumeric(")
+				.append(MBPartner_BH.COLUMNNAME_BH_PatientID).append(") AND ").append(MBPartner_BH.COLUMNNAME_BH_IsPatient)
+				.append("=? AND ").append(MBPartner_BH.COLUMNNAME_AD_Org_ID).append("=?");
+		Integer clientsCurrentMaxPatientId = 0;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			statement = DB.prepareStatement(sqlQuery.toString(), null);
+			DB.setParameters(statement, Arrays.asList(Env.getAD_Client_ID(Env.getCtx()), "Y", Env.getAD_Org_ID(Env.getCtx())));
 
-		if (lastCreatedPatient != null && NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
-			numericCreatedPatientId = Integer.valueOf(lastCreatedPatient.getBH_PatientID());
-			numericCreatedPatientId++;
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				clientsCurrentMaxPatientId = resultSet.getInt(1);
+			}
+
+		} catch (SQLException maxIdCheckException) {
+			logger.info("Error checking for existing BH Patient Local ID max: " + maxIdCheckException.getMessage());
+		} finally {
+			DB.close(resultSet, statement);
+			resultSet = null;
+			statement = null;
 		}
 
-		return numericCreatedPatientId;
+		// If the value was updated from 0, we found it!
+		if (clientsCurrentMaxPatientId != 0) {
+			return clientsCurrentMaxPatientId + 1;
+		}
+
+		// There was an error checking the maximum, so get the most recent patient
+		// check the last created patient id
+		MBPartner_BH lastCreatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
+				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=? AND " + MBPartner_BH.COLUMNNAME_AD_Org_ID + "=?",
+				null)
+				.setClient_ID().setOrderBy(MBPartner_BH.COLUMNNAME_Created + " DESC")
+				.setParameters("Y", Env.getAD_Org_ID(Env.getCtx())).first();
+
+		if (lastCreatedPatient != null && NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
+			clientsCurrentMaxPatientId = Integer.parseInt(lastCreatedPatient.getBH_PatientID()) + 1;
+		} else {
+			clientsCurrentMaxPatientId = initialClientPatientId;
+		}
+
+		return clientsCurrentMaxPatientId;
+	}
+
+	/**
+	 * This generates a parameter list based on a number of items (i.e. for items [1,2,3], this generates a where clause
+	 * of "?,?,?" and adds the items to the parameters)
+	 *
+	 * @param items      The items to add to the parameter list
+	 * @param parameters The parameter list
+	 * @param <T>        The type of items to add
+	 * @return A where clause with the number of question marks, comma-delimited, for the number of parameters
+	 */
+	public static <T> String getWhereClauseAndSetParametersForSet(Set<T> items, List<Object> parameters) {
+		String parameterList = "?,".repeat(items.size());
+		parameters.addAll(items);
+		return parameterList.substring(0, parameterList.length() - 1);
 	}
 }

@@ -4,11 +4,17 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.compiere.Adempiere;
 import org.compiere.impexp.ImpFormat;
 import org.compiere.impexp.MImpFormat;
+import org.compiere.model.MClient;
 import org.compiere.model.MElement;
+import org.compiere.model.MOrg;
+import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MUser;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.process.ImportAccount;
 import org.compiere.process.ProcessInfoParameter;
@@ -26,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 
 /**
@@ -36,7 +43,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String CLIENTLEVEL_BASIC = "B";
 	public static final String CLIENTLEVEL_INTERMEDIATE = "I";
 	public static final String CLIENTLEVEL_ADVANCED = "A";
-	
+
 	public static final String PARAMETERNAME_IS_USING_CASH_BOX = "IsUsingCashBox";
 	public static final String PARAMETERNAME_IS_USING_MOBILE = "IsUsingMobile";
 	public static final String PARAMETERNAME_IS_USING_SAVINGS = "IsUsingSavings";
@@ -50,18 +57,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_DELETE_OLD_IMPORTED = "DeleteOldImported";
 	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
-
-	private boolean wantsCashBoxAccount = false;
-	private boolean wantsMobileAccount = false;
-	private boolean wantsSavingsAccount = false;
-	private String clientName = null;
-	private String orgName = null;
-	private String clientLevel = CLIENTLEVEL_BASIC;
-
+	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
-
-	private int usersClientId;
-
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
 			+ File.separator + "import"
@@ -69,12 +66,22 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private final String coaBandaFile = Adempiere.getAdempiereHome() + File.separator + "data"
 			+ File.separator + "import"
 			+ File.separator + "BandaGoChartofAccounts-Basic.csv";
+	private boolean wantsCashBoxAccount = false;
+	private boolean wantsMobileAccount = false;
+	private boolean wantsSavingsAccount = false;
+	private String clientName = null;
+	private String adminUserName = null;
+	private String orgName = null;
+	private String clientLevel = CLIENTLEVEL_BASIC;
+	private int usersClientId;
+	private int usersId;
 
 	/**
 	 * Prepare
 	 */
 	protected void prepare() {
 		usersClientId = getAD_Client_ID();
+		usersId = getAD_User_ID();
 
 		addCoAFileValueToParametersBasedOnClientType();
 
@@ -105,26 +112,35 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				case PARAMETERNAME_CLIENT_LEVEL:
 					clientLevel = processInfoParameter.getParameterAsString();
 					break;
+				case PARAMETERNAME_ADMIN_USER_NAME:
+					adminUserName = processInfoParameter.getParameterAsString();
 			}
 		}
 	}
 
 	/**
-	 * 	Process to automate the work done previously:
-	 * 		1. Create a client with the account "DO NOT USE" assigned to every default in the accounting schema
-	 * 		2. Import the desired CoA (Basic, Intermediate, Advanced)
-	 * 		3. Update default account mapping (i.e. set B_Asset = B_InTransit, etc.)
-	 * 		4. Create bank accounts for the client
-	 * 		5. Create and map Payment Types to the default Bank Account
-	 * 		6. Insert default Expense Categories (charges) for the client
-	 * 		7. Create default product categories for products so they hit the correct revenue accounts
-	 *	@return info
-	 *	@throws Exception
+	 * Process to automate the work done previously:
+	 * 1. Create a client with the account "DO NOT USE" assigned to every default in the accounting schema
+	 * 2. Import the desired CoA (Basic, Intermediate, Advanced)
+	 * 3. Update default account mapping (i.e. set B_Asset = B_InTransit, etc.)
+	 * 4. Create bank accounts for the client
+	 * 5. Create and map Payment Types to the default Bank Account
+	 * 6. Insert default Expense Categories (charges) for the client
+	 * 7. Create default product categories for products so they hit the correct revenue accounts
+	 *
+	 * @return info
+	 * @throws Exception
 	 */
 	protected String doIt() throws Exception {
 		String completeInfo = super.doIt();
 
-		MBandaSetup bandaSetup = new MBandaSetup(getCtx(), clientName, orgName);
+		MClient client = new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_Name + "=?", get_TrxName())
+				.setParameters(clientName).first();
+		MOrg organization =
+				new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_Name + "=? AND " + MOrg.COLUMNNAME_AD_Client_ID + "=?",
+						get_TrxName()).setParameters(orgName, client.getAD_Client_ID()).first();
+
+		MBandaSetup bandaSetup = new MBandaSetup(getCtx(), client, organization);
 		// If AD_Client_ID or AD_Org_ID are -1, something went wrong in setup, but no error was generated
 		// If this happens, we want to throw an error
 		if (bandaSetup.getAccountSchema() == null ||
@@ -135,6 +151,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 
 		// Set the client ID for this process so everyone gets the same ID from here, ctx, or wherever
 		getProcessInfo().setAD_Client_ID(bandaSetup.getAD_Client_ID());
+		Env.setContext(getCtx(), Env.AD_CLIENT_ID, bandaSetup.getAD_Client_ID());
 		try {
 			if (!importCoA(getCoAFileToImport())) {
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Inserting Banda Accounts failed"));
@@ -153,25 +170,45 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update default mapping failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.createBankAccounts(wantsCashBoxAccount, wantsMobileAccount, wantsSavingsAccount)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create bank accounts failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.addDefaultCharges()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create default charges failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.createDefaultProductCategories()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Create default product categories failed"));
 			}
-			addLog(bandaSetup.getInfo());
+			addLog(bandaSetup.getThenResetInfo());
+
+			// Update the user role that iDempiere automatically created
+			if (!bandaSetup.resetUserRole()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Reset user role failed"));
+			}
+			addLog(bandaSetup.getThenResetInfo());
+
+			List<MUser_BH> usersToAddRolesTo = new ArrayList<>();
+			MUser_BH clientAdminUser = new Query(getCtx(), MUser.Table_Name,
+					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?", get_TrxName())
+					.setParameters(bandaSetup.getAD_Client_ID(), adminUserName).first();
+			if (clientAdminUser != null) {
+				usersToAddRolesTo.add(clientAdminUser);
+			}
+			if (!bandaSetup.initializeRoles(usersToAddRolesTo)) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
+			}
+			addLog(bandaSetup.getThenResetInfo());
 
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
@@ -182,6 +219,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			throw e;
 		}
 
+		addCreatedUserRolesToLoggedInUser(bandaSetup.getAD_Client_ID(), bandaSetup.getAD_Org_ID());
+
 		/**
 		 * The context has it's AD_Client_ID replaced with the generated one. If the user continues using iDempiere,
 		 * they're AD_Client_ID will be wrong (since they should be "System") and they'll have to log out and log
@@ -191,6 +230,43 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		resetClientId();
 
 		return completeInfo;
+	}
+
+	/**
+	 * Roles are currently added to the SuperUser user, which the logged-in user may not be. So, add them to the
+	 * logged-in user
+	 */
+	private void addCreatedUserRolesToLoggedInUser(int clientId, int orgId) {
+		List<MRole> clientRoles = new Query(
+				getCtx(),
+				MRole.Table_Name,
+				MRole.COLUMNNAME_AD_Client_ID + "=?",
+				get_TrxName()
+		)
+				.setParameters(clientId)
+				.list();
+		String whereClause = "?,".repeat(clientRoles.size());
+		whereClause = whereClause.substring(0, whereClause.length() - 1);
+		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
+		parameters.add(usersId);
+		List<MUserRoles> usersAssignedClientRoles = new Query(
+				getCtx(),
+				MUserRoles.Table_Name,
+				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ") AND " +
+						MUserRoles.COLUMNNAME_AD_User_ID + "=?",
+				get_TrxName()
+		)
+				.setParameters(parameters)
+				.list();
+		// If any roles have already been assigned for this user and client, we don't need to do anything
+		if (usersAssignedClientRoles.size() > 0) {
+			return;
+		}
+		clientRoles.forEach(clientRole -> {
+			MUserRoles roleToAssign = new MUserRoles(getCtx(), usersId, clientRole.getAD_Role_ID(), get_TrxName());
+			roleToAssign.setAD_Org_ID(orgId);
+			roleToAssign.saveEx();
+		});
 	}
 
 	private void rollback(MBandaSetup bandaSetup) {
@@ -206,6 +282,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	/**
 	 * This emulates the process found in WFileImport.java and the screen "Import File Loader" to upload
 	 * an account file into the system
+	 *
 	 * @param coaFileToImport The URI of the file to upload
 	 * @return True if the import succeeds
 	 * @throws IOException

@@ -20,8 +20,8 @@ public class ExpenseProcess extends SvrProcess {
 	public static final String PARAMETERNAME_C_INVOICE_ID = "c_invoice_id";
 	public static final String PARAMETERNAME_PROCESS_ACTION = "processaction";
 
-	private final String PROCESSACTION_Complete = "Complete";
-	private final String PROCESSACTION_Remove = "Remove";
+	public static final String PROCESSACTION_Complete = "Complete";
+	public static final String PROCESSACTION_Remove = "Remove";
 
 	private int invoiceId;
 	private String processAction;
