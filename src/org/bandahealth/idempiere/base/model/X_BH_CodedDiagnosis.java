@@ -68,7 +68,7 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder("X_BH_CodedDiagnosis[").append(get_ID()).append(",CeilName=")
+		StringBuilder sb = new StringBuilder("X_BH_CodedDiagnosis[").append(get_ID()).append(",CielName=")
 				.append(getBH_CielName()).append("]");
 		return sb.toString();
 	}
@@ -153,11 +153,11 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	}
 
 	@Override
-	public void setBH_CielId(int bh_ceilId) {
-		if (bh_ceilId < 1)
+	public void setBH_CielId(int bh_cielId) {
+		if (bh_cielId < 1)
 			set_ValueNoCheck(COLUMNNAME_BH_CielId, null);
 		else
-			set_ValueNoCheck(COLUMNNAME_BH_CielId, Integer.valueOf(bh_ceilId));
+			set_ValueNoCheck(COLUMNNAME_BH_CielId, Integer.valueOf(bh_cielId));
 	}
 
 	@Override
