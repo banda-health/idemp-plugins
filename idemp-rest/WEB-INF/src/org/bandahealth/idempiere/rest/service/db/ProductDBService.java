@@ -174,8 +174,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
 				product.setName(entity.getName());
-				// go-1773 - The value is what the unique name is determined by, so we need to also change it if the name is set
-				product.setValue(entity.getName());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
