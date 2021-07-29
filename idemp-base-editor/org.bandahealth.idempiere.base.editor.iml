@@ -11,5 +11,6 @@
     <orderEntry type="library" name="ECLIPSE" level="application" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="iDempiere" level="project" />
+    <orderEntry type="library" name="org.adempiere" level="project" />
   </component>
 </module>
