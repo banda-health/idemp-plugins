@@ -2,16 +2,16 @@
 <module type="JAVA_MODULE" version="4">
   <component name="CompassSettings">
     <option name="compassConfigPath" value="$MODULE_DIR$/config.rb" />
-    <option name="compassExecutableFilePath" value="C:/Program Files/Ruby/Ruby25-x64/bin/compass.bat" />
+    <option name="compassExecutableFilePath" value="$MODULE_DIR$/../../../../../../Program Files/Ruby/Ruby25-x64/bin/compass.bat" />
     <option name="compassSupportEnabled" value="true" />
     <option name="importPaths">
       <list>
-        <option value="C:/Program" />
+        <option value="$MODULE_DIR$/../../../../../../Program" />
       </list>
     </option>
   </component>
   <component name="EclipseModuleManager">
-    <libelement value="file://D:\source\Banda-Health\iDempiere\dev\plugins\org.bandahealth.idempiere.webui\theme" />
+    <libelement value="file://D:/source/Banda-Health/iDempiere/dev/plugins/org.bandahealth.idempiere.webui/theme" />
     <src_description expected_position="3">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="3" />
     </src_description>
@@ -23,6 +23,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.sass-cache" />
       <excludeFolder url="file://$MODULE_DIR$/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="module-library" exported="">
       <library name="theme/">
@@ -41,5 +42,6 @@
     <orderEntry type="library" scope="PROVIDED" name="iDempiere" level="project" />
     <orderEntry type="module" module-name="org.adempiere.ui.zk" />
     <orderEntry type="module" module-name="org.bandahealth.idempiere.base" />
+    <orderEntry type="library" name="org.adempiere" level="project" />
   </component>
 </module>
