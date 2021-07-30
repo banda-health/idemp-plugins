@@ -160,12 +160,12 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	@Override
 	protected OrderLine createInstanceWithAllFields(MOrderLine_BH instance) {
 		try {
-			MProduct product = productDBService.getProductByID(instance.getM_Product_ID());
+			MProduct_BH product = productDBService.getEntityByIdFromDB(instance.getM_Product_ID());
 			if (product != null) {
 				return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
 						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 						instance.getC_Order_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType()),
+						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), product),
 						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
 						DateUtil.parse(instance.getBH_Expiration()), instance.getBH_Instructions(), instance);
 			} else {

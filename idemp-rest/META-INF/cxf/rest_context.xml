@@ -38,6 +38,7 @@ classpath:META-INF/cxf/jaxrs.xsd">
             <bean class="org.bandahealth.idempiere.rest.service.impl.ReferenceListRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.LanguageRestService"/>
 			<ref bean="CodedDiagnosisServiceBean" />
+			<ref bean="VoidedReasonServiceBean" />
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
@@ -115,5 +116,8 @@ classpath:META-INF/cxf/jaxrs.xsd">
 
 	<bean id="CodedDiagnosisServiceBean"
 		class="org.bandahealth.idempiere.rest.service.impl.CodedDiagnosisRestService" />
+		
+	<bean id="VoidedReasonServiceBean"
+		class="org.bandahealth.idempiere.rest.service.impl.VoidedReasonRestService" />
 
 </beans>
