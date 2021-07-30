@@ -50,6 +50,10 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 				service = getModelInstance();
 				service.setProductType(MProduct_BH.PRODUCTTYPE_Service);
 
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					service.setM_Product_UU(entity.getUuid());
+				}
+
 				// set default uom (unit of measure).
 				MUOM uom = new Query(Env.getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_Name + "=?", null)
 						.setParameters("Each").first();
