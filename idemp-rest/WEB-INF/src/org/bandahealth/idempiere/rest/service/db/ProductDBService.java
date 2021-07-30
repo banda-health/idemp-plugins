@@ -110,8 +110,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			if (entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 
-				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo, entity.get_ID());
-				
+				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo,
+						entity.get_ID());
+
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				for (Inventory inventory : inventoryList.getResults()) {
@@ -133,7 +134,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				result.setTotalQuantity(totalQuantity);
 			}
 
-			results.add(result);
+			// If a product has no quantity, don't return it in the list
+			if (result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0) {
+				results.add(result);
+			}
 		}
 
 		return new BaseListResponse<SearchProduct>(results, pagingInfo);
@@ -216,7 +220,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			product.setIsActive(entity.getIsActive());
 
 			product.saveEx();
-			
+
 			// update inventory only for a new products
 			if (exists == null) {
 				inventoryDBService.initializeStock(product, entity.getTotalQuantity());
@@ -245,7 +249,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
 					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin(),
-					productCategory.getM_Product_Category_UU(), inventoryDbService.getProductInventoryCount(instance.getM_Product_ID()));
+					productCategory.getM_Product_Category_UU(),
+					inventoryDbService.getProductInventoryCount(instance.getM_Product_ID()));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 
@@ -271,7 +276,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			return new Product(product.getM_Product_UU(), product.getName(), product.getBH_BuyPrice(),
 					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration),
-					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice(), product.isActive(), product.getBH_PriceMargin());
+					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice(), product.isActive(),
+					product.getBH_PriceMargin());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
