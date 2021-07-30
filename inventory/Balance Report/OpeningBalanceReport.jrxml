@@ -99,7 +99,7 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd.MM.yyyy").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="39" width="100" height="20" uuid="08c976fa-deb9-4178-8d12-6ebb9f758ddd"/>
+				<reportElement x="350" y="39" width="110" height="20" uuid="08c976fa-deb9-4178-8d12-6ebb9f758ddd"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -127,7 +127,10 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="BalData" uuid="08777f80-8b39-4e99-b08e-4db5c65cd4f5">
+					<datasetRun subDataset="BalData" uuid="f7175b51-8b89-4e78-8f89-fbcfb685b690">
+						<datasetParameter name="AD_CLIENT_ID">
+							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="162" uuid="3d7f7e5a-7c1c-4ac7-965e-59c2287c0248">
