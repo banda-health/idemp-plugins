@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.logging.Level;
 
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -45,9 +46,11 @@ public class TermsOfUseService {
 	}
 
 	public static void acceptTermsOfUse() {
+		PO.setCrossTenantSafe();
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		user.setBH_HasAcceptedTermsOfUse(true);
 		user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
 		user.save();
+		PO.clearCrossTenantSafe();
 	}
 }
