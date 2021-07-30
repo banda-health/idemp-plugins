@@ -115,7 +115,7 @@ from (
             join c_charge c on ol.c_charge_id = c.c_charge_id
             cross join params p
         where ol.c_charge_id IS NOT NULL
-            and (par.payment_mode = '''' OR par.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN par.payment_mode = 'T' THEN 'D' ELSE par.payment_mode END and par.payment_mode IN ('I', 'W', 'T')))
+            and (p.payment_mode = '''' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
         order by 1
     ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
     left join (
