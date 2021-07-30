@@ -36,6 +36,9 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 			MCharge_BH charge = getEntityByUuidFromDB(entity.getUuid());
 			if (charge == null) {
 				charge = getModelInstance();
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					charge.setC_Charge_UU(entity.getUuid());
+				}
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
