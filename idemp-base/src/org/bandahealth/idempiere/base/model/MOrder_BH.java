@@ -55,6 +55,7 @@ public class MOrder_BH extends MOrder {
 																										// Description
 	public static final String COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS = "BH_SecondaryUncodedDiagnosis"; // previously
 																											// bh_seconddiagnosis
+	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
 
 	/**
 	 * Column name bh_referral
@@ -638,5 +639,20 @@ public class MOrder_BH extends MOrder {
 	 */
 	public Timestamp getBH_VisitDate() {
 		return (Timestamp) get_Value(COLUMNNAME_BH_VisitDate);
+	}
+	
+	public int getBH_VoidedReasonID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_VOIDED_REASON_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
+	}
+
+	public void setBH_VoidedReasonID(int BH_VoidedReason_ID) {
+		if (BH_VoidedReason_ID < 1) {
+			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, Integer.valueOf(BH_VoidedReason_ID));
+		}
 	}
 }
