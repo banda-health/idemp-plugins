@@ -111,10 +111,14 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			if (entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 
 				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo, entity.get_ID());
-
+				
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				for (Inventory inventory : inventoryList.getResults()) {
+					// exclude expired products
+					if (inventory.getShelfLife() < 0) {
+						continue;
+					}
 					// get expiry date and id
 					SearchProductAttribute attribute = new SearchProductAttribute(
 							inventory.getExpirationDate(), inventory.getAttributeSetInstanceId());
