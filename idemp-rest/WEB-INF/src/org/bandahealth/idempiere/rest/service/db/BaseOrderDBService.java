@@ -217,8 +217,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		MOrder_BH order = getEntityByUuidFromDB(entity.getUuid());
 
 		if (order != null) {
-			if (StringUtil.isNotNullAndEmpty(entity.getDocStatus())
-					&& entity.getDocStatus().equals(MOrder_BH.DOCSTATUS_Voided)) {
+			if (docAction.equals(MOrder_BH.DOCACTION_Void)) {
 				// set voided reason
 				VoidedReason voidedReason = entity.getVoidedReason();
 				if (voidedReason != null && StringUtil.isNotNullAndEmpty(voidedReason.getUuid())) {
@@ -228,8 +227,6 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 						order.saveEx();
 					}
 				}
-				
-				return processEntity(entity.getUuid(), docAction);
 			}
 
 			if (order.isComplete()) {
