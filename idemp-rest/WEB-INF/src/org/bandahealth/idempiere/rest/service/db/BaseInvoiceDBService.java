@@ -25,9 +25,11 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	protected InvoiceLineDBService invoiceLineDBService = new InvoiceLineDBService();
 	protected final ProcessDBService processDBService;
 	private final String PURCHASE_ORDER = "Purchase Order";
+	private final VoidedReasonDBService voidedReasonDBService;
 
 	public BaseInvoiceDBService() {
 		processDBService = new ProcessDBService();
+		voidedReasonDBService = new VoidedReasonDBService();
 	}
 
 	protected abstract void beforeSave(T entity, MInvoice_BH invoice);
@@ -56,7 +58,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	 * @param sortColumn
 	 * @param sortOrder
 	 * @param initialWhereClause an optional where clause to filter results
-	 * @param parameters an optional parameters list for use in the where clause
+	 * @param parameters         an optional parameters list for use in the where
+	 *                           clause
 	 * @return
 	 */
 	public BaseListResponse<T> search(String value, Paging pagingInfo, String sortColumn, String sortOrder,
@@ -65,7 +68,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			parameters = new ArrayList<>();
 		}
 
-		// Do this first because parameters would've already been added to the array if so
+		// Do this first because parameters would've already been added to the array if
+		// so
 		StringBuilder whereClause = new StringBuilder();
 		if (initialWhereClause != null && !initialWhereClause.isEmpty()) {
 			whereClause.append(initialWhereClause).append(AND_OPERATOR);
@@ -192,11 +196,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	 * @return
 	 */
 	protected int getAPInvoiceDocumentTypeId() {
-		return new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?",
-				null)
-				.setClient_ID()
-				.setParameters(MDocType.DOCBASETYPE_APInvoice)
-				.firstId();
+		return new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?", null).setClient_ID()
+				.setParameters(MDocType.DOCBASETYPE_APInvoice).firstId();
 	}
 
 	/**
@@ -228,6 +229,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 	/**
 	 * Override this for invoices that need a different process
+	 * 
 	 * @param entity
 	 */
 	protected void runAsyncEntityDeleteProcess(MInvoice_BH entity) {
@@ -238,9 +240,19 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	public T saveAndProcessEntity(T entity, String docAction) throws Exception {
 		// Invoices that have already been processed can't be saved again
 		MInvoice_BH invoice = getEntityByUuidFromDB(entity.getUuid());
-		if (invoice != null && invoice.isComplete()) {
-			return processEntity(entity.getUuid(), docAction);
+		if (invoice != null) {
+			if (docAction.equals(MInvoice_BH.DOCACTION_Void)) {
+				VoidedReason voidedReason = entity.getVoidedReason();
+				if (voidedReason != null && StringUtil.isNotNullAndEmpty(voidedReason.getUuid())) {
+					invoice.saveEx();
+				}
+			}
+
+			if (invoice.isComplete()) {
+				return processEntity(entity.getUuid(), docAction);
+			}
 		}
+
 		return super.saveAndProcessEntity(entity, docAction);
 	}
 }
