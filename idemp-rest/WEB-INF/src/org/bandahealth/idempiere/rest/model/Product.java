@@ -35,6 +35,8 @@ public class Product extends BaseEntity {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.setHasExpiration(entity.isBH_HasExpiration());
+		this.buyPrice = entity.getBH_BuyPrice();
+		this.sellPrice = entity.getBH_SellPrice();
 
 		this.type = type;
 	}
