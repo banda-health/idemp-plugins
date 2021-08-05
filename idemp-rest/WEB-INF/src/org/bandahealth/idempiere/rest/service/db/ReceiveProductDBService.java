@@ -134,37 +134,4 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
 	}
-
-	@Override
-	public ReceiveProduct saveAndProcessEntity(ReceiveProduct entity, String docAction) throws Exception {
-		ReceiveProduct updatedEntity = super.saveAndProcessEntity(entity, docAction);
-
-		// Only do this if there are order lines (which there should be, but checking just in case)
-		if (entity.getOrderLines() != null) {
-			// Batch the product calls to avoid N+1 queries
-			Set<String> productUuids =
-					entity.getOrderLines().stream().map(OrderLine::getProduct).map(Product::getUuid).collect(Collectors.toSet());
-			Map<String, MProduct_BH> products = productDBService.getByUuids(productUuids);
-			AtomicBoolean didProductsGetUpdatedSuccessfully = new AtomicBoolean(true);
-
-			// Cycle through the products and, if the selling price has been updated, update the product in the DB
-			entity.getOrderLines().forEach(orderLine -> {
-				Product orderLineProduct = orderLine.getProduct();
-				MProduct_BH dbProduct = products.get(orderLineProduct.getUuid());
-				// If the new sell price doesn't match what's in the DB, update it
-				if (orderLineProduct.getSellPrice().compareTo(dbProduct.getBH_SellPrice()) != 0) {
-					dbProduct.setBH_SellPrice(orderLineProduct.getSellPrice());
-					dbProduct.setBH_PriceMargin(orderLineProduct.getSellPrice().subtract(dbProduct.getBH_BuyPrice()));
-					if (!dbProduct.save()) {
-						didProductsGetUpdatedSuccessfully.set(false);
-					}
-				}
-			});
-			if (!didProductsGetUpdatedSuccessfully.get()) {
-				throw new AdempiereException("Product selling prices and margins not updated successfully");
-			}
-		}
-
-		return updatedEntity;
-	}
 }
