@@ -2,19 +2,12 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
 import org.compiere.model.MOrder;
 import org.compiere.model.Query;
