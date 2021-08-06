@@ -33,7 +33,7 @@
 	<subDataset name="NewData" uuid="6d05f800-2db4-4778-b078-3f85c7208aab">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="orderid" class="java.lang.Integer"/>
+		<parameter name="c_order_uu" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT product.name as Product, line.priceactual as Charge, line.qtyordered as Qty, line.linenetamt as Total,
        date(c.created) as Date, c.grandtotal as Total_Payment ,b.name as Patient,
@@ -45,7 +45,7 @@ FROM c_orderline line
     INNER JOIN c_bpartner b ON c.c_bpartner_id = b.c_bpartner_id
     LEFT JOIN ad_user a ON c.salesrep_id = a.ad_user_id
     WHERE issotrx='Y'
-     and c.c_order_id =  $P{orderid}]]>
+     and c.c_order_uu = $P{c_order_uu}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -70,7 +70,7 @@ FROM c_orderline line
 	<subDataset name="ProductsDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="orderid" class="java.lang.Integer"/>
+		<parameter name="c_order_uu" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT product.name         as Product,
        line.priceactual     as Charge,
@@ -81,7 +81,7 @@ FROM c_orderline line
          INNER JOIN m_product product ON line.m_product_id = product.m_product_id
          INNER JOIN c_order c ON line.c_order_id = c.c_order_id
 WHERE issotrx = 'Y'
-  and c.c_order_id =  $P{orderid}]]>
+  and c.c_order_uu = $P{c_order_uu}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -103,26 +103,24 @@ WHERE issotrx = 'Y'
 			<groupExpression><![CDATA[$F{product}]]></groupExpression>
 		</group>
 	</subDataset>
-	<parameter name="orderid" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="c_order_uu" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[WITH payment AS (
     select rl.name as PaymentType,
            p.c_order_id
     from ad_ref_list rl
              join c_payment p on p.tendertype = rl.value and rl.ad_reference_id = 214
-    where p.c_order_id = $P{orderid}
-       or p.bh_c_order_id = $P{orderid}
+             left join c_order co ON p.bh_c_order_id = co.c_order_id
+    where co.c_order_uu =  $P{c_order_uu}
     union
-    select c.name,
-           co.c_order_id
+    select c.name, co.c_order_id
     from c_charge c
-             join c_order co on c.c_charge_id = co.c_charge_id
              join c_orderline ol on c.c_charge_id = ol.c_charge_id
-    where ol.c_order_id = $P{orderid}
-
+             JOIN c_order co ON ol.c_order_id = co.c_order_id
+    where co.c_order_uu =  $P{c_order_uu}
 ), patient_detail AS (
     SELECT date(c.created)      as Date,
        b.name               as Patient,
@@ -130,14 +128,16 @@ WHERE issotrx = 'Y'
        a.name               as ServedBy,
        o.name               as Client_name,
        c.c_order_id         as Order_id,
-       c.grandtotal			as Total_Pay,
+        m.payamt             as paid,
+       c.grandtotal         as Total_Pay,
        REPLACE(cash_words(grandtotal::money), 'dollars', 'Shillings')     as Total_Payment
     FROM c_order c
     INNER JOIN c_bpartner b ON c.c_bpartner_id = b.c_bpartner_id
     LEFT JOIN ad_user a ON c.salesrep_id = a.ad_user_id
     LEFT JOIN ad_org o ON o.ad_client_id = c.ad_client_id
+    LEFT JOIN c_payment m on c.c_order_id = m.bh_c_order_id
     WHERE issotrx = 'Y'
-    and c.c_order_id = $P{orderid}
+    and c.c_order_uu =  $P{c_order_uu}
 )
 SELECT pd.Date,
        pd.FileNo,
@@ -145,15 +145,17 @@ SELECT pd.Date,
        pd.ServedBy,
        p.PaymentType,
        pd.Total_Pay,
+       paid,
        pd.Total_Payment
 FROM patient_detail pd
-    CROSS JOIN payment p]]>
+    CROSS JOIN payment p;]]>
 	</queryString>
 	<field name="Date" class="java.sql.Date"/>
 	<field name="FileNo" class="java.lang.Long"/>
 	<field name="Patient" class="java.lang.String"/>
 	<field name="ServedBy" class="java.lang.String"/>
 	<field name="PaymentType" class="java.lang.String"/>
+	<field name="paid" class="java.lang.Integer"/>
 	<field name="Total_Pay" class="java.lang.Integer"/>
 	<field name="Total_Payment" class="java.lang.String"/>
 	<variable name="Total" class="java.math.BigDecimal" calculation="Sum"/>
@@ -246,8 +248,8 @@ FROM patient_detail pd
 			</textField>
 			<subreport>
 				<reportElement x="0" y="0" width="400" height="50" uuid="4e1c7929-9a3b-4a62-b844-1a5b6d9f5670"/>
-				<subreportParameter name="orderid">
-					<subreportParameterExpression><![CDATA[$P{orderid}]]></subreportParameterExpression>
+				<subreportParameter name="c_order_uu">
+					<subreportParameterExpression><![CDATA[$P{c_order_uu}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["A5_Title.jasper"]]></subreportExpression>
@@ -261,9 +263,9 @@ FROM patient_detail pd
 					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="ProductsDataSet" uuid="45868d99-d601-4264-8f5d-76d0615d7adb">
-						<datasetParameter name="orderid">
-							<datasetParameterExpression><![CDATA[$P{orderid}]]></datasetParameterExpression>
+					<datasetRun subDataset="ProductsDataSet" uuid="51d4396d-b105-423e-8114-46a8de1df1d9">
+						<datasetParameter name="c_order_uu">
+							<datasetParameterExpression><![CDATA[$P{c_order_uu}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -402,7 +404,7 @@ FROM patient_detail pd
 				<textFieldExpression><![CDATA["Official Signature:"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="37" width="96" height="18" uuid="c6437ba2-8aaf-48a6-8aa4-80c8725d4551"/>
+				<reportElement x="0" y="48" width="96" height="18" uuid="c6437ba2-8aaf-48a6-8aa4-80c8725d4551"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -421,7 +423,7 @@ FROM patient_detail pd
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="0" y="19" width="96" height="18" uuid="56f3260d-5d2b-436c-9734-fef10761c149"/>
+				<reportElement x="0" y="30" width="96" height="18" uuid="56f3260d-5d2b-436c-9734-fef10761c149"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -434,9 +436,9 @@ FROM patient_detail pd
 				<textFieldExpression><![CDATA["Total Payment:"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="19" width="24" height="18" uuid="91497efe-9f0e-4c13-ba9e-26c940011a87"/>
+				<reportElement x="100" y="30" width="24" height="18" uuid="91497efe-9f0e-4c13-ba9e-26c940011a87"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Total_Pay}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{paid}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="170" y="80" width="90" height="18" uuid="3e225600-6dcc-4854-9490-0a7b439ed730"/>
@@ -463,8 +465,26 @@ FROM patient_detail pd
 				<reportElement x="270" y="94" width="110" height="1" uuid="5a703016-2265-4051-a537-64426be81d61"/>
 			</line>
 			<textField>
-				<reportElement x="100" y="40" width="200" height="14" uuid="272f2ef8-f247-475f-8bc4-c98e6ea248f2"/>
+				<reportElement x="100" y="51" width="200" height="14" uuid="272f2ef8-f247-475f-8bc4-c98e6ea248f2"/>
 				<textFieldExpression><![CDATA[$F{Total_Payment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="10" width="24" height="18" uuid="b97214ea-d4e8-417e-8b61-4d19d82d6f9e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Total_Pay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="10" width="96" height="18" uuid="75079b1a-8aa2-479d-9324-88e9e2dc98ac"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Grand Total:"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
