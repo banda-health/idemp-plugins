@@ -28,13 +28,15 @@ public class Invoice extends BaseMetadata {
 	private String paymentRule;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
+	private VoidedReason voidedReason;
 
 	public Invoice() {
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-								 BusinessPartner businessPartner, String dateInvoiced, BigDecimal grandTotal, boolean isSalesOrderTransaction,
-								 String description, List<InvoiceLine> invoiceLines, String docStatus, String paymentRule) {
+			BusinessPartner businessPartner, String dateInvoiced, BigDecimal grandTotal,
+			boolean isSalesOrderTransaction, String description, List<InvoiceLine> invoiceLines, String docStatus,
+			String paymentRule) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartner = businessPartner;
@@ -48,8 +50,8 @@ public class Invoice extends BaseMetadata {
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-								 BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction,
-								 List<InvoiceLine> invoiceLines, String docStatus, String paymentRule) {
+			BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction,
+			List<InvoiceLine> invoiceLines, String docStatus, String paymentRule) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartner = businessPartner;
@@ -61,8 +63,8 @@ public class Invoice extends BaseMetadata {
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-								 BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction, String docStatus,
-								 BigDecimal grandTotal, String paymentRule) {
+			BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction, String docStatus,
+			BigDecimal grandTotal, String paymentRule) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.businessPartner = businessPartner;
@@ -151,5 +153,13 @@ public class Invoice extends BaseMetadata {
 
 	public void setPaymentRule(String paymentRule) {
 		this.paymentRule = paymentRule;
+	}
+
+	public VoidedReason getVoidedReason() {
+		return voidedReason;
+	}
+
+	public void setVoidedReason(VoidedReason voidedReason) {
+		this.voidedReason = voidedReason;
 	}
 }
