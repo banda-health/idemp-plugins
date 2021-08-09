@@ -75,13 +75,14 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	public static int getVisitsCount(Integer patientId) {
 		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
 				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_IsActive)
-				.append(" = ?");
+				.append(" = ? AND ").append(MOrder_BH.COLUMNNAME_DocStatus).append("!=?");
 
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
 
+		parameters.add("Y");
 		parameters.add(patientId);
 		parameters.add("Y");
+		parameters.add(MOrder_BH.DOCSTATUS_Voided);
 
 		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
 	}
