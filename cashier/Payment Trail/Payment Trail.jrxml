@@ -121,7 +121,7 @@
 						o.c_order_id,
 						bp.name,
 						o.c_bpartner_id,
-						date(o.created) as date,
+						date(o.bh_visitdate) as date,
 						'Visit' as "type",
 						sum(ol.linenetamt) as grandtotal,
 						NULL as tendertype,
@@ -130,19 +130,18 @@
 					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
                         INNER JOIN adempiere.c_bpartner bp
                             ON o.c_bpartner_id = bp.c_bpartner_id
-                        INNER JOIN payments cp
-                            ON cp.c_bpartner_id = bp.c_bpartner_id
 					WHERE o.issotrx='Y'
 						AND o.docstatus='CO'
 					    AND ol.c_charge_id IS NULL
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.created)
+					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
+					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
 					UNION
 					-- Insurance, waivers, and deductions
 					SELECT
 						o.c_order_id,
 						bp.name,
 						o.c_bpartner_id,
-						date(o.created) as date,
+						date(o.bh_visitdate) as date,
 						'Insurance, Waivers, and Deductions' as "type",
 						sum(ol.linenetamt) as grandtotal,
 						NULL as tendertype,
@@ -151,12 +150,11 @@
 					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
                         INNER JOIN adempiere.c_bpartner bp
                             ON o.c_bpartner_id = bp.c_bpartner_id
-                        INNER JOIN payments cp
-                            ON cp.c_bpartner_id = bp.c_bpartner_id
 					    JOIN c_charge c on ol.c_charge_id = c.c_charge_id
 					WHERE o.issotrx='Y'
 						AND o.docstatus='CO'
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.created)
+					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
+					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
 					UNION
 					-- Bill Payments
 					SELECT
@@ -417,7 +415,7 @@ ORDER BY row]]>
 						o.c_order_id,
 						bp.name,
 						o.c_bpartner_id,
-						date(o.created) as date,
+						date(o.bh_visitdate) as date,
 						'Visit' as "type",
 						sum(ol.linenetamt) as grandtotal,
 						NULL as tendertype,
@@ -426,19 +424,18 @@ ORDER BY row]]>
 					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
                         INNER JOIN adempiere.c_bpartner bp
                             ON o.c_bpartner_id = bp.c_bpartner_id
-                        INNER JOIN payments cp
-                            ON cp.c_bpartner_id = bp.c_bpartner_id
 					WHERE o.issotrx='Y'
 						AND o.docstatus='CO'
 					    AND ol.c_charge_id IS NULL
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.created)
+					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
+					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
 					UNION
 					-- Insurance, waivers, and deductions
 					SELECT
 						o.c_order_id,
 						bp.name,
 						o.c_bpartner_id,
-						date(o.created) as date,
+						date(o.bh_visitdate) as date,
 						'Insurance, Waivers, and Deductions' as "type",
 						sum(ol.linenetamt) as grandtotal,
 						NULL as tendertype,
@@ -447,12 +444,11 @@ ORDER BY row]]>
 					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
                         INNER JOIN adempiere.c_bpartner bp
                             ON o.c_bpartner_id = bp.c_bpartner_id
-                        INNER JOIN payments cp
-                            ON cp.c_bpartner_id = bp.c_bpartner_id
 					    JOIN c_charge c on ol.c_charge_id = c.c_charge_id
 					WHERE o.issotrx='Y'
 						AND o.docstatus='CO'
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.created)
+					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
+					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
 					UNION
 					-- Bill Payments
 					SELECT
