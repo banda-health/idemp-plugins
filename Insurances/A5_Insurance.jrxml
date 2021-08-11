@@ -33,7 +33,7 @@
 	<subDataset name="NewData" uuid="6d05f800-2db4-4778-b078-3f85c7208aab">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="c_order_uu" class="java.lang.String"/>
+		<parameter name="C_Order_UU" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT product.name as Product, line.priceactual as Charge, line.qtyordered as Qty, line.linenetamt as Total,
        date(c.created) as Date, c.grandtotal as Total_Payment ,b.name as Patient,
@@ -45,7 +45,7 @@ FROM c_orderline line
     INNER JOIN c_bpartner b ON c.c_bpartner_id = b.c_bpartner_id
     LEFT JOIN ad_user a ON c.salesrep_id = a.ad_user_id
     WHERE issotrx='Y'
-     and c.c_order_uu = $P{c_order_uu}]]>
+     and c.c_order_uu = $P{C_Order_UU}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -70,7 +70,7 @@ FROM c_orderline line
 	<subDataset name="ProductsDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="c_order_uu" class="java.lang.String"/>
+		<parameter name="C_Order_UU" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT product.name         as Product,
        line.priceactual     as Charge,
@@ -81,7 +81,7 @@ FROM c_orderline line
          INNER JOIN m_product product ON line.m_product_id = product.m_product_id
          INNER JOIN c_order c ON line.c_order_id = c.c_order_id
 WHERE issotrx = 'Y'
-  and c.c_order_uu = $P{c_order_uu}]]>
+  and c.c_order_uu = $P{C_Order_UU}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -106,7 +106,7 @@ WHERE issotrx = 'Y'
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="c_order_uu" class="java.lang.String"/>
+	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[WITH payment AS (
     select rl.name as PaymentType,
@@ -114,13 +114,13 @@ WHERE issotrx = 'Y'
     from ad_ref_list rl
              join c_payment p on p.tendertype = rl.value and rl.ad_reference_id = 214
              left join c_order co ON p.bh_c_order_id = co.c_order_id
-    where co.c_order_uu =  $P{c_order_uu}
+    where co.c_order_uu =  $P{C_Order_UU}
     union
     select c.name, co.c_order_id
     from c_charge c
              join c_orderline ol on c.c_charge_id = ol.c_charge_id
              JOIN c_order co ON ol.c_order_id = co.c_order_id
-    where co.c_order_uu =  $P{c_order_uu}
+    where co.c_order_uu =  $P{C_Order_UU}
 ), patient_detail AS (
     SELECT date(c.created)      as Date,
        b.name               as Patient,
@@ -137,7 +137,7 @@ WHERE issotrx = 'Y'
     LEFT JOIN ad_org o ON o.ad_client_id = c.ad_client_id
     LEFT JOIN c_payment m on c.c_order_id = m.bh_c_order_id
     WHERE issotrx = 'Y'
-    and c.c_order_uu =  $P{c_order_uu}
+    and c.c_order_uu =  $P{C_Order_UU}
 )
 SELECT pd.Date,
        pd.FileNo,
@@ -248,11 +248,11 @@ FROM patient_detail pd
 			</textField>
 			<subreport>
 				<reportElement x="0" y="0" width="400" height="50" uuid="4e1c7929-9a3b-4a62-b844-1a5b6d9f5670"/>
-				<subreportParameter name="c_order_uu">
-					<subreportParameterExpression><![CDATA[$P{c_order_uu}]]></subreportParameterExpression>
+				<subreportParameter name="C_Order_UU">
+					<subreportParameterExpression><![CDATA[$P{C_Order_UU}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["A5_Title.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "A5_Title.jasper"]]></subreportExpression>
 			</subreport>
 			<componentElement>
 				<reportElement x="0" y="186" width="380" height="30" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
@@ -263,9 +263,9 @@ FROM patient_detail pd
 					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="ProductsDataSet" uuid="51d4396d-b105-423e-8114-46a8de1df1d9">
-						<datasetParameter name="c_order_uu">
-							<datasetParameterExpression><![CDATA[$P{c_order_uu}]]></datasetParameterExpression>
+					<datasetRun subDataset="ProductsDataSet" uuid="77f05f28-fa97-43f1-88b9-ebd17b6e4fdd">
+						<datasetParameter name="C_Order_UU">
+							<datasetParameterExpression><![CDATA[$P{C_Order_UU}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

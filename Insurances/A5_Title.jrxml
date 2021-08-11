@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Title" pageWidth="420" pageHeight="595" columnWidth="420" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="63c2a694-3a2f-4d1f-9525-1e929535ae92">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="c_order_uu" class="java.lang.String"/>
+	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select o.ad_org_id,
        logo.binarydata as image,
@@ -16,8 +16,7 @@ from ad_org o
          left join c_location cl on i.c_location_id = cl.c_location_id
          left join c_order c ON c.ad_client_id = o.ad_client_id
          left join ad_image logo on i.logo_id = logo.ad_image_id
-where c.c_order_uu = $P{c_order_uu};
-]]>
+where c.c_order_uu = $P{C_Order_UU};]]>
 	</queryString>
 	<field name="Client_name" class="java.lang.String"/>
 	<field name="image" class="java.lang.Object"/>
