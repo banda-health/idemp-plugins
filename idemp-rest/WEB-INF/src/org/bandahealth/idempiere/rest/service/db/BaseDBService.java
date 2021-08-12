@@ -607,7 +607,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	/**
-	 * Get a list of entimties by their UUIDs
+	 * Get a list of entities by their UUIDs
 	 *
 	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
 	 * @param uuids                    The UUIDs to search by
