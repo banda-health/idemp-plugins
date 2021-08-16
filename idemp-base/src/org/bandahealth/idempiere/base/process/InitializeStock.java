@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.process;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -30,7 +31,6 @@ import org.compiere.util.Env;
 public class InitializeStock {
 
 	private static CLogger log = CLogger.getCLogger(InitializeStock.class);
-	private static int INVENTORY_DOC_TYPE = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
 
 	public static int createInitialStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct, Properties context,
 			String transactionName) {
@@ -53,9 +53,9 @@ public class InitializeStock {
 
 		// Get the list of products that actually have inventory
 		Set<MProduct_BH> productsWithInitialInventory = inventoryByProduct.entrySet().stream().filter(
-				(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
-						storageOnHand -> storageOnHand.getQtyOnHand() != null &&
-								storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
+						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
+								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
+										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
 		int inventoryDocTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
@@ -96,52 +96,19 @@ public class InitializeStock {
 		return count;
 	}
 
+
 	public static int createInitialStock(List<MProduct_BH> products, BigDecimal quantity, Properties context,
 			String transactionName) {
 		if (products == null) {
 			log.severe("No products were passed to initialize stock.");
 			throw new AdempiereException("No products were passed to initialize stock.");
 		}
-		int count = 0;
-		List<Integer> productIdsWithStock = getProductIdsWithInventory(products, transactionName);
-
-		MWarehouse[] warehouses = MWarehouse.getForOrg(context, Env.getAD_Org_ID(context));
-		MWarehouse warehouse = null;
-		if (warehouses != null && warehouses.length > 0) {
-			warehouse = warehouses[0];
-		} else {
-			log.severe("No warehouses defined for organization.");
-			throw new AdempiereException("No warehouses defined for organization.");
-		}
-
-		for (MProduct_BH product : products) {
-			if (productIdsWithStock.contains(product.get_ID())) {
-				log.log(Level.SEVERE, "There is an existing stock for product id = " + product.get_ID());
-				continue;
-			}
-
-			MInventory inventory = new MInventory(product.getCtx(), 0, transactionName);
-			inventory.setAD_Org_ID(Env.getAD_Org_ID(context));
-
-			inventory.setM_Warehouse_ID(warehouse.get_ID());
-
-			inventory.setC_DocType_ID(INVENTORY_DOC_TYPE);
-			inventory.save(transactionName);
-
-			MInventoryLine_BH inventoryLine = new MInventoryLine_BH(context, 0, transactionName);
-			inventoryLine.setM_Product_ID(product.get_ID());
-			inventoryLine.setM_Inventory_ID(inventory.get_ID());
-			inventoryLine.setQtyCount(
-					quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0 ? quantity : BigDecimal.ONE);
-			inventoryLine.setM_Locator_ID(warehouse.getDefaultLocator().get_ID());
-
-			inventoryLine.save(product.get_TrxName());
-
-			inventory.completeIt();
-			count++;
-		}
-
-		return count;
+		return createInitialStock(products.stream().collect(Collectors.toMap(product -> product, product -> {
+					MStorageOnHand storageOnHand = new MStorageOnHand(context, 0, transactionName);
+					storageOnHand.setQtyOnHand(quantity);
+					return Collections.singletonList(storageOnHand);
+				}, (existingStorageOnHandForProduct, duplicateStorageOnHandForProduct) -> existingStorageOnHandForProduct)),
+				context, transactionName);
 	}
 
 	/**
