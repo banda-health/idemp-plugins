@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -150,11 +152,8 @@ public class InventoryDBService {
 		return SqlUtil.getCount(X_BH_Stocktake_v.Table_Name, sqlWhere, parameters);
 	}
 	
-	public void initializeStock(MProduct_BH product, BigDecimal quantity) {
-		List<MProduct_BH> products = new ArrayList<>();
-		products.add(product);
-		
-		InitializeStock.createInitialStock(products, quantity, Env.getCtx(), null);
+	public void initializeStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct) {
+		InitializeStock.createInitialStock(inventoryByProduct, Env.getCtx(), null);
 	}
 	
 	public void updateStock(Inventory entity) {

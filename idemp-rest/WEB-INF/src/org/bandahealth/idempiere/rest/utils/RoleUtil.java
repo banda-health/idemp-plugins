@@ -13,6 +13,7 @@ import org.compiere.model.MRole;
 import org.compiere.model.MWindow;
 import org.compiere.model.MWindowAccess;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Window_Access;
 import org.compiere.util.Env;
 
 public class RoleUtil {
@@ -23,7 +24,7 @@ public class RoleUtil {
 	/**
 	 * Get the read-write and deactivate privileges set for windows assigned to this
 	 * role
-	 * 
+	 *
 	 * @return Map of role windows with window-uuid and access privileges
 	 */
 	public static Map<String, AccessLevel> accessLevelsForRole() {
@@ -37,7 +38,8 @@ public class RoleUtil {
 
 		// Get all the windows assigned to this role
 		String roleInClause = QueryUtil.getWhereClauseAndSetParametersForSet(new HashSet<>(roleIds), optionParams);
-		String whereClause = MWindowAccess_BH.Table_Name + "." + MWindowAccess_BH.COLUMNNAME_AD_Role_ID + " IN (" + roleInClause + ")";
+		String whereClause =
+				MWindowAccess_BH.Table_Name + "." + MWindowAccess_BH.COLUMNNAME_AD_Role_ID + " IN (" + roleInClause + ")";
 
 		Query queryWindows = new Query(Env.getCtx(), MWindow.Table_Name, whereClause, null).setParameters(optionParams)
 				.addJoinClause(" JOIN " + MWindowAccess_BH.Table_Name + " ON " + MWindow.Table_Name + "."
@@ -46,30 +48,32 @@ public class RoleUtil {
 		List<MWindow> results = queryWindows.list();
 
 		final Map<Integer, MWindow> windowsSetForRole = results.stream()
-				.collect(Collectors.toMap(MWindow::get_ID, window -> window, (existing, replacement)-> existing));
+				.collect(Collectors.toMap(MWindow::get_ID, window -> window, (existing, replacement) -> existing));
 
 //		// get list of read/write and deactivate window access for each window
 		Query queryWindowAccess = new Query(Env.getCtx(), MWindowAccess.Table_Name,
 				MWindowAccess_BH.Table_Name + "." + MWindowAccess_BH.COLUMNNAME_AD_Role_ID + " IN (" + roleInClause
 						+ ")",
 				null).setParameters(optionParams)
-						.addJoinClause(" JOIN " + MRole.Table_Name + " ON " + MWindowAccess_BH.Table_Name + "."
-								+ MWindowAccess_BH.COLUMNNAME_AD_Role_ID + "=" + MRole.Table_Name + "."
-								+ MRole.COLUMNNAME_AD_Role_ID);
+				.addJoinClause(" JOIN " + MRole.Table_Name + " ON " + MWindowAccess_BH.Table_Name + "."
+						+ MWindowAccess_BH.COLUMNNAME_AD_Role_ID + "=" + MRole.Table_Name + "."
+						+ MRole.COLUMNNAME_AD_Role_ID);
 		List<MWindowAccess_BH> windowAccessList = queryWindowAccess.list();
+		Map<Integer, List<MWindowAccess_BH>> windowAccessListsByWindow =
+				windowAccessList.stream().collect(Collectors.groupingBy(MWindowAccess_BH::getAD_Window_ID));
 
 		Map<String, AccessLevel> windowsAccessLevels = new HashMap<>();
-		for (MWindowAccess_BH windowAccess : windowAccessList) {
-			if (windowsSetForRole.keySet().contains(windowAccess.get_ID())) {
+		for (Map.Entry<Integer, List<MWindowAccess_BH>> windowAccess : windowAccessListsByWindow.entrySet()) {
+			if (windowsSetForRole.containsKey(windowAccess.getKey())) {
 				// create the accessLevel map
 				AccessLevel accessLevel = new AccessLevel();
-				if (windowAccess.isReadWrite()) {
+				if (windowAccess.getValue().stream().anyMatch(MWindowAccess_BH::isReadWrite)) {
 					accessLevel.setCanWrite(true);
-					if (windowAccess.isBH_CanDeactivate()) {
+					if (windowAccess.getValue().stream().anyMatch(MWindowAccess_BH::isBH_CanDeactivate)) {
 						accessLevel.setCanDeactivate(true);
 					}
 				}
-				windowsAccessLevels.put(windowsSetForRole.get(windowAccess.getAD_Window_ID()).getAD_Window_UU(),
+				windowsAccessLevels.put(windowsSetForRole.get(windowAccess.getKey()).getAD_Window_UU(),
 						accessLevel);
 			}
 		}
