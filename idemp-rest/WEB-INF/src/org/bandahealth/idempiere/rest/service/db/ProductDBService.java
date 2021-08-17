@@ -1,15 +1,20 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
@@ -17,6 +22,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
+import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProduct;
@@ -224,9 +230,34 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			product.saveEx();
 
-			// update inventory only for a new products
-			if (exists == null) {
-				inventoryDBService.initializeStock(product, entity.getTotalQuantity());
+			// update inventory only for a new products with inventory
+			if (exists == null && entity.getStorageOnHandList() != null && entity.getStorageOnHandList().stream().anyMatch(
+					storageOnHand -> storageOnHand.getQuantityOnHand() != null &&
+							storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
+				Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct = new HashMap<>();
+				// If it has expiration, cycle through the list and add the values
+				if (product.isBH_HasExpiration()) {
+					// Get the expiration date attribute set instance ids
+					Map<Timestamp, Integer> expirationDatesByAttributeSetInstanceId = QueryUtil
+							.createExpirationDateAttributeInstances(
+									entity.getStorageOnHandList().stream()
+											.map(storageOnHand -> storageOnHand.getAttributeSetInstance().getGuaranteeDate())
+											.collect(Collectors.toSet()), null, Env.getCtx());
+					inventoryByProduct
+							.put(product, entity.getStorageOnHandList().stream().map(storageOnHand -> {
+								MStorageOnHand storageOnHandToSave = new MStorageOnHand(Env.getCtx(), 0, null);
+								storageOnHandToSave.setQtyOnHand(storageOnHand.getQuantityOnHand());
+								storageOnHandToSave.setM_AttributeSetInstance_ID(expirationDatesByAttributeSetInstanceId.get(
+										storageOnHand.getAttributeSetInstance().getGuaranteeDate()));
+								return storageOnHandToSave;
+							}).collect(Collectors.toList()));
+				} else {
+					// Otherwise, just add the first
+					MStorageOnHand storageOnHand = new MStorageOnHand(Env.getCtx(), 0, null);
+					storageOnHand.setQtyOnHand(entity.getStorageOnHandList().get(0).getQuantityOnHand());
+					inventoryByProduct.put(product, Collections.singletonList(storageOnHand));
+				}
+				inventoryDBService.initializeStock(inventoryByProduct);
 			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));

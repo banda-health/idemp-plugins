@@ -1,6 +1,8 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,6 +29,7 @@ public class Product extends BaseEntity {
 	private String productCategoryUuid;
 	private BigDecimal totalQuantity;
 	private BigDecimal defaultStockLevel;
+	private List<StorageOnHand> storageOnHandList = new ArrayList<>();
 
 	public Product() {
 	}
@@ -185,5 +188,13 @@ public class Product extends BaseEntity {
 
 	public void setDefaultStockLevel(BigDecimal defaultStockLevel) {
 		this.defaultStockLevel = defaultStockLevel;
+	}
+
+	public List<StorageOnHand> getStorageOnHandList() {
+		return storageOnHandList;
+	}
+
+	public void setStorageOnHandList(List<StorageOnHand> storageOnHandList) {
+		this.storageOnHandList = storageOnHandList;
 	}
 }

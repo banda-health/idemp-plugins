@@ -3,13 +3,17 @@ package org.bandahealth.idempiere.base.utils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -38,7 +42,7 @@ public class QueryUtil {
 	 * @return
 	 */
 	public static <T extends PO> T queryTableByOrgAndClient(int clientId, int organizationId, Properties ctx,
-																													String tableName, String whereClause, String trxName) {
+			String tableName, String whereClause, String trxName) {
 
 		return getQueryByOrgAndClient(clientId, organizationId, ctx, tableName, whereClause, trxName).first();
 	}
@@ -55,7 +59,7 @@ public class QueryUtil {
 	 * @return
 	 */
 	public static Query getQueryByOrgAndClient(int clientId, int organizationId, Properties ctx, String tableName,
-																						 String whereClause, String trxName) {
+			String whereClause, String trxName) {
 
 		String clientAndOrg = String.format(" and %1$s = ? and %2$s = ?", QueryConstants.CLIENT_ID_COLUMN_NAME,
 				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
@@ -84,7 +88,7 @@ public class QueryUtil {
 	}
 
 	public static int createExpirationDateAttributeInstance(int attributeSetInstanceId, Timestamp expirationDate,
-																													String trxName, Properties ctx) {
+			String trxName, Properties ctx) {
 		MAttributeSetInstance asi = null;
 
 		if (attributeSetInstanceId > 0) {
@@ -126,6 +130,51 @@ public class QueryUtil {
 		return attributeSetInstanceId;
 	}
 
+	public static Map<Timestamp, Integer> createExpirationDateAttributeInstances(Set<Timestamp> expirationDates,
+			String trxName, Properties ctx) {
+		String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
+				+ MAttributeSet.COLUMNNAME_Name + ") = '"
+				+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
+		MAttributeSet attributeSet = new Query(ctx, MAttributeSet.Table_Name, whereClause, trxName)
+				.setOnlyActiveRecords(true).setClient_ID(true).first();
+
+		if (attributeSet == null) {
+			throw new RuntimeException("Attribute set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
+					+ " not defined for client.");
+		}
+
+		// See if there is an attribute set instance for this product that already has
+		// this date
+		List<Object> parameters = new ArrayList<>();
+		String whereClauseParameters = QueryUtil.getWhereClauseAndSetParametersForSet(expirationDates, parameters);
+		int attributeSetId = attributeSet.getM_AttributeSet_ID();
+		whereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate + " IN (" + whereClauseParameters + ") AND "
+				+ MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
+		parameters.add(attributeSetId);
+		List<MAttributeSetInstance> attributeSetInstances =
+				new Query(ctx, MAttributeSetInstance.Table_Name, whereClause, trxName).setParameters(parameters).list();
+
+		// Get the expiration dates we have so we can check which need to be created
+		Map<Timestamp, Integer> existingExpirationDatesByAttributeSetInstanceId = attributeSetInstances.stream()
+				.collect(Collectors.toMap(MAttributeSetInstance::getGuaranteeDate, MAttributeSetInstance::get_ID,
+						(attributeSetInstanceId, duplicateAttributeSetInstanceId) -> attributeSetInstanceId));
+
+		// Cycle through the timestamps and add any that don't exist in the DB already
+		for (Timestamp expirationDate : expirationDates) {
+			// If it already exists in the DB, skip it
+			if (existingExpirationDatesByAttributeSetInstanceId.containsKey(expirationDate)) {
+				continue;
+			}
+			MAttributeSetInstance attributeSetInstance = new MAttributeSetInstance(ctx, 0, trxName);
+			attributeSetInstance.setM_AttributeSet_ID(attributeSetId);
+			attributeSetInstance.setGuaranteeDate(expirationDate);
+			attributeSetInstance.saveEx();
+			existingExpirationDatesByAttributeSetInstanceId.put(expirationDate, attributeSetInstance.get_ID());
+		}
+
+		return existingExpirationDatesByAttributeSetInstanceId;
+	}
+
 	public static boolean checkBHNewVisit(int bpartnerId) {
 		StringBuilder whereClause = new StringBuilder(MOrder_BH.COLUMNNAME_BH_NEWVISIT);
 		whereClause.append(" = 'Y' AND ");
@@ -161,7 +210,8 @@ public class QueryUtil {
 		ResultSet resultSet = null;
 		try {
 			statement = DB.prepareStatement(sqlQuery.toString(), null);
-			DB.setParameters(statement, Arrays.asList(Env.getAD_Client_ID(Env.getCtx()), "Y", Env.getAD_Org_ID(Env.getCtx())));
+			DB.setParameters(statement,
+					Arrays.asList(Env.getAD_Client_ID(Env.getCtx()), "Y", Env.getAD_Org_ID(Env.getCtx())));
 
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
@@ -208,6 +258,9 @@ public class QueryUtil {
 	 * @return A where clause with the number of question marks, comma-delimited, for the number of parameters
 	 */
 	public static <T> String getWhereClauseAndSetParametersForSet(Set<T> items, List<Object> parameters) {
+		if (items == null || items.isEmpty()) {
+			return "";
+		}
 		String parameterList = "?,".repeat(items.size());
 		parameters.addAll(items);
 		return parameterList.substring(0, parameterList.length() - 1);
