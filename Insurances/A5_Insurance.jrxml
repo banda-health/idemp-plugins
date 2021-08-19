@@ -403,8 +403,8 @@ FROM patient_detail pd
 				</textElement>
 				<textFieldExpression><![CDATA["Official Signature:"]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="48" width="96" height="18" uuid="c6437ba2-8aaf-48a6-8aa4-80c8725d4551"/>
+		<textField>
+				<reportElement x="0" y="48" width="96" height="32" uuid="c6437ba2-8aaf-48a6-8aa4-80c8725d4551"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -414,7 +414,7 @@ FROM patient_detail pd
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Amount in words:"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Total Payment in words:"]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="3" width="380" height="1" uuid="a16ea11b-ceb3-41b7-99ca-136d1bced85a"/>
