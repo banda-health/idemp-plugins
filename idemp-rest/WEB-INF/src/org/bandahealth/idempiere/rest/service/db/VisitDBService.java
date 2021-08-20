@@ -402,11 +402,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
 					secondaryCodedDiagnosis != null
 							? new CodedDiagnosis(secondaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-									secondaryCodedDiagnosis.getBH_CeilName())
+									secondaryCodedDiagnosis.getBH_CielName())
 							: null,
 					primaryCodedDiagnosis != null
 							? new CodedDiagnosis(primaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-									primaryCodedDiagnosis.getBH_CeilName())
+									primaryCodedDiagnosis.getBH_CielName())
 							: null,
 					user != null ? new User(user.getAD_User_UU()) : null,
 					new ProcessStage(instance.getBH_ProcessStage()), instance);

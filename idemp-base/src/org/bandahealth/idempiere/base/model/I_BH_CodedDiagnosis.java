@@ -140,24 +140,24 @@ public interface I_BH_CodedDiagnosis
 	  */
 	public int getUpdatedBy();
 
-	/** Column name bh_ceilname */
-    public static final String COLUMNNAME_BH_CeilName = "bh_ceilname";
+	/** Column name bh_cielname */
+    public static final String COLUMNNAME_BH_CielName = "bh_cielname";
 
-	/** Set bh_ceilname.
+	/** Set bh_cielname.
 	  * Alphanumeric identifier of the entity
 	  */
-	public void setBH_CeilName (String bh_ceilname);
+	public void setBH_CielName (String bh_cielname);
 
-	/** Get bh_ceilname.
+	/** Get bh_cielname.
 	  * Alphanumeric identifier of the entity
 	  */
-	public String getBH_CeilName();
+	public String getBH_CielName();
 	
-	public static final String COLUMNNAME_BH_CeilId = "bh_ciel_id";
+	public static final String COLUMNNAME_BH_CielId = "bh_ciel_id";
 
-	public void setBH_CeilId (int bh_ceilId);
+	public void setBH_CielId (int bh_cielId);
 
-	public int getBH_CeilId();
+	public int getBH_CielId();
 	
 	public static final String COLUMNNAME_BH_ConceptClass = "bh_concept_class";
 

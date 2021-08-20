@@ -34,12 +34,12 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 			mCodedDiagnosis.setBH_CodedDiagnosis_UU(entity.getUuid());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getCeilName())) {
-			mCodedDiagnosis.setBH_CeilName(entity.getCeilName());
+		if (StringUtil.isNotNullAndEmpty(entity.getCielName())) {
+			mCodedDiagnosis.setBH_CielName(entity.getCielName());
 		}
 
-		if (entity.getCeilId() > 0) {
-			mCodedDiagnosis.setBH_CeilId(entity.getCeilId());
+		if (entity.getCielId() > 0) {
+			mCodedDiagnosis.setBH_CielId(entity.getCielId());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getConceptClass())) {
@@ -94,7 +94,7 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
 
-		String searchClause = "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_CeilName + ") " + LIKE_COMPARATOR + " ? OR "
+		String searchClause = "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_CielName + ") " + LIKE_COMPARATOR + " ? OR "
 				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_ICD10 + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
 				+ MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER(" +
 				MBHCodedDiagnosis.COLUMNNAME_BH_SEARCHTERMS + ") LIKE ?";
@@ -109,7 +109,7 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 
 	@Override
 	protected CodedDiagnosis createInstanceWithDefaultFields(MBHCodedDiagnosis instance) {
-		return new CodedDiagnosis(instance.getBH_CodedDiagnosis_UU(), instance.getBH_CeilName(), instance.getBH_ICD10(),
+		return new CodedDiagnosis(instance.getBH_CodedDiagnosis_UU(), instance.getBH_CielName(), instance.getBH_ICD10(),
 				instance.getBH_Synonyms());
 	}
 
