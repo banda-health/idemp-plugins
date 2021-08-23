@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705B MainReport" pageWidth="930" pageHeight="595" orientation="Landscape" columnWidth="890" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="a45ae765-a9ce-426b-ab55-b06197370044">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<parameter name="Begin Date" class="java.sql.Date"/>
+	<parameter name="End Date" class="java.sql.Date"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[ select
+    date(c.bh_visitdate) as calendar,
+    client.name AS name
+from c_order c
+    inner join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
+     right join ad_org client on c.ad_client_id = client.ad_client_id
+     and client.isactive = 'Y'
+    where  c.ad_client_id  = $P{AD_CLIENT_ID}
+    and b.bh_moh705a_lessthan5 is not null
+    and (date(c.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+ GROUP BY c.bh_visitdate, client.name, b.bh_moh705a_lessthan5]]>
+	</queryString>
+	<field name="calendar" class="java.sql.Date"/>
+	<field name="name" class="java.lang.String"/>
+	<detail>
+		<band height="133" splitType="Stretch">
+			<printWhenExpression><![CDATA[($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="880" height="130" uuid="9c9ffebf-b401-42ba-ac28-4597d576eaa6"/>
+				<subreportParameter name="Begin Date">
+					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="End Date">
+					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AD_CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["705A Cases.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="108">
+			<printWhenExpression><![CDATA[($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="880" height="100" uuid="7677c362-966b-4906-9383-d3c7310a1151"/>
+				<subreportParameter name="Begin Date">
+					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="End Date">
+					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AD_CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["705 A ReferralsSubReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>
