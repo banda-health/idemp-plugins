@@ -36,10 +36,7 @@ ORDER BY diagnosis]]>
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Date"/>
 	<parameter name="End Date" class="java.sql.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
-	</parameter>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select
     date(c.bh_visitdate) as calendar,
@@ -69,7 +66,7 @@ from c_order c
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["705Bcases.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"705Bcases.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="120">
@@ -86,7 +83,7 @@ from c_order c
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["705B Referral.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"705B Referral.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

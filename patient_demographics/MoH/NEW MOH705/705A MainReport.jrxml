@@ -5,9 +5,9 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<parameter name="Begin Date" class="java.sql.Date"/>
 	<parameter name="End Date" class="java.sql.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
-		<![CDATA[ select
+		<![CDATA[select
     date(c.bh_visitdate) as calendar,
     client.name AS name
 from c_order c
@@ -36,7 +36,7 @@ from c_order c
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["705A Cases.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"705A Cases.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="108">
@@ -53,7 +53,7 @@ from c_order c
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["705 A ReferralsSubReport.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"705 A ReferralsSubReport.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
