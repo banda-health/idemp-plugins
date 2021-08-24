@@ -17,6 +17,9 @@ public class AccountDBService extends BaseDBService<Account, MElementValue> {
 			MElementValue account = getEntityByUuidFromDB(entity.getUuid());
 			if (account == null) {
 				account = getModelInstance();
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					account.setC_ElementValue_UU(entity.getUuid());
+				}
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {

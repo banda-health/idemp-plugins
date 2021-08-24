@@ -1,15 +1,20 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
@@ -17,6 +22,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
+import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProduct;
@@ -110,8 +116,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			if (entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 
-				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo, entity.get_ID());
-				
+				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo,
+						entity.get_ID());
+
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				for (Inventory inventory : inventoryList.getResults()) {
@@ -133,7 +140,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				result.setTotalQuantity(totalQuantity);
 			}
 
-			results.add(result);
+			// If a product has no quantity, don't return it in the list
+			if (result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0) {
+				results.add(result);
+			}
 		}
 
 		return new BaseListResponse<SearchProduct>(results, pagingInfo);
@@ -149,6 +159,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			} else {
 				product = getModelInstance();
 				product.setProductType(MProduct_BH.PRODUCTTYPE_Item);
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					product.setM_Product_UU(entity.getUuid());
+				}
 
 				// set default uom (unit of measure).
 				MUOM uom = new Query(Env.getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_Name + "=?", null)
@@ -216,10 +229,35 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			product.setIsActive(entity.getIsActive());
 
 			product.saveEx();
-			
-			// update inventory only for a new products
-			if (exists == null) {
-				inventoryDBService.initializeStock(product, entity.getTotalQuantity());
+
+			// update inventory only for a new products with inventory
+			if (exists == null && entity.getStorageOnHandList() != null && entity.getStorageOnHandList().stream().anyMatch(
+					storageOnHand -> storageOnHand.getQuantityOnHand() != null &&
+							storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
+				Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct = new HashMap<>();
+				// If it has expiration, cycle through the list and add the values
+				if (product.isBH_HasExpiration()) {
+					// Get the expiration date attribute set instance ids
+					Map<Timestamp, Integer> expirationDatesByAttributeSetInstanceId = QueryUtil
+							.createExpirationDateAttributeInstances(
+									entity.getStorageOnHandList().stream()
+											.map(storageOnHand -> storageOnHand.getAttributeSetInstance().getGuaranteeDate())
+											.collect(Collectors.toSet()), null, Env.getCtx());
+					inventoryByProduct
+							.put(product, entity.getStorageOnHandList().stream().map(storageOnHand -> {
+								MStorageOnHand storageOnHandToSave = new MStorageOnHand(Env.getCtx(), 0, null);
+								storageOnHandToSave.setQtyOnHand(storageOnHand.getQuantityOnHand());
+								storageOnHandToSave.setM_AttributeSetInstance_ID(expirationDatesByAttributeSetInstanceId.get(
+										storageOnHand.getAttributeSetInstance().getGuaranteeDate()));
+								return storageOnHandToSave;
+							}).collect(Collectors.toList()));
+				} else {
+					// Otherwise, just add the first
+					MStorageOnHand storageOnHand = new MStorageOnHand(Env.getCtx(), 0, null);
+					storageOnHand.setQtyOnHand(entity.getStorageOnHandList().get(0).getQuantityOnHand());
+					inventoryByProduct.put(product, Collections.singletonList(storageOnHand));
+				}
+				inventoryDBService.initializeStock(inventoryByProduct);
 			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
@@ -245,7 +283,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
 					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin(),
-					productCategory.getM_Product_Category_UU(), inventoryDbService.getProductInventoryCount(instance.getM_Product_ID()));
+					productCategory.getM_Product_Category_UU(),
+					inventoryDbService.getProductInventoryCount(instance.getM_Product_ID()));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 
@@ -271,7 +310,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			return new Product(product.getM_Product_UU(), product.getName(), product.getBH_BuyPrice(),
 					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration),
-					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice(), product.isActive(), product.getBH_PriceMargin());
+					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice(), product.isActive(),
+					product.getBH_PriceMargin());
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);

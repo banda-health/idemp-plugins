@@ -52,9 +52,10 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_PRIMARY_CODED_DIAGNOSIS_ID = "BH_PrimaryCodedDiagnosis_ID";
 	public static final String COLUMNNAME_BH_SECONDARY_CODED_DIAGNOSIS_ID = "BH_SecondaryCodedDiagnosis_ID";
 	public static final String COLUMNNAME_BH_PRIMARY_UNCODED_DIAGNOSIS = "BH_PrimaryUncodedDiagnosis"; // previously
-																										// Description
+	// Description
 	public static final String COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS = "BH_SecondaryUncodedDiagnosis"; // previously
-																											// bh_seconddiagnosis
+	// bh_seconddiagnosis
+	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
 
 	/**
 	 * Column name bh_referral
@@ -305,7 +306,9 @@ public class MOrder_BH extends MOrder {
 				m_processMsg = "Could not create Invoice";
 				return null;
 			}
+		}
 
+		if (invoice.getLines().length == 0) {
 			// If we have a Shipment - use that as a base
 			if (shipment != null) {
 				if (!INVOICERULE_AfterDelivery.equals(getInvoiceRule()))
@@ -357,20 +360,20 @@ public class MOrder_BH extends MOrder {
 					}
 				}
 			}
+		}
 
-			// Copy payment schedule from order to invoice if any
-			for (MOrderPaySchedule ops : MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0,
-					get_TrxName())) {
-				MInvoicePaySchedule ips = new MInvoicePaySchedule(getCtx(), 0, get_TrxName());
-				PO.copyValues(ops, ips);
-				ips.setC_Invoice_ID(invoice.getC_Invoice_ID());
-				ips.setAD_Org_ID(ops.getAD_Org_ID());
-				ips.setProcessing(ops.isProcessing());
-				ips.setIsActive(ops.isActive());
-				if (!ips.save()) {
-					m_processMsg = "ERROR: creating pay schedule for invoice from : " + ops.toString();
-					return null;
-				}
+		// Copy payment schedule from order to invoice if any
+		for (MOrderPaySchedule ops : MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0,
+				get_TrxName())) {
+			MInvoicePaySchedule ips = new MInvoicePaySchedule(getCtx(), 0, get_TrxName());
+			PO.copyValues(ops, ips);
+			ips.setC_Invoice_ID(invoice.getC_Invoice_ID());
+			ips.setAD_Org_ID(ops.getAD_Org_ID());
+			ips.setProcessing(ops.isProcessing());
+			ips.setIsActive(ops.isActive());
+			if (!ips.save()) {
+				m_processMsg = "ERROR: creating pay schedule for invoice from : " + ops.toString();
+				return null;
 			}
 		}
 
@@ -623,20 +626,35 @@ public class MOrder_BH extends MOrder {
 	}
 
 	/**
+	 * Get Visit Date.
+	 *
+	 * @return Visit Date
+	 */
+	public Timestamp getBH_VisitDate() {
+		return (Timestamp) get_Value(COLUMNNAME_BH_VisitDate);
+	}
+
+	/**
 	 * Set Visit Date.
-	 * 
+	 *
 	 * @param BH_VisitDate Visit Date
 	 */
 	public void setBH_VisitDate(Timestamp BH_VisitDate) {
 		set_Value(COLUMNNAME_BH_VisitDate, BH_VisitDate);
 	}
 
-	/**
-	 * Get Visit Date.
-	 * 
-	 * @return Visit Date
-	 */
-	public Timestamp getBH_VisitDate() {
-		return (Timestamp) get_Value(COLUMNNAME_BH_VisitDate);
+	public int getBH_VoidedReasonID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_VOIDED_REASON_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
+	}
+
+	public void setBH_VoidedReasonID(int BH_VoidedReason_ID) {
+		if (BH_VoidedReason_ID < 1) {
+			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, Integer.valueOf(BH_VoidedReason_ID));
+		}
 	}
 }

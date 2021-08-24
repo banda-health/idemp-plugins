@@ -68,8 +68,8 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder("X_BH_CodedDiagnosis[").append(get_ID()).append(",CeilName=")
-				.append(getBH_CeilName()).append("]");
+		StringBuilder sb = new StringBuilder("X_BH_CodedDiagnosis[").append(get_ID()).append(",CielName=")
+				.append(getBH_CielName()).append("]");
 		return sb.toString();
 	}
 
@@ -139,30 +139,30 @@ public class X_BH_CodedDiagnosis extends PO implements I_BH_CodedDiagnosis, I_Pe
 	 * @return ID/ColumnName pair
 	 */
 	public KeyNamePair getKeyNamePair() {
-		return new KeyNamePair(get_ID(), getBH_CeilName());
+		return new KeyNamePair(get_ID(), getBH_CielName());
 	}
 
 	@Override
-	public void setBH_CeilName(String bh_ceilname) {
-		set_Value(COLUMNNAME_BH_CeilName, bh_ceilname);
+	public void setBH_CielName(String bh_cielname) {
+		set_Value(COLUMNNAME_BH_CielName, bh_cielname);
 	}
 
 	@Override
-	public String getBH_CeilName() {
-		return (String) get_Value(COLUMNNAME_BH_CeilName);
+	public String getBH_CielName() {
+		return (String) get_Value(COLUMNNAME_BH_CielName);
 	}
 
 	@Override
-	public void setBH_CeilId(int bh_ceilId) {
-		if (bh_ceilId < 1)
-			set_ValueNoCheck(COLUMNNAME_BH_CeilId, null);
+	public void setBH_CielId(int bh_cielId) {
+		if (bh_cielId < 1)
+			set_ValueNoCheck(COLUMNNAME_BH_CielId, null);
 		else
-			set_ValueNoCheck(COLUMNNAME_BH_CeilId, Integer.valueOf(bh_ceilId));
+			set_ValueNoCheck(COLUMNNAME_BH_CielId, Integer.valueOf(bh_cielId));
 	}
 
 	@Override
-	public int getBH_CeilId() {
-		Integer ii = (Integer) get_Value(COLUMNNAME_BH_CeilId);
+	public int getBH_CielId() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_CielId);
 		if (ii == null)
 			return 0;
 		return ii.intValue();
