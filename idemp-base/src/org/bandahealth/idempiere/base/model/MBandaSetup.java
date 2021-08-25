@@ -62,7 +62,8 @@ public class MBandaSetup {
 	 * User = U
 	 */
 	public static final String DB_USERTYPE_User = "U";
-	private final Trx transaction = Trx.get(Trx.createTrxName("Setup"), true);
+	private final Trx initialSetupTransaction = Trx.get(Trx.createTrxName("Initial_Setup"), true);
+	private final Trx finalSetupTransaction = Trx.get(Trx.createTrxName("Final_Setup"), true);
 	private final Properties context;
 	private final String language;
 	private final MClient client;
@@ -109,13 +110,13 @@ public class MBandaSetup {
 	}
 
 	public void start() {
-		transaction.setDisplayName(getClass().getName() + SUFFIX_TRANSACTION_NAME);
-		transaction.start();
+		initialSetupTransaction.setDisplayName(getClass().getName() + SUFFIX_TRANSACTION_NAME);
+		initialSetupTransaction.start();
 	}
 
 	public boolean finish() {
-		boolean success = transaction.commit();
-		transaction.close();
+		boolean success = initialSetupTransaction.commit();
+		initialSetupTransaction.close();
 		log.info("finish");
 		return success;
 	}
@@ -126,8 +127,8 @@ public class MBandaSetup {
 				.setParameters(getAD_Client_ID()).first();
 		if (acctSchemaDefault == null) {
 			log.severe("No Accounting Schema Defaults for client");
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -149,8 +150,8 @@ public class MBandaSetup {
 			String errorMessage = "B_Asset and/or B_InTransit accounts do not exist";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 		assetAccount.setAccount_ID(inTransitAccount.getAccount_ID());
@@ -159,8 +160,8 @@ public class MBandaSetup {
 			String errorMessage = "B_Asset account NOT updated";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -179,8 +180,8 @@ public class MBandaSetup {
 			String errorMessage = "B_PaymentSelect and/or V_Liability accounts do not exist";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 		paymentSelectAccount.setAccount_ID(liabilityAccount.getAccount_ID());
@@ -189,8 +190,8 @@ public class MBandaSetup {
 			String errorMessage = "B_PaymentSelect account NOT updated";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -222,8 +223,8 @@ public class MBandaSetup {
 			String errorMessage = "Bank NOT inserted";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -274,8 +275,8 @@ public class MBandaSetup {
 				String errorMessage = "Default Charge Type NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return null;
 			}
 			defaultChargeTypeMap.put(defaultChargeType.get_ID(), chargeType);
@@ -319,8 +320,8 @@ public class MBandaSetup {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 
@@ -331,8 +332,8 @@ public class MBandaSetup {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 			// Now get the charge's accounting mapping
@@ -343,8 +344,8 @@ public class MBandaSetup {
 				String errorMessage = "Charge Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 			// Point the charge to our valid combination
@@ -353,8 +354,8 @@ public class MBandaSetup {
 				String errorMessage = "Charge Account NOT updated";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 		}
@@ -385,8 +386,8 @@ public class MBandaSetup {
 				String errorMessage = "Charge Info NOT saved";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 
@@ -402,8 +403,8 @@ public class MBandaSetup {
 					String errorMessage = "ChargeInfoValue value NOT saved";
 					log.log(Level.SEVERE, errorMessage);
 					info.append(errorMessage);
-					transaction.rollback();
-					transaction.close();
+					initialSetupTransaction.rollback();
+					initialSetupTransaction.close();
 					return false;
 
 				}
@@ -436,8 +437,8 @@ public class MBandaSetup {
 				String errorMessage = "Default Product Category NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 
@@ -447,8 +448,8 @@ public class MBandaSetup {
 				String errorMessage = "Default Product Category Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 			// Now get the product category's accounting mapping
@@ -459,8 +460,8 @@ public class MBandaSetup {
 				String errorMessage = "Product Category Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 			// Point the product category to our valid combination
@@ -469,8 +470,8 @@ public class MBandaSetup {
 				String errorMessage = "Product Category Account NOT updated";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 		}
@@ -563,8 +564,8 @@ public class MBandaSetup {
 			}
 		});
 		if (!areAllRolesPresent.get()) {
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -839,8 +840,8 @@ public class MBandaSetup {
 		});
 
 		if (!didSuccessfullyUpdateAllIncludedRoles.get()) {
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -862,8 +863,8 @@ public class MBandaSetup {
 				.setParameters(MBandaSetup.REFERENCE_PAYMENT_REF_UU).first();
 		if (paymentBankAccountMappingReference == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 		MRefTable paymentBankAccountMappingsReferenceLimiting = new Query(context, MRefTable.Table_Name,
@@ -871,8 +872,8 @@ public class MBandaSetup {
 				.setParameters(paymentBankAccountMappingReference.getAD_Reference_ID()).first();
 		if (paymentBankAccountMappingsReferenceLimiting == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -891,8 +892,8 @@ public class MBandaSetup {
 				String errorMessage = "Payment Bank Account mapping NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
-				transaction.rollback();
-				transaction.close();
+				initialSetupTransaction.rollback();
+				initialSetupTransaction.close();
 				return false;
 			}
 		}
@@ -926,8 +927,8 @@ public class MBandaSetup {
 			String errorMessage = accountName + " Bank Account NOT inserted";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return true;
 		}
 
@@ -956,8 +957,8 @@ public class MBandaSetup {
 				.setParameters(bankAccount.getC_BankAccount_ID()).first();
 		if (accountMapping == null) {
 			log.severe("No Account Mapping for Bank Account");
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 		if (inTransitAccount != null) {
@@ -968,8 +969,8 @@ public class MBandaSetup {
 			String errorMessage = "Account Mapping NOT updated";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return false;
 		}
 
@@ -1005,8 +1006,8 @@ public class MBandaSetup {
 		account.setValueDescription();
 		if (!account.save()) {
 			log.severe("Account NOT inserted");
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 			return null;
 		}
 		return account;
@@ -1043,6 +1044,31 @@ public class MBandaSetup {
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
+	}
+	
+	/** Update the organization name and key */
+	public boolean setupOrgNameAndKey() {
+		return false;
+	}
+	
+	/** Setup Banda warehouse configuration */
+	public boolean setupWarehouseLocatorSetUp() {
+		return false;
+	}
+	
+	/** Setup banda price lists */
+	public boolean setupPriceListInfo() {
+		return false;
+	}
+	
+	/**Configure accounting periods */
+	public boolean setupPeriodControl() {
+		return false;
+	}
+	
+	/** Update client users */
+	public boolean configureClientUsers() {
+		return false;
 	}
 
 	/**
@@ -1097,20 +1123,20 @@ public class MBandaSetup {
 	 */
 	public void rollback() {
 		try {
-			transaction.rollback();
-			transaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 		} catch (Exception e) {
-			log.warning("Error occured when rolling back the internal transaction: " + e.getMessage());
+			log.warning("Error occured when rolling back the internal initialSetupTransaction: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * Get the internal transaction name for the Banda setup process
+	 * Get the internal initialSetupTransaction name for the Banda setup process
 	 *
-	 * @return The transaction name
+	 * @return The initialSetupTransaction name
 	 */
 	public String getTransactionName() {
-		return transaction.getTrxName();
+		return initialSetupTransaction.getTrxName();
 	}
 
 	public void resetInfo() {

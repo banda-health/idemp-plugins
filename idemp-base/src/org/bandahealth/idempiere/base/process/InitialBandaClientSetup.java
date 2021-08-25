@@ -127,6 +127,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * 5. Create and map Payment Types to the default Bank Account
 	 * 6. Insert default Expense Categories (charges) for the client
 	 * 7. Create default product categories for products so they hit the correct revenue accounts
+	 * 8. Update the organization name and key
+	 * 9. Add custom warehouse and address 
+	 * 10. Create default sales and purchases price-lists
+	 * 11. Update calendar control
+	 * 12. Update users setup
+	 *
 	 *
 	 * @return info
 	 * @throws Exception
