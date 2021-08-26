@@ -21,6 +21,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
+import org.compiere.model.MPriceList;
 import org.compiere.model.MProductCategoryAcct;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRefTable;
@@ -1054,7 +1055,7 @@ public class MBandaSetup {
 	public boolean setupDefaultUserNamesPrefix(String[] userNames) {
 			List<MUser_BH> defaultUsers = new Query(this.context, MUser.Table_Name,
 					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + " IN (?,?)", getTransactionName())
-					.setParameters(client.getAD_Client_ID(),Arrays.asList(userNames)).list();
+					.setParameters(getAD_Client_ID(),Arrays.asList(userNames)).list();
 			for (MUser_BH mUser_BH : defaultUsers) {
 				mUser_BH.setName(organization.getValue().replaceAll("\\s", "") + mUser_BH.getName());
 				if(!mUser_BH.save()) {
@@ -1072,7 +1073,7 @@ public class MBandaSetup {
 				getTransactionName()).setParameters(client.getAD_Client_ID()).first();
 		MLocator locator = new Query(this.context, MLocator.Table_Name,
 				MWarehouse.COLUMNNAME_AD_Client_ID + "=? AND " + MLocator.COLUMNNAME_M_Warehouse_ID + "=?", getTransactionName())
-						.setParameters(organization.getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
+						.setParameters(getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
 		locator.setIsDefault(true);
 		wareHouse.setName(organization.getName());
 		if(!locator.save()) {
@@ -1088,6 +1089,10 @@ public class MBandaSetup {
 
 	/** Setup banda price lists */
 	public boolean setupPriceListInfo() {
+		//delete default price-list
+		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+				.setParameters(getAD_Client_ID()).first();
+				
 		return false;
 	}
 	
