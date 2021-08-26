@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.base.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.logging.Level;
@@ -19,6 +19,7 @@ import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProductCategoryAcct;
 import org.compiere.model.MRefList;
@@ -30,6 +31,7 @@ import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MTable;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
@@ -1049,22 +1051,41 @@ public class MBandaSetup {
 	}
 	
 	/** Update default users to have the org key prefix on the user names */
-	public boolean setupDefaultUserNamesPrefix(String[] users, String trx) {
+	public boolean setupDefaultUserNamesPrefix(String[] userNames) {
 			List<MUser_BH> defaultUsers = new Query(this.context, MUser.Table_Name,
-					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?", trx)
-					.setParameters(client.getAD_Client_ID(),users).list();
+					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + " IN (?,?)", getTransactionName())
+					.setParameters(client.getAD_Client_ID(),Arrays.asList(userNames)).list();
 			for (MUser_BH mUser_BH : defaultUsers) {
 				mUser_BH.setName(organization.getValue().replaceAll("\\s", "") + mUser_BH.getName());
-				mUser_BH.save();
+				if(!mUser_BH.save()) {
+					initialSetupTransaction.rollback();
+					initialSetupTransaction.close();
+				}
 			}
 		return true;
 	}
 	
 	/** Setup Banda warehouse configuration */
-	public boolean setupWarehouseLocatorSetUp() {
+	public boolean updateWarehouseLocatorSetUp(String transaction) {
+		// get the default warehouse and locator->rename and set to locator as default
+		MWarehouse wareHouse = new Query(this.context, MWarehouse.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
+				transaction).setParameters(client.getAD_Client_ID()).first();
+		MLocator locator = new Query(this.context, MLocator.Table_Name,
+				MWarehouse.COLUMNNAME_AD_Client_ID + "=? AND " + MLocator.COLUMNNAME_M_Warehouse_ID + "=?", transaction)
+						.setParameters(organization.getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
+		locator.setIsDefault(true);
+		wareHouse.setName(organization.getName());
+		if(!locator.save()) {
+			finalSetupTransaction.rollback();
+			finalSetupTransaction.close();
+		}
+		if(!wareHouse.save()) {
+			finalSetupTransaction.rollback();
+			finalSetupTransaction.close();
+		}
 		return false;
 	}
-	
+
 	/** Setup banda price lists */
 	public boolean setupPriceListInfo() {
 		return false;
