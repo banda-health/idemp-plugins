@@ -141,7 +141,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			}
 
 			// If a product has no quantity, don't return it in the list
-			if (result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0) {
+			if (result.getTotalQuantity() != null && result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0 ||
+					!entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 				results.add(result);
 			}
 		}
