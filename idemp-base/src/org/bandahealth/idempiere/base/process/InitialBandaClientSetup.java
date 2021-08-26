@@ -58,6 +58,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
 	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
+	private static final String PARAMETERNAME_NORMAL_USER_NAME = "NormalUserName";
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
@@ -71,6 +72,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private boolean wantsSavingsAccount = false;
 	private String clientName = null;
 	private String adminUserName = null;
+	private String normalUserName = null;
 	private String orgName = null;
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
@@ -114,6 +116,9 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 					break;
 				case PARAMETERNAME_ADMIN_USER_NAME:
 					adminUserName = processInfoParameter.getParameterAsString();
+					break;
+				case PARAMETERNAME_NORMAL_USER_NAME:
+					normalUserName = processInfoParameter.getParameterAsString();
 			}
 		}
 	}

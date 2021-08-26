@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MTable;
+import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
@@ -1046,9 +1048,16 @@ public class MBandaSetup {
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
 	
-	/** Update the organization name and key */
-	public boolean setupOrgNameAndKey() {
-		return false;
+	/** Update default users to have the org key prefix on the user names */
+	public boolean setupDefaultUserNamesPrefix(String[] users, String trx) {
+			List<MUser_BH> defaultUsers = new Query(this.context, MUser.Table_Name,
+					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?", trx)
+					.setParameters(client.getAD_Client_ID(),users).list();
+			for (MUser_BH mUser_BH : defaultUsers) {
+				mUser_BH.setName(organization.getValue().replaceAll("\\s", "") + mUser_BH.getName());
+				mUser_BH.save();
+			}
+		return true;
 	}
 	
 	/** Setup Banda warehouse configuration */
