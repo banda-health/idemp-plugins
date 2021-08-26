@@ -22,6 +22,7 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
+import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProductCategoryAcct;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRefTable;
@@ -1089,13 +1090,18 @@ public class MBandaSetup {
 
 	/** Setup banda price lists */
 	public boolean setupPriceListInfo() {
-		//delete default price-list
-		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-				.setParameters(getAD_Client_ID()).first();
-				
+		// delete default price-list and version
+		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
+				getTransactionName()).setParameters(getAD_Client_ID()).first();
+		MPriceListVersion priceListVersion = priceList.getPriceListVersion(null);
+		if (priceListVersion.delete(true)) {
+			priceList.delete(true);
+		}
+		// create default price-lists for sales and purchases
+
 		return false;
 	}
-	
+
 	/**Configure accounting periods */
 	public boolean setupPeriodControl() {
 		return false;
