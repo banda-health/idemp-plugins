@@ -1077,6 +1077,7 @@ public class MBandaSetup {
 						.setParameters(getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
 		locator.setIsDefault(true);
 		wareHouse.setName(organization.getName());
+		//TODO Reset address on this warehouse
 		if(!locator.save()) {
 			finalSetupTransaction.rollback();
 			finalSetupTransaction.close();
@@ -1088,18 +1089,44 @@ public class MBandaSetup {
 		return false;
 	}
 
-	/** Setup banda price lists */
-	public boolean setupPriceListInfo() {
-		// delete default price-list and version
-		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
-				getTransactionName()).setParameters(getAD_Client_ID()).first();
-		MPriceListVersion priceListVersion = priceList.getPriceListVersion(null);
-		if (priceListVersion.delete(true)) {
-			priceList.delete(true);
-		}
+	/** 
+	 * Create a price list and an associated version
+	 * @param plName name of the price-list
+	 * @param plVName name of the price-list version
+	 * @param isSalePriceList 
+	 * @return success or failure
+	 */
+	private boolean createPriceList(String plName, String plVName, boolean isSalePriceList) {
+//		// delete default price-list and version
+//		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
+//				getTransactionName()).setParameters(getAD_Client_ID()).first();
+//		MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
+//		if (defaultPriceListVersion.delete(true)) {
+//			priceList.delete(true);
+//		}
 		// create default price-lists for sales and purchases
-
-		return false;
+		MPriceList bandaPriceList = new MPriceList(this.context, 0, getTransactionName());
+		bandaPriceList.setName(plName);
+		bandaPriceList.setIsSOPriceList(isSalePriceList);
+		bandaPriceList.setIsDefault(true);
+		bandaPriceList.setAD_Org_ID(getAD_Org_ID());
+		bandaPriceList.setIsActive(true);
+		if(!bandaPriceList.save()) {
+			finalSetupTransaction.rollback();
+			finalSetupTransaction.close();
+		}
+		
+		//create default version 
+		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
+		priceListVersion.setName(plVName);
+		priceListVersion.setIsActive(true);
+		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
+		if(!priceListVersion.save()) {
+			finalSetupTransaction.rollback();
+			finalSetupTransaction.close();
+		}
+		
+		return true;
 	}
 
 	/**Configure accounting periods */
