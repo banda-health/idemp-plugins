@@ -1088,7 +1088,7 @@ public class MBandaSetup {
 		}
 		return false;
 	}
-
+	
 	/** 
 	 * Create a price list and an associated version
 	 * @param plName name of the price-list
@@ -1098,12 +1098,12 @@ public class MBandaSetup {
 	 */
 	private boolean createPriceList(String plName, String plVName, boolean isSalePriceList) {
 //		// delete default price-list and version
-//		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
-//				getTransactionName()).setParameters(getAD_Client_ID()).first();
-//		MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
-//		if (defaultPriceListVersion.delete(true)) {
-//			priceList.delete(true);
-//		}
+		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
+				getTransactionName()).setParameters(getAD_Client_ID()).first();
+		MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
+		if (defaultPriceListVersion.delete(true)) {
+			priceList.delete(true);
+		}
 		// create default price-lists for sales and purchases
 		MPriceList bandaPriceList = new MPriceList(this.context, 0, getTransactionName());
 		bandaPriceList.setName(plName);
@@ -1112,6 +1112,7 @@ public class MBandaSetup {
 		bandaPriceList.setAD_Org_ID(getAD_Org_ID());
 		bandaPriceList.setIsActive(true);
 		if(!bandaPriceList.save()) {
+			log.log(Level.SEVERE, "Create price-list failed");
 			finalSetupTransaction.rollback();
 			finalSetupTransaction.close();
 		}
@@ -1122,6 +1123,7 @@ public class MBandaSetup {
 		priceListVersion.setIsActive(true);
 		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
 		if(!priceListVersion.save()) {
+			log.log(Level.SEVERE, "Create price-list version failed");
 			finalSetupTransaction.rollback();
 			finalSetupTransaction.close();
 		}
