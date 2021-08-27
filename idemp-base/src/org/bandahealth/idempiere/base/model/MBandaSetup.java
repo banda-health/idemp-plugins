@@ -21,8 +21,11 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
+import org.compiere.model.MPInstance;
+import org.compiere.model.MPeriod;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
+import org.compiere.model.MProcess;
 import org.compiere.model.MProductCategoryAcct;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRefTable;
@@ -34,12 +37,16 @@ import org.compiere.model.MTable;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.MYear;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
 import org.compiere.model.X_C_ElementValue;
+import org.compiere.process.ProcessInfo;
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogger;
+import org.compiere.util.CacheMgt;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
@@ -1079,12 +1086,12 @@ public class MBandaSetup {
 		wareHouse.setName(organization.getName());
 		//TODO Reset address on this warehouse
 		if(!locator.save()) {
-			finalSetupTransaction.rollback();
-			finalSetupTransaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 		}
 		if(!wareHouse.save()) {
-			finalSetupTransaction.rollback();
-			finalSetupTransaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 		}
 		return false;
 	}
@@ -1113,8 +1120,8 @@ public class MBandaSetup {
 		bandaPriceList.setIsActive(true);
 		if(!bandaPriceList.save()) {
 			log.log(Level.SEVERE, "Create price-list failed");
-			finalSetupTransaction.rollback();
-			finalSetupTransaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 		}
 		
 		//create default version 
@@ -1124,18 +1131,60 @@ public class MBandaSetup {
 		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
 		if(!priceListVersion.save()) {
 			log.log(Level.SEVERE, "Create price-list version failed");
-			finalSetupTransaction.rollback();
-			finalSetupTransaction.close();
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
 		}
 		
 		return true;
 	}
 
-	/**Configure accounting periods */
+	/** Configure accounting periods */
 	public boolean setupPeriodControl() {
-		return false;
+		boolean result = false;
+		// un-check automatic period control in accounting schema
+		MAcctSchema accountingSchema = new Query(context, MAcctSchema.Table_Name,
+				MAcctSchema.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
+						.first();
+		accountingSchema.setAutoPeriodControl(false);
+		if (!accountingSchema.save()) {
+			log.log(Level.SEVERE, "Failed: In activate automatic period control");
+			initialSetupTransaction.rollback();
+			initialSetupTransaction.close();
+		}
+		// reset cache- util method
+		CacheMgt.get().resetLocalCache();
+		// run 'Open All' process on all documents for the calendar period
+		MYear year = new Query(context, MYear.Table_Name, MYear.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+				.setParameters(getAD_Client_ID()).first();
+		List<MPeriod> calendarPeriods = new Query(context, MPeriod.Table_Name,
+				MPeriod.COLUMNNAME_AD_Client_ID + "=? AND " + MPeriod.COLUMNNAME_C_Year_ID + "=?", getTransactionName())
+						.setParameters(getAD_Client_ID(), year.getYearAsInt()).list();
+		// for each of these periods access period control and run the 'Open/Close All'
+		// on the documents
+
+		for (MPeriod mPeriod : calendarPeriods) {
+			ProcessInfoParameter p1 = new ProcessInfoParameter("PeriodAction", "O", mPeriod.getEndDate(), "Open Period", "");
+			ProcessInfo processInfo = new ProcessInfo("process info", 0, 0, 0);
+			processInfo.setParameter(new ProcessInfoParameter[] { p1 });
+
+			MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
+					getTransactionName()).setParameters("C_Period_Process").first();
+			if (process == null) {
+				log.severe("Failure: Could not find process");
+			}
+			//Can use this save to resume process?
+			MPInstance instance = new MPInstance(context, 0, null);
+			instance.setAD_Process_ID(process.get_ID());
+			instance.setRecord_ID(0);
+			if (!instance.save()) {
+				log.warning("Failure: Could not save process instance");
+			}
+			processInfo.setAD_PInstance_ID(instance.get_ID());
+			result = process.processIt(processInfo, null);
+		}
+		return result;
 	}
-	
+
 	/** Update client users */
 	public boolean configureClientUsers() {
 		return false;
