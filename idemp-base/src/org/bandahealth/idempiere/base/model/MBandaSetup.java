@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -1063,12 +1064,18 @@ public class MBandaSetup {
 	public boolean updateUserNamesWithOrgKeyPrefix(String[] userNames) {
 			List<MUser_BH> defaultUsers = new Query(this.context, MUser.Table_Name,
 					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + " IN (?,?)", getTransactionName())
-					.setParameters(getAD_Client_ID(),Arrays.asList(userNames)).list();
+					.setParameters(getAD_Client_ID(),userNames[0], userNames[1]).list();
+			if(defaultUsers.size() == 0)
+				return false;
 			for (MUser_BH mUser_BH : defaultUsers) {
-				mUser_BH.setName(organization.getValue().replaceAll("\\s", "") + mUser_BH.getName());
-				if(!mUser_BH.save()) {
+				MUser_BH user = new MUser_BH(context, 0, getTransactionName());
+				String replaceString = mUser_BH.getName().lastIndexOf("Admin") > -1 ? "Admin" : "User";
+				user.setName(organization.getValue().replaceAll("\\s", "") + mUser_BH.getName().substring(mUser_BH.getName().lastIndexOf(replaceString)));
+				if(!user.save()) {
+					log.severe("Failure: Could not save modified user name!");
 					initialSetupTransaction.rollback();
 					initialSetupTransaction.close();
+					return false;
 				}
 			}
 		return true;

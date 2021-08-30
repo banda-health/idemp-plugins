@@ -219,8 +219,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
 			}
+			if(!bandaSetup.updateUserNamesWithOrgKeyPrefix(new String[] {adminUserName, normalUserName})) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Failed to update user names with org key prefix"));
+				
+			}
 			addLog(bandaSetup.getThenResetInfo());
-
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Failed to save Banda additions"));
