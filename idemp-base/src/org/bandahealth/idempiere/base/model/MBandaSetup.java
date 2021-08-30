@@ -1060,7 +1060,7 @@ public class MBandaSetup {
 	}
 	
 	/** Update default users to have the org key prefix on the user names */
-	public boolean setupDefaultUserNamesPrefix(String[] userNames) {
+	public boolean updateUserNamesWithOrgKeyPrefix(String[] userNames) {
 			List<MUser_BH> defaultUsers = new Query(this.context, MUser.Table_Name,
 					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + " IN (?,?)", getTransactionName())
 					.setParameters(getAD_Client_ID(),Arrays.asList(userNames)).list();
