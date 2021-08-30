@@ -1139,7 +1139,7 @@ public class MBandaSetup {
 	}
 
 	/** Configure accounting periods */
-	public boolean setupPeriodControl() {
+	public boolean openCalendarYearPeriods() {
 		boolean result = false;
 		// un-check automatic period control in accounting schema
 		MAcctSchema accountingSchema = new Query(context, MAcctSchema.Table_Name,
