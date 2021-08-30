@@ -1159,13 +1159,14 @@ public class MBandaSetup {
 		List<MPeriod> calendarPeriods = new Query(context, MPeriod.Table_Name,
 				MPeriod.COLUMNNAME_AD_Client_ID + "=? AND " + MPeriod.COLUMNNAME_C_Year_ID + "=?", getTransactionName())
 						.setParameters(getAD_Client_ID(), year.getYearAsInt()).list();
-		// for each of these periods access period control and run the 'Open/Close All'
-		// on the documents
+		
+		//set the record IDs for the periods to be opened.
+		List<Integer> recordIDs = calendarPeriods.stream().map(MPeriod::get_ID).collect(Collectors.toList());
 
-		for (MPeriod mPeriod : calendarPeriods) {
-			ProcessInfoParameter p1 = new ProcessInfoParameter("PeriodAction", "O", mPeriod.getEndDate(), "Open Period", "");
+			ProcessInfoParameter p1 = new ProcessInfoParameter("PeriodAction", "O", "", "Open Period", "");
 			ProcessInfo processInfo = new ProcessInfo("process info", 0, 0, 0);
 			processInfo.setParameter(new ProcessInfoParameter[] { p1 });
+			processInfo.setRecord_IDs(recordIDs);
 
 			MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
 					getTransactionName()).setParameters("C_Period_Process").first();
@@ -1181,7 +1182,6 @@ public class MBandaSetup {
 			}
 			processInfo.setAD_PInstance_ID(instance.get_ID());
 			result = process.processIt(processInfo, null);
-		}
 		return result;
 	}
 
