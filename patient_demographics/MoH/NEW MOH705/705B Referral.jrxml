@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705Referral" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="dba8eeb0-240c-4b61-b886-59a1f057598d">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705Referral" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" isIgnorePagination="true" uuid="dba8eeb0-240c-4b61-b886-59a1f057598d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -11,7 +12,6 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -51,9 +51,12 @@
 	<subDataset name="Dataset1" uuid="21d1918a-034e-48f0-8205-9998126ad69b">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="Begin Date" class="java.sql.Date"/>
+		<parameter name="End Date" class="java.sql.Date"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-    SELECT generate_series(date('2021-05-01'), date('2021-05-31'), '1d')::date AS calendar
+   SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
      referral_list AS (
          SELECT DISTINCT value as Referral
@@ -76,7 +79,8 @@
              from c_order c
                       JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id::numeric = cd.bh_coded_diagnosis_id
                       JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
-             WHERE bh_primarycodeddiagnosis_id IS NOT NULL
+             WHERE c.ad_client_id = $P{AD_CLIENT_ID} 
+             AND bh_primarycodeddiagnosis_id IS NOT NULL
              AND bh_moh705b_greaterthan5 NOT IN ('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Road Traffic Injuries', 'Tonsillitis', 'Diarrhea with some dehydration',
         'Diarrhea with severe dehydration','Other Diseases Of Respiratory System', 'Sexual Assault', 'Kalaazar',
         'Fevers', 'Eye Infections', 'Dracunculiasis (Guinea Worm)', 'Neoplasms', 'Newly Diagnosed HIV',
@@ -118,15 +122,14 @@ ORDER BY dl.Referral ASC;]]>
 	<queryString>
 		<![CDATA[select
     date(c.bh_visitdate) as calendar,
-    patient.name AS name
+    client.name AS name
 from c_order c
-    inner join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
-    inner join c_bpartner patient on c.c_bpartner_id = patient.c_bpartner_id
-    left join ad_user a ON patient.ad_client_id = a.ad_client_id
-    where c.ad_client_id = $P{AD_CLIENT_ID}
+    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
+    right join ad_org client on c.ad_client_id = client.ad_client_id
+     and client.isactive = 'Y'
+     where  c.ad_client_id  = $P{AD_CLIENT_ID}
     and b.bh_moh705b_greaterthan5 is not null
-    and (date(c.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
- GROUP BY c.bh_visitdate, patient.name, b.bh_moh705b_greaterthan5]]>
+ GROUP BY c.bh_visitdate, client.name, b.bh_moh705b_greaterthan5]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>
@@ -148,7 +151,16 @@ from c_order c
 				</box>
 				<crosstabDataset>
 					<dataset>
-						<datasetRun subDataset="Dataset1" uuid="ea279474-89ab-45b4-922c-15a3cf96b85a">
+						<datasetRun subDataset="Dataset1" uuid="76012465-08d5-4d66-baba-cc2817e7ef37">
+							<datasetParameter name="Begin Date">
+								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="AD_CLIENT_ID">
+								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+							</datasetParameter>
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
 					</dataset>
@@ -162,7 +174,8 @@ from c_order c
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<textField>
 								<reportElement x="22" y="1" width="158" height="20" uuid="953d1ec0-5418-4ffe-8855-f30da22016b5"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$V{referral}]]></textFieldExpression>
 							</textField>
 							<textField>
@@ -209,9 +222,7 @@ from c_order c
 						<cellContents mode="Opaque" style="Crosstab_CT">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<staticText>
-								<reportElement x="0" y="0" width="41" height="20" forecolor="#FFFFFF" uuid="b94439be-84f4-48f9-99ce-8d8f9aa2a690">
-									<property name="com.jaspersoft.studio.unit.width" value="px"/>
-								</reportElement>
+								<reportElement x="0" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="b94439be-84f4-48f9-99ce-8d8f9aa2a690"/>
 								<box>
 									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>

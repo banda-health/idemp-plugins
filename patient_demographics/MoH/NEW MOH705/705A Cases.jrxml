@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NewMOH705A" pageWidth="960" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="920" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="7317436c-2db2-4a0b-9652-bea518e43b91">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NewMOH705A" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="7317436c-2db2-4a0b-9652-bea518e43b91">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.report.description" value="Diagnoses Count under 5yrs"/>
@@ -129,7 +129,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-    SELECT generate_series(date('2021-05-01'), date('2021-05-31'), '1d')::date AS calendar
+    SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ), diagnosis_list AS (
     SELECT DISTINCT
         bh_moh705a_lessthan5 as diagnosis
@@ -155,7 +155,8 @@
             FROM c_order c
                 JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id::numeric = cd.bh_coded_diagnosis_id
                 JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
-            WHERE bh_primarycodeddiagnosis_id IS NOT NULL
+           WHERE c.ad_client_id = $P{AD_CLIENT_ID}
+                  AND bh_primarycodeddiagnosis_id IS NOT NULL
             GROUP BY bh_moh705a_lessthan5, cast(bh_visitdate as date)
         ) c ON b.bh_moh705a_lessthan5 = c.bh_moh705a_lessthan5
 )
@@ -265,12 +266,10 @@ ORDER BY dlo."order", dali.calendar]]>
     date(c.bh_visitdate) as calendar,
     client.name AS name
 from c_order c
-    inner join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
-     right join ad_org client on c.ad_client_id = client.ad_client_id
+    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
+    right join ad_org client on c.ad_client_id = client.ad_client_id
      and client.isactive = 'Y'
     where  c.ad_client_id  = $P{AD_CLIENT_ID}
-    and b.bh_moh705a_lessthan5 is not null
-    and (date(c.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
  GROUP BY c.bh_visitdate, client.name, b.bh_moh705a_lessthan5]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
@@ -301,27 +300,27 @@ from c_order c
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="680" y="0" width="100" height="26" uuid="ce3392d2-e8ce-42c7-9630-c4b8e732b210">
+				<reportElement x="640" y="0" width="100" height="26" uuid="ce3392d2-e8ce-42c7-9630-c4b8e732b210">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box topPadding="0"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Month:" +  new SimpleDateFormat("MMMM").format($F{calendar})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Month:" +  new SimpleDateFormat("MMMM").format($P{Begin Date})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="780" y="0" width="100" height="26" uuid="c33eae00-2291-4157-a308-280a44ce834d">
+				<reportElement x="740" y="0" width="100" height="26" uuid="c33eae00-2291-4157-a308-280a44ce834d">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box topPadding="0"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Year:" + new SimpleDateFormat("yyyy ").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Year:" +  new SimpleDateFormat("yyyy").format($P{Begin Date})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="820" y="-20" width="100" height="26" uuid="0e8fa573-ced8-4f91-882c-401321711de4">
+				<reportElement x="800" y="-20" width="100" height="26" uuid="0e8fa573-ced8-4f91-882c-401321711de4">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box topPadding="2"/>
@@ -335,7 +334,7 @@ from c_order c
 	<summary>
 		<band height="71" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="1" width="920" height="70" uuid="d9c5f3e6-c068-4f3a-a6c7-426af827bde3">
+				<reportElement x="0" y="1" width="879" height="70" uuid="d9c5f3e6-c068-4f3a-a6c7-426af827bde3">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab 2_CH"/>
 					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab 2_CG"/>
@@ -350,7 +349,16 @@ from c_order c
 				</box>
 				<crosstabDataset isDataPreSorted="true">
 					<dataset>
-						<datasetRun subDataset="MOH_A Dataset" uuid="05b2d8ef-b200-49c2-a692-e4eca554d2b1">
+						<datasetRun subDataset="MOH_A Dataset" uuid="7819e35e-331a-4599-9723-1458c3ac8c3e">
+							<datasetParameter name="Begin Date">
+								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="AD_CLIENT_ID">
+								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+							</datasetParameter>
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
 					</dataset>
@@ -364,11 +372,11 @@ from c_order c
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<textField>
-								<reportElement x="19" y="0" width="160" height="20" forecolor="#080808" backcolor="#030202" uuid="928d29a9-14c0-4ffd-b7b4-ad4d3ae3b0ed">
+								<reportElement x="19" y="0" width="161" height="20" forecolor="#080808" backcolor="#030202" uuid="928d29a9-14c0-4ffd-b7b4-ad4d3ae3b0ed">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								</reportElement>
-								<box leftPadding="5"/>
+								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="10"/>
 								</textElement>
@@ -401,7 +409,7 @@ from c_order c
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="calendar" height="15" totalPosition="End">
+				<columnGroup name="calendar" height="20" totalPosition="End">
 					<bucket class="java.sql.Date">
 						<bucketExpression><![CDATA[$F{calendar}]]></bucketExpression>
 					</bucket>
@@ -411,7 +419,9 @@ from c_order c
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<textField>
-								<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="15" forecolor="#000000" uuid="17ace83d-e4d9-4d9f-b557-904a8d854146"/>
+								<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="20" forecolor="#000000" uuid="17ace83d-e4d9-4d9f-b557-904a8d854146">
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
 								<box topPadding="0" leftPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -425,7 +435,10 @@ from c_order c
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<staticText>
-								<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="5d61000e-2fc8-42c7-b35e-0e9946430890"/>
+								<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="5d61000e-2fc8-42c7-b35e-0e9946430890">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
 								<box topPadding="0" leftPadding="0">
 									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
@@ -438,8 +451,9 @@ from c_order c
 								<text><![CDATA[Total calendar]]></text>
 							</staticText>
 							<staticText>
-								<reportElement mode="Opaque" x="30" y="0" width="20" height="15" uuid="5d091617-21d2-4111-a045-ed965602c92d">
+								<reportElement mode="Opaque" x="41" y="0" width="20" height="20" uuid="5d091617-21d2-4111-a045-ed965602c92d">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								</reportElement>
 								<text><![CDATA[]]></text>
 							</staticText>
@@ -464,11 +478,11 @@ from c_order c
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="50" height="20" columnTotalGroup="calendar">
+				<crosstabCell width="61" height="20" columnTotalGroup="calendar">
 					<cellContents mode="Opaque" style="Crosstab 2_CT">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 						<textField>
-							<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="0" width="30" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="6b324806-f103-44e3-be6c-bcca8492b6a3"/>
+							<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="6b324806-f103-44e3-be6c-bcca8492b6a3"/>
 							<box topPadding="0" leftPadding="0">
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
@@ -481,12 +495,14 @@ from c_order c
 							<textFieldExpression><![CDATA[$V{noofdiagnosis_MEASURE}]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement mode="Opaque" x="30" y="1" width="20" height="19" forecolor="#000000" uuid="b4e5186d-99cf-47a3-aabf-ce939c2de388"/>
+							<reportElement mode="Opaque" x="41" y="0" width="20" height="20" forecolor="#000000" uuid="b4e5186d-99cf-47a3-aabf-ce939c2de388">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
 							<box>
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
@@ -506,11 +522,11 @@ from c_order c
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="50" height="15" rowTotalGroup="diagnosis" columnTotalGroup="calendar">
+				<crosstabCell width="61" height="15" rowTotalGroup="diagnosis" columnTotalGroup="calendar">
 					<cellContents mode="Opaque" style="Crosstab 2_CT">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 						<textField>
-							<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="15" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="df7a8649-c66e-461a-ad52-5bdf5a64df3e"/>
+							<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="40" height="15" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="df7a8649-c66e-461a-ad52-5bdf5a64df3e"/>
 							<box topPadding="0" leftPadding="0">
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
@@ -523,14 +539,20 @@ from c_order c
 							<textFieldExpression><![CDATA[$V{noofdiagnosis_MEASURE}]]></textFieldExpression>
 						</textField>
 						<staticText>
-							<reportElement mode="Opaque" x="30" y="0" width="20" height="15" uuid="6a893b0c-8742-4b6a-8c7a-1191ce5aa940"/>
+							<reportElement mode="Opaque" x="40" y="1" width="21" height="14" uuid="6a893b0c-8742-4b6a-8c7a-1191ce5aa940"/>
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
 							<text><![CDATA[]]></text>
 						</staticText>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
 			<textField>
-				<reportElement x="0" y="1" width="180" height="15" uuid="41168f2f-e6b1-4475-bea1-c80d06221c1e">
+				<reportElement x="0" y="1" width="180" height="19" uuid="41168f2f-e6b1-4475-bea1-c80d06221c1e">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box leftPadding="5">
