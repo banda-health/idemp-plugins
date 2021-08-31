@@ -63,7 +63,8 @@
          FROM ad_ref_list
                   JOIN c_order Referraltype ON value = Referraltype.bh_referral
                   RIGHT JOIN ad_reference a ON ad_ref_list.ad_reference_id = a.ad_reference_id
-         WHERE value is not null
+         WHERE  Referraltype.ad_client_id = $P{AD_CLIENT_ID}
+         AND value is not null
      ),
      referral_count AS (
          SELECT DISTINCT bh_moh705a_lessthan5,
