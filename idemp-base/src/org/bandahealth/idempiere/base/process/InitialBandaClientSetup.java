@@ -57,8 +57,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_DELETE_OLD_IMPORTED = "DeleteOldImported";
 	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
-	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
-	private static final String PARAMETERNAME_NORMAL_USER_NAME = "NormalUserName";
+	public static final String PARAMETERNAME_ADMIN_USER_NAME = "p_AdminUserName";
+	public static final String PARAMETERNAME_NORMAL_USER_NAME = "p_NormalUserName";
+	public static final String PARAMETERNAME_ADMIN_EMAIL= "p_AdminUserEmail";
+	public static final String PARAMETERNAME_USER_EMAIL= "p_NormalUserEmail";
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
@@ -74,6 +76,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private String adminUserName = null;
 	private String normalUserName = null;
 	private String orgName = null;
+	private String orgKey = null;
+	private String adminUserEmail= null;
+	private String normalUserEmail= null;
+	
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
 	private int usersId;
@@ -84,11 +90,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	protected void prepare() {
 		usersClientId = getAD_Client_ID();
 		usersId = getAD_User_ID();
-
-		addCoAFileValueToParametersBasedOnClientType();
-
-		super.prepare();
-
+		
 		ProcessInfoParameter[] para = getParameter();
 		for (ProcessInfoParameter processInfoParameter : para) {
 			String name = processInfoParameter.getParameterName();
@@ -119,8 +121,24 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 					break;
 				case PARAMETERNAME_NORMAL_USER_NAME:
 					normalUserName = processInfoParameter.getParameterAsString();
+				case PARAMETERNAME_ADMIN_EMAIL:
+					adminUserEmail = processInfoParameter.getParameterAsString();
+					break;
+				case PARAMETERNAME_USER_EMAIL:
+					normalUserEmail = processInfoParameter.getParameterAsString();
+					break;
+					
+					
 			}
 		}
+
+		addCoAFileValueToParametersBasedOnClientType();
+		addAutomationParameters();
+
+		super.prepare();
+
+		
+		
 	}
 
 	/**
@@ -407,10 +425,31 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		}
 		return coaImportFile;
 	}
+	
+	
+	/** Add parameters that are already being automated */
+	private void addAutomationParameters() {
+		setParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME,clientName, null, null, null ));
+		String prefix = clientName.replaceAll("\\s", "");
+		setParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME,prefix + "Admin", null, null, null ));
+		setParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME,prefix + "User", null, null, null ));
+		setParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL,prefix.toLowerCase() + "_admin@bandahealth.org", null, null, null ));
+		setParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,prefix.toLowerCase() + "_user@bandahealth.org", null, null, null ));
+	}
 
 	private void addParameter(ProcessInfoParameter parameter) {
 		List<ProcessInfoParameter> parameters = new ArrayList<ProcessInfoParameter>(Arrays.asList(getParameter()));
 		parameters.add(parameter);
+		// Set the parameters so they can be accessed by everyone
+		getProcessInfo().setParameter(parameters.toArray(ProcessInfoParameter[]::new));
+	}
+
+	private void setParameter(ProcessInfoParameter parameter) {
+		List<ProcessInfoParameter> parameters = new ArrayList<ProcessInfoParameter>(Arrays.asList(getParameter()));
+		parameters.stream().forEach((p) -> {
+			if (p.getParameterName().equals(parameter.getParameterName()))
+				p.setParameter(parameter);
+		});
 		// Set the parameters so they can be accessed by everyone
 		getProcessInfo().setParameter(parameters.toArray(ProcessInfoParameter[]::new));
 	}
