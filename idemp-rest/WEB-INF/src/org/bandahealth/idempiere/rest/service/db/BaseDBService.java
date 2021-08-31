@@ -597,6 +597,38 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	/**
+	 * Get a list of entities by their UUIDs
+	 *
+	 * @param uuids The UUIDs to search by
+	 * @return A map of entities by the UUID searched
+	 */
+	public Map<String, S> getByUuids(Set<String> uuids) {
+		return getByUuids(isClientIdFromTheContextNeededByDefaultForThisEntity(), uuids);
+	}
+
+	/**
+	 * Get a list of entities by their UUIDs
+	 *
+	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
+	 * @param uuids                    The UUIDs to search by
+	 * @return A map of entities by the UUID searched
+	 */
+	public Map<String, S> getByUuids(boolean shouldUseContextClientId, Set<String> uuids) {
+		if (uuids.isEmpty()) {
+			return new HashMap<>();
+		}
+		List<Object> parameters = new ArrayList<>();
+		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(uuids, parameters);
+		String tableName = getModelInstance().get_TableName();
+		List<S> models =
+				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_UU IN (" + whereCondition + ")",
+						parameters).list();
+		return getTranslations(models).stream().collect(Collectors
+				.toMap(model -> model.get_ValueOfColumn(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
+						model -> model));
+	}
+
+	/**
 	 * Transform data, including batch fetching of child data, for these entities
 	 *
 	 * @param dbModels The data fetched from the database

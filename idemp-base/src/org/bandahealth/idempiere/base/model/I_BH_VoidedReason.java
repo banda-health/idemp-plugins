@@ -22,16 +22,16 @@ import java.sql.Timestamp;
 import org.compiere.model.MTable;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Coded_Diagnosis
+/** Generated Interface for BH_Voided_Reason
  *  @author iDempiere (generated) 
  *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_CodedDiagnosis 
+public interface I_BH_VoidedReason 
 {
 
-    /** TableName=BH_Coded_Diagnosis */
-    public static final String Table_Name = "BH_Coded_Diagnosis";
+    /** TableName=BH_Voided_Reason */
+    public static final String Table_Name = "BH_Voided_Reason";
 
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
@@ -64,23 +64,23 @@ public interface I_BH_CodedDiagnosis
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Coded_Diagnosis_ID */
-    public static final String COLUMNNAME_BH_Coded_Diagnosis_ID = "BH_Coded_Diagnosis_ID";
+    /** Column name BH_Voided_Reason_ID */
+    public static final String COLUMNNAME_BH_Voided_Reason_ID = "BH_Voided_Reason_ID";
 
-	/** Set BH_CodedDiagnosis	  */
-	public void setBH_CodedDiagnosis_ID (int BH_CodedDiagnosis_ID);
+	/** Set BH_Voided_Reason_ID	  */
+	public void setBH_VoidedReason_ID (int BH_VoidedReason_ID);
 
-	/** Get BH_CodedDiagnosis	  */
-	public int getBH_CodedDiagnosis_ID();
+	/** Get BH_VoidedReason	  */
+	public int getBH_VoidedReason_ID();
 
-    /** Column name BH_CodedDiagnosis_UU */
-    public static final String COLUMNNAME_BH_Coded_Diagnosis_UU = "BH_Coded_Diagnosis_UU";
+    /** Column name BH_VoidedReason_UU */
+    public static final String COLUMNNAME_BH_Voided_Reason_UU = "BH_Voided_Reason_UU";
 
-	/** Set BH_CodedDiagnosis_UU	  */
-	public void setBH_CodedDiagnosis_UU (String BH_CodedDiagnosis_UU);
+	/** Set BH_VoidedReason_UU	  */
+	public void setBH_VoidedReason_UU (String BH_VoidedReason_UU);
 
-	/** Get BH_CodedDiagnosis_UU	  */
-	public String getBH_CodedDiagnosis_UU();
+	/** Get BH_VoidedReason_UU	  */
+	public String getBH_VoidedReason_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -98,6 +98,17 @@ public interface I_BH_CodedDiagnosis
 	  */
 	public int getCreatedBy();
 
+	/** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
+
+	/** Set Name.
+	  */
+	public void setName (String Name);
+
+	/** Get Name.
+	  */
+	public String getName();
+	
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
 
@@ -140,71 +151,16 @@ public interface I_BH_CodedDiagnosis
 	  */
 	public int getUpdatedBy();
 
-	/** Column name bh_cielname */
-    public static final String COLUMNNAME_BH_CielName = "bh_cielname";
+	public static final String COLUMNNAME_BH_Window_Id = "bh_window_id";
 
-	/** Set bh_cielname.
-	  * Alphanumeric identifier of the entity
-	  */
-	public void setBH_CielName (String bh_cielname);
+	public void setBH_WindowId (int bh_windowId);
 
-	/** Get bh_cielname.
-	  * Alphanumeric identifier of the entity
-	  */
-	public String getBH_CielName();
-	
-	public static final String COLUMNNAME_BH_CielId = "bh_ciel_id";
+	public int getBH_WindowId();
 
-	public void setBH_CielId (int bh_cielId);
+	public static final String COLUMNNAME_LINE_NO = "lineno";
 
-	public int getBH_CielId();
-	
-	public static final String COLUMNNAME_BH_ConceptClass = "bh_concept_class";
+	public void setLineNo (int lineNo);
 
-	public void setBH_ConceptClass (String bh_conceptClass);
-
-	public String getBH_ConceptClass();
-
-	public static final String COLUMNNAME_BH_ICD10 = "bh_icd10who";
-
-	public void setBH_ICD10 (String bh_icd10who);
-
-	public String getBH_ICD10();
-
-	public static final String COLUMNNAME_BH_SynomedCT = "bh_synomed_ct";
-
-	public void setBH_SynomedCT (int bh_synomed_ct);
-
-	public int getBH_SynomedCT();
-
-	public static final String COLUMNNAME_BH_SynomedNP = "bh_synomed_np";
-
-	public void setBH_SynomedNP (int bh_synomed_np);
-
-	public int getBH_SynomedNP();
-
-	public static final String COLUMNNAME_BH_Synonyms = "bh_synonyms";
-
-	public void setBH_Synonyms (String bh_synonyms);
-
-	public String getBH_Synonyms();
-
-	public static final String COLUMNNAME_BH_MoH705A_LessThan5 = "bh_moh705a_lessthan5";
-
-	public void setBH_MoH705ALessThan5 (String bh_moh705a_lessthan5);
-
-	public String getBH_MoH705ALessThan5();
-
-	public static final String COLUMNNAME_BH_MoH705B_GreaterThan5 = "bh_moh705b_greaterthan5";
-
-	public void setBH_MoH705BGreaterThan5 (String bh_moh705b_greaterthan5);
-
-	public String getBH_MoH705BGreaterThan5();
-
-	public static final String COLUMNNAME_BH_SEARCHTERMS = "bh_searchterms";
-
-	public void setBH_SearchTerms (String bh_searchterms);
-
-	public String getBH_SearchTerms();
+	public int getLineNo();
 
 }
