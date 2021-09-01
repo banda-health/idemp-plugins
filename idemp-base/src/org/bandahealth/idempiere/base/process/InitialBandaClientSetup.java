@@ -57,10 +57,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_DELETE_OLD_IMPORTED = "DeleteOldImported";
 	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
-	public static final String PARAMETERNAME_ADMIN_USER_NAME = "p_AdminUserName";
-	public static final String PARAMETERNAME_NORMAL_USER_NAME = "p_NormalUserName";
-	public static final String PARAMETERNAME_ADMIN_EMAIL= "p_AdminUserEmail";
-	public static final String PARAMETERNAME_USER_EMAIL= "p_NormalUserEmail";
+	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
+	public static final String PARAMETERNAME_NORMAL_USER_NAME = "NormalUserName";
+	public static final String PARAMETERNAME_ADMIN_EMAIL= "AdminUserEmail";
+	public static final String PARAMETERNAME_USER_EMAIL= "NormalUserEmail";
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
@@ -73,11 +73,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private boolean wantsMobileAccount = false;
 	private boolean wantsSavingsAccount = false;
 	private String clientName = null;
-	private String adminUserName = null;
-	private String normalUserName = null;
 	private String orgName = null;
-	private String orgKey = null;
+	private String adminUserName = null;
 	private String adminUserEmail= null;
+	private String normalUserName = null;
 	private String normalUserEmail= null;
 	
 	private String clientLevel = CLIENTLEVEL_BASIC;
@@ -90,7 +89,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	protected void prepare() {
 		usersClientId = getAD_Client_ID();
 		usersId = getAD_User_ID();
-		
+
+		addCoAFileValueToParametersBasedOnClientType();
 		ProcessInfoParameter[] para = getParameter();
 		for (ProcessInfoParameter processInfoParameter : para) {
 			String name = processInfoParameter.getParameterName();
@@ -108,33 +108,16 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 					wantsSavingsAccount = processInfoParameter.getParameterAsBoolean();
 					break;
 				case PARAMETERNAME_CLIENT_NAME:
+					//org name is same as client name
 					clientName = processInfoParameter.getParameterAsString();
-					break;
-				case PARAMETERNAME_ORG_NAME:
 					orgName = processInfoParameter.getParameterAsString();
 					break;
 				case PARAMETERNAME_CLIENT_LEVEL:
 					clientLevel = processInfoParameter.getParameterAsString();
 					break;
-				case PARAMETERNAME_ADMIN_USER_NAME:
-					adminUserName = processInfoParameter.getParameterAsString();
-					break;
-				case PARAMETERNAME_NORMAL_USER_NAME:
-					normalUserName = processInfoParameter.getParameterAsString();
-				case PARAMETERNAME_ADMIN_EMAIL:
-					adminUserEmail = processInfoParameter.getParameterAsString();
-					break;
-				case PARAMETERNAME_USER_EMAIL:
-					normalUserEmail = processInfoParameter.getParameterAsString();
-					break;
-					
-					
 			}
 		}
-
-		addCoAFileValueToParametersBasedOnClientType();
-		addAutomationParameters();
-
+		addAutomatedParameters();
 		super.prepare();
 
 		
@@ -236,11 +219,6 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			if (!bandaSetup.initializeRoles(usersToAddRolesTo)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
-			}
-			if(!bandaSetup.updateUserNamesWithOrgKeyPrefix(new String[] {adminUserName, normalUserName})) {
-				rollback(bandaSetup);
-				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Failed to update user names with org key prefix"));
-				
 			}
 			addLog(bandaSetup.getThenResetInfo());
 			if (!bandaSetup.finish()) {
@@ -427,14 +405,14 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	}
 	
 	
-	/** Add parameters that are already being automated */
-	private void addAutomationParameters() {
-		setParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME,clientName, null, null, null ));
+	/** Add parameters that have been removed from the form*/
+	private void addAutomatedParameters() {
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME,clientName, null, null, null ));
 		String prefix = clientName.replaceAll("\\s", "");
-		setParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME,prefix + "Admin", null, null, null ));
-		setParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME,prefix + "User", null, null, null ));
-		setParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL,prefix.toLowerCase() + "_admin@bandahealth.org", null, null, null ));
-		setParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,prefix.toLowerCase() + "_user@bandahealth.org", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME,prefix + "Admin", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME,prefix + "User", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL,prefix.toLowerCase() + "_admin@bandahealth.org", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,prefix.toLowerCase() + "_user@bandahealth.org", null, null, null ));
 	}
 
 	private void addParameter(ProcessInfoParameter parameter) {

@@ -1060,27 +1060,6 @@ public class MBandaSetup {
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
 	
-	/** Update default users to have the org key prefix on the user names */
-	public boolean updateUserNamesWithOrgKeyPrefix(String[] userNames) {
-			List<MUser_BH> defaultUsers = new Query(this.context, MUser_BH.Table_Name,
-					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + " IN (?,?)", getTransactionName())
-					.setParameters(getAD_Client_ID(),userNames[0], userNames[1]).list();
-			if(defaultUsers.size() == 0)
-				return false;
-			for (MUser_BH mUser_BH : defaultUsers) {
-//				MUser_BH user = new MUser_BH(context, mUser_BH.get_ID(), getTransactionName());
-				String replaceString = mUser_BH.getName().lastIndexOf("Admin") > -1 ? "Admin" : "User";
-				mUser_BH.setName(organization.getValue().replaceAll("\\s", "") + mUser_BH.getName().substring(mUser_BH.getName().lastIndexOf(replaceString)));
-				mUser_BH.saveEx();
-//				if(!mUser_BH.save()) {
-//					log.severe("Failure: Could not save modified user name!");
-//					initialSetupTransaction.rollback();
-//					initialSetupTransaction.close();
-//					return false;
-//				}
-			}
-		return true;
-	}
 	
 	/** Setup Banda warehouse configuration */
 	public boolean updateWarehouseLocatorSetUp() {
