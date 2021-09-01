@@ -222,7 +222,15 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			if (!bandaSetup.updateWarehouseLocatorSetUp()) {
 				rollback(bandaSetup);
-				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Warehouse setup failed"));
+			}
+			if (!bandaSetup.createPriceList("Purchases", "Purchases Price List Version 1", false)) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Purchase Price List Setup failed"));
+			}
+			if(!bandaSetup.createPriceList("Sales", "Sales Price List Version 1", true)) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Sales Price List setup failed"));
 			}
 			addLog(bandaSetup.getThenResetInfo());
 			if (!bandaSetup.finish()) {
