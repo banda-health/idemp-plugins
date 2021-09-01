@@ -1075,12 +1075,14 @@ public class MBandaSetup {
 		if(!locator.save()) {
 			initialSetupTransaction.rollback();
 			initialSetupTransaction.close();
+			return false;
 		}
 		if(!wareHouse.save()) {
 			initialSetupTransaction.rollback();
 			initialSetupTransaction.close();
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	/** 

@@ -220,6 +220,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
 			}
+			if (!bandaSetup.updateWarehouseLocatorSetUp()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
+			}
 			addLog(bandaSetup.getThenResetInfo());
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
