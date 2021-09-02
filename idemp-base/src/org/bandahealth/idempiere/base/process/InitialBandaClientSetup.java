@@ -75,9 +75,6 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private String clientName = null;
 	private String orgName = null;
 	private String adminUserName = null;
-	private String adminUserEmail= null;
-	private String normalUserName = null;
-	private String normalUserEmail= null;
 	
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
@@ -425,29 +422,21 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	}
 	
 	
-	/** Add parameters that have been removed from the form*/
+	/** Add to parameters dynamically:
+	 * admin/user names and email
+	  */
 	private void addAutomatedParameters() {
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME,clientName, null, null, null ));
 		String prefix = clientName.replaceAll("\\s", "");
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME,prefix + "Admin", null, null, null ));
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME,prefix + "User", null, null, null ));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL,prefix.toLowerCase() + "_admin@bandahealth.org", null, null, null ));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,prefix.toLowerCase() + "_user@bandahealth.org", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL, "admin@" + prefix.toLowerCase() + ".org", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,"user@" + prefix.toLowerCase() + ".org", null, null, null ));
 	}
 
 	private void addParameter(ProcessInfoParameter parameter) {
 		List<ProcessInfoParameter> parameters = new ArrayList<ProcessInfoParameter>(Arrays.asList(getParameter()));
 		parameters.add(parameter);
-		// Set the parameters so they can be accessed by everyone
-		getProcessInfo().setParameter(parameters.toArray(ProcessInfoParameter[]::new));
-	}
-
-	private void setParameter(ProcessInfoParameter parameter) {
-		List<ProcessInfoParameter> parameters = new ArrayList<ProcessInfoParameter>(Arrays.asList(getParameter()));
-		parameters.stream().forEach((p) -> {
-			if (p.getParameterName().equals(parameter.getParameterName()))
-				p.setParameter(parameter);
-		});
 		// Set the parameters so they can be accessed by everyone
 		getProcessInfo().setParameter(parameters.toArray(ProcessInfoParameter[]::new));
 	}
