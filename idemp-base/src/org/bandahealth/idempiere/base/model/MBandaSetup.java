@@ -18,6 +18,7 @@ import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
+import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
@@ -34,6 +35,7 @@ import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MTable;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
@@ -1098,13 +1100,13 @@ public class MBandaSetup {
 	 */
 	public boolean createPriceList(String plName, String plVName, boolean isSalePriceList) {
 //		// delete default price-list and version
-		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
-				getTransactionName()).setParameters(getAD_Client_ID()).first();
-		Integer defaultCurrency = priceList.getC_Currency_ID();
-		MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
-		Integer discountSchemaId = defaultPriceListVersion.getM_DiscountSchema_ID();
-		if (defaultPriceListVersion.delete(true)) {
-			priceList.delete(true);
+		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=? AND " + MPriceList.COLUMNNAME_Name + " =?",
+				getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
+		if(priceList != null) {
+			MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
+				if (defaultPriceListVersion.delete(true)) {
+					priceList.delete(true);
+				}
 		}
 		// create default price-lists for sales and purchases
 		MPriceList bandaPriceList = new MPriceList(this.context, 0, getTransactionName());
@@ -1113,7 +1115,7 @@ public class MBandaSetup {
 		bandaPriceList.setIsDefault(true);
 		bandaPriceList.setAD_Org_ID(getAD_Org_ID());
 		bandaPriceList.setIsActive(true);
-		bandaPriceList.setC_Currency_ID(defaultCurrency);
+		bandaPriceList.setC_Currency_ID(client.getC_Currency_ID());
 		if(!bandaPriceList.save()) {
 			log.log(Level.SEVERE, "Price-list not saved");
 			initialSetupTransaction.rollback();
@@ -1121,12 +1123,15 @@ public class MBandaSetup {
 			return false;
 		}
 		
-		//create default version 
+		MDiscountSchema discountSchema = new Query(context, MDiscountSchema.Table_Name, 
+				MDiscountSchema.COLUMNNAME_AD_Client_ID + "=? AND " + MDiscountSchema.COLUMNNAME_Name 
+				+ " =?", getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
+		//create default price-list version 
 		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
 		priceListVersion.setName(plVName);
 		priceListVersion.setIsActive(true);
 		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
-		priceListVersion.setM_DiscountSchema_ID(discountSchemaId);
+		priceListVersion.setM_DiscountSchema_ID(discountSchema.get_ID());
 		if(!priceListVersion.save()) {
 			log.log(Level.SEVERE, "Price-list version not saved");
 			initialSetupTransaction.rollback();
