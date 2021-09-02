@@ -1153,7 +1153,7 @@ public class MBandaSetup {
 				.setParameters(getAD_Client_ID()).first();
 		List<MPeriod> calendarPeriods = new Query(context, MPeriod.Table_Name,
 				MPeriod.COLUMNNAME_AD_Client_ID + "=? AND " + MPeriod.COLUMNNAME_C_Year_ID + "=?", getTransactionName())
-						.setParameters(getAD_Client_ID(), year.getYearAsInt()).list();
+						.setParameters(getAD_Client_ID(), year.getC_Year_ID()).list();
 		
 		//set the record IDs for the periods to be opened.
 		List<Integer> recordIDs = calendarPeriods.stream().map(MPeriod::get_ID).collect(Collectors.toList());

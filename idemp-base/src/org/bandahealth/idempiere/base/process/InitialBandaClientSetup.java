@@ -232,6 +232,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Sales Price List setup failed"));
 			}
+			if(!bandaSetup.openCalendarYearPeriods()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Open calendar periods failed"));
+			}
 			addLog(bandaSetup.getThenResetInfo());
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
