@@ -236,6 +236,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Open calendar periods failed"));
 			}
+			if(!bandaSetup.configureClientUsers()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Remove default business partners failed"));
+			}
 			addLog(bandaSetup.getThenResetInfo());
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);

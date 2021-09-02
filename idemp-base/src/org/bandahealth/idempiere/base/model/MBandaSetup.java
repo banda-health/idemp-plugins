@@ -52,6 +52,8 @@ import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 
+import com.sun.net.httpserver.Authenticator.Result;
+
 /**
  * Initial setup of a client, but with the additional things needed in Banda Go
  */
@@ -1182,7 +1184,17 @@ public class MBandaSetup {
 
 	/** Update client users */
 	public boolean configureClientUsers() {
-		return false;
+		// remove admin and user as customers/business partners
+		List<MBPartner_BH> businessPartners = new Query(context, MBPartner_BH.Table_Name,
+				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_IsCustomer + "=?",
+				getTransactionName()).setParameters(getAD_Client_ID(), true).list();
+		businessPartners.forEach((businessPartner) -> {
+			businessPartner.setIsActive(false);
+			if (!businessPartner.save()) {
+				log.warning("Failure: Could not save updates for business partner");
+			}
+		});
+		return true;
 	}
 
 	/**
