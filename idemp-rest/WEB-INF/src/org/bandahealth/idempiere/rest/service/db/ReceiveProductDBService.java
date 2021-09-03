@@ -9,24 +9,23 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
-import org.bandahealth.idempiere.rest.model.Vendor;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MOrder;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 /**
  * Receive products logic
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> {
 
 	private final VendorDBService vendorDBService;
+	private final ProductDBService productDBService;
 
 	public ReceiveProductDBService() {
 		this.vendorDBService = new VendorDBService();
+		this.productDBService = new ProductDBService();
 	}
 
 	public BaseListResponse<ReceiveProduct> getAll(

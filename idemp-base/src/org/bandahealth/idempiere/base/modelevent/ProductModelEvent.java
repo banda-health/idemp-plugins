@@ -39,7 +39,10 @@ public class ProductModelEvent extends AbstractEventHandler {
 			return;
 		}
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			beforeSaveRequest(product);
+			beforeSave(product);
+			beforeNewRequest(product);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
+			beforeSave(product);
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
 				|| event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
 			afterSaveRequest(product);
@@ -54,18 +57,21 @@ public class ProductModelEvent extends AbstractEventHandler {
 		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MProduct_BH.Table_Name);
 	}
 
-	private void beforeSaveRequest(MProduct_BH product) {
+	private void beforeSave(MProduct_BH product) {
 		product.setValue(product.getName());
+	}
+
+	private void beforeNewRequest(MProduct_BH product) {
 		if (product.getM_AttributeSet_ID() > 0) {
 			return;
 		}
-		
+
 		attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 		if (attributeSet != null) {
 			if (product.isBH_HasExpiration()) {
 				Integer attributeSetId = attributeSet.get_ID();
 				product.setM_AttributeSet_ID(attributeSetId);
-			} 
+			}
 		} else {
 			// failed to find or create product attribute set
 			throw new AdempiereException(
@@ -138,7 +144,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 						// update product buy price
 						product.setBH_BuyPrice(productPrice.getPriceStd());
 					}
-					
+
 					// calculate price margin
 					if (product.getBH_SellPrice() != null && product.getBH_BuyPrice() != null) {
 						product.setBH_PriceMargin(product.getBH_SellPrice().subtract(product.getBH_BuyPrice()));

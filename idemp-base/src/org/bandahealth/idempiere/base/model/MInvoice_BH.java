@@ -27,6 +27,8 @@ public class MInvoice_BH extends MInvoice {
 	 * Column name BH_Processing
 	 */
 	public static final String COLUMNNAME_BH_Processing = "BH_Processing";
+	
+	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
 
 	/**
 	 * Set BH_Processing.
@@ -315,5 +317,20 @@ public class MInvoice_BH extends MInvoice {
 	 */
 	private void addDocsPostProcess(PO doc) {
 		getDocsPostProcess().add(doc);
+	}
+	
+	public int getBH_VoidedReasonID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_VOIDED_REASON_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
+	}
+
+	public void setBH_VoidedReasonID(int BH_VoidedReason_ID) {
+		if (BH_VoidedReason_ID < 1) {
+			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, Integer.valueOf(BH_VoidedReason_ID));
+		}
 	}
 }
