@@ -234,7 +234,7 @@ public class MBandaSetup {
 		clientsBank.setIsOwnBank(true);
 		clientsBank.setIsActive(true);
 		// Don't need to set location at this point
-//		clientsBank.setC_Location_ID();
+		//		clientsBank.setC_Location_ID();
 
 		if (!clientsBank.save()) {
 			String errorMessage = "Bank NOT inserted";
@@ -275,7 +275,7 @@ public class MBandaSetup {
 	 * Add the default charge types configured in the config client.
 	 *
 	 * @return A map of default charge type IDs to the charge type that was added
-	 * for the client
+	 *         for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
@@ -327,11 +327,11 @@ public class MBandaSetup {
 			MCharge_BH charge = new MCharge_BH(context, 0, getTransactionName());
 			charge.setName(defaultCharge.getName());
 			charge.setDescription(defaultCharge.getDescription());
-			charge.setC_ChargeType_ID(
-					defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
+			charge.setC_ChargeType_ID(defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
 			charge.setBH_SubType(defaultCharge.getBH_SubType());
-			charge.setC_ElementValue_ID(elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getC_ElementValue_ID());
+			charge.setC_ElementValue_ID(
+					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getC_ElementValue_ID());
 			charge.setBH_NeedAdditionalVisitInfo(defaultCharge.isBH_NeedAdditionalVisitInfo());
 			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
@@ -343,8 +343,8 @@ public class MBandaSetup {
 			}
 
 			// Create a valid combination for this account value
-			MAccount chargeExpenseAccount =
-					getOrCreateValidCombination(elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
+			MAccount chargeExpenseAccount = getOrCreateValidCombination(
+					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -410,7 +410,8 @@ public class MBandaSetup {
 
 			MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, getAD_Client_ID(), null);
 
-			//We need to get all charge info values mapped for this charge info from the map.
+			// We need to get all charge info values mapped for this charge info from the
+			// map.
 			for (Map.Entry<Integer, MBHChargeInfoValue> currentInfoValue : infoValues.entrySet()) {
 				if (currentInfoValue.getValue().getBH_Charge_Info_ID() == defaultChargeInfo.getBH_Charge_Info_ID()) {
 					chargeInfoValue.setName(currentInfoValue.getValue().getName());
@@ -506,7 +507,7 @@ public class MBandaSetup {
 		MRefList userRoleReferenceList = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND" + " " + MReference_BH.Table_Name + "."
 						+ MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
-				getTransactionName())
+						getTransactionName())
 				.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
 						+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
 						+ MRefList.COLUMNNAME_AD_Reference_ID)
@@ -565,9 +566,9 @@ public class MBandaSetup {
 		Map<MRefList, MRole> rolesToConfigureByDBUserType = userTypeValues.stream().collect(HashMap::new,
 				(rolesToConfigureByDBUserTypeTemp, userTypeValue) -> rolesToConfigureByDBUserTypeTemp.put(userTypeValue,
 						clientRoles.stream()
-								.filter(clientRole -> clientRole.getName()
-										.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName())))
-								.findFirst().orElse(null)),
+						.filter(clientRole -> clientRole.getName()
+								.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName())))
+						.findFirst().orElse(null)),
 				HashMap::putAll);
 
 		// Ensure all the roles are present
@@ -620,7 +621,7 @@ public class MBandaSetup {
 	 * Handle updating document action access based on configured rules, if any.
 	 *
 	 * @return Whether the document action access exclusions were successfully
-	 * applied
+	 *         applied
 	 */
 	private boolean handleDocumentActionAccess(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the document action access exclusion values
@@ -630,8 +631,8 @@ public class MBandaSetup {
 		// We need to get a map of the default doc action exclusion IDs (which are for
 		// System) and map them to the ones
 		// assigned to this client
-//		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for
-//		iDempiere-8.2+
+		//		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for
+		//		iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient = new Query(context, MDocType.Table_Name,
 				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
@@ -639,10 +640,10 @@ public class MBandaSetup {
 				.filter(docType -> docType.getAD_Client_ID() == 0)
 				.collect(Collectors.toMap(MDocType::getC_DocType_ID,
 						systemDocType -> docTypesForSystemAndClient.stream()
-								.filter(docType -> docType.getAD_Client_ID() != 0
-										&& docType.getName().equals(systemDocType.getName()))
-								.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
-//		PO.clearCrossTenantSafe(); // disable what was done previously // <- uncomment for iDempiere-8.2+
+						.filter(docType -> docType.getAD_Client_ID() != 0
+						&& docType.getName().equals(systemDocType.getName()))
+						.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
+		//		PO.clearCrossTenantSafe(); // disable what was done previously // <- uncomment for iDempiere-8.2+
 
 		// Get all access for the roles we'll configure
 		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(Env.getCtx(),
@@ -652,7 +653,7 @@ public class MBandaSetup {
 						.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
 						.collect(Collectors.joining(","))
 						+ ")",
-				getTransactionName()).list();
+						getTransactionName()).list();
 		Map<Integer, List<X_AD_Document_Action_Access>> currentAccessByRole = currentAccessForRolesToConfigure.stream()
 				.collect(Collectors.groupingBy(X_AD_Document_Action_Access::getAD_Role_ID));
 
@@ -669,44 +670,44 @@ public class MBandaSetup {
 			// Remove the document action access that is currently assigned, but wasn't
 			// specified to be assigned
 			currentAccessForThisRole.stream()
-					.filter(currentAccess -> specifiedAccessForThisRole.stream().noneMatch(
-							specifiedAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
-									&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-									.get(specifiedAccess.getC_DocType_ID())))
-					.forEach(accessToRemove -> {
-						if (!accessToRemove.delete(true)) {
-							String errorMessage = "Could not remove document action access for Role, DocType, and RefList: "
-									+ role.getAD_Role_ID() + ", " + accessToRemove.getC_DocType_ID() + ", "
-									+ accessToRemove.getAD_Ref_List_ID();
-							log.log(Level.SEVERE, errorMessage);
-							info.append(errorMessage);
-							didSuccessfullyUpdateAllDocumentAccess.set(false);
-						}
-					});
+			.filter(currentAccess -> specifiedAccessForThisRole.stream().noneMatch(
+					specifiedAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
+					&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
+					.get(specifiedAccess.getC_DocType_ID())))
+			.forEach(accessToRemove -> {
+				if (!accessToRemove.delete(true)) {
+					String errorMessage = "Could not remove document action access for Role, DocType, and RefList: "
+							+ role.getAD_Role_ID() + ", " + accessToRemove.getC_DocType_ID() + ", "
+							+ accessToRemove.getAD_Ref_List_ID();
+					log.log(Level.SEVERE, errorMessage);
+					info.append(errorMessage);
+					didSuccessfullyUpdateAllDocumentAccess.set(false);
+				}
+			});
 
 			// Add document access that isn't currently assigned, but was specified to be
 			// assigned
 			specifiedAccessForThisRole.stream().filter(specifiedAccess -> currentAccessForThisRole.stream()
 					.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
-							&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-							.get(specifiedAccess.getC_DocType_ID())))
-					.forEach(accessToAdd -> {
-						X_AD_Document_Action_Access clientAccess = new X_AD_Document_Action_Access(context, 0,
-								getTransactionName());
-						clientAccess
-								.setC_DocType_ID(clientDocTypeIdsBySystemDocTypeIds.get(accessToAdd.getC_DocType_ID()));
-						clientAccess.setAD_Ref_List_ID(accessToAdd.getAD_Ref_List_ID());
-						clientAccess.setAD_Role_ID(role.getAD_Role_ID());
+					&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
+					.get(specifiedAccess.getC_DocType_ID())))
+			.forEach(accessToAdd -> {
+				X_AD_Document_Action_Access clientAccess = new X_AD_Document_Action_Access(context, 0,
+						getTransactionName());
+				clientAccess
+				.setC_DocType_ID(clientDocTypeIdsBySystemDocTypeIds.get(accessToAdd.getC_DocType_ID()));
+				clientAccess.setAD_Ref_List_ID(accessToAdd.getAD_Ref_List_ID());
+				clientAccess.setAD_Role_ID(role.getAD_Role_ID());
 
-						if (!clientAccess.save()) {
-							String errorMessage = "Could not add document action access for Role, DocType, and RefList: "
-									+ role.getAD_Role_ID() + ", " + clientAccess.getC_DocType_ID() + ", "
-									+ clientAccess.getAD_Ref_List_ID();
-							log.log(Level.SEVERE, errorMessage);
-							info.append(errorMessage);
-							didSuccessfullyUpdateAllDocumentAccess.set(false);
-						}
-					});
+				if (!clientAccess.save()) {
+					String errorMessage = "Could not add document action access for Role, DocType, and RefList: "
+							+ role.getAD_Role_ID() + ", " + clientAccess.getC_DocType_ID() + ", "
+							+ clientAccess.getAD_Ref_List_ID();
+					log.log(Level.SEVERE, errorMessage);
+					info.append(errorMessage);
+					didSuccessfullyUpdateAllDocumentAccess.set(false);
+				}
+			});
 		});
 
 		return didSuccessfullyUpdateAllDocumentAccess.get();
@@ -813,7 +814,7 @@ public class MBandaSetup {
 						+ rolesToConfigureByDBUserType.values().stream()
 						.map(role -> Integer.toString(role.getAD_Role_ID())).collect(Collectors.joining(","))
 						+ ")",
-				getTransactionName()).list();
+						getTransactionName()).list();
 		Map<Integer, List<MRoleIncluded>> currentIncludedRolesByRoleId = currentIncludedRolesForRolesToConfigure
 				.stream().collect(Collectors.groupingBy(MRoleIncluded::getAD_Role_ID));
 
@@ -825,35 +826,35 @@ public class MBandaSetup {
 					.collect(Collectors.toList());
 			List<MRoleIncluded> currentIncludedRolesForThisRole = currentIncludedRolesByRoleId.containsKey(
 					roleToConfigure.getAD_Role_ID()) ? currentIncludedRolesByRoleId.get(roleToConfigure.getAD_Role_ID())
-					: new ArrayList<>();
+							: new ArrayList<>();
 
 			// For any roles that are meant to be assigned but aren't, add them
 			// Filter out roles that are already assigned
 			defaultIncludedRolesForRole.stream()
-					.filter(defaultIncludedRole -> currentIncludedRolesForThisRole.stream()
-							.noneMatch(currentIncludedRole -> currentIncludedRole
-									.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
-					.forEach(includedRoleToAdd -> {
-						MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, getTransactionName());
-						roleIncluded.setIncluded_Role_ID(includedRoleToAdd.getIncluded_Role_ID());
-						roleIncluded.setAD_Role_ID(roleToConfigure.getAD_Role_ID());
-						int sequencerToUse = roleSequencers.get(roleToConfigure.getAD_Role_ID());
-						roleIncluded.setSeqNo(sequencerToUse);
-						roleSequencers.put(roleToConfigure.getAD_Role_ID(), sequencerToUse + sequencerIncrement);
-						roleIncluded.saveEx();
-					});
+			.filter(defaultIncludedRole -> currentIncludedRolesForThisRole.stream()
+					.noneMatch(currentIncludedRole -> currentIncludedRole
+							.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
+			.forEach(includedRoleToAdd -> {
+				MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, getTransactionName());
+				roleIncluded.setIncluded_Role_ID(includedRoleToAdd.getIncluded_Role_ID());
+				roleIncluded.setAD_Role_ID(roleToConfigure.getAD_Role_ID());
+				int sequencerToUse = roleSequencers.get(roleToConfigure.getAD_Role_ID());
+				roleIncluded.setSeqNo(sequencerToUse);
+				roleSequencers.put(roleToConfigure.getAD_Role_ID(), sequencerToUse + sequencerIncrement);
+				roleIncluded.saveEx();
+			});
 
 			// For any roles that are assigned but shouldn't be, remove them
 			currentIncludedRolesForThisRole.stream()
-					.filter(currentIncludedRole -> defaultIncludedRolesForRole.stream()
-							.noneMatch(defaultIncludedRole -> currentIncludedRole
-									.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
-					.forEach(includedRoleToRemove -> {
-						if (!includedRoleToRemove.delete(true)) {
-							log.severe("Could not remove included role " + includedRoleToRemove.getIncluded_Role_ID());
-							didSuccessfullyUpdateAllIncludedRoles.set(false);
-						}
-					});
+			.filter(currentIncludedRole -> defaultIncludedRolesForRole.stream()
+					.noneMatch(defaultIncludedRole -> currentIncludedRole
+							.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
+			.forEach(includedRoleToRemove -> {
+				if (!includedRoleToRemove.delete(true)) {
+					log.severe("Could not remove included role " + includedRoleToRemove.getIncluded_Role_ID());
+					didSuccessfullyUpdateAllIncludedRoles.set(false);
+				}
+			});
 		});
 
 		if (!didSuccessfullyUpdateAllIncludedRoles.get()) {
@@ -955,7 +956,7 @@ public class MBandaSetup {
 		}
 		if (inTransitAccountValue != null && inTransitAccount == null) {
 			info.append("No Account Element found for value ").append(inTransitAccountValue)
-					.append(". Using default In-Transit Account value");
+			.append(". Using default In-Transit Account value");
 		}
 
 		return updateAccountMappingsForBankAccount(bankAccount, inTransitAccount);
@@ -1037,17 +1038,18 @@ public class MBandaSetup {
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
 		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
-				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)",
-				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
+				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
 
 		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
 				.filter(elementValue -> elementValue.getAD_Client_ID() == getAD_Client_ID())
 				.collect(Collectors.toMap(MElementValue::getValue, elementValue -> elementValue));
 
 		return accountElementsForTwoClients.stream()
-				.filter(elementValue -> elementValue.getAD_Client_ID() == MClient_BH.CLIENTID_CONFIG).collect(Collectors
-						.toMap(MElementValue::getC_ElementValue_ID, elementValue -> newClientAccountElementIdsByValue
-								.getOrDefault(elementValue.getValue(), new MElementValue(Env.getCtx(), 0, null))));
+				.filter(elementValue -> elementValue.getAD_Client_ID() == MClient_BH.CLIENTID_CONFIG)
+				.collect(Collectors.toMap(MElementValue::getC_ElementValue_ID,
+						elementValue -> newClientAccountElementIdsByValue.getOrDefault(elementValue.getValue(),
+								new MElementValue(Env.getCtx(), 0, null))));
 	}
 
 	/**
@@ -1062,50 +1064,51 @@ public class MBandaSetup {
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
-	
-	
+
 	/** Custom warehouse configuration */
 	public boolean updateWarehouseLocatorSetUp() {
 		// get the default warehouse and locator->rename and set to locator as default
 		MWarehouse wareHouse = new Query(this.context, MWarehouse.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
 				getTransactionName()).setParameters(client.getAD_Client_ID()).first();
 		MLocator locator = new Query(this.context, MLocator.Table_Name,
-				MWarehouse.COLUMNNAME_AD_Client_ID + "=? AND " + MLocator.COLUMNNAME_M_Warehouse_ID + "=?", getTransactionName())
-						.setParameters(getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
+				MWarehouse.COLUMNNAME_AD_Client_ID + "=? AND " + MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
+				getTransactionName()).setParameters(getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
 		locator.setIsDefault(true);
 		locator.setValue(organization.getName());
 		wareHouse.setName(organization.getName());
 		wareHouse.setValue(organization.getName());
-		if(!locator.save()) {
+		if (!locator.save()) {
 			transaction.rollback();
 			transaction.close();
 			return false;
 		}
-		if(!wareHouse.save()) {
+		if (!wareHouse.save()) {
 			transaction.rollback();
 			transaction.close();
 			return false;
 		}
 		return true;
 	}
-	
-	/** 
+
+	/**
 	 * Create a price list and an associated version
-	 * @param priceListName name of the price-list
+	 * 
+	 * @param priceListName        name of the price-list
 	 * @param priceListVersionName name of the price-list version
-	 * @param isSalePriceList 
+	 * @param isSalePriceList
 	 * @return success or failure
 	 */
 	public boolean createPriceList(String priceListName, String priceListVersionName, boolean isSalePriceList) {
-//		// delete default price-list and version
-		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=? AND " + MPriceList.COLUMNNAME_Name + " =?",
+		//		// delete default price-list and version
+		MPriceList priceList = new Query(this.context, MPriceList.Table_Name,
+				MPriceList.COLUMNNAME_AD_Client_ID + "=? AND " + MPriceList.COLUMNNAME_Name + " =?",
 				getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
-		if(priceList != null) {
+		if (priceList != null) {
 			MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
-				if (defaultPriceListVersion.delete(true)) {
-		//TODO Reset address on this warehouse
-					priceList.delete(true);
-				}
+			if (defaultPriceListVersion.delete(true)) {
+				// TODO Reset address on this warehouse
+				priceList.delete(true);
+			}
 		}
 		// create default price-lists for sales and purchases
 		MPriceList bandaPriceList = new MPriceList(this.context, 0, getTransactionName());
@@ -1115,29 +1118,29 @@ public class MBandaSetup {
 		bandaPriceList.setAD_Org_ID(getAD_Org_ID());
 		bandaPriceList.setIsActive(true);
 		bandaPriceList.setC_Currency_ID(client.getC_Currency_ID());
-		if(!bandaPriceList.save()) {
+		if (!bandaPriceList.save()) {
 			log.log(Level.SEVERE, "Price-list not saved");
 			transaction.rollback();
 			transaction.close();
 			return false;
 		}
-		
-		MDiscountSchema discountSchema = new Query(context, MDiscountSchema.Table_Name, 
-				MDiscountSchema.COLUMNNAME_AD_Client_ID + "=? AND " + MDiscountSchema.COLUMNNAME_Name 
-				+ " =?", getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
-		//create default price-list version 
+
+		MDiscountSchema discountSchema = new Query(context, MDiscountSchema.Table_Name,
+				MDiscountSchema.COLUMNNAME_AD_Client_ID + "=? AND " + MDiscountSchema.COLUMNNAME_Name + " =?",
+				getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
+		// create default price-list version
 		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
 		priceListVersion.setName(priceListVersionName);
 		priceListVersion.setIsActive(true);
 		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
 		priceListVersion.setM_DiscountSchema_ID(discountSchema.get_ID());
-		if(!priceListVersion.save()) {
+		if (!priceListVersion.save()) {
 			log.log(Level.SEVERE, "Price-list version not saved");
 			transaction.rollback();
 			transaction.close();
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -1147,7 +1150,7 @@ public class MBandaSetup {
 		// un-check automatic period control in accounting schema
 		MAcctSchema accountingSchema = new Query(context, MAcctSchema.Table_Name,
 				MAcctSchema.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
-						.first();
+				.first();
 		accountingSchema.setAutoPeriodControl(false);
 		if (!accountingSchema.save()) {
 			log.log(Level.SEVERE, "Failed: In activate automatic period control");
@@ -1161,30 +1164,30 @@ public class MBandaSetup {
 				.setParameters(getAD_Client_ID()).first();
 		List<MPeriod> calendarPeriods = new Query(context, MPeriod.Table_Name,
 				MPeriod.COLUMNNAME_AD_Client_ID + "=? AND " + MPeriod.COLUMNNAME_C_Year_ID + "=?", getTransactionName())
-						.setParameters(getAD_Client_ID(), year.getC_Year_ID()).list();
-		
-		//set the record IDs for the periods to be opened.
+				.setParameters(getAD_Client_ID(), year.getC_Year_ID()).list();
+
+		// set the record IDs for the periods to be opened.
 		List<Integer> recordIDs = calendarPeriods.stream().map(MPeriod::get_ID).collect(Collectors.toList());
 
-			ProcessInfoParameter p1 = new ProcessInfoParameter("PeriodAction", "O", "", "Open Period", "");
-			ProcessInfo processInfo = new ProcessInfo("process info", 0, 0, 0);
-			processInfo.setParameter(new ProcessInfoParameter[] { p1 });
-			processInfo.setRecord_IDs(recordIDs);
+		ProcessInfoParameter p1 = new ProcessInfoParameter("PeriodAction", "O", "", "Open Period", "");
+		ProcessInfo processInfo = new ProcessInfo("process info", 0, 0, 0);
+		processInfo.setParameter(new ProcessInfoParameter[] { p1 });
+		processInfo.setRecord_IDs(recordIDs);
 
-			MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
-					getTransactionName()).setParameters("C_Period_Process").first();
-			if (process == null) {
-				log.severe("Failure: Could not find process");
-			}
-			//Can use this save to resume process?
-			MPInstance instance = new MPInstance(context, 0, null);
-			instance.setAD_Process_ID(process.get_ID());
-			instance.setRecord_ID(0);
-			if (!instance.save()) {
-				log.warning("Failure: Could not save process instance");
-			}
-			processInfo.setAD_PInstance_ID(instance.get_ID());
-			result = process.processIt(processInfo, null);
+		MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
+				getTransactionName()).setParameters("C_Period_Process").first();
+		if (process == null) {
+			log.severe("Failure: Could not find process");
+		}
+		// Can use this save to resume process?
+		MPInstance instance = new MPInstance(context, 0, null);
+		instance.setAD_Process_ID(process.get_ID());
+		instance.setRecord_ID(0);
+		if (!instance.save()) {
+			log.warning("Failure: Could not save process instance");
+		}
+		processInfo.setAD_PInstance_ID(instance.get_ID());
+		result = process.processIt(processInfo, null);
 		return result;
 	}
 
