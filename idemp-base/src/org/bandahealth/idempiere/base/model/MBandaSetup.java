@@ -1103,6 +1103,7 @@ public class MBandaSetup {
 		if(priceList != null) {
 			MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
 				if (defaultPriceListVersion.delete(true)) {
+		//TODO Reset address on this warehouse
 					priceList.delete(true);
 				}
 		}
