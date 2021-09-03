@@ -98,9 +98,9 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 						.filter(mapping -> ICD_10_WHO.equals(mapping.getToSourceName())).findFirst().orElse(null);
 				Map<String, String> extras = codedDiagnosis.getExtras();
 
-				foundCodedDiagnosis.setBH_CeilName(codedDiagnosis.getDisplayName());
+				foundCodedDiagnosis.setBH_CielName(codedDiagnosis.getDisplayName());
 				foundCodedDiagnosis
-						.setBH_CeilId(cielMapping != null ? Integer.valueOf(cielMapping.getToConceptCode()) : null);
+						.setBH_CielId(cielMapping != null ? Integer.valueOf(cielMapping.getToConceptCode()) : null);
 				foundCodedDiagnosis.setBH_ConceptClass(codedDiagnosis.getConceptClass());
 				foundCodedDiagnosis.setBH_ICD10(icd10wHOMapping != null ? icd10wHOMapping.getToConceptCode() : null);
 				foundCodedDiagnosis.setBH_MoH705ALessThan5(extras.get(MOH_705A_LESSTHAN5));
