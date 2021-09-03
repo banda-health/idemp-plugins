@@ -1076,7 +1076,6 @@ public class MBandaSetup {
 		locator.setValue(organization.getName());
 		wareHouse.setName(organization.getName());
 		wareHouse.setValue(organization.getName());
-		//TODO Reset address on this warehouse
 		if(!locator.save()) {
 			transaction.rollback();
 			transaction.close();
@@ -1092,12 +1091,12 @@ public class MBandaSetup {
 	
 	/** 
 	 * Create a price list and an associated version
-	 * @param plName name of the price-list
-	 * @param plVName name of the price-list version
+	 * @param priceListName name of the price-list
+	 * @param priceListVersionName name of the price-list version
 	 * @param isSalePriceList 
 	 * @return success or failure
 	 */
-	public boolean createPriceList(String plName, String plVName, boolean isSalePriceList) {
+	public boolean createPriceList(String priceListName, String priceListVersionName, boolean isSalePriceList) {
 //		// delete default price-list and version
 		MPriceList priceList = new Query(this.context, MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=? AND " + MPriceList.COLUMNNAME_Name + " =?",
 				getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
@@ -1109,7 +1108,7 @@ public class MBandaSetup {
 		}
 		// create default price-lists for sales and purchases
 		MPriceList bandaPriceList = new MPriceList(this.context, 0, getTransactionName());
-		bandaPriceList.setName(plName);
+		bandaPriceList.setName(priceListName);
 		bandaPriceList.setIsSOPriceList(isSalePriceList);
 		bandaPriceList.setIsDefault(true);
 		bandaPriceList.setAD_Org_ID(getAD_Org_ID());
@@ -1127,7 +1126,7 @@ public class MBandaSetup {
 				+ " =?", getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
 		//create default price-list version 
 		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
-		priceListVersion.setName(plVName);
+		priceListVersion.setName(priceListVersionName);
 		priceListVersion.setIsActive(true);
 		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
 		priceListVersion.setM_DiscountSchema_ID(discountSchema.get_ID());
