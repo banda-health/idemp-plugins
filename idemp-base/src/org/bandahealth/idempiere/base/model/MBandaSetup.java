@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.base.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -35,9 +33,7 @@ import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
-import org.compiere.model.MSysConfig;
 import org.compiere.model.MTable;
-import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.MYear;
@@ -45,7 +41,6 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
-import org.compiere.model.X_C_ElementValue;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogger;
@@ -53,8 +48,6 @@ import org.compiere.util.CacheMgt;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
-
-import com.sun.net.httpserver.Authenticator.Result;
 
 /**
  * Initial setup of a client, but with the additional things needed in Banda Go
@@ -1157,7 +1150,7 @@ public class MBandaSetup {
 			transaction.rollback();
 			transaction.close();
 		}
-		// reset cache- util method
+		
 		CacheMgt.get().resetLocalCache();
 		// run 'Open All' process on all documents for the calendar period
 		MYear year = new Query(context, MYear.Table_Name, MYear.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
