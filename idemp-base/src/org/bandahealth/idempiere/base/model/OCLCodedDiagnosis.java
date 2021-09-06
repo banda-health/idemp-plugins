@@ -2,9 +2,14 @@ package org.bandahealth.idempiere.base.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.StreamSupport;
+
+import org.bandahealth.idempiere.base.utils.JsonUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -31,34 +36,44 @@ public class OCLCodedDiagnosis {
 	private String versionCreatedOn;
 	private boolean isLatestVersion;
 	private List<OCLCodedDiagnosisMapping> mappings = new ArrayList<OCLCodedDiagnosisMapping>();
-	private Map<String, String> extras = new HashMap<String, String>();
+	private Map<String, String> extras = new LinkedHashMap<String, String>();
 
 	public OCLCodedDiagnosis() {
 	}
 
 	public OCLCodedDiagnosis(JsonNode node) {
-		setUuid(node.get("uuid").asText());
-		setId(node.get("id").asText());
-		setExternalId(node.get("external_id").asText());
-		setConceptClass(node.get("concept_class").asText());
-		setDatatype(node.get("datatype").asText());
-		setUrl(node.get("url").asText());
-		setRetired(node.get("retired").asBoolean());
-		setSource(node.get("source").asText());
-		setOwner(node.get("owner").asText());
-		setOwnerType(node.get("owner_type").asText());
-		setDisplayName(node.get("display_name").asText());
-		setDisplayLocale(node.get("display_locale").asText());
-		setVersion(node.get("version").asText());
-		setUpdateComment(node.get("update_comment").asText());
-		setLocale(node.get("locale").asText());
-		setVersionCreatedBy(node.get("version_created_by").asText());
-		setVersionCreatedOn(node.get("version_created_on").asText());
-		setLatestVersion(node.get("is_latest_version").asBoolean());
+		setUuid(JsonUtils.getValue(node.get("uuid")));
+		setId(JsonUtils.getValue(node.get("id")));
+		setExternalId(JsonUtils.getValue(node.get("external_id")));
+		setConceptClass(JsonUtils.getValue(node.get("concept_class")));
+		setDatatype(JsonUtils.getValue(node.get("datatype")));
+		setUrl(JsonUtils.getValue(node.get("url")));
+		setRetired(JsonUtils.getBoolValue(node.get("retired")));
+		setSource(JsonUtils.getValue(node.get("source")));
+		setOwner(JsonUtils.getValue(node.get("owner")));
+		setOwnerType(JsonUtils.getValue(node.get("owner_type")));
+		setDisplayName(JsonUtils.getValue(node.get("display_name")));
+		setDisplayLocale(JsonUtils.getValue(node.get("display_locale")));
+		setVersion(JsonUtils.getValue(node.get("version")));
+		setUpdateComment(JsonUtils.getValue(node.get("update_comment")));
+		setLocale(JsonUtils.getValue(node.get("locale")));
+		setVersionCreatedBy(JsonUtils.getValue(node.get("version_created_by")));
+		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")));
+		setLatestVersion(JsonUtils.getBoolValue(node.get("is_latest_version")));
 
-		StreamSupport.stream(node.get("mappings").spliterator(), false).forEach(mapping -> {
-			addMapping(new OCLCodedDiagnosisMapping(mapping));
-		});
+		if (node.get("mappings") != null) {
+			StreamSupport.stream(node.get("mappings").spliterator(), false).forEach(mapping -> {
+				addMapping(new OCLCodedDiagnosisMapping(mapping));
+			});
+		}
+
+		if (node.get("extras") != null) {
+			Iterator<Entry<String, JsonNode>> iterator = node.get("extras").fields();
+			while (iterator.hasNext()) {
+				Entry<String, JsonNode> entry = iterator.next();
+				addExtra(entry.getKey(), entry.getValue().asText());
+			}
+		}
 	}
 
 	public String getUuid() {
@@ -227,5 +242,9 @@ public class OCLCodedDiagnosis {
 
 	public void setExtras(Map<String, String> extras) {
 		this.extras = extras;
+	}
+
+	public void addExtra(String key, String value) {
+		this.getExtras().put(key, value);
 	}
 }

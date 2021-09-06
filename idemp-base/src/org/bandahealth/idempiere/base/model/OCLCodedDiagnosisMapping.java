@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.bandahealth.idempiere.base.utils.JsonUtils;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class OCLCodedDiagnosisMapping {
@@ -51,48 +53,47 @@ public class OCLCodedDiagnosisMapping {
 	}
 
 	public OCLCodedDiagnosisMapping(JsonNode node) {
-		setExternalId(node.get("external_id").asText());
-		setRetired(node.get("retired").asBoolean());
-		setMapType(node.get("map_type").asText());
-		setSource(node.get("source").asText());
-		setOwner(node.get("owner").asText());
-		setOwerType(node.get("owner_type").asText());
-		setFromConceptCode(node.get("from_concept_code").asText());
-		setFromConceptName(node.get("from_concept_name").asText());
-		setToConceptCode(node.get("to_concept_code").asText());
-		setToConceptName(node.get("to_concept_name").asText());
-		setToConceptUrl(node.get("to_concept_url").asText());
-		setFromSourceOwner(node.get("from_source_owner").asText());
-		setFromSourceOwnerType(node.get("from_source_owner_type").asText());
-		setFromSourceUrl(node.get("from_source_url").asText());
-		setFromSourceName(node.get("from_source_name").asText());
-		setToSourceOwner(node.get("to_source_owner").asText());
-		setToSourceOwnerType(node.get("to_source_owner_type").asText());
-		setToSourceUrl(node.get("to_source_url").asText());
-		setToSourceName(node.get("to_source_name").asText());
-		setUrl(node.get("url").asText());
-		setVersion(node.get("version").asText());
-		setId(node.get("id").asText());
-		setVersionedObjectId(node.get("versioned_object_id").asInt());
-		setVersionedObjectUrl(node.get("versioned_object_url").asText());
-		setLatestVersion(node.get("is_latest_version").asBoolean());
-		setUpdateComment(node.get("update_comment").asText());
-		setVersionUrl(node.get("version_url").asText());
-		setUuid(node.get("uuid").asText());
-		setVersionCreatedOn(node.get("version_created_on").asText());
-		setFromSourceVersion(node.get("from_source_version").asText());
-		setToSourceVersion(node.get("to_source_version").asText());
-		setFromConceptNameResolved(node.get("from_concept_name_resolved").asText());
-		setToConceptNameResolved(
-				node.get("to_concept_name_resolved") != null ? node.get("to_concept_name_resolved").asText() : null);
-		setExtras(node.get("extras"));
-		setType(node.get("type").asText());
-		setCreatedOn(node.get("created_on").asText());
-		setUpdatedOn(node.get("updated_on").asText());
-		setCreatedBy(node.get("created_by").asText());
-		setUpdatedBy(node.get("updated_by").asText());
-		setInternalReferenceId(node.get("internal_reference_id").asText());
-		setPublicCaniew(node.get("public_can_view").asBoolean());
+		setExternalId(JsonUtils.getValue(node.get("external_id")));
+		setRetired(JsonUtils.getBoolValue(node.get("retired")));
+		setMapType(JsonUtils.getValue(node.get("map_type")));
+		setSource(JsonUtils.getValue(node.get("source")));
+		setOwner(JsonUtils.getValue(node.get("owner")));
+		setOwerType(JsonUtils.getValue(node.get("owner_type")));
+		setFromConceptCode(JsonUtils.getValue(node.get("from_concept_code")));
+		setFromConceptName(JsonUtils.getValue(node.get("from_concept_name")));
+		setToConceptCode(JsonUtils.getValue(node.get("to_concept_code")));
+		setToConceptName(JsonUtils.getValue(node.get("to_concept_name")));
+		setToConceptUrl(JsonUtils.getValue(node.get("to_concept_url")));
+		setFromSourceOwner(JsonUtils.getValue(node.get("from_source_owner")));
+		setFromSourceOwnerType(JsonUtils.getValue(node.get("from_source_owner_type")));
+		setFromSourceUrl(JsonUtils.getValue(node.get("from_source_url")));
+		setFromSourceName(JsonUtils.getValue(node.get("from_source_name")));
+		setToSourceOwner(JsonUtils.getValue(node.get("to_source_owner")));
+		setToSourceOwnerType(JsonUtils.getValue(node.get("to_source_owner_type")));
+		setToSourceUrl(JsonUtils.getValue(node.get("to_source_url")));
+		setToSourceName(JsonUtils.getValue(node.get("to_source_name")));
+		setUrl(JsonUtils.getValue(node.get("url")));
+		setVersion(JsonUtils.getValue(node.get("version")));
+		setId(JsonUtils.getValue(node.get("id")));
+		setVersionedObjectId(JsonUtils.getIntValue(node.get("versioned_object_id")));
+		setVersionedObjectUrl(JsonUtils.getValue(node.get("versioned_object_url")));
+		setLatestVersion(JsonUtils.getBoolValue(node.get("is_latest_version")));
+		setUpdateComment(JsonUtils.getValue(node.get("update_comment")));
+		setVersionUrl(JsonUtils.getValue(node.get("version_url")));
+		setUuid(JsonUtils.getValue(node.get("uuid")));
+		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")));
+		setFromSourceVersion(JsonUtils.getValue(node.get("from_source_version")));
+		setToSourceVersion(JsonUtils.getValue(node.get("to_source_version")));
+		setFromConceptNameResolved(JsonUtils.getValue(node.get("from_concept_name_resolved")));
+		setToConceptNameResolved(JsonUtils.getValue(node.get("to_concept_name_resolved")));
+		setExtras(JsonUtils.getValue(node.get("extras")));
+		setType(JsonUtils.getValue(node.get("type")));
+		setCreatedOn(JsonUtils.getValue(node.get("created_on")));
+		setUpdatedOn(JsonUtils.getValue(node.get("updated_on")));
+		setCreatedBy(JsonUtils.getValue(node.get("created_by")));
+		setUpdatedBy(JsonUtils.getValue(node.get("updated_by")));
+		setInternalReferenceId(JsonUtils.getValue(node.get("internal_reference_id")));
+		setPublicCaniew(JsonUtils.getBoolValue(node.get("public_can_view")));
 	}
 
 	public String getExternalId() {

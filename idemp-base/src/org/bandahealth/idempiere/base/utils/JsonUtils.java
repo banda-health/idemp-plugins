@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtils {
@@ -31,5 +32,29 @@ public class JsonUtils {
 		ObjectMapper mapper = new ObjectMapper();
 
 		return mapper.writeValueAsString(object);
+	}
+
+	public static String getValue(JsonNode node) {
+		if (node == null) {
+			return "";
+		}
+		
+		return node.asText();
+	}
+
+	public static int getIntValue(JsonNode node) {
+		if (node == null) {
+			return 0;
+		}
+		
+		return node.asInt();
+	}
+
+	public static boolean getBoolValue(JsonNode node) {
+		if (node == null) {
+			return false;
+		}
+		
+		return node.asBoolean();
 	}
 }

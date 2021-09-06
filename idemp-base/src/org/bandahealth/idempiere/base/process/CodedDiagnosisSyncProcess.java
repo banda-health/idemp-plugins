@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -55,8 +56,12 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	 */
 	@Override
 	protected String doIt() throws Exception {
+		log.log(Level.INFO, "CodedDiagnosisSyncProcess sync OCL-BHGo diagnosis");
+		long start = System.currentTimeMillis();
 		int page = 1;
 		boolean hasResults = true;
+		AtomicInteger newRecords = new AtomicInteger(0);
+		AtomicInteger updatedRecords = new AtomicInteger(0);
 
 		do {
 			List<OCLCodedDiagnosis> codedDiagnoses = getCodedDiagnosisFromOCL(page);
@@ -87,8 +92,10 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 							codedDiagnosis.getExternalId() != null && !codedDiagnosis.getExternalId().isEmpty()
 									? codedDiagnosis.getExternalId()
 									: codedDiagnosis.getUuid());
+					newRecords.incrementAndGet();
 				} else {
 					foundCodedDiagnosis.setIsActive(codedDiagnosis.isRetired());
+					updatedRecords.incrementAndGet();
 				}
 
 				List<OCLCodedDiagnosisMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
@@ -99,8 +106,11 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 				Map<String, String> extras = codedDiagnosis.getExtras();
 
 				foundCodedDiagnosis.setBH_CielName(codedDiagnosis.getDisplayName());
-				foundCodedDiagnosis
-						.setBH_CielId(cielMapping != null ? Integer.valueOf(cielMapping.getToConceptCode()) : null);
+
+				if (cielMapping != null && cielMapping.getToConceptCode() != null) {
+					foundCodedDiagnosis.setBH_CielId(Integer.valueOf(cielMapping.getToConceptCode()));
+				}
+
 				foundCodedDiagnosis.setBH_ConceptClass(codedDiagnosis.getConceptClass());
 				foundCodedDiagnosis.setBH_ICD10(icd10wHOMapping != null ? icd10wHOMapping.getToConceptCode() : null);
 				foundCodedDiagnosis.setBH_MoH705ALessThan5(extras.get(MOH_705A_LESSTHAN5));
@@ -112,6 +122,9 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 			page++;
 		} while (hasResults);
+
+		log.log(Level.INFO, "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
+				+ " records in " + (System.currentTimeMillis() - start) / 1000 + " secs");
 
 		return null;
 	}
