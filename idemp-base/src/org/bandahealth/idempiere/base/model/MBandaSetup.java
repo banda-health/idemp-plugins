@@ -85,6 +85,7 @@ public class MBandaSetup {
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
 	protected CLogger log = CLogger.getCLogger(getClass());
+	private final String DEFAULT_IDEMPIERE_ENTITY_NAME = "Standard";
 	private StringBuffer info;
 
 	public MBandaSetup(Properties ctx, MClient client, MOrg organization) {
@@ -1095,7 +1096,7 @@ public class MBandaSetup {
 		//		// delete default price-list and version
 		MPriceList priceList = new Query(this.context, MPriceList.Table_Name,
 				MPriceList.COLUMNNAME_AD_Client_ID + "=? AND " + MPriceList.COLUMNNAME_Name + " =?",
-				getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
+				getTransactionName()).setParameters(getAD_Client_ID(), DEFAULT_IDEMPIERE_ENTITY_NAME).first();
 		if (priceList != null) {
 			MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
 			if (defaultPriceListVersion.delete(true)) {
@@ -1120,7 +1121,7 @@ public class MBandaSetup {
 
 		MDiscountSchema discountSchema = new Query(context, MDiscountSchema.Table_Name,
 				MDiscountSchema.COLUMNNAME_AD_Client_ID + "=? AND " + MDiscountSchema.COLUMNNAME_Name + " =?",
-				getTransactionName()).setParameters(getAD_Client_ID(), "Standard").first();
+				getTransactionName()).setParameters(getAD_Client_ID(), DEFAULT_IDEMPIERE_ENTITY_NAME).first();
 		// create default price-list version
 		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
 		priceListVersion.setName(priceListVersionName);
@@ -1139,6 +1140,12 @@ public class MBandaSetup {
 
 	/** Configure accounting periods */
 	public boolean openCalendarYearPeriods() {
+		final String CALENDAR_PROCESS_INFO_NAME = "Calendar Process Info";
+		final String CALENDAR_PROCESS_PARAM_NAME= "PeriodAction";
+		final String CALENDAR_PROCESS_PARAM_ACTION = "O";
+		final String CALENDAR_PROCESS_PARAM_INFO = "Open Period";
+		final String CALENDAR_PROCESS_NAME = "C_Period_Process";
+		
 		boolean result = false;
 		// un-check automatic period control in accounting schema
 		MAcctSchema accountingSchema = new Query(context, MAcctSchema.Table_Name,
@@ -1162,13 +1169,13 @@ public class MBandaSetup {
 		// set the record IDs for the periods to be opened.
 		List<Integer> recordIDs = calendarPeriods.stream().map(MPeriod::get_ID).collect(Collectors.toList());
 
-		ProcessInfoParameter p1 = new ProcessInfoParameter("PeriodAction", "O", "", "Open Period", "");
-		ProcessInfo processInfo = new ProcessInfo("process info", 0, 0, 0);
-		processInfo.setParameter(new ProcessInfoParameter[] { p1 });
+		ProcessInfoParameter parameter1 = new ProcessInfoParameter(CALENDAR_PROCESS_PARAM_NAME, CALENDAR_PROCESS_PARAM_ACTION, "", CALENDAR_PROCESS_PARAM_INFO, "");
+		ProcessInfo processInfo = new ProcessInfo(CALENDAR_PROCESS_INFO_NAME, 0, 0, 0);
+		processInfo.setParameter(new ProcessInfoParameter[] { parameter1 });
 		processInfo.setRecord_IDs(recordIDs);
 
 		MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
-				getTransactionName()).setParameters("C_Period_Process").first();
+				getTransactionName()).setParameters(CALENDAR_PROCESS_NAME).first();
 		if (process == null) {
 			log.severe("Failure: Could not find process");
 		}

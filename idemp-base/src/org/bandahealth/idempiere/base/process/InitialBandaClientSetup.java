@@ -79,6 +79,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
 	private int usersId;
+	
+	private final String SALES_PRICE_LIST_NAME = "Sales";
+	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
+	private final String PURCHASES_PRICE_LIST_NAME = "Purchases";
+	private final String PURCHASES_PRICE_LIST_VERSION_NAME = "Purchases PriceList Version 1";
 
 	/**
 	 * Prepare
@@ -221,11 +226,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Warehouse setup failed"));
 			}
-			if (!bandaSetup.createPriceList("Purchases", "Purchases Price List Version 1", false)) {
+			if (!bandaSetup.createPriceList(PURCHASES_PRICE_LIST_NAME, PURCHASES_PRICE_LIST_VERSION_NAME, false)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Purchase Price List Setup failed"));
 			}
-			if(!bandaSetup.createPriceList("Sales", "Sales Price List Version 1", true)) {
+			if(!bandaSetup.createPriceList(SALES_PRICE_LIST_NAME, SALES_PRICE_LIST_VERSION_NAME, true)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Sales Price List setup failed"));
 			}
