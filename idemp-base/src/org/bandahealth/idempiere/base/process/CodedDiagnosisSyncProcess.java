@@ -123,10 +123,12 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 			page++;
 		} while (hasResults);
 
-		log.log(Level.INFO, "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
-				+ " records in " + (System.currentTimeMillis() - start) / 1000 + " secs");
+		String successMessage = "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
+				+ " records in " + (System.currentTimeMillis() - start) / 1000 + " secs";
 
-		return null;
+		log.log(Level.INFO, successMessage);
+
+		return successMessage;
 	}
 
 	private List<OCLCodedDiagnosis> getCodedDiagnosisFromOCL(int page) {
