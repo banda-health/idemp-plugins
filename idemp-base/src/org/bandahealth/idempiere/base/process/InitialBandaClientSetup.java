@@ -4,6 +4,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -81,7 +82,6 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
-	private final Integer SYSTEM_ROLE_ID = 0;
 	
 	private final String SALES_PRICE_LIST_NAME = "Sales";
 	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
@@ -93,7 +93,6 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 */
 	protected void prepare() {
 		usersClientId = getAD_Client_ID();
-		usersId = getAD_User_ID();
 
 		addCoAFileValueToParametersBasedOnClientType();
 		ProcessInfoParameter[] para = getParameter();
@@ -285,7 +284,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 						.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
 								+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
 								+ MUserRoles.COLUMNNAME_AD_User_ID)
-						.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, SYSTEM_ROLE_ID).list();
+						.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, MRole_BH.SYSTEM_ROLE_ID).list();
 		Set<Integer> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
 
 		String whereClause = "?,".repeat(clientRoles.size());
