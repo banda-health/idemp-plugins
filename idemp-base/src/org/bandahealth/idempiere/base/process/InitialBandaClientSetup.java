@@ -82,7 +82,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	
 	private final String SALES_PRICE_LIST_NAME = "Sales";
 	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
-	private final String PURCHASES_PRICE_LIST_NAME = "Purchases";
+	private final String PURCHASES_PRICE_LIST_NAME = "Purchase";
 	private final String PURCHASES_PRICE_LIST_VERSION_NAME = "Purchases PriceList Version 1";
 
 	/**
@@ -270,36 +270,45 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * logged-in user
 	 */
 	private void addCreatedUserRolesToLoggedInUser(int clientId, int orgId) {
-		List<MRole> clientRoles = new Query(
-				getCtx(),
-				MRole.Table_Name,
-				MRole.COLUMNNAME_AD_Client_ID + "=?",
-				get_TrxName()
-		)
-				.setParameters(clientId)
-				.list();
+		List<MRole> clientRoles = new Query(getCtx(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
+				get_TrxName()).setParameters(clientId).list();
+
+		List<MUser_BH> systemAdministrators = new Query(getCtx(), MUser_BH.Table_Name,
+				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " >= ? AND " + MUserRoles.Table_Name + "."
+						+ MUserRoles.COLUMNNAME_AD_Role_ID + "=? ",
+				get_TrxName())
+						.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
+								+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
+								+ MUserRoles.COLUMNNAME_AD_User_ID)
+						.setParameters(1000000, 0).list();
+		List<Object> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID)
+				.collect(Collectors.toList());
+
 		String whereClause = "?,".repeat(clientRoles.size());
 		whereClause = whereClause.substring(0, whereClause.length() - 1);
+
+		String sysAdminCountWhereClause = "?,".repeat(systemUsersToAdd.size());
+		sysAdminCountWhereClause = sysAdminCountWhereClause.substring(0, sysAdminCountWhereClause.length() - 1);
+
 		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
-		parameters.add(usersId);
-		List<MUserRoles> usersAssignedClientRoles = new Query(
-				getCtx(),
-				MUserRoles.Table_Name,
-				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ") AND " +
-						MUserRoles.COLUMNNAME_AD_User_ID + "=?",
-				get_TrxName()
-		)
-				.setParameters(parameters)
-				.list();
-		// If any roles have already been assigned for this user and client, we don't need to do anything
+		parameters.addAll(systemUsersToAdd);
+		List<MUserRoles> usersAssignedClientRoles = new Query(getCtx(), MUserRoles.Table_Name,
+				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ")" + " AND "
+						+ MUserRoles.COLUMNNAME_AD_User_ID + " IN (" + sysAdminCountWhereClause + ")",
+				get_TrxName()).setParameters(parameters).list();
+		// If any roles have already been assigned for this user and client, we don't
+		// need to do anything
 		if (usersAssignedClientRoles.size() > 0) {
 			return;
 		}
-		clientRoles.forEach(clientRole -> {
-			MUserRoles roleToAssign = new MUserRoles(getCtx(), usersId, clientRole.getAD_Role_ID(), get_TrxName());
-			roleToAssign.setAD_Org_ID(orgId);
-			roleToAssign.saveEx();
-		});
+		for (MUser_BH user : systemAdministrators) {
+			clientRoles.forEach(clientRole -> {
+				MUserRoles roleToAssign = new MUserRoles(getCtx(), user.get_ID(), clientRole.getAD_Role_ID(),
+						get_TrxName());
+				roleToAssign.setAD_Org_ID(orgId);
+				roleToAssign.saveEx();
+			});
+		}
 	}
 
 	private void rollback(MBandaSetup bandaSetup) {
