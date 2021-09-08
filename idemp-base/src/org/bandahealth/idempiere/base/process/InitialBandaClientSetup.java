@@ -3,8 +3,10 @@ package org.bandahealth.idempiere.base.process;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.Adempiere;
 import org.compiere.impexp.ImpFormat;
 import org.compiere.impexp.MImpFormat;
@@ -31,6 +33,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -78,7 +81,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
-	private int usersId;
+	private final Integer SYSTEM_ROLE_ID = 0;
 	
 	private final String SALES_PRICE_LIST_NAME = "Sales";
 	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
@@ -273,6 +276,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		List<MRole> clientRoles = new Query(getCtx(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
 				get_TrxName()).setParameters(clientId).list();
 
+		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
+
 		List<MUser_BH> systemAdministrators = new Query(getCtx(), MUser_BH.Table_Name,
 				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " >= ? AND " + MUserRoles.Table_Name + "."
 						+ MUserRoles.COLUMNNAME_AD_Role_ID + "=? ",
@@ -280,18 +285,14 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 						.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
 								+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
 								+ MUserRoles.COLUMNNAME_AD_User_ID)
-						.setParameters(1000000, 0).list();
-		List<Object> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID)
-				.collect(Collectors.toList());
+						.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, SYSTEM_ROLE_ID).list();
+		Set<Integer> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
 
 		String whereClause = "?,".repeat(clientRoles.size());
 		whereClause = whereClause.substring(0, whereClause.length() - 1);
 
-		String sysAdminCountWhereClause = "?,".repeat(systemUsersToAdd.size());
-		sysAdminCountWhereClause = sysAdminCountWhereClause.substring(0, sysAdminCountWhereClause.length() - 1);
+		String sysAdminCountWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(systemUsersToAdd, parameters);
 
-		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
-		parameters.addAll(systemUsersToAdd);
 		List<MUserRoles> usersAssignedClientRoles = new Query(getCtx(), MUserRoles.Table_Name,
 				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ")" + " AND "
 						+ MUserRoles.COLUMNNAME_AD_User_ID + " IN (" + sysAdminCountWhereClause + ")",
