@@ -22,6 +22,7 @@ import org.bandahealth.idempiere.base.model.OCLCodedDiagnosisMapping;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.Query;
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -35,8 +36,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	private final int LIMIT = 100;
-	private final String OCL_BASE_URL = "https://api.openconceptlab.org/orgs/bandahealth/sources/BHGO/concepts/?includeMappings=true&sortAsc=name&verbose=true&limit="
-			+ LIMIT;
+	private String OCL_BASE_URL = "https://api.openconceptlab.org/orgs/bandahealth/sources/";
 	private final String CIEL = "CIEL";
 	private final String ICD_10_WHO = "ICD-10-WHO";
 	private final String MOH_705A_LESSTHAN5 = "MOH-705A-LESSTHAN5";
@@ -45,8 +45,24 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	private final HttpClient client = HttpClient.newBuilder().version(Version.HTTP_2).build();
 
+	private String source = "BHGO"; // set default source
+
 	@Override
 	protected void prepare() {
+		ProcessInfoParameter[] parameters = getParameter();
+
+		for (ProcessInfoParameter parameter : parameters) {
+
+			String parameterName = parameter.getParameterName();
+
+			if (parameterName.equalsIgnoreCase("source")) {
+				source = parameter.getParameterAsString();
+			} else {
+				log.log(Level.SEVERE, "Unknown Parameter: " + parameterName);
+			}
+		}
+
+		OCL_BASE_URL += source + "/concepts/?includeMappings=true&sortAsc=name&verbose=true&limit=" + LIMIT;
 	}
 
 	/**

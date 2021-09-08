@@ -47,7 +47,7 @@ public class OCLCodedDiagnosisMapping {
 	private String createdBy;
 	private String updatedBy;
 	private String internalReferenceId;
-	private boolean publicCaniew;
+	private boolean publicCanView;
 
 	public OCLCodedDiagnosisMapping() {
 	}
@@ -93,7 +93,7 @@ public class OCLCodedDiagnosisMapping {
 		setCreatedBy(JsonUtils.getValue(node.get("created_by")));
 		setUpdatedBy(JsonUtils.getValue(node.get("updated_by")));
 		setInternalReferenceId(JsonUtils.getValue(node.get("internal_reference_id")));
-		setPublicCaniew(JsonUtils.getBoolValue(node.get("public_can_view")));
+		setPublicCanView(JsonUtils.getBoolValue(node.get("public_can_view")));
 	}
 
 	public String getExternalId() {
@@ -424,11 +424,11 @@ public class OCLCodedDiagnosisMapping {
 		this.internalReferenceId = internalReferenceId;
 	}
 
-	public boolean isPublicCaniew() {
-		return publicCaniew;
+	public boolean isPublicCanView() {
+		return publicCanView;
 	}
 
-	public void setPublicCaniew(boolean publicCaniew) {
-		this.publicCaniew = publicCaniew;
+	public void setPublicCanView(boolean publicCaniew) {
+		this.publicCanView = publicCaniew;
 	}
 }
