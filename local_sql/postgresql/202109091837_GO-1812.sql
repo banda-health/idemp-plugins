@@ -47,8 +47,6 @@ create table if not exists bh_i_product_quantity
 			deferrable initially deferred
 );
 
-alter table bh_i_product_quantity owner to adempiere;
-
 alter table bh_i_product_quantity
 	add constraint bh_i_product_quantity_isactive_check
 		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
@@ -74,6 +72,6 @@ alter table bh_i_product_quantity
 		check (bh_hasexpiration = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
 -- Add a new process
-INSERT INTO adempiere.ad_process (ad_process_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, help, accesslevel, entitytype, procedurename, isreport, isdirectprint, ad_reportview_id, classname, statistic_count, statistic_seconds, ad_printformat_id, workflowvalue, ad_workflow_id, isbetafunctionality, isserverprocess, showhelp, jasperreport, ad_form_id, copyfromprocess, ad_process_uu, ad_ctxhelp_id, executiontype, allowmultipleexecution) VALUES ((SELECT MAX(ad_process_id) + 1 FROM ad_process), 0, 0, 'Y', '2021-09-08 16:30:39.435000', 100, '2021-09-08 16:55:11.499000', 100, 'BH_Import_Product', 'BH Import Products', 'Import Initial Products and Quantities', null, '3', 'U', null, 'N', 'N', null, 'org.bandahealth.idempiere.base.process.ImportProductsProcess', 25, 483, null, null, null, 'N', null, 'Y', null, null, null, 'be3382f2-09ad-476b-992b-e30c4a629d55', null, null, 'P') ON CONFLICT DO NOTHING;
+INSERT INTO ad_process (ad_process_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, help, accesslevel, entitytype, procedurename, isreport, isdirectprint, ad_reportview_id, classname, statistic_count, statistic_seconds, ad_printformat_id, workflowvalue, ad_workflow_id, isbetafunctionality, isserverprocess, showhelp, jasperreport, ad_form_id, copyfromprocess, ad_process_uu, ad_ctxhelp_id, executiontype, allowmultipleexecution) VALUES ((SELECT MAX(ad_process_id) + 1 FROM ad_process), 0, 0, 'Y', '2021-09-08 16:30:39.435000', 100, '2021-09-08 16:55:11.499000', 100, 'BH_Import_Product', 'BH Import Products', 'Import Initial Products and Quantities', null, '3', 'U', null, 'N', 'N', null, 'org.bandahealth.idempiere.base.process.ImportProductsProcess', 25, 483, null, null, null, 'N', 'N', 'Y', null, null, null, 'be3382f2-09ad-476b-992b-e30c4a629d55', null, null, 'P') ON CONFLICT DO NOTHING;
 
 SELECT register_migration_script('202109091837_GO-1812.sql') FROM dual;
