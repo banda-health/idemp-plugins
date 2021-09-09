@@ -54,7 +54,7 @@ public class InitializeStock {
 				throw new AdempiereException("No warehouses defined for organization.");
 			}
 		} else {
-			warehouse = MWarehouse.get(warehouseId);
+			warehouse = MWarehouse.get(context, warehouseId);
 		}
 
 		// Get the list of products that actually have inventory
