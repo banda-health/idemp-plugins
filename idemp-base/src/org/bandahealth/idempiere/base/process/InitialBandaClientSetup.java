@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.process;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
+import org.bandahealth.idempiere.base.config.InternalSetupConfig;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -209,6 +210,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
 			}
 			addLog(bandaSetup.getThenResetInfo());
+
+			InternalSetupConfig.configureNewProductAttribSet(getCtx());
 
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
