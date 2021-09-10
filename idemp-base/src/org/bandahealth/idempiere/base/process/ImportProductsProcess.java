@@ -10,6 +10,7 @@ import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
+import org.compiere.process.ImportAccount;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
@@ -59,6 +60,13 @@ public class ImportProductsProcess extends SvrProcess {
 		}
 	}
 
+	/**
+	 * Import the products and quantities into the system. This was initially copied and modified from the iDempiere
+	 * import account process, {@link ImportAccount#doIt()}
+	 *
+	 * @return A success message for this method.
+	 * @throws Exception
+	 */
 	@Override
 	protected String doIt() throws Exception {
 		StringBuilder sql = null;
