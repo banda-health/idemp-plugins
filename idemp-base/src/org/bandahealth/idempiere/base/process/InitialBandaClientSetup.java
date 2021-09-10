@@ -3,8 +3,11 @@ package org.bandahealth.idempiere.base.process;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
+import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.Adempiere;
 import org.compiere.impexp.ImpFormat;
 import org.compiere.impexp.MImpFormat;
@@ -31,6 +34,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -58,6 +62,9 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_COA_FILE = "CoAFile";
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
 	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
+	public static final String PARAMETERNAME_NORMAL_USER_NAME = "NormalUserName";
+	public static final String PARAMETERNAME_ADMIN_EMAIL= "AdminUserEmail";
+	public static final String PARAMETERNAME_USER_EMAIL= "NormalUserEmail";
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
@@ -70,23 +77,24 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private boolean wantsMobileAccount = false;
 	private boolean wantsSavingsAccount = false;
 	private String clientName = null;
-	private String adminUserName = null;
 	private String orgName = null;
+	private String adminUserName = null;
+	
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
-	private int usersId;
+	
+	private final String SALES_PRICE_LIST_NAME = "Sales";
+	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
+	private final String PURCHASES_PRICE_LIST_NAME = "Purchase";
+	private final String PURCHASES_PRICE_LIST_VERSION_NAME = "Purchases PriceList Version 1";
 
 	/**
 	 * Prepare
 	 */
 	protected void prepare() {
 		usersClientId = getAD_Client_ID();
-		usersId = getAD_User_ID();
 
 		addCoAFileValueToParametersBasedOnClientType();
-
-		super.prepare();
-
 		ProcessInfoParameter[] para = getParameter();
 		for (ProcessInfoParameter processInfoParameter : para) {
 			String name = processInfoParameter.getParameterName();
@@ -104,18 +112,20 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 					wantsSavingsAccount = processInfoParameter.getParameterAsBoolean();
 					break;
 				case PARAMETERNAME_CLIENT_NAME:
+					//org name is same as client name
 					clientName = processInfoParameter.getParameterAsString();
-					break;
-				case PARAMETERNAME_ORG_NAME:
 					orgName = processInfoParameter.getParameterAsString();
 					break;
 				case PARAMETERNAME_CLIENT_LEVEL:
 					clientLevel = processInfoParameter.getParameterAsString();
 					break;
-				case PARAMETERNAME_ADMIN_USER_NAME:
-					adminUserName = processInfoParameter.getParameterAsString();
 			}
 		}
+		addAutomatedParameters();
+		super.prepare();
+
+		
+		
 	}
 
 	/**
@@ -127,6 +137,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * 5. Create and map Payment Types to the default Bank Account
 	 * 6. Insert default Expense Categories (charges) for the client
 	 * 7. Create default product categories for products so they hit the correct revenue accounts
+	 * 8. Update the organization name and key
+	 * 9. Add custom warehouse and address 
+	 * 10. Create default sales and purchases price-lists
+	 * 11. Update calendar control
+	 * 12. Update users setup
+	 *
 	 *
 	 * @return info
 	 * @throws Exception
@@ -208,8 +224,27 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initialization of roles failed"));
 			}
+			if (!bandaSetup.updateWarehouseLocatorSetUp()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Warehouse setup failed"));
+			}
+			if (!bandaSetup.createPriceList(PURCHASES_PRICE_LIST_NAME, PURCHASES_PRICE_LIST_VERSION_NAME, false)) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Purchase Price List Setup failed"));
+			}
+			if(!bandaSetup.createPriceList(SALES_PRICE_LIST_NAME, SALES_PRICE_LIST_VERSION_NAME, true)) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Sales Price List setup failed"));
+			}
+			if(!bandaSetup.openCalendarYearPeriods()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Open calendar periods failed"));
+			}
+			if(!bandaSetup.configureClientUsers()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Remove default business partners failed"));
+			}
 			addLog(bandaSetup.getThenResetInfo());
-
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Failed to save Banda additions"));
@@ -237,36 +272,43 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * logged-in user
 	 */
 	private void addCreatedUserRolesToLoggedInUser(int clientId, int orgId) {
-		List<MRole> clientRoles = new Query(
-				getCtx(),
-				MRole.Table_Name,
-				MRole.COLUMNNAME_AD_Client_ID + "=?",
-				get_TrxName()
-		)
-				.setParameters(clientId)
-				.list();
+		List<MRole> clientRoles = new Query(getCtx(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
+				get_TrxName()).setParameters(clientId).list();
+
+		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
+
+		List<MUser_BH> systemAdministrators = new Query(getCtx(), MUser_BH.Table_Name,
+				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " >= ? AND " + MUserRoles.Table_Name + "."
+						+ MUserRoles.COLUMNNAME_AD_Role_ID + "=? ",
+				get_TrxName())
+						.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
+								+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
+								+ MUserRoles.COLUMNNAME_AD_User_ID)
+						.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, MRole_BH.SYSTEM_ROLE_ID).list();
+		Set<Integer> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
+
 		String whereClause = "?,".repeat(clientRoles.size());
 		whereClause = whereClause.substring(0, whereClause.length() - 1);
-		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
-		parameters.add(usersId);
-		List<MUserRoles> usersAssignedClientRoles = new Query(
-				getCtx(),
-				MUserRoles.Table_Name,
-				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ") AND " +
-						MUserRoles.COLUMNNAME_AD_User_ID + "=?",
-				get_TrxName()
-		)
-				.setParameters(parameters)
-				.list();
-		// If any roles have already been assigned for this user and client, we don't need to do anything
+
+		String sysAdminCountWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(systemUsersToAdd, parameters);
+
+		List<MUserRoles> usersAssignedClientRoles = new Query(getCtx(), MUserRoles.Table_Name,
+				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ")" + " AND "
+						+ MUserRoles.COLUMNNAME_AD_User_ID + " IN (" + sysAdminCountWhereClause + ")",
+				get_TrxName()).setParameters(parameters).list();
+		// If any roles have already been assigned for this user and client, we don't
+		// need to do anything
 		if (usersAssignedClientRoles.size() > 0) {
 			return;
 		}
-		clientRoles.forEach(clientRole -> {
-			MUserRoles roleToAssign = new MUserRoles(getCtx(), usersId, clientRole.getAD_Role_ID(), get_TrxName());
-			roleToAssign.setAD_Org_ID(orgId);
-			roleToAssign.saveEx();
-		});
+		for (MUser_BH user : systemAdministrators) {
+			clientRoles.forEach(clientRole -> {
+				MUserRoles roleToAssign = new MUserRoles(getCtx(), user.get_ID(), clientRole.getAD_Role_ID(),
+						get_TrxName());
+				roleToAssign.setAD_Org_ID(orgId);
+				roleToAssign.saveEx();
+			});
+		}
 	}
 
 	private void rollback(MBandaSetup bandaSetup) {
@@ -391,6 +433,19 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 					coaBandaFile);
 		}
 		return coaImportFile;
+	}
+	
+	
+	/** Add to parameters dynamically:
+	 * admin/user names and email
+	  */
+	private void addAutomatedParameters() {
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME,clientName, null, null, null ));
+		String prefix = clientName.replaceAll("\\s", "");
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME,prefix + "Admin", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME,prefix + "User", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL, "admin@" + prefix.toLowerCase() + ".org", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,"user@" + prefix.toLowerCase() + ".org", null, null, null ));
 	}
 
 	private void addParameter(ProcessInfoParameter parameter) {
