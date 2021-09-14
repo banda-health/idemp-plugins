@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NewMOH705A" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="7317436c-2db2-4a0b-9652-bea518e43b91">
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Cases" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="7317436c-2db2-4a0b-9652-bea518e43b91">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 	<property name="com.jaspersoft.studio.report.description" value="Diagnoses Count under 5yrs"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -149,11 +149,11 @@
     FROM bh_coded_diagnosis b
         LEFT JOIN (
             SELECT
-                bh_moh705a_lessthan5,
+                'test' as bh_moh705a_lessthan5,
                 cast(bh_visitdate as date) as calendar,
                 COUNT(bh_primarycodeddiagnosis_id) AS noofdiagnosis
             FROM c_order c
-                JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id::numeric = cd.bh_coded_diagnosis_id
+                --JOIN bh_coded_diagnosis cd ON cast(bh_primarycodeddiagnosis_id AS numeric) = cd.bh_coded_diagnosis_id
                 JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
            WHERE c.ad_client_id = $P{AD_CLIENT_ID}
                   AND bh_primarycodeddiagnosis_id IS NOT NULL
@@ -258,15 +258,15 @@ ORDER BY dlo."order", dali.calendar]]>
 			<groupExpression><![CDATA[$F{calendar}]]></groupExpression>
 		</group>
 	</subDataset>
-	<parameter name="Begin Date" class="java.sql.Date"/>
-	<parameter name="End Date" class="java.sql.Date"/>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select
     date(c.bh_visitdate) as calendar,
     client.name AS name
 from c_order c
-    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
+    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id::numeric
     right join ad_org client on c.ad_client_id = client.ad_client_id
      and client.isactive = 'Y'
     where  c.ad_client_id  = $P{AD_CLIENT_ID}
