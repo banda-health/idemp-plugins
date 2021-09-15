@@ -95,7 +95,7 @@ public class AuthenticationRestService {
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
 		// If we're here and they don't have access to clients, it means the username/password combo incorrect
 		if (clients == null || clients.length == 0) {
-			throw new IllegalArgumentException("username or password incorrect");
+			throw new AdempiereException("username or password incorrect");
 		}
 
 		MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
