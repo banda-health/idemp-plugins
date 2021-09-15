@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cases" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="127d6963-4716-4961-8a68-bd6399ac1903">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705B Cases" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="127d6963-4716-4961-8a68-bd6399ac1903">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -12,6 +12,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -82,7 +83,7 @@
                 cast(bh_visitdate as date) as calendar,
                 COUNT(bh_primarycodeddiagnosis_id) AS noofdiagnosis
             FROM c_order c
-                JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id::numeric = cd.bh_coded_diagnosis_id
+                JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
                 JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
            WHERE c.ad_client_id = $P{AD_CLIENT_ID}
                   AND bh_primarycodeddiagnosis_id IS NOT NULL
@@ -186,8 +187,8 @@ ORDER BY dlo."order", dali.calendar]]>
 			<groupExpression><![CDATA[$F{diagnosis}]]></groupExpression>
 		</group>
 	</subDataset>
-	<parameter name="Begin Date" class="java.sql.Date"/>
-	<parameter name="End Date" class="java.sql.Date"/>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
@@ -200,8 +201,13 @@ from c_order c
      where c.ad_client_id = $P{AD_CLIENT_ID}
  GROUP BY c.bh_visitdate, client.name, b.bh_moh705b_greaterthan5]]>
 	</queryString>
-	<field name="calendar" class="java.sql.Date"/>
-	<field name="name" class="java.lang.String"/>
+	<field name="calendar" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="calendar"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_org"/>
+	</field>
 	<pageHeader>
 		<band height="33">
 			<staticText>
