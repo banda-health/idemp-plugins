@@ -191,7 +191,7 @@ FROM tmp_ad_client_id aci
 		FROM m_storageonhand
 		WHERE qtyonhand != 0
 		GROUP BY m_product_id, m_attributesetinstance_id
-    ) soh ON soh.m_product_id = p.m_product_id AND qtyonhand != 0
+  ) soh ON soh.m_product_id = p.m_product_id AND qtyonhand != 0
 	JOIN m_costtype ct ON ct.ad_client_id = aci.ad_client_id
 	JOIN c_acctschema asch ON asch.ad_client_id = aci.ad_client_id
 	JOIN m_costelement ce ON ce.ad_client_id = aci.ad_client_id AND ce.name = 'Last PO Price'
@@ -203,10 +203,72 @@ FROM tmp_ad_client_id aci
 			row_number() OVER (PARTITION BY m_product_id, m_attributesetinstance_id ORDER BY o.dateordered) as row_num
 		FROM c_orderline ol
 			JOIN c_order o ON ol.c_order_id = o.c_order_id
-		WHERE o.issotrx = 'N'
+		WHERE o.issotrx = 'N' AND o.docstatus IN ('CO', 'DR', 'CL')
 	) cost ON cost.m_product_id = p.m_product_id AND cost.m_attributesetinstance_id = soh.m_attributesetinstance_id AND row_num = 1
-    JOIN m_productprice pp ON p.m_product_id = pp.m_product_id
-    JOIN m_pricelist_version plv ON pp.m_pricelist_version_id = plv.m_pricelist_version_id AND plv.isactive = 'Y'
-    JOIN m_pricelist pl ON plv.m_pricelist_id = pl.m_pricelist_id AND pl.isactive = 'Y' AND pl.isdefault = 'Y' and pl.issopricelist = 'N';
+	JOIN m_productprice pp ON p.m_product_id = pp.m_product_id
+	JOIN m_pricelist_version plv ON pp.m_pricelist_version_id = plv.m_pricelist_version_id AND plv.isactive = 'Y'
+	JOIN m_pricelist pl ON plv.m_pricelist_id = pl.m_pricelist_id AND pl.isactive = 'Y' AND pl.isdefault = 'Y' and pl.issopricelist = 'N';
+
+-- Add exclusions to the ASI for clients so they don't get errors when selling products (since we've removed the ability so select expiration date on a visit)
+DROP TABLE IF EXISTS tmp_m_attributesetexclude;
+create temp table tmp_m_attributesetexclude
+(
+	m_attributesetexclude_id serial not null,
+	ad_client_id numeric(10) not null,
+	ad_org_id numeric(10) default 0 not null,
+	createdby numeric(10) default 100 not null,
+	updatedby numeric(10) default 100 not null,
+	m_attributeset_id numeric(10) not null,
+	ad_table_id numeric(10) not null,
+	m_attributesetexclude_uu varchar(36) default uuid_generate_v4() not null
+);
+
+SELECT setval(
+	'tmp_m_attributesetexclude_m_attributesetexclude_id_seq',
+	(
+		SELECT currentnext
+		FROM ad_sequence
+		WHERE lower(name) = 'm_attributesetexclude'
+		LIMIT 1
+	)::INT,
+	false
+);
+
+INSERT INTO tmp_m_attributesetexclude (
+	ad_client_id numeric(10) not null,
+	m_attributeset_id numeric(10) not null,
+	ad_table_id numeric(10) not null
+)
+SELECT
+	aci.ad_client_id,
+	attrs.m_attributeset_id,
+	t.ad_table_id
+FROM tmp_ad_client_id aci
+	JOIN m_attributeset attrs ON attrs.ad_client_id = aci.ad_client_id AND attrs.name = 'BandaHealthProductAttributeSet'
+	CROSS JOIN (
+		SELECT 260 as ad_table_id UNION
+		SELECT 320
+	) t;
+
+INSERT INTO m_attributesetexclude (
+	m_attributesetexclude_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	m_attributeset_id,
+	ad_table_id,
+	m_attributesetexclude_uu
+)
+SELECT 
+	m_attributesetexclude_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	m_attributeset_id,
+	ad_table_id,
+	m_attributesetexclude_uu
+FROM tmp_m_attributesetexclude;
 
 SELECT register_migration_script('202109091837_GO-1812.sql') FROM dual;
