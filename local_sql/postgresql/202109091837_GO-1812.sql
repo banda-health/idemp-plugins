@@ -235,9 +235,9 @@ SELECT setval(
 );
 
 INSERT INTO tmp_m_attributesetexclude (
-	ad_client_id numeric(10) not null,
-	m_attributeset_id numeric(10) not null,
-	ad_table_id numeric(10) not null
+	ad_client_id,
+	m_attributeset_id,
+	ad_table_id
 )
 SELECT
 	aci.ad_client_id,
