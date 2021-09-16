@@ -4,7 +4,9 @@ import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_I_Product_Quantity;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.compiere.model.MProductCategory;
+import org.compiere.model.MAcctSchema;
+import org.compiere.model.MCost;
+import org.compiere.model.MCostElement;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
@@ -20,6 +22,7 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -339,45 +342,63 @@ public class ImportProductsProcess extends SvrProcess {
 				}
 
 				if (wasSaveSuccessful) {
-					// Add attribute set instances for each lot, if this product expires
+					int costElementId = new Query(getCtx(), MCostElement.Table_Name, MCostElement.COLUMNNAME_CostingMethod +
+							"=?", get_TrxName()).setParameters(MCostElement.COSTINGMETHOD_LastPOPrice).setOnlyActiveRecords(true)
+							.setClient_ID().firstId();
+					MAcctSchema accountSchema =
+							new Query(getCtx(), MAcctSchema.Table_Name, "", get_TrxName()).setClient_ID().setOnlyActiveRecords(true)
+									.first();
+					int organizationId = 0;
+					// Add attribute set instances and costs for each lot, if this product expires
 					if (importedProductQuantity.isBH_HasExpiration()) {
 						// Lot 1
-						if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0) {
-							MStorageOnHand lot1 = new MStorageOnHand(getCtx(), 0, get_TrxName());
-							lot1.setQtyOnHand(importedProductQuantity.getBH_InitialQuantity());
-							int attributeSetInstanceId =
-									QueryUtil.createExpirationDateAttributeInstance(0, importedProductQuantity.getGuaranteeDate(),
-											get_TrxName(), getCtx());
-							lot1.setM_AttributeSetInstance_ID(attributeSetInstanceId);
-							inventoryByProduct.get(product).add(lot1);
+						if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0 &&
+								!createLotAndCost(product, inventoryByProduct.get(product),
+										importedProductQuantity.getBH_InitialQuantity(), importedProductQuantity.getGuaranteeDate(),
+										importedProductQuantity.getBH_BuyPrice(), accountSchema, costElementId)) {
+							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(importProductQuantityId);
+							DB.executeUpdate(sql.toString(), get_TrxName());
+
 						}
 
 						// Lot 2
-						if (importedProductQuantity.isBH_HasLot2()) {
-							MStorageOnHand lot2 = new MStorageOnHand(getCtx(), 0, get_TrxName());
-							lot2.setQtyOnHand(importedProductQuantity.getBH_InitialQuantity_Lot2());
-							int attributeSetInstanceId =
-									QueryUtil.createExpirationDateAttributeInstance(0,
-											importedProductQuantity.getBH_GuaranteeDate_Lot2(), get_TrxName(), getCtx());
-							lot2.setM_AttributeSetInstance_ID(attributeSetInstanceId);
-							inventoryByProduct.get(product).add(lot2);
+						if (importedProductQuantity.isBH_HasLot2() &&
+								!createLotAndCost(product, inventoryByProduct.get(product),
+										importedProductQuantity.getBH_InitialQuantity_Lot2(),
+										importedProductQuantity.getBH_GuaranteeDate_Lot2(), importedProductQuantity.getBH_BuyPrice_Lot2(),
+										accountSchema, costElementId)) {
+							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(importProductQuantityId);
+							DB.executeUpdate(sql.toString(), get_TrxName());
 						}
 
 						// Lot 2
-						if (importedProductQuantity.isBH_HasLot3()) {
-							MStorageOnHand lot3 = new MStorageOnHand(getCtx(), 0, get_TrxName());
-							lot3.setQtyOnHand(importedProductQuantity.getBH_InitialQuantity_Lot3());
-							int attributeSetInstanceId =
-									QueryUtil.createExpirationDateAttributeInstance(0,
-											importedProductQuantity.getBH_GuaranteeDate_Lot3(), get_TrxName(), getCtx());
-							lot3.setM_AttributeSetInstance_ID(attributeSetInstanceId);
-							inventoryByProduct.get(product).add(lot3);
+						if (importedProductQuantity.isBH_HasLot3() &&
+								!createLotAndCost(product, inventoryByProduct.get(product),
+										importedProductQuantity.getBH_InitialQuantity_Lot3(),
+										importedProductQuantity.getBH_GuaranteeDate_Lot3(), importedProductQuantity.getBH_BuyPrice_Lot3(),
+										accountSchema, costElementId)) {
+							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(importProductQuantityId);
+							DB.executeUpdate(sql.toString(), get_TrxName());
 						}
 					} else if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0) {
-						// There can only be one lot, if the product doesn't expire
-						MStorageOnHand storageOnHand = new MStorageOnHand(getCtx(), 0, get_TrxName());
-						storageOnHand.setQtyOnHand(importedProductQuantity.getBH_InitialQuantity());
-						inventoryByProduct.get(product).add(storageOnHand);
+						if (!createLotAndCost(product, inventoryByProduct.get(product),
+								importedProductQuantity.getBH_InitialQuantity(), null, importedProductQuantity.getBH_BuyPrice_Lot3(),
+								accountSchema, costElementId)) {
+							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(importProductQuantityId);
+							DB.executeUpdate(sql.toString(), get_TrxName());
+						}
 					}
 				}
 			}  //	for all I_Product
@@ -398,6 +419,8 @@ public class ImportProductsProcess extends SvrProcess {
 				InitializeStock.createInitialStock(inventoryByProduct, getCtx(), get_TrxName(),
 						handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_MERGE),
 						clientWarehouses.get(0).getM_Warehouse_ID());
+
+				// Now create/update costs for these products
 			} catch (Exception e) {
 				addLog(0, null, BigDecimal.ONE, "@Errors@ " + e.getMessage());
 			}
@@ -440,5 +463,53 @@ public class ImportProductsProcess extends SvrProcess {
 		if (log.isLoggable(Level.FINE)) log.fine("Processed=" + no);
 
 		return "";
+	}
+
+	/**
+	 * Create a new lot with quantity and cost, if possible, for the given product and associated information
+	 *
+	 * @param product           The product to create a lot for
+	 * @param productQuantities The list of current storage on hand quantities, if any
+	 * @param initialQuantity   The initial quantity
+	 * @param expirationDate    The expiration date of the lot, if any
+	 * @param buyPrice          The buying price
+	 * @param accountSchema     The accounting schema for the cost record
+	 * @param costElementId     The cost element ID to associate with the cost
+	 * @return Whether the lot and cost were created successfully
+	 */
+	private boolean createLotAndCost(MProduct_BH product, List<MStorageOnHand> productQuantities,
+			BigDecimal initialQuantity, Timestamp expirationDate, BigDecimal buyPrice, MAcctSchema accountSchema,
+			int costElementId) {
+		// These parameters are required
+		if (product == null || productQuantities == null || accountSchema == null) {
+			return false;
+		}
+		if (initialQuantity == null) {
+			initialQuantity = BigDecimal.ZERO;
+		}
+		if (buyPrice == null) {
+			buyPrice = BigDecimal.ZERO;
+		}
+		MStorageOnHand lot1 = new MStorageOnHand(getCtx(), 0, get_TrxName());
+		lot1.setQtyOnHand(initialQuantity);
+		int attributeSetInstanceId = 0;
+		if (expirationDate != null) {
+			attributeSetInstanceId =
+					QueryUtil.createExpirationDateAttributeInstance(0, expirationDate, get_TrxName(), getCtx());
+			lot1.setM_AttributeSetInstance_ID(attributeSetInstanceId);
+		}
+		productQuantities.add(lot1);
+
+		// Create a new cost record
+		MCost cost = MCost.get(product, attributeSetInstanceId, accountSchema, 0, costElementId, get_TrxName());
+		if (cost == null) {
+			// Make a new one, since that one doesn't exist
+			cost = new MCost(product, attributeSetInstanceId, accountSchema, 0, costElementId);
+		}
+		cost.setCurrentCostPrice(buyPrice);
+		cost.setCurrentQty(initialQuantity);
+		cost.setCumulatedAmt(buyPrice.multiply(initialQuantity));
+		cost.setCumulatedQty(initialQuantity);
+		return cost.save();
 	}
 }

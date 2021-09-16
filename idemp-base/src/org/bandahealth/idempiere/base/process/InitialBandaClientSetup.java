@@ -183,6 +183,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			// Start our own transaction
 			bandaSetup.start();
 
+			if (!bandaSetup.updateAccountingSchemaCosting()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update accounting schema costing failed"));
+			}
+			addLog(bandaSetup.getThenResetInfo());
+
 			if (!bandaSetup.updateDefaultAccountMapping()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update default mapping failed"));
