@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
@@ -15,6 +16,8 @@ import org.compiere.model.MWindowAccess;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Window_Access;
 import org.compiere.util.Env;
+
+import javax.naming.Context;
 
 public class RoleUtil {
 
@@ -79,4 +82,20 @@ public class RoleUtil {
 		}
 		return windowsAccessLevels;
 	}
+	
+	 /**
+	   * Get list of included roles UUIDs,
+	   * Because master roles not assigned but included in other roles. 
+	   * 
+	   * @return List<String> of included role uuids
+	   */
+		
+		public static List<String> fetchIncludedRoleUuids(){
+			Properties context = Env.getCtx();
+			MRole userRole = MRole.get(context, Env.getAD_Role_ID(context));
+
+			List<MRole> allUserRoles = userRole.getIncludedRoles(true);
+
+			return allUserRoles.stream().map(MRole::getAD_Role_UU).collect(Collectors.toList());
+		}
 }
