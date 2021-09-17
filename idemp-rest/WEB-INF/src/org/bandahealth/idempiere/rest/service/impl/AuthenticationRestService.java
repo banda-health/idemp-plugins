@@ -84,7 +84,7 @@ public class AuthenticationRestService {
 		Login login = new Login(Env.getCtx());
 
 		if (Util.isEmpty(credentials.getUsername())) {
-			throw new IllegalArgumentException("Username necessary");
+			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.USERNAME_REQUIRED));
 		}
 		if (Util.isEmpty(credentials.getPassword())) {
 			throw new IllegalArgumentException(
@@ -95,7 +95,7 @@ public class AuthenticationRestService {
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
 		// If we're here and they don't have access to clients, it means the username/password combo incorrect
 		if (clients == null || clients.length == 0) {
-			throw new AdempiereException("username or password incorrect");
+			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
 
 		MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
