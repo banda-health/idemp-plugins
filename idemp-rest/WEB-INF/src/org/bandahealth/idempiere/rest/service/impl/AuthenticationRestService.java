@@ -73,10 +73,20 @@ public class AuthenticationRestService {
 	@Path(IRestConfigs.CHANGEPASSWORD_PATH)
 	public AuthResponse changePassword(Authentication credentials) {
 		Login login = new Login(Env.getCtx());
+
+		if (Util.isEmpty(credentials.getUsername())) {
+			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.USERNAME_REQUIRED));
+		}
+		if (Util.isEmpty(credentials.getPassword())) {
+			throw new IllegalArgumentException(
+					org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
+		}
+
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
+		// If we're here and they don't have access to clients, it means the username/password combo incorrect
 		if (clients == null || clients.length == 0) {
-			return new AuthResponse(Status.UNAUTHORIZED);
+			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
 
 		MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
@@ -87,11 +97,6 @@ public class AuthenticationRestService {
 		/**
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
-		if (Util.isEmpty(credentials.getPassword())) {
-			throw new IllegalArgumentException(
-					org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
-		}
-
 		if (Util.isEmpty(credentials.getNewPassword())) {
 			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.NEW_PASSWORD_MANDATORY));
 		}
