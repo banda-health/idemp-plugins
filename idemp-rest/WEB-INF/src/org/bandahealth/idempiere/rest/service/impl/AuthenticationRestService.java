@@ -33,6 +33,7 @@ import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.PO;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
