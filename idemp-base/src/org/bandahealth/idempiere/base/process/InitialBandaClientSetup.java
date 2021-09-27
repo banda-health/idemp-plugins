@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.process;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
+import org.bandahealth.idempiere.base.config.InternalSetupConfig;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MRole_BH;
@@ -182,6 +183,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			// Start our own transaction
 			bandaSetup.start();
 
+			if (!bandaSetup.updateAccountingSchemaCosting()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update accounting schema costing failed"));
+			}
+			addLog(bandaSetup.getThenResetInfo());
+
 			if (!bandaSetup.updateDefaultAccountMapping()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update default mapping failed"));
@@ -245,6 +252,9 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Remove default business partners failed"));
 			}
 			addLog(bandaSetup.getThenResetInfo());
+			
+			InternalSetupConfig.configureNewProductAttribSet(getCtx());
+
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Failed to save Banda additions"));

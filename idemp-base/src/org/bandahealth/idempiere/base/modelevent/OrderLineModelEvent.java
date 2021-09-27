@@ -7,6 +7,7 @@ import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
@@ -58,7 +59,9 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 	private void beforeSaveRequest(MOrderLine_BH orderLine) {
 		MOrder_BH order = (MOrder_BH) orderLine.getC_Order();
 		boolean isReceiveGoods = !order.isSOTrx();
-		if (!order.isComplete() && (isReceiveGoods || orderLine.getBH_Expiration() != null)) {
+		MProduct_BH product = new MProduct_BH(orderLine.getCtx(), orderLine.getM_Product_ID(), orderLine.get_TrxName());
+		boolean productExpires = orderLine.getM_Product_ID() > 0 && product.isBH_HasExpiration();
+		if (!order.isComplete() && productExpires && (isReceiveGoods || orderLine.getBH_Expiration() != null)) {
 			receiveGoodsBeforeSaveRequest(orderLine);
 		}
 	}
