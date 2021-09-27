@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Referrals" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" isIgnorePagination="true" uuid="978e7a76-be61-4b44-9675-ab78f8a4ff03">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Referrals" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="1" bottomMargin="20" uuid="fbf82885-3c3c-421b-983c-d6bc70465fda">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -49,23 +39,24 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Referral" uuid="d7f308c7-8efb-48c0-8987-a537a9593541">
+	<subDataset name="ReferralsDataSet" uuid="26d83717-8cb6-449c-870b-128aa01dafe1">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="Begin Date" class="java.util.Date"/>
+		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.sql.Date"/>
-		<parameter name="End Date" class="java.sql.Date"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-    SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
+   SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
      referral_list AS (
-         SELECT DISTINCT value as Referral
-         FROM ad_ref_list
-                  JOIN c_order Referraltype ON value = Referraltype.bh_referral
-                  RIGHT JOIN ad_reference a ON ad_ref_list.ad_reference_id = a.ad_reference_id
-         WHERE  Referraltype.ad_client_id = $P{AD_CLIENT_ID}
-         AND value is not null
+         SELECT DISTINCT r.name, r.value as Referral
+         FROM ad_ref_list r
+            JOIN ad_reference a ON r.ad_reference_id = a.ad_reference_id
+            JOIN c_order Referraltype ON value = Referraltype.bh_referral
+         WHERE ad_reference_uu = '090f3a94-25a4-4f65-a270-96732df35407'
+         AND Referraltype.ad_client_id =  $P{AD_CLIENT_ID}
+
      ),
      referral_count AS (
          SELECT DISTINCT bh_moh705a_lessthan5,
@@ -79,17 +70,10 @@
                     cast(bh_visitdate as date)         as calendar,
                     COUNT(bh_primarycodeddiagnosis_id) AS noofreferral
              from c_order c
-                      JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
+                      JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id::numeric = cd.bh_coded_diagnosis_id
                       JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
 --                       JOIN ad_org org ON c.ad_org_id = org.ad_org_id
-             WHERE c.ad_client_id = $P{AD_CLIENT_ID}
-             AND bh_primarycodeddiagnosis_id IS NOT NULL
-             AND bh_moh705a_lessthan5 NOT IN ('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Overweight (BMI>25)',
-                                       'Other Diseases Of Respiratory System','Tuberculosis','Sexually Transmitted Infections', 'Fevers',
-                                      'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)', 'Upper Respiratory Infection',
-                                      'Other Eye Conditions', 'Plague','Arthritis; Joint pains; etc','Diarrhea','Kalaazar','Congenital Anomalies',
-                                      'Ear infections / conditions','Newly Diagnosed HIV','Tetanus (not neonatal)','Sexual Assault','Dracunculiasis (Guinea Worm)',
-                                      'Neoplasms', 'Physical Disability','Cardiovascular Conditions','Musculoskeletal Conditions','Other Central Nervous System Conditions')
+             WHERE c.ad_client_id =  $P{AD_CLIENT_ID}
              GROUP BY bh_referral,bh_moh705a_lessthan5, cast(bh_visitdate as date)
          ) c ON b.value = c.bh_referral
          ORDER BY b.value
@@ -97,6 +81,7 @@
 SELECT dali.calendar,
        bh_moh705a_lessthan5,
        dl.Referral,
+       dl.name,
        COALESCE(dc.noofreferral, 0) as noofreferral
 FROM referral_list dl
          CROSS JOIN date_limitter dali
@@ -116,46 +101,43 @@ ORDER BY dl.Referral ASC;]]>
 			<property name="com.jaspersoft.studio.field.label" value="referral"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
 		</field>
+		<field name="name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
+		</field>
 		<field name="noofreferral" class="java.lang.Long">
 			<property name="com.jaspersoft.studio.field.label" value="noofreferral"/>
 		</field>
-		<group name="referral">
-			<groupExpression><![CDATA[$F{referral}]]></groupExpression>
+		<group name="name">
+			<groupExpression><![CDATA[$F{name}]]></groupExpression>
 		</group>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<queryString>
+	<queryString language="SQL">
 		<![CDATA[select
     date(c.bh_visitdate) as calendar,
     client.name AS name
 from c_order c
-    inner join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
+    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
     right join ad_org client on c.ad_client_id = client.ad_client_id
      and client.isactive = 'Y'
      where  c.ad_client_id  = $P{AD_CLIENT_ID}
- GROUP BY c.bh_visitdate, client.name, b.bh_moh705a_lessthan5
- ORDER BY calendar ASC]]>
+    and b.bh_moh705b_greaterthan5 is not null
+ GROUP BY c.bh_visitdate, client.name, b.bh_moh705b_greaterthan5]]>
 	</queryString>
-	<field name="calendar" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="calendar"/>
-	</field>
-	<field name="name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ad_org"/>
-	</field>
+	<field name="name" class="java.lang.String"/>
+	<field name="calendar" class="java.sql.Date"/>
 	<summary>
-		<band height="79" splitType="Stretch">
+		<band height="77" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="0" width="879" height="79" uuid="314556f7-21a4-4c53-bf24-65ce3e938e78">
+				<reportElement x="0" y="0" width="860" height="70" uuid="efe2ecaa-bfb8-4d32-a8aa-c536fe5e1b27">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
 					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
 					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
 					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -165,7 +147,7 @@ from c_order c
 				</box>
 				<crosstabDataset>
 					<dataset>
-						<datasetRun subDataset="Referral" uuid="ce09368e-d644-485f-8f09-22f566aaebb0">
+						<datasetRun subDataset="ReferralsDataSet" uuid="3cd7b9f8-d5b1-4a6c-a985-4a9730c2f39e">
 							<datasetParameter name="Begin Date">
 								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 							</datasetParameter>
@@ -179,25 +161,21 @@ from c_order c
 						</datasetRun>
 					</dataset>
 				</crosstabDataset>
-				<rowGroup name="referral" width="179" totalPosition="End">
+				<rowGroup name="name" width="180" totalPosition="End">
 					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{referral}]]></bucketExpression>
+						<bucketExpression><![CDATA[$F{name}]]></bucketExpression>
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque" style="Crosstab_CH">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<textField>
-								<reportElement x="19" y="0" width="160" height="20" uuid="1cf03992-efe1-40a4-bf7e-b89736f01589">
-									<property name="com.jaspersoft.studio.unit.x" value="px"/>
-								</reportElement>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{referral}]]></textFieldExpression>
+								<reportElement x="21" y="1" width="159" height="19" uuid="0d697416-3fc9-483a-b4e5-da23262c4349"/>
+								<box leftPadding="4"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{name}]]></textFieldExpression>
 							</textField>
 							<textField>
-								<reportElement mode="Opaque" x="1" y="1" width="18" height="18" uuid="3d245718-1536-49c4-aec3-70438929c836">
-									<property name="com.jaspersoft.studio.unit.width" value="px"/>
-								</reportElement>
+								<reportElement x="0" y="1" width="21" height="19" uuid="077fc8fe-7242-4fc4-880c-613c3ae0a62d"/>
 								<box>
 									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -212,11 +190,11 @@ from c_order c
 					<crosstabTotalRowHeader>
 						<cellContents mode="Opaque" style="Crosstab_CT">
 							<staticText>
-								<reportElement x="0" y="0" width="179" height="20" forecolor="#FFFFFF" uuid="1e81078e-f1a4-493b-9e40-dfcb568bca45"/>
+								<reportElement x="0" y="0" width="180" height="20" forecolor="#FFFFFF" uuid="f5f4e1ca-b111-4f4b-8167-cc2c40ebaf58"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Total referral]]></text>
+								<text><![CDATA[Total Referral]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalRowHeader>
@@ -228,7 +206,7 @@ from c_order c
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque" style="Crosstab_CH">
 							<textField>
-								<reportElement x="0" y="0" width="20" height="20" uuid="7e1fa1fa-6e96-4aeb-9352-f2526bbbdadc"/>
+								<reportElement x="0" y="0" width="20" height="20" uuid="f74ff5ff-2291-4442-850a-1a939fd1ab75"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[DAY($V{calendar})]]></textFieldExpression>
 							</textField>
@@ -238,22 +216,14 @@ from c_order c
 						<cellContents mode="Opaque" style="Crosstab_CT">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<staticText>
-								<reportElement x="0" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="a930ddac-d697-4d9e-85a3-2b714a7071d4"/>
-								<box>
-									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
-									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
-								</box>
+								<reportElement x="0" y="0" width="41" height="20" forecolor="#FFFFFF" uuid="ee4a2f1d-e7ad-46a7-950a-a5394071cd8b"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
 								<text><![CDATA[Total calendar]]></text>
 							</staticText>
 							<staticText>
-								<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="2ab33422-1a1b-4496-9c55-a2c84a3502c0">
-									<property name="com.jaspersoft.studio.unit.width" value="px"/>
-								</reportElement>
+								<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="3e21d5b5-07e7-4ae2-b5dc-ed6ddde1ffe6"/>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</cellContents>
@@ -264,11 +234,8 @@ from c_order c
 				</measure>
 				<crosstabCell width="20" height="20">
 					<cellContents mode="Opaque" style="Crosstab_CD">
-						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 						<textField>
-							<reportElement x="0" y="0" width="20" height="20" uuid="d6174a41-0b51-43bb-9da9-4fd1c4d1197b">
-								<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							</reportElement>
+							<reportElement x="0" y="0" width="20" height="20" uuid="e32548ca-d775-463d-8454-2fa40436e380"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
 						</textField>
@@ -278,72 +245,49 @@ from c_order c
 					<cellContents mode="Opaque" style="Crosstab_CT">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 						<textField>
-							<reportElement x="0" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="12535f36-7c08-4176-9f9d-d039302509e4">
-								<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							</reportElement>
-							<box>
-								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
-								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
-							</box>
+							<reportElement x="0" y="0" width="41" height="20" forecolor="#FFFFFF" uuid="0c709cf0-61b5-4191-871d-a4c7c2aaa56e"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement mode="Opaque" x="40" y="0" width="20" height="20" uuid="fe892494-a8e6-4c2b-92fc-e26024188e54">
-								<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							</reportElement>
+							<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="fc4dbb12-eb00-4e9d-a21c-3548edbd04d4"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="20" height="20" rowTotalGroup="referral">
+				<crosstabCell width="20" height="20" rowTotalGroup="name">
 					<cellContents mode="Opaque" style="Crosstab_CT">
 						<textField>
-							<reportElement x="0" y="0" width="20" height="20" forecolor="#FFFFFF" uuid="dd994b86-564f-48f2-b306-a94459da95e6"/>
+							<reportElement x="0" y="0" width="20" height="20" forecolor="#FFFFFF" uuid="0a03f1f9-c5dd-43d3-af2e-856d271e7272"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="referral" columnTotalGroup="calendar">
+				<crosstabCell width="60" height="20" rowTotalGroup="name" columnTotalGroup="calendar">
 					<cellContents mode="Opaque" style="Crosstab_CT">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 						<textField>
-							<reportElement x="0" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="75b3b572-8c39-44d2-bbbd-99ddb2a3a21d"/>
-							<box>
-								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
-								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
-							</box>
+							<reportElement x="0" y="0" width="41" height="20" forecolor="#FFFFFF" uuid="ae8d32ca-ab49-46ac-8c88-cc4103927bac"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
 						</textField>
 						<staticText>
-							<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="aeb0f04e-cf14-44ef-9ea8-94d6efb610e6"/>
+							<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="79f20eaa-25de-4557-8091-d7730ec56570"/>
 							<text><![CDATA[]]></text>
 						</staticText>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
-			<textField>
-				<reportElement x="0" y="0" width="179" height="20" uuid="6f78b03f-1209-4fcb-8917-d6632320f682">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
+			<staticText>
+				<reportElement x="0" y="0" width="170" height="20" uuid="5207d752-1648-458f-9f28-ceb6f5d8a7d9"/>
+				<box leftPadding="10"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Referrals"]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Referrals]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
