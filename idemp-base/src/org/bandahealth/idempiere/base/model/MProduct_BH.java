@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 
 import org.compiere.model.MExpenseType;
 import org.compiere.model.MProduct;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
+import org.compiere.model.X_I_ElementValue;
 import org.compiere.model.X_I_Product;
 
 public class MProduct_BH extends MProduct {
@@ -47,6 +49,51 @@ public class MProduct_BH extends MProduct {
 	public MProduct_BH(X_I_Product impP) {
 		super(impP);
 	}
+
+	public MProduct_BH(X_BH_I_Product_Quantity importProductQuantity) {
+		this(importProductQuantity.getCtx(), 0, importProductQuantity.get_TrxName());
+		set(importProductQuantity);
+	}
+
+	/**
+	 * Set/Update Settings from import
+	 *
+	 * @param importProductQuantity import
+	 */
+	public void set(X_BH_I_Product_Quantity importProductQuantity) {
+		setName(importProductQuantity.getName());
+		if (importProductQuantity.getBH_SellPrice() != null) {
+			setBH_SellPrice(importProductQuantity.getBH_SellPrice());
+		}
+		setbh_reorder_level(importProductQuantity.getbh_reorder_level());
+		setBH_HasExpiration(importProductQuantity.isBH_HasExpiration());
+
+		// Set the buy price based on the buying price of the lot with the expiration date farthest from today
+		if (importProductQuantity.isBH_HasExpiration()) {
+			if (importProductQuantity.getBH_BuyPrice() != null) {
+				setBH_BuyPrice(importProductQuantity.getBH_BuyPrice());
+			}
+		} else {
+			// Check lot 3
+			BigDecimal buyPrice = null;
+			Timestamp expirationDate = null;
+			if (importProductQuantity.isBH_HasLot3()) {
+				buyPrice = importProductQuantity.getBH_BuyPrice_Lot3();
+				expirationDate = importProductQuantity.getBH_GuaranteeDate_Lot3();
+			}
+			if (importProductQuantity.isBH_HasLot2() && (expirationDate == null ||
+					importProductQuantity.getBH_GuaranteeDate_Lot2().compareTo(expirationDate) > 0)) {
+				buyPrice = importProductQuantity.getBH_BuyPrice_Lot2();
+				expirationDate = importProductQuantity.getBH_GuaranteeDate_Lot2();
+			}
+			if ((expirationDate == null || importProductQuantity.getGuaranteeDate().compareTo(expirationDate) > 0)) {
+				buyPrice = importProductQuantity.getBH_BuyPrice();
+			}
+			if (buyPrice != null) {
+				setBH_BuyPrice(buyPrice);
+			}
+		}
+	}  //	set
 
 	/**
 	 * Get Has Expiration.

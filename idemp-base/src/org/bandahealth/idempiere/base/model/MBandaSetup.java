@@ -16,9 +16,17 @@ import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
+import org.compiere.model.MCostElement;
+import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
+import org.compiere.model.MPInstance;
+import org.compiere.model.MPeriod;
+import org.compiere.model.MPriceList;
+import org.compiere.model.MPriceListVersion;
+import org.compiere.model.MProcess;
 import org.compiere.model.MProductCategoryAcct;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRefTable;
@@ -28,12 +36,16 @@ import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
+import org.compiere.model.MWarehouse;
+import org.compiere.model.MYear;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
-import org.compiere.model.X_C_ElementValue;
+import org.compiere.process.ProcessInfo;
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogger;
+import org.compiere.util.CacheMgt;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
@@ -73,6 +85,7 @@ public class MBandaSetup {
 	private final String SUFFIX_BANK_NAME = " Bank";
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
+	private final String DEFAULT_IDEMPIERE_ENTITY_NAME = "Standard";
 	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
@@ -118,6 +131,29 @@ public class MBandaSetup {
 		transaction.close();
 		log.info("finish");
 		return success;
+	}
+
+	/**
+	 * This method updates the accounting schema costing method and level, then ensures a costing element is created that
+	 * matches the costing method
+	 *
+	 * @return Whether creation was successful or not
+	 */
+	public boolean updateAccountingSchemaCosting() {
+		accountSchema.setCostingMethod(MAcctSchema.COSTINGMETHOD_LastPOPrice);
+		accountSchema.setCostingLevel(MAcctSchema.COSTINGLEVEL_BatchLot);
+		if (!accountSchema.save()) {
+			log.severe("Accounting Schema method and level not updated");
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+
+		MCostElement costElement = new MCostElement(context, 0, getTransactionName());
+		costElement.setName("Last PO Price");
+		costElement.setCostElementType(MCostElement.COSTELEMENTTYPE_Material);
+		costElement.setCostingMethod(MCostElement.COSTINGMETHOD_LastPOPrice);
+		return costElement.save();
 	}
 
 	public boolean updateDefaultAccountMapping() {
@@ -216,7 +252,7 @@ public class MBandaSetup {
 		clientsBank.setIsOwnBank(true);
 		clientsBank.setIsActive(true);
 		// Don't need to set location at this point
-//		clientsBank.setC_Location_ID();
+		//		clientsBank.setC_Location_ID();
 
 		if (!clientsBank.save()) {
 			String errorMessage = "Bank NOT inserted";
@@ -309,11 +345,11 @@ public class MBandaSetup {
 			MCharge_BH charge = new MCharge_BH(context, 0, getTransactionName());
 			charge.setName(defaultCharge.getName());
 			charge.setDescription(defaultCharge.getDescription());
-			charge.setC_ChargeType_ID(
-					defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
+			charge.setC_ChargeType_ID(defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
 			charge.setBH_SubType(defaultCharge.getBH_SubType());
-			charge.setC_ElementValue_ID(elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getC_ElementValue_ID());
+			charge.setC_ElementValue_ID(
+					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getC_ElementValue_ID());
 			charge.setBH_NeedAdditionalVisitInfo(defaultCharge.isBH_NeedAdditionalVisitInfo());
 			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
@@ -325,8 +361,8 @@ public class MBandaSetup {
 			}
 
 			// Create a valid combination for this account value
-			MAccount chargeExpenseAccount =
-					getOrCreateValidCombination(elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
+			MAccount chargeExpenseAccount = getOrCreateValidCombination(
+					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -392,7 +428,8 @@ public class MBandaSetup {
 
 			MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, getAD_Client_ID(), null);
 
-			//We need to get all charge info values mapped for this charge info from the map.
+			// We need to get all charge info values mapped for this charge info from the
+			// map.
 			for (Map.Entry<Integer, MBHChargeInfoValue> currentInfoValue : infoValues.entrySet()) {
 				if (currentInfoValue.getValue().getBH_Charge_Info_ID() == defaultChargeInfo.getBH_Charge_Info_ID()) {
 					chargeInfoValue.setName(currentInfoValue.getValue().getName());
@@ -612,8 +649,8 @@ public class MBandaSetup {
 		// We need to get a map of the default doc action exclusion IDs (which are for
 		// System) and map them to the ones
 		// assigned to this client
-//		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for
-//		iDempiere-8.2+
+		//		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that // <- uncomment for
+		//		iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient = new Query(context, MDocType.Table_Name,
 				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
@@ -621,10 +658,10 @@ public class MBandaSetup {
 				.filter(docType -> docType.getAD_Client_ID() == 0)
 				.collect(Collectors.toMap(MDocType::getC_DocType_ID,
 						systemDocType -> docTypesForSystemAndClient.stream()
-								.filter(docType -> docType.getAD_Client_ID() != 0
-										&& docType.getName().equals(systemDocType.getName()))
-								.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
-//		PO.clearCrossTenantSafe(); // disable what was done previously // <- uncomment for iDempiere-8.2+
+						.filter(docType -> docType.getAD_Client_ID() != 0
+						&& docType.getName().equals(systemDocType.getName()))
+						.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
+		//		PO.clearCrossTenantSafe(); // disable what was done previously // <- uncomment for iDempiere-8.2+
 
 		// Get all access for the roles we'll configure
 		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(Env.getCtx(),
@@ -669,9 +706,9 @@ public class MBandaSetup {
 			// Add document access that isn't currently assigned, but was specified to be
 			// assigned
 			specifiedAccessForThisRole.stream().filter(specifiedAccess -> currentAccessForThisRole.stream()
-					.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
-							&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-							.get(specifiedAccess.getC_DocType_ID())))
+							.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
+									&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
+									.get(specifiedAccess.getC_DocType_ID())))
 					.forEach(accessToAdd -> {
 						X_AD_Document_Action_Access clientAccess = new X_AD_Document_Action_Access(context, 0,
 								getTransactionName());
@@ -803,7 +840,7 @@ public class MBandaSetup {
 		rolesToConfigureByDBUserType.forEach((referenceList, roleToConfigure) -> {
 			// Filter the default included roles to match this role
 			List<MBHDefaultIncludedRole> defaultIncludedRolesForRole = defaultIncludedRoles.stream().filter(
-					defaultIncludedRole -> defaultIncludedRole.getDB_UserType().equals(referenceList.getValue()))
+							defaultIncludedRole -> defaultIncludedRole.getDB_UserType().equals(referenceList.getValue()))
 					.collect(Collectors.toList());
 			List<MRoleIncluded> currentIncludedRolesForThisRole = currentIncludedRolesByRoleId.containsKey(
 					roleToConfigure.getAD_Role_ID()) ? currentIncludedRolesByRoleId.get(roleToConfigure.getAD_Role_ID())
@@ -1019,17 +1056,18 @@ public class MBandaSetup {
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
 		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
-				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)",
-				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
+				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
 
 		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
 				.filter(elementValue -> elementValue.getAD_Client_ID() == getAD_Client_ID())
 				.collect(Collectors.toMap(MElementValue::getValue, elementValue -> elementValue));
 
 		return accountElementsForTwoClients.stream()
-				.filter(elementValue -> elementValue.getAD_Client_ID() == MClient_BH.CLIENTID_CONFIG).collect(Collectors
-						.toMap(MElementValue::getC_ElementValue_ID, elementValue -> newClientAccountElementIdsByValue
-								.getOrDefault(elementValue.getValue(), new MElementValue(Env.getCtx(), 0, null))));
+				.filter(elementValue -> elementValue.getAD_Client_ID() == MClient_BH.CLIENTID_CONFIG)
+				.collect(Collectors.toMap(MElementValue::getC_ElementValue_ID,
+						elementValue -> newClientAccountElementIdsByValue.getOrDefault(elementValue.getValue(),
+								new MElementValue(Env.getCtx(), 0, null))));
 	}
 
 	/**
@@ -1043,6 +1081,161 @@ public class MBandaSetup {
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
+	}
+
+	/**
+	 * Custom warehouse configuration
+	 */
+	public boolean updateWarehouseLocatorSetUp() {
+		// get the default warehouse and locator->rename and set to locator as default
+		MWarehouse wareHouse = new Query(this.context, MWarehouse.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
+				getTransactionName()).setParameters(client.getAD_Client_ID()).first();
+		MLocator locator = new Query(this.context, MLocator.Table_Name,
+				MWarehouse.COLUMNNAME_AD_Client_ID + "=? AND " + MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
+				getTransactionName()).setParameters(getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
+		locator.setIsDefault(true);
+		locator.setValue(organization.getName());
+		wareHouse.setName(organization.getName());
+		wareHouse.setValue(organization.getName());
+		if (!locator.save()) {
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+		if (!wareHouse.save()) {
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Create a price list and an associated version
+	 *
+	 * @param priceListName        name of the price-list
+	 * @param priceListVersionName name of the price-list version
+	 * @param isSalePriceList
+	 * @return success or failure
+	 */
+	public boolean createPriceList(String priceListName, String priceListVersionName, boolean isSalePriceList) {
+		//		// delete default price-list and version
+		MPriceList priceList = new Query(this.context, MPriceList.Table_Name,
+				MPriceList.COLUMNNAME_AD_Client_ID + "=? AND " + MPriceList.COLUMNNAME_Name + " =?",
+				getTransactionName()).setParameters(getAD_Client_ID(), DEFAULT_IDEMPIERE_ENTITY_NAME).first();
+		if (priceList != null) {
+			MPriceListVersion defaultPriceListVersion = priceList.getPriceListVersion(null);
+			if (defaultPriceListVersion.delete(true)) {
+				// TODO Reset address on this warehouse
+				priceList.delete(true);
+			}
+		}
+		// create default price-lists for sales and purchases
+		MPriceList bandaPriceList = new MPriceList(this.context, 0, getTransactionName());
+		bandaPriceList.setName(priceListName);
+		bandaPriceList.setIsSOPriceList(isSalePriceList);
+		bandaPriceList.setIsDefault(true);
+		bandaPriceList.setAD_Org_ID(getAD_Org_ID());
+		bandaPriceList.setIsActive(true);
+		bandaPriceList.setC_Currency_ID(client.getC_Currency_ID());
+		if (!bandaPriceList.save()) {
+			log.log(Level.SEVERE, "Price-list not saved");
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+
+		MDiscountSchema discountSchema = new Query(context, MDiscountSchema.Table_Name,
+				MDiscountSchema.COLUMNNAME_AD_Client_ID + "=? AND " + MDiscountSchema.COLUMNNAME_Name + " =?",
+				getTransactionName()).setParameters(getAD_Client_ID(), DEFAULT_IDEMPIERE_ENTITY_NAME).first();
+		// create default price-list version
+		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
+		priceListVersion.setName(priceListVersionName);
+		priceListVersion.setIsActive(true);
+		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
+		priceListVersion.setM_DiscountSchema_ID(discountSchema.get_ID());
+		if (!priceListVersion.save()) {
+			log.log(Level.SEVERE, "Price-list version not saved");
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Configure accounting periods
+	 */
+	public boolean openCalendarYearPeriods() {
+		final String CALENDAR_PROCESS_INFO_NAME = "Calendar Process Info";
+		final String CALENDAR_PROCESS_PARAM_NAME = "PeriodAction";
+		final String CALENDAR_PROCESS_PARAM_ACTION = "O";
+		final String CALENDAR_PROCESS_PARAM_INFO = "Open Period";
+		final String CALENDAR_PROCESS_NAME = "C_Period_Process";
+
+		boolean result = false;
+		// un-check automatic period control in accounting schema
+		MAcctSchema accountingSchema = new Query(context, MAcctSchema.Table_Name,
+				MAcctSchema.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
+				.first();
+		accountingSchema.setAutoPeriodControl(false);
+		if (!accountingSchema.save()) {
+			log.log(Level.SEVERE, "Failed: In activate automatic period control");
+			transaction.rollback();
+			transaction.close();
+		}
+
+		CacheMgt.get().resetLocalCache();
+		// run 'Open All' process on all documents for the calendar period
+		MYear year = new Query(context, MYear.Table_Name, MYear.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+				.setParameters(getAD_Client_ID()).first();
+		List<MPeriod> calendarPeriods = new Query(context, MPeriod.Table_Name,
+				MPeriod.COLUMNNAME_AD_Client_ID + "=? AND " + MPeriod.COLUMNNAME_C_Year_ID + "=?", getTransactionName())
+				.setParameters(getAD_Client_ID(), year.getC_Year_ID()).list();
+
+		// set the record IDs for the periods to be opened.
+		List<Integer> recordIDs = calendarPeriods.stream().map(MPeriod::get_ID).collect(Collectors.toList());
+
+		ProcessInfoParameter parameter1 =
+				new ProcessInfoParameter(CALENDAR_PROCESS_PARAM_NAME, CALENDAR_PROCESS_PARAM_ACTION, "",
+						CALENDAR_PROCESS_PARAM_INFO, "");
+		ProcessInfo processInfo = new ProcessInfo(CALENDAR_PROCESS_INFO_NAME, 0, 0, 0);
+		processInfo.setParameter(new ProcessInfoParameter[]{parameter1});
+		processInfo.setRecord_IDs(recordIDs);
+
+		MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
+				getTransactionName()).setParameters(CALENDAR_PROCESS_NAME).first();
+		if (process == null) {
+			log.severe("Failure: Could not find process");
+		}
+		// Can use this save to resume process?
+		MPInstance instance = new MPInstance(context, 0, null);
+		instance.setAD_Process_ID(process.get_ID());
+		instance.setRecord_ID(0);
+		if (!instance.save()) {
+			log.warning("Failure: Could not save process instance");
+		}
+		processInfo.setAD_PInstance_ID(instance.get_ID());
+		result = process.processIt(processInfo, null);
+		return result;
+	}
+
+	/**
+	 * Update client users
+	 */
+	public boolean configureClientUsers() {
+		// remove admin and user as customers/business partners
+		List<MBPartner_BH> businessPartners = new Query(context, MBPartner_BH.Table_Name,
+				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_IsCustomer + "=?",
+				getTransactionName()).setParameters(getAD_Client_ID(), true).list();
+		businessPartners.forEach((businessPartner) -> {
+			businessPartner.setIsActive(false);
+			if (!businessPartner.save()) {
+				log.warning("Failure: Could not save updates for business partner");
+			}
+		});
+		return true;
 	}
 
 	/**
