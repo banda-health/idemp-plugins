@@ -41,12 +41,14 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		// Don't filter a request to get an authentication session or to change a password
+		// Don't filter a request to get an authentication session or to change a
+		// password
 		String method = requestContext.getMethod();
 		String path = "/" + requestContext.getUriInfo().getPath();
-		if ((method.equals(HttpMethod.POST) && (path.endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH) ||
-				path.endsWith(IRestConfigs.CHANGEPASSWORD_PATH))) || (method.equals(HttpMethod.GET) &&
-				path.endsWith(IRestConfigs.LANGUAGES_PATH))) {
+		if ((method.equals(HttpMethod.POST) && (path.endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH)
+				|| path.endsWith(IRestConfigs.CHANGEPASSWORD_PATH)))
+				|| (method.equals(HttpMethod.GET) && path.endsWith(IRestConfigs.LANGUAGES_PATH))
+				|| path.endsWith(IRestConfigs.CHANGEACCESS_PATH)) {
 			return;
 		}
 

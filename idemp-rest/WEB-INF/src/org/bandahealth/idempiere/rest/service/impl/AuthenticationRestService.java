@@ -84,7 +84,8 @@ public class AuthenticationRestService {
 
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
-		// If we're here and they don't have access to clients, it means the username/password combo incorrect
+		// If we're here and they don't have access to clients, it means the
+		// username/password combo incorrect
 		if (clients == null || clients.length == 0) {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
@@ -109,6 +110,59 @@ public class AuthenticationRestService {
 
 		updateUsersPassword(credentials, clients);
 		return this.generateSession(credentials);
+	}
+
+	/**
+	 * JWT tokens are immutable. We have to generate a new token
+	 * 
+	 * @param credentials
+	 * @return
+	 */
+	@POST
+	@Path(IRestConfigs.CHANGEACCESS_PATH)
+	public AuthResponse changeAccess(Authentication credentials) {
+		try {
+			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
+			if (user == null) {
+				return new AuthResponse(Status.UNAUTHORIZED);
+			}
+
+			Builder builder = JWT.create().withSubject(credentials.getUsername());
+			Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
+			// expires after 60 minutes
+			builder.withIssuer(TokenUtils.getTokenIssuer()).withExpiresAt(expiresAt);
+
+			AuthResponse response = new AuthResponse();
+
+			changeLoginProperties(credentials, builder, response);
+
+			builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
+			builder.withClaim(LoginClaims.AD_Language.name(), credentials.getLanguage());
+			Env.setContext(Env.getCtx(), Env.AD_USER_ID, user.getAD_User_ID());
+			response.setUserId(user.getAD_User_ID());
+
+			try {
+				// generate session token
+				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
+				// has accepted terms of use?
+				response.setHasAcceptedTermsOfUse(TermsOfServiceDBService.hasAccepted());
+				// set username
+				response.setUsername(credentials.getUsername());
+				// status OK.
+				response.setStatus(Status.OK);
+				// isAdministrator
+				response.setIsAdministrator(user.isAdministrator());
+				// record read-write and deactivate privileges on each window for this role
+				response.setWindowAccessLevel(RoleUtil.accessLevelsForRole());
+				response.setIncludedRoleUuids(RoleUtil.fetchIncludedRoleUuids());
+				return response;
+			} catch (Exception e) {
+				return new AuthResponse(Status.BAD_REQUEST);
+			}
+
+		} catch (IllegalArgumentException e) {
+			return new AuthResponse(Status.BAD_REQUEST);
+		}
 	}
 
 	/**
