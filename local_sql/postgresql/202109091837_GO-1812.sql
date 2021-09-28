@@ -47,26 +47,32 @@ create table if not exists bh_i_product_quantity
 			deferrable initially deferred
 );
 
+alter table bh_i_product_quantity drop constraint if exists bh_i_product_quantity_isactive_check;
 alter table bh_i_product_quantity
 	add constraint bh_i_product_quantity_isactive_check
 		check (isactive = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
+alter table bh_i_product_quantity drop constraint if exists bh_i_product_quantity_processed_check;
 alter table bh_i_product_quantity
 	add constraint bh_i_product_quantity_processed_check
 		check (processed = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
+alter table bh_i_product_quantity drop constraint if exists bh_i_product_quantity_bh_haslot3_check;
 alter table bh_i_product_quantity
 	add constraint bh_i_product_quantity_bh_haslot3_check
 		check (bh_haslot3 = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
+alter table bh_i_product_quantity drop constraint if exists bh_i_product_quantity_bh_haslot1_check;
 alter table bh_i_product_quantity
 	add constraint bh_i_product_quantity_bh_haslot1_check
 		check (bh_haslot1 = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
+alter table bh_i_product_quantity drop constraint if exists bh_i_product_quantity_bh_haslot2_check;
 alter table bh_i_product_quantity
 	add constraint bh_i_product_quantity_bh_haslot2_check
 		check (bh_haslot2 = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
 
+alter table bh_i_product_quantity drop constraint if exists bh_i_product_quantity_bh_hasexpiration_check;
 alter table bh_i_product_quantity
 	add constraint bh_i_product_quantity_bh_hasexpiration_check
 		check (bh_hasexpiration = ANY (ARRAY['Y'::bpchar, 'N'::bpchar]));
