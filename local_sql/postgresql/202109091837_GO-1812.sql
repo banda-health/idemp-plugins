@@ -213,7 +213,8 @@ FROM tmp_ad_client_id aci
 	) cost ON cost.m_product_id = p.m_product_id AND cost.m_attributesetinstance_id = soh.m_attributesetinstance_id AND row_num = 1
 	JOIN m_productprice pp ON p.m_product_id = pp.m_product_id
 	JOIN m_pricelist_version plv ON pp.m_pricelist_version_id = plv.m_pricelist_version_id AND plv.isactive = 'Y'
-	JOIN m_pricelist pl ON plv.m_pricelist_id = pl.m_pricelist_id AND pl.isactive = 'Y' AND pl.isdefault = 'Y' and pl.issopricelist = 'N';
+	JOIN m_pricelist pl ON plv.m_pricelist_id = pl.m_pricelist_id AND pl.isactive = 'Y' AND pl.isdefault = 'Y' and pl.issopricelist = 'N'
+ON CONFLICT DO NOTHING;
 
 -- Add exclusions to the ASI for clients so they don't get errors when selling products (since we've removed the ability so select expiration date on a visit)
 DROP TABLE IF EXISTS tmp_m_attributesetexclude;
