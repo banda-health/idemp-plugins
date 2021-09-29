@@ -16,6 +16,7 @@ import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
+import org.compiere.model.MCostElement;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
@@ -84,8 +85,8 @@ public class MBandaSetup {
 	private final String SUFFIX_BANK_NAME = " Bank";
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
-	protected CLogger log = CLogger.getCLogger(getClass());
 	private final String DEFAULT_IDEMPIERE_ENTITY_NAME = "Standard";
+	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
 	public MBandaSetup(Properties ctx, MClient client, MOrg organization) {
@@ -130,6 +131,29 @@ public class MBandaSetup {
 		transaction.close();
 		log.info("finish");
 		return success;
+	}
+
+	/**
+	 * This method updates the accounting schema costing method and level, then ensures a costing element is created that
+	 * matches the costing method
+	 *
+	 * @return Whether creation was successful or not
+	 */
+	public boolean updateAccountingSchemaCosting() {
+		accountSchema.setCostingMethod(MAcctSchema.COSTINGMETHOD_LastPOPrice);
+		accountSchema.setCostingLevel(MAcctSchema.COSTINGLEVEL_BatchLot);
+		if (!accountSchema.save()) {
+			log.severe("Accounting Schema method and level not updated");
+			transaction.rollback();
+			transaction.close();
+			return false;
+		}
+
+		MCostElement costElement = new MCostElement(context, 0, getTransactionName());
+		costElement.setName("Last PO Price");
+		costElement.setCostElementType(MCostElement.COSTELEMENTTYPE_Material);
+		costElement.setCostingMethod(MCostElement.COSTINGMETHOD_LastPOPrice);
+		return costElement.save();
 	}
 
 	public boolean updateDefaultAccountMapping() {
@@ -269,7 +293,7 @@ public class MBandaSetup {
 	 * Add the default charge types configured in the config client.
 	 *
 	 * @return A map of default charge type IDs to the charge type that was added
-	 *         for the client
+	 * for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
@@ -501,7 +525,7 @@ public class MBandaSetup {
 		MRefList userRoleReferenceList = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND" + " " + MReference_BH.Table_Name + "."
 						+ MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
-						getTransactionName())
+				getTransactionName())
 				.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
 						+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
 						+ MRefList.COLUMNNAME_AD_Reference_ID)
@@ -560,9 +584,9 @@ public class MBandaSetup {
 		Map<MRefList, MRole> rolesToConfigureByDBUserType = userTypeValues.stream().collect(HashMap::new,
 				(rolesToConfigureByDBUserTypeTemp, userTypeValue) -> rolesToConfigureByDBUserTypeTemp.put(userTypeValue,
 						clientRoles.stream()
-						.filter(clientRole -> clientRole.getName()
-								.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName())))
-						.findFirst().orElse(null)),
+								.filter(clientRole -> clientRole.getName()
+										.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName())))
+								.findFirst().orElse(null)),
 				HashMap::putAll);
 
 		// Ensure all the roles are present
@@ -615,7 +639,7 @@ public class MBandaSetup {
 	 * Handle updating document action access based on configured rules, if any.
 	 *
 	 * @return Whether the document action access exclusions were successfully
-	 *         applied
+	 * applied
 	 */
 	private boolean handleDocumentActionAccess(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the document action access exclusion values
@@ -647,7 +671,7 @@ public class MBandaSetup {
 						.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
 						.collect(Collectors.joining(","))
 						+ ")",
-						getTransactionName()).list();
+				getTransactionName()).list();
 		Map<Integer, List<X_AD_Document_Action_Access>> currentAccessByRole = currentAccessForRolesToConfigure.stream()
 				.collect(Collectors.groupingBy(X_AD_Document_Action_Access::getAD_Role_ID));
 
@@ -664,44 +688,44 @@ public class MBandaSetup {
 			// Remove the document action access that is currently assigned, but wasn't
 			// specified to be assigned
 			currentAccessForThisRole.stream()
-			.filter(currentAccess -> specifiedAccessForThisRole.stream().noneMatch(
-					specifiedAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
-					&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-					.get(specifiedAccess.getC_DocType_ID())))
-			.forEach(accessToRemove -> {
-				if (!accessToRemove.delete(true)) {
-					String errorMessage = "Could not remove document action access for Role, DocType, and RefList: "
-							+ role.getAD_Role_ID() + ", " + accessToRemove.getC_DocType_ID() + ", "
-							+ accessToRemove.getAD_Ref_List_ID();
-					log.log(Level.SEVERE, errorMessage);
-					info.append(errorMessage);
-					didSuccessfullyUpdateAllDocumentAccess.set(false);
-				}
-			});
+					.filter(currentAccess -> specifiedAccessForThisRole.stream().noneMatch(
+							specifiedAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
+									&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
+									.get(specifiedAccess.getC_DocType_ID())))
+					.forEach(accessToRemove -> {
+						if (!accessToRemove.delete(true)) {
+							String errorMessage = "Could not remove document action access for Role, DocType, and RefList: "
+									+ role.getAD_Role_ID() + ", " + accessToRemove.getC_DocType_ID() + ", "
+									+ accessToRemove.getAD_Ref_List_ID();
+							log.log(Level.SEVERE, errorMessage);
+							info.append(errorMessage);
+							didSuccessfullyUpdateAllDocumentAccess.set(false);
+						}
+					});
 
 			// Add document access that isn't currently assigned, but was specified to be
 			// assigned
 			specifiedAccessForThisRole.stream().filter(specifiedAccess -> currentAccessForThisRole.stream()
-					.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
-					&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-					.get(specifiedAccess.getC_DocType_ID())))
-			.forEach(accessToAdd -> {
-				X_AD_Document_Action_Access clientAccess = new X_AD_Document_Action_Access(context, 0,
-						getTransactionName());
-				clientAccess
-				.setC_DocType_ID(clientDocTypeIdsBySystemDocTypeIds.get(accessToAdd.getC_DocType_ID()));
-				clientAccess.setAD_Ref_List_ID(accessToAdd.getAD_Ref_List_ID());
-				clientAccess.setAD_Role_ID(role.getAD_Role_ID());
+							.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
+									&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
+									.get(specifiedAccess.getC_DocType_ID())))
+					.forEach(accessToAdd -> {
+						X_AD_Document_Action_Access clientAccess = new X_AD_Document_Action_Access(context, 0,
+								getTransactionName());
+						clientAccess
+								.setC_DocType_ID(clientDocTypeIdsBySystemDocTypeIds.get(accessToAdd.getC_DocType_ID()));
+						clientAccess.setAD_Ref_List_ID(accessToAdd.getAD_Ref_List_ID());
+						clientAccess.setAD_Role_ID(role.getAD_Role_ID());
 
-				if (!clientAccess.save()) {
-					String errorMessage = "Could not add document action access for Role, DocType, and RefList: "
-							+ role.getAD_Role_ID() + ", " + clientAccess.getC_DocType_ID() + ", "
-							+ clientAccess.getAD_Ref_List_ID();
-					log.log(Level.SEVERE, errorMessage);
-					info.append(errorMessage);
-					didSuccessfullyUpdateAllDocumentAccess.set(false);
-				}
-			});
+						if (!clientAccess.save()) {
+							String errorMessage = "Could not add document action access for Role, DocType, and RefList: "
+									+ role.getAD_Role_ID() + ", " + clientAccess.getC_DocType_ID() + ", "
+									+ clientAccess.getAD_Ref_List_ID();
+							log.log(Level.SEVERE, errorMessage);
+							info.append(errorMessage);
+							didSuccessfullyUpdateAllDocumentAccess.set(false);
+						}
+					});
 		});
 
 		return didSuccessfullyUpdateAllDocumentAccess.get();
@@ -808,7 +832,7 @@ public class MBandaSetup {
 						+ rolesToConfigureByDBUserType.values().stream()
 						.map(role -> Integer.toString(role.getAD_Role_ID())).collect(Collectors.joining(","))
 						+ ")",
-						getTransactionName()).list();
+				getTransactionName()).list();
 		Map<Integer, List<MRoleIncluded>> currentIncludedRolesByRoleId = currentIncludedRolesForRolesToConfigure
 				.stream().collect(Collectors.groupingBy(MRoleIncluded::getAD_Role_ID));
 
@@ -816,39 +840,39 @@ public class MBandaSetup {
 		rolesToConfigureByDBUserType.forEach((referenceList, roleToConfigure) -> {
 			// Filter the default included roles to match this role
 			List<MBHDefaultIncludedRole> defaultIncludedRolesForRole = defaultIncludedRoles.stream().filter(
-					defaultIncludedRole -> defaultIncludedRole.getDB_UserType().equals(referenceList.getValue()))
+							defaultIncludedRole -> defaultIncludedRole.getDB_UserType().equals(referenceList.getValue()))
 					.collect(Collectors.toList());
 			List<MRoleIncluded> currentIncludedRolesForThisRole = currentIncludedRolesByRoleId.containsKey(
 					roleToConfigure.getAD_Role_ID()) ? currentIncludedRolesByRoleId.get(roleToConfigure.getAD_Role_ID())
-							: new ArrayList<>();
+					: new ArrayList<>();
 
 			// For any roles that are meant to be assigned but aren't, add them
 			// Filter out roles that are already assigned
 			defaultIncludedRolesForRole.stream()
-			.filter(defaultIncludedRole -> currentIncludedRolesForThisRole.stream()
-					.noneMatch(currentIncludedRole -> currentIncludedRole
-							.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
-			.forEach(includedRoleToAdd -> {
-				MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, getTransactionName());
-				roleIncluded.setIncluded_Role_ID(includedRoleToAdd.getIncluded_Role_ID());
-				roleIncluded.setAD_Role_ID(roleToConfigure.getAD_Role_ID());
-				int sequencerToUse = roleSequencers.get(roleToConfigure.getAD_Role_ID());
-				roleIncluded.setSeqNo(sequencerToUse);
-				roleSequencers.put(roleToConfigure.getAD_Role_ID(), sequencerToUse + sequencerIncrement);
-				roleIncluded.saveEx();
-			});
+					.filter(defaultIncludedRole -> currentIncludedRolesForThisRole.stream()
+							.noneMatch(currentIncludedRole -> currentIncludedRole
+									.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
+					.forEach(includedRoleToAdd -> {
+						MRoleIncluded roleIncluded = new MRoleIncluded(context, 0, getTransactionName());
+						roleIncluded.setIncluded_Role_ID(includedRoleToAdd.getIncluded_Role_ID());
+						roleIncluded.setAD_Role_ID(roleToConfigure.getAD_Role_ID());
+						int sequencerToUse = roleSequencers.get(roleToConfigure.getAD_Role_ID());
+						roleIncluded.setSeqNo(sequencerToUse);
+						roleSequencers.put(roleToConfigure.getAD_Role_ID(), sequencerToUse + sequencerIncrement);
+						roleIncluded.saveEx();
+					});
 
 			// For any roles that are assigned but shouldn't be, remove them
 			currentIncludedRolesForThisRole.stream()
-			.filter(currentIncludedRole -> defaultIncludedRolesForRole.stream()
-					.noneMatch(defaultIncludedRole -> currentIncludedRole
-							.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
-			.forEach(includedRoleToRemove -> {
-				if (!includedRoleToRemove.delete(true)) {
-					log.severe("Could not remove included role " + includedRoleToRemove.getIncluded_Role_ID());
-					didSuccessfullyUpdateAllIncludedRoles.set(false);
-				}
-			});
+					.filter(currentIncludedRole -> defaultIncludedRolesForRole.stream()
+							.noneMatch(defaultIncludedRole -> currentIncludedRole
+									.getIncluded_Role_ID() == defaultIncludedRole.getIncluded_Role_ID()))
+					.forEach(includedRoleToRemove -> {
+						if (!includedRoleToRemove.delete(true)) {
+							log.severe("Could not remove included role " + includedRoleToRemove.getIncluded_Role_ID());
+							didSuccessfullyUpdateAllIncludedRoles.set(false);
+						}
+					});
 		});
 
 		if (!didSuccessfullyUpdateAllIncludedRoles.get()) {
@@ -950,7 +974,7 @@ public class MBandaSetup {
 		}
 		if (inTransitAccountValue != null && inTransitAccount == null) {
 			info.append("No Account Element found for value ").append(inTransitAccountValue)
-			.append(". Using default In-Transit Account value");
+					.append(". Using default In-Transit Account value");
 		}
 
 		return updateAccountMappingsForBankAccount(bankAccount, inTransitAccount);
@@ -1059,7 +1083,9 @@ public class MBandaSetup {
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
 
-	/** Custom warehouse configuration */
+	/**
+	 * Custom warehouse configuration
+	 */
 	public boolean updateWarehouseLocatorSetUp() {
 		// get the default warehouse and locator->rename and set to locator as default
 		MWarehouse wareHouse = new Query(this.context, MWarehouse.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
@@ -1086,7 +1112,7 @@ public class MBandaSetup {
 
 	/**
 	 * Create a price list and an associated version
-	 * 
+	 *
 	 * @param priceListName        name of the price-list
 	 * @param priceListVersionName name of the price-list version
 	 * @param isSalePriceList
@@ -1138,14 +1164,16 @@ public class MBandaSetup {
 		return true;
 	}
 
-	/** Configure accounting periods */
+	/**
+	 * Configure accounting periods
+	 */
 	public boolean openCalendarYearPeriods() {
 		final String CALENDAR_PROCESS_INFO_NAME = "Calendar Process Info";
-		final String CALENDAR_PROCESS_PARAM_NAME= "PeriodAction";
+		final String CALENDAR_PROCESS_PARAM_NAME = "PeriodAction";
 		final String CALENDAR_PROCESS_PARAM_ACTION = "O";
 		final String CALENDAR_PROCESS_PARAM_INFO = "Open Period";
 		final String CALENDAR_PROCESS_NAME = "C_Period_Process";
-		
+
 		boolean result = false;
 		// un-check automatic period control in accounting schema
 		MAcctSchema accountingSchema = new Query(context, MAcctSchema.Table_Name,
@@ -1157,7 +1185,7 @@ public class MBandaSetup {
 			transaction.rollback();
 			transaction.close();
 		}
-		
+
 		CacheMgt.get().resetLocalCache();
 		// run 'Open All' process on all documents for the calendar period
 		MYear year = new Query(context, MYear.Table_Name, MYear.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
@@ -1169,9 +1197,11 @@ public class MBandaSetup {
 		// set the record IDs for the periods to be opened.
 		List<Integer> recordIDs = calendarPeriods.stream().map(MPeriod::get_ID).collect(Collectors.toList());
 
-		ProcessInfoParameter parameter1 = new ProcessInfoParameter(CALENDAR_PROCESS_PARAM_NAME, CALENDAR_PROCESS_PARAM_ACTION, "", CALENDAR_PROCESS_PARAM_INFO, "");
+		ProcessInfoParameter parameter1 =
+				new ProcessInfoParameter(CALENDAR_PROCESS_PARAM_NAME, CALENDAR_PROCESS_PARAM_ACTION, "",
+						CALENDAR_PROCESS_PARAM_INFO, "");
 		ProcessInfo processInfo = new ProcessInfo(CALENDAR_PROCESS_INFO_NAME, 0, 0, 0);
-		processInfo.setParameter(new ProcessInfoParameter[] { parameter1 });
+		processInfo.setParameter(new ProcessInfoParameter[]{parameter1});
 		processInfo.setRecord_IDs(recordIDs);
 
 		MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
@@ -1191,7 +1221,9 @@ public class MBandaSetup {
 		return result;
 	}
 
-	/** Update client users */
+	/**
+	 * Update client users
+	 */
 	public boolean configureClientUsers() {
 		// remove admin and user as customers/business partners
 		List<MBPartner_BH> businessPartners = new Query(context, MBPartner_BH.Table_Name,
