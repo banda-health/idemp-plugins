@@ -304,11 +304,11 @@ public class MBandaSetup {
 	 * for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
-		//PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
 				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		//PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeMap = new HashMap<>();
 		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
@@ -346,11 +346,11 @@ public class MBandaSetup {
 			return false;
 		}
 		// Get all active, default charges from the default client
-		//PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.Table_Name,
 				MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		//PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<Integer, Integer> defaultChargeToChargeMap = new HashMap<>();
 
@@ -419,11 +419,11 @@ public class MBandaSetup {
 	private boolean addChargeInformation(Map<Integer, Integer> defaultChargeToChargeMap) {
 		Map<Integer, MBHChargeInfoValue> infoValues = getAllInfoValuesMap();
 
-		//PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
 				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		//PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
 			MBHChargeInfo chargeInfo = new MBHChargeInfo(context, 0, getTransactionName());
@@ -1070,11 +1070,11 @@ public class MBandaSetup {
 	 * @return map of accounts
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
-		//PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
 				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
-		//PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
 				.filter(elementValue -> elementValue.getAD_Client_ID() == getAD_Client_ID())
@@ -1093,11 +1093,11 @@ public class MBandaSetup {
 	 * @return a map of the info values
 	 */
 	private Map<Integer, MBHChargeInfoValue> getAllInfoValuesMap() {
-		//PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
 				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		//PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
