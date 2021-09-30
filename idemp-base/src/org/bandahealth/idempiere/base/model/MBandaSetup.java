@@ -149,11 +149,18 @@ public class MBandaSetup {
 			return false;
 		}
 
-		MCostElement costElement = new MCostElement(context, 0, getTransactionName());
-		costElement.setName("Last PO Price");
-		costElement.setCostElementType(MCostElement.COSTELEMENTTYPE_Material);
-		costElement.setCostingMethod(MCostElement.COSTINGMETHOD_LastPOPrice);
-		return costElement.save();
+		MCostElement costElement = new Query(context, MCostElement.Table_Name,
+				MCostElement.COLUMNNAME_Name + "=? AND " + MCostElement.COLUMNNAME_CostElementType + " =? AND " +
+						MCostElement.COLUMNNAME_CostingMethod + " =?", getTransactionName()).setParameters("Last PO Price",
+				MCostElement.COSTELEMENTTYPE_Material, MCostElement.COSTINGMETHOD_LastPOPrice).setClient_ID().first();
+		if (costElement == null) {
+			costElement = new MCostElement(context, 0, getTransactionName());
+			costElement.setName("Last PO Price");
+			costElement.setCostElementType(MCostElement.COSTELEMENTTYPE_Material);
+			costElement.setCostingMethod(MCostElement.COSTINGMETHOD_LastPOPrice);
+			return costElement.save();
+		}
+		return true;
 	}
 
 	public boolean updateDefaultAccountMapping() {
@@ -296,9 +303,11 @@ public class MBandaSetup {
 	 * for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
+		//PO.setCrossTenantSafe();
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
 				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		//PO.clearCrossTenantSafe();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeMap = new HashMap<>();
 		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
@@ -336,9 +345,13 @@ public class MBandaSetup {
 			return false;
 		}
 		// Get all active, default charges from the default client
+		//PO.setCrossTenantSafe();
 		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.Table_Name,
 				MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		//PO.clearCrossTenantSafe();
+
+		Map<Integer, Integer> defaultChargeToChargeMap = new HashMap<>();
 
 		for (MCharge_BH defaultCharge : defaultCharges) {
 			// Create a new charge for new client based on this default charge
@@ -360,6 +373,8 @@ public class MBandaSetup {
 				return false;
 			}
 
+			defaultChargeToChargeMap.put(defaultCharge.getC_Charge_ID(), charge.getC_Charge_ID());
+
 			// Create a valid combination for this account value
 			MAccount chargeExpenseAccount = getOrCreateValidCombination(
 					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
@@ -374,7 +389,7 @@ public class MBandaSetup {
 			// Now get the charge's accounting mapping
 			X_C_Charge_Acct chargeAccountToModify = new Query(context, X_C_Charge_Acct.Table_Name,
 					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?", getTransactionName())
-					.setParameters(defaultCharge.getC_Charge_ID()).first();
+					.setParameters(charge.getC_Charge_ID()).first();
 			if (chargeAccountToModify == null) {
 				String errorMessage = "Charge Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
@@ -394,29 +409,28 @@ public class MBandaSetup {
 				return false;
 			}
 		}
-		if (!addChargeInformation()) {
-			return false;
-		}
-		return true;
+		return addChargeInformation(defaultChargeToChargeMap);
 	}
 
 	/**
 	 * Add non-Patient payments for this client
 	 */
-	private boolean addChargeInformation() {
+	private boolean addChargeInformation(Map<Integer, Integer> defaultChargeToChargeMap) {
 		Map<Integer, MBHChargeInfoValue> infoValues = getAllInfoValuesMap();
 
+		//PO.setCrossTenantSafe();
 		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
 				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		MBHChargeInfo chargeInfo = new MBHChargeInfo(context, getAD_Client_ID(), null);
+		//PO.clearCrossTenantSafe();
 
-		Map<Integer, MBHChargeInfo> defaultChargeInfoMap = new HashMap<>();
 		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
+			MBHChargeInfo chargeInfo = new MBHChargeInfo(context, 0, getTransactionName());
 			chargeInfo.setBH_ChargeInfoDataType(defaultChargeInfo.getBH_ChargeInfoDataType());
 			chargeInfo.setBH_FillFromPatient(defaultChargeInfo.isBH_FillFromPatient());
-			chargeInfo.setC_Charge_ID(defaultChargeInfo.getC_Charge_ID());
+			chargeInfo.setC_Charge_ID(defaultChargeToChargeMap.get(defaultChargeInfo.getC_Charge_ID()));
 			chargeInfo.setName(defaultChargeInfo.getName());
+			chargeInfo.setLine(defaultChargeInfo.getLine());
 			if (!chargeInfo.save()) {
 				String errorMessage = "Charge Info NOT saved";
 				log.log(Level.SEVERE, errorMessage);
@@ -426,15 +440,17 @@ public class MBandaSetup {
 				return false;
 			}
 
-			MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, getAD_Client_ID(), null);
+			List<MBHChargeInfoValue> defaultChargeInformationValuesForDefaultChargeInformation = infoValues.values().stream()
+					.filter(chargeInformationValue -> chargeInformationValue.getBH_Charge_Info_ID() ==
+							defaultChargeInfo.getBH_Charge_Info_ID()).collect(Collectors.toList());
 
 			// We need to get all charge info values mapped for this charge info from the
 			// map.
-			for (Map.Entry<Integer, MBHChargeInfoValue> currentInfoValue : infoValues.entrySet()) {
-				if (currentInfoValue.getValue().getBH_Charge_Info_ID() == defaultChargeInfo.getBH_Charge_Info_ID()) {
-					chargeInfoValue.setName(currentInfoValue.getValue().getName());
-					chargeInfoValue.setBH_Charge_Info_ID(currentInfoValue.getValue().getBH_Charge_Info_ID());
-				}
+			for (MBHChargeInfoValue defaultChargeInformationValue : defaultChargeInformationValuesForDefaultChargeInformation) {
+				MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, 0, getTransactionName());
+				chargeInfoValue.setName(defaultChargeInformationValue.getName());
+				chargeInfoValue.setBH_Charge_Info_ID(chargeInfo.getBH_Charge_Info_ID());
+				chargeInfoValue.setLine(defaultChargeInformationValue.getLine());
 				if (!chargeInfoValue.save()) {
 					String errorMessage = "ChargeInfoValue value NOT saved";
 					log.log(Level.SEVERE, errorMessage);
@@ -445,7 +461,6 @@ public class MBandaSetup {
 
 				}
 			}
-			defaultChargeInfoMap.put(defaultChargeInfo.get_ID(), defaultChargeInfo);
 		}
 		return true;
 	}
@@ -1055,9 +1070,11 @@ public class MBandaSetup {
 	 * @return map of accounts
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
+		//PO.setCrossTenantSafe();
 		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
 				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
+		//PO.clearCrossTenantSafe();
 
 		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
 				.filter(elementValue -> elementValue.getAD_Client_ID() == getAD_Client_ID())
@@ -1076,9 +1093,11 @@ public class MBandaSetup {
 	 * @return a map of the info values
 	 */
 	private Map<Integer, MBHChargeInfoValue> getAllInfoValuesMap() {
+		//PO.setCrossTenantSafe();
 		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
 				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		//PO.clearCrossTenantSafe();
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
