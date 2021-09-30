@@ -58,7 +58,7 @@
 FROM bh_stock_reorder_levels_v s
     INNER JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
 WHERE (s.ad_client_ID =  $P{AD_CLIENT_ID}) and ((s.existingquantity <= s.reorderlevel)
-and (s.existingquantity > 0))
+OR (s.existingquantity <= 0))
 ORDER BY s.product ASC]]>
 		</queryString>
 		<field name="drugname" class="java.lang.String">
