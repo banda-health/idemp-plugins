@@ -15,7 +15,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
-import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
@@ -27,7 +26,6 @@ import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.RoleUtil;
-import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
@@ -35,10 +33,6 @@ import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MWarehouse;
-import org.compiere.model.MWindow;
-import org.compiere.model.MWindowAccess;
-import org.compiere.model.PO;
-import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
@@ -48,10 +42,7 @@ import org.compiere.util.Util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Authentication Service Accepts Username, password and generates a session
@@ -82,10 +73,20 @@ public class AuthenticationRestService {
 	@Path(IRestConfigs.CHANGEPASSWORD_PATH)
 	public AuthResponse changePassword(Authentication credentials) {
 		Login login = new Login(Env.getCtx());
+
+		if (Util.isEmpty(credentials.getUsername())) {
+			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.USERNAME_REQUIRED));
+		}
+		if (Util.isEmpty(credentials.getPassword())) {
+			throw new IllegalArgumentException(
+					org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
+		}
+
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
+		// If we're here and they don't have access to clients, it means the username/password combo incorrect
 		if (clients == null || clients.length == 0) {
-			return new AuthResponse(Status.UNAUTHORIZED);
+			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
 
 		MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
@@ -96,23 +97,9 @@ public class AuthenticationRestService {
 		/**
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
-		if (Util.isEmpty(credentials.getPassword())) {
-			throw new IllegalArgumentException(
-					org.compiere.util.Msg.getMsg(Env.getCtx(), MMessage_BH.OLD_PASSWORD_MANDATORY));
-		}
-
 		if (Util.isEmpty(credentials.getNewPassword())) {
 			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MMessage_BH.NEW_PASSWORD_MANDATORY));
 		}
-
-		// TODO: Add this back in if we start using these
-//		if (Util.isEmpty(credentials.getSecurityQuestion())) {
-//			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MADMessage_BH.SECURITY_QUESTION_MANDATORY));
-//		}
-//
-//		if (Util.isEmpty(credentials.getAnswer())) {
-//			throw new IllegalArgumentException(Msg.getMsg(Env.getCtx(), MADMessage_BH.ANSWER_MANDATORY));
-//		}
 
 		if (org.compiere.model.MSysConfig.getBooleanValue(MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
 			if (credentials.getPassword().equals(credentials.getNewPassword())) {
@@ -125,8 +112,8 @@ public class AuthenticationRestService {
 	}
 
 	/**
-	 * Handle everything related to updating a user's password. Largely copied from ChangePasswordPanel >
-	 * validateChangePassword
+	 * Handle everything related to updating a user's password. Largely copied from
+	 * ChangePasswordPanel > validateChangePassword
 	 *
 	 * @param credentials
 	 * @param clients
@@ -147,12 +134,13 @@ public class AuthenticationRestService {
 					throw new AdempiereException(ERROR_USER_NOT_FOUND);
 				}
 
-				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password,
-						credentials.getNewPassword()); // will be hashed and validate on saveEx
+				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password, credentials.getNewPassword()); // will be hashed
+																										// and validate
+																										// on saveEx
 				clientUser.setIsExpired(false);
 				// TODO: Add this back in if we start using these
-//				clientUser.setSecurityQuestion(credentials.getSecurityQuestion());
-//				clientUser.setAnswer(credentials.getAnswer());
+				// clientUser.setSecurityQuestion(credentials.getSecurityQuestion());
+				// clientUser.setAnswer(credentials.getAnswer());
 				clientUser.saveEx(trx.getTrxName());
 			}
 
@@ -226,8 +214,9 @@ public class AuthenticationRestService {
 				response.setStatus(Status.OK);
 				// isAdministrator
 				response.setIsAdministrator(user.isAdministrator());
-				//record read-write and deactivate privileges on each window for this role 
+				// record read-write and deactivate privileges on each window for this role
 				response.setWindowAccessLevel(RoleUtil.accessLevelsForRole());
+				response.setIncludedRoleUuids(RoleUtil.fetchIncludedRoleUuids());
 				return response;
 			} catch (Exception e) {
 				return new AuthResponse(Status.BAD_REQUEST);
@@ -304,10 +293,11 @@ public class AuthenticationRestService {
 	 * @param response
 	 */
 	private void setDefaultLoginProperties(KeyNamePair[] clients, MUser user, Builder builder, AuthResponse response) {
-		// For querying roles, we'll need to change the client IDs that are used from the context, so store what's there
+		// For querying roles, we'll need to change the client IDs that are used from
+		// the context, so store what's there
 		// now
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
-//		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		// PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		try {
 			// parse all clients that the user has access to.
 			for (KeyNamePair client : clients) {
@@ -364,7 +354,7 @@ public class AuthenticationRestService {
 			}
 		} finally {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-//			PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+			// PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		}
 	}
 
@@ -379,8 +369,8 @@ public class AuthenticationRestService {
 		MUser user = null;
 		for (KeyNamePair client : clients) {
 			// update context with client id
-			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getKey());
 
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getKey());
 			user = MUser.get(Env.getCtx(), credentials.getUsername());
 			if (user != null) {
 				break;
