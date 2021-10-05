@@ -22,7 +22,8 @@ import org.compiere.util.Env;
 
 public class UserDBService extends BaseDBService<User, MUser_BH> {
 	private static final int SYSTEM_USER_ID = 100;
-
+	private static final int SYSTEM_ADMIN_CLIENT_ID = 0;
+	
 	public BaseListResponse<User> getCliniciansResponse(Paging pagingInfo) {
 		List<User> results = new ArrayList<>();
 
@@ -37,9 +38,22 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	}
 	
 	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
-		StringBuilder whereClause = new StringBuilder();
+		StringBuilder whereClause = 
+			new StringBuilder(MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
+			whereClause.append(" AND ");
+			whereClause.append(MUser_BH.Table_Name + "." + MRole.COLUMNNAME_AD_Org_ID + " = ? ");
+			whereClause.append(" AND ");
+			whereClause.append(MUser_BH.Table_Name + "." + MRole.COLUMNNAME_AD_Client_ID + " = ? ");
+			
+		StringBuilder joinClause = new StringBuilder(" JOIN " + MUserRoles.Table_Name);
+			joinClause.append(" ON ");
+			joinClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID);
+			joinClause.append(" = ");
+			joinClause.append(MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID);
 
-		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause.toString(), null);
+		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause.toString(), null)
+			.setParameters(SYSTEM_USER_ID, SYSTEM_ADMIN_CLIENT_ID, Env.getAD_Client_ID(Env.getCtx()))
+			.addJoinClause(joinClause.toString());
 		
 		List<User> results = new ArrayList<>();
 
