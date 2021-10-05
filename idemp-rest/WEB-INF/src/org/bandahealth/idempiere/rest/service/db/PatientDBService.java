@@ -194,7 +194,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getbh_gender(), instance.getBH_Phone(),
-					instance.getBH_Local_PatientID());
+					instance.getBH_Local_PatientID(),
+					VisitDBService.getVisitsCount(instance.get_ID()));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
