@@ -3,12 +3,15 @@ package org.bandahealth.idempiere.rest.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import java.sql.Timestamp;
+
 @XmlRootElement(name = "user")
 public class User extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+	private Timestamp lastLogin;
 
 	public User() {
 	}
@@ -29,6 +32,14 @@ public class User extends BaseMetadata {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
 }

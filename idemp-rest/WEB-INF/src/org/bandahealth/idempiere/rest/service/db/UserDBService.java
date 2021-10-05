@@ -5,15 +5,18 @@ import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.User;
 import org.compiere.model.MClient;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -24,6 +27,23 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		List<User> results = new ArrayList<>();
 
 		List<MUser_BH> entities = getClinicians(pagingInfo);
+		if (!entities.isEmpty()) {
+			for (MUser_BH entity : entities) {
+				results.add(createInstanceWithDefaultFields(entity));
+			}
+		}
+
+		return new BaseListResponse<User>(results, pagingInfo);
+	}
+	
+	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+		StringBuilder whereClause = new StringBuilder();
+
+		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause.toString(), null);
+		
+		List<User> results = new ArrayList<>();
+
+		List<MUser_BH> entities = query.list();
 		if (!entities.isEmpty()) {
 			for (MUser_BH entity : entities) {
 				results.add(createInstanceWithDefaultFields(entity));
@@ -51,7 +71,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 		// get client name
 		MClient client = MClient.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()));
-		// Now get the clinican role suffix
+		// Now get the clinician role suffix
 		MRefList clinicianRoleSuffix = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND " + MReference_BH.Table_Name + "." +
 						MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", null).addJoinClause(" JOIN " +
