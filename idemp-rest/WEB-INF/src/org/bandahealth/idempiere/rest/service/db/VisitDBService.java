@@ -102,6 +102,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 		return DateUtil.parseDateOnly(latestVisit.getBH_VisitDate());
 	}
+	
+	
+	public Integer getVisitsCountByPatient(MBPartner_BH patient){		
+		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
+		parameters.add(patient.get_ID());
+		
+		Integer totalVisits = new Query(Env.getCtx(), MOrder_BH.Table_Name,
+				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
+						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true).count();
+		return totalVisits;
+	}
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
