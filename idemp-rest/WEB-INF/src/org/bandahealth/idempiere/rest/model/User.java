@@ -24,6 +24,13 @@ public class User extends BaseMetadata {
 		this.setName(name);
 		this.setUuid(uuid);
 	}
+	
+	public User(String name, String uuid, Timestamp createdTimestamp, Timestamp lastLogin) {
+		this.setName(name);
+		this.setUuid(uuid);
+		this.setLastLogin(lastLogin);
+		this.setCreatedTimestamp(createdTimestamp);
+	}
 
 	@XmlElement
 	public String getName() {
