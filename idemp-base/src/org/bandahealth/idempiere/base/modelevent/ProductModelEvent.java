@@ -59,6 +59,10 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	private void beforeSave(MProduct_BH product) {
 		product.setValue(product.getName());
+		// If the user is saying the product can't expire and it previously could, clear the attribute set to avoid errors
+		if (product.isBH_HasExpiration() && product.getM_AttributeSet_ID() > 0) {
+			product.setM_AttributeSet_ID(-1);
+		}
 	}
 
 	private void beforeNewRequest(MProduct_BH product) {
