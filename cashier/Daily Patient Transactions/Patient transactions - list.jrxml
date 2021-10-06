@@ -60,8 +60,8 @@
         $P{AD_CLIENT_ID} AS ad_client_id,
         date($P{Begin Date}) AS begin_date,
         date($P{End Date}) AS end_date,
-        coalesce($P{Patient Type}, '''') AS patient_type,
-        coalesce($P{Payment Mode}, '''') AS payment_mode
+        coalesce($P{Patient Type}, '') AS patient_type,
+        coalesce($P{Payment Mode}, '') AS payment_mode
 )
 select
     billdetails.c_order_id,
@@ -90,7 +90,7 @@ from (
         cross join params p
     where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
           AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-          AND (p.patient_type = '''' OR co.bh_patienttype = p.patient_type)
+          AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
         )
         AND ol.c_charge_id IS NULL
     group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name
@@ -105,7 +105,7 @@ from (
             and ((p.docstatus = 'CO')
             or (p.docstatus = 'DR' and p.bh_processing = 'Y')
             or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-            and (par.payment_mode = '''' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+            and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
             )
         group by bh_c_order_id
         union
@@ -115,7 +115,7 @@ from (
             join c_charge c on ol.c_charge_id = c.c_charge_id
             cross join params p
         where ol.c_charge_id IS NOT NULL
-            and (p.payment_mode = '''' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
+            and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
         order by 1
     ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
     left join (
@@ -261,7 +261,7 @@ from c_order co
     join c_orderline ol on co.c_order_id = ol.c_order_id
 where ((co.ad_client_id = $P{AD_CLIENT_ID})
       AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '''' OR co.bh_patienttype = $P{Patient Type})
+      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR co.bh_patienttype = $P{Patient Type})
     )
     AND ol.c_charge_id IS NULL
 order by 1
@@ -272,7 +272,7 @@ select bh_c_order_id
 from c_payment p
 where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
 	and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '''' OR tendertype = $P{Payment Mode})
+	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR tendertype = $P{Payment Mode})
     )
 group by bh_c_order_id
 order by 1
