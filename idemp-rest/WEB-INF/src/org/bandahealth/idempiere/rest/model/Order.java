@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.MWarehouse;
 
 /**
  * Representation of iDempiere's MOrder (C_Order).
@@ -32,6 +33,7 @@ public class Order extends BaseMetadata {
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
+	private Warehouse warehouse;
 
 	public Order() {
 	}
@@ -47,6 +49,7 @@ public class Order extends BaseMetadata {
 		this.docStatus = model.getDocStatus();
 		this.orderLines = orderLines == null ? new ArrayList<>() : orderLines;
 		this.payments = payments == null ? new ArrayList<>() : payments;
+		this.warehouse = new Warehouse((MWarehouse) model.getM_Warehouse());
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -187,5 +190,13 @@ public class Order extends BaseMetadata {
 
 	public void setVoidedReason(VoidedReason voidedReason) {
 		this.voidedReason = voidedReason;
+	}
+
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
 	}
 }

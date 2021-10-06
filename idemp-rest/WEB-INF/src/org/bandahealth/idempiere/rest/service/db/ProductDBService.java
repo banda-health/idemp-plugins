@@ -25,11 +25,13 @@ import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MLocator;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -44,13 +46,15 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 	private InventoryDBService inventoryDBService = new InventoryDBService();
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
-				+ ",SUM(" + MStorageOnHand.COLUMNNAME_QtyOnHand + ") as quantity FROM " + MStorageOnHand.Table_Name
-				+ " GROUP BY " + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " + X_BH_Stocktake_v.Table_Name + " ON "
-				+ X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID + "=" + MProduct_BH.Table_Name
-				+ "." + MProduct_BH.COLUMNNAME_M_Product_ID);
-	}};
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
+					+ ",SUM(" + MStorageOnHand.COLUMNNAME_QtyOnHand + ") as quantity FROM " + MStorageOnHand.Table_Name
+					+ " GROUP BY " + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " + X_BH_Stocktake_v.Table_Name
+					+ " ON " + X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID + "="
+					+ MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID);
+		}
+	};
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
@@ -66,8 +70,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				+ MProductCategory_BH.COLUMNNAME_M_Product_Category_ID + "=" + MProduct_BH.Table_Name + "."
 				+ MProduct_BH.COLUMNNAME_M_Product_Category_ID;
 
-		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo,
-				sortColumn, sortOrder, filterJson, joinClause);
+		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder,
+				filterJson, joinClause);
 	}
 
 	@Override
@@ -88,7 +92,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * @param searchValue
 	 * @return
 	 */
-	public BaseListResponse<SearchProduct> searchItems(String searchValue) {
+	public BaseListResponse<SearchProduct> searchItems(String searchValue, Integer warehouseId) {
 		List<SearchProduct> results = new ArrayList<>();
 
 		// maximum of 100 results?
@@ -97,9 +101,19 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		// 1. search product/service
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(searchValue));
+		parameters.add(warehouseId);
 
-		Query query = new Query(Env.getCtx(), MProduct_BH.Table_Name, DEFAULT_SEARCH_CLAUSE, null)
-				.setOnlyActiveRecords(true).setClient_ID().setParameters(parameters);
+		Query query = new Query(Env.getCtx(), MProduct_BH.Table_Name,
+				"LOWER(" + MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_Name + ") LIKE ? " + " AND "
+						+ MWarehouse.Table_Name + "." + MWarehouse.COLUMNNAME_M_Warehouse_ID + " =? ",
+				null).addJoinClause(
+						" LEFT JOIN " + MLocator.Table_Name + " ON " + MLocator.Table_Name + "."
+								+ MLocator.COLUMNNAME_M_Locator_ID + "=" + MProduct_BH.Table_Name + "."
+								+ MProduct_BH.COLUMNNAME_M_Locator_ID)
+						.addJoinClause(" LEFT JOIN " + MWarehouse.Table_Name + " ON " + MWarehouse.Table_Name + "."
+								+ MWarehouse.COLUMNNAME_M_Warehouse_ID + "=" + MLocator.Table_Name + "."
+								+ MLocator.COLUMNNAME_M_Warehouse_ID)
+						.setOnlyActiveRecords(true).setClient_ID().setParameters(parameters);
 
 		// set total count..
 		pagingInfo.setTotalRecordCount(query.count());
@@ -127,8 +141,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 						continue;
 					}
 					// get expiry date and id
-					SearchProductAttribute attribute = new SearchProductAttribute(
-							inventory.getExpirationDate(), inventory.getAttributeSetInstanceId());
+					SearchProductAttribute attribute = new SearchProductAttribute(inventory.getExpirationDate(),
+							inventory.getAttributeSetInstanceId());
 
 					// get quantity
 					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
@@ -141,8 +155,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			}
 
 			// If a product has no quantity, don't return it in the list
-			if (result.getTotalQuantity() != null && result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0 ||
-					!entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
+			if (result.getTotalQuantity() != null && result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0
+					|| !entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 				results.add(result);
 			}
 		}
@@ -232,26 +246,25 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			product.saveEx();
 
 			// update inventory only for a new products with inventory
-			if (exists == null && entity.getStorageOnHandList() != null && entity.getStorageOnHandList().stream().anyMatch(
-					storageOnHand -> storageOnHand.getQuantityOnHand() != null &&
-							storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
+			if (exists == null && entity.getStorageOnHandList() != null
+					&& entity.getStorageOnHandList().stream()
+							.anyMatch(storageOnHand -> storageOnHand.getQuantityOnHand() != null
+									&& storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
 				Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct = new HashMap<>();
 				// If it has expiration, cycle through the list and add the values
 				if (product.isBH_HasExpiration()) {
 					// Get the expiration date attribute set instance ids
 					Map<Timestamp, Integer> expirationDatesByAttributeSetInstanceId = QueryUtil
-							.createExpirationDateAttributeInstances(
-									entity.getStorageOnHandList().stream()
-											.map(storageOnHand -> storageOnHand.getAttributeSetInstance().getGuaranteeDate())
-											.collect(Collectors.toSet()), null, Env.getCtx());
-					inventoryByProduct
-							.put(product, entity.getStorageOnHandList().stream().map(storageOnHand -> {
-								MStorageOnHand storageOnHandToSave = new MStorageOnHand(Env.getCtx(), 0, null);
-								storageOnHandToSave.setQtyOnHand(storageOnHand.getQuantityOnHand());
-								storageOnHandToSave.setM_AttributeSetInstance_ID(expirationDatesByAttributeSetInstanceId.get(
-										storageOnHand.getAttributeSetInstance().getGuaranteeDate()));
-								return storageOnHandToSave;
-							}).collect(Collectors.toList()));
+							.createExpirationDateAttributeInstances(entity.getStorageOnHandList().stream()
+									.map(storageOnHand -> storageOnHand.getAttributeSetInstance().getGuaranteeDate())
+									.collect(Collectors.toSet()), null, Env.getCtx());
+					inventoryByProduct.put(product, entity.getStorageOnHandList().stream().map(storageOnHand -> {
+						MStorageOnHand storageOnHandToSave = new MStorageOnHand(Env.getCtx(), 0, null);
+						storageOnHandToSave.setQtyOnHand(storageOnHand.getQuantityOnHand());
+						storageOnHandToSave.setM_AttributeSetInstance_ID(expirationDatesByAttributeSetInstanceId
+								.get(storageOnHand.getAttributeSetInstance().getGuaranteeDate()));
+						return storageOnHandToSave;
+					}).collect(Collectors.toList()));
 				} else {
 					// Otherwise, just add the first
 					MStorageOnHand storageOnHand = new MStorageOnHand(Env.getCtx(), 0, null);

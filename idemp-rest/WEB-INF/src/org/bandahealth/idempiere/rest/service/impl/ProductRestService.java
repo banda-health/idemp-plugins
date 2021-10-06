@@ -28,9 +28,9 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
-	public BaseListResponse<Product> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
+			@QueryParam("filter") String filterJson) {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
@@ -45,7 +45,7 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Product saveEntity(Product entity) {
-		return dbService.saveEntity(entity) ;
+		return dbService.saveEntity(entity);
 	}
 
 	@POST
@@ -59,7 +59,8 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 
 	@POST
 	@Path(IRestConfigs.SEARCH_ITEMS_PATH)
-	public BaseListResponse<SearchProduct> searchItems(@QueryParam("value") String query) {
-		return dbService.searchItems(query);
+	public BaseListResponse<SearchProduct> searchItems(@QueryParam("value") String query,
+			@QueryParam("warehouseId") Integer warehouseId) {
+		return dbService.searchItems(query, warehouseId);
 	}
 }
