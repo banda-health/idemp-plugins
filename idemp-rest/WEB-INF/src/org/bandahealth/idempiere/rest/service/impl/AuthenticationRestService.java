@@ -391,7 +391,7 @@ public class AuthenticationRestService {
 					// check warehouses
 					MWarehouse[] warehouses = MWarehouse.getForOrg(Env.getCtx(), orgResponse.getId());
 					for (MWarehouse warehouse : warehouses) {
-						Warehouse warehouseResponse = new Warehouse(warehouse.get_ID(), warehouse.getName());
+						Warehouse warehouseResponse = new Warehouse(warehouse);
 						orgResponse.getWarehouses().add(warehouseResponse);
 
 						// set default warehouse

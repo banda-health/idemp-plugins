@@ -94,6 +94,6 @@ public interface IRestConfigs {
 	
 	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/voidedreasons";
 	
-	String WAREHOUSES_PATH = AUTHENTICATION_PATH + "/storeroom";
+	String WAREHOUSES_PATH = AUTHENTICATION_PATH + "/warehouses";
 	String WAREHOUSE_PATH = "/warehouse/{uuid}";
 }

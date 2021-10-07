@@ -1,12 +1,12 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.rest.model.Storeroom;
+import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MWarehouse;
 import org.compiere.util.Env;
 
-public class StoreroomDBService extends BaseDBService<Storeroom, MWarehouse> {
+public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse> {
 	@Override
-	public Storeroom saveEntity(Storeroom entity) {
+	public Warehouse saveEntity(Warehouse entity) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
@@ -16,17 +16,17 @@ public class StoreroomDBService extends BaseDBService<Storeroom, MWarehouse> {
 	}
 
 	@Override
-	protected Storeroom createInstanceWithDefaultFields(MWarehouse instance) {
+	protected Warehouse createInstanceWithDefaultFields(MWarehouse instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected Storeroom createInstanceWithAllFields(MWarehouse instance) {
-		return new Storeroom(instance);
+	protected Warehouse createInstanceWithAllFields(MWarehouse instance) {
+		return new Warehouse(instance);
 	}
 
 	@Override
-	protected Storeroom createInstanceWithSearchFields(MWarehouse instance) {
+	protected Warehouse createInstanceWithSearchFields(MWarehouse instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
