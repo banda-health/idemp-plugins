@@ -26,6 +26,8 @@ import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MMovementLine_BH;
+import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -112,8 +114,12 @@ public class BHModelFactory implements IModelFactory {
 			return MBHBPartnerCharge.class;
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return MBHVoidedReason.class;
+		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
+			return MMovement_BH.class;
+		} else if (tableName.equalsIgnoreCase(MMovementLine_BH.Table_Name)) {
+			return MMovementLine_BH.class;
 		}
-
+		
 		return null;
 	}
 
@@ -187,6 +193,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHBPartnerCharge(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return new MBHVoidedReason(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
+			return new MMovement_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovementLine_BH.Table_Name)) {
+			return new MMovementLine_BH(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -262,6 +272,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHBPartnerCharge(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return new MBHVoidedReason(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
+			return new MMovement_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovementLine_BH.Table_Name)) {
+			return new MMovementLine_BH(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
