@@ -9,44 +9,44 @@ import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Warehouse;
+import org.bandahealth.idempiere.rest.model.Storeroom;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
-import org.bandahealth.idempiere.rest.service.db.WarehouseDBService;
+import org.bandahealth.idempiere.rest.service.db.StoreroomDBService;
 
 @Path(IRestConfigs.WAREHOUSES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class WarehouseRestService extends BaseEntityRestService<Warehouse> {
+public class StoreroomRestService extends BaseEntityRestService<Storeroom> {
 	
-	private WarehouseDBService dbService;
+	private StoreroomDBService dbService;
 	
-	public WarehouseRestService() {
-		this.dbService = new WarehouseDBService();
+	public StoreroomRestService() {
+		this.dbService = new StoreroomDBService();
 	}
 
 	@GET
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Warehouse> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+	public BaseListResponse<Storeroom> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
 			@QueryParam("filter") String filterJson) {
 		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
 	@Override
-	public BaseListResponse<Warehouse> search(String value, int page, int size, String sortColumn, String sortOrder) {
+	public BaseListResponse<Storeroom> search(String value, int page, int size, String sortColumn, String sortOrder) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@GET
 	@Path(IRestConfigs.UUID_PATH)
 	@Override
-	public Warehouse getEntity(String uuid) {
+	public Storeroom getEntity(String uuid) {
 		return dbService.getEntity(uuid);
 	}
 
 	@Override
-	public Warehouse saveEntity(Warehouse entity) {
+	public Storeroom saveEntity(Storeroom entity) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 }

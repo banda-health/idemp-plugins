@@ -33,7 +33,7 @@ public class Order extends BaseMetadata {
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
-	private Warehouse warehouse;
+	private Storeroom storeroom;
 
 	public Order() {
 	}
@@ -49,7 +49,7 @@ public class Order extends BaseMetadata {
 		this.docStatus = model.getDocStatus();
 		this.orderLines = orderLines == null ? new ArrayList<>() : orderLines;
 		this.payments = payments == null ? new ArrayList<>() : payments;
-		this.warehouse = new Warehouse((MWarehouse) model.getM_Warehouse());
+		this.storeroom = new Storeroom((MWarehouse) model.getM_Warehouse());
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -192,11 +192,11 @@ public class Order extends BaseMetadata {
 		this.voidedReason = voidedReason;
 	}
 
-	public Warehouse getWarehouse() {
-		return warehouse;
+	public Storeroom getStoreroom() {
+		return storeroom;
 	}
 
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
+	public void setStoreroom(Storeroom storeroom) {
+		this.storeroom = storeroom;
 	}
 }
