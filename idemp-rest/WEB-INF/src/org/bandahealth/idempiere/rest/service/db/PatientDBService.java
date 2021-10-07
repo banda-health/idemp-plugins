@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -236,5 +237,11 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	public Boolean deleteEntity(String entityUuid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Map<Integer, Integer> getVisitCountById(List<Patient> patientsModel) {
+		Map<Integer, Integer> visitsCount = new HashMap<>();
+		Set<Integer> patientIds = patientsModel.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
+		return visitsCount;
 	}
 }
