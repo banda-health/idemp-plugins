@@ -396,8 +396,8 @@ public class AuthenticationRestService {
 
 						// set default warehouse
 						if (warehouses.length == 1) {
-							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getId());
-							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getId());
+							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getUuid());
+							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getUuid());
 						}
 					}
 
