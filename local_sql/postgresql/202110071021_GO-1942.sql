@@ -48,5 +48,4 @@ FROM quantitysums s
          LEFT JOIN adempiere.bh_stocktake st ON asi.m_attributesetinstance_id = st.m_attributesetinstance_id
 ORDER BY p.name;
 
-
 SELECT register_migration_script('202110071021_GO-1942.sql') FROM dual;
