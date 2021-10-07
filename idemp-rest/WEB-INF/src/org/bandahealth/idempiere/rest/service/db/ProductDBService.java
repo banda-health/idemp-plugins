@@ -23,6 +23,7 @@ import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
+import org.bandahealth.idempiere.rest.service.impl.AuthenticationRestService;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocator;
@@ -45,6 +46,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 	private InventoryDBService inventoryDBService = new InventoryDBService();
+	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -92,7 +94,14 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * @param searchValue
 	 * @return
 	 */
-	public BaseListResponse<SearchProduct> searchItems(String searchValue, Integer warehouseId) {
+	public BaseListResponse<SearchProduct> searchItems(String searchValue, String warehouseUuid) {
+		// get warehouse
+		MWarehouse warehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
+				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(warehouseUuid).setClient_ID().first();
+		if (warehouse == null) {
+			throw new AdempiereException(ERROR_WAREHOUSE_NOT_FOUND);
+		}
+
 		List<SearchProduct> results = new ArrayList<>();
 
 		// maximum of 100 results?
@@ -101,19 +110,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		// 1. search product/service
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(searchValue));
-		parameters.add(warehouseId);
 
-		Query query = new Query(Env.getCtx(), MProduct_BH.Table_Name,
-				"LOWER(" + MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_Name + ") LIKE ? " + " AND "
-						+ MWarehouse.Table_Name + "." + MWarehouse.COLUMNNAME_M_Warehouse_ID + " =? ",
-				null).addJoinClause(
-						" LEFT JOIN " + MLocator.Table_Name + " ON " + MLocator.Table_Name + "."
-								+ MLocator.COLUMNNAME_M_Locator_ID + "=" + MProduct_BH.Table_Name + "."
-								+ MProduct_BH.COLUMNNAME_M_Locator_ID)
-						.addJoinClause(" LEFT JOIN " + MWarehouse.Table_Name + " ON " + MWarehouse.Table_Name + "."
-								+ MWarehouse.COLUMNNAME_M_Warehouse_ID + "=" + MLocator.Table_Name + "."
-								+ MLocator.COLUMNNAME_M_Warehouse_ID)
-						.setOnlyActiveRecords(true).setClient_ID().setParameters(parameters);
+		Query query = new Query(Env.getCtx(), MProduct_BH.Table_Name, DEFAULT_SEARCH_CLAUSE, null)
+				.setOnlyActiveRecords(true).setClient_ID().setParameters(parameters);
 
 		// set total count..
 		pagingInfo.setTotalRecordCount(query.count());
@@ -136,10 +135,17 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				for (Inventory inventory : inventoryList.getResults()) {
+					// check warehouse
+					if (inventory.getWarehouseId() != warehouse.get_ID()) {
+						continue;
+
+					}
+
 					// exclude expired products
 					if (inventory.getShelfLife() < 0) {
 						continue;
 					}
+
 					// get expiry date and id
 					SearchProductAttribute attribute = new SearchProductAttribute(inventory.getExpirationDate(),
 							inventory.getAttributeSetInstanceId());

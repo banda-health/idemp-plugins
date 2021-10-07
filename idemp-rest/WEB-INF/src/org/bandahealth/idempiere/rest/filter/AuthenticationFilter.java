@@ -26,6 +26,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 
 import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.service.impl.AuthenticationRestService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 
@@ -114,9 +115,9 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 			AD_Org_ID = claim.asInt();
 			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, AD_Org_ID);
 		}
-		claim = jwt.getClaim(LoginClaims.M_Warehouse_ID.name());
+		claim = jwt.getClaim(LoginClaims.M_Warehouse_Uuid.name());
 		if (!claim.isNull()) {
-			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, claim.asInt());
+			Env.setContext(Env.getCtx(), AuthenticationRestService.M_WAREHOUSE_UUID, claim.asString());
 		}
 		claim = jwt.getClaim(LoginClaims.AD_Language.name());
 		if (!claim.isNull()) {

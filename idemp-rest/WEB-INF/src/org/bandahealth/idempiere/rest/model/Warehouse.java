@@ -12,6 +12,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Warehouse extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
+	
+	public Warehouse() {
+	}
 
 	public Warehouse(MWarehouse entity) {
 		super(entity, entity.getName(), entity.getDescription(), entity.getValue());

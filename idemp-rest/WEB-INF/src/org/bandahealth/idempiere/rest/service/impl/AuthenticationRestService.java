@@ -57,6 +57,8 @@ import java.util.List;
 public class AuthenticationRestService {
 
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
+	
+	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
 
 	private MenuGroupDBService menuDbservice = new MenuGroupDBService();
 
@@ -331,9 +333,9 @@ public class AuthenticationRestService {
 		}
 
 		// check warehouse
-		if (credentials.getWarehouseId() != null) {
-			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, credentials.getWarehouseId());
-			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), credentials.getWarehouseId());
+		if (credentials.getWarehouseUuid() != null) {
+			Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, credentials.getWarehouseUuid());
+			builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), credentials.getWarehouseUuid());
 		}
 
 	}
@@ -396,8 +398,8 @@ public class AuthenticationRestService {
 
 						// set default warehouse
 						if (warehouses.length == 1) {
-							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getUuid());
-							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getUuid());
+							Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, warehouseResponse.getUuid());
+							builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), warehouseResponse.getUuid());
 						}
 					}
 
