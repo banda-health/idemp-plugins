@@ -96,4 +96,6 @@ public interface IRestConfigs {
 	
 	String WAREHOUSES_PATH = AUTHENTICATION_PATH + "/warehouses";
 	String WAREHOUSE_PATH = "/warehouse/{uuid}";
+	
+	String MOVEMENTS_PATH = AUTHENTICATION_PATH + "/movements";
 }
