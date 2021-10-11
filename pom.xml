@@ -220,6 +220,7 @@ Example: mvn verify -Didempiere.home.dir=/home/user1/idempiere
 	<modules>
 		<module>idemp-base</module>
 		<module>idemp-base-editor</module>
+		<module>idemp-base-test</module>
 		<module>idemp-webui</module>
 		<module>idemp-rest</module>
 	</modules>
