@@ -627,4 +627,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return prefetchedList.stream().filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_UU().equals(uuid))
 				.findFirst().orElse(null);
 	}
+	
 }
+
+
+	
