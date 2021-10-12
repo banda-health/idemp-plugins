@@ -39,7 +39,6 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 				+ MOrder_BH.COLUMNNAME_C_BPartner_ID + "=" + MBPartner_BH.Table_Name + "."
 				+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
-	private Map<Integer, Integer> visitsCount;
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
@@ -197,8 +196,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getbh_gender(), instance.getBH_Phone(),
-					instance.getBH_Local_PatientID(),
-					visitsCount.get(instance.get_ID()));
+					instance.getBH_Local_PatientID());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -217,7 +215,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getBH_Phone(), address, DateUtil.parseDateOnly(instance.getCreated()),
 					instance.getbh_gender(), instance.isActive(), instance.getBH_Local_PatientID(),
-					visitsCount.get(instance.get_ID()),
+					VisitDBService.getVisitsCount(instance.get_ID()),
 					VisitDBService.getLastVisitDate(instance));
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -245,8 +243,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	public List<Patient> transformData(List<MBPartner_BH> dbModels) {
 		if (dbModels != null) {
 			Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
-			visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
-			return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
+			Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
+			return dbModels.stream().map(this::createInstanceWithDefaultFields)
+					.peek(patient -> patient.setTotalVisits(visitsCount.getOrDefault(patient.getId(), 0)))
+					.collect(Collectors.toList());
 		}
 		return new ArrayList<>();
 	}
