@@ -1,13 +1,21 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -41,7 +49,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		StringBuilder whereClause = 
 			new StringBuilder(MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
 			whereClause.append(" AND ");
-			whereClause.append(MUser_BH.Table_Name + "." + MRole.COLUMNNAME_AD_Client_ID + " != ? ");
+			whereClause.append(MUser_BH.Table_Name + "." + MRole.COLUMNNAME_AD_Client_ID + " != ? "); // exclude admin
 			whereClause.append(" AND ");
 			whereClause.append(MUser_BH.Table_Name + "." + MRole.COLUMNNAME_AD_Org_ID + " = ? ");
 			
@@ -56,15 +64,50 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			.addJoinClause(joinClause.toString());
 		
 		List<User> results = new ArrayList<>();
+		
+		String sql = "SELECT u.ad_user_uu, u.created, u.name, ad_role.name, u.datelastlogin, " 
+				  + " u.isactive, u.ad_org_id, u.ad_client_id, u.ad_org_id " 
+				  + " FROM ad_user u "
+				  + " JOIN AD_User_Roles ur ON u.ad_user_id = ur.ad_user_id "
+				  + " JOIN ad_role on ur.ad_role_id = ad_role.ad_role_id "
+				  + " where u.ad_org_id != 0 "
+				  + " AND u.ad_client_id = '1000000' ";
+		
+		Map<String, User> usersRoles = new HashMap<>();
+		
+		SqlUtil.executeQuery(sql, null, sql, rs -> {
+		 try {
+			 String uuid = rs.getString(1);
+			 Timestamp created = rs.getTimestamp(2);
+			 String name = rs.getString(3);
+			 String roleName = rs.getString(4);
+			 Timestamp lastLogin = rs.getTimestamp(5);
+			 boolean isActive = rs.getBoolean(6);
+			 
+			 if(usersRoles.containsKey(uuid)) {
+				 
+			 } else {
+				 MRole role = new MRole(null, rs, null);
+				 usersRoles.put(uuid, new User(name, uuid, created, lastLogin, isActive));
+			 }
+		 } catch(SQLException e) {
+			 log.log(Level.SEVERE, sql, e);
+		 }
+		});
 
 		List<MUser_BH> entities = query.list();
+
+//		List<Integer> productIdsWithStock =
+//				entities.stream(). .keySet().stream().map(MProduct_BH::get_ID).collect(Collectors.toList());
+//		List<String> matchingIds = entities.stream().map(user -> Integer.toString(user.getAD_User_ID())).collect(Collectors.toList());
+		
 		if (!entities.isEmpty()) {
 			for (MUser_BH entity : entities) {
 				results.add(createInstanceWithAllFields(entity));
 			}
 		}
 
-		return new BaseListResponse<User>(results, pagingInfo);
+		return new BaseListResponse<User>(new ArrayList<User>(usersRoles.values()), pagingInfo);
 	}
 
 	public List<MUser_BH> getClinicians(Paging pagingInfo) {
