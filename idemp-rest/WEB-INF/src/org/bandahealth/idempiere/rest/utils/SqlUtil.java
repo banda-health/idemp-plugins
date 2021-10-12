@@ -3,7 +3,10 @@ package org.bandahealth.idempiere.rest.utils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.DBException;
@@ -49,6 +52,24 @@ public class SqlUtil {
 		}
 
 		return count;
+	}
+
+	public static <T> Map<T, Integer> getGroupCount(String tableName, String whereClause, String groupingColumn,
+			List<Object> parameters) {
+		String sql =
+				"SELECT " + groupingColumn + ", COUNT(*) FROM " + tableName + " " + whereClause + " GROUP BY " + groupingColumn;
+
+		Map<T, Integer> counts = new HashMap<>();
+
+		executeQuery(sql, parameters, null, (resultSet) -> {
+			try {
+				counts.put((T) resultSet.getObject(1), resultSet.getInt(2));
+			} catch (Exception e) {
+				log.severe(e.getMessage());
+			}
+		});
+
+		return counts;
 	}
 
 	/**
