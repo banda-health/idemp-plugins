@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.compiere.model.MRole;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @XmlRootElement(name = "user")
 public class User extends BaseMetadata {
@@ -14,7 +15,7 @@ public class User extends BaseMetadata {
 
 	private String name;
 	private Timestamp lastLogin;
-	private MRole[] roles;
+	public List<Role> roles;
 
 	public User() {
 	}
@@ -35,12 +36,13 @@ public class User extends BaseMetadata {
 		this.setLastLogin(lastLogin);
 	}
 	
-	public User(String name, String uuid, Timestamp createdTimestamp, Timestamp lastLogin, boolean isActive) {
+	public User(String name, String uuid, Timestamp createdTimestamp, Timestamp lastLogin, boolean isActive, List<Role> roles) {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.setCreatedTimestamp(createdTimestamp);
 		this.setLastLogin(lastLogin);
 		this.setIsActive(isActive);
+		this.setRoles(roles);
 	}
 
 	@XmlElement
@@ -60,11 +62,11 @@ public class User extends BaseMetadata {
 		this.lastLogin = lastLogin;
 	}
 
-	public MRole[] getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(MRole[] roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
