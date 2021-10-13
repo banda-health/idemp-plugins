@@ -54,8 +54,19 @@ public class SqlUtil {
 		return count;
 	}
 
+	/**
+	 * Get counts by groups within a data set
+	 *
+	 * @param tableName          The table to query
+	 * @param whereClause        Limit results returned by the query
+	 * @param groupingColumn     Name of the column to group by
+	 * @param parameters         Any parameters to pass into the query
+	 * @param fetchGroupColumn A function to get the correct data and type from the result set
+	 * @param <T>                The type of data stored in the grouping column
+	 * @return A map of result counts by their grouping column
+	 */
 	public static <T> Map<T, Integer> getGroupCount(String tableName, String whereClause, String groupingColumn,
-			List<Object> parameters) {
+			List<Object> parameters, Function<ResultSet, T> fetchGroupColumn) {
 		String sql =
 				"SELECT " + groupingColumn + ", COUNT(*) FROM " + tableName + " " + whereClause + " GROUP BY " + groupingColumn;
 
@@ -63,7 +74,7 @@ public class SqlUtil {
 
 		executeQuery(sql, parameters, null, (resultSet) -> {
 			try {
-				counts.put((T) resultSet.getObject(1), resultSet.getInt(2));
+				counts.put(fetchGroupColumn.apply(resultSet), resultSet.getInt(2));
 			} catch (Exception e) {
 				log.severe(e.getMessage());
 			}

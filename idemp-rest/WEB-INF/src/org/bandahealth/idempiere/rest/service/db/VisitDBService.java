@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,7 +95,14 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		sqlWhere.append(patientIdInWhereClause).append(")");
 
 		return SqlUtil.getGroupCount(MOrder_BH.Table_Name, sqlWhere.toString(), MOrder_BH.COLUMNNAME_C_BPartner_ID,
-				parameters);
+				parameters, (resultSet -> {
+					try {
+						return resultSet.getInt(1);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return 0;
+				}));
 	}
 
 	public static String getLastVisitDate(MBPartner_BH patient) {
