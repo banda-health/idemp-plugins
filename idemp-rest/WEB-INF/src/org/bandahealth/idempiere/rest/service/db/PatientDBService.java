@@ -196,7 +196,8 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
 					instance.getbh_gender(), instance.getBH_Phone(),
-					instance.getBH_Local_PatientID());
+					instance.getBH_Local_PatientID(),
+					instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -244,9 +245,9 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 		if (dbModels != null) {
 			Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
 			Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
-			return dbModels.stream().map(this::createInstanceWithDefaultFields)
-					.peek(patient -> patient.setTotalVisits(visitsCount.getOrDefault(patient.getId(), 0)))
-					.collect(Collectors.toList());
+			return dbModels.stream().map(this::createInstanceWithDefaultFields).peek(patient -> {
+				patient.setTotalVisits(visitsCount.getOrDefault(patient.getId(), 0));
+			}).collect(Collectors.toList());
 		}
 		return new ArrayList<>();
 	}
