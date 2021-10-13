@@ -175,12 +175,12 @@ public class MovementDBService extends BaseMovementDBService<Movement> {
 
 	@Override
 	protected Movement createInstanceWithDefaultFields(MMovement_BH instance) {
-		return new Movement(instance, movementLineDBService.getLinesByMovement(instance));
+		return new Movement(instance);
 	}
 
 	@Override
 	protected Movement createInstanceWithAllFields(MMovement_BH instance) {
-		return new Movement(instance);
+		return new Movement(instance, movementLineDBService.getLinesByMovement(instance));
 	}
 
 	@Override

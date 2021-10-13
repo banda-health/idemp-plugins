@@ -16,7 +16,6 @@ public class Movement extends BaseMetadata {
 
 	private Warehouse fromWarehouse;
 	private Warehouse toWarehouse;
-	private String docAction;
 	private String docStatus;
 	private String movementDate;
 	private String description;
@@ -30,9 +29,14 @@ public class Movement extends BaseMetadata {
 	public Movement(MMovement_BH instance) {
 		super(instance);
 
-		setFromWarehouse(new Warehouse(new MWarehouse(Env.getCtx(), instance.getBH_FromWarehouseID(), null)));
-		setToWarehouse(new Warehouse(new MWarehouse(Env.getCtx(), instance.getBH_ToWarehouseID(), null)));
-		setDocAction(instance.getDocAction());
+		if (instance.getBH_FromWarehouseID() > 0) {
+			setFromWarehouse(new Warehouse(new MWarehouse(Env.getCtx(), instance.getBH_FromWarehouseID(), null)));
+		}
+
+		if (instance.getBH_ToWarehouseID() > 0 ) {
+			setToWarehouse(new Warehouse(new MWarehouse(Env.getCtx(), instance.getBH_ToWarehouseID(), null)));
+		}
+
 		setDocStatus(instance.getDocStatus());
 		setMovementDate(DateUtil.parseDateOnly(instance.getMovementDate()));
 		setDescription(instance.getDescription());
@@ -44,17 +48,9 @@ public class Movement extends BaseMetadata {
 	}
 
 	public Movement(MMovement_BH instance, List<MovementLine> movementLines) {
-		super(instance);
+		this(instance);
 
 		setMovementLines(movementLines);
-	}
-
-	public String getDocAction() {
-		return docAction;
-	}
-
-	public void setDocAction(String docAction) {
-		this.docAction = docAction;
 	}
 
 	public String getDocStatus() {

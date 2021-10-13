@@ -3,10 +3,12 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -95,11 +97,20 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * @return
 	 */
 	public BaseListResponse<SearchProduct> searchItems(String searchValue, String warehouseUuid) {
+		// get available warehouses
+		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
+
 		// get warehouse
-		MWarehouse warehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
-				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(warehouseUuid).setClient_ID().first();
-		if (warehouse == null) {
-			throw new AdempiereException(ERROR_WAREHOUSE_NOT_FOUND);
+		MWarehouse sourceWarehouse = null;
+		if (StringUtil.isNotNullAndEmpty(warehouseUuid)) {
+			Optional<MWarehouse> foundWarehouse = warehouses.stream()
+					.filter(mWarehouse -> mWarehouse.getM_Warehouse_UU().equals(warehouseUuid)).findFirst();
+			if (foundWarehouse.isPresent()) {
+				sourceWarehouse = foundWarehouse.get();
+			}
+			if (sourceWarehouse == null) {
+				throw new AdempiereException(ERROR_WAREHOUSE_NOT_FOUND);
+			}
 		}
 
 		List<SearchProduct> results = new ArrayList<>();
@@ -136,7 +147,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 				for (Inventory inventory : inventoryList.getResults()) {
 					// check warehouse
-					if (inventory.getWarehouseId() != warehouse.get_ID()) {
+					if (sourceWarehouse != null && inventory.getWarehouseId() != sourceWarehouse.get_ID()) {
 						continue;
 
 					}
@@ -153,6 +164,12 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					// get quantity
 					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
 					attribute.setExistingQuantity(BigDecimal.valueOf(inventory.getQuantity()));
+					// store warehouse
+					Optional<MWarehouse> foundWarehouse = warehouses.stream()
+							.filter(warehouse -> warehouse.get_ID() == inventory.getWarehouseId()).findFirst();
+					if (foundWarehouse.isPresent()) {
+						attribute.setWarehouseUuid(foundWarehouse.get().getM_Warehouse_UU());
+					}
 
 					result.addAttribute(attribute);
 				}
