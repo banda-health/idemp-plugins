@@ -20,3 +20,6 @@ Export-Package: org.bandahealth.idempiere.base.callout,
  org.bandahealth.idempiere.base.process,
  org.bandahealth.idempiere.base.utils
 Eclipse-Registerbuddy: org.adempiere.base
+Import-Package: org.adempiere.base,
+ org.compiere,
+ org.adempiere.exceptions
