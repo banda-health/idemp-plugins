@@ -1,13 +1,19 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.Movement;
 import org.bandahealth.idempiere.rest.model.MovementLine;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -39,6 +45,19 @@ public class MovementDBService extends BaseMovementDBService<Movement> {
 		return DOCUMENTNAME_MOVEMENT;
 	}
 
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(MWarehouse.Table_Name,
+					"LEFT JOIN " + MWarehouse.Table_Name + " ON " + MMovement_BH.Table_Name + "."
+							+ MMovement_BH.COLUMNNAME_BH_FROM_WAREHOUSE_ID + " = " + MWarehouse.Table_Name + "."
+							+ MWarehouse.COLUMNNAME_M_Warehouse_ID);
+			put(MUser_BH.Table_Name,
+					"LEFT JOIN " + MUser_BH.Table_Name + " ON " + MMovement_BH.Table_Name + "."
+							+ MMovement_BH.COLUMNNAME_CreatedBy + " = " + MUser_BH.Table_Name + "."
+							+ MUser_BH.COLUMNNAME_AD_User_ID);
+		}
+	};
+
 	@Override
 	public Movement saveEntity(Movement entity) {
 		// From
@@ -51,7 +70,7 @@ public class MovementDBService extends BaseMovementDBService<Movement> {
 
 		// To
 		MWarehouse toWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
-				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(entity.getFromWarehouse().getUuid())
+				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(entity.getToWarehouse().getUuid())
 						.first();
 		if (toWarehouse == null) {
 			throw new AdempiereException(MISSING_TO_WAREHOUSE);
@@ -73,7 +92,12 @@ public class MovementDBService extends BaseMovementDBService<Movement> {
 			mMovement.setBH_ToWarehouseID(toWarehouse.get_ID());
 
 			if (StringUtil.isNotNullAndEmpty(entity.getMovementDate())) {
-				mMovement.setMovementDate(DateUtil.getTimestamp(entity.getMovementDate()));
+				Timestamp movementDate = DateUtil.getTimestamp(entity.getMovementDate());
+				if (movementDate == null) {
+					movementDate = new Timestamp(System.currentTimeMillis());
+				}
+
+				mMovement.setMovementDate(movementDate);
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
@@ -191,6 +215,11 @@ public class MovementDBService extends BaseMovementDBService<Movement> {
 	@Override
 	protected MMovement_BH getModelInstance() {
 		return new MMovement_BH(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
 	}
 
 }
