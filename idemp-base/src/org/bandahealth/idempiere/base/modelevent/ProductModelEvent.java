@@ -53,6 +53,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 	protected void initialize() {
 		context = Env.getCtx();
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MProduct_BH.Table_Name);
 	}
