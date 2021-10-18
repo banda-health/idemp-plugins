@@ -77,7 +77,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	public static int getVisitsCount(Integer patientId) {
-		return getVisitCountsByPatients(Collections.singleton(patientId)).get(patientId);
+		return getVisitCountsByPatients(Collections.singleton(patientId)).getOrDefault(patientId, 0);
 	}
 
 	public static Map<Integer, Integer> getVisitCountsByPatients(Set<Integer> patientIds) {
