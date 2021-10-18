@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -15,6 +16,8 @@ import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.UserDBService;
+import org.compiere.model.MUser;
+import org.compiere.util.Env;
 
 @Path(IRestConfigs.USERS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -51,8 +54,10 @@ public class UserRestService extends BaseEntityRestService<User> {
 		return null;
 	}
 
+	@POST
 	@Override
+	@Path(IRestConfigs.SAVE_PATH)
 	public User saveEntity(User entity) {
-		return null;
+		return dbService.saveEntity(entity);
 	}
 }

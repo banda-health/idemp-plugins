@@ -20,6 +20,7 @@ public class Role extends BaseEntity {
 	public Role(MRole entity) {
 		this.setClientId(entity.getAD_Client_ID());
 		this.setName(entity.getName());
+		this.setClientId(entity.getAD_Client_ID());
 	}
 	
 	public Role(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,

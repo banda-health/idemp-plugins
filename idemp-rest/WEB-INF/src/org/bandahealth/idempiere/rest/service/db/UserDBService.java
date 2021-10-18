@@ -20,6 +20,7 @@ import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Role;
@@ -145,7 +146,22 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 	@Override
 	public User saveEntity(User entity) {
-		throw new AdempiereException("Operation not allowed");
+//		throw new AdempiereException("Operation not allowed");
+		try {
+			System.out.println("saving user status");
+			MUser_BH user = getEntityByUuidFromDB(entity.getUuid());
+			user.setIsActive(entity.getIsActive());
+			user.saveEx();
+			return null;
+		}
+		catch (Exception ex) {
+			if (ex.getMessage().contains("Require unique data")) {
+				throw new DuplicateEntitySaveException(ex.getLocalizedMessage());
+			} else {
+				throw new AdempiereException(ex.getLocalizedMessage());
+			}
+
+		}
 	}
 
 	@Override
