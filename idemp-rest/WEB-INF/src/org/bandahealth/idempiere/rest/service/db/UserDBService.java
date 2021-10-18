@@ -146,9 +146,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 	@Override
 	public User saveEntity(User entity) {
-//		throw new AdempiereException("Operation not allowed");
 		try {
-			System.out.println("saving user status");
 			MUser_BH user = getEntityByUuidFromDB(entity.getUuid());
 			user.setIsActive(entity.getIsActive());
 			user.saveEx();

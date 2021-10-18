@@ -55,8 +55,8 @@ public class UserRestService extends BaseEntityRestService<User> {
 	}
 
 	@POST
-	@Override
 	@Path(IRestConfigs.SAVE_PATH)
+	@Override
 	public User saveEntity(User entity) {
 		return dbService.saveEntity(entity);
 	}
