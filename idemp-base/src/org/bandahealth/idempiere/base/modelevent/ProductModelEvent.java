@@ -53,12 +53,17 @@ public class ProductModelEvent extends AbstractEventHandler {
 	protected void initialize() {
 		context = Env.getCtx();
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MProduct_BH.Table_Name);
 	}
 
 	private void beforeSave(MProduct_BH product) {
 		product.setValue(product.getName());
+		// If the user is saying the product can't expire and it previously could, clear the attribute set to avoid errors
+		if (product.isBH_HasExpiration() && product.getM_AttributeSet_ID() > 0) {
+			product.setM_AttributeSet_ID(-1);
+		}
 	}
 
 	private void beforeNewRequest(MProduct_BH product) {
