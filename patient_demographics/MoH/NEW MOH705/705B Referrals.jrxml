@@ -81,8 +81,10 @@
              from c_order c
                       JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
                       JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
+                      JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
 --                       JOIN ad_org org ON c.ad_org_id = org.ad_org_id
              WHERE c.ad_client_id = $P{AD_CLIENT_ID}
+                AND bp.bh_birthday IS NOT NULL AND date_part('year', age(bp.bh_birthday)) >= 5
              GROUP BY bh_referral,bh_moh705b_greaterthan5, cast(bh_visitdate as date)
          ) c ON b.value = c.bh_referral
          ORDER BY b.value

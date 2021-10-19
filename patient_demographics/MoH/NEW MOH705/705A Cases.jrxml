@@ -146,8 +146,10 @@
             FROM c_order c
                 JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
                 JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
+                JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
            WHERE c.ad_client_id = $P{AD_CLIENT_ID}
                   AND bh_primarycodeddiagnosis_id IS NOT NULL
+                  AND bp.bh_birthday IS NOT NULL AND date_part('year', age(bp.bh_birthday)) < 5
             GROUP BY bh_moh705a_lessthan5, cast(bh_visitdate as date)
         ) c ON b.bh_moh705a_lessthan5 = c.bh_moh705a_lessthan5
 )
@@ -169,7 +171,7 @@ FROM diagnosis_list dl
     SELECT 'Dysentery (Bloody Diarrhea)', 50 UNION
     SELECT 'Gastroenteritis', 60 UNION
     SELECT 'Pneumonia', 70 UNION
-    SELECT 'Severe pneumonia', 80 UNION 
+    SELECT 'Severe pneumonia', 80 UNION
     SELECT 'Upper Respiratory Tract Infections', 90 UNION
     SELECT 'Lower Respiratory Tract Infection', 100 UNION
     SELECT 'Asthma', 110 UNION

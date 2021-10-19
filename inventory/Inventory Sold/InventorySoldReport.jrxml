@@ -76,49 +76,83 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[select
-    billitems.item_name as item_name,
-    sum(billdetails.quantity) as quantity,
-    billdetails.saleprice as sellingprice,
-    sum(billdetails.amount) as amount,
-    productPP.PurchasePrice as PurchasePrice,
-    abs(coalesce(sum(billdetails.quantity*productPP.PurchasePrice),0)) as costgoodssold
-from
-(
-select
-    item.m_product_id,
-    item.name as item_name
-from m_product item
-where item.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y'
-    and item.producttype = 'I'
-) as billitems
-inner join
-(
-select
-    coline.m_product_id,
-    coline.qtyordered as quantity,
-    coline.priceentered as saleprice,
-    coline.linenetamt as amount
-from c_orderline coline
-    inner join c_order sorder on coline.c_order_id = sorder.c_order_id
-    and sorder.bh_isexpense = 'N'
-    inner join m_product item on coline.m_product_id = item.m_product_id
-    and item.producttype = 'I'
-where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
-    and (date(sorder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
-) as billdetails on billitems.m_product_id = billdetails.m_product_id
-left join
-(
-select
-    productPrice.m_product_id,
-    productPrice.pricestd as PurchasePrice
-    from m_pricelist priceList
-    inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-    inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-where priceList.issopricelist = 'N' and priceList.isdefault = 'Y'
-) as productPP on billdetails.m_product_id = productPP.m_product_id
-group by billitems.item_name,billdetails.saleprice,productPP.PurchasePrice
-order by billitems.item_name asc;]]>
+			<![CDATA[with params as (
+    SELECT
+        $P{AD_CLIENT_ID} as ad_client_id,
+        date($P{Begin Date}) as begin_date,
+        date($P{End Date}) as end_date
+)
+select billitems.item_name                                                                           as item_name,
+       sum(billdetails.quantity)                                                                     as quantity,
+       billdetails.saleprice                                                                         as sellingprice,
+       sum(billdetails.amount)                                                                       as amount,
+       coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0) as PurchasePrice,
+       abs(coalesce(sum(billdetails.quantity *
+                        coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0)),
+                    0))                                                                              as costgoodssold
+from (
+         select item.m_product_id,
+                item.name as item_name
+         from m_product item
+                  join params p on item.ad_client_id = p.ad_client_id
+         where item.isactive = 'Y'
+           and item.producttype = 'I'
+     ) as billitems
+         inner join
+     (
+         select coline.m_product_id,
+                coline.qtyordered   as quantity,
+                coline.priceentered as saleprice,
+                coline.linenetamt   as amount,
+                coline.m_attributesetinstance_id
+         from c_orderline coline
+                  inner join c_order sorder on coline.c_order_id = sorder.c_order_id
+             and sorder.bh_isexpense = 'N'
+                  inner join m_product item on coline.m_product_id = item.m_product_id
+             and item.producttype = 'I'
+                  join params p on coline.ad_client_id = p.ad_client_id
+         where coline.processed = 'Y'
+           and date(sorder.bh_visitdate) BETWEEN p.begin_date and p.end_date
+     ) as billdetails on billitems.m_product_id = billdetails.m_product_id
+         left join (
+    select ol.m_product_id,
+           avg(ol.priceentered) as priceentered,
+           ol.m_attributesetinstance_id
+    from c_orderline ol
+             join params on params.ad_client_id = ol.ad_client_id
+        and date(dateordered) between begin_date and end_date
+             join c_order o on ol.c_order_id = o.c_order_id
+    where o.issotrx = 'N'
+      and o.docstatus IN ('CL', 'CO')
+      and ol.m_product_id is not null
+    group by ol.m_product_id, ol.m_attributesetinstance_id
+) as price_on_reception on billdetails.m_product_id = price_on_reception.m_product_id and
+                           billdetails.m_attributesetinstance_id = price_on_reception.m_attributesetinstance_id
+         left join (
+    select c.m_product_id, c.m_attributesetinstance_id, c.currentcostprice
+    from m_cost c
+             join params p on c.ad_client_id = p.ad_client_id
+             join c_acctschema actsch
+                  on c.c_acctschema_id = actsch.c_acctschema_id and c.m_costtype_id = actsch.m_costtype_id
+             join m_costelement ce
+                  on c.m_costelement_id = ce.m_costelement_id and ce.costingmethod = actsch.costingmethod
+    where c.currentcostprice > 0
+) costs on billdetails.m_product_id = costs.m_product_id and
+           billdetails.m_attributesetinstance_id = costs.m_attributesetinstance_id
+         left join
+     (
+         select productPrice.m_product_id,
+                productPrice.pricestd as PurchasePrice
+         from m_pricelist priceList
+                  inner join m_pricelist_version priceListVersion
+                             on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
+                  inner join m_productprice productPrice
+                             on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+         where priceList.issopricelist = 'N'
+           and priceList.isdefault = 'Y'
+     ) as productPP on billdetails.m_product_id = productPP.m_product_id
+group by billitems.item_name, billdetails.saleprice, coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice,0)
+order by billitems.item_name;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
