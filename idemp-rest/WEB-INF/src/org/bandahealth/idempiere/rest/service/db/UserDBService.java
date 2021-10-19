@@ -182,7 +182,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		try {
 			return new User(instance.getName(), instance.getAD_User_UU(), instance.getCreated(), instance.getDateLastLogin());
 		} catch (Exception ex) {
-			log.severe("Error creating product instance: " + ex);
+			log.severe("Error creating user instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
 		}
 	}
