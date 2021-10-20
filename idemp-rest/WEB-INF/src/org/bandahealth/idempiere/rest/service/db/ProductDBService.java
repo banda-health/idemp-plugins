@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -24,11 +23,8 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
-import org.bandahealth.idempiere.rest.model.StorageOnHand;
-import org.bandahealth.idempiere.rest.service.impl.AuthenticationRestService;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MLocator;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
@@ -94,24 +90,12 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * Searches products/services and returns related price, expiry, quantity fields
 	 *
 	 * @param searchValue
+	 * 
 	 * @return
 	 */
-	public BaseListResponse<SearchProduct> searchItems(String searchValue, String warehouseUuid) {
+	public BaseListResponse<SearchProduct> searchItems(String searchValue) {
 		// get available warehouses
 		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
-
-		// get warehouse
-		MWarehouse sourceWarehouse = null;
-		if (StringUtil.isNotNullAndEmpty(warehouseUuid)) {
-			Optional<MWarehouse> foundWarehouse = warehouses.stream()
-					.filter(mWarehouse -> mWarehouse.getM_Warehouse_UU().equals(warehouseUuid)).findFirst();
-			if (foundWarehouse.isPresent()) {
-				sourceWarehouse = foundWarehouse.get();
-			}
-			if (sourceWarehouse == null) {
-				throw new AdempiereException(ERROR_WAREHOUSE_NOT_FOUND);
-			}
-		}
 
 		List<SearchProduct> results = new ArrayList<>();
 
@@ -146,12 +130,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				for (Inventory inventory : inventoryList.getResults()) {
-					// check warehouse
-					if (sourceWarehouse != null && inventory.getWarehouseId() != sourceWarehouse.get_ID()) {
-						continue;
-
-					}
-
 					// exclude expired products
 					if (inventory.getShelfLife() < 0) {
 						continue;

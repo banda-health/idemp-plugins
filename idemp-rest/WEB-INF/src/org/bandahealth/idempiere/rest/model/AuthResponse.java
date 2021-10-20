@@ -28,6 +28,10 @@ public class AuthResponse {
 	private boolean isAdministrator;
 	private Map<String, AccessLevel> windowAccessLevel;
 	private List<String> includedRoleUuids;
+	// set default values for users with access to one client/org
+	private int clientId;
+	private int orgId;
+	private String warehouseUuid;
 
 	public AuthResponse() {
 	}
@@ -150,4 +154,27 @@ public class AuthResponse {
 		this.includedRoleUuids = includedRoleUUIds;
 	}
 
+	public int getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
+
+	public int getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(int orgId) {
+		this.orgId = orgId;
+	}
+
+	public String getWarehouseUuid() {
+		return warehouseUuid;
+	}
+
+	public void setWarehouseUuid(String warehouseUuid) {
+		this.warehouseUuid = warehouseUuid;
+	}
 }

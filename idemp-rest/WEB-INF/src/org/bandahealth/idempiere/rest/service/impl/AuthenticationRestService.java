@@ -317,6 +317,7 @@ public class AuthenticationRestService {
 
 				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, credentials.getClientId());
 				builder.withClaim(LoginClaims.AD_Client_ID.name(), credentials.getClientId());
+				response.setClientId(credentials.getClientId());
 			}
 		}
 
@@ -331,12 +332,14 @@ public class AuthenticationRestService {
 		if (credentials.getOrganizationId() != null) {
 			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, credentials.getOrganizationId());
 			builder.withClaim(LoginClaims.AD_Org_ID.name(), credentials.getOrganizationId());
+			response.setOrgId(credentials.getOrganizationId());
 		}
 
 		// check warehouse
 		if (credentials.getWarehouseUuid() != null) {
 			Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, credentials.getWarehouseUuid());
 			builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), credentials.getWarehouseUuid());
+			response.setWarehouseUuid(credentials.getWarehouseUuid());
 		}
 
 	}
@@ -364,6 +367,7 @@ public class AuthenticationRestService {
 				if (clients.length == 1) {
 					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
 					builder.withClaim(LoginClaims.AD_Client_ID.name(), clientResponse.getId());
+					response.setClientId(clientResponse.getId());
 				}
 
 				// check orgs.
@@ -375,6 +379,7 @@ public class AuthenticationRestService {
 					if (orgs.length == 1) {
 						Env.setContext(Env.getCtx(), Env.AD_ORG_ID, orgResponse.getId());
 						builder.withClaim(LoginClaims.AD_Org_ID.name(), orgResponse.getId());
+						response.setOrgId(orgResponse.getId());
 					}
 
 					// check roles
@@ -401,6 +406,7 @@ public class AuthenticationRestService {
 						if (warehouses.length == 1) {
 							Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, warehouseResponse.getUuid());
 							builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), warehouseResponse.getUuid());
+							response.setWarehouseUuid(warehouseResponse.getUuid());
 						}
 					}
 

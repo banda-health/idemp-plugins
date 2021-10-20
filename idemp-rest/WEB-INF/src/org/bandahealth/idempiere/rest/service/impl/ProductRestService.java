@@ -59,8 +59,7 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 
 	@POST
 	@Path(IRestConfigs.SEARCH_ITEMS_PATH)
-	public BaseListResponse<SearchProduct> searchItems(@QueryParam("value") String query,
-			@QueryParam("warehouseUuid") String warehouseUuid) {
-		return dbService.searchItems(query, warehouseUuid);
+	public BaseListResponse<SearchProduct> searchItems(@QueryParam("value") String query) {
+		return dbService.searchItems(query);
 	}
 }
