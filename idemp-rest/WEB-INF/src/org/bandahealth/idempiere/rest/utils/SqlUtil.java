@@ -3,7 +3,10 @@ package org.bandahealth.idempiere.rest.utils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.DBException;
@@ -49,6 +52,35 @@ public class SqlUtil {
 		}
 
 		return count;
+	}
+
+	/**
+	 * Get counts by groups within a data set
+	 *
+	 * @param tableName          The table to query
+	 * @param whereClause        Limit results returned by the query
+	 * @param groupingColumn     Name of the column to group by
+	 * @param parameters         Any parameters to pass into the query
+	 * @param fetchGroupColumn A function to get the correct data and type from the result set
+	 * @param <T>                The type of data stored in the grouping column
+	 * @return A map of result counts by their grouping column
+	 */
+	public static <T> Map<T, Integer> getGroupCount(String tableName, String whereClause, String groupingColumn,
+			List<Object> parameters, Function<ResultSet, T> fetchGroupColumn) {
+		String sql =
+				"SELECT " + groupingColumn + ", COUNT(*) FROM " + tableName + " " + whereClause + " GROUP BY " + groupingColumn;
+
+		Map<T, Integer> counts = new HashMap<>();
+
+		executeQuery(sql, parameters, null, (resultSet) -> {
+			try {
+				counts.put(fetchGroupColumn.apply(resultSet), resultSet.getInt(2));
+			} catch (Exception e) {
+				log.severe(e.getMessage());
+			}
+		});
+
+		return counts;
 	}
 
 	/**

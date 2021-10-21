@@ -1,11 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -27,6 +30,7 @@ import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MOrder;
@@ -46,10 +50,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	// db
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
+	private final CodedDiagnosisDBService codedDiagnosisDBService;
 	private PatientDBService patientDBService;
 	private PaymentDBService paymentDBService;
 	private UserDBService userDBService;
-	private final CodedDiagnosisDBService codedDiagnosisDBService;
 	private MBPartner_BH mPatient;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
@@ -73,18 +77,32 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	public static int getVisitsCount(Integer patientId) {
+		return getVisitCountsByPatients(Collections.singleton(patientId)).getOrDefault(patientId, 0);
+	}
+
+	public static Map<Integer, Integer> getVisitCountsByPatients(Set<Integer> patientIds) {
 		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
-				.append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_IsActive)
-				.append(" = ? AND ").append(MOrder_BH.COLUMNNAME_DocStatus).append("!=?");
+				.append(MOrder_BH.COLUMNNAME_IsActive).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_DocStatus)
+				.append("!=? AND ").append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" IN (");
 
 		List<Object> parameters = new ArrayList<>();
 
 		parameters.add("Y");
-		parameters.add(patientId);
 		parameters.add("Y");
 		parameters.add(MOrder_BH.DOCSTATUS_Voided);
 
-		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
+		String patientIdInWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters);
+		sqlWhere.append(patientIdInWhereClause).append(")");
+
+		return SqlUtil.getGroupCount(MOrder_BH.Table_Name, sqlWhere.toString(), MOrder_BH.COLUMNNAME_C_BPartner_ID,
+				parameters, (resultSet -> {
+					try {
+						return resultSet.getInt(1);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return 0;
+				}));
 	}
 
 	public static String getLastVisitDate(MBPartner_BH patient) {
@@ -94,8 +112,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		MOrder_BH latestVisit = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
-						.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
+				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
+				.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
 
 		if (latestVisit == null) {
 			return null;
@@ -402,11 +420,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getBH_Blood_Pressure(), instance.getBH_Height(), instance.getBH_Weight(),
 					secondaryCodedDiagnosis != null
 							? new CodedDiagnosis(secondaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-									secondaryCodedDiagnosis.getBH_CielName())
+							secondaryCodedDiagnosis.getBH_CielName())
 							: null,
 					primaryCodedDiagnosis != null
 							? new CodedDiagnosis(primaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-									primaryCodedDiagnosis.getBH_CielName())
+							primaryCodedDiagnosis.getBH_CielName())
 							: null,
 					user != null ? new User(user.getAD_User_UU()) : null,
 					new ProcessStage(instance.getBH_ProcessStage()), instance);
@@ -468,7 +486,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-							.setClient_ID().setOnlyActiveRecords(true);
+					.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);
@@ -617,4 +635,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return prefetchedList.stream().filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_UU().equals(uuid))
 				.findFirst().orElse(null);
 	}
+	
 }
+
+
+	

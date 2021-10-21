@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -193,8 +195,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
 					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getbh_gender(), instance.getBH_Phone(),
-					instance.getBH_Local_PatientID());
+					instance.getbh_gender(), instance.getBH_Phone(), instance.getBH_Local_PatientID(), instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
@@ -235,5 +236,17 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 	public Boolean deleteEntity(String entityUuid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Patient> transformData(List<MBPartner_BH> dbModels) {
+		if (dbModels != null) {
+			Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
+			Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
+			return dbModels.stream().map(this::createInstanceWithDefaultFields)
+					.peek(patient -> patient.setTotalVisits(visitsCount.getOrDefault(patient.getId(), 0)))
+					.collect(Collectors.toList());
+		}
+		return new ArrayList<>();
 	}
 }
