@@ -4,19 +4,25 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
 import org.bandahealth.idempiere.base.model.OCLCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.OCLCodedDiagnosisMapping;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
@@ -35,8 +41,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
  */
 public class CodedDiagnosisSyncProcess extends SvrProcess {
 
+	private String source = "BHGO"; // set default source
+
 	private final int LIMIT = 100;
-	private String OCL_BASE_URL = "https://api.openconceptlab.org/orgs/bandahealth/sources/";
+	private String OCL_BASE_URL = "https://api.openconceptlab.org";
+	private String URI_OPTIONS = "?includeMappings=true&sortAsc=name&verbose=true";
+	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CIEL = "CIEL";
 	private final String ICD_10_WHO = "ICD-10-WHO";
 	private final String MOH_705A_LESSTHAN5 = "MOH-705A-LESSTHAN5";
@@ -44,8 +54,6 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	private final String INDEX_TERMS = "index_terms";
 
 	private final HttpClient client = HttpClient.newBuilder().version(Version.HTTP_2).build();
-
-	private String source = "BHGO"; // set default source
 
 	@Override
 	protected void prepare() {
@@ -61,8 +69,6 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 				log.log(Level.SEVERE, "Unknown Parameter: " + parameterName);
 			}
 		}
-
-		OCL_BASE_URL += source + "/concepts/?includeMappings=true&sortAsc=name&verbose=true&limit=" + LIMIT;
 	}
 
 	/**
@@ -74,22 +80,28 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	protected String doIt() throws Exception {
 		log.log(Level.INFO, "CodedDiagnosisSyncProcess sync OCL-BHGo diagnosis");
 		long start = System.currentTimeMillis();
-		int page = 1;
-		boolean hasResults = true;
 		AtomicInteger newRecords = new AtomicInteger(0);
 		AtomicInteger updatedRecords = new AtomicInteger(0);
 
-		do {
-			List<OCLCodedDiagnosis> codedDiagnoses = getCodedDiagnosisFromOCL(page);
-			hasResults = !codedDiagnoses.isEmpty();
-			if (!hasResults) {
-				break;
-			}
+		int codedDiagnosisCount = getCodedDiagnosisCount();
+		if (codedDiagnosisCount == 0) {
+			String response = "Not found any coded diagnosis on OCL";
+			log.log(Level.INFO, response);
+		}
+
+		int numberOfPages = codedDiagnosisCount / LIMIT;
+		numberOfPages = codedDiagnosisCount % LIMIT > 0 ? numberOfPages + 1 : numberOfPages;
+
+		List<Integer> pages = Stream.iterate(1, page -> page + 1).limit(numberOfPages).collect(Collectors.toList());
+		pages.forEach((page) -> {
+			List<OCLCodedDiagnosis> codedDiagnoses = getConceptsFromOCL(null, page);
+
 			// Take advantage of batching to avoid multiple db calls.
 			List<Object> parameters = new ArrayList<Object>();
 
-			String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(codedDiagnoses.stream()
-					.map(codedDiagnosis -> codedDiagnosis.getExternalId()).collect(Collectors.toSet()), parameters);
+			Set<String> items = codedDiagnoses.stream().map(OCLCodedDiagnosis::getExternalId)
+					.collect(Collectors.toSet());
+			String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(items, parameters);
 
 			List<MBHCodedDiagnosis> mCodedDiagnoses = new Query(getCtx(), MBHCodedDiagnosis.Table_Name,
 					MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_UU + " IN ( " + inClause + " )", null)
@@ -128,16 +140,21 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 				}
 
 				foundCodedDiagnosis.setBH_ConceptClass(codedDiagnosis.getConceptClass());
-				foundCodedDiagnosis.setBH_ICD10(icd10wHOMapping != null ? icd10wHOMapping.getToConceptCode() : null);
+
+				if (icd10wHOMapping != null && icd10wHOMapping.getToConceptCode() != null) {
+					foundCodedDiagnosis.setBH_ICD10(icd10wHOMapping.getToConceptCode());
+				}
+
 				foundCodedDiagnosis.setBH_MoH705ALessThan5(extras.get(MOH_705A_LESSTHAN5));
 				foundCodedDiagnosis.setBH_MoH705BGreaterThan5(extras.get(MOH_705B_GREATERTHAN5));
 				foundCodedDiagnosis.setBH_SearchTerms(extras.get(INDEX_TERMS));
 
 				foundCodedDiagnosis.saveEx();
+
+				downloadChildMappings(foundCodedDiagnosis, codedDiagnosisMapping);
 			});
 
-			page++;
-		} while (hasResults);
+		});
 
 		String successMessage = "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
 				+ " records in " + (System.currentTimeMillis() - start) / 1000 + " secs";
@@ -147,11 +164,23 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 		return successMessage;
 	}
 
-	private List<OCLCodedDiagnosis> getCodedDiagnosisFromOCL(int page) {
-		HttpRequest request = HttpRequest.newBuilder(URI.create(OCL_BASE_URL + "&page=" + page))
-				.header("Content-Type", "application/json").build();
+	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page) {
+		String url = constructUrl(source, page, source != null ? LIMIT : 0);
+		HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
+				.build();
 
-		CompletableFuture<HttpResponse<String>> response = client.sendAsync(request, BodyHandlers.ofString());
+		return client.sendAsync(request, BodyHandlers.ofString());
+	}
+
+	/**
+	 * Get a list of concepts from OCL
+	 * 
+	 * @param source
+	 * @param page
+	 * @return
+	 */
+	private List<OCLCodedDiagnosis> getConceptsFromOCL(String source, int page) {
+		CompletableFuture<HttpResponse<String>> response = makeRequest(source, page);
 		List<OCLCodedDiagnosis> oclCodedDiagnoses = new ArrayList<OCLCodedDiagnosis>();
 		try {
 			oclCodedDiagnoses = JsonUtils.convertFromJsonToList(response.get().body(),
@@ -165,5 +194,110 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 		return oclCodedDiagnoses;
 
+	}
+
+	/**
+	 * Get a concept from OCL
+	 * 
+	 * @param source
+	 * @return
+	 */
+	private OCLCodedDiagnosis getConceptFromOCL(String source) {
+		CompletableFuture<HttpResponse<String>> response = makeRequest(source, 0);
+		OCLCodedDiagnosis oclCodedDiagnosis = new OCLCodedDiagnosis();
+		try {
+			oclCodedDiagnosis = JsonUtils.covertFromJsonToObject(response.get().body(), OCLCodedDiagnosis.class);
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			log.log(Level.SEVERE, "Error getting concept: ", e);
+		}
+
+		response.join();
+
+		return oclCodedDiagnosis;
+	}
+
+	/**
+	 * OCL's pagination no-longer works correctly leading to an infinite loop. Make
+	 * an initial request to fetch `num_found` to use for pagination.
+	 * 
+	 * @return count
+	 */
+	private int getCodedDiagnosisCount() {
+		int count = 0;
+		CompletableFuture<HttpResponse<String>> response = makeRequest(null, 1);
+		try {
+			HttpHeaders headers = response.get().headers();
+			Optional<String> numFound = headers.firstValue("num_found");
+			if (numFound.isPresent()) {
+				count = Integer.valueOf(numFound.get());
+			}
+		} catch (InterruptedException | ExecutionException e) {
+			log.log(Level.SEVERE, "Error fetching count: ", e);
+		}
+
+		return count;
+	}
+
+	/**
+	 * Fetch any child mapped concepts
+	 * 
+	 * @param parentConcept
+	 * @param codedDiagnosisMapping
+	 */
+	private void downloadChildMappings(MBHCodedDiagnosis parentConcept,
+			List<OCLCodedDiagnosisMapping> codedDiagnosisMapping) {
+		// Take advantage of batching to avoid multiple db calls.
+		List<Object> parameters = new ArrayList<Object>();
+
+		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+				codedDiagnosisMapping.stream().map(OCLCodedDiagnosisMapping::getExternalId).collect(Collectors.toSet()),
+				parameters);
+
+		List<MBHCodedDiagnosisMapping> mCodedDiagnosisMappings = new Query(getCtx(),
+				MBHCodedDiagnosisMapping.Table_Name,
+				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalId + " IN ( " + inClause + " )", null)
+						.setParameters(parameters).list();
+
+		// save every mapping and check underlying concepts
+		codedDiagnosisMapping.forEach((mapping) -> {
+			// search mapping in db list
+			MBHCodedDiagnosisMapping foundCodedDiagnosisMapping = mCodedDiagnosisMappings.stream()
+					.filter(filterCodedDiagnosisMapping -> mapping.getExternalId()
+							.equals(filterCodedDiagnosisMapping.getBH_ExternalID()))
+					.findFirst().orElse(null);
+
+			if (foundCodedDiagnosisMapping == null) {
+				// new record
+				foundCodedDiagnosisMapping = new MBHCodedDiagnosisMapping(getCtx(), 0, null);
+				foundCodedDiagnosisMapping.setBH_ExternalID(mapping.getExternalId());
+			} else {
+				foundCodedDiagnosisMapping.setIsActive(mapping.isRetired());
+			}
+
+			foundCodedDiagnosisMapping.setBH_CodedDiagnosis_ID(parentConcept.get_ID());
+			foundCodedDiagnosisMapping.setBH_Source(mapping.getSource());
+			foundCodedDiagnosisMapping.setBH_MapType(mapping.getMapType());
+			foundCodedDiagnosisMapping.setBH_Owner(mapping.getOwner());
+			foundCodedDiagnosisMapping.setBH_ConceptCode(mapping.getToConceptCode());
+			foundCodedDiagnosisMapping.setBH_ConceptNameResolved(mapping.getToConceptNameResolved());
+			foundCodedDiagnosisMapping.saveEx();
+
+			// check mappings
+			OCLCodedDiagnosis concept = getConceptFromOCL(mapping.getToConceptUrl());
+			if (concept != null && concept.getMappings() != null && !concept.getMappings().isEmpty()) {
+				downloadChildMappings(parentConcept, concept.getMappings());
+			}
+		});
+	}
+
+	private String constructUrl(String source, int page, int limit) {
+		StringBuilder url = new StringBuilder();
+		url.append(OCL_BASE_URL);
+		url.append(source != null ? source : BHGO_URI + this.source + "/concepts/");
+		url.append(URI_OPTIONS);
+		url.append(limit > 0 ? "&limit=" + limit : "");
+		url.append(page > 0 ? "&page=" + page : "");
+
+		return url.toString();
 	}
 }
