@@ -65,7 +65,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 				  + " u.isactive, u.ad_org_id, u.ad_client_id, u.ad_org_id " 
 				  + " FROM ad_user u "
 				  + " JOIN AD_User_Roles ur ON u.ad_user_id = ur.ad_user_id "
-				  + " WHERE u.ad_org_id != 0 "
+				  + " WHERE u.ad_org_id != '"+SYSTEM_ADMIN_ORG_ID +"' "
 				  + " AND u.ad_client_id = '"+ clientId +" ' ";
 		
 		Map<String, User> usersRolesMap = new HashMap<>();
@@ -84,7 +84,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			 
 			 if(usersRolesMap.containsKey(uuid)) {
 				 User existingUser = usersRolesMap.get(uuid);
-				 existingUser.roles.add(userRole);
+				 existingUser.getRoles().add(userRole);
 				 usersRolesMap.put(uuid, existingUser);
 			 } else {
 				 roleList.add(userRole);
