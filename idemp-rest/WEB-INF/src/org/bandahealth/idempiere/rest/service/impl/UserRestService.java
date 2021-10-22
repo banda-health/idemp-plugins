@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,12 +10,9 @@ import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.UserDBService;
-import org.compiere.model.MUser;
-import org.compiere.util.Env;
 
 @Path(IRestConfigs.USERS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -35,10 +30,15 @@ public class UserRestService extends BaseEntityRestService<User> {
 	public BaseListResponse<User> getClinicians(@QueryParam("page") int page, @QueryParam("size") int size) {
 		return dbService.getCliniciansResponse(getPagingInfo(page, size));
 	}
+	
+	@Override
+	public BaseListResponse<User> getAll(int page, int size, String sortColumn, String sortOrder, String filterJson) {
+		return null;
+	}
 
 	@GET
 	@Path(IRestConfigs.ROOT_PATH)
-	public BaseListResponse<User> getAll(
+	public BaseListResponse<User> getNonAdmins(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
 		return dbService.getNonAdmins(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);

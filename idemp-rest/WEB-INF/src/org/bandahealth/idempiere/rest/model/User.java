@@ -15,7 +15,7 @@ public class User extends BaseMetadata {
 
 	private String name;
 	private Timestamp lastLogin;
-	public List<Role> roles;
+	private List<Role> roles;
 
 	public User() {
 	}
