@@ -107,6 +107,7 @@ public class InitializeStock {
 				}
 
 				MInventoryLine_BH inventoryLine = new MInventoryLine_BH(context, 0, transactionName);
+				inventoryLine.setAD_Org_ID(inventory.getAD_Org_ID());
 				inventoryLine.setM_Product_ID(product.get_ID());
 				inventoryLine.setM_Inventory_ID(inventory.get_ID());
 
