@@ -39,10 +39,9 @@ public class ProductModelEvent extends AbstractEventHandler {
 			return;
 		}
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			beforeSave(product);
-			beforeNewRequest(product);
+			beforeSaveRequest(product);
 		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			beforeSave(product);
+			beforeSaveRequest(product);
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
 				|| event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
 			afterSaveRequest(product);
@@ -58,15 +57,14 @@ public class ProductModelEvent extends AbstractEventHandler {
 		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MProduct_BH.Table_Name);
 	}
 
-	private void beforeSave(MProduct_BH product) {
+	private void beforeSaveRequest(MProduct_BH product) {
 		product.setValue(product.getName());
+
 		// If the user is saying the product can't expire and it previously could, clear the attribute set to avoid errors
-		if (product.isBH_HasExpiration() && product.getM_AttributeSet_ID() > 0) {
+		if (!product.isBH_HasExpiration() && product.getM_AttributeSet_ID() > 0) {
 			product.setM_AttributeSet_ID(-1);
 		}
-	}
 
-	private void beforeNewRequest(MProduct_BH product) {
 		if (product.getM_AttributeSet_ID() > 0) {
 			return;
 		}
