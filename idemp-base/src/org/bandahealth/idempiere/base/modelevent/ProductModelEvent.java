@@ -40,6 +40,8 @@ public class ProductModelEvent extends AbstractEventHandler {
 		}
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			beforeSaveRequest(product);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
+			beforeSaveRequest(product);
 		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
 				|| event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
 			afterSaveRequest(product);
@@ -50,22 +52,29 @@ public class ProductModelEvent extends AbstractEventHandler {
 	protected void initialize() {
 		context = Env.getCtx();
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MProduct_BH.Table_Name);
 	}
 
 	private void beforeSaveRequest(MProduct_BH product) {
 		product.setValue(product.getName());
+
+		// If the user is saying the product can't expire and it previously could, clear the attribute set to avoid errors
+		if (!product.isBH_HasExpiration() && product.getM_AttributeSet_ID() > 0) {
+			product.setM_AttributeSet_ID(-1);
+		}
+
 		if (product.getM_AttributeSet_ID() > 0) {
 			return;
 		}
-		
+
 		attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
 		if (attributeSet != null) {
 			if (product.isBH_HasExpiration()) {
 				Integer attributeSetId = attributeSet.get_ID();
 				product.setM_AttributeSet_ID(attributeSetId);
-			} 
+			}
 		} else {
 			// failed to find or create product attribute set
 			throw new AdempiereException(
@@ -96,7 +105,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 					"name='" + productAttribSetName + "'", null);
 		}
 		// update for existing clients with this AS
-		if (!(boolean) attributeSet.get_Value(MAttributeSet.COLUMNNAME_UseGuaranteeDateForMPolicy)) {
+		if (!attributeSet.isUseGuaranteeDateForMPolicy()) {
 			attributeSet.setUseGuaranteeDateForMPolicy(true);
 			attributeSet.saveEx();
 		}
@@ -138,7 +147,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 						// update product buy price
 						product.setBH_BuyPrice(productPrice.getPriceStd());
 					}
-					
+
 					// calculate price margin
 					if (product.getBH_SellPrice() != null && product.getBH_BuyPrice() != null) {
 						product.setBH_PriceMargin(product.getBH_SellPrice().subtract(product.getBH_BuyPrice()));
