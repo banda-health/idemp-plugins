@@ -1,12 +1,15 @@
 package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 
 @XmlRootElement(name = "product")
 @JsonInclude(value = Include.NON_NULL)
@@ -26,13 +29,18 @@ public class Product extends BaseEntity {
 	private String productCategoryUuid;
 	private BigDecimal totalQuantity;
 	private BigDecimal defaultStockLevel;
+	private List<StorageOnHand> storageOnHandList = new ArrayList<>();
 
 	public Product() {
 	}
 
-	public Product(String name, String uuid, String type) {
+	public Product(String name, String uuid, String type, MProduct_BH entity) {
 		this.setName(name);
 		this.setUuid(uuid);
+		this.setHasExpiration(entity.isBH_HasExpiration());
+		this.buyPrice = entity.getBH_BuyPrice();
+		this.sellPrice = entity.getBH_SellPrice();
+		this.priceMargin = entity.getBH_PriceMargin();
 
 		this.type = type;
 	}
@@ -180,5 +188,13 @@ public class Product extends BaseEntity {
 
 	public void setDefaultStockLevel(BigDecimal defaultStockLevel) {
 		this.defaultStockLevel = defaultStockLevel;
+	}
+
+	public List<StorageOnHand> getStorageOnHandList() {
+		return storageOnHandList;
+	}
+
+	public void setStorageOnHandList(List<StorageOnHand> storageOnHandList) {
+		this.storageOnHandList = storageOnHandList;
 	}
 }

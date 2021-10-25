@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-
 @XmlRootElement(name = "response")
 @JsonInclude(value = Include.NON_NULL)
 public class AuthResponse {
@@ -28,6 +27,7 @@ public class AuthResponse {
 	private List<String> securityQuestions;
 	private boolean isAdministrator;
 	private Map<String, AccessLevel> windowAccessLevel;
+	private List<String> includedRoleUuids;
 
 	public AuthResponse() {
 	}
@@ -141,6 +141,13 @@ public class AuthResponse {
 	public void setWindowAccessLevel(Map<String, AccessLevel> windowAccessLevel) {
 		this.windowAccessLevel = windowAccessLevel;
 	}
-	
-	
+
+	public List<String> getIncludedRoleUUIds() {
+		return includedRoleUuids;
+	}
+
+	public void setIncludedRoleUuids(List<String> includedRoleUUIds) {
+		this.includedRoleUuids = includedRoleUUIds;
+	}
+
 }

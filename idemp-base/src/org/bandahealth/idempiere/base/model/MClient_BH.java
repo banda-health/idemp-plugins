@@ -8,6 +8,7 @@ import java.util.Properties;
 public class MClient_BH extends MClient {
 	private static final long serialVersionUID = 1L;
 	public static final int CLIENTID_SYSTEM = 0;
+	public static final int CLIENTID_CONFIG = 2;
 	public static final int CLIENTID_LAST_SYSTEM = 999999;
 
 	public MClient_BH(Properties ctx, int AD_Client_ID, boolean createNew, String trxName) {

@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class CodedDiagnosis extends BaseMetadata {
 
 	private static final long serialVersionUID = -2371895179523894294L;
-	private String ceilName;
-	private int ceilId;
+	private String cielName;
+	private int cielId;
 	private String conceptClass;
 	private String icd10;
 	private int synomedCT;
@@ -27,15 +27,15 @@ public class CodedDiagnosis extends BaseMetadata {
 	public CodedDiagnosis() {
 	}
 
-	public CodedDiagnosis(String uuid, String ceilName) {
+	public CodedDiagnosis(String uuid, String cielName) {
 		setUuid(uuid);
-		setCeilName(ceilName);
+		setCielName(cielName);
 	}
 
 	public CodedDiagnosis(MBHCodedDiagnosis entity) {
 		setUuid(entity.getBH_CodedDiagnosis_UU());
-		setCeilName(entity.getBH_CeilName());
-		setCeilId(entity.getBH_CeilId());
+		setCielName(entity.getBH_CielName());
+		setCielId(entity.getBH_CielId());
 		setConceptClass(entity.getBH_ConceptClass());
 		setIcd10(entity.getBH_ICD10());
 		setSynomedCT(entity.getBH_SynomedCT());
@@ -47,27 +47,27 @@ public class CodedDiagnosis extends BaseMetadata {
 		setSearchTerms(entity.getBH_SearchTerms());
 	}
 
-	public CodedDiagnosis(String uuid, String ceilName, String icd10, String synonyms) {
+	public CodedDiagnosis(String uuid, String cielName, String icd10, String synonyms) {
 		setUuid(uuid);
-		setCeilName(ceilName);
+		setCielName(cielName);
 		setIcd10(icd10);
 		setSynonyms(synonyms);
 	}
 
-	public String getCeilName() {
-		return ceilName;
+	public String getCielName() {
+		return cielName;
 	}
 
-	public void setCeilName(String ceilName) {
-		this.ceilName = ceilName;
+	public void setCielName(String cielName) {
+		this.cielName = cielName;
 	}
 
-	public int getCeilId() {
-		return ceilId;
+	public int getCielId() {
+		return cielId;
 	}
 
-	public void setCeilId(int ceilId) {
-		this.ceilId = ceilId;
+	public void setCielId(int cielId) {
+		this.cielId = cielId;
 	}
 
 	public String getConceptClass() {

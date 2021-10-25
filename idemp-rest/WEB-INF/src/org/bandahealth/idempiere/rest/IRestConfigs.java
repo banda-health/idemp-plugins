@@ -90,4 +90,6 @@ public interface IRestConfigs {
 	String CHARGE_INFORMATION_SUGGESTION_PATH = AUTHENTICATION_PATH + "/chargeInformationSuggestions";
 
 	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/businessPartners";
+	
+	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/voidedreasons";
 }
