@@ -150,7 +150,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			MUser_BH user = getEntityByUuidFromDB(entity.getUuid());
 			user.setIsActive(entity.getIsActive());
 			user.saveEx();
-			return null;
+			return entity;
 		}
 		catch (Exception ex) {
 			if (ex.getMessage().contains("Require unique data")) {
