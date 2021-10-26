@@ -9,7 +9,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -122,9 +121,10 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 									: codedDiagnosis.getUuid());
 					newRecords.incrementAndGet();
 				} else {
-					foundCodedDiagnosis.setIsActive(codedDiagnosis.isRetired());
 					updatedRecords.incrementAndGet();
 				}
+
+				foundCodedDiagnosis.setIsActive(codedDiagnosis.isRetired());
 
 				List<OCLCodedDiagnosisMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
 				OCLCodedDiagnosisMapping cielMapping = codedDiagnosisMapping.stream()
@@ -151,7 +151,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 				foundCodedDiagnosis.saveEx();
 
-				downloadChildMappings(foundCodedDiagnosis, codedDiagnosisMapping);
+				downloadChildMappings(foundCodedDiagnosis, codedDiagnosis, codedDiagnosisMapping);
 			});
 
 		});
@@ -188,6 +188,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 					});
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			log.log(Level.SEVERE, "Error getting concepts: ", e);
+			return null;
 		}
 
 		response.join();
@@ -209,6 +210,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 			oclCodedDiagnosis = JsonUtils.covertFromJsonToObject(response.get().body(), OCLCodedDiagnosis.class);
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			log.log(Level.SEVERE, "Error getting concept: ", e);
+			return null;
 		}
 
 		response.join();
@@ -244,7 +246,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	 * @param parentConcept
 	 * @param codedDiagnosisMapping
 	 */
-	private void downloadChildMappings(MBHCodedDiagnosis parentConcept,
+	private void downloadChildMappings(MBHCodedDiagnosis parentConcept, OCLCodedDiagnosis oclConcept,
 			List<OCLCodedDiagnosisMapping> codedDiagnosisMapping) {
 		// Take advantage of batching to avoid multiple db calls.
 		List<Object> parameters = new ArrayList<Object>();
@@ -270,23 +272,38 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 				// new record
 				foundCodedDiagnosisMapping = new MBHCodedDiagnosisMapping(getCtx(), 0, null);
 				foundCodedDiagnosisMapping.setBH_ExternalID(mapping.getExternalId());
-			} else {
-				foundCodedDiagnosisMapping.setIsActive(mapping.isRetired());
 			}
 
+			foundCodedDiagnosisMapping.setIsActive(mapping.isRetired());
 			foundCodedDiagnosisMapping.setBH_CodedDiagnosis_ID(parentConcept.get_ID());
-			foundCodedDiagnosisMapping.setBH_Source(mapping.getSource());
+			foundCodedDiagnosisMapping.setBH_Source(mapping.getToSourceOwner());
 			foundCodedDiagnosisMapping.setBH_MapType(mapping.getMapType());
 			foundCodedDiagnosisMapping.setBH_Owner(mapping.getOwner());
 			foundCodedDiagnosisMapping.setBH_ConceptCode(mapping.getToConceptCode());
 			foundCodedDiagnosisMapping.setBH_ConceptNameResolved(mapping.getToConceptNameResolved());
 			foundCodedDiagnosisMapping.saveEx();
 
-			// check mappings
-			OCLCodedDiagnosis concept = getConceptFromOCL(mapping.getToConceptUrl());
-			if (concept != null && concept.getMappings() != null && !concept.getMappings().isEmpty()) {
-				downloadChildMappings(parentConcept, concept.getMappings());
+			// save ICD-10 code in bh_coded_diagnosis
+			if (ICD_10_WHO.equals(mapping.getToSourceName())) {
+				parentConcept.setBH_ICD10(mapping.getToConceptCode());
+				parentConcept.saveEx();
 			}
+
+			// make sure the url
+			String mappingUrl = mapping.getToConceptUrl();
+			if (mappingUrl == null || "null".equals(mappingUrl)) {
+				return;
+			}
+
+			// some concepts are mapped to themselves leading to an infinite loop.
+			if (!oclConcept.getUrl().equals(mappingUrl)) {
+				// check mappings
+				OCLCodedDiagnosis concept = getConceptFromOCL(mappingUrl);
+				if (concept != null && concept.getMappings() != null && !concept.getMappings().isEmpty()) {
+					downloadChildMappings(parentConcept, concept, concept.getMappings());
+				}
+			}
+
 		});
 	}
 

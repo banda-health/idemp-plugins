@@ -1,11 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -17,6 +20,21 @@ import org.compiere.util.Env;
 public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCodedDiagnosis> {
 
 	public CodedDiagnosisDBService() {
+	}
+
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(MBHCodedDiagnosisMapping.Table_Name,
+					"LEFT JOIN " + MBHCodedDiagnosisMapping.Table_Name + " ON " + MBHCodedDiagnosis.Table_Name + "."
+							+ MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_ID + " = "
+							+ MBHCodedDiagnosisMapping.Table_Name + "."
+							+ MBHCodedDiagnosisMapping.COLUMNNAME_BH_Coded_Diagnosis_ID);
+		}
+	};
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
 	}
 
 	public BaseListResponse<CodedDiagnosis> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
@@ -90,13 +108,30 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
+		parameters.add(searchValueParameter);
+		parameters.add(searchValueParameter);
 
-		String searchClause = "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_CielName + ") " + LIKE_COMPARATOR + " ? OR "
-				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_ICD10 + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER(" +
-				MBHCodedDiagnosis.COLUMNNAME_BH_SEARCHTERMS + ") LIKE ?";
+		String searchClause = "LOWER(" + MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_CielName
+				+ ") " + LIKE_COMPARATOR + " ? OR " + "LOWER(" + MBHCodedDiagnosis.Table_Name + "."
+				+ MBHCodedDiagnosis.COLUMNNAME_BH_ICD10 + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
+				+ MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR
+				+ " ? OR LOWER(" + MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_SEARCHTERMS
+				+ ") LIKE ? OR " + MBHCodedDiagnosisMapping.Table_Name + "."
+				+ MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptCode + " = ? OR LOWER("
+				+ MBHCodedDiagnosisMapping.Table_Name + "." + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptNameResolved
+				+ ") LIKE ? ";
 
-		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder);
+		try {
+			int cielId = Integer.valueOf(valueToSearch);
+			searchClause += " OR " + MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_CielId
+					+ " = ?";
+			parameters.add(cielId);
+		} catch (NumberFormatException ex) {
+			// do nothing
+		}
+
+		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder,
+				getDynamicJoins().get(MBHCodedDiagnosisMapping.Table_Name));
 	}
 
 	@Override
