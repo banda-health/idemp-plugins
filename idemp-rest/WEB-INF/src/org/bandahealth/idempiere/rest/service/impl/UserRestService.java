@@ -37,7 +37,7 @@ public class UserRestService extends BaseEntityRestService<User> {
 	}
 
 	@GET
-	@Path(IRestConfigs.ROOT_PATH)
+	@Path(IRestConfigs.NON_ADMINS_PATH)
 	public BaseListResponse<User> getNonAdmins(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
@@ -55,7 +55,6 @@ public class UserRestService extends BaseEntityRestService<User> {
 	}
 
 	@POST
-	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public User saveEntity(User entity) {
 		return dbService.saveEntity(entity);
