@@ -14,7 +14,7 @@ public class User extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	private Timestamp lastLogin;
+	private Timestamp dateLastLogin;
 	private List<Role> roles;
 
 	public User() {
@@ -33,14 +33,14 @@ public class User extends BaseMetadata {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.setCreatedTimestamp(createdTimestamp);
-		this.setLastLogin(lastLogin);
+		this.setDateLastLogin(lastLogin);
 	}
 	
 	public User(String name, String uuid, Timestamp createdTimestamp, Timestamp lastLogin, boolean isActive, List<Role> roles) {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.setCreatedTimestamp(createdTimestamp);
-		this.setLastLogin(lastLogin);
+		this.setDateLastLogin(lastLogin);
 		this.setIsActive(isActive);
 		this.setRoles(roles);
 	}
@@ -54,13 +54,6 @@ public class User extends BaseMetadata {
 		this.name = name;
 	}
 
-	public Timestamp getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Timestamp lastLogin) {
-		this.lastLogin = lastLogin;
-	}
 
 	public List<Role> getRoles() {
 		return roles;
@@ -68,6 +61,14 @@ public class User extends BaseMetadata {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Timestamp getDateLastLogin() {
+		return dateLastLogin;
+	}
+
+	public void setDateLastLogin(Timestamp dateLastLogin) {
+		this.dateLastLogin = dateLastLogin;
 	}
 
 }
