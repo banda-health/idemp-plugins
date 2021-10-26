@@ -51,6 +51,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	private final String MOH_705A_LESSTHAN5 = "MOH-705A-LESSTHAN5";
 	private final String MOH_705B_GREATERTHAN5 = "MOH-705B-GREATERTHAN5";
 	private final String INDEX_TERMS = "index_terms";
+	private final String CONCEPTS_URI = "/concepts/";
 
 	private final HttpClient client = HttpClient.newBuilder().version(Version.HTTP_2).build();
 
@@ -220,7 +221,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	/**
 	 * OCL's pagination no-longer works correctly leading to an infinite loop. Make
-	 * an initial request to fetch `num_found` to use for pagination.
+	 * an initial request to fetch `num_found` to use in pagination.
 	 * 
 	 * @return count
 	 */
@@ -303,14 +304,13 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 					downloadChildMappings(parentConcept, concept, concept.getMappings());
 				}
 			}
-
 		});
 	}
 
 	private String constructUrl(String source, int page, int limit) {
 		StringBuilder url = new StringBuilder();
 		url.append(OCL_BASE_URL);
-		url.append(source != null ? source : BHGO_URI + this.source + "/concepts/");
+		url.append(source != null ? source : BHGO_URI + this.source + CONCEPTS_URI);
 		url.append(URI_OPTIONS);
 		url.append(limit > 0 ? "&limit=" + limit : "");
 		url.append(page > 0 ? "&page=" + page : "");
