@@ -12,6 +12,9 @@ SELECT c_order_id,
        trim(split_part(modified_blood_pressure, '/', 3)) as bp_3,
        trim(split_part(modified_blood_pressure, '/', 4)) as bp_4,
        trim(split_part(modified_blood_pressure, '/', 5)) as bp_5
+
+-- Create temporary table to hold the blood_pressure values. Remove all occurrences of specified text from the row values.
+-- Eg: If a row had 120/34mmHg the final value will be 120/34
 INTO TEMP TABLE tmp_blood_pressure
 FROM (
          SELECT c_order_id,
