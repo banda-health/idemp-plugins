@@ -6,6 +6,7 @@ import java.util.List;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
@@ -94,7 +95,9 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				return null;
 			}
 
-			return new ReceiveProduct(instance, vendor, null);
+			ReceiveProduct result = new ReceiveProduct(instance, vendor, null);
+			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
+			return result;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -110,7 +113,10 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				return null;
 			}
 
-			return new ReceiveProduct(instance, vendor, orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
+			ReceiveProduct result = new ReceiveProduct(instance, vendor,
+					orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
+			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
+			return result;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

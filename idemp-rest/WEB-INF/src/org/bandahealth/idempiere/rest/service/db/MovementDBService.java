@@ -14,8 +14,11 @@ import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.Movement;
 import org.bandahealth.idempiere.rest.model.MovementLine;
+import org.bandahealth.idempiere.rest.model.User;
+import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MClient;
@@ -28,7 +31,7 @@ import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-public class MovementDBService extends BaseMovementDBService<Movement> {
+public class MovementDBService extends DocumentDBService<Movement, MMovement_BH> {
 
 	private MovementLineDBService movementLineDBService;
 	/** Document Type */
@@ -199,7 +202,23 @@ public class MovementDBService extends BaseMovementDBService<Movement> {
 
 	@Override
 	protected Movement createInstanceWithDefaultFields(MMovement_BH instance) {
-		return new Movement(instance);
+		Movement movement = new Movement(instance);
+		if (instance.getBH_FromWarehouseID() > 0) {
+			movement.setFromWarehouse(
+					new Warehouse(new MWarehouse_BH(Env.getCtx(), instance.getBH_FromWarehouseID(), null)));
+		}
+
+		if (instance.getBH_ToWarehouseID() > 0) {
+			movement.setToWarehouse(
+					new Warehouse(new MWarehouse_BH(Env.getCtx(), instance.getBH_ToWarehouseID(), null)));
+		}
+
+		MUser_BH createdBy = new MUser_BH(Env.getCtx(), instance.getCreatedBy(), null);
+		if (createdBy != null) {
+			movement.setUser(new User(createdBy.getName(), createdBy.getAD_User_UU()));
+		}
+
+		return movement;
 	}
 
 	@Override

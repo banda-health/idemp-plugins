@@ -3,10 +3,7 @@ package org.bandahealth.idempiere.rest.model;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MMovement_BH;
-import org.bandahealth.idempiere.base.model.MWarehouse_BH;
-import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.compiere.util.Env;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -29,22 +26,9 @@ public class Movement extends BaseMetadata {
 	public Movement(MMovement_BH instance) {
 		super(instance);
 
-		if (instance.getBH_FromWarehouseID() > 0) {
-			setFromWarehouse(new Warehouse(new MWarehouse_BH(Env.getCtx(), instance.getBH_FromWarehouseID(), null)));
-		}
-
-		if (instance.getBH_ToWarehouseID() > 0 ) {
-			setToWarehouse(new Warehouse(new MWarehouse_BH(Env.getCtx(), instance.getBH_ToWarehouseID(), null)));
-		}
-
 		setDocStatus(instance.getDocStatus());
 		setMovementDate(DateUtil.parseDateOnly(instance.getMovementDate()));
 		setDescription(instance.getDescription());
-
-		MUser_BH createdBy = new MUser_BH(Env.getCtx(), getCreatedBy(), null);
-		if (createdBy != null) {
-			setUser(new User(createdBy.getName(), createdBy.getAD_User_UU()));
-		}
 	}
 
 	public Movement(MMovement_BH instance, List<MovementLine> movementLines) {

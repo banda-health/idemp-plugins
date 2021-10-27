@@ -5,14 +5,20 @@ import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.MovementLine;
+import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MProduct;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class MovementLineDBService extends BaseDBService<MovementLine, MMovementLine_BH> {
 
+	private MovementDBService movementDBService;
+
 	public MovementLineDBService() {
+		movementDBService = new MovementDBService();
 	}
 
 	@Override
@@ -26,7 +32,10 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 			}
 		}
 
-		mMovementLine.setM_Movement_ID(entity.getMovementId());
+		if (StringUtil.isNotNullAndEmpty(entity.getMovementUuid())) {
+			MMovement_BH movement = movementDBService.getEntityByUuidFromDB(entity.getMovementUuid());
+			mMovementLine.setM_Movement_ID(movement.get_ID());
+		}
 
 		mMovementLine.saveEx();
 
@@ -76,7 +85,13 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 
 	@Override
 	protected MovementLine createInstanceWithAllFields(MMovementLine_BH instance) {
-		return new MovementLine(instance);
+		MovementLine movementLine = new MovementLine(instance);
+
+		MProduct mProduct = instance.getProduct();
+		movementLine.setProduct(new Product(mProduct.getName(), mProduct.getM_Product_UU(), mProduct.getProductType(),
+				new MProduct_BH(Env.getCtx(), mProduct.get_ID(), null)));
+
+		return movementLine;
 	}
 
 	@Override

@@ -49,7 +49,6 @@ public class Order extends BaseMetadata {
 		this.docStatus = model.getDocStatus();
 		this.orderLines = orderLines == null ? new ArrayList<>() : orderLines;
 		this.payments = payments == null ? new ArrayList<>() : payments;
-		this.warehouse = new Warehouse((MWarehouse_BH) model.getM_Warehouse());
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
