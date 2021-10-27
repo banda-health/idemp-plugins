@@ -421,7 +421,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
-					instance.getBH_SystolicBloodPressure(), instance.getBH_DiastolicBloodPressure(), instance.getBH_Height(), instance.getBH_Weight(),
+					instance.getBH_Height(), instance.getBH_Weight(),
 					secondaryCodedDiagnosis != null
 							? new CodedDiagnosis(secondaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
 							secondaryCodedDiagnosis.getBH_CielName())
