@@ -7,6 +7,9 @@ ALTER TABLE m_movement
  ALTER TABLE m_warehouse 
  ADD IF NOT EXISTS BH_DefaultWarehouse char default 'N'::bpchar;
  
+ -- set default warehouses in existing clients
+ UPDATE m_warehouse SET bh_isdefault = 'Y' WHERE name != 'Standard' AND isactive = 'Y' AND ad_client_id > 999999;
+ 
  INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT max(ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2021-10-13 16:36:31.093000', 100, '2021-10-13 16:36:31.093000', 100, 'BH_From_Warehouse_ID', 'U', 'BH_From_Warehouse_ID', 'BH_From_Warehouse_ID', 'BH_From_Warehouse_ID', null, null, null, null, null, 'bfe459e4-4fe9-4ffa-ae5d-395379879d51', null) ON CONFLICT DO NOTHING;
  
  INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT max(ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2021-10-13 16:36:39.633000', 100, '2021-10-13 16:36:39.633000', 100, 'BH_To_Warehouse_ID', 'U', 'BH_To_Warehouse_ID', 'BH_To_Warehouse_ID', 'BH_To_Warehouse_ID', null, null, null, null, null, '483c2345-05f5-4d08-9927-f3520126fae8', null) ON CONFLICT DO NOTHING;
