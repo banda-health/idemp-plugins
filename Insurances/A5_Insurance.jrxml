@@ -136,6 +136,7 @@ WHERE issotrx = 'Y'
     and c.c_order_uu =  $P{C_Order_UU}
 )
 SELECT pd.Date,
+	   pd.Order_id,
        pd.FileNo,
        pd.Patient,
        pd.ServedBy,
@@ -148,6 +149,7 @@ FROM patient_detail pd
 	<field name="Patient" class="java.lang.String"/>
 	<field name="ServedBy" class="java.lang.String"/>
 	<field name="PaymentType" class="java.lang.String"/>
+	<field name="Order_id" class="java.math.BigDecimal"/>
 	<variable name="Total" class="java.math.BigDecimal" calculation="Sum"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -195,63 +197,63 @@ FROM patient_detail pd
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{Date})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="150" y="35" width="141" height="17" uuid="6bb9a355-3494-46d6-92fb-55a5dee11cc7"/>
+				<reportElement x="150" y="51" width="141" height="17" uuid="6bb9a355-3494-46d6-92fb-55a5dee11cc7"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FileNo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="90" y="35" width="60" height="17" uuid="c2268eb9-d71b-4679-ab1f-93d61a0c1328"/>
+				<reportElement x="90" y="51" width="60" height="17" uuid="c2268eb9-d71b-4679-ab1f-93d61a0c1328"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[File #:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="52" width="60" height="17" uuid="368e6a67-3db3-4f91-940c-03754c4d6f79"/>
+				<reportElement x="90" y="68" width="60" height="17" uuid="368e6a67-3db3-4f91-940c-03754c4d6f79"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Patient:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="150" y="52" width="141" height="17" uuid="2028b392-a23a-4ac5-8d64-f29488103c42"/>
+				<reportElement x="150" y="68" width="141" height="17" uuid="2028b392-a23a-4ac5-8d64-f29488103c42"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Patient}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="150" y="69" width="141" height="16" uuid="2ecbd556-7a2d-4fda-9cbb-313c2d923e41"/>
+				<reportElement x="150" y="85" width="141" height="16" uuid="2ecbd556-7a2d-4fda-9cbb-313c2d923e41"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ServedBy}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="90" y="69" width="60" height="16" uuid="451b3683-b658-4991-84af-325ab402021a"/>
+				<reportElement x="90" y="85" width="60" height="16" uuid="451b3683-b658-4991-84af-325ab402021a"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Served by:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="85" width="60" height="16" uuid="6d298bf7-b21e-4a7b-9836-92e97089efe3"/>
+				<reportElement x="90" y="101" width="60" height="16" uuid="6d298bf7-b21e-4a7b-9836-92e97089efe3"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Payment type:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="150" y="85" width="141" height="16" uuid="7ab0cba5-f3be-4315-b3a2-fac72cf57dac"/>
+				<reportElement x="150" y="101" width="141" height="16" uuid="7ab0cba5-f3be-4315-b3a2-fac72cf57dac"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PaymentType}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="92" y="111" width="380" height="30" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
+				<reportElement x="91" y="122" width="380" height="30" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -374,16 +376,30 @@ FROM patient_detail pd
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<staticText>
+				<reportElement x="90" y="34" width="60" height="17" uuid="d92b6940-562c-477e-82be-13e15b585f8e"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice #:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="34" width="141" height="17" uuid="7415e059-f1ff-4785-b11b-6bd444be3a1f"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Order_id}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<pageFooter>
 		<band height="23">
 			<textField>
-				<reportElement x="90" y="-8" width="259" height="20" uuid="aac9248b-b0c4-4242-8281-90f0b70ea9ae"/>
+				<reportElement x="89" y="3" width="259" height="20" uuid="aac9248b-b0c4-4242-8281-90f0b70ea9ae"/>
 				<textFieldExpression><![CDATA["Receipt Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="390" y="-11" width="80" height="20" uuid="deb7fa69-9cb9-485c-8e8c-337e87ed6f4d"/>
+				<reportElement x="389" y="0" width="80" height="20" uuid="deb7fa69-9cb9-485c-8e8c-337e87ed6f4d"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
@@ -394,7 +410,7 @@ FROM patient_detail pd
 	<summary>
 		<band height="83">
 			<subreport>
-				<reportElement x="91" y="-11" width="382" height="80" uuid="0aaa4000-0e13-4713-8664-56497eb636e9"/>
+				<reportElement x="90" y="0" width="382" height="80" uuid="0aaa4000-0e13-4713-8664-56497eb636e9"/>
 				<subreportParameter name="C_Order_UU">
 					<subreportParameterExpression><![CDATA[$P{C_Order_UU}]]></subreportParameterExpression>
 				</subreportParameter>
