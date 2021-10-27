@@ -125,7 +125,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 					updatedRecords.incrementAndGet();
 				}
 
-				foundCodedDiagnosis.setIsActive(codedDiagnosis.isRetired());
+				foundCodedDiagnosis.setIsActive(!codedDiagnosis.isRetired());
 
 				List<OCLCodedDiagnosisMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
 				OCLCodedDiagnosisMapping cielMapping = codedDiagnosisMapping.stream()
