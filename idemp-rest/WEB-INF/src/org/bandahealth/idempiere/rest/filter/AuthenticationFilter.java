@@ -48,8 +48,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 		String path = "/" + requestContext.getUriInfo().getPath();
 		if ((method.equals(HttpMethod.POST) && (path.endsWith(IRestConfigs.AUTHENTICATION_SESSION_PATH)
 				|| path.endsWith(IRestConfigs.CHANGEPASSWORD_PATH)))
-				|| (method.equals(HttpMethod.GET) && path.endsWith(IRestConfigs.LANGUAGES_PATH))
-				|| path.endsWith(IRestConfigs.CHANGEACCESS_PATH)) {
+				|| (method.equals(HttpMethod.GET) && path.endsWith(IRestConfigs.LANGUAGES_PATH))) {
 			return;
 		}
 
