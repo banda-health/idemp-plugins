@@ -78,8 +78,8 @@ FROM (
 
 -- Update the data in the new columns if there are only two values and their both numeric
 UPDATE c_order o
-SET bh_systolic_blood_pressure  = bp.bp_1,
-    bh_diastolic_blood_pressure = bp.bp_2
+SET bh_systolic_blood_pressure  = CAST(bp.bp_1 AS numeric),
+    bh_diastolic_blood_pressure = CAST(bp.bp_2 AS numeric)
 FROM tmp_blood_pressure bp
 WHERE o.c_order_id = bp.c_order_id
   AND isnumeric(bp.bp_1)
