@@ -1,18 +1,12 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.Movement;
@@ -21,12 +15,6 @@ import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MClient;
-import org.compiere.model.MLocator;
-import org.compiere.model.MLocatorType;
-import org.compiere.model.MMovementLine;
-import org.compiere.model.MProduct;
-import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -114,61 +102,10 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 
 			mMovement.saveEx();
 
-			int locatorToID = toWarehouse.getDefaultLocator().getM_Locator_ID();
-
 			if (entity.getMovementLines() != null && !entity.getMovementLines().isEmpty()) {
 				for (MovementLine movementLine : entity.getMovementLines()) {
-					// entity.getMovementLines().forEach((movementLine -> {
-					// From: Look-up Storage
-					MProduct product = new Query(Env.getCtx(), MProduct_BH.Table_Name,
-							MProduct_BH.COLUMNNAME_M_Product_UU + " =?", null)
-									.setParameters(movementLine.getProduct().getUuid()).first();
-
-					String mMPolicy = product.getMMPolicy();
-					// get inventory
-					MStorageOnHand[] storages = MStorageOnHand.getWarehouse(Env.getCtx(),
-							fromWarehouse.getM_Warehouse_ID(), product.getM_Product_ID(), 0, null,
-							MClient.MMPOLICY_FiFo.equals(mMPolicy), false, 0, null);
-					//
-					BigDecimal target = movementLine.getMovementQuantity();
-
-					for (int j = 0; j < storages.length; j++) { // foreach loops don't work with continue/break;
-						MStorageOnHand storage = storages[j];
-						if (storage.getQtyOnHand().signum() <= 0)
-							continue;
-
-						/* IDEMPIERE-2668 - filter just locators enabled for replenishment */
-						MLocator locator = MLocator.get(Env.getCtx(), storage.getM_Locator_ID());
-						MLocatorType locatorType = null;
-						if (locator.getM_LocatorType_ID() > 0)
-							locatorType = MLocatorType.get(Env.getCtx(), locator.getM_LocatorType_ID());
-						if (locatorType != null && !locatorType.isAvailableForReplenishment())
-							continue;
-
-						// don't transfer more than what is available
-						BigDecimal movementQuantity = target;
-						if (storage.getQtyOnHand().compareTo(movementQuantity) < 0) {
-							movementQuantity = storage.getQtyOnHand();
-						}
-
-						MMovementLine mMovementLine = new MMovementLine(mMovement);
-						mMovementLine.setM_Product_ID(product.getM_Product_ID());
-						mMovementLine.setMovementQty(movementQuantity);
-						if (movementLine.getMovementQuantity().compareTo(movementQuantity) != 0) {
-							mMovementLine.setDescription("Total: " + movementLine.getMovementQuantity());
-						}
-
-						mMovementLine.setM_Locator_ID(storage.getM_Locator_ID()); // from
-						mMovementLine.setM_AttributeSetInstance_ID(storage.getM_AttributeSetInstance_ID());
-						mMovementLine.setM_LocatorTo_ID(locatorToID); // to
-						mMovementLine.setM_AttributeSetInstanceTo_ID(storage.getM_AttributeSetInstance_ID());
-						mMovementLine.saveEx();
-						//
-						target = target.subtract(movementQuantity);
-						if (target.signum() == 0) {
-							break;
-						}
-					}
+					movementLineDBService.saveEntity(movementLine, mMovement, fromWarehouse, toWarehouse,
+							movementLine.getMovementQuantity());
 				}
 			}
 

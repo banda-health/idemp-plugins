@@ -1,7 +1,9 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
@@ -9,20 +11,32 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.MovementLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MClient;
+import org.compiere.model.MLocator;
+import org.compiere.model.MLocatorType;
 import org.compiere.model.MProduct;
+import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class MovementLineDBService extends BaseDBService<MovementLine, MMovementLine_BH> {
 
-	private MovementDBService movementDBService;
-
 	public MovementLineDBService() {
-		movementDBService = new MovementDBService();
 	}
 
-	@Override
-	public MovementLine saveEntity(MovementLine entity) {
+	/**
+	 * Save a movement line.
+	 * 
+	 * @param entity
+	 * @param movement
+	 * @param fromWarehouse
+	 * @param toWarehouse
+	 * @param targetQuantity - monitor available quantity and avoid transferring
+	 *                       more than is available
+	 */
+	public void saveEntity(MovementLine entity, MMovement_BH movement, MWarehouse fromWarehouse, MWarehouse toWarehouse,
+			BigDecimal targetQuantity) {
 		MMovementLine_BH mMovementLine = getEntityByUuidFromDB(entity.getUuid());
 		if (mMovementLine == null) {
 			mMovementLine = new MMovementLine_BH(Env.getCtx(), 0, null);
@@ -32,14 +46,76 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 			}
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getMovementUuid())) {
-			MMovement_BH movement = movementDBService.getEntityByUuidFromDB(entity.getMovementUuid());
+		if (mMovementLine.getM_Movement_ID() == 0) {
 			mMovementLine.setM_Movement_ID(movement.get_ID());
 		}
 
-		mMovementLine.saveEx();
+		// From: Look-up Storage
+		MProduct product = new Query(Env.getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + " =?",
+				null).setParameters(entity.getProduct().getUuid()).first();
 
-		return createInstanceWithAllFields(getEntityByUuidFromDB(mMovementLine.getM_MovementLine_UU()));
+		String mMPolicy = product.getMMPolicy();
+		// get inventory
+		MStorageOnHand[] storages = MStorageOnHand.getWarehouse(Env.getCtx(), fromWarehouse.getM_Warehouse_ID(),
+				product.getM_Product_ID(), 0, null, MClient.MMPOLICY_FiFo.equals(mMPolicy), false, 0, null);
+
+		List<MLocator> locators = new Query(Env.getCtx(), MLocator.Table_Name, null, null).setClient_ID().list();
+
+		for (int j = 0; j < storages.length; j++) {
+			MStorageOnHand storage = storages[j];
+			if (storage.getQtyOnHand().signum() <= 0)
+				continue;
+
+			/* IDEMPIERE-2668 - filter just locators enabled for replenishment */
+			Optional<MLocator> mLocator = locators.stream()
+					.filter((locator -> locator.get_ID() == storage.getM_Locator_ID())).findFirst();
+			if (mLocator.isEmpty()) {
+				continue;
+			}
+
+			MLocator locator = mLocator.get();
+			MLocatorType locatorType = null;
+			if (locator.getM_LocatorType_ID() > 0) {
+				locatorType = MLocatorType.get(Env.getCtx(), locator.getM_LocatorType_ID());
+			}
+
+			if (locatorType != null && !locatorType.isAvailableForReplenishment()) {
+				continue;
+			}
+
+			// don't transfer more than what is available
+			BigDecimal movementQuantity = targetQuantity;
+			if (storage.getQtyOnHand().compareTo(movementQuantity) < 0) {
+				movementQuantity = storage.getQtyOnHand();
+			}
+
+			// MMovementLine mMovementLine = new MMovementLine(mMovement);
+			mMovementLine.setM_Product_ID(product.getM_Product_ID());
+			mMovementLine.setMovementQty(movementQuantity);
+			if (entity.getMovementQuantity().compareTo(movementQuantity) != 0) {
+				mMovementLine.setDescription("Total: " + entity.getMovementQuantity());
+			}
+
+			mMovementLine.setM_Locator_ID(storage.getM_Locator_ID()); // from
+			mMovementLine.setM_AttributeSetInstance_ID(storage.getM_AttributeSetInstance_ID());
+			mMovementLine.setM_LocatorTo_ID(toWarehouse.getDefaultLocator().getM_Locator_ID()); // to
+			mMovementLine.setM_AttributeSetInstanceTo_ID(storage.getM_AttributeSetInstance_ID());
+			mMovementLine.saveEx();
+			//
+			targetQuantity = targetQuantity.subtract(movementQuantity);
+			if (targetQuantity.signum() == 0) {
+				break;
+			}
+
+			mMovementLine.saveEx();
+		}
+	}
+
+	@Override
+	public MovementLine saveEntity(MovementLine entity) {
+		// not implemented
+
+		return null;
 	}
 
 	public List<MovementLine> getLinesByMovement(MMovement_BH movement) {
