@@ -33,7 +33,9 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
@@ -58,7 +60,7 @@ import java.util.List;
 public class AuthenticationRestService {
 
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
-	
+
 	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
 
 	private MenuGroupDBService menuDbservice = new MenuGroupDBService();
@@ -127,6 +129,39 @@ public class AuthenticationRestService {
 		try {
 			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
 			if (user == null) {
+				return new AuthResponse(Status.UNAUTHORIZED);
+			}
+
+			// check access permissions
+			// client & role [all users have access to available warehouses and orgs?]
+			StringBuilder sql = new StringBuilder("SELECT  DISTINCT cli.AD_Client_ID, cli.Name, u.AD_User_ID, u.Name");
+			sql.append(" FROM AD_User_Roles ur").append(" INNER JOIN AD_User u on (ur.AD_User_ID=u.AD_User_ID)")
+					.append(" INNER JOIN AD_Client cli on (ur.AD_Client_ID=cli.AD_Client_ID)")
+					.append(" WHERE ur.IsActive='Y'").append(" AND u.IsActive='Y'").append(" AND cli.IsActive='Y'")
+					.append(" AND ur.AD_User_ID=? AND cli.ad_client_id = ? AND ur.ad_role_id=?");
+
+			String whereClause = MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID + " =? AND "
+					+ MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " =? AND " + MUser.Table_Name
+					+ "." + MUser.COLUMNNAME_IsActive + "=? AND " + MClient.Table_Name + "."
+					+ MClient.COLUMNNAME_IsActive + " =? AND " + MClient.Table_Name + "."
+					+ MClient.COLUMNNAME_AD_Client_ID + " =?";
+
+			List<Object> parameters = new ArrayList<>();
+			parameters.add(user.get_ID());
+			parameters.add(credentials.getRoleId());
+			parameters.add("Y");
+			parameters.add("Y");
+			parameters.add(credentials.getClientId());
+
+			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
+					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
+			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
+					+ MUserRoles.COLUMNNAME_AD_Client_ID + " = " + MClient.Table_Name + "."
+					+ MClient.COLUMNNAME_AD_Client_ID;
+
+			MUserRoles userRoles = new Query(Env.getCtx(), MUserRoles.Table_Name, whereClause, null)
+					.addJoinClause(joinClause).setParameters(parameters).first();
+			if (userRoles == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
 
