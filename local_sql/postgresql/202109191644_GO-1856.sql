@@ -1,7 +1,7 @@
 --add new columns to hold BP readings
 alter table c_order
-add column bh_systolic_blood_pressure varchar(3),
-add column bh_diastolic_blood_pressure varchar(3);
+add column bh_systolic_blood_pressure numeric,
+add column bh_diastolic_blood_pressure numeric;
 
 INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element.ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2021-10-21 12:47:14.163000', 100, '2021-10-21 12:47:14.163000', 100, 'bh_systolic_blood_pressure', 'U', 'bh_systolic_blood_pressure', 'bh_systolic_blood_pressure', null, null, null, null, null, null, '0713378f-718f-4a56-9e3a-e71ebdaa6ddf', null)  ON CONFLICT DO NOTHING;
 INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element.ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2021-10-21 12:47:14.256000', 100, '2021-10-21 12:47:14.256000', 100, 'bh_diastolic_blood_pressure', 'U', 'bh_diastolic_blood_pressure', 'bh_diastolic_blood_pressure', null, null, null, null, null, null, 'af9ae820-cb81-424c-a4b5-dd4a935e3085', null) ON CONFLICT DO NOTHING;
