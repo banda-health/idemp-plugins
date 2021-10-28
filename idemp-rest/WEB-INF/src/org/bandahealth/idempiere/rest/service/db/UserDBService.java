@@ -1,13 +1,17 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import static org.bandahealth.idempiere.rest.service.db.BaseDBService.ORDERBY_NULLS_LAST;
+
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -15,22 +19,19 @@ import javax.management.relation.RoleList;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
-import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
-import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.User;
 import org.compiere.model.MClient;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
-import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -68,9 +69,23 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 				  + " WHERE u.ad_org_id != '"+SYSTEM_ADMIN_ORG_ID +"' "
 				  + " AND u.ad_client_id = '"+ clientId +" ' ";
 		
-		Map<String, User> usersRolesMap = new HashMap<>();
+		List<String> orderByColumns = new ArrayList<>(
+				Arrays.asList(MUser_BH.COLUMNNAME_Created, MUser_BH.COLUMNNAME_Name, 
+						MUser_BH.COLUMNNAME_DateLastLogin, MUser_BH.COLUMNNAME_IsActive));
+		
+		StringBuilder sqlOrderBy = new StringBuilder().append(" ORDER BY ");
+		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
+				&& orderByColumns.stream().map(String::toLowerCase).collect(Collectors.toList())
+				.contains(sortColumn.toLowerCase())) {
+			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder);
+			sql += " " + sqlOrderBy.toString();
+		}
+		
+		String sqlSelect = sql; // has to appear as final or effectively final
+		
+		Map<String, User> usersRolesMap = new LinkedHashMap<String, User>();
 				
-		SqlUtil.executeQuery(sql, null, sql, rs -> {
+		SqlUtil.executeQuery(sqlSelect, null, null, rs -> {
 		 try {
 			 String uuid = rs.getString(1);
 			 Timestamp created = rs.getTimestamp(2);
@@ -82,6 +97,8 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			 List<Role> roleList = new ArrayList<Role>();
 			 Role userRole = new Role(clientRoleIdMap.get(roleId));
 			 
+			 // The result set contains repeated user details if user has more than one role
+			 // i.e Transforms [User_a : Cashier, User_a: Lab] -> [User_a : [Cashier, Lab]] 
 			 if(usersRolesMap.containsKey(uuid)) {
 				 User existingUser = usersRolesMap.get(uuid);
 				 existingUser.getRoles().add(userRole);
@@ -92,7 +109,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 				 usersRolesMap.put(uuid, user);
 			 }
 		 } catch(SQLException e) {
-			 log.log(Level.SEVERE, sql, e);
+			 log.log(Level.SEVERE, sqlSelect, e);
 		 }
 		});
 		
