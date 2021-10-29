@@ -154,7 +154,7 @@ public class AuthenticationRestService {
 			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Client_ID + " = " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_AD_Client_ID;
-			joinClause += " INNER JOIN" + MRoleOrgAccess.Table_Name + " ON " + MRoleOrgAccess.Table_Name + "."
+			joinClause += " INNER JOIN " + MRoleOrgAccess.Table_Name + " ON " + MRoleOrgAccess.Table_Name + "."
 					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Role_ID;
 
