@@ -31,6 +31,7 @@ import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
+import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
@@ -133,18 +134,13 @@ public class AuthenticationRestService {
 			}
 
 			// check access permissions
-			// client & role [all users have access to available warehouses and orgs?]
-			StringBuilder sql = new StringBuilder("SELECT  DISTINCT cli.AD_Client_ID, cli.Name, u.AD_User_ID, u.Name");
-			sql.append(" FROM AD_User_Roles ur").append(" INNER JOIN AD_User u on (ur.AD_User_ID=u.AD_User_ID)")
-					.append(" INNER JOIN AD_Client cli on (ur.AD_Client_ID=cli.AD_Client_ID)")
-					.append(" WHERE ur.IsActive='Y'").append(" AND u.IsActive='Y'").append(" AND cli.IsActive='Y'")
-					.append(" AND ur.AD_User_ID=? AND cli.ad_client_id = ? AND ur.ad_role_id=?");
-
+			// client, role & org
 			String whereClause = MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID + " =? AND "
 					+ MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " =? AND " + MUser.Table_Name
 					+ "." + MUser.COLUMNNAME_IsActive + "=? AND " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_IsActive + " =? AND " + MClient.Table_Name + "."
-					+ MClient.COLUMNNAME_AD_Client_ID + " =?";
+					+ MClient.COLUMNNAME_AD_Client_ID + " =? AND " + MRoleOrgAccess.Table_Name + "."
+					+ MRoleOrgAccess.COLUMNNAME_AD_Org_ID + " IS NOT NULL";
 
 			List<Object> parameters = new ArrayList<>();
 			parameters.add(user.get_ID());
@@ -158,6 +154,9 @@ public class AuthenticationRestService {
 			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Client_ID + " = " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_AD_Client_ID;
+			joinClause += " INNER JOIN" + MRoleOrgAccess.Table_Name + " ON " + MRoleOrgAccess.Table_Name + "."
+					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
+					+ MUserRoles.COLUMNNAME_AD_Role_ID;
 
 			MUserRoles userRoles = new Query(Env.getCtx(), MUserRoles.Table_Name, whereClause, null)
 					.addJoinClause(joinClause).setParameters(parameters).first();
