@@ -1,19 +1,25 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.Movement;
 import org.bandahealth.idempiere.rest.model.MovementLine;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
@@ -139,23 +145,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 
 	@Override
 	protected Movement createInstanceWithDefaultFields(MMovement_BH instance) {
-		Movement movement = new Movement(instance);
-		if (instance.getBH_FromWarehouseID() > 0) {
-			movement.setFromWarehouse(
-					new Warehouse(new MWarehouse_BH(Env.getCtx(), instance.getBH_FromWarehouseID(), null)));
-		}
-
-		if (instance.getBH_ToWarehouseID() > 0) {
-			movement.setToWarehouse(
-					new Warehouse(new MWarehouse_BH(Env.getCtx(), instance.getBH_ToWarehouseID(), null)));
-		}
-
-		MUser_BH createdBy = new MUser_BH(Env.getCtx(), instance.getCreatedBy(), null);
-		if (createdBy != null) {
-			movement.setUser(new User(createdBy.getName(), createdBy.getAD_User_UU()));
-		}
-
-		return movement;
+		return new Movement(instance);
 	}
 
 	@Override
@@ -178,4 +168,54 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		return dynamicJoins;
 	}
 
+	@Override
+	public List<Movement> transformData(List<MMovement_BH> dbModels) {
+		List<Movement> results = new ArrayList<>();
+
+		// get available warehouses
+		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
+
+		// get list of users
+		Set<Integer> userIds = dbModels.stream().map(MMovement_BH::getCreatedBy).collect(Collectors.toSet());
+		List<Object> parameters = new ArrayList<>();
+
+		List<MUser_BH> users = new Query(Env.getCtx(), MUser_BH.Table_Name,
+				MUser_BH.COLUMNNAME_AD_User_ID + " IN ("
+						+ QueryUtil.getWhereClauseAndSetParametersForSet(userIds, parameters) + ")",
+				null).setParameters(parameters).list();
+		dbModels.forEach((mMovement) -> {
+			Movement movement = new Movement(mMovement);
+			if (mMovement.getBH_FromWarehouseID() > 0) {
+				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
+					return warehouse.get_ID() == mMovement.getBH_FromWarehouseID();
+				}).findFirst();
+
+				if (!foundWarehouse.isEmpty()) {
+					movement.setFromWarehouse(new Warehouse(foundWarehouse.get()));
+				}
+			}
+
+			if (mMovement.getBH_ToWarehouseID() > 0) {
+				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
+					return warehouse.get_ID() == mMovement.getBH_ToWarehouseID();
+				}).findFirst();
+
+				if (!foundWarehouse.isEmpty()) {
+					movement.setToWarehouse(new Warehouse(foundWarehouse.get()));
+				}
+			}
+
+			Optional<MUser_BH> foundUser = users.stream().filter(user -> {
+				return user.get_ID() == mMovement.getCreatedBy();
+			}).findFirst();
+			if (!foundUser.isEmpty()) {
+				MUser_BH mUser = foundUser.get();
+				movement.setUser(new User(mUser.getName(), mUser.getAD_User_UU()));
+			}
+
+			results.add(movement);
+		});
+
+		return results;
+	}
 }

@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.MovementLine;
 import org.bandahealth.idempiere.rest.model.Product;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MClient;
 import org.compiere.model.MLocator;
@@ -161,13 +164,7 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 
 	@Override
 	protected MovementLine createInstanceWithAllFields(MMovementLine_BH instance) {
-		MovementLine movementLine = new MovementLine(instance);
-
-		MProduct mProduct = instance.getProduct();
-		movementLine.setProduct(new Product(mProduct.getName(), mProduct.getM_Product_UU(), mProduct.getProductType(),
-				new MProduct_BH(Env.getCtx(), mProduct.get_ID(), null)));
-
-		return movementLine;
+		return new MovementLine(instance);
 	}
 
 	@Override
@@ -178,5 +175,35 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 	@Override
 	protected MMovementLine_BH getModelInstance() {
 		return new MMovementLine_BH(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public List<MovementLine> transformData(List<MMovementLine_BH> dbModels) {
+		List<MovementLine> results = new ArrayList<>();
+
+		// get list of products
+		Set<Integer> productIds = dbModels.stream().map(MMovementLine_BH::getM_Product_ID).collect(Collectors.toSet());
+		List<Object> parameters = new ArrayList<>();
+		List<MProduct_BH> products = new Query(Env.getCtx(), MProduct_BH.Table_Name,
+				MProduct_BH.COLUMNNAME_M_Product_ID + " IN ("
+						+ QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters) + ")",
+				null).setParameters(parameters).list();
+		dbModels.forEach((line) -> {
+			MovementLine movementLine = new MovementLine(line);
+
+			Optional<MProduct_BH> foundProduct = products.stream().filter((product) -> {
+				return product.get_ID() == line.getM_Product_ID();
+			}).findFirst();
+			if (!foundProduct.isEmpty()) {
+				MProduct_BH mProduct = foundProduct.get();
+				movementLine.setProduct(new Product(mProduct.getName(), mProduct.getM_Product_UU(),
+						mProduct.getProductType(), mProduct));
+			}
+
+			results.add(movementLine);
+
+		});
+
+		return results;
 	}
 }
