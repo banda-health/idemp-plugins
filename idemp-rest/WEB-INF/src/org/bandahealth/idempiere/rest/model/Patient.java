@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -74,7 +76,7 @@ public class Patient extends BusinessPartner {
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String gender,
-			String phone, String localPatientNumber) {
+			String phone, String localPatientNumber, MBPartner_BH instance) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
@@ -82,6 +84,7 @@ public class Patient extends BusinessPartner {
 		this.gender = gender;
 		this.phone = phone;
 		this.localPatientNumber = localPatientNumber;
+		setId(instance.get_ID());
 	}
 
 	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,

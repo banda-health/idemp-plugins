@@ -32,6 +32,7 @@ public class ProcessParameter extends BaseEntity {
 	private Reference reference;
 	private List<ReferenceList> referenceValues = new ArrayList<>();
 	private int sequenceNumber;
+	private String columnName;
 
 	public ProcessParameter() {
 		super();
@@ -58,6 +59,7 @@ public class ProcessParameter extends BaseEntity {
 		this.isRange = isRange;
 		this.mandatoryLogic = mandatoryLogic;
 		setSequenceNumber(model.getSeqNo());
+		setColumnName(model.getColumnName());
 	}
 
 	public ProcessParameter(MProcessPara model, Reference reference, List<ReferenceList> referenceValues) {
@@ -79,6 +81,7 @@ public class ProcessParameter extends BaseEntity {
 		this.reference = reference;
 		this.referenceValues = referenceValues != null ? referenceValues : this.referenceValues;
 		setSequenceNumber(model.getSeqNo());
+		setColumnName(model.getColumnName());
 	}
 
 	@XmlElement
@@ -220,5 +223,13 @@ public class ProcessParameter extends BaseEntity {
 
 	public void setSequenceNumber(int sequenceNumber) {
 		this.sequenceNumber = sequenceNumber;
+	}
+
+	public String getColumnName() {
+		return columnName;
+	}
+
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
 	}
 }

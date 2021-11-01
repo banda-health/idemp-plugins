@@ -422,6 +422,15 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 					processInfoParameter.getInfo(),
 					processInfoParameter.getInfoTo()
 			));
+			// Also add a parameter matching the column name so either can be used
+			// TODO: migrate all parameters to do this in the future
+			processedInfoParameters.add(new ProcessInfoParameter(
+					processParametersByUuidMap.get(processInfoParameter.getProcessParameterUuid()).getColumnName(),
+					parameter,
+					processInfoParameter.getParameterTo(),
+					processInfoParameter.getInfo(),
+					processInfoParameter.getInfoTo()
+			));
 		});
 
 		if (!processedInfoParameters.isEmpty()) {
