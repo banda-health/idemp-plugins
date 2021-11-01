@@ -4,7 +4,7 @@
 	<property name="template.engine" value="tabular_template"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="Table">
 		<box>
@@ -57,8 +57,8 @@
     client.name AS Client_Name
 FROM bh_stock_reorder_levels_v s
     INNER JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
-WHERE (s.ad_client_ID =  $P{AD_CLIENT_ID}) and ((s.existingquantity <= s.reorderlevel)
-and (s.existingquantity > 0))
+WHERE s.ad_client_ID =  $P{AD_CLIENT_ID} 
+	 AND s.existingquantity <= s.reorderlevel
 ORDER BY s.product ASC]]>
 		</queryString>
 		<field name="drugname" class="java.lang.String">
