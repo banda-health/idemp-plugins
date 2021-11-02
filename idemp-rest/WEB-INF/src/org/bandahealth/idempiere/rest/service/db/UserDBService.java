@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import static org.bandahealth.idempiere.rest.service.db.BaseDBService.AND_OPERATOR;
 import static org.bandahealth.idempiere.rest.service.db.BaseDBService.ORDERBY_NULLS_LAST;
 
 import java.sql.SQLException;
@@ -72,6 +73,15 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		List<String> orderByColumns = new ArrayList<>(
 				Arrays.asList(MUser_BH.COLUMNNAME_Created, MUser_BH.COLUMNNAME_Name, 
 						MUser_BH.COLUMNNAME_DateLastLogin, MUser_BH.COLUMNNAME_IsActive));
+		
+		List<Object> parameters = new ArrayList<>();
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
+		
+		StringBuilder filter = new StringBuilder().append(AND_OPERATOR)
+				.append(FilterUtil.getWhereClauseFromFilter(null, filterJson, parameters));
+		
+		sql += filter.toString();
 		
 		StringBuilder sqlOrderBy = new StringBuilder().append(" ORDER BY ");
 		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
