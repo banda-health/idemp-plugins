@@ -63,12 +63,29 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			clientRoleIdMap.put(role.getAD_Role_ID(), role);
 		}
 		
-		String sql = "SELECT u.ad_user_uu, u.created, u.name, ur.ad_role_id, u.datelastlogin, " 
-				  + " u.isactive, u.ad_org_id, u.ad_client_id, u.ad_org_id " 
-				  + " FROM ad_user u "
-				  + " JOIN AD_User_Roles ur ON u.ad_user_id = ur.ad_user_id "
-				  + " WHERE u.ad_org_id != '"+SYSTEM_ADMIN_ORG_ID +"' "
-				  + " AND u.ad_client_id = '"+ clientId +" ' ";
+		String COMMA = " , ";
+		StringBuilder sqlQuery = new StringBuilder().append(" SELECT ")
+			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_UU).append(COMMA)
+			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_Created).append(COMMA)
+			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_Name).append(COMMA)
+			
+			.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_Role_ID).append(COMMA)
+			
+			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_DateLastLogin).append(COMMA)
+			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_IsActive).append(COMMA)
+			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append(COMMA)
+			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID)
+		
+		.append(" FROM ").append(MUser_BH.Table_Name)
+		.append(" JOIN ").append(MUserRoles.Table_Name).append(" ON ")
+		.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_ID).append(EQUAL_OPERATOR)
+		.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_User_ID)
+		
+		.append(" WHERE ")
+		.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append(NOT_EQUAL_OPERATOR)
+		.append(SYSTEM_ADMIN_ORG_ID).append(AND_OPERATOR)
+		.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID).append(EQUAL_OPERATOR)
+		.append(clientId);
 		
 		List<String> orderByColumns = new ArrayList<>(
 				Arrays.asList(MUser_BH.COLUMNNAME_Created, MUser_BH.COLUMNNAME_Name, 
@@ -81,17 +98,17 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		StringBuilder filter = new StringBuilder().append(AND_OPERATOR)
 				.append(FilterUtil.getWhereClauseFromFilter(null, filterJson, parameters));
 		
-		sql += filter.toString();
+		sqlQuery.append(filter.toString());
 		
 		StringBuilder sqlOrderBy = new StringBuilder().append(" ORDER BY ");
 		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
 				&& orderByColumns.stream().map(String::toLowerCase).collect(Collectors.toList())
 				.contains(sortColumn.toLowerCase())) {
 			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder);
-			sql += " " + sqlOrderBy.toString();
+			sqlQuery.append(sqlOrderBy.toString());
 		}
 		
-		String sqlSelect = sql; // has to appear as final or effectively final
+		String sqlSelect = sqlQuery.toString(); // has to appear as final or effectively final
 		
 		Map<String, User> usersRolesMap = new LinkedHashMap<String, User>();
 				
