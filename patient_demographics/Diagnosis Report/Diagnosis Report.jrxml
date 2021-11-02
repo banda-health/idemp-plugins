@@ -81,7 +81,7 @@ where
       primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
       secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
     )
-  and corder.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+  and date(corder.bh_visitdate) BETWEEN $P{Begin Date} AND $P{End Date}
 order by cb.name;]]>
 		</queryString>
 		<field name="visit_date" class="java.util.Date"/>
