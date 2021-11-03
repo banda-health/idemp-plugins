@@ -14,6 +14,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
+import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
@@ -46,7 +47,9 @@ import org.compiere.util.Util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Authentication Service Accepts Username, password and generates a session
@@ -162,6 +165,32 @@ public class AuthenticationRestService {
 					.addJoinClause(joinClause).setParameters(parameters).first();
 			if (userRoles == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
+			}
+
+			// check warehouse access
+			List<MBHRoleWarehouseAccess> warehouseAccessList = new Query(Env.getCtx(),
+					MBHRoleWarehouseAccess.Table_Name, null, null).list();
+			if (!warehouseAccessList.isEmpty()) {
+				// get available warehouses
+				List<MWarehouse> warehouses = Arrays
+						.asList(MWarehouse.getForOrg(Env.getCtx(), credentials.getOrganizationId()));
+
+				Optional<MBHRoleWarehouseAccess> foundWarehouseAccess = warehouseAccessList.stream()
+						.filter((warehouseAccess) -> {
+
+							Optional<MWarehouse> foundWarehouse = warehouses.stream().filter((warehouse) -> {
+								return warehouse.getM_Warehouse_UU() == credentials.getWarehouseUuid();
+							}).findFirst();
+
+							if (foundWarehouse.isPresent()) {
+								return warehouseAccess.getRoleId() == credentials.getRoleId()
+										&& foundWarehouse.get().getM_Warehouse_UU() == credentials.getWarehouseUuid();
+							}
+							return false;
+						}).findAny();
+				if (foundWarehouseAccess.isEmpty()) {
+					return new AuthResponse(Status.UNAUTHORIZED);
+				}
 			}
 
 			Builder builder = JWT.create().withSubject(credentials.getUsername());
