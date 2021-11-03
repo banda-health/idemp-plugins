@@ -24,7 +24,7 @@ create table bh_coded_diagnosis_mapping
         constraint bh_coded_diagnosis_mapping_isactive_check
             check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
     constraint bhcodeddiagnosis_mapping_key
-		foreign key (bh_coded_diagnosis_id) references bh_coded_diagnosis
+		foreign key (bh_coded_diagnosis_id) references bh_coded_diagnosis(bh_coded_diagnosis_id)
 			deferrable initially deferred        
 );
 
