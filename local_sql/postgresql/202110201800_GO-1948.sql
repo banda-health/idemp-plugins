@@ -22,10 +22,10 @@ create table bh_coded_diagnosis_mapping
     bh_concept_name_resolved   varchar(255) default NULL::character varying,
     isactive                char         default 'Y'::bpchar
         constraint bh_coded_diagnosis_mapping_isactive_check
-            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar]))
+            check (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar])),
     constraint bhcodeddiagnosis_mapping_key
 		foreign key (bh_coded_diagnosis_id) references bh_coded_diagnosis
-			deferrable initially deferred,        
+			deferrable initially deferred        
 );
 
 SELECT register_migration_script('202110201800_GO-1948.sql') FROM dual;
