@@ -116,13 +116,26 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 							.findFirst().orElse(null);
 					if (foundCodedDiagnosis == null) {
 						// new record
-						foundCodedDiagnosis = new MBHCodedDiagnosis(getCtx(), 0, null);
-
-						// Getting non-unique uuids leading to errors
-						if (codedDiagnosis.getExternalId() != null && !codedDiagnosis.getExternalId().isEmpty()) {
-							foundCodedDiagnosis.setBH_CodedDiagnosis_UU(codedDiagnosis.getExternalId());
+						// if the external_id field is not set in OCL, we need to check if the name is
+						// present to avoid creating
+						// duplicates
+						if (codedDiagnosis.getExternalId() == null || codedDiagnosis.getExternalId().isEmpty()) {
+							foundCodedDiagnosis = new Query(getCtx(), MBHCodedDiagnosis.Table_Name,
+									MBHCodedDiagnosis.COLUMNNAME_BH_CielName + " = ?", null)
+											.setParameters(codedDiagnosis.getDisplayName()).first();
 						}
-						newRecords.incrementAndGet();
+
+						if (foundCodedDiagnosis == null) {
+							foundCodedDiagnosis = new MBHCodedDiagnosis(getCtx(), 0, null);
+							if (codedDiagnosis.getExternalId() != null && !codedDiagnosis.getExternalId().isEmpty()) {
+								foundCodedDiagnosis.setBH_CodedDiagnosis_UU(codedDiagnosis.getExternalId());
+							}
+
+							newRecords.incrementAndGet();
+						} else {
+							updatedRecords.incrementAndGet();
+						}
+
 					} else {
 						updatedRecords.incrementAndGet();
 					}
@@ -170,7 +183,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	}
 
 	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page) {
-		String url = constructUrl(source, page, source != null ? LIMIT : 0);
+		String url = constructUrl(source, page, source == null ? LIMIT : 0);
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
 				.build();
 
