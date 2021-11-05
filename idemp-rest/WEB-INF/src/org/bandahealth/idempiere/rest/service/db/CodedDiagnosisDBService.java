@@ -1,11 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -90,13 +93,28 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
+		parameters.add(searchValueParameter);
+		parameters.add(searchValueParameter);
 
-		String searchClause = "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_CielName + ") " + LIKE_COMPARATOR + " ? OR "
-				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_ICD10 + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER(" +
-				MBHCodedDiagnosis.COLUMNNAME_BH_SEARCHTERMS + ") LIKE ?";
+		String searchClause = MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_ID + " IN (SELECT "
+				+ MBHCodedDiagnosisMapping.COLUMNNAME_BH_Coded_Diagnosis_ID + " FROM "
+				+ MBHCodedDiagnosisMapping.Table_Name + " WHERE " + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptCode
+				+ " = ? OR LOWER(" + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptNameResolved + ") LIKE ? ) OR "
+				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_CielName + ") " + LIKE_COMPARATOR + " ? OR " + "LOWER("
+				+ MBHCodedDiagnosis.COLUMNNAME_BH_ICD10 + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
+				+ MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER("
+				+ MBHCodedDiagnosis.COLUMNNAME_BH_SEARCHTERMS + ") LIKE ? ";
 
-		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder);
+		try {
+			int cielId = Integer.valueOf(valueToSearch);
+			searchClause += " OR " + MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_CielId
+					+ " = ?";
+			parameters.add(cielId);
+		} catch (NumberFormatException ex) {
+			// do nothing
+		}
+
+		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
 	@Override

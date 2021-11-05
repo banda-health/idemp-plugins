@@ -12,6 +12,7 @@ import org.bandahealth.idempiere.base.model.MBHChargeInfoValue;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
 import org.bandahealth.idempiere.base.model.MBHChargeTypeDefault;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
 import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
 import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
@@ -124,6 +125,8 @@ public class BHModelFactory implements IModelFactory {
 			return MWarehouse_BH.class;
 		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
 			return MBHRoleWarehouseAccess.class;
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
+			return MBHCodedDiagnosisMapping.class;
 		}
 
 		return null;
@@ -207,6 +210,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MWarehouse_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
 			return new MBHRoleWarehouseAccess(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
+			return new MBHCodedDiagnosisMapping(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -290,6 +295,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MWarehouse_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
 			return new MBHRoleWarehouseAccess(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
+			return new MBHCodedDiagnosisMapping(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
