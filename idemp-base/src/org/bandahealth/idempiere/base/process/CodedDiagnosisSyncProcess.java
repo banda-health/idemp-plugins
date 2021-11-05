@@ -129,6 +129,10 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 					foundCodedDiagnosis.setIsActive(!codedDiagnosis.isRetired());
 
+					if (codedDiagnosis.getDisplayName().equalsIgnoreCase("suspected")) {
+						String s = "here we go";
+					}
+					
 					List<OCLCodedDiagnosisMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
 					OCLCodedDiagnosisMapping cielMapping = codedDiagnosisMapping.stream()
 							.filter(mapping -> CIEL.equals(mapping.getToSourceName())).findFirst().orElse(null);
@@ -153,7 +157,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 					foundCodedDiagnosis.setBH_SearchTerms(extras.get(INDEX_TERMS));
 
 					foundCodedDiagnosis.saveEx();
-
+					
 					downloadChildMappings(foundCodedDiagnosis, codedDiagnosis, codedDiagnosisMapping);
 				} catch (Exception ex) {
 					log.log(Level.SEVERE, ex.getMessage());
@@ -170,7 +174,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	}
 
 	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page) {
-		String url = constructUrl(source, page, source != null ? LIMIT : 0);
+		String url = constructUrl(source, page, source == null ? LIMIT : 0);
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
 				.build();
 
