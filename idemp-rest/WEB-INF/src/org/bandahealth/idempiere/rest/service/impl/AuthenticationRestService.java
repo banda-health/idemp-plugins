@@ -14,7 +14,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
+import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
@@ -30,9 +32,12 @@ import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
+import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
@@ -42,7 +47,9 @@ import org.compiere.util.Util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Authentication Service Accepts Username, password and generates a session
@@ -57,6 +64,8 @@ import java.util.List;
 public class AuthenticationRestService {
 
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
+
+	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
 
 	private MenuGroupDBService menuDbservice = new MenuGroupDBService();
 
@@ -84,7 +93,8 @@ public class AuthenticationRestService {
 
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
-		// If we're here and they don't have access to clients, it means the username/password combo incorrect
+		// If we're here and they don't have access to clients, it means the
+		// username/password combo incorrect
 		if (clients == null || clients.length == 0) {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
@@ -109,6 +119,116 @@ public class AuthenticationRestService {
 
 		updateUsersPassword(credentials, clients);
 		return this.generateSession(credentials);
+	}
+
+	/**
+	 * JWT tokens are immutable. We have to generate a new token
+	 * 
+	 * @param credentials
+	 * @return
+	 */
+	@POST
+	@Path(IRestConfigs.CHANGEACCESS_PATH)
+	public AuthResponse changeAccess(Authentication credentials) {
+		try {
+			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
+			if (user == null) {
+				return new AuthResponse(Status.UNAUTHORIZED);
+			}
+
+			// check access permissions
+			// client, role & org
+			String whereClause = MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID + " =? AND "
+					+ MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " =? AND " + MUser.Table_Name
+					+ "." + MUser.COLUMNNAME_IsActive + "=? AND " + MClient.Table_Name + "."
+					+ MClient.COLUMNNAME_IsActive + " =? AND " + MClient.Table_Name + "."
+					+ MClient.COLUMNNAME_AD_Client_ID + " =? AND " + MRoleOrgAccess.Table_Name + "."
+					+ MRoleOrgAccess.COLUMNNAME_AD_Org_ID + " IS NOT NULL";
+
+			List<Object> parameters = new ArrayList<>();
+			parameters.add(user.get_ID());
+			parameters.add(credentials.getRoleId());
+			parameters.add("Y");
+			parameters.add("Y");
+			parameters.add(credentials.getClientId());
+
+			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
+					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
+			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
+					+ MUserRoles.COLUMNNAME_AD_Client_ID + " = " + MClient.Table_Name + "."
+					+ MClient.COLUMNNAME_AD_Client_ID;
+			joinClause += " INNER JOIN " + MRoleOrgAccess.Table_Name + " ON " + MRoleOrgAccess.Table_Name + "."
+					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
+					+ MUserRoles.COLUMNNAME_AD_Role_ID;
+
+			MUserRoles userRoles = new Query(Env.getCtx(), MUserRoles.Table_Name, whereClause, null)
+					.addJoinClause(joinClause).setParameters(parameters).first();
+			if (userRoles == null) {
+				return new AuthResponse(Status.UNAUTHORIZED);
+			}
+
+			// check warehouse access
+			List<MBHRoleWarehouseAccess> warehouseAccessList = new Query(Env.getCtx(),
+					MBHRoleWarehouseAccess.Table_Name, null, null).list();
+			if (!warehouseAccessList.isEmpty()) {
+				// get available warehouses
+				List<MWarehouse> warehouses = Arrays
+						.asList(MWarehouse.getForOrg(Env.getCtx(), credentials.getOrganizationId()));
+
+				Optional<MBHRoleWarehouseAccess> foundWarehouseAccess = warehouseAccessList.stream()
+						.filter((warehouseAccess) -> {
+
+							Optional<MWarehouse> foundWarehouse = warehouses.stream().filter((warehouse) -> {
+								return warehouse.getM_Warehouse_UU() == credentials.getWarehouseUuid();
+							}).findFirst();
+
+							if (foundWarehouse.isPresent()) {
+								return warehouseAccess.getRoleId() == credentials.getRoleId()
+										&& foundWarehouse.get().getM_Warehouse_UU() == credentials.getWarehouseUuid();
+							}
+							return false;
+						}).findAny();
+				if (foundWarehouseAccess.isEmpty()) {
+					return new AuthResponse(Status.UNAUTHORIZED);
+				}
+			}
+
+			Builder builder = JWT.create().withSubject(credentials.getUsername());
+			Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
+			// expires after 60 minutes
+			builder.withIssuer(TokenUtils.getTokenIssuer()).withExpiresAt(expiresAt);
+
+			AuthResponse response = new AuthResponse();
+
+			changeLoginProperties(credentials, builder, response);
+
+			builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
+			builder.withClaim(LoginClaims.AD_Language.name(), credentials.getLanguage());
+			Env.setContext(Env.getCtx(), Env.AD_USER_ID, user.getAD_User_ID());
+			response.setUserId(user.getAD_User_ID());
+
+			try {
+				// generate session token
+				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
+				// has accepted terms of use?
+				response.setHasAcceptedTermsOfUse(TermsOfServiceDBService.hasAccepted());
+				// set username
+				response.setUsername(credentials.getUsername());
+				// status OK.
+				response.setStatus(Status.OK);
+				// isAdministrator
+				response.setIsAdministrator(user.isAdministrator());
+				// record read-write and deactivate privileges on each window for this role
+				response.setWindowAccessLevel(RoleUtil.accessLevelsForRole());
+				response.setIncludedRoleUuids(RoleUtil.fetchIncludedRoleUuids());
+				return response;
+			} catch (Exception e) {
+				return new AuthResponse(Status.BAD_REQUEST);
+			}
+
+		} catch (IllegalArgumentException e) {
+			return new AuthResponse(Status.BAD_REQUEST);
+		}
 	}
 
 	/**
@@ -260,6 +380,7 @@ public class AuthenticationRestService {
 
 				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, credentials.getClientId());
 				builder.withClaim(LoginClaims.AD_Client_ID.name(), credentials.getClientId());
+				response.setClientId(credentials.getClientId());
 			}
 		}
 
@@ -274,12 +395,14 @@ public class AuthenticationRestService {
 		if (credentials.getOrganizationId() != null) {
 			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, credentials.getOrganizationId());
 			builder.withClaim(LoginClaims.AD_Org_ID.name(), credentials.getOrganizationId());
+			response.setOrgId(credentials.getOrganizationId());
 		}
 
 		// check warehouse
-		if (credentials.getWarehouseId() != null) {
-			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, credentials.getWarehouseId());
-			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), credentials.getWarehouseId());
+		if (credentials.getWarehouseUuid() != null) {
+			Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, credentials.getWarehouseUuid());
+			builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), credentials.getWarehouseUuid());
+			response.setWarehouseUuid(credentials.getWarehouseUuid());
 		}
 
 	}
@@ -307,6 +430,7 @@ public class AuthenticationRestService {
 				if (clients.length == 1) {
 					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
 					builder.withClaim(LoginClaims.AD_Client_ID.name(), clientResponse.getId());
+					response.setClientId(clientResponse.getId());
 				}
 
 				// check orgs.
@@ -318,6 +442,7 @@ public class AuthenticationRestService {
 					if (orgs.length == 1) {
 						Env.setContext(Env.getCtx(), Env.AD_ORG_ID, orgResponse.getId());
 						builder.withClaim(LoginClaims.AD_Org_ID.name(), orgResponse.getId());
+						response.setOrgId(orgResponse.getId());
 					}
 
 					// check roles
@@ -337,13 +462,14 @@ public class AuthenticationRestService {
 					// check warehouses
 					MWarehouse[] warehouses = MWarehouse.getForOrg(Env.getCtx(), orgResponse.getId());
 					for (MWarehouse warehouse : warehouses) {
-						Warehouse warehouseResponse = new Warehouse(warehouse.get_ID(), warehouse.getName());
+						Warehouse warehouseResponse = new Warehouse(warehouse);
 						orgResponse.getWarehouses().add(warehouseResponse);
 
 						// set default warehouse
 						if (warehouses.length == 1) {
-							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getId());
-							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getId());
+							Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, warehouseResponse.getUuid());
+							builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), warehouseResponse.getUuid());
+							response.setWarehouseUuid(warehouseResponse.getUuid());
 						}
 					}
 

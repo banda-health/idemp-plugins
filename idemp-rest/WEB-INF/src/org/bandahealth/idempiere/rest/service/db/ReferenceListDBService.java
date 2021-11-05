@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -44,10 +45,12 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_BILLS);
 		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_RECEIVE_PRODUCT);
 		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_PAYMENTS);
+		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_MOVEMENT);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_EXPENSES, MInvoice_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_BILLS, MOrder_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_RECEIVE_PRODUCT, MOrder_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_PAYMENTS, MPayment_BH.Table_ID);
+		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_MOVEMENT, MMovement_BH.Table_ID);
 	}
 
 	@Override

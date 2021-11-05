@@ -6,10 +6,13 @@ import java.util.List;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
+import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MOrder;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -28,13 +31,14 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		this.productDBService = new ProductDBService();
 	}
 
-	public BaseListResponse<ReceiveProduct> getAll(
-			Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
+			String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("N");
 
-		String join = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "." +
-				MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_C_BPartner_ID;
+		String join = "JOIN " + MBPartner_BH.Table_Name + " ON " + MBPartner_BH.Table_Name + "."
+				+ MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "."
+				+ MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + " IS NULL",
 				parameters, pagingInfo, sortColumn, sortOrder, filterJson, join);
@@ -45,9 +49,8 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 			String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
-		StringBuilder whereClause = new StringBuilder()
-				.append(MOrder_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_BH_IsExpense).append(" IS NULL");
+		StringBuilder whereClause = new StringBuilder().append(MOrder_BH.COLUMNNAME_IsSOTrx).append("=?")
+				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_BH_IsExpense).append(" IS NULL");
 		parameters.add("N");
 
 		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause.toString(), parameters);
@@ -61,6 +64,17 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		}
 
 		mOrder.setIsSOTrx(false);
+
+		// set warehouse
+		Warehouse warehouse = entity.getWarehouse();
+		if (warehouse != null && warehouse.getUuid() != null) {
+			MWarehouse mWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
+					MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setClient_ID()
+							.setParameters(warehouse.getUuid()).first();
+			if (mWarehouse != null) {
+				mOrder.setM_Warehouse_ID(mWarehouse.get_ID());
+			}
+		}
 	}
 
 	@Override
@@ -81,7 +95,9 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				return null;
 			}
 
-			return new ReceiveProduct(instance, vendor, null);
+			ReceiveProduct result = new ReceiveProduct(instance, vendor, null);
+			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
+			return result;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -97,7 +113,10 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				return null;
 			}
 
-			return new ReceiveProduct(instance, vendor, orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
+			ReceiveProduct result = new ReceiveProduct(instance, vendor,
+					orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
+			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
+			return result;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}

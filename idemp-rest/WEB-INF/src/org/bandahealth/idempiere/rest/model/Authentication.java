@@ -13,7 +13,7 @@ public class Authentication {
 	private Integer clientId;
 	private Integer roleId;
 	private Integer organizationId;
-	private Integer warehouseId;
+	private String warehouseUuid;
 	/**
 	 * The language that is stored in the DB as AD_Language (e.g. en_US)
 	 */
@@ -76,12 +76,12 @@ public class Authentication {
 	}
 
 	@XmlElement
-	public Integer getWarehouseId() {
-		return warehouseId;
+	public String getWarehouseUuid() {
+		return warehouseUuid;
 	}
 
-	public void setWarehouseId(Integer adWarehouseId) {
-		this.warehouseId = adWarehouseId;
+	public void setWarehouseUuid(String warehouseUuid) {
+		this.warehouseUuid = warehouseUuid;
 	}
 
 	public String getSecurityQuestion() {

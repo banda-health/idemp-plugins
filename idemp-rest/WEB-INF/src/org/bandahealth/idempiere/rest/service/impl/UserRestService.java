@@ -15,7 +15,6 @@ import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.UserDBService;
 
 @Path(IRestConfigs.USERS_PATH)
-@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class UserRestService extends BaseEntityRestService<User> {
 
@@ -30,10 +29,13 @@ public class UserRestService extends BaseEntityRestService<User> {
 	public BaseListResponse<User> getClinicians(@QueryParam("page") int page, @QueryParam("size") int size) {
 		return dbService.getCliniciansResponse(getPagingInfo(page, size));
 	}
-	
+
+	@GET
 	@Override
-	public BaseListResponse<User> getAll(int page, int size, String sortColumn, String sortOrder, String filterJson) {
-		return null;
+	public BaseListResponse<User> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
+			@QueryParam("filter") String filterJson) {
+		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
 	@GET

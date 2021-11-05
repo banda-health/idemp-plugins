@@ -20,6 +20,7 @@ import javax.management.relation.RoleList;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
+import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
@@ -40,6 +41,16 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	private static final int SYSTEM_USER_ID = 100;
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 	
+
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(MMovement_BH.Table_Name,
+					"LEFT JOIN " + MMovement_BH.Table_Name + " ON " + MMovement_BH.Table_Name + "."
+							+ MMovement_BH.COLUMNNAME_CreatedBy + " = " + MUser_BH.Table_Name + "."
+							+ MUser_BH.COLUMNNAME_AD_User_ID);
+		}
+	};
+
 	public BaseListResponse<User> getCliniciansResponse(Paging pagingInfo) {
 		List<User> results = new ArrayList<>();
 
@@ -148,8 +159,8 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	}
 
 	public List<MUser_BH> getClinicians(Paging pagingInfo) {
-		StringBuilder whereClause =
-				new StringBuilder(MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
+		StringBuilder whereClause = new StringBuilder(
+				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
 		whereClause.append(" AND ");
 		whereClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " IN (");
 		whereClause.append("(SELECT " + MRole.COLUMNNAME_AD_Role_ID + " FROM " + MRole.Table_Name);
@@ -167,11 +178,15 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		MClient client = MClient.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()));
 		// Now get the clinician role suffix
 		MRefList clinicianRoleSuffix = new Query(Env.getCtx(), MRefList.Table_Name,
-				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND " + MReference_BH.Table_Name + "." +
-						MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", null).addJoinClause(" JOIN " +
-				MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "." + MReference_BH.COLUMNNAME_AD_Reference_ID +
-				"=" + MRefList.Table_Name + "." + MRefList.COLUMNNAME_AD_Reference_ID).setParameters(
-				MBHDefaultIncludedRole.DB_USERTYPE_Clinician, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND " + MReference_BH.Table_Name + "."
+						+ MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
+				null).addJoinClause(
+						" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
+								+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
+								+ MRefList.COLUMNNAME_AD_Reference_ID)
+						.setParameters(MBHDefaultIncludedRole.DB_USERTYPE_Clinician,
+								MReference_BH.USER_TYPE_AD_REFERENCE_UU)
+						.first();
 		if (clinicianRoleSuffix == null) {
 			return new ArrayList<>();
 		}
@@ -239,5 +254,10 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	@Override
 	protected MUser_BH getModelInstance() {
 		return new MUser_BH(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public Map<String, String> getDynamicJoins() {
+		return dynamicJoins;
 	}
 }
