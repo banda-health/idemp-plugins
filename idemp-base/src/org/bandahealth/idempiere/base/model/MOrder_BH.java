@@ -102,6 +102,9 @@ public class MOrder_BH extends MOrder {
 	 * Column name BH_VisitDate
 	 */
 	public static final String COLUMNNAME_BH_VisitDate = "BH_VisitDate";
+	
+	public static final String COLUMNNAME_BH_SystolicBloodPressure = "bh_systolic_blood_pressure";
+	public static final String COLUMNNAME_BH_DiastolicBloodPressure = "bh_diastolic_blood_pressure";
 	private static final long serialVersionUID = 1L;
 
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
@@ -657,4 +660,21 @@ public class MOrder_BH extends MOrder {
 			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, Integer.valueOf(BH_VoidedReason_ID));
 		}
 	}
+	
+	public void setBH_SystolicBloodPressure(String systolicBloodPressure) {
+		set_Value(COLUMNNAME_BH_SystolicBloodPressure, systolicBloodPressure);
+	}
+
+	public String getBH_SystolicBloodPressure() {
+		return (String)get_Value(COLUMNNAME_BH_SystolicBloodPressure);
+	}
+
+	public void setBH_DiastolicBloodPressure(String diastolicBloodPressure) {
+		set_Value(COLUMNNAME_BH_DiastolicBloodPressure, diastolicBloodPressure);
+	}
+	
+	public String getBH_DiastolicBloodPressure() {
+		return (String)get_Value(COLUMNNAME_BH_DiastolicBloodPressure);
+	}
+	
 }
