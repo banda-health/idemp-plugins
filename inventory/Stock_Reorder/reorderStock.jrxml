@@ -190,7 +190,7 @@ LIMIT 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isBlankWhenNull="true">
+							<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="140" height="17" uuid="551f26eb-dd60-4dfe-b966-e8534362bf03">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
