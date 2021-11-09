@@ -30,5 +30,5 @@ package org.bandahealth.idempiere.rest.utils;
  * @author hengsin
  */
 public enum LoginClaims {
-	AD_Client_ID, AD_User_ID, AD_Role_ID, AD_Org_ID, M_Warehouse_ID, AD_Language
+	AD_Client_ID, AD_User_ID, AD_Role_ID, AD_Org_ID, M_Warehouse_Uuid, AD_Language
 }

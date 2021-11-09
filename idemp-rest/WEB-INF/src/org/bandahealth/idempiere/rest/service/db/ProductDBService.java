@@ -3,11 +3,12 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -22,7 +23,6 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
-import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProduct;
@@ -30,6 +30,7 @@ import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -43,14 +44,17 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 	private InventoryDBService inventoryDBService = new InventoryDBService();
+	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
-		put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
-				+ ",SUM(" + MStorageOnHand.COLUMNNAME_QtyOnHand + ") as quantity FROM " + MStorageOnHand.Table_Name
-				+ " GROUP BY " + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " + X_BH_Stocktake_v.Table_Name + " ON "
-				+ X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID + "=" + MProduct_BH.Table_Name
-				+ "." + MProduct_BH.COLUMNNAME_M_Product_ID);
-	}};
+	private Map<String, String> dynamicJoins = new HashMap<>() {
+		{
+			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
+					+ ",SUM(" + MStorageOnHand.COLUMNNAME_QtyOnHand + ") as quantity FROM " + MStorageOnHand.Table_Name
+					+ " GROUP BY " + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " + X_BH_Stocktake_v.Table_Name
+					+ " ON " + X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID + "="
+					+ MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID);
+		}
+	};
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
@@ -66,8 +70,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				+ MProductCategory_BH.COLUMNNAME_M_Product_Category_ID + "=" + MProduct_BH.Table_Name + "."
 				+ MProduct_BH.COLUMNNAME_M_Product_Category_ID;
 
-		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo,
-				sortColumn, sortOrder, filterJson, joinClause);
+		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder,
+				filterJson, joinClause);
 	}
 
 	@Override
@@ -86,9 +90,13 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * Searches products/services and returns related price, expiry, quantity fields
 	 *
 	 * @param searchValue
+	 * 
 	 * @return
 	 */
 	public BaseListResponse<SearchProduct> searchItems(String searchValue) {
+		// get available warehouses
+		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
+
 		List<SearchProduct> results = new ArrayList<>();
 
 		// maximum of 100 results?
@@ -126,13 +134,20 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					if (inventory.getShelfLife() < 0) {
 						continue;
 					}
+
 					// get expiry date and id
-					SearchProductAttribute attribute = new SearchProductAttribute(
-							inventory.getExpirationDate(), inventory.getAttributeSetInstanceId());
+					SearchProductAttribute attribute = new SearchProductAttribute(inventory.getExpirationDate(),
+							inventory.getAttributeSetInstanceId());
 
 					// get quantity
 					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
 					attribute.setExistingQuantity(BigDecimal.valueOf(inventory.getQuantity()));
+					// store warehouse
+					Optional<MWarehouse> foundWarehouse = warehouses.stream()
+							.filter(warehouse -> warehouse.get_ID() == inventory.getWarehouseId()).findFirst();
+					if (foundWarehouse.isPresent()) {
+						attribute.setWarehouseUuid(foundWarehouse.get().getM_Warehouse_UU());
+					}
 
 					result.addAttribute(attribute);
 				}
@@ -141,8 +156,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			}
 
 			// If a product has no quantity, don't return it in the list
-			if (result.getTotalQuantity() != null && result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0 ||
-					!entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
+			if (result.getTotalQuantity() != null && result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0
+					|| !entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 				results.add(result);
 			}
 		}
@@ -232,26 +247,25 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			product.saveEx();
 
 			// update inventory only for a new products with inventory
-			if (exists == null && entity.getStorageOnHandList() != null && entity.getStorageOnHandList().stream().anyMatch(
-					storageOnHand -> storageOnHand.getQuantityOnHand() != null &&
-							storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
+			if (exists == null && entity.getStorageOnHandList() != null
+					&& entity.getStorageOnHandList().stream()
+							.anyMatch(storageOnHand -> storageOnHand.getQuantityOnHand() != null
+									&& storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
 				Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct = new HashMap<>();
 				// If it has expiration, cycle through the list and add the values
 				if (product.isBH_HasExpiration()) {
 					// Get the expiration date attribute set instance ids
 					Map<Timestamp, Integer> expirationDatesByAttributeSetInstanceId = QueryUtil
-							.createExpirationDateAttributeInstances(
-									entity.getStorageOnHandList().stream()
-											.map(storageOnHand -> storageOnHand.getAttributeSetInstance().getGuaranteeDate())
-											.collect(Collectors.toSet()), null, Env.getCtx());
-					inventoryByProduct
-							.put(product, entity.getStorageOnHandList().stream().map(storageOnHand -> {
-								MStorageOnHand storageOnHandToSave = new MStorageOnHand(Env.getCtx(), 0, null);
-								storageOnHandToSave.setQtyOnHand(storageOnHand.getQuantityOnHand());
-								storageOnHandToSave.setM_AttributeSetInstance_ID(expirationDatesByAttributeSetInstanceId.get(
-										storageOnHand.getAttributeSetInstance().getGuaranteeDate()));
-								return storageOnHandToSave;
-							}).collect(Collectors.toList()));
+							.createExpirationDateAttributeInstances(entity.getStorageOnHandList().stream()
+									.map(storageOnHand -> storageOnHand.getAttributeSetInstance().getGuaranteeDate())
+									.collect(Collectors.toSet()), null, Env.getCtx());
+					inventoryByProduct.put(product, entity.getStorageOnHandList().stream().map(storageOnHand -> {
+						MStorageOnHand storageOnHandToSave = new MStorageOnHand(Env.getCtx(), 0, null);
+						storageOnHandToSave.setQtyOnHand(storageOnHand.getQuantityOnHand());
+						storageOnHandToSave.setM_AttributeSetInstance_ID(expirationDatesByAttributeSetInstanceId
+								.get(storageOnHand.getAttributeSetInstance().getGuaranteeDate()));
+						return storageOnHandToSave;
+					}).collect(Collectors.toList()));
 				} else {
 					// Otherwise, just add the first
 					MStorageOnHand storageOnHand = new MStorageOnHand(Env.getCtx(), 0, null);

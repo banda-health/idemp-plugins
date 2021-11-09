@@ -30,9 +30,12 @@ public class UserRestService extends BaseEntityRestService<User> {
 		return dbService.getCliniciansResponse(getPagingInfo(page, size));
 	}
 
+	@GET
 	@Override
-	public BaseListResponse<User> getAll(int page, int size, String sortColumn, String sortOrder, String filterJson) {
-		return null;
+	public BaseListResponse<User> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
+			@QueryParam("filter") String filterJson) {
+		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
 	@Override

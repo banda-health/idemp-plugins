@@ -12,12 +12,14 @@ import org.bandahealth.idempiere.base.model.MBHChargeInfoValue;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
 import org.bandahealth.idempiere.base.model.MBHChargeTypeDefault;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
 import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
 import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
 import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
+import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
@@ -26,6 +28,8 @@ import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MMovementLine_BH;
+import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -36,6 +40,7 @@ import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
 import org.bandahealth.idempiere.base.model.MUIButton;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
@@ -112,6 +117,16 @@ public class BHModelFactory implements IModelFactory {
 			return MBHBPartnerCharge.class;
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return MBHVoidedReason.class;
+		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
+			return MMovement_BH.class;
+		} else if (tableName.equalsIgnoreCase(MMovementLine_BH.Table_Name)) {
+			return MMovementLine_BH.class;
+		} else if (tableName.equalsIgnoreCase(MWarehouse_BH.Table_Name)) {
+			return MWarehouse_BH.class;
+		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
+			return MBHRoleWarehouseAccess.class;
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
+			return MBHCodedDiagnosisMapping.class;
 		}
 
 		return null;
@@ -187,6 +202,16 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHBPartnerCharge(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return new MBHVoidedReason(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
+			return new MMovement_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovementLine_BH.Table_Name)) {
+			return new MMovementLine_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MWarehouse_BH.Table_Name)) {
+			return new MWarehouse_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
+			return new MBHRoleWarehouseAccess(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
+			return new MBHCodedDiagnosisMapping(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -262,6 +287,16 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHBPartnerCharge(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return new MBHVoidedReason(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
+			return new MMovement_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovementLine_BH.Table_Name)) {
+			return new MMovementLine_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MWarehouse_BH.Table_Name)) {
+			return new MWarehouse_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
+			return new MBHRoleWarehouseAccess(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
+			return new MBHCodedDiagnosisMapping(Env.getCtx(), rs, trxName);
 		}
 
 		return null;

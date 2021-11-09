@@ -24,7 +24,6 @@ public class Visit extends Order {
 	private String temperature;
 	private String pulse;
 	private String respiratoryRate;
-	private String bloodPressure;
 	private String height;
 	private String weight;
 	private User clinician;
@@ -35,6 +34,8 @@ public class Visit extends Order {
 	private CodedDiagnosis secondaryCodedDiagnosis;
 	private String primaryUnCodedDiagnosis;
 	private String secondaryUnCodedDiagnosis;
+	private String systolicBloodPressure;
+	private String diastolicBloodPressure;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -44,7 +45,7 @@ public class Visit extends Order {
 			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis,
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
-			String respiratoryRate, String bloodPressure, String height, String weight,
+			String respiratoryRate, String height, String weight,
 			CodedDiagnosis secondaryCodedDiagnosis, CodedDiagnosis primaryCodedDiagnosis, User clinician,
 			ProcessStage processStage, MOrder_BH order) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
@@ -60,7 +61,6 @@ public class Visit extends Order {
 		this.temperature = temperature;
 		this.pulse = pulse;
 		this.respiratoryRate = respiratoryRate;
-		this.bloodPressure = bloodPressure;
 		this.height = height;
 		this.weight = weight;
 		this.secondaryCodedDiagnosis = secondaryCodedDiagnosis;
@@ -72,6 +72,8 @@ public class Visit extends Order {
 			this.visitDate = order.getBH_VisitDate();
 			this.primaryUnCodedDiagnosis = order.getBH_PrimaryUnCodedDiagnosis();
 			this.secondaryUnCodedDiagnosis = order.getBH_SecondaryUnCodedDiagnosis();
+			this.systolicBloodPressure = order.getBH_SystolicBloodPressure();
+			this.diastolicBloodPressure = order.getBH_DiastolicBloodPressure();
 			setId(order.get_ID());
 		}
 
@@ -203,12 +205,21 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public String getBloodPressure() {
-		return bloodPressure;
+	public String getSystolicBloodPressure() {
+		return systolicBloodPressure;
 	}
 
-	public void setBloodPressure(String bloodPressure) {
-		this.bloodPressure = bloodPressure;
+	public void setSystolicBloodPressure(String systolicBloodPressure) {
+		this.systolicBloodPressure = systolicBloodPressure;
+	}
+
+	@XmlElement
+	public String getDiastolicBloodPressure() {
+		return diastolicBloodPressure;
+	}
+
+	public void setDiastolicBloodPressure(String diastolicBloodPressure) {
+		this.diastolicBloodPressure = diastolicBloodPressure;
 	}
 
 	@XmlElement
