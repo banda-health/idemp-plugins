@@ -277,7 +277,7 @@ order by billdetails.patientname;]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[No data was found to display on the repor]]></text>
+				<text><![CDATA[No data was found to display on the report]]></text>
 			</staticText>
 			<componentElement>
 				<reportElement x="0" y="0" width="1740" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
