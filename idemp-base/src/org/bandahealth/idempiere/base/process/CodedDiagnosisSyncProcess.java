@@ -44,7 +44,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	private final int LIMIT = 100;
 	private String OCL_BASE_URL = "https://api.openconceptlab.org";
-	private String URI_OPTIONS = "?includeMappings=true&sortAsc=name&verbose=true";
+	private String URI_OPTIONS = "?includeRetired=true&includeMappings=true&sortAsc=name&verbose=true";
 	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CIEL = "CIEL";
 	private final String ICD_10_WHO = "ICD-10-WHO";
