@@ -32,7 +32,7 @@ import org.compiere.util.KeyNamePair;
 public interface I_BH_RoleWarehouseAccess {
 
 	/** TableName=BH_RoleWarehouseAccess */
-	public static final String Table_Name = "BH_RoleWarehouseAccess";
+	public static final String Table_Name = "BH_Role_WarehouseAccess";
 
 	public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
