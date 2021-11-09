@@ -100,7 +100,8 @@ public class InventoryDBService {
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
-		sqlWhere.append(AND_OPERATOR).append(FilterUtil.getWhereClauseFromFilter(null, filterJson, parameters));
+		sqlWhere.append(AND_OPERATOR)
+				.append(FilterUtil.getWhereClauseFromFilter(X_BH_Stocktake_v.Table_Name, filterJson, parameters, true));
 
 		if (searchValue != null && !searchValue.isEmpty()) {
 			sqlWhere.append(AND_OPERATOR).append("LOWER(")
