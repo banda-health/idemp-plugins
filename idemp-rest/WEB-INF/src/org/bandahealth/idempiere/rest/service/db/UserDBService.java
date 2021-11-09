@@ -1,22 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import static org.bandahealth.idempiere.rest.service.db.BaseDBService.AND_OPERATOR;
-import static org.bandahealth.idempiere.rest.service.db.BaseDBService.ORDERBY_NULLS_LAST;
-
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import javax.management.relation.RoleList;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
@@ -38,9 +30,8 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class UserDBService extends BaseDBService<User, MUser_BH> {
-	private static final int SYSTEM_USER_ID = 100;
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
-	
+
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -61,96 +52,89 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			}
 		}
 
-		return new BaseListResponse<User>(results, pagingInfo);
+		return new BaseListResponse<>(results, pagingInfo);
 	}
-	
-	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {		
-		MRole[] clientRoles =  MRole.getOfClient(Env.getCtx());
+
+	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortColumn, String sortOrder,
+			String filterJson) {
+		MRole[] clientRoles = MRole.getOfClient(Env.getCtx());
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
-		
+
 		Map<Integer, MRole> clientRoleIdMap = new HashMap<>();
-		
-		for(MRole role: clientRoles) {
+
+		for (MRole role : clientRoles) {
 			clientRoleIdMap.put(role.getAD_Role_ID(), role);
 		}
-		
-		String COMMA = " , ";
+
 		StringBuilder sqlQuery = new StringBuilder().append(" SELECT ")
-			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_UU).append(COMMA)
-			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_Created).append(COMMA)
-			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_Name).append(COMMA)
-			
-			.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_Role_ID).append(COMMA)
-			
-			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_DateLastLogin).append(COMMA)
-			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_IsActive).append(COMMA)
-			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append(COMMA)
-			.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID)
-		
-		.append(" FROM ").append(MUser_BH.Table_Name)
-		.append(" JOIN ").append(MUserRoles.Table_Name).append(" ON ")
-		.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_ID).append(EQUAL_OPERATOR)
-		.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_User_ID)
-		
-		.append(" WHERE ")
-		.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append(NOT_EQUAL_OPERATOR)
-		.append(SYSTEM_ADMIN_ORG_ID).append(AND_OPERATOR)
-		.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID).append(EQUAL_OPERATOR)
-		.append(clientId);
-		
-		List<String> orderByColumns = new ArrayList<>(
-				Arrays.asList(MUser_BH.COLUMNNAME_Created, MUser_BH.COLUMNNAME_Name, 
-						MUser_BH.COLUMNNAME_DateLastLogin, MUser_BH.COLUMNNAME_IsActive));
-		
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_UU).append(",")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_Created).append(",")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_Name).append(",")
+
+				.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_Role_ID).append(",")
+
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_DateLastLogin).append(",")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_IsActive).append(",")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append(",")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID)
+
+				.append(" FROM ").append(MUser_BH.Table_Name)
+				.append(" JOIN ").append(MUserRoles.Table_Name).append(" ON ")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_ID).append("=")
+				.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_User_ID)
+
+				.append(" WHERE ")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append("!=")
+				.append(SYSTEM_ADMIN_ORG_ID).append(" AND ")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID).append("=")
+				.append(clientId);
+
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
-		
-		StringBuilder filter = new StringBuilder().append(AND_OPERATOR)
-				.append(FilterUtil.getWhereClauseFromFilter(null, filterJson, parameters));
-		
-		sqlQuery.append(filter.toString());
-		
+
+		String filter = " AND " + FilterUtil.getWhereClauseFromFilter(null, filterJson, parameters);
+
+		sqlQuery.append(filter);
+
 		StringBuilder sqlOrderBy = new StringBuilder().append(" ORDER BY ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()
-				&& orderByColumns.stream().map(String::toLowerCase).collect(Collectors.toList())
-				.contains(sortColumn.toLowerCase())) {
+		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()) {
 			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder);
-			sqlQuery.append(sqlOrderBy.toString());
+			sqlQuery.append(sqlOrderBy);
 		}
-		
+
 		String sqlSelect = sqlQuery.toString(); // has to appear as final or effectively final
-		
-		Map<String, User> usersRolesMap = new LinkedHashMap<String, User>();
-				
+
+		Map<String, User> usersRolesMap = new LinkedHashMap<>();
+
 		SqlUtil.executeQuery(sqlSelect, null, null, rs -> {
-		 try {
-			 String uuid = rs.getString(1);
-			 Timestamp created = rs.getTimestamp(2);
-			 String name = rs.getString(3);
-			 int roleId = rs.getInt(4);
-			 Timestamp lastLogin = rs.getTimestamp(5);
-			 boolean isActive = rs.getBoolean(6);
-			 
-			 List<Role> roleList = new ArrayList<Role>();
-			 Role userRole = new Role(clientRoleIdMap.get(roleId));
-			 
-			 // The result set contains repeated user details if user has more than one role
-			 // i.e Transforms [User_a : Cashier, User_a: Lab] -> [User_a : [Cashier, Lab]] 
-			 if(usersRolesMap.containsKey(uuid)) {
-				 User existingUser = usersRolesMap.get(uuid);
-				 existingUser.getRoles().add(userRole);
-				 usersRolesMap.put(uuid, existingUser);
-			 } else {
-				 roleList.add(userRole);
-				 User user = new User(name, uuid, created, lastLogin, isActive, roleList);
-				 usersRolesMap.put(uuid, user);
-			 }
-		 } catch(SQLException e) {
-			 log.log(Level.SEVERE, sqlSelect, e);
-		 }
+			try {
+				String uuid = rs.getString(1);
+				Timestamp created = rs.getTimestamp(2);
+				String name = rs.getString(3);
+				int roleId = rs.getInt(4);
+				Timestamp lastLogin = rs.getTimestamp(5);
+				boolean isActive = rs.getBoolean(6);
+
+				List<Role> roleList = new ArrayList<Role>();
+				Role userRole = new Role(clientRoleIdMap.get(roleId));
+
+				// The result set contains repeated user details if user has more than one role
+				// i.e Transforms [User_a : Cashier, User_a: Lab] -> [User_a : [Cashier, Lab]]
+				if (usersRolesMap.containsKey(uuid)) {
+					User existingUser = usersRolesMap.get(uuid);
+					existingUser.getRoles().add(userRole);
+					usersRolesMap.put(uuid, existingUser);
+				} else {
+					roleList.add(userRole);
+					User user = new User(name, uuid, created, lastLogin, isActive, roleList);
+					usersRolesMap.put(uuid, user);
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, sqlSelect, e);
+			}
 		});
-		
+
 		if (pagingInfo != null) {
 			pagingInfo.setTotalRecordCount(usersRolesMap.size());
 		}
@@ -159,20 +143,16 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	}
 
 	public List<MUser_BH> getClinicians(Paging pagingInfo) {
-		StringBuilder whereClause = new StringBuilder(
-				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " != ?"); // exclude superuser
-		whereClause.append(" AND ");
-		whereClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " IN (");
-		whereClause.append("(SELECT " + MRole.COLUMNNAME_AD_Role_ID + " FROM " + MRole.Table_Name);
-		whereClause.append(" WHERE " + MRole.COLUMNNAME_Name);
-		whereClause.append(" = ? AND ");
-		whereClause.append(MRole.COLUMNNAME_AD_Client_ID + " =? ))");
+		// exclude superuser
+		String whereClause =
+				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " != ?" + " AND " + MUserRoles.Table_Name + "." +
+						MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + "(SELECT " + MRole.COLUMNNAME_AD_Role_ID + " FROM " +
+						MRole.Table_Name + " WHERE " + MRole.COLUMNNAME_Name + " = ? AND " + MRole.COLUMNNAME_AD_Client_ID +
+						" =? ))";
 
-		StringBuilder joinClause = new StringBuilder(" JOIN " + MUserRoles.Table_Name);
-		joinClause.append(" ON ");
-		joinClause.append(MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID);
-		joinClause.append(" = ");
-		joinClause.append(MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID);
+		String joinClause =
+				" JOIN " + MUserRoles.Table_Name + " ON " + MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID +
+						" = " + MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID;
 
 		// get client name
 		MClient client = MClient.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()));
@@ -184,17 +164,17 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 						" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
 								+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
 								+ MRefList.COLUMNNAME_AD_Reference_ID)
-						.setParameters(MBHDefaultIncludedRole.DB_USERTYPE_Clinician,
-								MReference_BH.USER_TYPE_AD_REFERENCE_UU)
-						.first();
+				.setParameters(MBHDefaultIncludedRole.DB_USERTYPE_Clinician,
+						MReference_BH.USER_TYPE_AD_REFERENCE_UU)
+				.first();
 		if (clinicianRoleSuffix == null) {
 			return new ArrayList<>();
 		}
 		String searchRoleName = client.getName() + " " + clinicianRoleSuffix.getName();
 
-		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause.toString(), null)
-				.setParameters(SYSTEM_USER_ID, searchRoleName, Env.getAD_Client_ID(Env.getCtx()))
-				.setOnlyActiveRecords(true).setClient_ID().addJoinClause(joinClause.toString());
+		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null)
+				.setParameters(MUser_BH.USERID_SYSTEM, searchRoleName, Env.getAD_Client_ID(Env.getCtx()))
+				.setOnlyActiveRecords(true).setClient_ID().addJoinClause(joinClause);
 
 		if (pagingInfo != null) {
 			pagingInfo.setTotalRecordCount(query.count());
@@ -210,8 +190,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			user.setIsActive(entity.getIsActive());
 			user.saveEx();
 			return entity;
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			if (ex.getMessage().contains("Require unique data")) {
 				throw new DuplicateEntitySaveException(ex.getLocalizedMessage());
 			} else {
@@ -239,7 +218,8 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	@Override
 	protected User createInstanceWithAllFields(MUser_BH instance) {
 		try {
-			return new User(instance.getName(), instance.getAD_User_UU(), instance.getCreated(), instance.getDateLastLogin());
+			return new User(instance.getName(), instance.getAD_User_UU(), instance.getCreated(),
+					instance.getDateLastLogin());
 		} catch (Exception ex) {
 			log.severe("Error creating user instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
