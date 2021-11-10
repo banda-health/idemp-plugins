@@ -76,6 +76,7 @@ public interface IRestConfigs {
 
 	String USERS_PATH = AUTHENTICATION_PATH + "/users";
 	String CLINICIANS_PATH = "/clinicians";
+	String NON_ADMINS_PATH = "/nonadmins";
 
 	String APPLICATION_PDF = "application/pdf";
 
