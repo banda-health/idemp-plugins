@@ -624,7 +624,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_UU IN (" + whereCondition + ")",
 						parameters).list();
 		return getTranslations(models).stream().collect(Collectors
-				.toMap(model -> model.get_ValueOfColumn(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
+				.toMap(model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
 						model -> model));
 	}
 
