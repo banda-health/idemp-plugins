@@ -8,6 +8,7 @@ import org.compiere.model.MUser;
 import org.compiere.model.X_C_BPartner;
 
 public class MUser_BH extends MUser {
+	public static final int USERID_SYSTEM = 100;
 
 	public static String COLUMNNAME_BH_HasAcceptedTermsOfUse = "BH_HasAcceptedTermsOfUse";
 	public static String COLUMNNAME_BH_TOS_DATE_ACCEPTED = "BH_TOS_DATE_ACCEPTED";
