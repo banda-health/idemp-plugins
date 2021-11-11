@@ -23,7 +23,8 @@ Import-Package: javax.activation,
  org.osgi.service.component.annotations;version="1.3.0",
  org.bandahealth.idempiere.base.model,
  org.compiere,
- org.adempiere.exceptions
+ org.adempiere.exceptions,
+ org.bandahealth.idempiere.base.config
 Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  org.adempiere.ui;bundle-version="0.0.0",
  org.apache.ecs;bundle-version="0.0.0",
