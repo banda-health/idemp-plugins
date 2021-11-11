@@ -21,53 +21,56 @@
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT
-    coalesce(SUM(expenseline.linenetamt), 0) as total_expenses,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Facilities -%' ), 0) AS sum_facility,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Rent' ), 0) AS facility_rent,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Facilities - Utilities%' ), 0) AS facility_utilities,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Electricity' ), 0) AS facility_elec,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Mobile' ), 0) AS facility_mobile,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Internet' ), 0) AS facility_internet,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Water' ), 0) AS facility_water,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Garbage' ), 0) AS facility_garbage,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Medical Equipment' ), 0) AS facility_medequip,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Furniture' ), 0) AS facility_furniture,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Office Equipment' ), 0) AS facility_officeequip,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Computer And Accessories (Software/Hardware)' ), 0) AS facility_it,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Miscellaneous/Other' ), 0) AS facility_other,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Personnel -%' ), 0) AS sum_personnel,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - Salaries' ), 0) AS personnel_salaries,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - NHIF' ), 0) AS personnel_nhif,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - NSSF' ), 0) AS personnel_nssf,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - PAYE' ), 0) AS personnel_paye,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - Miscellaneous/Other' ), 0) AS personnel_other,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Vehicle -%' ), 0) AS sum_vehicle,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Purchase' ), 0) AS vehicle_purchase,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Lease/Loan' ), 0) AS vehicle_leaseloan,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Fuel' ), 0) AS vehicle_fuel,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Insurance' ), 0) AS vehicle_insurance,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Maintenance & Cleaning' ), 0) AS vehicle_maintenance,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Finances -%' ), 0) AS sum_finances,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Loan' ), 0) AS finances_loan,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Mortgage (House Loan)' ), 0) AS finances_mortgage,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Marketing' ), 0) AS finances_marketing,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Insurance' ), 0) AS finances_insurance,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Tax - KRA Corporate' ), 0) AS finances_taxes,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Licenses, Memberships, & Permits' ), 0) AS finances_licenses,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Miscellaneous/Other' ), 0) AS finances_other,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Services -%' ), 0) AS sum_services,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Services - Maintenance & Cleaning' ), 0) AS services_maintenance,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Services - IT, Accounting & Clinical' ), 0) AS services_it,
-    coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name NOT LIKE 'Services -%' AND expense.name NOT LIKE 'Finances -%' AND expense.name NOT LIKE 'Vehicle -%'
-                            AND expense.name NOT LIKE 'Personnel -%' AND expense.name NOT LIKE 'Facilities -%' AND expense.name != 'Medications & Supplies'), 0) AS other,
-    coalesce(avg(meds_supplies.lab_total), 0) as lab_total,
-    coalesce(avg(meds_supplies.pharmacy_total), 0) as pharmacy_total,
-    coalesce(avg(meds_supplies.radiology_total), 0) as radiology_total,
-    coalesce(avg(meds_supplies.other_total), 0) as other_total
-FROM adempiere.c_invoice ci
-    INNER JOIN adempiere.c_invoiceline expenseline ON ci.c_invoice_id = expenseline.c_invoice_id
-    INNER JOIN adempiere.c_charge expense ON expenseline.c_charge_id = expense.c_charge_id
+		<![CDATA[SELECT * FROM (
+    SELECT
+        coalesce(SUM(expenseline.linenetamt), 0) as total_expenses,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Facilities -%' ), 0) AS sum_facility,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Rent' ), 0) AS facility_rent,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Facilities - Utilities%' ), 0) AS facility_utilities,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Electricity' ), 0) AS facility_elec,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Mobile' ), 0) AS facility_mobile,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Internet' ), 0) AS facility_internet,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Water' ), 0) AS facility_water,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Utilities - Garbage' ), 0) AS facility_garbage,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Medical Equipment' ), 0) AS facility_medequip,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Furniture' ), 0) AS facility_furniture,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Office Equipment' ), 0) AS facility_officeequip,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Computer And Accessories (Software/Hardware)' ), 0) AS facility_it,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Miscellaneous/Other' ), 0) AS facility_other,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Personnel -%' ), 0) AS sum_personnel,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - Salaries' ), 0) AS personnel_salaries,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - NHIF' ), 0) AS personnel_nhif,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - NSSF' ), 0) AS personnel_nssf,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - PAYE' ), 0) AS personnel_paye,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Personnel - Miscellaneous/Other' ), 0) AS personnel_other,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Vehicle -%' ), 0) AS sum_vehicle,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Purchase' ), 0) AS vehicle_purchase,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Lease/Loan' ), 0) AS vehicle_leaseloan,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Fuel' ), 0) AS vehicle_fuel,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Insurance' ), 0) AS vehicle_insurance,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Vehicle - Maintenance & Cleaning' ), 0) AS vehicle_maintenance,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Finances -%' ), 0) AS sum_finances,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Loan' ), 0) AS finances_loan,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Facilities - Mortgage (House Loan)' ), 0) AS finances_mortgage,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Marketing' ), 0) AS finances_marketing,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Insurance' ), 0) AS finances_insurance,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Tax - KRA Corporate' ), 0) AS finances_taxes,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Licenses, Memberships, & Permits' ), 0) AS finances_licenses,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Finances - Miscellaneous/Other' ), 0) AS finances_other,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name LIKE 'Services -%' ), 0) AS sum_services,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Services - Maintenance & Cleaning' ), 0) AS services_maintenance,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name = 'Services - IT, Accounting & Clinical' ), 0) AS services_it,
+        coalesce(SUM(expenseline.linenetamt) FILTER ( WHERE expense.name NOT LIKE 'Services -%' AND expense.name NOT LIKE 'Finances -%' AND expense.name NOT LIKE 'Vehicle -%'
+                                AND expense.name NOT LIKE 'Personnel -%' AND expense.name NOT LIKE 'Facilities -%' AND expense.name != 'Medications & Supplies'), 0) AS other
+    FROM adempiere.c_invoice ci
+        INNER JOIN adempiere.c_invoiceline expenseline ON ci.c_invoice_id = expenseline.c_invoice_id
+        INNER JOIN adempiere.c_charge expense ON expenseline.c_charge_id = expense.c_charge_id
+    WHERE
+        ci.ad_client_id = $P{AD_CLIENT_ID}
+        AND ci.docstatus = 'CO'
+        AND ci.bh_isexpense = 'Y'
+        AND (date(ci.dateinvoiced) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+) p
 CROSS JOIN (
     SELECT
         coalesce(sum(ol.linenetamt) FILTER ( WHERE pc.name = 'Laboratory' ), 0) AS lab_total,
@@ -84,12 +87,8 @@ CROSS JOIN (
         AND o.ad_client_id = $P{AD_CLIENT_ID}
         AND (date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
 ) meds_supplies
-WHERE
-    ci.ad_client_id = $P{AD_CLIENT_ID}
-    AND ci.docstatus = 'CO'
-    AND ci.bh_isexpense = 'Y'
-    AND (date(ci.dateinvoiced) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-;]]>
+;
+]]>
 	</queryString>
 	<field name="total_expenses" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="total_expenses"/>
