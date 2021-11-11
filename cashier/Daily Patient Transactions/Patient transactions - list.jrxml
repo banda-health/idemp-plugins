@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -244,56 +244,8 @@ order by billdetails.patientname;]]>
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select
-    billdetails.c_order_id,
-    billdetails.bill_date as billdate,
-    billdetails.patientname as patientname,
-    billdetails.lineitemtotals as billtotal
-from
-(
-select co.c_order_id,
-       cb.c_bpartner_id,
-       date(co.bh_visitdate) as bill_date,
-       cb.name as patientname,
-       co.totallines as lineitemtotals
-from c_order co
-    inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-    join c_orderline ol on co.c_order_id = ol.c_order_id
-where ((co.ad_client_id = $P{AD_CLIENT_ID})
-      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR co.bh_patienttype = $P{Patient Type})
-    )
-    AND ol.c_charge_id IS NULL
-order by 1
-) as billdetails
-inner join
-(
-select bh_c_order_id
-from c_payment p
-where ((p.ad_client_id = $P{AD_CLIENT_ID}) 
-	and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-	AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR tendertype = $P{Payment Mode})
-    )
-group by bh_c_order_id
-order by 1
-) as payments on billdetails.c_order_id = payments.bh_c_order_id
-limit 1;]]>
+		<![CDATA[SELECT 1;]]>
 	</queryString>
-	<field name="c_order_id" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
-	</field>
-	<field name="billdate" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
-	</field>
-	<field name="patientname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="billtotal" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
-	</field>
 	<pageHeader>
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -318,6 +270,15 @@ limit 1;]]>
 	<summary>
 		<band height="64" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
+			<staticText>
+				<reportElement key="" x="0" y="0" width="1740" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report]]></text>
+			</staticText>
 			<componentElement>
 				<reportElement x="0" y="0" width="1740" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
@@ -829,18 +790,4 @@ limit 1;]]>
 			</componentElement>
 		</band>
 	</summary>
-	<noData>
-		<band height="16">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<staticText>
-				<reportElement key="" x="0" y="0" width="1740" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[No data was found to display on the report.]]></text>
-			</staticText>
-		</band>
-	</noData>
 </jasperReport>
