@@ -134,11 +134,11 @@ LEFT JOIN (
 LEFT JOIN (
     SELECT
         co.ad_client_id,
-        sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Pharmacy' ) AS pharmacysales,
-        sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Services' ) AS servicessales,
-        sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Laboratory' ) AS labsales,
-        sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Radiology' ) AS radiologysales,
-        sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Other' ) AS othersales
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Pharmacy' ), 0) AS pharmacysales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Services' ), 0) AS servicessales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Laboratory' ), 0) AS labsales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Radiology' ), 0) AS radiologysales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Other' ), 0) AS othersales
     FROM c_order co
         INNER JOIN c_orderline coline ON co.c_order_id = coline.c_order_id
         INNER JOIN m_product product ON coline.m_product_id = product.m_product_id
