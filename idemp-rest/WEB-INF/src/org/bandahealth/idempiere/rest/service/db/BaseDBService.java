@@ -46,6 +46,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public static final String AND_OPERATOR = " AND ";
 	public static final String OR_OPERATOR = " OR ";
 	public static final String EQUAL_OPERATOR = " = ";
+	public static final String NOT_EQUAL_OPERATOR = " != ";
 
 	public static final String ORDERBY_NULLS_LAST = " NULLS LAST";
 
