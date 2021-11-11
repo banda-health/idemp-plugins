@@ -11,7 +11,7 @@ public class Authentication {
 	private String securityQuestion;
 	private String answer;
 	private Integer clientId;
-	private Integer roleId;
+	private String roleUuid;
 	private Integer organizationId;
 	private String warehouseUuid;
 	/**
@@ -58,12 +58,12 @@ public class Authentication {
 	}
 
 	@XmlElement
-	public Integer getRoleId() {
-		return roleId;
+	public String getRoleUuid() {
+		return roleUuid;
 	}
 
-	public void setRoleId(Integer adRoleId) {
-		this.roleId = adRoleId;
+	public void setRoleUuid(String adRoleId) {
+		this.roleUuid = adRoleId;
 	}
 
 	@XmlElement
