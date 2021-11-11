@@ -16,6 +16,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
