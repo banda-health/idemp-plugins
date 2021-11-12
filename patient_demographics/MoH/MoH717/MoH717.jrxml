@@ -20,7 +20,7 @@
        coalesce(sum(under5malecountNV.countunder5malenewvisit), 0)     as maleunder5newvisit,
        coalesce(sum(over5femalecountNV.countover5femalenewvisit), 0)   as femaleover5newvisit,
        coalesce(sum(under5femalecountNV.countunder5femalenewvisit), 0) as femaleunder5newvisit,
-       coalesce(sum(over5malecountRV.countover5malerevisit), 0)        as maleover5revisit,
+       coalesce(sum(DISTINCT over5malecountRV.countover5malerevisit), 0)        as maleover5revisit,
        coalesce(sum(DISTINCT under5malecountRV.countunder5malerevisit), 0)      as maleunder5revisit,
        coalesce(sum(DISTINCT over5femalecountRV.countover5femalerevisit), 0)    as femaleover5revisit,
        coalesce(sum(DISTINCT under5femalecountRV.countunder5femalerevisit), 0)  as femaleunder5revisit,
