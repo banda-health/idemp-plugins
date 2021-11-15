@@ -23,7 +23,7 @@
         DATE($P{End Date}) as end_date
 )
 SELECT
-    billdetails.name AS name,
+    c.name AS name,
     coalesce(billdetails.saleslineitemtotals,0) AS billtotal,
     coalesce(payments.revenuesales,0) AS salesrevenue,
     coalesce(debtPayments.debtpaymentamount,0) AS debtrevenue,
@@ -42,12 +42,12 @@ SELECT
     coalesce(non_patient_payments.waivers, 0) * -1 as waivers,
     coalesce(non_patient_payments.donations, 0) * -1 as donations,
     coalesce(non_patient_payments.insurance, 0) * -1 as insurance
-FROM (
+FROM ad_client c
+JOIN params p on c.ad_client_id = p.ad_client_id
+CROSS JOIN (
     SELECT
-        co.ad_client_id,
-        client.name,
-        sum(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ) AS saleslineitemtotals,
-        sum(co.grandtotal) AS salestotals
+        coalesce(sum(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
+        coalesce(sum(co.grandtotal), 0) AS salestotals
     FROM c_order co
         INNER JOIN ad_client client ON co.ad_client_id = client.ad_client_id
         JOIN c_orderline ol ON co.c_order_id = ol.c_order_id
@@ -56,18 +56,16 @@ FROM (
         co.docstatus = 'CO'
         AND co.bh_isexpense = 'N'
         AND (DATE(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
-    GROUP BY 1,2
 ) AS billdetails
-LEFT JOIN (
+CROSS JOIN (
     SELECT
-        p.ad_client_id,
-        sum(p.payamt) AS revenuesales,
-        sum(p.payamt) FILTER ( WHERE p.tendertype = 'X' ) as cash,
-        sum(p.payamt) FILTER ( WHERE p.tendertype = 'M' ) as mobile,
-        sum(p.payamt) FILTER ( WHERE p.tendertype = 'C' ) as credit_debit,
-        sum(p.payamt) FILTER ( WHERE p.tendertype = 'D' ) as bank_transfer,
-        sum(p.payamt) FILTER ( WHERE p.tendertype = 'K' ) as "check",
-        sum(p.payamt) FILTER ( WHERE p.tendertype NOT IN ('X','M','C', 'D', 'K') ) as other
+        coalesce(sum(p.payamt), 0) AS revenuesales,
+        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'X' ), 0) as cash,
+        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'M' ), 0) as mobile,
+        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'C' ), 0) as credit_debit,
+        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'D' ), 0) as bank_transfer,
+        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'K' ), 0) as "check",
+        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype NOT IN ('X','M','C', 'D', 'K') ), 0) as other
     FROM c_payment p
     INNER JOIN c_order co ON p.bh_c_order_id = co.c_order_id
     JOIN params ON p.ad_client_id = params.ad_client_id
@@ -75,14 +73,12 @@ LEFT JOIN (
         (((p.docstatus = 'CO') OR (p.docstatus = 'DR' AND p.bh_processing = 'Y'))
         AND (date(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
         AND co.docstatus IN ('CO','DR'))
-    GROUP BY 1
-) AS payments on billdetails.ad_client_id = payments.ad_client_id
-LEFT JOIN (
+) AS payments
+CROSS JOIN (
     SELECT
-        ol.ad_client_id,
-        sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'W' ) as waivers,
-        sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'D' ) as donations,
-        sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'I' ) as insurance
+        coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'W' ), 0) as waivers,
+        coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'D' ), 0) as donations,
+        coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'I' ), 0) as insurance
     FROM c_orderline ol
     JOIN c_order o ON ol.c_order_id = o.c_order_id
     JOIN params ON ol.ad_client_id = params.ad_client_id
@@ -90,35 +86,29 @@ LEFT JOIN (
     WHERE
         (date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date)
         AND o.docstatus IN ('CO','DR')
-    GROUP BY 1
-) AS non_patient_payments on billdetails.ad_client_id = payments.ad_client_id
-LEFT JOIN (
+) AS non_patient_payments
+CROSS JOIN (
     SELECT
-        cp.ad_client_id,
-        sum(cp.payamt) AS debtpaymentamount
+        coalesce(sum(cp.payamt), 0) AS debtpaymentamount
     FROM c_payment cp
     JOIN params ON cp.ad_client_id = params.ad_client_id
     WHERE
         ((cp.docstatus = 'CO') OR (cp.docstatus = 'DR' AND cp.bh_processing = 'Y'))
         AND (cp.c_invoice_id IS NULL AND cp.isallocated = 'N' AND cp.bh_c_order_id = 0)
         AND (DATE(cp.datetrx) BETWEEN params.start_date AND params.end_date)
-    GROUP BY 1
-) AS debtPayments ON billdetails.ad_client_id = debtPayments.ad_client_id
-LEFT JOIN (
+) AS debtPayments
+CROSS JOIN (
     SELECT
-        ci.ad_client_id,
-        SUM(ci.grandtotal) as totalexpenses
+        coalesce(SUM(ci.grandtotal), 0) as totalexpenses
     FROM c_invoice ci
     JOIN params ON ci.ad_client_id = params.ad_client_id
     WHERE
         ci.docstatus = 'CO'
         AND ci.bh_isexpense = 'Y'
         AND (date(ci.dateinvoiced) BETWEEN params.start_date AND params.end_date)
-    GROUP BY 1
-) AS expenses ON billdetails.ad_client_id = expenses.ad_client_id
-LEFT JOIN (
+) AS expenses
+CROSS JOIN (
     SELECT
-        o.ad_client_id,
         coalesce(sum(ol.linenetamt) FILTER ( WHERE pc.name IN ('Laboratory', 'Pharmacy', 'Radiology', 'Other', 'Standard') ), 0) AS total
     FROM c_order o
     JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
@@ -129,11 +119,9 @@ LEFT JOIN (
         AND o.bh_isexpense IS NULL
         AND o.docstatus = 'CO'
         AND (date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date)
-    GROUP BY 1
-) received_products ON billdetails.ad_client_id = received_products.ad_client_id
-LEFT JOIN (
+) received_products
+CROSS JOIN (
     SELECT
-        co.ad_client_id,
         coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Pharmacy' ), 0) AS pharmacysales,
         coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Services' ), 0) AS servicessales,
         coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Laboratory' ), 0) AS labsales,
@@ -148,8 +136,7 @@ LEFT JOIN (
         co.docstatus = 'CO'
         AND co.bh_isexpense = 'N'
         AND (DATE(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
-    GROUP BY 1
-) AS charges ON billdetails.ad_client_id = charges.ad_client_id
+) AS charges
 ;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
@@ -1406,18 +1393,4 @@ LEFT JOIN (
 			</textField>
 		</band>
 	</pageFooter>
-	<noData>
-		<band height="16">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<staticText>
-				<reportElement key="" x="0" y="0" width="575" height="16" uuid="9e1b4ed6-0619-437c-a419-f63de3087fce">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[No data was found to display on the report.]]></text>
-			</staticText>
-		</band>
-	</noData>
 </jasperReport>
