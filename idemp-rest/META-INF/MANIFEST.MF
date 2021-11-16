@@ -25,7 +25,9 @@ Import-Package: javax.activation,
  org.compiere,
  org.adempiere.exceptions,
  org.bandahealth.idempiere.base.config,
- org.bandahealth.idempiere.base.process
+ org.bandahealth.idempiere.base.process,
+ org.idempiere.distributed,
+ org.adempiere.base
 Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  org.adempiere.ui;bundle-version="0.0.0",
  org.apache.ecs;bundle-version="0.0.0",
