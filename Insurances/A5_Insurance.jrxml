@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Insurance" pageWidth="595" pageHeight="842" columnWidth="560" leftMargin="20" rightMargin="15" topMargin="20" bottomMargin="5" isIgnorePagination="true" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Insurance" pageWidth="595" pageHeight="842" columnWidth="560" leftMargin="20" rightMargin="15" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -155,7 +164,7 @@ FROM patient_detail pd
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="53" splitType="Stretch">
+		<band height="52" splitType="Stretch">
 			<subreport>
 				<reportElement isPrintRepeatedValues="false" x="91" y="-21" width="376" height="51" uuid="4e1c7929-9a3b-4a62-b844-1a5b6d9f5670"/>
 				<subreportParameter name="C_Order_UU">
@@ -177,26 +186,27 @@ FROM patient_detail pd
 					<bottomPen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INVOICE]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="90" y="18" width="60" height="16" uuid="6a5ed8e7-8d5e-41c2-9666-be018bfa68e2"/>
+				<box leftPadding="2"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="18" width="141" height="17" uuid="c6cfefdc-3a09-425c-b291-835d5a75e7f3"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{Date})]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="51" width="141" height="17" uuid="6bb9a355-3494-46d6-92fb-55a5dee11cc7"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
@@ -205,26 +215,28 @@ FROM patient_detail pd
 			</textField>
 			<staticText>
 				<reportElement x="90" y="51" width="60" height="17" uuid="c2268eb9-d71b-4679-ab1f-93d61a0c1328"/>
+				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[File #:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="90" y="68" width="60" height="17" uuid="368e6a67-3db3-4f91-940c-03754c4d6f79"/>
+				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Patient:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="68" width="141" height="17" uuid="2028b392-a23a-4ac5-8d64-f29488103c42"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Patient}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="85" width="141" height="16" uuid="2ecbd556-7a2d-4fda-9cbb-313c2d923e41"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
@@ -233,19 +245,13 @@ FROM patient_detail pd
 			</textField>
 			<staticText>
 				<reportElement x="90" y="85" width="60" height="16" uuid="451b3683-b658-4991-84af-325ab402021a"/>
+				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Served by:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="90" y="101" width="60" height="16" uuid="6d298bf7-b21e-4a7b-9836-92e97089efe3"/>
-				<textElement>
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Payment type:]]></text>
-			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="101" width="141" height="16" uuid="7ab0cba5-f3be-4315-b3a2-fac72cf57dac"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
@@ -311,11 +317,9 @@ FROM patient_detail pd
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField>
-								<reportElement x="0" y="0" width="93" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e">
-									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-								</reportElement>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<paragraph leftIndent="5"/>
+								<reportElement x="0" y="0" width="93" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{charge}]]></textFieldExpression>
 							</textField>
@@ -337,11 +341,9 @@ FROM patient_detail pd
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField>
-								<reportElement x="0" y="0" width="91" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2">
-									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-								</reportElement>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<paragraph leftIndent="5"/>
+								<reportElement x="0" y="0" width="91" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
 							</textField>
@@ -364,11 +366,9 @@ FROM patient_detail pd
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField>
-								<reportElement x="0" y="0" width="85" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b">
-									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-								</reportElement>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<paragraph leftIndent="5"/>
+								<reportElement x="0" y="0" width="85" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 							</textField>
@@ -378,32 +378,48 @@ FROM patient_detail pd
 			</componentElement>
 			<staticText>
 				<reportElement x="90" y="34" width="60" height="17" uuid="d92b6940-562c-477e-82be-13e15b585f8e"/>
+				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Invoice #:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="34" width="141" height="17" uuid="7415e059-f1ff-4785-b11b-6bd444be3a1f"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Order_id}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="90" y="101" width="60" height="16" uuid="43363581-2196-4653-baf0-c9703b69d3b3"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<pageFooter>
 		<band height="23">
 			<textField>
 				<reportElement x="89" y="3" width="259" height="20" uuid="aac9248b-b0c4-4242-8281-90f0b70ea9ae"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Receipt Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="467" y="1" width="33" height="20" uuid="f41613e4-3d98-4d4e-a352-24eda04f6495">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 			<textField>
-				<reportElement x="389" y="0" width="80" height="20" uuid="deb7fa69-9cb9-485c-8e8c-337e87ed6f4d"/>
-				<textElement textAlignment="Right">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of " + $V{PAGE_COUNT}]]></textFieldExpression>
+				<reportElement x="380" y="1" width="87" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
@@ -419,4 +435,17 @@ FROM patient_detail pd
 			</subreport>
 		</band>
 	</summary>
+	<noData>
+		<band height="18">
+			<staticText>
+				<reportElement x="0" y="0" width="480" height="16" uuid="7227fd38-a730-477d-a761-4778225a2517">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
 </jasperReport>
