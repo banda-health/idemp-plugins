@@ -6,3 +6,5 @@ INSERT INTO adempiere.ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, crea
 
 --provide window access for triage role
 INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate)VALUES ((SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'), 0, 0, 'Y', '2021-10-27 20:17:44.316000', 100, '2021-10-27 20:17:44.316000', 100, 'Y', '80c4d35a-34cd-4107-a357-37abd5f8c9f5', 'N')ON CONFLICT DO NOTHING;
+
+SELECT register_migration_script('202110280822_GO-1853.sql') FROM dual;
