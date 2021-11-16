@@ -22,7 +22,7 @@ public class AuthResponse {
 	private String username;
 	private List<Client> clients = new ArrayList<>();
 	private boolean hasAcceptedTermsOfUse;
-	private int roleId;
+	private String roleUuid;
 	private boolean needsToResetPassword;
 	private List<String> securityQuestions;
 	private boolean isAdministrator;
@@ -105,12 +105,12 @@ public class AuthResponse {
 		this.username = username;
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public String getRoleUuid() {
+		return roleUuid;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setRoleUuid(String roleUuid) {
+		this.roleUuid = roleUuid;
 	}
 
 	public boolean getNeedsToResetPassword() {

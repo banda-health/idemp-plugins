@@ -24,8 +24,9 @@ import org.bandahealth.idempiere.rest.model.Client;
 import org.bandahealth.idempiere.rest.model.Org;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
-import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
+import org.bandahealth.idempiere.rest.service.db.RoleDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
+import org.bandahealth.idempiere.rest.service.db.WarehouseDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
 import org.bandahealth.idempiere.rest.utils.RoleUtil;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
@@ -49,6 +50,7 @@ import org.compiere.util.Util;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,13 +66,13 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthenticationRestService {
 
-	public static String ERROR_USER_NOT_FOUND = "Could not find user";
-
 	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
-
-	private MenuGroupDBService menuDbservice = new MenuGroupDBService();
+	public static String ERROR_USER_NOT_FOUND = "Could not find user";
+	private final WarehouseDBService warehouseDBService = new WarehouseDBService();
+	private final RoleDBService roleDBService;
 
 	public AuthenticationRestService() {
+		roleDBService = new RoleDBService();
 	}
 
 	@POST
@@ -124,7 +126,7 @@ public class AuthenticationRestService {
 
 	/**
 	 * JWT tokens are immutable. We have to generate a new token
-	 * 
+	 *
 	 * @param credentials
 	 * @return
 	 */
@@ -148,7 +150,7 @@ public class AuthenticationRestService {
 
 			List<Object> parameters = new ArrayList<>();
 			parameters.add(user.get_ID());
-			parameters.add(credentials.getRoleId());
+			parameters.add(credentials.getRoleUuid());
 			parameters.add("Y");
 			parameters.add("Y");
 			parameters.add(credentials.getClientId());
@@ -176,18 +178,16 @@ public class AuthenticationRestService {
 				List<MWarehouse> warehouses = Arrays
 						.asList(MWarehouse.getForOrg(Env.getCtx(), credentials.getOrganizationId()));
 
+				Role role = roleDBService.getEntity(credentials.getRoleUuid());
 				Optional<MBHRoleWarehouseAccess> foundWarehouseAccess = warehouseAccessList.stream()
 						.filter((warehouseAccess) -> {
 
-							Optional<MWarehouse> foundWarehouse = warehouses.stream().filter((warehouse) -> {
-								return warehouse.getM_Warehouse_UU() == credentials.getWarehouseUuid();
-							}).findFirst();
+							Optional<MWarehouse> foundWarehouse = warehouses.stream().filter((warehouse) ->
+									warehouse.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid())
+							).findFirst();
 
-							if (foundWarehouse.isPresent()) {
-								return warehouseAccess.getRoleId() == credentials.getRoleId()
-										&& foundWarehouse.get().getM_Warehouse_UU() == credentials.getWarehouseUuid();
-							}
-							return false;
+							return foundWarehouse.filter(mWarehouse -> warehouseAccess.getRoleId() == role.getId()
+									&& mWarehouse.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid())).isPresent();
 						}).findAny();
 				if (foundWarehouseAccess.isEmpty()) {
 					return new AuthResponse(Status.UNAUTHORIZED);
@@ -256,8 +256,8 @@ public class AuthenticationRestService {
 				}
 
 				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password, credentials.getNewPassword()); // will be hashed
-																										// and validate
-																										// on saveEx
+				// and validate
+				// on saveEx
 				clientUser.setIsExpired(false);
 				// TODO: Add this back in if we start using these
 				// clientUser.setSecurityQuestion(credentials.getSecurityQuestion());
@@ -312,7 +312,7 @@ public class AuthenticationRestService {
 			AuthResponse response = new AuthResponse();
 
 			// has user changed client and role?
-			if (credentials.getClientId() != null && credentials.getRoleId() != null) {
+			if (credentials.getClientId() != null && credentials.getRoleUuid() != null) {
 				changeLoginProperties(credentials, builder, response);
 			} else {
 				// set default properties
@@ -386,10 +386,11 @@ public class AuthenticationRestService {
 		}
 
 		// set role
-		if (credentials.getRoleId() != null) {
-			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, credentials.getRoleId());
-			builder.withClaim(LoginClaims.AD_Role_ID.name(), credentials.getRoleId());
-			response.setRoleId(credentials.getRoleId());
+		if (credentials.getRoleUuid() != null) {
+			Role role = roleDBService.getEntity(credentials.getRoleUuid());
+			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, role.getId());
+			builder.withClaim(LoginClaims.AD_Role_ID.name(), role.getId());
+			response.setRoleUuid(credentials.getRoleUuid());
 		}
 
 		// check organization
@@ -401,8 +402,10 @@ public class AuthenticationRestService {
 
 		// check warehouse
 		if (credentials.getWarehouseUuid() != null) {
-			Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, credentials.getWarehouseUuid());
-			builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), credentials.getWarehouseUuid());
+			MWarehouse_BH warehouse = warehouseDBService.getByUuids(Collections.singleton(credentials.getWarehouseUuid()))
+					.get(credentials.getWarehouseUuid());
+			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouse.get_ID());
+			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
 			response.setWarehouseUuid(credentials.getWarehouseUuid());
 		}
 
@@ -450,13 +453,13 @@ public class AuthenticationRestService {
 					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
 					MRole[] roles = user.getRoles(orgResponse.getId());
 					for (MRole role : roles) {
-						Role roleResponse = new Role(role.get_ID(), role.getName());
+						Role roleResponse = new Role(role);
 						orgResponse.getRoles().add(roleResponse);
 
 						if (roles.length == 1) {
 							Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, roleResponse.getId());
 							builder.withClaim(LoginClaims.AD_Role_ID.name(), roleResponse.getId());
-							response.setRoleId(roleResponse.getId());
+							response.setRoleUuid(roleResponse.getUuid());
 						}
 					}
 
@@ -468,8 +471,8 @@ public class AuthenticationRestService {
 
 						// set default warehouse
 						if (warehouses.length == 1) {
-							Env.setContext(Env.getCtx(), M_WAREHOUSE_UUID, warehouseResponse.getUuid());
-							builder.withClaim(LoginClaims.M_Warehouse_Uuid.name(), warehouseResponse.getUuid());
+							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getId());
+							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getId());
 							response.setWarehouseUuid(warehouseResponse.getUuid());
 						}
 					}

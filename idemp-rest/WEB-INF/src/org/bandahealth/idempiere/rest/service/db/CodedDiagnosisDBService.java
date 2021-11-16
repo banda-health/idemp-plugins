@@ -92,6 +92,7 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		String searchValueParameter = constructSearchValue(valueToSearch);
 
 		List<Object> parameters = new ArrayList<>();
+		parameters.add("Y");
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
@@ -99,7 +100,8 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		parameters.add(searchValueParameter);
 		parameters.add(searchValueParameter);
 
-		String searchClause = MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_ID + " IN (SELECT "
+		String searchClause = MBHCodedDiagnosis.COLUMNNAME_IsActive + " = ? AND ("
+				+ MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_ID + " IN (SELECT "
 				+ MBHCodedDiagnosisMapping.COLUMNNAME_BH_Coded_Diagnosis_ID + " FROM "
 				+ MBHCodedDiagnosisMapping.Table_Name + " WHERE " + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptCode
 				+ " = ? OR LOWER(" + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptNameResolved + ") LIKE ? ) OR "
@@ -116,6 +118,8 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		} catch (NumberFormatException ex) {
 			// do nothing
 		}
+		
+		searchClause += ")";
 
 		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
