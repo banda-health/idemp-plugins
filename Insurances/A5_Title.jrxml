@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Title" pageWidth="420" pageHeight="595" columnWidth="400" leftMargin="0" rightMargin="20" topMargin="0" bottomMargin="0" uuid="63c2a694-3a2f-4d1f-9525-1e929535ae92">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Title" pageWidth="420" pageHeight="595" columnWidth="400" leftMargin="0" rightMargin="20" topMargin="5" bottomMargin="0" uuid="63c2a694-3a2f-4d1f-9525-1e929535ae92">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select o.ad_org_id,
@@ -24,15 +33,15 @@ where c.c_order_uu = $P{C_Order_UU};]]>
 	<field name="phone" class="java.lang.String"/>
 	<field name="city" class="java.lang.String"/>
 	<title>
-		<band height="75" splitType="Stretch">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+		<band height="61" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="230" y="5" width="190" height="16" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="b1cec7ed-c752-4275-bf7c-5ba2ab438e41"/>
 				<textElement textAlignment="Left">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[UPPER($F{Client_name})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="230" y="21" width="190" height="13" isRemoveLineWhenBlank="true" uuid="5e9a818a-e639-41c5-a139-12ef955f94ad"/>
 				<textElement textAlignment="Left">
 					<font isBold="true"/>
@@ -44,7 +53,7 @@ where c.c_order_uu = $P{C_Order_UU};]]>
 				<textElement textAlignment="Left">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{city} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="230" y="48" width="190" height="13" isRemoveLineWhenBlank="true" uuid="c531461b-738b-4601-a21e-199002f194b1"/>
@@ -54,7 +63,7 @@ where c.c_order_uu = $P{C_Order_UU};]]>
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="FillFrame">
-				<reportElement mode="Transparent" x="9" y="5" width="100" height="65" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4"/>
+				<reportElement mode="Transparent" x="9" y="5" width="100" height="56" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4"/>
 				<imageExpression><![CDATA[$F{image}]]></imageExpression>
 			</image>
 		</band>
