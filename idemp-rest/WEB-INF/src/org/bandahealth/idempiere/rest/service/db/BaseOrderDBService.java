@@ -165,6 +165,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				int count = 0;
 				for (OrderLine orderLine : orderLines) {
 					orderLine.setOrderId(mOrder.get_ID());
+					orderLine.setOrder(mOrder);
 					OrderLine response = orderLineDBService.saveEntity(orderLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < orderLines.size()) {
