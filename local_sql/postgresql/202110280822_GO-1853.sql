@@ -7,7 +7,7 @@ INSERT INTO adempiere.ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, crea
 --provide window access for triage role
 INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate)VALUES ((SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'), 0, 0, 'Y', '2021-10-27 20:17:44.316000', 100, '2021-10-27 20:17:44.316000', 100, 'Y', '80c4d35a-34cd-4107-a357-37abd5f8c9f5', 'N')ON CONFLICT DO NOTHING;
 
--- Util function that adds the new role to all existing clients and includes it as a default reole for
+-- Util function that adds the new role to all existing clients and includes it as a default role for
 -- new clients
 CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, db_usertype VARCHAR(1)) RETURNS VOID
 	LANGUAGE plpgsql
@@ -101,6 +101,9 @@ BEGIN
             (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'),
             null, null, 'U', 'c12fae5c-0307-41ae-9555-8d283333a11d', null, null)
     ON CONFLICT DO NOTHING;
+
+    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1),'83c3e42d-e1bb-47cb-b948-e985b2d5d943', '2021-11-17 13:34:25.505000', 100, 'T', null, 'Y', null, '2021-11-17 13:34:25.505000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'));
+    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1),'0bb7f075-cb07-45aa-b488-bb8046369b78', '2021-11-17 13:34:08.893000', 100, 'T', null, 'Y', null, '2021-11-17 13:34:08.893000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'));
 
     RAISE NOTICE 'New user role added to % clients', clients_updated;
 END;
