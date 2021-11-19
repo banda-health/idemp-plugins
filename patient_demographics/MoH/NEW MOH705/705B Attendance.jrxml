@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705B Attendance" pageWidth="900" pageHeight="595" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="067eb101-e143-46d7-ab02-d6ce3d9d6796">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705B Attendance" pageWidth="900" pageHeight="595" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="067eb101-e143-46d7-ab02-d6ce3d9d6796">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -129,9 +120,9 @@ from c_order c
 	<field name="calendar" class="java.util.Date"/>
 	<field name="name" class="java.lang.String"/>
 	<summary>
-		<band height="113" splitType="Stretch">
+		<band height="61" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="0" width="870" height="110" uuid="c5797792-bffd-4d6d-8a89-1d31b0553d5d">
+				<reportElement x="0" y="0" width="870" height="60" uuid="c5797792-bffd-4d6d-8a89-1d31b0553d5d">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
 					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
@@ -169,16 +160,23 @@ from c_order c
 								<reportElement x="22" y="0" width="160" height="20" uuid="0dab46b2-7825-4f6e-b1ee-e65419882dca">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
+								<box>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$V{attendance}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="1" y="0" width="21" height="20" uuid="8f3c96cf-3da8-422c-91fc-d630d11840ad"/>
 								<box>
-									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
@@ -186,12 +184,10 @@ from c_order c
 						</cellContents>
 					</crosstabRowHeader>
 					<crosstabTotalRowHeader>
-						<cellContents mode="Opaque" style="Crosstab_CT">
-							<staticText>
-								<reportElement x="0" y="0" width="182" height="20" forecolor="#FFFFFF" uuid="cee2dddc-6c81-41a0-bc12-1edabd91701d"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Total attendance]]></text>
-							</staticText>
+						<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
+							<box>
+								<pen lineColor="#FFFFFF"/>
+							</box>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
@@ -233,6 +229,12 @@ from c_order c
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<textField>
 							<reportElement x="0" y="0" width="20" height="20" uuid="303acf55-0c59-458f-9b22-12c8b8731089"/>
+							<box>
+								<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
 						</textField>
@@ -245,6 +247,12 @@ from c_order c
 							<reportElement x="0" y="0" width="38" height="20" forecolor="#FFFFFF" uuid="b18eb13c-fdc8-46b6-bad3-c4f368ec843c">
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							</reportElement>
+							<box>
+								<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
 						</textField>
@@ -252,34 +260,30 @@ from c_order c
 							<reportElement mode="Opaque" x="39" y="0" width="21" height="20" uuid="bf622d22-b7c8-4761-b1da-e2e874cb7ea4">
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							</reportElement>
+							<box>
+								<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="20" height="20" rowTotalGroup="attendance">
-					<cellContents mode="Opaque" style="Crosstab_CT">
-						<textField>
-							<reportElement x="0" y="0" width="20" height="20" forecolor="#FFFFFF" uuid="c4fb623e-7863-4721-95ed-43d701dc07f3"/>
-							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
-						</textField>
+				<crosstabCell width="20" height="5" rowTotalGroup="attendance">
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
+						<box>
+							<pen lineColor="#FFFFFF"/>
+						</box>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="attendance" columnTotalGroup="calendar">
-					<cellContents mode="Opaque" style="Crosstab_CT">
+				<crosstabCell width="60" height="5" rowTotalGroup="attendance" columnTotalGroup="calendar">
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-						<textField>
-							<reportElement x="0" y="0" width="38" height="20" forecolor="#FFFFFF" uuid="b5a633da-c9cb-41d5-a310-972529c77c46">
-								<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							</reportElement>
-							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
-						</textField>
-						<staticText>
-							<reportElement mode="Opaque" x="38" y="1" width="22" height="18" uuid="bf2617cc-eebf-4b08-ad5f-cb301ff836b2"/>
-							<text><![CDATA[]]></text>
-						</staticText>
+						<box>
+							<pen lineColor="#FFFFFF"/>
+						</box>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>

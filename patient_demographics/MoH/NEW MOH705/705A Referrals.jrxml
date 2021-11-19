@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Referrals" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="1" bottomMargin="20" uuid="fbf82885-3c3c-421b-983c-d6bc70465fda">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Referrals" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="fbf82885-3c3c-421b-983c-d6bc70465fda">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -185,15 +194,7 @@ from c_order c
 						</cellContents>
 					</crosstabRowHeader>
 					<crosstabTotalRowHeader>
-						<cellContents mode="Opaque" style="Crosstab_CT">
-							<staticText>
-								<reportElement x="0" y="0" width="180" height="20" forecolor="#FFFFFF" uuid="f5f4e1ca-b111-4f4b-8167-cc2c40ebaf58"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[Total Referral]]></text>
-							</staticText>
-						</cellContents>
+						<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT"/>
 					</crosstabTotalRowHeader>
 				</rowGroup>
 				<columnGroup name="calendar" height="20" totalPosition="End">
@@ -254,26 +255,11 @@ from c_order c
 					</cellContents>
 				</crosstabCell>
 				<crosstabCell width="20" height="20" rowTotalGroup="name">
-					<cellContents mode="Opaque" style="Crosstab_CT">
-						<textField>
-							<reportElement x="0" y="0" width="20" height="20" forecolor="#FFFFFF" uuid="0a03f1f9-c5dd-43d3-af2e-856d271e7272"/>
-							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
-						</textField>
-					</cellContents>
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT"/>
 				</crosstabCell>
 				<crosstabCell width="60" height="20" rowTotalGroup="name" columnTotalGroup="calendar">
-					<cellContents mode="Opaque" style="Crosstab_CT">
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-						<textField>
-							<reportElement x="0" y="0" width="41" height="20" forecolor="#FFFFFF" uuid="ae8d32ca-ab49-46ac-8c88-cc4103927bac"/>
-							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
-						</textField>
-						<staticText>
-							<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="79f20eaa-25de-4557-8091-d7730ec56570"/>
-							<text><![CDATA[]]></text>
-						</staticText>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
