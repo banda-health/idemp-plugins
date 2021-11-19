@@ -189,7 +189,7 @@ ORDER BY dlo."order", dali.calendar]]>
 		</group>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
     date(c.bh_visitdate) as calendar,
@@ -267,7 +267,7 @@ from c_order c
 	<summary>
 		<band height="111" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="10" width="868" height="100" isPrintWhenDetailOverflows="true" uuid="c1d01187-ccbd-4e22-a691-61e4b7d1debf">
+				<reportElement x="0" y="10" width="860" height="100" isPrintWhenDetailOverflows="true" uuid="c1d01187-ccbd-4e22-a691-61e4b7d1debf">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
 					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
@@ -275,9 +275,10 @@ from c_order c
 					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
 				</reportElement>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<crosstabDataset isDataPreSorted="true">
@@ -542,6 +543,12 @@ from c_order c
 			</crosstab>
 			<textField>
 				<reportElement x="2" y="10" width="188" height="20" uuid="899c77d3-3801-4b39-b03a-0546677630ec"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
