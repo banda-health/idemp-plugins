@@ -3,15 +3,6 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Referrals" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="fbf82885-3c3c-421b-983c-d6bc70465fda">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -123,7 +114,7 @@ ORDER BY dl.Referral ASC;]]>
 		</group>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select
     date(c.bh_visitdate) as calendar,
@@ -139,9 +130,9 @@ from c_order c
 	<field name="name" class="java.lang.String"/>
 	<field name="calendar" class="java.sql.Date"/>
 	<summary>
-		<band height="77" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="0" width="860" height="70" uuid="efe2ecaa-bfb8-4d32-a8aa-c536fe5e1b27">
+				<reportElement x="0" y="0" width="860" height="20" uuid="efe2ecaa-bfb8-4d32-a8aa-c536fe5e1b27">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
 					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
@@ -175,9 +166,11 @@ from c_order c
 						<cellContents mode="Opaque" style="Crosstab_CH">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<textField>
-								<reportElement x="21" y="1" width="159" height="19" uuid="0d697416-3fc9-483a-b4e5-da23262c4349"/>
+								<reportElement mode="Transparent" x="21" y="1" width="159" height="19" backcolor="#FFFFFF" uuid="0d697416-3fc9-483a-b4e5-da23262c4349"/>
 								<box leftPadding="4"/>
-								<textElement verticalAlignment="Middle"/>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$V{name}]]></textFieldExpression>
 							</textField>
 							<textField>
@@ -189,41 +182,27 @@ from c_order c
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
+								<textFieldExpression><![CDATA["7" + ($V{ROW_COUNT} + 3)]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>
 					<crosstabTotalRowHeader>
-						<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT"/>
+						<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="calendar" height="20" totalPosition="End">
+				<columnGroup name="calendar" height="0" totalPosition="End">
 					<bucket class="java.sql.Date">
 						<bucketExpression><![CDATA[$F{calendar}]]></bucketExpression>
 					</bucket>
 					<crosstabColumnHeader>
-						<cellContents mode="Opaque" style="Crosstab_CH">
-							<textField>
-								<reportElement x="0" y="0" width="20" height="20" uuid="f74ff5ff-2291-4442-850a-1a939fd1ab75"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[DAY($V{calendar})]]></textFieldExpression>
-							</textField>
-						</cellContents>
+						<cellContents mode="Opaque" style="Crosstab_CH"/>
 					</crosstabColumnHeader>
 					<crosstabTotalColumnHeader>
 						<cellContents mode="Opaque" style="Crosstab_CT">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-							<staticText>
-								<reportElement x="0" y="0" width="41" height="20" forecolor="#FFFFFF" uuid="ee4a2f1d-e7ad-46a7-950a-a5394071cd8b"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[Total calendar]]></text>
-							</staticText>
-							<staticText>
-								<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="3e21d5b5-07e7-4ae2-b5dc-ed6ddde1ffe6"/>
-								<text><![CDATA[]]></text>
-							</staticText>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
@@ -250,27 +229,19 @@ from c_order c
 						<textField>
 							<reportElement mode="Opaque" x="41" y="0" width="19" height="20" uuid="fc4dbb12-eb00-4e9d-a21c-3548edbd04d4"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
+							<textFieldExpression><![CDATA["7" + ($V{ROW_COUNT} + 3)]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="20" height="20" rowTotalGroup="name">
+				<crosstabCell width="20" height="0" rowTotalGroup="name">
 					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT"/>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="name" columnTotalGroup="calendar">
+				<crosstabCell width="60" height="0" rowTotalGroup="name" columnTotalGroup="calendar">
 					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
-			<staticText>
-				<reportElement x="0" y="0" width="170" height="20" uuid="5207d752-1648-458f-9f28-ceb6f5d8a7d9"/>
-				<box leftPadding="10"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Referrals]]></text>
-			</staticText>
 		</band>
 	</summary>
 </jasperReport>
