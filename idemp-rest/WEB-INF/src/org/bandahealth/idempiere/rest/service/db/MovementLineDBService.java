@@ -122,16 +122,11 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 	}
 
 	public List<MovementLine> getLinesByMovement(MMovement_BH movement) {
-		List<MovementLine> results = new ArrayList<>();
-
 		List<MMovementLine_BH> lines = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
 				MMovementLine_BH.COLUMNNAME_M_Movement_ID + "=?", null).setParameters(movement.get_ID())
 						.setOnlyActiveRecords(true).setClient_ID().list();
-		lines.forEach(line -> {
-			results.add(createInstanceWithDefaultFields(line));
-		});
-
-		return results;
+		
+		return transformData(lines);
 	}
 
 	@Override
@@ -189,7 +184,7 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 						+ QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters) + ")",
 				null).setParameters(parameters).list();
 		dbModels.forEach((line) -> {
-			MovementLine movementLine = new MovementLine(line);
+			MovementLine movementLine = createInstanceWithAllFields(line);
 
 			Optional<MProduct_BH> foundProduct = products.stream().filter((product) -> {
 				return product.get_ID() == line.getM_Product_ID();
