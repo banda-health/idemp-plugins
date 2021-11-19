@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,7 +116,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 				}
 			}
 
-			return createInstanceWithAllFields(getEntityByUuidFromDB(mMovement.getM_Movement_UU()));
+			return getEntity(mMovement.getM_Movement_UU()); 
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -169,6 +170,11 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	}
 
 	@Override
+	public Movement getEntity(String uuid) {
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
+	}
+
+	@Override
 	public List<Movement> transformData(List<MMovement_BH> dbModels) {
 		List<Movement> results = new ArrayList<>();
 
@@ -184,7 +190,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 						+ QueryUtil.getWhereClauseAndSetParametersForSet(userIds, parameters) + ")",
 				null).setParameters(parameters).list();
 		dbModels.forEach((mMovement) -> {
-			Movement movement = new Movement(mMovement);
+			Movement movement = createInstanceWithAllFields(mMovement);
 			if (mMovement.getBH_FromWarehouseID() > 0) {
 				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
 					return warehouse.get_ID() == mMovement.getBH_FromWarehouseID();
