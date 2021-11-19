@@ -37,10 +37,21 @@ from c_order c
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "705B Cases.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="120">
+		<band height="236">
 			<printWhenExpression><![CDATA[($V{REPORT_COUNT}.intValue()==1)]]></printWhenExpression>
 			<subreport>
-				<reportElement x="0" y="-6" width="870" height="100" uuid="1dfbef15-5edd-4ab2-85d7-e52d80ae9d29"/>
+				<reportElement x="0" y="0" width="878" height="110" uuid="4d700c34-1685-423f-914c-ff92e0614b34"/>
+				<subreportParameter name="AD_CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Begin Date">
+					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["705B Attendance.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="70" width="878" height="100" uuid="1dfbef15-5edd-4ab2-85d7-e52d80ae9d29"/>
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
 				</subreportParameter>

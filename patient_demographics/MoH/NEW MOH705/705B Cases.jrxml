@@ -265,7 +265,7 @@ from c_order c
 		</band>
 	</pageHeader>
 	<summary>
-		<band height="150" splitType="Stretch">
+		<band height="111" splitType="Stretch">
 			<crosstab>
 				<reportElement x="0" y="10" width="868" height="100" isPrintWhenDetailOverflows="true" uuid="c1d01187-ccbd-4e22-a691-61e4b7d1debf">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
