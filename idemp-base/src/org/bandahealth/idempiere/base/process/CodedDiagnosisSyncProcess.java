@@ -44,7 +44,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	private final int LIMIT = 100;
 	private String OCL_BASE_URL = "https://api.openconceptlab.org";
-	private String URI_OPTIONS = "?includeMappings=true&sortAsc=name&verbose=true";
+	private String URI_OPTIONS = "?includeRetired=true&includeMappings=true&sortAsc=name&verbose=true";
 	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CIEL = "CIEL";
 	private final String ICD_10_WHO = "ICD-10-WHO";
@@ -108,53 +108,70 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 							.setParameters(parameters).list();
 
 			codedDiagnoses.forEach(codedDiagnosis -> {
-				// search for coded diagnosis in db list
-				MBHCodedDiagnosis foundCodedDiagnosis = mCodedDiagnoses.stream()
-						.filter(filterCodedDiagnosis -> codedDiagnosis.getExternalId()
-								.equals(filterCodedDiagnosis.getBH_CodedDiagnosis_UU()))
-						.findFirst().orElse(null);
-				if (foundCodedDiagnosis == null) {
-					// new record
-					foundCodedDiagnosis = new MBHCodedDiagnosis(getCtx(), 0, null);
-					foundCodedDiagnosis.setBH_CodedDiagnosis_UU(
-							codedDiagnosis.getExternalId() != null && !codedDiagnosis.getExternalId().isEmpty()
-									? codedDiagnosis.getExternalId()
-									: codedDiagnosis.getUuid());
-					newRecords.incrementAndGet();
-				} else {
-					updatedRecords.incrementAndGet();
+				try {
+					// search for coded diagnosis in db list
+					MBHCodedDiagnosis foundCodedDiagnosis = mCodedDiagnoses.stream()
+							.filter(filterCodedDiagnosis -> codedDiagnosis.getExternalId()
+									.equals(filterCodedDiagnosis.getBH_CodedDiagnosis_UU()))
+							.findFirst().orElse(null);
+					if (foundCodedDiagnosis == null) {
+						// new record
+						// if the external_id field is not set in OCL, we need to check if the name is
+						// present to avoid creating
+						// duplicates
+						if (codedDiagnosis.getExternalId() == null || codedDiagnosis.getExternalId().isEmpty()) {
+							foundCodedDiagnosis = new Query(getCtx(), MBHCodedDiagnosis.Table_Name,
+									MBHCodedDiagnosis.COLUMNNAME_BH_CielName + " = ?", null)
+											.setParameters(codedDiagnosis.getDisplayName()).first();
+						}
+
+						if (foundCodedDiagnosis == null) {
+							foundCodedDiagnosis = new MBHCodedDiagnosis(getCtx(), 0, null);
+							if (codedDiagnosis.getExternalId() != null && !codedDiagnosis.getExternalId().isEmpty()) {
+								foundCodedDiagnosis.setBH_CodedDiagnosis_UU(codedDiagnosis.getExternalId());
+							}
+
+							newRecords.incrementAndGet();
+						} else {
+							updatedRecords.incrementAndGet();
+						}
+
+					} else {
+						updatedRecords.incrementAndGet();
+					}
+
+					foundCodedDiagnosis.setIsActive(!codedDiagnosis.isRetired());
+
+					List<OCLCodedDiagnosisMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
+					OCLCodedDiagnosisMapping cielMapping = codedDiagnosisMapping.stream()
+							.filter(mapping -> CIEL.equals(mapping.getToSourceName())).findFirst().orElse(null);
+					OCLCodedDiagnosisMapping icd10wHOMapping = codedDiagnosisMapping.stream()
+							.filter(mapping -> ICD_10_WHO.equals(mapping.getToSourceName())).findFirst().orElse(null);
+					Map<String, String> extras = codedDiagnosis.getExtras();
+
+					foundCodedDiagnosis.setBH_CielName(codedDiagnosis.getDisplayName());
+
+					if (cielMapping != null && cielMapping.getToConceptCode() != null) {
+						foundCodedDiagnosis.setBH_CielId(Integer.valueOf(cielMapping.getToConceptCode()));
+					}
+
+					foundCodedDiagnosis.setBH_ConceptClass(codedDiagnosis.getConceptClass());
+
+					if (icd10wHOMapping != null && icd10wHOMapping.getToConceptCode() != null) {
+						foundCodedDiagnosis.setBH_ICD10(icd10wHOMapping.getToConceptCode());
+					}
+
+					foundCodedDiagnosis.setBH_MoH705ALessThan5(extras.get(MOH_705A_LESSTHAN5));
+					foundCodedDiagnosis.setBH_MoH705BGreaterThan5(extras.get(MOH_705B_GREATERTHAN5));
+					foundCodedDiagnosis.setBH_SearchTerms(extras.get(INDEX_TERMS));
+
+					foundCodedDiagnosis.saveEx();
+
+					downloadChildMappings(foundCodedDiagnosis, codedDiagnosis, codedDiagnosisMapping);
+				} catch (Exception ex) {
+					log.log(Level.SEVERE, ex.getMessage());
 				}
-
-				foundCodedDiagnosis.setIsActive(!codedDiagnosis.isRetired());
-
-				List<OCLCodedDiagnosisMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
-				OCLCodedDiagnosisMapping cielMapping = codedDiagnosisMapping.stream()
-						.filter(mapping -> CIEL.equals(mapping.getToSourceName())).findFirst().orElse(null);
-				OCLCodedDiagnosisMapping icd10wHOMapping = codedDiagnosisMapping.stream()
-						.filter(mapping -> ICD_10_WHO.equals(mapping.getToSourceName())).findFirst().orElse(null);
-				Map<String, String> extras = codedDiagnosis.getExtras();
-
-				foundCodedDiagnosis.setBH_CielName(codedDiagnosis.getDisplayName());
-
-				if (cielMapping != null && cielMapping.getToConceptCode() != null) {
-					foundCodedDiagnosis.setBH_CielId(Integer.valueOf(cielMapping.getToConceptCode()));
-				}
-
-				foundCodedDiagnosis.setBH_ConceptClass(codedDiagnosis.getConceptClass());
-
-				if (icd10wHOMapping != null && icd10wHOMapping.getToConceptCode() != null) {
-					foundCodedDiagnosis.setBH_ICD10(icd10wHOMapping.getToConceptCode());
-				}
-
-				foundCodedDiagnosis.setBH_MoH705ALessThan5(extras.get(MOH_705A_LESSTHAN5));
-				foundCodedDiagnosis.setBH_MoH705BGreaterThan5(extras.get(MOH_705B_GREATERTHAN5));
-				foundCodedDiagnosis.setBH_SearchTerms(extras.get(INDEX_TERMS));
-
-				foundCodedDiagnosis.saveEx();
-
-				downloadChildMappings(foundCodedDiagnosis, codedDiagnosis, codedDiagnosisMapping);
 			});
-
 		});
 
 		String successMessage = "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
@@ -166,7 +183,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	}
 
 	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page) {
-		String url = constructUrl(source, page, source != null ? LIMIT : 0);
+		String url = constructUrl(source, page, source == null ? LIMIT : 0);
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
 				.build();
 
