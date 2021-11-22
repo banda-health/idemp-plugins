@@ -24,6 +24,7 @@ import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -168,7 +169,10 @@ public class InventoryDBService {
 	}
 
 	public void updateStock(Inventory entity) {
-		UpdateStock.updateStock(Env.getCtx(), null, entity.getProductId(), entity.getAttributeSetInstanceId(),
-				new BigDecimal(entity.getQuantity()));
+		String whereClause = MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID + " IN ("
+				+ entity.getProductId() + ")";
+		List<MProduct_BH> products = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause, null)
+				.setClient_ID().list();
+		InitializeStock.createInitialStock(products, BigDecimal.valueOf(entity.getQuantity()), Env.getCtx(), null);
 	}
 }

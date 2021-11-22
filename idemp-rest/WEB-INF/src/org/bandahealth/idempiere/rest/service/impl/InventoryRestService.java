@@ -43,7 +43,6 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@Override
 	public Inventory saveEntity(Inventory entity) {
 		inventoryDBService.updateStock(entity);
-
 		return entity;
 	}
 
