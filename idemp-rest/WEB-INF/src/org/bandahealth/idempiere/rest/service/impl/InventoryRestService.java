@@ -42,7 +42,7 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Inventory saveEntity(Inventory entity) {
-		inventoryDBService.updateStock(entity);
+		inventoryDBService.updateStockItem(entity);
 		return entity;
 	}
 
