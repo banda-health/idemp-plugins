@@ -9,4 +9,4 @@ INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id,
 -- Delete Triage role's Clinical Details view
 DELETE FROM ad_window_access WHERE ad_window_access_uu = '7570dc6b-fbef-48bb-ab71-fd0c5f946426';
 
-SELECT register_migration_script('202111231407_GO-1856.sql') FROM dual;
+SELECT register_migration_script('202111231407_GO-1853.sql') FROM dual;
