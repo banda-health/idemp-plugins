@@ -1,4 +1,5 @@
-/*--Export triage master role*/INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner, allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)VALUES ((SELECT MAX(ad_role_id) + 1 FROM ad_role), 0, 0, 'Y', '2021-10-27 20:12:08.602000', 100, '2021-10-27 20:14:07.501000', 'Triage', 100, 'A master role for triage users', 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', 0, 0, 'ae618e24-a47a-40cc-bb5c-8dca64d86daf', 'N', 'Y', 'Y', null)ON CONFLICT DO NOTHING;
+/*--Export triage master role*/
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner, allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)VALUES ((SELECT MAX(ad_role_id) + 1 FROM ad_role), 0, 0, 'Y', '2021-10-27 20:12:08.602000', 100, '2021-10-27 20:14:07.501000', 'Triage', 100, 'A master role for triage users', 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', 0, 0, 'ae618e24-a47a-40cc-bb5c-8dca64d86daf', 'N', 'Y', 'Y', null)ON CONFLICT DO NOTHING;
 
 --Create vitals details access window/tab for role
 INSERT INTO adempiere.ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic)VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2021-10-28 09:39:07.474000', 100, '2021-10-28 09:39:20.623000', 100, 'Clinical Vitals', 'Access window for the triage role', null, 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', '53b4d743-c311-40e5-aa8e-c0880c42c1b1', null)ON CONFLICT DO NOTHING;
@@ -8,8 +9,10 @@ INSERT INTO adempiere.ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, crea
 INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate)VALUES ((SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'), 0, 0, 'Y', '2021-10-27 20:17:44.316000', 100, '2021-10-27 20:17:44.316000', 100, 'Y', '80c4d35a-34cd-4107-a357-37abd5f8c9f5', 'N')ON CONFLICT DO NOTHING;
 
 -- Util function that adds the new role to all existing clients and includes it as a default role for
--- new clients
-CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, db_usertype VARCHAR(1)) RETURNS VOID
+-- new clients.
+-- Params: ad_role_to_add_uu : Role uuid of the new master role.
+--         db_user_type: user_type key to be used in ad_reflist for association with the role
+CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, user_type VARCHAR(1)) RETURNS VOID
 	LANGUAGE plpgsql
 AS $$
     DECLARE
@@ -96,17 +99,20 @@ BEGIN
                                        updatedby, value, name, description, ad_reference_id, validfrom, validto,
                                        entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all)
     VALUES ((SELECT MAX(ad_ref_list_id) + 1 from ad_ref_list), 0, 0, 'Y', '2021-11-16 20:23:34.401000', 100,
-            '2021-11-16 20:24:34.615000', 100, db_usertype,
+            '2021-11-16 20:24:34.615000', 100, user_type,
             (SELECT name FROM ad_role WHERE ad_role_uu = ad_role_to_add_uu :: TEXT), '',
             (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'),
             null, null, 'U', 'c12fae5c-0307-41ae-9555-8d283333a11d', null, null)
     ON CONFLICT DO NOTHING;
 
-    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'83c3e42d-e1bb-47cb-b948-e985b2d5d943', '2021-11-17 13:34:25.505000', 100, 'T', null, 'Y', null, '2021-11-17 13:34:25.505000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'));
-    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'0bb7f075-cb07-45aa-b488-bb8046369b78', '2021-11-17 13:34:08.893000', 100, 'T', null, 'Y', null, '2021-11-17 13:34:08.893000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'));
+    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'83c3e42d-e1bb-47cb-b948-e985b2d5d943', '2021-11-17 13:34:25.505000', 100, user_type, null, 'Y', null, '2021-11-17 13:34:25.505000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'));
+    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'0bb7f075-cb07-45aa-b488-bb8046369b78', '2021-11-17 13:34:08.893000', 100, user_type, null, 'Y', null, '2021-11-17 13:34:08.893000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'));
 
     RAISE NOTICE 'New user role added to % clients', clients_updated;
 END;
 $$;
+
+--call procedure to add triage role to clients
+select add_roles_to_clients('ae618e24-a47a-40cc-bb5c-8dca64d86daf', 'T');
 
 SELECT register_migration_script('202110280822_GO-1853.sql') FROM dual;
