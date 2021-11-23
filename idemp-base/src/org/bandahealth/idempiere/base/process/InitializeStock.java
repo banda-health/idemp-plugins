@@ -33,7 +33,7 @@ public class InitializeStock {
 
 	public static int createInitialStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct, Properties context,
 			String transactionName) {
-		return createInitialStock(inventoryByProduct, context, transactionName, false, 0);
+		return createInitialStock(inventoryByProduct, context, transactionName, inventoryByProduct.size() == 1, 0);
 	}
 
 	public static int createInitialStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct, Properties context,
