@@ -1,5 +1,5 @@
 --add system element for new column
-INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id) + 1 FROM ad_element),0, 0, 'Y', '2021-11-23 12:37:53.691000', 100, '2021-11-23 12:37:53.691000', 100, 'bh_update_reason_id', 'U', 'bh_update_reason_id', 'bh_update_reason_id', null, null, null, null, null, null, 'cf161a48-d2ff-4b2e-a45c-1a48f6ea88ef', null);
+INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id) + 1 FROM ad_element),0, 0, 'Y', '2021-11-23 12:37:53.691000', 100, '2021-11-23 12:37:53.691000', 100, 'bh_update_reason', 'U', 'bh_update_reason', 'bh_update_reason', null, null, null, null, null, null, 'cf161a48-d2ff-4b2e-a45c-1a48f6ea88ef', null) ON CONFLICT DO NOTHING;
 --Price update reference
 INSERT INTO adempiere.ad_reference (ad_reference_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, validationtype, vformat, entitytype, isorderbyvalue, ad_reference_uu, ad_element_id)VALUES ((SELECT max(ad_reference_id) + 1 FROM adempiere.ad_reference), 0, 0, 'Y', '2021-11-02 22:06:41.838000', 100, '2021-11-02 22:10:52.692000', 100, 'BH_Inventory_Update_Reasons', 'List of reasons for updating product inventory', null, 'L', null, 'U', 'N', 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f', null) ON CONFLICT DO NOTHING;
 
@@ -12,7 +12,7 @@ INSERT INTO adempiere.ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isac
 INSERT INTO adempiere.ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT max(ad_ref_list_id) + 1 FROM adempiere.ad_ref_list), 0, 0, 'Y', '2021-11-02 22:12:31.056000', 100, '2021-11-02 22:18:19.575000', 100, 'p_bqt', 'Wrong quantity received', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'), null, null, 'U', '982d9571-dc08-4335-a379-041403048053', null, null) ON CONFLICT DO NOTHING;
 
 --add column to hold reason IDs for inventory updates
-alter table idempiere.adempiere.m_inventory
-add column if not exists bh_update_reason_id int references ad_ref_list(ad_ref_list_id);
+alter table m_inventory
+add column if not exists bh_update_reason varchar(10);
 
 SELECT register_migration_script('202111022251_GO-1851.sql') FROM dual;
