@@ -55,6 +55,7 @@
 		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="567"/>
 		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="422"/>
 		<parameter name="Begin Date" class="java.sql.Date"/>
+		<parameter name="End Date" class="java.sql.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
@@ -189,6 +190,7 @@ ORDER BY dlo."order", dali.calendar]]>
 		</group>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
@@ -283,9 +285,12 @@ from c_order c
 				</box>
 				<crosstabDataset isDataPreSorted="true">
 					<dataset>
-						<datasetRun subDataset="Cases" uuid="0925ca07-f635-45c6-8955-9474595ca5bd">
+						<datasetRun subDataset="Cases" uuid="8207855b-065f-4354-a126-af12bd76ebc7">
 							<datasetParameter name="Begin Date">
 								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
 							</datasetParameter>
 							<datasetParameter name="AD_CLIENT_ID">
 								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
