@@ -125,10 +125,11 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 		<parameter name="Begin Date" class="java.sql.Date"/>
+		<parameter name="End Date" class="java.sql.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-    SELECT generate_series(date($P{Begin Date}), date($P{Begin Date}) + interval '1 month' - interval '1 day', interval '1 day') AS calendar
+     SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ), diagnosis_list AS (
     SELECT DISTINCT
         bh_moh705a_lessthan5 as diagnosis
@@ -260,6 +261,7 @@ ORDER BY dlo."order", dali.calendar]]>
 		</group>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select
@@ -349,9 +351,12 @@ from c_order c
 				</box>
 				<crosstabDataset isDataPreSorted="true">
 					<dataset>
-						<datasetRun subDataset="MOH_A Dataset" uuid="a2ca06dd-e9fe-48f1-812c-22425a2452c0">
+						<datasetRun subDataset="MOH_A Dataset" uuid="2b8f2d40-004b-493e-9a5e-d19459b57525">
 							<datasetParameter name="Begin Date">
 								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
 							</datasetParameter>
 							<datasetParameter name="AD_CLIENT_ID">
 								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
@@ -417,10 +422,11 @@ from c_order c
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								</reportElement>
 								<box leftPadding="2">
-									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080808"/>
-									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080808"/>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="10"/>
@@ -430,7 +436,11 @@ from c_order c
 							<staticText>
 								<reportElement mode="Opaque" x="22" y="0" width="158" height="20" backcolor="#F0F8FF" uuid="fab32a9e-fc94-4cd1-b2de-92fef1b17d67"/>
 								<box>
-									<pen lineWidth="0.75"/>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 								</box>
 								<text><![CDATA[]]></text>
 							</staticText>

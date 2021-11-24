@@ -43,10 +43,11 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 		<parameter name="Begin Date" class="java.util.Date"/>
+		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-	SELECT generate_series(date($P{Begin Date}), date($P{Begin Date}) + interval '1 month' - interval '1 day', interval '1 day') AS calendar
+	SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
      referral_list AS (
          SELECT DISTINCT r.name, r.value as Referral
@@ -114,6 +115,7 @@ ORDER BY dl.Referral ASC;]]>
 		</group>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select
@@ -147,9 +149,12 @@ from c_order c
 				</box>
 				<crosstabDataset>
 					<dataset>
-						<datasetRun subDataset="ReferralsDataSet" uuid="8fad24ad-574d-4753-b6f3-a01c384afb0d">
+						<datasetRun subDataset="ReferralsDataSet" uuid="88702f87-05c6-4870-8d2d-52ce094eebff">
 							<datasetParameter name="Begin Date">
 								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
 							</datasetParameter>
 							<datasetParameter name="AD_CLIENT_ID">
 								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
