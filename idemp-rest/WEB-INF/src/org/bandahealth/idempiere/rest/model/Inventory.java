@@ -24,7 +24,7 @@ public class Inventory extends BaseEntity {
 	}
 
 	public Inventory(int productId, int warehouseId, String productName, String expiration, int quantity, int shelfLife,
-			int attributeSetInstanceId, int clientId, int orgId, String created, int createdBy, String description, String updateReasonUuid) {
+			int attributeSetInstanceId, int clientId, int orgId, String created, int createdBy, String description) {
 		super(clientId, orgId, null, true, created, createdBy, null, description);
 
 		this.productId = productId;
