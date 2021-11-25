@@ -153,7 +153,7 @@ public class InventoryDBService {
 				Inventory inventory = new Inventory(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
 						DateUtil.parseDateOnly(resultSet.getTimestamp(4)), resultSet.getInt(5), resultSet.getInt(6),
 						resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9),
-						DateUtil.parse(resultSet.getTimestamp(10)), resultSet.getInt(11), resultSet.getString(12));
+						DateUtil.parse(resultSet.getTimestamp(10)), resultSet.getInt(11), resultSet.getString(12), resultSet.getString(13));
 				results.add(inventory);
 			} catch (Exception ex) {
 				log.warning("Error processing inventory items: " + ex.getMessage());
@@ -226,9 +226,9 @@ public class InventoryDBService {
 		inventory.setM_Warehouse_ID(warehouse.get_ID());
 
 		inventory.setC_DocType_ID(inventoryDocTypeId);
-		if (entity.getUpdateReason() != null) {
+		if (entity.getUpdateReasonUuid() != null) {
 			inventory.setbh_update_reason(
-					referenceListDBService.getEntityByUuidFromDB(entity.getUpdateReason().getUuid()).getValue());
+					referenceListDBService.getEntityByUuidFromDB(entity.getUpdateReasonUuid()).getValue());
 		}
 		inventory.save(null);
 

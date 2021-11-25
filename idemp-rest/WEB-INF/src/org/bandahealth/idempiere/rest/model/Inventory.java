@@ -18,13 +18,13 @@ public class Inventory extends BaseEntity {
 	private int quantity;
 	private int shelfLife;
 	private int attributeSetInstanceId;
-	private ReferenceList updateReason;
+	private String updateReasonUuid;
 
 	public Inventory() {
 	}
 
 	public Inventory(int productId, int warehouseId, String productName, String expiration, int quantity, int shelfLife,
-			int attributeSetInstanceId, int clientId, int orgId, String created, int createdBy, String description) {
+			int attributeSetInstanceId, int clientId, int orgId, String created, int createdBy, String description, String updateReasonUuid) {
 		super(clientId, orgId, null, true, created, createdBy, null, description);
 
 		this.productId = productId;
@@ -34,6 +34,7 @@ public class Inventory extends BaseEntity {
 		this.quantity = quantity;
 		this.shelfLife = shelfLife;
 		this.attributeSetInstanceId = attributeSetInstanceId;
+		this.updateReasonUuid = updateReasonUuid;
 	}
 
 	public int getProductId() {
@@ -92,11 +93,11 @@ public class Inventory extends BaseEntity {
 		this.attributeSetInstanceId = attributeSetInstanceId;
 	}
 	
-	public void setUpdateReason(ReferenceList updateReason) {
-		this.updateReason = updateReason;
+	public void setUpdateReasonUuid(String updateReason) {
+		this.updateReasonUuid = updateReason;
 	}
 	
-	public ReferenceList getUpdateReason() {
-		return updateReason;
+	public String getUpdateReasonUuid() {
+		return updateReasonUuid;
 	}
 }
