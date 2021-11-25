@@ -98,6 +98,6 @@ INSERT INTO adempiere.bh_defaultincludedrole (bh_defaultincludedrole_id, ad_clie
 INSERT INTO adempiere.bh_defaultincludedrole (bh_defaultincludedrole_id, ad_client_id, ad_org_id, bh_defaultincludedrole_uu, created, createdby, description, isactive, name, updated, updatedby, included_role_id, db_usertype) VALUES ((SELECT MAX(BH_Defaultincludedrole_ID)+1 FROM BH_Defaultincludedrole), 0, 0, 'e0ad5b0a-92a7-4a2e-ad8a-e8939fa0a0bd', '2021-11-17 19:32:54.687000', 100, null, 'Y', null, '2021-11-17 19:32:54.687000', 100, (SELECT AD_Role_ID FROM AD_Role WHERE AD_Role_UU='c54253cf-c86b-4aaa-b472-ed8880635c62'), '1') ON CONFLICT DO NOTHING;
 
 select add_roles_to_clients('ee008abc-2c16-4230-b48c-b1f5577ea270', 'CA');
-select add_roles_to_clients('c54253cf-c86b-4aaa-b472-ed8880635c62', 'CA');
+select add_roles_to_clients('c54253cf-c86b-4aaa-b472-ed8880635c62', 'NA');
 
 SELECT register_migration_script('202111161121_GO-1781.sql') FROM dual;
