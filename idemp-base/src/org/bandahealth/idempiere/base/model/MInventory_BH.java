@@ -6,12 +6,13 @@ import java.util.Properties;
 import org.compiere.model.MWarehouse;
 
 public class MInventory_BH extends org.compiere.model.MInventory {
-	
+
 	/**
-	 * 
+	 * Column name bh_update_reason
 	 */
+	public static final String COLUMNNAME_bh_update_reason = "bh_update_reason";
+
 	private static final long serialVersionUID = -7140493467408459522L;
-	private Integer updateReasonId;
 
 	public MInventory_BH(Properties ctx, int M_Inventory_ID, String trxName) {
 		super(ctx, M_Inventory_ID, trxName);
@@ -25,12 +26,22 @@ public class MInventory_BH extends org.compiere.model.MInventory {
 		super(wh, trxName);
 	}
 
-	public Integer getUpdateReasonId() {
-		return updateReasonId;
+	/**
+	 * Set bh_update_reason.
+	 *
+	 * @param bh_update_reason bh_update_reason
+	 */
+	public void setbh_update_reason(String bh_update_reason) {
+
+		set_Value(COLUMNNAME_bh_update_reason, bh_update_reason);
 	}
 
-	public void setUpdateReasonId(Integer updateReasonId) {
-		this.updateReasonId = updateReasonId;
+	/**
+	 * Get bh_update_reason.
+	 *
+	 * @return bh_update_reason
+	 */
+	public String getbh_update_reason() {
+		return (String) get_Value(COLUMNNAME_bh_update_reason);
 	}
-	
 }

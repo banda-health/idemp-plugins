@@ -43,6 +43,7 @@ public class InventoryDBService {
 
 	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
 	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
 
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder,
@@ -186,13 +187,13 @@ public class InventoryDBService {
 		updateStorangeOnHand.setQtyOnHand(BigDecimal.valueOf(entity.getQuantity()));
 		Map<MProduct_BH, List<MStorageOnHand>> updateEntry = new HashMap<>();
 		updateEntry.put(productToUpdate, Collections.singletonList(updateStorangeOnHand));
-		
+
 		if (updateEntry == null || updateEntry.keySet().isEmpty()) {
 			log.severe("No products were passed to initialize stock.");
 			throw new AdempiereException("No products were passed to initialize stock.");
 		}
 		int count = 0;
-		
+
 		Integer warehouseId = entity.getWarehouseId();
 		MWarehouse warehouse = null;
 		if (warehouseId == 0) {
@@ -210,7 +211,7 @@ public class InventoryDBService {
 		// Get the list of products that actually have inventory
 		Set<MProduct_BH> productsWithInitialInventory = updateEntry.entrySet().stream().filter(
 						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
-								storageOnHand ->  storageOnHand.getQtyOnHand() != null &&
+								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
 										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
@@ -225,50 +226,52 @@ public class InventoryDBService {
 		inventory.setM_Warehouse_ID(warehouse.get_ID());
 
 		inventory.setC_DocType_ID(inventoryDocTypeId);
-		inventory.setUpdateReasonId(entity.getUpdateReason());
+		if (entity.getUpdateReason() != null) {
+			inventory.setbh_update_reason(
+					referenceListDBService.getEntityByUuidFromDB(entity.getUpdateReason().getUuid()).getValue());
+		}
 		inventory.save(null);
 
-			MWarehouse finalWarehouse = warehouse;
-			for (MProduct_BH product : productsWithInitialInventory) {
-				
-				updateEntry.get(product).forEach((storageOnHand -> {
-					BigDecimal desiredQuantityOnHand = storageOnHand.getQtyOnHand();
-					List<MStorageOnHand> existingInventoryList = existingInventoryByProduct.get(product);
+		MWarehouse finalWarehouse = warehouse;
+		for (MProduct_BH product : productsWithInitialInventory) {
+			updateEntry.get(product).forEach((storageOnHand -> {
+				BigDecimal desiredQuantityOnHand = storageOnHand.getQtyOnHand();
+				List<MStorageOnHand> existingInventoryList = existingInventoryByProduct.get(product);
 
-					// If we should merge, we have to subtract out what's existing
-						MStorageOnHand existingInventory = existingInventoryList.get(0);
-						if (product.isBH_HasExpiration()) {
-							existingInventory = existingInventoryList.stream().filter(
-											existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
-													existingStorageOnHand.getM_AttributeSetInstance_ID()).findFirst()
-									.orElse(existingInventoryList.get(0));
-						}
-						// If current quantity equals desired quantity, exit out
-						if (existingInventory.getQtyOnHand().compareTo(desiredQuantityOnHand) == 0) {
-							return;
-						}
-						desiredQuantityOnHand = desiredQuantityOnHand.subtract(existingInventory.getQtyOnHand());
+				// If we should merge, we have to subtract out what's existing
+				MStorageOnHand existingInventory = existingInventoryList.get(0);
+				if (product.isBH_HasExpiration()) {
+					existingInventory = existingInventoryList.stream().filter(
+									existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
+											existingStorageOnHand.getM_AttributeSetInstance_ID()).findFirst()
+							.orElse(existingInventoryList.get(0));
+				}
+				// If current quantity equals desired quantity, exit out
+				if (existingInventory.getQtyOnHand().compareTo(desiredQuantityOnHand) == 0) {
+					return;
+				}
+				desiredQuantityOnHand = desiredQuantityOnHand.subtract(existingInventory.getQtyOnHand());
 
-					MInventoryLine_BH inventoryLine = new MInventoryLine_BH(Env.getCtx(), 0, null);
-					inventoryLine.setAD_Org_ID(inventory.getAD_Org_ID());
-					inventoryLine.setM_Product_ID(product.get_ID());
-					inventoryLine.setM_Inventory_ID(inventory.get_ID());
+				MInventoryLine_BH inventoryLine = new MInventoryLine_BH(Env.getCtx(), 0, null);
+				inventoryLine.setAD_Org_ID(inventory.getAD_Org_ID());
+				inventoryLine.setM_Product_ID(product.get_ID());
+				inventoryLine.setM_Inventory_ID(inventory.get_ID());
 
-					// Only set the attribute set instance ID (i.e. expiration date) if one was provided
-					if (storageOnHand.getM_AttributeSetInstance_ID() > 0) {
-						inventoryLine.setM_AttributeSetInstance_ID(storageOnHand.getM_AttributeSetInstance_ID());
-					}
-					inventoryLine.setQtyCount(desiredQuantityOnHand);
-					inventoryLine.setM_Locator_ID(finalWarehouse.getDefaultLocator().get_ID());
+				// Only set the attribute set instance ID (i.e. expiration date) if one was provided
+				if (storageOnHand.getM_AttributeSetInstance_ID() > 0) {
+					inventoryLine.setM_AttributeSetInstance_ID(storageOnHand.getM_AttributeSetInstance_ID());
+				}
+				inventoryLine.setQtyCount(desiredQuantityOnHand);
+				inventoryLine.setM_Locator_ID(finalWarehouse.getDefaultLocator().get_ID());
 
-					inventoryLine.save(product.get_TrxName());
-				}));
-				count++;
-			}
-
-			inventory.completeIt();
-
-			return count;
+				inventoryLine.save(product.get_TrxName());
+			}));
+			count++;
 		}
-						
+
+		inventory.completeIt();
+
+		return count;
+	}
+
 }
