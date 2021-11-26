@@ -6,6 +6,7 @@ import java.util.Date;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -17,7 +18,6 @@ import org.compiere.model.MOrderLine;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
@@ -88,7 +88,7 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 				: new Timestamp(System.currentTimeMillis());
 		MDocType docTypeShipment =
 				new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_PrintName + "=?", order.get_TrxName())
-						.setParameters("Order Confirmation").setClient_ID().first();
+						.setParameters(MDocType_BH.DOCUMENTBASETYPE_ORDER_CONFIRMATION).setClient_ID().first();
 		if (docTypeShipment == null) {
 			throw new AdempiereException("Shipment DocType not defined");
 		}
