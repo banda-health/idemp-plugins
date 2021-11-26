@@ -43,10 +43,11 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 		<parameter name="Begin Date" class="java.util.Date"/>
+		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-    SELECT generate_series(date($P{Begin Date}), date($P{Begin Date}) + interval '1 month' - interval '1 day', interval '1 day') AS calendar
+   SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
      new_list AS (
          SELECT DISTINCT value as  Attendance
@@ -106,6 +107,7 @@ ORDER BY dl.Attendance ASC;]]>
 		</group>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
@@ -136,9 +138,12 @@ from c_order c
 				</box>
 				<crosstabDataset>
 					<dataset>
-						<datasetRun subDataset="705A Attendance" uuid="9971a36e-2049-4e3f-9cfb-c52235032a6c">
+						<datasetRun subDataset="705A Attendance" uuid="eeb9a50d-cec3-4629-a62e-b08833b2d82c">
 							<datasetParameter name="Begin Date">
 								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
 							</datasetParameter>
 							<datasetParameter name="AD_CLIENT_ID">
 								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>

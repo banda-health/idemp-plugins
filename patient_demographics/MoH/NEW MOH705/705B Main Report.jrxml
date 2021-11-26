@@ -9,6 +9,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="End Date" class="java.util.Date"/>
 	<queryString language="SQL">
 		<![CDATA[select
     date(c.bh_visitdate) as calendar,
@@ -30,6 +31,9 @@ from c_order c
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="End Date">
+					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="AD_CLIENT_ID">
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -47,8 +51,11 @@ from c_order c
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="End Date">
+					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[ $P{SUBREPORT_DIR} + "705B Attendance.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "705B Attendance.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="35" width="878" height="100" uuid="1dfbef15-5edd-4ab2-85d7-e52d80ae9d29">
@@ -56,6 +63,9 @@ from c_order c
 				</reportElement>
 				<subreportParameter name="Begin Date">
 					<subreportParameterExpression><![CDATA[$P{Begin Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="End Date">
+					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="AD_CLIENT_ID">
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
