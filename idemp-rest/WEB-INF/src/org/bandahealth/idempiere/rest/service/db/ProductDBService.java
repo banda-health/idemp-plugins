@@ -33,19 +33,24 @@ import org.compiere.model.MUOM;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /*
  * Carry out all Product DB Operations.
  */
+@Component
 public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
+	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
 	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
-	private InventoryDBService inventoryDbService = new InventoryDBService();
-	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
+	@Autowired
+	private InventoryDBService inventoryDbService;
+	@Autowired
+	private ProductCategoryDBService productCategoryDBService;
+	@Autowired
 	private InventoryDBService inventoryDBService = new InventoryDBService();
-	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
-
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -90,7 +95,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * Searches products/services and returns related price, expiry, quantity fields
 	 *
 	 * @param searchValue
-	 * 
 	 * @return
 	 */
 	public BaseListResponse<SearchProduct> searchItems(String searchValue) {
@@ -249,8 +253,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			// update inventory only for a new products with inventory
 			if (exists == null && entity.getStorageOnHandList() != null
 					&& entity.getStorageOnHandList().stream()
-							.anyMatch(storageOnHand -> storageOnHand.getQuantityOnHand() != null
-									&& storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
+					.anyMatch(storageOnHand -> storageOnHand.getQuantityOnHand() != null
+							&& storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
 				Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct = new HashMap<>();
 				// If it has expiration, cycle through the list and add the values
 				if (product.isBH_HasExpiration()) {

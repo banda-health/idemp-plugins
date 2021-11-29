@@ -13,23 +13,20 @@ import org.bandahealth.idempiere.rest.model.MenuGroupLineItem;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.MenuGroupDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expose Menu group line items functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.MENU_LINES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class MenuLineRestService extends BaseEntityRestService<MenuGroupLineItem> {
 
+	@Autowired
 	private MenuGroupDBService dbService;
-
-	public MenuLineRestService() {
-		dbService = new MenuGroupDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
@@ -58,7 +55,7 @@ public class MenuLineRestService extends BaseEntityRestService<MenuGroupLineItem
 			@QueryParam("sortOrder") String sortOrder) {
 		return null;
 	}
-	
+
 	@Override
 	protected Paging getPagingInfo(int page, int size) {
 		Paging paging = new Paging(page, size);

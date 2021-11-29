@@ -24,24 +24,20 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MovementDBService extends DocumentDBService<Movement, MMovement_BH> {
 
-	private MovementLineDBService movementLineDBService;
-	/** Document Type */
-	private int p_C_DocType_ID = 0;
 	private static final String MISSING_FROM_WAREHOUSE = "Missing From warehouse";
 	private static final String MISSING_TO_WAREHOUSE = "Missing To warehouse";
-
-	public MovementDBService() {
-		this.movementLineDBService = new MovementLineDBService();
-	}
-
-	@Override
-	protected String getDocumentTypeName() {
-		return DOCUMENTNAME_MOVEMENT;
-	}
-
+	@Autowired
+	private MovementLineDBService movementLineDBService;
+	/**
+	 * Document Type
+	 */
+	private int p_C_DocType_ID = 0;
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MWarehouse.Table_Name,
@@ -56,11 +52,16 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	};
 
 	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_MOVEMENT;
+	}
+
+	@Override
 	public Movement saveEntity(Movement entity) {
 		// From
 		MWarehouse fromWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
 				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(entity.getFromWarehouse().getUuid())
-						.first();
+				.first();
 		if (fromWarehouse == null) {
 			throw new AdempiereException(MISSING_FROM_WAREHOUSE);
 		}
@@ -68,7 +69,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		// To
 		MWarehouse toWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
 				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(entity.getToWarehouse().getUuid())
-						.first();
+				.first();
 		if (toWarehouse == null) {
 			throw new AdempiereException(MISSING_TO_WAREHOUSE);
 		}

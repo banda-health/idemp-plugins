@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Order (c_order) base functionality (billing, receive goods, track expenses).
@@ -27,17 +28,14 @@ import org.compiere.util.Env;
 public abstract class BaseOrderDBService<T extends Order> extends DocumentDBService<T, MOrder_BH> {
 
 	private final String PURCHASE_ORDER = "Purchase Order";
-	private final ReferenceListDBService referenceListDBService;
-	protected OrderLineDBService orderLineDBService = new OrderLineDBService();
-	protected EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
-	protected final ProcessDBService processDBService;
-	protected final VoidedReasonDBService voidedReasonDBService;
-
-	public BaseOrderDBService() {
-		referenceListDBService = new ReferenceListDBService();
-		processDBService = new ProcessDBService();
-		voidedReasonDBService = new VoidedReasonDBService();
-	}
+	@Autowired
+	protected OrderLineDBService orderLineDBService;
+	@Autowired
+	protected EntityMetadataDBService entityMetadataDBService;
+	@Autowired
+	protected ProcessDBService processDBService;
+	@Autowired
+	protected VoidedReasonDBService voidedReasonDBService;
 
 	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
 
@@ -203,7 +201,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		// set target document type
 		MDocType docType = new Query(Env.getCtx(), MDocType.Table_Name,
 				MDocType.COLUMNNAME_Name + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?", null)
-						.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
+				.setParameters(PURCHASE_ORDER, MDocType.DOCBASETYPE_PurchaseOrder).setClient_ID().first();
 		if (docType != null) {
 			return docType.get_ID();
 		}

@@ -14,17 +14,15 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.CodedDiagnosisDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.CODED_DIAGNOSES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CodedDiagnosisRestService extends BaseEntityRestService<CodedDiagnosis> {
 
+	@Autowired
 	private CodedDiagnosisDBService dbService;
-
-	public CodedDiagnosisRestService() {
-		this.dbService = new CodedDiagnosisDBService();
-	}
 
 	@GET
 	@Path(IRestConfigs.ROOT_PATH)

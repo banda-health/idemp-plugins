@@ -5,11 +5,10 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.PatientSummary;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PatientSummaryDBService {
-
-	public PatientSummaryDBService() {
-	}
 
 	public PatientSummary get(String period) {
 		String whereClause = null;

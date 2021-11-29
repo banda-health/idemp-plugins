@@ -38,6 +38,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -45,6 +46,7 @@ import org.compiere.util.Login;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -67,12 +69,10 @@ public class AuthenticationRestService {
 
 	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
-	private final WarehouseDBService warehouseDBService = new WarehouseDBService();
-	private final RoleDBService roleDBService;
-
-	public AuthenticationRestService() {
-		roleDBService = new RoleDBService();
-	}
+	@Autowired
+	private WarehouseDBService warehouseDBService;
+	@Autowired
+	private RoleDBService roleDBService;
 
 	@POST
 	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
@@ -423,7 +423,7 @@ public class AuthenticationRestService {
 		// the context, so store what's there
 		// now
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
-		// PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		PO.setCrossTenantSafe();
 		try {
 			// parse all clients that the user has access to.
 			for (KeyNamePair client : clients) {
@@ -483,7 +483,7 @@ public class AuthenticationRestService {
 			}
 		} finally {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-			// PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+			PO.clearCrossTenantSafe();
 		}
 	}
 

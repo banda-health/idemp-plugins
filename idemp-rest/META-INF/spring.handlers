@@ -20,3 +20,4 @@
 #
 http\://cxf.apache.org/jaxws=org.apache.cxf.jaxws.spring.NamespaceHandler
 http\://cxf.apache.org/jaxrs=org.apache.cxf.jaxrs.spring.NamespaceHandler
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler

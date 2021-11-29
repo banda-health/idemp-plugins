@@ -22,15 +22,13 @@ import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MovementLineDBService extends BaseDBService<MovementLine, MMovementLine_BH> {
-
-	public MovementLineDBService() {
-	}
-
 	/**
 	 * Save a movement line.
-	 * 
+	 *
 	 * @param entity
 	 * @param movement
 	 * @param fromWarehouse
@@ -126,7 +124,7 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 
 		List<MMovementLine_BH> lines = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
 				MMovementLine_BH.COLUMNNAME_M_Movement_ID + "=?", null).setParameters(movement.get_ID())
-						.setOnlyActiveRecords(true).setClient_ID().list();
+				.setOnlyActiveRecords(true).setClient_ID().list();
 		lines.forEach(line -> {
 			results.add(createInstanceWithDefaultFields(line));
 		});
@@ -138,7 +136,7 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 	public Boolean deleteEntity(String entityUuid) {
 		MMovementLine_BH movementLine = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
 				MMovementLine_BH.COLUMNNAME_M_MovementLine_UU + "=?", null).setParameters(entityUuid).setClient_ID()
-						.first();
+				.first();
 		if (movementLine != null) {
 			movementLine.deleteEx(false);
 
@@ -151,7 +149,7 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 	public void deleteMovementLinesByMovement(MMovement_BH movement) {
 		List<MMovementLine_BH> mMovementLines = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
 				MMovementLine_BH.COLUMNNAME_M_Movement_ID + "=?", null).setParameters(movement.get_ID()).setClient_ID()
-						.list();
+				.list();
 		for (MMovementLine_BH mMovementLine : mMovementLines) {
 			mMovementLine.deleteEx(false);
 		}

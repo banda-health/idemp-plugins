@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
 import org.bandahealth.idempiere.rest.model.ChargeInformationValueSuggestion;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ChargeInformationValueSuggestionDBService
 		extends BaseDBService<ChargeInformationValueSuggestion, MBHChargeInfoValueSuggestion> {
 	@Override

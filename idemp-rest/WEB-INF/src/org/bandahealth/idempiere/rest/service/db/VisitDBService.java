@@ -38,23 +38,29 @@ import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Visit/billing functionality
  *
  * @author andrew
  */
+@Component
 public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	private final String COLUMNNAME_VISIT_NOTES = "bh_lab_notes"; // this column needs to be renamed accordingly in the
 	// db
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
-	private final CodedDiagnosisDBService codedDiagnosisDBService;
+	@Autowired
+	private CodedDiagnosisDBService codedDiagnosisDBService;
+	@Autowired
 	private PatientDBService patientDBService;
+	@Autowired
 	private PaymentDBService paymentDBService;
+	@Autowired
 	private UserDBService userDBService;
-	private MBPartner_BH mPatient;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -68,13 +74,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							+ MUser.COLUMNNAME_AD_User_ID);
 		}
 	};
-
-	public VisitDBService() {
-		patientDBService = new PatientDBService();
-		paymentDBService = new PaymentDBService();
-		userDBService = new UserDBService();
-		codedDiagnosisDBService = new CodedDiagnosisDBService();
-	}
 
 	public static int getVisitsCount(Integer patientId) {
 		return getVisitCountsByPatients(Collections.singleton(patientId)).getOrDefault(patientId, 0);
@@ -639,8 +638,5 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return prefetchedList.stream().filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_UU().equals(uuid))
 				.findFirst().orElse(null);
 	}
-	
+
 }
-
-
-	
