@@ -423,7 +423,7 @@ public class AuthenticationRestService {
 		// the context, so store what's there
 		// now
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
-		PO.setCrossTenantSafe();
+		// PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		try {
 			// parse all clients that the user has access to.
 			for (KeyNamePair client : clients) {
@@ -483,7 +483,7 @@ public class AuthenticationRestService {
 			}
 		} finally {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-			PO.clearCrossTenantSafe();
+			// PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		}
 	}
 
