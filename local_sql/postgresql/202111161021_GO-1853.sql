@@ -102,4 +102,4 @@ BEGIN
 END;
 $$;
 
-SELECT register_migration_script('202111291340_GO-1853.sql') FROM dual;
+SELECT register_migration_script('202111161021_GO-1853.sql') FROM dual;
