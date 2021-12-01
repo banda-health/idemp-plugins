@@ -240,7 +240,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	public List<Patient> transformData(List<MBPartner_BH> dbModels) {
-		if (dbModels != null) {
+		if (dbModels != null && !dbModels.isEmpty()) {
 			Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
 			Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
 			return dbModels.stream().map(this::createInstanceWithDefaultFields)

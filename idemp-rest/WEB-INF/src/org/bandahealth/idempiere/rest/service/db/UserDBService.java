@@ -93,7 +93,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
-		String filter = " AND " + FilterUtil.getWhereClauseFromFilter(null, filterJson, parameters);
+		String filter = " AND " + FilterUtil.getWhereClauseFromFilter(MUser_BH.Table_Name, filterJson, parameters, true);
 
 		sqlQuery.append(filter);
 
