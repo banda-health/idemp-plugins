@@ -12,9 +12,11 @@ import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.VoidedReason;
+import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -148,6 +150,17 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			mOrder.setIsApproved(true);
 			mOrder.setDocAction(MOrder_BH.DOCACTION_Complete);
 
+			// set warehouse
+			Warehouse warehouse = entity.getWarehouse();
+			if (warehouse != null && warehouse.getUuid() != null) {
+				MWarehouse mWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
+						MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setClient_ID()
+						.setParameters(warehouse.getUuid()).first();
+				if (mWarehouse != null) {
+					mOrder.setM_Warehouse_ID(mWarehouse.get_ID());
+				}
+			}
+
 			beforeSave(entity, mOrder);
 
 			// set target document type
@@ -165,6 +178,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				int count = 0;
 				for (OrderLine orderLine : orderLines) {
 					orderLine.setOrderId(mOrder.get_ID());
+					orderLine.setOrder(mOrder);
 					OrderLine response = orderLineDBService.saveEntity(orderLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < orderLines.size()) {
