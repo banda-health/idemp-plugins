@@ -44,7 +44,7 @@ public class ChargeRestService extends BaseEntityRestService<Charge> {
 	@GET
 	public BaseListResponse<Charge> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filter") String filterJson) {
+			@QueryParam("filter") String filterJson, @QueryParam("sorted") String sortJson) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 

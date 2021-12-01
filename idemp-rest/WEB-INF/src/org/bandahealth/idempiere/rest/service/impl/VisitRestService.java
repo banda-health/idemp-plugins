@@ -37,7 +37,8 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 	@Override
 	public BaseListResponse<Visit> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
+			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson, @QueryParam("sorting") String sortJson) {
+			System.out.println(sortJson);
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 

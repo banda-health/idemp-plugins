@@ -30,7 +30,7 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 	@Path(IRestConfigs.ROOT_PATH)
 	public BaseListResponse<Product> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filter") String filterJson) {
+			@QueryParam("filter") String filterJson, @QueryParam("sorted") String sortJson) {
 		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
