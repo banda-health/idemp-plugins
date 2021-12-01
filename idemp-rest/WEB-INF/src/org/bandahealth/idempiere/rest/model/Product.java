@@ -17,7 +17,6 @@ public class Product extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	private String value;
 	private Boolean isStocked;
 	private Integer reorderLevel;
 	private Integer reorderQuantity;
@@ -32,6 +31,19 @@ public class Product extends BaseEntity {
 	private List<StorageOnHand> storageOnHandList = new ArrayList<>();
 
 	public Product() {
+	}
+
+	public Product(MProduct_BH entity) {
+		super(entity, entity.getName(), entity.getDescription(), entity.getValue());
+
+		setIsStocked(entity.isStocked());
+		setReorderLevel(entity.getbh_reorder_level());
+		setReorderQuantity(entity.getbh_reorder_quantity());
+		setBuyPrice(entity.getBH_BuyPrice());
+		setSellPrice(entity.getBH_SellPrice());
+		setType(entity.getProductType());
+		setHasExpiration(entity.isBH_HasExpiration());
+		setPriceMargin(entity.getBH_PriceMargin());
 	}
 
 	public Product(String name, String uuid, String type, MProduct_BH entity) {
@@ -51,7 +63,7 @@ public class Product extends BaseEntity {
 								 BigDecimal priceMargin, String productCategoryUuid, BigDecimal totalQuantity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
-		this.value = value;
+		setValue(value);
 		this.isStocked = isStocked;
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
@@ -86,11 +98,6 @@ public class Product extends BaseEntity {
 		this.hasExpiration = hasExpiration;
 		this.sellPrice = sellPrice;
 		this.priceMargin = priceMargin;
-	}
-
-	@XmlElement
-	public String getValue() {
-		return value;
 	}
 
 	@XmlElement
