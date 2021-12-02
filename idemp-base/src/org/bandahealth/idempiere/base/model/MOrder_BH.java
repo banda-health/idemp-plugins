@@ -102,9 +102,15 @@ public class MOrder_BH extends MOrder {
 	 * Column name BH_VisitDate
 	 */
 	public static final String COLUMNNAME_BH_VisitDate = "BH_VisitDate";
-	
-	public static final String COLUMNNAME_BH_SystolicBloodPressure = "bh_systolic_blood_pressure";
-	public static final String COLUMNNAME_BH_DiastolicBloodPressure = "bh_diastolic_blood_pressure";
+
+	/**
+	 * Column name bh_systolic_blood_pressure
+	 */
+	public static final String COLUMNNAME_bh_systolic_blood_pressure = "bh_systolic_blood_pressure";
+	/**
+	 * Column name bh_diastolic_blood_pressure
+	 */
+	public static final String COLUMNNAME_bh_diastolic_blood_pressure = "bh_diastolic_blood_pressure";
 	private static final long serialVersionUID = 1L;
 
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
@@ -660,21 +666,47 @@ public class MOrder_BH extends MOrder {
 			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, Integer.valueOf(BH_VoidedReason_ID));
 		}
 	}
-	
-	public void setBH_SystolicBloodPressure(String systolicBloodPressure) {
-		set_Value(COLUMNNAME_BH_SystolicBloodPressure, systolicBloodPressure);
+
+	/**
+	 * Set bh_systolic_blood_pressure.
+	 *
+	 * @param bh_systolic_blood_pressure bh_systolic_blood_pressure
+	 */
+	public void setbh_systolic_blood_pressure(int bh_systolic_blood_pressure) {
+		set_Value(COLUMNNAME_bh_systolic_blood_pressure, Integer.valueOf(bh_systolic_blood_pressure));
 	}
 
-	public String getBH_SystolicBloodPressure() {
-		return (String)get_Value(COLUMNNAME_BH_SystolicBloodPressure);
+	/**
+	 * Get bh_systolic_blood_pressure.
+	 *
+	 * @return bh_systolic_blood_pressure
+	 */
+	public int getbh_systolic_blood_pressure() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_bh_systolic_blood_pressure);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 
-	public void setBH_DiastolicBloodPressure(String diastolicBloodPressure) {
-		set_Value(COLUMNNAME_BH_DiastolicBloodPressure, diastolicBloodPressure);
+	/**
+	 * Set bh_diastolic_blood_pressure.
+	 *
+	 * @param bh_diastolic_blood_pressure bh_diastolic_blood_pressure
+	 */
+	public void setbh_diastolic_blood_pressure(int bh_diastolic_blood_pressure) {
+		set_Value(COLUMNNAME_bh_diastolic_blood_pressure, Integer.valueOf(bh_diastolic_blood_pressure));
 	}
-	
-	public String getBH_DiastolicBloodPressure() {
-		return (String)get_Value(COLUMNNAME_BH_DiastolicBloodPressure);
+
+	/**
+	 * Get bh_diastolic_blood_pressure.
+	 *
+	 * @return bh_diastolic_blood_pressure
+	 */
+	public int getbh_diastolic_blood_pressure() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_bh_diastolic_blood_pressure);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
-	
+
 }
