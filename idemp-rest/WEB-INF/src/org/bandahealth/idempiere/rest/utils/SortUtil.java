@@ -74,17 +74,13 @@ public class SortUtil {
 	 * @param <T>      An iDempiere model extending from PO
 	 * @return An ORDER BY clause based off the sort criteria to use in a DB query
 	 */
-	public static <T extends PO> String getOrderByClauseFromSort(T dbModel, String sortJson) {
-		String defaultOrderBy = checkColumnExists(dbModel, MUser.COLUMNNAME_Created) ? dbModel.get_TableName() + "." +
-				MUser.COLUMNNAME_Created + " DESC NULLS LAST" : null;
-		if (StringUtil.isNullOrEmpty(sortJson)) {
-			return defaultOrderBy;
-		}
+	public static <T extends PO> String getOrderByClauseFromSort(String tableName, String sortJson) {
+		String DEFAULT_ORDER_BY = tableName + "." + MUser.COLUMNNAME_Created + " DESC NULLS LAST";
 		try {
 			// Parse the JSON string
 			List<Object> listOfSortCriteria = parseJsonString(sortJson);
 			if (listOfSortCriteria.isEmpty()) {
-				return defaultOrderBy;
+				return DEFAULT_ORDER_BY;
 			}
 
 			String orderBy = listOfSortCriteria.stream().map(sortCriteria -> {
@@ -112,31 +108,13 @@ public class SortUtil {
 					return null;
 				}
 				if (!QueryUtil.doesTableAliasExistOnColumn(sortColumn)) {
-					sortColumn = dbModel.get_TableName() + "." + sortColumn;
+					sortColumn = tableName + "." + sortColumn;
 				}
 				return sortColumn + " " + sortDirection + " NULLS LAST";
 			}).filter(sortCriteria -> !StringUtil.isNullOrEmpty(sortCriteria)).collect(Collectors.joining(","));
-			return orderBy.isEmpty() ? defaultOrderBy : orderBy;
+			return orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
 		} catch (Exception e) {
 			throw new AdempiereException(MALFORMED_SORT_STRING_ERROR);
 		}
 	}
-
-	
-	/**
-	 * Check if the column exists on the specified model
-	 *
-	 * @param dbModel    The iDempiere DB model for determining non-aliased field types
-	 * @param columnName The column to check
-	 * @param <T>        An iDempiere model extending from PO
-	 * @return Whether the column exists on the specified model
-	 */
-	private static <T extends PO> boolean checkColumnExists(T dbModel, String columnName) {
-		if (dbModel != null) {
-			return dbModel.get_ColumnIndex(columnName) > -1;
-		}
-
-		return false;
-	}
-
 }

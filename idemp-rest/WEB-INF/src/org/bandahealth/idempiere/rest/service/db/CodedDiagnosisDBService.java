@@ -23,8 +23,8 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 	}
 
 	public BaseListResponse<CodedDiagnosis> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) {
-		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder, filterJson);
+			String filterJson, String sortJson) {
+		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder, filterJson, sortJson);
 	}
 
 	@Override

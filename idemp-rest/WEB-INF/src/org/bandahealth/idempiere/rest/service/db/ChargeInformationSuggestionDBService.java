@@ -28,7 +28,7 @@ public class ChargeInformationSuggestionDBService extends BaseDBService<ChargeIn
 
 	public List<ChargeInformationSuggestion> get() {
 		List<ChargeInformationSuggestion> chargeInformationSuggestions =
-				super.getAll(null, null, Paging.ALL.getInstance(), null, null, null).getResults();
+				super.getAll(null, null, Paging.ALL.getInstance(), null, null, null, null).getResults();
 		if (chargeInformationSuggestions == null) {
 			return new ArrayList<>();
 		}

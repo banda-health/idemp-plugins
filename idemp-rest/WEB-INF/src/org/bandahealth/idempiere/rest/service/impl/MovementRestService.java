@@ -33,7 +33,7 @@ public class MovementRestService extends BaseEntityRestService<Movement> {
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
 			@QueryParam("filter") String filterJson, @QueryParam("sorted") String sortJson) {
 
-		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
+		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson, sortJson);
 	}
 
 	@GET

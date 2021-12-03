@@ -267,13 +267,13 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * @param pagingInfo The paging info object to udpate with data from the DB
 	 * @return A list of processes and their child info
 	 */
-	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, Paging pagingInfo) {
+	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, String sortJson, Paging pagingInfo) {
 		// Get processes for GL
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MClient_BH.CLIENTID_LAST_SYSTEM);
 		BaseListResponse<Process> processes =
 				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">?", parameters, pagingInfo, sortColumn, sortOrder,
-						filter);
+						filter, sortJson);
 
 
 		// Map the process parameters to entities

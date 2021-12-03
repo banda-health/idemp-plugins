@@ -317,8 +317,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A list of the data, plus pagination information
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson) {
-		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
+			String sortOrder, String filterJson, String sortJson) {
+		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, sortJson, null);
 	}
 
 	/**
@@ -334,8 +334,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A list of the data, plus pagination information
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson, String joinClause) {
-		return getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, joinClause,
+			String sortOrder, String filterJson, String sortJson, String joinClause) {
+		return getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, sortJson, joinClause,
 				isClientIdFromTheContextNeededByDefaultForThisEntity());
 	}
 
@@ -349,12 +349,13 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param sortColumn               A column to sort by.
 	 * @param sortOrder                The direction to sort the previous column by
 	 * @param filterJson               Any filter criteria to use to limit the results
+	 * @param sortJson				   Any combination of 
 	 * @param joinClause               Use to specify a linked table so joining can occur
 	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
 	 * @return A list of the data, plus pagination information
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson, String joinClause, boolean shouldUseContextClientId) {
+			String sortOrder, String filterJson, String sortJson, String joinClause, boolean shouldUseContextClientId) {
 		try {
 			List<T> results = new ArrayList<>();
 			if (parameters == null) {
@@ -390,6 +391,11 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			String orderBy = getOrderBy(sortColumn, sortOrder);
 			if (orderBy != null) {
 				query = query.setOrderBy(orderBy);
+			}
+			
+			if(StringUtil.isNotNullAndEmpty(sortJson)) {
+				String orderByClause = SortUtil.getOrderByClauseFromSort(getModelInstance().get_TableName(), sortJson);
+				query = query.setOrderBy("ORDER BY" +orderByClause);
 			}
 
 			if (parameters.size() > 0) {

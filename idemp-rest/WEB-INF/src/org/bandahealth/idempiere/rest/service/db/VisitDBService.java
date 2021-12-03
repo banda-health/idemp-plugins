@@ -451,12 +451,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return super.search(value, pagingInfo, sortColumn, sortOrder, MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters);
 	}
 
-	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson, String sortJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
 		BaseListResponse<Visit> visits = super
-				.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
+				.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortColumn, sortOrder, filterJson, sortJson, null);
 
 		// Since non-patient payments are negative, they'll change order totals
 		// Get updated order totals for these visits
@@ -593,7 +593,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		String sqlWhere = buildOpenDraftsWhereClauseAndParameters(parameters);
 
-		return super.getAll(sqlWhere, parameters, pagingInfo, sortColumn, sortOrder, null);
+		return super.getAll(sqlWhere, parameters, pagingInfo, sortColumn, sortOrder, null, null);
 	}
 
 	private String buildOpenDraftsWhereClauseAndParameters(List<Object> parameters) {

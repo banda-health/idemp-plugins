@@ -25,12 +25,12 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 
 	// retrieve a list of paginated services.
-	public BaseListResponse<Service> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<Service> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson, String sortJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MProduct_BH.PRODUCTTYPE_Service);
 
 		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson);
+				filterJson, sortJson);
 	}
 
 	public BaseListResponse<Service> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {

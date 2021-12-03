@@ -35,7 +35,7 @@ public class UserRestService extends BaseEntityRestService<User> {
 	public BaseListResponse<User> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
 			@QueryParam("filter") String filterJson, @QueryParam("sorted") String sortJson) {
-		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
+		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson, sortJson);
 	}
 
 	@GET
