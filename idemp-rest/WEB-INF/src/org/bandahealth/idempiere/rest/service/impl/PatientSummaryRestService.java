@@ -10,23 +10,20 @@ import javax.ws.rs.core.MediaType;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.PatientSummary;
 import org.bandahealth.idempiere.rest.service.db.PatientSummaryDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expose Patient Summary REST functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.PATIENT_SUMMARY_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PatientSummaryRestService {
 
+	@Autowired
 	private PatientSummaryDBService dbService;
-
-	public PatientSummaryRestService() {
-		this.dbService = new PatientSummaryDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)

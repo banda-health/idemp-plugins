@@ -6,12 +6,10 @@ import java.util.Set;
 import org.bandahealth.idempiere.rest.model.Window;
 import org.compiere.model.MWindow;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
-public class WindowDBService extends BaseDBService<Window, MWindow>{
-
-	public WindowDBService() {
-	}
-
+@Component
+public class WindowDBService extends BaseDBService<Window, MWindow> {
 	@Override
 	public Window saveEntity(Window entity) {
 		return null;
@@ -41,14 +39,8 @@ public class WindowDBService extends BaseDBService<Window, MWindow>{
 	protected MWindow getModelInstance() {
 		return new MWindow(Env.getCtx(), 0, null);
 	}
-	
+
 	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return false;
 	}
-	
-	public Map<Integer, MWindow> getByIds(Set<Integer> ids) {
-		return getByIds(isClientIdFromTheContextNeededByDefaultForThisEntity(), ids);
-	}
-	
-
 }

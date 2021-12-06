@@ -41,12 +41,15 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * A simple POJO that runs iDempiere processes
  *
  * @author andrew
  */
+@Component
 public class ProcessDBService extends BaseDBService<Process, MProcess> {
 
 	// report UUIDs
@@ -57,10 +60,6 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	private final String STOCKTAKE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.StockTakeProcess";
 	private final String EXPENSE_PROCESS_CLASS_NAME = "org.bandahealth.idempiere.base.process.ExpenseProcess";
 	private final String QUANTITY = "QUANTITY";
-
-	private final ProcessParameterDBService processParameterDBService;
-	private final ReferenceDBService referenceDBService;
-	private final ReferenceListDBService referenceListDBService;
 	private final Map<ReportType, String> contentTypes = new HashMap<>() {{
 		put(ReportType.CSV, "text/csv");
 		put(ReportType.HTML, "text/html");
@@ -68,12 +67,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		put(ReportType.XLS, "application/vnd.ms-excel");
 		put(ReportType.XLSX, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 	}};
-
-	public ProcessDBService() {
-		processParameterDBService = new ProcessParameterDBService();
-		referenceDBService = new ReferenceDBService();
-		referenceListDBService = new ReferenceListDBService();
-	}
+	@Autowired
+	private ProcessParameterDBService processParameterDBService;
+	@Autowired
+	private ReferenceDBService referenceDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
 
 	/**
 	 * Run process

@@ -26,12 +26,14 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
+import org.springframework.stereotype.Component;
 
 /**
  * Retrieve All Metadata data i.e entity types (e.g nhif,patient,payment types)
  *
  * @author andrew
  */
+@Component
 public class EntityMetadataDBService {
 
 	public final static String PATIENT_TYPE = "BH_PatientType";
@@ -98,7 +100,7 @@ public class EntityMetadataDBService {
 					instance.getAD_Ref_List_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
 					instance.getCreatedBy(), instance.getName(), instance.getDescription(), instance.getValue()));
 		}
-		
+
 		// retrieve process stage
 		for (MRefList instance : getTypes(PROCESS_STAGE)) {
 			metadata.addProcessStageList(new ProcessStage(instance));

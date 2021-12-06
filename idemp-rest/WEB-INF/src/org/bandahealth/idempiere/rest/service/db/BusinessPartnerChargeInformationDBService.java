@@ -6,14 +6,14 @@ import org.bandahealth.idempiere.rest.model.BusinessPartnerChargeInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BusinessPartnerChargeInformationDBService
 		extends BaseDBService<BusinessPartnerChargeInformation, MBHBPartnerChargeInfo> {
-	private final ChargeInformationDBService chargeInformationDBService;
-
-	public BusinessPartnerChargeInformationDBService() {
-		chargeInformationDBService = new ChargeInformationDBService();
-	}
+	@Autowired
+	private ChargeInformationDBService chargeInformationDBService;
 
 	@Override
 	public BusinessPartnerChargeInformation saveEntity(BusinessPartnerChargeInformation entity) {

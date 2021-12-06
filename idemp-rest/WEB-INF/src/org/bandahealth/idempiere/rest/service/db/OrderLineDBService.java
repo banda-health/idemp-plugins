@@ -31,31 +31,31 @@ import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Ref_List;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * OrderLine (product/service/charge) db service
  *
  * @author andrew
  */
+@Component
 public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> {
 
-	private final OrderLineChargeInformationDBService orderLineChargeInformationDBService;
-	private final ChargeDBService chargeDBService;
-	private final ChargeInformationDBService chargeInformationDBService;
-	private final ReferenceListDBService referenceListDBService;
+	@Autowired
+	private OrderLineChargeInformationDBService orderLineChargeInformationDBService;
+	@Autowired
+	private ChargeDBService chargeDBService;
+	@Autowired
+	private ChargeInformationDBService chargeInformationDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
+	@Autowired
 	private ProductDBService productDBService;
+	@Autowired
 	private ExpenseCategoryDBService expenseCategoryDBService;
+	@Autowired
 	private AccountDBService accountDBService;
-
-	public OrderLineDBService() {
-		this.productDBService = new ProductDBService();
-		this.expenseCategoryDBService = new ExpenseCategoryDBService();
-		this.accountDBService = new AccountDBService();
-		orderLineChargeInformationDBService = new OrderLineChargeInformationDBService();
-		chargeDBService = new ChargeDBService();
-		chargeInformationDBService = new ChargeInformationDBService();
-		referenceListDBService = new ReferenceListDBService();
-	}
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
@@ -220,8 +220,11 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::get_ID).collect(Collectors.toSet());
 
 		Map<Integer, MCharge_BH> chargesById = chargeDBService.getByIds(chargeIds);
-		Map<Integer, List<MBHOrderLineChargeInfo>> orderLineChargeInformationByOrderLine = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
+		Map<Integer, List<MBHOrderLineChargeInfo>> orderLineChargeInformationByOrderLine =
+				orderLineChargeInformationDBService
+						.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
+								MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID,
+								orderLineIds);
 		Map<String, MRefList> chargeSubTypeByValue = referenceListDBService
 				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
 						chargesById.values().stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet())).stream()
@@ -266,7 +269,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		// Get the associated order line charge information and delete it
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::getC_OrderLine_ID).collect(Collectors.toSet());
 		boolean wereChildrenDeletesSuccessful = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
+				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID,
+						orderLineIds)
 				.values().stream().flatMap(Collection::stream).allMatch(
 						businessPartnerChargeInformation -> orderLineChargeInformationDBService
 								.deleteEntity(businessPartnerChargeInformation.getBH_OrderLine_Charge_Info_UU()));

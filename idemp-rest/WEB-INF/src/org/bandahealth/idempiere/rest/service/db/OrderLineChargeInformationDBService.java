@@ -6,13 +6,13 @@ import org.bandahealth.idempiere.rest.model.OrderLineChargeInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderLineChargeInformationDBService extends BaseDBService<OrderLineChargeInformation, MBHOrderLineChargeInfo> {
-	private final ChargeInformationDBService chargeInformationDBService;
-
-	public OrderLineChargeInformationDBService() {
-		chargeInformationDBService = new ChargeInformationDBService();
-	}
+	@Autowired
+	private ChargeInformationDBService chargeInformationDBService;
 
 	@Override
 	public OrderLineChargeInformation saveEntity(OrderLineChargeInformation entity) {

@@ -14,17 +14,15 @@ import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.PRODUCTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductRestService extends BaseEntityRestService<Product> {
 
+	@Autowired
 	private ProductDBService dbService;
-
-	public ProductRestService() {
-		dbService = new ProductDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)

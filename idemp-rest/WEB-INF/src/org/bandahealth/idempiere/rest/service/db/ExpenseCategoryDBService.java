@@ -12,6 +12,8 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +23,12 @@ import java.util.List;
  *
  * @author andrew
  */
+@Component
 public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCharge_BH> {
 
 	private CLogger log = CLogger.getCLogger(ExpenseCategoryDBService.class);
+	@Autowired
 	private AccountDBService accountDBService;
-
-	public ExpenseCategoryDBService() {
-		accountDBService = new AccountDBService();
-	}
 
 	@Override
 	public ExpenseCategory saveEntity(ExpenseCategory entity) {

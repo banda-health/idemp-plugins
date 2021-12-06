@@ -14,17 +14,15 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.PaymentDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.PAYMENTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PaymentRestService extends BaseEntityRestService<Payment> {
 
+	@Autowired
 	private PaymentDBService dbService;
-
-	public PaymentRestService() {
-		dbService = new PaymentDBService();
-	}
 
 	@GET
 	@Override
