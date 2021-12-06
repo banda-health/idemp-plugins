@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.impl;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.Language;
 import org.bandahealth.idempiere.rest.service.db.LanguageDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,11 +16,8 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class LanguageRestService {
-	private final LanguageDBService languageDBService;
-
-	public LanguageRestService() {
-		languageDBService = new LanguageDBService();
-	}
+	@Autowired
+	private LanguageDBService languageDBService;
 
 	@GET
 	public List<Language> getAll() {

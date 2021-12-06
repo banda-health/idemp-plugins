@@ -37,7 +37,7 @@ public class PhysicalInventoryModelEvent extends AbstractEventHandler{
 	
 	private void beforeSaveRequest(MInventory inventory) {
 		// retrieve & set the document type
-		Query query = new Query(Env.getCtx(), "C_DocType", "name = '" + DOC_TYPE + "'", null);
+		Query query = new Query(Env.getCtx(), "C_DocType", "name = '" + DOC_TYPE + "'", null).setClient_ID();
 		if (query.count() > 0) {
 			MDocType docType = query.first();
 			inventory.setC_DocType_ID(docType.get_ID());

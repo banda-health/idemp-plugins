@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 
 /**
  * Representation of iDempiere's MOrderLineItem (C_Order_line).
@@ -36,6 +37,8 @@ public class OrderLine extends BaseMetadata {
 	private Charge charge;
 	private List<OrderLineChargeInformation> chargeInformationList = new ArrayList<>();
 	private String description;
+	@JsonIgnore
+	private MOrder_BH order;
 
 	public OrderLine() {
 	}
@@ -200,5 +203,13 @@ public class OrderLine extends BaseMetadata {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public MOrder_BH getOrder() {
+		return order;
+	}
+
+	public void setOrder(MOrder_BH order) {
+		this.order = order;
 	}
 }
