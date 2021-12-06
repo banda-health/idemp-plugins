@@ -142,8 +142,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					// get expiry date and id
 					SearchProductAttribute attribute = new SearchProductAttribute(inventory.getExpirationDate(),
 							inventory.getAttributeSetInstanceId());
-					attribute.setAttributeSetInstanceUuid(
-							attributeSetInstancesByIds.get(inventory.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
+					if (inventory.getAttributeSetInstanceId() > 0) {
+						attribute.setAttributeSetInstanceUuid(
+								attributeSetInstancesByIds.get(inventory.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
+					}
 
 					// get quantity
 					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
