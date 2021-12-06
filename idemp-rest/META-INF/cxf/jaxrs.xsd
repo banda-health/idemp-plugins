@@ -27,9 +27,9 @@
   elementFormDefault="qualified"
   attributeFormDefault="unqualified"  >
 
-  <xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
-  <xsd:import namespace="http://cxf.apache.org/configuration/beans" schemaLocation="http://cxf.apache.org/schemas/configuration/cxf-beans.xsd"/>
-  <xsd:include schemaLocation="http://cxf.apache.org/schemas/jaxrs-common.xsd"/>
+  <xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="jaxrs.xsd"/>
+  <xsd:import namespace="http://cxf.apache.org/configuration/beans" schemaLocation="cxf-beans.xsd"/>
+  <xsd:include schemaLocation="jaxrs-common.xsd"/>
   
   <xsd:element name="server">
     <xsd:complexType>
