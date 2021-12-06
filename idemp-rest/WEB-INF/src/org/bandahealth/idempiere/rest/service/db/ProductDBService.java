@@ -25,6 +25,7 @@ import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
@@ -45,6 +46,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
 	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
+	@Autowired
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
 	private InventoryDBService inventoryDbService;
 	@Autowired
@@ -133,6 +136,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
+				// Get the batched attribute sets
+				Map<Integer, MAttributeSetInstance> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
+						inventoryList.getResults().stream().map(Inventory::getAttributeSetInstanceId).collect(Collectors.toSet()));
+
 				for (Inventory inventory : inventoryList.getResults()) {
 					// exclude expired products
 					if (inventory.getShelfLife() < 0) {
@@ -142,6 +149,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					// get expiry date and id
 					SearchProductAttribute attribute = new SearchProductAttribute(inventory.getExpirationDate(),
 							inventory.getAttributeSetInstanceId());
+					if (inventory.getAttributeSetInstanceId() > 0) {
+						attribute.setAttributeSetInstanceUuid(
+								attributeSetInstancesByIds.get(inventory.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
+					}
 
 					// get quantity
 					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));

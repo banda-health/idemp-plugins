@@ -141,7 +141,7 @@ public class AuthenticationRestService {
 			// check access permissions
 			// client, role & org
 			String whereClause = MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID + " =? AND "
-					+ MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " =? AND " + MUser.Table_Name
+					+ MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_UU + " =? AND " + MUser.Table_Name
 					+ "." + MUser.COLUMNNAME_IsActive + "=? AND " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_IsActive + " =? AND " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_AD_Client_ID + " =? AND " + MRoleOrgAccess.Table_Name + "."
@@ -156,6 +156,9 @@ public class AuthenticationRestService {
 
 			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
+			joinClause += " INNER JOIN " + MRole.Table_Name + " ON " + MUserRoles.Table_Name + "." 
+					+ MUserRoles.COLUMNNAME_AD_Role_ID + " = " + MRole.Table_Name + "."
+					+ MRole.COLUMNNAME_AD_Role_ID;
 			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Client_ID + " = " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_AD_Client_ID;

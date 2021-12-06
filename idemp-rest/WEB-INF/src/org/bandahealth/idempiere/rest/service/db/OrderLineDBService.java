@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.base.model.MBHChargeInfo;
 import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Charge;
@@ -69,6 +70,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 		if (entity.getOrderId() != null) {
 			mOrderLine.setC_Order_ID(entity.getOrderId());
+			// Take care that price lists and other things are set on the order line from the header
+			mOrderLine.setHeaderInfo(entity.getOrder());
 		}
 
 		if (entity.getExpenseCategory() != null) {
@@ -88,6 +91,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		}
 
 		if (entity.getPrice() != null) {
+			// We can't override the price to zero if we don't first set the price generally
+			mOrderLine.setPrice();
 			mOrderLine.setPrice(entity.getPrice());
 		}
 

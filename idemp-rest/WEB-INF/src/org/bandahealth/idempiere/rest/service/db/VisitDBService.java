@@ -201,11 +201,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		if (entity.getSystolicBloodPressure() != null) {
-			mOrder.setBH_SystolicBloodPressure(entity.getSystolicBloodPressure());
+			mOrder.setbh_systolic_blood_pressure(entity.getSystolicBloodPressure());
 		}
 
 		if (entity.getDiastolicBloodPressure() != null) {
-			mOrder.setBH_DiastolicBloodPressure(entity.getDiastolicBloodPressure());
+			mOrder.setbh_diastolic_blood_pressure(entity.getDiastolicBloodPressure());
 		}
 
 		if (entity.getHeight() != null) {
@@ -219,8 +219,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.getPrimaryCodedDiagnosis() != null || entity.getSecondaryCodedDiagnosis() != null) {
 			List<String> uuids = new ArrayList<>();
 
-			uuids.add(entity.getPrimaryCodedDiagnosis().getUuid());
-			uuids.add(entity.getSecondaryCodedDiagnosis().getUuid());
+			if (entity.getPrimaryCodedDiagnosis() != null) {
+				uuids.add(entity.getPrimaryCodedDiagnosis().getUuid());
+			}
+			if (entity.getSecondaryCodedDiagnosis() != null) {
+				uuids.add(entity.getSecondaryCodedDiagnosis().getUuid());
+			}
 			// prefetch coded diagnosis list
 			List<MBHCodedDiagnosis> prefetchedCodedDiagnosisList = codedDiagnosisDBService
 					.getCodedDiagnosesByUuids(uuids);
