@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.rest.model.Charge;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ChargeDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,11 +21,8 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ChargeRestService extends BaseEntityRestService<Charge> {
-	private final ChargeDBService chargeDBService;
-
-	public ChargeRestService() {
-		chargeDBService = new ChargeDBService();
-	}
+	@Autowired
+	private ChargeDBService chargeDBService;
 
 	@GET
 	@Path(IRestConfigs.NON_PATIENT_PAYMENTS_PATH)

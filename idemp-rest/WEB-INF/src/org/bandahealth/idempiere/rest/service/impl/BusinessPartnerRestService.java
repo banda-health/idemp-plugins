@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerCharge;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerChargeDBService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -23,13 +24,10 @@ import java.util.stream.Collectors;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class BusinessPartnerRestService {
-	private final BusinessPartnerChargeDBService businessPartnerChargeDBService;
-	private final BusinessPartnerDBService businessPartnerDBService;
-
-	public BusinessPartnerRestService() {
-		businessPartnerChargeDBService = new BusinessPartnerChargeDBService();
-		businessPartnerDBService = new BusinessPartnerDBService();
-	}
+	@Autowired
+	private BusinessPartnerChargeDBService businessPartnerChargeDBService;
+	@Autowired
+	private BusinessPartnerDBService businessPartnerDBService;
 
 	@GET
 	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES)

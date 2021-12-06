@@ -16,6 +16,7 @@ public class SearchProductAttribute extends BaseMetadata {
 	private BigDecimal existingQuantity;
 	private String expiry;
 	private Integer attributeSetInstanceId;
+	private String attributeSetInstanceUuid;
 	private String warehouseUuid;
 
 	public SearchProductAttribute() {
@@ -56,5 +57,13 @@ public class SearchProductAttribute extends BaseMetadata {
 
 	public void setWarehouseUuid(String warehouseUuid) {
 		this.warehouseUuid = warehouseUuid;
+	}
+
+	public String getAttributeSetInstanceUuid() {
+		return attributeSetInstanceUuid;
+	}
+
+	public void setAttributeSetInstanceUuid(String attributeSetInstanceUuid) {
+		this.attributeSetInstanceUuid = attributeSetInstanceUuid;
 	}
 }

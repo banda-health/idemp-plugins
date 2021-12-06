@@ -10,6 +10,8 @@ import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +19,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ChargeInformationSuggestionDBService extends BaseDBService<ChargeInformationSuggestion, MBHChargeInfoSuggestion> {
-	private final ChargeInformationValueSuggestionDBService chargeInformationValueSuggestionDBService;
-	private final ReferenceListDBService referenceListDBService;
-
-	public ChargeInformationSuggestionDBService() {
-		chargeInformationValueSuggestionDBService = new ChargeInformationValueSuggestionDBService();
-		referenceListDBService = new ReferenceListDBService();
-	}
+@Component
+public class ChargeInformationSuggestionDBService
+		extends BaseDBService<ChargeInformationSuggestion, MBHChargeInfoSuggestion> {
+	@Autowired
+	private ChargeInformationValueSuggestionDBService chargeInformationValueSuggestionDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
 
 	public List<ChargeInformationSuggestion> get() {
 		List<ChargeInformationSuggestion> chargeInformationSuggestions =
@@ -37,23 +38,27 @@ public class ChargeInformationSuggestionDBService extends BaseDBService<ChargeIn
 				chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getId).collect(Collectors.toSet());
 		// Batch call to get charge info values
 		Map<Integer, List<MBHChargeInfoValueSuggestion>> chargeInfoValueSuggestionsByChargeInfoSuggestion =
-				chargeInformationValueSuggestionDBService.getGroupsByIds(MBHChargeInfoValueSuggestion::getBH_Charge_Info_Suggestion_ID,
+				chargeInformationValueSuggestionDBService.getGroupsByIds(
+						MBHChargeInfoValueSuggestion::getBH_Charge_Info_Suggestion_ID,
 						MBHChargeInfoValueSuggestion.COLUMNNAME_BH_Charge_Info_Suggestion_ID, chargeInfoSuggestionIds);
 
 		// Batch calls to get reference lists for charge info suggestions
 		Map<String, MRefList> subTypeByValue = referenceListDBService
 				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
-						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getSubTypeValue).collect(Collectors.toSet()))
+						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getSubTypeValue)
+								.collect(Collectors.toSet()))
 				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 		Map<String, MRefList> dataTypesByValue = referenceListDBService
 				.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU,
-						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getDataTypeValue).collect(Collectors.toSet()))
+						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getDataTypeValue)
+								.collect(Collectors.toSet()))
 				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 
 		return chargeInformationSuggestions.stream().peek(chargeInformationSuggestion -> {
 			// Now fill in the batched data
 			if (!StringUtil.isNullOrEmpty(chargeInformationSuggestion.getSubTypeValue())) {
-				chargeInformationSuggestion.setSubType(new ReferenceList(subTypeByValue.get(chargeInformationSuggestion.getSubTypeValue())));
+				chargeInformationSuggestion.setSubType(
+						new ReferenceList(subTypeByValue.get(chargeInformationSuggestion.getSubTypeValue())));
 			}
 			if (!StringUtil.isNullOrEmpty(chargeInformationSuggestion.getDataTypeValue())) {
 				chargeInformationSuggestion

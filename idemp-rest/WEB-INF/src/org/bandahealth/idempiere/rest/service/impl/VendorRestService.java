@@ -13,23 +13,20 @@ import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.VendorDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expose Vendor REST functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.VENDORS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class VendorRestService extends BaseEntityRestService<Vendor> {
 
+	@Autowired
 	private VendorDBService dbService;
-
-	public VendorRestService() {
-		dbService = new VendorDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)

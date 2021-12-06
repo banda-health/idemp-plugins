@@ -12,7 +12,7 @@ import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
  * @author icarus
  *
  */
-
+@Provider
 public class DuplicateEntitySaveExceptionMapper implements ExceptionMapper<DuplicateEntitySaveException> {
 
 	public DuplicateEntitySaveExceptionMapper() {

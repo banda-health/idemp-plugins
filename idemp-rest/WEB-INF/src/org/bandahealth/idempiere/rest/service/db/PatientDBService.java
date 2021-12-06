@@ -18,12 +18,14 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocation;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
 /**
  * Patient Database Operations
  *
  * @author andrew
  */
+@Component
 public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	private static String COLUMNNAME_GENDER = "bh_gender";

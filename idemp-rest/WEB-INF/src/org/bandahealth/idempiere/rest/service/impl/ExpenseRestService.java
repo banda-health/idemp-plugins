@@ -15,23 +15,20 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ExpenseDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expose TrackExpense REST functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.EXPENSES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ExpenseRestService extends BaseEntityRestService<Expense> {
 
+	@Autowired
 	private ExpenseDBService dbService;
-
-	public ExpenseRestService() {
-		this.dbService = new ExpenseDBService();
-	}
 
 	@GET
 	@Override
@@ -45,8 +42,8 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<Expense> search(@QueryParam("value") String value, @QueryParam("page") int page,
-																					@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-																					@QueryParam("sortOrder") String sortOrder) {
+			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 
@@ -62,7 +59,7 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 	public Expense saveEntity(Expense entity) {
 		return dbService.saveEntity(entity);
 	}
-	
+
 	@POST
 	@Path(IRestConfigs.ENTITY_PROCESS_PATH)
 	public Expense process(@PathParam("uuid") String uuid, @PathParam("processType") String docAction) throws Exception {

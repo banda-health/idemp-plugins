@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse_BH> {
 	@Override
 	public Warehouse saveEntity(Warehouse entity) {

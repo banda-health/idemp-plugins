@@ -34,8 +34,8 @@ public class Visit extends Order {
 	private CodedDiagnosis secondaryCodedDiagnosis;
 	private String primaryUnCodedDiagnosis;
 	private String secondaryUnCodedDiagnosis;
-	private String systolicBloodPressure;
-	private String diastolicBloodPressure;
+	private Integer systolicBloodPressure;
+	private Integer diastolicBloodPressure;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -72,8 +72,8 @@ public class Visit extends Order {
 			this.visitDate = order.getBH_VisitDate();
 			this.primaryUnCodedDiagnosis = order.getBH_PrimaryUnCodedDiagnosis();
 			this.secondaryUnCodedDiagnosis = order.getBH_SecondaryUnCodedDiagnosis();
-			this.systolicBloodPressure = order.getBH_SystolicBloodPressure();
-			this.diastolicBloodPressure = order.getBH_DiastolicBloodPressure();
+			this.systolicBloodPressure = order.getbh_systolic_blood_pressure();
+			this.diastolicBloodPressure = order.getbh_diastolic_blood_pressure();
 			setId(order.get_ID());
 		}
 
@@ -205,20 +205,20 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public String getSystolicBloodPressure() {
+	public Integer getSystolicBloodPressure() {
 		return systolicBloodPressure;
 	}
 
-	public void setSystolicBloodPressure(String systolicBloodPressure) {
+	public void setSystolicBloodPressure(Integer systolicBloodPressure) {
 		this.systolicBloodPressure = systolicBloodPressure;
 	}
 
 	@XmlElement
-	public String getDiastolicBloodPressure() {
+	public Integer getDiastolicBloodPressure() {
 		return diastolicBloodPressure;
 	}
 
-	public void setDiastolicBloodPressure(String diastolicBloodPressure) {
+	public void setDiastolicBloodPressure(Integer diastolicBloodPressure) {
 		this.diastolicBloodPressure = diastolicBloodPressure;
 	}
 
