@@ -25,6 +25,7 @@ import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
@@ -39,13 +40,13 @@ import org.compiere.util.Env;
  */
 public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
+	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
 	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
+	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
 	private InventoryDBService inventoryDbService = new InventoryDBService();
 	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
 	private InventoryDBService inventoryDBService = new InventoryDBService();
-	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
-
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -90,7 +91,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * Searches products/services and returns related price, expiry, quantity fields
 	 *
 	 * @param searchValue
-	 * 
 	 * @return
 	 */
 	public BaseListResponse<SearchProduct> searchItems(String searchValue) {
@@ -129,6 +129,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
+				// Get the batched attribute sets
+				Map<Integer, MAttributeSetInstance> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
+						inventoryList.getResults().stream().map(Inventory::getAttributeSetInstanceId).collect(Collectors.toSet()));
+
 				for (Inventory inventory : inventoryList.getResults()) {
 					// exclude expired products
 					if (inventory.getShelfLife() < 0) {
@@ -138,6 +142,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					// get expiry date and id
 					SearchProductAttribute attribute = new SearchProductAttribute(inventory.getExpirationDate(),
 							inventory.getAttributeSetInstanceId());
+					if (inventory.getAttributeSetInstanceId() > 0) {
+						attribute.setAttributeSetInstanceUuid(
+								attributeSetInstancesByIds.get(inventory.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
+					}
 
 					// get quantity
 					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
@@ -249,8 +257,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			// update inventory only for a new products with inventory
 			if (exists == null && entity.getStorageOnHandList() != null
 					&& entity.getStorageOnHandList().stream()
-							.anyMatch(storageOnHand -> storageOnHand.getQuantityOnHand() != null
-									&& storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
+					.anyMatch(storageOnHand -> storageOnHand.getQuantityOnHand() != null
+							&& storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
 				Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct = new HashMap<>();
 				// If it has expiration, cycle through the list and add the values
 				if (product.isBH_HasExpiration()) {

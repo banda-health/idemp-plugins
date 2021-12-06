@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.process;
 
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.model.X_BH_I_Product_Quantity;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAcctSchema;
@@ -412,9 +413,9 @@ public class ImportProductsProcess extends SvrProcess {
 
 		if (inventoryByProduct.keySet().size() > 0) {
 			try {
-				List<MWarehouse> clientWarehouses =
-						new Query(getCtx(), MWarehouse.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
-								get_TrxName()).setParameters(clientId).list();
+				List<MWarehouse_BH> clientWarehouses = new Query(getCtx(), MWarehouse_BH.Table_Name,
+						MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=?",
+						get_TrxName()).setParameters(clientId, "Y").setOnlyActiveRecords(true).list();
 
 				InitializeStock.createInitialStock(inventoryByProduct, getCtx(), get_TrxName(),
 						handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_MERGE),

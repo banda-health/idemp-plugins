@@ -3,45 +3,57 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Inventory;
+import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Movement;
 import org.bandahealth.idempiere.rest.model.MovementLine;
+import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Product;
+import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MLocator;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class MovementDBService extends DocumentDBService<Movement, MMovement_BH> {
 
-	private MovementLineDBService movementLineDBService;
-	/** Document Type */
-	private int p_C_DocType_ID = 0;
 	private static final String MISSING_FROM_WAREHOUSE = "Missing From warehouse";
 	private static final String MISSING_TO_WAREHOUSE = "Missing To warehouse";
-
-	public MovementDBService() {
-		this.movementLineDBService = new MovementLineDBService();
-	}
-
-	@Override
-	protected String getDocumentTypeName() {
-		return DOCUMENTNAME_MOVEMENT;
-	}
-
+	private final ProductDBService productDBService = new ProductDBService();
+	private final InventoryDBService inventoryDBService = new InventoryDBService();
+	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
+	private final StorageOnHandDBService storageOnHandDBService = new StorageOnHandDBService();
+	private MovementLineDBService movementLineDBService;
+	/**
+	 * Document Type
+	 */
+	private int p_C_DocType_ID = 0;
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MWarehouse.Table_Name,
@@ -55,12 +67,21 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		}
 	};
 
+	public MovementDBService() {
+		this.movementLineDBService = new MovementLineDBService();
+	}
+
+	@Override
+	protected String getDocumentTypeName() {
+		return DOCUMENTNAME_MOVEMENT;
+	}
+
 	@Override
 	public Movement saveEntity(Movement entity) {
 		// From
 		MWarehouse fromWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
 				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(entity.getFromWarehouse().getUuid())
-						.first();
+				.first();
 		if (fromWarehouse == null) {
 			throw new AdempiereException(MISSING_FROM_WAREHOUSE);
 		}
@@ -68,7 +89,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		// To
 		MWarehouse toWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
 				MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setParameters(entity.getToWarehouse().getUuid())
-						.first();
+				.first();
 		if (toWarehouse == null) {
 			throw new AdempiereException(MISSING_TO_WAREHOUSE);
 		}
@@ -102,20 +123,53 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 			}
 
 			mMovement.setIsActive(entity.getIsActive());
-
 			mMovement.setIsApproved(true);
-			mMovement.setDocAction(MOrder_BH.DOCACTION_Complete);
 
 			mMovement.saveEx();
 
 			if (entity.getMovementLines() != null && !entity.getMovementLines().isEmpty()) {
+				int locatorId = fromWarehouse.getDefaultLocator().getM_Locator_ID();
+				int locatorToId = toWarehouse.getDefaultLocator().getM_Locator_ID();
+
+				// Get the products in batch for the movement lines
+				Map<String, MProduct_BH> productsByUuids = productDBService.getByUuids(
+						entity.getMovementLines().stream().filter(movementLine -> movementLine.getProduct() != null)
+								.map(movementLine -> movementLine.getProduct().getUuid()).collect(Collectors.toSet()));
+
+				// Get the atributes in batch for the movement lines
+				Map<String, Integer> attributeSetInstanceIdsByUuid = attributeSetInstanceDBService.getByUuids(
+								entity.getMovementLines().stream().filter(movementLine -> movementLine.getAttributeSetInstance() != null)
+										.map(movementLine -> movementLine.getAttributeSetInstance().getUuid()).collect(Collectors.toSet()))
+						.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,
+								attributeSetInstanceByUuid -> attributeSetInstanceByUuid.getValue().get_ID()));
+
 				for (MovementLine movementLine : entity.getMovementLines()) {
-					movementLineDBService.saveEntity(movementLine, mMovement, fromWarehouse, toWarehouse,
-							movementLine.getMovementQuantity());
+					movementLine.setLocatorId(locatorId);
+					movementLine.setLocatorToId(locatorToId);
+					movementLine.setMovementId(mMovement.get_ID());
+
+					if (movementLine.getProduct() != null) {
+						movementLine.setProductId(productsByUuids.get(movementLine.getProduct().getUuid()).get_ID());
+					}
+					if (movementLine.getAttributeSetInstance() != null) {
+						movementLine.setAttributeSetInstanceId(
+								attributeSetInstanceIdsByUuid.get(movementLine.getAttributeSetInstance().getUuid()));
+					}
+
+					movementLineDBService.saveEntity(movementLine);
 				}
 			}
 
-			return createInstanceWithAllFields(getEntityByUuidFromDB(mMovement.getM_Movement_UU()));
+			// Delete movement lines not on the movement anymore
+			List<MMovementLine_BH> movementsLines = movementLineDBService.getGroupsByIds(MMovementLine_BH::getM_Movement_ID,
+					MMovementLine_BH.COLUMNNAME_M_Movement_ID, Collections.singleton(mMovement.get_ID())).get(mMovement.get_ID());
+			Set<String> expectedMovementLineUuids =
+					entity.getMovementLines().stream().map(MovementLine::getUuid).collect(Collectors.toSet());
+			movementsLines.stream().filter(movementLine -> expectedMovementLineUuids.stream()
+					.noneMatch(uuidToKeep -> uuidToKeep.equalsIgnoreCase(movementLine.getM_MovementLine_UU()))).forEach(
+					movementLineToDelete -> movementLineToDelete.delete(false));
+
+			return getEntity(mMovement.getM_Movement_UU());
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -150,7 +204,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 
 	@Override
 	protected Movement createInstanceWithAllFields(MMovement_BH instance) {
-		return new Movement(instance, movementLineDBService.getLinesByMovement(instance));
+		return new Movement(instance);
 	}
 
 	@Override
@@ -169,8 +223,95 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	}
 
 	@Override
+	public Movement getEntity(String uuid) {
+		Movement movement = transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
+
+		// We need more information for the storage on hand, so get those entities
+		Set<Integer> productIds =
+				movement.getMovementLines().stream().map(MovementLine::getProductId).collect(Collectors.toSet());
+		Map<Integer, List<MStorageOnHand>> storageOnHandByProductId = productIds.isEmpty() ? new HashMap<>() :
+				storageOnHandDBService.getGroupsByIds(MStorageOnHand::getM_Product_ID, MStorageOnHand.COLUMNNAME_M_Product_ID,
+						productIds);
+
+		// Get the inventory for the product (can't be batched at the moment)
+		movement.getMovementLines().forEach(movementLine -> {
+			if (movementLine.getProductId() == 0) {
+				return;
+			}
+			BaseListResponse<Inventory> productsInventory =
+					inventoryDBService.getProductInventory(Paging.ALL.getInstance(), movementLine.getProductId());
+			movementLine.getProduct().setStorageOnHandList(
+					productsInventory.getResults().stream().filter(inventory -> inventory.getShelfLife() >= 0)
+							.map(StorageOnHand::new).collect(Collectors.toList()));
+
+			// Set the correct locator id
+			movementLine.getProduct().getStorageOnHandList().forEach(storageOnHand -> {
+				storageOnHandByProductId.get(movementLine.getProductId()).stream().filter(
+						productStorageOnHand -> productStorageOnHand.getM_AttributeSetInstance_ID() ==
+								storageOnHand.getAttributeSetInstanceId()).findFirst().ifPresent(
+						storageOnHandForProduct -> storageOnHand.setLocatorId(storageOnHandForProduct.getM_Locator_ID()));
+			});
+		});
+
+		// Get the storage on hand stream for batches
+		List<StorageOnHand> storageOnHandCollection =
+				movement.getMovementLines().stream().map(MovementLine::getProduct).filter(Objects::nonNull)
+						.map(Product::getStorageOnHandList).flatMap(Collection::stream).collect(Collectors.toList());
+
+		// Batch the attribute set instance calls
+		Set<Integer> attributeSetInstanceIds =
+				storageOnHandCollection.stream().map(StorageOnHand::getAttributeSetInstanceId)
+						.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet());
+		Map<Integer, AttributeSetInstance> attributeSetInstancesById = attributeSetInstanceIds.isEmpty() ?
+				new HashMap<>() :
+				attributeSetInstanceDBService.getByIds(attributeSetInstanceIds).entrySet().stream().collect(
+						Collectors.toMap(Map.Entry::getKey,
+								attributeSetInstanceById -> new AttributeSetInstance(attributeSetInstanceById.getValue())));
+
+		// Batch the locator calls
+		Set<Integer> locatorIds =
+				storageOnHandCollection.stream().map(StorageOnHand::getLocatorId).filter(locatorId -> locatorId > 0)
+						.collect(Collectors.toSet());
+		locatorIds.addAll(
+				movement.getMovementLines().stream().map(MovementLine::getLocatorId).filter(locatorId -> locatorId > 0)
+						.collect(Collectors.toSet()));
+		locatorIds.addAll(
+				movement.getMovementLines().stream().map(MovementLine::getLocatorToId).filter(locatorId -> locatorId > 0)
+						.collect(Collectors.toSet()));
+		Map<Integer, Locator> locatorsByIds = locatorIds.isEmpty() ? new HashMap<>() :
+				locatorDBService.transformData(new ArrayList<>(locatorDBService.getByIds(locatorIds).values())).stream()
+						.collect(Collectors.toMap(Locator::getId, locator -> locator));
+
+		movement.getMovementLines().forEach(movementLine -> {
+			if (movementLine.getProductId() == 0) {
+				return;
+			}
+			movementLine.getProduct().getStorageOnHandList().forEach(storageOnHand -> {
+				if (storageOnHand.getAttributeSetInstanceId() > 0) {
+					storageOnHand.setAttributeSetInstance(
+							attributeSetInstancesById.get(storageOnHand.getAttributeSetInstanceId()));
+				}
+				if (storageOnHand.getLocatorId() > 0) {
+					storageOnHand.setLocator(locatorsByIds.get(storageOnHand.getLocatorId()));
+				}
+			});
+			if (movementLine.getLocatorId() > 0) {
+				movementLine.setLocator(locatorsByIds.get(movementLine.getLocatorId()));
+			}
+			if (movementLine.getLocatorToId() > 0) {
+				movementLine.setLocatorTo(locatorsByIds.get(movementLine.getLocatorToId()));
+			}
+		});
+
+		return movement;
+	}
+
+	@Override
 	public List<Movement> transformData(List<MMovement_BH> dbModels) {
 		List<Movement> results = new ArrayList<>();
+		if (dbModels == null || dbModels.isEmpty()) {
+			return results;
+		}
 
 		// get available warehouses
 		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
@@ -179,12 +320,21 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		Set<Integer> userIds = dbModels.stream().map(MMovement_BH::getCreatedBy).collect(Collectors.toSet());
 		List<Object> parameters = new ArrayList<>();
 
+		// Get movement lines
+		Set<Integer> movementIds = dbModels.stream().map(MMovement_BH::get_ID).collect(Collectors.toSet());
+		Map<Integer, List<MovementLine>> movementLinesByMovementId = movementLineDBService.transformData(
+				movementLineDBService.getGroupsByIds(MMovementLine_BH::getM_Movement_ID,
+								MMovementLine_BH.COLUMNNAME_M_Movement_ID, movementIds).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(MovementLine::getMovementId));
+
 		List<MUser_BH> users = new Query(Env.getCtx(), MUser_BH.Table_Name,
 				MUser_BH.COLUMNNAME_AD_User_ID + " IN ("
 						+ QueryUtil.getWhereClauseAndSetParametersForSet(userIds, parameters) + ")",
 				null).setParameters(parameters).list();
 		dbModels.forEach((mMovement) -> {
-			Movement movement = new Movement(mMovement);
+			Movement movement = createInstanceWithAllFields(mMovement);
+			movement.setMovementLines(movementLinesByMovementId.get(movement.getId()));
+
 			if (mMovement.getBH_FromWarehouseID() > 0) {
 				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
 					return warehouse.get_ID() == mMovement.getBH_FromWarehouseID();
