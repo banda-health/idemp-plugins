@@ -150,7 +150,7 @@ from (
         where date(o.bh_visitdate) between p.begin_date and p.end_date
         group by ol.c_order_id, olci.name
     ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by billdetails.billdate DESC;]]>
+order by billdetails.bill_date DESC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
