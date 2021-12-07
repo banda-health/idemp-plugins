@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Local UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -47,21 +47,23 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Local UAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.lang.String"/>
+		<parameter name="End Date" class="java.lang.String"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<parameter name="Payment Mode" class="java.lang.String"/>
 		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[WITH params AS (
     SELECT
         $P{AD_CLIENT_ID} AS ad_client_id,
-        date($P{Begin Date}) AS begin_date,
-        date($P{End Date}) AS end_date,
+        to_timestamp($P{Begin Date}, 'YYYY-MM-DD HH24:MI') AS begin_date,
+        to_timestamp($P{End Date}, 'YYYY-MM-DD HH24:MI') AS end_date,
         coalesce($P{Patient Type}, '') AS patient_type,
-        coalesce($P{Payment Mode}, '') AS payment_mode
+        coalesce($P{Payment Mode}, '') AS payment_mode,
+        coalesce($P{AD_User_UU}, '') AS ad_user_uu
 )
 select
     billdetails.c_order_id,
@@ -81,19 +83,21 @@ select
 from (
     select co.c_order_id,
            cb.c_bpartner_id,
-           date(co.bh_visitdate) as bill_date,
+           co.bh_visitdate as bill_date,
            cb.name as patientname,
            sum(ol.linenetamt) as lineitemtotals
     from c_order co
         inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
+        inner join ad_user on co.updatedby = ad_user.ad_user_id
         join c_orderline ol on co.c_order_id = ol.c_order_id
         cross join params p
     where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
-          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
+          AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
           AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
+          AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
         )
         AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name
+    group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name
     order by 1
 ) as billdetails
     inner join (
@@ -147,10 +151,10 @@ from (
                     join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
                 where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
             ) as olci on olci.c_orderline_id = ol.c_orderline_id
-        where date(o.bh_visitdate) between p.begin_date and p.end_date
+        where o.bh_visitdate between p.begin_date and p.end_date
         group by ol.c_order_id, olci.name
     ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by billdetails.billdate DESC;]]>
+order by billdetails.bill_date DESC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -238,11 +242,12 @@ order by billdetails.billdate DESC;]]>
 			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
+	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
