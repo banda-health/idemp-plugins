@@ -333,7 +333,9 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 				null).setParameters(parameters).list();
 		dbModels.forEach((mMovement) -> {
 			Movement movement = createInstanceWithAllFields(mMovement);
-			movement.setMovementLines(movementLinesByMovementId.get(movement.getId()));
+			if (movementLinesByMovementId.containsKey(movement.getId())) {
+				movement.setMovementLines(movementLinesByMovementId.get(movement.getId()));
+			}
 
 			if (mMovement.getBH_FromWarehouseID() > 0) {
 				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
