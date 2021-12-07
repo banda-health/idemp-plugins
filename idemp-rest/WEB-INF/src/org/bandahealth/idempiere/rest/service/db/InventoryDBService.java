@@ -19,6 +19,7 @@ import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.base.process.InitializeStock;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
+import org.bandahealth.idempiere.rest.model.InventoryLine;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
@@ -32,10 +33,8 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Component;
 
-import static org.bandahealth.idempiere.rest.service.db.BaseDBService.*;
-
 @Component
-public class InventoryDBService {
+public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_BH> {
 
 	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
@@ -271,5 +270,42 @@ public class InventoryDBService {
 
 		return count;
 	}
+
+	@Override
+	public Inventory saveEntity(Inventory entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Inventory createInstanceWithDefaultFields(MInventoryLine_BH instance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Inventory createInstanceWithAllFields(MInventoryLine_BH instance) {
+		Inventory inventory = new Inventory();
+		return inventory;
+	}
+
+	@Override
+	protected Inventory createInstanceWithSearchFields(MInventoryLine_BH instance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected MInventoryLine_BH getModelInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
