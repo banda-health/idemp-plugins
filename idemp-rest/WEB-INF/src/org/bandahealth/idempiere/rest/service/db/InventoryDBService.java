@@ -291,8 +291,10 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 
 	@Override
 	protected Inventory createInstanceWithAllFields(MInventoryLine_BH instance) {
-		Inventory inventory = new Inventory();
-		return inventory;
+		 Inventory inventory = new Inventory(instance);
+//		 inventory.setShelfLife();
+//		 inventory.setUpdateReasonUuid(DEFAULT_SEARCH_CLAUSE);
+		 return inventory;
 	}
 
 	@Override
