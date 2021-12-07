@@ -9,28 +9,26 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Order (c_order) base functionality (billing, receive goods, track expenses).
- * 
- * @author andrew
  *
  * @param <T>
+ * @author andrew
  */
 public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDBService<T, MInvoice_BH> {
 
-	protected InvoiceLineDBService invoiceLineDBService = new InvoiceLineDBService();
-	protected final ProcessDBService processDBService;
 	private final String PURCHASE_ORDER = "Purchase Order";
-	private final VoidedReasonDBService voidedReasonDBService;
-
-	public BaseInvoiceDBService() {
-		processDBService = new ProcessDBService();
-		voidedReasonDBService = new VoidedReasonDBService();
-	}
+	@Autowired
+	protected InvoiceLineDBService invoiceLineDBService;
+	@Autowired
+	protected ProcessDBService processDBService;
+	@Autowired
+	private VoidedReasonDBService voidedReasonDBService;
 
 	protected abstract void beforeSave(T entity, MInvoice_BH invoice);
 
@@ -52,7 +50,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 	/**
 	 * Search an invoice by patient/vendor name
-	 * 
+	 *
 	 * @param value
 	 * @param pagingInfo
 	 * @param sortColumn
@@ -192,7 +190,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 	/**
 	 * Get the Invoice (Vendor) document type id
-	 * 
+	 *
 	 * @return
 	 */
 	protected int getAPInvoiceDocumentTypeId() {
@@ -229,7 +227,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 	/**
 	 * Override this for invoices that need a different process
-	 * 
+	 *
 	 * @param entity
 	 */
 	protected void runAsyncEntityDeleteProcess(MInvoice_BH entity) {

@@ -6,15 +6,15 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ChargeInformationDBService extends BaseDBService<ChargeInformation, MBHChargeInfo> {
-	private final ChargeInformationValueDBService chargeInformationValueDBService;
-	private final ReferenceListDBService referenceListDBService;
-
-	public ChargeInformationDBService() {
-		chargeInformationValueDBService = new ChargeInformationValueDBService();
-		referenceListDBService = new ReferenceListDBService();
-	}
+	@Autowired
+	private ChargeInformationValueDBService chargeInformationValueDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
 
 	@Override
 	public ChargeInformation saveEntity(ChargeInformation entity) {

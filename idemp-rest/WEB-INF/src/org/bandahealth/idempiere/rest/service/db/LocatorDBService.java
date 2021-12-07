@@ -4,6 +4,7 @@ import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MLocator;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class LocatorDBService extends BaseDBService<Locator, MLocator> {
 	private final WarehouseDBService warehouseDBService = new WarehouseDBService();
 

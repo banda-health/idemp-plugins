@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetInstance, MAttributeSetInstance> {
 	@Override
 	public AttributeSetInstance saveEntity(AttributeSetInstance entity) {

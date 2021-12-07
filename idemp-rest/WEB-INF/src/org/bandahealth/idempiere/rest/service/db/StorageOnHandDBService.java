@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorageOnHand> {
 	@Override
 	public StorageOnHand saveEntity(StorageOnHand entity) {

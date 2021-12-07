@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.ChargeInformationSuggestion;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ChargeInformationSuggestionDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,11 +21,8 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ChargeInformationSuggestionRestService extends BaseEntityRestService<ChargeInformationSuggestion> {
-	private final ChargeInformationSuggestionDBService chargeInformationSuggestionDBService;
-
-	public ChargeInformationSuggestionRestService() {
-		chargeInformationSuggestionDBService = new ChargeInformationSuggestionDBService();
-	}
+	@Autowired
+	private ChargeInformationSuggestionDBService chargeInformationSuggestionDBService;
 
 	@GET
 	public List<ChargeInformationSuggestion> get() {
@@ -34,16 +32,17 @@ public class ChargeInformationSuggestionRestService extends BaseEntityRestServic
 	@Override
 	@GET
 	@Path("all")
-	public BaseListResponse<ChargeInformationSuggestion> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filter") String filterJson) {
+	public BaseListResponse<ChargeInformationSuggestion> getAll(@QueryParam("page") int page,
+			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
-	public BaseListResponse<ChargeInformationSuggestion> search(String value, int page, int size, String sortColumn, String sortOrder) {
+	public BaseListResponse<ChargeInformationSuggestion> search(String value, int page, int size, String sortColumn,
+			String sortOrder) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 

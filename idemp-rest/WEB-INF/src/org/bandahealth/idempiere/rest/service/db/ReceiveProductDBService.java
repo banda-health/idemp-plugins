@@ -14,21 +14,19 @@ import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MOrder;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Receive products logic
  *
  * @author andrew
  */
+@Component
 public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> {
 
-	private final VendorDBService vendorDBService;
-	private final ProductDBService productDBService;
-
-	public ReceiveProductDBService() {
-		this.vendorDBService = new VendorDBService();
-		this.productDBService = new ProductDBService();
-	}
+	@Autowired
+	private VendorDBService vendorDBService;
 
 	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
 			String filterJson) {

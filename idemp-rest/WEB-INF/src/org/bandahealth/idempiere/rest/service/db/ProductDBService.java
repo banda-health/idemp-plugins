@@ -34,18 +34,25 @@ import org.compiere.model.MUOM;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /*
  * Carry out all Product DB Operations.
  */
+@Component
 public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
 	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
-	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
-	private InventoryDBService inventoryDbService = new InventoryDBService();
-	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
+	@Autowired
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
+	@Autowired
+	private InventoryDBService inventoryDbService;
+	@Autowired
+	private ProductCategoryDBService productCategoryDBService;
+	@Autowired
 	private InventoryDBService inventoryDBService = new InventoryDBService();
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
