@@ -5,11 +5,13 @@ import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.compiere.model.MProcessPara;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Component
 public class ProcessParameterDBService extends BaseDBService<ProcessParameter, MProcessPara> {
 	@Override
 	public ProcessParameter saveEntity(ProcessParameter entity) {

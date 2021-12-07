@@ -11,6 +11,8 @@ import org.bandahealth.idempiere.rest.model.BusinessPartnerChargeInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,18 +21,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartnerCharge, MBHBPartnerCharge> {
-	private final BusinessPartnerDBService businessPartnerDBService;
-	private final ChargeDBService chargeDBService;
-	private final ChargeInformationDBService chargeInformationDBService;
-	private final BusinessPartnerChargeInformationDBService businessPartnerChargeInformationDBService;
-
-	public BusinessPartnerChargeDBService() {
-		businessPartnerDBService = new BusinessPartnerDBService();
-		chargeDBService = new ChargeDBService();
-		businessPartnerChargeInformationDBService = new BusinessPartnerChargeInformationDBService();
-		chargeInformationDBService = new ChargeInformationDBService();
-	}
+	@Autowired
+	private BusinessPartnerDBService businessPartnerDBService;
+	@Autowired
+	private ChargeDBService chargeDBService;
+	@Autowired
+	private ChargeInformationDBService chargeInformationDBService;
+	@Autowired
+	private BusinessPartnerChargeInformationDBService businessPartnerChargeInformationDBService;
 
 	@Override
 	public BusinessPartnerCharge saveEntity(BusinessPartnerCharge entity) {

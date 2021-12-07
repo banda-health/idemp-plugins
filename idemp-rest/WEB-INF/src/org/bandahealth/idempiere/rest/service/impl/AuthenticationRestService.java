@@ -38,6 +38,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -45,6 +46,7 @@ import org.compiere.util.Login;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -67,12 +69,10 @@ public class AuthenticationRestService {
 
 	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
-	private final WarehouseDBService warehouseDBService = new WarehouseDBService();
-	private final RoleDBService roleDBService;
-
-	public AuthenticationRestService() {
-		roleDBService = new RoleDBService();
-	}
+	@Autowired
+	private WarehouseDBService warehouseDBService;
+	@Autowired
+	private RoleDBService roleDBService;
 
 	@POST
 	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
@@ -141,7 +141,7 @@ public class AuthenticationRestService {
 			// check access permissions
 			// client, role & org
 			String whereClause = MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID + " =? AND "
-					+ MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_Role_ID + " =? AND " + MUser.Table_Name
+					+ MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_UU + " =? AND " + MUser.Table_Name
 					+ "." + MUser.COLUMNNAME_IsActive + "=? AND " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_IsActive + " =? AND " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_AD_Client_ID + " =? AND " + MRoleOrgAccess.Table_Name + "."
@@ -156,6 +156,9 @@ public class AuthenticationRestService {
 
 			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
+			joinClause += " INNER JOIN " + MRole.Table_Name + " ON " + MUserRoles.Table_Name + "." 
+					+ MUserRoles.COLUMNNAME_AD_Role_ID + " = " + MRole.Table_Name + "."
+					+ MRole.COLUMNNAME_AD_Role_ID;
 			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Client_ID + " = " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_AD_Client_ID;

@@ -13,23 +13,20 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Service;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ServiceDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expose Service REST functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.SERVICES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ServiceRestService extends BaseEntityRestService<Service> {
 
+	@Autowired
 	private ServiceDBService dbService;
-
-	public ServiceRestService() {
-		this.dbService = new ServiceDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)

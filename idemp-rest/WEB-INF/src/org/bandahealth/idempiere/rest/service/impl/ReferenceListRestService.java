@@ -4,6 +4,7 @@ import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.service.db.ReferenceListDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,11 +20,8 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class ReferenceListRestService {
 
-	private final ReferenceListDBService dataService;
-
-	public ReferenceListRestService() {
-		dataService = new ReferenceListDBService();
-	}
+	@Autowired
+	private ReferenceListDBService dataService;
 
 	@GET
 	@Path("/documentActionAccess")

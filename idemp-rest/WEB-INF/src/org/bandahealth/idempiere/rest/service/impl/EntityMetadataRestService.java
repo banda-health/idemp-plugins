@@ -9,17 +9,15 @@ import javax.ws.rs.core.MediaType;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.EntityMetadata;
 import org.bandahealth.idempiere.rest.service.db.EntityMetadataDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.METADATA_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class EntityMetadataRestService {
 
-	private final EntityMetadataDBService dbService;
-
-	public EntityMetadataRestService() {
-		dbService = new EntityMetadataDBService();
-	}
+	@Autowired
+	private EntityMetadataDBService dbService;
 
 	@GET
 	public EntityMetadata getAll() {

@@ -6,6 +6,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
 import org.compiere.model.PO;
 import org.compiere.process.DocAction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,16 +19,13 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	public final static String DOCUMENTNAME_RECEIVE_PRODUCT = "Purchase Order";
 	public final static String DOCUMENTNAME_PAYMENTS = "AR Receipt";
 	public final static String DOCUMENTNAME_MOVEMENT = "Material Movement";
-	protected final ReferenceListDBService referenceListDBService;
 	private final Map<String, String> docActionToStatusMap = new HashMap<>() {{
 		put(DocAction.ACTION_Complete, DocAction.STATUS_Completed);
 		put(DocAction.ACTION_Void, DocAction.STATUS_Voided);
 		put(DocAction.ACTION_Approve, DocAction.STATUS_Approved);
 	}};
-
-	public DocumentDBService() {
-		referenceListDBService = new ReferenceListDBService();
-	}
+	@Autowired
+	protected ReferenceListDBService referenceListDBService;
 
 	protected abstract String getDocumentTypeName();
 

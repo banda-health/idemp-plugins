@@ -1,9 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -21,7 +17,6 @@ import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.base.process.InitializeStock;
-import org.bandahealth.idempiere.base.process.UpdateStock;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -29,16 +24,17 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MDocType;
-import org.compiere.model.MInventory;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
 import static org.bandahealth.idempiere.rest.service.db.BaseDBService.*;
 
+@Component
 public class InventoryDBService {
 
 	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;

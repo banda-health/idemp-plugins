@@ -12,17 +12,14 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.WarehouseDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.WAREHOUSES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class WarehouseRestService extends BaseEntityRestService<Warehouse> {
-	
+	@Autowired
 	private WarehouseDBService dbService;
-	
-	public WarehouseRestService() {
-		this.dbService = new WarehouseDBService();
-	}
 
 	@GET
 	@Path(IRestConfigs.ROOT_PATH)
