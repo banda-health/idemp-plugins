@@ -93,14 +93,6 @@ public class Inventory extends BaseEntity {
 	public void setAttributeSetInstanceId(int attributeSetInstanceId) {
 		this.attributeSetInstanceId = attributeSetInstanceId;
 	}
-	
-	public void setUpdateReasonUuid(String updateReason) {
-		this.updateReasonUuid = updateReason;
-	}
-	
-	public String getUpdateReasonUuid() {
-		return updateReasonUuid;
-	}
 
 	public String getAttributeSetInstanceUuid() {
 		return attributeSetInstanceUuid;
@@ -108,5 +100,13 @@ public class Inventory extends BaseEntity {
 
 	public void setAttributeSetInstanceUuid(String attributeSetInstanceUuid) {
 		this.attributeSetInstanceUuid = attributeSetInstanceUuid;
+	}
+	
+	public void setUpdateReasonUuid(String updateReason) {
+		this.updateReasonUuid = updateReason;
+	}
+	
+	public String getUpdateReasonUuid() {
+		return updateReasonUuid;
 	}
 }
