@@ -61,6 +61,7 @@ public class InitializeStock {
 		Set<MProduct_BH> productsWithInitialInventory = inventoryByProduct.entrySet().stream().filter(
 						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
 								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
+								//update this check for 0 qty updates
 										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
@@ -149,7 +150,7 @@ public class InitializeStock {
 	 * @param transactionName
 	 * @return
 	 */
-	private static Map<MProduct_BH, List<MStorageOnHand>> getProductsAndInventory(List<MProduct_BH> products,
+	public static Map<MProduct_BH, List<MStorageOnHand>> getProductsAndInventory(List<MProduct_BH> products,
 			Properties context, String transactionName) {
 		Map<Integer, MProduct_BH> productsById =
 				products.stream().collect(Collectors.toMap(MProduct_BH::get_ID, product -> product));
