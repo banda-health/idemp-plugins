@@ -18,8 +18,8 @@ public class Inventory extends BaseEntity {
 	private int quantity;
 	private int shelfLife;
 	private int attributeSetInstanceId;
-	private String attributeSetInstanceUuid;
 	private String updateReasonUuid;
+	private String attributeSetInstanceUuid;
 
 	public Inventory() {
 	}

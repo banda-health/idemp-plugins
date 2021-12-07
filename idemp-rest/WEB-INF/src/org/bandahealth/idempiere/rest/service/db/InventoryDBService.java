@@ -17,7 +17,6 @@ import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.base.process.InitializeStock;
-import org.bandahealth.idempiere.base.process.UpdateStock;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -25,7 +24,6 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MDocType;
-import org.compiere.model.MInventory;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
@@ -43,7 +41,9 @@ public class InventoryDBService {
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
 	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
-
+	
+	private final String NO_DEFAULT_WAREHOUSE = "No warehouses defined for organization";
+	private final String NO_PRODUCTS_ADDED = "No products were passed to initialize stock.";
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder,
 			String filterJson) throws DBException {
 		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder, filterJson);
@@ -176,8 +176,8 @@ public class InventoryDBService {
 	}
 
 	public Integer updateStockItem(Inventory entity) {
-		String whereClause = MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID + " IN ("
-				+ entity.getProductId() + ")";
+		String whereClause = MProduct_BH.COLUMNNAME_M_Product_ID + "="
+				+ entity.getProductId();
 		MProduct_BH productToUpdate = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause, null)
 				.setClient_ID().first();
 		MStorageOnHand updateStorangeOnHand = new MStorageOnHand(Env.getCtx(), 0, null);
@@ -187,8 +187,8 @@ public class InventoryDBService {
 		updateEntry.put(productToUpdate, Collections.singletonList(updateStorangeOnHand));
 
 		if (updateEntry == null || updateEntry.keySet().isEmpty()) {
-			log.severe("No products were passed to initialize stock.");
-			throw new AdempiereException("No products were passed to initialize stock.");
+			log.severe(NO_PRODUCTS_ADDED);
+			throw new AdempiereException(NO_PRODUCTS_ADDED);
 		}
 		int count = 0;
 
@@ -199,8 +199,8 @@ public class InventoryDBService {
 			if (warehouses != null && warehouses.length > 0) {
 				warehouse = warehouses[0];
 			} else {
-				log.severe("No warehouses defined for organization.");
-				throw new AdempiereException("No warehouses defined for organization.");
+				log.severe(NO_DEFAULT_WAREHOUSE);
+				throw new AdempiereException(NO_DEFAULT_WAREHOUSE);
 			}
 		} else {
 			warehouse = MWarehouse.get(Env.getCtx(), warehouseId);
@@ -250,7 +250,7 @@ public class InventoryDBService {
 				}
 				desiredQuantityOnHand = desiredQuantityOnHand.subtract(existingInventory.getQtyOnHand());
 
-				MInventoryLine_BH inventoryLine = new MInventoryLine_BH(Env.getCtx(), 0, null);
+				MInventoryLine_BH inventoryLine = new MInventoryLine_BH(Env.getCtx(), 0, product.get_TrxName());
 				inventoryLine.setAD_Org_ID(inventory.getAD_Org_ID());
 				inventoryLine.setM_Product_ID(product.get_ID());
 				inventoryLine.setM_Inventory_ID(inventory.get_ID());
