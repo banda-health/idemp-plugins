@@ -36,9 +36,8 @@ public class InventoryDBService {
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
 
-	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) throws DBException {
-		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder, filterJson);
+	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortJson, String filterJson) throws DBException {
+		return this.getInventory(pagingInfo, null, null, sortJson, filterJson, filterJson);
 	}
 
 	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,

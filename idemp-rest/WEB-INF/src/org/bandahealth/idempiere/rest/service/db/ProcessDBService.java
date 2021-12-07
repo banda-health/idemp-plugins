@@ -272,8 +272,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MClient_BH.CLIENTID_LAST_SYSTEM);
 		BaseListResponse<Process> processes =
-				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">?", parameters, pagingInfo, sortColumn, sortOrder,
-						filter, sortJson);
+				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">?", parameters, pagingInfo, sortJson, filter);
 
 
 		// Map the process parameters to entities

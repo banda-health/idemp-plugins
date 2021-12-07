@@ -29,7 +29,7 @@ public class ChargeRestService extends BaseEntityRestService<Charge> {
 	@GET
 	@Path(IRestConfigs.NON_PATIENT_PAYMENTS_PATH)
 	public BaseListResponse<Charge> getNonPatientPayments(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
+			
 			@QueryParam("filter") String filterJson) {
 		return chargeDBService.getNonPatientPayments(new Paging(page, size), sortColumn, sortOrder, filterJson);
 	}
@@ -43,8 +43,7 @@ public class ChargeRestService extends BaseEntityRestService<Charge> {
 	@Override
 	@GET
 	public BaseListResponse<Charge> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filter") String filterJson, @QueryParam("sorted") String sortJson) {
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 

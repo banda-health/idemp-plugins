@@ -29,9 +29,8 @@ public class PaymentRestService extends BaseEntityRestService<Payment> {
 	@GET
 	@Override
 	public BaseListResponse<Payment> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson, @QueryParam("sorted") String sortJson) {
-		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
+			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+		return dbService.getAll(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
 	@GET

@@ -31,8 +31,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		this.productDBService = new ProductDBService();
 	}
 
-	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) {
+	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("N");
 
@@ -41,7 +40,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				+ MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
 		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + " IS NULL",
-				parameters, pagingInfo, sortColumn, sortOrder, filterJson, join);
+				parameters, pagingInfo, sortJson, filterJson, join);
 	}
 
 	@Override

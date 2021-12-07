@@ -13,11 +13,11 @@ import org.compiere.util.Env;
 
 public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
-	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson, String sortJson) {
+	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortColumn, sortOrder,
+		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo,
 				filterJson, sortJson);
 	}
 

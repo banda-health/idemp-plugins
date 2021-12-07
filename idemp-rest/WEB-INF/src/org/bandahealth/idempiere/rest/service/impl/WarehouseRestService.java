@@ -28,9 +28,8 @@ public class WarehouseRestService extends BaseEntityRestService<Warehouse> {
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
 	public BaseListResponse<Warehouse> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filter") String filterJson, @QueryParam("sorted") String sortJson) {
-		return dbService.getAll(null, null, getPagingInfo(page, size), sortColumn, sortOrder, filterJson, sortJson);
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+		return dbService.getAll(null, null, getPagingInfo(page, size), filterJson, sortJson);
 	}
 
 	@Override

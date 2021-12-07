@@ -61,12 +61,11 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		return dynamicJoins;
 	}
 
-	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortColumn,
-				sortOrder, filterJson, null);
+		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortJson, filterJson);
 	}
 
 	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,

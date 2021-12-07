@@ -45,12 +45,11 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 		return dynamicJoins;
 	}
 
-	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson, String sortJson) {
+	public BaseListResponse<Patient> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson, sortJson);
+		return super.getAll(MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", parameters, pagingInfo, sortJson, filterJson);
 	}
 
 	public BaseListResponse<Patient> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
