@@ -29,9 +29,8 @@ public class ChargeRestService extends BaseEntityRestService<Charge> {
 	@GET
 	@Path(IRestConfigs.NON_PATIENT_PAYMENTS_PATH)
 	public BaseListResponse<Charge> getNonPatientPayments(@QueryParam("page") int page, @QueryParam("size") int size,
-			
-			@QueryParam("filter") String filterJson) {
-		return chargeDBService.getNonPatientPayments(new Paging(page, size), sortColumn, sortOrder, filterJson);
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+		return chargeDBService.getNonPatientPayments(new Paging(page, size), sortJson, filterJson);
 	}
 
 	@POST
