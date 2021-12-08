@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Debt Payments" pageWidth="610" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="610" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -66,7 +66,7 @@ where ((cp.ad_client_id = $P{AD_CLIENT_ID})
       and (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
       and (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
-order by cb.name asc;]]>
+order by bill_date desc;]]>
 		</queryString>
 		<field name="bill_date" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
