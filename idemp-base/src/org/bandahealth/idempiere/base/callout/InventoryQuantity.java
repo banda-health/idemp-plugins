@@ -17,7 +17,6 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-import bsh.util.Sessiond;
 
 public class InventoryQuantity implements IColumnCallout {
 

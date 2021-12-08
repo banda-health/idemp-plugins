@@ -18,6 +18,7 @@ public class Inventory extends BaseEntity {
 	private int quantity;
 	private int shelfLife;
 	private int attributeSetInstanceId;
+	private String updateReasonUuid;
 	private String attributeSetInstanceUuid;
 
 	public Inventory() {
@@ -34,6 +35,7 @@ public class Inventory extends BaseEntity {
 		this.quantity = quantity;
 		this.shelfLife = shelfLife;
 		this.attributeSetInstanceId = attributeSetInstanceId;
+		this.updateReasonUuid = updateReasonUuid;
 	}
 
 	public int getProductId() {
@@ -98,5 +100,13 @@ public class Inventory extends BaseEntity {
 
 	public void setAttributeSetInstanceUuid(String attributeSetInstanceUuid) {
 		this.attributeSetInstanceUuid = attributeSetInstanceUuid;
+	}
+	
+	public void setUpdateReasonUuid(String updateReason) {
+		this.updateReasonUuid = updateReason;
+	}
+	
+	public String getUpdateReasonUuid() {
+		return updateReasonUuid;
 	}
 }

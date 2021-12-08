@@ -73,4 +73,11 @@ public class ReferenceListRestService {
 		return dataService.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
+	
+	@GET
+	@Path("/stockUpdateReasons")
+	public List<ReferenceList> getStockUpdateReasons() {
+		return dataService.getTypes(MReference_BH.STOCK_UPDATE_REASONS_AD_REFERENCE_UU, null).stream()
+				.map(ReferenceList::new).collect(Collectors.toList());
+	}
 }
