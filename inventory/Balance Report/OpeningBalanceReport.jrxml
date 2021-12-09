@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OpeningBalanceReport" pageWidth="595" pageHeight="842" columnWidth="570" leftMargin="10" rightMargin="15" topMargin="20" bottomMargin="10" uuid="b72f4765-1b93-4447-a94b-c90fd3ac66b1">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OpeningBalanceReport" pageWidth="595" pageHeight="842" columnWidth="570" leftMargin="10" rightMargin="15" topMargin="10" bottomMargin="0" uuid="b72f4765-1b93-4447-a94b-c90fd3ac66b1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -53,19 +53,32 @@ ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
 		<field name="PatientNo" class="java.lang.String"/>
 		<field name="DateofLastPayment" class="java.sql.Date"/>
 		<field name="RemainingOpenBalance" class="java.math.BigDecimal"/>
-		<variable name="sumValueOf" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$V{sumValueOf}]]></variableExpression>
-		</variable>
-		<variable name="sumOf" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$V{sumOf}]]></variableExpression>
-		</variable>
 	</subDataset>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT SUM(bp.totalopenbalance) AS sum FROM adempiere.c_bpartner bp
-WHERE iscustomer='Y'
-AND bp.totalopenbalance > 0
-AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
+		<![CDATA[WITH Open(
+          PatientName,
+          PartnerId,
+          PatientNo,
+          DateofLastPayment,
+          RemainingOpenBalance
+    )
+         AS (
+        SELECT bp.name                                       AS PatientName,
+               bp.c_bpartner_id                              AS PartnerId,
+               COALESCE(bp.bh_patientid, cast(0 as varchar)) AS PatientNo,
+               MAX(cp.datetrx)                               AS DateofLastPayment,
+               bp.totalopenbalance                           AS RemainingOpenBalance
+        FROM adempiere.c_bpartner bp
+                 JOIN adempiere.c_payment cp ON bp.c_bpartner_id = cp.c_bpartner_id
+        WHERE iscustomer = 'Y'
+          AND bp.ad_client_id = $P{AD_CLIENT_ID}
+          AND bp.totalopenbalance > 0
+        GROUP BY bp.name, bp.c_bpartner_id, bp.bh_patientid, bp.totalopenbalance
+        ORDER BY bp.totalopenbalance DESC, bp.name ASC
+)
+    SELECT SUM(RemainingOpenBalance)
+        FROM Open]]>
 	</queryString>
 	<field name="sum" class="java.lang.Integer"/>
 	<variable name="sumOf" class="java.lang.String"/>
@@ -74,7 +87,7 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="93" splitType="Stretch">
+		<band height="78" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
@@ -86,14 +99,16 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 			</textField>
 			<textField>
 				<reportElement x="50" y="39" width="50" height="20" uuid="7b6f8df9-fd42-4693-ab04-c22086818705"/>
-				<textElement>
+				<textElement verticalAlignment="Top">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="90" y="39" width="160" height="20" uuid="64dd4bf0-0ad5-4a62-93ae-2b765645393e"/>
-				<textElement>
+				<reportElement stretchType="ContainerHeight" x="80" y="38" width="160" height="20" uuid="64dd4bf0-0ad5-4a62-93ae-2b765645393e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd.MM.yyyy").format(new Date())]]></textFieldExpression>
@@ -105,9 +120,9 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 				</textElement>
 				<textFieldExpression><![CDATA["Total Open Balance:"]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.###;(#,##0.###-)">
-				<reportElement mode="Opaque" x="470" y="40" width="60" height="20" forecolor="#000000" backcolor="#969696" uuid="ad4dfe8c-e64c-454e-8c44-51ec187bbc78"/>
-				<textElement textAlignment="Center">
+			<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="470" y="36" width="60" height="20" forecolor="#000000" backcolor="#969696" uuid="ad4dfe8c-e64c-454e-8c44-51ec187bbc78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sum}]]></textFieldExpression>
@@ -115,7 +130,7 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 		</band>
 	</title>
 	<detail>
-		<band height="139" splitType="Stretch">
+		<band height="138" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<componentElement>
 				<reportElement style="Table_CH" x="50" y="-10" width="484" height="45" backcolor="#FFFFFF" uuid="2ac72abc-4cf3-48fe-b57e-1b0ea51fc414">
@@ -124,7 +139,6 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="BalData" uuid="f7175b51-8b89-4e78-8f89-fbcfb685b690">
@@ -145,7 +159,7 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA["Patient Name"]]></textFieldExpression>
@@ -183,7 +197,7 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA["Patient No."]]></textFieldExpression>
@@ -219,7 +233,7 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA["Date of Last Payment"]]></textFieldExpression>
@@ -255,7 +269,7 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA["Remaining Open Balance"]]></textFieldExpression>
@@ -285,13 +299,13 @@ AND bp.ad_client_id = $P{AD_CLIENT_ID}]]>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="53">
+		<band height="34">
 			<textField>
-				<reportElement x="480" y="19" width="100" height="30" uuid="ab3a41b1-b5fc-4c9f-992e-595d6b6b770c"/>
+				<reportElement x="485" y="2" width="100" height="30" uuid="ab3a41b1-b5fc-4c9f-992e-595d6b6b770c"/>
 				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="530" y="19" width="100" height="30" uuid="0e0ef124-2acf-496f-a08f-b884978cb160"/>
+				<reportElement x="530" y="2" width="100" height="30" uuid="0e0ef124-2acf-496f-a08f-b884978cb160"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
