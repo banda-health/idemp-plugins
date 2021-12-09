@@ -418,6 +418,10 @@ public class ImportProductsProcess extends SvrProcess {
 				.append("SET I_IsImported='N', Updated=getDate() ")
 				.append("WHERE I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
+		addLog(0, null, new BigDecimal(no), "@Errors@");
+		addLog(0, null, new BigDecimal(noInsert), "@M_Product_ID@: @Inserted@");
+		addLog(0, null, new BigDecimal(noUpdate), "@M_Product_ID@: @Updated@");
+		addLog(0, null, new BigDecimal(noSkipped), "@M_Product_ID@: @Skipped@");
 
 		//	Reset Processing Flag
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
