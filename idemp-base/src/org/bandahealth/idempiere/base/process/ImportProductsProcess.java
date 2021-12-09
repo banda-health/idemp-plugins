@@ -108,7 +108,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		//	No Name
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=No Name, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=No Name, ' ")
 				.append("WHERE (Name IS NULL)")
 				.append(" AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
@@ -125,7 +125,7 @@ public class ImportProductsProcess extends SvrProcess {
 		//
 		if (handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_ERROR)) {
 			sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-					.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Product Exists, ' ")
+					.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Product Exists, ' ")
 					.append("WHERE M_Product_ID IS NOT NULL")
 					.append(" AND I_IsImported<>'Y'").append(clientCheck);
 			no = DB.executeUpdate(sql.toString(), get_TrxName());
@@ -170,7 +170,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		// More than one lot for a product that doesn't expire
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Too many lots, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Too many lots, ' ")
 				.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasExpiration + "='N' AND (")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot2 + "='Y' OR ")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot3 + "='Y'")
@@ -180,7 +180,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		// Lot 2 & Lot 3 need initial quantities
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Lot without quantity, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Lot without quantity, ' ")
 				.append("WHERE ((")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot2 + "='Y' AND (" +
 						X_BH_I_Product_Quantity.COLUMNNAME_BH_InitialQuantity_Lot2 + " IS NULL OR " +
@@ -194,7 +194,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		//	Duplicate product names
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Duplicate Product Name, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Duplicate Product Name, ' ")
 				.append("WHERE lower(Name) IN (SELECT lower(Name) as name FROM (")
 				.append("SELECT upper(Name) as name, count(*) as product_count FROM " + X_BH_I_Product_Quantity.Table_Name)
 				.append(" WHERE I_IsImported<>'Y'" + clientCheck + " GROUP BY upper(Name)")
@@ -204,7 +204,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		//	Check Category Name
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid ProductCategory, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid ProductCategory, ' ")
 				.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_CategoryName + " NOT IN (")
 				.append("SELECT name FROM " + MProductCategory_BH.Table_Name + " WHERE AD_Client_ID=").append(clientId)
 				.append(") AND I_IsImported<>'Y'").append(clientCheck);
@@ -213,7 +213,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		//	Check Expiration
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 1, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 1, ' ")
 				.append("WHERE ((" + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasExpiration + "='Y' AND ")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_GuaranteeDate + " IS NULL) OR (")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_HasExpiration + " = 'N' AND ")
@@ -223,7 +223,7 @@ public class ImportProductsProcess extends SvrProcess {
 		if (log.isLoggable(Level.CONFIG)) log.config("Invalid Expiration Lot 1=" + no);
 		//
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 2, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 2, ' ")
 				.append("WHERE ((" + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasExpiration + "='Y' AND ")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_GuaranteeDate_Lot2 + " IS NULL) OR (")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_HasExpiration + " = 'N' AND ")
@@ -234,7 +234,7 @@ public class ImportProductsProcess extends SvrProcess {
 		if (log.isLoggable(Level.CONFIG)) log.config("Invalid Expiration Lot 2=" + no);
 		//
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-				.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 3, ' ")
+				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 3, ' ")
 				.append("WHERE ((" + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasExpiration + "='Y' AND ")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_GuaranteeDate_Lot3 + " IS NULL) OR (")
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_HasExpiration + " = 'N' AND ")
@@ -317,7 +317,7 @@ public class ImportProductsProcess extends SvrProcess {
 					} else {
 						wasSaveSuccessful = false;
 						sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-								.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Insert Product "))
+								.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Insert Product "))
 								.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 								.append(importProductQuantityId);
 						DB.executeUpdate(sql.toString(), get_TrxName());
@@ -335,7 +335,7 @@ public class ImportProductsProcess extends SvrProcess {
 					} else {
 						wasSaveSuccessful = false;
 						sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-								.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+								.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
 								.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 								.append(importProductQuantityId);
 						DB.executeUpdate(sql.toString(), get_TrxName());
@@ -358,7 +358,7 @@ public class ImportProductsProcess extends SvrProcess {
 										importedProductQuantity.getBH_InitialQuantity(), importedProductQuantity.getGuaranteeDate(),
 										importedProductQuantity.getBH_BuyPrice(), accountSchema, costElementId)) {
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
 									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
@@ -372,7 +372,7 @@ public class ImportProductsProcess extends SvrProcess {
 										importedProductQuantity.getBH_GuaranteeDate_Lot2(), importedProductQuantity.getBH_BuyPrice_Lot2(),
 										accountSchema, costElementId)) {
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
 									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
@@ -385,7 +385,7 @@ public class ImportProductsProcess extends SvrProcess {
 										importedProductQuantity.getBH_GuaranteeDate_Lot3(), importedProductQuantity.getBH_BuyPrice_Lot3(),
 										accountSchema, costElementId)) {
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
 									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
@@ -395,7 +395,7 @@ public class ImportProductsProcess extends SvrProcess {
 								importedProductQuantity.getBH_InitialQuantity(), null, importedProductQuantity.getBH_BuyPrice_Lot3(),
 								accountSchema, costElementId)) {
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-									.append("SET I_IsImported='E', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
+									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||").append(DB.TO_STRING("Update Product "))
 									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
