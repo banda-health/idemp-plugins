@@ -18,6 +18,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -411,33 +412,12 @@ public class ImportProductsProcess extends SvrProcess {
 			pstmt = null;
 		}
 
-		if (inventoryByProduct.keySet().size() > 0) {
-			try {
-				List<MWarehouse_BH> clientWarehouses = new Query(getCtx(), MWarehouse_BH.Table_Name,
-						MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=?",
-						get_TrxName()).setParameters(clientId, "Y").setOnlyActiveRecords(true).list();
-
-				InitializeStock.createInitialStock(inventoryByProduct, getCtx(), get_TrxName(),
-						handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_MERGE),
-						clientWarehouses.get(0).getM_Warehouse_ID());
-
-				// Now create/update costs for these products
-			} catch (Exception e) {
-				addLog(0, null, BigDecimal.ONE, "@Errors@ " + e.getMessage());
-			}
-		}
-
+		// We do all this and commit before setting initial quantities or else product data won't load (on 7.1)
 		//	Set Error to indicator to not imported
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
 				.append("SET I_IsImported='N', Updated=getDate() ")
 				.append("WHERE I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		addLog(0, null, new BigDecimal(no), "@Errors@");
-		addLog(0, null, new BigDecimal(noInsert), "@M_Product_ID@: @Inserted@");
-		addLog(0, null, new BigDecimal(noUpdate), "@M_Product_ID@: @Updated@");
-		addLog(0, null, new BigDecimal(noSkipped), "@M_Product_ID@: @Skipped@");
-
-		commitEx();
 
 		//	Reset Processing Flag
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
@@ -462,6 +442,32 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
 		if (log.isLoggable(Level.FINE)) log.fine("Processed=" + no);
+
+		commitEx();
+
+		// Start a new transaction
+		Trx quantityTransaction = Trx.get(Trx.createTrxName("SvrProcess"), true);
+		quantityTransaction.setDisplayName(getClass().getName()+"_startProcess");
+
+		if (inventoryByProduct.keySet().size() > 0) {
+			try {
+				List<MWarehouse_BH> clientWarehouses = new Query(getCtx(), MWarehouse_BH.Table_Name,
+						MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=?",
+						quantityTransaction.getTrxName()).setParameters(clientId, "Y").setOnlyActiveRecords(true).list();
+
+				InitializeStock.createInitialStock(inventoryByProduct, getCtx(), quantityTransaction.getTrxName(),
+						handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_MERGE),
+						clientWarehouses.get(0).getM_Warehouse_ID());
+
+				// Now create/update costs for these products
+			} catch (Exception e) {
+				addLog(0, null, BigDecimal.ONE, "@Errors@ " + e.getMessage());
+			}
+		}
+
+		// If this throws an error, it's okay and the products just won't have any initial inventory
+		quantityTransaction.commit(false);
+		quantityTransaction.close();
 
 		return "";
 	}
