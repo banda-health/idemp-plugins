@@ -28,7 +28,9 @@ import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDBService extends BaseDBService<User, MUser_BH> {
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 
@@ -93,7 +95,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
-		String filter = " AND " + FilterUtil.getWhereClauseFromFilter(null, filterJson, parameters);
+		String filter = " AND " + FilterUtil.getWhereClauseFromFilter(MUser_BH.Table_Name, filterJson, parameters, true);
 
 		sqlQuery.append(filter);
 

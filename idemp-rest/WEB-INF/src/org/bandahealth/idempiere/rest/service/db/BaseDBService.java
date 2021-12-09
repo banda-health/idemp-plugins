@@ -361,7 +361,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				parameters = new ArrayList<>();
 			}
 
-			String filterWhereClause = FilterUtil.getWhereClauseFromFilter(getModelInstance(), filterJson, parameters);
+			String filterWhereClause =
+					FilterUtil.getWhereClauseFromFilter(getModelInstance().get_TableName(), filterJson, parameters,
+							shouldUseContextClientId);
 			if (StringUtil.isNullOrEmpty(whereClause)) {
 				whereClause = filterWhereClause;
 			} else {
@@ -374,36 +376,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				query.setClient_ID();
 			}
 
-			StringBuilder dynamicJoinClause = new StringBuilder();
-			if (!getDynamicJoins().isEmpty()) {
-				String passedInJoinClause = (joinClause == null ? "" : joinClause).toLowerCase();
-				List<String> neededJoinTables = FilterUtil.getTablesNeedingJoins(filterJson);
-				for (String tableNeedingJoin : neededJoinTables) {
-					// If this table was already specified in a JOIN, we don't need to dynamically add it
-					if (passedInJoinClause.contains(tableNeedingJoin + ".")) {
-						continue;
-					}
-					// Find the needed JOIN clause
-					boolean foundMatchForTable = false;
-					for (String dynamicTableJoinName : getDynamicJoins().keySet()) {
-						if (dynamicTableJoinName.equalsIgnoreCase(tableNeedingJoin)) {
-							dynamicJoinClause.append(" ").append(getDynamicJoins().get(dynamicTableJoinName));
-							foundMatchForTable = true;
-						}
-					}
-					// If no JOIN clause is specified in the dynamic JOIN, we need to let the user know
-					if (!foundMatchForTable) {
-						throw new AdempiereException(tableNeedingJoin
-								+ " was specified in the filter, but no dynamic JOIN clause provided");
-					}
-				}
-			}
 			if (joinClause != null) {
-				dynamicJoinClause.append(" ").append(joinClause);
-			}
-
-			if (!dynamicJoinClause.toString().trim().isEmpty()) {
-				query.addJoinClause(dynamicJoinClause.toString().trim());
+				query.addJoinClause(joinClause.trim());
 			}
 			if (!StringUtil.isNullOrEmpty(sortColumn) && SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
 				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
@@ -636,7 +610,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return The transformed data into idemp-rest models
 	 */
 	public List<T> transformData(List<S> dbModels) {
-		if (dbModels != null) {
+		if (dbModels != null && !dbModels.isEmpty()) {
 			return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
 		}
 		return new ArrayList<>();

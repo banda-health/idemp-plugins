@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,11 +17,16 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MovementLineDBService extends BaseDBService<MovementLine, MMovementLine_BH> {
 
-	private final ProductDBService productDBService = new ProductDBService();
-	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	@Autowired
+	private ProductDBService productDBService;
+	@Autowired
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 
 	public MovementLineDBService() {
 	}

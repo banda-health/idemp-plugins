@@ -4,6 +4,7 @@ import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.rest.model.ProductCategory;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +14,9 @@ import java.util.stream.Collectors;
  *
  * @author andrew
  */
+@Component
 public class ProductCategoryDBService extends BaseDBService<ProductCategory, MProductCategory_BH> {
-	
+
 	public List<ProductCategory> get() {
 		List<MProductCategory_BH> productCategories = new Query(
 				Env.getCtx(),

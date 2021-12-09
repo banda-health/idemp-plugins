@@ -12,17 +12,14 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.InventoryDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.STOCK_TAKE_ITEMS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class InventoryRestService extends BaseEntityRestService<Inventory> {
-
+	@Autowired
 	private InventoryDBService inventoryDBService;
-
-	public InventoryRestService() {
-		inventoryDBService = new InventoryDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
@@ -42,8 +39,7 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public Inventory saveEntity(Inventory entity) {
-		inventoryDBService.updateStock(entity);
-
+		inventoryDBService.updateStockItem(entity);
 		return entity;
 	}
 

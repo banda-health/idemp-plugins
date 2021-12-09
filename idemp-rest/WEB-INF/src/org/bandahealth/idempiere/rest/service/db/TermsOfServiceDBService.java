@@ -5,18 +5,20 @@ import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
 /**
  * Terms Of Service functionality.
- * 
+ *
  * @author andrew
  *
  */
+@Component
 public class TermsOfServiceDBService {
 
 	/**
 	 * Verify if the terms of service have been accepted.
-	 * 
+	 *
 	 * @return
 	 */
 	public static boolean hasAccepted() {

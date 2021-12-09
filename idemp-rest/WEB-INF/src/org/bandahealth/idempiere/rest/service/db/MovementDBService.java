@@ -12,12 +12,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
@@ -34,22 +32,30 @@ import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MLocator;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MovementDBService extends DocumentDBService<Movement, MMovement_BH> {
 
 	private static final String MISSING_FROM_WAREHOUSE = "Missing From warehouse";
 	private static final String MISSING_TO_WAREHOUSE = "Missing To warehouse";
-	private final ProductDBService productDBService = new ProductDBService();
-	private final InventoryDBService inventoryDBService = new InventoryDBService();
-	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
-	private final LocatorDBService locatorDBService = new LocatorDBService();
-	private final StorageOnHandDBService storageOnHandDBService = new StorageOnHandDBService();
+	@Autowired
 	private MovementLineDBService movementLineDBService;
+	@Autowired
+	private ProductDBService productDBService = new ProductDBService();
+	@Autowired
+	private InventoryDBService inventoryDBService = new InventoryDBService();
+	@Autowired
+	private AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	@Autowired
+	private LocatorDBService locatorDBService = new LocatorDBService();
+	@Autowired
+	private StorageOnHandDBService storageOnHandDBService = new StorageOnHandDBService();
 	/**
 	 * Document Type
 	 */
@@ -66,10 +72,6 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 							+ MUser_BH.COLUMNNAME_AD_User_ID);
 		}
 	};
-
-	public MovementDBService() {
-		this.movementLineDBService = new MovementLineDBService();
-	}
 
 	@Override
 	protected String getDocumentTypeName() {

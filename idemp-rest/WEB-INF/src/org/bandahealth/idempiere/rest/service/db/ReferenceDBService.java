@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Reference;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReferenceDBService extends BaseDBService<Reference, MReference_BH> {
 	@Override
 	public Reference saveEntity(Reference entity) {
