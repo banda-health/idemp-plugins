@@ -229,7 +229,7 @@ order by changes.updated, mp.name, u.name]]>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select
     productname.product,
@@ -316,7 +316,7 @@ limit 1;]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Receipt Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="690" y="0" width="80" height="16" uuid="7f7700b6-ab52-4721-a36b-7a82ee5477eb">
@@ -492,7 +492,7 @@ limit 1;]]>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{datechanged}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{datechanged} ]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
