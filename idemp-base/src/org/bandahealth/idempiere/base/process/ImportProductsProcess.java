@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.process;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -77,6 +78,15 @@ public class ImportProductsProcess extends SvrProcess {
 		StringBuilder sql = null;
 		int no = 0;
 		StringBuilder clientCheck = new StringBuilder(" AND AD_Client_ID=").append(clientId);
+
+		// Before doing anything, check if there is a warehouse set for quantities
+		List<MWarehouse_BH> clientWarehouses = new Query(getCtx(), MWarehouse_BH.Table_Name,
+				MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=?",
+				get_TrxName()).setParameters(clientId, "Y").setOnlyActiveRecords(true).list();
+
+		if (clientWarehouses.isEmpty()) {
+			throw new AdempiereException("No default warehouse set");
+		}
 
 		//	****	Prepare	****
 
@@ -455,15 +465,9 @@ public class ImportProductsProcess extends SvrProcess {
 
 		if (inventoryByProduct.keySet().size() > 0) {
 			try {
-				List<MWarehouse_BH> clientWarehouses = new Query(getCtx(), MWarehouse_BH.Table_Name,
-						MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=?",
-						quantityTransaction.getTrxName()).setParameters(clientId, "Y").setOnlyActiveRecords(true).list();
-
 				InitializeStock.createInitialStock(inventoryByProduct, getCtx(), quantityTransaction.getTrxName(),
 						handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_MERGE),
 						clientWarehouses.get(0).getM_Warehouse_ID());
-
-				// Now create/update costs for these products
 			} catch (Exception e) {
 				addLog(0, null, BigDecimal.ONE, "@Errors@ " + e.getMessage());
 			}
