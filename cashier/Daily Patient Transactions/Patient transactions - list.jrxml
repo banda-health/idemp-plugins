@@ -96,7 +96,7 @@ from (
     group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name
     order by 1
 ) as billdetails
-    inner join (
+    left join (
         select bh_c_order_id
         from c_payment p
         inner join c_order co on co.c_order_id = p.bh_c_order_id
