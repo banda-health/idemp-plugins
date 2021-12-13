@@ -122,11 +122,11 @@ CROSS JOIN (
 ) received_products
 CROSS JOIN (
     SELECT
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Pharmacy' ), 0) AS pharmacysales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Services' ), 0) AS servicessales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Laboratory' ), 0) AS labsales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Radiology' ), 0) AS radiologysales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Other' ), 0) AS othersales
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Pharmacy' ), 0) AS pharmacysales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Services' ), 0) AS servicessales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Laboratory' ), 0) AS labsales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Radiology' ), 0) AS radiologysales,
+        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.value = 'Other' ), 0) AS othersales
     FROM c_order co
         INNER JOIN c_orderline coline ON co.c_order_id = coline.c_order_id
         INNER JOIN m_product product ON coline.m_product_id = product.m_product_id
