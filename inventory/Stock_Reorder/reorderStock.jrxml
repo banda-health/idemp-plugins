@@ -57,7 +57,7 @@
 FROM bh_stock_reorder_levels_v s
          INNER JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
          JOIN m_product p on s.product = p.name and s.ad_client_id = p.ad_client_id
-WHERE s.ad_client_ID = 1000081
+WHERE s.ad_client_ID = $P{AD_CLIENT_ID}
   AND s.existingquantity <= s.reorderlevel
   AND p.isactive = 'Y'
 ORDER BY s.product]]>
