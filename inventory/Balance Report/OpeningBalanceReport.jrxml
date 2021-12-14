@@ -42,7 +42,7 @@
 			<![CDATA[SELECT bp.name AS PatientName, bp.c_bpartner_id, COALESCE(bp.bh_patientid, cast(0 as varchar)) AS PatientNo, MAX(cp.datetrx) AS DateofLastPayment,
         bp.totalopenbalance AS RemainingOpenBalance
 FROM adempiere.c_bpartner bp
-JOIN adempiere.c_payment cp ON bp.c_bpartner_id = cp.c_bpartner_id
+LEFT JOIN adempiere.c_payment cp ON bp.c_bpartner_id = cp.c_bpartner_id
      WHERE iscustomer='Y'
      AND bp.ad_client_id =$P{AD_CLIENT_ID}
 AND bp.totalopenbalance > 0
@@ -70,7 +70,7 @@ ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
                MAX(cp.datetrx)                               AS DateofLastPayment,
                bp.totalopenbalance                           AS RemainingOpenBalance
         FROM adempiere.c_bpartner bp
-                 JOIN adempiere.c_payment cp ON bp.c_bpartner_id = cp.c_bpartner_id
+                 LEFT JOIN adempiere.c_payment cp ON bp.c_bpartner_id = cp.c_bpartner_id
         WHERE iscustomer = 'Y'
           AND bp.ad_client_id = $P{AD_CLIENT_ID}
           AND bp.totalopenbalance > 0
@@ -241,7 +241,7 @@ ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="122" height="15" uuid="6181424b-0faa-4590-89c2-bfab118abe5a">
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								</reportElement>
