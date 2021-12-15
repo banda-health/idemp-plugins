@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.exceptions.DBException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -21,6 +22,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.InventoryLine;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
@@ -31,6 +33,7 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,11 +41,16 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 
 	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
-	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
-	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
-	
 	private final String NO_DEFAULT_WAREHOUSE = "No warehouses defined for organization";
 	private final String NO_PRODUCTS_ADDED = "No products were passed to initialize stock.";
+	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
+	@Autowired
+	private ProductDBService productDBService;
+	@Autowired
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
+
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder,
 			String filterJson) throws DBException {
 		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder, filterJson);
@@ -154,6 +162,28 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 				results.add(inventory);
 			} catch (Exception ex) {
 				log.warning("Error processing inventory items: " + ex.getMessage());
+			}
+		});
+
+		// Batch other data calls
+		Set<Integer> productIds =
+				results.stream().map(Inventory::getProductId).filter(inventoryProductId -> inventoryProductId > 0)
+						.collect(Collectors.toSet());
+		Map<Integer, MProduct_BH> productsById =
+				productIds.isEmpty() ? new HashMap<>() : productDBService.getByIds(productIds);
+		Set<Integer> attributeSetInstanceIds = results.stream().map(Inventory::getAttributeSetInstanceId)
+				.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet());
+		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
+				attributeSetInstanceIds.isEmpty() ? new HashMap<>() :
+						attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
+
+		results.forEach(inventory -> {
+			if (inventory.getProductId() > 0) {
+				inventory.setProduct(new Product(productsById.get(inventory.getProductId())));
+			}
+			if (inventory.getAttributeSetInstanceId() > 0) {
+				inventory.setAttributeSetInstanceUuid(
+						attributeSetInstancesById.get(inventory.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
 			}
 		});
 
@@ -291,10 +321,10 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 
 	@Override
 	protected Inventory createInstanceWithAllFields(MInventoryLine_BH instance) {
-		 Inventory inventory = new Inventory(instance);
+		Inventory inventory = new Inventory(instance);
 //		 inventory.setShelfLife();
 //		 inventory.setUpdateReasonUuid(DEFAULT_SEARCH_CLAUSE);
-		 return inventory;
+		return inventory;
 	}
 
 	@Override

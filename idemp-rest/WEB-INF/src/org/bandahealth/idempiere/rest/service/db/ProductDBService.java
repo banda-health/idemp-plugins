@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
@@ -25,7 +26,6 @@ import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
@@ -53,7 +53,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	@Autowired
 	private ProductCategoryDBService productCategoryDBService;
 	@Autowired
-	private InventoryDBService inventoryDBService = new InventoryDBService();
+	private InventoryDBService inventoryDBService;
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -137,7 +137,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				// Get the batched attribute sets
-				Map<Integer, MAttributeSetInstance> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
+				Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
 						inventoryList.getResults().stream().map(Inventory::getAttributeSetInstanceId).collect(Collectors.toSet()));
 
 				for (Inventory inventory : inventoryList.getResults()) {

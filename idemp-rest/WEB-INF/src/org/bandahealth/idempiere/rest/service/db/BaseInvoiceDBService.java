@@ -27,8 +27,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	protected InvoiceLineDBService invoiceLineDBService;
 	@Autowired
 	protected ProcessDBService processDBService;
-	@Autowired
-	private VoidedReasonDBService voidedReasonDBService;
 
 	protected abstract void beforeSave(T entity, MInvoice_BH invoice);
 

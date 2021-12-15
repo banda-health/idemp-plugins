@@ -24,6 +24,7 @@ public class Inventory extends BaseEntity {
 	private int attributeSetInstanceId;
 	private String updateReasonUuid;
 	private String attributeSetInstanceUuid;
+	private Product product;
 
 	public Inventory() {
 	}
@@ -122,5 +123,13 @@ public class Inventory extends BaseEntity {
 	
 	public String getUpdateReasonUuid() {
 		return updateReasonUuid;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }
