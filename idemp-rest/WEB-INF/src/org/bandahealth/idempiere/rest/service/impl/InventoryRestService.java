@@ -24,8 +24,8 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Inventory> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<Inventory> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
 		return inventoryDBService.getInventory(getPagingInfo(page, size), sortJson, filterJson);
 	}
 

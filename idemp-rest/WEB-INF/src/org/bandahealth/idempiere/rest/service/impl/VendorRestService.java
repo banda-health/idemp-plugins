@@ -31,8 +31,8 @@ public class VendorRestService extends BaseEntityRestService<Vendor> {
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Vendor> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<Vendor> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
 		return dbService.getAll(getPagingInfo(page, size), sortJson, filterJson);
 	}
 

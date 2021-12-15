@@ -32,8 +32,8 @@ public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProd
 
 	@GET
 	@Override
-	public BaseListResponse<ReceiveProduct> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<ReceiveProduct> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
 		return dbService.getAll(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
