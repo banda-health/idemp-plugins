@@ -26,7 +26,7 @@ public class WarehouseRestService extends BaseEntityRestService<Warehouse> {
 	@Override
 	public BaseListResponse<Warehouse> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
 			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
-		return dbService.getAll(null, null, getPagingInfo(page, size), filterJson, sortJson);
+		return dbService.getAll(null, null, getPagingInfo(page, size), sortJson, filterJson);
 	}
 
 	@Override

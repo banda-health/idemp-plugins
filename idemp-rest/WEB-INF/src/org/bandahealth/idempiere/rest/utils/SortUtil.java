@@ -1,16 +1,15 @@
 package org.bandahealth.idempiere.rest.utils;
 
-import java.util.Map;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import java.util.HashSet;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MUser;
-import org.compiere.model.PO;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SortUtil {
@@ -27,34 +26,17 @@ public class SortUtil {
 	}
 
 	/**
-	 * Get the table join entry from the alias column
-	 * @param sortColumn column name to use as key 
-	 * @param joinClause A map of join columns provided	 
-	 * @param joinColumns A map of join columns provided
-	 * @return a string representing the join clause. 
-	 */
-	public static String getJoinClauseFromAlias(String sortColumn, String joinClause,  Map<String, String> joinColumns) {
-		String tableName = sortColumn.substring(0, sortColumn.indexOf("."));
-		String alias = tableName + ".";
-		//Do not add JOIN if it is already added. 
-		if (joinClause != null && joinClause.toLowerCase().contains(alias))
-			return null;
-		return joinColumns.get(tableName.toString());
-		
-	}
-	
-	/**
 	 * Parse the sort string into an object
 	 *
 	 * @param sortJson The JSON string received for filtering
 	 * @return The sorting expressions
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private static List<Object> parseJsonString(String sortJson) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(sortJson, ArrayList.class);
 	}
-	
+
 	/**
 	 * This takes in a sort JSON model generated and converts it into an appropriate ORDER BY clause to pass to the DB.
 	 * <p>
@@ -68,12 +50,11 @@ public class SortUtil {
 	 * ]
 	 * </p>
 	 *
-	 * @param dbModel  The iDempiere DB model for determining field types
-	 * @param sortJson The JSON string received for sorting
-	 * @param <T>      An iDempiere model extending from PO
+	 * @param tableName The iDempiere table name for determining field types
+	 * @param sortJson  The JSON string received for sorting
 	 * @return An ORDER BY clause based off the sort criteria to use in a DB query
 	 */
-	public static <T extends PO> String getOrderByClauseFromSort(String tableName, String sortJson) {
+	public static String getOrderByClauseFromSort(String tableName, String sortJson) {
 		String DEFAULT_ORDER_BY = tableName + "." + MUser.COLUMNNAME_Created + " DESC NULLS LAST";
 		try {
 			// Parse the JSON string
@@ -112,6 +93,33 @@ public class SortUtil {
 				return sortColumn + " " + sortDirection + " NULLS LAST";
 			}).filter(sortCriteria -> !StringUtil.isNullOrEmpty(sortCriteria)).collect(Collectors.joining(","));
 			return orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
+		} catch (Exception e) {
+			throw new AdempiereException(MALFORMED_SORT_STRING_ERROR);
+		}
+	}
+
+	/**
+	 * Parse through the field names and return a list of aliases.
+	 *
+	 * @param sortJson
+	 * @return
+	 */
+	public static Set<String> getTablesNeedingJoins(String sortJson) {
+		if (StringUtil.isNullOrEmpty(sortJson)) {
+			return new HashSet<>();
+		}
+		try {
+			List<Object> listOfSortCriteria = parseJsonString(sortJson);
+			// Make sure to return the distinct list without duplicates
+			return listOfSortCriteria.stream().map(sortCriteria -> {
+				// If this is null or an empty array, skip
+				if (sortCriteria == null || sortCriteria instanceof List<?> && ((List<?>) sortCriteria).isEmpty()) {
+					return null;
+				}
+				String sortColumn =
+						sortCriteria instanceof String ? (String) sortCriteria : ((List<String>) sortCriteria).get(0);
+				return doesTableAliasExistOnColumn(sortColumn) ? sortColumn.split("\\.")[0] : null;
+			}).filter(alias -> !StringUtil.isNullOrEmpty(alias)).collect(Collectors.toSet());
 		} catch (Exception e) {
 			throw new AdempiereException(MALFORMED_SORT_STRING_ERROR);
 		}

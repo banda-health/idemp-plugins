@@ -29,7 +29,7 @@ public class AccountRestService extends BaseEntityRestService<Account> {
 	public BaseListResponse<Account> getAll(
 			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("filter") String sortJson,
 			@QueryParam("sorted") String filterJson) {
-		return dbService.getAll(null, null, getPagingInfo(page, size), filterJson, sortJson);
+		return dbService.getAll(null, null, getPagingInfo(page, size), sortJson, filterJson);
 	}
 
 	@POST

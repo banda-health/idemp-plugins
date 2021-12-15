@@ -19,8 +19,7 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo,
-				filterJson, sortJson);
+		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortJson, filterJson);
 	}
 
 	/**
