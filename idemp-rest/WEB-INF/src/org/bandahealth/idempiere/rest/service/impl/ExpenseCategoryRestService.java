@@ -13,23 +13,20 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ExpenseCategoryDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expose Expenses REST functionality
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.EXPENSE_CATEGORIES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ExpenseCategoryRestService extends BaseEntityRestService<ExpenseCategory> {
 
+	@Autowired
 	private ExpenseCategoryDBService dbService;
-
-	public ExpenseCategoryRestService() {
-		this.dbService = new ExpenseCategoryDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
@@ -57,8 +54,8 @@ public class ExpenseCategoryRestService extends BaseEntityRestService<ExpenseCat
 	@Path(IRestConfigs.SEARCH_PATH)
 	@Override
 	public BaseListResponse<ExpenseCategory> search(@QueryParam("value") String value, @QueryParam("page") int page,
-																									@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-																									@QueryParam("sortOrder") String sortOrder) {
+			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+			@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
 }

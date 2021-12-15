@@ -16,13 +16,17 @@ import org.compiere.util.Env;
 import org.bandahealth.idempiere.rest.model.Service;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /*
  * All Service DB Operations
  */
+@Component
 public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 
-	private ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
+	@Autowired
+	private ProductCategoryDBService productCategoryDBService;
 
 	// retrieve a list of paginated services.
 	public BaseListResponse<Service> getAll(Paging pagingInfo, String sortJson, String filterJson) {

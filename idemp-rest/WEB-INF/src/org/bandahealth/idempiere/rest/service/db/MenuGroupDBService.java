@@ -16,20 +16,19 @@ import org.compiere.model.MRole;
 import org.compiere.model.MUser;
 import org.compiere.model.MWindow;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Retrieve menu group and line items.
  *
  * @author andrew
  */
+@Component
 public class MenuGroupDBService extends BaseDBService<MenuGroupLineItem, MDashboardButtonGroupButton> {
 
-	private final WindowDBService windowDBService;
-
-	public MenuGroupDBService() {
-		super();
-		this.windowDBService = new WindowDBService();
-	}
+	@Autowired
+	private WindowDBService windowDBService;
 
 	/**
 	 * Retrieve all groupline items for the logged in user.

@@ -28,7 +28,9 @@ import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDBService extends BaseDBService<User, MUser_BH> {
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 

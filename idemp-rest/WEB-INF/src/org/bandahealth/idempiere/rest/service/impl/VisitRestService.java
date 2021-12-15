@@ -15,23 +15,20 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.VisitDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expose ALL Patient Visit functionality i.e create/update, view, processing
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @Path(IRestConfigs.VISITS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class VisitRestService extends BaseEntityRestService<Visit> {
 
-	private final VisitDBService dbService;
-
-	public VisitRestService() {
-		dbService = new VisitDBService();
-	}
+	@Autowired
+	private VisitDBService dbService;
 
 	@GET
 	@Override
@@ -80,19 +77,19 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 			@QueryParam("sortOrder") String sortOrder) {
 		return dbService.search(value, getPagingInfo(page, size), sortColumn, sortOrder);
 	}
-	
+
 	@DELETE
 	@Path(IRestConfigs.UUID_PATH)
 	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
 		return dbService.deleteEntity(uuid);
 	}
-	
+
 	@GET
 	@Path(IRestConfigs.VISIT_OPEN_DRAFTS)
 	public BaseListResponse<Visit> getListOpenDrafts(@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortOrder") String sortJson) {
 		return dbService.getOpenVisitDrafts(getPagingInfo(page, size), sortJson);
 	}
-	
+
 	@GET
 	@Path(IRestConfigs.VISIT_OPEN_DRAFTS_COUNT)
 	public Integer getOpenDraftsCount() {

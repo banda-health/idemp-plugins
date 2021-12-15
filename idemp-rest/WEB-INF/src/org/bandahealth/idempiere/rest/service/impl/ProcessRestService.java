@@ -23,6 +23,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.utils.HttpHeaderUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProcess;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.List;
@@ -32,11 +33,8 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProcessRestService extends BaseEntityRestService<Process> implements IProcessRestService<Process> {
 
-	private final ProcessDBService processDBService;
-
-	public ProcessRestService() {
-		processDBService = new ProcessDBService();
-	}
+	@Autowired
+	private ProcessDBService processDBService;
 
 	@POST
 	@Path("/run")

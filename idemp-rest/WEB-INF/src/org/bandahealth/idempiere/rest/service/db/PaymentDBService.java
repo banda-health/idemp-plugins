@@ -27,29 +27,27 @@ import org.compiere.model.MCurrency;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Payment DB Functionality
  *
  * @author andrew
  */
+@Component
 public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	private final String CURRENCY = "KES";
-	private final ReferenceListDBService referenceListDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
+	@Autowired
 	private PatientDBService patientDBService;
-	private EntityMetadataDBService entityMetadataDBService;
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(MBPartner_BH.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." +
 				MPayment_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
 				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
-
-	public PaymentDBService() {
-		patientDBService = new PatientDBService();
-		entityMetadataDBService = new EntityMetadataDBService();
-		referenceListDBService = new ReferenceListDBService();
-	}
 
 	@Override
 	protected String getDocumentTypeName() {

@@ -10,7 +10,9 @@ import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
 	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortJson, String filterJson) {

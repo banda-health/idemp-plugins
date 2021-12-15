@@ -11,6 +11,8 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,17 +20,15 @@ import java.util.stream.Collectors;
 /**
  * InvoiceLine (product/service/charge) db service
  */
+@Component
 public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLine> {
 
+	@Autowired
 	private ProductDBService productDBService;
+	@Autowired
 	private ExpenseCategoryDBService expenseCategoryDBService;
+	@Autowired
 	private AccountDBService accountDBService;
-
-	public InvoiceLineDBService() {
-		this.productDBService = new ProductDBService();
-		this.expenseCategoryDBService = new ExpenseCategoryDBService();
-		this.accountDBService = new AccountDBService();
-	}
 
 	@Override
 	public InvoiceLine saveEntity(InvoiceLine entity) {

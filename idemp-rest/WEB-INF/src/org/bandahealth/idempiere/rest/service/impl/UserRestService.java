@@ -13,16 +13,14 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.UserDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.USERS_PATH)
 @Produces(MediaType.APPLICATION_JSON)
 public class UserRestService extends BaseEntityRestService<User> {
 
+	@Autowired
 	private UserDBService dbService;
-
-	public UserRestService() {
-		dbService = new UserDBService();
-	}
 
 	@GET
 	@Path(IRestConfigs.CLINICIANS_PATH)
@@ -44,7 +42,7 @@ public class UserRestService extends BaseEntityRestService<User> {
 			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
 		return dbService.getNonAdmins(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
-	
+
 	@Override
 	public BaseListResponse<User> search(String value, int page, int size, String sortColumn, String sortOrder) {
 		return null;

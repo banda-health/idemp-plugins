@@ -38,23 +38,29 @@ import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Visit/billing functionality
  *
  * @author andrew
  */
+@Component
 public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	private final String COLUMNNAME_VISIT_NOTES = "bh_lab_notes"; // this column needs to be renamed accordingly in the
 	// db
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
-	private final CodedDiagnosisDBService codedDiagnosisDBService;
+	@Autowired
+	private CodedDiagnosisDBService codedDiagnosisDBService;
+	@Autowired
 	private PatientDBService patientDBService;
+	@Autowired
 	private PaymentDBService paymentDBService;
+	@Autowired
 	private UserDBService userDBService;
-	private MBPartner_BH mPatient;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -68,13 +74,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							+ MUser.COLUMNNAME_AD_User_ID);
 		}
 	};
-
-	public VisitDBService() {
-		patientDBService = new PatientDBService();
-		paymentDBService = new PaymentDBService();
-		userDBService = new UserDBService();
-		codedDiagnosisDBService = new CodedDiagnosisDBService();
-	}
 
 	public static int getVisitsCount(Integer patientId) {
 		return getVisitCountsByPatients(Collections.singleton(patientId)).getOrDefault(patientId, 0);
@@ -202,11 +201,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		if (entity.getSystolicBloodPressure() != null) {
-			mOrder.setBH_SystolicBloodPressure(entity.getSystolicBloodPressure());
+			mOrder.setbh_systolic_blood_pressure(entity.getSystolicBloodPressure());
 		}
 
 		if (entity.getDiastolicBloodPressure() != null) {
-			mOrder.setBH_DiastolicBloodPressure(entity.getDiastolicBloodPressure());
+			mOrder.setbh_diastolic_blood_pressure(entity.getDiastolicBloodPressure());
 		}
 
 		if (entity.getHeight() != null) {
@@ -220,8 +219,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.getPrimaryCodedDiagnosis() != null || entity.getSecondaryCodedDiagnosis() != null) {
 			List<String> uuids = new ArrayList<>();
 
-			uuids.add(entity.getPrimaryCodedDiagnosis().getUuid());
-			uuids.add(entity.getSecondaryCodedDiagnosis().getUuid());
+			if (entity.getPrimaryCodedDiagnosis() != null) {
+				uuids.add(entity.getPrimaryCodedDiagnosis().getUuid());
+			}
+			if (entity.getSecondaryCodedDiagnosis() != null) {
+				uuids.add(entity.getSecondaryCodedDiagnosis().getUuid());
+			}
 			// prefetch coded diagnosis list
 			List<MBHCodedDiagnosis> prefetchedCodedDiagnosisList = codedDiagnosisDBService
 					.getCodedDiagnosesByUuids(uuids);
@@ -639,8 +642,5 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return prefetchedList.stream().filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_UU().equals(uuid))
 				.findFirst().orElse(null);
 	}
-	
+
 }
-
-
-	

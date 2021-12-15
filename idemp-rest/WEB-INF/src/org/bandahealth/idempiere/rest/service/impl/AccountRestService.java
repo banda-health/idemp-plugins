@@ -5,26 +5,23 @@ import org.bandahealth.idempiere.rest.model.Account;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.AccountDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
  * Expose Account REST functionality
- * 
- * @author kevin
  *
+ * @author kevin
  */
 @Path(IRestConfigs.ACCOUNTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountRestService extends BaseEntityRestService<Account> {
 
+	@Autowired
 	private AccountDBService dbService;
-
-	public AccountRestService() {
-		this.dbService = new AccountDBService();
-	}
 
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)

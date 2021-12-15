@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class LanguageDBService {
 	public List<Language> getAll() {
 		List<String> supportedLoginLanguages = Env.getLoginLanguages();

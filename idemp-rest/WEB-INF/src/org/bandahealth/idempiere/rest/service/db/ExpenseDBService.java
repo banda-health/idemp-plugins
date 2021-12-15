@@ -13,12 +13,15 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.X_C_BPartner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Expenses logic
  *
  * @author andrew
  */
+@Component
 public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {{
@@ -27,11 +30,8 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 				+ MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
 
+	@Autowired
 	private VendorDBService vendorDBService;
-
-	public ExpenseDBService() {
-		this.vendorDBService = new VendorDBService();
-	}
 
 	@Override
 	protected String getDocumentTypeName() {

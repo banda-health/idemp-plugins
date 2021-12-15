@@ -14,9 +14,12 @@ import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCodedDiagnosis> {
 
 	public CodedDiagnosisDBService() {
@@ -114,7 +117,7 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		} catch (NumberFormatException ex) {
 			// do nothing
 		}
-		
+
 		searchClause += ")";
 
 		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder, null);

@@ -15,6 +15,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ReceiveProductDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expense Receive Product REST functionality
@@ -26,11 +27,8 @@ import org.bandahealth.idempiere.rest.service.db.ReceiveProductDBService;
 @Produces(MediaType.APPLICATION_JSON)
 public class ReceiveProductRestService extends BaseEntityRestService<ReceiveProduct> {
 
+	@Autowired
 	private ReceiveProductDBService dbService;
-
-	public ReceiveProductRestService() {
-		this.dbService = new ReceiveProductDBService();
-	}
 
 	@GET
 	@Override

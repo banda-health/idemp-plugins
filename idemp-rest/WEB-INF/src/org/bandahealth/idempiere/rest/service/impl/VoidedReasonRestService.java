@@ -12,17 +12,15 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.VoidedReasonDBService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path(IRestConfigs.VOIDED_REASONS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class VoidedReasonRestService extends BaseEntityRestService<VoidedReason> {
 
+	@Autowired
 	private VoidedReasonDBService dbService;
-
-	public VoidedReasonRestService() {
-		this.dbService = new VoidedReasonDBService();
-	}
 
 	@GET
 	@Path(IRestConfigs.ROOT_PATH)

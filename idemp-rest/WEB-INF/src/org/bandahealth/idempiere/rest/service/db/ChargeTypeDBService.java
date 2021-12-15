@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.rest.model.ChargeType;
 import org.compiere.util.Env;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ChargeTypeDBService extends BaseDBService<ChargeType, MChargeType_BH> {
 	@Override
 	public ChargeType saveEntity(ChargeType entity) {

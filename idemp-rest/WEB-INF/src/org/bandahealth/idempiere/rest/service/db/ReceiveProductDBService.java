@@ -12,24 +12,21 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MOrder;
-import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Receive products logic
  *
  * @author andrew
  */
+@Component
 public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> {
 
-	private final VendorDBService vendorDBService;
-	private final ProductDBService productDBService;
-
-	public ReceiveProductDBService() {
-		this.vendorDBService = new VendorDBService();
-		this.productDBService = new ProductDBService();
-	}
+	@Autowired
+	private VendorDBService vendorDBService;
 
 	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
@@ -63,17 +60,6 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		}
 
 		mOrder.setIsSOTrx(false);
-
-		// set warehouse
-		Warehouse warehouse = entity.getWarehouse();
-		if (warehouse != null && warehouse.getUuid() != null) {
-			MWarehouse mWarehouse = new Query(Env.getCtx(), MWarehouse.Table_Name,
-					MWarehouse.COLUMNNAME_M_Warehouse_UU + " =?", null).setClient_ID()
-							.setParameters(warehouse.getUuid()).first();
-			if (mWarehouse != null) {
-				mOrder.setM_Warehouse_ID(mWarehouse.get_ID());
-			}
-		}
 	}
 
 	@Override

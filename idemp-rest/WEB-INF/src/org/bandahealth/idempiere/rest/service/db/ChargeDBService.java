@@ -19,6 +19,8 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,20 +29,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
-	private final AccountDBService accountDBService;
-	private final ChargeTypeDBService chargeTypeDBService;
-	private final ChargeInformationDBService chargeInformationDBService;
-	private final ChargeInformationValueDBService chargeInformationValueDBService;
-	private final ReferenceListDBService referenceListDBService;
-
-	public ChargeDBService() {
-		accountDBService = new AccountDBService();
-		chargeTypeDBService = new ChargeTypeDBService();
-		chargeInformationDBService = new ChargeInformationDBService();
-		chargeInformationValueDBService = new ChargeInformationValueDBService();
-		referenceListDBService = new ReferenceListDBService();
-	}
+	@Autowired
+	private AccountDBService accountDBService;
+	@Autowired
+	private ChargeTypeDBService chargeTypeDBService;
+	@Autowired
+	private ChargeInformationDBService chargeInformationDBService;
+	@Autowired
+	private ChargeInformationValueDBService chargeInformationValueDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
 
 	public BaseListResponse<Charge> getNonPatientPayments(Paging pagingInfo, String sortJson,
 			String filterJson) {
@@ -199,22 +199,23 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 				chargeToReturn.setSubType(new ReferenceList(subTypeByValue.get(charge.getBH_SubType())));
 			}
 			if (chargeInfoByCharge.containsKey(charge.get_ID())) {
-				chargeToReturn.setChargeInformationList(chargeInfoByCharge.get(charge.getC_Charge_ID()).stream().map(chargeInfo -> {
-					ChargeInformation chargeInformationToReturn = new ChargeInformation(chargeInfo);
+				chargeToReturn.setChargeInformationList(
+						chargeInfoByCharge.get(charge.getC_Charge_ID()).stream().map(chargeInfo -> {
+							ChargeInformation chargeInformationToReturn = new ChargeInformation(chargeInfo);
 
-					// Now fill in the child data
-					if (!StringUtil.isNullOrEmpty(chargeInfo.getBH_ChargeInfoDataType())) {
-						chargeInformationToReturn
-								.setDataType(new ReferenceList(dataTypesByValue.get(chargeInfo.getBH_ChargeInfoDataType())));
-					}
-					if (chargeInfoValueListsByChargeInfo.containsKey(chargeInfo.get_ID())) {
-						chargeInformationToReturn.setValues(
-								chargeInfoValueListsByChargeInfo.get(chargeInfo.get_ID()).stream().map(ChargeInformationValue::new)
-										.collect(Collectors.toList()));
-					}
+							// Now fill in the child data
+							if (!StringUtil.isNullOrEmpty(chargeInfo.getBH_ChargeInfoDataType())) {
+								chargeInformationToReturn
+										.setDataType(new ReferenceList(dataTypesByValue.get(chargeInfo.getBH_ChargeInfoDataType())));
+							}
+							if (chargeInfoValueListsByChargeInfo.containsKey(chargeInfo.get_ID())) {
+								chargeInformationToReturn.setValues(
+										chargeInfoValueListsByChargeInfo.get(chargeInfo.get_ID()).stream().map(ChargeInformationValue::new)
+												.collect(Collectors.toList()));
+							}
 
-					return chargeInformationToReturn;
-				}).collect(Collectors.toList()));
+							return chargeInformationToReturn;
+						}).collect(Collectors.toList()));
 			}
 			if (accountsById.containsKey(charge.getC_ElementValue_ID())) {
 				chargeToReturn.setAccount(new Account(accountsById.get(charge.getC_ElementValue_ID())));

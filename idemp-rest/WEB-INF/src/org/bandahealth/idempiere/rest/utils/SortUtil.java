@@ -8,6 +8,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,11 +48,9 @@ public class SortUtil {
 	 *
 	 * @param sortJson The JSON string received for filtering
 	 * @return The sorting expressions
-	 * @throws JsonProcessingException
-	 * @throws JsonMappingException
+	 * @throws IOException 
 	 */
-	private static List<Object> parseJsonString(String sortJson) throws JsonMappingException,
-			JsonProcessingException {
+	private static List<Object> parseJsonString(String sortJson) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(sortJson, ArrayList.class);
 	}
