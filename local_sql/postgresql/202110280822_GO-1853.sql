@@ -78,7 +78,7 @@ BEGIN
            allow_info_cashjournal,allow_info_inout,allow_info_invoice,allow_info_order,allow_info_payment,allow_info_product,
            allow_info_resource,allow_info_schedule,userdiscount,allow_info_mrp,allow_info_crp,isdiscountuptolimitprice,
            isdiscountallowedontotal,amtapprovalaccum,daysapprovalaccum,ad_role_uu,ismenuautoexpand,ismasterrole,isaccessadvanced,
-           roletype FROM tmp_ad_role;
+           roletype FROM tmp_ad_role ON CONFLICT DO NOTHING;
 
     UPDATE ad_sequence SET currentnext = nextval('tmp_ad_role_ad_role_id_seq') WHERE name = 'AD_Role';
 
@@ -105,8 +105,8 @@ BEGIN
             null, null, 'U', 'c12fae5c-0307-41ae-9555-8d283333a11d', null, null)
     ON CONFLICT DO NOTHING;
 
-    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'83c3e42d-e1bb-47cb-b948-e985b2d5d943', '2021-11-17 13:34:25.505000', 100, user_type, null, 'Y', null, '2021-11-17 13:34:25.505000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'));
-    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'0bb7f075-cb07-45aa-b488-bb8046369b78', '2021-11-17 13:34:08.893000', 100, user_type, null, 'Y', null, '2021-11-17 13:34:08.893000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'));
+    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'83c3e42d-e1bb-47cb-b948-e985b2d5d943', '2021-11-17 13:34:25.505000', 100, user_type, null, 'Y', null, '2021-11-17 13:34:25.505000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf')) ON CONFLICT DO NOTHING;
+    INSERT INTO adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, db_usertype, description, isactive, name, updated, updatedby, included_role_id) VALUES (0, 0, (SELECT max(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole),'0bb7f075-cb07-45aa-b488-bb8046369b78', '2021-11-17 13:34:08.893000', 100, user_type, null, 'Y', null, '2021-11-17 13:34:08.893000', 100, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a')) ON CONFLICT DO NOTHING;
 
     RAISE NOTICE 'New user role added to % clients', clients_updated;
 END;
