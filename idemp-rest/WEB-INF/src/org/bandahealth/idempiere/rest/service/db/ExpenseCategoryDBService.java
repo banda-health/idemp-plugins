@@ -80,8 +80,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 		}
 	}
 
-	public BaseListResponse<ExpenseCategory> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) {
+	public BaseListResponse<ExpenseCategory> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		String whereClause = MChargeType_BH.Table_Name + "." + MChargeType_BH.COLUMNNAME_Name + "=?";
 		List<Object> parameters = new ArrayList<>() {{
 			add(MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY);
@@ -89,7 +88,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 		String joinClause = "JOIN " + MChargeType_BH.Table_Name + " ON " + MChargeType_BH.Table_Name + "." +
 				MChargeType_BH.COLUMNNAME_C_ChargeType_ID + "=" + MCharge_BH.Table_Name + "." +
 				MCharge_BH.COLUMNNAME_C_ChargeType_ID;
-		return super.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, joinClause);
+		return super.getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, joinClause);
 	}
 
 	public BaseListResponse<ExpenseCategory> search(String value, Paging pagingInfo, String sortColumn,
