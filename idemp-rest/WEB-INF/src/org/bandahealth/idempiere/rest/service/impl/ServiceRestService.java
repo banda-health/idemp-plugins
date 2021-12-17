@@ -31,10 +31,9 @@ public class ServiceRestService extends BaseEntityRestService<Service> {
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Service> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
-		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
+	public BaseListResponse<Service> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+		return dbService.getAll(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
 	@POST

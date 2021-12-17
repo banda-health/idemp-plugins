@@ -22,9 +22,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCodedDiagnosis> {
 
-	public BaseListResponse<CodedDiagnosis> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) {
-		return super.getAll(null, null, pagingInfo, sortColumn, sortOrder, filterJson);
+	public CodedDiagnosisDBService() {
+	}
+
+	public BaseListResponse<CodedDiagnosis> getAll(Paging pagingInfo, String sortJson, String filterJson) {
+		return super.getAll(null, null, pagingInfo, sortJson, filterJson);
 	}
 
 	@Override
