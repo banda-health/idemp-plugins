@@ -32,10 +32,9 @@ public class ChargeInformationSuggestionRestService extends BaseEntityRestServic
 	@Override
 	@GET
 	@Path("all")
-	public BaseListResponse<ChargeInformationSuggestion> getAll(@QueryParam("page") int page,
-			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
-		throw new UnsupportedOperationException("Not implemented");
+	public BaseListResponse<ChargeInformationSuggestion> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+				throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override

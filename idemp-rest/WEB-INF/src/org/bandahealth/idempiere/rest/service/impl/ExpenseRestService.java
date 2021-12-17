@@ -32,10 +32,9 @@ public class ExpenseRestService extends BaseEntityRestService<Expense> {
 
 	@GET
 	@Override
-	public BaseListResponse<Expense> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
-		return dbService.getAll(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
+	public BaseListResponse<Expense> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+		return dbService.getAll(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
 	@GET

@@ -119,12 +119,13 @@ public class InitializeStock {
 				inventoryLine.setQtyCount(desiredQuantityOnHand);
 				inventoryLine.setM_Locator_ID(finalWarehouse.getDefaultLocator().get_ID());
 
-				inventoryLine.save(product.get_TrxName());
+				inventoryLine.saveEx(transactionName);
 			}));
 			count++;
 		}
 
 		inventory.completeIt();
+		inventory.saveEx(transactionName);
 
 		return count;
 	}

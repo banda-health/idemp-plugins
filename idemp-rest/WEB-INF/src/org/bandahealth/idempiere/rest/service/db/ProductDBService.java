@@ -69,7 +69,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		return dynamicJoins;
 	}
 
-	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
 
@@ -78,7 +78,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				+ MProductCategory_BH.COLUMNNAME_M_Product_Category_ID + "=" + MProduct_BH.Table_Name + "."
 				+ MProduct_BH.COLUMNNAME_M_Product_Category_ID;
 
-		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder,
+		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortJson,
 				filterJson, joinClause);
 	}
 

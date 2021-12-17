@@ -25,6 +25,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
+import org.bandahealth.idempiere.rest.utils.SortUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MStorageOnHand;
@@ -51,14 +52,30 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 	@Autowired
 	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 
-	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) throws DBException {
-		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder, filterJson);
+	private final List<String> viewColumnsToUse = new ArrayList<>(
+			Arrays.asList(X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_expirationdate,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_quantity,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_ShelfLifeDays,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_AttributeSetInstance_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Created,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_CreatedBy,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Description));
+	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
+
+	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortJson, String filterJson)
+			throws DBException {
+		String orderByClause = SortUtil.getOrderByClauseFromSort(X_BH_Stocktake_v.Table_Name, sortJson);
+		return this.getInventory(pagingInfo, null, null, orderByClause, filterJson);
 	}
 
 	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
 			String sortOrder, String filterJson) throws DBException {
-		return this.getInventory(pagingInfo, value, null, sortColumn, sortOrder, filterJson);
+		return this.getInventory(pagingInfo, value, null, getOrderByClause(sortColumn, sortOrder), filterJson);
 	}
 
 	/**
@@ -69,35 +86,30 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 	 * @throws DBException
 	 */
 	public BigDecimal getProductInventoryCount(Integer productId) throws DBException {
-		BaseListResponse<Inventory> inventoryList = this.getInventory(Paging.ALL.getInstance(), null, productId, null,
-				null, null);
+		BaseListResponse<Inventory> inventoryList =
+				this.getInventory(Paging.ALL.getInstance(), null, productId, null, null);
 
 		return inventoryList.getResults().stream().reduce(BigDecimal.ZERO,
 				(subtotal, item) -> subtotal.add(BigDecimal.valueOf(item.getQuantity())), BigDecimal::add);
 	}
 
 	public BaseListResponse<Inventory> getProductInventory(Paging pagingInfo, Integer productId) throws DBException {
-		return this.getInventory(pagingInfo, null, productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate,
-				ASCENDING_ORDER, null);
+		return this.getInventory(pagingInfo, null, productId,
+				getOrderByClause(X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER), null);
+	}
+
+	private String getOrderByClause(String sortColumn, String sortOrder) {
+		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty() && viewColumnsToUse
+				.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
+			return sortColumn + " " + sortOrder + ORDERBY_NULLS_LAST;
+		}
+		return X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product + " " + ASCENDING_ORDER +
+				ORDERBY_NULLS_LAST;
 	}
 
 	private BaseListResponse<Inventory> getInventory(Paging pagingInfo, String searchValue, Integer productId,
-			String sortColumn, String sortOrder, String filterJson) throws DBException {
+			String orderByClause, String filterJson) throws DBException {
 		List<Inventory> results = new ArrayList<>();
-
-		List<String> viewColumnsToUse = new ArrayList<>(
-				Arrays.asList(X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_expirationdate,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_quantity,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_ShelfLifeDays,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_AttributeSetInstance_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Created,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_CreatedBy,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Description));
 
 		StringBuilder sqlSelect = new StringBuilder().append("SELECT ").append(String.join(", ", viewColumnsToUse))
 				.append(" FROM ").append(X_BH_Stocktake_v.Table_Name).append(" ");
@@ -132,17 +144,9 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 			parameters.add(productId);
 		}
 
-		StringBuilder sqlOrderBy = new StringBuilder().append(" order by ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty() && viewColumnsToUse
-				.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
-			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder).append(ORDERBY_NULLS_LAST);
-		} else {
-			sqlOrderBy.append(X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product).append(" ")
-					.append(ASCENDING_ORDER).append(ORDERBY_NULLS_LAST);
-		}
+		String sqlOrderBy = " order by " + (orderByClause == null ? getOrderByClause(null, null) : orderByClause);
 
-		String sqlToUse = sqlSelect.append(sqlJoin).append(sqlWhere.toString()).append(sqlOrderBy.toString())
-				.toString();
+		String sqlToUse = sqlSelect.append(sqlJoin).append(sqlWhere).append(sqlOrderBy).toString();
 
 		if (pagingInfo.getPageSize() > 0) {
 			if (DB.getDatabase().isPagingSupported()) {
@@ -193,7 +197,6 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 	/**
 	 * Get Total Count
 	 *
-	 * @param searchValue
 	 * @return
 	 */
 	private int getTotalRecordCount(String sqlWhere, List<Object> parameters) {

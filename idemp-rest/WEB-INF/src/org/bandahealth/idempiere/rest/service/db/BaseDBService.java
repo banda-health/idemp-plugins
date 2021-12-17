@@ -316,9 +316,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param filterJson  Any filter criteria to use to limit the results
 	 * @return A list of the data, plus pagination information
 	 */
-	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson) {
-		return this.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
+	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
+			String filterJson) {
+		return this.getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, null);
 	}
 
 	/**
@@ -333,9 +333,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return A list of the data, plus pagination information
 	 */
-	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson, String joinClause) {
-		return getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, joinClause,
+	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
+			String filterJson, String joinClause) {
+		return getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, joinClause,
 				isClientIdFromTheContextNeededByDefaultForThisEntity());
 	}
 
@@ -349,12 +349,13 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param sortColumn               A column to sort by.
 	 * @param sortOrder                The direction to sort the previous column by
 	 * @param filterJson               Any filter criteria to use to limit the results
+	 * @param sortJson                 Any combination of
 	 * @param joinClause               Use to specify a linked table so joining can occur
 	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
 	 * @return A list of the data, plus pagination information
 	 */
-	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String filterJson, String joinClause, boolean shouldUseContextClientId) {
+	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
+			String filterJson, String joinClause, boolean shouldUseContextClientId) {
 		try {
 			List<T> results = new ArrayList<>();
 			if (parameters == null) {
@@ -379,17 +380,20 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			if (joinClause != null) {
 				query.addJoinClause(joinClause.trim());
 			}
-			if (!StringUtil.isNullOrEmpty(sortColumn) && SortUtil.doesTableAliasExistOnColumn(sortColumn)) {
-				String joinString = SortUtil.getJoinClauseFromAlias(sortColumn, joinClause, getDynamicJoins());
-				if (joinString != null) {
-					query.addJoinClause(joinString);
-				}
-			}
 
-			// TODO: Add translation tables via a JOIN because sorting will not work on translated columns at the moment
-			String orderBy = getOrderBy(sortColumn, sortOrder);
-			if (orderBy != null) {
-				query = query.setOrderBy(orderBy);
+			if (StringUtil.isNotNullAndEmpty(sortJson)) {
+				Set<String> tablesNeedingJoins = SortUtil.getTablesNeedingJoins(sortJson);
+				StringBuilder dynamicJoinBuilder = new StringBuilder();
+				tablesNeedingJoins.forEach(tableNeedingJoin -> {
+					if (!StringUtil.isNullOrEmpty(joinClause) && !joinClause.contains(tableNeedingJoin)) {
+						dynamicJoinBuilder.append(getDynamicJoins().get(tableNeedingJoin)).append(" ");
+					}
+				});
+				if (!StringUtil.isNullOrEmpty(dynamicJoinBuilder.toString())) {
+					query.addJoinClause(dynamicJoinBuilder.toString());
+				}
+				String orderByClause = SortUtil.getOrderByClauseFromSort(getModelInstance().get_TableName(), sortJson);
+				query = query.setOrderBy("ORDER BY" + orderByClause);
 			}
 
 			if (parameters.size() > 0) {
