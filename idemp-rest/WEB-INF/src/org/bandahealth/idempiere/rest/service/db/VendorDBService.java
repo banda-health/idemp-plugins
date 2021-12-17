@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
-	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortColumn, sortOrder,
-				filterJson);
+		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortJson, filterJson);
 	}
 
 	/**
