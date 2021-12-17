@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -14,7 +15,6 @@ import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.MovementLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +122,7 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 		// Get a list of attribute sets
 		Set<Integer> attributeSetIds = dbModels.stream().map(MMovementLine_BH::getM_AttributeSetInstance_ID)
 				.filter(m_attributeSetInstance_id -> m_attributeSetInstance_id > 0).collect(Collectors.toSet());
-		Map<Integer, MAttributeSetInstance> attributeSetInstancesById =
+		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
 				productIds.isEmpty() ? new HashMap<>() : attributeSetInstanceDBService.getByIds(attributeSetIds);
 
 		return dbModels.stream().map((line) -> {
