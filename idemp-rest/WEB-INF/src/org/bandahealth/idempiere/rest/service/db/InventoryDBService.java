@@ -44,14 +44,6 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 	private final String NO_DEFAULT_WAREHOUSE = "No warehouses defined for organization";
 	private final String NO_PRODUCTS_ADDED = "No products were passed to initialize stock.";
-	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
-	@Autowired
-	private ProductDBService productDBService;
-	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService;
-
 	private final List<String> viewColumnsToUse = new ArrayList<>(
 			Arrays.asList(X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID,
 					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
@@ -66,6 +58,12 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_CreatedBy,
 					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Description));
 	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
+	@Autowired
+	private ProductDBService productDBService;
+	@Autowired
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 
 	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortJson, String filterJson)
 			throws DBException {

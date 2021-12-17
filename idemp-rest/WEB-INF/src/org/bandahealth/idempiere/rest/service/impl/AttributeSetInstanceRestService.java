@@ -22,8 +22,7 @@ public class AttributeSetInstanceRestService extends BaseEntityRestService<Attri
 	@Override
 	@GET
 	public BaseListResponse<AttributeSetInstance> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filterJson") String filterJson) {
+			@QueryParam("sorted") String sortJson, @QueryParam("filterJson") String filterJson) {
 		throw new NotImplementedException();
 	}
 
