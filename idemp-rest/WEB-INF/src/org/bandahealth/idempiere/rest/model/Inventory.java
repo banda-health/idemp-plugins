@@ -2,6 +2,10 @@ package org.bandahealth.idempiere.rest.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
+import org.compiere.util.Env;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -20,6 +24,7 @@ public class Inventory extends BaseEntity {
 	private int attributeSetInstanceId;
 	private String updateReasonUuid;
 	private String attributeSetInstanceUuid;
+	private Product product;
 
 	public Inventory() {
 	}
@@ -36,6 +41,16 @@ public class Inventory extends BaseEntity {
 		this.shelfLife = shelfLife;
 		this.attributeSetInstanceId = attributeSetInstanceId;
 		this.updateReasonUuid = updateReasonUuid;
+	}
+	
+	
+	public Inventory(MInventoryLine_BH instance) {
+
+		this.productId = instance.getM_Product_ID();
+		this.warehouseId = (int) instance.getCtx().get(Env.M_WAREHOUSE_ID);
+		this.productName = instance.getProduct().getName();
+		this.expirationDate = instance.getBH_Expiration().toString();
+		this.attributeSetInstanceId = instance.getM_AttributeSetInstance_ID();
 	}
 
 	public int getProductId() {
@@ -108,5 +123,13 @@ public class Inventory extends BaseEntity {
 	
 	public String getUpdateReasonUuid() {
 		return updateReasonUuid;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }
