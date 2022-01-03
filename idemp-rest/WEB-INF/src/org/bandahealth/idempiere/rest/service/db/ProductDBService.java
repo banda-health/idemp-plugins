@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
@@ -25,7 +26,6 @@ import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
@@ -53,7 +53,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	@Autowired
 	private ProductCategoryDBService productCategoryDBService;
 	@Autowired
-	private InventoryDBService inventoryDBService = new InventoryDBService();
+	private InventoryDBService inventoryDBService;
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -69,7 +69,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		return dynamicJoins;
 	}
 
-	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
 
@@ -78,7 +78,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				+ MProductCategory_BH.COLUMNNAME_M_Product_Category_ID + "=" + MProduct_BH.Table_Name + "."
 				+ MProduct_BH.COLUMNNAME_M_Product_Category_ID;
 
-		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortColumn, sortOrder,
+		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortJson,
 				filterJson, joinClause);
 	}
 
@@ -137,7 +137,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				// Get the batched attribute sets
-				Map<Integer, MAttributeSetInstance> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
+				Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
 						inventoryList.getResults().stream().map(Inventory::getAttributeSetInstanceId).collect(Collectors.toSet()));
 
 				for (Inventory inventory : inventoryList.getResults()) {

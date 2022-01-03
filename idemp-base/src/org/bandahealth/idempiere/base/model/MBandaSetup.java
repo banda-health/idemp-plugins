@@ -1107,21 +1107,22 @@ public class MBandaSetup {
 	 */
 	public boolean updateWarehouseLocatorSetUp() {
 		// get the default warehouse and locator->rename and set to locator as default
-		MWarehouse wareHouse = new Query(this.context, MWarehouse.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
+		MWarehouse_BH warehouse = new Query(this.context, MWarehouse.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
 				getTransactionName()).setParameters(client.getAD_Client_ID()).first();
 		MLocator locator = new Query(this.context, MLocator.Table_Name,
 				MWarehouse.COLUMNNAME_AD_Client_ID + "=? AND " + MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
-				getTransactionName()).setParameters(getAD_Client_ID(), wareHouse.getM_Warehouse_ID()).first();
+				getTransactionName()).setParameters(getAD_Client_ID(), warehouse.getM_Warehouse_ID()).first();
 		locator.setIsDefault(true);
 		locator.setValue(organization.getName());
-		wareHouse.setName(organization.getName());
-		wareHouse.setValue(organization.getName());
+		warehouse.setName(organization.getName());
+		warehouse.setValue(organization.getName());
+		warehouse.setBH_IsDefaultWarehouse(true);
 		if (!locator.save()) {
 			transaction.rollback();
 			transaction.close();
 			return false;
 		}
-		if (!wareHouse.save()) {
+		if (!warehouse.save()) {
 			transaction.rollback();
 			transaction.close();
 			return false;

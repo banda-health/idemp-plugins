@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.exceptions.DBException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -19,9 +20,12 @@ import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.base.process.InitializeStock;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Inventory;
+import org.bandahealth.idempiere.rest.model.InventoryLine;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
+import org.bandahealth.idempiere.rest.utils.SortUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MStorageOnHand;
@@ -30,28 +34,46 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static org.bandahealth.idempiere.rest.service.db.BaseDBService.*;
-
 @Component
-public class InventoryDBService {
+public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_BH> {
 
 	private final String DEFAULT_SEARCH_COLUMN = X_BH_Stocktake_v.COLUMNNAME_Product;
 	private final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
-	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
-	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
-	
 	private final String NO_DEFAULT_WAREHOUSE = "No warehouses defined for organization";
 	private final String NO_PRODUCTS_ADDED = "No products were passed to initialize stock.";
-	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) throws DBException {
-		return this.getInventory(pagingInfo, null, null, sortColumn, sortOrder, filterJson);
+	private final List<String> viewColumnsToUse = new ArrayList<>(
+			Arrays.asList(X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_expirationdate,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_quantity,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_ShelfLifeDays,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_AttributeSetInstance_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Created,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_CreatedBy,
+					X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Description));
+	protected CLogger log = CLogger.getCLogger(InventoryDBService.class);
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
+	@Autowired
+	private ProductDBService productDBService;
+	@Autowired
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
+
+	public BaseListResponse<Inventory> getInventory(Paging pagingInfo, String sortJson, String filterJson)
+			throws DBException {
+		String orderByClause = SortUtil.getOrderByClauseFromSort(X_BH_Stocktake_v.Table_Name, sortJson);
+		return this.getInventory(pagingInfo, null, null, orderByClause, filterJson);
 	}
 
 	public BaseListResponse<Inventory> searchInventory(Paging pagingInfo, String value, String sortColumn,
 			String sortOrder, String filterJson) throws DBException {
-		return this.getInventory(pagingInfo, value, null, sortColumn, sortOrder, filterJson);
+		return this.getInventory(pagingInfo, value, null, getOrderByClause(sortColumn, sortOrder), filterJson);
 	}
 
 	/**
@@ -62,35 +84,30 @@ public class InventoryDBService {
 	 * @throws DBException
 	 */
 	public BigDecimal getProductInventoryCount(Integer productId) throws DBException {
-		BaseListResponse<Inventory> inventoryList = this.getInventory(Paging.ALL.getInstance(), null, productId, null,
-				null, null);
+		BaseListResponse<Inventory> inventoryList =
+				this.getInventory(Paging.ALL.getInstance(), null, productId, null, null);
 
 		return inventoryList.getResults().stream().reduce(BigDecimal.ZERO,
 				(subtotal, item) -> subtotal.add(BigDecimal.valueOf(item.getQuantity())), BigDecimal::add);
 	}
 
 	public BaseListResponse<Inventory> getProductInventory(Paging pagingInfo, Integer productId) throws DBException {
-		return this.getInventory(pagingInfo, null, productId, X_BH_Stocktake_v.COLUMNNAME_expirationdate,
-				ASCENDING_ORDER, null);
+		return this.getInventory(pagingInfo, null, productId,
+				getOrderByClause(X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER), null);
+	}
+
+	private String getOrderByClause(String sortColumn, String sortOrder) {
+		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty() && viewColumnsToUse
+				.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
+			return sortColumn + " " + sortOrder + ORDERBY_NULLS_LAST;
+		}
+		return X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product + " " + ASCENDING_ORDER +
+				ORDERBY_NULLS_LAST;
 	}
 
 	private BaseListResponse<Inventory> getInventory(Paging pagingInfo, String searchValue, Integer productId,
-			String sortColumn, String sortOrder, String filterJson) throws DBException {
+			String orderByClause, String filterJson) throws DBException {
 		List<Inventory> results = new ArrayList<>();
-
-		List<String> viewColumnsToUse = new ArrayList<>(
-				Arrays.asList(X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Warehouse_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_expirationdate,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_quantity,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_ShelfLifeDays,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_AttributeSetInstance_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Client_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_AD_Org_ID,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Created,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_CreatedBy,
-						X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Description));
 
 		StringBuilder sqlSelect = new StringBuilder().append("SELECT ").append(String.join(", ", viewColumnsToUse))
 				.append(" FROM ").append(X_BH_Stocktake_v.Table_Name).append(" ");
@@ -125,17 +142,9 @@ public class InventoryDBService {
 			parameters.add(productId);
 		}
 
-		StringBuilder sqlOrderBy = new StringBuilder().append(" order by ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty() && viewColumnsToUse
-				.stream().map(String::toLowerCase).collect(Collectors.toList()).contains(sortColumn)) {
-			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder).append(ORDERBY_NULLS_LAST);
-		} else {
-			sqlOrderBy.append(X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_Product).append(" ")
-					.append(ASCENDING_ORDER).append(ORDERBY_NULLS_LAST);
-		}
+		String sqlOrderBy = " order by " + (orderByClause == null ? getOrderByClause(null, null) : orderByClause);
 
-		String sqlToUse = sqlSelect.append(sqlJoin).append(sqlWhere.toString()).append(sqlOrderBy.toString())
-				.toString();
+		String sqlToUse = sqlSelect.append(sqlJoin).append(sqlWhere).append(sqlOrderBy).toString();
 
 		if (pagingInfo.getPageSize() > 0) {
 			if (DB.getDatabase().isPagingSupported()) {
@@ -158,13 +167,34 @@ public class InventoryDBService {
 			}
 		});
 
+		// Batch other data calls
+		Set<Integer> productIds =
+				results.stream().map(Inventory::getProductId).filter(inventoryProductId -> inventoryProductId > 0)
+						.collect(Collectors.toSet());
+		Map<Integer, MProduct_BH> productsById =
+				productIds.isEmpty() ? new HashMap<>() : productDBService.getByIds(productIds);
+		Set<Integer> attributeSetInstanceIds = results.stream().map(Inventory::getAttributeSetInstanceId)
+				.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet());
+		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
+				attributeSetInstanceIds.isEmpty() ? new HashMap<>() :
+						attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
+
+		results.forEach(inventory -> {
+			if (inventory.getProductId() > 0) {
+				inventory.setProduct(new Product(productsById.get(inventory.getProductId())));
+			}
+			if (inventory.getAttributeSetInstanceId() > 0) {
+				inventory.setAttributeSetInstanceUuid(
+						attributeSetInstancesById.get(inventory.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
+			}
+		});
+
 		return new BaseListResponse<Inventory>(results, pagingInfo);
 	}
 
 	/**
 	 * Get Total Count
 	 *
-	 * @param searchValue
 	 * @return
 	 */
 	private int getTotalRecordCount(String sqlWhere, List<Object> parameters) {
@@ -271,5 +301,44 @@ public class InventoryDBService {
 
 		return count;
 	}
+
+	@Override
+	public Inventory saveEntity(Inventory entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Inventory createInstanceWithDefaultFields(MInventoryLine_BH instance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Inventory createInstanceWithAllFields(MInventoryLine_BH instance) {
+		Inventory inventory = new Inventory(instance);
+//		 inventory.setShelfLife();
+//		 inventory.setUpdateReasonUuid(DEFAULT_SEARCH_CLAUSE);
+		return inventory;
+	}
+
+	@Override
+	protected Inventory createInstanceWithSearchFields(MInventoryLine_BH instance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected MInventoryLine_BH getModelInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

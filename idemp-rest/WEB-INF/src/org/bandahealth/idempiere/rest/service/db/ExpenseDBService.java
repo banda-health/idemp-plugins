@@ -43,7 +43,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		return dynamicJoins;
 	}
 
-	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortColumn, String sortOrder, String filterJson) {
+	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 
 		StringBuilder whereClause = new StringBuilder()
@@ -51,7 +51,7 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?");
 		parameters.add("N");
 		parameters.add("Y");
-		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder, filterJson, null);
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortJson, filterJson, null);
 	}
 
 	@Override

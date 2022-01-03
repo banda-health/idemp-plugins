@@ -29,7 +29,7 @@ public class ChargeInformationSuggestionDBService
 
 	public List<ChargeInformationSuggestion> get() {
 		List<ChargeInformationSuggestion> chargeInformationSuggestions =
-				super.getAll(null, null, Paging.ALL.getInstance(), null, null, null).getResults();
+				super.getAll(null, null, Paging.ALL.getInstance(), null, null).getResults();
 		if (chargeInformationSuggestions == null) {
 			return new ArrayList<>();
 		}

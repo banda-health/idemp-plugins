@@ -261,18 +261,16 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * Return all active processes for the logged in client
 	 *
 	 * @param filter     The filter JSON in case any reports should be filtered
-	 * @param sortColumn The column to sort the results by
-	 * @param sortOrder  The order by which to sort the results
+	 * @param sortJson   The sort JSON to sort the results by
 	 * @param pagingInfo The paging info object to udpate with data from the DB
 	 * @return A list of processes and their child info
 	 */
-	public BaseListResponse<Process> getAll(String filter, String sortColumn, String sortOrder, Paging pagingInfo) {
+	public BaseListResponse<Process> getAll(String filter, String sortJson, Paging pagingInfo) {
 		// Get processes for GL
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MClient_BH.CLIENTID_LAST_SYSTEM);
 		BaseListResponse<Process> processes =
-				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">?", parameters, pagingInfo, sortColumn, sortOrder,
-						filter);
+				super.getAll(MProcess.COLUMNNAME_AD_Process_ID + ">?", parameters, pagingInfo, sortJson, filter);
 
 
 		// Map the process parameters to entities
