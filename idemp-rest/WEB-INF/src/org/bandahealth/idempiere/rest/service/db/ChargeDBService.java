@@ -42,7 +42,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 	@Autowired
 	private ReferenceListDBService referenceListDBService;
 
-	public BaseListResponse<Charge> getNonPatientPayments(Paging pagingInfo, String sortColumn, String sortOrder,
+	public BaseListResponse<Charge> getNonPatientPayments(Paging pagingInfo, String sortJson,
 			String filterJson) {
 		String whereClause = MChargeType_BH.Table_Name + "." + MChargeType_BH.COLUMNNAME_Name + "=?";
 		List<Object> parameters = new ArrayList<>() {{
@@ -51,7 +51,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		String joinClause = "JOIN " + MChargeType_BH.Table_Name + " ON " + MChargeType_BH.Table_Name + "." +
 				MChargeType_BH.COLUMNNAME_C_ChargeType_ID + "=" + MCharge_BH.Table_Name + "." +
 				MCharge_BH.COLUMNNAME_C_ChargeType_ID;
-		return super.getAll(whereClause, parameters, pagingInfo, sortColumn, sortOrder, filterJson, joinClause);
+		return super.getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, joinClause);
 	}
 
 	public Charge saveNonPatientPayment(Charge entity) {

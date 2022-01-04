@@ -20,6 +20,10 @@ public class MReference_BH extends MReference {
 	 */
 	public static final int DATE_AD_REFERENCE_ID = 15;
 	/**
+	 * This represents the reference ID for date/time types in the system
+	 */
+	public static final int DATETIME_AD_REFERENCE_ID = 16;
+	/**
 	 * This represents the reference ID for list types in the system
 	 */
 	public static final int LIST_AD_REFERENCE_ID = 17;

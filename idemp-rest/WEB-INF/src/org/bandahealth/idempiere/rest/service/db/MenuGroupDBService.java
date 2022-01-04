@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -35,18 +37,21 @@ public class MenuGroupDBService extends BaseDBService<MenuGroupLineItem, MDashbo
 	 *
 	 * @return MenuLineItems
 	 */
-	public BaseListResponse<MenuGroupLineItem> getAll(Paging pagingInfo, String sortColumn, String sortOrder,
-			String filterJson) {
+	public BaseListResponse<MenuGroupLineItem> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 
-		if (StringUtil.isNullOrEmpty(sortColumn)) {
-			sortColumn = MDashboardButtonGroupButton.COLUMNNAME_LineNo;
-			sortOrder = ASCENDING_ORDER;
+		if (StringUtil.isNullOrEmpty(sortJson)) {
+			try {
+				sortJson = new ObjectMapper().writeValueAsString(
+						Collections.singletonList(MDashboardButtonGroupButton.COLUMNNAME_LineNo));
+			} catch (Exception e) {
+				logger.warning("Could not create default sort string");
+			}
 		}
 
 		BaseListResponse<MenuGroupLineItem> dashboardButtonGroupButtons = super
 				.getAll(MDashboardButtonGroupButton.Table_Name + "." + MDashboardButtonGroupButton.COLUMNNAME_IsActive +
 								"='Y'",
-						null, pagingInfo, sortColumn, sortOrder, filterJson, null);
+						null, pagingInfo, sortJson, filterJson, null);
 
 
 		MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));

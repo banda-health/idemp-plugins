@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.impl;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -24,16 +25,18 @@ public class InventoryRestService extends BaseEntityRestService<Inventory> {
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Inventory> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
-		return inventoryDBService.getInventory(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
+	public BaseListResponse<Inventory> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+		return inventoryDBService.getInventory(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
+	@POST
+	@Path(IRestConfigs.PATIENT_PATH)
 	@Override
-	public Inventory getEntity(String uuid) {
-		return null;
+	public Inventory getEntity(@PathParam("uuid") String uuid) {
+		return inventoryDBService.getEntity(uuid);
 	}
+
 
 	@POST
 	@Path(IRestConfigs.SAVE_PATH)

@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bandahealth.idempiere.base.model.MMovement_BH;
@@ -18,7 +19,7 @@ public class Movement extends BaseMetadata {
 	private String description;
 	private User user;
 
-	private List<MovementLine> movementLines;
+	private List<MovementLine> movementLines = new ArrayList<>();
 
 	public Movement() {
 	}
