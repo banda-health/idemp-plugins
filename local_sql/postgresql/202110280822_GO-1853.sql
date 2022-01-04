@@ -21,7 +21,7 @@ BEGIN
     DROP TABLE IF EXISTS tmp_ad_role;
     CREATE TEMP TABLE tmp_ad_role(ad_role_id serial not null,ad_client_id numeric(10) not null,ad_org_id numeric(10) not null,
     isactive char default 'Y'::bpchar not null,created timestamp default now() not null,createdby numeric(10) not null,
-    updated timestamp default now() not null,name varchar(60) not null,updatedby numeric(10) not null,description varchar(255),
+    updated timestamp default now() not null,name varchar(255) not null,updatedby numeric(10) not null,description varchar(255),
     userlevel char(3) default '  O'::bpchar not null,c_currency_id numeric(10),amtapproval numeric default 0,ad_tree_menu_id numeric(10),
     ismanual char default 'Y'::bpchar not null,isshowacct char default 'Y'::bpchar not null,ispersonallock char default 'N'::bpchar not null,
     ispersonalaccess char default 'N'::bpchar not null,iscanexport char default 'Y'::bpchar not null,
