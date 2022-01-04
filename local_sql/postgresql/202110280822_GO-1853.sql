@@ -78,7 +78,7 @@ BEGIN
            allow_info_cashjournal,allow_info_inout,allow_info_invoice,allow_info_order,allow_info_payment,allow_info_product,
            allow_info_resource,allow_info_schedule,userdiscount,allow_info_mrp,allow_info_crp,isdiscountuptolimitprice,
            isdiscountallowedontotal,amtapprovalaccum,daysapprovalaccum,ad_role_uu,ismenuautoexpand,ismasterrole,isaccessadvanced,
-           roletype FROM tmp_ad_role;
+           roletype FROM tmp_ad_role ON CONFLICT DO NOTHING;
 
     UPDATE ad_sequence SET currentnext = nextval('tmp_ad_role_ad_role_id_seq') WHERE name = 'AD_Role';
 
