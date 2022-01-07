@@ -92,7 +92,7 @@ from (
     group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
     order by 1
 ) as billdetails
-    inner join (
+    left join (
         select bh_c_order_id
         from c_payment p
         inner join c_order co on co.c_order_id = p.bh_c_order_id
@@ -176,86 +176,7 @@ order by billdetails.bill_date;]]>
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
-        date($P{Begin Date}) AS begin_date,
-        date($P{End Date}) AS end_date,
-        coalesce($P{Patient Type}, '') AS patient_type,
-        coalesce($P{Payment Mode}, '') AS payment_mode
-)
-select
-    billdetails.c_order_id as receipt_number,
-    billdetails.bill_date as bill_date,
-    billdetails.patient_number as patient_number,
-    billdetails.patientname as patient,
-    u.name as cashier,
-    coalesce(billdetails.lineitemtotals, 0) as bill_total,
-    coalesce(patient_payments.total, 0) + coalesce(non_patient_payments.total, 0) as total_payment,
-    coalesce(billdetails.lineitemtotals, 0) - coalesce(patient_payments.total, 0) - coalesce(non_patient_payments.total, 0) as unpaid_balance
-from (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           date(co.bh_visitdate) as bill_date,
-           cb.name as patientname,
-           coalesce(cb.bh_local_patientid, cb.bh_patientid) as patient_number,
-           sum(ol.linenetamt) as lineitemtotals,
-           co.createdby as cashier_id
-    from c_order co
-        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        join c_orderline ol on co.c_order_id = ol.c_order_id
-        cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
-          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-          AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
-        )
-        AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
-    order by 1
-) as billdetails
-    inner join (
-        select bh_c_order_id
-        from c_payment p
-        inner join c_order co on co.c_order_id = p.bh_c_order_id
-        cross join params par
-        where ((p.ad_client_id = par.ad_client_id)
-            and ((p.docstatus = 'CO')
-            or (p.docstatus = 'DR' and p.bh_processing = 'Y')
-            or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-            and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-            )
-        group by bh_c_order_id
-        union
-        select o.c_order_id
-        from c_order o
-            join c_orderline ol on ol.c_order_id = o.c_order_id
-            join c_charge c on ol.c_charge_id = c.c_charge_id
-            cross join params p
-        where ol.c_charge_id IS NOT NULL
-            and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
-        order by 1
-    ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
-    left join (
-        select p.bh_c_order_id as c_order_id,
-               sum(p.payamt) as total
-        from c_payment p
-            cross join params
-        where p.ad_client_id = params.ad_client_id
-        group by p.bh_c_order_id
-    ) as patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join (
-        select ol.c_order_id,
-               sum(ol.linenetamt) * -1 as total
-        from c_orderline ol
-            join c_order o on ol.c_order_id = o.c_order_id
-            cross join params p
-            join c_charge c on ol.c_charge_id = c.c_charge_id
-        where date(o.bh_visitdate) between p.begin_date and p.end_date
-        group by ol.c_order_id
-    ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-    join ad_user u on u.ad_user_id = billdetails.cashier_id
-order by billdetails.bill_date
-limit 1;]]>
+		<![CDATA[SELECT 1;]]>
 	</queryString>
 	<field name="receipt_number" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
@@ -302,6 +223,15 @@ limit 1;]]>
 	<summary>
 		<band height="64" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
+			<staticText>
+				<reportElement key="" x="0" y="0" width="1740" height="16" uuid="6d489cb8-67ab-4d0e-85c3-57daf11da1d3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report]]></text>
+			</staticText>
 			<componentElement>
 				<reportElement x="0" y="0" width="1740" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
