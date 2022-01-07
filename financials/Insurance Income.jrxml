@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="261"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="739"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -40,6 +40,8 @@ WHERE
     c.ad_client_id = $P{AD_CLIENT_ID}
     AND ct.name = 'Non-Patient Payment - DO NOT CHANGE'
     AND c.bh_subtype != 'W'
+    AND (ol.linenetamt * -1) > 0
+    AND c.isactive = 'Y'
 GROUP BY
     c.name
 ORDER BY c.name
