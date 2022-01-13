@@ -476,6 +476,9 @@ public class FilterUtil {
 					idColumn = dbColumnName;
 					foreignIdColumn = foreignTableIdColumn;
 				}
+				
+				foreignIdColumn = specialForeignKeyMappings.containsKey(remainingDBColumnName) ? remainingDBColumnName : foreignIdColumn;
+				
 				if (idColumn != null) {
 					// We have a match! Begin constructing the sub-query
 					whereClause.append(tableName).append(".").append(idColumn).append(negate ? " NOT" : "").append(" IN " +
