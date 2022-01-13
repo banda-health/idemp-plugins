@@ -26,8 +26,10 @@ public class ChargeRestService extends BaseEntityRestService<Charge> {
 
 	@GET
 	@Path(IRestConfigs.NON_PATIENT_PAYMENTS_PATH)
-	public BaseListResponse<Charge> getNonPatientPayments(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<Charge> getNonPatientPayments(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
 		return chargeDBService.getNonPatientPayments(new Paging(page, size), sortJson, filterJson);
 	}
 
@@ -39,8 +41,10 @@ public class ChargeRestService extends BaseEntityRestService<Charge> {
 
 	@Override
 	@GET
-	public BaseListResponse<Charge> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<Charge> getAll(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
