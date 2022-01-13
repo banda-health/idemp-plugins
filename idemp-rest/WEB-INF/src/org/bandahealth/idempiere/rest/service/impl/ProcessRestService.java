@@ -45,16 +45,18 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 
 	@GET
 	@Override
-	public BaseListResponse<Process> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<Process> getAll(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
 		return processDBService.getAll(filterJson, sortJson, getPagingInfo(page, size));
 	}
 
 	@POST
 	@Path(IRestConfigs.RUN_AND_EXPORT_PATH + "/{processUuid}/{reportType}")
 	@Produces(IRestConfigs.APPLICATION_PDF)
-	public Response runAndExport(@PathParam("processUuid") String processUuid, @PathParam("reportType")
-			ReportType reportType, List<ProcessInfoParameter> processInfoParameters) {
+	public Response runAndExport(@PathParam("processUuid") String processUuid,
+			@PathParam("reportType") ReportType reportType, List<ProcessInfoParameter> processInfoParameters) {
 		if (StringUtil.isNullOrEmpty(processUuid)) {
 			log.severe("Report not specified");
 			return null;
@@ -88,8 +90,7 @@ public class ProcessRestService extends BaseEntityRestService<Process> implement
 	}
 
 	@Override
-	public BaseListResponse<Process> search(String value, int page, int size, String sortColumn,
-			String sortOrder) {
+	public BaseListResponse<Process> search(String value, int page, int size, String sortColumn, String sortOrder) {
 		return null;
 	}
 }

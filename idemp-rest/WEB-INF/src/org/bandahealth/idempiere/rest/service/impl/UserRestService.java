@@ -24,22 +24,25 @@ public class UserRestService extends BaseEntityRestService<User> {
 
 	@GET
 	@Path(IRestConfigs.CLINICIANS_PATH)
-	public BaseListResponse<User> getClinicians(@QueryParam("page") int page, @QueryParam("size") int size) {
+	public BaseListResponse<User> getClinicians(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size) {
 		return dbService.getCliniciansResponse(getPagingInfo(page, size));
 	}
 
 	@GET
 	@Override
-	public BaseListResponse<User> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sorted") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<User> getAll(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
 		return dbService.getAll(null, null, getPagingInfo(page, size), sortJson, filterJson);
 	}
 
 	@GET
 	@Path(IRestConfigs.NON_ADMINS_PATH)
-	public BaseListResponse<User> getNonAdmins(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
-			@QueryParam("sortOrder") String sortOrder, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<User> getNonAdmins(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
+			@QueryParam("filter") String filterJson) {
 		return dbService.getNonAdmins(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
 	}
 
