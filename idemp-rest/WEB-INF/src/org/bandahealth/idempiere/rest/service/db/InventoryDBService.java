@@ -181,7 +181,10 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 
 		results.forEach(inventory -> {
 			if (inventory.getProductId() > 0) {
-				inventory.setProduct(new Product(productsById.get(inventory.getProductId())));
+				Product product = new Product(productsById.get(inventory.getProductId()));
+				Boolean hasExpiration = (inventory.getExpirationDate() != null && inventory.getExpirationDate().isBlank()) ? false : true;
+				product.setHasExpiration(hasExpiration);
+				inventory.setProduct(product);
 			}
 			if (inventory.getAttributeSetInstanceId() > 0) {
 				inventory.setAttributeSetInstanceUuid(
