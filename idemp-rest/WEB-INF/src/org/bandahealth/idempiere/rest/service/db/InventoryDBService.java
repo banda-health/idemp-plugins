@@ -181,10 +181,7 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 
 		results.forEach(inventory -> {
 			if (inventory.getProductId() > 0) {
-				Product product = new Product(productsById.get(inventory.getProductId()));
-				Boolean hasExpiration = (inventory.getExpirationDate() != null && inventory.getExpirationDate().isBlank()) ? false : true;
-				product.setHasExpiration(hasExpiration);
-				inventory.setProduct(product);
+				inventory.setProduct(new Product(productsById.get(inventory.getProductId())));
 			}
 			if (inventory.getAttributeSetInstanceId() > 0) {
 				inventory.setAttributeSetInstanceUuid(
@@ -272,7 +269,7 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 				// If we should merge, we have to subtract out what's existing
 				MStorageOnHand existingInventory = existingInventoryList.get(0);
 				if (product.isBH_HasExpiration()) {
-					existingInventory = existingInventoryList.stream().peek(System.out::println).filter(
+					existingInventory = existingInventoryList.stream().filter(
 									existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
 											existingStorageOnHand.getM_AttributeSetInstance_ID()).findFirst()
 							.orElse(existingInventoryList.get(0));
