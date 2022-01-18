@@ -216,10 +216,10 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 		MStorageOnHand updateStorangeOnHand = new MStorageOnHand(Env.getCtx(), 0, null);
 		updateStorangeOnHand.setM_AttributeSetInstance_ID(entity.getAttributeSetInstanceId());
 		updateStorangeOnHand.setQtyOnHand(BigDecimal.valueOf(entity.getQuantity()));
-		Map<MProduct_BH, List<MStorageOnHand>> updateEntry = new HashMap<>();
-		updateEntry.put(productToUpdate, Collections.singletonList(updateStorangeOnHand));
+		Map<MProduct_BH, List<MStorageOnHand>> inventoryToUpdateMap = new HashMap<>();
+		inventoryToUpdateMap.put(productToUpdate, Collections.singletonList(updateStorangeOnHand));
 
-		if (updateEntry == null || updateEntry.keySet().isEmpty()) {
+		if (inventoryToUpdateMap == null || inventoryToUpdateMap.keySet().isEmpty()) {
 			log.severe(NO_PRODUCTS_ADDED);
 			throw new AdempiereException(NO_PRODUCTS_ADDED);
 		}
@@ -240,14 +240,14 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 		}
 
 		// Get the list of products that actually have inventory
-		Set<MProduct_BH> productsWithInitialInventory = updateEntry.entrySet().stream().filter(
+		Set<MProduct_BH> productsWithInitialInventory = inventoryToUpdateMap.entrySet().stream().filter(
 						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
 								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
 										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
 		Map<MProduct_BH, List<MStorageOnHand>> existingInventoryByProduct =
-				InitializeStock.getProductsAndInventory(new ArrayList<>(updateEntry.keySet()), Env.getCtx(), null);
+				InitializeStock.getProductsAndInventory(new ArrayList<>(inventoryToUpdateMap.keySet()), Env.getCtx(), null);
 
 		int inventoryDocTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
 
@@ -265,14 +265,14 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 
 		MWarehouse finalWarehouse = warehouse;
 		for (MProduct_BH product : productsWithInitialInventory) {
-			updateEntry.get(product).forEach((storageOnHand -> {
+			inventoryToUpdateMap.get(product).forEach((storageOnHand -> {
 				BigDecimal desiredQuantityOnHand = storageOnHand.getQtyOnHand();
 				List<MStorageOnHand> existingInventoryList = existingInventoryByProduct.get(product);
 
 				// If we should merge, we have to subtract out what's existing
 				MStorageOnHand existingInventory = existingInventoryList.get(0);
 				if (product.isBH_HasExpiration()) {
-					existingInventory = existingInventoryList.stream().filter(
+					existingInventory = existingInventoryList.stream().peek(System.out::println).filter(
 									existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
 											existingStorageOnHand.getM_AttributeSetInstance_ID()).findFirst()
 							.orElse(existingInventoryList.get(0));

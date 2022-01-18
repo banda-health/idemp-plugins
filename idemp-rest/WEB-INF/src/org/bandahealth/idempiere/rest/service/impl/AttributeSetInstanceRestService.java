@@ -45,6 +45,7 @@ public class AttributeSetInstanceRestService extends BaseEntityRestService<Attri
 
 	@Override
 	@POST
+	@Path(IRestConfigs.SAVE_PATH)
 	public AttributeSetInstance saveEntity(AttributeSetInstance entity) {
 		return attributeSetInstanceDBService.saveEntity(entity);
 	}
