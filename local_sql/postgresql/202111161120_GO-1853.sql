@@ -1,3 +1,17 @@
+/*--Export triage master role*/
+INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner, allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)VALUES ((SELECT MAX(ad_role_id) + 1 FROM ad_role), 0, 0, 'Y', '2021-10-27 20:12:08.602000', 100, '2021-10-27 20:14:07.501000', 'Triage', 100, 'A master role for triage users', 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', 0, 0, 'ae618e24-a47a-40cc-bb5c-8dca64d86daf', 'N', 'Y', 'Y', null)ON CONFLICT DO NOTHING;
+
+--Create vitals details access window/tab for role
+INSERT INTO adempiere.ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic)VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2021-10-28 09:39:07.474000', 100, '2021-10-28 09:39:20.623000', 100, 'Clinical Vitals', 'Access window for the triage role', null, 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', '53b4d743-c311-40e5-aa8e-c0880c42c1b1', null)ON CONFLICT DO NOTHING;
+INSERT INTO adempiere.ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, ad_table_id, ad_window_id, seqno, tablevel, issinglerow, isinfotab, istranslationtab, isreadonly, ad_column_id, hastree, whereclause, orderbyclause, commitwarning, ad_process_id, processing, ad_image_id, importfields, ad_columnsortorder_id, ad_columnsortyesno_id, issorttab, entitytype, included_tab_id, readonlylogic, displaylogic, isinsertrecord, isadvancedtab, parent_column_id, ad_tab_uu, ad_ctxhelp_id, treedisplayedon, maxqueryrecords)VALUES ((SELECT MAX(ad_tab_id) + 1 FROM ad_tab), 0, 0, 'Y', '2021-10-28 09:40:09.222000', 100, '2021-10-28 09:40:09.222000', 100, 'Vitals Details', null, null, 259, (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '53b4d743-c311-40e5-aa8e-c0880c42c1b1'), 10, 0, 'Y', 'N', 'N', 'N', null, 'N', null, null, null, null, 'N', null, 'N', null, null, 'N', 'U', null, null, null, 'Y', 'N', null, '789a08af-2015-4469-b2ef-d4ca55e6f2e7', null, 'B', 0)ON CONFLICT DO NOTHING;
+
+--provide window access for triage role
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate)VALUES ((SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ae618e24-a47a-40cc-bb5c-8dca64d86daf'), 0, 0, 'Y', '2021-10-27 20:17:44.316000', 100, '2021-10-27 20:17:44.316000', 100, 'Y', '80c4d35a-34cd-4107-a357-37abd5f8c9f5', 'N')ON CONFLICT DO NOTHING;
+
+-- Util function that adds the new role to all existing clients and includes it as a default role for
+-- new clients.
+-- Params: ad_role_to_add_uu : Role uuid of the new master role.
+--         db_user_type: user_type key to be used in ad_reflist for association with the role
 CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, user_type VARCHAR(10)) RETURNS VOID
 	LANGUAGE plpgsql
 AS $$
@@ -97,5 +111,8 @@ BEGIN
     RAISE NOTICE 'New user role added to % clients', clients_updated;
 END;
 $$;
+
+--call procedure to add triage role to clients
+select add_roles_to_clients('ae618e24-a47a-40cc-bb5c-8dca64d86daf', 'T');
 
 SELECT register_migration_script('202111161120_GO-1853.sql') FROM dual;
