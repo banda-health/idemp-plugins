@@ -9,13 +9,13 @@ import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 @XmlRootElement(name = "attributeSetInstance")
 @JsonInclude(value = Include.NON_NULL)
 public class AttributeSetInstance extends BaseMetadata {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
 	private Timestamp guaranteeDate;
 	private ReferenceList updateReason;
 
@@ -27,6 +27,7 @@ public class AttributeSetInstance extends BaseMetadata {
 	public AttributeSetInstance(MAttributeSetInstance_BH model) {
 		super(model);
 		setGuaranteeDate(model.getGuaranteeDate());
+		setUpdateReason(updateReason);
 	}
 
 	@XmlElement
@@ -37,6 +38,7 @@ public class AttributeSetInstance extends BaseMetadata {
 	public void setGuaranteeDate(Timestamp guaranteeDate) {
 		this.guaranteeDate = guaranteeDate;
 	}
+	
 	@XmlElement
 	public ReferenceList getUpdateReason() {
 		return updateReason;
