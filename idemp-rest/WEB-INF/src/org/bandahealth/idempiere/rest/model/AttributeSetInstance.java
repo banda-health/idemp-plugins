@@ -19,6 +19,8 @@ public class AttributeSetInstance extends BaseMetadata {
 	private Timestamp guaranteeDate;
 	private ReferenceList updateReason;
 
+	private Integer attributeSetInstanceId;
+
 	/**
 	 * Empty constructor needed for deserialization
 	 */
@@ -27,7 +29,6 @@ public class AttributeSetInstance extends BaseMetadata {
 	public AttributeSetInstance(MAttributeSetInstance_BH model) {
 		super(model);
 		setGuaranteeDate(model.getGuaranteeDate());
-		setUpdateReason(updateReason);
 	}
 
 	@XmlElement
@@ -35,16 +36,25 @@ public class AttributeSetInstance extends BaseMetadata {
 		return guaranteeDate;
 	}
 
-	public void setGuaranteeDate(Timestamp guaranteeDate) {
-		this.guaranteeDate = guaranteeDate;
-	}
-	
 	@XmlElement
 	public ReferenceList getUpdateReason() {
 		return updateReason;
 	}
-
+	
+	@XmlElement
+	public Integer getAttributeSetInstanceId() {
+		return attributeSetInstanceId;
+	}
+	
+	public void setGuaranteeDate(Timestamp guaranteeDate) {
+		this.guaranteeDate = guaranteeDate;
+	}
+	
 	public void setUpdateReason(ReferenceList updateReason) {
 		this.updateReason = updateReason;
+	}
+	
+	public void setAttributeSetId(Integer attributeSetInstanceId) {
+		this.attributeSetInstanceId = attributeSetInstanceId;
 	}
 }
