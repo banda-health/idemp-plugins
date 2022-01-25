@@ -111,8 +111,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		MOrder_BH latestVisit = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
-				.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
+						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
+						.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
 
 		if (latestVisit == null) {
 			return null;
@@ -427,11 +427,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getBH_Height(), instance.getBH_Weight(),
 					secondaryCodedDiagnosis != null
 							? new CodedDiagnosis(secondaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-							secondaryCodedDiagnosis.getBH_CielName())
+									secondaryCodedDiagnosis.getBH_CielName())
 							: null,
 					primaryCodedDiagnosis != null
 							? new CodedDiagnosis(primaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-							primaryCodedDiagnosis.getBH_CielName())
+									primaryCodedDiagnosis.getBH_CielName())
 							: null,
 					user != null ? new User(user.getAD_User_UU()) : null,
 					new ProcessStage(instance.getBH_ProcessStage()), instance);
@@ -458,21 +458,23 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
-		BaseListResponse<Visit> visits = super
-				.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortJson, filterJson, null);
+		BaseListResponse<Visit> visits = super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo,
+				sortJson, filterJson, null);
 
 		// Since non-patient payments are negative, they'll change order totals
 		// Get updated order totals for these visits
-		Map<Integer, List<MOrderLine_BH>> orderLinesByOrder = orderLineDBService
-				.getGroupsByIds(MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
-						visits.getResults().stream().map(Visit::getId).collect(Collectors.toSet()));
+		if (visits != null) {
+			Map<Integer, List<MOrderLine_BH>> orderLinesByOrder = orderLineDBService.getGroupsByIds(
+					MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
+					visits.getResults().stream().map(Visit::getId).collect(Collectors.toSet()));
 
-		// Update the totals to exclude negative values in the lines
-		visits.getResults().forEach(visit -> {
-			visit.setGrandTotal(orderLinesByOrder.get(visit.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
-					.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
-					.reduce(new BigDecimal(0), BigDecimal::add));
-		});
+			// Update the totals to exclude negative values in the lines
+			visits.getResults().forEach(visit -> {
+				visit.setGrandTotal(orderLinesByOrder.get(visit.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
+						.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
+						.reduce(new BigDecimal(0), BigDecimal::add));
+			});
+		}
 
 		return visits;
 	}
@@ -493,7 +495,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-					.setClient_ID().setOnlyActiveRecords(true);
+							.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);

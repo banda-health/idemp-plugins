@@ -427,10 +427,22 @@ public class FilterUtil {
 
 		String foreignTableName = dbColumnName;
 		String remainingDBColumnName = null;
+		String foreignDBColumnName = null;
+		String foreignSelectDBColumnName = null;
 		// If this is an aliased value, get the alias
 		if (doesTableAliasExistOnColumn(dbColumnName)) {
-			foreignTableName = dbColumnName.split("\\.")[0];
-			remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
+			String[] queryParts = dbColumnName.split("\\.");
+			foreignTableName = queryParts[0];
+			if (queryParts.length > 2) {
+				remainingDBColumnName = queryParts[1];
+				foreignDBColumnName = queryParts[2];
+				if (foreignDBColumnName.contains("_uu")) {
+					foreignTableName = foreignDBColumnName.replaceFirst("_uu", "");
+					foreignSelectDBColumnName = foreignDBColumnName.replaceFirst("_uu", "_id");
+				}
+			} else {
+				remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
+			}
 		}
 		if (specialForeignKeyMappings.containsKey(foreignTableName)) {
 			foreignTableName = specialForeignKeyMappings.get(foreignTableName);
@@ -460,6 +472,7 @@ public class FilterUtil {
 				String foreignTableIdColumn = foreignTableName + "_id";
 				String idColumn = null;
 				String foreignIdColumn = null;
+				
 				// See if either the source ID column or the foreign ID column are on both tables, and use
 				// If that's not the case, check to see if the foreign table name exists on the source and the foreign
 				// exists on the foreign (i.e. we have a non-column name connection)
@@ -479,10 +492,17 @@ public class FilterUtil {
 				
 				foreignIdColumn = specialForeignKeyMappings.containsKey(remainingDBColumnName) ? remainingDBColumnName : foreignIdColumn;
 				
+				if (foreignDBColumnName != null && foreignTableName != null) {
+					foreignIdColumn = foreignDBColumnName;
+					idColumn = remainingDBColumnName;
+				} else {
+					foreignIdColumn = specialForeignKeyMappings.containsKey(remainingDBColumnName) ? remainingDBColumnName : foreignIdColumn;	
+				}
+							
 				if (idColumn != null) {
 					// We have a match! Begin constructing the sub-query
 					whereClause.append(tableName).append(".").append(idColumn).append(negate ? " NOT" : "").append(" IN " +
-							"(SELECT ").append(foreignIdColumn).append(" FROM ");
+							"(SELECT ").append(foreignSelectDBColumnName != null ? foreignSelectDBColumnName : foreignIdColumn).append(" FROM ");
 					// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
 					Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
 									comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
@@ -532,7 +552,7 @@ public class FilterUtil {
 					// Adjust the comparison string, if need be
 					Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
 					if (remainingDBColumnName != null) {
-						String finalRemainingDBColumnName = remainingDBColumnName;
+						String finalRemainingDBColumnName = foreignDBColumnName != null ? foreignDBColumnName : remainingDBColumnName;
 						adjustedComparisons = new HashMap<>() {
 							{
 								put(finalRemainingDBColumnName, comparisonQuerySelectors);

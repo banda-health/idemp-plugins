@@ -21,16 +21,17 @@ public class AttributeSetInstanceRestService extends BaseEntityRestService<Attri
 
 	@Override
 	@GET
-	public BaseListResponse<AttributeSetInstance> getAll(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sorted") String sortJson, @QueryParam("filterJson") String filterJson) {
+	public BaseListResponse<AttributeSetInstance> getAll(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size, @QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
 		throw new NotImplementedException();
 	}
 
 	@Override
 	@GET
 	@Path(IRestConfigs.SEARCH_PATH)
-	public BaseListResponse<AttributeSetInstance> search(@QueryParam("value") String value, @QueryParam("page") int page,
-			@QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
+	public BaseListResponse<AttributeSetInstance> search(@QueryParam("value") String value,
+			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortColumn") String sortColumn,
 			@QueryParam("sortOrder") String sortOrder) {
 		throw new NotImplementedException();
 	}
@@ -44,6 +45,7 @@ public class AttributeSetInstanceRestService extends BaseEntityRestService<Attri
 
 	@Override
 	@POST
+	@Path(IRestConfigs.SAVE_PATH)
 	public AttributeSetInstance saveEntity(AttributeSetInstance entity) {
 		return attributeSetInstanceDBService.saveEntity(entity);
 	}

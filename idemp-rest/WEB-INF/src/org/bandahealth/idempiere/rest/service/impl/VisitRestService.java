@@ -32,8 +32,10 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	@GET
 	@Override
-	public BaseListResponse<Visit> getAll(
-			@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sorting") String sortJson, @QueryParam("filter") String filterJson) {
+	public BaseListResponse<Visit> getAll(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
 		return dbService.getAll(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
@@ -86,7 +88,8 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	@GET
 	@Path(IRestConfigs.VISIT_OPEN_DRAFTS)
-	public BaseListResponse<Visit> getListOpenDrafts(@QueryParam("page") int page, @QueryParam("size") int size, @QueryParam("sortOrder") String sortJson) {
+	public BaseListResponse<Visit> getListOpenDrafts(@QueryParam("page") int page, @QueryParam("size") int size,
+			@QueryParam("sortOrder") String sortJson) {
 		return dbService.getOpenVisitDrafts(getPagingInfo(page, size), sortJson);
 	}
 
