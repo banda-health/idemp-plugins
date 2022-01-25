@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -267,11 +268,13 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 				List<MStorageOnHand> existingInventoryList = existingInventoryByProduct.get(product);
 
 				// If we should merge, we have to subtract out what's existing
-				MStorageOnHand existingInventory = existingInventoryList.get(0);
+				Optional<MStorageOnHand> optionalExistingInventory = existingInventoryList.stream().filter(
+						existingStorageOnHand -> existingStorageOnHand.getQtyOnHand().compareTo(storageOnHand.getQtyOnHand()) != 0).findFirst();
+				MStorageOnHand existingInventory = optionalExistingInventory.get();
 				if (product.isBH_HasExpiration()) {
 					existingInventory = existingInventoryList.stream().filter(
 									existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
-											existingStorageOnHand.getM_AttributeSetInstance_ID()).findFirst()
+											storageOnHand.getM_AttributeSetInstance_ID()).findFirst()
 							.orElse(existingInventoryList.get(0));
 				}
 				// If current quantity equals desired quantity, exit out
