@@ -241,7 +241,7 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 		Set<MProduct_BH> productsWithInitialInventory = inventoryToUpdateMap.entrySet().stream().filter(
 						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
 								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
-										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
+										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) >= 0)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
 		Map<MProduct_BH, List<MStorageOnHand>> existingInventoryByProduct =
