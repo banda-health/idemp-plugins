@@ -12,7 +12,7 @@ INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, 
 -- new clients.
 -- Params: ad_role_to_add_uu : Role uuid of the new master role.
 --         db_user_type: user_type key to be used in ad_reflist for association with the role
-CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, user_type VARCHAR(1)) RETURNS VOID
+CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, user_type VARCHAR(10)) RETURNS VOID
 	LANGUAGE plpgsql
 AS $$
     DECLARE
@@ -54,7 +54,7 @@ BEGIN
                              allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp,
                              allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum,
                              daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-    SELECT c.ad_client_id,0,'Y',100,c.name || ' ' || r.name,100,null,'  O',null,0,null,'N','N','N','N','Y','Y',null,'Y',
+    SELECT c.ad_client_id,0,'Y',100,c.name || ' ' || r.name,100,null,'  O',null,0,null,'Y','N','N','N','Y','Y',null,'Y',
            'N','N','O','N','N',null,0,0,null,'Y','Y','Y','N','Y','Y','Y','Y','Y','Y','Y',null,'N','N','N','N',null,null,
            uuid_generate_v4(),'N','N','N',null FROM ad_client c JOIN ad_role r ON r.ad_role_uu = ad_role_to_add_uu :: TEXT
     WHERE c.ad_client_id > 999999;
@@ -115,4 +115,4 @@ $$;
 --call procedure to add triage role to clients
 select add_roles_to_clients('ae618e24-a47a-40cc-bb5c-8dca64d86daf', 'T');
 
-SELECT register_migration_script('202110280822_GO-1853.sql') FROM dual;
+SELECT register_migration_script('202111161120_GO-1853.sql') FROM dual;
