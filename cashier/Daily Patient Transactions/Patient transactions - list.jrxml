@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Local UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -47,7 +47,7 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.lang.String"/>
 		<parameter name="End Date" class="java.lang.String"/>
@@ -58,7 +58,7 @@
 		<queryString language="SQL">
 			<![CDATA[WITH params AS (
     SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
+          $P{AD_CLIENT_ID} AS ad_client_id,
         to_timestamp($P{Begin Date}, 'YYYY-MM-DD HH24:MI') AS begin_date,
         to_timestamp($P{End Date}, 'YYYY-MM-DD HH24:MI') AS end_date,
         coalesce($P{Patient Type}, '') AS patient_type,
@@ -111,7 +111,8 @@ from (
             and ((p.docstatus = 'CO')
             or (p.docstatus = 'DR' and p.bh_processing = 'Y')
             or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-            and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+            and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
+                     OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
             )
         group by bh_c_order_id
         union
@@ -121,7 +122,9 @@ from (
             join c_charge c on ol.c_charge_id = c.c_charge_id
             cross join params p
         where ol.c_charge_id IS NOT NULL
-            and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
+            and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
+                     OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+                             and p.payment_mode IN ('I', 'W', 'T')))
         order by 1
     ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
     left join (
@@ -139,9 +142,9 @@ from (
     ) as patient_payments on billdetails.c_order_id = patient_payments.c_order_id
     left join (
         select ol.c_order_id,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
+               sum(ol.linenetamt) filter ( where c.name = 'I' ) * -1 as insurance,
+               sum(ol.linenetamt) filter ( where c.name = 'W' ) * -1 as waiver,
+               sum(ol.linenetamt) filter ( where c.name = 'D' ) * -1 as donation,
                olci.name as member_id
         from c_orderline ol
             join c_order o on ol.c_order_id = o.c_order_id
