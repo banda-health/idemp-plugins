@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cashier transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -47,7 +47,7 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
@@ -88,6 +88,7 @@ from (
           AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
           AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
         )
+        AND co.issotrx = 'Y'
         AND ol.c_charge_id IS NULL
     group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
     order by 1
@@ -137,29 +138,33 @@ order by billdetails.bill_date;]]>
 		</queryString>
 		<field name="receipt_number" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value=""/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
 		<field name="bill_date" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
-		</field>
-		<field name="patient" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="patient"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
 		<field name="patient_number" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="patient_number"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
+		<field name="patient" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="patient"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
 		<field name="cashier" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashier"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value=""/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 		</field>
 		<field name="bill_total" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="bill_total"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
-		<field name="total_payment" class="java.math.BigDecimal"/>
-		<field name="unpaid_balance" class="java.math.BigDecimal"/>
+		<field name="total_payment" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="total_payment"/>
+		</field>
+		<field name="unpaid_balance" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="unpaid_balance"/>
+		</field>
 		<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{bill_total}]]></variableExpression>
 		</variable>
@@ -178,26 +183,8 @@ order by billdetails.bill_date;]]>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
-	<field name="receipt_number" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value=""/>
-	</field>
-	<field name="bill_date" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
-	</field>
-	<field name="cashier" class="java.lang.String"/>
-	<field name="total_payment" class="java.math.BigDecimal"/>
-	<field name="patient" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patient"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="patient_number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patient_number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="bill_total" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	<field name="?column?" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="?column?"/>
 	</field>
 	<pageHeader>
 		<band height="20">
@@ -342,7 +329,7 @@ order by billdetails.bill_date;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="8b5b3d1c-c80c-41bd-b937-607f35fbf20d"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -365,7 +352,7 @@ order by billdetails.bill_date;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="daa8911d-900c-4410-97eb-d5e5239b759c"/>
 								<box leftPadding="2"/>
 								<textElement>
