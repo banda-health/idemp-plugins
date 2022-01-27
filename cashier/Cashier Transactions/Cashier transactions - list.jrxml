@@ -88,6 +88,7 @@ from (
           AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
           AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
         )
+        AND co.issotrx = 'Y'
         AND ol.c_charge_id IS NULL
     group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
     order by 1

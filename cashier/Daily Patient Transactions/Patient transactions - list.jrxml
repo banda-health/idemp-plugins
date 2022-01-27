@@ -97,6 +97,7 @@ from (
           AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
           AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
           AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
+          AND issotrx = 'Y'
         )
         AND ol.c_charge_id IS NULL
     group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
