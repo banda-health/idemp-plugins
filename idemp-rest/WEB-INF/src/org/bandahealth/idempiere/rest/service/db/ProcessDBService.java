@@ -396,7 +396,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			}
 			
 			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATETIME_AD_REFERENCE_ID) {
-				parameter = DateUtil.getTimestamp(processInfoParameter.getParameter().toString());
+				parameter = DateUtil.getTimestampReportParameter(processInfoParameter.getParameter().toString());
 			}
 
 			// Since some reports want IDs, we need to convert UUIDs to IDs
