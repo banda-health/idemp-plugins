@@ -268,14 +268,16 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 				List<MStorageOnHand> existingInventoryList = existingInventoryByProduct.get(product);
 
 				// If we should merge, we have to subtract out what's existing
-				Optional<MStorageOnHand> optionalExistingInventory = existingInventoryList.stream().filter(
-						existingStorageOnHand -> existingStorageOnHand.getQtyOnHand().compareTo(storageOnHand.getQtyOnHand()) != 0).findFirst();
-				MStorageOnHand existingInventory = optionalExistingInventory.get();
-				if (product.isBH_HasExpiration()) {
-					existingInventory = existingInventoryList.stream().filter(
-									existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
-											storageOnHand.getM_AttributeSetInstance_ID()).findFirst()
-							.orElse(existingInventoryList.get(0));
+				// fetch non-expired mstorage
+				MStorageOnHand existingInventory = existingInventoryList.stream()
+						.filter(existingStorageOnHand -> existingStorageOnHand.getQtyOnHand()
+								.compareTo(storageOnHand.getQtyOnHand()) != 0)
+						.findFirst().orElse(existingInventoryList.get(0));
+				if (product.isBH_HasExpiration() || (storageOnHand.getM_AttributeSetInstance_ID() > 0)) {
+					existingInventory = existingInventoryList.stream()
+							.filter(existingStorageOnHand -> existingStorageOnHand
+									.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID())
+							.findFirst().orElse(existingInventoryList.get(0));
 				}
 				// If current quantity equals desired quantity, exit out
 				if (existingInventory.getQtyOnHand().compareTo(desiredQuantityOnHand) == 0) {
@@ -288,7 +290,8 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 				inventoryLine.setM_Product_ID(product.get_ID());
 				inventoryLine.setM_Inventory_ID(inventory.get_ID());
 
-				// Only set the attribute set instance ID (i.e. expiration date) if one was provided
+				// Only set the attribute set instance ID (i.e. expiration date) if one was
+				// provided
 				if (storageOnHand.getM_AttributeSetInstance_ID() > 0) {
 					inventoryLine.setM_AttributeSetInstance_ID(storageOnHand.getM_AttributeSetInstance_ID());
 				}
