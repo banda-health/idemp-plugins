@@ -136,7 +136,7 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 		whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
 				new HashSet<>(documentActionAccess.values().stream().flatMap(
 						Collection::stream).collect(Collectors.toSet())), parameters);
-		// Now get the actual entities for these document actions
+		// // Now get the actual entities for these document actions
 		List<MRefList> documentActions = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.COLUMNNAME_AD_Ref_List_ID + " IN (" + whereClause + ")", null)
 				.setParameters(parameters).list();
@@ -158,6 +158,7 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 	 * @return A document map of next actions a user can take based on a given action based on a document type
 	 */
 	public Map<MDocType, Map<MRefList, List<String>>> getDocumentStatusActionMap() {
+		try {
 		Map<MDocType, List<MRefList>> documentActionAccessByDocumentType = getDocumentActionAccessByDocumentType();
 		List<MRefList> allClientDocumentStatuses =
 				new Query(Env.getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Reference_ID + "=?", null).setParameters(
@@ -176,7 +177,7 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 												tableId = documentTypeNameToADTableIdMap
 														.get(documentActionAccessByDocumentTypeEntry.getKey().getName());
 											}
-											// Get valid nextactions based on a given document action
+											// Get valid next actions based on a given document action
 											// TODO: Determine if we want to find a way to include different actions that come when the
 											// period is open
 											DocumentEngine.getValidActions(docStatus.getValue(), null, "", "", tableId, unusedDocActions,
@@ -190,6 +191,12 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 								)
 						)
 				));
+		
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+		
+		return new HashMap<MDocType, Map<MRefList, List<String>>>();
 	}
 
 	/**
