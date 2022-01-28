@@ -101,6 +101,7 @@ public interface IRestConfigs {
 	String MOVEMENTS_PATH = AUTHENTICATION_PATH + "/movements";
 
 	String ATTRIBUTE_SET_INSTANCES_PATH = AUTHENTICATION_PATH + "/attribute-set-instances";
+	String METRICS_PATH = AUTHENTICATION_PATH + "/metrics";
 	
 	String QUERY_PARAMETER_PAGE = "page";
 	String QUERY_PARAMETER_SIZE = "size";

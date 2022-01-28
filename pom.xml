@@ -19,7 +19,7 @@ Example: mvn verify -Didempiere.home.dir=/home/user1/idempiere
 		<lifecycle.mapping.version>1.0.0</lifecycle.mapping.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<url.file.srv>https://raw.githubusercontent.com/idempiere/binary.file/master</url.file.srv>
-		<idempiere.core.repository.url>file://${idempiere.home.dir}/org.idempiere.p2/target/repository</idempiere.core.repository.url>
+		<idempiere.core.repository.url>file://home/icarus/Projects/BandaHealth/idempiere/org.idempiere.p2/target/repository</idempiere.core.repository.url>
 	</properties>
 
 	<build>

@@ -17,6 +17,8 @@ import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.VisitDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import io.prometheus.client.Counter;
+
 /**
  * Expose ALL Patient Visit functionality i.e create/update, view, processing
  *
@@ -29,6 +31,12 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 
 	@Autowired
 	private VisitDBService dbService;
+	
+	private static final Counter pageRequests  = Counter.build()
+			.name("visit_page_total_requests")
+			.help("Total number the visit list page is requested")
+			.labelNames("page")
+			.register();
 
 	@GET
 	@Override
@@ -36,6 +44,7 @@ public class VisitRestService extends BaseEntityRestService<Visit> {
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
+		pageRequests.inc();
 		return dbService.getAll(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
