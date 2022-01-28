@@ -56,6 +56,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	private ExpenseCategoryDBService expenseCategoryDBService;
 	@Autowired
 	private AccountDBService accountDBService;
+	@Autowired
+	private InventoryDBService inventoryDbService;
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
@@ -170,7 +172,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
 						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 						instance.getC_Order_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), product),
+						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), 
+								inventoryDbService.getProductInventoryCount(instance.getM_Product_ID()), product),
 						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
 						DateUtil.parse(instance.getBH_Expiration()), instance.getBH_Instructions(), instance);
 			} else {
