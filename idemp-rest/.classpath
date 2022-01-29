@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/simpleclient_httpserver.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/simpleclient_pushgateway.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/simpleclient.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/simpleclient_common.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

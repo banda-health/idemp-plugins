@@ -72,7 +72,9 @@ Bundle-ClassPath: .,
  WEB-INF/lib/java-jwt.jar,
  WEB-INF/lib/simpleclient_hotspot.jar,
  WEB-INF/lib/simpleclient_httpserver.jar,
- WEB-INF/lib/simpleclient_pushgateway.jar
+ WEB-INF/lib/simpleclient_pushgateway.jar,
+ WEB-INF/lib/simpleclient.jar,
+ WEB-INF/lib/simpleclient_common.jar
 Web-ContextPath: BHGO
 Bundle-ActivationPolicy: lazy
 Export-Package: org.bandahealth.idempiere.rest,
