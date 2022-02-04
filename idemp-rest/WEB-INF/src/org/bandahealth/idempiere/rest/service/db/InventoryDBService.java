@@ -274,11 +274,22 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 								.compareTo(storageOnHand.getQtyOnHand()) != 0)
 						.findFirst().orElse(existingInventoryList.get(0));
 				if (product.isBH_HasExpiration() || (storageOnHand.getM_AttributeSetInstance_ID() > 0)) {
-					existingInventory = existingInventoryList.stream()
+					Optional<MStorageOnHand> searchInventory = existingInventoryList.stream()
 							.filter(existingStorageOnHand -> existingStorageOnHand
-									.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID())
-							.findFirst().orElse(existingInventoryList.get(0));
+									.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID() && 
+									existingStorageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)
+							.findFirst();
+					// possibly an update for a -ve quantity. remove the qty check
+					if (searchInventory.isEmpty()) {
+						existingInventory = existingInventoryList.stream()
+								.filter(existingStorageOnHand -> existingStorageOnHand
+										.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID())
+								.findFirst().orElse(existingInventoryList.get(0));
+					} else {
+						existingInventory = searchInventory.get();
+					}
 				}
+				
 				// If current quantity equals desired quantity, exit out
 				if (existingInventory.getQtyOnHand().compareTo(desiredQuantityOnHand) == 0) {
 					return;
