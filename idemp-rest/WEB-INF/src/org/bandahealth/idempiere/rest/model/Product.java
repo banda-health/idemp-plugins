@@ -46,7 +46,7 @@ public class Product extends BaseEntity {
 		setPriceMargin(entity.getBH_PriceMargin());
 	}
 
-	public Product(String name, String uuid, String type, MProduct_BH entity) {
+	public Product(String name, String uuid, String type, BigDecimal totalQuantity, MProduct_BH entity) {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.setHasExpiration(entity.isBH_HasExpiration());
@@ -55,6 +55,7 @@ public class Product extends BaseEntity {
 		this.priceMargin = entity.getBH_PriceMargin();
 
 		this.type = type;
+		setTotalQuantity(totalQuantity);
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
