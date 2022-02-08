@@ -8,8 +8,6 @@ import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 public class PendingBillsDataService {
 
 	private static Integer MAX_RESULTS_SIZE = 20;
