@@ -84,7 +84,7 @@ select
 from (
     select co.c_order_id,
            cb.c_bpartner_id,
-           co.bh_visitdate as bill_date,
+           date(co.bh_visitdate) as bill_date,
            ad_user.name as Cashier,
            cb.name as patientname,
            sum(ol.linenetamt) as lineitemtotals
