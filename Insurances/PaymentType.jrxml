@@ -5,9 +5,9 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT m.payamt             as paid,
-       c.grandtotal         as Total_Pay,
-     REPLACE(cash_words(payamt::money), 'dollars', 'Shillings')     as Total_Payment
+		<![CDATA[SELECT coalesce(m.payamt, 0)                          as paid,
+       c.grandtotal                                                            as Total_Pay,
+       REPLACE(cash_words(coalesce(payamt, 0)::money), 'dollars', 'Shillings') as Total_Payment
     FROM c_order c
     LEFT JOIN c_payment m on c.c_order_id = m.bh_c_order_id
     WHERE issotrx = 'Y'
@@ -33,7 +33,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="41" width="400" height="29" uuid="28333838-4bbc-43f2-a2ec-96e4a8ab08a1"/>
-				<textFieldExpression><![CDATA[ $F{Total_Payment}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Total_Payment}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="20" width="280" height="18" uuid="ea9e0a42-392e-4424-9110-cfc0ad0723f5"/>
