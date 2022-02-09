@@ -27,6 +27,7 @@ import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
+import org.compiere.util.Env;
 import org.compiere.util.Util;
 
 public class MOrder_BH extends MOrder {
@@ -56,6 +57,10 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS = "BH_SecondaryUncodedDiagnosis"; // previously
 	// bh_seconddiagnosis
 	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
+	/**
+	 * Column name BH_OxygenSaturation
+	 */
+	public static final String COLUMNNAME_BH_OxygenSaturation = "BH_OxygenSaturation";
 
 	/**
 	 * Column name bh_referral
@@ -709,4 +714,24 @@ public class MOrder_BH extends MOrder {
 		return ii.intValue();
 	}
 
+	/**
+	 * Get Oxygen Saturation.
+	 *
+	 * @return Oxygen Saturation
+	 */
+	public BigDecimal getBH_OxygenSaturation() {
+		BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_BH_OxygenSaturation);
+		if (bd == null)
+			return Env.ZERO;
+		return bd;
+	}
+
+	/**
+	 * Set Oxygen Saturation.
+	 *
+	 * @param BH_OxygenSaturation Oxygen Saturation
+	 */
+	public void setBH_OxygenSaturation(BigDecimal BH_OxygenSaturation) {
+		set_Value(COLUMNNAME_BH_OxygenSaturation, BH_OxygenSaturation);
+	}
 }
