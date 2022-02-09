@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -84,7 +84,7 @@ select
 from (
     select co.c_order_id,
            cb.c_bpartner_id,
-           date(co.bh_visitdate) as bill_date,
+           co.bh_visitdate as bill_date,
            ad_user.name as Cashier,
            cb.name as patientname,
            sum(ol.linenetamt) as lineitemtotals
@@ -302,7 +302,7 @@ order by billdetails.bill_date ASC, billdetails.patientname ASC;]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="df9eae88-681c-4a29-8039-f1e7ad3d4ef3">
+					<datasetRun subDataset="tableDataset" uuid="809d0b84-40b8-4021-84b8-3486ba492287">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -317,6 +317,9 @@ order by billdetails.bill_date ASC, billdetails.patientname ASC;]]>
 						</datasetParameter>
 						<datasetParameter name="Patient Type">
 							<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="AD_User_UU">
+							<datasetParameterExpression><![CDATA[$P{AD_User_UU}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
