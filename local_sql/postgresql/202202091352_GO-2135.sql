@@ -1,4 +1,4 @@
-ALTER TABLE C_Order ADD BH_OxygenSaturation NUMBER;
+ALTER TABLE C_Order ADD BH_OxygenSaturation numeric;
 
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2022-02-09 13:51:48.455000', 100, '2022-02-09 13:51:48.455000', 100, 'BH_OxygenSaturation', 'U', 'Oxygen Saturation', 'Oxygen Saturation', null, null, null, null, null, null, '8011a89c-8f43-4552-babf-7e77507d71ab', null) ON CONFLICT DO NOTHING;
 
