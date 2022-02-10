@@ -7,7 +7,7 @@
 	<queryString>
 		<![CDATA[SELECT coalesce(p.payamt, 0)                          as paid,
        o.grandtotal                                                            as Total_Pay,
-       REPLACE(cash_words(coalesce(payamt, 0)::money), 'dollar', lower(currencyname)) as Total_Payment,
+       REPLACE(cash_words(coalesce(payamt, 0)::money), 'dollar', currencyname) as Total_Payment,
        iso_code as symbol
 FROM c_order o
     LEFT JOIN c_payment p on o.c_order_id = p.bh_c_order_id
