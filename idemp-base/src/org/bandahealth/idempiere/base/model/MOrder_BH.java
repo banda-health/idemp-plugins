@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MBPartner;
@@ -27,6 +29,7 @@ import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
+import org.compiere.util.Env;
 import org.compiere.util.Util;
 
 public class MOrder_BH extends MOrder {
@@ -300,14 +303,17 @@ public class MOrder_BH extends MOrder {
 		if (log.isLoggable(Level.INFO))
 			log.info(dt.toString());
 
-		// check if there is an associated invoice for this order
-		MInvoice_BH existingInvoice =
+		// check if there is an associated invoice for this order (and get them all in case this order's been re-opened)
+		List<MInvoice_BH> existingInvoices =
 				new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
-						.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
+						.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).list();
+		MInvoice_BH existingInvoiceToUse = existingInvoices.stream()
+				.filter(existingInvoice -> !existingInvoice.getDocStatus().equalsIgnoreCase(MInvoice.DOCSTATUS_Reversed))
+				.findFirst().orElse(null);
 
 		MInvoice_BH invoice;
-		if (existingInvoice != null) {
-			invoice = existingInvoice;
+		if (existingInvoiceToUse != null) {
+			invoice = existingInvoiceToUse;
 		} else {
 
 			invoice = new MInvoice_BH(this, dt.getC_DocTypeInvoice_ID(), invoiceDate);
@@ -400,6 +406,32 @@ public class MOrder_BH extends MOrder {
 		}
 		return invoice;
 	} // createInvoice
+
+	@Override
+	public boolean reActivateIt() {
+		boolean wasReactivationSuccessful = super.reActivateIt();
+		if (!wasReactivationSuccessful) {
+			return false;
+		}
+
+		// Recreate any payments that were on this order if it was a sales order (visit)
+		if (this.isSOTrx()) {
+			List<MPayment_BH> orderPayments =
+					new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?",
+							get_TrxName()).setParameters(get_ID()).setOnlyActiveRecords(true).list();
+
+			// Filter to get only those that were reversed (not the reversals, voided payments, or anything else) and the
+			// amount is not less than zero
+			List<MPayment_BH> reversedOrderPayments = orderPayments.stream().filter(
+							orderPayment -> orderPayment.getPayAmt().compareTo(BigDecimal.ZERO) >= 0 && orderPayment.getReversal_ID() > 0)
+					.collect(Collectors.toList());
+
+			wasReactivationSuccessful =
+					reversedOrderPayments.stream().allMatch(reversedOrderPayment -> reversedOrderPayment.copy().save());
+		}
+
+		return wasReactivationSuccessful;
+	}
 
 	/**
 	 * Get Payments.

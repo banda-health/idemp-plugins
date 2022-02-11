@@ -34,7 +34,8 @@ public class ProcessSalesOrder {
 		long start = System.currentTimeMillis();
 		/* Packed out from BH_SysConfig */
 		String noLineItemsEnteredErrorMsgUUID = "03cb65e5-104c-4dd6-bec0-4bfe244ae804";
-		if (!salesOrder.getDocStatus().equals(MOrder_BH.DOCSTATUS_Drafted)) {
+		if (!salesOrder.getDocStatus().equals(MOrder_BH.DOCSTATUS_Drafted) &&
+				!MOrder_BH.DOCSTATUS_InProgress.equalsIgnoreCase(salesOrder.getDocStatus())) {
 			callback.onError("DocStatus MUST be DRAFTED " + salesOrder.get_ID(), context, transactionName);
 			return;
 		}
@@ -74,7 +75,7 @@ public class ProcessSalesOrder {
 		} catch (AdempiereException ex) {
 			callback.onError("Could not complete order " + salesOrder.getC_Order_ID() + ". Error: " + ex.getMessage(),
 					context, transactionName);
-			
+
 			// handle wrong allocation date error.
 			if (ex.getMessage().contains("Failed when processing document - Wrong allocation date")) {
 				// date ordered must be greater than the created date.
