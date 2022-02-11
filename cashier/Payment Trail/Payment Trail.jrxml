@@ -198,7 +198,6 @@
 							OR co.c_order_id = cp.bh_c_order_id
 					WHERE co.issotrx='Y'
 						AND co.docstatus='CO'
-						AND i.docstatus != 'RE'
 					UNION
 					-- Outstanding Balance Payments
 					SELECT
