@@ -272,6 +272,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), mOrder::setBH_ReferredFromTo);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateOrdered);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setBH_VisitDate);
+		mOrder.setBH_OxygenSaturation(entity.getOxygenSaturation());
 	}
 
 	@Override
