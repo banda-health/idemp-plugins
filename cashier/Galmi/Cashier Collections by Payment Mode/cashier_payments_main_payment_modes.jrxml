@@ -102,6 +102,7 @@ from
   inner join c_order corder on invoice.c_order_id = corder.c_order_id
   inner join ad_user cashier on corder.salesrep_id = cashier.ad_user_id
 where
+	invoice.docstatus != 'RE' AND
   payment.c_invoice_id is not null
   and payment.ad_client_id =  $P{AD_CLIENT_ID}
   and (payment.created BETWEEN $P{Begin Date} AND  $P{End Date});]]>
