@@ -36,6 +36,7 @@ public class Visit extends Order {
 	private String secondaryUnCodedDiagnosis;
 	private Integer systolicBloodPressure;
 	private Integer diastolicBloodPressure;
+	private BigDecimal oxygenSaturation;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -75,6 +76,7 @@ public class Visit extends Order {
 			this.systolicBloodPressure = order.getbh_systolic_blood_pressure();
 			this.diastolicBloodPressure = order.getbh_diastolic_blood_pressure();
 			setId(order.get_ID());
+			setOxygenSaturation(order.getBH_OxygenSaturation());
 		}
 
 		setIsSalesOrderTransaction(true);
@@ -304,5 +306,13 @@ public class Visit extends Order {
 
 	public void setSecondaryUnCodedDiagnosis(String secondaryUnCodedDiagnosis) {
 		this.secondaryUnCodedDiagnosis = secondaryUnCodedDiagnosis;
+	}
+
+	public BigDecimal getOxygenSaturation() {
+		return oxygenSaturation;
+	}
+
+	public void setOxygenSaturation(BigDecimal oxygenSaturation) {
+		this.oxygenSaturation = oxygenSaturation;
 	}
 }
