@@ -308,16 +308,13 @@ public class MOrder_BH extends MOrder {
 			log.info(dt.toString());
 
 		// check if there is an associated invoice for this order (and get them all in case this order's been re-opened)
-		List<MInvoice_BH> existingInvoices =
-				new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
-						.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).list();
-		MInvoice_BH existingInvoiceToUse = existingInvoices.stream()
-				.filter(existingInvoice -> !existingInvoice.getDocStatus().equalsIgnoreCase(MInvoice.DOCSTATUS_Reversed))
-				.findFirst().orElse(null);
+		MInvoice_BH existingInvoice = new Query(getCtx(), MInvoice_BH.Table_Name,
+				MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? AND " + MInvoice_BH.COLUMNNAME_DocStatus + "!=?",
+				get_TrxName()).setParameters(getC_Order_ID(), MInvoice.DOCSTATUS_Reversed).setOnlyActiveRecords(true).first();
 
 		MInvoice_BH invoice;
-		if (existingInvoiceToUse != null) {
-			invoice = existingInvoiceToUse;
+		if (existingInvoice != null) {
+			invoice = existingInvoice;
 		} else {
 
 			invoice = new MInvoice_BH(this, dt.getC_DocTypeInvoice_ID(), invoiceDate);
