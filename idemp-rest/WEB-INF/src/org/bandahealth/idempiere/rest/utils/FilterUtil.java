@@ -473,8 +473,7 @@ public class FilterUtil {
 				}
 			};
 			String subWhereClause =
-					getWhereClauseFromComparisonQuerySelectors(tableName, adjustedComparisons, parameters, negate,
-							shouldUseContextClientId);
+					getWhereClauseFromExpression(tableName, adjustedComparisons, parameters, negate, shouldUseContextClientId);
 			if (!subWhereClause.isEmpty()) {
 				whereClause.append(subWhereClause);
 			}
@@ -512,10 +511,9 @@ public class FilterUtil {
 								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
 							whereClause.append(DEFAULT_WHERE_CLAUSE);
 						} else {
-							String subWhereClause =
-									getWhereClauseFromComparisonQuerySelectors(foreignTableName,
-											(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, negate,
-											shouldUseContextClientId);
+							String subWhereClause = getWhereClauseFromExpression(foreignTableName,
+									(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, negate,
+									shouldUseContextClientId);
 							if (subWhereClause.isEmpty()) {
 								whereClause.append(DEFAULT_WHERE_CLAUSE);
 							} else {
@@ -548,9 +546,8 @@ public class FilterUtil {
 					};
 				}
 				// Continue the operation, but use the foreign table from this point forward
-				String subWhereClause =
-						getWhereClauseFromComparisonQuerySelectors(foreignTableName, adjustedComparisons, parameters,
-								negate, shouldUseContextClientId);
+				String subWhereClause = getWhereClauseFromExpression(foreignTableName, adjustedComparisons, parameters, negate,
+						shouldUseContextClientId);
 				if (subWhereClause.isEmpty()) {
 					whereClause.append(DEFAULT_WHERE_CLAUSE);
 				} else {
