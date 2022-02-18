@@ -241,7 +241,8 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				}
 			}
 
-			if (order.isComplete()) {
+			// Not sure what the isComplete check is for, but we also want to process documents that have been re-activated
+			if (order.isComplete() || MOrder_BH.DOCSTATUS_InProgress.equalsIgnoreCase(order.getDocStatus())) {
 				return processEntity(entity.getUuid(), docAction);
 			}
 		}
