@@ -91,6 +91,7 @@ from c_order sorder
   inner join c_bpartner patientID on patient.c_bpartner_id = patientID.c_bpartner_id
   inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
 where
+	invoice.docstatus != 'RE' AND
   payment.tendertype = 'F' and payment.ad_org_id =  $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
   and (date(sorder.bh_visitdate) BETWEEN  $P{Begin Date} AND  $P{End Date})
 group by sorder.bh_visitdate, patient.name, patientID.bh_patientid, invoice.description
@@ -133,6 +134,7 @@ from c_order sorder
   inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
   inner join ad_client clientName on payment.ad_client_id = clientName.ad_client_id
 where
+	invoice.docstatus != 'RE' AND
   payment.tendertype = 'F' and payment.ad_org_id = $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
   and (date(sorder.bh_visitdate) BETWEEN $P{Begin Date} AND  $P{End Date})
 LIMIT 1;]]>
