@@ -149,9 +149,9 @@ SELECT pd.Date,
        pd.FileNo,
        pd.Patient,
        pd.ServedBy,
-       p.PaymentType
+       coalesce(p.PaymentType, 'None') as PaymentType
 FROM patient_detail pd
-    CROSS JOIN payment p;]]>
+    LEFT JOIN payment p ON 1=1;]]>
 	</queryString>
 	<field name="Date" class="java.sql.Date"/>
 	<field name="FileNo" class="java.lang.String"/>

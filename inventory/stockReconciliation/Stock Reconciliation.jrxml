@@ -132,14 +132,13 @@
 ),
 currentQty as (
     select snd.m_product_id,
-                    snd.m_attributesetinstance_id,
                     sum(qtyonhand) as closingqty
              from m_storageonhand snd
                      join products_updated_during_period pudp
 		on pudp.m_product_id = snd.m_product_id
                  and date(updated) <= $P{End Date}
              where isactive = 'Y'
-             group by snd.m_product_id, snd.m_attributesetinstance_id
+             group by snd.m_product_id
     )
 -- With all changes calculated, just filter out to the ones we want
 select

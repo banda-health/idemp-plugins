@@ -5,17 +5,20 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT m.payamt             as paid,
-       c.grandtotal         as Total_Pay,
-     REPLACE(cash_words(payamt::money), 'dollars', 'Shillings')     as Total_Payment
-    FROM c_order c
-    LEFT JOIN c_payment m on c.c_order_id = m.bh_c_order_id
+		<![CDATA[SELECT coalesce(p.payamt, 0)                          as paid,
+       o.grandtotal                                                            as Total_Pay,
+       REPLACE(cash_words(coalesce(payamt, 0)::money), 'dollar', currencyname) as Total_Payment,
+       iso_code as symbol
+FROM c_order o
+    LEFT JOIN c_payment p on o.c_order_id = p.bh_c_order_id
+    LEFT JOIN c_currency c on p.c_currency_id = c.c_currency_id OR c.c_currency_id = o.c_currency_id
     WHERE issotrx = 'Y'
     and c.c_order_uu =$P{C_Order_UU}]]>
 	</queryString>
 	<field name="paid" class="java.lang.Integer"/>
 	<field name="Total_Pay" class="java.lang.Integer"/>
 	<field name="Total_Payment" class="java.lang.String"/>
+	<field name="symbol" class="java.lang.String"/>
 	<detail>
 		<band height="71">
 			<textField>
@@ -33,12 +36,12 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="41" width="400" height="29" uuid="28333838-4bbc-43f2-a2ec-96e4a8ab08a1"/>
-				<textFieldExpression><![CDATA[ $F{Total_Payment}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Total_Payment}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="20" width="280" height="18" uuid="ea9e0a42-392e-4424-9110-cfc0ad0723f5"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["KES" + " " + $F{paid}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{symbol} + " " + $F{paid}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="20" width="96" height="18" uuid="ccdbae10-c9c6-4e7b-8ab7-b9c47d49e32d"/>
@@ -69,7 +72,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="0" width="280" height="18" uuid="0f13b7b0-7d9d-4dfe-9272-193e4c44ac83"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["KES" + " " + $F{Total_Pay}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{symbol} + " " + $F{Total_Pay}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
