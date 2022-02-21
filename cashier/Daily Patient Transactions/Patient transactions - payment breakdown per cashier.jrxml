@@ -114,16 +114,18 @@
            case when rl.value NOT IN ('X', 'M', 'C', 'D', 'K') then 'Other' else rl.name end as payment_type
     from c_payment p
         cross join params
+        join payment_filter pf on p.bh_c_order_id = pf.bh_c_order_id
         join ad_ref_list rl on rl.value = tendertype AND rl.ad_reference_id = 214
     where p.ad_client_id = params.ad_client_id
     group by p.bh_c_order_id, case when rl.value NOT IN ('X', 'M', 'C', 'D', 'K') then 'Other' else rl.name end
 ), non_patient_payments as (
     select ol.c_order_id,
-           sum(ol.linenetamt) as amount,
+           sum(ol.linenetamt) * -1 as amount,
            rl.name as payment_type
     from c_orderline ol
         join c_order o on ol.c_order_id = o.c_order_id
         cross join params p
+        join payment_filter pf on o.c_order_id = pf.bh_c_order_id
         join c_charge c on ol.c_charge_id = c.c_charge_id
         left join (
             select olci.c_orderline_id, olci.name
@@ -137,22 +139,20 @@
     group by ol.c_order_id, rl.name
 )
 select
+    billdetails.c_order_id,
     billdetails.Cashier as Cashiername,
     patient_payments.amount as paymentamount,
     patient_payments.payment_type as paymentmode
 from billdetails
-    left join payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
     left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
 where patient_payments.payment_type is not null and patient_payments.amount is not null
 union
 select
+    billdetails.c_order_id,
     billdetails.Cashier as Cashier,
     non_patient_payments.amount as paymentamount,
     non_patient_payments.payment_type as paymentmode
 from billdetails
-    left join payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
-    left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
     left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
 where non_patient_payments.payment_type is not null and non_patient_payments.amount is not null]]>
 		</queryString>

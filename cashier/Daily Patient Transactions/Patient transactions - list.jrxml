@@ -119,6 +119,7 @@
            sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) as other
     from c_payment p
         cross join params
+        join payment_filter pf on pf.bh_c_order_id = p.bh_c_order_id
     where p.ad_client_id = params.ad_client_id
     group by p.bh_c_order_id
 ), non_patient_payments as (
@@ -157,7 +158,6 @@ select
     coalesce(non_patient_payments.waiver, 0) as waiver,
     coalesce(non_patient_payments.donation, 0) as donation
 from billdetails
-    left join payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
     left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
     left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
 order by billdetails.bill_date ASC, billdetails.patientname ASC;]]>
