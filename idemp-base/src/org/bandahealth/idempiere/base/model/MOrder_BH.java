@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MBPartner;
@@ -305,10 +307,10 @@ public class MOrder_BH extends MOrder {
 		if (log.isLoggable(Level.INFO))
 			log.info(dt.toString());
 
-		// check if there is an associated invoice for this order
-		MInvoice_BH existingInvoice =
-				new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? ", get_TrxName())
-						.setParameters(getC_Order_ID()).setOnlyActiveRecords(true).first();
+		// check if there is an associated invoice for this order (but exclude reversed invoices for a reactivated order)
+		MInvoice_BH existingInvoice = new Query(getCtx(), MInvoice_BH.Table_Name,
+				MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? AND " + MInvoice_BH.COLUMNNAME_DocStatus + "!=?",
+				get_TrxName()).setParameters(getC_Order_ID(), MInvoice.DOCSTATUS_Reversed).setOnlyActiveRecords(true).first();
 
 		MInvoice_BH invoice;
 		if (existingInvoice != null) {
@@ -405,6 +407,32 @@ public class MOrder_BH extends MOrder {
 		}
 		return invoice;
 	} // createInvoice
+
+	@Override
+	public boolean reActivateIt() {
+		boolean wasReactivationSuccessful = super.reActivateIt();
+		if (!wasReactivationSuccessful) {
+			return false;
+		}
+
+		// Recreate any payments that were on this order if it was a sales order (visit)
+		if (this.isSOTrx()) {
+			List<MPayment_BH> orderPayments =
+					new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?",
+							get_TrxName()).setParameters(get_ID()).setOnlyActiveRecords(true).list();
+
+			// Filter to get only those that were reversed (not the reversals, voided payments, or anything else) and the
+			// amount is not less than zero
+			List<MPayment_BH> reversedOrderPayments = orderPayments.stream().filter(
+							orderPayment -> orderPayment.getPayAmt().compareTo(BigDecimal.ZERO) >= 0 && orderPayment.getReversal_ID() > 0)
+					.collect(Collectors.toList());
+
+			wasReactivationSuccessful =
+					reversedOrderPayments.stream().allMatch(reversedOrderPayment -> reversedOrderPayment.copy().save());
+		}
+
+		return wasReactivationSuccessful;
+	}
 
 	/**
 	 * Get Payments.
