@@ -73,7 +73,7 @@
            sum(ol.linenetamt) as lineitemtotals
     from c_order co
         inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        inner join ad_user on co.updatedby = ad_user.ad_user_id
+        inner join ad_user on co.createdby = ad_user.ad_user_id
         join c_orderline ol on co.c_order_id = ol.c_order_id
         cross join params p
     where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
