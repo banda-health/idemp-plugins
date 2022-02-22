@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -240,7 +241,7 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 		Set<MProduct_BH> productsWithInitialInventory = inventoryToUpdateMap.entrySet().stream().filter(
 						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
 								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
-										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
+										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) >= 0)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
 		Map<MProduct_BH, List<MStorageOnHand>> existingInventoryByProduct =
@@ -267,13 +268,28 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 				List<MStorageOnHand> existingInventoryList = existingInventoryByProduct.get(product);
 
 				// If we should merge, we have to subtract out what's existing
-				MStorageOnHand existingInventory = existingInventoryList.get(0);
-				if (product.isBH_HasExpiration()) {
-					existingInventory = existingInventoryList.stream().filter(
-									existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
-											existingStorageOnHand.getM_AttributeSetInstance_ID()).findFirst()
-							.orElse(existingInventoryList.get(0));
+				// fetch non-expired mstorage
+				MStorageOnHand existingInventory = existingInventoryList.stream()
+						.filter(existingStorageOnHand -> existingStorageOnHand.getQtyOnHand()
+								.compareTo(storageOnHand.getQtyOnHand()) != 0)
+						.findFirst().orElse(existingInventoryList.get(0));
+				if (product.isBH_HasExpiration() || (storageOnHand.getM_AttributeSetInstance_ID() > 0)) {
+					Optional<MStorageOnHand> searchInventory = existingInventoryList.stream()
+							.filter(existingStorageOnHand -> existingStorageOnHand
+									.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID() && 
+									existingStorageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)
+							.findFirst();
+					// possibly an update for a -ve quantity. remove the qty check
+					if (searchInventory.isEmpty()) {
+						existingInventory = existingInventoryList.stream()
+								.filter(existingStorageOnHand -> existingStorageOnHand
+										.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID())
+								.findFirst().orElse(existingInventoryList.get(0));
+					} else {
+						existingInventory = searchInventory.get();
+					}
 				}
+				
 				// If current quantity equals desired quantity, exit out
 				if (existingInventory.getQtyOnHand().compareTo(desiredQuantityOnHand) == 0) {
 					return;
@@ -285,7 +301,8 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 				inventoryLine.setM_Product_ID(product.get_ID());
 				inventoryLine.setM_Inventory_ID(inventory.get_ID());
 
-				// Only set the attribute set instance ID (i.e. expiration date) if one was provided
+				// Only set the attribute set instance ID (i.e. expiration date) if one was
+				// provided
 				if (storageOnHand.getM_AttributeSetInstance_ID() > 0) {
 					inventoryLine.setM_AttributeSetInstance_ID(storageOnHand.getM_AttributeSetInstance_ID());
 				}
