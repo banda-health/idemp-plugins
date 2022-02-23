@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -410,25 +411,30 @@ public class MOrder_BH extends MOrder {
 
 	@Override
 	public boolean reActivateIt() {
+		// We need a date to measure from the time we're supposed to reverse stuff
+		Timestamp timeOfReversal = new Timestamp(System.currentTimeMillis());
 		boolean wasReactivationSuccessful = super.reActivateIt();
 		if (!wasReactivationSuccessful) {
 			return false;
 		}
 
-		// Recreate any payments that were on this order if it was a sales order (visit)
+		// Reactivate any payments that were on this order if it was a sales order (visit)
 		if (this.isSOTrx()) {
-			List<MPayment_BH> orderPayments =
-					new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?",
-							get_TrxName()).setParameters(get_ID()).setOnlyActiveRecords(true).list();
+			List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name,
+					MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_Created + "<?",
+					get_TrxName()).setParameters(get_ID(), timeOfReversal).setOnlyActiveRecords(true).list();
 
-			// Filter to get only those that were reversed (not the reversals, voided payments, or anything else) and the
-			// amount is not less than zero
-			List<MPayment_BH> reversedOrderPayments = orderPayments.stream().filter(
-							orderPayment -> orderPayment.getPayAmt().compareTo(BigDecimal.ZERO) >= 0 && orderPayment.getReversal_ID() > 0)
-					.collect(Collectors.toList());
+			wasReactivationSuccessful = orderPayments.stream().allMatch(reversedOrderPayment -> {
+				// Clone it and save it
+				MPayment_BH newPayment = reversedOrderPayment.copy();
+				newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
+				boolean wasNewPaymentCreated = newPayment.save();
 
-			wasReactivationSuccessful =
-					reversedOrderPayments.stream().allMatch(reversedOrderPayment -> reversedOrderPayment.copy().save());
+				// Remove the order IDs from the old payment so they don't get directly associated anymore
+				reversedOrderPayment.setBH_C_Order_ID(0);
+				reversedOrderPayment.save();
+				return wasNewPaymentCreated;
+			});
 		}
 
 		return wasReactivationSuccessful;

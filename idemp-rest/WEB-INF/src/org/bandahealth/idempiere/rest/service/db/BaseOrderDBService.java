@@ -241,8 +241,8 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				}
 			}
 
-			// Not sure what the isComplete check is for, but we also want to process documents that have been re-activated
-			if (order.isComplete() || MOrder_BH.DOCSTATUS_InProgress.equalsIgnoreCase(order.getDocStatus())) {
+			// If this order is complete already (i.e. we're voiding/re-activating), we shouldn't save it
+			if (order.isComplete()) {
 				return processEntity(entity.getUuid(), docAction);
 			}
 		}
