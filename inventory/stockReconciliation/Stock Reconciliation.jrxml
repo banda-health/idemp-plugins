@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Stock Reconciliation" pageWidth="770" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="770" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Stock Reconciliation" pageWidth="900" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -80,8 +89,9 @@
 		<queryString language="SQL">
 			<![CDATA[;with updates_during_period as (
 	-- Get the updates that were made during this period
-	select
+		select
 		m_product_id,
+	    m_inventoryline_id,
 		updatedby,
 		movementdate,
 		updated,
@@ -89,8 +99,8 @@
 	from m_transaction
 	where ad_client_id = $P{AD_CLIENT_ID}  -- UPDATE - this is the CLIENT ID parameter
 		and movementdate between $P{Begin Date} and $P{End Date} -- UPDATE - these are the date range parameters
-		and movementtype in ('P+','P-')
-	group by m_product_id, updatedby, movementdate, updated
+		and movementtype in ('I+','I-')
+	group by m_product_id, updatedby, movementdate, updated, m_inventoryline_id
 ), products_updated_during_period as (
 	-- Get a list of products that were updated (a product is unique to client & org)
 	select distinct
@@ -132,28 +142,39 @@
 ),
 currentQty as (
     select snd.m_product_id,
-                    snd.m_attributesetinstance_id,
                     sum(qtyonhand) as closingqty
              from m_storageonhand snd
                      join products_updated_during_period pudp
 		on pudp.m_product_id = snd.m_product_id
                  and date(updated) <= $P{End Date}
-             where isactive = 'Y'
-             group by snd.m_product_id, snd.m_attributesetinstance_id
-    )
+              where isactive = 'Y'
+             group by snd.m_product_id
+    ),
+Reason as (
+    SELECT DISTINCT mi.m_inventoryline_id,Reasontype.movementdate,r.name, r.value as Referral
+FROM ad_ref_list r
+         JOIN ad_reference a ON r.ad_reference_id = a.ad_reference_id
+         LEFT JOIN m_inventory Reasontype ON value = Reasontype.bh_update_reason
+         LEFT JOIN m_inventoryline mi ON Reasontype.m_inventory_id = mi.m_inventory_id
+WHERE ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'
+  AND Reasontype.ad_client_id = $P{AD_CLIENT_ID}
+      AND Reasontype.created between $P{Begin Date} and $P{End Date}
+)    
 -- With all changes calculated, just filter out to the ones we want
 select
-	mp.name as product,
+    mp.name as product,
 	changes.movementqty * -1 as quantitychange,
 	startingqty - changes.movementqty as newlevel,
 	closingqty + changes.movementqty as change_from,
     closingqty as change_to,
 	changes.updated as datechanged,
-	u.name as changer
+	u.name as changer,
+    r.name as Reason
 from (
 	-- Now, with changes negated, sum up all the changes
 	select
 		m_product_id,
+	    m_inventoryline_id,
 		movementqty,
 		updated,
 		updatedby,
@@ -164,6 +185,7 @@ from (
 		-- Get all transactions (except sales ones) from the start of the period until now (when we know the current quantity)
 		select
 			trns.m_product_id,
+		    trns.m_inventoryline_id,
 			trns.movementqty * -1 as movementqty,
 			trns.updated,
 			trns.updatedby,
@@ -178,16 +200,18 @@ from (
 		-- Select the current quantity
 		select
 			m_product_id,
+		       null,
 			qtyonhand,
 			date,
 			null,
-			null,
+	        null,
 			null
 		from product_qty_now
 		union
 		-- Get the sales transactions
 		select
 			st.m_product_id,
+		        null,
 			st.movementqty * -1 as movementqty,
 			st.updated,
 			st.updatedby,
@@ -200,12 +224,13 @@ from (
 ) as changes
 join m_product mp
 	on mp.m_product_id = changes.m_product_id
+left join Reason r on r.m_inventoryline_id = changes.m_inventoryline_id
 join ad_user u
 	on u.ad_user_id = changes.updatedby
 join currentQty c on c.m_product_id = changes.m_product_id
-where changes.movementtype IN ('P+','P-')
+where changes.movementtype IN ('I+','I-')
 	and changes.movementdate between $P{Begin Date} and $P{End Date} -- UPDATE - these are the date range parameters
-order by changes.updated, mp.name, u.name]]>
+order by changes.updated, mp.name, u.name;]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -226,10 +251,11 @@ order by changes.updated, mp.name, u.name]]>
 			<property name="com.jaspersoft.studio.field.label" value="changer"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 		</field>
+		<field name="Reason" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select
     productname.product,
@@ -319,7 +345,7 @@ limit 1;]]>
 				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="690" y="0" width="80" height="16" uuid="7f7700b6-ab52-4721-a36b-7a82ee5477eb">
+				<reportElement x="810" y="1" width="80" height="16" uuid="7f7700b6-ab52-4721-a36b-7a82ee5477eb">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -334,7 +360,7 @@ limit 1;]]>
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="770" height="45" uuid="14c619e5-ae15-4163-837a-9149dd384b6e">
+				<reportElement x="0" y="0" width="900" height="45" uuid="14c619e5-ae15-4163-837a-9149dd384b6e">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -401,12 +427,12 @@ limit 1;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="130" uuid="6eac8560-8721-4b39-811d-a1c7bf7e8f75">
+					<jr:column width="110" uuid="6eac8560-8721-4b39-811d-a1c7bf7e8f75">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="130" height="30" uuid="c39ea993-8e8b-4d1e-875c-dde3c65936d2"/>
+								<reportElement x="0" y="0" width="110" height="30" uuid="c39ea993-8e8b-4d1e-875c-dde3c65936d2"/>
 								<box leftPadding="3"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -416,7 +442,7 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField isStretchWithOverflow="true" pattern="#,##0.###" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="130" height="15" uuid="5a5c25c0-50ef-4cfd-a417-14eaff4e579e"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="15" uuid="5a5c25c0-50ef-4cfd-a417-14eaff4e579e"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
@@ -492,16 +518,16 @@ limit 1;]]>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{datechanged} ]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{datechanged}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="130" uuid="fe97f28e-557a-453e-990a-33ca064f6a85">
+					<jr:column width="90" uuid="fe97f28e-557a-453e-990a-33ca064f6a85">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="130" height="30" uuid="d5f92d31-ac15-4f6e-8e84-e605e5edbd55"/>
+								<reportElement x="0" y="0" width="90" height="30" uuid="d5f92d31-ac15-4f6e-8e84-e605e5edbd55"/>
 								<box leftPadding="3"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -511,13 +537,37 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="130" height="15" uuid="0c2db98b-6648-4f6e-85d2-2099d407ef0f"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="90" height="15" uuid="0c2db98b-6648-4f6e-85d2-2099d407ef0f"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{changer}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="ab2f917d-25a9-473e-a6b4-873d1e140bec">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="30" uuid="f4a6fe48-3404-469a-881e-22080b2bce8f"/>
+								<box leftPadding="3"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Reason for Change]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="150" height="15" uuid="13a291ad-1448-4354-a16c-c661d60f72ad"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Reason}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
