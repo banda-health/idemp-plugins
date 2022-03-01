@@ -52,6 +52,7 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[select date(cp.datetrx) as bill_date,
        cb.name as patientname,
@@ -62,10 +63,13 @@ from c_payment cp
     inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
     inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
     and AD_Reference_ID=214
+    inner join ad_user cashier on cp.createdby = cashier.ad_user_id
+    cross join (select coalesce($P{AD_User_UU}, '') as ad_user_uu) params
 where ((cp.ad_client_id = $P{AD_CLIENT_ID})
       and (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
       and (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
     )
+    and (cashier.ad_user_uu = params.ad_user_uu OR params.ad_user_uu = '')
 order by bill_date desc;]]>
 		</queryString>
 		<field name="bill_date" class="java.sql.Date">
@@ -99,6 +103,7 @@ order by bill_date desc;]]>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select date(cp.datetrx) as bill_date,
        cb.name as patientname,
@@ -160,7 +165,7 @@ order by cb.name asc;]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="d207c541-b2f8-48ce-af42-eb16fc9224f6">
+					<datasetRun subDataset="tableDataset" uuid="e8ae2563-79cb-42a0-9ec5-03bb98a8ef7e">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -169,6 +174,9 @@ order by cb.name asc;]]>
 						</datasetParameter>
 						<datasetParameter name="End Date">
 							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="AD_User_UU">
+							<datasetParameterExpression><![CDATA[$P{AD_User_UU}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
