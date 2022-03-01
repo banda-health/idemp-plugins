@@ -20,7 +20,7 @@ inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
 inner join c_payment payment on invoice.c_invoice_id = payment.c_invoice_id
 inner join ad_user patient on invoice.ad_user_id = patient.ad_user_id
 inner join ad_user cashier on sorder.salesrep_id = cashier.ad_user_id
-where sorder.c_order_id =   $P{billId}]]>
+where sorder.c_order_id =   $P{billId} and invoice.docstatus != 'RE']]>
 	</queryString>
 	<field name="bill_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>

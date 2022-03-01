@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cashier transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -47,7 +47,7 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
@@ -84,15 +84,16 @@ from (
         inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
         join c_orderline ol on co.c_order_id = ol.c_order_id
         cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
+    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO' and co.docstatus <> 'DR')
           AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
           AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
         )
+        AND co.issotrx = 'Y'
         AND ol.c_charge_id IS NULL
     group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
     order by 1
 ) as billdetails
-    inner join (
+    left join (
         select bh_c_order_id
         from c_payment p
         inner join c_order co on co.c_order_id = p.bh_c_order_id
@@ -137,29 +138,33 @@ order by billdetails.bill_date;]]>
 		</queryString>
 		<field name="receipt_number" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value=""/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
 		<field name="bill_date" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
-		</field>
-		<field name="patient" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="patient"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
 		<field name="patient_number" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="patient_number"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
+		<field name="patient" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="patient"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
 		<field name="cashier" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashier"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value=""/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 		</field>
 		<field name="bill_total" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="bill_total"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
-		<field name="total_payment" class="java.math.BigDecimal"/>
-		<field name="unpaid_balance" class="java.math.BigDecimal"/>
+		<field name="total_payment" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="total_payment"/>
+		</field>
+		<field name="unpaid_balance" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="unpaid_balance"/>
+		</field>
 		<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{bill_total}]]></variableExpression>
 		</variable>
@@ -176,107 +181,10 @@ order by billdetails.bill_date;]]>
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
-        date($P{Begin Date}) AS begin_date,
-        date($P{End Date}) AS end_date,
-        coalesce($P{Patient Type}, '') AS patient_type,
-        coalesce($P{Payment Mode}, '') AS payment_mode
-)
-select
-    billdetails.c_order_id as receipt_number,
-    billdetails.bill_date as bill_date,
-    billdetails.patient_number as patient_number,
-    billdetails.patientname as patient,
-    u.name as cashier,
-    coalesce(billdetails.lineitemtotals, 0) as bill_total,
-    coalesce(patient_payments.total, 0) + coalesce(non_patient_payments.total, 0) as total_payment,
-    coalesce(billdetails.lineitemtotals, 0) - coalesce(patient_payments.total, 0) - coalesce(non_patient_payments.total, 0) as unpaid_balance
-from (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           date(co.bh_visitdate) as bill_date,
-           cb.name as patientname,
-           coalesce(cb.bh_local_patientid, cb.bh_patientid) as patient_number,
-           sum(ol.linenetamt) as lineitemtotals,
-           co.createdby as cashier_id
-    from c_order co
-        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        join c_orderline ol on co.c_order_id = ol.c_order_id
-        cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
-          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-          AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
-        )
-        AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name, coalesce(cb.bh_local_patientid, cb.bh_patientid), co.createdby
-    order by 1
-) as billdetails
-    inner join (
-        select bh_c_order_id
-        from c_payment p
-        inner join c_order co on co.c_order_id = p.bh_c_order_id
-        cross join params par
-        where ((p.ad_client_id = par.ad_client_id)
-            and ((p.docstatus = 'CO')
-            or (p.docstatus = 'DR' and p.bh_processing = 'Y')
-            or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-            and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-            )
-        group by bh_c_order_id
-        union
-        select o.c_order_id
-        from c_order o
-            join c_orderline ol on ol.c_order_id = o.c_order_id
-            join c_charge c on ol.c_charge_id = c.c_charge_id
-            cross join params p
-        where ol.c_charge_id IS NOT NULL
-            and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
-        order by 1
-    ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
-    left join (
-        select p.bh_c_order_id as c_order_id,
-               sum(p.payamt) as total
-        from c_payment p
-            cross join params
-        where p.ad_client_id = params.ad_client_id
-        group by p.bh_c_order_id
-    ) as patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join (
-        select ol.c_order_id,
-               sum(ol.linenetamt) * -1 as total
-        from c_orderline ol
-            join c_order o on ol.c_order_id = o.c_order_id
-            cross join params p
-            join c_charge c on ol.c_charge_id = c.c_charge_id
-        where date(o.bh_visitdate) between p.begin_date and p.end_date
-        group by ol.c_order_id
-    ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-    join ad_user u on u.ad_user_id = billdetails.cashier_id
-order by billdetails.bill_date
-limit 1;]]>
+		<![CDATA[SELECT 1;]]>
 	</queryString>
-	<field name="receipt_number" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value=""/>
-	</field>
-	<field name="bill_date" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
-	</field>
-	<field name="cashier" class="java.lang.String"/>
-	<field name="total_payment" class="java.math.BigDecimal"/>
-	<field name="patient" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patient"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="patient_number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patient_number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="bill_total" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	<field name="?column?" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="?column?"/>
 	</field>
 	<pageHeader>
 		<band height="20">
@@ -302,6 +210,15 @@ limit 1;]]>
 	<summary>
 		<band height="64" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
+			<staticText>
+				<reportElement key="" x="0" y="0" width="1740" height="16" uuid="6d489cb8-67ab-4d0e-85c3-57daf11da1d3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report]]></text>
+			</staticText>
 			<componentElement>
 				<reportElement x="0" y="0" width="1740" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
@@ -412,7 +329,7 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="8b5b3d1c-c80c-41bd-b937-607f35fbf20d"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -435,7 +352,7 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="daa8911d-900c-4410-97eb-d5e5239b759c"/>
 								<box leftPadding="2"/>
 								<textElement>

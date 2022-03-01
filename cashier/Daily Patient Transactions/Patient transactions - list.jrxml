@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -47,25 +47,103 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.lang.String"/>
+		<parameter name="End Date" class="java.lang.String"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<parameter name="Payment Mode" class="java.lang.String"/>
 		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[WITH params AS (
     SELECT
         $P{AD_CLIENT_ID} AS ad_client_id,
-        date($P{Begin Date}) AS begin_date,
-        date($P{End Date}) AS end_date,
+        to_timestamp($P{Begin Date}, 'YYYY-MM-DD HH24:MI') AS begin_date,
+        to_timestamp($P{End Date}, 'YYYY-MM-DD HH24:MI') AS end_date,
         coalesce($P{Patient Type}, '') AS patient_type,
-        coalesce($P{Payment Mode}, '') AS payment_mode
+        coalesce($P{Payment Mode}, '') AS payment_mode,
+        coalesce($P{AD_User_UU}, '') AS ad_user_uu
+), billdetails as (
+    select co.c_order_id,
+           cb.c_bpartner_id,
+           co.bh_visitdate as bill_date,
+           ad_user.name as Cashier,
+           cb.name as patientname,
+           sum(ol.linenetamt) as lineitemtotals
+    from c_order co
+        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
+        inner join ad_user on co.createdby = ad_user.ad_user_id
+        join c_orderline ol on co.c_order_id = ol.c_order_id
+        cross join params p
+    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO' AND co.docstatus <> 'DR')
+          AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
+          AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
+          AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
+          AND issotrx = 'Y'
+        )
+        AND ol.c_charge_id IS NULL
+    group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
+    order by 1
+), payment_filter as (
+    select bh_c_order_id
+    from c_payment p
+    inner join c_order co on co.c_order_id = p.bh_c_order_id
+    cross join params par
+    where ((p.ad_client_id = par.ad_client_id)
+        and ((p.docstatus = 'CO')
+        or (p.docstatus = 'DR' and p.bh_processing = 'Y')
+        or (co.docstatus = 'CO' and p.bh_processing = 'N'))
+        and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
+                 OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+        )
+    group by bh_c_order_id
+    union
+    select o.c_order_id
+    from c_order o
+        join c_orderline ol on ol.c_order_id = o.c_order_id
+        join c_charge c on ol.c_charge_id = c.c_charge_id
+        cross join params p
+    where ol.c_charge_id IS NOT NULL
+        and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
+                 OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+                         and p.payment_mode IN ('I', 'W', 'T')))
+    order by 1
+), patient_payments as (
+    select p.bh_c_order_id as c_order_id,
+           sum(p.payamt) filter ( where tendertype = 'X' ) as cash,
+           sum(p.payamt) filter ( where tendertype = 'M' ) as mobile,
+           sum(p.payamt) filter ( where tendertype = 'C' ) as credit_debit,
+           sum(p.payamt) filter ( where tendertype = 'D' ) as bank,
+           sum(p.payamt) filter ( where tendertype = 'K' ) as "check",
+           sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) as other
+    from c_payment p
+        cross join params
+    where p.ad_client_id = params.ad_client_id
+    group by p.bh_c_order_id
+), non_patient_payments as (
+    select ol.c_order_id,
+           sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
+           sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
+           sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
+           olci.name as member_id
+    from c_orderline ol
+        join c_order o on ol.c_order_id = o.c_order_id
+        cross join params p
+        join c_charge c on ol.c_charge_id = c.c_charge_id
+        left join (
+            select olci.c_orderline_id, olci.name
+            from bh_orderline_charge_info olci
+                join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
+            where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
+        ) as olci on olci.c_orderline_id = ol.c_orderline_id
+    where o.bh_visitdate between p.begin_date and p.end_date
+    group by ol.c_order_id, olci.name
 )
 select
     billdetails.c_order_id,
     billdetails.bill_date as billdate,
+    billdetails.Cashier as Cashier,
     billdetails.patientname as patientname,
     non_patient_payments.member_id,
     coalesce(billdetails.lineitemtotals, 0) as billtotal,
@@ -78,79 +156,11 @@ select
     coalesce(non_patient_payments.insurance, 0) as insurance,
     coalesce(non_patient_payments.waiver, 0) as waiver,
     coalesce(non_patient_payments.donation, 0) as donation
-from (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           date(co.bh_visitdate) as bill_date,
-           cb.name as patientname,
-           sum(ol.linenetamt) as lineitemtotals
-    from c_order co
-        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        join c_orderline ol on co.c_order_id = ol.c_order_id
-        cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
-          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-          AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
-        )
-        AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, date(co.bh_visitdate), cb.name
-    order by 1
-) as billdetails
-    inner join (
-        select bh_c_order_id
-        from c_payment p
-        inner join c_order co on co.c_order_id = p.bh_c_order_id
-        cross join params par
-        where ((p.ad_client_id = par.ad_client_id)
-            and ((p.docstatus = 'CO')
-            or (p.docstatus = 'DR' and p.bh_processing = 'Y')
-            or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-            and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T') OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-            )
-        group by bh_c_order_id
-        union
-        select o.c_order_id
-        from c_order o
-            join c_orderline ol on ol.c_order_id = o.c_order_id
-            join c_charge c on ol.c_charge_id = c.c_charge_id
-            cross join params p
-        where ol.c_charge_id IS NOT NULL
-            and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M') OR (c.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END and p.payment_mode IN ('I', 'W', 'T')))
-        order by 1
-    ) as payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
-    left join (
-        select p.bh_c_order_id as c_order_id,
-               sum(p.payamt) filter ( where tendertype = 'X' ) as cash,
-               sum(p.payamt) filter ( where tendertype = 'M' ) as mobile,
-               sum(p.payamt) filter ( where tendertype = 'C' ) as credit_debit,
-               sum(p.payamt) filter ( where tendertype = 'D' ) as bank,
-               sum(p.payamt) filter ( where tendertype = 'K' ) as "check",
-               sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) as other
-        from c_payment p
-            cross join params
-        where p.ad_client_id = params.ad_client_id
-        group by p.bh_c_order_id
-    ) as patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join (
-        select ol.c_order_id,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
-               sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
-               olci.name as member_id
-        from c_orderline ol
-            join c_order o on ol.c_order_id = o.c_order_id
-            cross join params p
-            join c_charge c on ol.c_charge_id = c.c_charge_id
-            left join (
-                select olci.c_orderline_id, olci.name
-                from bh_orderline_charge_info olci
-                    join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
-                where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-            ) as olci on olci.c_orderline_id = ol.c_orderline_id
-        where date(o.bh_visitdate) between p.begin_date and p.end_date
-        group by ol.c_order_id, olci.name
-    ) non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by billdetails.patientname;]]>
+from billdetails
+    left join payment_filter on billdetails.c_order_id = payment_filter.bh_c_order_id
+    left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
+    left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
+order by billdetails.bill_date ASC, billdetails.patientname ASC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -158,6 +168,9 @@ order by billdetails.patientname;]]>
 		</field>
 		<field name="billdate" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="billdate"/>
+		</field>
+		<field name="Cashier" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="Cashier"/>
 		</field>
 		<field name="patientname" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="patientname"/>
@@ -238,11 +251,12 @@ order by billdetails.patientname;]]>
 			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
+	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
@@ -288,7 +302,7 @@ order by billdetails.patientname;]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="df9eae88-681c-4a29-8039-f1e7ad3d4ef3">
+					<datasetRun subDataset="tableDataset" uuid="809d0b84-40b8-4021-84b8-3486ba492287">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -303,6 +317,9 @@ order by billdetails.patientname;]]>
 						</datasetParameter>
 						<datasetParameter name="Patient Type">
 							<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="AD_User_UU">
+							<datasetParameterExpression><![CDATA[$P{AD_User_UU}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -330,8 +347,32 @@ order by billdetails.patientname;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="240" uuid="01d58eb3-cb77-4f24-973a-c7bb1e292b87">
+					<jr:column width="240" uuid="475a9086-5c10-4faf-8d4d-da1f69660ad9">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="240" height="30" uuid="25e79ecd-978e-4059-a340-d901e531e6a5"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cashier Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="c92a9f47-2934-49a5-897b-6a77bb978d8a"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Cashier}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="240" uuid="01d58eb3-cb77-4f24-973a-c7bb1e292b87">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="240" height="30" uuid="66416d7a-8664-43da-a448-4d73827fadfc"/>
@@ -354,7 +395,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="120" uuid="9b9a44cd-7fde-425a-966a-d77c6f2fb5d2">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="120" height="30" uuid="641a4d6b-77cf-408f-b7e7-9e3dec4f0ee0"/>
@@ -377,7 +418,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="110" uuid="11f224aa-d428-4312-9f07-ac270a70ed25">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="110" height="30" uuid="b79b3aad-bd79-4c3a-a7d9-5549f5be65bb"/>
@@ -410,7 +451,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="8a17b70a-6a6b-4b98-8143-08c36f936108">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -444,7 +485,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="d321bd45-33d3-467c-96f1-585332650ead">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="302fd58a-20d3-48f0-9856-7c525f053e97"/>
@@ -477,7 +518,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="975ec13c-a4ac-4b87-b8aa-57fc77405cd3">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="bbc264bb-c760-4f91-bb8e-397df07a630e"/>
@@ -510,7 +551,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="70" uuid="80fa6c29-c146-4bef-92d3-fc7e6e14c9b0">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="70" height="30" uuid="434ee692-9c17-4d53-96a8-1a55a9a2712e"/>
@@ -544,7 +585,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="831c7d31-2db6-4a3a-9b68-4bd6484a8297">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="30" uuid="41f5e47a-eab3-43d3-8c33-84e790168290"/>
@@ -578,7 +619,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="a768f23c-7696-4123-9b85-612429f412a1">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="a89f1dfb-f63c-4473-bf7c-5734aa8f40de"/>
@@ -611,7 +652,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="bb372198-7ca5-45c7-90d9-d605b3c4315f">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -645,7 +686,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="60" uuid="87866248-734d-4d03-ac0b-f0470f323112">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -679,7 +720,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="80" uuid="0de33cc5-790e-4d35-8fd4-d06ad8afc9f7">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -713,7 +754,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="65" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -747,7 +788,7 @@ order by billdetails.patientname;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
