@@ -241,6 +241,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				}
 			}
 
+			// If this order is complete already (i.e. we're voiding/re-activating), we shouldn't save it
 			if (order.isComplete()) {
 				return processEntity(entity.getUuid(), docAction);
 			}

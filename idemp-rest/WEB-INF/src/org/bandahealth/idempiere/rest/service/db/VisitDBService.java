@@ -272,6 +272,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), mOrder::setBH_ReferredFromTo);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateOrdered);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setBH_VisitDate);
+		mOrder.setBH_OxygenSaturation(entity.getOxygenSaturation());
 	}
 
 	@Override
@@ -318,7 +319,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				throw new AdempiereException("Document id not a Visit");
 //				return order.delete(false);
 			}
-			if (order.isComplete()) {
+			// We also want to ensure that a visit that has been re-opened (doc status = In Progress) doesn't get deleted
+			if (order.isComplete() || MOrder_BH.DOCSTATUS_InProgress.equalsIgnoreCase(order.getDocStatus())) {
 				throw new AdempiereException("Visit is already completed");
 			} else {
 				// Make sure to delete any payments that might've been saved
