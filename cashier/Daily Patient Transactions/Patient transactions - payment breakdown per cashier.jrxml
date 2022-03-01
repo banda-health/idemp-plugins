@@ -48,8 +48,8 @@
 	<subDataset name="CashierCollections" uuid="a7821519-34a3-488e-93e8-ff09a7bb5bac">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="Payment Mode" class="java.lang.String"/>
 		<parameter name="Patient Type" class="java.lang.String"/>
@@ -168,8 +168,8 @@ where non_patient_payments.payment_type is not null and non_patient_payments.amo
 			<property name="com.jaspersoft.studio.field.label" value="paymentamount"/>
 		</field>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
 	<parameter name="Patient Type" class="java.lang.String"/>
