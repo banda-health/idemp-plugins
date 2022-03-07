@@ -13,7 +13,7 @@ FROM c_order o
     LEFT JOIN c_payment p on o.c_order_id = p.bh_c_order_id
     LEFT JOIN c_currency c on p.c_currency_id = c.c_currency_id OR c.c_currency_id = o.c_currency_id
     WHERE issotrx = 'Y'
-    and c.c_order_uu =$P{C_Order_UU}]]>
+    and o.c_order_uu =$P{C_Order_UU}]]>
 	</queryString>
 	<field name="paid" class="java.lang.Integer"/>
 	<field name="Total_Pay" class="java.lang.Integer"/>
