@@ -5,15 +5,18 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT coalesce(p.payamt, 0)                          as paid,
-       o.grandtotal                                                            as Total_Pay,
+		<![CDATA[SELECT coalesce(p.payamt, 0)                                                   as paid,
+       sum(ol.linenetamt)                                                      as Total_Pay,
        REPLACE(cash_words(coalesce(payamt, 0)::money), 'dollar', currencyname) as Total_Payment,
-       iso_code as symbol
+       iso_code                                                                as symbol
 FROM c_order o
-    LEFT JOIN c_payment p on o.c_order_id = p.bh_c_order_id
-    LEFT JOIN c_currency c on p.c_currency_id = c.c_currency_id OR c.c_currency_id = o.c_currency_id
-    WHERE issotrx = 'Y'
-    and c.c_order_uu =$P{C_Order_UU}]]>
+         LEFT JOIN c_orderline ol on o.c_order_id = ol.c_order_id
+         LEFT JOIN c_payment p on o.c_order_id = p.bh_c_order_id
+         LEFT JOIN c_currency c on p.c_currency_id = c.c_currency_id OR c.c_currency_id = o.c_currency_id
+WHERE issotrx = 'Y'
+  and ol.c_charge_id is null
+  and o.c_order_uu = $P{C_Order_UU}
+GROUP BY p.payamt, currencyname, iso_code]]>
 	</queryString>
 	<field name="paid" class="java.lang.Integer"/>
 	<field name="Total_Pay" class="java.lang.Integer"/>
