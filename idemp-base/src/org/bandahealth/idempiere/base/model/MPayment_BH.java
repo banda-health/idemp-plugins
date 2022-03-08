@@ -151,14 +151,16 @@ public class MPayment_BH extends MPayment {
 		newPayment.setC_Project_ID(getC_Project_ID());
 		newPayment.setUser1_ID(getUser1_ID());
 		newPayment.setUser2_ID(getUser2_ID());
+
+		// Banda-specific fields
+		newPayment.setBH_C_Order_ID(getBH_C_Order_ID());
+
 		newPayment.saveEx(get_TrxName());
 		if (log.isLoggable(Level.FINE)) log.fine(newPayment.toString());
 		setRef_Payment_ID(newPayment.getC_Payment_ID());
 
 		// Document action typically set to complete, even though we may not be completing it yet
-		newPayment.setDocAction(DOCACTION_Complete);
-
-		newPayment.setBH_C_Order_ID(getBH_C_Order_ID());
+		newPayment.setDocAction(DOCACTION_None);
 
 		return newPayment;
 	}
