@@ -40,14 +40,6 @@ public class PhysicalInventoryLineModelEvent extends AbstractEventHandler {
 		if (inventoryLine.getBH_Expiration() != null && inventoryLine.getBH_Expiration().before(new Date())) {
 			throw new RuntimeException("Expiration should be a future date");
 		}
-		// if an expiration date is set, create an attribute set instance and attach to
-		// the inventory line
-		int attributeSetInstanceId = QueryUtil.createExpirationDateAttributeInstance(
-				inventoryLine.getM_AttributeSetInstance_ID(), inventoryLine.getBH_Expiration(),
-				inventoryLine.get_TrxName(), inventoryLine.getCtx());
-		if (attributeSetInstanceId > 0) {
-			inventoryLine.setM_AttributeSetInstance_ID(attributeSetInstanceId);
-		}
 	}
 
 	private void afterSaveRequest(MInventoryLine_BH inventory) {
