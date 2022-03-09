@@ -15,6 +15,22 @@ WHERE atset.name = 'BandaHealthProductAttributeSet'
 /**********************************************************************************************************/
 BEGIN;
 
+	-- These first constraints are just for our build process (for some reason, it has different constraints than UAT)
+	-- These will not be re-added because they don't exist in UAT
+	ALTER TABLE m_cost DROP CONSTRAINT IF EXISTS masi_mcost;
+	ALTER TABLE m_costdetail DROP CONSTRAINT IF EXISTS masi_mcostdetail;
+	ALTER TABLE m_inoutlinema DROP CONSTRAINT IF EXISTS masi_minourlinema;
+	ALTER TABLE m_costhistory DROP CONSTRAINT IF EXISTS mattributesetinstance_mcosthis;
+	ALTER TABLE m_matchpo DROP CONSTRAINT IF EXISTS mattributesetinstance_mmatchpo;
+	ALTER TABLE m_storageonhand DROP CONSTRAINT IF EXISTS mattributesetinstance_mstoraoh;
+	ALTER TABLE m_storagereservation DROP CONSTRAINT IF EXISTS mattributesetinstance_mstorare;
+	ALTER TABLE c_invoiceline DROP CONSTRAINT IF EXISTS mattrsetinst_cinvoiceline;
+	ALTER TABLE c_orderline DROP CONSTRAINT IF EXISTS mattrsetinst_corderline;
+	ALTER TABLE m_inoutline DROP CONSTRAINT IF EXISTS mattrsetinst_minoutline;
+	ALTER TABLE m_product DROP CONSTRAINT IF EXISTS mattrsetinst_mproduct;
+	ALTER TABLE m_transaction DROP CONSTRAINT IF EXISTS mattrsetinst_mtransaction;
+
+	-- These constraints exist in UAT (and will be re-added at the end of the script)
 	ALTER TABLE a_asset DROP CONSTRAINT mattributesetinstance_aasset;
 	ALTER TABLE a_asset_addition DROP CONSTRAINT mattributesetinstance_aassetad;
 	ALTER TABLE a_asset_product DROP CONSTRAINT mattributesetinstance_aassetpr;
