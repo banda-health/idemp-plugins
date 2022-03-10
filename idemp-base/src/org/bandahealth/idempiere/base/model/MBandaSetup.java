@@ -1,6 +1,9 @@
 package org.bandahealth.idempiere.base.model;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -676,9 +679,9 @@ public class MBandaSetup {
 				.filter(docType -> docType.getAD_Client_ID() == 0)
 				.collect(Collectors.toMap(MDocType::getC_DocType_ID,
 						systemDocType -> docTypesForSystemAndClient.stream()
-						.filter(docType -> docType.getAD_Client_ID() != 0
-						&& docType.getName().equals(systemDocType.getName()))
-						.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
+								.filter(docType -> docType.getAD_Client_ID() != 0
+										&& docType.getName().equals(systemDocType.getName()))
+								.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
 		//		PO.clearCrossTenantSafe(); // disable what was done previously // <- uncomment for iDempiere-8.2+
 
 		// Get all access for the roles we'll configure
@@ -1177,6 +1180,12 @@ public class MBandaSetup {
 		priceListVersion.setIsActive(true);
 		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
 		priceListVersion.setM_DiscountSchema_ID(discountSchema.get_ID());
+		// GO-2240 Make sure the price list is valid from a date in the past because usually clients want to enter stuff
+		// they've recently received before today
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(Timestamp.from(Instant.now()));
+		calendar.add(Calendar.YEAR, -1);
+		priceListVersion.setValidFrom(new Timestamp(calendar.getTime().getTime()));
 		if (!priceListVersion.save()) {
 			log.log(Level.SEVERE, "Price-list version not saved");
 			transaction.rollback();
