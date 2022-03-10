@@ -315,6 +315,7 @@ public class InventoryDBService extends BaseDBService<Inventory, MInventoryLine_
 		}
 
 		inventory.completeIt();
+		inventory.saveEx();
 
 		return count;
 	}
