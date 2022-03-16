@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,11 @@ import org.compiere.model.POInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
+enum FilterArrayJoin {
+	AND,
+	OR,
+}
+
 public class FilterUtil {
 	public static final String DEFAULT_WHERE_CLAUSE = "(1=1)";
 
@@ -28,6 +34,8 @@ public class FilterUtil {
 	private static final Map<String, String> specialForeignKeyMappings = new HashMap<>() {{
 		put("createdby", "ad_user");
 		put("updatedby", "ad_user");
+		put("bh_from_warehouse", "m_warehouse");
+		put("bh_to_warehouse", "m_warehouse");
 	}};
 	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
 
@@ -273,8 +281,10 @@ public class FilterUtil {
 			}
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
-			// If the column doesn't exist on this table as specified, we need to follow a different workflow
-			if (dbModelInfo != null && dbModelInfo.getColumnIndex(dbColumnName) == -1) {
+			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
+			// table), we need to follow a different workflow
+			if (dbModelInfo != null &&
+					(dbModelInfo.getColumnIndex(dbColumnName) == -1 || specialForeignKeyMappings.containsKey(dbColumnName))) {
 				String subWhereClause =
 						getForeignTableSubQueryWhereClause(tableName, dbModelInfo, dbColumnName,
 								(Map<String, Object>) comparisons, parameters, negate, shouldUseContextClientId);
@@ -427,28 +437,34 @@ public class FilterUtil {
 
 		String foreignTableName = dbColumnName;
 		String remainingDBColumnName = null;
-		String foreignDBColumnName = null;
-		String foreignSelectDBColumnName = null;
+		String specificColumnToMapOn = null;
+
 		// If this is an aliased value, get the alias
 		if (doesTableAliasExistOnColumn(dbColumnName)) {
-			String[] queryParts = dbColumnName.split("\\.");
-			foreignTableName = queryParts[0];
-			if (queryParts.length > 2) {
-				remainingDBColumnName = queryParts[1];
-				foreignDBColumnName = queryParts[2];
-				if (foreignDBColumnName.contains("_uu")) {
-					foreignTableName = foreignDBColumnName.replaceFirst("_uu", "");
-					foreignSelectDBColumnName = foreignDBColumnName.replaceFirst("_uu", "_id");
-				}
-			} else {
-				remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
-			}
+			foreignTableName = dbColumnName.split("\\.")[0];
+			// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
+			remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
 		}
+
+		// If a specific column was passed in using the "::" syntax, get it
+		if (dbColumnName.contains("::")) {
+			foreignTableName = dbColumnName.split("::")[0];
+			// There "should" only be one column specification, so we'll use it
+			specificColumnToMapOn = dbColumnName.split("::")[1];
+		}
+
+		// Ensure foreign table is lower case
+		foreignTableName = foreignTableName.toLowerCase();
+		// This should remain null unless we're doing a mapping
+		String originalForeignTableName = null;
 		if (specialForeignKeyMappings.containsKey(foreignTableName)) {
+			originalForeignTableName = foreignTableName;
 			foreignTableName = specialForeignKeyMappings.get(foreignTableName);
 		}
-		// If the foreign table equals the current table we're on, just remove it and start restart the construction
-		if (foreignTableName.equalsIgnoreCase(tableName)) {
+
+		// If the foreign table equals the current table we're on and there was no special mapping, just remove it and
+		// start restart the construction
+		if (foreignTableName.equalsIgnoreCase(tableName) && originalForeignTableName == null) {
 			// Reconstruct the comparison using the new "key"
 			String finalRemainingDBColumnName = remainingDBColumnName;
 			Map<String, Object> adjustedComparisons = new HashMap<>() {
@@ -457,128 +473,92 @@ public class FilterUtil {
 				}
 			};
 			String subWhereClause =
-					getWhereClauseFromComparisonQuerySelectors(tableName, adjustedComparisons, parameters, negate,
-							shouldUseContextClientId);
+					getWhereClauseFromExpression(tableName, adjustedComparisons, parameters, negate, shouldUseContextClientId);
 			if (!subWhereClause.isEmpty()) {
 				whereClause.append(subWhereClause);
 			}
 		} else {
-			// Try to get the foreign table's info
-			POInfo foreignTableInfo = getPOInfo(foreignTableName);
-			if (foreignTableInfo != null) {
-				// We need a column that exists on both tables, so it will either be the current table's ID or the
-				// sub-tables ID
-				String tableIdColumn = tableName + "_id";
-				String foreignTableIdColumn = foreignTableName + "_id";
-				String idColumn = null;
-				String foreignIdColumn = null;
-				
-				// See if either the source ID column or the foreign ID column are on both tables, and use
-				// If that's not the case, check to see if the foreign table name exists on the source and the foreign
-				// exists on the foreign (i.e. we have a non-column name connection)
-				if (dbModelInfo.getColumnIndex(tableIdColumn) > -1 &&
-						foreignTableInfo.getColumnIndex(tableIdColumn) > -1) {
-					idColumn = tableIdColumn;
-					foreignIdColumn = tableIdColumn;
-				} else if (dbModelInfo.getColumnIndex(foreignTableIdColumn) > -1 &&
-						foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
-					idColumn = foreignTableIdColumn;
-					foreignIdColumn = foreignTableIdColumn;
-				} else if (dbModelInfo.getColumnIndex(foreignTableName) > -1 &&
-						foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
-					idColumn = dbColumnName;
-					foreignIdColumn = foreignTableIdColumn;
-				}
-				
-				if (foreignDBColumnName != null && foreignTableName != null) {
-					foreignIdColumn = foreignDBColumnName;
-					idColumn = remainingDBColumnName;
-				} else {
-					foreignIdColumn = specialForeignKeyMappings.containsKey(remainingDBColumnName) ? remainingDBColumnName : foreignIdColumn;	
-				}
-							
-				if (idColumn != null) {
-					// We have a match! Begin constructing the sub-query
-					whereClause.append(tableName).append(".").append(idColumn).append(negate ? " NOT" : "").append(" IN " +
-							"(SELECT ").append(foreignSelectDBColumnName != null ? foreignSelectDBColumnName : foreignIdColumn).append(" FROM ");
-					// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
-					Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
-									comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
-											aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
-							.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-					boolean doesTableNeedAggregation = aggregateComparisons.size() > 0;
-					if (doesTableNeedAggregation) {
-						whereClause.append("(");
-						for (String aggregateFunction : aggregateComparisons.keySet()) {
-							String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
-							whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
-									.append(" as ").append(aggregateColumnName);
-							// Add the client id to be returned, if it's required
-							if (shouldUseContextClientId) {
-								whereClause.append(",ad_client_id");
-							}
-							whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
-							if (comparisonQuerySelectors.get(aggregateFunction) == null ||
-									((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
-								whereClause.append(DEFAULT_WHERE_CLAUSE);
-							} else {
-								String subWhereClause =
-										getWhereClauseFromComparisonQuerySelectors(foreignTableName,
-												(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, negate,
-												shouldUseContextClientId);
-								if (subWhereClause.isEmpty()) {
-									whereClause.append(DEFAULT_WHERE_CLAUSE);
-								} else {
-									whereClause.append(subWhereClause);
-								}
-							}
-							// Add the client check, if it's required
-							if (shouldUseContextClientId) {
-								whereClause.append(") AND (ad_client_id=?");
-								parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-							}
-							// Append the group by clause, since it's an aggregate
-							whereClause.append(") GROUP BY ").append(idColumn);
-							// Add the client to the group by, if it's required
-							if (shouldUseContextClientId) {
-								whereClause.append(",ad_client_id");
-							}
-						}
-						whereClause.append(") ");
-					}
-					whereClause.append(foreignTableName).append(" WHERE (");
-					// Adjust the comparison string, if need be
-					Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
-					if (remainingDBColumnName != null) {
-						String finalRemainingDBColumnName = foreignDBColumnName != null ? foreignDBColumnName : remainingDBColumnName;
-						adjustedComparisons = new HashMap<>() {
-							{
-								put(finalRemainingDBColumnName, comparisonQuerySelectors);
-							}
-						};
-					}
-					// Continue the operation, but use the foreign table from this point forward
-					String subWhereClause =
-							getWhereClauseFromComparisonQuerySelectors(foreignTableName, adjustedComparisons, parameters,
-									negate, shouldUseContextClientId);
-					if (subWhereClause.isEmpty()) {
-						whereClause.append(DEFAULT_WHERE_CLAUSE);
-					} else {
-						whereClause.append(subWhereClause);
-					}
-					// Add the client check, if it's required
-					if (shouldUseContextClientId) {
-						whereClause.append(") AND (ad_client_id=?");
-						parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-					}
-					whereClause.append("))");
-				} else {
-					// No idea what this column is, so log it as an issue and skip
-					logger.warning("Column name " + dbColumnName + " does not exist on table " + tableName);
-				}
-			} else {
+			TableMapping tableMapping =
+					getIdColumnNamesBetweenTables(tableName, dbModelInfo, foreignTableName, originalForeignTableName,
+							specificColumnToMapOn);
+			if (!tableMapping.wasMatchFound) {
 				// No idea what this column is, so log it as an issue and skip
 				logger.warning("Column name " + dbColumnName + " does not exist on table " + tableName);
+			} else {
+				String idColumn = tableMapping.sourceColumnName;
+				String foreignIdColumn = tableMapping.foreignColumnName;
+				// We have a match! Begin constructing the sub-query
+				whereClause.append(tableName).append(".").append(idColumn).append(negate ? " NOT" : "").append(" IN " +
+						"(SELECT ").append(foreignIdColumn).append(" FROM ");
+				// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
+				Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
+								comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
+										aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
+						.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+				boolean doesTableNeedAggregation = aggregateComparisons.size() > 0;
+				if (doesTableNeedAggregation) {
+					whereClause.append("(");
+					for (String aggregateFunction : aggregateComparisons.keySet()) {
+						String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
+						whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
+								.append(" as ").append(aggregateColumnName);
+						// Add the client id to be returned, if it's required
+						if (shouldUseContextClientId) {
+							whereClause.append(",ad_client_id");
+						}
+						whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
+						if (comparisonQuerySelectors.get(aggregateFunction) == null ||
+								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
+							whereClause.append(DEFAULT_WHERE_CLAUSE);
+						} else {
+							String subWhereClause = getWhereClauseFromExpression(foreignTableName,
+									(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, negate,
+									shouldUseContextClientId);
+							if (subWhereClause.isEmpty()) {
+								whereClause.append(DEFAULT_WHERE_CLAUSE);
+							} else {
+								whereClause.append(subWhereClause);
+							}
+						}
+						// Add the client check, if it's required
+						if (shouldUseContextClientId) {
+							whereClause.append(") AND (ad_client_id=?");
+							parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+						}
+						// Append the group by clause, since it's an aggregate
+						whereClause.append(") GROUP BY ").append(idColumn);
+						// Add the client to the group by, if it's required
+						if (shouldUseContextClientId) {
+							whereClause.append(",ad_client_id");
+						}
+					}
+					whereClause.append(") ");
+				}
+				whereClause.append(foreignTableName).append(" WHERE (");
+				// Adjust the comparison string, if need be
+				Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
+				if (remainingDBColumnName != null) {
+					String finalRemainingDBColumnName = remainingDBColumnName;
+					adjustedComparisons = new HashMap<>() {
+						{
+							put(finalRemainingDBColumnName, comparisonQuerySelectors);
+						}
+					};
+				}
+				// Continue the operation, but use the foreign table from this point forward
+				String subWhereClause = getWhereClauseFromExpression(foreignTableName, adjustedComparisons, parameters, negate,
+						shouldUseContextClientId);
+				if (subWhereClause.isEmpty()) {
+					whereClause.append(DEFAULT_WHERE_CLAUSE);
+				} else {
+					whereClause.append(subWhereClause);
+				}
+				// Add the client check, if it's required
+				if (shouldUseContextClientId) {
+					whereClause.append(") AND (ad_client_id=?");
+					parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+				}
+				whereClause.append("))");
 			}
 		}
 		return whereClause.toString();
@@ -679,6 +659,101 @@ public class FilterUtil {
 	}
 
 	/**
+	 * This does all the specific mapping of trying to transform the requested column into the appropriate tables and
+	 * ID mappings between those tables
+	 *
+	 * @param tableName                The name of the source table
+	 * @param tableInfo                The POInfo for the source table
+	 * @param mappedForeignTableName   The name of the mapped table
+	 * @param unmappedForeignTableName The original string that was passed in to map to (may contain column
+	 *                                 specifications). Should be null if it wasn't mapped.
+	 * @param specifiedColumnMapping   A specific column to map on, if any. Should be null if none provided
+	 * @return An object containing the matches, if any were found
+	 */
+	private static TableMapping getIdColumnNamesBetweenTables(String tableName, POInfo tableInfo,
+			String mappedForeignTableName, String unmappedForeignTableName, String specifiedColumnMapping) {
+		TableMapping tableMapping = new TableMapping();
+		// If the mapped and unmapped are the same, there's an error somewhere and we shouldn't do anything (because the
+		// unmapped should remain null unless there has been a mapping, in which case they'd be different)
+		if (unmappedForeignTableName != null && unmappedForeignTableName.equalsIgnoreCase(mappedForeignTableName)) {
+			return tableMapping;
+		}
+
+		// Try to get the foreign table's info
+		POInfo foreignTableInfo = getPOInfo(mappedForeignTableName);
+		if (foreignTableInfo == null) {
+			return tableMapping;
+		}
+
+		// Initialize the ID columns (though we have to check some other things first)
+		String tableIdColumn = tableName + "_id";
+		String foreignTableIdColumn = mappedForeignTableName + "_id";
+
+		// If we're doing a mapping, we need to check some stuff before we get to the "simplest" case
+		if (unmappedForeignTableName != null) {
+			// We'll start by seeing if original foreign table specified exists as-is on the source table
+			// (i.e. c_invoice.createdby -> createdby should be mapped to ad_user [via column ad_user_id, which would be
+			// assigned already above] and use createdby on the c_invoice table)
+			if (tableInfo.getColumnIndex(unmappedForeignTableName) > -1) {
+				tableMapping.sourceColumnName = unmappedForeignTableName;
+
+				// Now we need to confirm the foreign table column
+				if (foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.foreignColumnName = foreignTableIdColumn;
+				}
+
+				return tableMapping;
+			}
+			// There could be a case where a table self-references itself, such as the reversal_id column from c_payment, so
+			// try some new checks
+			tableIdColumn = unmappedForeignTableName + "_id";
+			if (tableInfo.getColumnIndex(tableIdColumn) > -1) {
+				tableMapping.sourceColumnName = tableIdColumn;
+
+				// Now find which column exists on the foreign table
+				if (foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.foreignColumnName = foreignTableIdColumn;
+				}
+				// Not sure what others to check, at the moment
+
+				return tableMapping;
+			}
+		}
+
+		// If we were passed a specific column mapping, check if that exists
+		if (specifiedColumnMapping != null && foreignTableInfo.getColumnIndex(specifiedColumnMapping) > -1) {
+			tableMapping.foreignColumnName = specifiedColumnMapping;
+			// We'll assume it joins off this table's ID column, if it has one
+			if (tableInfo.getColumnIndex(tableIdColumn) > -1) {
+				tableMapping.wasMatchFound = true;
+				tableMapping.sourceColumnName = tableIdColumn;
+			}
+
+			return tableMapping;
+		}
+
+		// The simplest form is that either table name, appended with "_id", exists on both tables
+		if (tableInfo.getColumnIndex(tableIdColumn) > -1 &&
+				foreignTableInfo.getColumnIndex(tableIdColumn) > -1) {
+			tableMapping.wasMatchFound = true;
+			tableMapping.sourceColumnName = tableIdColumn;
+			tableMapping.foreignColumnName = tableIdColumn;
+			return tableMapping;
+		} else if (tableInfo.getColumnIndex(foreignTableIdColumn) > -1 &&
+				foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+			tableMapping.wasMatchFound = true;
+			tableMapping.sourceColumnName = foreignTableIdColumn;
+			tableMapping.foreignColumnName = foreignTableIdColumn;
+			return tableMapping;
+		}
+
+		// If we get here, we didn't find any matches
+		return new TableMapping();
+	}
+
+	/**
 	 * Get the PO Info for determining whether columns exist or not.
 	 *
 	 * @param tableName The name of the table to fetch data for
@@ -693,8 +768,9 @@ public class FilterUtil {
 		return null;
 	}
 
-	enum FilterArrayJoin {
-		AND,
-		OR,
+	static class TableMapping {
+		boolean wasMatchFound = false;
+		String sourceColumnName;
+		String foreignColumnName;
 	}
 }

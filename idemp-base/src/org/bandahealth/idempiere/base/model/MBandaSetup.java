@@ -1,6 +1,9 @@
 package org.bandahealth.idempiere.base.model;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -447,7 +450,8 @@ public class MBandaSetup {
 
 			// We need to get all charge info values mapped for this charge info from the
 			// map.
-			for (MBHChargeInfoValue defaultChargeInformationValue : defaultChargeInformationValuesForDefaultChargeInformation) {
+			for (MBHChargeInfoValue defaultChargeInformationValue :
+					defaultChargeInformationValuesForDefaultChargeInformation) {
 				MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, 0, getTransactionName());
 				chargeInfoValue.setName(defaultChargeInformationValue.getName());
 				chargeInfoValue.setBH_Charge_Info_ID(chargeInfo.getBH_Charge_Info_ID());
@@ -597,17 +601,19 @@ public class MBandaSetup {
 		// Get the roles for this client
 		List<MRole> clientRoles = new Query(context, MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
 				getTransactionName()).setParameters(getAD_Client_ID()).list();
-		Map<MRefList, MRole> rolesToConfigureByDBUserType = userTypeValues.stream().collect(HashMap::new,
-				(rolesToConfigureByDBUserTypeTemp, userTypeValue) -> rolesToConfigureByDBUserTypeTemp.put(userTypeValue,
-						clientRoles.stream()
-								.filter(clientRole -> clientRole.getName()
-										.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName())))
-								.findFirst().orElse(null)),
-				HashMap::putAll);
+		// We don't want to do anything to the admin role, so filter it out (it should be handled by iDempiere)
+		Map<MRefList, MRole> rolesExceptAdminToConfigureByDBUserType =
+				userTypeValues.stream().filter(userTypeValue -> !userTypeValue.getValue().equals(DB_USERTYPE_Admin))
+						.collect(HashMap::new,
+								(rolesToConfigureByDBUserTypeTemp, userTypeValue) -> rolesToConfigureByDBUserTypeTemp.put(userTypeValue,
+										clientRoles.stream()
+												.filter(clientRole -> clientRole.getName()
+														.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName())))
+												.findFirst().orElse(null)), HashMap::putAll);
 
 		// Ensure all the roles are present
 		AtomicBoolean areAllRolesPresent = new AtomicBoolean(true);
-		rolesToConfigureByDBUserType.forEach((key, value) -> {
+		rolesExceptAdminToConfigureByDBUserType.forEach((key, value) -> {
 			if (value == null) {
 				String errorMessage = key + " role does not exist";
 				log.log(Level.SEVERE, errorMessage);
@@ -621,7 +627,7 @@ public class MBandaSetup {
 			return false;
 		}
 
-		return updateRoles(rolesToConfigureByDBUserType);
+		return updateRoles(rolesExceptAdminToConfigureByDBUserType);
 	}
 
 	/**
@@ -1174,6 +1180,12 @@ public class MBandaSetup {
 		priceListVersion.setIsActive(true);
 		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
 		priceListVersion.setM_DiscountSchema_ID(discountSchema.get_ID());
+		// GO-2240 Make sure the price list is valid from a date in the past because usually clients want to enter stuff
+		// they've recently received before today
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(Timestamp.from(Instant.now()));
+		calendar.add(Calendar.YEAR, -1);
+		priceListVersion.setValidFrom(new Timestamp(calendar.getTime().getTime()));
 		if (!priceListVersion.save()) {
 			log.log(Level.SEVERE, "Price-list version not saved");
 			transaction.rollback();
