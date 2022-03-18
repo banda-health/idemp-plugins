@@ -49,7 +49,7 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 		// fetch all menus under the greenlight menu "tree"..
 		List<Menu> menus = getSubMenus(greenlightMenu.get_ID(), null, role, null);
 		menus.stream().forEach(menu -> {
-			menu.setSubMenus(getSubMenus(menu.getId(), menu.isShowmenuchildren(), role, null));
+			menu.setSubMenus(getSubMenus(menu.getId(), menu.isShowOnUIMenu(), role, null));
 		});
 
 		// get total count
@@ -73,7 +73,7 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 	/*
 	 * Retrieve menus and sub menus below it.
 	 */
-	private List<Menu> getSubMenus(Integer parentId, Boolean showMenuChildren, MRole role, String searchName) {
+	private List<Menu> getSubMenus(Integer parentId, Boolean showUI, MRole role, String searchName) {
 		StringBuilder whereClause = new StringBuilder();
 		StringBuilder joinClause = new StringBuilder();
 		List<Object> parameters = new ArrayList<>();
@@ -87,9 +87,9 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 		parameters.add("Y");
 		parameters.add(parentId);
-		if (showMenuChildren != null) {
-			whereClause.append(" AND " + MMenu_BH.Table_Name + "." + MMenu_BH.COLUMNNAME_ShowMenuChildren + " =? ");
-			parameters.add(showMenuChildren ? "Y" : "N");
+		if (showUI != null) {
+			whereClause.append(" AND " + MMenu_BH.Table_Name + "." + MMenu_BH.COLUMNNAME_ShowOnUIMenu + " =? ");
+			parameters.add(showUI ? "Y" : "N");
 		}
 
 		if (searchName != null) {
@@ -116,7 +116,7 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 		}
 
 		menus.stream().forEach(menu -> {
-			menu.setSubMenus(getSubMenus(menu.getId(), menu.isShowmenuchildren(), role, null));
+			menu.setSubMenus(getSubMenus(menu.getId(), menu.isShowOnUIMenu(), role, null));
 		});
 
 		return menus;

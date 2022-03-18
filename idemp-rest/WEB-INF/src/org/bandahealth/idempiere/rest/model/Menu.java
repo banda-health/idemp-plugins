@@ -25,7 +25,7 @@ public class Menu extends BaseEntity {
 	private Integer windowId;
 	@JsonIgnore
 	private Integer processId;
-	private boolean showmenuchildren;
+	private boolean showOnUIMenu;
 
 	public Menu(MMenu_BH menu, MWindow window, MProcess process) {
 		super(menu, menu.getName(), menu.getDescription(), null);
@@ -42,7 +42,7 @@ public class Menu extends BaseEntity {
 			this.processId = process.get_ID();
 		}
 		
-		this.showmenuchildren = menu.isShowMenuChildren();
+		this.showOnUIMenu = menu.isShowOnUIMenu();
 	}
 
 	public String getIconClassName() {
@@ -93,11 +93,11 @@ public class Menu extends BaseEntity {
 		this.processId = processId;
 	}
 
-	public boolean isShowmenuchildren() {
-		return showmenuchildren;
+	public boolean isShowOnUIMenu() {
+		return showOnUIMenu;
 	}
 
-	public void setShowmenuchildren(boolean showmenuchildren) {
-		this.showmenuchildren = showmenuchildren;
+	public void setShowOnUIMenu(boolean showOnUIMenu) {
+		this.showOnUIMenu = showOnUIMenu;
 	}
 }

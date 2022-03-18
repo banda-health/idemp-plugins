@@ -9,7 +9,7 @@ public class MMenu_BH extends MMenu {
 	
 	public static final String COLUMNNAME_IconClassName = "IconClassName";
 	
-	public static final String COLUMNNAME_ShowMenuChildren = "showmenuchildren";
+	public static final String COLUMNNAME_ShowOnUIMenu = "showonuimenu";
 
 	public MMenu_BH(Properties ctx, int M_Menu_ID, String trxName) {
 		super(ctx, M_Menu_ID, trxName);
@@ -27,8 +27,8 @@ public class MMenu_BH extends MMenu {
 		return (String) get_Value(COLUMNNAME_IconClassName);
 	}
 	
-	public boolean isShowMenuChildren() {
-		Object oo = get_Value(COLUMNNAME_ShowMenuChildren);
+	public boolean isShowOnUIMenu() {
+		Object oo = get_Value(COLUMNNAME_ShowOnUIMenu);
 		if (oo != null) {
 			if (oo instanceof Boolean) {
 				return ((Boolean) oo).booleanValue();
@@ -38,7 +38,7 @@ public class MMenu_BH extends MMenu {
 		return false;
 	}
 
-	public void setShowMenuChildren(boolean show) {
-		set_Value(COLUMNNAME_ShowMenuChildren, show);
+	public void setShowOnUIMenu(boolean show) {
+		set_Value(COLUMNNAME_ShowOnUIMenu, show);
 	}
 }
