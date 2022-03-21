@@ -131,18 +131,16 @@ from (
                       join m_costelement ce
                            on c.m_costelement_id = ce.m_costelement_id and ce.costingmethod = actsch.costingmethod
                  where c.currentcostprice > 0
-             ) costs on currentqty.m_product_id = costs.m_product_id and currentqty.m_attributesetinstance_id = costs.m_attributesetinstance_id
+             ) costs on currentqty.m_product_id = costs.m_product_id and currentqty.m_product_id = costs.m_attributesetinstance_id
                   left join (
              select m_product_id,
-                    m_attributesetinstance_id,
                     sum(movementqty) as qtybalanced
              from m_transaction
                       join params on params.ad_client_id = m_transaction.ad_client_id
                  and date(movementdate) between begin_date and end_date
              where movementtype in ('P+', 'P-')
-             group by m_product_id, m_attributesetinstance_id
-         ) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id and
-                                 currentqty.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
+             group by m_product_id
+         ) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id
                   left join (
              select inoutline.m_product_id,
                     inoutline.m_attributesetinstance_id,
@@ -166,7 +164,8 @@ from (
              where priceList.issopricelist = 'N'
                and priceList.isdefault = 'Y'
          ) as productPP on currentqty.m_product_id = productPP.m_product_id
-         group by item_name, coalesce(stockreceived.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0)
+         group by item_name,
+          coalesce(stockreceived.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0)
      ) p
 where endingstock > 0
    or receivedstock > 0
@@ -256,7 +255,7 @@ limit 1;]]>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Opening and Closing Stock Report Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Inventory Quantity Report Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
