@@ -15,6 +15,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
@@ -24,10 +25,12 @@ import org.bandahealth.idempiere.rest.model.Client;
 import org.bandahealth.idempiere.rest.model.Org;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
+import org.bandahealth.idempiere.rest.service.db.ClientDBService;
 import org.bandahealth.idempiere.rest.service.db.RoleDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.service.db.WarehouseDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.RoleUtil;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
@@ -53,7 +56,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Authentication Service Accepts Username, password and generates a session
@@ -73,6 +79,8 @@ public class AuthenticationRestService {
 	private WarehouseDBService warehouseDBService;
 	@Autowired
 	private RoleDBService roleDBService;
+	@Autowired
+	private ClientDBService clientDBService;
 
 	@POST
 	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
@@ -152,11 +160,11 @@ public class AuthenticationRestService {
 			parameters.add(credentials.getRoleUuid());
 			parameters.add("Y");
 			parameters.add("Y");
-			parameters.add(credentials.getClientId());
+			parameters.add(credentials.getClientUuid());
 
 			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
-			joinClause += " INNER JOIN " + MRole.Table_Name + " ON " + MUserRoles.Table_Name + "." 
+			joinClause += " INNER JOIN " + MRole.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Role_ID + " = " + MRole.Table_Name + "."
 					+ MRole.COLUMNNAME_AD_Role_ID;
 			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
@@ -315,7 +323,7 @@ public class AuthenticationRestService {
 			AuthResponse response = new AuthResponse();
 
 			// has user changed client and role?
-			if (credentials.getClientId() != null && credentials.getRoleUuid() != null) {
+			if (credentials.getClientUuid() != null && credentials.getRoleUuid() != null) {
 				changeLoginProperties(credentials, builder, response);
 			} else {
 				// set default properties
@@ -378,14 +386,14 @@ public class AuthenticationRestService {
 	 */
 	private void changeLoginProperties(Authentication credentials, Builder builder, AuthResponse response) {
 		// set client id
-		if (credentials.getClientId() != null) {
-			MClient client = MClient.get(Env.getCtx(), credentials.getClientId());
+		if (credentials.getClientUuid() != null) {
+			Client client = clientDBService.getEntity(credentials.getClientUuid());
 			if (client != null) {
-				response.getClients().add(new Client(credentials.getClientId(), client.getName()));
+				response.getClients().add(client);
 
-				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, credentials.getClientId());
-				builder.withClaim(LoginClaims.AD_Client_ID.name(), credentials.getClientId());
-				response.setClientId(credentials.getClientId());
+				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getId());
+				builder.withClaim(LoginClaims.AD_Client_ID.name(), client.getId());
+				response.setClientUuid(credentials.getClientUuid());
 			}
 		}
 
@@ -431,18 +439,21 @@ public class AuthenticationRestService {
 		PO.setCrossTenantSafe();
 		try {
 			// parse all clients that the user has access to.
-			for (KeyNamePair client : clients) {
-				Client clientResponse = new Client(client.getKey(), client.getName());
+			// Batch call the client data
+			Set<Integer> clientIds = Arrays.stream(clients).map(KeyNamePair::getKey).collect(Collectors.toSet());
+			Map<Integer, MClient_BH> clientsById = clientDBService.getByIds(clientIds);
+			for (KeyNamePair clientIdAndName : clients) {
+				Client client = new Client(clientsById.get(clientIdAndName.getKey()));
 
 				// set default client
 				if (clients.length == 1) {
-					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
-					builder.withClaim(LoginClaims.AD_Client_ID.name(), clientResponse.getId());
-					response.setClientId(clientResponse.getId());
+					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getId());
+					builder.withClaim(LoginClaims.AD_Client_ID.name(), client.getId());
+					response.setClientUuid(client.getUuid());
 				}
 
 				// check orgs.
-				MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), clientResponse.getId(), null));
+				MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), client.getId(), null));
 				for (MOrg org : orgs) {
 					Org orgResponse = new Org(org.get_ID(), org.getName());
 
@@ -454,7 +465,7 @@ public class AuthenticationRestService {
 					}
 
 					// check roles
-					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientResponse.getId());
+					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getId());
 					MRole[] roles = user.getRoles(orgResponse.getId());
 					for (MRole role : roles) {
 						Role roleResponse = new Role(role);
@@ -481,10 +492,10 @@ public class AuthenticationRestService {
 						}
 					}
 
-					clientResponse.getOrgs().add(orgResponse);
+					client.getOrgs().add(orgResponse);
 				}
 
-				response.getClients().add(clientResponse);
+				response.getClients().add(client);
 			}
 		} finally {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
