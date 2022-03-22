@@ -10,7 +10,7 @@ public class Authentication {
 	private String newPassword;
 	private String securityQuestion;
 	private String answer;
-	private Integer clientId;
+	private String clientUuid;
 	private String roleUuid;
 	private Integer organizationId;
 	private String warehouseUuid;
@@ -49,12 +49,12 @@ public class Authentication {
 	}
 
 	@XmlElement
-	public Integer getClientId() {
-		return clientId;
+	public String getClientUuid() {
+		return clientUuid;
 	}
 
-	public void setClientId(Integer adClientId) {
-		this.clientId = adClientId;
+	public void setClientUuid(String clientUuid) {
+		this.clientUuid = clientUuid;
 	}
 
 	@XmlElement
