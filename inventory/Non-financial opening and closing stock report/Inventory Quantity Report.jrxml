@@ -69,11 +69,11 @@ select item_name,
        changedstock
 from (
          select productname.name                                                 as item_name,
-                coalesce(sum(currentqty.closingqty), 0)                          as endingstock,
-                coalesce(sum(stockreceived.qtyreceived), 0)                      as receivedstock,
-                coalesce(sum(stocksold.qtysold), 0)                              as soldstock,
-                coalesce(sum(stocktakechange.qtybalanced), 0)                    as balancestock,
-                coalesce(sum(changesinqty.qtychanged), 0)                        as changedstock
+                coalesce(sum(currentqty.closingqty), 0)                     as endingstock,
+                coalesce(sum(stockreceived.qtyreceived), 0)             as receivedstock,
+                coalesce(sum(stocksold.qtysold), 0)                           as soldstock,
+                coalesce(sum(stocktakechange.qtybalanced), 0)       as balancestock,
+                coalesce(sum(changesinqty.qtychanged), 0)              as changedstock
          from (
                   SELECT soh.m_product_id,
                          soh.m_attributesetinstance_id,
