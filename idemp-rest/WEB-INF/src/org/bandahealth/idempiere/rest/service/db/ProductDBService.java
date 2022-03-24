@@ -19,7 +19,7 @@ import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Inventory;
+import org.bandahealth.idempiere.rest.model.InventoryRecord;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.SearchProduct;
@@ -49,11 +49,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	@Autowired
 	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
-	private InventoryDBService inventoryDbService;
+	private InventoryRecordDBService inventoryRecordDBService;
 	@Autowired
 	private ProductCategoryDBService productCategoryDBService;
-	@Autowired
-	private InventoryDBService inventoryDBService;
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -131,35 +129,35 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			if (entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
 
-				BaseListResponse<Inventory> inventoryList = inventoryDbService.getProductInventory(pagingInfo,
+				BaseListResponse<InventoryRecord> inventoryList = inventoryRecordDBService.getProductInventory(pagingInfo,
 						entity.get_ID());
 
 				BigDecimal totalQuantity = BigDecimal.ZERO;
 
 				// Get the batched attribute sets
 				Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
-						inventoryList.getResults().stream().map(Inventory::getAttributeSetInstanceId).collect(Collectors.toSet()));
+						inventoryList.getResults().stream().map(InventoryRecord::getAttributeSetInstanceId).collect(Collectors.toSet()));
 
-				for (Inventory inventory : inventoryList.getResults()) {
+				for (InventoryRecord inventoryRecord : inventoryList.getResults()) {
 					// exclude expired products
-					if (inventory.getShelfLife() < 0) {
+					if (inventoryRecord.getShelfLife() < 0) {
 						continue;
 					}
 
 					// get expiry date and id
-					SearchProductAttribute attribute = new SearchProductAttribute(inventory.getExpirationDate(),
-							inventory.getAttributeSetInstanceId());
-					if (inventory.getAttributeSetInstanceId() > 0) {
+					SearchProductAttribute attribute = new SearchProductAttribute(inventoryRecord.getExpirationDate(),
+							inventoryRecord.getAttributeSetInstanceId());
+					if (inventoryRecord.getAttributeSetInstanceId() > 0) {
 						attribute.setAttributeSetInstanceUuid(
-								attributeSetInstancesByIds.get(inventory.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
+								attributeSetInstancesByIds.get(inventoryRecord.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
 					}
 
 					// get quantity
-					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventory.getQuantity()));
-					attribute.setExistingQuantity(BigDecimal.valueOf(inventory.getQuantity()));
+					totalQuantity = totalQuantity.add(BigDecimal.valueOf(inventoryRecord.getQuantity()));
+					attribute.setExistingQuantity(BigDecimal.valueOf(inventoryRecord.getQuantity()));
 					// store warehouse
 					Optional<MWarehouse> foundWarehouse = warehouses.stream()
-							.filter(warehouse -> warehouse.get_ID() == inventory.getWarehouseId()).findFirst();
+							.filter(warehouse -> warehouse.get_ID() == inventoryRecord.getWarehouseId()).findFirst();
 					if (foundWarehouse.isPresent()) {
 						attribute.setWarehouseUuid(foundWarehouse.get().getM_Warehouse_UU());
 					}
@@ -287,7 +285,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					storageOnHand.setQtyOnHand(entity.getStorageOnHandList().get(0).getQuantityOnHand());
 					inventoryByProduct.put(product, Collections.singletonList(storageOnHand));
 				}
-				inventoryDBService.initializeStock(inventoryByProduct);
+				inventoryRecordDBService.initializeStock(inventoryByProduct);
 			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
@@ -314,7 +312,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
 					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin(),
 					productCategory.getM_Product_Category_UU(),
-					inventoryDbService.getProductInventoryCount(instance.getM_Product_ID()));
+					inventoryRecordDBService.getProductInventoryCount(instance.getM_Product_ID()));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 

@@ -19,6 +19,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	public final static String DOCUMENTNAME_RECEIVE_PRODUCT = "Purchase Order";
 	public final static String DOCUMENTNAME_PAYMENTS = "AR Receipt";
 	public final static String DOCUMENTNAME_MOVEMENT = "Material Movement";
+	public final static String DOCUMENTNAME_PHYSICAL_INVENTORY = "Physical Inventory";
 	private final Map<String, String> docActionToStatusMap = new HashMap<>() {{
 		put(DocAction.ACTION_Complete, DocAction.STATUS_Completed);
 		put(DocAction.ACTION_Void, DocAction.STATUS_Voided);
