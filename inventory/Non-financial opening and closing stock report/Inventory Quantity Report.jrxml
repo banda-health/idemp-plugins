@@ -66,16 +66,14 @@ select item_name,
        receivedstock,
        soldstock,
        balancestock,
-       changedstock,
-       PurchasePrice
+       changedstock
 from (
          select productname.name                                                 as item_name,
-                coalesce(sum(currentqty.closingqty), 0)                          as endingstock,
-                coalesce(sum(stockreceived.qtyreceived), 0)                      as receivedstock,
-                coalesce(sum(stocksold.qtysold), 0)                              as soldstock,
-                coalesce(sum(stocktakechange.qtybalanced), 0)                    as balancestock,
-                coalesce(sum(changesinqty.qtychanged), 0)                        as changedstock,
-                coalesce(stockreceived.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0) as PurchasePrice
+                coalesce(sum(currentqty.closingqty), 0)                     as endingstock,
+                coalesce(sum(stockreceived.qtyreceived), 0)             as receivedstock,
+                coalesce(sum(stocksold.qtysold), 0)                           as soldstock,
+                coalesce(sum(stocktakechange.qtybalanced), 0)       as balancestock,
+                coalesce(sum(changesinqty.qtychanged), 0)              as changedstock
          from (
                   SELECT soh.m_product_id,
                          soh.m_attributesetinstance_id,
@@ -153,19 +151,7 @@ from (
              group by inoutline.m_product_id, inoutline.m_attributesetinstance_id
          ) as stocksold on currentqty.m_product_id = stocksold.m_product_id and
                            currentqty.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
-                  left join (
-             select productPrice.m_product_id,
-                    productPrice.pricestd as PurchasePrice
-             from m_pricelist priceList
-                      inner join m_pricelist_version priceListVersion
-                                 on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-                      inner join m_productprice productPrice
-                                 on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-             where priceList.issopricelist = 'N'
-               and priceList.isdefault = 'Y'
-         ) as productPP on currentqty.m_product_id = productPP.m_product_id
-         group by item_name,
-          coalesce(stockreceived.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0)
+         group by item_name
      ) p
 where endingstock > 0
    or receivedstock > 0
@@ -193,20 +179,12 @@ order by item_name;]]>
 		<field name="changedstock" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="changedstock"/>
 		</field>
-		<field name="purchaseprice" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="purchaseprice"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
-		</field>
 		<variable name="stockchanges" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{changedstock}.subtract($F{soldstock})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="endstock" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{endingstock}]]></variableExpression>
-		</variable>
-		<variable name="closingStockValue" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$V{endstock}.multiply($F{purchaseprice})]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
