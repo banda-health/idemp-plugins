@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS tmp_c_validcombination;
 DROP TABLE IF EXISTS tmp_c_charge_acct;
 -- The columns commented here are being left so I know which ones have defaults set in the DB that don't need to overridden
 CREATE TEMP TABLE tmp_c_charge_acct (
-	c_charge_id serial not null,
+	c_charge_id numeric(10) not null,
 	c_acctschema_id numeric(10) not null,
 	ad_client_id numeric(10) not null,
 	ad_org_id numeric(10) not null,
@@ -66,17 +66,7 @@ CREATE TEMP TABLE tmp_c_validcombination (
 
 -- Update the serial sequences
 SELECT setval(
-	'tmp_c_charge_c_charge_id_seq',
-	(
-		SELECT currentnext
-		FROM ad_sequence
-		WHERE lower(name) = 'c_charge'
-		LIMIT 1
-	)::INT,
-	false
-);
-SELECT setval(
-	'tmp_c_charge_ch_expense_acct_seq',
+	'tmp_c_charge_acct_ch_expense_acct_seq',
 	(
 		SELECT currentnext
 		FROM ad_sequence
@@ -91,21 +81,24 @@ SELECT setval(
 /**********************************************************************************************************/
 -- First, add all missing charge accounts (they won't have valid combinations at this point)
 INSERT INTO tmp_c_charge_acct (
+	c_charge_id,
 	c_acctschema_id,
 	ad_client_id,
 	ad_org_id
 )
 SELECT
+	c.c_charge_id,
 	accts.c_acctschema_id,
 	c.ad_client_id,
-	c.ad_org_id,
+	c.ad_org_id
 FROM c_charge c
-	LEFT JOIN c_charge_acct ca ON c.c_charge_id
+	LEFT JOIN c_charge_acct ca ON c.c_charge_id = ca.c_charge_id
 	JOIN c_acctschema accts ON c.ad_client_id = accts.ad_client_id
 WHERE c.bh_locked = 'Y' AND ca.c_charge_id IS NULL;
 
 -- Add valid combinations that are missing from some clients (specifically around non-patient payments)
 INSERT INTO tmp_c_validcombination (
+	c_validcombination_id,
 	ad_client_id,
 	combination,
 	description,
@@ -113,7 +106,8 @@ INSERT INTO tmp_c_validcombination (
 	account_id
 )
 SELECT
-	ca.ad_client_id
+	ca.ch_expense_acct,
+	ca.ad_client_id,
 	cvc.combination,
 	cvc.description,
 	ca.c_acctschema_id,
@@ -122,7 +116,7 @@ FROM tmp_c_charge_acct ca
 	JOIN c_charge c ON c.c_charge_id = ca.c_charge_id
 	JOIN c_charge cc ON c.name = cc.name AND cc.ad_client_id = 2 -- navigate to the configuration client's stuff
 	JOIN c_charge_acct cca ON cc.c_charge_id = cca.c_charge_id
-	JOIN c_validcombination cvc ON cvc.c_elementvalue_id = cca.c_expense_acct
+	JOIN c_validcombination cvc ON cvc.c_validcombination_id = cca.ch_expense_acct
 	JOIN c_elementvalue cev ON cvc.account_id = cev.c_elementvalue_id
 	JOIN c_elementvalue ev ON ev.value = cev.value AND ev.ad_client_id = c.ad_client_id;
 
