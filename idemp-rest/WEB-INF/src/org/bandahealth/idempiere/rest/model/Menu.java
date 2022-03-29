@@ -1,47 +1,27 @@
 package org.bandahealth.idempiere.rest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.bandahealth.idempiere.base.model.MMenu_BH;
-import org.compiere.model.MProcess;
-import org.compiere.model.MWindow;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "menu")
-@JsonInclude(value = Include.NON_NULL)
 public class Menu extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
 	private String iconClassName;
-	private String windowUuid;
-	private String processUuid;
-	private List<Menu> subMenus;
+	private Window window;
+	private Process process;
+	private List<Menu> subMenus = new ArrayList<>();
 	@JsonIgnore
-	private Integer windowId;
-	@JsonIgnore
-	private Integer processId;
+	private Integer parentId;
 	private boolean showOnUIMenu;
+	private Integer sequenceNumber;
 
-	public Menu(MMenu_BH menu, MWindow window, MProcess process) {
+	public Menu(MMenu_BH menu) {
 		super(menu, menu.getName(), menu.getDescription(), null);
 
 		this.iconClassName = menu.getIconClassName();
-
-		if (window != null) {
-			this.windowUuid = window.getAD_Window_UU();
-			this.windowId = window.get_ID();
-		}
-
-		if (process != null) {
-			this.processUuid = process.getAD_Process_UU();
-			this.processId = process.get_ID();
-		}
-		
 		this.showOnUIMenu = menu.isShowOnUIMenu();
 	}
 
@@ -53,20 +33,20 @@ public class Menu extends BaseEntity {
 		this.iconClassName = iconClassName;
 	}
 
-	public String getWindowUuid() {
-		return windowUuid;
+	public Window getWindow() {
+		return window;
 	}
 
-	public void setWindowUuid(String windowUuid) {
-		this.windowUuid = windowUuid;
+	public void setWindow(Window window) {
+		this.window = window;
 	}
 
-	public String getProcessUuid() {
-		return processUuid;
+	public Process getProcess() {
+		return process;
 	}
 
-	public void setProcessUuid(String processUuid) {
-		this.processUuid = processUuid;
+	public void setProcess(Process process) {
+		this.process = process;
 	}
 
 	public List<Menu> getSubMenus() {
@@ -77,20 +57,12 @@ public class Menu extends BaseEntity {
 		this.subMenus = subMenus;
 	}
 
-	public Integer getWindowId() {
-		return windowId;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setWindowId(Integer windowId) {
-		this.windowId = windowId;
-	}
-
-	public Integer getProcessId() {
-		return processId;
-	}
-
-	public void setProcessId(Integer processId) {
-		this.processId = processId;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public boolean isShowOnUIMenu() {
@@ -99,5 +71,13 @@ public class Menu extends BaseEntity {
 
 	public void setShowOnUIMenu(boolean showOnUIMenu) {
 		this.showOnUIMenu = showOnUIMenu;
+	}
+
+	public Integer getSequenceNumber() {
+		return sequenceNumber;
+	}
+
+	public void setSequenceNumber(Integer sequenceNumber) {
+		this.sequenceNumber = sequenceNumber;
 	}
 }

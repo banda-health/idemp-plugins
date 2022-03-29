@@ -279,13 +279,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		if (processes.getResults() != null && !processes.getResults().isEmpty()) {
 			// Determine which processes the user has access to
 			MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
-			List<Menu> menuProcesses = menuDBService.getReports(usersRole);
-			if (menuProcesses == null) {
-				return null;
-			}
-			
-			Set<Integer> processIdsFromProcessButtons = menuProcesses.stream().map(Menu::getProcessId).collect(Collectors.toSet());
-			
+			List<Menu> menuProcesses =
+					menuDBService.getReports().stream().filter(Menu::getIsActive).collect(Collectors.toList());
+
+			Set<Integer> processIdsFromProcessButtons =
+					menuProcesses.stream().map(menu -> menu.getProcess().getId()).collect(Collectors.toSet());
+
 			// Filter out processes the user can't see and then determine which processes are manually run-able
 			processes
 					.setResults(
@@ -396,7 +395,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATE_AD_REFERENCE_ID) {
 				parameter = DateUtil.parseDate(processInfoParameter.getParameter().toString());
 			}
-			
+
 			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATETIME_AD_REFERENCE_ID) {
 				parameter = DateUtil.getTimestampReportParameter(processInfoParameter.getParameter().toString());
 			}

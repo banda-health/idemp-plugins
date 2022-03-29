@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,16 +9,21 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMenu_BH;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Menu;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Process;
+import org.bandahealth.idempiere.rest.model.Window;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MProcess;
 import org.compiere.model.MRole;
 import org.compiere.model.MTree_NodeMM;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_TreeNodeMM;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,117 +31,106 @@ import org.springframework.stereotype.Component;
 @Component
 public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
+	private final String ERROR_NO_MENU = "Greenlight Menu Tree not found.";
+	private final String REPORTS_MENU_UUID = "Reports"; // does this change with translations?
+	private final String ERROR_NO_REPORTS = "No reports found..";
+	private final MMenu_BH rootMenu;
 	@Autowired
 	private WindowDBService windowDBService;
-
 	@Autowired
 	private ProcessDBService processDBService;
 
-	private final String GREENLIGHT_MENU_UUID = "bb0670c5-0dc1-468a-8b85-a91b15407368";
-	private final String ERROR_NO_MENU = "Greenlight Menu Tree not found.";
-	private final String REPORTS_MENU_NAME = "Reports"; // does this change with translations?
-	private final String ERROR_NO_REPORTS = "No reports found..";
+	public MenuDBService() {
+		// This will be the same for all clients, so it can be initialized
+		rootMenu = getEntityByUuidFromDB(MMenu_BH.MENUUUID_GREENLIGHT);
+		if (rootMenu == null) {
+			log.severe(ERROR_NO_MENU);
+		}
+	}
 
 	public BaseListResponse<Menu> getAll(Paging pagingInfo, String sortJson, String filterJson) {
+		List<Menu> menus = getAll();
 
-		// get root menu
-		MMenu_BH greenlightMenu = getRootMenu();
-		if (greenlightMenu == null) {
-			return null;
+		// Arrange menus into their tree
+		Map<Integer, Menu> menusById = menus.stream().collect(Collectors.toMap(Menu::getId, menu -> menu));
+		Map<Integer, List<Menu>> menusByParentId = menus.stream().collect(Collectors.groupingBy(Menu::getParentId));
+
+		Menu instanceRootMenu = menus.stream().filter(menu -> menu.getId() == rootMenu.get_ID()).findFirst().orElse(null);
+
+		if (instanceRootMenu == null) {
+			throw new AdempiereException(ERROR_NO_MENU);
 		}
 
-		MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+		createMenuTree(instanceRootMenu, menusById, menusByParentId);
 
-		// fetch all menus under the greenlight menu "tree"..
-		List<Menu> menus = getSubMenus(greenlightMenu.get_ID(), null, role, null);
-		menus.stream().forEach(menu -> {
-			menu.setSubMenus(getSubMenus(menu.getId(), menu.isShowOnUIMenu(), role, null));
-		});
-
-		// get total count
-		pagingInfo.setTotalRecordCount(menus.size());
-
-		return new BaseListResponse<Menu>(menus, pagingInfo);
+		return new BaseListResponse<>(Collections.singletonList(instanceRootMenu), pagingInfo);
 	}
 
-	private MMenu_BH getRootMenu() {
-		// get greenlight menu id
-		MMenu_BH greenlightMenu = new Query(Env.getCtx(), MMenu_BH.Table_Name, MMenu_BH.COLUMNNAME_AD_Menu_UU + " =?",
-				null).setParameters(GREENLIGHT_MENU_UUID).first();
-		if (greenlightMenu == null) {
-			log.severe(ERROR_NO_MENU);
-			return null;
-		}
+	private List<Menu> getAll() {
+		List<X_AD_TreeNodeMM> allMenuTreeNodes = getAllNodesInTree();
 
-		return greenlightMenu;
-	}
-
-	/*
-	 * Retrieve menus and sub menus below it.
-	 */
-	private List<Menu> getSubMenus(Integer parentId, Boolean showUI, MRole role, String searchName) {
-		StringBuilder whereClause = new StringBuilder();
-		StringBuilder joinClause = new StringBuilder();
 		List<Object> parameters = new ArrayList<>();
+		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+				allMenuTreeNodes.stream().map(X_AD_TreeNodeMM::getNode_ID).collect(Collectors.toSet()), parameters);
 
-		whereClause.append(MMenu_BH.Table_Name + "." + MMenu_BH.COLUMNNAME_IsActive + " =?");
-		whereClause.append(" AND " + MTree_NodeMM.Table_Name + "." + MTree_NodeMM.COLUMNNAME_Parent_ID + " =? ");
+		BaseListResponse<Menu> menus =
+				getAll(MMenu_BH.COLUMNNAME_AD_Menu_ID + " IN (" + whereClause + ")", parameters, Paging.ALL.getInstance(),
+						null,
+						null);
 
-		joinClause.append(" JOIN " + MTree_NodeMM.Table_Name + " ON " + MMenu_BH.Table_Name + "."
-				+ MMenu_BH.COLUMNNAME_AD_Menu_ID);
-		joinClause.append(" = " + MTree_NodeMM.Table_Name + "." + MTree_NodeMM.COLUMNNAME_Node_ID);
+		Map<Integer, X_AD_TreeNodeMM> nodesByNodeId =
+				allMenuTreeNodes.stream().collect(Collectors.toMap(X_AD_TreeNodeMM::getNode_ID, treeNode -> treeNode));
 
-		parameters.add("Y");
-		parameters.add(parentId);
-		if (showUI != null) {
-			whereClause.append(" AND " + MMenu_BH.Table_Name + "." + MMenu_BH.COLUMNNAME_ShowOnUIMenu + " =? ");
-			parameters.add(showUI ? "Y" : "N");
-		}
-
-		if (searchName != null) {
-			whereClause.append(" AND " + MMenu_BH.Table_Name + "." + MMenu_BH.COLUMNNAME_Name + " =? ");
-			parameters.add(searchName);
-		}
-
-		Query query = new Query(Env.getCtx(), MMenu_BH.Table_Name, whereClause.toString(), null)
-				.setParameters(parameters).addJoinClause(joinClause.toString())
-				.setOrderBy("ORDER BY " + MTree_NodeMM.Table_Name + "." + MTree_NodeMM.COLUMNNAME_SeqNo);
-
-		List<MMenu_BH> results = query.list();
-
-		List<Menu> menus = transformData(results);
-
-		if (role != null) {
-			// don't filter menu groups since they may not have window and process IDs.
-			menus = menus.stream()
-					.filter(menu -> menu.getWindowId() == null
-							|| (menu.getWindowId() > 0 && role.getWindowAccess(menu.getWindowId()) != null))
-					.filter(menu -> menu.getProcessId() == null
-							|| (menu.getProcessId() > 0 && role.getProcessAccess(menu.getProcessId()) != null))
-					.collect(Collectors.toList());
-		}
-
-		menus.stream().forEach(menu -> {
-			menu.setSubMenus(getSubMenus(menu.getId(), menu.isShowOnUIMenu(), role, null));
-		});
-
-		return menus;
+		// The user's role will help determine what the user can/can't see
+		MRole role = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+		// Filter out menus the user can't see with their access, plus set parent information
+		return menus.getResults().stream().filter(menu -> menu.getWindow() == null ||
+				(menu.getWindow().getId() > 0 && role.getWindowAccess(menu.getWindow().getId()) != null)).filter(
+				menu -> menu.getProcess() == null ||
+						(menu.getProcess().getId() > 0 && role.getProcessAccess(menu.getProcess().getId()) != null)).peek(menu -> {
+			if (nodesByNodeId.containsKey(menu.getId())) {
+				X_AD_TreeNodeMM menuNode = nodesByNodeId.get(menu.getId());
+				menu.setSequenceNumber(menuNode.getSeqNo());
+				menu.setParentId(menuNode.getParent_ID());
+			}
+		}).collect(Collectors.toList());
 	}
 
-	public List<Menu> getReports(MRole userRole) {
-		// get root menu
-		MMenu_BH greenlightMenu = getRootMenu();
-		if (greenlightMenu == null) {
-			return null;
+	private void createMenuTree(Menu menu, Map<Integer, Menu> menusById, Map<Integer, List<Menu>> menusByParentId) {
+		// If the user can see it and this node has children, do something with it
+		if (menusById.containsKey(menu.getId()) && menusByParentId.containsKey(menu.getId())) {
+			// Get the children, but filter out any that aren't in the main list (for whatever reason)
+			menu.setSubMenus(
+					menusByParentId.get(menu.getId()).stream().filter(childMenu -> menusById.containsKey(childMenu.getId()))
+							.peek(childMenu -> createMenuTree(childMenu, menusById, menusByParentId))
+							.collect(Collectors.toList()));
+		}
+	}
+
+	public List<Menu> getReports() {
+		return getAll().stream().filter(menu -> menu.getProcess() != null && menu.getProcess().getId() > 0)
+				.collect(Collectors.toList());
+	}
+
+	private List<X_AD_TreeNodeMM> getAllNodesInTree() {
+		List<X_AD_TreeNodeMM> allNodes = new ArrayList<>();
+		List<X_AD_TreeNodeMM> nodesToAdd =
+				new Query(Env.getCtx(), X_AD_TreeNodeMM.Table_Name, X_AD_TreeNodeMM.COLUMNNAME_Node_ID + "=?",
+						null).setParameters(rootMenu.get_ID()).list();
+
+		// Continue fetching nodes while there are any
+		while (!nodesToAdd.isEmpty()) {
+			allNodes.addAll(nodesToAdd);
+
+			List<Object> parameters = new ArrayList<>();
+			String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+					nodesToAdd.stream().map(X_AD_TreeNodeMM::getNode_ID).collect(Collectors.toSet()), parameters);
+
+			nodesToAdd = new Query(Env.getCtx(), X_AD_TreeNodeMM.Table_Name,
+					X_AD_TreeNodeMM.COLUMNNAME_Parent_ID + " IN (" + whereClause + ")", null).setParameters(parameters).list();
 		}
 
-		List<Menu> results = getSubMenus(greenlightMenu.get_ID(), null, userRole, REPORTS_MENU_NAME);
-		if (results.isEmpty()) {
-			log.severe(ERROR_NO_REPORTS);
-			return null;
-		}
-
-		return results.get(0).getSubMenus(); // return report processes and not the report menu
+		return allNodes;
 	}
 
 	@Override
@@ -158,15 +153,18 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 		Map<Integer, MProcess> processes = processDBService.getByIds(processIds);
 
 		// transform data
-		dbModels.stream().forEach(model -> {
-			MWindow mWindow = model.getAD_Window_ID() > 0 ? windows.get(model.getAD_Window_ID()) : null;
+		return dbModels.stream().map(model -> {
+			Menu menu = new Menu(model);
 
-			MProcess mProcess = model.getAD_Process_ID() > 0 ? processes.get(model.getAD_Process_ID()) : null;
+			if (windows.containsKey(model.getAD_Window_ID())) {
+				menu.setWindow(new Window(windows.get(model.getAD_Window_ID())));
+			}
+			if (processes.containsKey(model.getAD_Process_ID())) {
+				menu.setProcess(new Process(processes.get(model.getAD_Process_ID()), null));
+			}
 
-			results.add(new Menu(model, mWindow, mProcess));
-		});
-
-		return results;
+			return menu;
+		}).collect(Collectors.toList());
 	}
 
 	@Override
@@ -186,7 +184,7 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 	@Override
 	protected Menu createInstanceWithAllFields(MMenu_BH instance) {
-		return new Menu(instance, null, null);
+		return new Menu(instance);
 	}
 
 	@Override
