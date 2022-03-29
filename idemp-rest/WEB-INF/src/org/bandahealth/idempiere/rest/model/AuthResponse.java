@@ -29,7 +29,7 @@ public class AuthResponse {
 	private Map<String, AccessLevel> windowAccessLevel;
 	private List<String> includedRoleUuids;
 	// set default values for users with access to one client/org
-	private int clientId;
+	private String clientUuid;
 	private int orgId;
 	private String warehouseUuid;
 	private String userUuid;
@@ -155,12 +155,12 @@ public class AuthResponse {
 		this.includedRoleUuids = includedRoleUUIds;
 	}
 
-	public int getClientId() {
-		return clientId;
+	public String getClientUuid() {
+		return clientUuid;
 	}
 
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
+	public void setClientUuid(String clientUuid) {
+		this.clientUuid = clientUuid;
 	}
 
 	public int getOrgId() {
