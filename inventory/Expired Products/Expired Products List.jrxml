@@ -25,44 +25,6 @@
 			<style backcolor="#FFFFFF"/>
 		</conditionalStyle>
 	</style>
-	<subDataset name="ExpiredProducts" uuid="ac1d8e14-1a4f-4433-8055-f60e8b08e708">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<field name="productname" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="productname"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
-		</field>
-		<field name="batchquantity" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="batchquantity"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="m_storageonhand"/>
-		</field>
-		<field name="guaranteedate" class="java.sql.Date">
-			<property name="com.jaspersoft.studio.field.label" value="guaranteedate"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="m_attributesetinstance"/>
-		</field>
-		<field name="expirydays" class="java.lang.Integer">
-			<property name="com.jaspersoft.studio.field.label" value="expirydays"/>
-		</field>
-		<field name="value" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="value"/>
-		</field>
-		<group name="productname">
-			<groupExpression><![CDATA[$F{productname}]]></groupExpression>
-		</group>
-		<group name="batchquantity">
-			<groupExpression><![CDATA[$F{batchquantity}]]></groupExpression>
-		</group>
-		<group name="guaranteedate">
-			<groupExpression><![CDATA[$F{guaranteedate}]]></groupExpression>
-		</group>
-		<group name="expirydays">
-			<groupExpression><![CDATA[$F{expirydays}]]></groupExpression>
-		</group>
-		<group name="value">
-			<groupExpression><![CDATA[$F{value}]]></groupExpression>
-		</group>
-	</subDataset>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT m.m_product_id,
