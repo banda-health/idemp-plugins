@@ -69,10 +69,17 @@ public class MOrder_BH extends MOrder {
 	 * Column name bh_referral
 	 */
 	public static final String COLUMNNAME_bh_referral = "bh_referral";
+
 	/**
-	 * Column name bh_lab_notes
+	 * Column name BH_ClinicalNotes
 	 */
-	public static final String COLUMNNAME_bh_lab_notes = "bh_lab_notes";
+	public static final String COLUMNNAME_BH_ClinicalNotes = "BH_ClinicalNotes";
+
+	/**
+	 * Column name BH_LabNotes
+	 */
+	public static final String COLUMNNAME_BH_LabNotes = "BH_LabNotes";
+
 	/**
 	 * Column name BH_PatientType
 	 */
@@ -308,10 +315,12 @@ public class MOrder_BH extends MOrder {
 		if (log.isLoggable(Level.INFO))
 			log.info(dt.toString());
 
-		// check if there is an associated invoice for this order (but exclude reversed invoices for a reactivated order)
+		// check if there is an associated invoice for this order (but exclude reversed
+		// invoices for a reactivated order)
 		MInvoice_BH existingInvoice = new Query(getCtx(), MInvoice_BH.Table_Name,
 				MInvoice_BH.COLUMNNAME_C_Order_ID + " = ? AND " + MInvoice_BH.COLUMNNAME_DocStatus + "!=?",
-				get_TrxName()).setParameters(getC_Order_ID(), MInvoice.DOCSTATUS_Reversed).setOnlyActiveRecords(true).first();
+				get_TrxName()).setParameters(getC_Order_ID(), MInvoice.DOCSTATUS_Reversed).setOnlyActiveRecords(true)
+						.first();
 
 		MInvoice_BH invoice;
 		if (existingInvoice != null) {
@@ -418,7 +427,8 @@ public class MOrder_BH extends MOrder {
 			return false;
 		}
 
-		// Reactivate any payments that were on this order if it was a sales order (visit)
+		// Reactivate any payments that were on this order if it was a sales order
+		// (visit)
 		if (this.isSOTrx()) {
 			List<MPayment_BH> orderPayments = new Query(getCtx(), MPayment_BH.Table_Name,
 					MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_Created + "<?",
@@ -430,7 +440,8 @@ public class MOrder_BH extends MOrder {
 				newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
 				boolean wasNewPaymentCreated = newPayment.save();
 
-				// Remove the order IDs from the old payment so they don't get directly associated anymore
+				// Remove the order IDs from the old payment so they don't get directly
+				// associated anymore
 				reversedOrderPayment.setBH_C_Order_ID(0);
 				reversedOrderPayment.save();
 				return wasNewPaymentCreated;
@@ -603,21 +614,39 @@ public class MOrder_BH extends MOrder {
 	}
 
 	/**
-	 * Set Lab Notes.
-	 *
-	 * @param bh_lab_notes Lab Notes
+	 * Set Clinical Notes.
+	 * 
+	 * @param BH_ClinicalNotes Clinical Notes
 	 */
-	public void setbh_lab_notes(String bh_lab_notes) {
-		set_Value(COLUMNNAME_bh_lab_notes, bh_lab_notes);
+	public void setBH_ClinicalNotes(String BH_ClinicalNotes) {
+		set_Value(COLUMNNAME_BH_ClinicalNotes, BH_ClinicalNotes);
+	}
+
+	/**
+	 * Get Clinical Notes.
+	 * 
+	 * @return Clinical Notes
+	 */
+	public String getBH_ClinicalNotes() {
+		return (String) get_Value(COLUMNNAME_BH_ClinicalNotes);
+	}
+
+	/**
+	 * Set Lab Notes.
+	 * 
+	 * @param BH_LabNotes Lab Notes
+	 */
+	public void setBH_LabNotes(String BH_LabNotes) {
+		set_Value(COLUMNNAME_BH_LabNotes, BH_LabNotes);
 	}
 
 	/**
 	 * Get Lab Notes.
-	 *
+	 * 
 	 * @return Lab Notes
 	 */
-	public String getbh_lab_notes() {
-		return (String) get_Value(COLUMNNAME_bh_lab_notes);
+	public String getBH_LabNotes() {
+		return (String) get_Value(COLUMNNAME_BH_LabNotes);
 	}
 
 	/**

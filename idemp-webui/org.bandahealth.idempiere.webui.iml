@@ -2,11 +2,11 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="CompassSettings">
     <option name="compassConfigPath" value="$MODULE_DIR$/config.rb" />
-    <option name="compassExecutableFilePath" value="$MODULE_DIR$/../../../../../../Program Files/Ruby/Ruby25-x64/bin/compass.bat" />
+    <option name="compassExecutableFilePath" value="/home/Program Files/Ruby/Ruby25-x64/bin/compass.bat" />
     <option name="compassSupportEnabled" value="true" />
     <option name="importPaths">
       <list>
-        <option value="$MODULE_DIR$/../../../../../../Program" />
+        <option value="/home/Program" />
       </list>
     </option>
   </component>
