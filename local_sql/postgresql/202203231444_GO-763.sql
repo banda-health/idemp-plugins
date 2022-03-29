@@ -1,6 +1,6 @@
 ALTER TABLE c_bpartner ADD IF NOT EXISTS BH_IsApproximateDateOfBirth char default 'N'::bpchar not null;
 
-ALTER TABLE c_bpatner DROP CONSTRAINT IF EXISTS c_bpartner_bh_isapproximatedateofbirth_check;
+ALTER TABLE c_bpartner DROP CONSTRAINT IF EXISTS c_bpartner_bh_isapproximatedateofbirth_check;
 
 alter table c_bpartner
     add constraint c_bpartner_bh_isapproximatedateofbirth_check
