@@ -29,21 +29,6 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<queryString language="SQL">
-			<![CDATA[SELECT m.m_product_id,
-       name                                   as ProductName,
-       o.qtyonhand                            as BatchQuantity,
-       a.guaranteedate,
-       (current_date - a.guaranteedate::date) as ExpiryDays,
-       (m.bh_sellprice * o.qtyonhand)         as Value
-from m_product m
-         left JOIN m_storageonhand o ON m.m_product_id = o.m_product_id
-         left JOIN m_attributesetinstance a ON o.m_attributesetinstance_id = a.m_attributesetinstance_id
-where m.ad_client_id = $P{AD_CLIENT_ID}
-  and a.guaranteedate::date <= current_date
-group by m.m_product_id, BatchQuantity, a.guaranteedate
-order by ExpiryDays DESC, ProductName ASC]]>
-		</queryString>
 		<field name="productname" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="productname"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
