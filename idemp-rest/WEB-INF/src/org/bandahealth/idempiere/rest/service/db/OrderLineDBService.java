@@ -13,7 +13,6 @@ import org.bandahealth.idempiere.base.model.MBHChargeInfo;
 import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Charge;
@@ -26,7 +25,6 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
 import org.compiere.model.MElementValue;
-import org.compiere.model.MProduct;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Ref_List;
@@ -57,7 +55,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	@Autowired
 	private AccountDBService accountDBService;
 	@Autowired
-	private InventoryDBService inventoryDbService;
+	private InventoryRecordDBService inventoryRecordDbService;
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
@@ -173,7 +171,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 						instance.getC_Order_ID(),
 						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), 
-								inventoryDbService.getProductInventoryCount(instance.getM_Product_ID()), product),
+								inventoryRecordDbService.getProductInventoryCount(instance.getM_Product_ID()), product),
 						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
 						DateUtil.parse(instance.getBH_Expiration()), instance.getBH_Instructions(), instance);
 			} else {
