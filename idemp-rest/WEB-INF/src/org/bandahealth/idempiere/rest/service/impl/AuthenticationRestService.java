@@ -209,6 +209,7 @@ public class AuthenticationRestService {
 			builder.withClaim(LoginClaims.AD_Language.name(), credentials.getLanguage());
 			Env.setContext(Env.getCtx(), Env.AD_USER_ID, user.getAD_User_ID());
 			response.setUserId(user.getAD_User_ID());
+			response.setUserUuid(user.getAD_User_UU());
 
 			try {
 				// generate session token
@@ -325,6 +326,7 @@ public class AuthenticationRestService {
 			builder.withClaim(LoginClaims.AD_Language.name(), credentials.getLanguage());
 			Env.setContext(Env.getCtx(), Env.AD_USER_ID, user.getAD_User_ID());
 			response.setUserId(user.getAD_User_ID());
+			response.setUserUuid(user.getAD_User_UU());
 
 			try {
 				// generate session token

@@ -308,11 +308,23 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	/**
 	 * A base method to get all entities from the DB
 	 *
+	 * @param pagingInfo Paging information to use to limit the query.
+	 * @param sortJson   Any sorting specifications
+	 * @param filterJson Any filter criteria to use to limit the results
+	 * @return A list of the data, plus pagination information
+	 */
+	public BaseListResponse<T> getAll(Paging pagingInfo, String sortJson, String filterJson) {
+		return this.getAll(null, null, pagingInfo, sortJson, filterJson, null);
+	}
+
+
+	/**
+	 * A base method to get all entities from the DB
+	 *
 	 * @param whereClause The WHERE clause to use in searching the DB
 	 * @param parameters  Any parameters that the query needs.
 	 * @param pagingInfo  Paging information to use to limit the query.
-	 * @param sortColumn  A column to sort by.
-	 * @param sortOrder   The direction to sort the previous column by
+	 * @param sortJson    Any sorting specifications
 	 * @param filterJson  Any filter criteria to use to limit the results
 	 * @return A list of the data, plus pagination information
 	 */
@@ -327,8 +339,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param whereClause The WHERE clause to use in searching the DB
 	 * @param parameters  Any parameters that the query needs.
 	 * @param pagingInfo  Paging information to use to limit the query.
-	 * @param sortColumn  A column to sort by.
-	 * @param sortOrder   The direction to sort the previous column by
+	 * @param sortJson    Any sorting specifications
 	 * @param filterJson  Any filter criteria to use to limit the results
 	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return A list of the data, plus pagination information
@@ -346,8 +357,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param whereClause              The WHERE clause to use in searching the DB
 	 * @param parameters               Any parameters that the query needs.
 	 * @param pagingInfo               Paging information to use to limit the query.
-	 * @param sortColumn               A column to sort by.
-	 * @param sortOrder                The direction to sort the previous column by
+	 * @param sortJson                 Any sorting specifications
 	 * @param filterJson               Any filter criteria to use to limit the results
 	 * @param sortJson                 Any combination of
 	 * @param joinClause               Use to specify a linked table so joining can occur
