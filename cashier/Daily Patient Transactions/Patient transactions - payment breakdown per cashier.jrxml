@@ -181,7 +181,7 @@ where non_patient_payments.payment_type is not null and non_patient_payments.amo
   c_payment p
     inner join c_order co on p.bh_c_order_id = co.c_order_id
     and co.docstatus <> 'VO'
-    inner join ad_user cashier on p.updatedby = cashier.ad_user_id
+    inner join ad_user cashier on p.createdby = cashier.ad_user_id
 where
    ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
     AND (date(co.bh_visitdate) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
@@ -191,7 +191,7 @@ UNION
 SELECT u.name as cashiername
 FROM c_order o
     JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-    JOIN ad_user u ON ol.updatedby = u.ad_user_id
+    JOIN ad_user u ON ol.createdby = u.ad_user_id
     JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
 WHERE o.ad_client_id = $P{AD_CLIENT_ID}
     AND o.docstatus <> 'VO'
