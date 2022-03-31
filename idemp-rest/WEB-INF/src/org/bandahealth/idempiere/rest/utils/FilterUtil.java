@@ -31,6 +31,10 @@ public class FilterUtil {
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
 	private static final List<String> AGGREGATE_QUERY_SELECTORS = Arrays.asList("$sum", "$count", "$max", "$min");
 	private static final String MALFORMED_FILTER_STRING_ERROR = "Filter criteria doesn't meet the standard form.";
+	/**
+	 * The column names that don't follow the typical pattern of FK mappings ([TABLE_NAME]_ID)
+	 * Note: All keys should be lower-case to avoid case mismatches
+	 */
 	private static final Map<String, String> specialForeignKeyMappings = new HashMap<>() {{
 		put("createdby", "ad_user");
 		put("updatedby", "ad_user");
@@ -284,8 +288,8 @@ public class FilterUtil {
 
 			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
 			// table), we need to follow a different workflow
-			if (dbModelInfo != null &&
-					(dbModelInfo.getColumnIndex(dbColumnName) == -1 || specialForeignKeyMappings.containsKey(dbColumnName))) {
+			if (dbModelInfo != null && (dbModelInfo.getColumnIndex(dbColumnName) == -1 ||
+					specialForeignKeyMappings.containsKey(dbColumnName.toLowerCase()))) {
 				String subWhereClause =
 						getForeignTableSubQueryWhereClause(tableName, dbModelInfo, dbColumnName,
 								(Map<String, Object>) comparisons, parameters, negate, shouldUseContextClientId);
