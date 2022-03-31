@@ -54,7 +54,9 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 				documentEntity.setDocStatus(docActionToStatusMap.get(docAction));
 			}
 		} else {
-			throw new AdempiereException(documentEntity.getProcessMsg());
+			// When visits can receive a failure and not freak the user out, return an error here
+//			throw new AdempiereException(documentEntity.getProcessMsg());
+			logger.severe("Could not process document " + getDocumentTypeName() + ", UUID: " + uuid);
 		}
 		documentEntity.saveEx();
 

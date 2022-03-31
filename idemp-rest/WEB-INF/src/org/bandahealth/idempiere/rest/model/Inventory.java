@@ -10,11 +10,16 @@ public class Inventory extends BaseEntity {
 	private Warehouse warehouse;
 	private ReferenceList updateReason;
 	private List<InventoryLine> inventoryLines = new ArrayList<>();
+	private String documentStatus;
 
+	/**
+	 * Empty constructor needed for Jackson deserialization
+	 */
 	public Inventory() {}
 
 	public Inventory(MInventory_BH model) {
 		super(model, null, model.getDescription(), null);
+		setDocumentStatus(model.getDocStatus());
 	}
 
 	public void setUpdateReason(ReferenceList updateReason) {
@@ -39,5 +44,13 @@ public class Inventory extends BaseEntity {
 
 	public List<InventoryLine> getInventoryLines() {
 		return inventoryLines;
+	}
+
+	public String getDocumentStatus() {
+		return documentStatus;
+	}
+
+	public void setDocumentStatus(String documentStatus) {
+		this.documentStatus = documentStatus;
 	}
 }
