@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
@@ -47,8 +48,13 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 			return null;
 		}
 
-		if (documentEntity.processIt(docAction) && docActionToStatusMap.containsKey(docAction)) {
-			documentEntity.setDocStatus(docActionToStatusMap.get(docAction));
+		// Process the document and, if it fails, throw an exception
+		if (documentEntity.processIt(docAction)) {
+			if (docActionToStatusMap.containsKey(docAction)) {
+				documentEntity.setDocStatus(docActionToStatusMap.get(docAction));
+			}
+		} else {
+			throw new AdempiereException(documentEntity.getProcessMsg());
 		}
 		documentEntity.saveEx();
 
