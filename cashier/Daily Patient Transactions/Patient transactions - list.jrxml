@@ -160,7 +160,7 @@ select
 from billdetails
     left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
     left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by billdetails.bill_date ASC, billdetails.patientname ASC;]]>
+order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
