@@ -26,7 +26,7 @@ public class StorageOnHand extends BaseMetadata {
 		setQuantityOnHand(model.getQtyOnHand());
 	}
 
-	public StorageOnHand(Inventory model) {
+	public StorageOnHand(InventoryRecord model) {
 		super(model.getClientId(), model.getOrgId(), model.getUuid(), model.getIsActive(), model.getCreated(),
 				model.getCreatedBy());
 
