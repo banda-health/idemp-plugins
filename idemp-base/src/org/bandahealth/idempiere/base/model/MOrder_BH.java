@@ -42,7 +42,24 @@ public class MOrder_BH extends MOrder {
 	/**
 	 * Column name bh_isexpense
 	 */
-
+	public static final String COLUMNNAME_BH_IsExpense = "BH_isexpense";
+	public static final String COLUMNNAME_BH_NEWVISIT = "bh_newvisit";
+	public static final String COLUMNNAME_BH_CHIEF_COMPLAINT = "BH_ChiefComplaint";
+	public static final String COLUMNNAME_BH_TEMPERATURE = "BH_Temperature";
+	public static final String COLUMNNAME_BH_PULSE = "BH_Pulse";
+	public static final String COLUMNNAME_BH_RESPIRATORY_RATE = "BH_RespiratoryRate";
+	public static final String COLUMNNAME_BH_BLOOD_PRESSURE = "BH_BloodPressure";
+	public static final String COLUMNNAME_BH_HEIGHT = "BH_Height";
+	public static final String COLUMNNAME_BH_WEIGHT = "BH_Weight";
+	public static final String COLUMMNAME_BH_CLINICIAN_USER_ID = "BH_Clinician_User_ID";
+	public static final String COLUMNNAME_BH_PROCESS_STAGE = "BH_Process_Stage";
+	public static final String COLUMNNAME_BH_PRIMARY_CODED_DIAGNOSIS_ID = "BH_PrimaryCodedDiagnosis_ID";
+	public static final String COLUMNNAME_BH_SECONDARY_CODED_DIAGNOSIS_ID = "BH_SecondaryCodedDiagnosis_ID";
+	public static final String COLUMNNAME_BH_PRIMARY_UNCODED_DIAGNOSIS = "BH_PrimaryUncodedDiagnosis"; // previously
+	// Description
+	public static final String COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS = "BH_SecondaryUncodedDiagnosis"; // previously
+	// bh_seconddiagnosis
+	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
 	/**
 	 * Column name BH_OxygenSaturation
 	 */
