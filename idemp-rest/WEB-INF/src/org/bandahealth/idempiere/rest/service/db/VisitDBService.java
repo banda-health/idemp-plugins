@@ -183,6 +183,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (entity.isNewVisit() != null) {
 			mOrder.setBH_NewVisit(entity.isNewVisit());
 		}
+		
+		if (entity.isApproximateDateOfBirth() != null) {
+			mOrder.setBH_IsApproximateDateOfBirth(entity.isApproximateDateOfBirth());
+		}
 
 		if (entity.getChiefComplaint() != null) {
 			mOrder.setBH_Chief_Complaint(entity.getChiefComplaint());

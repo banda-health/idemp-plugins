@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 
@@ -36,6 +37,8 @@ public class Visit extends Order {
 	private String secondaryUnCodedDiagnosis;
 	private Integer systolicBloodPressure;
 	private Integer diastolicBloodPressure;
+	@JsonProperty("isApproximateDateOfBirth")
+	private Boolean isApproximateDateOfBirth;
 
 	public Visit() {
 		setIsSalesOrderTransaction(true);
@@ -74,6 +77,7 @@ public class Visit extends Order {
 			this.secondaryUnCodedDiagnosis = order.getBH_SecondaryUnCodedDiagnosis();
 			this.systolicBloodPressure = order.getbh_systolic_blood_pressure();
 			this.diastolicBloodPressure = order.getbh_diastolic_blood_pressure();
+			setIsApproximateDateOfBirth(order.isBH_IsApproximateDateOfBirth());
 			setId(order.get_ID());
 		}
 
@@ -304,5 +308,13 @@ public class Visit extends Order {
 
 	public void setSecondaryUnCodedDiagnosis(String secondaryUnCodedDiagnosis) {
 		this.secondaryUnCodedDiagnosis = secondaryUnCodedDiagnosis;
+	}
+	
+	public void setIsApproximateDateOfBirth(Boolean isApproximateDateOfBirth) {
+		this.isApproximateDateOfBirth = isApproximateDateOfBirth;
+	}
+	
+	public Boolean isApproximateDateOfBirth () {
+		return isApproximateDateOfBirth;
 	}
 }

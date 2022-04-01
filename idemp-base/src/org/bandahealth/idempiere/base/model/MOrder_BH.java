@@ -56,6 +56,7 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_SECONDARY_UNCODED_DIAGNOSIS = "BH_SecondaryUncodedDiagnosis"; // previously
 	// bh_seconddiagnosis
 	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
+	public static final String COLUMNNAME_BH_IsApproximateDateOfBirth = "BH_IsApproximateDateOfBirth";
 
 	/**
 	 * Column name bh_referral
@@ -707,6 +708,25 @@ public class MOrder_BH extends MOrder {
 		if (ii == null)
 			return 0;
 		return ii.intValue();
+	}
+	
+	public void setBH_IsApproximateDateOfBirth (boolean BH_IsApproximateDateOfBirth)
+	{
+		set_Value (COLUMNNAME_BH_IsApproximateDateOfBirth, Boolean.valueOf(BH_IsApproximateDateOfBirth));
+	}
+
+	/** Get Is Approximate Date Of Birth.
+		@return Is Approximate Date Of Birth	  */
+	public boolean isBH_IsApproximateDateOfBirth () 
+	{
+		Object oo = get_Value(COLUMNNAME_BH_IsApproximateDateOfBirth);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 }
