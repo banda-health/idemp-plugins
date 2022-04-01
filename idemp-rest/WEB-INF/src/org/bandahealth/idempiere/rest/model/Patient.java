@@ -75,7 +75,7 @@ public class Patient extends BusinessPartner {
 		this.localPatientNumber = localPatientNumber;
 		this.totalVisits = totalVisits;
 		this.lastVisitDate= lastVisitDate;
-		this.isApproximateDateOfBirth = mbPartnerBHModel.isApproximateDateOfBirth;
+		this.isApproximateDateOfBirth = mbPartnerBHModel.isBH_IsApproximateDateOfBirth();
 	}
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,

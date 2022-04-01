@@ -186,7 +186,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getBH_NHIF_Type(), instance.getNationalID(), instance.getbh_occupation(),
 					instance.getNextOfKin_Name(), instance.getNextOfKin_Contact(),
 					instance.getBH_Local_PatientID(), VisitDBService.getVisitsCount(instance.get_ID()),
-					VisitDBService.getLastVisitDate(instance), instance.isBH_IsApproximateDateOfBirth());
+					VisitDBService.getLastVisitDate(instance), instance);
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
