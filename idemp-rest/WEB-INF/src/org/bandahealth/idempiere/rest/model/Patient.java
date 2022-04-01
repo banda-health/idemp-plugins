@@ -55,7 +55,7 @@ public class Patient extends BusinessPartner {
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
 			String address, String gender, String email, String nhifRelationship, String nhifMemberName,
 			String nhifNumber, String nhifType, String nationalId, String occupation, String nextOfKinName,
-			String nextOfKinContact, String localPatientNumber, int totalVisits, String lastVisitDate, Boolean isApproximateDateOfBirth) {
+			String nextOfKinContact, String localPatientNumber, int totalVisits, String lastVisitDate, MBPartner_BH mbPartnerBHModel) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
@@ -75,7 +75,7 @@ public class Patient extends BusinessPartner {
 		this.localPatientNumber = localPatientNumber;
 		this.totalVisits = totalVisits;
 		this.lastVisitDate= lastVisitDate;
-		this.isApproximateDateOfBirth = isApproximateDateOfBirth;
+		this.isApproximateDateOfBirth = mbPartnerBHModel.isApproximateDateOfBirth;
 	}
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
