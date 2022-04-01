@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement(name = "patient")
 @JsonInclude(value = Include.NON_NULL)
@@ -33,6 +34,8 @@ public class Patient extends BusinessPartner {
 	private String localPatientNumber;
 	private int totalVisits;
 	private String lastVisitDate;
+	@JsonProperty("isApproximateDateOfBirth")
+	private Boolean isApproximateDateOfBirth;
 
 	public Patient() {
 	}
@@ -52,7 +55,7 @@ public class Patient extends BusinessPartner {
 			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
 			String address, String gender, String email, String nhifRelationship, String nhifMemberName,
 			String nhifNumber, String nhifType, String nationalId, String occupation, String nextOfKinName,
-			String nextOfKinContact, String localPatientNumber, int totalVisits, String lastVisitDate) {
+			String nextOfKinContact, String localPatientNumber, int totalVisits, String lastVisitDate, Boolean isApproximateDateOfBirth) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
 
 		this.patientNumber = patientNumber;
@@ -72,6 +75,7 @@ public class Patient extends BusinessPartner {
 		this.localPatientNumber = localPatientNumber;
 		this.totalVisits = totalVisits;
 		this.lastVisitDate= lastVisitDate;
+		this.isApproximateDateOfBirth = isApproximateDateOfBirth;
 	}
 
 	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
@@ -280,5 +284,13 @@ public class Patient extends BusinessPartner {
 
 	public void setLastVisitDate(String lastVisitDate) {
 		this.lastVisitDate = lastVisitDate;
+	}
+	
+	public void setIsApproximateDateOfBirth(Boolean isApproximateDateOfBirth) {
+		this.isApproximateDateOfBirth = isApproximateDateOfBirth;
+	}
+	
+	public Boolean isApproximateDateOfBirth () {
+		return isApproximateDateOfBirth;
 	}
 }

@@ -154,6 +154,10 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			if (StringUtil.isNotNullAndEmpty(entity.getLocalPatientNumber())) {
 				patient.setBH_Local_PatientID(entity.getLocalPatientNumber());
 			}
+			
+			if (entity.isApproximateDateOfBirth() != null) {
+				patient.setBH_IsApproximateDateOfBirth(entity.isApproximateDateOfBirth());
+			}
 
 			patient.setIsActive(entity.getIsActive());
 
@@ -182,7 +186,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 					instance.getBH_NHIF_Type(), instance.getNationalID(), instance.getbh_occupation(),
 					instance.getNextOfKin_Name(), instance.getNextOfKin_Contact(),
 					instance.getBH_Local_PatientID(), VisitDBService.getVisitsCount(instance.get_ID()),
-					VisitDBService.getLastVisitDate(instance));
+					VisitDBService.getLastVisitDate(instance), instance.isBH_IsApproximateDateOfBirth());
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 			throw new AdempiereException(ex.getLocalizedMessage());
