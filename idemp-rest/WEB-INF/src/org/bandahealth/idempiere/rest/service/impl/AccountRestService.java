@@ -26,7 +26,8 @@ public class AccountRestService extends BaseEntityRestService<Account> {
 	@POST
 	@Path(IRestConfigs.ROOT_PATH)
 	@Override
-	public BaseListResponse<Account> getAll(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page, @QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int size,
+	public BaseListResponse<Account> getAll(@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page,
+			@QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
 		return dbService.getAll(null, null, getPagingInfo(page, size), sortJson, filterJson);

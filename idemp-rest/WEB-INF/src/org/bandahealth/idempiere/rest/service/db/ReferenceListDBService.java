@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
@@ -136,6 +137,14 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 		whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
 				new HashSet<>(documentActionAccess.values().stream().flatMap(
 						Collection::stream).collect(Collectors.toSet())), parameters);
+
+		// If there aren't any document actions to work with, something is wrong with the role configuration
+		if (StringUtil.isNullOrEmpty(whereClause)) {
+			logger.severe(
+					"Role with ID " + Env.getAD_Role_ID(Env.getCtx()) + " is misconfigured and has no document action access");
+			throw new AdempiereException("Cannot perform operation - role is misconfigured");
+		}
+
 		// Now get the actual entities for these document actions
 		List<MRefList> documentActions = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.COLUMNNAME_AD_Ref_List_ID + " IN (" + whereClause + ")", null)
@@ -158,38 +167,46 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 	 * @return A document map of next actions a user can take based on a given action based on a document type
 	 */
 	public Map<MDocType, Map<MRefList, List<String>>> getDocumentStatusActionMap() {
-		Map<MDocType, List<MRefList>> documentActionAccessByDocumentType = getDocumentActionAccessByDocumentType();
-		List<MRefList> allClientDocumentStatuses =
-				new Query(Env.getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Reference_ID + "=?", null).setParameters(
-						SystemIDs.REFERENCE_DOCUMENTSTATUS).list();
-		PO unusedNecessaryEntityForTheDocEngine = createModelInstance();
-		return documentActionAccessByDocumentType.entrySet().stream()
-				.collect(Collectors.toMap(Map.Entry::getKey, documentActionAccessByDocumentTypeEntry ->
-						allClientDocumentStatuses.stream().collect(
-								Collectors.toMap(docStatus -> docStatus,
-										docStatus -> {
-											String[] unusedDocActions = new String[50];
-											String[] mappedDocActions = new String[50];
-											Integer tableId = 0;
-											if (documentTypeNameToADTableIdMap
-													.containsKey(documentActionAccessByDocumentTypeEntry.getKey().getName())) {
-												tableId = documentTypeNameToADTableIdMap
-														.get(documentActionAccessByDocumentTypeEntry.getKey().getName());
+		try {
+			Map<MDocType, List<MRefList>> documentActionAccessByDocumentType = getDocumentActionAccessByDocumentType();
+			List<MRefList> allClientDocumentStatuses =
+					new Query(Env.getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Reference_ID + "=?", null).setParameters(
+							SystemIDs.REFERENCE_DOCUMENTSTATUS).list();
+			PO unusedNecessaryEntityForTheDocEngine = createModelInstance();
+			return documentActionAccessByDocumentType.entrySet().stream()
+					.collect(Collectors.toMap(Map.Entry::getKey, documentActionAccessByDocumentTypeEntry ->
+							allClientDocumentStatuses.stream().collect(
+									Collectors.toMap(docStatus -> docStatus,
+											docStatus -> {
+												String[] unusedDocActions = new String[50];
+												String[] mappedDocActions = new String[50];
+												Integer tableId = 0;
+												if (documentTypeNameToADTableIdMap
+														.containsKey(documentActionAccessByDocumentTypeEntry.getKey().getName())) {
+													tableId = documentTypeNameToADTableIdMap
+															.get(documentActionAccessByDocumentTypeEntry.getKey().getName());
+												}
+												// Get valid next actions based on a given document action
+												// TODO: Determine if we want to find a way to include different actions that come when the
+												// period is open
+												DocumentEngine.getValidActions(docStatus.getValue(), null, "", "", tableId, unusedDocActions,
+														mappedDocActions, false, unusedNecessaryEntityForTheDocEngine);
+												// Return an array list, but first confirm the mapped actions are in what the user has
+												// access to
+												return Arrays.stream(mappedDocActions)
+														.filter(mappedAction -> documentActionAccessByDocumentTypeEntry.getValue().stream()
+																.anyMatch(docActionAccess -> docActionAccess.getValue().equals(mappedAction)))
+														.collect(Collectors.toList());
 											}
-											// Get valid nextactions based on a given document action
-											// TODO: Determine if we want to find a way to include different actions that come when the
-											// period is open
-											DocumentEngine.getValidActions(docStatus.getValue(), null, "", "", tableId, unusedDocActions,
-													mappedDocActions, false, unusedNecessaryEntityForTheDocEngine);
-											// Return an array list, but first confirm the mapped actions are in what the user has access to
-											return Arrays.stream(mappedDocActions)
-													.filter(mappedAction -> documentActionAccessByDocumentTypeEntry.getValue().stream()
-															.anyMatch(docActionAccess -> docActionAccess.getValue().equals(mappedAction)))
-													.collect(Collectors.toList());
-										}
-								)
-						)
-				));
+									)
+							)
+					));
+
+		} catch (Exception ex) {
+			log.severe(ex.getMessage());
+		}
+
+		return new HashMap<MDocType, Map<MRefList, List<String>>>();
 	}
 
 	/**

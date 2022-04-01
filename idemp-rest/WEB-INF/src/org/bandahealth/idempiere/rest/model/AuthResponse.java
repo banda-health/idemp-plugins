@@ -32,6 +32,7 @@ public class AuthResponse {
 	private int clientId;
 	private int orgId;
 	private String warehouseUuid;
+	private String userUuid;
 
 	public AuthResponse() {
 	}
@@ -176,5 +177,13 @@ public class AuthResponse {
 
 	public void setWarehouseUuid(String warehouseUuid) {
 		this.warehouseUuid = warehouseUuid;
+	}
+
+	public String getUserUuid() {
+		return userUuid;
+	}
+
+	public void setUserUuid(String userUuid) {
+		this.userUuid = userUuid;
 	}
 }

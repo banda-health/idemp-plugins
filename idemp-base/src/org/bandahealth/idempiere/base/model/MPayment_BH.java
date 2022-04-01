@@ -3,8 +3,14 @@ package org.bandahealth.idempiere.base.model;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
+import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.compiere.model.MBPartner;
+import org.compiere.model.MDocTypeCounter;
+import org.compiere.model.MOrg;
 import org.compiere.model.MPayment;
+import org.compiere.util.DB;
 
 public class MPayment_BH extends MPayment {
 
@@ -102,6 +108,61 @@ public class MPayment_BH extends MPayment {
 
 	public MPayment_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
+	}
+
+	/**
+	 * Copy a payment, typically meant to be done when a visit is reactivated and all old payments are reversed.
+	 * Largely copied from {@link MPayment#createCounterDoc()}
+	 * @param payment The payment to copy from
+	 * @return The new, unsaved payment
+	 */
+	public MPayment_BH copy() {
+		MPayment_BH newPayment = new MPayment_BH(getCtx(), 0, get_TrxName());
+
+		//	Document Type
+		int C_DocTypeTarget_ID = getC_DocType_ID();
+
+		//	Deep Copy
+		newPayment.setAD_Org_ID(getAD_Org_ID());
+		newPayment.setC_BPartner_ID(getC_BPartner_ID());
+		newPayment.setIsReceipt(!isReceipt());
+		newPayment.setC_DocType_ID(C_DocTypeTarget_ID);
+		newPayment.setTrxType(getTrxType());
+		newPayment.setTenderType(getTenderType());
+		//
+		newPayment.setPayAmt(getPayAmt());
+		newPayment.setDiscountAmt(getDiscountAmt());
+		newPayment.setTaxAmt(getTaxAmt());
+		newPayment.setWriteOffAmt(getWriteOffAmt());
+		newPayment.setIsOverUnderPayment (isOverUnderPayment());
+		newPayment.setOverUnderAmt(getOverUnderAmt());
+		newPayment.setC_Currency_ID(getC_Currency_ID());
+		newPayment.setC_ConversionType_ID(getC_ConversionType_ID());
+		//
+		newPayment.setDateTrx (getDateTrx());
+		newPayment.setDateAcct (getDateAcct());
+		newPayment.setRef_Payment_ID(getC_Payment_ID());
+		//
+		newPayment.setC_BankAccount_ID(getC_BankAccount_ID());
+
+		//	References
+		newPayment.setC_Activity_ID(getC_Activity_ID());
+		newPayment.setC_Campaign_ID(getC_Campaign_ID());
+		newPayment.setC_Project_ID(getC_Project_ID());
+		newPayment.setUser1_ID(getUser1_ID());
+		newPayment.setUser2_ID(getUser2_ID());
+
+		// Banda-specific fields
+		newPayment.setBH_C_Order_ID(getBH_C_Order_ID());
+
+		newPayment.saveEx(get_TrxName());
+		if (log.isLoggable(Level.FINE)) log.fine(newPayment.toString());
+		setRef_Payment_ID(newPayment.getC_Payment_ID());
+
+		// Document action typically set to complete, even though we may not be completing it yet
+		newPayment.setDocAction(DOCACTION_None);
+
+		return newPayment;
 	}
 
 	/**

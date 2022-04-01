@@ -16,7 +16,7 @@ public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetIns
 	@Override
 	public AttributeSetInstance saveEntity(AttributeSetInstance entity) {
 		// We'll only allow updating the guarantee date
-		MAttributeSetInstance_BH attributeSetInstance = getEntityByUuidFromDB(entity.getUuid());
+		MAttributeSetInstance_BH attributeSetInstance = getEntityByIdFromDB(entity.getAttributeSetInstanceId());
 		if (attributeSetInstance == null) {
 			attributeSetInstance = getModelInstance();
 			attributeSetInstance.setM_AttributeSetInstance_UU(entity.getUuid());
