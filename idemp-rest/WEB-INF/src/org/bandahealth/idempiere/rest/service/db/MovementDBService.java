@@ -20,7 +20,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.Inventory;
+import org.bandahealth.idempiere.rest.model.InventoryRecord;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Movement;
 import org.bandahealth.idempiere.rest.model.MovementLine;
@@ -49,7 +49,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	@Autowired
 	private ProductDBService productDBService = new ProductDBService();
 	@Autowired
-	private InventoryDBService inventoryDBService = new InventoryDBService();
+	private InventoryRecordDBService inventoryRecordDBService = new InventoryRecordDBService();
 	@Autowired
 	private AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
 	@Autowired
@@ -240,8 +240,8 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 			if (movementLine.getProductId() == 0) {
 				return;
 			}
-			BaseListResponse<Inventory> productsInventory =
-					inventoryDBService.getProductInventory(Paging.ALL.getInstance(), movementLine.getProductId());
+			BaseListResponse<InventoryRecord> productsInventory =
+					inventoryRecordDBService.getProductInventory(Paging.ALL.getInstance(), movementLine.getProductId());
 			movementLine.getProduct().setStorageOnHandList(
 					productsInventory.getResults().stream().filter(inventory -> inventory.getShelfLife() >= 0)
 							.map(StorageOnHand::new).collect(Collectors.toList()));

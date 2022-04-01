@@ -31,12 +31,17 @@ public class FilterUtil {
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
 	private static final List<String> AGGREGATE_QUERY_SELECTORS = Arrays.asList("$sum", "$count", "$max", "$min");
 	private static final String MALFORMED_FILTER_STRING_ERROR = "Filter criteria doesn't meet the standard form.";
+	/**
+	 * The column names that don't follow the typical pattern of FK mappings ([TABLE_NAME]_ID)
+	 * Note: All keys should be lower-case to avoid case mismatches
+	 */
 	private static final Map<String, String> specialForeignKeyMappings = new HashMap<>() {{
 		put("createdby", "ad_user");
 		put("updatedby", "ad_user");
 		put("bh_from_warehouse", "m_warehouse");
 		put("bh_to_warehouse", "m_warehouse");
 	}};
+	private static final String SPECIFIC_COLUMN_MAPPING_SPECIFIER = "::";
 	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
 
 	/**
@@ -275,16 +280,16 @@ public class FilterUtil {
 		}
 		// The keys of the comparison object are DB column names
 		for (String dbColumnName : comparisonQuerySelectors.keySet()) {
-			// We won't allow filtering of DB IDs
-			if (dbColumnName.toLowerCase().endsWith("_id")) {
+			// We won't allow filtering of DB IDs (unless it's a column mapping specification)
+			if (dbColumnName.toLowerCase().endsWith("_id") && !dbColumnName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
 				continue;
 			}
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
 			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
 			// table), we need to follow a different workflow
-			if (dbModelInfo != null &&
-					(dbModelInfo.getColumnIndex(dbColumnName) == -1 || specialForeignKeyMappings.containsKey(dbColumnName))) {
+			if (dbModelInfo != null && (dbModelInfo.getColumnIndex(dbColumnName) == -1 ||
+					specialForeignKeyMappings.containsKey(dbColumnName.toLowerCase()))) {
 				String subWhereClause =
 						getForeignTableSubQueryWhereClause(tableName, dbModelInfo, dbColumnName,
 								(Map<String, Object>) comparisons, parameters, negate, shouldUseContextClientId);
@@ -446,18 +451,18 @@ public class FilterUtil {
 			remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
 		}
 
-		// If a specific column was passed in using the "::" syntax, get it
-		if (dbColumnName.contains("::")) {
-			foreignTableName = dbColumnName.split("::")[0];
+		// If a specific column was passed in, get it
+		if (dbColumnName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
+			foreignTableName = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[0];
 			// There "should" only be one column specification, so we'll use it
-			specificColumnToMapOn = dbColumnName.split("::")[1];
+			specificColumnToMapOn = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[1];
 		}
 
 		// Ensure foreign table is lower case
 		foreignTableName = foreignTableName.toLowerCase();
-		// This should remain null unless we're doing a mapping
+		// This should remain null unless we're doing a mapping and no specific column was given
 		String originalForeignTableName = null;
-		if (specialForeignKeyMappings.containsKey(foreignTableName)) {
+		if (specialForeignKeyMappings.containsKey(foreignTableName) && StringUtil.isNullOrEmpty(specificColumnToMapOn)) {
 			originalForeignTableName = foreignTableName;
 			foreignTableName = specialForeignKeyMappings.get(foreignTableName);
 		}
@@ -722,16 +727,30 @@ public class FilterUtil {
 			}
 		}
 
-		// If we were passed a specific column mapping, check if that exists
-		if (specifiedColumnMapping != null && foreignTableInfo.getColumnIndex(specifiedColumnMapping) > -1) {
-			tableMapping.foreignColumnName = specifiedColumnMapping;
-			// We'll assume it joins off this table's ID column, if it has one
-			if (tableInfo.getColumnIndex(tableIdColumn) > -1) {
-				tableMapping.wasMatchFound = true;
-				tableMapping.sourceColumnName = tableIdColumn;
-			}
+		// If we were passed a specific column mapping, try it
+		if (specifiedColumnMapping != null) {
+			// Check if that exists on the foreign table
+			// Otherwise, see if it's on the current table and the other table has the foreign ID column
+			// TODO: Support specifying both start and end columns instead of one or the other
+			if (foreignTableInfo.getColumnIndex(specifiedColumnMapping) > -1) {
+				tableMapping.foreignColumnName = specifiedColumnMapping;
+				// We'll assume it joins off this table's ID column, if it has one
+				if (tableInfo.getColumnIndex(tableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.sourceColumnName = tableIdColumn;
+				}
 
-			return tableMapping;
+				return tableMapping;
+			} else if (tableInfo.getColumnIndex(specifiedColumnMapping) > -1) {
+				tableMapping.sourceColumnName = specifiedColumnMapping;
+				// We'll assume it joins to the foreign table's ID column, if it has one
+				if (foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.foreignColumnName = foreignTableIdColumn;
+				}
+
+				return tableMapping;
+			}
 		}
 
 		// The simplest form is that either table name, appended with "_id", exists on both tables

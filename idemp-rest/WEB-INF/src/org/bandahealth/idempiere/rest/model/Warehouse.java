@@ -8,6 +8,9 @@ import org.compiere.model.MWarehouse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @XmlRootElement(name = "warehouse")
 @JsonInclude(value = Include.NON_NULL)
 public class Warehouse extends BaseEntity {
@@ -15,6 +18,7 @@ public class Warehouse extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private boolean defaultWarehouse;
+	private List<Locator> locators = new ArrayList<>();
 
 	public Warehouse() {
 	}
@@ -35,5 +39,13 @@ public class Warehouse extends BaseEntity {
 
 	public void setDefaultWarehouse(boolean defaultWarehouse) {
 		this.defaultWarehouse = defaultWarehouse;
+	}
+
+	public List<Locator> getLocators() {
+		return locators;
+	}
+
+	public void setLocators(List<Locator> locators) {
+		this.locators = locators;
 	}
 }
