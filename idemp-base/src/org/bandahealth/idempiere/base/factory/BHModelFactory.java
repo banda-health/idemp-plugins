@@ -27,6 +27,7 @@ import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MMenu_BH;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
@@ -60,6 +61,8 @@ public class BHModelFactory implements IModelFactory {
 			return MPayment_BH.class;
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			return MOrderLine_BH.class;
+		} else if (tableName.equalsIgnoreCase(MInventory_BH.Table_Name)) {
+			return MInventory_BH.class;
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			return MInventoryLine_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProduct_BH.Table_Name)) {
@@ -147,6 +150,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MPayment_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			return new MOrderLine_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MInventory_BH.Table_Name)) {
+			return new MInventory_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			return new MInventoryLine_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProduct_BH.Table_Name)) {
@@ -234,6 +239,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MPayment_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			return new MOrderLine_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MInventory_BH.Table_Name)) {
+			return new MInventory_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			return new MInventoryLine_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProduct_BH.Table_Name)) {
