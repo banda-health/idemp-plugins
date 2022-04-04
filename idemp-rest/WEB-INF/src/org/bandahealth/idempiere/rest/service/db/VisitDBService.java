@@ -151,8 +151,16 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	protected void beforeSave(Visit entity, MOrder_BH mOrder) {
-		if (StringUtil.isNotNullAndEmpty(entity.getVisitNotes())) {
-			mOrder.setBH_ClinicalNotes(entity.getVisitNotes());
+		if (StringUtil.isNotNullAndEmpty(entity.getClinicalNotes())) {
+			System.out.println("visit DB service clinical Notes: ");
+			System.out.println(entity.getClinicalNotes());
+			mOrder.setBH_ClinicalNotes(entity.getClinicalNotes());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getLabNotes())) {
+			System.out.println("visit DB service lab Notes: ");
+			System.out.println(entity.getLabNotes());
+			mOrder.setBH_LabNotes(entity.getLabNotes());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getDiagnosis())) {
@@ -373,6 +381,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			List<Payment> payments = paymentDBService.getPaymentsByOrderId(instance.get_ID());
 
 			String clinicalNotes = instance.getBH_ClinicalNotes();
+			String labNotes = instance.getBH_LabNotes();
 			String patientType = instance.get_Value(COLUMNNAME_PATIENT_TYPE) != null
 					? (String) instance.get_Value(COLUMNNAME_PATIENT_TYPE)
 					: null;
@@ -418,7 +427,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
 							getVisitsCount(patient.get_ID()), getLastVisitDate(patient)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
-					instance.isBH_NewVisit(), clinicalNotes, instance.getDescription(), new PatientType(patientType),
+					instance.isBH_NewVisit(), clinicalNotes, labNotes, instance.getDescription(), new PatientType(patientType),
 					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
