@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
@@ -19,6 +20,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	public final static String DOCUMENTNAME_RECEIVE_PRODUCT = "Purchase Order";
 	public final static String DOCUMENTNAME_PAYMENTS = "AR Receipt";
 	public final static String DOCUMENTNAME_MOVEMENT = "Material Movement";
+	public final static String DOCUMENTNAME_PHYSICAL_INVENTORY = "Physical Inventory";
 	private final Map<String, String> docActionToStatusMap = new HashMap<>() {{
 		put(DocAction.ACTION_Complete, DocAction.STATUS_Completed);
 		put(DocAction.ACTION_Void, DocAction.STATUS_Voided);
@@ -46,8 +48,15 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 			return null;
 		}
 
-		if (documentEntity.processIt(docAction) && docActionToStatusMap.containsKey(docAction)) {
-			documentEntity.setDocStatus(docActionToStatusMap.get(docAction));
+		// Process the document and, if it fails, throw an exception
+		if (documentEntity.processIt(docAction)) {
+			if (docActionToStatusMap.containsKey(docAction)) {
+				documentEntity.setDocStatus(docActionToStatusMap.get(docAction));
+			}
+		} else {
+			// When visits can receive a failure and not freak the user out, return an error here
+//			throw new AdempiereException(documentEntity.getProcessMsg());
+			logger.severe("Could not process document " + getDocumentTypeName() + ", UUID: " + uuid);
 		}
 		documentEntity.saveEx();
 

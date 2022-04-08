@@ -29,12 +29,15 @@ public class MBPartner_BH extends MBPartner {
 
 	/** Column name bh_gender */
 	public static final String COLUMNNAME_bh_gender = "bh_gender";
-
-	/** Column name bh_nextappointmentdate */
-	public static final String COLUMNNAME_bh_nextappointmentdate = "bh_nextappointmentdate";
+	
+	/** Column name BH_IsApproximateDateOfBirth */
+	public static final String COLUMNNAME_BH_IsApproximateDateOfBirth = "BH_IsApproximateDateOfBirth";
 
 	/** Column name BH_IsPatient */
 	public static final String COLUMNNAME_BH_IsPatient = "BH_IsPatient";
+	
+	/** Column name bh_nextappointmentdate */
+	public static final String COLUMNNAME_bh_nextappointmentdate = "bh_nextappointmentdate";
 
 	/** Column name bh_nhif_member_name */
 	public static final String COLUMNNAME_bh_nhif_member_name = "bh_nhif_member_name";
@@ -423,5 +426,26 @@ public class MBPartner_BH extends MBPartner {
 	public String getBH_Local_PatientID ()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Local_PatientID);
+	}
+	
+	/** Set Is Approximate Date Of Birth.
+	@param BH_IsApproximateDateOfBirth Is Approximate Date Of Birth	  */
+	public void setBH_IsApproximateDateOfBirth (boolean BH_IsApproximateDateOfBirth)
+	{
+		set_Value (COLUMNNAME_BH_IsApproximateDateOfBirth, Boolean.valueOf(BH_IsApproximateDateOfBirth));
+	}
+
+	/** Get Is Approximate Date Of Birth.
+		@return Is Approximate Date Of Birth	  */
+	public boolean isBH_IsApproximateDateOfBirth () 
+	{
+		Object oo = get_Value(COLUMNNAME_BH_IsApproximateDateOfBirth);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }
