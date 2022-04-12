@@ -152,14 +152,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	@Override
 	protected void beforeSave(Visit entity, MOrder_BH mOrder) {
 		if (StringUtil.isNotNullAndEmpty(entity.getClinicalNotes())) {
-			System.out.println("visit DB service clinical Notes: ");
-			System.out.println(entity.getClinicalNotes());
 			mOrder.setBH_ClinicalNotes(entity.getClinicalNotes());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getLabNotes())) {
-			System.out.println("visit DB service lab Notes: ");
-			System.out.println(entity.getLabNotes());
 			mOrder.setBH_LabNotes(entity.getLabNotes());
 		}
 
