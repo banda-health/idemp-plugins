@@ -25,8 +25,8 @@
 			<style backcolor="#FFFFFF"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="Begin Date" class="java.sql.Date"/>
-	<parameter name="End Date" class="java.sql.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="Mode" class="java.lang.String"/>
 	<parameter name="Type" class="java.lang.String"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
@@ -50,7 +50,7 @@ billdetails as (
              left join c_order co on ol.c_order_id = co.c_order_id
              inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
              inner join ad_user on co.createdby = ad_user.ad_user_id
-             LEFT join  c_charge c on ol.c_charge_id = c.c_charge_id
+             left join c_charge c on ol.c_charge_id = c.c_charge_id
              cross join params p
     where ((co.ad_client_id = p.ad_client_id)
         AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
@@ -58,7 +58,6 @@ billdetails as (
         and (p.Type = '' OR c.name = p.Type)
                AND issotrx = 'Y'
         )
-          AND ol.c_charge_id IS NOT NULL
     group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
     order by 1
 ), BillTotal as (
@@ -200,7 +199,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 				<reportElement x="0" y="0" width="239" height="20" uuid="8f97d6f9-8c95-4fb0-85be-6a7c402bbdde"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Non-Patients Payment Report]]></text>
 			</staticText>
