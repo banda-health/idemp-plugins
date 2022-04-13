@@ -81,6 +81,13 @@
         $P{AD_CLIENT_ID} as ad_client_id,
         date($P{Begin Date}) as begin_date,
         date($P{End Date}) as end_date
+), non_reversed_inoutlines as (
+    SELECT
+        iol.m_inoutline_id
+    FROM m_inoutline iol
+        JOIN params p ON p.ad_client_id = iol.ad_client_id
+        LEFT JOIN m_inoutline riol ON iol.m_inoutline_id = riol.reversalline_id
+    WHERE riol.m_inoutline_id IS NULL AND iol.reversalline_id IS NULL
 )
 select billitems.item_name                                                                           as item_name,
        sum(billdetails.quantity)                                                                     as quantity,
@@ -101,18 +108,22 @@ from (
          inner join
      (
          select coline.m_product_id,
-                coline.qtyordered   as quantity,
+                sum(iolma.movementqty)   as quantity,
                 coline.priceentered as saleprice,
-                coline.linenetamt   as amount,
-                coline.m_attributesetinstance_id
+                sum(iolma.movementqty) * coline.priceentered   as amount,
+                iolma.m_attributesetinstance_id
          from c_orderline coline
                   inner join c_order sorder on coline.c_order_id = sorder.c_order_id
              and sorder.bh_isexpense = 'N'
                   inner join m_product item on coline.m_product_id = item.m_product_id
              and item.producttype = 'I'
              join params p on coline.ad_client_id = p.ad_client_id
+            join m_inoutline iol on coline.c_orderline_id = iol.c_orderline_id
+            join non_reversed_inoutlines nriol on nriol.m_inoutline_id = iol.m_inoutline_id
+            join m_inoutlinema iolma on iol.m_inoutline_id = iolma.m_inoutline_id
          where coline.processed = 'Y'
            and date(sorder.bh_visitdate) BETWEEN p.begin_date and p.end_date
+        group by coline.m_product_id, coline.priceentered, iolma.m_attributesetinstance_id
      ) as billdetails on billitems.m_product_id = billdetails.m_product_id
          left join (
     select m_product_id,
