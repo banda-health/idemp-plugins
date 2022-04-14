@@ -423,7 +423,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
 							getVisitsCount(patient.get_ID()), getLastVisitDate(patient)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
-					instance.isBH_NewVisit(), clinicalNotes, labNotes, instance.getDescription(), new PatientType(patientType),
+					instance.isBH_NewVisit(), clinicalNotes, instance.getDescription(), new PatientType(patientType),
 					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),

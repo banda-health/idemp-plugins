@@ -44,7 +44,7 @@ public class Visit extends Order {
 	}
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
-			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String clinicalNotes, String labNotes, String diagnosis,
+			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String clinicalNotes, String diagnosis,
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
 			String respiratoryRate, String height, String weight,
@@ -55,7 +55,7 @@ public class Visit extends Order {
 
 		this.newVisit = newVisit;
 		this.clinicalNotes = clinicalNotes;
-		this.labNotes = labNotes;
+		this.labNotes = order.getBH_LabNotes();
 		this.patientType = patientType;
 		this.referral = referral;
 		this.patient = patient;
