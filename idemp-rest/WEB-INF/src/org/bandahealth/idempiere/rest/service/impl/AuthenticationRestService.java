@@ -152,7 +152,7 @@ public class AuthenticationRestService {
 					+ MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_UU + " =? AND " + MUser.Table_Name
 					+ "." + MUser.COLUMNNAME_IsActive + "=? AND " + MClient.Table_Name + "."
 					+ MClient.COLUMNNAME_IsActive + " =? AND " + MClient.Table_Name + "."
-					+ MClient.COLUMNNAME_AD_Client_ID + " =? AND " + MRoleOrgAccess.Table_Name + "."
+					+ MClient.COLUMNNAME_AD_Client_UU + " =? AND " + MRoleOrgAccess.Table_Name + "."
 					+ MRoleOrgAccess.COLUMNNAME_AD_Org_ID + " IS NOT NULL";
 
 			List<Object> parameters = new ArrayList<>();
