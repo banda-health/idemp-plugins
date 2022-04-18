@@ -34,22 +34,18 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 	private final String ERROR_NO_MENU = "Greenlight Menu Tree not found.";
 	private final String REPORTS_MENU_UUID = "Reports"; // does this change with translations?
 	private final String ERROR_NO_REPORTS = "No reports found..";
-	private final MMenu_BH rootMenu;
 	@Autowired
 	private WindowDBService windowDBService;
 	@Autowired
 	private ProcessDBService processDBService;
 
-	public MenuDBService() {
-		// This will be the same for all clients, so it can be initialized
-		rootMenu = getEntityByUuidFromDB(MMenu_BH.MENUUUID_GREENLIGHT);
+	public BaseListResponse<Menu> getAll(String rootUuid, Paging pagingInfo, String sortJson, String filterJson) {
+		MMenu_BH rootMenu = getEntityByUuidFromDB(rootUuid);
 		if (rootMenu == null) {
-			log.severe(ERROR_NO_MENU);
+			log.severe("Not menu found for root menu UU " + rootUuid);
+			return new BaseListResponse<>(new ArrayList<>(), pagingInfo);
 		}
-	}
-
-	public BaseListResponse<Menu> getAll(Paging pagingInfo, String sortJson, String filterJson) {
-		List<Menu> menus = getAll();
+		List<Menu> menus = getAll(rootMenu.get_ID());
 
 		// Arrange menus into their tree
 		Map<Integer, Menu> menusById = menus.stream().collect(Collectors.toMap(Menu::getId, menu -> menu));
@@ -63,11 +59,15 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 		createMenuTree(instanceRootMenu, menusById, menusByParentId);
 
-		return new BaseListResponse<>(Collections.singletonList(instanceRootMenu), pagingInfo);
+		return new BaseListResponse<>(instanceRootMenu.getSubMenus(), pagingInfo);
 	}
 
-	private List<Menu> getAll() {
-		List<X_AD_TreeNodeMM> allMenuTreeNodes = getAllNodesInTree();
+	public BaseListResponse<Menu> getAll(Paging pagingInfo, String sortJson, String filterJson) {
+		return getAll(MMenu_BH.MENUUUID_GREENLIGHT, pagingInfo, sortJson, filterJson);
+	}
+
+	private List<Menu> getAll(int rootNodeId) {
+		List<X_AD_TreeNodeMM> allMenuTreeNodes = getAllNodesInTree(rootNodeId);
 
 		List<Object> parameters = new ArrayList<>();
 		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
@@ -108,15 +108,19 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 	}
 
 	public List<Menu> getReports() {
-		return getAll().stream().filter(menu -> menu.getProcess() != null && menu.getProcess().getId() > 0)
+		MMenu_BH rootMenu = getEntityByUuidFromDB(MMenu_BH.MENUUUID_GREENLIGHT_REPORT_DROPDOWN);
+		if (rootMenu == null) {
+			throw new AdempiereException(ERROR_NO_REPORTS);
+		}
+		return getAll(rootMenu.get_ID()).stream().filter(menu -> menu.getProcess() != null && menu.getProcess().getId() > 0)
 				.collect(Collectors.toList());
 	}
 
-	private List<X_AD_TreeNodeMM> getAllNodesInTree() {
+	private List<X_AD_TreeNodeMM> getAllNodesInTree(int rootNodeId) {
 		List<X_AD_TreeNodeMM> allNodes = new ArrayList<>();
 		List<X_AD_TreeNodeMM> nodesToAdd =
 				new Query(Env.getCtx(), X_AD_TreeNodeMM.Table_Name, X_AD_TreeNodeMM.COLUMNNAME_Node_ID + "=?",
-						null).setParameters(rootMenu.get_ID()).list();
+						null).setParameters(rootNodeId).list();
 
 		// Continue fetching nodes while there are any
 		while (!nodesToAdd.isEmpty()) {

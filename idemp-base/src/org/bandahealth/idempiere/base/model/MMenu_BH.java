@@ -8,6 +8,7 @@ import org.compiere.model.MMenu;
 public class MMenu_BH extends MMenu {
 
 	public static final String MENUUUID_GREENLIGHT = "bb0670c5-0dc1-468a-8b85-a91b15407368";
+	public static final String MENUUUID_GREENLIGHT_REPORT_DROPDOWN = "35ce7d6a-cf7d-4962-a748-75e27d0121bf";
 	public static final String COLUMNNAME_IconClassName = "IconClassName";
 	
 	public static final String COLUMNNAME_ShowOnUIMenu = "showonuimenu";
