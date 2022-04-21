@@ -209,7 +209,6 @@ create temp table if not exists tmp_m_attributesetexclude
 
 -- Update the serial sequences
 SELECT setval(
-	m_attributesetexclude_id serial not null,
 	'tmp_m_attributesetexclude_m_attributesetexclude_id_seq',
 	(
 		SELECT currentnext
@@ -338,15 +337,23 @@ SELECT
 	m_attributesetexclude_uu
 FROM tmp_m_attributesetexclude;
 
+-- Clean up some odd data in the system client
+DELETE FROM m_attributesetexclude ase
+USING m_attributeset attrs 
+WHERE attrs.ad_client_id = 0 AND attrs.name = 'BandaHealthProductAttributeSet'
+	AND ase.m_attributeset_id = attrs.m_attributeset_id;
+
+DELETE FROM m_attributeset WHERE name = 'BandaHealthProductAttributeSet' AND ad_client_id = 0;
+
 /**********************************************************************************************************/
 -- 4. Rename the attribute set, plus add the serial control to it.
 /**********************************************************************************************************/
 -- Add the serial control to all existing attribute sets that were previously existing
 UPDATE m_attributeset attrs
-SET isserno = 'Y', m_sernoctl_id = snc.m_sernoctl
+SET isserno = 'Y', m_sernoctl_id = snc.m_sernoctl_id
 FROM tmp_m_sernoctl snc
 WHERE snc.ad_client_id = attrs.ad_client_id
-	AND attrs.m_sernoctl IS NULL
+	AND attrs.m_sernoctl_id IS NULL
 	AND attrs.name = 'BandaHealthProductAttributeSet';
 
 -- Rename all the old attribute sets
@@ -359,6 +366,7 @@ UPDATE m_attributeset SET name = 'With Expiry' WHERE name = 'BandaHealthProductA
 UPDATE m_product p
 SET m_attributeset_id = attrs.m_attributeset_id
 FROM m_attributeset attrs
+	JOIN tmp_ad_client_ids ci ON attrs.ad_client_id = ci.ad_client_id
 WHERE p.bh_hasexpiration = 'N'
 	AND attrs.ad_client_id = p.ad_client_id
 	AND attrs.name = 'Without Expiry';
@@ -366,6 +374,7 @@ WHERE p.bh_hasexpiration = 'N'
 UPDATE m_product p
 SET m_attributeset_id = attrs.m_attributeset_id
 FROM m_attributeset attrs
+	JOIN tmp_ad_client_ids ci ON attrs.ad_client_id = ci.ad_client_id
 WHERE p.bh_hasexpiration = 'Y'
 	AND attrs.ad_client_id = p.ad_client_id
 	AND attrs.name = 'With Expiry';
@@ -375,7 +384,7 @@ WHERE p.bh_hasexpiration = 'Y'
 /**********************************************************************************************************/
 -- For all products that have ASIs, just add the same serial number to them
 UPDATE m_attributesetinstance asi
-SET serno = 100, description = '#100_' || TO_CHAR(guaranteedate :: DATE, 'dd/mm/yyyy')
+SET serno = 100, description = '#100_' || TO_CHAR(guaranteedate :: DATE, 'mm/dd/yyyy')
 WHERE guaranteedate IS NOT NULL;
 
 -- For all products that do not expire, we need to create an ASI with the serial number for them,
@@ -403,7 +412,6 @@ create temp table if not exists tmp_m_attributesetinstance
 
 -- Update the serial sequences
 SELECT setval(
-	m_attributesetexclude_id serial not null,
 	'tmp_m_attributesetinstance_m_attributesetinstance_id_seq',
 	(
 		SELECT currentnext
@@ -421,8 +429,8 @@ INSERT INTO tmp_m_attributesetinstance (
 	tmp_m_product_id
 )
 SELECT
-	asi.ad_client_id,
-	asi.m_attributeset_id,
+	attrs.ad_client_id,
+	attrs.m_attributeset_id,
 	p.m_product_id
 FROM m_attributeset attrs
 	JOIN tmp_ad_client_ids ci ON attrs.ad_client_id = ci.ad_client_id
