@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -18,6 +19,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
+import org.bandahealth.idempiere.rest.model.AttributeSet;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.InventoryRecord;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -26,6 +28,7 @@ import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MAttributeSet;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
@@ -52,6 +55,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private InventoryRecordDBService inventoryRecordDBService;
 	@Autowired
 	private ProductCategoryDBService productCategoryDBService;
+	@Autowired
+	private AttributeSetDBService attributeSetDBService;
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -136,7 +141,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 				// Get the batched attribute sets
 				Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
-						inventoryList.getResults().stream().map(InventoryRecord::getAttributeSetInstanceId).collect(Collectors.toSet()));
+						inventoryList.getResults().stream().map(InventoryRecord::getAttributeSetInstanceId)
+								.collect(Collectors.toSet()));
 
 				for (InventoryRecord inventoryRecord : inventoryList.getResults()) {
 					// exclude expired products
@@ -149,7 +155,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 							inventoryRecord.getAttributeSetInstanceId());
 					if (inventoryRecord.getAttributeSetInstanceId() > 0) {
 						attribute.setAttributeSetInstanceUuid(
-								attributeSetInstancesByIds.get(inventoryRecord.getAttributeSetInstanceId()).getM_AttributeSetInstance_UU());
+								attributeSetInstancesByIds.get(inventoryRecord.getAttributeSetInstanceId())
+										.getM_AttributeSetInstance_UU());
 					}
 
 					// get quantity
@@ -220,10 +227,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
 				product.setDescription(entity.getDescription());
-			}
-
-			if (entity.isHasExpiration() != null) {
-				product.setBH_HasExpiration(entity.isHasExpiration());
 			}
 
 			if (entity.getReorderLevel() != null) {
@@ -304,15 +307,14 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			MProductCategory_BH productCategory = productCategoryDBService
 					.getEntityByIdFromDB(instance.getM_Product_Category_ID());
-			return new Product(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getM_Product_UU(),
-					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
-					instance.getName(), instance.getDescription(), instance.getValue(), instance.isStocked(),
-					instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.getProductType(),
-					instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
-					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
-					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin(),
-					productCategory.getM_Product_Category_UU(),
-					inventoryRecordDBService.getProductInventoryCount(instance.getM_Product_ID(), false));
+			return batchChildDataCalls(Collections.singletonList(
+					new Product(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getM_Product_UU(),
+							instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
+							instance.getName(), instance.getDescription(), instance.getValue(), instance.isStocked(),
+							instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.getProductType(),
+							instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL), instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
+							instance.getBH_PriceMargin(), productCategory.getM_Product_Category_UU(),
+							inventoryRecordDBService.getProductInventoryCount(instance.getM_Product_ID(), false), instance))).get(0);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 
@@ -324,9 +326,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	protected Product createInstanceWithDefaultFields(MProduct_BH product) {
 		try {
 			return new Product(product.getAD_Client_ID(), product.getAD_Org_ID(), product.getM_Product_UU(),
-					product.isActive(), DateUtil.parseDateOnly(product.getCreated()), product.getCreatedBy(),
-					product.getName(), product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(),
-					product.getBH_PriceMargin(), product.isBH_HasExpiration());
+					product.isActive(), DateUtil.parseDateOnly(product.getCreated()), product.getCreatedBy(), product.getName(),
+					product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(), product.getBH_PriceMargin(),
+					product);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
@@ -337,9 +339,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	protected Product createInstanceWithSearchFields(MProduct_BH product) {
 		try {
 			return new Product(product.getM_Product_UU(), product.getName(), product.getBH_BuyPrice(),
-					product.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration),
 					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice(), product.isActive(),
-					product.getBH_PriceMargin());
+					product.getBH_PriceMargin(), product);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
@@ -359,5 +360,26 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public Boolean deleteEntity(String entityUuid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	private List<Product> batchChildDataCalls(List<Product> models) {
+		// Get the attribute sets
+		Set<Integer> attributeSetIds =
+				models.stream().map(Product::getAttributeSetId).filter(attributeSetId -> attributeSetId > 0)
+						.collect(Collectors.toSet());
+
+		Map<Integer, MAttributeSet> attributeSetsById =
+				attributeSetIds.isEmpty() ? new HashMap<>() : attributeSetDBService.getByIds(attributeSetIds);
+		return models.stream().peek(product -> {
+			if (attributeSetsById.containsKey(product.getAttributeSetId())) {
+				product.setAttributeSet(new AttributeSet(attributeSetsById.get(product.getAttributeSetId())));
+			}
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Product> transformData(List<MProduct_BH> dbModels) {
+		List<Product> products = super.transformData(dbModels);
+		return batchChildDataCalls(products);
 	}
 }

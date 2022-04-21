@@ -7,6 +7,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -23,12 +24,14 @@ public class Product extends BaseEntity {
 	private BigDecimal buyPrice;
 	private BigDecimal sellPrice;
 	private String type;
-	private Boolean hasExpiration;
 	private BigDecimal priceMargin;
 	private String productCategoryUuid;
 	private BigDecimal totalQuantity;
 	private BigDecimal defaultStockLevel;
 	private List<StorageOnHand> storageOnHandList = new ArrayList<>();
+	@JsonIgnore
+	private Integer attributeSetId;
+	private AttributeSet attributeSet;
 
 	public Product() {
 	}
@@ -42,26 +45,26 @@ public class Product extends BaseEntity {
 		setBuyPrice(entity.getBH_BuyPrice());
 		setSellPrice(entity.getBH_SellPrice());
 		setType(entity.getProductType());
-		setHasExpiration(entity.isBH_HasExpiration());
 		setPriceMargin(entity.getBH_PriceMargin());
+		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
 	public Product(String name, String uuid, String type, BigDecimal totalQuantity, MProduct_BH entity) {
 		this.setName(name);
 		this.setUuid(uuid);
-		this.setHasExpiration(entity.isBH_HasExpiration());
 		this.buyPrice = entity.getBH_BuyPrice();
 		this.sellPrice = entity.getBH_SellPrice();
 		this.priceMargin = entity.getBH_PriceMargin();
 
 		this.type = type;
 		setTotalQuantity(totalQuantity);
+		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-								 String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
-								 String type, Integer reorderLevel, Integer reorderQuantity, Boolean hasExpiration,
-								 BigDecimal priceMargin, String productCategoryUuid, BigDecimal totalQuantity) {
+			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice, String type,
+			Integer reorderLevel, Integer reorderQuantity, BigDecimal priceMargin, String productCategoryUuid,
+			BigDecimal totalQuantity, MProduct_BH entity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		setValue(value);
@@ -71,34 +74,33 @@ public class Product extends BaseEntity {
 		this.type = type;
 		this.reorderLevel = reorderLevel;
 		this.reorderQuantity = reorderQuantity;
-		this.hasExpiration = hasExpiration;
 		this.priceMargin = priceMargin;
 		setProductCategoryUuid(productCategoryUuid);
 		setTotalQuantity(totalQuantity);
+		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-								 String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin,
-								 boolean hasExpiration) {
+			String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin, MProduct_BH entity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
 		this.priceMargin = priceMargin;
-		setHasExpiration(hasExpiration);
+		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
-	public Product(String uuid, String name, BigDecimal buyPrice, Boolean hasExpiration, String created,
-								 BigDecimal sellPrice, Boolean isActive, BigDecimal priceMargin) {
+	public Product(String uuid, String name, BigDecimal buyPrice, String created, BigDecimal sellPrice, Boolean isActive,
+			BigDecimal priceMargin, MProduct_BH entity) {
 		setUuid(uuid);
 		setName(name);
 		setCreated(created);
 		setIsActive(isActive);
 
 		this.buyPrice = buyPrice;
-		this.hasExpiration = hasExpiration;
 		this.sellPrice = sellPrice;
 		this.priceMargin = priceMargin;
+		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
 	@XmlElement
@@ -156,15 +158,6 @@ public class Product extends BaseEntity {
 	}
 
 	@XmlElement
-	public Boolean isHasExpiration() {
-		return hasExpiration;
-	}
-
-	public void setHasExpiration(Boolean hasExpiration) {
-		this.hasExpiration = hasExpiration;
-	}
-
-	@XmlElement
 	public BigDecimal getPriceMargin() {
 		return priceMargin;
 	}
@@ -204,5 +197,21 @@ public class Product extends BaseEntity {
 
 	public void setStorageOnHandList(List<StorageOnHand> storageOnHandList) {
 		this.storageOnHandList = storageOnHandList;
+	}
+
+	public Integer getAttributeSetId() {
+		return attributeSetId;
+	}
+
+	public void setAttributeSetId(Integer attributeSetId) {
+		this.attributeSetId = attributeSetId;
+	}
+
+	public AttributeSet getAttributeSet() {
+		return attributeSet;
+	}
+
+	public void setAttributeSet(AttributeSet attributeSet) {
+		this.attributeSet = attributeSet;
 	}
 }

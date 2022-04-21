@@ -30,7 +30,6 @@ public class OrderLine extends BaseMetadata {
 	private BigDecimal quantity;
 	private BigDecimal lineNetAmount;
 	private Integer attributeSetInstanceId;
-	private String expiration;
 	private String instructions;
 	@JsonIgnore
 	private int chargeId;
@@ -39,13 +38,14 @@ public class OrderLine extends BaseMetadata {
 	private String description;
 	@JsonIgnore
 	private MOrder_BH order;
+	private AttributeSetInstance attributeSetInstance;
 
 	public OrderLine() {
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
 			Integer orderId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
-			String expiration, String instructions, MOrderLine_BH entity) {
+			String instructions, MOrderLine_BH entity) {
 		super(entity);
 
 		this.orderId = orderId;
@@ -53,10 +53,10 @@ public class OrderLine extends BaseMetadata {
 		this.price = price;
 		this.quantity = quantity;
 		this.lineNetAmount = lineNetAmount;
-		this.expiration = expiration;
 		this.instructions = instructions;
 		setChargeId(entity.getC_Charge_ID());
 		setDescription(entity.getDescription());
+		this.attributeSetInstanceId = entity.getM_AttributeSetInstance_ID();
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -71,25 +71,7 @@ public class OrderLine extends BaseMetadata {
 		this.lineNetAmount = lineNetAmount;
 		setChargeId(entity.getC_Charge_ID());
 		setDescription(entity.getDescription());
-	}
-
-	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer orderId, Product product, BigDecimal price, BigDecimal quantity) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.orderId = orderId;
-		this.product = product;
-		this.price = price;
-		this.quantity = quantity;
-	}
-
-	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer orderId, ExpenseCategory expenseCategory, BigDecimal price) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.orderId = orderId;
-		this.expenseCategory = expenseCategory;
-		this.price = price;
+		this.attributeSetInstanceId = entity.getM_AttributeSetInstance_ID();
 	}
 
 	@XmlElement
@@ -156,15 +138,6 @@ public class OrderLine extends BaseMetadata {
 	}
 
 	@XmlElement
-	public String getExpiration() {
-		return expiration;
-	}
-
-	public void setExpiration(String expiration) {
-		this.expiration = expiration;
-	}
-
-	@XmlElement
 	public String getInstructions() {
 		return instructions;
 	}
@@ -211,5 +184,13 @@ public class OrderLine extends BaseMetadata {
 
 	public void setOrder(MOrder_BH order) {
 		this.order = order;
+	}
+
+	public AttributeSetInstance getAttributeSetInstance() {
+		return attributeSetInstance;
+	}
+
+	public void setAttributeSetInstance(AttributeSetInstance attributeSetInstance) {
+		this.attributeSetInstance = attributeSetInstance;
 	}
 }

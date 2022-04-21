@@ -109,10 +109,6 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setM_AttributeSetInstance_ID(entity.getAttributeSetInstanceId());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getExpiration())) {
-			mOrderLine.setBH_Expiration(DateUtil.getTimestamp(entity.getExpiration()));
-		}
-
 		if (StringUtil.isNotNullAndEmpty(entity.getInstructions())) {
 			mOrderLine.setBH_Instructions(entity.getInstructions());
 		}
@@ -170,10 +166,10 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
 						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
 						instance.getC_Order_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), 
+						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(),
 								inventoryRecordDbService.getProductInventoryCount(instance.getM_Product_ID(), false), product),
 						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
-						DateUtil.parse(instance.getBH_Expiration()), instance.getBH_Instructions(), instance);
+						instance.getBH_Instructions(), instance);
 			} else {
 				// check charge
 				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());

@@ -20,6 +20,8 @@ public class AttributeSetInstance extends BaseMetadata {
 	private ReferenceList updateReason;
 
 	private Integer attributeSetInstanceId;
+	private String serialNumber;
+	private String lot;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -29,6 +31,8 @@ public class AttributeSetInstance extends BaseMetadata {
 	public AttributeSetInstance(MAttributeSetInstance_BH model) {
 		super(model);
 		setGuaranteeDate(model.getGuaranteeDate());
+		this.serialNumber = model.getSerNo();
+		this.lot = model.getLot();
 	}
 
 	@XmlElement
@@ -56,5 +60,25 @@ public class AttributeSetInstance extends BaseMetadata {
 	
 	public void setAttributeSetId(Integer attributeSetInstanceId) {
 		this.attributeSetInstanceId = attributeSetInstanceId;
+	}
+
+	public void setAttributeSetInstanceId(Integer attributeSetInstanceId) {
+		this.attributeSetInstanceId = attributeSetInstanceId;
+	}
+
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	public String getLot() {
+		return lot;
+	}
+
+	public void setLot(String lot) {
+		this.lot = lot;
 	}
 }

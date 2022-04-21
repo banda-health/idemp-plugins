@@ -1,12 +1,18 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
@@ -38,6 +44,8 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	protected ProcessDBService processDBService;
 	@Autowired
 	protected VoidedReasonDBService voidedReasonDBService;
+	@Autowired
+	protected AttributeSetInstanceDBService attributeSetInstanceDBService;
 
 	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
 
@@ -248,5 +256,26 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		}
 
 		return super.saveAndProcessEntity(entity, docAction);
+	}
+
+	@Override
+	public List<T> transformData(List<MOrder_BH> dbModels) {
+		List<T> orders = super.transformData(dbModels);
+
+		// Get any ASIs that need to be added
+		Set<Integer> attributeSetInstanceIds =
+				orders.stream().flatMap(order -> order.getOrderLines().stream()).map(OrderLine::getAttributeSetInstanceId)
+						.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet());
+		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
+				attributeSetInstanceIds.isEmpty() ? new HashMap<>() :
+						attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
+
+		orders.stream().flatMap(order -> order.getOrderLines().stream()).forEach(orderLine -> {
+			if (attributeSetInstancesById.containsKey(orderLine.getAttributeSetInstanceId())) {
+				orderLine.setAttributeSetInstance(
+						new AttributeSetInstance(attributeSetInstancesById.get(orderLine.getAttributeSetInstanceId())));
+			}
+		});
+		return orders;
 	}
 }
