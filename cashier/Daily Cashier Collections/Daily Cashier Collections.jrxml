@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Cashier Collections" pageWidth="1430" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1430" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Cashier Collections" pageWidth="1480" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1480" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -148,7 +139,7 @@ from billdetails
     left join bill_items on billdetails.c_order_id = bill_items.c_order_id
     left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
     left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
+order by date(billdetails.bill_date) ASC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -259,8 +250,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.sql.Timestamp"/>
-	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
@@ -269,7 +260,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="1740" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
+				<reportElement x="0" y="0" width="1480" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -282,7 +273,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cashier transaction and Payment Totals Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cashier Transaction and Payment Totals Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -290,7 +281,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 		<band height="64" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<staticText>
-				<reportElement key="" x="0" y="0" width="1740" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
+				<reportElement key="" x="0" y="0" width="1480" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -299,7 +290,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 				<text><![CDATA[No data was found to display on the report]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="0" y="0" width="1430" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="1480" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -319,22 +310,23 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="100" uuid="2e918708-7435-4e89-82c3-665e206e7dc5">
+					<jr:column width="150" uuid="2e918708-7435-4e89-82c3-665e206e7dc5">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="100" height="30" uuid="51a7ec07-b72e-4573-974d-a69b9f0c49bf"/>
+								<reportElement x="0" y="0" width="150" height="30" uuid="51a7ec07-b72e-4573-974d-a69b9f0c49bf"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Bill Date & date]]></text>
+								<text><![CDATA[Bill Time & Date]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="00832274-ddb5-4b2c-b800-a4025a10f934"/>
+							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy HH:mm:ss">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="150" height="17" uuid="00832274-ddb5-4b2c-b800-a4025a10f934"/>
 								<box leftPadding="2"/>
 								<textElement>
 									<font fontName="DejaVu Sans" size="12"/>
