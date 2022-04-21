@@ -526,28 +526,28 @@ WHERE c.m_product_id = asi.tmp_m_product_id
 UPDATE M_InventoryLineMA ilma
 SET m_attributesetinstance_id = asi.m_attributesetinstance_id
 FROM m_inventoryline il
-	JOIN tmp_m_attributesetinstance asi ON il.m_product_id = asi.tmp_m_product_id AND il.m_attributesetexclude_id = asi.m_attributesetexclude_id
+	JOIN tmp_m_attributesetinstance asi ON il.m_product_id = asi.tmp_m_product_id AND il.m_attributesetinstance_id = asi.m_attributesetinstance_id
 WHERE ilma.m_inventoryline_id = il.m_inventoryline_id
 	AND ilma.m_attributesetinstance_id = 0;
 
 UPDATE M_MovementLineMA mlma
 SET m_attributesetinstance_id = asi.m_attributesetinstance_id
 FROM m_movementline ml
-	JOIN tmp_m_attributesetinstance asi ON ml.m_product_id = asi.tmp_m_product_id AND ml.m_attributesetexclude_id = asi.m_attributesetexclude_id
+	JOIN tmp_m_attributesetinstance asi ON ml.m_product_id = asi.tmp_m_product_id AND ml.m_attributesetinstance_id = asi.m_attributesetinstance_id
 WHERE mlma.m_movementline_id = ml.m_movementline_id
 	AND mlma.m_attributesetinstance_id = 0;
 
 UPDATE M_InOutLineMA iolma
 SET m_attributesetinstance_id = asi.m_attributesetinstance_id
 FROM m_inoutline iol
-	JOIN tmp_m_attributesetinstance asi ON iol.m_product_id = asi.tmp_m_product_id AND iol.m_attributesetexclude_id = asi.m_attributesetexclude_id
+	JOIN tmp_m_attributesetinstance asi ON iol.m_product_id = asi.tmp_m_product_id AND iol.m_attributesetinstance_id = asi.m_attributesetinstance_id
 WHERE iolma.m_inoutline_id = iol.m_inoutline_id
 	AND iolma.m_attributesetinstance_id = 0;
 
 UPDATE M_CostHistory ch
 SET m_attributesetinstance_id = asi.m_attributesetinstance_id
 FROM m_costdetail cd
-	JOIN tmp_m_attributesetinstance asi ON cd.m_product_id = asi.tmp_m_product_id AND cd.m_attributesetexclude_id = asi.m_attributesetexclude_id
+	JOIN tmp_m_attributesetinstance asi ON cd.m_product_id = asi.tmp_m_product_id AND cd.m_attributesetinstance_id = asi.m_attributesetinstance_id
 WHERE ch.m_costdetail_id = cd.m_costdetail_id
 	AND ch.m_attributesetinstance_id = 0;
 
