@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.AttributeSet;
 import org.bandahealth.idempiere.rest.model.SerialNumberControl;
-import org.compiere.model.MAttributeSet;
-import org.compiere.model.MSerNoCtl;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class AttributeSetDBService extends BaseDBService<AttributeSet, MAttributeSet> {
+public class AttributeSetDBService extends BaseDBService<AttributeSet, MAttributeSet_BH> {
 	@Autowired
 	private SerialNumberControlDBService serialNumberControlDBService;
 
@@ -32,35 +32,35 @@ public class AttributeSetDBService extends BaseDBService<AttributeSet, MAttribut
 	}
 
 	@Override
-	protected AttributeSet createInstanceWithDefaultFields(MAttributeSet instance) {
+	protected AttributeSet createInstanceWithDefaultFields(MAttributeSet_BH instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected AttributeSet createInstanceWithAllFields(MAttributeSet instance) {
+	protected AttributeSet createInstanceWithAllFields(MAttributeSet_BH instance) {
 		return new AttributeSet(instance);
 	}
 
 	@Override
-	protected AttributeSet createInstanceWithSearchFields(MAttributeSet instance) {
+	protected AttributeSet createInstanceWithSearchFields(MAttributeSet_BH instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected MAttributeSet getModelInstance() {
-		return new MAttributeSet(Env.getCtx(), 0, null);
+	protected MAttributeSet_BH getModelInstance() {
+		return new MAttributeSet_BH(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	public List<AttributeSet> transformData(List<MAttributeSet> dbModels) {
+	public List<AttributeSet> transformData(List<MAttributeSet_BH> dbModels) {
 		if (dbModels == null || dbModels.isEmpty()) {
 			return new ArrayList<>();
 		}
 
 		// Get the serial number controls
-		Set<Integer> serialNumberControlIds = dbModels.stream().map(MAttributeSet::getM_SerNoCtl_ID)
+		Set<Integer> serialNumberControlIds = dbModels.stream().map(MAttributeSet_BH::getM_SerNoCtl_ID)
 				.filter(serialNumberControlId -> serialNumberControlId > 0).collect(Collectors.toSet());
-		Map<Integer, MSerNoCtl> serialNumberControlsById = serialNumberControlIds.isEmpty() ? new HashMap<>() :
+		Map<Integer, MSerNoCtl_BH> serialNumberControlsById = serialNumberControlIds.isEmpty() ? new HashMap<>() :
 				serialNumberControlDBService.getByIds(serialNumberControlIds);
 
 		return dbModels.stream().map(this::createInstanceWithDefaultFields).peek(attributeSet -> {

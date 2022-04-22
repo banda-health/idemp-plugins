@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
@@ -28,7 +29,6 @@ import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MAttributeSet;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
@@ -368,7 +368,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				models.stream().map(Product::getAttributeSetId).filter(attributeSetId -> attributeSetId > 0)
 						.collect(Collectors.toSet());
 
-		Map<Integer, MAttributeSet> attributeSetsById =
+		Map<Integer, MAttributeSet_BH> attributeSetsById =
 				attributeSetIds.isEmpty() ? new HashMap<>() : attributeSetDBService.getByIds(attributeSetIds);
 		return models.stream().peek(product -> {
 			if (attributeSetsById.containsKey(product.getAttributeSetId())) {

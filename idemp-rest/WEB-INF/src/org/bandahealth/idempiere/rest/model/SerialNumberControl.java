@@ -1,6 +1,8 @@
 package org.bandahealth.idempiere.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.compiere.model.MSerNoCtl;
 
 public class SerialNumberControl extends BaseEntity {
@@ -10,20 +12,20 @@ public class SerialNumberControl extends BaseEntity {
 	private int currentNext;
 	private String prefix;
 	private String suffix;
-	@JsonIgnore
-	private MSerNoCtl model;
+	@JsonProperty("isLocked")
+	private boolean isLocked;
 
 	public SerialNumberControl() {
 	}
 
-	public SerialNumberControl(MSerNoCtl model) {
+	public SerialNumberControl(MSerNoCtl_BH model) {
 		super(model, model.getName(), model.getDescription(), null);
 		this.startNumber = model.getStartNo();
 		this.incrementNumber = model.getIncrementNo();
 		this.currentNext = model.getCurrentNext();
 		this.prefix = model.getPrefix();
 		this.suffix = model.getSuffix();
-		this.model = model;
+		this.isLocked = model.isBH_Locked();
 	}
 
 	public int getStartNumber() {
@@ -66,7 +68,11 @@ public class SerialNumberControl extends BaseEntity {
 		this.suffix = suffix;
 	}
 
-	public MSerNoCtl getModel() {
-		return model;
+	public boolean isLocked() {
+		return isLocked;
+	}
+
+	public void setLocked(boolean locked) {
+		isLocked = locked;
 	}
 }
