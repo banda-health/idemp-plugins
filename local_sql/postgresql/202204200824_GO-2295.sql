@@ -556,4 +556,4 @@ WHERE ch.m_costdetail_id = cd.m_costdetail_id
 /**********************************************************************************************************/
 SELECT update_sequences();
 
-SELECT register_migration_script('202203250914_GO-2220.sql') FROM dual;
+SELECT register_migration_script('202204200824_GO-2295.sql') FROM dual;
