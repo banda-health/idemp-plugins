@@ -4,17 +4,27 @@
 -- field as our guide.
 
 -- Process:
--- 1. Add serial controls to all clients, including the configuration one.
--- 2. Add new Attribute Sets to all clients, including the configuration one (and also add exclusions).
--- 3. Add the existing Attribute Set that should be present on all clients to any clients that don't have it.
--- 4. Rename the attribute set, plus add the serial control to it.
--- 5. Update products that don't expire to point to the new attribute set, and all products that do expire to point
+-- 1. Add the locked columns to serial number control and attribute set to hold our defaults
+-- 2. Add serial controls to all clients, including the configuration one.
+-- 3. Add new Attribute Sets to all clients, including the configuration one (and also add exclusions).
+-- 4. Add the existing Attribute Set that should be present on all clients to any clients that don't have it.
+-- 5. Rename the attribute set, plus add the serial control to it.
+-- 6. Update products that don't expire to point to the new attribute set, and all products that do expire to point
 --		to the correct attribute set (they should already, but just in case)
--- 6. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
+-- 7. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
 /**********************************************************************************************************/
 
 /**********************************************************************************************************/
--- 1. Add serial controls to the clients
+-- 1. Add the locked columns to serial number control and attribute set to hold our defaults
+/**********************************************************************************************************/
+ALTER TABLE M_SerNoCtl ADD IF NOT EXISTS BH_Locked CHAR(1) DEFAULT 'N' CHECK (BH_Locked IN ('Y','N'));
+ALTER TABLE M_AttributeSet ADD IF NOT EXISTS BH_Locked CHAR(1) DEFAULT 'N' CHECK (BH_Locked IN ('Y','N'));
+
+INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder) VALUES ((SELECT MAX(ad_column_id) + 1 FROM ad_column), 0, 0, 'Y', '2022-04-22 05:09:15.211000', '2022-04-22 05:09:15.211000', 100, 100, 'BH_Locked', 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)', null, 0, 'U', 'BH_Locked', 555, 20, null, null, 1, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', 1000144, null, 'N', 'N', null, null, null, 'N', 'Y', null, '8dbe2d3c-9101-4ec0-9a72-ae080a63e67b', 'Y', 0, 'N', 'N', null, null, 'N', null, null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder) VALUES ((SELECT MAX(ad_column_id) + 1 FROM ad_column), 0, 0, 'Y', '2022-04-22 05:10:12.706000', '2022-04-22 05:10:12.706000', 100, 100, 'BH_Locked', 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)', null, 0, 'U', 'BH_Locked', 560, 20, null, null, 1, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', 1000144, null, 'N', 'N', null, null, null, 'N', 'Y', null, '51c0f596-28f0-4f9b-847e-5ae897137e16', 'Y', 0, 'N', 'N', null, null, 'N', null, null) ON CONFLICT DO NOTHING;
+
+/**********************************************************************************************************/
+-- 2. Add serial controls to the clients
 /**********************************************************************************************************/
 CREATE TEMP TABLE if not exists tmp_ad_client_ids (
 	ad_client_id numeric(10) not null
@@ -37,7 +47,8 @@ create temp table if not exists tmp_m_sernoctl
 	suffix varchar(10),
 	createdby numeric(10) default 100 not null,
 	-- updated timestamp default now() not null,
-	m_sernoctl_uu uuid default uuid_generate_v4()
+	m_sernoctl_uu uuid default uuid_generate_v4(),
+	bh_locked varchar(1) default 'Y' not null
 );
 
 -- Update the serial sequences
@@ -80,7 +91,8 @@ INSERT INTO m_sernoctl (
 	prefix,
 	suffix,
 	createdby,
-	m_sernoctl_uu
+	m_sernoctl_uu,
+	bh_locked
 )
 SELECT
 	m_sernoctl_id,
@@ -95,11 +107,12 @@ SELECT
 	prefix,
 	suffix,
 	createdby,
-	m_sernoctl_uu
+	m_sernoctl_uu,
+	bh_locked
 FROM tmp_m_sernoctl;
 
 /**********************************************************************************************************/
--- 2. Add new attribute sets for all clients to handle products that don't expire
+-- 3. Add new attribute sets for all clients to handle products that don't expire
 /**********************************************************************************************************/
 create temp table if not exists tmp_m_attributeset
 (
@@ -129,9 +142,10 @@ create temp table if not exists tmp_m_attributeset
 	-- lotchareoverwrite char,
 	-- sernochareoverwrite char,
 	m_attributeset_uu uuid default uuid_generate_v4(),
-	useguaranteedateformpolicy char default 'N'::bpchar
+	useguaranteedateformpolicy char default 'N'::bpchar,
 	-- isautogeneratelot char default 'N'::bpchar,
 	-- m_attributeset_type varchar(3) default 'MMS'::character varying
+	bh_locked varchar(1) default 'Y'
 );
 
 -- Update the serial sequences
@@ -171,7 +185,8 @@ INSERT INTO m_attributeset (
 	guaranteedays,
 	isinstanceattribute,
 	m_attributeset_uu,
-	useguaranteedateformpolicy
+	useguaranteedateformpolicy,
+	bh_locked
 )
 SELECT
 	m_attributeset_id,
@@ -187,7 +202,8 @@ SELECT
 	guaranteedays,
 	isinstanceattribute,
 	m_attributeset_uu,
-	useguaranteedateformpolicy
+	useguaranteedateformpolicy,
+	bh_locked
 FROM tmp_m_attributeset;
 
 -- Add the correct exclusions for this Attribute Set
@@ -250,7 +266,7 @@ SELECT
 FROM tmp_m_attributesetexclude;
 
 /**********************************************************************************************************/
--- 3. Add the existing Attribute Set that should be present on all clients to any clients that don't have it.
+-- 4. Add the existing Attribute Set that should be present on all clients to any clients that don't have it.
 /**********************************************************************************************************/
 TRUNCATE tmp_m_attributeset;
 
@@ -346,7 +362,7 @@ WHERE attrs.ad_client_id = 0 AND attrs.name = 'BandaHealthProductAttributeSet'
 DELETE FROM m_attributeset WHERE name = 'BandaHealthProductAttributeSet' AND ad_client_id = 0;
 
 /**********************************************************************************************************/
--- 4. Rename the attribute set, plus add the serial control to it.
+-- 5. Rename the attribute set, plus add the serial control to it.
 /**********************************************************************************************************/
 -- Add the serial control to all existing attribute sets that were previously existing
 UPDATE m_attributeset attrs
@@ -360,7 +376,7 @@ WHERE snc.ad_client_id = attrs.ad_client_id
 UPDATE m_attributeset SET name = 'With Expiry' WHERE name = 'BandaHealthProductAttributeSet';
 
 /**********************************************************************************************************/
--- 5. Update products that don't expire to point to the new attribute set, and all products that do expire to point
+-- 6. Update products that don't expire to point to the new attribute set, and all products that do expire to point
 --		to the correct attribute set (they should already, but just in case)
 /**********************************************************************************************************/
 UPDATE m_product p
@@ -556,4 +572,4 @@ WHERE ch.m_costdetail_id = cd.m_costdetail_id
 /**********************************************************************************************************/
 SELECT update_sequences();
 
-SELECT register_migration_script('202203250914_GO-2220.sql') FROM dual;
+SELECT register_migration_script('202204200824_GO-2295.sql') FROM dual;
