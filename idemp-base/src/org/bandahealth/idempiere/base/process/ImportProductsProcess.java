@@ -505,14 +505,12 @@ public class ImportProductsProcess extends SvrProcess {
 		if (buyPrice == null) {
 			buyPrice = BigDecimal.ZERO;
 		}
+
+		int attributeSetInstanceId = QueryUtil.createAttributeSetInstance(0, expirationDate, get_TrxName(), getCtx());
+
 		MStorageOnHand lot1 = new MStorageOnHand(getCtx(), 0, get_TrxName());
 		lot1.setQtyOnHand(initialQuantity);
-		int attributeSetInstanceId = 0;
-		if (expirationDate != null) {
-			attributeSetInstanceId =
-					QueryUtil.createExpirationDateAttributeInstance(0, expirationDate, get_TrxName(), getCtx());
-			lot1.setM_AttributeSetInstance_ID(attributeSetInstanceId);
-		}
+		lot1.setM_AttributeSetInstance_ID(attributeSetInstanceId);
 		productQuantities.add(lot1);
 
 		// Create a new cost record

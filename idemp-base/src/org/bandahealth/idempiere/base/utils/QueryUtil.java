@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.DBException;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MAttributeSet;
@@ -87,31 +88,43 @@ public class QueryUtil {
 				.setParameters(QueryConstants.BASE_CLIENT_ID, QueryConstants.BASE_ORGANIZATION_ID);
 	}
 
-	public static int createExpirationDateAttributeInstance(int attributeSetInstanceId, Timestamp expirationDate,
+	public static int createAttributeSetInstance(int attributeSetInstanceId, Timestamp expirationDate,
 			String trxName, Properties ctx) {
 		MAttributeSetInstance asi = null;
 
 		if (attributeSetInstanceId > 0) {
 			asi = new MAttributeSetInstance(ctx, attributeSetInstanceId, trxName);
 		} else {
-			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-					+ MAttributeSet.COLUMNNAME_Name + ") = '"
-					+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
+			String attributeSetName = expirationDate != null ? MAttributeSet_BH.DEFAULT_WITH_EXPIRY_NAME 
+					: MAttributeSet_BH.DEFAULT_WITHOUT_EXPIRY_NAME;
+			
+			String whereClause = MAttributeSet.COLUMNNAME_Name + " =?";
+			
 			MAttributeSet attributeSet = new Query(ctx, MAttributeSet.Table_Name, whereClause, trxName)
-					.setOnlyActiveRecords(true).setClient_ID(true).first();
+					.setParameters(attributeSetName)
+					.setOnlyActiveRecords(true)
+					.setClient_ID(true)
+					.first();
 
 			if (attributeSet == null) {
-				throw new RuntimeException("Attribute set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
+				throw new RuntimeException("Attribute set '" + attributeSetName
 						+ " not defined for client.");
 			}
 
+			List<Object> parameters = new ArrayList<>();
 			// See if there is an attribute set instance for this product that already has
 			// this date
 			int attributeSetId = attributeSet.getM_AttributeSet_ID();
-			whereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate + "=? AND "
-					+ MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
+			parameters.add(attributeSetId);
+			
+			whereClause = MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
+			if (expirationDate != null) {
+				whereClause += " AND " + MAttributeSetInstance.COLUMNNAME_GuaranteeDate + "=?";
+				parameters.add(expirationDate);
+			}
+			
 			asi = new Query(ctx, MAttributeSetInstance.Table_Name, whereClause, trxName)
-					.setParameters(expirationDate, attributeSetId).first();
+					.setParameters(parameters).first();
 			if (asi == null) {
 				asi = new MAttributeSetInstance(ctx, 0, trxName);
 				asi.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
@@ -134,12 +147,12 @@ public class QueryUtil {
 			String trxName, Properties ctx) {
 		String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
 				+ MAttributeSet.COLUMNNAME_Name + ") = '"
-				+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
+				+ MAttributeSet_BH.DEFAULT_WITH_EXPIRY_NAME.toLowerCase() + "'";
 		MAttributeSet attributeSet = new Query(ctx, MAttributeSet.Table_Name, whereClause, trxName)
 				.setOnlyActiveRecords(true).setClient_ID(true).first();
 
 		if (attributeSet == null) {
-			throw new RuntimeException("Attribute set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
+			throw new RuntimeException("Attribute set '" + MAttributeSet_BH.DEFAULT_WITH_EXPIRY_NAME
 					+ " not defined for client.");
 		}
 

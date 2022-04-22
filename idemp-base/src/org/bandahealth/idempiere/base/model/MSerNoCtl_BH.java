@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MSerNoCtl_BH extends MSerNoCtl {
+	
+	public final static String DEFAULT_SERIAL_COUNTER_NAME = "Default Serial Counter";
+	public final static boolean DEFAULT_BH_LOCKED = true;
+	public final static int DEFAULT_START_NO = 100;
+	public final static int DEFAULT_INCREMENT_NO = 1;
+	public final static int DEFAULT_CURRENT_NEXT = 101;
+	
 	/**
 	 * Column name BH_Locked
 	 */

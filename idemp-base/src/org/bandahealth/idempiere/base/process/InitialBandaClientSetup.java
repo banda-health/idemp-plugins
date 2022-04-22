@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.base.process;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
-import org.bandahealth.idempiere.base.config.InternalSetupConfig;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MRole_BH;
@@ -253,7 +252,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			addLog(bandaSetup.getThenResetInfo());
 			
-			InternalSetupConfig.configureNewProductAttribSet(getCtx());
+			if (!bandaSetup.createProductAttributeSets()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating attribute sets failed"));
+			}
 
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);

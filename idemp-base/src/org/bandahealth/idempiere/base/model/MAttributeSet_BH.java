@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MAttributeSet_BH extends MAttributeSet {
+	
+	public final static String DEFAULT_WITH_EXPIRY_NAME = "With Expiry";
+	public final static String DEFAULT_WITHOUT_EXPIRY_NAME = "Without Expiry";
 	/**
 	 * Column name BH_Locked
 	 */
