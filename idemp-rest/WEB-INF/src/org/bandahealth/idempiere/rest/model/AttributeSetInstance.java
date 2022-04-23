@@ -22,6 +22,7 @@ public class AttributeSetInstance extends BaseMetadata {
 	private Integer attributeSetInstanceId;
 	private String serialNumber;
 	private String lot;
+	private AttributeSet attributeSet;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -80,5 +81,13 @@ public class AttributeSetInstance extends BaseMetadata {
 
 	public void setLot(String lot) {
 		this.lot = lot;
+	}
+
+	public AttributeSet getAttributeSet() {
+		return attributeSet;
+	}
+
+	public void setAttributeSet(AttributeSet attributeSet) {
+		this.attributeSet = attributeSet;
 	}
 }

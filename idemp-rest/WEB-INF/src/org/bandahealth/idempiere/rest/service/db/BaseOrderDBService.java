@@ -257,25 +257,4 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 
 		return super.saveAndProcessEntity(entity, docAction);
 	}
-
-	@Override
-	public List<T> transformData(List<MOrder_BH> dbModels) {
-		List<T> orders = super.transformData(dbModels);
-
-		// Get any ASIs that need to be added
-		Set<Integer> attributeSetInstanceIds =
-				orders.stream().flatMap(order -> order.getOrderLines().stream()).map(OrderLine::getAttributeSetInstanceId)
-						.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet());
-		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
-				attributeSetInstanceIds.isEmpty() ? new HashMap<>() :
-						attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
-
-		orders.stream().flatMap(order -> order.getOrderLines().stream()).forEach(orderLine -> {
-			if (attributeSetInstancesById.containsKey(orderLine.getAttributeSetInstanceId())) {
-				orderLine.setAttributeSetInstance(
-						new AttributeSetInstance(attributeSetInstancesById.get(orderLine.getAttributeSetInstanceId())));
-			}
-		});
-		return orders;
-	}
 }
