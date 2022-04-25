@@ -312,7 +312,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
 					instance.get_ValueAsBoolean(MProduct_BH.COLUMNNAME_BH_HasExpiration), instance.getBH_PriceMargin(),
 					productCategory.getM_Product_Category_UU(),
-					inventoryRecordDBService.getProductInventoryCount(instance.getM_Product_ID()));
+					inventoryRecordDBService.getProductInventoryCount(instance.getM_Product_ID(), false));
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 
