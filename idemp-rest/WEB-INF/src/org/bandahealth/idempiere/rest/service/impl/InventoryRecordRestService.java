@@ -9,6 +9,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.InventoryRecord;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
@@ -43,8 +44,7 @@ public class InventoryRecordRestService extends BaseEntityRestService<InventoryR
 	@Path(IRestConfigs.SAVE_PATH)
 	@Override
 	public InventoryRecord saveEntity(InventoryRecord entity) {
-		inventoryRecordDBService.updateStockItem(entity);
-		return entity;
+		throw new NotImplementedException();
 	}
 
 	@POST

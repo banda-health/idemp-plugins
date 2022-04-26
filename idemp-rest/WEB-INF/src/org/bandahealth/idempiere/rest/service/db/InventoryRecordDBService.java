@@ -1,24 +1,10 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.exceptions.DBException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
-import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
-import org.bandahealth.idempiere.base.process.InitializeStock;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.InventoryRecord;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -27,15 +13,21 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.SortUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
-import org.compiere.model.MDocType;
-import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
-import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class InventoryRecordDBService extends BaseDBService<InventoryRecord, MInventoryLine_BH> {
@@ -202,124 +194,6 @@ public class InventoryRecordDBService extends BaseDBService<InventoryRecord, MIn
 	 */
 	private int getTotalRecordCount(String sqlWhere, List<Object> parameters) {
 		return SqlUtil.getCount(X_BH_Stocktake_v.Table_Name, sqlWhere, parameters);
-	}
-
-	public void initializeStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct) {
-		InitializeStock.createInitialStock(inventoryByProduct, Env.getCtx(), null);
-	}
-
-	public Integer updateStockItem(InventoryRecord entity) {
-		String whereClause = MProduct_BH.COLUMNNAME_M_Product_ID + "="
-				+ entity.getProductId();
-		MProduct_BH productToUpdate = new Query(Env.getCtx(), MProduct_BH.Table_Name, whereClause, null)
-				.setClient_ID().first();
-		MStorageOnHand updateStorangeOnHand = new MStorageOnHand(Env.getCtx(), 0, null);
-		updateStorangeOnHand.setM_AttributeSetInstance_ID(entity.getAttributeSetInstanceId());
-		updateStorangeOnHand.setQtyOnHand(BigDecimal.valueOf(entity.getQuantity()));
-		Map<MProduct_BH, List<MStorageOnHand>> inventoryToUpdateMap = new HashMap<>();
-		inventoryToUpdateMap.put(productToUpdate, Collections.singletonList(updateStorangeOnHand));
-
-		if (inventoryToUpdateMap == null || inventoryToUpdateMap.keySet().isEmpty()) {
-			log.severe(NO_PRODUCTS_ADDED);
-			throw new AdempiereException(NO_PRODUCTS_ADDED);
-		}
-		int count = 0;
-
-		Integer warehouseId = entity.getWarehouseId();
-		MWarehouse warehouse = null;
-		if (warehouseId == 0) {
-			MWarehouse[] warehouses = MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx()));
-			if (warehouses != null && warehouses.length > 0) {
-				warehouse = warehouses[0];
-			} else {
-				log.severe(NO_DEFAULT_WAREHOUSE);
-				throw new AdempiereException(NO_DEFAULT_WAREHOUSE);
-			}
-		} else {
-			warehouse = MWarehouse.get(Env.getCtx(), warehouseId);
-		}
-
-		// Get the list of products that actually have inventory
-		Set<MProduct_BH> productsWithInitialInventory = inventoryToUpdateMap.entrySet().stream().filter(
-						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
-								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
-										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) >= 0)).map(Map.Entry::getKey)
-				.collect(Collectors.toSet());
-
-		Map<MProduct_BH, List<MStorageOnHand>> existingInventoryByProduct =
-				InitializeStock.getProductsAndInventory(new ArrayList<>(inventoryToUpdateMap.keySet()), Env.getCtx(), null);
-
-		int inventoryDocTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_MaterialPhysicalInventory);
-
-		MInventory_BH inventory = new MInventory_BH(Env.getCtx(), 0, null);
-		inventory.setAD_Org_ID(warehouse.getAD_Org_ID());
-
-		inventory.setM_Warehouse_ID(warehouse.get_ID());
-
-		inventory.setC_DocType_ID(inventoryDocTypeId);
-		if (entity.getUpdateReasonUuid() != null) {
-			inventory.setbh_update_reason(
-					referenceListDBService.getEntityByUuidFromDB(entity.getUpdateReasonUuid()).getValue());
-		}
-		inventory.save(null);
-
-		MWarehouse finalWarehouse = warehouse;
-		for (MProduct_BH product : productsWithInitialInventory) {
-			inventoryToUpdateMap.get(product).forEach((storageOnHand -> {
-				BigDecimal desiredQuantityOnHand = storageOnHand.getQtyOnHand();
-				List<MStorageOnHand> existingInventoryList = existingInventoryByProduct.get(product);
-
-				// If we should merge, we have to subtract out what's existing
-				// fetch non-expired mstorage
-				MStorageOnHand existingInventory = existingInventoryList.stream()
-						.filter(existingStorageOnHand -> existingStorageOnHand.getQtyOnHand()
-								.compareTo(storageOnHand.getQtyOnHand()) != 0)
-						.findFirst().orElse(existingInventoryList.get(0));
-				if (product.isBH_HasExpiration() || (storageOnHand.getM_AttributeSetInstance_ID() > 0)) {
-					Optional<MStorageOnHand> searchInventory = existingInventoryList.stream()
-							.filter(existingStorageOnHand -> existingStorageOnHand
-									.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID() &&
-									existingStorageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)
-							.findFirst();
-					// possibly an update for a -ve quantity. remove the qty check
-					if (searchInventory.isEmpty()) {
-						existingInventory = existingInventoryList.stream()
-								.filter(existingStorageOnHand -> existingStorageOnHand
-										.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID())
-								.findFirst().orElse(existingInventoryList.get(0));
-					} else {
-						existingInventory = searchInventory.get();
-					}
-				}
-
-				// If current quantity equals desired quantity, exit out
-				if (existingInventory.getQtyOnHand().compareTo(desiredQuantityOnHand) == 0) {
-					return;
-				}
-				desiredQuantityOnHand = desiredQuantityOnHand.subtract(existingInventory.getQtyOnHand());
-
-				MInventoryLine_BH inventoryLine = new MInventoryLine_BH(Env.getCtx(), 0, product.get_TrxName());
-				inventoryLine.setAD_Org_ID(inventory.getAD_Org_ID());
-				inventoryLine.setM_Product_ID(product.get_ID());
-				inventoryLine.setM_Inventory_ID(inventory.get_ID());
-
-				// Only set the attribute set instance ID (i.e. expiration date) if one was
-				// provided
-				if (storageOnHand.getM_AttributeSetInstance_ID() > 0) {
-					inventoryLine.setM_AttributeSetInstance_ID(storageOnHand.getM_AttributeSetInstance_ID());
-				}
-				inventoryLine.setQtyCount(desiredQuantityOnHand);
-				inventoryLine.setM_Locator_ID(finalWarehouse.getDefaultLocator().get_ID());
-
-				inventoryLine.save(product.get_TrxName());
-			}));
-			count++;
-		}
-
-		inventory.completeIt();
-		inventory.saveEx();
-
-		return count;
 	}
 
 	@Override

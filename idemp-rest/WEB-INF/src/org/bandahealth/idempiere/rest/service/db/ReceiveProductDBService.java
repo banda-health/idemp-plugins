@@ -123,6 +123,10 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 					orderLine.setAttributeSetInstance(
 							new AttributeSetInstance(attributeSetInstancesById.get(orderLine.getAttributeSetInstanceId())));
 				}
+				if (orderLine.getProduct() != null) {
+					orderLine.setProduct(
+							productDBService.batchChildDataCalls(Collections.singletonList(orderLine.getProduct())).get(0));
+				}
 			});
 
 			return result;

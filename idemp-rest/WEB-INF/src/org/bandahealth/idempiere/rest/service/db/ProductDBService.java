@@ -1,5 +1,40 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MProductCategory_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
+import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
+import org.bandahealth.idempiere.base.process.InitializeStock;
+import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
+import org.bandahealth.idempiere.rest.model.AttributeSet;
+import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.InventoryRecord;
+import org.bandahealth.idempiere.rest.model.Locator;
+import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Product;
+import org.bandahealth.idempiere.rest.model.SearchProduct;
+import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
+import org.bandahealth.idempiere.rest.model.SerialNumberControl;
+import org.bandahealth.idempiere.rest.model.StorageOnHand;
+import org.bandahealth.idempiere.rest.model.Warehouse;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MLocator;
+import org.compiere.model.MProduct;
+import org.compiere.model.MProductCategory;
+import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MTaxCategory;
+import org.compiere.model.MUOM;
+import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -11,34 +46,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
-import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
-import org.bandahealth.idempiere.base.model.MProductCategory_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
-import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
-import org.bandahealth.idempiere.rest.model.AttributeSet;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.InventoryRecord;
-import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Product;
-import org.bandahealth.idempiere.rest.model.SearchProduct;
-import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MProduct;
-import org.compiere.model.MProductCategory;
-import org.compiere.model.MStorageOnHand;
-import org.compiere.model.MTaxCategory;
-import org.compiere.model.MUOM;
-import org.compiere.model.MWarehouse;
-import org.compiere.model.Query;
-import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /*
  * Carry out all Product DB Operations.
@@ -57,6 +64,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private ProductCategoryDBService productCategoryDBService;
 	@Autowired
 	private AttributeSetDBService attributeSetDBService;
+	@Autowired
+	private SerialNumberControlDBService serialNumberControlDBService;
+	@Autowired
+	private LocatorDBService locatorDBService;
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
@@ -190,8 +201,10 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			MProduct_BH product;
 			MProduct_BH exists = getEntityByUuidFromDB(entity.getUuid());
+			boolean isProductNew = true;
 			if (exists != null) {
 				product = exists;
+				isProductNew = false;
 			} else {
 				product = getModelInstance();
 				product.setProductType(MProduct_BH.PRODUCTTYPE_Item);
@@ -259,36 +272,60 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			}
 
 			product.setIsActive(entity.getIsActive());
+			MAttributeSet_BH attributeSet = null;
+			if (entity.getAttributeSet() != null) {
+				attributeSet = attributeSetDBService.getEntityByUuidFromDB(entity.getAttributeSet().getUuid());
+				if (attributeSet != null) {
+					product.setM_AttributeSet_ID(attributeSet.get_ID());
+					entity.getAttributeSet().setId(attributeSet.get_ID());
+				}
+			}
 
 			product.saveEx();
 
 			// update inventory only for a new products with inventory
-			if (exists == null && entity.getStorageOnHandList() != null
+			if (isProductNew && entity.getStorageOnHandList() != null
 					&& entity.getStorageOnHandList().stream()
 					.anyMatch(storageOnHand -> storageOnHand.getQuantityOnHand() != null
 							&& storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0)) {
 				Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct = new HashMap<>();
-				// If it has expiration, cycle through the list and add the values
-				if (product.isBH_HasExpiration()) {
-					// Get the expiration date attribute set instance ids
-					Map<Timestamp, Integer> expirationDatesByAttributeSetInstanceId = QueryUtil
-							.createExpirationDateAttributeInstances(entity.getStorageOnHandList().stream()
-									.map(storageOnHand -> storageOnHand.getAttributeSetInstance().getGuaranteeDate())
-									.collect(Collectors.toSet()), null, Env.getCtx());
-					inventoryByProduct.put(product, entity.getStorageOnHandList().stream().map(storageOnHand -> {
-						MStorageOnHand storageOnHandToSave = new MStorageOnHand(Env.getCtx(), 0, null);
-						storageOnHandToSave.setQtyOnHand(storageOnHand.getQuantityOnHand());
-						storageOnHandToSave.setM_AttributeSetInstance_ID(expirationDatesByAttributeSetInstanceId
-								.get(storageOnHand.getAttributeSetInstance().getGuaranteeDate()));
-						return storageOnHandToSave;
-					}).collect(Collectors.toList()));
-				} else {
-					// Otherwise, just add the first
-					MStorageOnHand storageOnHand = new MStorageOnHand(Env.getCtx(), 0, null);
-					storageOnHand.setQtyOnHand(entity.getStorageOnHandList().get(0).getQuantityOnHand());
-					inventoryByProduct.put(product, Collections.singletonList(storageOnHand));
-				}
-				inventoryRecordDBService.initializeStock(inventoryByProduct);
+				List<StorageOnHand> storageWithQuantities = entity.getStorageOnHandList().stream().filter(
+						storageOnHand -> storageOnHand.getQuantityOnHand() != null &&
+								storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) > 0).collect(Collectors.toList());
+
+				// Save the ASIs
+				storageWithQuantities.forEach(storageOnHand -> {
+					AttributeSetInstance attributeSetInstance =
+							attributeSetInstanceDBService.saveEntity(storageOnHand.getAttributeSetInstance());
+					storageOnHand.setAttributeSetInstance(attributeSetInstance);
+				});
+
+				// Get the locator information
+				Set<String> locatorUuids = storageWithQuantities.stream().map(StorageOnHand::getLocator).map(Locator::getUuid)
+						.collect(Collectors.toSet());
+				Map<String, MLocator> locatorsByUuid =
+						locatorUuids.isEmpty() ? new HashMap<>() : locatorDBService.getByUuids(locatorUuids);
+
+				// Convert StorageOnHand to MStorageOnHand
+				inventoryByProduct.put(product, storageWithQuantities.stream().map(storageOnHand -> {
+					// NB: This model is NOT intended to be saved to the DB, but is a DTO only!
+					MStorageOnHand model = new MStorageOnHand(Env.getCtx(), 0, null);
+					model.setQtyOnHand(storageOnHand.getQuantityOnHand());
+					model.setM_Product_ID(product.getM_Product_ID());
+					if (storageOnHand.getLocator() != null && locatorsByUuid.containsKey(storageOnHand.getLocator().getUuid())) {
+						model.setM_Locator_ID(locatorsByUuid.get(storageOnHand.getLocator().getUuid()).getM_Locator_ID());
+					}
+					if (storageOnHand.getAttributeSetInstance() != null) {
+						model.setM_AttributeSetInstance_ID(storageOnHand.getAttributeSetInstance().getId());
+					}
+					model.setDateMaterialPolicy(new Timestamp(System.currentTimeMillis()));
+					return model;
+				}).collect(Collectors.toList()));
+
+				// Get the warehouse to use
+				Integer warehouseIdToUse = locatorsByUuid.values().stream().map(Locator::new).map(Locator::getWarehouse)
+						.filter(Warehouse::isDefaultWarehouse).map(Warehouse::getId).findFirst().orElse(0);
+				InitializeStock.createInitialStock(inventoryByProduct, Env.getCtx(), null, false, warehouseIdToUse);
 			}
 
 			return createInstanceWithAllFields(getEntityByUuidFromDB(product.getM_Product_UU()));
@@ -362,17 +399,26 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		return null;
 	}
 
-	private List<Product> batchChildDataCalls(List<Product> models) {
+	public List<Product> batchChildDataCalls(List<Product> models) {
 		// Get the attribute sets
 		Set<Integer> attributeSetIds =
 				models.stream().map(Product::getAttributeSetId).filter(attributeSetId -> attributeSetId > 0)
 						.collect(Collectors.toSet());
-
 		Map<Integer, MAttributeSet_BH> attributeSetsById =
 				attributeSetIds.isEmpty() ? new HashMap<>() : attributeSetDBService.getByIds(attributeSetIds);
+
+		// Get the serial number controls
+		Set<Integer> serialNumberControlIds =
+				attributeSetsById.values().stream().map(MAttributeSet_BH::getM_SerNoCtl_ID).collect(Collectors.toSet());
+		Map<Integer, MSerNoCtl_BH> serialNumberControlsById = serialNumberControlIds.isEmpty() ? new HashMap<>() :
+				serialNumberControlDBService.getByIds(serialNumberControlIds);
 		return models.stream().peek(product -> {
 			if (attributeSetsById.containsKey(product.getAttributeSetId())) {
 				product.setAttributeSet(new AttributeSet(attributeSetsById.get(product.getAttributeSetId())));
+				if (serialNumberControlsById.containsKey(product.getAttributeSet().getSerialNumberControlId())) {
+					product.getAttributeSet().setSerialNumberControl(new SerialNumberControl(
+							serialNumberControlsById.get(product.getAttributeSet().getSerialNumberControlId())));
+				}
 			}
 		}).collect(Collectors.toList());
 	}
