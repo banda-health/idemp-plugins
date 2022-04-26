@@ -12,6 +12,7 @@
 -- 6. Update products that don't expire to point to the new attribute set, and all products that do expire to point
 --		to the correct attribute set (they should already, but just in case)
 -- 7. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
+-- 8. Update reports that aren't needed anymore
 /**********************************************************************************************************/
 
 /**********************************************************************************************************/
@@ -396,15 +397,15 @@ WHERE p.bh_hasexpiration = 'Y'
 	AND attrs.name = 'With Expiry';
 
 /**********************************************************************************************************/
--- 6. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
+-- 7. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
 /**********************************************************************************************************/
 -- For all products that have ASIs, just add the same serial number to them
 UPDATE m_attributesetinstance asi
-SET serno = 100, description = '#100_' || TO_CHAR(guaranteedate :: DATE, 'mm/dd/yyyy')
+SET serno = '100', description = '#100_' || TO_CHAR(guaranteedate :: DATE, 'mm/dd/yyyy')
 WHERE guaranteedate IS NOT NULL;
 
 -- For all products that do not expire, we need to create an ASI with the serial number for them,
--- then update all locations using the ASI of 0 to be the one that was created
+-- then update all places in the DB using the ASI of 0 to be the one that was created
 create temp table if not exists tmp_m_attributesetinstance
 (
 	m_attributesetinstance_id serial not null,
@@ -416,7 +417,7 @@ create temp table if not exists tmp_m_attributesetinstance
 	-- updated timestamp default now() not null,
 	updatedby numeric(10) default 100 not null,
 	m_attributeset_id numeric(10),
-	serno varchar(40) default 100,
+	serno varchar(40) default '100',
 	-- lot varchar(40),
 	-- guaranteedate timestamp,
 	description varchar(255) default '#100',
@@ -476,8 +477,14 @@ SELECT
 	m_attributesetinstance_uu
 FROM tmp_m_attributesetinstance;
 
--- Now go through each table linking to the products that don't expire and update the ASI to point to theseselect * from M_InventoryLine -- has product ID
+-- Now go through each table linking to the products that don't expire and update the ASI to point to these
 -- These tables can directly join to the m_product_id
+UPDATE M_InventoryLine il
+SET m_attributesetinstance_id = asi.m_attributesetinstance_id
+FROM tmp_m_attributesetinstance asi
+WHERE il.m_product_id = asi.tmp_m_product_id
+	AND il.m_attributesetinstance_id = 0;
+
 UPDATE M_MatchPO mpo
 SET m_attributesetinstance_id = asi.m_attributesetinstance_id
 FROM tmp_m_attributesetinstance asi
@@ -566,6 +573,13 @@ FROM m_costdetail cd
 	JOIN tmp_m_attributesetinstance asi ON cd.m_product_id = asi.tmp_m_product_id AND cd.m_attributesetinstance_id = asi.m_attributesetinstance_id
 WHERE ch.m_costdetail_id = cd.m_costdetail_id
 	AND ch.m_attributesetinstance_id = 0;
+
+/**********************************************************************************************************/
+-- 8. Update reports that aren't needed anymore
+/**********************************************************************************************************/
+UPDATE ad_process SET isactive = 'N' WHERE ad_process_uu = 'a4d3210b-6dc8-44d3-bfbc-58e507078c30';
+UPDATE ad_process_para SET isactive = 'N' WHERE ad_process_id = (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'a4d3210b-6dc8-44d3-bfbc-58e507078c30');
+UPDATE ad_menu SET isactive = 'N' WHERE ad_menu_uu = 'b8bcb2f2-9ce5-42d7-84dd-edaef096e8dd';
 
 /**********************************************************************************************************/
 -- Wrap everything up
