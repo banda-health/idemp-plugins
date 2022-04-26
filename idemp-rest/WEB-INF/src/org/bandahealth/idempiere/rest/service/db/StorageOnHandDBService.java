@@ -20,6 +20,11 @@ import java.util.stream.Collectors;
 
 @Component
 public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorageOnHand> {
+	private static final String EXPIRE_WHERE_CLAUSE =
+			MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " IS NULL OR " +
+					MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate +
+					" >= now()::date)";
+
 	@Override
 	public Map<String, String> getDynamicJoins() {
 		return new HashMap<>() {{
@@ -87,14 +92,10 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 	 * @return The sum of the quantities of the storage on hand records
 	 */
 	public BigDecimal getQuantityOnHand(int productId, boolean includeExpired) {
-		String whereClause = MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND (" +
-				MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " IS NULL";
+		String whereClause = MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_Product_ID + "=?";
 		if (!includeExpired) {
-			whereClause +=
-					" OR " + MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate +
-							" >= now()::date";
+			whereClause += " AND (" + EXPIRE_WHERE_CLAUSE + ")";
 		}
-		whereClause += ")";
 
 		return new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null).addJoinClause(
 						getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name)).setParameters(productId)
@@ -113,9 +114,7 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 		}
 		String whereClause =
 				columnToSearch + " IN (" + whereCondition + ") AND CASE WHEN " + MAttributeSet_BH.Table_Name + "." +
-						MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=? THEN " + MAttributeSetInstance_BH.Table_Name + "." +
-						MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " IS NULL OR " + MAttributeSetInstance_BH.Table_Name +
-						"." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " >= now()::date ELSE 1=1 END";
+						MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=? THEN " + EXPIRE_WHERE_CLAUSE + " ELSE 1=1 END";
 		parameters.add(true);
 		List<MStorageOnHand> models = getBaseQuery(this.isClientIdFromTheContextNeededByDefaultForThisEntity(),
 				whereClause,
