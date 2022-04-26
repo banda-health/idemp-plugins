@@ -55,7 +55,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	@Autowired
 	private AccountDBService accountDBService;
 	@Autowired
-	private InventoryRecordDBService inventoryRecordDbService;
+	private StorageOnHandDBService storageOnHandDBService;
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
@@ -163,13 +163,16 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		try {
 			MProduct_BH product = productDBService.getEntityByIdFromDB(instance.getM_Product_ID());
 			if (product != null) {
-				return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
-						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-						instance.getC_Order_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(),
-								inventoryRecordDbService.getProductInventoryCount(instance.getM_Product_ID(), false), product),
-						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
-						instance.getBH_Instructions(), instance);
+				OrderLine orderLine =
+						new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
+								instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+								instance.getC_Order_ID(),
+								new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), product),
+								instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
+								instance.getBH_Instructions(), instance);
+				orderLine.getProduct()
+						.setTotalQuantity(storageOnHandDBService.getQuantityOnHand(instance.getM_Product_ID(), false));
+				return orderLine;
 			} else {
 				// check charge
 				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());

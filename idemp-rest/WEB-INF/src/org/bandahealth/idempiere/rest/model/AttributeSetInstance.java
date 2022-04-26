@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,10 +19,10 @@ public class AttributeSetInstance extends BaseMetadata {
 	
 	private Timestamp guaranteeDate;
 	private ReferenceList updateReason;
-
-	private Integer attributeSetInstanceId;
 	private String serialNumber;
 	private String lot;
+	@JsonIgnore
+	private Integer attributeSetId;
 	private AttributeSet attributeSet;
 
 	/**
@@ -46,25 +47,12 @@ public class AttributeSetInstance extends BaseMetadata {
 		return updateReason;
 	}
 	
-	@XmlElement
-	public Integer getAttributeSetInstanceId() {
-		return attributeSetInstanceId;
-	}
-	
 	public void setGuaranteeDate(Timestamp guaranteeDate) {
 		this.guaranteeDate = guaranteeDate;
 	}
 	
 	public void setUpdateReason(ReferenceList updateReason) {
 		this.updateReason = updateReason;
-	}
-	
-	public void setAttributeSetId(Integer attributeSetInstanceId) {
-		this.attributeSetInstanceId = attributeSetInstanceId;
-	}
-
-	public void setAttributeSetInstanceId(Integer attributeSetInstanceId) {
-		this.attributeSetInstanceId = attributeSetInstanceId;
 	}
 
 	public String getSerialNumber() {
@@ -89,5 +77,13 @@ public class AttributeSetInstance extends BaseMetadata {
 
 	public void setAttributeSet(AttributeSet attributeSet) {
 		this.attributeSet = attributeSet;
+	}
+
+	public Integer getAttributeSetId() {
+		return attributeSetId;
+	}
+
+	public void setAttributeSetId(Integer attributeSetId) {
+		this.attributeSetId = attributeSetId;
 	}
 }

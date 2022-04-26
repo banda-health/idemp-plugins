@@ -17,7 +17,7 @@ public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetIns
 
 	@Override
 	public AttributeSetInstance saveEntity(AttributeSetInstance entity) {
-		MAttributeSetInstance_BH attributeSetInstance = getEntityByIdFromDB(entity.getAttributeSetInstanceId());
+		MAttributeSetInstance_BH attributeSetInstance = getEntityByUuidFromDB(entity.getUuid());
 		// We'll do the following things for a new entity only
 		if (attributeSetInstance == null) {
 			attributeSetInstance = getModelInstance();

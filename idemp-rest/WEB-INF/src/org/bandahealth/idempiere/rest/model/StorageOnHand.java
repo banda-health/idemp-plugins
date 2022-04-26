@@ -24,14 +24,8 @@ public class StorageOnHand extends BaseMetadata {
 		super(model);
 
 		setQuantityOnHand(model.getQtyOnHand());
-	}
-
-	public StorageOnHand(InventoryRecord model) {
-		super(model.getClientId(), model.getOrgId(), model.getUuid(), model.getIsActive(), model.getCreated(),
-				model.getCreatedBy());
-
-		setQuantityOnHand(new BigDecimal(model.getQuantity()));
-		setAttributeSetInstanceId(model.getAttributeSetInstanceId());
+		setLocatorId(model.getM_Locator_ID());
+		setAttributeSetInstanceId(model.getM_AttributeSetInstance_ID());
 	}
 
 	public BigDecimal getQuantityOnHand() {

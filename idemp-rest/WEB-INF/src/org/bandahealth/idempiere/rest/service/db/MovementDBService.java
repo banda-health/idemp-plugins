@@ -1,30 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.InventoryRecord;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Movement;
 import org.bandahealth.idempiere.rest.model.MovementLine;
-import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.model.User;
@@ -39,6 +23,19 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Component
 public class MovementDBService extends DocumentDBService<Movement, MMovement_BH> {
 
@@ -48,8 +45,6 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	private MovementLineDBService movementLineDBService;
 	@Autowired
 	private ProductDBService productDBService = new ProductDBService();
-	@Autowired
-	private InventoryRecordDBService inventoryRecordDBService = new InventoryRecordDBService();
 	@Autowired
 	private AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
 	@Autowired
@@ -231,28 +226,18 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		// We need more information for the storage on hand, so get those entities
 		Set<Integer> productIds =
 				movement.getMovementLines().stream().map(MovementLine::getProductId).collect(Collectors.toSet());
-		Map<Integer, List<MStorageOnHand>> storageOnHandByProductId = productIds.isEmpty() ? new HashMap<>() :
-				storageOnHandDBService.getGroupsByIds(MStorageOnHand::getM_Product_ID, MStorageOnHand.COLUMNNAME_M_Product_ID,
-						productIds);
+		Map<Integer, List<MStorageOnHand>> storageOnHandByProductId =
+				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
+						MStorageOnHand.COLUMNNAME_M_Product_ID, productIds);
 
 		// Get the inventory for the product (can't be batched at the moment)
 		movement.getMovementLines().forEach(movementLine -> {
-			if (movementLine.getProductId() == 0) {
+			if (!storageOnHandByProductId.containsKey(movementLine.getProductId())) {
 				return;
 			}
-			BaseListResponse<InventoryRecord> productsInventory =
-					inventoryRecordDBService.getProductInventory(Paging.ALL.getInstance(), movementLine.getProductId());
 			movementLine.getProduct().setStorageOnHandList(
-					productsInventory.getResults().stream().filter(inventory -> inventory.getShelfLife() >= 0)
-							.map(StorageOnHand::new).collect(Collectors.toList()));
-
-			// Set the correct locator id
-			movementLine.getProduct().getStorageOnHandList().forEach(storageOnHand -> {
-				storageOnHandByProductId.get(movementLine.getProductId()).stream().filter(
-						productStorageOnHand -> productStorageOnHand.getM_AttributeSetInstance_ID() ==
-								storageOnHand.getAttributeSetInstanceId()).findFirst().ifPresent(
-						storageOnHandForProduct -> storageOnHand.setLocatorId(storageOnHandForProduct.getM_Locator_ID()));
-			});
+					storageOnHandByProductId.get(movementLine.getProductId()).stream().map(StorageOnHand::new)
+							.collect(Collectors.toList()));
 		});
 
 		// Get the storage on hand stream for batches

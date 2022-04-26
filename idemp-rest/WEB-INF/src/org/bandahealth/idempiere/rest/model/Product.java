@@ -49,7 +49,7 @@ public class Product extends BaseEntity {
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
-	public Product(String name, String uuid, String type, BigDecimal totalQuantity, MProduct_BH entity) {
+	public Product(String name, String uuid, String type, MProduct_BH entity) {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.buyPrice = entity.getBH_BuyPrice();
@@ -57,14 +57,13 @@ public class Product extends BaseEntity {
 		this.priceMargin = entity.getBH_PriceMargin();
 
 		this.type = type;
-		setTotalQuantity(totalQuantity);
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
 			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice, String type,
 			Integer reorderLevel, Integer reorderQuantity, BigDecimal priceMargin, String productCategoryUuid,
-			BigDecimal totalQuantity, MProduct_BH entity) {
+			MProduct_BH entity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		setValue(value);
@@ -76,7 +75,6 @@ public class Product extends BaseEntity {
 		this.reorderQuantity = reorderQuantity;
 		this.priceMargin = priceMargin;
 		setProductCategoryUuid(productCategoryUuid);
-		setTotalQuantity(totalQuantity);
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
