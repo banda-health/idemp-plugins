@@ -23,7 +23,7 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 	private static final String EXPIRE_WHERE_CLAUSE =
 			MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " IS NULL OR " +
 					MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate +
-					" >= now()::date)";
+					" >= now()::date";
 
 	@Override
 	public Map<String, String> getDynamicJoins() {

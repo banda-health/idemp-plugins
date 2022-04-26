@@ -58,6 +58,7 @@ public class Product extends BaseEntity {
 
 		this.type = type;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
+		setId(entity.get_ID());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
@@ -76,6 +77,7 @@ public class Product extends BaseEntity {
 		this.priceMargin = priceMargin;
 		setProductCategoryUuid(productCategoryUuid);
 		setAttributeSetId(entity.getM_AttributeSet_ID());
+		setId(entity.get_ID());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
@@ -86,6 +88,7 @@ public class Product extends BaseEntity {
 		this.sellPrice = sellPrice;
 		this.priceMargin = priceMargin;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
+		setId(entity.get_ID());
 	}
 
 	public Product(String uuid, String name, BigDecimal buyPrice, String created, BigDecimal sellPrice, Boolean isActive,
@@ -99,6 +102,7 @@ public class Product extends BaseEntity {
 		this.sellPrice = sellPrice;
 		this.priceMargin = priceMargin;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
+		setId(entity.get_ID());
 	}
 
 	@XmlElement
