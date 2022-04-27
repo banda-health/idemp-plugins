@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -15,12 +14,11 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
-import org.bandahealth.idempiere.rest.model.SearchProduct;
-import org.bandahealth.idempiere.rest.model.SearchProductAttribute;
 import org.bandahealth.idempiere.rest.model.SerialNumberControl;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocator;
 import org.compiere.model.MProduct;
@@ -28,7 +26,6 @@ import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
-import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +34,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -113,100 +109,41 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * @param searchValue
 	 * @return
 	 */
-	public BaseListResponse<SearchProduct> searchItems(String searchValue) {
-		// get available warehouses
-		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
-
-		List<SearchProduct> results = new ArrayList<>();
-
-		// maximum of 100 results?
-		Paging pagingInfo = new Paging(0, 100);
-
-		// 1. search product/service
+	public BaseListResponse<Product> searchItems(String searchValue) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(searchValue));
 
-		Query query = new Query(Env.getCtx(), MProduct_BH.Table_Name, DEFAULT_SEARCH_CLAUSE, null)
-				.setOnlyActiveRecords(true).setClient_ID().setParameters(parameters);
+		BaseListResponse<Product> response = super.getAll(DEFAULT_SEARCH_CLAUSE, parameters, new Paging(0, 100), null,
+				null);
 
-		// set total count..
-		pagingInfo.setTotalRecordCount(query.count());
-
-		List<MProduct_BH> entities = query.list();
 		// Get products that will have storage
 		Set<Integer> productIdsWithStorage =
-				entities.stream().filter(MProduct_BH::isStocked).map(MProduct_BH::get_ID).collect(Collectors.toSet());
+				response.getResults().stream().filter(Product::getIsStocked).map(Product::getId).collect(Collectors.toSet());
 
-		Map<Integer, List<MStorageOnHand>> storageOnHandByProductId = productIdsWithStorage.isEmpty() ? new HashMap<>() :
+		Map<Integer, List<StorageOnHand>> storageOnHandByProductId = storageOnHandDBService.transformData(
 				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
-						MStorageOnHand.COLUMNNAME_M_Product_ID, productIdsWithStorage);
+								MStorageOnHand.COLUMNNAME_M_Product_ID, productIdsWithStorage).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
 
-		// Get locators, if there are any
-		Set<Integer> locatorIds =
-				storageOnHandByProductId.values().stream().flatMap(Collection::stream).map(MStorageOnHand::getM_Locator_ID)
-						.collect(Collectors.toSet());
-		Map<Integer, Locator> locatorsById = locatorIds.isEmpty() ? new HashMap<>() :
-				locatorDBService.transformData(new ArrayList<>(locatorDBService.getByIds(locatorIds).values())).stream()
-						.collect(Collectors.toMap(Locator::getId, locator -> locator));
-
-		Timestamp now = new Timestamp(System.currentTimeMillis());
+		List<Product> entities = new ArrayList<>();
 
 		// 2. retrieve storage on hand
-		for (MProduct_BH entity : entities) {
-			SearchProduct result = new SearchProduct();
-			result.setUuid(entity.getM_Product_UU());
-			result.setName(entity.getName());
-			result.setType(entity.getProductType());
-			result.setPrice(entity.getBH_SellPrice());
-
-			// If this is an item, we need to check quantities
-			if (entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
-				List<MStorageOnHand> storageOnHandList =
-						storageOnHandByProductId.containsKey(entity.get_ID()) ? storageOnHandByProductId.get(entity.get_ID()) :
-								new ArrayList<>();
-
-				BigDecimal totalQuantity = BigDecimal.ZERO;
-
-				// Get the batched attribute sets
-				Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesByIds = attributeSetInstanceDBService.getByIds(
-						storageOnHandList.stream().map(MStorageOnHand::getM_AttributeSetInstance_ID)
-								.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet()));
-
-				for (MStorageOnHand storageOnHand : storageOnHandList) {
-					MAttributeSetInstance_BH attributeSetInstance = null;
-					if (attributeSetInstancesByIds.containsKey(storageOnHand.getM_AttributeSetInstance_ID())) {
-						attributeSetInstance = attributeSetInstancesByIds.get(storageOnHand.getM_AttributeSetInstance_ID());
-					}
-
-					SearchProductAttribute attribute = new SearchProductAttribute();
-					// get expiry date and id
-					if (attributeSetInstance != null) {
-						attribute.setAttributeSetInstanceUuid(attributeSetInstance.getM_AttributeSetInstance_UU());
-						attribute.setAttributeSetInstanceId(attributeSetInstance.get_ID());
-						attribute.setExpiry(DateUtil.parseDateOnly(attributeSetInstance.getGuaranteeDate()));
-					}
-
-					// get quantity
-					totalQuantity = totalQuantity.add(storageOnHand.getQtyOnHand());
-					attribute.setExistingQuantity(storageOnHand.getQtyOnHand());
-					if (locatorsById.containsKey(storageOnHand.getM_Locator_ID())) {
-						attribute.setWarehouseUuid(locatorsById.get(storageOnHand.getM_Locator_ID()).getWarehouse().getUuid());
-					}
-
-					result.addAttribute(attribute);
-				}
-
-				result.setTotalQuantity(totalQuantity);
-			}
+		for (Product entity : response.getResults()) {
+			entity.setStorageOnHandList(
+					storageOnHandByProductId.containsKey(entity.getId()) ? storageOnHandByProductId.get(entity.getId()) :
+							new ArrayList<>());
 
 			// If a product has no quantity, don't return it in the list
-			if (result.getTotalQuantity() != null && result.getTotalQuantity().compareTo(BigDecimal.ZERO) > 0
-					|| !entity.getProductType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
-				results.add(result);
+			if (entity.getStorageOnHandList().stream().map(StorageOnHand::getQuantityOnHand)
+					.reduce(BigDecimal.ZERO, BigDecimal::add).compareTo(BigDecimal.ZERO) > 0
+					|| !entity.getType().equalsIgnoreCase(MProduct_BH.PRODUCTTYPE_Item)) {
+				entities.add(entity);
 			}
 		}
 
-		return new BaseListResponse<>(results, pagingInfo);
+		response.setResults(entities);
+
+		return response;
 	}
 
 	@Override
@@ -361,9 +298,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					new Product(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getM_Product_UU(),
 							instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
 							instance.getName(), instance.getDescription(), instance.getValue(), instance.isStocked(),
-							instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.getProductType(),
-							instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL), instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
-							instance.getBH_PriceMargin(), productCategory.getM_Product_Category_UU(), instance))).get(0);
+							instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
+							instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY), instance.getBH_PriceMargin(),
+							productCategory.getM_Product_Category_UU(), instance))).get(0);
 			product.setTotalQuantity(storageOnHandDBService.getQuantityOnHand(product.getId(), false));
 			return product;
 		} catch (Exception ex) {
@@ -441,5 +378,33 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public List<Product> transformData(List<MProduct_BH> dbModels) {
 		List<Product> products = super.transformData(dbModels);
 		return batchChildDataCalls(products);
+	}
+
+	/**
+	 * Gets the costs associated with a product
+	 *
+	 * @param productIds              The products ids to get the costs for
+	 * @param attributeSetInstanceIds The attribute set instance ids to get the costs for
+	 * @return A map of product ids, each of which holds a map of attribute set instance ids to their costs
+	 */
+	public Map<Integer, Map<Integer, BigDecimal>> getProductCosts(Set<Integer> productIds, Set<Integer> attributeSetInstanceIds) {
+		String costSql = "SELECT m_product_id, m_attributesetinstance_id, purchase_price FROM get_product_costs(?)";
+		Map<Integer, Map<Integer, BigDecimal>> costsByProductAndAttributeSetInstanceId = new HashMap<>();
+		List<Object> parameters = new ArrayList<>();
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		SqlUtil.executeQuery(costSql, parameters, null, data -> {
+			try {
+				int productId = data.getInt(1);
+				int attributeSetInstanceId = data.getInt(2);
+				BigDecimal cost = data.getBigDecimal(3);
+				if (!costsByProductAndAttributeSetInstanceId.containsKey(productId)) {
+					costsByProductAndAttributeSetInstanceId.put(productId, new HashMap<>());
+				}
+				costsByProductAndAttributeSetInstanceId.get(productId).put(attributeSetInstanceId, cost);
+			} catch (Exception e) {
+				logger.severe(e.getMessage());
+			}
+		});
+		return costsByProductAndAttributeSetInstanceId;
 	}
 }

@@ -226,18 +226,16 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		// We need more information for the storage on hand, so get those entities
 		Set<Integer> productIds =
 				movement.getMovementLines().stream().map(MovementLine::getProductId).collect(Collectors.toSet());
-		Map<Integer, List<MStorageOnHand>> storageOnHandByProductId =
+		Map<Integer, List<StorageOnHand>> storageOnHandByProductId = storageOnHandDBService.transformData(
 				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
-						MStorageOnHand.COLUMNNAME_M_Product_ID, productIds);
+								MStorageOnHand.COLUMNNAME_M_Product_ID, productIds).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
 
 		// Get the inventory for the product (can't be batched at the moment)
 		movement.getMovementLines().forEach(movementLine -> {
-			if (!storageOnHandByProductId.containsKey(movementLine.getProductId())) {
-				return;
+			if (storageOnHandByProductId.containsKey(movementLine.getProductId())) {
+				movementLine.getProduct().setStorageOnHandList(storageOnHandByProductId.get(movementLine.getProductId()));
 			}
-			movementLine.getProduct().setStorageOnHandList(
-					storageOnHandByProductId.get(movementLine.getProductId()).stream().map(StorageOnHand::new)
-							.collect(Collectors.toList()));
 		});
 
 		// Get the storage on hand stream for batches
@@ -325,32 +323,17 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 			}
 
 			if (mMovement.getBH_FromWarehouseID() > 0) {
-				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
-					return warehouse.get_ID() == mMovement.getBH_FromWarehouseID();
-				}).findFirst();
-
-				if (!foundWarehouse.isEmpty()) {
-					movement.setFromWarehouse(new Warehouse(foundWarehouse.get()));
-				}
+				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_FromWarehouseID()).findFirst()
+						.ifPresent(warehouse -> movement.setFromWarehouse(new Warehouse(warehouse)));
 			}
 
 			if (mMovement.getBH_ToWarehouseID() > 0) {
-				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
-					return warehouse.get_ID() == mMovement.getBH_ToWarehouseID();
-				}).findFirst();
-
-				if (!foundWarehouse.isEmpty()) {
-					movement.setToWarehouse(new Warehouse(foundWarehouse.get()));
-				}
+				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_ToWarehouseID()).findFirst()
+						.ifPresent(warehouse -> movement.setToWarehouse(new Warehouse(warehouse)));
 			}
 
-			Optional<MUser_BH> foundUser = users.stream().filter(user -> {
-				return user.get_ID() == mMovement.getCreatedBy();
-			}).findFirst();
-			if (!foundUser.isEmpty()) {
-				MUser_BH mUser = foundUser.get();
-				movement.setUser(new User(mUser.getName(), mUser.getAD_User_UU()));
-			}
+			users.stream().filter(user -> user.get_ID() == mMovement.getCreatedBy()).findFirst()
+					.ifPresent(user -> movement.setUser(new User(user.getName(), user.getAD_User_UU())));
 
 			results.add(movement);
 		});

@@ -166,12 +166,12 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		try {
 			MProduct_BH product = productDBService.getEntityByIdFromDB(instance.getM_Product_ID());
 			if (product != null) {
-				OrderLine orderLine = new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
-						instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-						instance.getCreatedBy(), instance.getC_Order_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), product),
-						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
-						instance.getBH_Instructions(), instance);
+				OrderLine orderLine =
+						new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
+								instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+								instance.getC_Order_ID(), new Product(product.getName(), product.getM_Product_UU(), product),
+								instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
+								instance.getBH_Instructions(), instance);
 				orderLine.getProduct()
 						.setTotalQuantity(storageOnHandDBService.getQuantityOnHand(instance.getM_Product_ID(), false));
 				return orderLine;
@@ -207,27 +207,12 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		return new MOrderLine_BH(Env.getCtx(), 0, null);
 	}
 
-	public List<MOrderLine_BH> getOrderLinesByProductAndAttributeSetIds(Set<Integer> productIds,
-			Set<Integer> attributeSetIds) {
-
-		List<Object> parameters = new ArrayList<>();
-		String productIdsClause = QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters);
-		String attributeSetIdsClause = QueryUtil.getWhereClauseAndSetParametersForSet(attributeSetIds, parameters);
-		String whereClause = MOrderLine_BH.COLUMNNAME_M_Product_ID + " IN (" + productIdsClause + ") AND "
-				+ MOrderLine_BH.COLUMNNAME_M_AttributeSetInstance_ID + " IN(" + attributeSetIdsClause + ")";
-
-		List<MOrderLine_BH> mOrderLines = new Query(Env.getCtx(), MOrderLine_BH.Table_Name, whereClause, null)
-				.setParameters(parameters).setOnlyActiveRecords(true).setClient_ID().list();
-
-		return mOrderLines;
-	}
-
 	public List<OrderLine> getOrderLinesByOrderId(int orderId) {
 		List<OrderLine> orderLines = new ArrayList<>();
 
 		List<MOrderLine_BH> mOrderLines = new Query(Env.getCtx(), MOrderLine_BH.Table_Name,
 				MOrderLine_BH.COLUMNNAME_C_Order_ID + "=?", null).setParameters(orderId).setOnlyActiveRecords(true)
-						.setClient_ID().list();
+				.setClient_ID().list();
 		for (MOrderLine_BH mOrderLine : mOrderLines) {
 			orderLines.add(createInstanceWithDefaultFields(mOrderLine));
 		}
@@ -237,9 +222,10 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::get_ID).collect(Collectors.toSet());
 
 		Map<Integer, MCharge_BH> chargesById = chargeDBService.getByIds(chargeIds);
-		Map<Integer, List<MBHOrderLineChargeInfo>> orderLineChargeInformationByOrderLine = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
-						MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
+		Map<Integer, List<MBHOrderLineChargeInfo>> orderLineChargeInformationByOrderLine =
+				orderLineChargeInformationDBService
+						.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
+								MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
 		Map<String, MRefList> chargeSubTypeByValue = referenceListDBService
 				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
 						chargesById.values().stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet()))

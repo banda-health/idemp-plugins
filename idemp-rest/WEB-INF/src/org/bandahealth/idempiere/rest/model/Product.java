@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 
 @XmlRootElement(name = "product")
@@ -49,20 +50,20 @@ public class Product extends BaseEntity {
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
-	public Product(String name, String uuid, String type, MProduct_BH entity) {
+	public Product(String name, String uuid, MProduct_BH entity) {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.buyPrice = entity.getBH_BuyPrice();
 		this.sellPrice = entity.getBH_SellPrice();
 		this.priceMargin = entity.getBH_PriceMargin();
 
-		this.type = type;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
+		setType(entity.getProductType());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice, String type,
+			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
 			Integer reorderLevel, Integer reorderQuantity, BigDecimal priceMargin, String productCategoryUuid,
 			MProduct_BH entity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
@@ -71,13 +72,13 @@ public class Product extends BaseEntity {
 		this.isStocked = isStocked;
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
-		this.type = type;
 		this.reorderLevel = reorderLevel;
 		this.reorderQuantity = reorderQuantity;
 		this.priceMargin = priceMargin;
 		setProductCategoryUuid(productCategoryUuid);
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
+		setType(entity.getProductType());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
@@ -89,6 +90,7 @@ public class Product extends BaseEntity {
 		this.priceMargin = priceMargin;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
+		setType(entity.getProductType());
 	}
 
 	public Product(String uuid, String name, BigDecimal buyPrice, String created, BigDecimal sellPrice, Boolean isActive,
@@ -103,6 +105,7 @@ public class Product extends BaseEntity {
 		this.priceMargin = priceMargin;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
+		setType(entity.getProductType());
 	}
 
 	@XmlElement
