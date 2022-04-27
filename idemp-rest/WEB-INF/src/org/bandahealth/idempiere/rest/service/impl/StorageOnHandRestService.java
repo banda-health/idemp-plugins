@@ -12,7 +12,7 @@ import org.bandahealth.idempiere.rest.service.db.StorageOnHandDBService;
 import org.compiere.model.MStorageOnHand;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Path(IRestConfigs.STORAGEONHAND_PATH)
+@Path(IRestConfigs.STORAGE_ON_HAND_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class StorageOnHandRestService extends BaseRestService<StorageOnHand, MStorageOnHand, StorageOnHandDBService>{
