@@ -2,46 +2,95 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
 public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorageOnHand> {
-	private static final String EXPIRE_WHERE_CLAUSE =
-			MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " IS NULL OR " +
-					MAttributeSetInstance_BH.Table_Name + "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate +
-					" >= now()::date";
+
+	@Autowired
+	private OrderLineDBService orderLineDBService;
+
+	private static final String EXPIRE_WHERE_CLAUSE = MAttributeSetInstance_BH.Table_Name + "."
+			+ MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " IS NULL OR " + MAttributeSetInstance_BH.Table_Name
+			+ "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " >= now()::date";
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
-		return new HashMap<>() {{
-			put(MAttributeSetInstance_BH.Table_Name,
-					" JOIN " + MAttributeSetInstance_BH.Table_Name + " ON " + MAttributeSetInstance_BH.Table_Name + "." +
-							MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_ID + "=" + MStorageOnHand.Table_Name + "." +
-							MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID);
-			put(MAttributeSet_BH.Table_Name,
-					" JOIN " + MAttributeSet_BH.Table_Name + " ON " + MAttributeSet_BH.Table_Name + "." +
-							MAttributeSet_BH.COLUMNNAME_M_AttributeSet_ID + "=" + MAttributeSetInstance_BH.Table_Name + "." +
-							MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSet_ID);
-		}};
+		return new HashMap<>() {
+			{
+				put(MAttributeSetInstance_BH.Table_Name,
+						" JOIN " + MAttributeSetInstance_BH.Table_Name + " ON " + MAttributeSetInstance_BH.Table_Name
+								+ "." + MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_ID + "="
+								+ MStorageOnHand.Table_Name + "."
+								+ MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID);
+				put(MAttributeSet_BH.Table_Name,
+						" JOIN " + MAttributeSet_BH.Table_Name + " ON " + MAttributeSet_BH.Table_Name + "."
+								+ MAttributeSet_BH.COLUMNNAME_M_AttributeSet_ID + "="
+								+ MAttributeSetInstance_BH.Table_Name + "."
+								+ MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSet_ID);
+			}
+		};
+	}
+
+	@Override
+	public List<StorageOnHand> transformData(List<MStorageOnHand> dbModels) {
+		if (dbModels == null || dbModels.isEmpty()) {
+			return new ArrayList<>();
+		}
+
+		Set<Integer> productIds = dbModels.stream().map(MStorageOnHand::getM_Product_ID).collect(Collectors.toSet());
+		Set<Integer> attributeSetInstanceIds = dbModels.stream().map(MStorageOnHand::getM_AttributeSetInstance_ID)
+				.collect(Collectors.toSet());
+
+		// fetch prices by product and asi
+		List<MOrderLine_BH> orderLines = orderLineDBService.getOrderLinesByProductAndAttributeSetIds(productIds,
+				attributeSetInstanceIds);
+
+		return dbModels.stream().map(model -> {
+			StorageOnHand result = createInstanceWithAllFields(model);
+
+			// update price
+			Optional<MOrderLine_BH> orderLine = orderLines.stream()
+					.filter(line -> line.getM_Product_ID() == result.getProductId()
+							&& line.getM_AttributeSetInstance_ID() == result.getAttributeSetInstanceId())
+					.findFirst();
+			if (orderLine.isPresent()) {
+				result.setPrice(orderLine.get().getLineNetAmt());
+			}
+
+			return result;
+		}).collect(Collectors.toList());
 	}
 
 	@Override
 	public StorageOnHand saveEntity(StorageOnHand entity) {
-		throw new UnsupportedOperationException("Not implemented");
+		MStorageOnHand storage = getEntityByUuidFromDB(entity.getUuid());
+		if (storage == null) {
+			throw new UnsupportedOperationException("Not implemented");
+		}
+
+		storage.setQtyOnHand(entity.getQuantityOnHand());
+		storage.saveEx();
+
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(storage.getM_StorageOnHand_UU()))).get(0);
 	}
 
 	@Override
@@ -79,16 +128,19 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 	 */
 	public BigDecimal getQuantityOnHand(int productId, int attributeSetInstanceId, int locatorId) {
 		return new Query(Env.getCtx(), MStorageOnHand.Table_Name,
-				MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID +
-						"=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?", null).setParameters(productId,
-				attributeSetInstanceId, locatorId).sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
+				MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID
+						+ "=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?",
+				null).setParameters(productId, attributeSetInstanceId, locatorId)
+						.sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
 	}
 
 	/**
-	 * Get the quantity on hand for a particular product in all locations and for all ASIs
+	 * Get the quantity on hand for a particular product in all locations and for
+	 * all ASIs
 	 *
 	 * @param productId      The ID of the product
-	 * @param includeExpired If the product is an expiring one, don't include storage that has expired
+	 * @param includeExpired If the product is an expiring one, don't include
+	 *                       storage that has expired
 	 * @return The sum of the quantities of the storage on hand records
 	 */
 	public BigDecimal getQuantityOnHand(int productId, boolean includeExpired) {
@@ -97,8 +149,8 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 			whereClause += " AND (" + EXPIRE_WHERE_CLAUSE + ")";
 		}
 
-		return new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null).addJoinClause(
-						getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name)).setParameters(productId)
+		return new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null)
+				.addJoinClause(getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name)).setParameters(productId)
 				.sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
 	}
 
@@ -112,16 +164,16 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = getModelInstance().get_TableName() + "." + columnToSearch;
 		}
-		String whereClause =
-				columnToSearch + " IN (" + whereCondition + ") AND CASE WHEN " + MAttributeSet_BH.Table_Name + "." +
-						MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=? THEN " + EXPIRE_WHERE_CLAUSE + " ELSE 1=1 END";
+		String whereClause = columnToSearch + " IN (" + whereCondition + ") AND CASE WHEN "
+				+ MAttributeSet_BH.Table_Name + "." + MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=? THEN "
+				+ EXPIRE_WHERE_CLAUSE + " ELSE 1=1 END";
 		parameters.add(true);
 		List<MStorageOnHand> models = getBaseQuery(this.isClientIdFromTheContextNeededByDefaultForThisEntity(),
-				whereClause,
-				parameters).addJoinClause(getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name))
-				.addJoinClause(getDynamicJoins().get(MAttributeSet_BH.Table_Name)).list();
-		Map<Integer, List<MStorageOnHand>> groupedValues =
-				getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
-		return ids.stream().collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
+				whereClause, parameters).addJoinClause(getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name))
+						.addJoinClause(getDynamicJoins().get(MAttributeSet_BH.Table_Name)).list();
+		Map<Integer, List<MStorageOnHand>> groupedValues = getTranslations(models).stream()
+				.collect(Collectors.groupingBy(groupingFunction));
+		return ids.stream()
+				.collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
 	}
 }
