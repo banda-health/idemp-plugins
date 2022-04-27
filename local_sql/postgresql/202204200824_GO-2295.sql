@@ -13,6 +13,7 @@
 --		to the correct attribute set (they should already, but just in case)
 -- 7. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
 -- 8. Update reports that aren't needed anymore
+-- 9. Add a function to fetch costs for products and their ASIs
 /**********************************************************************************************************/
 
 /**********************************************************************************************************/
@@ -580,6 +581,72 @@ WHERE ch.m_costdetail_id = cd.m_costdetail_id
 UPDATE ad_process SET isactive = 'N' WHERE ad_process_uu = 'a4d3210b-6dc8-44d3-bfbc-58e507078c30';
 UPDATE ad_process_para SET isactive = 'N' WHERE ad_process_id = (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'a4d3210b-6dc8-44d3-bfbc-58e507078c30');
 UPDATE ad_menu SET isactive = 'N' WHERE ad_menu_uu = 'b8bcb2f2-9ce5-42d7-84dd-edaef096e8dd';
+
+/**********************************************************************************************************/
+-- 9. Add a function to fetch costs for products and their ASIs
+/**********************************************************************************************************/
+CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric)
+	RETURNS TABLE(m_product_id numeric, m_attributesetinstance_id numeric, purchase_price numeric)
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		soh.m_product_id,
+		soh.m_attributesetinstance_id,
+		coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0) as purchase_price
+	FROM m_storageonhand soh
+		LEFT JOIN (
+			SELECT
+				l.m_product_id,
+				l.priceentered,
+				l.m_attributesetinstance_id
+			FROM (
+				SELECT
+					ol.m_product_id,
+					ol.priceentered,
+					ol.m_attributesetinstance_id,
+					row_number() OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER By o.bh_visitdate desc) as rownum
+				FROM c_orderline ol
+						JOIN c_order o ON ol.c_order_id = o.c_order_id
+				WHERE o.issotrx = 'N'
+					AND o.docstatus IN ('CL', 'CO')
+					AND ol.m_product_id is not null
+					AND o.ad_client_id = $1
+			) l
+			WHERE rownum = 1
+		) as price_on_reception
+			ON soh.m_product_id = price_on_reception.m_product_id
+				AND soh.m_attributesetinstance_id = price_on_reception.m_attributesetinstance_id
+		LEFT JOIN(
+			SELECT c.m_product_id, c.m_attributesetinstance_id, c.currentcostprice
+			FROM m_cost c
+				JOIN c_acctschema actsch
+					ON c.c_acctschema_id = actsch.c_acctschema_id
+						AND c.m_costtype_id = actsch.m_costtype_id
+				JOIN m_costelement ce
+					ON c.m_costelement_id = ce.m_costelement_id
+						AND ce.costingmethod = actsch.costingmethod
+			WHERE c.currentcostprice > 0
+				AND c.ad_client_id = $1
+		) costs
+			ON soh.m_product_id = costs.m_product_id
+				AND soh.m_attributesetinstance_id = costs.m_attributesetinstance_id
+		LEFT JOIN (
+			SELECT
+				productPrice.m_product_id,
+				productPrice.pricestd as PurchasePrice
+			FROM m_pricelist priceList
+				JOIN m_pricelist_version priceListVersion
+					ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
+				JOIN m_productprice productPrice
+					ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+			WHERE priceList.issopricelist = 'N'
+				AND priceList.isdefault = 'Y'
+				AND pricelist.ad_client_id = $1
+		) as productPP ON soh.m_product_id = productPP.m_product_id
+	WHERE soh.ad_client_id = $1;
+END
+$$ LANGUAGE plpgsql;
 
 /**********************************************************************************************************/
 -- Wrap everything up
