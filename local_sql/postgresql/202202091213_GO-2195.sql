@@ -1,4 +1,4 @@
-ALTER TABLE c_currency ADD currencyname varchar(100);
+ALTER TABLE c_currency ADD IF NOT EXISTS currencyname varchar(100);
 
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', '2022-02-09 12:12:16.014000', 100, '2022-02-09 12:12:16.014000', 100, 'CurrencyName', 'U', 'Currency Name', 'Currency Name', 'The name of the currency', 'Added to aid in writing out the currency as words', null, null, null, null, 'ad8b38e2-8a8a-45cc-b503-cfcfab4f48a0', null) ON CONFLICT DO NOTHING;
 
