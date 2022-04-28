@@ -589,21 +589,21 @@ CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric)
 	RETURNS TABLE(m_product_id numeric, m_attributesetinstance_id numeric, purchase_price numeric)
 AS $$
 BEGIN
-	RETURN QUERY
+    RETURN QUERY
 	SELECT
 		soh.m_product_id,
 		soh.m_attributesetinstance_id,
-		coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0) as purchase_price
+		coalesce(price_on_reception.po_price, costs.currentcostprice, productPP.PurchasePrice, 0) as purchase_price
 	FROM m_storageonhand soh
 		LEFT JOIN (
 			SELECT
 				l.m_product_id,
-				l.priceentered,
+				l.po_price,
 				l.m_attributesetinstance_id
 			FROM (
 				SELECT
 					ol.m_product_id,
-					ol.priceentered,
+					ol.priceactual as po_price,
 					ol.m_attributesetinstance_id,
 					row_number() OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER By o.bh_visitdate desc) as rownum
 				FROM c_orderline ol
@@ -617,7 +617,7 @@ BEGIN
 		) as price_on_reception
 			ON soh.m_product_id = price_on_reception.m_product_id
 				AND soh.m_attributesetinstance_id = price_on_reception.m_attributesetinstance_id
-		LEFT JOIN(
+		LEFT JOIN (
 			SELECT c.m_product_id, c.m_attributesetinstance_id, c.currentcostprice
 			FROM m_cost c
 				JOIN c_acctschema actsch
@@ -633,16 +633,23 @@ BEGIN
 				AND soh.m_attributesetinstance_id = costs.m_attributesetinstance_id
 		LEFT JOIN (
 			SELECT
-				productPrice.m_product_id,
-				productPrice.pricestd as PurchasePrice
-			FROM m_pricelist priceList
-				JOIN m_pricelist_version priceListVersion
-					ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-				JOIN m_productprice productPrice
-					ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-			WHERE priceList.issopricelist = 'N'
-				AND priceList.isdefault = 'Y'
-				AND pricelist.ad_client_id = $1
+				pp.m_product_id,
+				pp.pricestd as PurchasePrice
+			FROM (
+				SELECT
+					pl.m_pricelist_id,
+					row_number() OVER (ORDER BY pl.created DESC) as row_num
+				FROM m_pricelist pl
+				WHERE pl.issopricelist = 'N'
+					AND pl.isdefault = 'Y'
+					AND pl.isactive = 'Y'
+					AND pl.ad_client_id = $1
+			) pl
+				JOIN m_pricelist_version plv
+					ON pl.m_pricelist_id = plv.m_pricelist_id
+				JOIN m_productprice pp
+					ON plv.m_pricelist_version_id = pp.m_pricelist_version_id
+			WHERE pl.row_num = 1
 		) as productPP ON soh.m_product_id = productPP.m_product_id
 	WHERE soh.ad_client_id = $1;
 END
