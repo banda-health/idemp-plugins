@@ -130,7 +130,6 @@ public class Visit extends Order {
 
 	@XmlElement
 	public String getClinicalNotes() {
-		System.out.println(clinicalNotes);
 		return clinicalNotes;
 	}
 
@@ -140,7 +139,6 @@ public class Visit extends Order {
 
 	@XmlElement
 	public String getLabNotes() {
-		System.out.println(labNotes);
 		return labNotes;
 	}
 
