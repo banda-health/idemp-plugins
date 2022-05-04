@@ -18,6 +18,7 @@ public class StorageOnHand extends BaseMetadata {
 	private BigDecimal price;
 	@JsonIgnore
 	private int productId;
+	private Product product;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -97,5 +98,13 @@ public class StorageOnHand extends BaseMetadata {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.Locator;
+import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MStorageOnHand;
@@ -65,15 +66,18 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				.collect(Collectors.toSet());
 		Set<Integer> locatorIds = dbModels.stream().map(MStorageOnHand::getM_Locator_ID).collect(Collectors.toSet());
 
-		Map<Integer, Locator> locatorsById =
-				locatorDBService.transformData(new ArrayList<>(locatorDBService.getByIds(locatorIds).values())).stream()
-						.collect(Collectors.toMap(Locator::getId, locator -> locator));
-		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesByIds =
-				attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
+		Map<Integer, Locator> locatorsById = locatorDBService
+				.transformData(new ArrayList<>(locatorDBService.getByIds(locatorIds).values())).stream()
+				.collect(Collectors.toMap(Locator::getId, locator -> locator));
+		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesByIds = attributeSetInstanceDBService
+				.getByIds(attributeSetInstanceIds);
+		Map<Integer, Product> productsById = productDBService
+				.transformData(new ArrayList<>(productDBService.getByIds(productIds).values())).stream()
+				.collect(Collectors.toMap(Product::getId, product -> product));
 
 		// fetch prices by product and asi
-		Map<Integer, Map<Integer, BigDecimal>> costsByProductIdAndAttributeSetInstanceId =
-				productDBService.getProductCosts(productIds, attributeSetInstanceIds);
+		Map<Integer, Map<Integer, BigDecimal>> costsByProductIdAndAttributeSetInstanceId = productDBService
+				.getProductCosts(productIds, attributeSetInstanceIds);
 
 		return dbModels.stream().map(model -> {
 			StorageOnHand storageOnHand = createInstanceWithAllFields(model);
@@ -82,15 +86,19 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				storageOnHand.setLocator(locatorsById.get(storageOnHand.getLocatorId()));
 			}
 			if (attributeSetInstancesByIds.containsKey(storageOnHand.getAttributeSetInstanceId())) {
-				storageOnHand.setAttributeSetInstance(
-						new AttributeSetInstance(attributeSetInstancesByIds.get(storageOnHand.getAttributeSetInstanceId())));
+				storageOnHand.setAttributeSetInstance(new AttributeSetInstance(
+						attributeSetInstancesByIds.get(storageOnHand.getAttributeSetInstanceId())));
 			}
 
-			if (costsByProductIdAndAttributeSetInstanceId.containsKey(storageOnHand.getProductId()) &&
-					costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
+			if (costsByProductIdAndAttributeSetInstanceId.containsKey(storageOnHand.getProductId())
+					&& costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
 							.containsKey(storageOnHand.getAttributeSetInstanceId())) {
 				storageOnHand.setPrice(costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
 						.get(storageOnHand.getAttributeSetInstanceId()));
+			}
+
+			if (productsById.containsKey(storageOnHand.getProductId())) {
+				storageOnHand.setProduct(productsById.get(storageOnHand.getProductId()));
 			}
 
 			return storageOnHand;
@@ -148,7 +156,7 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID
 						+ "=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?",
 				null).setParameters(productId, attributeSetInstanceId, locatorId)
-				.sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
+						.sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
 	}
 
 	/**
@@ -187,7 +195,7 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 		parameters.add(true);
 		List<MStorageOnHand> models = getBaseQuery(this.isClientIdFromTheContextNeededByDefaultForThisEntity(),
 				whereClause, parameters).addJoinClause(getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name))
-				.addJoinClause(getDynamicJoins().get(MAttributeSet_BH.Table_Name)).list();
+						.addJoinClause(getDynamicJoins().get(MAttributeSet_BH.Table_Name)).list();
 		Map<Integer, List<MStorageOnHand>> groupedValues = getTranslations(models).stream()
 				.collect(Collectors.groupingBy(groupingFunction));
 		return ids.stream()
