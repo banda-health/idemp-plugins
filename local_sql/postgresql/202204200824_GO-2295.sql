@@ -589,7 +589,7 @@ CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric)
 	RETURNS TABLE(m_product_id numeric, m_attributesetinstance_id numeric, purchase_price numeric)
 AS $$
 BEGIN
-    RETURN QUERY
+  RETURN QUERY
 	SELECT
 		soh.m_product_id,
 		soh.m_attributesetinstance_id,
@@ -605,7 +605,7 @@ BEGIN
 					ol.m_product_id,
 					ol.priceactual as po_price,
 					ol.m_attributesetinstance_id,
-					row_number() OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER By o.bh_visitdate desc) as rownum
+					row_number() OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER BY o.dateordered desc, o.updated desc) as rownum
 				FROM c_orderline ol
 						JOIN c_order o ON ol.c_order_id = o.c_order_id
 				WHERE o.issotrx = 'N'
