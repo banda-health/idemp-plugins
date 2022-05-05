@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,13 +43,13 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	@Autowired
 	private MovementLineDBService movementLineDBService;
 	@Autowired
-	private ProductDBService productDBService = new ProductDBService();
+	private ProductDBService productDBService;
 	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
-	private LocatorDBService locatorDBService = new LocatorDBService();
+	private LocatorDBService locatorDBService;
 	@Autowired
-	private StorageOnHandDBService storageOnHandDBService = new StorageOnHandDBService();
+	private StorageOnHandDBService storageOnHandDBService;
 	/**
 	 * Document Type
 	 */
@@ -220,6 +219,12 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	}
 
 	@Override
+	public Movement processEntity(String uuid, String docAction) throws Exception {
+		super.processEntity(uuid, docAction);
+		return getEntity(uuid);
+	}
+
+	@Override
 	public Movement getEntity(String uuid) {
 		Movement movement = transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 
@@ -252,6 +257,16 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 				attributeSetInstanceDBService.getByIds(attributeSetInstanceIds).entrySet().stream().collect(
 						Collectors.toMap(Map.Entry::getKey,
 								attributeSetInstanceById -> new AttributeSetInstance(attributeSetInstanceById.getValue())));
+
+		// Since ASI to product is a 1-to-1 relationship, we can just go set prices on ASIs
+		productDBService.getProductCosts(productIds, attributeSetInstanceIds).forEach(productCostCalculation -> {
+			if (attributeSetInstancesById.containsKey(productCostCalculation.getAttributeSetInstanceId())) {
+				attributeSetInstancesById.get(productCostCalculation.getAttributeSetInstanceId())
+						.setPurchasePrice(productCostCalculation.getPurchasePrice());
+				attributeSetInstancesById.get(productCostCalculation.getAttributeSetInstanceId())
+						.setPurchaseDate(productCostCalculation.getPurchaseDate());
+			}
+		});
 
 		// Batch the locator calls
 		Set<Integer> locatorIds =

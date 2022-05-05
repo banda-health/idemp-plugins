@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
+import org.bandahealth.idempiere.rest.model.ProductCostCalculation;
 import org.bandahealth.idempiere.rest.model.SerialNumberControl;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.model.Warehouse;
@@ -29,7 +30,6 @@ import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +38,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,19 +67,24 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	private LocatorDBService locatorDBService;
 	@Autowired
 	private StorageOnHandDBService storageOnHandDBService;
-	private Map<String, String> dynamicJoins = new HashMap<>() {
-		{
-			put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
-					+ ",SUM(" + MStorageOnHand.COLUMNNAME_QtyOnHand + ") as quantity FROM " + MStorageOnHand.Table_Name
-					+ " GROUP BY " + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " + X_BH_Stocktake_v.Table_Name
-					+ " ON " + X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID + "="
-					+ MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID);
-		}
-	};
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
-		return dynamicJoins;
+		return new HashMap<>() {
+			{
+				put(X_BH_Stocktake_v.Table_Name, "LEFT JOIN (" + "SELECT " + MStorageOnHand.COLUMNNAME_M_Product_ID
+						+ ",SUM(" + MStorageOnHand.COLUMNNAME_QtyOnHand + ") as quantity FROM " + MStorageOnHand.Table_Name
+						+ " GROUP BY " + MStorageOnHand.COLUMNNAME_M_Product_ID + ") AS " + X_BH_Stocktake_v.Table_Name
+						+ " ON " + X_BH_Stocktake_v.Table_Name + "." + X_BH_Stocktake_v.COLUMNNAME_M_Product_ID + "="
+						+ MProduct_BH.Table_Name + "." + MProduct_BH.COLUMNNAME_M_Product_ID);
+				put("product_costs",
+						"LEFT JOIN (SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date, row_number() " +
+								"OVER (PARTITION BY m_product_id ORDER BY purchase_date DESC) as row_num FROM get_product_costs(" +
+								Env.getAD_Client_ID(Env.getCtx()) + ")) product_costs " + "ON product_costs." +
+								MProduct_BH.COLUMNNAME_M_Product_ID + "=" + MProduct_BH.Table_Name + "." +
+								MProduct_BH.COLUMNNAME_M_Product_ID + " AND product_costs.row_num = 1");
+			}
+		};
 	}
 
 	public BaseListResponse<Product> getAll(Paging pagingInfo, String sortJson, String filterJson) {
@@ -299,9 +306,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			Product product = batchChildDataCalls(Collections.singletonList(
 					new Product(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getM_Product_UU(),
 							instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
-							instance.getName(), instance.getDescription(), instance.getValue(), instance.isStocked(),
-							instance.getBH_BuyPrice(), instance.getBH_SellPrice(), instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL),
-							instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY), instance.getBH_PriceMargin(),
+							instance.getName(), instance.getDescription(), instance.getValue(), instance.getBH_SellPrice(),
+							instance.get_ValueAsInt(COLUMNNAME_REORDER_LEVEL), instance.get_ValueAsInt(COLUMNNAME_REORDER_QUANTITY),
 							productCategory.getM_Product_Category_UU(), instance))).get(0);
 			product.setTotalQuantity(storageOnHandDBService.getQuantityOnHand(product.getId(), false));
 			return product;
@@ -317,8 +323,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		try {
 			return new Product(product.getAD_Client_ID(), product.getAD_Org_ID(), product.getM_Product_UU(),
 					product.isActive(), DateUtil.parseDateOnly(product.getCreated()), product.getCreatedBy(), product.getName(),
-					product.getDescription(), product.getBH_BuyPrice(), product.getBH_SellPrice(), product.getBH_PriceMargin(),
-					product);
+					product.getDescription(), product.getBH_SellPrice(), product);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
@@ -328,9 +333,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	@Override
 	protected Product createInstanceWithSearchFields(MProduct_BH product) {
 		try {
-			return new Product(product.getM_Product_UU(), product.getName(), product.getBH_BuyPrice(),
-					DateUtil.parseDateOnly(product.getCreated()), product.getBH_SellPrice(), product.isActive(),
-					product.getBH_PriceMargin(), product);
+			return new Product(product.getM_Product_UU(), product.getName(), DateUtil.parseDateOnly(product.getCreated()),
+					product.getBH_SellPrice(), product.isActive(), product);
 		} catch (Exception ex) {
 			log.severe("Error creating product instance: " + ex);
 			throw new RuntimeException(ex.getLocalizedMessage(), ex);
@@ -360,6 +364,15 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		Map<Integer, MAttributeSet_BH> attributeSetsById =
 				attributeSetIds.isEmpty() ? new HashMap<>() : attributeSetDBService.getByIds(attributeSetIds);
 
+		Set<Integer> productIds = models.stream().map(Product::getId).collect(Collectors.toSet());
+		List<ProductCostCalculation> productCostCalculations = getProductCosts(productIds, null);
+		Map<Integer, ProductCostCalculation> mostRecentPurchasesByProductId =
+				productCostCalculations.stream().collect(Collectors.groupingBy(ProductCostCalculation::getProductId)).entrySet()
+						.stream().collect(Collectors.toMap(Map.Entry::getKey,
+								productCostCalculationsForProduct -> productCostCalculationsForProduct.getValue().stream()
+										.max(Comparator.comparing(ProductCostCalculation::getPurchaseDate))
+										.orElse(new ProductCostCalculation())));
+
 		// Get the serial number controls
 		Set<Integer> serialNumberControlIds =
 				attributeSetsById.values().stream().map(MAttributeSet_BH::getM_SerNoCtl_ID).collect(Collectors.toSet());
@@ -372,6 +385,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 					product.getAttributeSet().setSerialNumberControl(new SerialNumberControl(
 							serialNumberControlsById.get(product.getAttributeSet().getSerialNumberControlId())));
 				}
+			}
+			if (mostRecentPurchasesByProductId.containsKey(product.getId())) {
+				product.setBuyPrice(mostRecentPurchasesByProductId.get(product.getId()).getPurchasePrice());
 			}
 		}).collect(Collectors.toList());
 	}
@@ -389,34 +405,45 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * @param attributeSetInstanceIds The attribute set instance ids to get the costs for
 	 * @return A map of product ids, each of which holds a map of attribute set instance ids to their costs
 	 */
-	public Map<Integer, Map<Integer, Pair<BigDecimal, Timestamp>>> getProductCosts(Set<Integer> productIds,
-			Set<Integer> attributeSetInstanceIds) {
+	public List<ProductCostCalculation> getProductCosts(Set<Integer> productIds, Set<Integer> attributeSetInstanceIds) {
+		if (productIds == null) {
+			productIds = new HashSet<>();
+		}
+		if (attributeSetInstanceIds == null) {
+			attributeSetInstanceIds = new HashSet<>();
+		}
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		String costSql =
-				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?) " +
-						"WHERE" +
-						" m_product_id IN (";
-		String productWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters);
-		String attributeSetInstanceWhereClause =
-				QueryUtil.getWhereClauseAndSetParametersForSet(attributeSetInstanceIds, parameters);
-		costSql += productWhereClause + ") AND m_attributesetinstance_id IN (" + attributeSetInstanceWhereClause + ")";
-		Map<Integer, Map<Integer, Pair<BigDecimal, Timestamp>>> costsByProductAndAttributeSetInstanceId = new HashMap<>();
-		SqlUtil.executeQuery(costSql, parameters, null, data -> {
+		StringBuilder costSql = new StringBuilder(
+				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?)");
+		if (!productIds.isEmpty() || !attributeSetInstanceIds.isEmpty()) {
+			costSql.append(" WHERE ");
+			if (!productIds.isEmpty()) {
+				String productWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters);
+				costSql.append("m_product_id IN (").append(productWhereClause).append(") ");
+				if (!attributeSetInstanceIds.isEmpty()) {
+					costSql.append("AND ");
+				}
+			}
+			if (!attributeSetInstanceIds.isEmpty()) {
+				String attributeSetInstanceWhereClause =
+						QueryUtil.getWhereClauseAndSetParametersForSet(attributeSetInstanceIds, parameters);
+				costSql.append("m_attributesetinstance_id IN (").append(attributeSetInstanceWhereClause).append(")");
+			}
+		}
+		List<ProductCostCalculation> productCostCalculations = new ArrayList<>();
+		SqlUtil.executeQuery(costSql.toString(), parameters, null, data -> {
 			try {
 				int productId = data.getInt(1);
 				int attributeSetInstanceId = data.getInt(2);
-				BigDecimal cost = data.getBigDecimal(3);
+				BigDecimal purchasePrice = data.getBigDecimal(3);
 				Timestamp purchaseDate = data.getTimestamp(4);
-				if (!costsByProductAndAttributeSetInstanceId.containsKey(productId)) {
-					costsByProductAndAttributeSetInstanceId.put(productId, new HashMap<>());
-				}
-				costsByProductAndAttributeSetInstanceId.get(productId)
-						.put(attributeSetInstanceId, new Pair<>(cost, purchaseDate));
+				productCostCalculations.add(
+						new ProductCostCalculation(productId, attributeSetInstanceId, purchasePrice, purchaseDate));
 			} catch (Exception e) {
 				logger.severe(e.getMessage());
 			}
 		});
-		return costsByProductAndAttributeSetInstanceId;
+		return productCostCalculations;
 	}
 }

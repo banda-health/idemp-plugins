@@ -2,26 +2,25 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Product;
+import org.bandahealth.idempiere.rest.model.ProductCostCalculation;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -78,8 +77,9 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				.collect(Collectors.toMap(Product::getId, product -> product));
 
 		// fetch prices by product and asi
-		Map<Integer, Map<Integer, Pair<BigDecimal, Timestamp>>> costsByProductIdAndAttributeSetInstanceId =
-				productDBService.getProductCosts(productIds, attributeSetInstanceIds);
+		Map<Integer, List<ProductCostCalculation>> costsByProductIdAndAttributeSetInstanceId =
+				productDBService.getProductCosts(productIds, attributeSetInstanceIds).stream()
+						.collect(Collectors.groupingBy(ProductCostCalculation::getProductId));
 
 		return dbModels.stream().map(model -> {
 			StorageOnHand storageOnHand = createInstanceWithAllFields(model);
@@ -88,18 +88,19 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				storageOnHand.setLocator(locatorsById.get(storageOnHand.getLocatorId()));
 			}
 			if (attributeSetInstancesByIds.containsKey(storageOnHand.getAttributeSetInstanceId())) {
-				storageOnHand.setAttributeSetInstance(new AttributeSetInstance(
-						attributeSetInstancesByIds.get(storageOnHand.getAttributeSetInstanceId())));
-			}
+				AttributeSetInstance attributeSetInstance =
+						new AttributeSetInstance(attributeSetInstancesByIds.get(storageOnHand.getAttributeSetInstanceId()));
 
-			if (costsByProductIdAndAttributeSetInstanceId.containsKey(storageOnHand.getProductId())
-					&& costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
-					.containsKey(storageOnHand.getAttributeSetInstanceId())) {
-				Pair<BigDecimal, Timestamp> batchInformation =
-						costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
-								.get(storageOnHand.getAttributeSetInstanceId());
-				storageOnHand.setPrice(batchInformation.getValue0());
-				storageOnHand.setPurchaseDate(batchInformation.getValue1());
+				if (costsByProductIdAndAttributeSetInstanceId.containsKey(storageOnHand.getProductId())) {
+					costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId()).stream().filter(
+							productCostCalculation -> Objects.equals(productCostCalculation.getAttributeSetInstanceId(),
+									attributeSetInstance.getId())).findFirst().ifPresent(productCostCalculation -> {
+						attributeSetInstance.setPurchasePrice(productCostCalculation.getPurchasePrice());
+						attributeSetInstance.setPurchaseDate(productCostCalculation.getPurchaseDate());
+					});
+				}
+
+				storageOnHand.setAttributeSetInstance(attributeSetInstance);
 			}
 
 			if (productsById.containsKey(storageOnHand.getProductId())) {

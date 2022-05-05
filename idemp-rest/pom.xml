@@ -71,11 +71,6 @@
 			<artifactId>spring-context</artifactId>
 			<version>4.3.19.RELEASE</version>
 		</dependency>
-		<dependency>
-			<groupId>org.javatuples</groupId>
-			<artifactId>javatuples</artifactId>
-			<version>1.2</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -96,11 +91,6 @@
 									<groupId>com.auth0</groupId>
 									<artifactId>java-jwt</artifactId>
 									<version>3.8.3</version>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.javatuples</groupId>
-									<artifactId>javatuples</artifactId>
-									<version>1.2</version>
 								</artifactItem>
 								<artifactItem>
 									<groupId>org.springframework</groupId>

@@ -24,7 +24,6 @@ public class Product extends BaseEntity {
 	private BigDecimal buyPrice;
 	private BigDecimal sellPrice;
 	private String type;
-	private BigDecimal priceMargin;
 	private String productCategoryUuid;
 	private BigDecimal totalQuantity;
 	private BigDecimal defaultStockLevel;
@@ -45,7 +44,6 @@ public class Product extends BaseEntity {
 		setBuyPrice(entity.getBH_BuyPrice());
 		setSellPrice(entity.getBH_SellPrice());
 		setType(entity.getProductType());
-		setPriceMargin(entity.getBH_PriceMargin());
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 	}
 
@@ -54,7 +52,6 @@ public class Product extends BaseEntity {
 		this.setUuid(uuid);
 		this.buyPrice = entity.getBH_BuyPrice();
 		this.sellPrice = entity.getBH_SellPrice();
-		this.priceMargin = entity.getBH_PriceMargin();
 
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
@@ -63,17 +60,14 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-			String description, String value, Boolean isStocked, BigDecimal buyPrice, BigDecimal sellPrice,
-			Integer reorderLevel, Integer reorderQuantity, BigDecimal priceMargin, String productCategoryUuid,
-			MProduct_BH entity) {
+			String description, String value, BigDecimal sellPrice, Integer reorderLevel, Integer reorderQuantity,
+			String productCategoryUuid, MProduct_BH entity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		setValue(value);
-		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
 		this.reorderLevel = reorderLevel;
 		this.reorderQuantity = reorderQuantity;
-		this.priceMargin = priceMargin;
 		setProductCategoryUuid(productCategoryUuid);
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
@@ -82,28 +76,24 @@ public class Product extends BaseEntity {
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal buyPrice, BigDecimal sellPrice, BigDecimal priceMargin, MProduct_BH entity) {
+			String description, BigDecimal sellPrice, MProduct_BH entity) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
-		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
-		this.priceMargin = priceMargin;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
 		setType(entity.getProductType());
 		setIsStocked(entity.isStocked());
 	}
 
-	public Product(String uuid, String name, BigDecimal buyPrice, String created, BigDecimal sellPrice, Boolean isActive,
-			BigDecimal priceMargin, MProduct_BH entity) {
+	public Product(String uuid, String name, String created, BigDecimal sellPrice, Boolean isActive,
+			MProduct_BH entity) {
 		setUuid(uuid);
 		setName(name);
 		setCreated(created);
 		setIsActive(isActive);
 
-		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
-		this.priceMargin = priceMargin;
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
 		setType(entity.getProductType());
@@ -162,15 +152,6 @@ public class Product extends BaseEntity {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	@XmlElement
-	public BigDecimal getPriceMargin() {
-		return priceMargin;
-	}
-
-	public void setPriceMargin(BigDecimal priceMargin) {
-		this.priceMargin = priceMargin;
 	}
 
 	public String getProductCategoryUuid() {

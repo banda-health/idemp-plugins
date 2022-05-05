@@ -381,7 +381,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				whereClause += " AND " + filterWhereClause;
 			}
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null);
+			String tableName = getModelInstance().get_TableName();
+			Query query = new Query(Env.getCtx(), tableName, whereClause, null);
 			// If we should use the client ID in the context, add it
 			if (shouldUseContextClientId) {
 				query.setClient_ID();
@@ -395,7 +396,10 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				Set<String> tablesNeedingJoins = SortUtil.getTablesNeedingJoins(sortJson);
 				StringBuilder dynamicJoinBuilder = new StringBuilder();
 				tablesNeedingJoins.forEach(tableNeedingJoin -> {
-					if (!StringUtil.isNullOrEmpty(joinClause) && !joinClause.contains(tableNeedingJoin)) {
+					// If this isn't the current table, it's not empty, and it's not in the current JOIN clause (the table
+					// will need spaces around its name for SQL to differentiate, so check that)
+					if (!tableNeedingJoin.equalsIgnoreCase(tableName) && !StringUtil.isNullOrEmpty(joinClause) &&
+							!joinClause.contains(" " + tableNeedingJoin + " ")) {
 						dynamicJoinBuilder.append(getDynamicJoins().get(tableNeedingJoin)).append(" ");
 					}
 				});

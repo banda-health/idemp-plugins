@@ -69,8 +69,7 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  org.apache.commons.codec;bundle-version="1.6.0",
  org.bandahealth.idempiere.base;bundle-version="1.0.0"
 Bundle-ClassPath: .,
- WEB-INF/lib/java-jwt.jar,
- WEB-INF/lib/javatuples.jar
+ WEB-INF/lib/java-jwt.jar
 Web-ContextPath: BHGO
 Bundle-ActivationPolicy: lazy
 Export-Package: org.bandahealth.idempiere.rest,

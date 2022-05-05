@@ -15,11 +15,9 @@ public class StorageOnHand extends BaseMetadata {
 	private int locatorId;
 	private Locator locator;
 	private Timestamp dateMaterialPolicy;
-	private BigDecimal price;
 	@JsonIgnore
 	private int productId;
 	private Product product;
-	private Timestamp purchaseDate;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -85,14 +83,6 @@ public class StorageOnHand extends BaseMetadata {
 		this.dateMaterialPolicy = dateMaterialPolicy;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
 	public int getProductId() {
 		return productId;
 	}
@@ -107,13 +97,5 @@ public class StorageOnHand extends BaseMetadata {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public Timestamp getPurchaseDate() {
-		return purchaseDate;
-	}
-
-	public void setPurchaseDate(Timestamp purchaseDate) {
-		this.purchaseDate = purchaseDate;
 	}
 }

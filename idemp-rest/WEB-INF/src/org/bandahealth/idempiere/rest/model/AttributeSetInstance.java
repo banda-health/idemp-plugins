@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -24,6 +25,8 @@ public class AttributeSetInstance extends BaseMetadata {
 	@JsonIgnore
 	private Integer attributeSetId;
 	private AttributeSet attributeSet;
+	private BigDecimal purchasePrice;
+	private Timestamp purchaseDate;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -85,5 +88,21 @@ public class AttributeSetInstance extends BaseMetadata {
 
 	public void setAttributeSetId(Integer attributeSetId) {
 		this.attributeSetId = attributeSetId;
+	}
+
+	public BigDecimal getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(BigDecimal purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+
+	public Timestamp getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Timestamp purchaseDate) {
+		this.purchaseDate = purchaseDate;
 	}
 }
