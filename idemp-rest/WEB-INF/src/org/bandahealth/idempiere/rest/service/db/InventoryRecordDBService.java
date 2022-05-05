@@ -87,7 +87,7 @@ public class InventoryRecordDBService extends BaseDBService<InventoryRecord, MIn
 		BaseListResponse<InventoryRecord> inventoryList =
 				this.getInventory(Paging.ALL.getInstance(), null, productId, null, null);
 
-		return inventoryList.getResults().stream().filter(inventory -> !includeExpired || inventory.getShelfLife() >= 0)
+		return inventoryList.getResults().stream().filter(inventory -> includeExpired || inventory.getShelfLife() >= 0)
 				.reduce(BigDecimal.ZERO, (subtotal, item) -> subtotal.add(BigDecimal.valueOf(item.getQuantity())),
 						BigDecimal::add);
 	}
