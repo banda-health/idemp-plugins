@@ -14,6 +14,7 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
+import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
@@ -33,8 +34,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDBService extends BaseDBService<User, MUser_BH> {
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
-	private final String CLINICIAN_ADVANCED_UU = "c54253cf-c86b-4aaa-b472-ed8880635c62";
-	private final String CLINICIAN_BASIC_UU = "98617c31-55ff-48f9-bd44-253ef323d960";
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -153,7 +152,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		List<Object> parameters = new ArrayList<>();
 
 		String roleUuidClause = QueryUtil.getWhereClauseAndSetParametersForSet(
-				new HashSet<>(Arrays.asList(CLINICIAN_ADVANCED_UU, CLINICIAN_BASIC_UU)), parameters);
+				new HashSet<>(Arrays.asList(MRole_BH.CLINICIAN_ADVANCED_UU, MRole_BH.CLINICIAN_BASIC_UU)), parameters);
 
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 
