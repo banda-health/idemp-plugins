@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.rest.model.SerialNumberControl;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocator;
@@ -28,6 +29,7 @@ import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -387,20 +389,30 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 * @param attributeSetInstanceIds The attribute set instance ids to get the costs for
 	 * @return A map of product ids, each of which holds a map of attribute set instance ids to their costs
 	 */
-	public Map<Integer, Map<Integer, BigDecimal>> getProductCosts(Set<Integer> productIds, Set<Integer> attributeSetInstanceIds) {
-		String costSql = "SELECT m_product_id, m_attributesetinstance_id, purchase_price FROM get_product_costs(?)";
-		Map<Integer, Map<Integer, BigDecimal>> costsByProductAndAttributeSetInstanceId = new HashMap<>();
+	public Map<Integer, Map<Integer, Pair<BigDecimal, Timestamp>>> getProductCosts(Set<Integer> productIds,
+			Set<Integer> attributeSetInstanceIds) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		String costSql =
+				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?) " +
+						"WHERE" +
+						" m_product_id IN (";
+		String productWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters);
+		String attributeSetInstanceWhereClause =
+				QueryUtil.getWhereClauseAndSetParametersForSet(attributeSetInstanceIds, parameters);
+		costSql += productWhereClause + ") AND m_attributesetinstance_id IN (" + attributeSetInstanceWhereClause + ")";
+		Map<Integer, Map<Integer, Pair<BigDecimal, Timestamp>>> costsByProductAndAttributeSetInstanceId = new HashMap<>();
 		SqlUtil.executeQuery(costSql, parameters, null, data -> {
 			try {
 				int productId = data.getInt(1);
 				int attributeSetInstanceId = data.getInt(2);
 				BigDecimal cost = data.getBigDecimal(3);
+				Timestamp purchaseDate = data.getTimestamp(4);
 				if (!costsByProductAndAttributeSetInstanceId.containsKey(productId)) {
 					costsByProductAndAttributeSetInstanceId.put(productId, new HashMap<>());
 				}
-				costsByProductAndAttributeSetInstanceId.get(productId).put(attributeSetInstanceId, cost);
+				costsByProductAndAttributeSetInstanceId.get(productId)
+						.put(attributeSetInstanceId, new Pair<>(cost, purchaseDate));
 			} catch (Exception e) {
 				logger.severe(e.getMessage());
 			}

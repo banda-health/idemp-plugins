@@ -19,6 +19,7 @@ public class StorageOnHand extends BaseMetadata {
 	@JsonIgnore
 	private int productId;
 	private Product product;
+	private Timestamp purchaseDate;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -106,5 +107,13 @@ public class StorageOnHand extends BaseMetadata {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Timestamp getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Timestamp purchaseDate) {
+		this.purchaseDate = purchaseDate;
 	}
 }

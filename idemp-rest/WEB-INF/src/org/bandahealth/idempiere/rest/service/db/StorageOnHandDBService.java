@@ -11,10 +11,12 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -76,8 +78,8 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				.collect(Collectors.toMap(Product::getId, product -> product));
 
 		// fetch prices by product and asi
-		Map<Integer, Map<Integer, BigDecimal>> costsByProductIdAndAttributeSetInstanceId = productDBService
-				.getProductCosts(productIds, attributeSetInstanceIds);
+		Map<Integer, Map<Integer, Pair<BigDecimal, Timestamp>>> costsByProductIdAndAttributeSetInstanceId =
+				productDBService.getProductCosts(productIds, attributeSetInstanceIds);
 
 		return dbModels.stream().map(model -> {
 			StorageOnHand storageOnHand = createInstanceWithAllFields(model);
@@ -92,9 +94,12 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 
 			if (costsByProductIdAndAttributeSetInstanceId.containsKey(storageOnHand.getProductId())
 					&& costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
-							.containsKey(storageOnHand.getAttributeSetInstanceId())) {
-				storageOnHand.setPrice(costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
-						.get(storageOnHand.getAttributeSetInstanceId()));
+					.containsKey(storageOnHand.getAttributeSetInstanceId())) {
+				Pair<BigDecimal, Timestamp> batchInformation =
+						costsByProductIdAndAttributeSetInstanceId.get(storageOnHand.getProductId())
+								.get(storageOnHand.getAttributeSetInstanceId());
+				storageOnHand.setPrice(batchInformation.getValue0());
+				storageOnHand.setPurchaseDate(batchInformation.getValue1());
 			}
 
 			if (productsById.containsKey(storageOnHand.getProductId())) {
@@ -156,7 +161,7 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID
 						+ "=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?",
 				null).setParameters(productId, attributeSetInstanceId, locatorId)
-						.sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
+				.sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
 	}
 
 	/**
@@ -195,7 +200,7 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 		parameters.add(true);
 		List<MStorageOnHand> models = getBaseQuery(this.isClientIdFromTheContextNeededByDefaultForThisEntity(),
 				whereClause, parameters).addJoinClause(getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name))
-						.addJoinClause(getDynamicJoins().get(MAttributeSet_BH.Table_Name)).list();
+				.addJoinClause(getDynamicJoins().get(MAttributeSet_BH.Table_Name)).list();
 		Map<Integer, List<MStorageOnHand>> groupedValues = getTranslations(models).stream()
 				.collect(Collectors.groupingBy(groupingFunction));
 		return ids.stream()
