@@ -585,27 +585,30 @@ UPDATE ad_menu SET isactive = 'N' WHERE ad_menu_uu = 'b8bcb2f2-9ce5-42d7-84dd-ed
 /**********************************************************************************************************/
 -- 9. Add a function to fetch costs for products and their ASIs
 /**********************************************************************************************************/
-CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric)
-	RETURNS TABLE(m_product_id numeric, m_attributesetinstance_id numeric, purchase_price numeric)
-AS $$
+create or replace function get_product_costs(ad_client_id numeric) returns TABLE(m_product_id numeric, m_attributesetinstance_id numeric, purchase_price numeric, purchase_date timestamp)
+	language plpgsql
+as $$
 BEGIN
-  RETURN QUERY
+    RETURN QUERY
 	SELECT
 		soh.m_product_id,
 		soh.m_attributesetinstance_id,
-		coalesce(price_on_reception.po_price, costs.currentcostprice, productPP.PurchasePrice, 0) as purchase_price
+		coalesce(price_on_reception.po_price, costs.currentcostprice, productPP.PurchasePrice, 0) as purchase_price,
+		coalesce(price_on_reception.dateordered, soh.datematerialpolicy) as purchase_date
 	FROM m_storageonhand soh
 		LEFT JOIN (
 			SELECT
 				l.m_product_id,
 				l.po_price,
-				l.m_attributesetinstance_id
+				l.m_attributesetinstance_id,
+				l.dateordered
 			FROM (
 				SELECT
 					ol.m_product_id,
 					ol.priceactual as po_price,
 					ol.m_attributesetinstance_id,
-					row_number() OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER BY o.dateordered desc, o.updated desc) as rownum
+					o.dateordered,
+					row_number() OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER By o.dateordered desc, o.updated desc) as rownum
 				FROM c_orderline ol
 						JOIN c_order o ON ol.c_order_id = o.c_order_id
 				WHERE o.issotrx = 'N'
@@ -653,7 +656,7 @@ BEGIN
 		) as productPP ON soh.m_product_id = productPP.m_product_id
 	WHERE soh.ad_client_id = $1;
 END
-$$ LANGUAGE plpgsql;
+$$;
 
 /**********************************************************************************************************/
 -- Wrap everything up
