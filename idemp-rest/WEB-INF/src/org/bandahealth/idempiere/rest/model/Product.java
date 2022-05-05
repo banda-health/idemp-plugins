@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 
 @XmlRootElement(name = "product")
@@ -60,6 +59,7 @@ public class Product extends BaseEntity {
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
 		setType(entity.getProductType());
+		setIsStocked(entity.isStocked());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
@@ -69,7 +69,6 @@ public class Product extends BaseEntity {
 		super(clientId, orgId, uuid, isActive, created, createdBy, name, description);
 
 		setValue(value);
-		this.isStocked = isStocked;
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
 		this.reorderLevel = reorderLevel;
@@ -79,6 +78,7 @@ public class Product extends BaseEntity {
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
 		setType(entity.getProductType());
+		setIsStocked(entity.isStocked());
 	}
 
 	public Product(int clientId, int orgId, String uuid, Boolean isActive, String created, int createdBy, String name,
@@ -91,6 +91,7 @@ public class Product extends BaseEntity {
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
 		setType(entity.getProductType());
+		setIsStocked(entity.isStocked());
 	}
 
 	public Product(String uuid, String name, BigDecimal buyPrice, String created, BigDecimal sellPrice, Boolean isActive,
@@ -106,6 +107,7 @@ public class Product extends BaseEntity {
 		setAttributeSetId(entity.getM_AttributeSet_ID());
 		setId(entity.get_ID());
 		setType(entity.getProductType());
+		setIsStocked(entity.isStocked());
 	}
 
 	@XmlElement
