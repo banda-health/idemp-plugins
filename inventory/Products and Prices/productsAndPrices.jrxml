@@ -49,9 +49,9 @@
 		<parameter name="AD_ORG_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-	productName.name        AS drugName,
-	productPP.PurchasePrice AS buyingPrice,
-	productSP.SalesPrice    AS sellingPrice
+	productName.name         AS drugName,
+	productPP.purchase_price AS buyingPrice,
+	productSP.SalesPrice     AS sellingPrice
 FROM
 	(
 		SELECT
@@ -68,17 +68,11 @@ FROM
 		LEFT JOIN
 		(
 			SELECT
-				productPrice.m_product_id,
-				productPrice.pricestd AS PurchasePrice
+				m_product_id,
+				m_attributesetinstance_id,
+				purchase_price
 			FROM
-				m_pricelist priceList
-					INNER JOIN m_pricelist_version priceListVersion
-						ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-					INNER JOIN m_productprice productPrice
-						ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-			WHERE
-				priceList.issopricelist = 'N'
-				AND priceList.isdefault = 'Y'
+				get_product_costs($P{AD_CLIENT_ID})
 		) AS productPP
 				ON productName.m_product_id = productPP.m_product_id
 		LEFT JOIN
