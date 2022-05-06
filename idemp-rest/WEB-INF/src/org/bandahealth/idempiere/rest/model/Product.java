@@ -41,7 +41,6 @@ public class Product extends BaseEntity {
 		setIsStocked(entity.isStocked());
 		setReorderLevel(entity.getbh_reorder_level());
 		setReorderQuantity(entity.getbh_reorder_quantity());
-		setBuyPrice(entity.getBH_BuyPrice());
 		setSellPrice(entity.getBH_SellPrice());
 		setType(entity.getProductType());
 		setAttributeSetId(entity.getM_AttributeSet_ID());
@@ -50,7 +49,6 @@ public class Product extends BaseEntity {
 	public Product(String name, String uuid, MProduct_BH entity) {
 		this.setName(name);
 		this.setUuid(uuid);
-		this.buyPrice = entity.getBH_BuyPrice();
 		this.sellPrice = entity.getBH_SellPrice();
 
 		setAttributeSetId(entity.getM_AttributeSet_ID());
