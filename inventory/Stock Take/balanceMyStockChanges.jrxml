@@ -67,8 +67,8 @@
 			<![CDATA[WITH params AS (
 	SELECT
 		$P{AD_CLIENT_ID} AS ad_client_id,
-		DATE($P{BEGIN DATE}) AS begin_date,
-		DATE($P{END DATE}) AS end_date
+		DATE($P{Begin Date}) AS begin_date,
+		DATE($P{End Date}) AS end_date
 )
 SELECT
 	currentqty.product                                                                         AS item_name,
