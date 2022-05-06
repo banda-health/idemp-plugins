@@ -64,117 +64,49 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[SELECT
+			<![CDATA[WITH params AS (
+	SELECT
+		$P{AD_CLIENT_ID} AS ad_client_id,
+		DATE($P{BEGIN DATE}) AS begin_date,
+		DATE($P{END DATE}) AS end_date
+)
+SELECT
 	currentqty.product                                                                         AS item_name,
 	COALESCE(SUM(currentqty.closingqty - changesinqty.qtychanged), SUM(currentqty.closingqty)) AS beginning,
-	COALESCE(SUM(stockreceived.qtyreceived), 0)                                                AS receivedstock,
-	COALESCE(SUM(stocksold.qtysold), 0)                                                        AS soldstock,
-	COALESCE(SUM(stocktakechange.qtybalanced), 0)                                              AS balancestock,
+	COALESCE(SUM(changesinqty.stockreceived), 0)                                               AS receivedstock,
+	COALESCE(SUM(changesinqty.qtysold), 0)                                                     AS soldstock,
+	COALESCE(SUM(changesinqty.qtybalanced), 0)                                                 AS balancestock,
 	SUM(currentqty.closingqty)                                                                 AS ending,
 	ABS(COALESCE(SUM(currentqty.closingqty * productSP.SalesPrice), 0))                        AS endingvalue
 FROM
 	(
 		SELECT
-			m_product_id,
-			product,
-			SUM(quantity) AS closingqty
+			soh.m_product_id,
+			p.name         AS product,
+			SUM(qtyonhand) AS closingqty
 		FROM
-			bh_stocktake_v
-		WHERE
-			ad_client_id = $P{
-			AD_CLIENT_ID}
-		GROUP BY m_product_id, product
+			m_storageonhand soh
+				JOIN params par
+					ON par.ad_client_id = soh.ad_client_id
+				JOIN m_product p
+					ON soh.m_product_id = p.m_product_id
+		GROUP BY soh.m_product_id, product
 	) AS currentqty
 		INNER JOIN
 		(
 			SELECT
 				m_product_id,
-				SUM(movementqty) AS qtychanged
+				SUM(movementqty)                                               AS qtychanged,
+				SUM(movementqty) FILTER ( WHERE movementtype = 'V+' )          AS stockreceived,
+				SUM(movementqty) FILTER ( WHERE movementtype IN ('P+', 'P-') ) AS qtybalanced,
+				SUM(movementqty) FILTER ( WHERE movementtype = 'C-' )          AS qtysold
 			FROM
-				m_transaction
-			WHERE
-				ad_client_id = $P{
-				AD_CLIENT_ID}
-				AND (
-				DATE (
-				movementdate) BETWEEN DATE (
-				$P{
-				BEGIN DATE})
-				AND DATE (
-				$P{
-				END DATE}))
+				m_transaction t
+					JOIN params p
+						ON p.ad_client_id = t.ad_client_id AND date(movementdate) BETWEEN p.begin_date AND p.end_date
 			GROUP BY m_product_id
 		) AS changesinqty
 				ON currentqty.m_product_id = changesinqty.m_product_id
-		LEFT JOIN
-		(
-			SELECT
-				m_product_id,
-				SUM(movementqty) AS qtyreceived
-			FROM
-				m_transaction
-			WHERE
-				ad_client_id = $P{
-				AD_CLIENT_ID}
-				AND movementtype = 'V+'
-				AND (
-				DATE (
-				movementdate) BETWEEN DATE (
-				$P{
-				BEGIN DATE})
-				AND DATE (
-				$P{
-				END DATE}))
-			GROUP BY m_product_id
-		) AS stockreceived
-				ON currentqty.m_product_id = stockreceived.m_product_id
-		LEFT JOIN
-		(
-			SELECT
-				m_product_id,
-				SUM(movementqty) AS qtybalanced
-			FROM
-				m_transaction
-			WHERE
-				ad_client_id = $P{
-				AD_CLIENT_ID}
-				AND movementtype IN (
-				'P+'
-				, 'P-')
-				AND (
-				DATE (
-				movementdate) BETWEEN DATE (
-				$P{
-				BEGIN DATE})
-				AND DATE (
-				$P{
-				END DATE}))
-			GROUP BY m_product_id
-		) AS stocktakechange
-				ON currentqty.m_product_id = stocktakechange.m_product_id
-		LEFT JOIN
-		(
-			SELECT
-				m_product_id,
-				SUM(movementqty) AS qtysold
-			FROM
-				m_transaction
-			WHERE
-				ad_client_id = $P{
-				AD_CLIENT_ID}
-				AND movementtype IN (
-				'C-')
-				AND (
-				DATE (
-				movementdate) BETWEEN DATE (
-				$P{
-				BEGIN DATE})
-				AND DATE (
-				$P{
-				END DATE}))
-			GROUP BY m_product_id
-		) AS stocksold
-				ON currentqty.m_product_id = stocksold.m_product_id
 		LEFT JOIN
 		(
 			SELECT
