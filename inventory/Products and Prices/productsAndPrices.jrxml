@@ -48,44 +48,60 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="AD_ORG_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
-			<![CDATA[select
-    productName.name as drugName,
-    productPP.PurchasePrice as buyingPrice,
-    productSP.SalesPrice as sellingPrice
-from
-(
-select
-    product.ad_org_id,
-    product.ad_client_id,
-    product.m_product_id,
-    product.name
-from m_product product
-where
-    product.producttype = 'I' and product.isactive = 'Y'
-) as productName
-left join
-(
-select
-    productPrice.m_product_id,
-    productPrice.pricestd as PurchasePrice
-    from m_pricelist priceList
-    inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-    inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-where priceList.issopricelist = 'N' and priceList.isdefault = 'Y'
-) as productPP on productName.m_product_id = productPP.m_product_id
-left join
-(
-select
-    productPrice.m_product_id,
-    productPrice.pricestd as SalesPrice
-    from m_pricelist priceList
-    inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-    inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-where priceList.issopricelist = 'Y' and priceList.isdefault = 'Y'
-) as productSP on productName.m_product_id = productSP.m_product_id
-where
-    productName.ad_client_id in ($P{AD_CLIENT_ID}) and productName.ad_org_id in ($P{AD_CLIENT_ID})
-order by productName.name asc;]]>
+			<![CDATA[SELECT
+	productName.name        AS drugName,
+	productPP.PurchasePrice AS buyingPrice,
+	productSP.SalesPrice    AS sellingPrice
+FROM
+	(
+		SELECT
+			product.ad_org_id,
+			product.ad_client_id,
+			product.m_product_id,
+			product.name
+		FROM
+			m_product product
+		WHERE
+			product.producttype = 'I'
+			AND product.isactive = 'Y'
+	) AS productName
+		LEFT JOIN
+		(
+			SELECT
+				productPrice.m_product_id,
+				productPrice.pricestd AS PurchasePrice
+			FROM
+				m_pricelist priceList
+					INNER JOIN m_pricelist_version priceListVersion
+						ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
+					INNER JOIN m_productprice productPrice
+						ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+			WHERE
+				priceList.issopricelist = 'N'
+				AND priceList.isdefault = 'Y'
+		) AS productPP
+				ON productName.m_product_id = productPP.m_product_id
+		LEFT JOIN
+		(
+			SELECT
+				productPrice.m_product_id,
+				productPrice.pricestd AS SalesPrice
+			FROM
+				m_pricelist priceList
+					INNER JOIN m_pricelist_version priceListVersion
+						ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
+					INNER JOIN m_productprice productPrice
+						ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+			WHERE
+				priceList.issopricelist = 'Y'
+				AND priceList.isdefault = 'Y'
+		) AS productSP
+				ON productName.m_product_id = productSP.m_product_id
+WHERE
+	productName.ad_client_id IN ($P{AD_CLIENT_ID})
+	AND productName.ad_org_id IN ($P{AD_CLIENT_ID})
+ORDER BY
+	productName.name ASC;]]>
 		</queryString>
 		<field name="drugname" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="drugname"/>
