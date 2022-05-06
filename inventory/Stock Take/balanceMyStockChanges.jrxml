@@ -97,7 +97,7 @@ FROM
 			SELECT
 				m_product_id,
 				SUM(movementqty)                                               AS qtychanged,
-				SUM(movementqty) FILTER ( WHERE movementtype = 'V+' )          AS stockreceived,
+				SUM(movementqty) FILTER ( WHERE movementtype IN ('V+', 'I+') ) AS stockreceived,
 				SUM(movementqty) FILTER ( WHERE movementtype IN ('P+', 'P-') ) AS qtybalanced,
 				SUM(movementqty) FILTER ( WHERE movementtype = 'C-' )          AS qtysold
 			FROM
@@ -159,10 +159,6 @@ GROUP BY
 	<queryString>
 		<![CDATA[select 1;]]>
 	</queryString>
-	<field name="m_product_id" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="m_product_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="bh_stocktake_v"/>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
