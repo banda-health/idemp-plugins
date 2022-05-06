@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Product;
@@ -13,6 +14,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -40,7 +42,8 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
-		return new HashMap<>() {
+		// LinkedCaseInsensitiveMap is needed for case insensitive keys. Allows the sort/filter object to have case insensitive tables.. 
+		return new LinkedCaseInsensitiveMap<>() {
 			{
 				put(MAttributeSetInstance_BH.Table_Name,
 						" JOIN " + MAttributeSetInstance_BH.Table_Name + " ON " + MAttributeSetInstance_BH.Table_Name
@@ -52,6 +55,11 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 								+ MAttributeSet_BH.COLUMNNAME_M_AttributeSet_ID + "="
 								+ MAttributeSetInstance_BH.Table_Name + "."
 								+ MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSet_ID);
+				put(MProduct_BH.Table_Name,
+						" JOIN " + MProduct_BH.Table_Name + " ON " + MProduct_BH.Table_Name + "."
+								+ MProduct_BH.COLUMNNAME_M_Product_ID + "="
+								+ MStorageOnHand.Table_Name + "."
+								+ MStorageOnHand.COLUMNNAME_M_Product_ID);
 			}
 		};
 	}
