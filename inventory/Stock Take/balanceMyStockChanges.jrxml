@@ -64,68 +64,135 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[select currentqty.product as item_name,
-       coalesce(sum(currentqty.closingqty - changesinqty.qtychanged),sum(currentqty.closingqty))  as beginning,
-       coalesce(sum(stockreceived.qtyreceived),0) as receivedstock,
-       coalesce(sum(stocksold.qtysold),0) as soldstock,
-       coalesce(sum(stocktakechange.qtybalanced),0) as balancestock,
-       sum(currentqty.closingqty) as ending,
-       abs(coalesce(sum(currentqty.closingqty*productSP.SalesPrice),0)) as endingvalue
-from (
-         select m_product_id,
-                product,
-                sum(quantity) as closingqty
-         from bh_stocktake_v
-         where ad_client_id = $P{AD_CLIENT_ID}
-         group by m_product_id, product
-     ) as currentqty
-inner join
-    (
-select m_product_id,
-       sum(movementqty) as qtychanged
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID}
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-        ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
-left join
-(
-select m_product_id,
-       sum(movementqty) as qtyreceived
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID} and movementtype = 'V+'
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-) as stockreceived on currentqty.m_product_id = stockreceived.m_product_id
-left join
-(
-select m_product_id,
-       sum(movementqty) as qtybalanced
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('P+','P-')
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id
-left join
-(
-select m_product_id,
-       sum(movementqty) as qtysold
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('C-')
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-) as stocksold on currentqty.m_product_id = stocksold.m_product_id
-left join
-(
-select
-    productPrice.m_product_id,
-    productPrice.pricestd as SalesPrice
-    from m_pricelist priceList
-    inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-    inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-where priceList.issopricelist = 'Y' and priceList.isdefault = 'Y'
-) as productSP on currentqty.m_product_id = productSP.m_product_id
-group by item_name;]]>
+			<![CDATA[SELECT
+	currentqty.product                                                                         AS item_name,
+	COALESCE(SUM(currentqty.closingqty - changesinqty.qtychanged), SUM(currentqty.closingqty)) AS beginning,
+	COALESCE(SUM(stockreceived.qtyreceived), 0)                                                AS receivedstock,
+	COALESCE(SUM(stocksold.qtysold), 0)                                                        AS soldstock,
+	COALESCE(SUM(stocktakechange.qtybalanced), 0)                                              AS balancestock,
+	SUM(currentqty.closingqty)                                                                 AS ending,
+	ABS(COALESCE(SUM(currentqty.closingqty * productSP.SalesPrice), 0))                        AS endingvalue
+FROM
+	(
+		SELECT
+			m_product_id,
+			product,
+			SUM(quantity) AS closingqty
+		FROM
+			bh_stocktake_v
+		WHERE
+			ad_client_id = $P{
+			AD_CLIENT_ID}
+		GROUP BY m_product_id, product
+	) AS currentqty
+		INNER JOIN
+		(
+			SELECT
+				m_product_id,
+				SUM(movementqty) AS qtychanged
+			FROM
+				m_transaction
+			WHERE
+				ad_client_id = $P{
+				AD_CLIENT_ID}
+				AND (
+				DATE (
+				movementdate) BETWEEN DATE (
+				$P{
+				BEGIN DATE})
+				AND DATE (
+				$P{
+				END DATE}))
+			GROUP BY m_product_id
+		) AS changesinqty
+				ON currentqty.m_product_id = changesinqty.m_product_id
+		LEFT JOIN
+		(
+			SELECT
+				m_product_id,
+				SUM(movementqty) AS qtyreceived
+			FROM
+				m_transaction
+			WHERE
+				ad_client_id = $P{
+				AD_CLIENT_ID}
+				AND movementtype = 'V+'
+				AND (
+				DATE (
+				movementdate) BETWEEN DATE (
+				$P{
+				BEGIN DATE})
+				AND DATE (
+				$P{
+				END DATE}))
+			GROUP BY m_product_id
+		) AS stockreceived
+				ON currentqty.m_product_id = stockreceived.m_product_id
+		LEFT JOIN
+		(
+			SELECT
+				m_product_id,
+				SUM(movementqty) AS qtybalanced
+			FROM
+				m_transaction
+			WHERE
+				ad_client_id = $P{
+				AD_CLIENT_ID}
+				AND movementtype IN (
+				'P+'
+				, 'P-')
+				AND (
+				DATE (
+				movementdate) BETWEEN DATE (
+				$P{
+				BEGIN DATE})
+				AND DATE (
+				$P{
+				END DATE}))
+			GROUP BY m_product_id
+		) AS stocktakechange
+				ON currentqty.m_product_id = stocktakechange.m_product_id
+		LEFT JOIN
+		(
+			SELECT
+				m_product_id,
+				SUM(movementqty) AS qtysold
+			FROM
+				m_transaction
+			WHERE
+				ad_client_id = $P{
+				AD_CLIENT_ID}
+				AND movementtype IN (
+				'C-')
+				AND (
+				DATE (
+				movementdate) BETWEEN DATE (
+				$P{
+				BEGIN DATE})
+				AND DATE (
+				$P{
+				END DATE}))
+			GROUP BY m_product_id
+		) AS stocksold
+				ON currentqty.m_product_id = stocksold.m_product_id
+		LEFT JOIN
+		(
+			SELECT
+				productPrice.m_product_id,
+				productPrice.pricestd AS SalesPrice
+			FROM
+				m_pricelist priceList
+					INNER JOIN m_pricelist_version priceListVersion
+						ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
+					INNER JOIN m_productprice productPrice
+						ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+			WHERE
+				priceList.issopricelist = 'Y'
+				AND priceList.isdefault = 'Y'
+		) AS productSP
+				ON currentqty.m_product_id = productSP.m_product_id
+GROUP BY
+	item_name;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -158,62 +225,7 @@ group by item_name;]]>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[select currentqty.m_product_id as m_product_id
-from (
-         select m_product_id,
-                product,
-                sum(quantity) as closingqty
-         from bh_stocktake_v
-         where ad_client_id = $P{AD_CLIENT_ID}
-         group by m_product_id, product
-     ) as currentqty
-inner join
-    (
-select m_product_id,
-       sum(movementqty) as qtychanged
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID}
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-        ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
-left join
-(
-select m_product_id,
-       sum(movementqty) as qtyreceived
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID} and movementtype = 'V+'
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-) as stockreceived on currentqty.m_product_id = stockreceived.m_product_id
-left join
-(
-select m_product_id,
-       sum(movementqty) as qtybalanced
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('P+','P-')
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id
-left join
-(
-select m_product_id,
-       sum(movementqty) as qtysold
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID} and movementtype in ('C-')
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-) as stocksold on currentqty.m_product_id = stocksold.m_product_id
-left join
-(
-select
-    productPrice.m_product_id,
-    productPrice.pricestd as SalesPrice
-    from m_pricelist priceList
-    inner join m_pricelist_version priceListVersion on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-    inner join m_productprice productPrice on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-where priceList.issopricelist = 'Y' and priceList.isdefault = 'Y'
-) as productSP on currentqty.m_product_id = productSP.m_product_id
-limit 1;]]>
+		<![CDATA[select 1;]]>
 	</queryString>
 	<field name="m_product_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="m_product_id"/>
