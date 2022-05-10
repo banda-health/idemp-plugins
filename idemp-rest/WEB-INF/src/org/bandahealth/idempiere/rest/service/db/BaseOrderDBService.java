@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
@@ -20,6 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Order (c_order) base functionality (billing, receive goods, track expenses).
@@ -176,11 +182,28 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			String lineIds = "";
 			// persist product/service/charge order lines
 			List<OrderLine> orderLines = entity.getOrderLines();
+
+			// Get the ASI batches, if any should be there
+			Set<String> attributeSetInstanceUuids =
+					orderLines.stream().map(OrderLine::getAttributeSetInstance).filter(Objects::nonNull)
+							.map(AttributeSetInstance::getUuid).filter(StringUtil::isNotNullAndEmpty).collect(Collectors.toSet());
+			Map<String, MAttributeSetInstance_BH> attributeSetInstancesByUuid =
+					attributeSetInstanceDBService.getByUuids(attributeSetInstanceUuids);
+
 			if (orderLines != null) {
 				int count = 0;
 				for (OrderLine orderLine : orderLines) {
 					orderLine.setOrderId(mOrder.get_ID());
 					orderLine.setOrder(mOrder);
+
+					// Set the ASI ID, if need be
+					if (orderLine.getAttributeSetInstance() != null &&
+							!StringUtil.isNullOrEmpty(orderLine.getAttributeSetInstance().getUuid()) &&
+							attributeSetInstancesByUuid.containsKey(orderLine.getAttributeSetInstance().getUuid())) {
+						orderLine.setAttributeSetInstanceId(
+								attributeSetInstancesByUuid.get(orderLine.getAttributeSetInstance().getUuid()).get_ID());
+					}
+
 					OrderLine response = orderLineDBService.saveEntity(orderLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < orderLines.size()) {

@@ -21,12 +21,14 @@ import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.OrderLineChargeInformation;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
+import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MRefList;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Ref_List;
 import org.compiere.util.Env;
@@ -236,6 +238,16 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 								.stream().map(MBHOrderLineChargeInfo::getBH_Charge_Info_ID))
 						.collect(Collectors.toSet()));
 
+		// Get the product IDs so we can fetch storage on hand
+		Set<Integer> productIds =
+				orderLines.stream().map(OrderLine::getProductId).filter(productId -> productId > 0).collect(Collectors.toSet());
+		// TODO: Fetch Products Here instead of on a 1-by-1 basis up in the `createInstanceWithAllFields` method
+		// This should duplicate whatever is done in `ProductDBService#searchItems`
+		Map<Integer, List<StorageOnHand>> storageOnHandListByProductIds = storageOnHandDBService.transformData(
+				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
+								MStorageOnHand.COLUMNNAME_M_Product_ID, productIds).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
+
 		orderLines.forEach(orderLine -> {
 			if (orderLine.getChargeId() > 0) {
 				orderLine.setCharge(new Charge(chargesById.get(orderLine.getChargeId())));
@@ -249,6 +261,10 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 								chargeInformationById.get(orderLineChargeInformation.getChargeInformationId())
 										.getBH_Charge_Info_UU()))
 						.collect(Collectors.toList()));
+			}
+			if (orderLine.getProductId() > 0 && orderLine.getProduct() != null &&
+					storageOnHandListByProductIds.containsKey(orderLine.getProductId())) {
+				orderLine.getProduct().setStorageOnHandList(storageOnHandListByProductIds.get(orderLine.getProductId()));
 			}
 		});
 

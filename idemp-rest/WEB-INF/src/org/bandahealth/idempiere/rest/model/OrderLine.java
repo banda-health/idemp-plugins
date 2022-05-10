@@ -25,11 +25,12 @@ public class OrderLine extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 	private ExpenseCategory expenseCategory;
 	private Integer orderId;
+	@JsonIgnore
+	private Integer productId;
 	private Product product;
 	private BigDecimal price;
 	private BigDecimal quantity;
 	private BigDecimal lineNetAmount;
-	private Integer attributeSetInstanceId;
 	private String instructions;
 	@JsonIgnore
 	private int chargeId;
@@ -38,6 +39,8 @@ public class OrderLine extends BaseMetadata {
 	private String description;
 	@JsonIgnore
 	private MOrder_BH order;
+	@JsonIgnore
+	private Integer attributeSetInstanceId;
 	private AttributeSetInstance attributeSetInstance;
 
 	public OrderLine() {
@@ -57,6 +60,7 @@ public class OrderLine extends BaseMetadata {
 		setChargeId(entity.getC_Charge_ID());
 		setDescription(entity.getDescription());
 		this.attributeSetInstanceId = entity.getM_AttributeSetInstance_ID();
+		setProductId(entity.getM_Product_ID());
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -72,6 +76,7 @@ public class OrderLine extends BaseMetadata {
 		setChargeId(entity.getC_Charge_ID());
 		setDescription(entity.getDescription());
 		this.attributeSetInstanceId = entity.getM_AttributeSetInstance_ID();
+		setProductId(entity.getM_Product_ID());
 	}
 
 	@XmlElement
@@ -192,5 +197,13 @@ public class OrderLine extends BaseMetadata {
 
 	public void setAttributeSetInstance(AttributeSetInstance attributeSetInstance) {
 		this.attributeSetInstance = attributeSetInstance;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 }
