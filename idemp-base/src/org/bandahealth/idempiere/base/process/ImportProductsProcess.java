@@ -303,10 +303,10 @@ public class ImportProductsProcess extends SvrProcess {
 		// Get the two available attribute sets that will be assigned to products
 		MAttributeSet_BH expiringAttributeSet = new Query(getCtx(), MAttributeSet_BH.Table_Name,
 				MAttributeSet_BH.COLUMNNAME_BH_Locked + "=? AND " + MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=?",
-				get_TrxName()).setParameters(true, true).setOnlyActiveRecords(true).first();
+				get_TrxName()).setParameters(true, true).setClient_ID().setOnlyActiveRecords(true).first();
 		MAttributeSet_BH nonExpiringAttributeSet = new Query(getCtx(), MAttributeSet_BH.Table_Name,
 				MAttributeSet_BH.COLUMNNAME_BH_Locked + "=? AND " + MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=?",
-				get_TrxName()).setParameters(true, false).setOnlyActiveRecords(true).first();
+				get_TrxName()).setParameters(true, false).setClient_ID().setOnlyActiveRecords(true).first();
 
 		// Get the next serial numbers for attribute sets
 		Map<Integer, String> serialNumberBySerialNumberControlId = new HashMap<>() {{
