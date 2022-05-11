@@ -83,31 +83,30 @@ SELECT
 	receivedstock,
 	soldstock,
 	balancestock,
-	changedstock,
 	PurchasePrice
 FROM
 	(
 		SELECT
-			productname.name                              AS item_name,
-			COALESCE(SUM(currentqty.closingqty), 0)       AS endingstock,
-			COALESCE(SUM(stockreceived.qtyreceived), 0)   AS receivedstock,
-			COALESCE(stocksold.qtysold, 0)                AS soldstock,
-			COALESCE(SUM(stocktakechange.qtybalanced), 0) AS balancestock,
-			product_costs.purchase_price                  AS PurchasePrice
+			productname.name                         AS item_name,
+			COALESCE(currentqty.closingqty, 0)       AS endingstock,
+			COALESCE(stockreceived.qtyreceived, 0)   AS receivedstock,
+			COALESCE(stocksold.qtysold, 0)           AS soldstock,
+			COALESCE(stocktakechange.qtybalanced, 0) AS balancestock,
+			product_costs.purchase_price             AS PurchasePrice
 		FROM
 			(
 				SELECT
-					soh.m_product_id,
+					p.m_product_id,
 					soh.m_attributesetinstance_id,
 					p.name
 				FROM
-					m_storageonhand soh
-						JOIN m_product p
+					m_product p
+						LEFT JOIN m_storageonhand soh
 							ON soh.m_product_id = p.m_product_id
 						JOIN params
-							ON params.ad_client_id = soh.ad_client_id
+							ON params.ad_client_id = p.ad_client_id
 				GROUP BY
-					soh.m_product_id,
+					p.m_product_id,
 					p.name,
 					soh.m_attributesetinstance_id
 			) productname
@@ -168,38 +167,35 @@ FROM
 				AND productname.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
-					inoutline.m_product_id,
-					inoutline.m_attributesetinstance_id,
-					SUM(inoutline.movementqty) AS qtysold
+					iol.m_product_id,
+					iolma.m_attributesetinstance_id,
+					SUM(iolma.movementqty) AS qtysold
 				FROM
-					m_inoutline inoutline
-						INNER JOIN m_inout INOUT
-							ON inoutline.m_inout_id = INOUT.m_inout_id
+					m_inoutline iol
+						INNER JOIN m_inout io
+							ON iol.m_inout_id = io.m_inout_id
+						JOIN m_inoutlinema iolma
+							ON iol.m_inoutline_id = iolma.m_inoutline_id
 						JOIN params
-							ON params.ad_client_id = inoutline.ad_client_id AND
-							   DATE(INOUT.movementdate) BETWEEN begin_date AND end_date
+							ON params.ad_client_id = iol.ad_client_id AND
+							   DATE(io.movementdate) BETWEEN begin_date AND end_date
 				WHERE
-					INOUT.movementtype = 'C-'
+					io.movementtype = 'C-'
 				GROUP BY
-					inoutline.m_product_id,
-					inoutline.m_attributesetinstance_id
+					iol.m_product_id,
+					iolma.m_attributesetinstance_id
 			) stocksold
 					ON productname.m_product_id = stocksold.m_product_id
 				AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
 				LEFT JOIN product_costs
 					ON product_costs.m_product_id = productname.m_product_id
 				AND product_costs.m_attributesetinstance_id = productname.m_attributesetinstance_id
-		GROUP BY
-			item_name,
-			product_costs.purchase_price,
-			soldstock
 	) p
 WHERE
 	endingstock > 0
 	OR receivedstock > 0
 	OR soldstock > 0
 	OR balancestock > 0
-	OR changedstock > 0
 ORDER BY
 	item_name;]]>
 		</queryString>
@@ -224,7 +220,7 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
 		</field>
 		<variable name="stockchanges" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{receivedstock}.add($F{soldstock}).add($F{balancestock})]]></variableExpression>
+			<variableExpression><![CDATA[$F{soldstock}.subtract($F{receivedstock}).subtract($F{balancestock})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="closingStockValue" class="java.math.BigDecimal" calculation="Sum">
@@ -325,7 +321,7 @@ ORDER BY
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{endingstock}.subtract($V{stockchanges})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{endingstock}.add($V{stockchanges})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
