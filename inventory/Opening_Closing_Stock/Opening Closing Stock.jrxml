@@ -144,8 +144,8 @@ FROM
 					t.m_product_id,
 					t.m_attributesetinstance_id
 			) changesinqty
-					ON currentqty.m_product_id = changesinqty.m_product_id
-				AND currentqty.m_attributesetinstance_id = changesinqty.m_attributesetinstance_id
+					ON productname.m_product_id = changesinqty.m_product_id
+				AND productname.m_attributesetinstance_id = changesinqty.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					ol.m_product_id,
@@ -165,8 +165,8 @@ FROM
 					ol.m_product_id,
 					ol.m_attributesetinstance_id
 			) stockreceived
-					ON currentqty.m_product_id = stockreceived.m_product_id
-				AND currentqty.m_attributesetinstance_id = stockreceived.m_attributesetinstance_id
+					ON productname.m_product_id = stockreceived.m_product_id
+				AND productname.m_attributesetinstance_id = stockreceived.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					m_product_id,
@@ -182,11 +182,12 @@ FROM
 					m_product_id,
 					m_attributesetinstance_id
 			) stocktakechange
-					ON currentqty.m_product_id = stocktakechange.m_product_id
-				AND currentqty.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
+					ON productname.m_product_id = stocktakechange.m_product_id
+				AND productname.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					inoutline.m_product_id,
+					inoutline.m_attributesetinstance_id,
 					SUM(inoutline.movementqty) AS qtysold
 				FROM
 					m_inoutline inoutline
@@ -201,7 +202,8 @@ FROM
 					inoutline.m_product_id,
 					inoutline.m_attributesetinstance_id
 			) stocksold
-					ON currentqty.m_product_id = stocksold.m_product_id
+					ON productname.m_product_id = stocksold.m_product_id
+				AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
 				LEFT JOIN product_costs
 					ON product_costs.m_product_id = productname.m_product_id
 				AND product_costs.m_attributesetinstance_id = productname.m_attributesetinstance_id
@@ -217,8 +219,7 @@ WHERE
 	OR balancestock > 0
 	OR changedstock > 0
 ORDER BY
-	item_name;
-]]>
+	item_name;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
