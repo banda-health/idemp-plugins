@@ -15,8 +15,7 @@ public class Visit extends Order {
 
 	private static final long serialVersionUID = 1L;
 	private Boolean newVisit;
-	private String clinicalNotes;
-	private String labNotes;
+	private String visitNotes;
 	private PatientType patientType;
 	private Referral referral;
 	private OrderStatus status;
@@ -44,7 +43,7 @@ public class Visit extends Order {
 	}
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
-			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String clinicalNotes, String diagnosis,
+			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String visitNotes, String diagnosis,
 			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
 			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
 			String respiratoryRate, String height, String weight,
@@ -54,8 +53,7 @@ public class Visit extends Order {
 				orderLines, payments, documentStatus);
 
 		this.newVisit = newVisit;
-		this.clinicalNotes = clinicalNotes;
-		this.labNotes = order.getBH_LabNotes();
+		this.visitNotes = visitNotes;
 		this.patientType = patientType;
 		this.referral = referral;
 		this.patient = patient;
@@ -129,21 +127,12 @@ public class Visit extends Order {
 	}
 
 	@XmlElement
-	public String getClinicalNotes() {
-		return clinicalNotes;
+	public String getVisitNotes() {
+		return visitNotes;
 	}
 
-	public void setClinicalNotes(String clinicalNotes) {
-		this.clinicalNotes = clinicalNotes;
-	}
-
-	@XmlElement
-	public String getLabNotes() {
-		return labNotes;
-	}
-
-	public void setLabNotes(String labNotes) {
-		this.labNotes = labNotes;
+	public void setVisitNotes(String visitNotes) {
+		this.visitNotes = visitNotes;
 	}
 
 	@XmlElement
