@@ -14,6 +14,7 @@
 -- 7. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
 -- 8. Update reports that aren't needed anymore
 -- 9. Add a function to fetch costs for products and their ASIs
+-- 10. Ensure In/Out Attribute Sets are also added
 /**********************************************************************************************************/
 
 /**********************************************************************************************************/
@@ -237,6 +238,7 @@ SELECT setval(
 	false
 );
 
+-- Add the exclusion for the sales orders
 INSERT INTO tmp_m_attributesetexclude (
 	ad_client_id,
 	m_attributeset_id
@@ -325,6 +327,7 @@ FROM tmp_m_attributeset;
 -- And add their exclusions
 TRUNCATE tmp_m_attributesetexclude;
 
+-- Add the exclusion for the sales orders
 INSERT INTO tmp_m_attributesetexclude (
 	ad_client_id,
 	m_attributeset_id
@@ -686,6 +689,45 @@ BEGIN
 			p.ad_client_id = $1;
 END
 $$;
+
+/**********************************************************************************************************/
+-- 10. Ensure In/Out Attribute Sets are also added
+/**********************************************************************************************************/
+TRUNCATE tmp_m_attributesetexclude;
+
+INSERT INTO tmp_m_attributesetexclude (
+	ad_client_id,
+	m_attributeset_id,
+	ad_table_id
+)
+SELECT
+	attrs.ad_client_id,
+	attrs.m_attributeset_id,
+	320
+FROM m_attributeset attrs
+WHERE attrs.name IN ('With Expiry','Without Expiry')
+	AND attrs.m_attributeset_id NOT IN (SELECT m_attributeset_id FROM m_attributesetexclude WHERE ad_table_id = 320);
+
+INSERT INTO m_attributesetexclude (
+	m_attributesetexclude_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	m_attributeset_id,
+	ad_table_id,
+	m_attributesetexclude_uu
+)
+SELECT
+	m_attributesetexclude_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	m_attributeset_id,
+	ad_table_id,
+	m_attributesetexclude_uu
+FROM tmp_m_attributesetexclude;
 
 /**********************************************************************************************************/
 -- Wrap everything up
