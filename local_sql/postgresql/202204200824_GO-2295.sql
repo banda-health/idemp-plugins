@@ -609,7 +609,17 @@ BEGIN
 			COALESCE(price_on_reception.date_purchased, soh.datematerialpolicy, p.created) AS purchase_date
 		FROM
 			m_product p
-				LEFT JOIN m_storageonhand soh
+				LEFT JOIN (
+				SELECT
+					soh.m_product_id,
+					soh.m_attributesetinstance_id,
+					soh.datematerialpolicy
+				FROM
+					m_storageonhand soh
+				WHERE
+					soh.ad_client_id = $1
+				GROUP BY soh.m_product_id, soh.m_attributesetinstance_id, soh.datematerialpolicy
+			) soh
 					ON p.m_product_id = soh.m_product_id
 				LEFT JOIN (
 				SELECT
