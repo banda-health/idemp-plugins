@@ -38,7 +38,7 @@ public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetIns
 		// We'll only allow updating the guarantee date and update reason on an existing ASI
 		attributeSetInstance.setGuaranteeDate(entity.getGuaranteeDate());
 
-		if (entity.getUpdateReason().getUuid() != null) {
+		if (entity.getUpdateReason() != null && entity.getUpdateReason().getUuid() != null) {
 			MRefList updateReason = referenceListDBService.getEntityByUuidFromDB(entity.getUpdateReason().getUuid());
 			if (updateReason != null) {
 				attributeSetInstance.setbh_update_reason(updateReason.getValue());

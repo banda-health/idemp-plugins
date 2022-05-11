@@ -191,6 +191,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				if (taxCategory != null) {
 					product.setC_TaxCategory_ID(taxCategory.get_ID());
 				}
+
+				// Buy price can only be set when a product gets created
+				if (entity.getBuyPrice() != null) {
+					product.setBH_BuyPrice(entity.getBuyPrice());
+				}
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
@@ -207,10 +212,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 			if (entity.getReorderQuantity() != null) {
 				product.set_CustomColumn(COLUMNNAME_REORDER_QUANTITY, entity.getReorderQuantity());
-			}
-
-			if (entity.getBuyPrice() != null) {
-				product.setBH_BuyPrice(entity.getBuyPrice());
 			}
 
 			if (entity.getSellPrice() != null) {
