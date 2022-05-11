@@ -93,7 +93,6 @@ FROM
 			COALESCE(SUM(stockreceived.qtyreceived), 0)   AS receivedstock,
 			COALESCE(stocksold.qtysold, 0)                AS soldstock,
 			COALESCE(SUM(stocktakechange.qtybalanced), 0) AS balancestock,
-			COALESCE(SUM(changesinqty.qtychanged), 0)     AS changedstock,
 			product_costs.purchase_price                  AS PurchasePrice
 		FROM
 			(
@@ -129,23 +128,6 @@ FROM
 			) currentqty
 					ON currentqty.m_product_id = productname.m_product_id
 				AND currentqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
-				LEFT JOIN (
-				SELECT
-					t.m_product_id,
-					t.m_attributesetinstance_id,
-					SUM(t.movementqty) AS qtychanged
-				FROM
-					m_transaction t
-						JOIN params
-							ON params.ad_client_id = t.ad_client_id AND DATE(movementdate) BETWEEN begin_date AND end_date
-				WHERE
-					movementtype NOT IN ('C-', 'I+')
-				GROUP BY
-					t.m_product_id,
-					t.m_attributesetinstance_id
-			) changesinqty
-					ON productname.m_product_id = changesinqty.m_product_id
-				AND productname.m_attributesetinstance_id = changesinqty.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					ol.m_product_id,
@@ -237,22 +219,16 @@ ORDER BY
 		<field name="balancestock" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="balancestock"/>
 		</field>
-		<field name="changedstock" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="changedstock"/>
-		</field>
 		<field name="purchaseprice" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="purchaseprice"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
 		</field>
 		<variable name="stockchanges" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{changedstock}.subtract($F{soldstock})]]></variableExpression>
+			<variableExpression><![CDATA[$F{receivedstock}.add($F{soldstock}).add($F{balancestock})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
-		<variable name="endstock" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{endingstock}]]></variableExpression>
-		</variable>
 		<variable name="closingStockValue" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$V{endstock}.multiply($F{purchaseprice})]]></variableExpression>
+			<variableExpression><![CDATA[$F{endingstock}.multiply($F{purchaseprice})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 	</subDataset>
@@ -349,7 +325,7 @@ ORDER BY
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{endstock}.subtract($V{stockchanges})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{endingstock}.subtract($V{stockchanges})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -445,7 +421,7 @@ ORDER BY
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{endstock}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{endingstock}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -522,7 +498,7 @@ ORDER BY
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{endstock}.multiply($F{purchaseprice})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{endingstock}.multiply($F{purchaseprice})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
