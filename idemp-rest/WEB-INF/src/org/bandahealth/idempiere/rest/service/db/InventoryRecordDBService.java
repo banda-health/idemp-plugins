@@ -83,15 +83,17 @@ public class InventoryRecordDBService extends BaseDBService<InventoryRecord, MIn
 	 * @return The product's inventory.
 	 * @throws DBException
 	 */
-	public BigDecimal getProductInventoryCount(Integer productId) throws DBException {
+	public BigDecimal getProductInventoryCount(Integer productId, boolean includeExpired) throws DBException {
 		BaseListResponse<InventoryRecord> inventoryList =
 				this.getInventory(Paging.ALL.getInstance(), null, productId, null, null);
 
-		return inventoryList.getResults().stream().reduce(BigDecimal.ZERO,
-				(subtotal, item) -> subtotal.add(BigDecimal.valueOf(item.getQuantity())), BigDecimal::add);
+		return inventoryList.getResults().stream().filter(inventory -> includeExpired || inventory.getShelfLife() >= 0)
+				.reduce(BigDecimal.ZERO, (subtotal, item) -> subtotal.add(BigDecimal.valueOf(item.getQuantity())),
+						BigDecimal::add);
 	}
 
-	public BaseListResponse<InventoryRecord> getProductInventory(Paging pagingInfo, Integer productId) throws DBException {
+	public BaseListResponse<InventoryRecord> getProductInventory(Paging pagingInfo, Integer productId)
+			throws DBException {
 		return this.getInventory(pagingInfo, null, productId,
 				getOrderByClause(X_BH_Stocktake_v.COLUMNNAME_expirationdate, ASCENDING_ORDER), null);
 	}
@@ -157,10 +159,11 @@ public class InventoryRecordDBService extends BaseDBService<InventoryRecord, MIn
 		pagingInfo.setTotalRecordCount(getTotalRecordCount(sqlJoin.toString() + sqlWhere.toString(), parameters));
 		SqlUtil.executeQuery(sqlToUse, parameters, null, resultSet -> {
 			try {
-				InventoryRecord inventoryRecord = new InventoryRecord(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
-						DateUtil.parseDateOnly(resultSet.getTimestamp(4)), resultSet.getInt(5), resultSet.getInt(6),
-						resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9),
-						DateUtil.parse(resultSet.getTimestamp(10)), resultSet.getInt(11), resultSet.getString(12));
+				InventoryRecord inventoryRecord =
+						new InventoryRecord(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
+								DateUtil.parseDateOnly(resultSet.getTimestamp(4)), resultSet.getInt(5), resultSet.getInt(6),
+								resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9),
+								DateUtil.parse(resultSet.getTimestamp(10)), resultSet.getInt(11), resultSet.getString(12));
 				results.add(inventoryRecord);
 			} catch (Exception ex) {
 				log.warning("Error processing inventory items: " + ex.getMessage());
@@ -275,7 +278,7 @@ public class InventoryRecordDBService extends BaseDBService<InventoryRecord, MIn
 				if (product.isBH_HasExpiration() || (storageOnHand.getM_AttributeSetInstance_ID() > 0)) {
 					Optional<MStorageOnHand> searchInventory = existingInventoryList.stream()
 							.filter(existingStorageOnHand -> existingStorageOnHand
-									.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID() && 
+									.getM_AttributeSetInstance_ID() == storageOnHand.getM_AttributeSetInstance_ID() &&
 									existingStorageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)
 							.findFirst();
 					// possibly an update for a -ve quantity. remove the qty check
@@ -288,7 +291,7 @@ public class InventoryRecordDBService extends BaseDBService<InventoryRecord, MIn
 						existingInventory = searchInventory.get();
 					}
 				}
-				
+
 				// If current quantity equals desired quantity, exit out
 				if (existingInventory.getQtyOnHand().compareTo(desiredQuantityOnHand) == 0) {
 					return;
