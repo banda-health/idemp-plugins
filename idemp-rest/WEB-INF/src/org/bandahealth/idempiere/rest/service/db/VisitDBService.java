@@ -49,6 +49,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class VisitDBService extends BaseOrderDBService<Visit> {
 
+	private final String COLUMNNAME_VISIT_NOTES = "bh_lab_notes"; // this column needs to be renamed accordingly in the
+	// db
 	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
 	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	@Autowired
@@ -151,12 +153,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	protected void beforeSave(Visit entity, MOrder_BH mOrder) {
-		if (StringUtil.isNotNullAndEmpty(entity.getClinicalNotes())) {
-			mOrder.setBH_ClinicalNotes(entity.getClinicalNotes());
-		}
-
-		if (StringUtil.isNotNullAndEmpty(entity.getLabNotes())) {
-			mOrder.setBH_LabNotes(entity.getLabNotes());
+		if (StringUtil.isNotNullAndEmpty(entity.getVisitNotes())) {
+			mOrder.set_ValueOfColumn(COLUMNNAME_VISIT_NOTES, entity.getVisitNotes());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getDiagnosis())) {
@@ -376,8 +374,9 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			// retrieve payments
 			List<Payment> payments = paymentDBService.getPaymentsByOrderId(instance.get_ID());
 
-			String clinicalNotes = instance.getBH_ClinicalNotes();
-			String labNotes = instance.getBH_LabNotes();
+			String visitNotes = instance.get_Value(COLUMNNAME_VISIT_NOTES) != null
+					? (String) instance.get_Value(COLUMNNAME_VISIT_NOTES)
+					: null;
 			String patientType = instance.get_Value(COLUMNNAME_PATIENT_TYPE) != null
 					? (String) instance.get_Value(COLUMNNAME_PATIENT_TYPE)
 					: null;
@@ -423,7 +422,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
 							getVisitsCount(patient.get_ID()), getLastVisitDate(patient)),
 					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
-					instance.isBH_NewVisit(), clinicalNotes, instance.getDescription(), new PatientType(patientType),
+					instance.isBH_NewVisit(), visitNotes, instance.getDescription(), new PatientType(patientType),
 					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
 					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
 					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
@@ -560,7 +559,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		if (!orderlinesExist && !paymentsExist) {
 			// check visit information
 			if (entity.get_Value(COLUMNNAME_REFERRAL) == null && entity.getDescription() == null
-					&& entity.getBH_ClinicalNotes() == null) {
+					&& entity.get_Value(COLUMNNAME_VISIT_NOTES) == null) {
 				return OrderStatus.WAITING;
 			} else {
 				return OrderStatus.DISPENSING;
