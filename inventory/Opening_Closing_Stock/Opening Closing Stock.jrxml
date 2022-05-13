@@ -67,13 +67,14 @@
 			<![CDATA[WITH inventory_changes AS (
 	SELECT
 		m_product_id,
-		ending_stock,
-		received_stock,
-		sold_stock,
-		balanced_stock,
+		SUM(ending_stock)   AS ending_stock,
+		SUM(received_stock) AS received_stock,
+		SUM(sold_stock)     AS sold_stock,
+		SUM(balanced_stock) AS balanced_stock,
 		purchase_price
 	FROM
 		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+	GROUP BY m_product_id, purchase_price
 )
 SELECT
 	p.name            AS item_name,

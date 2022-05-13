@@ -48,33 +48,22 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="AD_ORG_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT
-	productName.name         AS drugName,
-	productPP.purchase_price AS buyingPrice,
-	productSP.SalesPrice     AS sellingPrice
+			<![CDATA[WITH inventory_changes AS (
+	SELECT
+		m_product_id,
+		purchase_price
+	FROM
+		get_inventory_changes($P{AD_CLIENT_ID})
+	GROUP BY m_product_id, sell_price, purchase_price
+)
+SELECT
+	p.name               AS drugName,
+	purchase_price       AS buyingPrice,
+	productSP.SalesPrice AS sellingPrice
 FROM
-	(
-		SELECT
-			product.ad_org_id,
-			product.ad_client_id,
-			product.m_product_id,
-			product.name
-		FROM
-			m_product product
-		WHERE
-			product.producttype = 'I'
-			AND product.isactive = 'Y'
-	) AS productName
-		LEFT JOIN
-		(
-			SELECT
-				m_product_id,
-				m_attributesetinstance_id,
-				purchase_price
-			FROM
-				get_product_costs($P{AD_CLIENT_ID})
-		) AS productPP
-				ON productName.m_product_id = productPP.m_product_id
+	m_product p
+		JOIN inventory_changes ic
+			ON p.m_product_id = ic.m_product_id
 		LEFT JOIN
 		(
 			SELECT
@@ -90,12 +79,11 @@ FROM
 				priceList.issopricelist = 'Y'
 				AND priceList.isdefault = 'Y'
 		) AS productSP
-				ON productName.m_product_id = productSP.m_product_id
+				ON p.m_product_id = productSP.m_product_id
 WHERE
-	productName.ad_client_id IN ($P{AD_CLIENT_ID})
-	AND productName.ad_org_id IN ($P{AD_CLIENT_ID})
+	ic.purchase_price IS NOT NULL
 ORDER BY
-	productName.name ASC;]]>
+	p.name;]]>
 		</queryString>
 		<field name="drugname" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="drugname"/>
