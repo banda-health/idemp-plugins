@@ -99,12 +99,13 @@ FROM
 				SUM(movementqty)                                               AS qtychanged,
 				SUM(movementqty) FILTER ( WHERE movementtype IN ('V+', 'I+') ) AS stockreceived,
 				SUM(movementqty) FILTER ( WHERE movementtype IN ('P+', 'P-') ) AS qtybalanced,
-				SUM(movementqty) FILTER ( WHERE movementtype = 'C-' )          AS qtysold
+				SUM(movementqty) FILTER ( WHERE movementtype = 'C-')           AS qtysold
 			FROM
 				m_transaction t
 					JOIN params p
-						ON p.ad_client_id = t.ad_client_id AND date(movementdate) BETWEEN p.begin_date AND p.end_date
-			GROUP BY m_product_id
+						ON p.ad_client_id = t.ad_client_id AND DATE(movementdate) BETWEEN p.begin_date AND p.end_date
+			GROUP BY
+				m_product_id
 		) AS changesinqty
 				ON currentqty.m_product_id = changesinqty.m_product_id
 		LEFT JOIN
