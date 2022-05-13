@@ -220,7 +220,7 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
 		</field>
 		<variable name="stockchanges" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{soldstock}.subtract($F{receivedstock}).subtract($F{balancestock})]]></variableExpression>
+			<variableExpression><![CDATA[$F{receivedstock}.subtract($F{soldstock}).add($F{balancestock})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="closingStockValue" class="java.math.BigDecimal" calculation="Sum">
@@ -321,7 +321,7 @@ ORDER BY
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{endingstock}.add($V{stockchanges})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{endingstock}.subtract($V{stockchanges})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
