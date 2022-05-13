@@ -64,138 +64,28 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[WITH params AS (
-	SELECT
-		$P{AD_CLIENT_ID} AS ad_client_id,
-		DATE($P{Begin Date}) AS begin_date,
-		DATE($P{End Date}) AS end_date
-), product_costs AS (
+			<![CDATA[WITH inventory_changes AS (
 	SELECT
 		m_product_id,
-		m_attributesetinstance_id,
+		ending_stock,
+		received_stock,
+		sold_stock,
+		balanced_stock,
 		purchase_price
 	FROM
-		get_product_costs($P{AD_CLIENT_ID})
+		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
 )
 SELECT
-	item_name,
-	endingstock,
-	receivedstock,
-	soldstock,
-	balancestock,
-	PurchasePrice
+	p.name            AS item_name,
+	ic.ending_stock   AS endingstock,
+	ic.received_stock AS receivedstock,
+	ic.sold_stock     AS soldstock,
+	ic.balanced_stock AS balancestock,
+	ic.purchase_price AS PurchasePrice
 FROM
-	(
-		SELECT
-			productname.name                         AS item_name,
-			COALESCE(currentqty.closingqty, 0)       AS endingstock,
-			COALESCE(stockreceived.qtyreceived, 0)   AS receivedstock,
-			COALESCE(stocksold.qtysold, 0)           AS soldstock,
-			COALESCE(stocktakechange.qtybalanced, 0) AS balancestock,
-			product_costs.purchase_price             AS PurchasePrice
-		FROM
-			(
-				SELECT
-					p.m_product_id,
-					soh.m_attributesetinstance_id,
-					p.name
-				FROM
-					m_product p
-						LEFT JOIN m_storageonhand soh
-							ON soh.m_product_id = p.m_product_id
-						JOIN params
-							ON params.ad_client_id = p.ad_client_id
-				GROUP BY
-					p.m_product_id,
-					p.name,
-					soh.m_attributesetinstance_id
-			) productname
-				LEFT JOIN (
-				SELECT
-					m_product_id,
-					m_attributesetinstance_id,
-					SUM(qtyonhand) AS closingqty
-				FROM
-					m_storageonhand
-						JOIN params
-							ON params.ad_client_id = m_storageonhand.ad_client_id AND DATE(updated) <= end_date
-				WHERE
-					isactive = 'Y'
-				GROUP BY
-					m_product_id,
-					m_attributesetinstance_id
-			) currentqty
-					ON currentqty.m_product_id = productname.m_product_id
-				AND currentqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
-				LEFT JOIN (
-				SELECT
-					ol.m_product_id,
-					ol.m_attributesetinstance_id,
-					SUM(ol.qtyentered) AS qtyreceived
-				FROM
-					c_orderline ol
-						JOIN params
-							ON params.ad_client_id = ol.ad_client_id AND DATE(dateordered) BETWEEN begin_date AND end_date
-						JOIN c_order o
-							ON ol.c_order_id = o.c_order_id
-				WHERE
-					o.issotrx = 'N'
-					AND o.docstatus IN ('CL', 'CO')
-					AND ol.m_product_id IS NOT NULL
-				GROUP BY
-					ol.m_product_id,
-					ol.m_attributesetinstance_id
-			) stockreceived
-					ON productname.m_product_id = stockreceived.m_product_id
-				AND productname.m_attributesetinstance_id = stockreceived.m_attributesetinstance_id
-				LEFT JOIN (
-				SELECT
-					m_product_id,
-					m_attributesetinstance_id,
-					SUM(movementqty) AS qtybalanced
-				FROM
-					m_transaction
-						JOIN params
-							ON params.ad_client_id = m_transaction.ad_client_id AND DATE(movementdate) BETWEEN begin_date AND end_date
-				WHERE
-					movementtype IN ('I+', 'I-')
-				GROUP BY
-					m_product_id,
-					m_attributesetinstance_id
-			) stocktakechange
-					ON productname.m_product_id = stocktakechange.m_product_id
-				AND productname.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
-				LEFT JOIN (
-				SELECT
-					iol.m_product_id,
-					iolma.m_attributesetinstance_id,
-					SUM(iolma.movementqty) AS qtysold
-				FROM
-					m_inoutline iol
-						INNER JOIN m_inout io
-							ON iol.m_inout_id = io.m_inout_id
-						JOIN m_inoutlinema iolma
-							ON iol.m_inoutline_id = iolma.m_inoutline_id
-						JOIN params
-							ON params.ad_client_id = iol.ad_client_id AND
-							   DATE(io.movementdate) BETWEEN begin_date AND end_date
-				WHERE
-					io.movementtype = 'C-'
-				GROUP BY
-					iol.m_product_id,
-					iolma.m_attributesetinstance_id
-			) stocksold
-					ON productname.m_product_id = stocksold.m_product_id
-				AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
-				LEFT JOIN product_costs
-					ON product_costs.m_product_id = productname.m_product_id
-				AND product_costs.m_attributesetinstance_id = productname.m_attributesetinstance_id
-	) p
-WHERE
-	endingstock > 0
-	OR receivedstock > 0
-	OR soldstock > 0
-	OR balancestock > 0
+	m_product p
+		JOIN inventory_changes ic
+			ON p.m_product_id = ic.m_product_id
 ORDER BY
 	item_name;]]>
 		</queryString>

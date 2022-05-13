@@ -64,81 +64,30 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[WITH params AS (
+			<![CDATA[WITH inventory_changes AS (
 	SELECT
-		$P{AD_CLIENT_ID} AS ad_client_id,
-		DATE($P{Begin Date}) AS begin_date,
-		DATE($P{End Date}) AS end_date
+		m_product_id,
+		SUM(balanced_stock) AS balanced_stock,
+		SUM(ending_stock)   AS ending_stock
+	FROM
+		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+	GROUP BY m_product_id
 )
 SELECT
-	currentqty.product                                                                         AS item_name,
-	COALESCE(SUM(currentqty.closingqty - changesinqty.qtychanged), SUM(currentqty.closingqty)) AS beginning,
-	COALESCE(SUM(changesinqty.stockreceived), 0)                                               AS receivedstock,
-	COALESCE(SUM(changesinqty.qtysold), 0)                                                     AS soldstock,
-	COALESCE(SUM(changesinqty.qtybalanced), 0)                                                 AS balancestock,
-	SUM(currentqty.closingqty)                                                                 AS ending,
-	ABS(COALESCE(SUM(currentqty.closingqty * productSP.SalesPrice), 0))                        AS endingvalue
+	p.name            AS item_name,
+	ic.balanced_stock AS balancestock,
+	ic.ending_stock   AS ending
 FROM
-	(
-		SELECT
-			soh.m_product_id,
-			p.name         AS product,
-			SUM(qtyonhand) AS closingqty
-		FROM
-			m_storageonhand soh
-				JOIN params par
-					ON par.ad_client_id = soh.ad_client_id
-				JOIN m_product p
-					ON soh.m_product_id = p.m_product_id
-		GROUP BY soh.m_product_id, product
-	) AS currentqty
-		INNER JOIN
-		(
-			SELECT
-				m_product_id,
-				SUM(movementqty)                                               AS qtychanged,
-				SUM(movementqty) FILTER ( WHERE movementtype IN ('V+', 'I+') ) AS stockreceived,
-				SUM(movementqty) FILTER ( WHERE movementtype IN ('P+', 'P-') ) AS qtybalanced,
-				SUM(movementqty) FILTER ( WHERE movementtype = 'C-')           AS qtysold
-			FROM
-				m_transaction t
-					JOIN params p
-						ON p.ad_client_id = t.ad_client_id AND DATE(movementdate) BETWEEN p.begin_date AND p.end_date
-			GROUP BY
-				m_product_id
-		) AS changesinqty
-				ON currentqty.m_product_id = changesinqty.m_product_id
-		LEFT JOIN
-		(
-			SELECT
-				productPrice.m_product_id,
-				productPrice.pricestd AS SalesPrice
-			FROM
-				m_pricelist priceList
-					INNER JOIN m_pricelist_version priceListVersion
-						ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-					INNER JOIN m_productprice productPrice
-						ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-			WHERE
-				priceList.issopricelist = 'Y'
-				AND priceList.isdefault = 'Y'
-		) AS productSP
-				ON currentqty.m_product_id = productSP.m_product_id
-GROUP BY
+	m_product p
+		JOIN inventory_changes ic
+			ON p.m_product_id = ic.m_product_id
+WHERE ic.balanced_stock != 0
+ORDER BY
 	item_name;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stocktake_v"/>
-		</field>
-		<field name="beginning" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="beginning"/>
-		</field>
-		<field name="receivedstock" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="receivedstock"/>
-		</field>
-		<field name="soldstock" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="soldstock"/>
 		</field>
 		<field name="balancestock" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="balancestock"/>
@@ -146,13 +95,6 @@ GROUP BY
 		<field name="ending" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="ending"/>
 		</field>
-		<field name="endingvalue" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="endingvalue"/>
-		</field>
-		<variable name="runningTotal" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{endingvalue}]]></variableExpression>
-			<initialValueExpression><![CDATA[$F{endingvalue}]]></initialValueExpression>
-		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
