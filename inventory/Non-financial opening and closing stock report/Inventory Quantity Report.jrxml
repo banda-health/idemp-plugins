@@ -57,9 +57,9 @@
 		<queryString>
 			<![CDATA[WITH params AS (
 	SELECT
-		1000000            AS ad_client_id,
-		date('2022-05-06') AS begin_date,
-		date('2022-05-14') AS end_date
+		$P{AD_CLIENT_ID} AS ad_client_id,
+		DATE($P{Begin Date}) AS begin_date,
+		DATE($P{End Date}) AS end_date
 )
 SELECT
 	item_name,
