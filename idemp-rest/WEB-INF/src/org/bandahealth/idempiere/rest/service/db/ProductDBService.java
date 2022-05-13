@@ -381,6 +381,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				productCostCalculations.stream().collect(Collectors.groupingBy(ProductCostCalculation::getProductId)).entrySet()
 						.stream().collect(Collectors.toMap(Map.Entry::getKey,
 								productCostCalculationsForProduct -> productCostCalculationsForProduct.getValue().stream()
+										// For over-sells, the guarantee date is null, so remove those
+										.filter(productCostCalculation -> productCostCalculation.getPurchaseDate() != null)
 										.max(Comparator.comparing(ProductCostCalculation::getPurchaseDate))
 										.orElse(new ProductCostCalculation())));
 
