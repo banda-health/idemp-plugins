@@ -225,6 +225,12 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	}
 
 	@Override
+	public Movement processEntity(String uuid, String docAction) throws Exception {
+		super.processEntity(uuid, docAction);
+		return getEntity(uuid);
+	}
+
+	@Override
 	public Movement getEntity(String uuid) {
 		Movement movement = transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 
