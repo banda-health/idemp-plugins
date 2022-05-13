@@ -130,9 +130,12 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				response.getResults().stream().filter(Product::getIsStocked).map(Product::getId).collect(Collectors.toSet());
 
 		Map<Integer, List<StorageOnHand>> storageOnHandByProductId = storageOnHandDBService.transformData(
-				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
-								MStorageOnHand.COLUMNNAME_M_Product_ID, productIdsWithStorage).values().stream().flatMap(Collection::stream)
-						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
+						storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
+										MStorageOnHand.COLUMNNAME_M_Product_ID, productIdsWithStorage).values().stream().flatMap(Collection::stream)
+								.collect(Collectors.toList())).stream()
+				// Go ahead and remove quantities that are zero - we don't need them
+				.filter(storageOnHand -> storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) != 0)
+				.collect(Collectors.groupingBy(StorageOnHand::getProductId));
 
 		List<Product> entities = new ArrayList<>();
 
@@ -141,6 +144,13 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			entity.setStorageOnHandList(
 					storageOnHandByProductId.containsKey(entity.getId()) ? storageOnHandByProductId.get(entity.getId()) :
 							new ArrayList<>());
+
+			// If the product has an attribute set, clear out any SOH lines that don't have an ASI
+			// (this happens when someone oversells inventory - an SOH record gets created with ASI 0 to hold the overage)
+			if (entity.getAttributeSetId() > 0) {
+				entity.setStorageOnHandList(entity.getStorageOnHandList().stream()
+						.filter(storageOnHand -> storageOnHand.getAttributeSetInstanceId() > 0).collect(Collectors.toList()));
+			}
 
 			// If a product has no quantity, don't return it in the list
 			if (entity.getStorageOnHandList().stream().map(StorageOnHand::getQuantityOnHand)
