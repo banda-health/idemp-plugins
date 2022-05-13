@@ -81,23 +81,27 @@
 		m_product_id,
 		sell_price,
 		purchase_price,
-		SUM(sold_stock) AS sold_stock
+		SUM(sold_stock) AS sold_stock,
+		cost_of_goods_sold,
+		gross_profit
 	FROM
-		get_inventory_changes(1000000, date('2022-05-06'), date('2022-05-22'))
-	GROUP BY m_product_id, sell_price, purchase_price
+		get_inventory_changes($P{AD_CLIENT_ID})
+	GROUP BY m_product_id, sell_price, purchase_price, cost_of_goods_sold, gross_profit
 )
 SELECT
-	p.name                                                                                              AS item_name,
-	ic.sold_stock                                                                                       AS quantity,
-	ic.sell_price                                                                                       AS sellingprice,
-	ic.sold_stock * ic.sell_price                                                                       AS amount,
-	ic.purchase_price                                                                                   AS PurchasePrice,
-	CASE WHEN ic.purchase_price = 0 THEN 0 ELSE ic.sold_stock * (ic.sell_price - ic.purchase_price) END AS costgoodssold
+	p.name                        AS item_name,
+	ic.sold_stock                 AS quantity,
+	ic.sell_price                 AS sellingprice,
+	ic.sold_stock * ic.sell_price AS amount,
+	ic.purchase_price             AS PurchasePrice,
+	ic.cost_of_goods_sold         AS costgoodssold,
+	ic.gross_profit               AS gross_profit
 FROM
 	m_product p
 		JOIN inventory_changes ic
 			ON p.m_product_id = ic.m_product_id
-WHERE ic.sold_stock > 0
+WHERE
+	ic.sold_stock > 0
 ORDER BY
 	item_name;]]>
 		</queryString>
@@ -123,9 +127,9 @@ ORDER BY
 		<field name="costgoodssold" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="costgoodssold"/>
 		</field>
-		<variable name="gross profit" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{costgoodssold}.compareTo(BigDecimal.ZERO) == 0 ? $F{costgoodssold} : $F{amount}.subtract($F{costgoodssold})]]></variableExpression>
-		</variable>
+		<field name="gross_profit" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="gross_profit"/>
+		</field>
 		<variable name="sumAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
@@ -135,7 +139,7 @@ ORDER BY
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="sumGrossProfit" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$V{gross profit}]]></variableExpression>
+			<variableExpression><![CDATA[$F{gross_profit}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 	</subDataset>
@@ -416,7 +420,7 @@ limit 1;]]>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{gross profit}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{gross_profit}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
