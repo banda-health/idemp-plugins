@@ -14,7 +14,7 @@
 -- 7. Update all data in the system to now have a serial # (they'll all share the same less than the control's start)
 -- 8. Update reports that aren't needed anymore
 -- 9. Add a function to fetch costs for products and their ASIs
--- 10. Ensure In/Out Attribute Sets are also added
+-- 10. Ensure In/Out & Physical Inventory Attribute Set Exclusions are also added
 /**********************************************************************************************************/
 
 /**********************************************************************************************************/
@@ -604,9 +604,15 @@ BEGIN
 		SELECT
 			p.m_product_id,
 			soh.m_attributesetinstance_id,
-			COALESCE(price_on_reception.po_price, costs.currentcostprice, p.bh_buyprice, productPP.PurchasePrice,
-			         0)                                                                    AS purchase_price,
-			COALESCE(price_on_reception.date_purchased, soh.datematerialpolicy, p.created) AS purchase_date
+			CASE
+				WHEN p.m_attributeset_id != 0 AND soh.m_attributesetinstance_id = 0 THEN 0
+				ELSE
+					COALESCE(price_on_reception.po_price, costs.currentcostprice, p.bh_buyprice, productPP.PurchasePrice,
+					         0) END                                                                    AS purchase_price,
+			CASE
+				WHEN p.m_attributeset_id != 0 AND soh.m_attributesetinstance_id = 0 THEN NULL
+				ELSE
+					COALESCE(price_on_reception.date_purchased, soh.datematerialpolicy, p.created) END AS purchase_date
 		FROM
 			m_product p
 				LEFT JOIN (
@@ -701,10 +707,11 @@ END
 $$;
 
 /**********************************************************************************************************/
--- 10. Ensure In/Out Attribute Sets are also added
+-- 10. Ensure In/Out & Physical Inventory Attribute Set Exclusions are also added
 /**********************************************************************************************************/
 TRUNCATE tmp_m_attributesetexclude;
 
+-- Shipment records so the ASI can be automatically selected
 INSERT INTO tmp_m_attributesetexclude (
 	ad_client_id,
 	m_attributeset_id,
@@ -717,6 +724,21 @@ SELECT
 FROM m_attributeset attrs
 WHERE attrs.name IN ('With Expiry','Without Expiry')
 	AND attrs.m_attributeset_id NOT IN (SELECT m_attributeset_id FROM m_attributesetexclude WHERE ad_table_id = 320);
+
+-- Physical inventory line update so that SOH records with negative quantities and no ASIs (i.e. oversells)
+-- can still be removed from the system
+INSERT INTO tmp_m_attributesetexclude (
+    ad_client_id,
+    m_attributeset_id,
+    ad_table_id
+)
+SELECT
+    attrs.ad_client_id,
+    attrs.m_attributeset_id,
+    322
+FROM m_attributeset attrs
+WHERE attrs.name IN ('With Expiry','Without Expiry')
+    AND attrs.m_attributeset_id NOT IN (SELECT m_attributeset_id FROM m_attributesetexclude WHERE ad_table_id = 322);
 
 INSERT INTO m_attributesetexclude (
 	m_attributesetexclude_id,
