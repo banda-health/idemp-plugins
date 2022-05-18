@@ -39,123 +39,31 @@
   		 coalesce($P{Mode},'') AS Mode,
          coalesce($P{Type},'') AS Type
 ),
-billdetails as (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           cb.bh_patientid    as PatientNo,
-           co.bh_visitdate    as bill_date,
-           cb.name            as patientname,
-           sum(ol.linenetamt) * -1 as NonPaytotals
-    from c_orderline ol
-             left join c_order co on ol.c_order_id = co.c_order_id
-             inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-             inner join ad_user on co.createdby = ad_user.ad_user_id
-             left join c_charge c on ol.c_charge_id = c.c_charge_id
-             cross join params p
-    where ((co.ad_client_id = p.ad_client_id)
-        AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
-        and (P.Mode = '' OR c.bh_subtype = p.Mode)
-        and (p.Type = '' OR c.name = p.Type)
-               AND issotrx = 'Y'
-        )
-    group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
-    order by 1
-), BillTotal as (
-     select co.c_order_id,
-           sum(ol.linenetamt)  as lineitemtotals
-    from c_order co
-             join c_orderline ol on co.c_order_id = ol.c_order_id
-             cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO' AND co.docstatus <> 'DR')
-        AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
-               AND issotrx = 'Y'
-        )
-    and ol.c_charge_id IS NULL
-    group by co.c_order_id
-    order by 1
-),
-referral as (
-    SELECT DISTINCT r.name as PatientType, r.value as Referral, c_order_id
-         FROM ad_ref_list r
-            JOIN ad_reference a ON r.ad_reference_id = a.ad_reference_id
-            JOIN c_order Referraltype ON value = Referraltype.bh_patienttype
-            cross join params p
-         WHERE ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
-         AND Referraltype.ad_client_id =  p.ad_client_id
-),
- patient_payments as (
-    select p.bh_c_order_id as c_order_id,
-           sum(p.payamt) filter ( where tendertype NOT IN ('I', 'D', 'W')) as other
-    from c_payment p
-        cross join params
-    where p.ad_client_id = params.ad_client_id
-    group by p.bh_c_order_id
-), non_patient_payments as (
-    select ol.c_order_id,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
-           olci.name                                                   as member_id,
-           bol.name                                                    as MemberName,
-           olc.name                                                    as ClaimNo,
-           bci.name                                                    as Relationship
-    from c_orderline ol
-             join c_order o on ol.c_order_id = o.c_order_id
-             cross join params p
-             join c_charge c on ol.c_charge_id = c.c_charge_id
-             left join (
-        select olci.c_orderline_id, olci.name
-        from bh_orderline_charge_info olci
-                 join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
-        where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-    ) as olci on olci.c_orderline_id = ol.c_orderline_id
-             left join (
-        select bol.c_orderline_id, bol.name
-        from bh_orderline_charge_info bol
-                 join bh_charge_info ci ON bol.bh_charge_info_id = ci.bh_charge_info_id
-        where (ci.name IN ('Patient Name', 'Member Name') OR ci.name IS NULL)
-    ) bol on bol.c_orderline_id = ol.c_orderline_id
-             left join (
-        select olc.c_orderline_id, olc.name
-        from bh_orderline_charge_info olc
-                 join bh_charge_info ci ON olc.bh_charge_info_id = ci.bh_charge_info_id
-        where (ci.name IN ('Claim Number') OR ci.name IS NULL)
-          and (ci.bh_chargeinfodatatype = 'T' and ci.bh_fillfrompatient = 'N')
-    ) olc on olc.c_orderline_id = ol.c_orderline_id
-             left join (
-        select bci.c_orderline_id, bci.name
-        from bh_orderline_charge_info bci
-                 join bh_charge_info ci ON bci.bh_charge_info_id = ci.bh_charge_info_id
-        where (ci.name IN ('Relationship') OR ci.name IS NULL)
-          and (ci.bh_chargeinfodatatype = 'L' and ci.bh_fillfrompatient = 'Y')
-    ) bci on bci.c_orderline_id = ol.c_orderline_id
-    where o.bh_visitdate between p.begin_date and p.end_date
---     and c.bh_subtype = p.Mode
---     and c.name = p.Type
-    group by ol.c_order_id, olci.name, bci.name, olc.name, bol.name
-)
-select
-    billdetails.c_order_id,
-    billdetails.bill_date as billdate,
-    billdetails.patientname as patientname,
-    billdetails.PatientNo as PatientNo,
-    referral.PatientType as PatientType,
-    non_patient_payments.member_id,
-    non_patient_payments.MemberName,
-    non_patient_payments.Relationship,
-    non_patient_payments.ClaimNo,
-    coalesce(BillTotal.lineitemtotals, 0) as billtotal,
-    coalesce(patient_payments.other, 0) as other,
-    coalesce(non_patient_payments.insurance, 0) as insurance,
-    coalesce(non_patient_payments.waiver, 0) as waiver,
-    coalesce(non_patient_payments.donation, 0) as donation,
-    coalesce(billdetails.NonPaytotals, 0) as NonPaytotal
-from billdetails
-    left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-    left join referral on billdetails.c_order_id = referral.c_order_id
-    left join BillTotal on billdetails.c_order_id = BillTotal.c_order_id
-order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
+  Non_payments as (
+         select *
+         from get_visit_info()
+                  cross join params p
+         where bill_date between begin_date and end_date
+           and (p.Mode = '' OR non_pay_mode = p.Mode)
+           and (p.Type = '' OR non_payment_type = p.Type)
+     )
+SELECT c_order_id,
+       bill_date                                as billdate,
+       patientname,
+       patientno                                as PatientNo,
+       patienttype                              as PatientType,
+       member_id,
+       membername                               as MemberName,
+       relationship                             as Relationship,
+       claimno                                  as ClaimNo,
+       coalesce(Non_payments.lineitemtotals, 0) as billtotal,
+       coalesce(Non_payments.insurance, 0)      as Insurance,
+       coalesce(Non_payments.waiver, 0)         as waiver,
+       coalesce(Non_payments.donation, 0)       as donation,
+       coalesce(otherpayments, 0)               as other,
+       coalesce(othernonpayments, 0)            as NonPaytotal
+from Non_payments
+order by patientname ASC, bill_date ASC;]]>
 	</queryString>
 	<field name="c_order_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
