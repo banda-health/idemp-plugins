@@ -183,14 +183,13 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			// persist product/service/charge order lines
 			List<OrderLine> orderLines = entity.getOrderLines();
 
-			// Get the ASI batches, if any should be there
-			Set<String> attributeSetInstanceUuids =
-					orderLines.stream().map(OrderLine::getAttributeSetInstance).filter(Objects::nonNull)
-							.map(AttributeSetInstance::getUuid).filter(StringUtil::isNotNullAndEmpty).collect(Collectors.toSet());
-			Map<String, MAttributeSetInstance_BH> attributeSetInstancesByUuid =
-					attributeSetInstanceDBService.getByUuids(attributeSetInstanceUuids);
-
-			if (orderLines != null) {
+			if (orderLines != null && !orderLines.isEmpty()) {
+				// Get the ASI batches, if any should be there
+				Set<String> attributeSetInstanceUuids =
+						orderLines.stream().map(OrderLine::getAttributeSetInstance).filter(Objects::nonNull)
+								.map(AttributeSetInstance::getUuid).filter(StringUtil::isNotNullAndEmpty).collect(Collectors.toSet());
+				Map<String, MAttributeSetInstance_BH> attributeSetInstancesByUuid =
+						attributeSetInstanceDBService.getByUuids(attributeSetInstanceUuids);
 				int count = 0;
 				for (OrderLine orderLine : orderLines) {
 					orderLine.setOrderId(mOrder.get_ID());
