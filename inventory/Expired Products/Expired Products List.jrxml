@@ -73,7 +73,7 @@ order by ExpiryDays DESC, ProductName ASC]]>
 	<title>
 		<band height="61">
 			<staticText>
-				<reportElement x="0" y="0" width="110" height="20" uuid="8f97d6f9-8c95-4fb0-85be-6a7c402bbdde"/>
+				<reportElement x="0" y="0" width="200" height="20" uuid="8f97d6f9-8c95-4fb0-85be-6a7c402bbdde"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
@@ -81,7 +81,7 @@ order by ExpiryDays DESC, ProductName ASC]]>
 				<text><![CDATA[Expired Products]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="30" width="30" height="18" uuid="2adefb60-fe55-415c-93cc-c782df228a0e"/>
+				<reportElement x="0" y="30" width="61" height="18" uuid="2adefb60-fe55-415c-93cc-c782df228a0e"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
@@ -105,7 +105,7 @@ order by ExpiryDays DESC, ProductName ASC]]>
 				<textFieldExpression><![CDATA[$V{Sum Products}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="61" y="30" width="100" height="18" uuid="64ef52a0-6ea4-45e9-a65d-e0b694b21a39"/>
+				<reportElement x="50" y="30" width="139" height="18" uuid="64ef52a0-6ea4-45e9-a65d-e0b694b21a39"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format(new Date())]]></textFieldExpression>
 			</textField>
