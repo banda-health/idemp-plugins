@@ -2,7 +2,7 @@
 create or replace function get_visit_info()
     returns TABLE(ad_client_id numeric, c_order_id numeric, c_bpartner_id numeric, bill_date timestamp without time zone, Cashier character varying, patientname character varying, PatientNo varchar, PatientType character varying,
      member_id varchar,MemberName varchar,Relationship varchar,ClaimNo varchar, lineitemtotals numeric, product_list text, Non_Pay_Mode varchar, Non_Payment_Type varchar,
-     cash numeric, mobile numeric, credit_debit numeric, bank numeric, checks numeric, OtherPayments numeric, insurance numeric, waiver numeric, donation numeric, OtherNonPayments numeric)
+     cash numeric, mobile numeric, credit_debit numeric, bank numeric, checks numeric, TotalDirectPayments numeric, OtherNewPayments numeric, insurance numeric, waiver numeric, donation numeric, TotalNonPayments numeric)
     language plpgsql
 as
 $$
@@ -43,7 +43,8 @@ patient_payments as (
            sum(p.payamt) filter ( where tendertype = 'C' ) as credit_debit,
            sum(p.payamt) filter ( where tendertype = 'D' ) as bank,
            sum(p.payamt) filter ( where tendertype = 'K' ) as checks,
-           sum(p.payamt) filter ( where tendertype NOT IN ('I', 'D', 'W')) as OtherPayments
+           sum(p.payamt) filter ( where tendertype NOT IN ('I', 'D', 'W')) as TotalDirectPayments,
+           sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) as OtherNewPayments
     from c_payment p
     group by p.bh_c_order_id, cmbc
 ),
@@ -52,7 +53,7 @@ non_patient_payments as (
                 sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
                 sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
                 sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
-                sum(ol.linenetamt) filter ( where c.bh_subtype IN ('D','W','I' )) * -1 as OtherNonPayments,
+                sum(ol.linenetamt) filter ( where c.bh_subtype IN ('D','W','I' )) * -1 as TotalNonPayments,
                 olci.name                                                   as member_id,
                 bol.name                                                    as MemberName,
                 olc.name                                                    as ClaimNo,
@@ -111,11 +112,12 @@ Select OrderInfo.ad_client_id,
        coalesce(patient_payments.credit_debit, 0)  as credit_debit,
        coalesce(patient_payments.bank, 0)          as bank,
        coalesce(patient_payments.checks, 0)        as checks,
-       coalesce(patient_payments.OtherPayments, 0) as OtherPayments,
+       coalesce(patient_payments.TotalDirectPayments, 0) as TotalDirectPayments,
+       coalesce(patient_payments.OtherNewPayments, 0) as OtherNewPayments,
        coalesce(non_patient_payments.insurance, 0) as insurance,
        coalesce(non_patient_payments.waiver, 0)    as waiver,
        coalesce(non_patient_payments.donation, 0)  as donation,
-       coalesce(non_patient_payments.OtherNonPayments, 0)  as OtherNonPayments
+       coalesce(non_patient_payments.TotalNonPayments, 0)  as TotalNonPayments
 from OrderInfo
          left join patient_payments on OrderInfo.c_order_id = patient_payments.c_order_id
          left join non_patient_payments on OrderInfo.c_order_id = non_patient_payments.c_order_id
