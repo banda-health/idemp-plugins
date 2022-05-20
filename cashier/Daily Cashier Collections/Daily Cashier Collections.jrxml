@@ -78,7 +78,7 @@ SELECT
     coalesce(credit_debit, 0) as credit_debit,
     coalesce(bank, 0) as bank,
     coalesce(checks, 0) as check,
-    coalesce(OtherPayments, 0) as other,
+    coalesce(othernewpayments, 0) as othrenewpayments,
     coalesce(insurance, 0) as insurance,
     coalesce(waiver, 0) as waiver,
     coalesce(donation, 0) as donation
@@ -128,8 +128,8 @@ ORDER BY date(bill_date) ASC;]]>
 		<field name="check" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="check"/>
 		</field>
-		<field name="other" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="other"/>
+		<field name="othrenewpayments" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="othrenewpayments"/>
 		</field>
 		<field name="insurance" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="insurance"/>
@@ -141,7 +141,7 @@ ORDER BY date(bill_date) ASC;]]>
 			<property name="com.jaspersoft.studio.field.label" value="donation"/>
 		</field>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{cash}.add($F{mobile}).add($F{credit_debit}).add($F{bank}).add($F{check}).add($F{other}).add($F{insurance}).add($F{waiver}).add($F{donation})]]></variableExpression>
+			<variableExpression><![CDATA[$F{cash}.add($F{mobile}).add($F{credit_debit}).add($F{bank}).add($F{check}).add($F{othrenewpayments}).add($F{insurance}).add($F{waiver}).add($F{donation})]]></variableExpression>
 		</variable>
 		<variable name="totalOutstanding" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
@@ -175,7 +175,7 @@ ORDER BY date(bill_date) ASC;]]>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="sumOther" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{other}]]></variableExpression>
+			<variableExpression><![CDATA[$F{othrenewpayments}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="sumInsurance" class="java.math.BigDecimal" calculation="Sum">
