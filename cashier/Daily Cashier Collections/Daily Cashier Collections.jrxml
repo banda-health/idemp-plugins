@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Cashier Collections" pageWidth="1480" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1480" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="lnUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -47,7 +47,7 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="lnUAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.lang.String"/>
 		<parameter name="End Date" class="java.lang.String"/>
@@ -59,87 +59,31 @@
         date($P{Begin Date}) AS begin_date,
         date($P{End Date}) AS end_date
 ), billdetails as (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           cb.bh_patientid as patientid,
-           co.bh_visitdate as bill_date,
-           ad_user.name as Cashier,
-           cb.name as patientname,
-           sum(ol.linenetamt) as lineitemtotals
-    from c_order co
-        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        inner join ad_user on co.createdby = ad_user.ad_user_id
-        join c_orderline ol on co.c_order_id = ol.c_order_id
-        cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO' AND co.docstatus <> 'DR')
-          AND (date(co.bh_visitdate) BETWEEN p.begin_date AND p.end_date)
-          AND issotrx = 'Y'
-        )
-        AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
-    order by 1
-), bill_items as (
-    select corderline.c_order_id  as c_order_id,
-    string_agg (distinct item.name,',') as item_name
-    from c_orderline as corderline
-    inner join m_product item on corderline.m_product_id = item.m_product_id
-    cross join params par
-    where corderline.ad_client_id = par.ad_client_id
-    group by corderline.c_order_id
-    order by 1
-), patient_payments as (
-    select p.bh_c_order_id as c_order_id,
-           sum(p.payamt) filter ( where tendertype = 'X' ) as cash,
-           sum(p.payamt) filter ( where tendertype = 'M' ) as mobile,
-           sum(p.payamt) filter ( where tendertype = 'C' ) as credit_debit,
-           sum(p.payamt) filter ( where tendertype = 'D' ) as bank,
-           sum(p.payamt) filter ( where tendertype = 'K' ) as "check",
-           sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) as other
-    from c_payment p
-        cross join params
-    where p.ad_client_id = params.ad_client_id
-    group by p.bh_c_order_id
-), non_patient_payments as (
-    select ol.c_order_id,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
-           olci.name as member_id
-    from c_orderline ol
-        join c_order o on ol.c_order_id = o.c_order_id
-        cross join params p
-        join c_charge c on ol.c_charge_id = c.c_charge_id
-        left join (
-            select olci.c_orderline_id, olci.name
-            from bh_orderline_charge_info olci
-                join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
-            where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-        ) as olci on olci.c_orderline_id = ol.c_orderline_id
-    where date(o.bh_visitdate) between p.begin_date and p.end_date
-    group by ol.c_order_id, olci.name
+    SELECT *
+    FROM get_visit_info() co
+        CROSS JOIN params p
+    WHERE (co.ad_client_id = p.ad_client_id)
+          AND (date(co.bill_date) BETWEEN p.begin_date AND p.end_date)
 )
-select
-    billdetails.c_order_id,
-    billdetails.bill_date as billdate,
-    billdetails.Cashier as cashier,
-    billdetails.patientname as patientname,
-    bill_items.item_name as itemname,
-    billdetails.patientid as patientid,
-    coalesce(billdetails.lineitemtotals, 0) as billtotal,
-    coalesce(patient_payments.cash, 0) as cash,
-    coalesce(patient_payments.mobile, 0) as mobile,
-    coalesce(patient_payments.credit_debit, 0) as credit_debit,
-    coalesce(patient_payments.bank, 0) as bank,
-    coalesce(patient_payments."check", 0) as "check",
-    coalesce(patient_payments.other, 0) as other,
-    coalesce(non_patient_payments.insurance, 0) as insurance,
-    coalesce(non_patient_payments.waiver, 0) as waiver,
-    coalesce(non_patient_payments.donation, 0) as donation
-from billdetails
-    left join bill_items on billdetails.c_order_id = bill_items.c_order_id
-    left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by date(billdetails.bill_date) ASC;]]>
+SELECT
+    c_order_id,
+    bill_date as billdate,
+    cashier as cashier,
+    patientname as patientname,
+    product_list as itemname,
+    patientno as patientid,
+    coalesce(lineitemtotals, 0) as billtotal,
+    coalesce(cash, 0) as cash,
+    coalesce(mobile, 0) as mobile,
+    coalesce(credit_debit, 0) as credit_debit,
+    coalesce(bank, 0) as bank,
+    coalesce(checks, 0) as check,
+    coalesce(OtherPayments, 0) as other,
+    coalesce(insurance, 0) as insurance,
+    coalesce(waiver, 0) as waiver,
+    coalesce(donation, 0) as donation
+FROM billdetails
+ORDER BY date(bill_date) ASC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
