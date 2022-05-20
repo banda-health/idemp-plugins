@@ -3,6 +3,9 @@ package org.bandahealth.idempiere.rest.utils;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,7 +40,7 @@ public class DateUtil {
 
 	/**
 	 * Parse Visit Queue Date
-	 * 
+	 *
 	 * @param timestamp
 	 * @return
 	 */
@@ -52,17 +55,18 @@ public class DateUtil {
 
 	/**
 	 * Parse a YYYY-MM-DD (with or without the timestamp) to a Timestamp
+	 *
 	 * @param date
 	 * @return
 	 */
 	public static Timestamp getTimestamp(String date) {
 		return getTimestamp(date, DATE_FORMAT);
 	}
-	
+
 	public static Timestamp getTimestampReportParameter(String date) {
 		return getTimestamp(date, REPORT_FORMAT);
 	}
-	
+
 	public static Timestamp getTimestamp(String date, String dateFormat) {
 		if (date != null) {
 			try {
@@ -93,6 +97,7 @@ public class DateUtil {
 
 	/**
 	 * Adds a day to the passed-in timestamp
+	 *
 	 * @param currentDay The timestamp to get a day from
 	 * @return A timestamp exactly 1 day ahead
 	 */
@@ -101,5 +106,57 @@ public class DateUtil {
 		endDateCalendar.setTime(currentDay);
 		endDateCalendar.add(Calendar.DATE, 1);
 		return new Timestamp(endDateCalendar.getTimeInMillis());
+	}
+
+	/**
+	 * Get a timestamp equal to the start of today (according to the system time)
+	 *
+	 * @return A timestamp for the start of today
+	 */
+	public static Timestamp startOfToday() {
+		return atStartOfDay(new Timestamp(System.currentTimeMillis()));
+	}
+
+	/**
+	 * Get a timestamp at the start of a given day (assuming the day is in the system's time zone)
+	 *
+	 * @param date The date to get the start of
+	 * @return A timestamp for the start of that day
+	 */
+	public static Timestamp atStartOfDay(Timestamp date) {
+		LocalDateTime localDateTime = dateToLocalDateTime(date);
+		LocalDateTime startOfDay = localDateTime.with(LocalTime.MIN);
+		return localDateTimeToDate(startOfDay);
+	}
+
+	/**
+	 * Get a timestamp at the end of a given day (assuming the day is in the system's time zone)
+	 *
+	 * @param date The date to get the end of
+	 * @return A timestamp for the end of that day
+	 */
+	public static Timestamp atEndOfDay(Timestamp date) {
+		LocalDateTime localDateTime = dateToLocalDateTime(date);
+		LocalDateTime endOfDay = localDateTime.with(LocalTime.MAX);
+		return localDateTimeToDate(endOfDay);
+	}
+
+	private static LocalDateTime dateToLocalDateTime(Timestamp date) {
+		return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+	}
+
+	private static Timestamp localDateTimeToDate(LocalDateTime localDateTime) {
+		return Timestamp.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
+	 * Check whether a guarantee date from an ASI is expired or not
+	 *
+	 * @param guaranteeDate The guarantee date to check
+	 * @return Whether the date is expired
+	 */
+	public static boolean isGuaranteeDateExpired(Timestamp guaranteeDate) {
+		Timestamp startOfToday = startOfToday();
+		return guaranteeDate.getTime() >= startOfToday.getTime();
 	}
 }

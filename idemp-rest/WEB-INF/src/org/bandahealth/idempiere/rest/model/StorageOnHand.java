@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.compiere.model.MStorageOnHand;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class StorageOnHand extends BaseMetadata {
 	private BigDecimal quantityOnHand;
@@ -13,6 +14,10 @@ public class StorageOnHand extends BaseMetadata {
 	@JsonIgnore
 	private int locatorId;
 	private Locator locator;
+	private Timestamp dateMaterialPolicy;
+	@JsonIgnore
+	private int productId;
+	private Product product;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -24,14 +29,10 @@ public class StorageOnHand extends BaseMetadata {
 		super(model);
 
 		setQuantityOnHand(model.getQtyOnHand());
-	}
-
-	public StorageOnHand(InventoryRecord model) {
-		super(model.getClientId(), model.getOrgId(), model.getUuid(), model.getIsActive(), model.getCreated(),
-				model.getCreatedBy());
-
-		setQuantityOnHand(new BigDecimal(model.getQuantity()));
-		setAttributeSetInstanceId(model.getAttributeSetInstanceId());
+		setLocatorId(model.getM_Locator_ID());
+		setAttributeSetInstanceId(model.getM_AttributeSetInstance_ID());
+		setDateMaterialPolicy(model.getDateMaterialPolicy());
+		setProductId(model.getM_Product_ID());
 	}
 
 	public BigDecimal getQuantityOnHand() {
@@ -72,5 +73,29 @@ public class StorageOnHand extends BaseMetadata {
 
 	public void setLocator(Locator locator) {
 		this.locator = locator;
+	}
+
+	public Timestamp getDateMaterialPolicy() {
+		return dateMaterialPolicy;
+	}
+
+	public void setDateMaterialPolicy(Timestamp dateMaterialPolicy) {
+		this.dateMaterialPolicy = dateMaterialPolicy;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

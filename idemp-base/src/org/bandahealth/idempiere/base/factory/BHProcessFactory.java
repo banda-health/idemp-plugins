@@ -17,8 +17,6 @@ public class BHProcessFactory implements IProcessFactory {
 			return new SalesProcess();
 		} else if (className.equals(StockTakeProcess.class.getName())) {
 			return new StockTakeProcess();
-		} else if (className.equals(InitializeStockProcess.class.getName())) {
-			return new InitializeStockProcess();
 		} else if (className.equals(ExpenseProcess.class.getName())) {
 			return new ExpenseProcess();
 		} else if (className.equals(MBHPaymentRef.class.getName())) {

@@ -6,7 +6,6 @@ import java.util.Properties;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.config.InternalSetupConfig;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -23,7 +22,6 @@ public class ProductModelEvent extends AbstractEventHandler {
 	private int clientId = -1;
 	private int orgId = -1;
 	private Properties context = null;
-	private MAttributeSet attributeSet;
 
 	@Override
 	protected void doHandleEvent(Event event) {
@@ -59,30 +57,6 @@ public class ProductModelEvent extends AbstractEventHandler {
 
 	private void beforeSaveRequest(MProduct_BH product) {
 		product.setValue(product.getName());
-
-		// If the user is saying the product can't expire and it previously could, clear the attribute set to avoid errors
-		if (!product.isBH_HasExpiration() && product.getM_AttributeSet_ID() > 0) {
-			product.setM_AttributeSet_ID(-1);
-		}
-
-		if (product.getM_AttributeSet_ID() > 0) {
-			return;
-		}
-
-		// If the product can expire, set the attribute set for it
-		if (product.isBH_HasExpiration()) {
-			attributeSet = findProductAttributeSet(QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET);
-			if (attributeSet != null) {
-				if (product.isBH_HasExpiration()) {
-					Integer attributeSetId = attributeSet.get_ID();
-					product.setM_AttributeSet_ID(attributeSetId);
-				}
-			} else {
-				// failed to find or create product attribute set
-				throw new AdempiereException(
-						"Attribute Set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET + "' not found!");
-			}
-		}
 	}
 
 	/* Add prices to product in the pricelist */
@@ -95,24 +69,6 @@ public class ProductModelEvent extends AbstractEventHandler {
 		} else {
 			throw new AdempiereException("Some error occured while saving the product");
 		}
-	}
-
-	/* Find an attribute set with specified name, create if not found */
-	private MAttributeSet findProductAttributeSet(String productAttribSetName) {
-		MAttributeSet attributeSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context,
-				MAttributeSet.Table_Name, "name='" + productAttribSetName + "'", null);
-
-		if (attributeSet == null) {
-			InternalSetupConfig.configureNewProductAttribSet(context);
-			attributeSet = QueryUtil.queryTableByOrgAndClient(clientId, orgId, context, MAttributeSet.Table_Name,
-					"name='" + productAttribSetName + "'", null);
-		}
-		// update for existing clients with this AS
-		if (!attributeSet.isUseGuaranteeDateForMPolicy()) {
-			attributeSet.setUseGuaranteeDateForMPolicy(true);
-			attributeSet.saveEx();
-		}
-		return attributeSet;
 	}
 
 	/* Save a product price */

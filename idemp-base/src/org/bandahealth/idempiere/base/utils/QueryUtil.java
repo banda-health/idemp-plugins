@@ -3,23 +3,16 @@ package org.bandahealth.idempiere.base.utils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
 
-import org.adempiere.exceptions.DBException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.compiere.model.MAttributeSet;
-import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -87,92 +80,27 @@ public class QueryUtil {
 				.setParameters(QueryConstants.BASE_CLIENT_ID, QueryConstants.BASE_ORGANIZATION_ID);
 	}
 
-	public static int createExpirationDateAttributeInstance(int attributeSetInstanceId, Timestamp expirationDate,
-			String trxName, Properties ctx) {
-		MAttributeSetInstance asi = null;
-
-		if (attributeSetInstanceId > 0) {
-			asi = new MAttributeSetInstance(ctx, attributeSetInstanceId, trxName);
-		} else {
-			String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-					+ MAttributeSet.COLUMNNAME_Name + ") = '"
-					+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
-			MAttributeSet attributeSet = new Query(ctx, MAttributeSet.Table_Name, whereClause, trxName)
-					.setOnlyActiveRecords(true).setClient_ID(true).first();
-
-			if (attributeSet == null) {
-				throw new RuntimeException("Attribute set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
-						+ " not defined for client.");
-			}
-
-			// See if there is an attribute set instance for this product that already has
-			// this date
-			int attributeSetId = attributeSet.getM_AttributeSet_ID();
-			whereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate + "=? AND "
-					+ MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
-			asi = new Query(ctx, MAttributeSetInstance.Table_Name, whereClause, trxName)
-					.setParameters(expirationDate, attributeSetId).first();
-			if (asi == null) {
-				asi = new MAttributeSetInstance(ctx, 0, trxName);
-				asi.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
-			}
-		}
-
-		if (asi.getM_AttributeSet_ID() > 0) {
-			if (expirationDate != null) {
-				asi.setGuaranteeDate(expirationDate);
-			}
-			asi.saveEx();
-
-			attributeSetInstanceId = asi.getM_AttributeSetInstance_ID();
-		}
-
-		return attributeSetInstanceId;
-	}
-
-	public static Map<Timestamp, Integer> createExpirationDateAttributeInstances(Set<Timestamp> expirationDates,
-			String trxName, Properties ctx) {
-		String whereClause = MAttributeSet.COLUMNNAME_IsGuaranteeDate + "= 'Y' AND lower("
-				+ MAttributeSet.COLUMNNAME_Name + ") = '"
-				+ QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET.toLowerCase() + "'";
-		MAttributeSet attributeSet = new Query(ctx, MAttributeSet.Table_Name, whereClause, trxName)
-				.setOnlyActiveRecords(true).setClient_ID(true).first();
+	public static int createAttributeSetInstance(MAttributeSet_BH attributeSet, String serialNumber,
+			Timestamp expirationDate, String trxName, Properties ctx) {
+		MAttributeSetInstance_BH attributeSetInstance = null;
 
 		if (attributeSet == null) {
-			throw new RuntimeException("Attribute set '" + QueryConstants.BANDAHEALTH_PRODUCT_ATTRIBUTE_SET
-					+ " not defined for client.");
+			throw new RuntimeException("Attribute set was not specified");
 		}
+		attributeSetInstance = new MAttributeSetInstance_BH(ctx, 0, trxName);
 
-		// See if there is an attribute set instance for this product that already has
-		// this date
-		List<Object> parameters = new ArrayList<>();
-		String whereClauseParameters = QueryUtil.getWhereClauseAndSetParametersForSet(expirationDates, parameters);
-		int attributeSetId = attributeSet.getM_AttributeSet_ID();
-		whereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate + " IN (" + whereClauseParameters + ") AND "
-				+ MAttributeSetInstance.COLUMNNAME_M_AttributeSet_ID + "=?";
-		parameters.add(attributeSetId);
-		List<MAttributeSetInstance> attributeSetInstances =
-				new Query(ctx, MAttributeSetInstance.Table_Name, whereClause, trxName).setParameters(parameters).list();
-
-		// Get the expiration dates we have so we can check which need to be created
-		Map<Timestamp, Integer> existingExpirationDatesByAttributeSetInstanceId = attributeSetInstances.stream()
-				.collect(Collectors.toMap(MAttributeSetInstance::getGuaranteeDate, MAttributeSetInstance::get_ID,
-						(attributeSetInstanceId, duplicateAttributeSetInstanceId) -> attributeSetInstanceId));
-
-		// Cycle through the timestamps and add any that don't exist in the DB already
-		for (Timestamp expirationDate : expirationDates) {
-			// If it already exists in the DB, skip it
-			if (existingExpirationDatesByAttributeSetInstanceId.containsKey(expirationDate)) {
-				continue;
-			}
-			MAttributeSetInstance attributeSetInstance = new MAttributeSetInstance(ctx, 0, trxName);
-			attributeSetInstance.setM_AttributeSet_ID(attributeSetId);
+		attributeSetInstance.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
+		if (attributeSet.isGuaranteeDate()) {
 			attributeSetInstance.setGuaranteeDate(expirationDate);
-			attributeSetInstance.saveEx();
-			existingExpirationDatesByAttributeSetInstanceId.put(expirationDate, attributeSetInstance.get_ID());
 		}
+		if (attributeSet.getM_SerNoCtl_ID() > 0) {
+			attributeSetInstance.setSerNo(serialNumber);
+		}
+		attributeSetInstance.setDescription();
 
-		return existingExpirationDatesByAttributeSetInstanceId;
+		attributeSetInstance.saveEx();
+
+		return attributeSetInstance.get_ID();
 	}
 
 	public static boolean checkBHNewVisit(int bpartnerId) {

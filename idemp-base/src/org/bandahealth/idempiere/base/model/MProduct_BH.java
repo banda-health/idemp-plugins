@@ -9,7 +9,6 @@ import org.compiere.model.MExpenseType;
 import org.compiere.model.MProduct;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
-import org.compiere.model.X_I_ElementValue;
 import org.compiere.model.X_I_Product;
 
 public class MProduct_BH extends MProduct {
@@ -66,7 +65,6 @@ public class MProduct_BH extends MProduct {
 			setBH_SellPrice(importProductQuantity.getBH_SellPrice());
 		}
 		setbh_reorder_level(importProductQuantity.getbh_reorder_level());
-		setBH_HasExpiration(importProductQuantity.isBH_HasExpiration());
 
 		// Set the buy price based on the buying price of the lot with the expiration date farthest from today
 		if (importProductQuantity.isBH_HasExpiration()) {

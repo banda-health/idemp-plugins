@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.process;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -9,10 +10,10 @@ import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCost;
 import org.compiere.model.MCostElement;
+import org.compiere.model.MSerNoCtl;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
-import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.process.ImportAccount;
 import org.compiere.process.ProcessInfoParameter;
@@ -299,6 +300,22 @@ public class ImportProductsProcess extends SvrProcess {
 							"WHERE I_IsImported='N' AND M_Product_ID IS NOT NULL" + clientCheck,
 					get_TrxName());
 		}
+		// Get the two available attribute sets that will be assigned to products
+		MAttributeSet_BH expiringAttributeSet = new Query(getCtx(), MAttributeSet_BH.Table_Name,
+				MAttributeSet_BH.COLUMNNAME_BH_Locked + "=? AND " + MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=?",
+				get_TrxName()).setParameters(true, true).setClient_ID().setOnlyActiveRecords(true).first();
+		MAttributeSet_BH nonExpiringAttributeSet = new Query(getCtx(), MAttributeSet_BH.Table_Name,
+				MAttributeSet_BH.COLUMNNAME_BH_Locked + "=? AND " + MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=?",
+				get_TrxName()).setParameters(true, false).setClient_ID().setOnlyActiveRecords(true).first();
+
+		// Get the next serial numbers for attribute sets
+		Map<Integer, String> serialNumberBySerialNumberControlId = new HashMap<>() {{
+			put(expiringAttributeSet.get_ID(), ((MSerNoCtl) expiringAttributeSet.getM_SerNoCtl()).createSerNo());
+		}};
+		if (expiringAttributeSet.getM_SerNoCtl_ID() != nonExpiringAttributeSet.getM_SerNoCtl_ID()) {
+			serialNumberBySerialNumberControlId.put(nonExpiringAttributeSet.get_ID(),
+					((MSerNoCtl) nonExpiringAttributeSet.getM_SerNoCtl()).createSerNo());
+		}
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -311,6 +328,8 @@ public class ImportProductsProcess extends SvrProcess {
 
 				MProduct_BH product;
 				boolean wasSaveSuccessful = true;
+				MAttributeSet_BH attributeSetToUse =
+						importedProductQuantity.isBH_HasExpiration() ? expiringAttributeSet : nonExpiringAttributeSet;
 
 				//	****	Create/Update Product
 				if (productId == 0) {    //	New
@@ -319,6 +338,7 @@ public class ImportProductsProcess extends SvrProcess {
 					product.setC_TaxCategory_ID(taxCategoryId);
 					product.setM_Product_Category_ID(
 							productCategoriesByName.get(importedProductQuantity.getCategoryName()).getM_Product_Category_ID());
+					product.setM_AttributeSet_ID(attributeSetToUse.get_ID());
 					if (product.save()) {
 						noInsert++;
 						importedProductQuantity.setM_Product_ID(product.getM_Product_ID());
@@ -338,6 +358,7 @@ public class ImportProductsProcess extends SvrProcess {
 					product.set(importedProductQuantity);
 					product.setM_Product_Category_ID(
 							productCategoriesByName.get(importedProductQuantity.getCategoryName()).getM_Product_Category_ID());
+					product.setM_AttributeSet_ID(attributeSetToUse.get_ID());
 					if (product.save()) {
 						noUpdate++;
 						importedProductQuantity.setI_IsImported(true);
@@ -360,12 +381,12 @@ public class ImportProductsProcess extends SvrProcess {
 					MAcctSchema accountSchema =
 							new Query(getCtx(), MAcctSchema.Table_Name, "", get_TrxName()).setClient_ID().setOnlyActiveRecords(true)
 									.first();
-					int organizationId = 0;
 					// Add attribute set instances and costs for each lot, if this product expires
 					if (importedProductQuantity.isBH_HasExpiration()) {
 						// Lot 1
 						if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0 &&
-								!createLotAndCost(product, inventoryByProduct.get(product),
+								!createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+										serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
 										importedProductQuantity.getBH_InitialQuantity(), importedProductQuantity.getGuaranteeDate(),
 										importedProductQuantity.getBH_BuyPrice(), accountSchema, costElementId)) {
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
@@ -373,12 +394,12 @@ public class ImportProductsProcess extends SvrProcess {
 									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
-
 						}
 
 						// Lot 2
 						if (importedProductQuantity.isBH_HasLot2() &&
-								!createLotAndCost(product, inventoryByProduct.get(product),
+								!createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+										serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
 										importedProductQuantity.getBH_InitialQuantity_Lot2(),
 										importedProductQuantity.getBH_GuaranteeDate_Lot2(), importedProductQuantity.getBH_BuyPrice_Lot2(),
 										accountSchema, costElementId)) {
@@ -389,9 +410,10 @@ public class ImportProductsProcess extends SvrProcess {
 							DB.executeUpdate(sql.toString(), get_TrxName());
 						}
 
-						// Lot 2
+						// Lot 3
 						if (importedProductQuantity.isBH_HasLot3() &&
-								!createLotAndCost(product, inventoryByProduct.get(product),
+								!createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+										serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
 										importedProductQuantity.getBH_InitialQuantity_Lot3(),
 										importedProductQuantity.getBH_GuaranteeDate_Lot3(), importedProductQuantity.getBH_BuyPrice_Lot3(),
 										accountSchema, costElementId)) {
@@ -402,7 +424,8 @@ public class ImportProductsProcess extends SvrProcess {
 							DB.executeUpdate(sql.toString(), get_TrxName());
 						}
 					} else if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0) {
-						if (!createLotAndCost(product, inventoryByProduct.get(product),
+						if (!createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+								serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
 								importedProductQuantity.getBH_InitialQuantity(), null, importedProductQuantity.getBH_BuyPrice_Lot3(),
 								accountSchema, costElementId)) {
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
@@ -461,7 +484,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		// Start a new transaction
 		Trx quantityTransaction = Trx.get(Trx.createTrxName("SvrProcess"), true);
-		quantityTransaction.setDisplayName(getClass().getName()+"_startProcess");
+		quantityTransaction.setDisplayName(getClass().getName() + "_startProcess");
 
 		if (inventoryByProduct.keySet().size() > 0) {
 			try {
@@ -483,37 +506,41 @@ public class ImportProductsProcess extends SvrProcess {
 	/**
 	 * Create a new lot with quantity and cost, if possible, for the given product and associated information
 	 *
-	 * @param product           The product to create a lot for
-	 * @param productQuantities The list of current storage on hand quantities, if any
-	 * @param initialQuantity   The initial quantity
-	 * @param expirationDate    The expiration date of the lot, if any
-	 * @param buyPrice          The buying price
-	 * @param accountSchema     The accounting schema for the cost record
-	 * @param costElementId     The cost element ID to associate with the cost
+	 * @param product              The product to create a lot for
+	 * @param productsAttributeSet Attribute set assigned to the product (saves a DB query)
+	 * @param productQuantities    The list of current storage on hand quantities, if any
+	 * @param serialNumber         A serial number to give to the Attribute Set Instance if it needs one
+	 * @param initialQuantity      The initial quantity
+	 * @param expirationDate       The expiration date of the lot, if any
+	 * @param buyPrice             The buying price
+	 * @param accountSchema        The accounting schema for the cost record
+	 * @param costElementId        The cost element ID to associate with the cost
 	 * @return Whether the lot and cost were created successfully
 	 */
-	private boolean createLotAndCost(MProduct_BH product, List<MStorageOnHand> productQuantities,
-			BigDecimal initialQuantity, Timestamp expirationDate, BigDecimal buyPrice, MAcctSchema accountSchema,
-			int costElementId) {
-		// These parameters are required
-		if (product == null || productQuantities == null || accountSchema == null) {
-			return false;
-		}
+	private boolean createLotAndCost(MProduct_BH product, MAttributeSet_BH productsAttributeSet,
+			List<MStorageOnHand> productQuantities, String serialNumber, BigDecimal initialQuantity,
+			Timestamp expirationDate, BigDecimal buyPrice, MAcctSchema accountSchema, int costElementId) {
+		assert product != null;
+		assert productsAttributeSet != null;
+		assert productQuantities != null;
+		assert accountSchema != null;
+
 		if (initialQuantity == null) {
 			initialQuantity = BigDecimal.ZERO;
 		}
 		if (buyPrice == null) {
 			buyPrice = BigDecimal.ZERO;
 		}
-		MStorageOnHand lot1 = new MStorageOnHand(getCtx(), 0, get_TrxName());
-		lot1.setQtyOnHand(initialQuantity);
-		int attributeSetInstanceId = 0;
-		if (expirationDate != null) {
-			attributeSetInstanceId =
-					QueryUtil.createExpirationDateAttributeInstance(0, expirationDate, get_TrxName(), getCtx());
-			lot1.setM_AttributeSetInstance_ID(attributeSetInstanceId);
-		}
-		productQuantities.add(lot1);
+
+		int attributeSetInstanceId =
+				QueryUtil.createAttributeSetInstance(productsAttributeSet, serialNumber, expirationDate, get_TrxName(),
+						getCtx());
+
+		// NB: This model is NOT intended to be saved to the DB, but is a DTO only!
+		MStorageOnHand storageOnHand = new MStorageOnHand(getCtx(), 0, get_TrxName());
+		storageOnHand.setQtyOnHand(initialQuantity);
+		storageOnHand.setM_AttributeSetInstance_ID(attributeSetInstanceId);
+		productQuantities.add(storageOnHand);
 
 		// Create a new cost record
 		MCost cost = MCost.get(product, attributeSetInstanceId, accountSchema, 0, costElementId, get_TrxName());
