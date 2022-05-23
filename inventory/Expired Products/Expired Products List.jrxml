@@ -38,6 +38,7 @@ from m_product m
          left JOIN m_attributesetinstance a ON o.m_attributesetinstance_id = a.m_attributesetinstance_id
 where m.ad_client_id = $P{AD_CLIENT_ID}
   and a.guaranteedate::date <= current_date
+  and o.qtyonhand  > 0
 group by m.m_product_id, BatchQuantity, a.guaranteedate
 order by ExpiryDays DESC, ProductName ASC]]>
 	</queryString>
