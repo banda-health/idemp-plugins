@@ -55,111 +55,29 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[with params as (
-    SELECT
-        $P{AD_CLIENT_ID} as ad_client_id,
-        date($P{Begin Date}) as begin_date,
-        date($P{End Date}) as end_date
+			<![CDATA[WITH inventory_changes AS (
+	SELECT
+		m_product_id,
+		SUM(ending_stock)   AS ending_stock,
+		SUM(received_stock) AS received_stock,
+		SUM(sold_stock)     AS sold_stock,
+		SUM(balanced_stock) AS balanced_stock
+	FROM
+		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+  GROUP BY m_product_id
 )
-select item_name,
-       endingstock,
-       receivedstock,
-       soldstock,
-       balancestock,
-       changedstock
-from (
-         select productname.name                                                 as item_name,
-                coalesce(sum(currentqty.closingqty), 0)                     as endingstock,
-                coalesce(sum(stockreceived.qtyreceived), 0)             as receivedstock,
-                coalesce(stocksold.qtysold, 0)                           as soldstock,
-                coalesce(sum(stocktakechange.qtybalanced), 0)       as balancestock,
-                coalesce(sum(changesinqty.qtychanged), 0)              as changedstock
-         from (
-                  SELECT soh.m_product_id,
-                         soh.m_attributesetinstance_id,
-                         p.name
-                  FROM m_storageonhand soh
-                           join m_product p ON soh.m_product_id = p.m_product_id
-                           join params on params.ad_client_id = soh.ad_client_id
-                  GROUP BY soh.m_product_id, p.name, soh.m_attributesetinstance_id
-              ) as productname
-                  LEFT JOIN (
-             select m_product_id,
-                    m_attributesetinstance_id,
-                    sum(qtyonhand) as closingqty
-             from m_storageonhand
-                      join params on params.ad_client_id = m_storageonhand.ad_client_id
-                 and date(updated) <= end_date
-             where isactive = 'Y'
-             group by m_product_id, m_attributesetinstance_id
-         ) as currentqty on currentqty.m_product_id = productname.m_product_id and
-                            currentqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
-                  left join (
-             select t.m_product_id,
-                    t.m_attributesetinstance_id,
-                    sum(t.movementqty) as qtychanged
-             from m_transaction t
-                      join params on params.ad_client_id = t.ad_client_id
-                 and date(movementdate) between begin_date and end_date
-             where movementtype not in ('C-', 'I+')
-             group by t.m_product_id, t.m_attributesetinstance_id
-         ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
-                            and currentqty.m_attributesetinstance_id = changesinqty.m_attributesetinstance_id
-                  left join (
-             select ol.m_product_id,
-                    avg(ol.priceentered) as priceentered,
-                    ol.m_attributesetinstance_id,
-                    sum(ol.qtyentered) as qtyreceived
-             from c_orderline ol
-                      join params on params.ad_client_id = ol.ad_client_id
-                 and date(dateordered) between begin_date and end_date
-                      join c_order o on ol.c_order_id = o.c_order_id
-             where o.issotrx = 'N'
-               and o.docstatus IN ('CL', 'CO')
-               and ol.m_product_id is not null
-             group by ol.m_product_id, ol.m_attributesetinstance_id
-         ) as stockreceived on currentqty.m_product_id = stockreceived.m_product_id
-                                   and currentqty.m_attributesetinstance_id = stockreceived.m_attributesetinstance_id
-             left join (
-                 select c.m_product_id, c.m_attributesetinstance_id, c.currentcostprice
-                 from m_cost c
-                     join params p on c.ad_client_id = p.ad_client_id
-                      join c_acctschema actsch
-                           on c.c_acctschema_id = actsch.c_acctschema_id and c.m_costtype_id = actsch.m_costtype_id
-                      join m_costelement ce
-                           on c.m_costelement_id = ce.m_costelement_id and ce.costingmethod = actsch.costingmethod
-                 where c.currentcostprice > 0
-             ) costs on currentqty.m_product_id = costs.m_product_id
-                            and currentqty.m_product_id = costs.m_attributesetinstance_id
-                  left join (
-             select m_product_id,
-                    m_attributesetinstance_id,
-                    sum(movementqty) as qtybalanced
-             from m_transaction
-                      join params on params.ad_client_id = m_transaction.ad_client_id
-                 and date(movementdate) between begin_date and end_date
-             where movementtype in ('I+','I-')
-             group by m_product_id,m_attributesetinstance_id
-         ) as stocktakechange on currentqty.m_product_id = stocktakechange.m_product_id
-              and currentqty.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
-                  left join (
-             select inoutline.m_product_id,
-                    sum(inoutline.movementqty) as qtysold
-             from m_inoutline inoutline
-                      inner join m_inout inout on inoutline.m_inout_id = inout.m_inout_id
-                      join params on params.ad_client_id = inoutline.ad_client_id
-                 and date(inout.movementdate) between begin_date and end_date
-             where inout.movementtype = 'C-'
-             group by inoutline.m_product_id
-         ) as stocksold on currentqty.m_product_id = stocksold.m_product_id
-         group by item_name,soldstock
-     ) p
-where endingstock > 0
-   or receivedstock > 0
-   or soldstock > 0
-   or balancestock > 0
-   or changedstock > 0
-order by item_name;]]>
+SELECT
+	p.name            AS item_name,
+	ic.ending_stock   AS endingstock,
+	ic.received_stock AS receivedstock,
+	ic.sold_stock     AS soldstock,
+	ic.balanced_stock AS balancestock
+FROM
+	m_product p
+		JOIN inventory_changes ic
+			ON p.m_product_id = ic.m_product_id
+ORDER BY
+	item_name;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -177,11 +95,8 @@ order by item_name;]]>
 		<field name="balancestock" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="balancestock"/>
 		</field>
-		<field name="changedstock" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="changedstock"/>
-		</field>
 		<variable name="stockchanges" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{changedstock}.subtract($F{soldstock})]]></variableExpression>
+			<variableExpression><![CDATA[$F{receivedstock}.subtract($F{soldstock}).add($F{balancestock})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="endstock" class="java.math.BigDecimal">
