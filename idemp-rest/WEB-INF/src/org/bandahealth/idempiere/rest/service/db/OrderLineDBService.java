@@ -243,10 +243,14 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				orderLines.stream().map(OrderLine::getProductId).filter(productId -> productId > 0).collect(Collectors.toSet());
 		// TODO: Fetch Products Here instead of on a 1-by-1 basis up in the `createInstanceWithAllFields` method
 		// This should duplicate whatever is done in `ProductDBService#searchItems`
-		Map<Integer, List<StorageOnHand>> storageOnHandListByProductIds = storageOnHandDBService.transformData(
+		
+		// go-2331 Returning all this data is leading to serious performance issues. 
+		// TODO: Work on an efficient way of returning all the data or just the totalQuantity field 
+		
+		/*Map<Integer, List<StorageOnHand>> storageOnHandListByProductIds = storageOnHandDBService.transformData(
 				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
 								MStorageOnHand.COLUMNNAME_M_Product_ID, productIds).values().stream().flatMap(Collection::stream)
-						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));*/
 
 		orderLines.forEach(orderLine -> {
 			if (orderLine.getChargeId() > 0) {
@@ -262,10 +266,12 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 										.getBH_Charge_Info_UU()))
 						.collect(Collectors.toList()));
 			}
-			if (orderLine.getProductId() > 0 && orderLine.getProduct() != null &&
+			
+			// go-2331 - revert
+			/*if (orderLine.getProductId() > 0 && orderLine.getProduct() != null &&
 					storageOnHandListByProductIds.containsKey(orderLine.getProductId())) {
 				orderLine.getProduct().setStorageOnHandList(storageOnHandListByProductIds.get(orderLine.getProductId()));
-			}
+			}*/
 		});
 
 		return orderLines;
