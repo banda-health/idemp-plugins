@@ -228,10 +228,15 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	public Movement getEntity(String uuid) {
 		Movement movement = transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 
+		
 		// We need more information for the storage on hand, so get those entities
 		Set<Integer> productIds =
 				movement.getMovementLines().stream().map(MovementLine::getProductId).collect(Collectors.toSet());
-		Map<Integer, List<StorageOnHand>> storageOnHandByProductId = storageOnHandDBService.transformData(
+				
+		// go-2331 Returning all this data is leading to serious performance issues. 
+		// TODO: Work on an efficient way of returning all the data or just the totalQuantity field
+		
+		/* Map<Integer, List<StorageOnHand>> storageOnHandByProductId = storageOnHandDBService.transformData(
 				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
 								MStorageOnHand.COLUMNNAME_M_Product_ID, productIds).values().stream().flatMap(Collection::stream)
 						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
@@ -241,7 +246,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 			if (storageOnHandByProductId.containsKey(movementLine.getProductId())) {
 				movementLine.getProduct().setStorageOnHandList(storageOnHandByProductId.get(movementLine.getProductId()));
 			}
-		});
+		});*/
 
 		// Get the storage on hand stream for batches
 		List<StorageOnHand> storageOnHandCollection =
