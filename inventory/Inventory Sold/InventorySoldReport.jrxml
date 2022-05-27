@@ -85,7 +85,7 @@
 		cost_of_goods_sold,
 		gross_profit
 	FROM
-		get_inventory_changes($P{AD_CLIENT_ID})
+		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
 	GROUP BY m_product_id, sell_price, purchase_price, cost_of_goods_sold, gross_profit
 )
 SELECT
@@ -145,7 +145,7 @@ ORDER BY
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select
     item.name as item_name
