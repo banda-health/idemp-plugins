@@ -8,8 +8,9 @@ import java.util.Set;
  * A utility for functions associated with DB queries
  */
 public class QueryUtil {
-	private static final List<String> DISALLOWED_COLUMN_CHARACTERS = Arrays.asList("/", "\\", "-", ";", "'", "\"",
-			"?", "=", "!", "*", "(", ")", "^", "&", "$", "#", "@", "+", "`", "~");
+	private static final List<String> DISALLOWED_COLUMN_CHARACTERS =
+			Arrays.asList("\\", "--", ";", "'", "\"", "?", "=", "!", "^", "&", "$", "#", "@", "`", "~", "DROP", "DELETE",
+					"UPDATE", "SELECT", "FROM", "WHERE");
 
 	/**
 	 * This generates a parameter list based on a number of items (i.e. for items [1,2,3], this generates a where clause
@@ -35,7 +36,8 @@ public class QueryUtil {
 	 * @return Whether the string has invalid characters or not
 	 */
 	public static boolean doesDBStringHaveInvalidCharacters(String dbString) {
-		return DISALLOWED_COLUMN_CHARACTERS.stream().anyMatch(dbString::contains);
+		return DISALLOWED_COLUMN_CHARACTERS.stream()
+				.anyMatch(aggregate -> dbString.toLowerCase().contains(aggregate.toLowerCase()));
 	}
 
 	/**

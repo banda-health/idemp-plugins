@@ -33,52 +33,18 @@ public class OrderLineModelEvent extends AbstractEventHandler {
 	@Override
 	protected void doHandleEvent(Event event) {
 		MOrder_BH order = null;
-		MOrderLine_BH orderLine = null;
 		PO persistantObject = getPO(event);
 		if (persistantObject instanceof MOrder_BH) {
 			order = (MOrder_BH) persistantObject;
 			if (order.isSOTrx()) {
 				return;
 			}
-		} else if (persistantObject instanceof MOrderLine_BH) {
-			orderLine = (MOrderLine_BH) persistantObject;
 		} else {
 			return;
 		}
 
-		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)
-				|| event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			beforeSaveRequest(orderLine);
-		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_COMPLETE)) {
+		if (event.getTopic().equals(IEventTopics.DOC_AFTER_COMPLETE)) {
 			createMaterialReceiptFromOrder(order);
-		}
-	}
-
-	/**
-	 * Create an attribute set instance with guarantee date
-	 *
-	 * @param orderLine
-	 */
-	private void beforeSaveRequest(MOrderLine_BH orderLine) {
-		MOrder_BH order = (MOrder_BH) orderLine.getC_Order();
-		boolean isReceiveGoods = !order.isSOTrx();
-		MProduct_BH product = new MProduct_BH(orderLine.getCtx(), orderLine.getM_Product_ID(), orderLine.get_TrxName());
-		boolean productExpires = orderLine.getM_Product_ID() > 0 && product.isBH_HasExpiration();
-		if (!order.isComplete() && productExpires && (isReceiveGoods || orderLine.getBH_Expiration() != null)) {
-			receiveGoodsBeforeSaveRequest(orderLine);
-		}
-	}
-
-	private void receiveGoodsBeforeSaveRequest(MOrderLine_BH orderLine) {
-		if (orderLine.getBH_Expiration() != null && orderLine.getBH_Expiration().before(new Date())) {
-			throw new RuntimeException("Expiration should be a future date");
-		}
-
-		int attributeSetInstanceId = QueryUtil.createExpirationDateAttributeInstance(
-				orderLine.getM_AttributeSetInstance_ID(), orderLine.getBH_Expiration(), orderLine.get_TrxName(),
-				orderLine.getCtx());
-		if (attributeSetInstanceId > 0) {
-			orderLine.setM_AttributeSetInstance_ID(attributeSetInstanceId);
 		}
 	}
 

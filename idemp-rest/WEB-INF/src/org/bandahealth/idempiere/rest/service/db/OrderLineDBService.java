@@ -21,11 +21,14 @@ import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.OrderLineChargeInformation;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
+import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MRefList;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Ref_List;
 import org.compiere.util.Env;
@@ -55,7 +58,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	@Autowired
 	private AccountDBService accountDBService;
 	@Autowired
-	private InventoryRecordDBService inventoryRecordDbService;
+	private StorageOnHandDBService storageOnHandDBService;
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
@@ -70,7 +73,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 		if (entity.getOrderId() != null) {
 			mOrderLine.setC_Order_ID(entity.getOrderId());
-			// Take care that price lists and other things are set on the order line from the header
+			// Take care that price lists and other things are set on the order line from
+			// the header
 			mOrderLine.setHeaderInfo(entity.getOrder());
 		}
 
@@ -109,10 +113,6 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			mOrderLine.setM_AttributeSetInstance_ID(entity.getAttributeSetInstanceId());
 		}
 
-		if (StringUtil.isNotNullAndEmpty(entity.getExpiration())) {
-			mOrderLine.setBH_Expiration(DateUtil.getTimestamp(entity.getExpiration()));
-		}
-
 		if (StringUtil.isNotNullAndEmpty(entity.getInstructions())) {
 			mOrderLine.setBH_Instructions(entity.getInstructions());
 		}
@@ -143,14 +143,15 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		}
 		// Delete what is no longer there
 		List<MBHOrderLineChargeInfo> orderLineChargeInformationList = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID,
-						Collections.singleton(entity.getId())).get(entity.getId());
+				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
+						MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, Collections.singleton(entity.getId()))
+				.get(entity.getId());
 		if (orderLineChargeInformationList != null) {
-			orderLineChargeInformationList.stream().filter(
-					existingOrderLineChargeInformation -> entity.getChargeInformationList().stream().noneMatch(
-							newOrderLineChargeInformation -> newOrderLineChargeInformation.getUuid()
-									.equals(existingOrderLineChargeInformation.getBH_OrderLine_Charge_Info_UU()))).forEach(
-					orderLineChargeInformation -> orderLineChargeInformationDBService
+			orderLineChargeInformationList.stream()
+					.filter(existingOrderLineChargeInformation -> entity.getChargeInformationList().stream()
+							.noneMatch(newOrderLineChargeInformation -> newOrderLineChargeInformation.getUuid()
+									.equals(existingOrderLineChargeInformation.getBH_OrderLine_Charge_Info_UU())))
+					.forEach(orderLineChargeInformation -> orderLineChargeInformationDBService
 							.deleteEntity(orderLineChargeInformation.getBH_OrderLine_Charge_Info_UU()));
 		}
 
@@ -167,13 +168,15 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		try {
 			MProduct_BH product = productDBService.getEntityByIdFromDB(instance.getM_Product_ID());
 			if (product != null) {
-				return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
-						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-						instance.getC_Order_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), 
-								inventoryRecordDbService.getProductInventoryCount(instance.getM_Product_ID(), false), product),
-						instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
-						DateUtil.parse(instance.getBH_Expiration()), instance.getBH_Instructions(), instance);
+				OrderLine orderLine =
+						new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_OrderLine_UU(),
+								instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
+								instance.getC_Order_ID(), new Product(product.getName(), product.getM_Product_UU(), product),
+								instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
+								instance.getBH_Instructions(), instance);
+				orderLine.getProduct()
+						.setTotalQuantity(storageOnHandDBService.getQuantityOnHand(instance.getM_Product_ID(), false));
+				return orderLine;
 			} else {
 				// check charge
 				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
@@ -183,8 +186,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 						ExpenseCategory expenseCategory = new ExpenseCategory(charge.getC_Charge_UU(), charge.getName(),
 								charge.isBH_Locked(), account.getC_ElementValue_UU());
 						return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
-								instance.getC_OrderLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-								instance.getCreatedBy(), expenseCategory,
+								instance.getC_OrderLine_UU(), instance.isActive(),
+								DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), expenseCategory,
 								instance.getC_Order_ID(), instance.getPriceActual(), instance.getQtyOrdered(),
 								instance.getLineNetAmt(), instance);
 					}
@@ -224,29 +227,44 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Map<Integer, List<MBHOrderLineChargeInfo>> orderLineChargeInformationByOrderLine =
 				orderLineChargeInformationDBService
 						.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
-								MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID,
-								orderLineIds);
+								MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
 		Map<String, MRefList> chargeSubTypeByValue = referenceListDBService
 				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
-						chargesById.values().stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet())).stream()
-				.collect(Collectors.toMap(X_AD_Ref_List::getValue, referenceList -> referenceList));
-		Map<Integer, MBHChargeInfo> chargeInformationById = chargeInformationDBService.getByIds(
-				orderLineChargeInformationByOrderLine.values().stream().flatMap(
-						orderLineChargeInformationList -> orderLineChargeInformationList.stream()
-								.map(MBHOrderLineChargeInfo::getBH_Charge_Info_ID)).collect(Collectors.toSet()));
+						chargesById.values().stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet()))
+				.stream().collect(Collectors.toMap(X_AD_Ref_List::getValue, referenceList -> referenceList));
+		Map<Integer, MBHChargeInfo> chargeInformationById = chargeInformationDBService
+				.getByIds(orderLineChargeInformationByOrderLine
+						.values().stream().flatMap(orderLineChargeInformationList -> orderLineChargeInformationList
+								.stream().map(MBHOrderLineChargeInfo::getBH_Charge_Info_ID))
+						.collect(Collectors.toSet()));
+
+		// Get the product IDs so we can fetch storage on hand
+		Set<Integer> productIds =
+				orderLines.stream().map(OrderLine::getProductId).filter(productId -> productId > 0).collect(Collectors.toSet());
+		// TODO: Fetch Products Here instead of on a 1-by-1 basis up in the `createInstanceWithAllFields` method
+		// This should duplicate whatever is done in `ProductDBService#searchItems`
+		Map<Integer, List<StorageOnHand>> storageOnHandListByProductIds = storageOnHandDBService.transformData(
+				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
+								MStorageOnHand.COLUMNNAME_M_Product_ID, productIds).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
 
 		orderLines.forEach(orderLine -> {
 			if (orderLine.getChargeId() > 0) {
 				orderLine.setCharge(new Charge(chargesById.get(orderLine.getChargeId())));
-				orderLine.getCharge()
-						.setSubType(new ReferenceList(chargeSubTypeByValue.get(orderLine.getCharge().getSubTypeValue())));
+				orderLine.getCharge().setSubType(
+						new ReferenceList(chargeSubTypeByValue.get(orderLine.getCharge().getSubTypeValue())));
 			}
 			if (orderLineChargeInformationByOrderLine.containsKey(orderLine.getId())) {
-				orderLine.setChargeInformationList(
-						orderLineChargeInformationByOrderLine.get(orderLine.getId()).stream().map(OrderLineChargeInformation::new)
-								.peek(orderLineChargeInformation -> orderLineChargeInformation.setChargeInformationUuid(
-										chargeInformationById.get(orderLineChargeInformation.getChargeInformationId())
-												.getBH_Charge_Info_UU())).collect(Collectors.toList()));
+				orderLine.setChargeInformationList(orderLineChargeInformationByOrderLine.get(orderLine.getId()).stream()
+						.map(OrderLineChargeInformation::new)
+						.peek(orderLineChargeInformation -> orderLineChargeInformation.setChargeInformationUuid(
+								chargeInformationById.get(orderLineChargeInformation.getChargeInformationId())
+										.getBH_Charge_Info_UU()))
+						.collect(Collectors.toList()));
+			}
+			if (orderLine.getProductId() > 0 && orderLine.getProduct() != null &&
+					storageOnHandListByProductIds.containsKey(orderLine.getProductId())) {
+				orderLine.getProduct().setStorageOnHandList(storageOnHandListByProductIds.get(orderLine.getProductId()));
 			}
 		});
 
@@ -268,13 +286,14 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				.setParameters(orderId).setClient_ID().list();
 
 		// Get the associated order line charge information and delete it
-		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::getC_OrderLine_ID).collect(Collectors.toSet());
+		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::getC_OrderLine_ID)
+				.collect(Collectors.toSet());
 		boolean wereChildrenDeletesSuccessful = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID, MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID,
-						orderLineIds)
-				.values().stream().flatMap(Collection::stream).allMatch(
-						businessPartnerChargeInformation -> orderLineChargeInformationDBService
-								.deleteEntity(businessPartnerChargeInformation.getBH_OrderLine_Charge_Info_UU()));
+				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
+						MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
+				.values().stream().flatMap(Collection::stream)
+				.allMatch(businessPartnerChargeInformation -> orderLineChargeInformationDBService
+						.deleteEntity(businessPartnerChargeInformation.getBH_OrderLine_Charge_Info_UU()));
 		if (!wereChildrenDeletesSuccessful) {
 			throw new AdempiereException("There was an error deleting information");
 		}

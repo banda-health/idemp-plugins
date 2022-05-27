@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Product;
-import org.bandahealth.idempiere.rest.model.SearchProduct;
 import org.bandahealth.idempiere.rest.service.BaseEntityRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductDBService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +57,7 @@ public class ProductRestService extends BaseEntityRestService<Product> {
 
 	@POST
 	@Path(IRestConfigs.SEARCH_ITEMS_PATH)
-	public BaseListResponse<SearchProduct> searchItems(@QueryParam("value") String query) {
+	public BaseListResponse<Product> searchItems(@QueryParam("value") String query) {
 		return dbService.searchItems(query);
 	}
 }

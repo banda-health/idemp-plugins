@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.base.process;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -13,6 +12,7 @@ import java.util.stream.Collectors;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInventory;
@@ -31,12 +31,7 @@ public class InitializeStock {
 
 	private static CLogger log = CLogger.getCLogger(InitializeStock.class);
 
-	public static int createInitialStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct, Properties context,
-			String transactionName) {
-		return createInitialStock(inventoryByProduct, context, transactionName, false, 0);
-	}
-
-	public static int createInitialStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct, Properties context,
+	public static void createInitialStock(Map<MProduct_BH, List<MStorageOnHand>> inventoryByProduct, Properties context,
 			String transactionName, boolean shouldMergeInventory, int warehouseId) {
 		if (inventoryByProduct == null || inventoryByProduct.keySet().isEmpty()) {
 			log.severe("No products were passed to initialize stock.");
@@ -46,9 +41,13 @@ public class InitializeStock {
 
 		MWarehouse warehouse = null;
 		if (warehouseId == 0) {
-			MWarehouse[] warehouses = MWarehouse.getForOrg(context, Env.getAD_Org_ID(context));
-			if (warehouses != null && warehouses.length > 0) {
-				warehouse = warehouses[0];
+			List<MWarehouse_BH> warehouses =
+					new Query(Env.getCtx(), MWarehouse_BH.Table_Name, "AD_Org_ID=?", null).setParameters(
+									Env.getAD_Org_ID(Env.getCtx())).setOnlyActiveRecords(true)
+							.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
+			if (!warehouses.isEmpty()) {
+				warehouse =
+						warehouses.stream().filter(MWarehouse_BH::isBH_IsDefaultWarehouse).findFirst().orElse(warehouses.get(0));
 			} else {
 				log.severe("No warehouses defined for organization.");
 				throw new AdempiereException("No warehouses defined for organization.");
@@ -61,7 +60,7 @@ public class InitializeStock {
 		Set<MProduct_BH> productsWithInitialInventory = inventoryByProduct.entrySet().stream().filter(
 						(inventoryByProductEntry) -> inventoryByProductEntry.getValue().stream().anyMatch(
 								storageOnHand -> storageOnHand.getQtyOnHand() != null &&
-								//update this check for 0 qty updates
+										//update this check for 0 qty updates
 										storageOnHand.getQtyOnHand().compareTo(BigDecimal.ZERO) > 0)).map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
@@ -84,6 +83,14 @@ public class InitializeStock {
 		for (MProduct_BH product : productsWithInitialInventory) {
 			if (!shouldMergeInventory && productIdsWithStock.contains(product.get_ID())) {
 				log.log(Level.SEVERE, "There is an existing stock for product id = " + product.get_ID());
+				continue;
+			}
+			// If this product has an attribute set and the storage on hand records don't have ASIs, we have a problem
+			if (product.getM_AttributeSet_ID() > 0 && inventoryByProduct.get(product).stream()
+					.anyMatch(storageOnHand -> storageOnHand.getM_AttributeSetInstance_ID() == 0)) {
+				log.severe("Product id " + product.get_ID() +
+						" has an Attribute Set, but some storage records don't have an Attribute Set Instance (ASI). Kindly " +
+						"create ASIs and try again");
 				continue;
 			}
 
@@ -112,8 +119,8 @@ public class InitializeStock {
 				inventoryLine.setM_Product_ID(product.get_ID());
 				inventoryLine.setM_Inventory_ID(inventory.get_ID());
 
-				// Only set the attribute set instance ID (i.e. expiration date) if one was provided
-				if (storageOnHand.getM_AttributeSetInstance_ID() > 0) {
+				// If an attribute set instance was provided and it should've been, use it
+				if (product.getM_AttributeSet_ID() > 0 && storageOnHand.getM_AttributeSetInstance_ID() > 0) {
 					inventoryLine.setM_AttributeSetInstance_ID(storageOnHand.getM_AttributeSetInstance_ID());
 				}
 				inventoryLine.setQtyCount(desiredQuantityOnHand);
@@ -126,23 +133,6 @@ public class InitializeStock {
 
 		inventory.completeIt();
 		inventory.saveEx(transactionName);
-
-		return count;
-	}
-
-
-	public static int createInitialStock(List<MProduct_BH> products, BigDecimal quantity, Properties context,
-			String transactionName) {
-		if (products == null) {
-			log.severe("No products were passed to initialize stock.");
-			throw new AdempiereException("No products were passed to initialize stock.");
-		}
-		return createInitialStock(products.stream().collect(Collectors.toMap(product -> product, product -> {
-					MStorageOnHand storageOnHand = new MStorageOnHand(context, 0, transactionName);
-					storageOnHand.setQtyOnHand(quantity);
-					return Collections.singletonList(storageOnHand);
-				}, (existingStorageOnHandForProduct, duplicateStorageOnHandForProduct) -> existingStorageOnHandForProduct)),
-				context, transactionName);
 	}
 
 	/**

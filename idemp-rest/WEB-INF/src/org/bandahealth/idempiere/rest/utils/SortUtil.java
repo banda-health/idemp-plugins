@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.utils;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class SortUtil {
 	private static final String MALFORMED_SORT_STRING_ERROR = "Sort criteria doesn't meet the standard form.";
+	private static final String[] AGGREGATE_FUNCTIONS = {"sum(", "avg(", "min(", "max(", "count("};
 
 	/**
 	 * Check to see if the table alias already exists on the column (aka Table_Name.ColumnName vs just ColumnName)
@@ -111,14 +113,31 @@ public class SortUtil {
 		try {
 			List<Object> listOfSortCriteria = parseJsonString(sortJson);
 			// Make sure to return the distinct list without duplicates
-			return listOfSortCriteria.stream().map(sortCriteria -> {
+			return listOfSortCriteria.stream().flatMap(sortCriteria -> {
 				// If this is null or an empty array, skip
 				if (sortCriteria == null || sortCriteria instanceof List<?> && ((List<?>) sortCriteria).isEmpty()) {
 					return null;
 				}
 				String sortColumn =
 						sortCriteria instanceof String ? (String) sortCriteria : ((List<String>) sortCriteria).get(0);
-				return doesTableAliasExistOnColumn(sortColumn) ? sortColumn.split("\\.")[0] : null;
+				// We can pass in functions or operations to sort by, so handle that
+				sortColumn = Arrays.stream(AGGREGATE_FUNCTIONS)
+						.reduce(sortColumn, (replacedString, aggregateFunction) -> replacedString.replace(aggregateFunction, ""));
+				// First, split by the column delimiter
+				String[] sortColumnSplits = sortColumn.split("\\.");
+				if (sortColumnSplits.length == 0) {
+					return null;
+				}
+				List<String> tablesNeedingJoins = new ArrayList<>();
+				// We don't care about the last value, since that could never be a table name, so length - 1
+				for (int i = 0; i < sortColumnSplits.length - 1; i++) {
+					// Remove any operators that are still there
+					String[] subSortCriteria = sortColumnSplits[i].split("[\\s\\.\\-\\+/\\*\\(\\)]+");
+					// If we've split this string, the last value would be our table alias (since it would've been before
+					// the "." from the statement after it
+					tablesNeedingJoins.add(subSortCriteria[subSortCriteria.length - 1]);
+				}
+				return tablesNeedingJoins.stream();
 			}).filter(alias -> !StringUtil.isNullOrEmpty(alias)).collect(Collectors.toSet());
 		} catch (Exception e) {
 			throw new AdempiereException(MALFORMED_SORT_STRING_ERROR);

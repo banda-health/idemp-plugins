@@ -14,7 +14,6 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,8 +94,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 			if (product != null) {
 				return new InvoiceLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_InvoiceLine_UU(),
 						instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-						instance.getC_Invoice_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product.getProductType(), BigDecimal.ZERO, product),
+						instance.getC_Invoice_ID(), new Product(product.getName(), product.getM_Product_UU(), product),
 						instance.getPriceActual(), instance.getQtyInvoiced(), instance.getLineNetAmt(), instance.getDescription());
 			} else {
 				// check charge
