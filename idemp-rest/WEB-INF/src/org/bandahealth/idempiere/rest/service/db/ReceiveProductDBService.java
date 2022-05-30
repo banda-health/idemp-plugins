@@ -1,13 +1,21 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
 import org.bandahealth.idempiere.rest.model.Warehouse;
@@ -101,6 +109,26 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 			ReceiveProduct result = new ReceiveProduct(instance, vendor,
 					orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
 			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
+
+			// Get any ASIs that need to be added
+			Set<Integer> attributeSetInstanceIds =
+					result.getOrderLines().stream().map(OrderLine::getAttributeSetInstanceId)
+							.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet());
+			Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
+					attributeSetInstanceIds.isEmpty() ? new HashMap<>() :
+							attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
+
+			result.getOrderLines().forEach(orderLine -> {
+				if (attributeSetInstancesById.containsKey(orderLine.getAttributeSetInstanceId())) {
+					orderLine.setAttributeSetInstance(
+							new AttributeSetInstance(attributeSetInstancesById.get(orderLine.getAttributeSetInstanceId())));
+				}
+				if (orderLine.getProduct() != null) {
+					orderLine.setProduct(
+							productDBService.batchChildDataCalls(Collections.singletonList(orderLine.getProduct())).get(0));
+				}
+			});
+
 			return result;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());

@@ -107,4 +107,6 @@ public interface IRestConfigs {
 	String QUERY_PARAMETER_SORTING = "sorting";
 	String QUERY_PARAMETER_FILTER = "filter";
 	String QUERY_PARAMETER_VALUE = "value";
+	
+	String STORAGE_ON_HAND_PATH = AUTHENTICATION_PATH + "/storage-on-hand";
 }

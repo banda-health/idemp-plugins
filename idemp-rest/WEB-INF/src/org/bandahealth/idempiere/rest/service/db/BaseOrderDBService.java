@@ -1,12 +1,11 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
@@ -20,6 +19,13 @@ import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Order (c_order) base functionality (billing, receive goods, track expenses).
@@ -38,6 +44,10 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	protected ProcessDBService processDBService;
 	@Autowired
 	protected VoidedReasonDBService voidedReasonDBService;
+	@Autowired
+	protected AttributeSetInstanceDBService attributeSetInstanceDBService;
+	@Autowired
+	protected ProductDBService productDBService;
 
 	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
 
@@ -172,11 +182,27 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			String lineIds = "";
 			// persist product/service/charge order lines
 			List<OrderLine> orderLines = entity.getOrderLines();
-			if (orderLines != null) {
+
+			if (orderLines != null && !orderLines.isEmpty()) {
+				// Get the ASI batches, if any should be there
+				Set<String> attributeSetInstanceUuids =
+						orderLines.stream().map(OrderLine::getAttributeSetInstance).filter(Objects::nonNull)
+								.map(AttributeSetInstance::getUuid).filter(StringUtil::isNotNullAndEmpty).collect(Collectors.toSet());
+				Map<String, MAttributeSetInstance_BH> attributeSetInstancesByUuid =
+						attributeSetInstanceDBService.getByUuids(attributeSetInstanceUuids);
 				int count = 0;
 				for (OrderLine orderLine : orderLines) {
 					orderLine.setOrderId(mOrder.get_ID());
 					orderLine.setOrder(mOrder);
+
+					// Set the ASI ID, if need be
+					if (orderLine.getAttributeSetInstance() != null &&
+							!StringUtil.isNullOrEmpty(orderLine.getAttributeSetInstance().getUuid()) &&
+							attributeSetInstancesByUuid.containsKey(orderLine.getAttributeSetInstance().getUuid())) {
+						orderLine.setAttributeSetInstanceId(
+								attributeSetInstancesByUuid.get(orderLine.getAttributeSetInstance().getUuid()).get_ID());
+					}
+
 					OrderLine response = orderLineDBService.saveEntity(orderLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < orderLines.size()) {

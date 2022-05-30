@@ -1,30 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.InventoryRecord;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Movement;
 import org.bandahealth.idempiere.rest.model.MovementLine;
-import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.model.User;
@@ -39,6 +23,18 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Component
 public class MovementDBService extends DocumentDBService<Movement, MMovement_BH> {
 
@@ -47,15 +43,13 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	@Autowired
 	private MovementLineDBService movementLineDBService;
 	@Autowired
-	private ProductDBService productDBService = new ProductDBService();
+	private ProductDBService productDBService;
 	@Autowired
-	private InventoryRecordDBService inventoryRecordDBService = new InventoryRecordDBService();
+	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	private LocatorDBService locatorDBService;
 	@Autowired
-	private LocatorDBService locatorDBService = new LocatorDBService();
-	@Autowired
-	private StorageOnHandDBService storageOnHandDBService = new StorageOnHandDBService();
+	private StorageOnHandDBService storageOnHandDBService;
 	/**
 	 * Document Type
 	 */
@@ -237,28 +231,16 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		// We need more information for the storage on hand, so get those entities
 		Set<Integer> productIds =
 				movement.getMovementLines().stream().map(MovementLine::getProductId).collect(Collectors.toSet());
-		Map<Integer, List<MStorageOnHand>> storageOnHandByProductId = productIds.isEmpty() ? new HashMap<>() :
-				storageOnHandDBService.getGroupsByIds(MStorageOnHand::getM_Product_ID, MStorageOnHand.COLUMNNAME_M_Product_ID,
-						productIds);
+		Map<Integer, List<StorageOnHand>> storageOnHandByProductId = storageOnHandDBService.transformData(
+				storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
+								MStorageOnHand.COLUMNNAME_M_Product_ID, productIds).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(StorageOnHand::getProductId));
 
 		// Get the inventory for the product (can't be batched at the moment)
 		movement.getMovementLines().forEach(movementLine -> {
-			if (movementLine.getProductId() == 0) {
-				return;
+			if (storageOnHandByProductId.containsKey(movementLine.getProductId())) {
+				movementLine.getProduct().setStorageOnHandList(storageOnHandByProductId.get(movementLine.getProductId()));
 			}
-			BaseListResponse<InventoryRecord> productsInventory =
-					inventoryRecordDBService.getProductInventory(Paging.ALL.getInstance(), movementLine.getProductId());
-			movementLine.getProduct().setStorageOnHandList(
-					productsInventory.getResults().stream().filter(inventory -> inventory.getShelfLife() >= 0)
-							.map(StorageOnHand::new).collect(Collectors.toList()));
-
-			// Set the correct locator id
-			movementLine.getProduct().getStorageOnHandList().forEach(storageOnHand -> {
-				storageOnHandByProductId.get(movementLine.getProductId()).stream().filter(
-						productStorageOnHand -> productStorageOnHand.getM_AttributeSetInstance_ID() ==
-								storageOnHand.getAttributeSetInstanceId()).findFirst().ifPresent(
-						storageOnHandForProduct -> storageOnHand.setLocatorId(storageOnHandForProduct.getM_Locator_ID()));
-			});
 		});
 
 		// Get the storage on hand stream for batches
@@ -275,6 +257,16 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 				attributeSetInstanceDBService.getByIds(attributeSetInstanceIds).entrySet().stream().collect(
 						Collectors.toMap(Map.Entry::getKey,
 								attributeSetInstanceById -> new AttributeSetInstance(attributeSetInstanceById.getValue())));
+
+		// Since ASI to product is a 1-to-1 relationship, we can just go set prices on ASIs
+		productDBService.getProductCosts(productIds, attributeSetInstanceIds).forEach(productCostCalculation -> {
+			if (attributeSetInstancesById.containsKey(productCostCalculation.getAttributeSetInstanceId())) {
+				attributeSetInstancesById.get(productCostCalculation.getAttributeSetInstanceId())
+						.setPurchasePrice(productCostCalculation.getPurchasePrice());
+				attributeSetInstancesById.get(productCostCalculation.getAttributeSetInstanceId())
+						.setPurchaseDate(productCostCalculation.getPurchaseDate());
+			}
+		});
 
 		// Batch the locator calls
 		Set<Integer> locatorIds =
@@ -346,32 +338,17 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 			}
 
 			if (mMovement.getBH_FromWarehouseID() > 0) {
-				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
-					return warehouse.get_ID() == mMovement.getBH_FromWarehouseID();
-				}).findFirst();
-
-				if (!foundWarehouse.isEmpty()) {
-					movement.setFromWarehouse(new Warehouse(foundWarehouse.get()));
-				}
+				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_FromWarehouseID()).findFirst()
+						.ifPresent(warehouse -> movement.setFromWarehouse(new Warehouse(warehouse)));
 			}
 
 			if (mMovement.getBH_ToWarehouseID() > 0) {
-				Optional<MWarehouse> foundWarehouse = warehouses.stream().filter(warehouse -> {
-					return warehouse.get_ID() == mMovement.getBH_ToWarehouseID();
-				}).findFirst();
-
-				if (!foundWarehouse.isEmpty()) {
-					movement.setToWarehouse(new Warehouse(foundWarehouse.get()));
-				}
+				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_ToWarehouseID()).findFirst()
+						.ifPresent(warehouse -> movement.setToWarehouse(new Warehouse(warehouse)));
 			}
 
-			Optional<MUser_BH> foundUser = users.stream().filter(user -> {
-				return user.get_ID() == mMovement.getCreatedBy();
-			}).findFirst();
-			if (!foundUser.isEmpty()) {
-				MUser_BH mUser = foundUser.get();
-				movement.setUser(new User(mUser.getName(), mUser.getAD_User_UU()));
-			}
+			users.stream().filter(user -> user.get_ID() == mMovement.getCreatedBy()).findFirst()
+					.ifPresent(user -> movement.setUser(new User(user.getName(), user.getAD_User_UU())));
 
 			results.add(movement);
 		});

@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -18,8 +20,13 @@ public class AttributeSetInstance extends BaseMetadata {
 	
 	private Timestamp guaranteeDate;
 	private ReferenceList updateReason;
-
-	private Integer attributeSetInstanceId;
+	private String serialNumber;
+	private String lot;
+	@JsonIgnore
+	private Integer attributeSetId;
+	private AttributeSet attributeSet;
+	private BigDecimal purchasePrice;
+	private Timestamp purchaseDate;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -29,6 +36,8 @@ public class AttributeSetInstance extends BaseMetadata {
 	public AttributeSetInstance(MAttributeSetInstance_BH model) {
 		super(model);
 		setGuaranteeDate(model.getGuaranteeDate());
+		this.serialNumber = model.getSerNo();
+		this.lot = model.getLot();
 	}
 
 	@XmlElement
@@ -41,11 +50,6 @@ public class AttributeSetInstance extends BaseMetadata {
 		return updateReason;
 	}
 	
-	@XmlElement
-	public Integer getAttributeSetInstanceId() {
-		return attributeSetInstanceId;
-	}
-	
 	public void setGuaranteeDate(Timestamp guaranteeDate) {
 		this.guaranteeDate = guaranteeDate;
 	}
@@ -53,8 +57,52 @@ public class AttributeSetInstance extends BaseMetadata {
 	public void setUpdateReason(ReferenceList updateReason) {
 		this.updateReason = updateReason;
 	}
-	
-	public void setAttributeSetId(Integer attributeSetInstanceId) {
-		this.attributeSetInstanceId = attributeSetInstanceId;
+
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	public String getLot() {
+		return lot;
+	}
+
+	public void setLot(String lot) {
+		this.lot = lot;
+	}
+
+	public AttributeSet getAttributeSet() {
+		return attributeSet;
+	}
+
+	public void setAttributeSet(AttributeSet attributeSet) {
+		this.attributeSet = attributeSet;
+	}
+
+	public Integer getAttributeSetId() {
+		return attributeSetId;
+	}
+
+	public void setAttributeSetId(Integer attributeSetId) {
+		this.attributeSetId = attributeSetId;
+	}
+
+	public BigDecimal getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(BigDecimal purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+
+	public Timestamp getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Timestamp purchaseDate) {
+		this.purchaseDate = purchaseDate;
 	}
 }

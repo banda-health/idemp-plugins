@@ -1,17 +1,8 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator.Builder;
 import com.auth0.jwt.algorithms.Algorithm;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
@@ -30,7 +21,6 @@ import org.bandahealth.idempiere.rest.service.db.RoleDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.service.db.WarehouseDBService;
 import org.bandahealth.idempiere.rest.utils.LoginClaims;
-import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.RoleUtil;
 import org.bandahealth.idempiere.rest.utils.TokenUtils;
 import org.compiere.model.MClient;
@@ -51,6 +41,13 @@ import org.compiere.util.Trx;
 import org.compiere.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -479,16 +476,19 @@ public class AuthenticationRestService {
 					}
 
 					// check warehouses
-					MWarehouse[] warehouses = MWarehouse.getForOrg(Env.getCtx(), orgResponse.getId());
-					for (MWarehouse warehouse : warehouses) {
-						Warehouse warehouseResponse = new Warehouse(warehouse);
-						orgResponse.getWarehouses().add(warehouseResponse);
+					List<MWarehouse_BH> dbWarehouses =
+							new Query(Env.getCtx(), MWarehouse_BH.Table_Name, "AD_Org_ID=?", null).setParameters(
+											Env.getAD_Org_ID(Env.getCtx())).setOnlyActiveRecords(true)
+									.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
+					List<Warehouse> warehouses = warehouseDBService.transformData(dbWarehouses);
+					for (Warehouse warehouse : warehouses) {
+						orgResponse.getWarehouses().add(warehouse);
 
 						// set default warehouse
-						if (warehouses.length == 1) {
-							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouseResponse.getId());
-							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouseResponse.getId());
-							response.setWarehouseUuid(warehouseResponse.getUuid());
+						if (warehouses.size() == 1) {
+							Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouse.getId());
+							builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.getId());
+							response.setWarehouseUuid(warehouse.getUuid());
 						}
 					}
 

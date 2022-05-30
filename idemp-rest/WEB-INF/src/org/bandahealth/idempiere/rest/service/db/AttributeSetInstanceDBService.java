@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +12,41 @@ import org.springframework.stereotype.Component;
 public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetInstance, MAttributeSetInstance_BH> {
 	@Autowired
 	private ReferenceListDBService referenceListDBService;
+	@Autowired
+	private AttributeSetDBService attributeSetDBService;
 
 	@Override
 	public AttributeSetInstance saveEntity(AttributeSetInstance entity) {
-		// We'll only allow updating the guarantee date
-		MAttributeSetInstance_BH attributeSetInstance = getEntityByIdFromDB(entity.getAttributeSetInstanceId());
+		MAttributeSetInstance_BH attributeSetInstance = getEntityByUuidFromDB(entity.getUuid());
+		// We'll do the following things for a new entity only
 		if (attributeSetInstance == null) {
 			attributeSetInstance = getModelInstance();
 			attributeSetInstance.setM_AttributeSetInstance_UU(entity.getUuid());
+
+			// Set the correction attribute set, if one was provided
+			if (entity.getAttributeSet() != null) {
+				MAttributeSet_BH attributeSet = attributeSetDBService.getEntityByUuidFromDB(entity.getAttributeSet().getUuid());
+				if (attributeSet != null) {
+					attributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
+				}
+			}
+
+			// Set the serial number
+			attributeSetInstance.setSerNo(entity.getSerialNumber());
 		}
 
+		// We'll only allow updating the guarantee date and update reason on an existing ASI
 		attributeSetInstance.setGuaranteeDate(entity.getGuaranteeDate());
-		attributeSetInstance.setDescription(DateUtil.parseDateOnly(entity.getGuaranteeDate()));
 
-		if (entity.getUpdateReason().getUuid() != null) {
+		if (entity.getUpdateReason() != null && entity.getUpdateReason().getUuid() != null) {
 			MRefList updateReason = referenceListDBService.getEntityByUuidFromDB(entity.getUpdateReason().getUuid());
 			if (updateReason != null) {
 				attributeSetInstance.setbh_update_reason(updateReason.getValue());
 			}
 		}
 
+		// Automatically update the description by the ASI's own logic
+		attributeSetInstance.setDescription();
 		attributeSetInstance.saveEx();
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(attributeSetInstance.getM_AttributeSetInstance_UU()));
