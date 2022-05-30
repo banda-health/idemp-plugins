@@ -11,13 +11,6 @@ Import-Package: org.zkoss.zk.ui,
  org.zkoss.zul
 Jetty-WarFragmentFolderPath: /
 Export-Package: org.bandahealth.idempiere.webui;uses:="org.compiere.model,org.zkoss.zk.ui.event,org.zkoss.zul",
- org.bandahealth.idempiere.webui.composers;
-  uses:="org.zkoss.zk.ui.select,
-   org.zkoss.zk.ui.event,
-   org.bandahealth.idempiere.webui,
-   org.zkoss.zul",
- org.bandahealth.idempiere.webui.dataservice;uses:="org.compiere.model",
- org.bandahealth.idempiere.webui.dataservice.impl;uses:="org.compiere.model,org.bandahealth.idempiere.webui.dataservice",
  org.bandahealth.idempiere.webui.factory;uses:="org.adempiere.webui.factory,org.adempiere.webui.panel",
  org.bandahealth.idempiere.webui.forms;uses:="org.adempiere.webui.panel"
 Require-Bundle: org.bandahealth.idempiere.base;bundle-version="1.0.0"
