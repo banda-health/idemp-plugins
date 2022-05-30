@@ -276,6 +276,14 @@ WHERE
 		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9'
 	);
 
+DELETE
+FROM
+	ad_ref_table
+WHERE
+		ad_window_id IN (
+		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9'
+	);
+
 -- Delete the window
 DELETE
 FROM
