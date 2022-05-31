@@ -76,101 +76,34 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[with params as (
-    SELECT
-        $P{AD_CLIENT_ID} as ad_client_id,
-        date($P{Begin Date}) as begin_date,
-        date($P{End Date}) as end_date
-), non_reversed_inoutlines as (
-    SELECT
-        iol.m_inoutline_id
-    FROM m_inoutline iol
-        JOIN params p ON p.ad_client_id = iol.ad_client_id
-        LEFT JOIN m_inoutline riol ON iol.m_inoutline_id = riol.reversalline_id
-    WHERE riol.m_inoutline_id IS NULL AND iol.reversalline_id IS NULL
+			<![CDATA[WITH inventory_changes AS (
+	SELECT
+		m_product_id,
+		sell_price,
+		purchase_price,
+		SUM(sold_stock) AS sold_stock,
+		cost_of_goods_sold,
+		gross_profit
+	FROM
+		get_inventory_changes($P{AD_CLIENT_ID})
+	GROUP BY m_product_id, sell_price, purchase_price, cost_of_goods_sold, gross_profit
 )
-select billitems.item_name                                                                           as item_name,
-       sum(billdetails.quantity)                                                                     as quantity,
-       billdetails.saleprice                                                                         as sellingprice,
-       sum(billdetails.amount)                                                                       as amount,
-       coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0) as PurchasePrice,
-       sum(billdetails.quantity *
-           coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0)
-           )                                                                                         as costgoodssold
-from (
-         select item.m_product_id,
-                item.name as item_name
-         from m_product item
-                  join params p on item.ad_client_id = p.ad_client_id
-         where item.isactive = 'Y'
-           and item.producttype = 'I'
-     ) as billitems
-         inner join
-     (
-         select coline.m_product_id,
-                sum(iolma.movementqty)   as quantity,
-                coline.priceentered as saleprice,
-                sum(iolma.movementqty) * coline.priceentered   as amount,
-                iolma.m_attributesetinstance_id
-         from c_orderline coline
-                  inner join c_order sorder on coline.c_order_id = sorder.c_order_id
-             and sorder.bh_isexpense = 'N'
-                  inner join m_product item on coline.m_product_id = item.m_product_id
-             and item.producttype = 'I'
-             join params p on coline.ad_client_id = p.ad_client_id
-            join m_inoutline iol on coline.c_orderline_id = iol.c_orderline_id
-            join non_reversed_inoutlines nriol on nriol.m_inoutline_id = iol.m_inoutline_id
-            join m_inoutlinema iolma on iol.m_inoutline_id = iolma.m_inoutline_id
-         where coline.processed = 'Y'
-           and date(sorder.bh_visitdate) BETWEEN p.begin_date and p.end_date
-        group by coline.m_product_id, coline.priceentered, iolma.m_attributesetinstance_id
-     ) as billdetails on billitems.m_product_id = billdetails.m_product_id
-         left join (
-    select m_product_id,
-           priceentered,
-           m_attributesetinstance_id
-    from (
-             select ol.m_product_id,
-                    ol.priceentered                                                                                as priceentered,
-                    ol.m_attributesetinstance_id,
-                    row_number()
-                    over (partition by ol.m_product_id, ol.m_attributesetinstance_id order by o.bh_visitdate desc) as rownum
-             from c_orderline ol
-                      join c_order o on ol.c_order_id = o.c_order_id
-                      join params on params.ad_client_id = ol.ad_client_id
-             where o.issotrx = 'N'
-      		and o.docstatus IN ('CL', 'CO')
-      		and ol.m_product_id is not null
-         ) l
-    where rownum = 1
-) as price_on_reception on billdetails.m_product_id = price_on_reception.m_product_id and
-                           billdetails.m_attributesetinstance_id = price_on_reception.m_attributesetinstance_id
-         left join (
-    select c.m_product_id, c.m_attributesetinstance_id, c.currentcostprice
-    from m_cost c
-             join params p on c.ad_client_id = p.ad_client_id
-             join c_acctschema actsch
-                  on c.c_acctschema_id = actsch.c_acctschema_id and c.m_costtype_id = actsch.m_costtype_id
-             join m_costelement ce
-                  on c.m_costelement_id = ce.m_costelement_id and ce.costingmethod = actsch.costingmethod
-    where c.currentcostprice > 0
-) costs on billdetails.m_product_id = costs.m_product_id and
-           billdetails.m_attributesetinstance_id = costs.m_attributesetinstance_id
-         left join
-     (
-         select productPrice.m_product_id,
-                productPrice.pricestd as PurchasePrice
-         from m_pricelist priceList
-                  inner join m_pricelist_version priceListVersion
-                             on priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-                  inner join m_productprice productPrice
-                             on priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
-         where priceList.issopricelist = 'N'
-           and priceList.isdefault = 'Y'
-     ) as productPP on billdetails.m_product_id = productPP.m_product_id
-group by billitems.item_name, billdetails.saleprice,
-         coalesce(price_on_reception.priceentered, costs.currentcostprice, productPP.PurchasePrice, 0)
-order by billitems.item_name;]]>
+SELECT
+	p.name                        AS item_name,
+	ic.sold_stock                 AS quantity,
+	ic.sell_price                 AS sellingprice,
+	ic.sold_stock * ic.sell_price AS amount,
+	ic.purchase_price             AS PurchasePrice,
+	ic.cost_of_goods_sold         AS costgoodssold,
+	ic.gross_profit               AS gross_profit
+FROM
+	m_product p
+		JOIN inventory_changes ic
+			ON p.m_product_id = ic.m_product_id
+WHERE
+	ic.sold_stock > 0
+ORDER BY
+	item_name;]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -194,9 +127,9 @@ order by billitems.item_name;]]>
 		<field name="costgoodssold" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="costgoodssold"/>
 		</field>
-		<variable name="gross profit" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{amount}.subtract($F{costgoodssold})]]></variableExpression>
-		</variable>
+		<field name="gross_profit" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="gross_profit"/>
+		</field>
 		<variable name="sumAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
@@ -206,7 +139,7 @@ order by billitems.item_name;]]>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 		<variable name="sumGrossProfit" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$V{gross profit}]]></variableExpression>
+			<variableExpression><![CDATA[$F{gross_profit}]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
 		</variable>
 	</subDataset>
@@ -487,7 +420,7 @@ limit 1;]]>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{gross profit}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{gross_profit}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
