@@ -53,19 +53,7 @@
 		<parameter name="End Date" class="java.lang.String"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
-			<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
-        date($P{Begin Date}) AS begin_date,
-        date($P{End Date}) AS end_date
-), billdetails as (
-    SELECT *
-    FROM get_visit_info() co
-        CROSS JOIN params p
-    WHERE (co.ad_client_id = p.ad_client_id)
-          AND (date(co.bill_date) BETWEEN p.begin_date AND p.end_date)
-)
-SELECT
+			<![CDATA[SELECT
     c_order_id,
     bill_date as billdate,
     cashier as cashier,
@@ -82,7 +70,7 @@ SELECT
     coalesce(insurance, 0) as insurance,
     coalesce(waiver, 0) as waiver,
     coalesce(donation, 0) as donation
-FROM billdetails
+FROM get_visit_info($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
 ORDER BY date(bill_date) ASC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
