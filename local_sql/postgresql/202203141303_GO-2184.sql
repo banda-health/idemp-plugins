@@ -185,18 +185,6 @@ WHERE
 				                'bfc62de5-8dd4-4aea-a3c4-24307b97b97c')
 	);
 
--- Delete package imports that now no longer have any details
-DELETE
-FROM
-	ad_package_imp
-WHERE
-		ad_package_imp_id NOT IN (
-		SELECT
-			ad_package_imp_id
-		FROM
-			ad_package_imp_detail
-	);
-
 /**********************************************************************************************************/
 -- 3. Remove the menus pointing to the Dashboard Button window
 /**********************************************************************************************************/
