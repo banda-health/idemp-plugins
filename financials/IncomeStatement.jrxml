@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
 	<subDataset name="insurance_charges" uuid="70253b08-5617-4c6e-a242-3cb35b34eb5d">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<queryString>
@@ -17,127 +17,115 @@
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[WITH params AS (
-    SELECT
+    SELECT 
         $P{AD_CLIENT_ID} as ad_client_id,
-        DATE($P{Begin Date}) as start_date,
+        DATE($P{Begin Date}) as begin_date,
         DATE($P{End Date}) as end_date
 )
-SELECT
-    c.name AS name,
-    coalesce(billdetails.saleslineitemtotals,0) AS billtotal,
-    coalesce(payments.revenuesales,0) AS salesrevenue,
-    coalesce(debtPayments.debtpaymentamount,0) AS debtrevenue,
-    coalesce(expenses.totalexpenses,0) + coalesce(received_products.total,0) AS expensetotal,
-    coalesce(charges.pharmacysales,0) AS pharmacysales,
-    coalesce(charges.servicessales,0) AS servicessales,
-    coalesce(charges.labsales,0) AS labsales,
-    coalesce(charges.radiologysales,0) AS radiologysales,
-    coalesce(charges.othersales,0) AS othersales,
-    coalesce(payments.cash,0) as cash,
-    coalesce(payments.mobile, 0) as mobile,
-    coalesce(payments.credit_debit,0) as credit_debit,
-    coalesce(payments.bank_transfer, 0) as bank_transfer,
-    coalesce(payments.check, 0) as "check",
-    coalesce(payments.other, 0) as otherpayments,
-    coalesce(non_patient_payments.waivers, 0) * -1 as waivers,
-    coalesce(non_patient_payments.donations, 0) * -1 as donations,
-    coalesce(non_patient_payments.insurance, 0) * -1 as insurance
+SELECT c.name                                                                     AS name,
+       coalesce(billdetails.saleslineitemtotals, 0)                               AS billtotal,
+       coalesce(payments.revenuesales, 0)                                         AS salesrevenue,
+       coalesce(debtPayments.debtpaymentamount, 0)                                AS debtrevenue,
+       coalesce(expenses.totalexpenses, 0),
+       coalesce(expenses.totalexpenses, 0) + coalesce(received_products.total, 0) AS expensetotal,
+       coalesce(charges.pharmacysales, 0)                                         AS pharmacysales,
+       coalesce(charges.servicessales, 0)                                         AS servicessales,
+       coalesce(charges.labsales, 0)                                              AS labsales,
+       coalesce(charges.radiologysales, 0)                                        AS radiologysales,
+       coalesce(charges.othersales, 0)                                            AS othersales,
+       coalesce(payments.cash, 0)                                                 as cash,
+       coalesce(payments.mobile, 0)                                               as mobile,
+       coalesce(payments.credit_debit, 0)                                         as credit_debit,
+       coalesce(payments.bank_transfer, 0)                                        as bank_transfer,
+       coalesce(payments.check, 0)                                                as "check",
+       coalesce(payments.other, 0)                                                as otherpayments,
+       coalesce(non_patient_payments.waivers, 0) * -1                             as waivers,
+       coalesce(non_patient_payments.donations, 0) * -1                           as donations,
+       coalesce(non_patient_payments.insurance, 0) * -1                           as insurance
 FROM ad_client c
-JOIN params p on c.ad_client_id = p.ad_client_id
-CROSS JOIN (
-    SELECT
-        coalesce(sum(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
-        coalesce(sum(co.grandtotal), 0) AS salestotals
+         JOIN params p on c.ad_client_id = p.ad_client_id
+         CROSS JOIN (
+    SELECT coalesce(sum(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
+           coalesce(sum(co.grandtotal), 0)                                         AS salestotals
     FROM c_order co
-        INNER JOIN ad_client client ON co.ad_client_id = client.ad_client_id
-        JOIN c_orderline ol ON co.c_order_id = ol.c_order_id
-    JOIN params ON co.ad_client_id = params.ad_client_id
-    WHERE
-        co.docstatus = 'CO'
-        AND co.bh_isexpense = 'N'
-        AND (DATE(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
+             INNER JOIN ad_client client ON co.ad_client_id = client.ad_client_id
+             JOIN c_orderline ol ON co.c_order_id = ol.c_order_id
+             JOIN params ON co.ad_client_id = params.ad_client_id
+    WHERE co.docstatus = 'CO'
+      AND co.bh_isexpense = 'N'
+      AND (DATE(co.bh_visitdate) BETWEEN params.begin_date AND params.end_date)
 ) AS billdetails
-CROSS JOIN (
-    SELECT
-        coalesce(sum(p.payamt), 0) AS revenuesales,
-        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'X' ), 0) as cash,
-        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'M' ), 0) as mobile,
-        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'C' ), 0) as credit_debit,
-        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'D' ), 0) as bank_transfer,
-        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'K' ), 0) as "check",
-        coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype NOT IN ('X','M','C', 'D', 'K') ), 0) as other
+         CROSS JOIN (
+    SELECT coalesce(sum(p.payamt), 0)                                                                AS revenuesales,
+           coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'X' ), 0)                            as cash,
+           coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'M' ), 0)                            as mobile,
+           coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'C' ), 0)                            as credit_debit,
+           coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'D' ), 0)                            as bank_transfer,
+           coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype = 'K' ), 0)                            as "check",
+           coalesce(sum(p.payamt) FILTER ( WHERE p.tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ), 0) as other
     FROM c_payment p
-    INNER JOIN c_order co ON p.bh_c_order_id = co.c_order_id
-    JOIN params ON p.ad_client_id = params.ad_client_id
-    WHERE
-        (((p.docstatus = 'CO') OR (p.docstatus = 'DR' AND p.bh_processing = 'Y'))
-        AND (date(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
-        AND co.docstatus IN ('CO','DR'))
+             INNER JOIN c_order co ON p.bh_c_order_id = co.c_order_id
+             JOIN params ON p.ad_client_id = params.ad_client_id
+    WHERE (((p.docstatus = 'CO') OR (p.docstatus = 'DR' AND p.bh_processing = 'Y'))
+        AND (date(co.bh_visitdate) BETWEEN params.begin_date AND params.end_date)
+        AND co.docstatus IN ('CO', 'DR'))
 ) AS payments
-CROSS JOIN (
-    SELECT
-        coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'W' ), 0) as waivers,
-        coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'D' ), 0) as donations,
-        coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'I' ), 0) as insurance
+         CROSS JOIN (
+    SELECT coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'W' ), 0) as waivers,
+           coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'D' ), 0) as donations,
+           coalesce(sum(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'I' ), 0) as insurance
     FROM c_orderline ol
-    JOIN c_order o ON ol.c_order_id = o.c_order_id
-    JOIN params ON ol.ad_client_id = params.ad_client_id
-    JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
-    WHERE
-        (date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date)
-        AND o.docstatus IN ('CO','DR')
+             JOIN c_order o ON ol.c_order_id = o.c_order_id
+             JOIN params ON ol.ad_client_id = params.ad_client_id
+             JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
+    WHERE (date(o.bh_visitdate) BETWEEN params.begin_date AND params.end_date)
+      AND o.docstatus IN ('CO', 'DR')
 ) AS non_patient_payments
-CROSS JOIN (
-    SELECT
-        coalesce(sum(cp.payamt), 0) AS debtpaymentamount
+         CROSS JOIN (
+    SELECT coalesce(sum(cp.payamt), 0) AS debtpaymentamount
     FROM c_payment cp
-    JOIN params ON cp.ad_client_id = params.ad_client_id
-    WHERE
-        ((cp.docstatus = 'CO') OR (cp.docstatus = 'DR' AND cp.bh_processing = 'Y'))
-        AND (cp.c_invoice_id IS NULL AND cp.isallocated = 'N' AND cp.bh_c_order_id = 0)
-        AND (DATE(cp.datetrx) BETWEEN params.start_date AND params.end_date)
+             JOIN params ON cp.ad_client_id = params.ad_client_id
+    WHERE ((cp.docstatus = 'CO') OR (cp.docstatus = 'DR' AND cp.bh_processing = 'Y'))
+      AND (cp.c_invoice_id IS NULL AND cp.isallocated = 'N' AND cp.bh_c_order_id = 0)
+      AND (DATE(cp.datetrx) BETWEEN params.begin_date AND params.end_date)
 ) AS debtPayments
-CROSS JOIN (
-    SELECT
-        coalesce(SUM(ci.grandtotal), 0) as totalexpenses
+         CROSS JOIN (
+    SELECT coalesce(SUM(ci.grandtotal), 0) as totalexpenses
     FROM c_invoice ci
-    JOIN params ON ci.ad_client_id = params.ad_client_id
-    WHERE
-        ci.docstatus = 'CO'
-        AND ci.bh_isexpense = 'Y'
-        AND (date(ci.dateinvoiced) BETWEEN params.start_date AND params.end_date)
+             JOIN params ON ci.ad_client_id = params.ad_client_id
+    WHERE ci.docstatus = 'CO'
+      AND ci.bh_isexpense = 'Y'
+      AND (date(ci.dateinvoiced) BETWEEN params.begin_date AND params.end_date)
 ) AS expenses
-CROSS JOIN (
-    SELECT
-        coalesce(sum(ol.linenetamt) FILTER ( WHERE pc.name IN ('Laboratory', 'Pharmacy', 'Radiology', 'Other', 'Standard') ), 0) AS total
+         CROSS JOIN (
+    SELECT coalesce(sum(ol.linenetamt)
+                    FILTER ( WHERE pc.name IN ('Laboratory', 'Pharmacy', 'Radiology', 'Other', 'Standard') ),
+                    0) AS total
     FROM c_order o
-    JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
-    JOIN m_product p ON ol.m_product_id = p.m_product_id
-    JOIN m_product_category pc ON p.m_product_category_id = pc.m_product_category_id
-    JOIN params ON o.ad_client_id = params.ad_client_id
+             JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
+             JOIN m_product p ON ol.m_product_id = p.m_product_id
+             JOIN m_product_category pc ON p.m_product_category_id = pc.m_product_category_id
+             JOIN params ON o.ad_client_id = params.ad_client_id
     WHERE o.issotrx = 'N'
-        AND o.bh_isexpense IS NULL
-        AND o.docstatus = 'CO'
-        AND (date(o.bh_visitdate) BETWEEN params.start_date AND params.end_date)
+      AND o.bh_isexpense IS NULL
+      AND o.docstatus = 'CO'
+      AND (date(o.dateordered) BETWEEN params.begin_date AND params.end_date)
 ) received_products
-CROSS JOIN (
-    SELECT
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Pharmacy' ), 0) AS pharmacysales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Services' ), 0) AS servicessales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Laboratory' ), 0) AS labsales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Radiology' ), 0) AS radiologysales,
-        coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Other' ), 0) AS othersales
+         CROSS JOIN (
+    SELECT coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Pharmacy' ), 0)   AS pharmacysales,
+           coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Services' ), 0)   AS servicessales,
+           coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Laboratory' ), 0) AS labsales,
+           coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Radiology' ), 0)  AS radiologysales,
+           coalesce(sum(coline.linenetamt) FILTER ( WHERE mpc.name = 'Other' ), 0)      AS othersales
     FROM c_order co
-        INNER JOIN c_orderline coline ON co.c_order_id = coline.c_order_id
-        INNER JOIN m_product product ON coline.m_product_id = product.m_product_id
-        RIGHT JOIN m_product_category mpc ON product.m_product_category_id = mpc.m_product_category_id
-    JOIN params ON co.ad_client_id = params.ad_client_id
-    WHERE
-        co.docstatus = 'CO'
-        AND co.bh_isexpense = 'N'
-        AND (DATE(co.bh_visitdate) BETWEEN params.start_date AND params.end_date)
-) AS charges
-;]]>
+             INNER JOIN c_orderline coline ON co.c_order_id = coline.c_order_id
+             INNER JOIN m_product product ON coline.m_product_id = product.m_product_id
+             RIGHT JOIN m_product_category mpc ON product.m_product_category_id = mpc.m_product_category_id
+             JOIN params ON co.ad_client_id = params.ad_client_id
+    WHERE co.docstatus = 'CO'
+      AND co.bh_isexpense = 'N'
+      AND (DATE(co.bh_visitdate) BETWEEN params.begin_date AND params.end_date)
+) AS charges;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
