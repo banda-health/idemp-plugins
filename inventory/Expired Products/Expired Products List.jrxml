@@ -38,6 +38,7 @@ from m_product p
          left JOIN m_attributesetinstance asi ON soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
 where p.ad_client_id = $P{AD_CLIENT_ID}
   and asi.guaranteedate::date <= current_date
+  and sum(soh.qtyonhand)  > 0
 group by p.m_product_id, p.name, asi.guaranteedate, ExpiryDays
 order by ExpiryDays DESC, p.name ASC]]>
 	</queryString>
