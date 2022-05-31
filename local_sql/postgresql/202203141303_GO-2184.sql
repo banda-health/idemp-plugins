@@ -113,6 +113,42 @@ INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactiv
 INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '9a7b27a9-e09e-48a6-bba1-81b3a1f4fe29'), 0, 0, 'Y', '2022-03-14 10:09:06.440603', 100, '2022-03-14 11:02:54.302935', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 0, '3541b5c6-4762-4300-b702-919b3a4d8389') ON CONFLICT DO NOTHING;
 INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'c5a87aaa-4649-44df-b6c7-f1afa080779e'), 0, 0, 'Y', '2022-03-14 10:59:58.201813', 100, '2022-03-14 11:02:54.337411', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 15, '37122bcd-1b78-4718-a2a9-446c33e8ad00') ON CONFLICT DO NOTHING;
 
+-- Give all user's access to the Reports window, both the master roles and those that are automatic (i.e. aren't manual)
+INSERT INTO
+	ad_window_access (ad_window_id,
+	                  ad_role_id,
+	                  ad_client_id,
+	                  ad_org_id,
+	                  isactive,
+	                  created,
+	                  createdby,
+	                  updated,
+	                  updatedby,
+	                  isreadwrite,
+	                  ad_window_access_uu,
+	                  bh_candeactivate)
+SELECT
+	w.ad_window_id,
+	r.ad_role_id,
+	r.ad_client_id,
+	r.ad_org_id,
+	'Y',                --isactive
+	NOW(),              --created
+	100,                --createdby
+	NOW(),              --updated
+	100,                --updatedby
+	'Y',                --isreadwrite
+	uuid_generate_v4(), --ad_window_access_uu
+	'Y'                 --bh_candeactivate
+FROM
+	ad_window w
+		CROSS JOIN ad_role r
+WHERE
+	w.ad_window_uu = '584a4f57-33c6-460e-9916-9ad0347cac5b'
+	AND (r.ismanual = 'N' OR r.ismasterrole = 'Y')
+	AND ad_role_id > 0
+ON CONFLICT DO NOTHING;
+
 /**********************************************************************************************************/
 -- 1. Delete package export information
 /**********************************************************************************************************/
