@@ -10,8 +10,6 @@ public class MMenu_BH extends MMenu {
 	public static final String MENUUUID_GREENLIGHT = "bb0670c5-0dc1-468a-8b85-a91b15407368";
 	public static final String MENUUUID_GREENLIGHT_REPORT_DROPDOWN = "35ce7d6a-cf7d-4962-a748-75e27d0121bf";
 	public static final String COLUMNNAME_IconClassName = "IconClassName";
-	
-	public static final String COLUMNNAME_ShowOnUIMenu = "showonuimenu";
 
 	public MMenu_BH(Properties ctx, int M_Menu_ID, String trxName) {
 		super(ctx, M_Menu_ID, trxName);
@@ -20,27 +18,12 @@ public class MMenu_BH extends MMenu {
 	public MMenu_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
-	
-	public void setIconClassName(String name) {
-		set_Value(COLUMNNAME_IconClassName, name);
-	}
 
 	public String getIconClassName() {
 		return (String) get_Value(COLUMNNAME_IconClassName);
 	}
-	
-	public boolean isShowOnUIMenu() {
-		Object oo = get_Value(COLUMNNAME_ShowOnUIMenu);
-		if (oo != null) {
-			if (oo instanceof Boolean) {
-				return ((Boolean) oo).booleanValue();
-			}
-			return "Y".equals(oo);
-		}
-		return false;
-	}
 
-	public void setShowOnUIMenu(boolean show) {
-		set_Value(COLUMNNAME_ShowOnUIMenu, show);
+	public void setIconClassName(String name) {
+		set_Value(COLUMNNAME_IconClassName, name);
 	}
 }
