@@ -15,14 +15,12 @@ public class Menu extends BaseEntity {
 	private List<Menu> subMenus = new ArrayList<>();
 	@JsonIgnore
 	private Integer parentId;
-	private boolean showOnUIMenu;
 	private Integer sequenceNumber;
 
 	public Menu(MMenu_BH menu) {
 		super(menu, menu.getName(), menu.getDescription(), null);
 
 		this.iconClassName = menu.getIconClassName();
-		this.showOnUIMenu = menu.isShowOnUIMenu();
 	}
 
 	public String getIconClassName() {
@@ -63,14 +61,6 @@ public class Menu extends BaseEntity {
 
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
-	}
-
-	public boolean isShowOnUIMenu() {
-		return showOnUIMenu;
-	}
-
-	public void setShowOnUIMenu(boolean showOnUIMenu) {
-		this.showOnUIMenu = showOnUIMenu;
 	}
 
 	public Integer getSequenceNumber() {
