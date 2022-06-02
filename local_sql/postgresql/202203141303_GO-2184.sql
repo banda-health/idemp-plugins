@@ -20,7 +20,6 @@ UPDATE ad_window SET name = 'Diagnoses', description = 'Coded Diagnosis' WHERE a
 -- Update the window translations
 UPDATE ad_window_trl SET name = 'Fournisseurs' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '565af89e-8f10-4469-84f5-6cca8d7fae27');
 UPDATE ad_window_trl SET name = 'Produits' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'c63b9972-1b23-4140-8bbb-0ea2b0b81024');
-UPDATE ad_window_trl SET name = '' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'fd93da00-871d-4996-a3f7-4528bed8b758');
 UPDATE ad_window_trl SET name = 'Gérer l''inventaire' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '8f744d1c-427a-4b85-ab98-38e50258e86d');
 UPDATE ad_window_trl SET name = 'Consultations/Factures' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77');
 UPDATE ad_window_trl SET name = 'Solde d''ouverture à payer' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '4497b5f7-758d-4e82-8e2b-01c4364ce609');
