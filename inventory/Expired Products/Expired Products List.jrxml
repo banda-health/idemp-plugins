@@ -27,19 +27,20 @@
 	</style>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT m.m_product_id,
-       name                                   as ProductName,
-       o.qtyonhand                            as BatchQuantity,
-       a.guaranteedate,
-       (current_date - a.guaranteedate::date) as ExpiryDays,
-       (m.bh_sellprice * o.qtyonhand)         as Value
-from m_product m
-         left JOIN m_storageonhand o ON m.m_product_id = o.m_product_id
-         left JOIN m_attributesetinstance a ON o.m_attributesetinstance_id = a.m_attributesetinstance_id
-where m.ad_client_id = $P{AD_CLIENT_ID}
-  and a.guaranteedate::date <= current_date
-group by m.m_product_id, BatchQuantity, a.guaranteedate
-order by ExpiryDays DESC, ProductName ASC]]>
+		<![CDATA[SELECT p.m_product_id,
+       name                                     as ProductName,
+       sum(soh.qtyonhand)                       as BatchQuantity,
+       asi.guaranteedate,
+       (current_date - asi.guaranteedate::date) as ExpiryDays,
+       sum(p.bh_sellprice * soh.qtyonhand)      as Value
+from m_product p
+         left JOIN m_storageonhand soh ON p.m_product_id = soh.m_product_id
+         left JOIN m_attributesetinstance asi ON soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
+where p.ad_client_id = $P{AD_CLIENT_ID}
+  and asi.guaranteedate::date <= current_date
+  and sum(soh.qtyonhand)  > 0
+group by p.m_product_id, p.name, asi.guaranteedate, ExpiryDays
+order by ExpiryDays DESC, p.name ASC]]>
 	</queryString>
 	<field name="m_product_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="m_product_id"/>

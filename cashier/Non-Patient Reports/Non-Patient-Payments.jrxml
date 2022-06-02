@@ -39,11 +39,12 @@
   		 coalesce($P{Mode},'') AS Mode,
          coalesce($P{Type},'') AS Type
 ),
-  Non_payments as (
+     Non_payments as (
          select *
          from get_visit_info()
                   cross join params p
-         where bill_date between begin_date and end_date
+         where get_visit_info.ad_client_id = p.ad_client_id
+           and bill_date between begin_date and end_date
            and (p.Mode = '' OR non_pay_mode = p.Mode)
            and (p.Type = '' OR non_payment_type = p.Type)
      )
@@ -60,10 +61,11 @@ SELECT c_order_id,
        coalesce(Non_payments.insurance, 0)      as Insurance,
        coalesce(Non_payments.waiver, 0)         as waiver,
        coalesce(Non_payments.donation, 0)       as donation,
-       coalesce(otherpayments, 0)               as other,
-       coalesce(othernonpayments, 0)            as NonPaytotal
+       coalesce(TotalDirectPayments, 0)         as other,
+       coalesce(TotalNonPayments, 0)            as NonPaytotal
 from Non_payments
-order by patientname ASC, bill_date ASC;]]>
+order by patientname ASC, bill_date ASC;
+]]>
 	</queryString>
 	<field name="c_order_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
