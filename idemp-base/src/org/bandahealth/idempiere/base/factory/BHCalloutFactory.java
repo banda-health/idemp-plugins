@@ -16,7 +16,6 @@ import org.bandahealth.idempiere.base.callout.InventoryQuantity;
 import org.bandahealth.idempiere.base.callout.OrderLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.callout.ProductTypeCheck;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
@@ -54,12 +53,6 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MInventoryLine_BH.COLUMNNAME_M_Product_ID)) {
 				callouts.add(new InventoryLineExpirationDateRequired());
-			}
-		} else if (tableName.equalsIgnoreCase(MDashboardButtonGroupButton.Table_Name)) {
-			if (columnName.equalsIgnoreCase(MDashboardButtonGroupButton.COLUMNNAME_AD_Window_ID)
-					|| columnName.equalsIgnoreCase(MDashboardButtonGroupButton.COLUMNNAME_AD_InfoWindow_ID)
-					|| columnName.equalsIgnoreCase(MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID)) {
-				callouts.add(new HomeScreenButtonSingleNavigationEnforcer());
 			}
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MPayment_BH.COLUMNNAME_TenderType)) {
