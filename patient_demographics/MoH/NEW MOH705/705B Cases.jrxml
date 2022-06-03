@@ -59,7 +59,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-    SELECT generate_series(date($P{Begin Date}), date($P{Begin Date}) + interval '1 month' - interval '1 day', interval '1 day') AS calendar
+    SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
     order by calendar asc
 ), diagnosis_list AS (
     SELECT DISTINCT
@@ -117,6 +117,7 @@ FROM diagnosis_list dl
         SELECT 'Hepatitis', 110 UNION
         SELECT 'Mumps', 120 UNION
         SELECT 'Suspected Malaria', 130 UNION
+         SELECT 'Tested for malaria', 135 UNION
         SELECT 'Confirmed Malaria (Only Positive Cases)', 140 UNION
         SELECT 'Malaria in Pregnancy', 150 UNION
         SELECT 'Amoebiasis', 160 UNION
