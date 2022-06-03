@@ -240,7 +240,7 @@ FROM diagnosis_list dl
     SELECT 'Cutaneous leishmaniasis', 650 UNION
     SELECT 'Suspected Anthrax', 660 UNION
     SELECT 'Suspected Childhood Cancer', 670 UNION
-    SELECT'Hypoxemia (Sat <90%)', 680 UNION
+    SELECT 'Hypoxemia (Sat <90%)', 680 UNION 
     SELECT 'All Other Diseases', 690
  ) dlo ON dl.diagnosis = dlo.diagnosis
 -- GROUP BY dl.diagnosis,noofdiagnosis,dali.calendar
