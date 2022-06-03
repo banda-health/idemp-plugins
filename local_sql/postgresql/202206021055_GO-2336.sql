@@ -97,6 +97,6 @@ UPDATE m_storageonhand
 SET m_attributesetinstance_id = asi.m_attributesetinstance_id
 FROM m_storageonhand soh
 JOIN tmp_m_storageonhand tmp_soh ON soh.m_storageonhand_uu = tmp_soh.m_storageonhand_uu
-JOIN tmp_m_attributesetinstance asi ON tmp_soh.m_product_id = asi.m_product_id
+JOIN tmp_m_attributesetinstance asi ON tmp_soh.m_product_id = asi.m_product_id;
 
 SELECT register_migration_script('202206021055_GO-2336.sql') FROM dual;
