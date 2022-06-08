@@ -4,7 +4,7 @@
 	<property name="template.engine" value="tabular_template"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="Table">
 		<box>
@@ -51,10 +51,12 @@
 			<![CDATA[WITH inventory_changes AS (
 	SELECT
 		m_product_id,
-		purchase_price
+		purchase_price,
+	    purchase_date,
+	    row_number() over (partition by m_product_id ORDER BY purchase_date DESC) as rownum
 	FROM
 		get_inventory_changes($P{AD_CLIENT_ID})
-	GROUP BY m_product_id, sell_price, purchase_price
+    GROUP BY m_product_id,purchase_price,purchase_date
 )
 SELECT
 	p.name               AS drugName,
@@ -82,6 +84,8 @@ FROM
 				ON p.m_product_id = productSP.m_product_id
 WHERE
 	ic.purchase_price IS NOT NULL
+and
+    ic.rownum = 1
 ORDER BY
 	p.name;]]>
 		</queryString>
