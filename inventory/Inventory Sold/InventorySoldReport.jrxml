@@ -85,7 +85,7 @@
 		cost_of_goods_sold,
 		gross_profit
 	FROM
-		get_inventory_changes($P{AD_CLIENT_ID})
+		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
 	GROUP BY m_product_id, sell_price, purchase_price, cost_of_goods_sold, gross_profit
 )
 SELECT
