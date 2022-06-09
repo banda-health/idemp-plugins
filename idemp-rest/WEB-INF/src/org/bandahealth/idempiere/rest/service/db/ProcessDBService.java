@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MClient_BH;
-import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
@@ -28,6 +27,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Menu;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
@@ -73,6 +73,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	private ReferenceDBService referenceDBService;
 	@Autowired
 	private ReferenceListDBService referenceListDBService;
+	@Autowired
+	private MenuDBService menuDBService;
 
 	/**
 	 * Run process
@@ -275,15 +277,14 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 
 		// Map the process parameters to entities
 		if (processes.getResults() != null && !processes.getResults().isEmpty()) {
-			// Determine which processes are visible in the dropdown based on the buttons configured in iDempiere
-			List<MDashboardButtonGroupButton> processButtons =
-					new Query(Env.getCtx(), MDashboardButtonGroupButton.Table_Name,
-							MDashboardButtonGroupButton.COLUMNNAME_AD_Process_ID + " IS NOT NULL", null).setOnlyActiveRecords(true)
-							.list();
-			Set<Integer> processIdsFromProcessButtons =
-					processButtons.stream().map(MDashboardButtonGroupButton::getAD_Process_ID).collect(Collectors.toSet());
 			// Determine which processes the user has access to
 			MRole usersRole = MRole.get(Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
+			List<Menu> menuProcesses =
+					menuDBService.getReports().stream().filter(Menu::getIsActive).collect(Collectors.toList());
+
+			Set<Integer> processIdsFromProcessButtons =
+					menuProcesses.stream().map(menu -> menu.getProcess().getId()).collect(Collectors.toSet());
+
 			// Filter out processes the user can't see and then determine which processes are manually run-able
 			processes
 					.setResults(
@@ -394,7 +395,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATE_AD_REFERENCE_ID) {
 				parameter = DateUtil.parseDate(processInfoParameter.getParameter().toString());
 			}
-			
+
 			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATETIME_AD_REFERENCE_ID) {
 				parameter = DateUtil.getTimestampReportParameter(processInfoParameter.getParameter().toString());
 			}

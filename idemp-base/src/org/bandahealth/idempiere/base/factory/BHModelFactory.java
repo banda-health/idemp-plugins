@@ -27,11 +27,10 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
-import org.bandahealth.idempiere.base.model.MDashboardButtonGroupButton;
-import org.bandahealth.idempiere.base.model.MDashboardButtonGroup;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MMenu_BH;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -62,12 +61,8 @@ public class BHModelFactory implements IModelFactory {
 			return MInvoice_BH.class;
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return MPayment_BH.class;
-		} else if (tableName.equalsIgnoreCase(MDashboardButtonGroupButton.Table_Name)) {
-			return MDashboardButtonGroupButton.class;
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			return MOrderLine_BH.class;
-		} else if (tableName.equalsIgnoreCase(MDashboardButtonGroup.Table_Name)) {
-			return MDashboardButtonGroup.class;
 		} else if (tableName.equalsIgnoreCase(MInventory_BH.Table_Name)) {
 			return MInventory_BH.class;
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
@@ -136,6 +131,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHCodedDiagnosisMapping.class;
 		} else if (tableName.equalsIgnoreCase(MAttributeSetInstance_BH.Table_Name)) {
 			return MAttributeSetInstance_BH.class;
+		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {
+			return MMenu_BH.class;
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return MAttributeSet_BH.class;
 		} else if (tableName.equalsIgnoreCase(MSerNoCtl_BH.Table_Name)) {
@@ -157,12 +154,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MInvoice_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MDashboardButtonGroupButton.Table_Name)) {
-			return new MDashboardButtonGroupButton(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			return new MOrderLine_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MDashboardButtonGroup.Table_Name)) {
-			return new MDashboardButtonGroup(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventory_BH.Table_Name)) {
 			return new MInventory_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
@@ -231,6 +224,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHCodedDiagnosisMapping(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSetInstance_BH.Table_Name)) {
 			return new MAttributeSetInstance_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {
+			return new MMenu_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MSerNoCtl_BH.Table_Name)) {
@@ -252,12 +247,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MInvoice_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			return new MPayment_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MDashboardButtonGroupButton.Table_Name)) {
-			return new MDashboardButtonGroupButton(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
 			return new MOrderLine_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MDashboardButtonGroup.Table_Name)) {
-			return new MDashboardButtonGroup(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventory_BH.Table_Name)) {
 			return new MInventory_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
@@ -326,6 +317,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHCodedDiagnosisMapping(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSetInstance_BH.Table_Name)) {
 			return new MAttributeSetInstance_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {
+			return new MMenu_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MSerNoCtl_BH.Table_Name)) {
