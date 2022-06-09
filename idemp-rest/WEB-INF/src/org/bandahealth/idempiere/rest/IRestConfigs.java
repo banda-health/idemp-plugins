@@ -30,9 +30,6 @@ public interface IRestConfigs {
 	String MENUS_PATH = AUTHENTICATION_PATH + "/menus";
 	String MENU_PATH = "/menu/{uuid}";
 
-	String MENU_LINES_PATH = AUTHENTICATION_PATH + "/menulines";
-	String MENU_LINE_PATH = "/menulines/{uuid}";
-
 	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
 	String RUN_AND_EXPORT_PATH = "/runandexport";
 
