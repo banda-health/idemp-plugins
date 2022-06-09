@@ -13,11 +13,11 @@ INSERT INTO tmp_m_storageonhand (
 	m_product_id,
 	m_storageonhand_uu
 )
-SELECT DISTINCT ad_client_id,
+SELECT ad_client_id,
 	ad_org_id,
 	m_product_id,
 	m_storageonhand_uu
-FROM m_storageonhand WHERE m_attributesetinstance_id = 0 and qtyonhand > 0; 
+FROM m_storageonhand WHERE m_attributesetinstance_id = 0 and qtyonhand > 0;
 
 -- create temp m_attributesetinstance table
 create temp table if not exists tmp_m_attributesetinstance
@@ -38,7 +38,8 @@ create temp table if not exists tmp_m_attributesetinstance
 	-- m_lot_id numeric(10),
 	m_attributesetinstance_uu uuid default uuid_generate_v4(),
 	-- bh_update_reason varchar(10)
-	m_product_id numeric(10) not null
+	m_product_id numeric(10) not null,
+	m_storageonhand_uu varchar(255)
 );
 
 -- Update the serial sequences
@@ -58,16 +59,18 @@ INSERT INTO tmp_m_attributesetinstance (
 	ad_client_id,
 	ad_org_id,
 	m_attributeset_id,
-	m_product_id
+	m_product_id,
+	m_storageonhand_uu
 )
 SELECT
 	m.ad_client_id,
 	m.ad_org_id,
 	attrs.m_attributeset_id,
-	m.m_product_id
-FROM m_attributeset attrs
-	JOIN tmp_m_storageonhand m ON attrs.ad_client_id = m.ad_client_id AND attrs.ad_org_id = m.ad_org_id
-	JOIN m_product p ON m.m_product_id = p.m_product_id;
+	m.m_product_id,
+	m.m_storageonhand_uu
+FROM tmp_m_storageonhand m
+	JOIN m_product p ON m.m_product_id = p.m_product_id
+	JOIN m_attributeset attrs ON attrs.ad_client_id = m.ad_client_id AND attrs.ad_org_id = m.ad_org_id;
 
 INSERT INTO m_attributesetinstance (
 	m_attributesetinstance_id,
@@ -93,10 +96,9 @@ SELECT
 FROM tmp_m_attributesetinstance;
 
 -- Update m_storageonhand with missing ASIs
-UPDATE m_storageonhand
+UPDATE m_storageonhand soh
 SET m_attributesetinstance_id = asi.m_attributesetinstance_id
-FROM m_storageonhand soh
-JOIN tmp_m_storageonhand tmp_soh ON soh.m_storageonhand_uu = tmp_soh.m_storageonhand_uu
-JOIN tmp_m_attributesetinstance asi ON tmp_soh.m_product_id = asi.m_product_id;
+FROM tmp_m_attributesetinstance asi
+WHERE soh.m_storageonhand_uu = asi.m_storageonhand_uu;
 
 SELECT register_migration_script('202206021055_GO-2336.sql') FROM dual;
