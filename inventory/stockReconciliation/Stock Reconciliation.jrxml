@@ -121,7 +121,6 @@
 			on soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
 		left join m_attributeset attrs
 			on asi.m_attributeset_id = attrs.m_attributeset_id
-		where attrs.ad_client_id IS NULL OR attrs.name = 'BandaHealthProductAttributeSet'
 		group by soh.m_product_id
 	) soh
 	join products_updated_during_period pudp
@@ -157,8 +156,6 @@ FROM ad_ref_list r
          LEFT JOIN m_inventory Reasontype ON value = Reasontype.bh_update_reason
          LEFT JOIN m_inventoryline mi ON Reasontype.m_inventory_id = mi.m_inventory_id
 WHERE ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'
-  AND Reasontype.ad_client_id = $P{AD_CLIENT_ID}
-      AND Reasontype.created between $P{Begin Date} and $P{End Date}
 )    
 -- With all changes calculated, just filter out to the ones we want
 select
