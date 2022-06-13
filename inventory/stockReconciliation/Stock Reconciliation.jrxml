@@ -121,7 +121,6 @@
 			on soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
 		left join m_attributeset attrs
 			on asi.m_attributeset_id = attrs.m_attributeset_id
-		where attrs.ad_client_id IS NULL OR attrs.name = 'BandaHealthProductAttributeSet'
 		group by soh.m_product_id
 	) soh
 	join products_updated_during_period pudp
