@@ -171,6 +171,7 @@ public class AuthenticationRestService {
 					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Role_ID;
 
+			PO.setCrossTenantSafe();
 			MUserRoles userRoles = new Query(Env.getCtx(), MUserRoles.Table_Name, whereClause, null)
 					.addJoinClause(joinClause).setParameters(parameters).first();
 			if (userRoles == null) {
@@ -200,6 +201,7 @@ public class AuthenticationRestService {
 					return new AuthResponse(Status.UNAUTHORIZED);
 				}
 			}
+			PO.clearCrossTenantSafe();
 
 			Builder builder = JWT.create().withSubject(credentials.getUsername());
 			Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
@@ -382,6 +384,7 @@ public class AuthenticationRestService {
 	 * @param builder
 	 */
 	private void changeLoginProperties(Authentication credentials, Builder builder, AuthResponse response) {
+		PO.setCrossTenantSafe();
 		// set client id
 		if (credentials.getClientUuid() != null) {
 			Client client = clientDBService.getEntity(credentials.getClientUuid());
@@ -418,6 +421,7 @@ public class AuthenticationRestService {
 			response.setWarehouseUuid(credentials.getWarehouseUuid());
 		}
 
+		PO.clearCrossTenantSafe();
 	}
 
 	/**
