@@ -26,14 +26,14 @@
         join params p on p.ad_client_id = bp.ad_client_id
             and bp.iscustomer = 'Y'
 )
-select coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5 and bh_newvisit = 'Y' ), 0) as maleover5newvisit,
+select coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'Y' ), 0) as maleover5newvisit,
        coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'Y' ), 0)     as maleunder5newvisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5 and bh_newvisit = 'Y' ), 0)   as femaleover5newvisit,
+       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'Y' ), 0)   as femaleover5newvisit,
        coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'Y' ), 0) as femaleunder5newvisit,
        coalesce(count(1) filter ( where EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 60 and bh_newvisit = 'Y' ), 0) as OverSixtynewvisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5 and bh_newvisit = 'N' ), 0) as maleover5revisit,
+       coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'N' ), 0) as maleover5revisit,
        coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'N' ), 0)     as maleunder5revisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 5 and bh_newvisit = 'N' ), 0)   as femaleover5revisit,
+       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'N' ), 0)   as femaleover5revisit,
        coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'N' ), 0) as femaleunder5revisit,
        coalesce(count(1) filter ( where EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 60 and bh_newvisit = 'N' ), 0) as OverSixtyrevisit,
        coalesce(count(c_order_id), 0)             as countofpatientbills
@@ -500,7 +500,7 @@ from c_order o
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[SUM($F{maleover5newvisit},$F{maleunder5newvisit},$F{femaleover5newvisit},$F{femaleunder5newvisit})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[SUM($F{maleover5newvisit},$F{maleunder5newvisit},$F{femaleover5newvisit},$F{femaleunder5newvisit},$F{OverSixtynewvisit})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###-)">
 				<reportElement x="358" y="115" width="96" height="15" uuid="1ee1c9c4-fed4-42a6-9338-6ea92ac4c437">
@@ -516,7 +516,7 @@ from c_order o
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[SUM($F{maleover5revisit},$F{maleunder5revisit},$F{femaleover5revisit},$F{femaleunder5revisit})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[SUM($F{maleover5revisit},$F{maleunder5revisit},$F{femaleover5revisit},$F{femaleunder5revisit},$F{OverSixtyrevisit})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###-)">
 				<reportElement x="454" y="115" width="99" height="15" uuid="49f29a17-4d67-496b-a856-8570e531891b">
@@ -533,7 +533,7 @@ from c_order o
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[SUM($F{maleover5newvisit},$F{maleunder5newvisit},$F{femaleover5newvisit},$F{femaleunder5newvisit},$F{maleover5revisit},$F{maleunder5revisit},$F{femaleover5revisit},$F{femaleunder5revisit})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[SUM($F{maleover5newvisit},$F{maleunder5newvisit},$F{femaleover5newvisit},$F{femaleunder5newvisit},$F{maleover5revisit},$F{maleunder5revisit},$F{femaleover5revisit},$F{femaleunder5revisit},$F{OverSixtynewvisit},$F{OverSixtyrevisit})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="30" y="115" width="230" height="15" uuid="94b0bfc8-6635-471f-9fff-655220fe81b1">
@@ -659,7 +659,8 @@ from c_order o
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="547" y="0" width="33" height="16" uuid="c4a860c3-1538-40e8-ae37-41c8d63babac"/>
-				<textElement verticalAlignment="Middle">
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
