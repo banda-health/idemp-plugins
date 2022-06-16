@@ -190,7 +190,7 @@ BEGIN
 					ON p.c_payment_id = al.c_payment_id
 				LEFT JOIN c_invoice i
 					ON al.c_invoice_id = i.c_invoice_id
-				LEFT JOIN c_order c
+				JOIN c_order c
 					ON i.c_order_id = c.c_order_id OR p.bh_c_order_id = c.c_order_id
 				LEFT JOIN c_orderline ol
 					ON c.c_order_id = ol.c_order_id
