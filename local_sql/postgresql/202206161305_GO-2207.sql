@@ -192,7 +192,7 @@ BEGIN
 					ON al.c_invoice_id = i.c_invoice_id
 				JOIN c_order c
 					ON i.c_order_id = c.c_order_id OR p.bh_c_order_id = c.c_order_id
-				LEFT JOIN c_orderline ol
+				JOIN c_orderline ol
 					ON c.c_order_id = ol.c_order_id
 				JOIN c_bpartner cb
 					ON c.c_bpartner_id = cb.c_bpartner_id
