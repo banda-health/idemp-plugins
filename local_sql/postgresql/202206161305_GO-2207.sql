@@ -315,7 +315,8 @@ BEGIN
 			ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 			AND ol.c_charge_id IS NOT NULL
 			AND c.ad_client_id = $1
-			AND co.bh_visitdate BETWEEN $2 AND $3;
+			AND co.bh_visitdate BETWEEN $2 AND $3
+			AND co.issotrx = 'Y';
 END
 $$;
 
