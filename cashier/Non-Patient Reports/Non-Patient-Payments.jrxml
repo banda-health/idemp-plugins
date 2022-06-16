@@ -32,56 +32,112 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
-         date($P{Begin Date}) AS begin_date,
-         date($P{End Date}) AS end_date,
-  		 coalesce($P{Mode},'') AS Mode,
-         coalesce($P{Type},'') AS Type
+	SELECT
+	 $P{AD_CLIENT_ID} AS ad_client_id,
+    date($P{Begin Date}) AS begin_date,
+    date($P{End Date}) AS end_date,
+  	COALESCE($P{Mode},'') AS Mode,
+    COALESCE($P{Type},'') AS Type
 ),
-     Non_payments as (
-         select *
-         from get_visit_info($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
-     ),
-     VisitFilter as (
-         Select ol.c_order_id,
-                ol.c_charge_id,
-                c.name       as NonPay_Type,
-                c.bh_subtype as NonPay_Mode
-         from c_orderline ol
-                  join c_charge c on ol.c_charge_id = c.c_charge_id
-     ),
-     referral as (
-         Select distinct r.name as PatientType, r.value as Referral, Referraltype.c_order_id
-         FROM ad_ref_list r
-                  join ad_reference a on r.ad_reference_id = a.ad_reference_id
-                  join c_order Referraltype on value = Referraltype.bh_patienttype
-                  cross join params p
-         where ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
-           and Referraltype.ad_client_id = p.ad_client_id
-     )
-SELECT Non_payments.c_order_id,
-       bill_date                                as billdate,
-       patientname,
-       patientno                                as PatientNo,
-       referral.PatientType                     as PatientType,
-       member_id,
-       membername                               as MemberName,
-       relationship                             as Relationship,
-       claimno                                  as ClaimNo,
-       coalesce(Non_payments.lineitemtotals, 0) as billtotal,
-       coalesce(Non_payments.insurance, 0)      as Insurance,
-       coalesce(Non_payments.waiver, 0)         as waiver,
-       coalesce(Non_payments.donation, 0)       as donation,
-       coalesce(TotalDirectPayments, 0)         as other,
-       coalesce(TotalNonPayments, 0)            as NonPaytotal
-from Non_payments
-         left join VisitFilter on Non_payments.c_order_id = VisitFilter.c_order_id
-         left join referral on Non_payments.c_order_id = referral.c_order_id
-         cross join params p
-where (p.Mode = '' OR NonPay_Mode = p.Mode)
-  and (p.Type = '' OR NonPay_Type = p.Type)
-order by patientname ASC, bill_date ASC;]]>
+	Visit_info AS (
+		SELECT *
+		FROM
+			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+	),
+	DirectPayments AS (
+		SELECT
+			c_order_id,
+			SUM(payamt) AS TotalDirectPayments
+		FROM
+			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		GROUP BY c_order_id
+	),
+	non_patient_payments AS (
+		SELECT
+			c_order_id,
+			ChargeType_name,
+			bh_subtype,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1             AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1             AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1             AS donation,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('D', 'W', 'I')) * -1 AS TotalNonPayments,
+			member_id,
+			MemberName,
+			ClaimNo,
+			Relationship
+		FROM
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		GROUP BY c_order_id, ChargeType_name, bh_subtype, member_id, MemberName, ClaimNo, Relationship
+	),
+	BillTotal AS (
+		SELECT
+			co.c_order_id,
+			SUM(ol.linenetamt) AS lineitemtotals
+		FROM
+			c_order co
+				JOIN c_orderline ol
+					ON co.c_order_id = ol.c_order_id
+				CROSS JOIN params p
+		WHERE
+			((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO' AND co.docstatus <> 'DR')
+				AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
+				AND issotrx = 'Y'
+				)
+			AND ol.c_charge_id IS NULL
+		GROUP BY co.c_order_id
+		ORDER BY 1
+	),
+	referral AS (
+		SELECT DISTINCT
+			r.name  AS PatientType,
+			r.value AS Referral,
+			Referraltype.c_order_id
+		FROM
+			ad_ref_list r
+				JOIN ad_reference a
+					ON r.ad_reference_id = a.ad_reference_id
+				JOIN c_order Referraltype
+					ON value = Referraltype.bh_patienttype
+				CROSS JOIN params p
+		WHERE
+			ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
+			AND Referraltype.ad_client_id = p.ad_client_id
+	)
+SELECT
+	Visit_info.c_order_id,
+	bh_visitdate                          AS billdate,
+	patient_name,
+	bh_patientid                          AS PatientNo,
+	referral.PatientType                  AS PatientType,
+	member_id,
+	membername                            AS MemberName,
+	relationship                          AS Relationship,
+	claimno                               AS ClaimNo,
+	COALESCE(BillTotal.lineitemtotals, 0) AS billtotal,
+	COALESCE(insurance, 0)                AS Insurance,
+	COALESCE(waiver, 0)                   AS waiver,
+	COALESCE(donation, 0)                 AS donation,
+	COALESCE(TotalDirectPayments, 0)      AS other,
+	COALESCE(TotalNonPayments, 0)         AS NonPaytotal
+FROM
+	Visit_info
+		LEFT JOIN non_patient_payments np
+			ON Visit_info.c_order_id = np.c_order_id
+		LEFT JOIN referral
+			ON Visit_info.c_order_id = referral.c_order_id
+		LEFT JOIN DirectPayments
+			ON Visit_info.c_order_id = DirectPayments.c_order_id
+		LEFT JOIN BillTotal
+			ON Visit_info.c_order_id = BillTotal.c_order_id
+		CROSS JOIN params p
+WHERE
+	(p.Mode = '' OR bh_subtype = p.Mode)
+	AND (p.Type = '' OR ChargeType_name = p.Type)
+ORDER BY
+	billdate ASC, patient_name DESC;
+
+
+]]>
 	</queryString>
 	<field name="c_order_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -90,27 +146,27 @@ order by patientname ASC, bill_date ASC;]]>
 	<field name="billdate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
 	</field>
-	<field name="patientname" class="java.lang.String">
+	<field name="patient_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="PatientNo" class="java.lang.String"/>
 	<field name="PatientType" class="java.lang.String"/>
-	<field name="MemberName" class="java.lang.String"/>
-	<field name="Relationship" class="java.lang.String"/>
-	<field name="ClaimNo" class="java.lang.String"/>
 	<field name="member_id" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="member_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="member_id"/>
 	</field>
+	<field name="MemberName" class="java.lang.String"/>
+	<field name="Relationship" class="java.lang.String"/>
+	<field name="ClaimNo" class="java.lang.String"/>
 	<field name="billtotal" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
-	<field name="other" class="java.math.BigDecimal"/>
-	<field name="insurance" class="java.math.BigDecimal"/>
+	<field name="Insurance" class="java.math.BigDecimal"/>
 	<field name="waiver" class="java.math.BigDecimal"/>
 	<field name="donation" class="java.math.BigDecimal"/>
+	<field name="other" class="java.math.BigDecimal"/>
 	<field name="NonPaytotal" class="java.math.BigDecimal"/>
 	<variable name="Sum Non-patient Payment" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{NonPaytotal}]]></variableExpression>
@@ -357,9 +413,9 @@ order by patientname ASC, bill_date ASC;]]>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
-					<box leftPadding="3" rightPadding="2"/>
+					<box leftPadding="2" rightPadding="2"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{patient_name}]]></textFieldExpression>
 				</textField>
 				<textField pattern="M/d/yyyy">
 					<reportElement style="Table_TD" mode="Opaque" x="190" y="0" width="74" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff">
