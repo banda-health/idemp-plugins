@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Populate
 Bundle-SymbolicName: com.chuboe.test.populate;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 7.1.0.qualifier
 Bundle-Vendor: CHUBOE
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.adempiere.base;bundle-version="2.1.0",
@@ -17,4 +17,5 @@ Service-Component: OSGI-INF/ChuBoePopulateProcessComponent.xml,
 Bundle-ClassPath: .,
  lib/commons-lang3-3.4.jar,
  lib/hamcrest-all-1.3.jar
-Import-Package: org.compiere.process
+Import-Package: org.compiere.process,
+ org.compiere
