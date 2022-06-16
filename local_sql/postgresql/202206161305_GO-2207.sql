@@ -158,7 +158,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_dat
 		        invoice_id        numeric,
 		        cashier_id        numeric,
 		        cashier           character varying,
-		        cashierUUID       character varying,
+		        cashier_uu        character varying,
 		        docstatus         char,
 		        processing        char,
 		        linenetamt        numeric
