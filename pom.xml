@@ -1,7 +1,3 @@
-<!-- build with
-mvn verify -Didempiere.home.dir=<absolute_path_to_idemp_repo/>
-Example: mvn verify -Didempiere.home.dir=/home/user1/idempiere
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -218,6 +214,7 @@ Example: mvn verify -Didempiere.home.dir=/home/user1/idempiere
 	</profiles>
 
 	<modules>
+		<module>chuck-test-framework</module>
 		<module>idemp-base</module>
 		<module>idemp-base-editor</module>
 		<module>idemp-webui</module>
