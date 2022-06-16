@@ -143,7 +143,7 @@ $$;
 /**********************************************************************************************************/
 -- 3. get_visit_payment_details
 /**********************************************************************************************************/
-CREATE OR REPLACE FUNCTION bh_get_visit_payment(ad_client_id numeric, begin_date timestamp,
+CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp,
                                                 end_date timestamp)
 	RETURNS TABLE
 	        (
