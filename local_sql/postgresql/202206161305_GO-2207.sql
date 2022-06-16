@@ -206,7 +206,7 @@ BEGIN
 			c.ad_client_id = $1
 			AND ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 			AND ol.c_charge_id IS NULL
-			AND (c.bh_visitdate BETWEEN $2 AND $3 OR
+			AND c.bh_visitdate BETWEEN $2 AND $3
 			     (c.bh_visitdate IS NOT NULL AND date(p.datetrx) BETWEEN $2 AND $3))
 		GROUP BY
 			c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
