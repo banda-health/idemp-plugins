@@ -143,7 +143,7 @@ $$;
 /**********************************************************************************************************/
 -- 3. get_visit_payment_details
 /**********************************************************************************************************/
-CREATE OR REPLACE FUNCTION bh_get_visit_payment(ad_client_id numeric, begin_date timestamp,
+CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp,
                                                 end_date timestamp)
 	RETURNS TABLE
 	        (
@@ -158,7 +158,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_payment(ad_client_id numeric, begin_date
 		        invoice_id        numeric,
 		        cashier_id        numeric,
 		        cashier           character varying,
-		        cashierUUID       character varying,
+		        cashier_uu        character varying,
 		        docstatus         char,
 		        processing        char,
 		        linenetamt        numeric
@@ -190,9 +190,9 @@ BEGIN
 					ON p.c_payment_id = al.c_payment_id
 				LEFT JOIN c_invoice i
 					ON al.c_invoice_id = i.c_invoice_id
-				LEFT JOIN c_order c
+				JOIN c_order c
 					ON i.c_order_id = c.c_order_id OR p.bh_c_order_id = c.c_order_id
-				LEFT JOIN c_orderline ol
+				JOIN c_orderline ol
 					ON c.c_order_id = ol.c_order_id
 				JOIN c_bpartner cb
 					ON c.c_bpartner_id = cb.c_bpartner_id
@@ -206,8 +206,8 @@ BEGIN
 			c.ad_client_id = $1
 			AND ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 			AND ol.c_charge_id IS NULL
-			AND (c.bh_visitdate BETWEEN $2 AND $3 OR
-			     (c.bh_visitdate IS NOT NULL AND date(p.datetrx) BETWEEN $2 AND $3))
+			AND o.issotrx = 'Y'
+			AND c.bh_visitdate BETWEEN $2 AND $3
 		GROUP BY
 			c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
 			p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing;
@@ -316,7 +316,8 @@ BEGIN
 			ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 			AND ol.c_charge_id IS NOT NULL
 			AND c.ad_client_id = $1
-			AND co.bh_visitdate BETWEEN $2 AND $3;
+			AND co.bh_visitdate BETWEEN $2 AND $3
+			AND co.issotrx = 'Y';
 END
 $$;
 
