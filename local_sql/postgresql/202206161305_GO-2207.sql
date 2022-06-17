@@ -98,7 +98,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_products(ad_client_id numeric,
 		        product_type_name     character varying,
 		        quantity              numeric,
 		        price                 numeric,
-		        total                 numeric,
+		        linenetamt            numeric,
 		        m_warehouse_id        numeric,
 		        warehouse_name        character varying,
 		        processed             bpchar
@@ -118,7 +118,7 @@ BEGIN
 			rl.name         AS product_type_name,
 			ol.qtyentered   AS quantity,
 			ol.priceentered AS price,
-			ol.linenetamt   AS total,
+			ol.linenetamt,
 			w.m_warehouse_id,
 			w.name          AS warehouse_name,
 			ol.processed
