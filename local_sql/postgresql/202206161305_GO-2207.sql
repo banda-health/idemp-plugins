@@ -21,6 +21,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_details(ad_client_id numeric,
 		        c_bpartner_id                 numeric,
 		        patient_name                  character varying,
 		        bh_patienttype                character varying,
+		        bh_patienttype_name           character varying,
 		        bh_patientid                  character varying,
 		        bh_birthday                   timestamp,
 		        bh_gender                     character varying,
@@ -49,6 +50,7 @@ BEGIN
 			cb.c_bpartner_id                AS patient_id,
 			cb.name                         AS patient_name,
 			c.bh_patienttype                AS patient_type,
+			r.name                          AS bh_patienttype_name,
 			cb.bh_patientid                 AS patient_no,
 			cb.bh_birthday                  AS patient_birthday,
 			cb.bh_gender                    AS patient_gender,
@@ -66,9 +68,14 @@ BEGIN
 					ON c.c_bpartner_id = cb.c_bpartner_id
 				JOIN ad_user ad
 					ON c.createdby = ad.ad_user_id
+				JOIN ad_ref_list r
+					ON r.value = c.bh_patienttype
+				JOIN ad_reference a
+					ON r.ad_reference_id = a.ad_reference_id
 		WHERE
 			c.bh_visitdate BETWEEN $2 AND $3
 			AND c.ad_client_id = $1
+			AND ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
 			AND c.issotrx = 'Y';
 END
 $$;
@@ -144,7 +151,7 @@ $$;
 -- 3. get_visit_payment_details
 /**********************************************************************************************************/
 CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp,
-                                                end_date timestamp)
+                                                 end_date timestamp)
 	RETURNS TABLE
 	        (
 		        c_order_id        numeric,
@@ -206,7 +213,7 @@ BEGIN
 			c.ad_client_id = $1
 			AND ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 			AND ol.c_charge_id IS NULL
-			AND o.issotrx = 'Y'
+			AND c.issotrx = 'Y'
 			AND c.bh_visitdate BETWEEN $2 AND $3
 		GROUP BY
 			c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
