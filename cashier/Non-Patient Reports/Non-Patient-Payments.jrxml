@@ -77,9 +77,10 @@
 	BillTotal AS (
 		SELECT
 			c_order_id,
-			total
+			SUM(linenetamt) AS total
 		FROM
 			bh_get_visit_products($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		GROUP BY c_order_id
 	)
 SELECT
 	Visit_info.c_order_id,
