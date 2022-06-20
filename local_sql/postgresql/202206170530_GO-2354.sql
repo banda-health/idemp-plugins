@@ -1,4 +1,3 @@
--- Add the dashboard to the clinic admins
 -- Combine storage records with the same product, ASI, and locator into the most recent date material policy row
 DROP TABLE IF EXISTS tmp_storageonhand_to_update;
 SELECT
