@@ -258,24 +258,6 @@ order by changes.updated, mp.name, u.name;]]>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
-	<field name="product" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="product"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
-	</field>
-	<field name="quantitychange" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="quantitychange"/>
-	</field>
-	<field name="newlevel" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="newlevel"/>
-	</field>
-	<field name="datechanged" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="datechanged"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="m_transaction"/>
-	</field>
-	<field name="changer" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="changer"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
-	</field>
 	<title>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
