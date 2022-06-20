@@ -429,14 +429,15 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		StringBuilder costSql = new StringBuilder(
-				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?)");
+				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?");
 		if (!productIds.isEmpty() || !attributeSetInstanceIds.isEmpty()) {
-			costSql.append(" WHERE ");
 			if (!productIds.isEmpty()) {
-				String productWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters);
-				costSql.append("m_product_id IN (").append(productWhereClause).append(") ");
+				String joinedProductIds =
+						String.join(",", productIds.stream().map(String::valueOf).collect(Collectors.toSet()));
+				costSql.append(",?)");
+				parameters.add(joinedProductIds);
 				if (!attributeSetInstanceIds.isEmpty()) {
-					costSql.append("AND ");
+					costSql.append(" WHERE ");
 				}
 			}
 			if (!attributeSetInstanceIds.isEmpty()) {
