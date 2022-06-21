@@ -11,12 +11,10 @@ import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.test.MInOutTemplate;
-import org.bandahealth.idempiere.base.test.MOrderLineTemplate;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.MInOut;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
@@ -31,11 +29,22 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
-	private ChuBoePopulateVO valueObject;
+	private BandaValueObjectWrapper valueObject;
+
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
 
 	@IPopulateAnnotation.CanRunBefore
-	protected void setUp() throws Exception {
-		valueObject = new ChuBoePopulateVO();
+	protected void createOrder() throws Exception {
+		valueObject = new BandaValueObjectWrapper();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
@@ -43,21 +52,14 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createBP(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+
 		valueObject.setStepName("Create order");
 		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
-
-		valueObject.setStepName("Removing order lines from order");
-		List<MOrderLine_BH> orderLines =
-				new Query(valueObject.getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.get_trxName()).setParameters(valueObject.getOrder().get_ID()).list();
-		orderLines.forEach(orderLine -> orderLine.deleteEx(true));
-		commitEx();
-
-		valueObject.setStepName("Create product");
-		ChuBoeCreateEntity.createProduct(valueObject);
 	}
 
 	@IPopulateAnnotation.CanRun
@@ -65,7 +67,7 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, 2);
 
-		MOrderLine_BH orderLine = createOrderLine();
+		MOrderLine_BH orderLine = valueObject.getOrderLineBH();
 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));
 		orderLine.saveEx();
 
@@ -74,7 +76,7 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 	}
 
 	public void testReceiveProductHasNoExpiration() throws Exception {
-		MOrderLine_BH orderLine = createOrderLine();
+		MOrderLine_BH orderLine = valueObject.getOrderLineBH();
 
 		assertNotNull("Receive Product Order Line should not be null", orderLine);
 		assertNull("Expiration date should be null", orderLine.getBH_Expiration());
@@ -85,7 +87,7 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, -2);
 
-		MOrderLine_BH orderLine = createOrderLine();
+		MOrderLine_BH orderLine = valueObject.getOrderLineBH();
 		orderLine.setBH_Expiration(new Timestamp(cal.getTimeInMillis()));
 
 		try {
@@ -99,7 +101,7 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 
 	@IPopulateAnnotation.CanRun
 	public void materialReceiptIsCreatedWhenReceiveAnOrder() throws Exception {
-		MOrderLine_BH orderLine = createOrderLine();
+		MOrderLine_BH orderLine = valueObject.getOrderLineBH();
 
 		assertNotNull("Receive Product Order Line should not be null", orderLine);
 
@@ -113,19 +115,5 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 
 		assertEquals(MInOut.MOVEMENTTYPE_VendorReceipts, inOut.getMovementType());
 		assertEquals("CO", inOut.getDocStatus());
-	}
-
-	private MOrderLine_BH createOrderLine() throws SQLException {
-		valueObject.setStepName("Create order line");
-		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getOrder());
-
-		orderLine.setDescription(valueObject.getStepMsgLong());
-		orderLine.setM_Product_ID(valueObject.getProduct().get_ID());
-		orderLine.setQty(new BigDecimal(1));
-		orderLine.saveEx();
-
-		commitEx();
-
-		return orderLine;
 	}
 }
