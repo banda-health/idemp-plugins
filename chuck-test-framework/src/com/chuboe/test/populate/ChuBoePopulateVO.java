@@ -676,7 +676,7 @@ public class ChuBoePopulateVO {
 	}
 
 	//only used when changing BPs
-	protected MPriceList getPriceListSO() {
+	public MPriceList getPriceListSO() {
 		return m_priceListSO;
 	}
 
@@ -686,7 +686,7 @@ public class ChuBoePopulateVO {
 	}
 
 	//only used when changing BPs
-	protected MPriceList getPriceListPO() {
+	public MPriceList getPriceListPO() {
 		return m_priceListPO;
 	}
 

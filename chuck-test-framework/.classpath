@@ -1,13 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src/">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
-			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="lib/commons-lang3-3.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hamcrest-all-1.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.adempiere.base"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.idempiere"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.adempiere"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.hamcrest:hamcrest:2.2"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.junit.jupiter:junit-jupiter-api:5.9.0-M1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.opentest4j:opentest4j:1.2.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.junit.platform:junit-platform-commons:1.9.0-M1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.apiguardian:apiguardian-api:1.1.2"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/bcprov/1.66.0/bcprov-1.66.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.adempiere.base/8.2.0.202206171653/org.adempiere.base-8.2.0.202206171653.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.adempiere.base-8.2.0.202206171653.jar/lib/bsh.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.adempiere.base-8.2.0.202206171653.jar/lib/commons-validator.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.adempiere.base-8.2.0.202206171653.jar/lib/cron4j.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.adempiere.base-8.2.0.202206171653.jar/lib/avalon-framework-api.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.adempiere.plugin.utils/8.2.0.202206171653/org.adempiere.plugin.utils-8.2.0.202206171653.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/com.google.zxing.core/3.4.0/com.google.zxing.core-3.4.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/com.itextpdf/5.5.13.2/com.itextpdf-5.5.13.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/com.jaspersoft.studio.bundles.barbecue-1.5.0.beta1_b02.jar/barbecue-1.5-beta1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.jetty.osgi-servlet-api/3.1.0.M3/org.eclipse.jetty.osgi-servlet-api-3.1.0.M3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/com.sun.activation.jakarta.activation/1.2.2/com.sun.activation.jakarta.activation-1.2.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/com.sun.mail.jakarta.mail/1.6.5/com.sun.mail.jakarta.mail-1.6.5.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/groovy/2.5.3/groovy-2.5.3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/jakarta.xml.bind-api/2.3.2/jakarta.xml.bind-api-2.3.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/net.sf.supercsv.super-csv/2.4.0/net.sf.supercsv.super-csv-2.4.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.equinox.app/1.5.0.v20200717-0620/org.eclipse.equinox.app-1.5.0.v20200717-0620.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.passay/1.6.0/org.passay-1.6.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.cryptacular/1.2.4/org.cryptacular-1.2.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.krysalis.barcode4j/2.1.0/org.krysalis.barcode4j-2.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.poi.poi/4.1.2/org.apache.poi.poi-4.1.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.poi.poi-ooxml/4.1.2/org.apache.poi.poi-ooxml-4.1.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.commons.compress/1.19.0.v20200106-2343/org.apache.commons.compress-1.19.0.v20200106-2343.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.poi.poi-ooxml-schemas/4.1.2/org.apache.poi.poi-ooxml-schemas-4.1.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.xmlbeans/3.1.0/org.apache.xmlbeans-3.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.jfree.chart/1.0.19/org.jfree.chart-1.0.19.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.jfree.jcommon/1.0.23/org.jfree.jcommon-1.0.23.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/javax.jms/1.1.0.v201205091237/javax.jms-1.1.0.v201205091237.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.servicemix.bundles.cglib/3.2.6.1/org.apache.servicemix.bundles.cglib-3.2.6.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.activemq.activemq-core/5.7.0/org.apache.activemq.activemq-core-5.7.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.commons.collections/3.2.2.v201511171945/org.apache.commons.collections-3.2.2.v201511171945.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.commons.commons-collections4/4.4.0/org.apache.commons.commons-collections4-4.4.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.commons.net/3.2.0.v201305141515/org.apache.commons.net-3.2.0.v201305141515.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.ecs/8.2.0.202206171653/org.apache.ecs-8.2.0.202206171653.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.equinox.ds/1.6.200.v20200422-1833/org.eclipse.equinox.ds-1.6.200.v20200422-1833.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-antlr.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-apache-bcel.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-apache-bsf.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-apache-log4j.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-apache-oro.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-apache-regexp.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-apache-resolver.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-apache-xalan2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-commons-logging.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-commons-net.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-imageio.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-jai.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-javamail.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-jdepend.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-jmf.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-jsch.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-junit.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-junit4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-junitlauncher.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-launcher.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-netrexx.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-swing.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-testutil.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant-xz.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.apache.ant-1.10.8.v20200515-1239.jar/lib/ant.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.equinox.registry/3.9.0.v20200625-1425/org.eclipse.equinox.registry-3.9.0.v20200625-1425.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.equinox.common/3.13.0.v20200828-1034/org.eclipse.equinox.common-3.13.0.v20200828-1034.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.osgi/3.16.0.v20200828-0759/org.eclipse.osgi-3.16.0.v20200828-0759.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.osgi.services/3.9.0.v20200511-1725/org.eclipse.osgi.services-3.9.0.v20200511-1725.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.eclipse.osgi.util/3.5.300.v20190708-1141/org.eclipse.osgi.util-3.5.300.v20190708-1141.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.servicemix.bundles.xerces/2.9.1.5/org.apache.servicemix.bundles.xerces-2.9.1.5.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.geronimo.specs.geronimo-j2ee-management_1.1_spec/1.0.1/org.apache.geronimo.specs.geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.activemq.kahadb/5.7.0/org.apache.activemq.kahadb-5.7.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/slf4j.api/1.7.25/slf4j.api-1.7.25.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.felix.scr/2.1.16.v20200110-1820/org.apache.felix.scr-2.1.16.v20200110-1820.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.xml.resolver/1.2.0.v201005080400/org.apache.xml.resolver-1.2.0.v201005080400.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.springframework.spring-jcl/5.1.1.RELEASE/org.springframework.spring-jcl-5.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/slf4j.jcl/1.7.25/slf4j.jcl-1.7.25.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -540,7 +540,7 @@ public class ChuBoeCreateEntity {
 	//***********************************
 	//utils
 	//***********************************
-	protected static int getDefaultMProductCategoryID(ChuBoePopulateVO vo) {
+	public static int getDefaultMProductCategoryID(ChuBoePopulateVO vo) {
 		vo.validate();
 		if (vo.isError())
 			return 0;
@@ -556,7 +556,7 @@ public class ChuBoeCreateEntity {
 		else return 0;
 	}
 
-	protected static int getDefaultMTaxCategoryID(ChuBoePopulateVO vo) {
+	public static int getDefaultMTaxCategoryID(ChuBoePopulateVO vo) {
 		vo.validate();
 		if (vo.isError())
 			return 0;
@@ -568,8 +568,8 @@ public class ChuBoeCreateEntity {
 			return taxCat.get_ID();
 		else return 0;
 	}
-	
-	protected static MDocType getDocType(ChuBoePopulateVO vo, String docBaseType, 
+
+	public static MDocType getDocType(ChuBoePopulateVO vo, String docBaseType,
 			String docSubTypeSO, boolean issotrx, boolean isshipconfirm, boolean ispickqaconfirm) {
 		String issotrxString = issotrx ? "Y" : "N";
 		String isshipconfirmString = isshipconfirm ? "Y":"N";
