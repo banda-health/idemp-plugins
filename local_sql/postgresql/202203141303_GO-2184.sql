@@ -2,32 +2,55 @@
 ALTER TABLE AD_Menu ADD IF NOT EXISTS IconClassName VARCHAR(100) DEFAULT NULL;
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2018-06-12 11:06:45.752000', 100, '2018-06-12 11:06:45.752000', 100, 'IconClassName', 'U', 'Icon Class Name', 'Icon Class Name', 'The class(es) to display the correct Font Awesome icon', null, null, null, null, null, 'b51079e4-a2c4-4611-b95c-79d92ae35a69', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM ad_column), 0, 0, 'Y', '2022-03-11 17:04:41.632000', '2022-03-11 17:04:41.632000', 100, 100, 'Icon Class Name', 'The class(es) to display the correct Font Awesome icon', null, 0, 'U', 'IconClassName', 116, 10, null, null, 100, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'Y', (SELECT AD_ELEMENT_ID FROM AD_Element WHERE AD_Element_UU='b51079e4-a2c4-4611-b95c-79d92ae35a69'), null, 'N', 'N', null, null, null, 'N', 'Y', null, 'baea99da-9f6a-46d9-89fe-562180868341', 'Y', 10, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
+INSERT INTO ad_field (ad_field_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, iscentrallymaintained, ad_tab_id, ad_column_id, ad_fieldgroup_id, isdisplayed, displaylogic, displaylength, isreadonly, seqno, sortno, issameline, isheading, isfieldonly, isencrypted, entitytype, obscuretype, ad_reference_id, ismandatory, included_tab_id, defaultvalue, ad_reference_value_id, ad_val_rule_id, infofactoryclass, ad_field_uu, isallowcopy, seqnogrid, isdisplayedgrid, xposition, numlines, columnspan, isquickentry, isupdateable, isalwaysupdateable, mandatorylogic, readonlylogic, istoolbarbutton, isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform) VALUES ((SELECT MAX(ad_field_id) + 1 FROM ad_field), 0, 0, 'Y', '2022-06-01 08:46:34.448000', 100, '2022-06-01 08:47:14.363000', 100, 'Icon Class Name', 'The class(es) to display the correct Font Awesome icon', null, 'Y', 110, (SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'baea99da-9f6a-46d9-89fe-562180868341'), null, 'Y', null, 100, 'N', 50, null, 'N', 'N', 'N', 'N', 'U', null, null, null, null, null, null, null, null, '86d35add-53c8-4aa4-9ff8-cf7ae3429de0', null, 190, 'Y', 1, 1, 5, 'N', null, null, null, null, null, 'N', 'N', null, null, null, null, 'N') ON CONFLICT DO NOTHING;
 
 -- Add new Greenlight Reports window
-INSERT INTO ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2022-04-18 08:20:32.443000', 100, '2022-04-18 08:23:22.821000', 100, 'Greenlight Reports', 'Greenlight Reports', null, 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', '584a4f57-33c6-460e-9916-9ad0347cac5b', null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2022-04-18 08:20:32.443000', 100, '2022-04-18 08:23:22.821000', 100, 'Reports', 'Reports', null, 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', '584a4f57-33c6-460e-9916-9ad0347cac5b', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, ad_table_id, ad_window_id, seqno, tablevel, issinglerow, isinfotab, istranslationtab, isreadonly, ad_column_id, hastree, whereclause, orderbyclause, commitwarning, ad_process_id, processing, ad_image_id, importfields, ad_columnsortorder_id, ad_columnsortyesno_id, issorttab, entitytype, included_tab_id, readonlylogic, displaylogic, isinsertrecord, isadvancedtab, parent_column_id, ad_tab_uu, ad_ctxhelp_id, treedisplayedon, maxqueryrecords) VALUES ((SELECT MAX(ad_tab_id) + 1 FROM ad_tab), 0, 0, 'Y', '2022-04-18 08:22:11.853000', 100, '2022-04-18 08:23:33.474000', 100, 'Greenlight Reports', 'Greenlight Reports', null, 284, (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '584a4f57-33c6-460e-9916-9ad0347cac5b'), 10, 0, 'Y', 'N', 'N', 'N', null, 'N', null, null, null, null, 'N', null, 'N', null, null, 'N', 'U', null, null, null, 'Y', 'N', null, 'dda55636-d97e-49f3-83c3-4eb3f23b7666', null, 'B', 0) ON CONFLICT DO NOTHING;
 
+-- Update the window names to be what they should be on the menu (since they'll be synced)
+UPDATE ad_window SET name = 'Suppliers', description = 'Maintain Suppliers' WHERE ad_window_uu = '565af89e-8f10-4469-84f5-6cca8d7fae27';
+UPDATE ad_window SET name = 'Products & Prices', description = 'Maintain Products' WHERE ad_window_uu = 'c63b9972-1b23-4140-8bbb-0ea2b0b81024';
+UPDATE ad_window SET name = 'Services & Prices', description = 'Management of services offered to patients' WHERE ad_window_uu = 'fd93da00-871d-4996-a3f7-4528bed8b758';
+UPDATE ad_window SET name = 'Manage Inventory', description = '' WHERE ad_window_uu = '8f744d1c-427a-4b85-ab98-38e50258e86d';
+UPDATE ad_window SET name = 'Visits/Bills', description = '' WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77';
+UPDATE ad_window SET name = 'Debt Payments', description = 'Service an outstanding debt as reflected on the Total Open Balance' WHERE ad_window_uu = '4497b5f7-758d-4e82-8e2b-01c4364ce609';
+UPDATE ad_window SET name = 'Diagnoses', description = 'Coded Diagnosis' WHERE ad_window_uu = '1f29f7ab-bc9a-427c-b35b-87589e4612b5';
+
+-- Update the window translations
+UPDATE ad_window_trl SET name = 'Fournisseurs' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '565af89e-8f10-4469-84f5-6cca8d7fae27');
+UPDATE ad_window_trl SET name = 'Produits' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'c63b9972-1b23-4140-8bbb-0ea2b0b81024');
+UPDATE ad_window_trl SET name = 'Gérer l''inventaire' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '8f744d1c-427a-4b85-ab98-38e50258e86d');
+UPDATE ad_window_trl SET name = 'Consultations/Factures' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77');
+UPDATE ad_window_trl SET name = 'Solde d''ouverture à payer' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '4497b5f7-758d-4e82-8e2b-01c4364ce609');
+UPDATE ad_window_trl SET name = 'Diagnostics' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '1f29f7ab-bc9a-427c-b35b-87589e4612b5');
+UPDATE ad_window_trl SET name = 'Rapports' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '584a4f57-33c6-460e-9916-9ad0347cac5b');
+UPDATE ad_window_trl SET name = 'Suivre les dépenses' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '37df7931-7d07-4812-b9d4-dec7a53bb70f');
+UPDATE ad_window_trl SET name = 'Réception des produits' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '78dd6f39-84f9-4e19-b08e-7a3441af15e5');
+UPDATE ad_window_trl SET name = 'Transférer l''inventaire' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'd3c84cad-7306-464d-85da-7e629846f8c0');
+UPDATE ad_window_trl SET name = 'Catégories de dépenses' WHERE ad_window_id = (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '5731bc45-3b78-475a-a347-4ca899f19e32');
+
 -- Create Menu entries for the main menu
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-04-18 08:15:27.151000', 100, '2022-04-18 08:15:27.151000', 'Greenlight Report Dropdown', 100, 'This holds the reports that should show in the GL dropdown for ordering purposes', 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'N', '35ce7d6a-cf7d-4962-a748-75e27d0121bf', null, null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-04-18 08:15:27.151000', 100, '2022-04-18 08:15:27.151000', 'Greenlight Report Dropdown', 100, 'This holds the reports that should show in the GL dropdown for ordering purposes', 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'Y', '35ce7d6a-cf7d-4962-a748-75e27d0121bf', null, null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:45:36.992000', 100, '2022-04-18 07:47:38.397000', 'Products & Prices', 100, 'Maintain Products', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'c63b9972-1b23-4140-8bbb-0ea2b0b81024'), null, null, null, null, null, 'U', 'Y', '1a56d0fb-b751-489c-8206-285c8831d302', null, 'fa fa-pills') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:46:26.642000', 100, '2022-04-18 07:47:55.867000', 'Services & Prices', 100, 'Mangement of services offered to patients', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'fd93da00-871d-4996-a3f7-4528bed8b758'), null, null, null, null, null, 'U', 'Y', '05f10658-1593-43d8-8188-0fb9150022fe', null, 'fas fa-briefcase-medical') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:41:29.285000', 100, '2022-03-11 18:41:29.285000', 'Patients', 100, 'Maintain Patients', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ba697729-5ec8-44f7-b534-446310bb5782'), null, null, null, null, null, 'U', 'Y', '917351d6-e6d9-4103-b580-77ea14556a0c', null, 'fas fa-users') ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:43:13.655000', 100, '2022-03-11 18:43:13.655000', 'Back-End', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'N', '58e80a91-030d-4679-9c9a-356cffd30a40', null, 'fas fa-server') ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:42:43.678000', 100, '2022-03-11 18:42:43.678000', 'Accounting', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'N', 'eba1cdd4-5475-4529-beed-0e63d9a88357', null, 'fas fa-balance-scale') ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 16:42:03.555000', 100, '2022-03-29 10:37:36.384000', 'Dashboard', 100, null, 'N', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'N', 'cc0d5ed0-b0c9-4038-93b3-b7c7343bdde6', null, null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:42:02.942000', 100, '2022-03-29 10:41:50.481000', 'Inventory', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'N', 'b451e0dd-d11b-49f9-8e00-ba1c36872966', null, 'fas fa-clipboard-list') ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:43:13.655000', 100, '2022-03-11 18:43:13.655000', 'Back-End', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'Y', '58e80a91-030d-4679-9c9a-356cffd30a40', null, 'fas fa-server') ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:42:43.678000', 100, '2022-03-11 18:42:43.678000', 'Accounting', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'Y', 'eba1cdd4-5475-4529-beed-0e63d9a88357', null, 'fas fa-balance-scale') ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 16:42:03.555000', 100, '2022-03-29 10:37:36.384000', 'Dashboard', 100, null, 'N', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'Y', 'cc0d5ed0-b0c9-4038-93b3-b7c7343bdde6', null, null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:42:02.942000', 100, '2022-03-29 10:41:50.481000', 'Inventory', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'Y', 'b451e0dd-d11b-49f9-8e00-ba1c36872966', null, 'fas fa-clipboard-list') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'N', '2022-03-11 18:40:10.017000', 100, '2022-03-29 10:42:07.978000', 'Pharmacy Sales (OTC)', 100, null, 'N', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'Y', 'd89d5558-2af5-4922-843d-dfc0e8588b54', null, 'fas fa-shopping-cart') ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-10 12:01:44.812000', 100, '2022-03-11 18:38:11.114000', 'Greenlight Client Menu', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'N', 'bb0670c5-0dc1-468a-8b85-a91b15407368', null, null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:43:41.293000', 100, '2022-04-18 08:23:22.850000', 'Reports', 100, 'Reports', 'N', 'N', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '584a4f57-33c6-460e-9916-9ad0347cac5b'), null, null, null, null, null, 'U', 'N', '34e39aff-03e6-48e7-99a8-5028000618b9', null, 'fas fa-notes-medical') ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-10 12:01:44.812000', 100, '2022-03-11 18:38:11.114000', 'Greenlight Client Menu', 100, null, 'Y', 'Y', 'N', null, null, null, null, null, null, null, 'U', 'Y', 'bb0670c5-0dc1-468a-8b85-a91b15407368', null, null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:43:41.293000', 100, '2022-04-18 08:23:22.850000', 'Reports', 100, 'Reports', 'N', 'N', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '584a4f57-33c6-460e-9916-9ad0347cac5b'), null, null, null, null, null, 'U', 'Y', '34e39aff-03e6-48e7-99a8-5028000618b9', null, 'fas fa-notes-medical') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:47:37.326000', 100, '2022-04-18 07:48:15.543000', 'Manage Inventory', 100, null, 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '8f744d1c-427a-4b85-ab98-38e50258e86d'), null, null, null, null, null, 'U', 'Y', 'ff40264f-58f9-4cc3-b9b5-49b6975898a4', null, 'fas fa-people-carry') ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 16:24:01.848000', 100, '2022-03-29 10:40:10.702000', 'Visits/Bills', 100, null, 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77'), null, null, null, null, null, 'U', 'N', 'eee2f1f6-00c0-4480-a05d-a42800061a40', null, 'far fa-money-bill-alt') ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 16:24:01.848000', 100, '2022-03-29 10:40:10.702000', 'Visits/Bills', 100, null, 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77'), null, null, null, null, null, 'U', 'Y', 'eee2f1f6-00c0-4480-a05d-a42800061a40', null, 'far fa-money-bill-alt') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:46:59.195000', 100, '2022-03-11 18:46:59.195000', 'Receive Products', 100, 'Receive Products', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '78dd6f39-84f9-4e19-b08e-7a3441af15e5'), null, null, null, null, null, 'U', 'Y', 'c5230218-218d-46c2-92ce-fa3c2c38badf', null, 'fas fa-truck-moving') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:49:07.822000', 100, '2022-04-18 07:48:31.763000', 'Suppliers', 100, 'Maintain Vendors', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '565af89e-8f10-4469-84f5-6cca8d7fae27'), null, null, null, null, null, 'U', 'Y', '0427931b-7a2c-47b7-82f6-fc04cb35ca73', null, 'fas fa-handshake') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:53:03.736000', 100, '2022-04-18 07:48:50.888000', 'Debt Payments', 100, 'Service an outstanding debt as reflected on the Total Open Balance', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '4497b5f7-758d-4e82-8e2b-01c4364ce609'), null, null, null, null, null, 'U', 'Y', 'f87dbeb1-8584-44ae-a91c-f80449090a78', null, 'far fa-money-bill-alt') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-11 18:48:14.289000', 100, '2022-03-11 18:48:14.289000', 'Transfer Inventory', 100, null, 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'd3c84cad-7306-464d-85da-7e629846f8c0'), null, null, null, null, null, 'U', 'Y', 'b7abd866-5dea-4d7e-86e5-aa4a38dd51de', null, 'fas fa-exchange-alt') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:57:52.670000', 100, '2022-04-18 07:47:03.913000', 'Suppliers', 100, 'Maintain Vendors', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '565af89e-8f10-4469-84f5-6cca8d7fae27'), null, null, null, null, null, 'U', 'Y', '007ddf92-64fd-443a-bf11-482379589d9f', null, 'fas fa-handshake') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:56:19.782000', 100, '2022-04-18 07:49:08.573000', 'Suppliers', 100, 'Maintain Vendors', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '565af89e-8f10-4469-84f5-6cca8d7fae27'), null, null, null, null, null, 'U', 'Y', '7994fad1-0928-4408-822e-bd50a01bc1ef', null, 'fas fa-handshake') ON CONFLICT DO NOTHING;
-INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:57:03.715000', 100, '2022-03-14 09:57:03.715000', 'Coded Diagnosis', 100, 'Coded Diagnosis', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '1f29f7ab-bc9a-427c-b35b-87589e4612b5'), null, null, null, null, null, 'U', 'Y', 'e0960760-2b33-4a6c-8609-476581df5877', null, 'fas fa-stethoscope') ON CONFLICT DO NOTHING;
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:57:03.715000', 100, '2022-03-14 09:57:03.715000', 'Diagnoses', 100, 'Coded Diagnosis', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '1f29f7ab-bc9a-427c-b35b-87589e4612b5'), null, null, null, null, null, 'U', 'Y', 'e0960760-2b33-4a6c-8609-476581df5877', null, 'fas fa-stethoscope') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:55:39.318000', 100, '2022-03-14 09:55:39.318000', 'Expense Categories', 100, 'Maintain Expense Categories', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '5731bc45-3b78-475a-a347-4ca899f19e32'), null, null, null, null, null, 'U', 'Y', '53dfc02e-80f9-446a-b318-49ebe6d6bfc6', null, 'fab fa-etsy') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:53:56.718000', 100, '2022-03-14 09:53:56.718000', 'Track Expenses', 100, 'Track Expenses', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '37df7931-7d07-4812-b9d4-dec7a53bb70f'), null, null, null, null, null, 'U', 'Y', 'b68f3d07-5743-4f21-b3d6-819f773af826', null, 'fa fa-tags') ON CONFLICT DO NOTHING;
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2022-03-14 09:54:54.932000', 100, '2022-03-14 09:54:54.932000', 'Non-Patient Payments', 100, 'This records has no associated tabs or tables as all that will be handled in GL. It''s only here for access assingnment and it''s UUID.', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'), null, null, null, null, null, 'U', 'Y', 'e9aa30ce-8925-44bb-af68-9b616c8756a2', null, 'fas fa-piggy-bank') ON CONFLICT DO NOTHING;
@@ -93,5 +116,362 @@ INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactiv
 INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '2dbbc039-42ca-43e4-b4cc-2be94acad606'), 0, 0, 'Y', '2022-03-14 10:23:06.968314', 100, '2022-03-14 11:02:54.305199', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 1, 'fa901f7d-72a4-498b-a9e7-faaa04600b3a') ON CONFLICT DO NOTHING;
 INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '9a7b27a9-e09e-48a6-bba1-81b3a1f4fe29'), 0, 0, 'Y', '2022-03-14 10:09:06.440603', 100, '2022-03-14 11:02:54.302935', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 0, '3541b5c6-4762-4300-b702-919b3a4d8389') ON CONFLICT DO NOTHING;
 INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'c5a87aaa-4649-44df-b6c7-f1afa080779e'), 0, 0, 'Y', '2022-03-14 10:59:58.201813', 100, '2022-03-14 11:02:54.337411', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 15, '37122bcd-1b78-4718-a2a9-446c33e8ad00') ON CONFLICT DO NOTHING;
+
+-- Give all user's access to the Reports window, both the master roles and those that are automatic (i.e. aren't manual)
+INSERT INTO
+	ad_window_access (ad_window_id,
+	                  ad_role_id,
+	                  ad_client_id,
+	                  ad_org_id,
+	                  isactive,
+	                  created,
+	                  createdby,
+	                  updated,
+	                  updatedby,
+	                  isreadwrite,
+	                  ad_window_access_uu,
+	                  bh_candeactivate)
+SELECT
+	w.ad_window_id,
+	r.ad_role_id,
+	r.ad_client_id,
+	r.ad_org_id,
+	'Y',                --isactive
+	NOW(),              --created
+	100,                --createdby
+	NOW(),              --updated
+	100,                --updatedby
+	'Y',                --isreadwrite
+	uuid_generate_v4(), --ad_window_access_uu
+	'Y'                 --bh_candeactivate
+FROM
+	ad_window w
+		CROSS JOIN ad_role r
+WHERE
+	w.ad_window_uu = '584a4f57-33c6-460e-9916-9ad0347cac5b'
+	AND (r.ismanual = 'N' OR r.ismasterrole = 'Y')
+	AND ad_role_id > 0
+ON CONFLICT DO NOTHING;
+
+/**********************************************************************************************************/
+-- 1. Delete package export information
+/**********************************************************************************************************/
+-- Delete package export details having to do with Dashboard Buttons
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+		ad_package_exp_detail_uu IN ('d01edf6b-9160-4230-ba88-ccab9f7bb06c', '6da4b23b-a302-4d99-a9cd-abfcce840c1e',
+		                             'b3c08f38-03b8-4bc6-b8c5-cc5f52a4042b', 'd6758848-a7f9-47a6-92d0-3c0ab3e27f50',
+		                             '4b54d315-d476-42ee-aa29-0cdae8c2e2cb', '88852754-e29e-4fbc-a284-0aaccecd3c07',
+		                             '0c092218-7a97-4135-8632-cf4c3433223f', 'c9e00a5d-5753-4619-995c-d303609205cf',
+		                             'c9e00a5d-5753-4619-995c-d303609205cf', '5891e92c-d958-4375-b3c5-13d6d497ee67');
+
+-- Delete package export details where we're removing the entire package export
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+		ad_package_exp_id IN (
+		SELECT
+			ad_package_exp_id
+		FROM
+			ad_package_exp
+		WHERE
+				name IN ('BH_DashboardButtonsData', 'BH_DashboardButtons', 'bh_buttongroup', 'bh_homescreenbutton',
+				         'BH Home Screen Button Translations')
+	);
+
+DELETE
+FROM
+	ad_package_exp
+WHERE
+		name IN ('BH_DashboardButtonsData', 'BH_DashboardButtons', 'bh_buttongroup', 'bh_homescreenbutton',
+		         'BH Home Screen Button Translations');
+
+-- Remove some exports that deal with the tables we'll be deleting
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+		ad_table_id IN (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+				ad_table_uu IN ('ae04c83f-2010-4037-bd42-e6f15a857823',
+				                'bdfcbd0c-4810-4d63-a5b6-3c6ca2119b11',
+				                '341b5918-206b-4c7d-98f7-31c09d74bb66',
+				                'bfc62de5-8dd4-4aea-a3c4-24307b97b97c')
+	);
+
+/**********************************************************************************************************/
+-- 2. Remove details on some imports
+/**********************************************************************************************************/
+DELETE
+FROM
+	ad_package_imp_detail
+WHERE
+		ad_table_id IN (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+				ad_table_uu IN ('ae04c83f-2010-4037-bd42-e6f15a857823',
+				                'bdfcbd0c-4810-4d63-a5b6-3c6ca2119b11',
+				                '341b5918-206b-4c7d-98f7-31c09d74bb66',
+				                'bfc62de5-8dd4-4aea-a3c4-24307b97b97c')
+	);
+
+/**********************************************************************************************************/
+-- 3. Remove the menus pointing to the Dashboard Button window
+/**********************************************************************************************************/
+DELETE
+FROM
+	ad_menu_trl
+WHERE
+		ad_menu_id IN (
+		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '784f3e62-74e5-4d87-917e-5ab2b4461218'
+	);
+
+DELETE
+FROM
+	ad_menu
+WHERE
+	ad_menu_uu = '784f3e62-74e5-4d87-917e-5ab2b4461218';
+
+/**********************************************************************************************************/
+-- 4. Clean up some preferences in the system
+/**********************************************************************************************************/
+DELETE
+FROM
+	ad_preference
+WHERE
+		ad_window_id IN (
+		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9'
+	);
+
+/**********************************************************************************************************/
+-- 5. Delete the fields (and their translations), tabs, and windows for the dashboard buttons
+/**********************************************************************************************************/
+-- Delete field translations
+DELETE
+FROM
+	ad_field_trl
+WHERE
+		ad_field_id IN (
+		SELECT
+			ad_field_id
+		FROM
+			ad_field
+		WHERE
+				ad_tab_id IN (
+				SELECT
+					ad_tab_id
+				FROM
+					ad_tab
+				WHERE
+						ad_window_id IN (
+						SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9'
+					)
+			)
+	);
+
+-- Delete the fields
+DELETE
+FROM
+	ad_field
+WHERE
+		ad_tab_id IN (
+		SELECT
+			ad_tab_id
+		FROM
+			ad_tab
+		WHERE
+				ad_window_id IN (
+				SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9'
+			)
+	);
+
+-- Delete the tabs
+DELETE
+FROM
+	ad_tab
+WHERE
+		ad_window_id IN (
+		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9'
+	);
+
+DELETE
+FROM
+	ad_ref_table
+WHERE
+		ad_window_id IN (
+		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9'
+	);
+
+-- Delete the window
+DELETE
+FROM
+	ad_window
+WHERE
+	ad_window_uu = '09127102-04c5-47bf-a2b6-fb637b8466a9';
+
+/**********************************************************************************************************/
+-- 6. Clean up DB metadata for the dashboard buttons
+/**********************************************************************************************************/
+-- Remove the sequences
+DELETE
+FROM
+	ad_sequence
+WHERE
+		ad_sequence_uu IN ('46f5d119-7dbc-458e-9899-09d2f115b2fc',
+		                   '955ed774-aa59-46f5-95ae-69cb9a039a0c',
+		                   'de74978e-0085-4f29-bd55-359902ce1e45',
+		                   '4b2f8649-6786-455c-aee4-31a27b8166b3');
+
+-- Insert the potentially removable element ids into a temp table
+DROP TABLE IF EXISTS tmp_ad_element_id;
+
+SELECT
+	ad_element_id
+INTO TEMP TABLE
+	tmp_ad_element_id
+FROM
+	ad_element
+WHERE
+		ad_element_id IN (
+		SELECT
+			ad_element_id
+		FROM
+			ad_column
+		WHERE
+				ad_table_id IN (
+				SELECT
+					ad_table_id
+				FROM
+					ad_table
+				WHERE
+						ad_table_uu IN ('ae04c83f-2010-4037-bd42-e6f15a857823',
+						                'bdfcbd0c-4810-4d63-a5b6-3c6ca2119b11',
+						                '341b5918-206b-4c7d-98f7-31c09d74bb66',
+						                'bfc62de5-8dd4-4aea-a3c4-24307b97b97c')
+			)
+	)
+	AND ad_element_id NOT IN (
+	SELECT
+		ad_element_id
+	FROM
+		ad_column
+	WHERE
+			ad_table_id IN (
+			SELECT
+				ad_table_id
+			FROM
+				ad_table
+			WHERE
+					ad_table_uu NOT IN ('ae04c83f-2010-4037-bd42-e6f15a857823',
+					                    'bdfcbd0c-4810-4d63-a5b6-3c6ca2119b11',
+					                    '341b5918-206b-4c7d-98f7-31c09d74bb66',
+					                    'bfc62de5-8dd4-4aea-a3c4-24307b97b97c')
+		)
+);
+
+-- Remove the columns just used on those tables
+DELETE
+FROM
+	ad_column
+WHERE
+		ad_table_id IN (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+				ad_table_uu IN ('ae04c83f-2010-4037-bd42-e6f15a857823',
+				                'bdfcbd0c-4810-4d63-a5b6-3c6ca2119b11',
+				                '341b5918-206b-4c7d-98f7-31c09d74bb66',
+				                'bfc62de5-8dd4-4aea-a3c4-24307b97b97c')
+
+	);
+
+-- Remove the element translations for elements that now no longer have any tables
+DELETE
+FROM
+	ad_element_trl
+WHERE
+		ad_element_id IN (
+		SELECT
+			ad_element_id
+		FROM
+			tmp_ad_element_id
+	);
+
+-- Remove the elements just used on those tables
+DELETE
+FROM
+	ad_element
+WHERE
+		ad_element_id IN (
+		SELECT
+			ad_element_id
+		FROM
+			tmp_ad_element_id
+	);
+
+-- Remove the tables
+DELETE
+FROM
+	ad_table
+WHERE
+		ad_table_uu IN ('ae04c83f-2010-4037-bd42-e6f15a857823',
+		                'bdfcbd0c-4810-4d63-a5b6-3c6ca2119b11',
+		                '341b5918-206b-4c7d-98f7-31c09d74bb66',
+		                'bfc62de5-8dd4-4aea-a3c4-24307b97b97c');
+
+/**********************************************************************************************************/
+-- 7. Drop the dashboard preference ZUL file
+/**********************************************************************************************************/
+DELETE
+FROM
+	pa_dashboardpreference
+WHERE
+		pa_dashboardcontent_id IN (
+		SELECT
+			pa_dashboardcontent_id
+		FROM
+			pa_dashboardcontent
+		WHERE
+			pa_dashboardcontent_uu = 'cd30ab20-6515-47d1-9b3e-e5faed8f8662'
+	);
+
+DELETE
+FROM
+	pa_dashboardcontent_trl
+WHERE
+		pa_dashboardcontent_id IN (
+		SELECT
+			pa_dashboardcontent_id
+		FROM
+			pa_dashboardcontent
+		WHERE
+			pa_dashboardcontent_uu = 'cd30ab20-6515-47d1-9b3e-e5faed8f8662'
+	);
+
+DELETE
+FROM
+	pa_dashboardcontent
+WHERE
+	pa_dashboardcontent_uu = 'cd30ab20-6515-47d1-9b3e-e5faed8f8662';
+
+/**********************************************************************************************************/
+-- 8. Drop the actual tables
+/**********************************************************************************************************/
+DROP TABLE bh_dbrdbtngrp_btn_trl;
+DROP TABLE bh_dbrdbtngrp_btn;
+DROP TABLE bh_dbrdbtngrp_trl;
+DROP TABLE bh_dbrdbtngrp;
 
 SELECT register_migration_script('202203141303_GO-2184.sql') FROM dual;
