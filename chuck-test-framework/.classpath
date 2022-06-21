@@ -16,6 +16,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.junit.platform:junit-platform-commons:1.9.0-M1"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.apiguardian:apiguardian-api:1.1.2"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/bcprov/1.66.0/bcprov-1.66.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest.jar"/>
+	<classpathentry kind="lib" path="lib/junit-jupiter-api.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.adempiere.base/8.2.0.202206171653/org.adempiere.base-8.2.0.202206171653.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.adempiere.base-8.2.0.202206171653.jar/lib/bsh.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/.cache/tycho/org.adempiere.base-8.2.0.202206171653.jar/lib/commons-validator.jar"/>
@@ -88,5 +91,8 @@
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.apache.xml.resolver/1.2.0.v201005080400/org.apache.xml.resolver-1.2.0.v201005080400.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/org.springframework.spring-jcl/5.1.1.RELEASE/org.springframework.spring-jcl-5.1.1.RELEASE.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPOSITORY/p2/osgi/bundle/slf4j.jcl/1.7.25/slf4j.jcl-1.7.25.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest.jar"/>
+	<classpathentry kind="lib" path="lib/junit-jupiter-api.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

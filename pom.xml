@@ -16,6 +16,7 @@
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<url.file.srv>https://raw.githubusercontent.com/idempiere/binary.file/master</url.file.srv>
 		<idempiere.core.repository.url>file://${idempiere.home.dir}/org.idempiere.p2/target/repository</idempiere.core.repository.url>
+		<maven.compiler.release>11</maven.compiler.release>
 	</properties>
 
 	<build>
