@@ -2,88 +2,72 @@ package org.bandahealth.idempiere.base.test.process;
 
 import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
-import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
-import org.bandahealth.idempiere.base.process.SalesProcess;
-import org.bandahealth.idempiere.base.test.BusinessPartnerTemplate;
-import org.bandahealth.idempiere.base.test.MOrderLineTemplate;
-import org.bandahealth.idempiere.base.test.MOrderTemplate;
-import org.bandahealth.idempiere.base.test.MPaymentTemplate;
-import org.bandahealth.idempiere.base.test.MPriceListTemplate;
-import org.bandahealth.idempiere.base.test.MProductTemplate;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.compiere.model.MPInstance;
-import org.compiere.model.MPriceList;
-import org.compiere.model.MProcess;
-import org.compiere.model.Query;
-import org.compiere.process.ProcessInfo;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
+import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
-import org.compiere.util.Env;
-import org.compiere.util.Trx;
+
+import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertTrue;
 
 public class SalesProcessTest extends ChuBoePopulateFactoryVO {
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
+	
 	@IPopulateAnnotation.CanRun
 	public void testProcessRequest() throws Exception {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBP(valueObject);
+		commitEx();
 
-		MPriceList soPriceList = new MPriceListTemplate(getTrxName(), getCtx(), orgId, clientId, true,
-				"Test Process Sales Price List").getInstance();
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
 
-		MPriceList poPriceList = new MPriceListTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()),
-				Env.getAD_Client_ID(getCtx()), false, "Test Process Buy Price List").getInstance();
+		valueObject.setStepName("Create order");
+		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
 
-		int bPartnerId = new BusinessPartnerTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), null, false,
-				"Test Process Patient 1", true, 0, soPriceList.get_ID(), poPriceList.get_ID(), false).getInstance()
-						.get_ID();
+		valueObject.setStepName("Create payment");
+		valueObject.setDocAction(null);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPaymentBH().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPaymentBH().saveEx();
+		commitEx();
 
-		order = new MOrderTemplate(getTrxName(), getCtx(), true, Env.getAD_Client_ID(getCtx()), soPriceList.get_ID(),
-				bPartnerId).getInstance();
+		valueObject.setStepName("Run the sales order completion process");
+		valueObject.setProcess_UU("c5f39620-b2dc-42ad-8626-7713c4f22e0c");
+		valueObject.setProcessRecord_ID(0);
+		valueObject.setProcessTable_ID(0);
+		valueObject.setProcessInfoParams(
+				Collections.singletonList(new ProcessInfoParameter("c_order_id", valueObject.getOrder().get_ID(), "", "",
+						"")));
+		ChuBoeCreateEntity.runProcess(valueObject);
 
-		MProduct_BH product = new MProductTemplate(getTrxName(), getCtx(), Env.getAD_Org_ID(getCtx()), PRODUCT_NAME,
-				soPriceList, poPriceList).getInstance();
-
-		MOrderLine_BH orderLine = new MOrderLineTemplate(getTrxName(), getCtx(), order, product.get_ID()).getInstance();
-		// orderLine.saveEx();
-		new MPaymentTemplate(getTrxName(), getCtx(), order, orderLine.getPriceActual()).getInstance();
-
-		// commit();
-
-		ProcessInfoParameter pi1 = new ProcessInfoParameter("c_order_id", order.get_ID(), "", "", "");
-
-		ProcessInfo pi = new ProcessInfo("", 0, 0, 0);
-		pi.setParameter(new ProcessInfoParameter[] { pi1 });
-
-		// Lookup process in the AD, in this case by value
-		MProcess pr = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
-				.setOnlyActiveRecords(true).setParameters("org.bandahealth.idempiere.base.process.SalesProcess").first();
-
-		// Create an instance of the actual process class.
-		SalesProcess process = new SalesProcess();
-
-		// Create process instance (mainly for logging/sync purpose)
-		MPInstance mpi = new MPInstance(getCtx(), 0, null);
-		// mpi.setAD_Process_ID(pr.get_ID());
-		mpi.setAD_Process_ID(1000000);
-		mpi.setRecord_ID(0);
-		mpi.save(getTrxName());
-
-		// Connect the process to the process instance.
-		pi.setAD_PInstance_ID(mpi.get_ID());
-
-		log.info("Starting process " + pr.getName());
-		process.startProcess(getCtx(), pi, Trx.get(getTrxName(), false));
-		
-		assertEquals(process.getProcessInfo().getAD_PInstance_ID(), pi.getAD_PInstance_ID());
+		valueObject.setStepName("Confirm sales entities are completed");
+		valueObject.refresh();
+		assertTrue("Order is completed", valueObject.getOrder().isComplete());
+		assertTrue("Invoice is completed", valueObject.getInvoice().isComplete());
+		assertTrue("Payment is completed", valueObject.getPayment().isComplete());
 	}
 }

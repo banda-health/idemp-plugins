@@ -6,6 +6,7 @@ import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 
@@ -16,11 +17,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class PaymentModelEventTest extends ChuBoePopulateFactoryVO {
-	private ChuBoePopulateVO valueObject;
+	private BandaValueObjectWrapper valueObject;
+
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
 
 	@IPopulateAnnotation.CanRunBefore
-	protected void before() throws Exception {
-		this.valueObject = new ChuBoePopulateVO();
+	protected void createSalesOrders() throws Exception {
+		this.valueObject = new BandaValueObjectWrapper();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
