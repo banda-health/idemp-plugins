@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='2'>
+  <artifact classifier='osgi.bundle' id='com.chuboe.test.populate' version='7.1.0.202206162116'>
+    <properties size='5'>
+      <property name='artifact.size' value='715034'/>
+      <property name='download.size' value='715034'/>
+      <property name='maven-groupId' value='org.bandahealth.idempiere'/>
+      <property name='maven-artifactId' value='com.chuboe.test.populate'/>
+      <property name='maven-version' value='7.1.0-SNAPSHOT'/>
+    </properties>
+  </artifact>
+  <artifact classifier='osgi.bundle' id='com.chuboe.test.populate.source' version='7.1.0.202206162116'>
+    <properties size='6'>
+      <property name='artifact.size' value='27396'/>
+      <property name='download.size' value='27396'/>
+      <property name='maven-groupId' value='org.bandahealth.idempiere'/>
+      <property name='maven-artifactId' value='com.chuboe.test.populate'/>
+      <property name='maven-version' value='7.1.0-SNAPSHOT'/>
+      <property name='maven-classifier' value='sources'/>
+    </properties>
+  </artifact>
+</artifacts>

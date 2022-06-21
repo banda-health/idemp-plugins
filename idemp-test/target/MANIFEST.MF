@@ -2,10 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: org.bandahealth.idempiere.test;singleton:=true
-Bundle-Version: 7.1.0.qualifier
+Bundle-Version: 7.1.0.202206162116
 Automatic-Module-Name: org.bandahealth.idempiere.test
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: org.adempiere.base;bundle-version="8.2.0",
- org.adempiere.plugin.utils;bundle-version="8.2.0",
- com.chuboe.test.populate;bundle-version="1.0.0"
+Require-Bundle: org.adempiere.base;bundle-version="8.2.0",org.adempiere.
+ plugin.utils;bundle-version="8.2.0",com.chuboe.test.populate;bundle-ver
+ sion="1.0.0"
 Service-Component: OSGI-INF/BandaHealthTestFactory.xml
+
