@@ -25,6 +25,7 @@ Import-Package: com.chuboe.test.assertion,
  org.junit.jupiter.api.io;version="5.6.0",
  org.junit.jupiter.api.parallel;version="5.6.0",
  org.junit,
- org.bandahealth.idempiere.base.utils
+ org.bandahealth.idempiere.base.utils,
+ org.adempiere.exceptions
 Bundle-ClassPath: lib/
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
