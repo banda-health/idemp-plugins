@@ -26,6 +26,7 @@ public class InvoiceLine extends BaseMetadata {
 	private BigDecimal quantity;
 	private BigDecimal lineNetAmount;
 	private Integer attributeSetInstanceId;
+	private Charge charge;
 
 	public InvoiceLine() {
 	}
@@ -147,5 +148,13 @@ public class InvoiceLine extends BaseMetadata {
 
 	public void setAttributeSetInstanceId(Integer attributeSetInstanceId) {
 		this.attributeSetInstanceId = attributeSetInstanceId;
+	}
+
+	public Charge getCharge() {
+		return charge;
+	}
+
+	public void setCharge(Charge charge) {
+		this.charge = charge;
 	}
 }
