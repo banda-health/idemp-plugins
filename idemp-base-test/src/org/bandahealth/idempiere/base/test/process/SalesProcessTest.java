@@ -26,7 +26,7 @@ public class SalesProcessTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
 		commitEx();
 	}
-	
+
 	@IPopulateAnnotation.CanRun
 	public void testProcessRequest() throws Exception {
 		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
