@@ -11,7 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("invoices")
+import static org.bandahealth.idempiere.rest.IRestConfigs.AUTHENTICATION_PATH;
+
+@Path(AUTHENTICATION_PATH + "/invoices")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class InvoiceRestService extends DocumentRestService<Invoice, MInvoice_BH, InvoiceDBService> {
@@ -20,6 +22,6 @@ public class InvoiceRestService extends DocumentRestService<Invoice, MInvoice_BH
 
 	@Override
 	protected InvoiceDBService getDBService() {
-		return null;
+		return invoiceDBService;
 	}
 }
