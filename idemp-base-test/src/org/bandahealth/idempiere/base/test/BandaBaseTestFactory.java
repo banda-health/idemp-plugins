@@ -13,7 +13,7 @@ import org.bandahealth.idempiere.base.test.process.SalesProcessTest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BandaHealthBaseTestFactory implements IChuBoePopulateFactory {
+public class BandaBaseTestFactory implements IChuBoePopulateFactory {
 	@Override
 	public List<ChuBoePopulateFactoryVO> newChuBoePopulateInstance() {
 		List<ChuBoePopulateFactoryVO> tests = new ArrayList<>();

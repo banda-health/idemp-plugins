@@ -1,18 +1,17 @@
 package org.bandahealth.idempiere.base.test.modelevent;
 
-import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
-import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.test.BandaCreateEntity;
 import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
-import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -26,48 +25,57 @@ public class PaymentModelEventTest extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
 		valueObject.setStepName("Open needed periods");
-		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		BandaCreateEntity.createAndOpenAllFiscalYears(valueObject);
 		commitEx();
 	}
 
 	@IPopulateAnnotation.CanRunBefore
-	protected void createSalesOrders() throws Exception {
+	public void createSalesOrders() throws Exception {
 		this.valueObject = new BandaValueObjectWrapper();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
 		valueObject.setStepName("Initialize business partner");
-		ChuBoeCreateEntity.createBP(valueObject);
+		BandaCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		BandaCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, null, true, false, false);
-		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
+				false);
+		BandaCreateEntity.createOrder(valueObject);
 		commitEx();
+		valueObject.setDocAction(null);
 	}
 
 	@IPopulateAnnotation.CanRunAfter
-	protected void after() throws Exception {
+	public void after() throws Exception {
 		this.valueObject = null;
 	}
 
 	@IPopulateAnnotation.CanRun
 	public void paymentInformationSetCorrectlyWhenSavedOnASalesOrder() throws Exception {
 		valueObject.setStepName("Create payment");
-		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.setInvoice(
+				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocType().get_ID(), valueObject.getDate()));
+		BandaCreateEntity.createPayment(valueObject);
+		valueObject.refresh();
+		valueObject.getPaymentBH().setBH_C_Order_ID(valueObject.getOrderBH().get_ID());
+		valueObject.getPaymentBH().saveEx();
 		commitEx();
 
-		MPayment_BH payment =
-				new Query(valueObject.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_ID + "=?",
-						valueObject.get_trxName()).setParameters(valueObject.getPayment().get_ID()).first();
+		valueObject.refresh();
 
-		assertNotNull("Payment should not be null", payment);
-		assertTrue("Should have an Order", payment.getBH_C_Order_ID() > 0);
-		assertTrue("Should have a DocType", payment.getC_DocType_ID() > 0);
-		assertTrue("Should be a receipt", payment.isReceipt());
-		assertTrue("Should have the same business partner as the order",
-				payment.getC_BPartner_ID() == valueObject.getOrder().getC_BPartner_ID());
-		assertTrue("Should NOT have an invoice", payment.getC_Invoice_ID() == 0);
+		assertNotNull("Payment should not be null", valueObject.getPaymentBH());
+		assertTrue("Should have an Order", valueObject.getPaymentBH().getBH_C_Order_ID() > 0);
+		assertTrue("Should have a DocType", valueObject.getPaymentBH().getC_DocType_ID() > 0);
+		assertTrue("Should be a receipt", valueObject.getPaymentBH().isReceipt());
+		assertEquals("Should have the same business partner as the order", valueObject.getPaymentBH().getC_BPartner_ID(),
+				valueObject.getOrder().getC_BPartner_ID());
+		assertEquals("Should NOT have an invoice", 0, valueObject.getPaymentBH().getC_Invoice_ID());
 	}
 }
