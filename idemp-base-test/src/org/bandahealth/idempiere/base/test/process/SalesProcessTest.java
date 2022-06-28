@@ -4,7 +4,6 @@ import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.test.BandaCreateEntity;
 import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.Query;
