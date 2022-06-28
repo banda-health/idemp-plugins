@@ -9,6 +9,7 @@ import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.Query;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +23,7 @@ public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 
 	@IPopulateAnnotation.CanRun
 	public void businessPartnerGetsUpdatedWhenUsersFieldsChange() throws Exception {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
@@ -32,6 +33,7 @@ public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 		patient.setName(valueObject.getStepMsg());
 		patient.setDescription(valueObject.getStepMsgLong());
 		patient.setIsCustomer(true);
+		patient.setBH_IsPatient(true); // the BP model event currently uses this
 		patient.saveEx();
 		commitEx();
 
