@@ -354,7 +354,7 @@ limit 1;]]>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{purchaseprice}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{purchaseprice} != null ? $F{purchaseprice} : "-"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -387,7 +387,7 @@ limit 1;]]>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{costgoodssold}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{costgoodssold} != null ? $F{costgoodssold} : "-"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -420,7 +420,7 @@ limit 1;]]>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{gross_profit}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{gross_profit} != null ? $F{gross_profit} : "-"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
