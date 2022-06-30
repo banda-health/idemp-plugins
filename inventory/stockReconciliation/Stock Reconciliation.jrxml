@@ -121,7 +121,6 @@
 			on soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
 		left join m_attributeset attrs
 			on asi.m_attributeset_id = attrs.m_attributeset_id
-		where attrs.ad_client_id IS NULL OR attrs.name = 'BandaHealthProductAttributeSet'
 		group by soh.m_product_id
 	) soh
 	join products_updated_during_period pudp
@@ -257,59 +256,8 @@ order by changes.updated, mp.name, u.name;]]>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[select
-    productname.product,
-    stocktakechange.qtybalanced as quantitychange,
-    productname.qty as newlevel,
-    stocktakechange.datechanged,
-    stocktakechange.changer
-from
-(
-select
-    mstore.m_product_id,
-    prod.name as product,
-    sum(mstore.qtyonhand) as qty
-from m_storage mstore
-    inner join m_product prod on mstore.m_product_id = prod.m_product_id
-where
-    mstore.ad_client_id = $P{AD_CLIENT_ID}
-    and (date(mstore.updated) <= date( $P{End Date}))
-group by mstore.m_product_id, prod.name
-) as productname
-inner join
-(
-select
-    mtr.m_product_id,
-    sum(mtr.movementqty) as qtybalanced,
-    buser.name as changer,
-    mtr.updated as datechanged
-from m_transaction mtr
-    inner join ad_user buser on mtr.updatedby = buser.ad_user_id
-where mtr.ad_client_id = $P{AD_CLIENT_ID}
-   and mtr.movementtype in ('P+','P-')
-   and (date(mtr.movementdate) BETWEEN date( $P{Begin Date}) AND date($P{End Date}))
-group by mtr.m_product_id, buser.name, mtr.updated
-) as stocktakechange on productname.m_product_id = stocktakechange.m_product_id
-limit 1;]]>
+		<![CDATA[SELECT 1;]]>
 	</queryString>
-	<field name="product" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="product"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
-	</field>
-	<field name="quantitychange" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="quantitychange"/>
-	</field>
-	<field name="newlevel" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="newlevel"/>
-	</field>
-	<field name="datechanged" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="datechanged"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="m_transaction"/>
-	</field>
-	<field name="changer" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="changer"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
-	</field>
 	<title>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -575,18 +523,4 @@ limit 1;]]>
 			</componentElement>
 		</band>
 	</summary>
-	<noData>
-		<band height="16">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<staticText>
-				<reportElement x="0" y="0" width="595" height="16" uuid="7c2ece81-5f33-4e67-8d90-0fe7eeca2199">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[No data was found to display on the report.]]></text>
-			</staticText>
-		</band>
-	</noData>
 </jasperReport>

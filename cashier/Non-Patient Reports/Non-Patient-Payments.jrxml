@@ -32,40 +32,86 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
-         date($P{Begin Date}) AS begin_date,
-         date($P{End Date}) AS end_date,
-  		 coalesce($P{Mode},'') AS Mode,
-         coalesce($P{Type},'') AS Type
+	SELECT
+	 $P{AD_CLIENT_ID} AS ad_client_id,
+    date($P{Begin Date}) AS begin_date,
+    date($P{End Date}) AS end_date,
+  	COALESCE($P{Mode},'') AS Mode,
+    COALESCE($P{Type},'') AS Type
 ),
-     Non_payments as (
-         select *
-         from get_visit_info()
-                  cross join params p
-         where get_visit_info.ad_client_id = p.ad_client_id
-           and bill_date between begin_date and end_date
-           and (p.Mode = '' OR non_pay_mode = p.Mode)
-           and (p.Type = '' OR non_payment_type = p.Type)
-     )
-SELECT c_order_id,
-       bill_date                                as billdate,
-       patientname,
-       patientno                                as PatientNo,
-       patienttype                              as PatientType,
-       member_id,
-       membername                               as MemberName,
-       relationship                             as Relationship,
-       claimno                                  as ClaimNo,
-       coalesce(Non_payments.lineitemtotals, 0) as billtotal,
-       coalesce(Non_payments.insurance, 0)      as Insurance,
-       coalesce(Non_payments.waiver, 0)         as waiver,
-       coalesce(Non_payments.donation, 0)       as donation,
-       coalesce(TotalDirectPayments, 0)         as other,
-       coalesce(TotalNonPayments, 0)            as NonPaytotal
-from Non_payments
-order by patientname ASC, bill_date ASC;
-]]>
+	Visit_info AS (
+		SELECT
+			c_order_id,
+			bh_visitdate,
+			patient_name,
+			bh_patientid,
+			bh_patienttype_name
+		FROM
+			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+	),
+	DirectPayments AS (
+		SELECT
+			c_order_id,
+			SUM(payamt) AS TotalDirectPayments
+		FROM
+			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		GROUP BY c_order_id
+	),
+	non_patient_payments AS (
+		SELECT
+			c_order_id,
+			ChargeType_name,
+			bh_subtype,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1             AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1             AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1             AS donation,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('D', 'W', 'I')) * -1 AS TotalNonPayments,
+			member_id,
+			MemberName,
+			ClaimNo,
+			Relationship
+		FROM
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		GROUP BY c_order_id, ChargeType_name, bh_subtype, member_id, MemberName, ClaimNo, Relationship
+	),
+	BillTotal AS (
+		SELECT
+			c_order_id,
+			SUM(linenetamt) AS total
+		FROM
+			bh_get_visit_products($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		GROUP BY c_order_id
+	)
+SELECT
+	Visit_info.c_order_id,
+	bh_visitdate                     AS billdate,
+	patient_name,
+	bh_patientid                     AS PatientNo,
+	bh_patienttype_name              AS PatientType,
+	member_id,
+	membername                       AS MemberName,
+	relationship                     AS Relationship,
+	claimno                          AS ClaimNo,
+	COALESCE(BillTotal.total, 0)     AS billtotal,
+	COALESCE(insurance, 0)           AS Insurance,
+	COALESCE(waiver, 0)              AS waiver,
+	COALESCE(donation, 0)            AS donation,
+	COALESCE(TotalDirectPayments, 0) AS other,
+	COALESCE(TotalNonPayments, 0)    AS NonPaytotal
+FROM
+	Visit_info
+		LEFT JOIN non_patient_payments np
+			ON Visit_info.c_order_id = np.c_order_id
+		LEFT JOIN DirectPayments
+			ON Visit_info.c_order_id = DirectPayments.c_order_id
+		LEFT JOIN BillTotal
+			ON Visit_info.c_order_id = BillTotal.c_order_id
+		CROSS JOIN params p
+WHERE
+	(p.Mode = '' OR bh_subtype = p.Mode)
+	AND (p.Type = '' OR ChargeType_name = p.Type)
+ORDER BY
+	billdate ASC, patient_name DESC;]]>
 	</queryString>
 	<field name="c_order_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -74,27 +120,27 @@ order by patientname ASC, bill_date ASC;
 	<field name="billdate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
 	</field>
-	<field name="patientname" class="java.lang.String">
+	<field name="patient_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="PatientNo" class="java.lang.String"/>
 	<field name="PatientType" class="java.lang.String"/>
-	<field name="MemberName" class="java.lang.String"/>
-	<field name="Relationship" class="java.lang.String"/>
-	<field name="ClaimNo" class="java.lang.String"/>
 	<field name="member_id" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="member_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="member_id"/>
 	</field>
+	<field name="MemberName" class="java.lang.String"/>
+	<field name="Relationship" class="java.lang.String"/>
+	<field name="ClaimNo" class="java.lang.String"/>
 	<field name="billtotal" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
-	<field name="other" class="java.math.BigDecimal"/>
-	<field name="insurance" class="java.math.BigDecimal"/>
+	<field name="Insurance" class="java.math.BigDecimal"/>
 	<field name="waiver" class="java.math.BigDecimal"/>
 	<field name="donation" class="java.math.BigDecimal"/>
+	<field name="other" class="java.math.BigDecimal"/>
 	<field name="NonPaytotal" class="java.math.BigDecimal"/>
 	<variable name="Sum Non-patient Payment" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{NonPaytotal}]]></variableExpression>
@@ -146,7 +192,9 @@ order by patientname ASC, bill_date ASC;
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="39" y="51" width="96" height="17" uuid="b4d0dbc6-57cb-45bf-889c-80b82dad9957"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{Mode}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
@@ -169,7 +217,7 @@ order by patientname ASC, bill_date ASC;
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Date from:]]></text>
+				<text><![CDATA[Date to:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="70" width="230" height="20" uuid="66b18b15-2081-443c-8065-98a910b93156"/>
@@ -284,7 +332,7 @@ order by patientname ASC, bill_date ASC;
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[Claim Number]]></text>
+					<text><![CDATA[Claims Number]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="690" y="0" width="115" height="20" backcolor="#BFE1FF" uuid="6b3ddc93-9f70-4453-8f4b-43023bac9607">
@@ -339,9 +387,9 @@ order by patientname ASC, bill_date ASC;
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
-					<box leftPadding="3" rightPadding="2"/>
+					<box leftPadding="2" rightPadding="2"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{patient_name}]]></textFieldExpression>
 				</textField>
 				<textField pattern="M/d/yyyy">
 					<reportElement style="Table_TD" mode="Opaque" x="190" y="0" width="74" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff">
@@ -425,23 +473,23 @@ order by patientname ASC, bill_date ASC;
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="33">
+		<band height="22">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="12" width="259" height="20" uuid="c954df1f-e22f-4bd9-a0c3-de0e83368e58">
+				<reportElement x="-4" y="1" width="259" height="20" uuid="c954df1f-e22f-4bd9-a0c3-de0e83368e58">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box leftPadding="2"/>
-				<textElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="967" y="10" width="87" height="20" uuid="ad2b78ed-d1db-4f53-9a6c-98bb3d1910d4">
+				<reportElement x="1003" y="1" width="87" height="20" uuid="ad2b78ed-d1db-4f53-9a6c-98bb3d1910d4">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
