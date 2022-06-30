@@ -3,9 +3,12 @@ package org.bandahealth.idempiere.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -20,6 +23,7 @@ public class Invoice extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 	private BusinessPartner businessPartner;
 	private String dateInvoiced;
+	private Timestamp dateInvoicedCreated;
 	private BigDecimal grandTotal;
 	private boolean isSalesOrderTransaction;
 	private Boolean isExpense;
@@ -33,20 +37,16 @@ public class Invoice extends BaseMetadata {
 	public Invoice() {
 	}
 
-	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateInvoiced, BigDecimal grandTotal,
-			boolean isSalesOrderTransaction, String description, List<InvoiceLine> invoiceLines, String docStatus,
-			String paymentRule) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateInvoiced = dateInvoiced;
-		this.grandTotal = grandTotal;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.description = description;
-		this.invoiceLines = invoiceLines;
-		this.docStatus = docStatus;
-		this.paymentRule = paymentRule;
+	public Invoice(MInvoice_BH entity) {
+		super(entity);
+		dateInvoiced = DateUtil.parseDateOnly(entity.getDateInvoiced());
+		dateInvoicedCreated = entity.getDateInvoiced();
+		grandTotal = entity.getGrandTotal();
+		isSalesOrderTransaction = entity.isSOTrx();
+		isExpense = entity.getBH_IsExpense();
+		description = entity.getDescription();
+		paymentRule = entity.getPaymentRule();
+		docStatus = entity.getDocStatus();
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -161,5 +161,13 @@ public class Invoice extends BaseMetadata {
 
 	public void setVoidedReason(VoidedReason voidedReason) {
 		this.voidedReason = voidedReason;
+	}
+
+	public Timestamp getDateInvoicedCreated() {
+		return dateInvoicedCreated;
+	}
+
+	public void setDateInvoicedCreated(Timestamp dateInvoicedCreated) {
+		this.dateInvoicedCreated = dateInvoicedCreated;
 	}
 }

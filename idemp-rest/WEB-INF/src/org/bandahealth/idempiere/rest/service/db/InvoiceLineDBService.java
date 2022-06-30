@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.ExpenseCategory;
@@ -29,6 +30,8 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 	private ExpenseCategoryDBService expenseCategoryDBService;
 	@Autowired
 	private AccountDBService accountDBService;
+	@Autowired
+	private ChargeDBService chargeDBService;
 
 	@Override
 	public InvoiceLine saveEntity(InvoiceLine entity) {
@@ -42,12 +45,23 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 			invoiceLine.setC_Invoice_ID(entity.getInvoiceId());
 		}
 
-		if (entity.getExpenseCategory() != null) {
+		if (entity.getCharge() != null && !StringUtil.isNullOrEmpty(entity.getCharge().getUuid())) {
+			MCharge_BH charge = chargeDBService.getEntityByUuidFromDB(entity.getCharge().getUuid());
+			if (charge != null) {
+				invoiceLine.setC_Charge_ID(charge.get_ID());
+			}
+		} else if (entity.getExpenseCategory() != null &&
+				!StringUtil.isNullOrEmpty(entity.getExpenseCategory().getUuid())) {
 			MCharge_BH charge = expenseCategoryDBService.getEntityByUuidFromDB(entity.getExpenseCategory().getUuid());
 
 			if (charge != null) {
 				invoiceLine.setC_Charge_ID(charge.get_ID());
 			}
+		}
+
+		// All invoice lines need at least a charge or product, so error if nothing is there
+		if (invoiceLine.getC_Charge_ID() == 0 && invoiceLine.getM_Product_ID() == 0) {
+			throw new AdempiereException("Invoice Line missing a charge or product");
 		}
 
 		if (entity.getProduct() != null) {

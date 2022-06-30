@@ -16,6 +16,7 @@ public class User extends BaseMetadata {
 	private String name;
 	private Timestamp dateLastLogin;
 	private List<Role> roles;
+	private String resetPassword;
 
 	public User() {
 	}
@@ -71,4 +72,11 @@ public class User extends BaseMetadata {
 		this.dateLastLogin = dateLastLogin;
 	}
 
+	public String getResetPassword() {
+		return resetPassword;
+	}
+
+	public void setResetPassword(String resetPassword) {
+		this.resetPassword = resetPassword;
+	}
 }

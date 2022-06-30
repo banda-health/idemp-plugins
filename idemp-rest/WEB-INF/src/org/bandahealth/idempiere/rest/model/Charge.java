@@ -40,6 +40,7 @@ public class Charge extends BaseEntity {
 		setNeedAdditionalVisitInformation(entity.isBH_NeedAdditionalVisitInfo());
 		setChargeTypeId(entity.getC_ChargeType_ID());
 		setSubTypeValue(entity.getBH_SubType());
+		setLocked(entity.isBH_Locked());
 		if (chargeType != null) {
 			setChargeType(new ChargeType(chargeType));
 		}

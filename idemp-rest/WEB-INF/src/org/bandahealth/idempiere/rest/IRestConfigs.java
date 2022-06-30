@@ -77,7 +77,7 @@ public interface IRestConfigs {
 
 	String APPLICATION_PDF = "application/pdf";
 
-	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/referencelists";
+	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/reference-lists";
 	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
 	
 	String CODED_DIAGNOSES_PATH = AUTHENTICATION_PATH + "/codeddiagnoses";
