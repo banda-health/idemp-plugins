@@ -29,6 +29,8 @@
 package com.chuboe.test.process;
 
 import java.lang.reflect.Method;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -91,6 +93,10 @@ public class DoChuBoePopulate extends SvrProcess {
 		int totalMethods = 0;
 		int totalLoops = 0;
 
+		// Set a format for how the test timing should be displayed
+		DecimalFormat decimalFormat = new DecimalFormat("#.###");
+		decimalFormat.setRoundingMode(RoundingMode.CEILING);
+
 		MSystem system = MSystem.get(Env.getCtx());
 		if (system.getSystemStatus().equals(MSystem.SYSTEMSTATUS_Production)) {
 			log.log(Level.WARNING, "System Status is Production so not a good idea to execute test cases.");
@@ -98,9 +104,12 @@ public class DoChuBoePopulate extends SvrProcess {
 		}
 
 		for (int i = 0; i < m_loopCount; i++) {
+			addLog("Loop " + (i + 1));
 
-			if (totalErrors > 0)
+			if (totalErrors > 0) {
+				addLog("Aborting more loops due to errors in previous loop");
 				break;
+			}
 
 			totalLoops++;
 
@@ -128,6 +137,7 @@ public class DoChuBoePopulate extends SvrProcess {
 				//TODO: consider counting errors - if error count > threshold parameter then break
 				totalClasses++;
 				boolean classBreak = false;
+				long testStartTime = System.currentTimeMillis();
 
 				//create a new transaction for each class.
 				Trx pop_trx = Trx.get(Trx.createTrxName(pop.getClass().getSimpleName()), true);
@@ -275,6 +285,16 @@ public class DoChuBoePopulate extends SvrProcess {
 				pop_trx.commit(true);
 				pop_trx.close();
 				pop_trx = null;
+				long testDuration = System.currentTimeMillis() - testStartTime;
+
+				addLog((totalErrors == 0 ? "PASS " : "FAIL ") + pop.getClass().getSimpleName() + " (" +
+						decimalFormat.format((double) testDuration / 1000D) + ")");
+				if (totalErrors != 0) {
+					String[] responseLines = pop_response.getName().split(MChuBoePopulateResponse.NOTE_SEPARATOR);
+					for (String responseLine : responseLines) {
+						addLog(responseLine);
+					}
+				}
 			} //List Iterator of classes
 			populators = null;
 		} //loop count
@@ -282,7 +302,9 @@ public class DoChuBoePopulate extends SvrProcess {
 		String details =
 				" Loops attempted: " + totalLoops + ", Total Classes: " + totalClasses + ", Total Methods: " + totalMethods +
 						", Total Errors: " + totalErrors + ".";
-		if (totalErrors > 0) throw new AdempiereException(details);
+		if (totalErrors > 0) {
+			throw new AdempiereException(details);
+		}
 		return "Success!! " + details;
 
 		//TODO: Consider adding a parameter to determine if process should create a pack out of the test results.

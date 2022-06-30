@@ -1,5 +1,8 @@
-target/
+**/target
 idemp-rest/WEB-INF/lib/
+idemp-base-test/lib/
+
+testing/
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij+iml,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij+iml,eclipse

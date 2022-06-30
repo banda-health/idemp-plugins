@@ -38,7 +38,7 @@ import java.util.Properties;
  */
 public class MChuBoePopulateResponse extends X_ChuBoe_PopulateResponse {
 	
-	public final String NOTE_SEPARATOR = "\n";
+	public static final String NOTE_SEPARATOR = "\n";
 
 	public MChuBoePopulateResponse(Properties ctx,
 			int ChuBoe_PopulateResponse_ID, String trxName) {
