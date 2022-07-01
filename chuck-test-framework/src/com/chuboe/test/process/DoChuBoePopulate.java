@@ -29,6 +29,7 @@
 package com.chuboe.test.process;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -103,33 +104,31 @@ public class DoChuBoePopulate extends SvrProcess {
 			return "System Status is Production so not a good idea to execute test cases.";
 		}
 
-		for (int i = 0; i < m_loopCount; i++) {
-			addLog("Loop " + (i + 1));
+		//call into OSGi services for collection of classes
+		List<ChuBoePopulateFactoryVO> populators = getPopulators();
+		//check if something to do
+		if (populators.isEmpty()) {
+			throw new AdempiereException("Error - Did not find any Populate Test classes");
+		}
 
+		// Filter the packages, if need be
+		if (packageFilter != null && !packageFilter.isEmpty()) {
+			String[] packageFilters = packageFilter.split(",");
+			for (String filter : packageFilters) {
+				String packageName = filter.trim().toLowerCase();
+				populators = populators.stream()
+						.filter(populator -> populator.getClass().getPackageName().toLowerCase().contains(packageName))
+						.collect(Collectors.toList());
+			}
+		}
+
+		for (int i = 0; i < m_loopCount; i++) {
 			if (totalErrors > 0) {
 				addLog("Aborting more loops due to errors in previous loop");
 				break;
 			}
 
 			totalLoops++;
-
-			//call into OSGi services for collection of classes
-			List<ChuBoePopulateFactoryVO> populators = getPopulators();
-			// Filter the packages, if need be
-			if (packageFilter != null && !packageFilter.isEmpty()) {
-				String[] packageFilters = packageFilter.split(",");
-				for (String filter : packageFilters) {
-					String packageName = filter.trim().toLowerCase();
-					populators = populators.stream()
-							.filter(populator -> populator.getClass().getPackageName().toLowerCase().contains(packageName))
-							.collect(Collectors.toList());
-				}
-			}
-
-			//check if something to do
-			if (populators.isEmpty()) {
-				throw new AdempiereException("Error - Did not find any Populate Test classes");
-			}
 
 			//iterate on collection of classes - call on annotation methods
 			for (ChuBoePopulateFactoryVO pop : populators) //List Iterator of class
@@ -138,6 +137,7 @@ public class DoChuBoePopulate extends SvrProcess {
 				totalClasses++;
 				boolean classBreak = false;
 				long testStartTime = System.currentTimeMillis();
+				boolean didErrorOccurForThisTest = false;
 
 				//create a new transaction for each class.
 				Trx pop_trx = Trx.get(Trx.createTrxName(pop.getClass().getSimpleName()), true);
@@ -191,6 +191,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							pop_response.saveEx();
 						} catch (Exception e) {
 							totalErrors++;
+							didErrorOccurForThisTest = true;
 							classBreak = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
 							pop_response.saveEx();
@@ -248,6 +249,7 @@ public class DoChuBoePopulate extends SvrProcess {
 						} catch (Exception e) {
 							totalErrors++;
 							classBreak = true;
+							didErrorOccurForThisTest = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
 							pop_response.saveEx();
 						} finally {
@@ -271,6 +273,7 @@ public class DoChuBoePopulate extends SvrProcess {
 						} catch (Exception e) {
 							totalErrors++;
 							classBreak = true;
+							didErrorOccurForThisTest = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
 							pop_response.saveEx();
 						} finally {
@@ -279,15 +282,16 @@ public class DoChuBoePopulate extends SvrProcess {
 					}
 				}
 				pop_response.appendNote("Ending... " + pop.getClass().getSimpleName());
-				pop_response.setDescription(totalErrors == 0 ? "Success" : "Error");
+				pop_response.setDescription(didErrorOccurForThisTest ? "Error" : "Success");
 				pop_response.setIsError(totalErrors > 0);
+				long testDuration = System.currentTimeMillis() - testStartTime;
+				pop_response.setExecutionTime(new BigDecimal(testDuration));
 				pop_response.saveEx();
 				pop_trx.commit(true);
 				pop_trx.close();
 				pop_trx = null;
-				long testDuration = System.currentTimeMillis() - testStartTime;
 
-				addLog((totalErrors == 0 ? "PASS " : "FAIL ") + pop.getClass().getSimpleName() + " (" +
+				addLog((didErrorOccurForThisTest ? "FAIL " : "PASS ") + pop.getClass().getSimpleName() + " (" +
 						decimalFormat.format((double) testDuration / 1000D) + ")");
 				if (totalErrors != 0) {
 					String[] responseLines = pop_response.getName().split(MChuBoePopulateResponse.NOTE_SEPARATOR);

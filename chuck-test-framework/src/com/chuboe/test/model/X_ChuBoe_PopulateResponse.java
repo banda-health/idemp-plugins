@@ -17,21 +17,23 @@
 /** Generated Model - DO NOT CHANGE */
 package com.chuboe.test.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
+import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for ChuBoe_PopulateResponse
  *  @author iDempiere (generated) 
- *  @version Release 3.1 - $Id$ */
+ *  @version Release 8.2 - $Id$ */
 public class X_ChuBoe_PopulateResponse extends PO implements I_ChuBoe_PopulateResponse, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20151107L;
+	private static final long serialVersionUID = 20220630L;
 
     /** Standard Constructor */
     public X_ChuBoe_PopulateResponse (Properties ctx, int ChuBoe_PopulateResponse_ID, String trxName)
@@ -68,8 +70,8 @@ public class X_ChuBoe_PopulateResponse extends PO implements I_ChuBoe_PopulateRe
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_ChuBoe_PopulateResponse[")
-        .append(get_ID()).append("]");
+      StringBuilder sb = new StringBuilder ("X_ChuBoe_PopulateResponse[")
+        .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
 
@@ -195,6 +197,23 @@ public class X_ChuBoe_PopulateResponse extends PO implements I_ChuBoe_PopulateRe
 	public String getDescription () 
 	{
 		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set ExecutionTime.
+		@param ExecutionTime ExecutionTime	  */
+	public void setExecutionTime (BigDecimal ExecutionTime)
+	{
+		set_Value (COLUMNNAME_ExecutionTime, ExecutionTime);
+	}
+
+	/** Get ExecutionTime.
+		@return ExecutionTime	  */
+	public BigDecimal getExecutionTime () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ExecutionTime);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set Error.

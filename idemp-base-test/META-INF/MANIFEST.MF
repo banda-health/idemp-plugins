@@ -29,3 +29,4 @@ Import-Package: com.chuboe.test.assertion,
  org.adempiere.exceptions
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
 Export-Package: org.bandahealth.idempiere.base.test.utils
+Bundle-ActivationPolicy: lazy
