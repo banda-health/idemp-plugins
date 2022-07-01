@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for ChuBoe_PopulateResponse
  *  @author iDempiere (generated) 
- *  @version Release 3.1
+ *  @version Release 8.2
  */
 @SuppressWarnings("all")
 public interface I_ChuBoe_PopulateResponse 
@@ -32,7 +32,7 @@ public interface I_ChuBoe_PopulateResponse
     /** TableName=ChuBoe_PopulateResponse */
     public static final String Table_Name = "ChuBoe_PopulateResponse";
 
-    /** AD_Table_ID=1000000 */
+    /** AD_Table_ID=1000043 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -153,6 +153,15 @@ public interface I_ChuBoe_PopulateResponse
 	  * Optional short description of the record
 	  */
 	public String getDescription();
+
+    /** Column name ExecutionTime */
+    public static final String COLUMNNAME_ExecutionTime = "ExecutionTime";
+
+	/** Set ExecutionTime	  */
+	public void setExecutionTime (BigDecimal ExecutionTime);
+
+	/** Get ExecutionTime	  */
+	public BigDecimal getExecutionTime();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
