@@ -4,7 +4,6 @@ services:
     volumes:
       - ./testing:/home/src
     environment:
-      - CI=${CI}
       - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
       - DB_HOST=${POSTGRES_HOST}
       - DB_NAME=${DB_NAME}
@@ -14,13 +13,14 @@ services:
       - IDEMPIERE_VERSION=${IDEMPIERE_VERSION}
       - MIGRATE_EXISTING_DATABASE=${MIGRATE_EXISTING_DATABASE}
       - GENERATE_PLUGIN_BUNDLE_INFO=${GENERATE_PLUGIN_BUNDLE_INFO}
+      - HEALTHY_AFTER_PLUGINS_START=${HEALTHY_AFTER_PLUGINS_START}
     ports:
       - ${IDEMPIERE_PORT}:8080
       - ${IDEMPIERE_SSL_PORT}:8443
       - ${TELNET_PORT}:12612
-    healthcheck:
-      test: "[ ! -f \"/opt/idempiere/.unhealthy\" ] && exit 0 || exit 1"
-      interval: 1s
-      timeout: 1s
-      retries: 600
-      start_period: 5s
+
+  idemp-base-tests:
+    build: idemp-base-test/testing
+    depends_on:
+      idempiere:
+        condition: service_healthy
