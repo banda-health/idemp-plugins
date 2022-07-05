@@ -60,16 +60,16 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 				if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))
 						|| Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID))) {
 					if (!requestContext.getUriInfo().getPath().startsWith(IRestConfigs.AUTHENTICATION)) {
-						requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
+						requestContext.abortWith(Response.status(Response.Status.NOT_FOUND).build());
 					}
 				}
 			} catch (JWTVerificationException ex) {
-				requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
+				requestContext.abortWith(Response.status(Response.Status.NOT_FOUND).build());
 			} catch (Exception ex) {
 				requestContext.abortWith(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
 			}
 		} else {
-			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
+			requestContext.abortWith(Response.status(Response.Status.NOT_FOUND).build());
 		}
 	}
 
