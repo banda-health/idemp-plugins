@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.base.test.modelevent;
 
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
-import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;

@@ -7,21 +7,21 @@
         <artifactId>org.bandahealth.idempiere.plugins</artifactId>
         <version>7.1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>org.bandahealth.idempiere.base.test</artifactId>
+    <artifactId>org.bandahealth.idempiere.rest.test</artifactId>
     <packaging>eclipse-plugin</packaging>
 
-    <dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.9.0-M1</version>
+			<scope>test</scope>
+		</dependency>
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>2.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.0-M1</version>
-            <scope>test</scope>
+            <groupId>org.bandahealth.idempiere</groupId>
+            <artifactId>com.chuboe.test.populate</artifactId>
+            <version>7.1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.bandahealth.idempiere</groupId>
@@ -31,20 +31,50 @@
         </dependency>
         <dependency>
             <groupId>org.bandahealth.idempiere</groupId>
-            <artifactId>com.chuboe.test.populate</artifactId>
+            <artifactId>org.bandahealth.idempiere.base.test</artifactId>
             <version>7.1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>2.2</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<version>2.2</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
     <build>
         <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.junit.jupiter</groupId>
+									<artifactId>junit-jupiter-api</artifactId>
+									<version>5.9.0-M1</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.hamcrest</groupId>
+									<artifactId>hamcrest</artifactId>
+									<version>2.2</version>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>lib</outputDirectory>
+							<stripVersion>true</stripVersion>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>

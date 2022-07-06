@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Business Logic Unit Tests
+Bundle-Name: Banda Health Business Logic Tests
 Bundle-SymbolicName: org.bandahealth.idempiere.base.test;singleton:=true
 Bundle-Version: 7.1.0.qualifier
 Automatic-Module-Name: org.bandahealth.idempiere.base.test
@@ -14,19 +14,18 @@ Import-Package: com.chuboe.test.assertion,
  com.chuboe.test.model,
  com.chuboe.test.populate,
  com.chuboe.test.process,
- org.bandahealth.idempiere.base.model,
+ org.adempiere.exceptions,
  org.compiere,
  org.hamcrest,
+ org.junit,
  org.junit.jupiter.api,
  org.junit.jupiter.api.condition,
  org.junit.jupiter.api.extension,
  org.junit.jupiter.api.extension.support,
  org.junit.jupiter.api.function,
  org.junit.jupiter.api.io,
- org.junit.jupiter.api.parallel,
- org.junit,
- org.bandahealth.idempiere.base.utils,
- org.adempiere.exceptions
+ org.junit.jupiter.api.parallel
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
-Export-Package: org.bandahealth.idempiere.base.test.utils
+Export-Package: org.bandahealth.idempiere.base.test,
+ org.bandahealth.idempiere.base.test.utils
 Bundle-ActivationPolicy: lazy
