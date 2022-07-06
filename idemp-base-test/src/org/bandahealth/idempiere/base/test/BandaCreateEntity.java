@@ -4,8 +4,10 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
+import org.compiere.model.MSession;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_DiscountSchema;
+import org.compiere.util.Env;
 
 import java.sql.Timestamp;
 
@@ -129,5 +131,61 @@ public class BandaCreateEntity extends ChuBoeCreateEntity {
 		}
 
 		valueObject.setStepName(originalStepName);
+	}
+
+	/**
+	 * Some methods need to be run as the System user, even though that may not be what the user is signed in as. This
+	 * method allows that to happen and ensure the context will be reset after execution.
+	 *
+	 * @param valueObject The value object used to store all information
+	 */
+	public static void runProcessAsSystem(BandaValueObjectWrapper valueObject) {
+		// We also have to update the session, so get it first before the context changes
+		// Update the client & org
+		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
+		int currentOrgId = Env.getAD_Org_ID(Env.getCtx());
+		int currentRoleId = Env.getAD_Role_ID(Env.getCtx());
+		int currentSessionId = Env.getContextAsInt(Env.getCtx(), Env.AD_SESSION_ID);
+		Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, 0);
+		Env.setContext(Env.getCtx(), Env.AD_ORG_ID, 0);
+		Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, 0);
+
+		int currentValueObjectClientId = Env.getAD_Client_ID(valueObject.getCtx());
+		int currentValueObjectOrgId = Env.getAD_Org_ID(valueObject.getCtx());
+		int currentValueObjectRoleId = Env.getAD_Role_ID(valueObject.getCtx());
+		int currentValueObjectSessionId = Env.getContextAsInt(valueObject.getCtx(), Env.AD_SESSION_ID);
+		Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, 0);
+		Env.setContext(valueObject.getCtx(), Env.AD_ORG_ID, 0);
+		Env.setContext(valueObject.getCtx(), Env.AD_ROLE_ID, 0);
+
+		// Handle the session
+		Env.setContext(valueObject.getCtx(), Env.AD_SESSION_ID, 0);
+		MSession session = MSession.get(Env.getCtx(), true);
+		session.saveEx();
+		Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, session.get_ID());
+		Env.setContext(valueObject.getCtx(), Env.AD_SESSION_ID, session.get_ID());
+
+		try {
+			BandaCreateEntity.runProcess(valueObject);
+		} finally {
+			// Logout before resetting the context
+			session.logout();
+
+			// First, reset the value object's context (avoids overwriting the Env.getCtx() sometimes)
+			Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, currentValueObjectClientId);
+			Env.setContext(valueObject.getCtx(), Env.AD_ORG_ID, currentValueObjectOrgId);
+			Env.setContext(valueObject.getCtx(), Env.AD_ROLE_ID, currentValueObjectRoleId);
+			Env.setContext(valueObject.getCtx(), Env.AD_SESSION_ID, currentValueObjectSessionId);
+
+			// Now reset the actual environment
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, currentClientId);
+			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, currentOrgId);
+			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, currentRoleId);
+			// Now restore the old session
+			Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, currentSessionId);
+			session = MSession.get(Env.getCtx(), true);
+			session.save();
+
+		}
 	}
 }

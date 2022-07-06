@@ -226,5 +226,6 @@
 		<module>idemp-base-test</module>
 		<module>idemp-webui</module>
 		<module>idemp-rest</module>
+		<module>idemp-rest-test</module>
 	</modules>
 </project>
