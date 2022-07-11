@@ -14,8 +14,6 @@ import org.compiere.model.MPayment;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
 
-import java.math.BigDecimal;
-
 public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 	private MOrderLine_BH orderLine;
 	private MOrder_BH order;
