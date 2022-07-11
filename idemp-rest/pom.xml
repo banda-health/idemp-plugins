@@ -157,7 +157,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.parent.basedir}/idemp-rest-test/testing/tests/types</outputDirectory>
+							<outputDirectory>${project.parent.basedir}/idemp-rest-test/testing/src/types</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${project.basedir}/target/typescript-generator</directory>
