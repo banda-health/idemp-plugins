@@ -106,11 +106,31 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>cz.habarta.typescript-generator</groupId>
+				<artifactId>typescript-generator-maven-plugin</artifactId>
+				<version>2.36.1070</version>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<jsonLibrary>jackson2</jsonLibrary>
+					<classPatterns>
+						<classPattern>org.bandahealth.idempiere.rest.model.**</classPattern>
+					</classPatterns>
+					<outputKind>module</outputKind>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<id>copy-jars</id>
@@ -126,6 +146,21 @@
 									<includes>
 										<include>*SNAPSHOT.jar</include>
 									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-types</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.parent.basedir}/idemp-rest-test/testing/tests/types</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/target/typescript-generator</directory>
 								</resource>
 							</resources>
 						</configuration>

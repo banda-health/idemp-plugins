@@ -6,15 +6,14 @@ Bundle-Version: 7.1.0.qualifier
 Automatic-Module-Name: org.bandahealth.idempiere.base.test
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
- org.adempiere.plugin.utils;bundle-version="7.1.0",
- org.bandahealth.idempiere.base;bundle-version="7.1.0",
- com.chuboe.test.populate;bundle-version="7.1.0"
+ org.adempiere.plugin.utils;bundle-version="7.1.0"
 Service-Component: OSGI-INF/BandaTestFactory.xml
 Import-Package: com.chuboe.test.assertion,
  com.chuboe.test.model,
  com.chuboe.test.populate,
  com.chuboe.test.process,
  org.adempiere.exceptions,
+ org.bandahealth.idempiere.base.model,
  org.compiere,
  org.hamcrest,
  org.junit,

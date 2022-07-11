@@ -19,8 +19,18 @@ services:
       - ${IDEMPIERE_SSL_PORT}:8443
       - ${TELNET_PORT}:12612
 
-  idemp-base-tests:
+  idemp-base-test:
     build: idemp-base-test/testing
     depends_on:
       idempiere:
         condition: service_healthy
+
+  idemp-rest-test:
+    build: idemp-rest-test/testing
+    depends_on:
+      idempiere:
+        condition: service_healthy
+    environment:
+      - IDEMPIERE_USER=${IDEMPIERE_USER}
+      - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
+      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
