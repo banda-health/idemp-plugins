@@ -1,15 +1,26 @@
 package org.bandahealth.idempiere.base.test;
 
 import com.chuboe.test.populate.ChuBoeCreateEntity;
+import com.chuboe.test.populate.ChuBoePopulateVO;
+import org.adempiere.base.Core;
 import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MPInstance;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
+import org.compiere.model.MProcess;
 import org.compiere.model.MSession;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Process;
 import org.compiere.model.X_M_DiscountSchema;
+import org.compiere.process.ProcessCall;
+import org.compiere.process.ProcessInfo;
+import org.compiere.process.ProcessInfoParameter;
+import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BandaCreateEntity extends ChuBoeCreateEntity {
 
@@ -187,5 +198,74 @@ public class BandaCreateEntity extends ChuBoeCreateEntity {
 			session.save();
 
 		}
+	}
+
+	/**
+	 * This is the same as the {@link #runProcess(ChuBoePopulateVO)}, except that it sets a file to the value object
+	 * and doesn't clear the process. You must run {@link #clearReport(BandaValueObjectWrapper)} after retrieving the
+	 * generated report file.
+	 * <br/><br/>
+	 * Instructions:
+	 * <ul>
+	 *   <li>Step 1: setProcess_UU</li>
+	 *   <li>Step 2: setProcessTable_ID and setProcessRecord_ID if needed used when running a process against a given
+	 *   record - as opposed to 0,0 from the menu.</li>
+	 *   <li>Step 3: addProcessInfoParam see example below</li>
+	 * </ul>
+	 *
+	 * @param valueObject The value object used to store all information
+	 */
+	public static void runReport(BandaValueObjectWrapper valueObject) {
+		valueObject.validate();
+		if (valueObject.isError()) {
+			return;
+		}
+
+		//further validation
+		if (valueObject.getProcessInfoParams() == null)
+			valueObject.appendErrorMsg("Parameter List is null - It should at least be an empty List");
+		else if (valueObject.getProcess_UU() == null)
+			valueObject.appendErrorMsg("Process UU is null - cannot look up process");
+		if (valueObject.isError())
+			return;
+
+		MProcess process = new Query(Env.getCtx(), X_AD_Process.Table_Name,
+				"AD_Process_UU=?", valueObject.get_trxName()).setParameters(valueObject.getProcess_UU()).first();
+
+		// Create a process info instance. This is a composite class containing the parameters.
+		ProcessInfo processInfo =
+				new ProcessInfo("", process.get_ID(), valueObject.getProcessTable_ID(), valueObject.getProcessRecord_ID());
+		processInfo.setIsBatch(true);
+		processInfo.setExport(true);
+		processInfo.setReportType("PDF");
+		processInfo.setExportFileExtension("pdf");
+
+		List<ProcessInfoParameter> params = valueObject.getProcessInfoParams();
+		if (!params.isEmpty()) {
+			processInfo.setParameter(valueObject.getProcessInfoParams().toArray(new ProcessInfoParameter[params.size()]));
+		}
+
+		// Create process instance (mainly for logging/sync purpose)
+		MPInstance mpi = new MPInstance(Env.getCtx(), process.get_ID(), valueObject.getProcessRecord_ID());
+		mpi.saveEx();
+
+		// Connect the process to the process instance.
+		processInfo.setAD_PInstance_ID(mpi.get_ID());
+
+		ServerProcessCtl.process(processInfo, null);
+
+		if (processInfo.getExportFile() == null) {
+			valueObject.appendErrorMsg("Report Generation Failed: " + process.getClassname());
+		}
+
+		valueObject.setReport(processInfo.getExportFile());
+	}
+
+	public static void clearReport(BandaValueObjectWrapper valueObject) {
+		valueObject.setProcess_UU(null);
+		valueObject.setProcessInfoParams(new ArrayList<ProcessInfoParameter>());
+		valueObject.setProcessRecord_ID(0);
+		valueObject.setProcessTable_ID(0);
+		valueObject.setReport(null);
 	}
 }
