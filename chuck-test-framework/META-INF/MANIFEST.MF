@@ -31,6 +31,7 @@ Bundle-ClassPath: .,
  lib/hamcrest.jar,
  lib/junit-jupiter-api.jar
 Import-Package: org.compiere.process,
- org.compiere
+ org.compiere,
+ org.adempiere.base
 Automatic-Module-Name: com.chuboe.test.populate
 Bundle-ActivationPolicy: lazy

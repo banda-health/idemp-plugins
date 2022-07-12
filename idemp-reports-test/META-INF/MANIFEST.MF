@@ -1,13 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Banda Health Business Logic Tests
-Bundle-SymbolicName: org.bandahealth.idempiere.base.test;singleton:=true
+Bundle-Name: Banda Health Report Tests
+Bundle-SymbolicName: org.bandahealth.idempiere.report.test;singleton:=true
 Bundle-Version: 7.1.0.qualifier
-Automatic-Module-Name: org.bandahealth.idempiere.base.test
+Automatic-Module-Name: org.bandahealth.idempiere.report.test
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
- org.adempiere.plugin.utils;bundle-version="7.1.0"
-Service-Component: OSGI-INF/BandaTestFactory.xml
+ org.adempiere.plugin.utils;bundle-version="7.1.0",
+ org.bandahealth.idempiere.base;bundle-version="7.1.0"
+Service-Component: OSGI-INF/BandaReportTestFactory.xml
 Import-Package: com.chuboe.test.assertion,
  com.chuboe.test.model,
  com.chuboe.test.populate,
@@ -24,8 +25,11 @@ Import-Package: com.chuboe.test.assertion,
  org.junit.jupiter.api.function,
  org.junit.jupiter.api.io,
  org.junit.jupiter.api.parallel,
- org.adempiere.base
+ org.adempiere.base,
+ org.bandahealth.idempiere.base.test
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
-Export-Package: org.bandahealth.idempiere.base.test,
- org.bandahealth.idempiere.base.test.utils
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,
+ lib/pdfbox.jar,
+ lib/commons-logging.jar,
+ lib/fontbox.jar

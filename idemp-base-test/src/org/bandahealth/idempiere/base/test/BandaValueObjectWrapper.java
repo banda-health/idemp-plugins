@@ -14,6 +14,8 @@ import org.compiere.model.MPayment;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
 
+import java.io.File;
+
 public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 	private MOrderLine_BH orderLine;
 	private MOrder_BH order;
@@ -21,6 +23,7 @@ public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 	private MInvoice_BH invoice;
 	private MBPartner_BH businessPartner;
 	private Boolean areRefreshing = false;
+	private File report;
 
 	public MOrderLine_BH getOrderLineBH() {
 		if (orderLine == null) {
@@ -160,5 +163,13 @@ public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 		}
 
 		areRefreshing = false;
+	}
+
+	public File getReport() {
+		return report;
+	}
+
+	public void setReport(File report) {
+		this.report = report;
 	}
 }

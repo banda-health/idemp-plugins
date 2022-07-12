@@ -34,3 +34,9 @@ services:
       - IDEMPIERE_USER=${IDEMPIERE_USER}
       - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+
+  idemp-reports-test:
+    build: idemp-reports-test/testing
+    depends_on:
+      idempiere:
+        condition: service_healthy
