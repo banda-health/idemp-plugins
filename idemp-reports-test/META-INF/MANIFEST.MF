@@ -32,4 +32,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/pdfbox.jar,
  lib/commons-logging.jar,
- lib/fontbox.jar
+ lib/fontbox.jar,
+ lib/hamcrest.jar,
+ lib/junit-jupiter-api.jar
