@@ -1,4 +1,5 @@
 **/target
+**/lib
 idemp-rest/WEB-INF/lib/
 idemp-base-test/lib/
 
