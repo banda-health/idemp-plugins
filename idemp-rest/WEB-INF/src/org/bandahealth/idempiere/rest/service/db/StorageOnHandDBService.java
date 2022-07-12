@@ -42,7 +42,8 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
-		// LinkedCaseInsensitiveMap is needed for case insensitive keys. Allows the sort/filter object to have case insensitive tables.. 
+		// LinkedCaseInsensitiveMap is needed for case insensitive keys. Allows the sort/filter object to have case
+		// insensitive tables..
 		return new LinkedCaseInsensitiveMap<>() {
 			{
 				put(MAttributeSetInstance_BH.Table_Name,
@@ -188,8 +189,12 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 			whereClause += " AND (" + EXPIRE_WHERE_CLAUSE + ")";
 		}
 
-		return new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null)
-				.addJoinClause(getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name)).setParameters(productId)
+		// Make sure the Junk Lot isn't included
+		whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "!=?";
+
+		return new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null).addJoinClause(
+						getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name))
+				.setParameters(productId, MAttributeSetInstance_BH.ATTRIBUTESETINSTANCEID_JUNK_LOT)
 				.sum(MStorageOnHand.COLUMNNAME_QtyOnHand);
 	}
 
