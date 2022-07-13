@@ -151,7 +151,7 @@ public class MInvoice_BH extends MInvoice {
 		if (getBH_IsExpense()) {
 			//	Create Payment
 			createExpensePayment(info);
-		} else if (isSOTrx()) {
+		} else if (isSOTrx() && getC_Order_ID() > 0) {
 			createPatientBillPayments(info);
 		}
 		// iDemp auto-creates payments if the payment rule is cash, so change this invoice's payment type

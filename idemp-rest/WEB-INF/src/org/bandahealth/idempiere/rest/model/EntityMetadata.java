@@ -12,8 +12,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(value = Include.NON_NULL)
 public class EntityMetadata {
 
-	private List<PaymentType> orderPaymentTypes;
-	private List<PaymentType> invoicePaymentTypes;
 	private List<PatientType> patientTypes;
 	private List<NHIFType> nhifTypes;
 	private List<NHIFRelationship> nhifRelationships;
@@ -23,8 +21,6 @@ public class EntityMetadata {
 	private List<ReferenceList> documentStatuses;
 
 	public EntityMetadata() {
-		orderPaymentTypes = new ArrayList<>();
-		invoicePaymentTypes = new ArrayList<>();
 		patientTypes = new ArrayList<>();
 		nhifTypes = new ArrayList<>();
 		nhifRelationships = new ArrayList<>();
@@ -32,22 +28,6 @@ public class EntityMetadata {
 		productCategoryTypes = new ArrayList<>();
 		processStageList = new ArrayList<>();
 		documentStatuses = new ArrayList<>();
-	}
-
-	public List<PaymentType> getOrderPaymentTypes() {
-		return orderPaymentTypes;
-	}
-
-	public void setOrderPaymentTypes(List<PaymentType> orderPaymentTypes) {
-		this.orderPaymentTypes = orderPaymentTypes;
-	}
-
-	public List<PaymentType> getInvoicePaymentTypes() {
-		return invoicePaymentTypes;
-	}
-
-	public void setInvoicePaymentTypes(List<PaymentType> invoicePaymentTypes) {
-		this.invoicePaymentTypes = invoicePaymentTypes;
 	}
 
 	public List<PatientType> getPatientTypes() {
@@ -108,14 +88,6 @@ public class EntityMetadata {
 
 	public void addPatientType(PatientType entity) {
 		patientTypes.add(entity);
-	}
-
-	public void addOrderPaymentType(PaymentType entity) {
-		orderPaymentTypes.add(entity);
-	}
-
-	public void addInvoicePaymentType(PaymentType entity) {
-		invoicePaymentTypes.add(entity);
 	}
 
 	public void addNHIFType(NHIFType entity) {

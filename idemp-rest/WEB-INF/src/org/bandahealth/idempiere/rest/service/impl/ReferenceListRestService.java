@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.impl;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
+import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.ReferenceListDBService;
+import org.compiere.model.MRefList;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
@@ -18,10 +20,15 @@ import java.util.stream.Collectors;
 @Path(IRestConfigs.REFERENCE_LISTS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ReferenceListRestService {
+public class ReferenceListRestService extends BaseRestService<ReferenceList, MRefList, ReferenceListDBService> {
 
 	@Autowired
 	private ReferenceListDBService dataService;
+
+	@Override
+	protected ReferenceListDBService getDBService() {
+		return dataService;
+	}
 
 	@GET
 	@Path("/documentActionAccess")

@@ -7,6 +7,8 @@ import java.util.Properties;
 
 public class MAttributeSetInstance_BH extends MAttributeSetInstance {
 
+	public static final int ATTRIBUTESETINSTANCEID_JUNK_LOT = 0;
+
 	/**
 	 * Column name bh_update_reason
 	 */
