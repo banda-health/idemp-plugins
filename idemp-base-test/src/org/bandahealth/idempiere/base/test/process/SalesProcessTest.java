@@ -16,7 +16,7 @@ import static org.bandahealth.idempiere.base.test.utils.AsyncUtil.waitFor;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SalesProcessTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRunBeforeClass
@@ -74,12 +74,12 @@ public class SalesProcessTest extends ChuBoePopulateFactoryVO {
 
 		waitFor(() -> {
 			valueObject.refresh();
-			assertTrue("Order is completed", valueObject.getOrder().isComplete());
+			assertTrue(valueObject.getOrder().isComplete(), "Order is completed");
 			MInvoice_BH invoice =
 					new Query(valueObject.getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
 							valueObject.get_trxName()).setParameters(valueObject.getOrder().get_ID()).first();
-			assertTrue("Invoice is completed", invoice.isComplete());
-			assertTrue("Payment is completed", valueObject.getPayment().isComplete());
+			assertTrue(invoice.isComplete(), "Invoice is completed");
+			assertTrue(valueObject.getPayment().isComplete(), "Payment is completed");
 		});
 	}
 }

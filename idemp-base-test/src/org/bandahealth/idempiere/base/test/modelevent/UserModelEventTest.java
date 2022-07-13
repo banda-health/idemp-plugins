@@ -14,9 +14,9 @@ import org.compiere.model.Query;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 
@@ -53,10 +53,10 @@ public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Reload the patient's details");
 		boolean reload = patient.load(valueObject.get_trxName());
 
-		assertTrue("Should reload Business Partner", reload);
-		assertNotNull("User should not be null", user);
-		assertEquals("Business Partner should have a birthday", user.getBirthday(), patient.getBH_Birthday());
-		assertEquals("Business Partner should have an email", user.getEMail(), patient.getBH_EMail());
-		assertEquals("Business Partner should have a phone", user.getPhone(), patient.getBH_Phone());
+		assertTrue(reload, "Should reload Business Partner");
+		assertNotNull(user, "User should not be null");
+		assertEquals(user.getBirthday(), patient.getBH_Birthday(), "Business Partner should have a birthday");
+		assertEquals(user.getEMail(), patient.getBH_EMail(), "Business Partner should have an email");
+		assertEquals(user.getPhone(), patient.getBH_Phone(), "Business Partner should have a phone");
 	}
 }

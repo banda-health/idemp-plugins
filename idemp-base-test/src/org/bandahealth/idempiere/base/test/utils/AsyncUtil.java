@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.base.test.utils;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * This class contains utilities to help handle any asynchronous testing

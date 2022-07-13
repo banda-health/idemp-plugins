@@ -14,9 +14,9 @@ import org.compiere.process.DocumentEngine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 	private BandaValueObjectWrapper valueObject;
@@ -59,7 +59,7 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 	public void materialReceiptIsCreatedWhenReceiveAnOrder() throws Exception {
 		MOrderLine_BH orderLine = valueObject.getOrderLineBH();
 
-		assertNotNull("Receive Product Order Line should not be null", orderLine);
+		assertNotNull(orderLine, "Receive Product Order Line should not be null");
 
 		valueObject.getOrderBH().setDocAction(MOrder_BH.DOCACTION_Complete);
 		assertTrue(valueObject.getOrderBH().processIt(MOrder_BH.DOCACTION_Complete));
@@ -69,9 +69,9 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 
 		MInOut inOut = new Query(valueObject.getCtx(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?",
 				valueObject.get_trxName()).setParameters(valueObject.getOrderBH().get_ID()).first();
-		assertNotNull("MInOut should not be null", inOut);
+		assertNotNull(inOut, "MInOut should not be null");
 
 		assertEquals(MInOut.MOVEMENTTYPE_VendorReceipts, inOut.getMovementType());
-		assertEquals("CO", inOut.getDocStatus());
+		assertEquals(DocumentEngine.STATUS_Completed, inOut.getDocStatus());
 	}
 }
