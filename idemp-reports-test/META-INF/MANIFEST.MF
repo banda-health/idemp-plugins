@@ -16,15 +16,6 @@ Import-Package: com.chuboe.test.assertion,
  org.adempiere.exceptions,
  org.bandahealth.idempiere.base.model,
  org.compiere,
- org.hamcrest,
- org.junit,
- org.junit.jupiter.api,
- org.junit.jupiter.api.condition,
- org.junit.jupiter.api.extension,
- org.junit.jupiter.api.extension.support,
- org.junit.jupiter.api.function,
- org.junit.jupiter.api.io,
- org.junit.jupiter.api.parallel,
  org.adempiere.base,
  org.bandahealth.idempiere.base.test
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
@@ -34,4 +25,6 @@ Bundle-ClassPath: .,
  lib/commons-logging.jar,
  lib/fontbox.jar,
  lib/hamcrest.jar,
- lib/junit-jupiter-api.jar
+ lib/junit-jupiter-api.jar,
+ lib/opentest4j.jar,
+ lib/junit-platform-commons.jar

@@ -16,8 +16,8 @@ import org.compiere.model.X_M_Product;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ProductModelEventTest extends ChuBoePopulateFactoryVO {
 
@@ -45,14 +45,14 @@ public class ProductModelEventTest extends ChuBoePopulateFactoryVO {
 		product.saveEx();
 		commitEx();
 
-		assertEquals("Should have a buying price", 1, product.getBH_BuyPrice().compareTo(BigDecimal.ZERO));
-		assertEquals("Should have a selling price", 1, product.getBH_SellPrice().compareTo(BigDecimal.ZERO));
+		assertEquals(1, product.getBH_BuyPrice().compareTo(BigDecimal.ZERO), "Should have a buying price");
+		assertEquals(1, product.getBH_SellPrice().compareTo(BigDecimal.ZERO), "Should have a selling price");
 
 		MProductPrice productPrice = new Query(valueObject.getCtx(), MProductPrice.Table_Name,
 				MProductPrice.COLUMNNAME_M_Product_ID + "=? AND " + MProductPrice.COLUMNNAME_M_PriceList_Version_ID + "=?",
 				valueObject.get_trxName()).setParameters(product.get_ID(),
 				valueObject.getPriceListSO().getPriceListVersion(new Timestamp(System.currentTimeMillis())).get_ID()).first();
 
-		assertNotNull("Should have a product price", productPrice);
+		assertNotNull(productPrice, "Should have a product price");
 	}
 }

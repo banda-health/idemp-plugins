@@ -293,10 +293,10 @@ public class DoChuBoePopulate extends SvrProcess {
 
 				addLog((didErrorOccurForThisTest ? "FAIL " : "PASS ") + pop.getClass().getSimpleName() + " (" +
 						decimalFormat.format((double) testDuration / 1000D) + ")");
-				if (totalErrors != 0) {
-					String[] responseLines = pop_response.getName().split(MChuBoePopulateResponse.NOTE_SEPARATOR);
+				if (didErrorOccurForThisTest) {
+					String[] responseLines = pop_response.getNote().split(MChuBoePopulateResponse.NOTE_SEPARATOR);
 					for (String responseLine : responseLines) {
-						addLog(responseLine);
+						addLog("----" + responseLine);
 					}
 				}
 			} //List Iterator of classes

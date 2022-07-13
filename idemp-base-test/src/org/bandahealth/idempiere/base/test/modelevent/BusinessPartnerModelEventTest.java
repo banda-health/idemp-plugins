@@ -11,8 +11,8 @@ import org.compiere.model.MUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class BusinessPartnerModelEventTest extends ChuBoePopulateFactoryVO {
 
@@ -31,16 +31,16 @@ public class BusinessPartnerModelEventTest extends ChuBoePopulateFactoryVO {
 		patient.setBH_IsPatient(true); // the model event currently uses this
 		patient.saveEx();
 
-		assertTrue("Is Patient? ", patient.isCustomer());
+		assertTrue(patient.isCustomer(), "Is Patient?");
 		assertThat("Should have an Invoice Rule: ", patient.getInvoiceRule(), is(MOrder.INVOICERULE_Immediate));
 		assertThat("Should have a Payment Rule: ", patient.getPaymentRule(), is(MOrder.PAYMENTRULE_Cash));
 
 		// should have a user contact
 		MUser user = new MUser(patient);
-		assertNotNull("Should have a user contact ", user);
+		assertNotNull(user, "Should have a user contact ");
 
 		// should have a location
 		MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(patient);
-		assertNotNull("Should have a location ", businessPartnerLocation);
+		assertNotNull(businessPartnerLocation, "Should have a location ");
 	}
 }

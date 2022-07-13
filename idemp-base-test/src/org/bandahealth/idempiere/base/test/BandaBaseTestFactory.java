@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.test.modelevent.OrderModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.PaymentModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.ProductModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.UserModelEventTest;
+import org.bandahealth.idempiere.base.test.process.InitialBandaClientSetupTest;
 import org.bandahealth.idempiere.base.test.process.SalesProcessTest;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class BandaBaseTestFactory implements IChuBoePopulateFactory {
 		tests.add(new UserModelEventTest());
 
 		// Processes
+		tests.add(new InitialBandaClientSetupTest());
 		tests.add(new SalesProcessTest());
 
 		return tests;

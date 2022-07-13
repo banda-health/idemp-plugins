@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.rest.test;
 
+import com.chuboe.test.assertion.ChuBoeAssert;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.test.BandaCreateEntity;
 import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 
@@ -39,21 +39,21 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 			valueObject.setProcessRecord_ID(0);
 			valueObject.setProcessTable_ID(0);
 			valueObject.setProcessInfoParams(List.of(
-					new ProcessInfoParameter("ClientName", "Rest Test Client", "", "", ""),
-					new ProcessInfoParameter("C_Currency_ID", 266, "", "", ""), // KES
-					new ProcessInfoParameter("IsSetInitialPassword", "Y", "", "", ""),
-					new ProcessInfoParameter("C_Country_ID", 219, "", "", ""), // Kenya
-					new ProcessInfoParameter("CityName", "Nairobi", "", "", ""),
-					new ProcessInfoParameter("IsUseBPDimension", "Y", "", "", ""),
-					new ProcessInfoParameter("IsUseProductDimension", "Y", "", "", ""),
-					new ProcessInfoParameter("IsUseProjectDimension", "N", "", "", ""),
-					new ProcessInfoParameter("IsUseCampaignDimension", "N", "", "", ""),
-					new ProcessInfoParameter("IsUseSalesRegionDimension", "N", "", "", ""),
-					new ProcessInfoParameter("ClientLevel", "B", "", "", ""), // Basic CoA
-					new ProcessInfoParameter("IsUsingCashBox", "Y", "", "", ""),
-					new ProcessInfoParameter("IsUsingMobile", "Y", "", "", ""),
-					new ProcessInfoParameter("IsUsingSavings", "Y", "", "", ""),
-					new ProcessInfoParameter("InactivateDefaults", "N", "", "", "")
+					new ProcessInfoParameter("ClientName", "Rest Test Client", null, null, null),
+					new ProcessInfoParameter("C_Currency_ID", 266, null, null, null), // KES
+					new ProcessInfoParameter("IsSetInitialPassword", "Y", null, null, null),
+					new ProcessInfoParameter("C_Country_ID", 219, null, null, null), // Kenya
+					new ProcessInfoParameter("CityName", "Nairobi", null, null, null),
+					new ProcessInfoParameter("IsUseBPDimension", "Y", null, null, null),
+					new ProcessInfoParameter("IsUseProductDimension", "Y", null, null, null),
+					new ProcessInfoParameter("IsUseProjectDimension", "N", null, null, null),
+					new ProcessInfoParameter("IsUseCampaignDimension", "N", null, null, null),
+					new ProcessInfoParameter("IsUseSalesRegionDimension", "N", null, null, null),
+					new ProcessInfoParameter("ClientLevel", "B", null, null, null), // Basic CoA
+					new ProcessInfoParameter("IsUsingCashBox", "Y", null, null, null),
+					new ProcessInfoParameter("IsUsingMobile", "Y", null, null, null),
+					new ProcessInfoParameter("IsUsingSavings", "Y", null, null, null),
+					new ProcessInfoParameter("InactivateDefaults", "N", null, null, null)
 			));
 
 			BandaCreateEntity.runProcessAsSystem(valueObject);
@@ -77,5 +77,6 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		// PO.clearCrossTenantSafe();
 
 		assertNotNull(testClient);
+		ChuBoeAssert.executeSQLAsserts(getAssertionSQL(), valueObject.getCtx(), valueObject.get_trxName());
 	}
 }

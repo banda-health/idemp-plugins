@@ -10,8 +10,8 @@ import org.compiere.model.MOrder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRunBeforeClass
@@ -47,9 +47,9 @@ public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 
 		MOrder order = valueObject.getOrder();
 
-		assertTrue("Should have Sales Rep", order.getSalesRep_ID() > 0);
-		assertTrue("Should have DocType", order.getDocTypeID() > 0);
-		assertTrue("Should have DocTypeTarget", order.getC_DocTypeTarget_ID() > 0);
-		assertEquals("Should have similar DocType and DocTypeTarget", order.getDocTypeID(), order.getC_DocTypeTarget_ID());
+		assertTrue(order.getSalesRep_ID() > 0, "Should have Sales Rep");
+		assertTrue(order.getDocTypeID() > 0, "Should have DocType");
+		assertTrue(order.getC_DocTypeTarget_ID() > 0, "Should have DocTypeTarget");
+		assertEquals(order.getDocTypeID(), order.getC_DocTypeTarget_ID(), "Should have similar DocType and DocTypeTarget");
 	}
 }

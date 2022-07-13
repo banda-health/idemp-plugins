@@ -11,9 +11,9 @@ import org.compiere.process.DocumentEngine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PaymentModelEventTest extends ChuBoePopulateFactoryVO {
 	private BandaValueObjectWrapper valueObject;
@@ -70,12 +70,12 @@ public class PaymentModelEventTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.refresh();
 
-		assertNotNull("Payment should not be null", valueObject.getPaymentBH());
-		assertTrue("Should have an Order", valueObject.getPaymentBH().getBH_C_Order_ID() > 0);
-		assertTrue("Should have a DocType", valueObject.getPaymentBH().getC_DocType_ID() > 0);
-		assertTrue("Should be a receipt", valueObject.getPaymentBH().isReceipt());
-		assertEquals("Should have the same business partner as the order", valueObject.getPaymentBH().getC_BPartner_ID(),
-				valueObject.getOrder().getC_BPartner_ID());
-		assertEquals("Should NOT have an invoice", 0, valueObject.getPaymentBH().getC_Invoice_ID());
+		assertNotNull(valueObject.getPaymentBH(), "Payment should not be null");
+		assertTrue(valueObject.getPaymentBH().getBH_C_Order_ID() > 0, "Should have an Order");
+		assertTrue(valueObject.getPaymentBH().getC_DocType_ID() > 0, "Should have a DocType");
+		assertTrue(valueObject.getPaymentBH().isReceipt(), "Should be a receipt");
+		assertEquals(valueObject.getPaymentBH().getC_BPartner_ID(), valueObject.getOrder().getC_BPartner_ID(),
+				"Should have the same business partner as the order");
+		assertEquals(0, valueObject.getPaymentBH().getC_Invoice_ID(), "Should NOT have an invoice");
 	}
 }
