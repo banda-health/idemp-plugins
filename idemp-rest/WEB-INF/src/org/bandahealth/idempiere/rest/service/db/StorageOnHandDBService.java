@@ -190,7 +190,8 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 		}
 
 		// Make sure the Junk Lot isn't included
-		whereClause += " AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "!=?";
+		whereClause +=
+				" AND " + MStorageOnHand.Table_Name + "." + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "!=?";
 
 		return new Query(Env.getCtx(), MStorageOnHand.Table_Name, whereClause, null).addJoinClause(
 						getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name))

@@ -434,11 +434,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			if (!productIds.isEmpty()) {
 				String joinedProductIds =
 						String.join(",", productIds.stream().map(String::valueOf).collect(Collectors.toSet()));
-				costSql.append(",?");
+				costSql.append(",?)");
 				parameters.add(joinedProductIds);
 			}
 			if (!attributeSetInstanceIds.isEmpty()) {
-				costSql.append(") WHERE ");
+				costSql.append(" WHERE ");
 				String attributeSetInstanceWhereClause =
 						QueryUtil.getWhereClauseAndSetParametersForSet(attributeSetInstanceIds, parameters);
 				costSql.append("m_attributesetinstance_id IN (").append(attributeSetInstanceWhereClause).append(")");
