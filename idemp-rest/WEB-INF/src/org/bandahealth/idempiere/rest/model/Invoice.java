@@ -33,6 +33,7 @@ public class Invoice extends BaseMetadata {
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
+	private String invoiceType;
 
 	public Invoice() {
 	}
@@ -47,6 +48,7 @@ public class Invoice extends BaseMetadata {
 		description = entity.getDescription();
 		paymentRule = entity.getPaymentRule();
 		docStatus = entity.getDocStatus();
+		invoiceType = entity.getBH_InvoiceType();
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -117,6 +119,10 @@ public class Invoice extends BaseMetadata {
 
 	public void setIsExpense(Boolean isExpense) {
 		this.isExpense = isExpense;
+		
+		if (isExpense) {
+			setInvoiceType(MInvoice_BH.EXPENSE_InvoiceType);
+		}
 	}
 
 	@XmlElement
@@ -169,5 +175,13 @@ public class Invoice extends BaseMetadata {
 
 	public void setDateInvoicedCreated(Timestamp dateInvoicedCreated) {
 		this.dateInvoicedCreated = dateInvoicedCreated;
+	}
+
+	public String getInvoiceType() {
+		return invoiceType;
+	}
+
+	public void setInvoiceType(String invoiceType) {
+		this.invoiceType = invoiceType;
 	}
 }
