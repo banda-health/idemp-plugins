@@ -2,16 +2,20 @@ package org.bandahealth.idempiere.base.test;
 
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MPayment;
 import org.compiere.model.MPriceList;
+import org.compiere.model.MProduct;
 import org.compiere.model.Query;
 
 import java.io.File;
@@ -22,8 +26,27 @@ public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 	private MPayment_BH payment;
 	private MInvoice_BH invoice;
 	private MBPartner_BH businessPartner;
+	private MProduct_BH product;
 	private Boolean areRefreshing = false;
 	private File report;
+	private MInventory_BH inventory;
+	private MInventoryLine_BH inventoryLine;
+
+	public MInventory_BH getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(MInventory_BH inventory) {
+		this.inventory = inventory;
+	}
+
+	public MInventoryLine_BH getInventoryLine() {
+		return inventoryLine;
+	}
+
+	public void setInventoryLine(MInventoryLine_BH inventoryLine) {
+		this.inventoryLine = inventoryLine;
+	}
 
 	public MOrderLine_BH getOrderLineBH() {
 		if (orderLine == null) {
@@ -73,6 +96,16 @@ public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 			}
 		}
 		return businessPartner;
+	}
+
+	public MProduct_BH getProductBH() {
+		if (product == null) {
+			if (getProduct() != null) {
+				product = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_ID + "=?",
+						get_trxName()).setParameters(getProduct().get_ID()).first();
+			}
+		}
+		return product;
 	}
 
 	@Override
@@ -130,6 +163,15 @@ public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 		}
 	}
 
+	@Override
+	public void setProduct(MProduct m_product) {
+		super.setProduct(m_product);
+		if (!areRefreshing) {
+			product = null;
+			getProductBH();
+		}
+	}
+
 	/**
 	 * A method to refresh a few properties on the value object.
 	 */
@@ -160,6 +202,11 @@ public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 			businessPartner = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=?",
 					get_trxName()).setParameters(getBP().get_ID()).first();
 			setBP(businessPartner);
+		}
+		if (getProduct() != null) {
+			product = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_ID + "=?",
+					get_trxName()).setParameters(getProduct().get_ID()).first();
+			setProduct(product);
 		}
 
 		areRefreshing = false;
