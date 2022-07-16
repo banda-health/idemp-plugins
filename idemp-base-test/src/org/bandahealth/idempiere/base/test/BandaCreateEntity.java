@@ -2,17 +2,23 @@ package org.bandahealth.idempiere.base.test;
 
 import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateVO;
-import org.adempiere.base.Core;
+import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MInOut;
+import org.compiere.model.MInOutLine;
+import org.compiere.model.MOrderLine;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProcess;
 import org.compiere.model.MSession;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Process;
+import org.compiere.model.X_C_Order;
 import org.compiere.model.X_M_DiscountSchema;
-import org.compiere.process.ProcessCall;
+import org.compiere.model.X_M_InOut;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
@@ -264,9 +270,130 @@ public class BandaCreateEntity extends ChuBoeCreateEntity {
 
 	public static void clearReport(BandaValueObjectWrapper valueObject) {
 		valueObject.setProcess_UU(null);
-		valueObject.setProcessInfoParams(new ArrayList<ProcessInfoParameter>());
+		valueObject.setProcessInfoParams(new ArrayList<>());
 		valueObject.setProcessRecord_ID(0);
 		valueObject.setProcessTable_ID(0);
 		valueObject.setReport(null);
+	}
+
+	/**
+	 * Create an inventory record
+	 *
+	 * @param valueObject The value object used to store all information
+	 */
+	public static void createInventory(BandaValueObjectWrapper valueObject) {
+		valueObject.validate();
+		if (valueObject.isError()) {
+			return;
+		}
+
+		// perform further validation if needed based on business logic
+		if (valueObject.getDocType() == null) {
+			valueObject.appendErrorMsg("DocType is Null");
+			return;
+		} else if (valueObject.getBP() == null) {
+			valueObject.appendErrorMsg("BP is Null");
+			return;
+		} else if (valueObject.getWarehouse() == null) {
+			valueObject.appendErrorMsg("Warehouse is Null");
+			return;
+		}
+
+		// create inventory header
+		MInventory_BH inventory = new MInventory_BH(valueObject.getCtx(), 0, valueObject.get_trxName());
+		inventory.setAD_Org_ID(valueObject.getOrg().get_ID());
+		inventory.setDescription(valueObject.getStepMsgLong());
+		inventory.setC_DocType_ID(valueObject.getDocType().get_ID());
+		inventory.setM_Warehouse_ID(valueObject.getWarehouse().get_ID());
+		inventory.saveEx();
+		valueObject.setInventory(inventory);
+
+		// create inventory line
+		MInventoryLine_BH inventoryLine = new MInventoryLine_BH(valueObject.getCtx(), 0, valueObject.get_trxName());
+		inventoryLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		inventoryLine.setDescription(valueObject.getStepMsgLong());
+		inventoryLine.setM_Inventory_ID(inventory.get_ID());
+		inventoryLine.setM_Product_ID(valueObject.getProduct().get_ID());
+		inventoryLine.setM_AttributeSetInstance_ID(0);
+		inventoryLine.setM_Locator_ID(valueObject.getWarehouse().getDefaultLocator().get_ID());
+		if (valueObject.getQty() == null || valueObject.getQty().compareTo(Env.ZERO) == 0) {
+			inventoryLine.setQtyCount(Env.ONE);
+		} else {
+			inventoryLine.setQtyCount(valueObject.getQty());
+		}
+
+		// Set the quantity on the book from m_storageonhand
+		inventoryLine.setQtyBook(new Query(valueObject.getCtx(), MStorageOnHand.Table_Name,
+				MStorageOnHand.COLUMNNAME_M_Product_ID + "=? AND " + MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID +
+						"=? AND " + MStorageOnHand.COLUMNNAME_M_Locator_ID + "=?", valueObject.get_trxName()).setOnlyActiveRecords(
+						true).setParameters(valueObject.getProduct().get_ID(), 0, inventoryLine.getM_Locator_ID())
+				.sum(MStorageOnHand.COLUMNNAME_QtyOnHand));
+
+		inventoryLine.saveEx();
+		valueObject.setInventoryLine(inventoryLine);
+
+		if (valueObject.getDocAction() != null) {
+			if (valueObject.getLog() != null) {
+				valueObject.getLog().fine("Starting DocAction: " + valueObject.getDocAction());
+			}
+			inventory.setDocAction(valueObject.getDocAction());
+			inventory.processIt(valueObject.getDocAction());
+		}
+		if (valueObject.getLog() != null) {
+			valueObject.getLog().fine("Saving inventory after completion. Doc Status: " + inventory.getDocStatus());
+		}
+		inventory.saveEx();
+	}
+
+	/**
+	 * This creates an InOut record based on the order. This will not call
+	 * {@link BandaValueObjectWrapper#setInOutLine(MInOutLine)} since an order might have several lines
+	 *
+	 * @param valueObject The value object used to store all information
+	 */
+	public static void createInOutFromOrder(BandaValueObjectWrapper valueObject) {
+		valueObject.validate();
+		if (valueObject.isError()) {
+			return;
+		}
+
+		//perform further validation if needed based on business logic
+		if (valueObject.getDocType() == null) {
+			valueObject.appendErrorMsg("DocType is Null");
+			return;
+		} else if (valueObject.getBP() == null) {
+			valueObject.appendErrorMsg("BP is Null");
+			return;
+		} else if (valueObject.getWarehouse() == null) {
+			valueObject.appendErrorMsg("Warehouse is Null");
+			return;
+		} else if (!valueObject.getOrder().getDocStatus().equals(X_C_Order.DOCSTATUS_Completed)) {
+			valueObject.appendErrorMsg("Order Not Completed");
+			return;
+		}
+
+		MInOut inOut = new MInOut(valueObject.getOrder(), valueObject.getDocType().get_ID(), valueObject.getDate());
+
+		inOut.setMovementType(valueObject.getDocType().isSOTrx() ? X_M_InOut.MOVEMENTTYPE_CustomerShipment :
+				X_M_InOut.MOVEMENTTYPE_VendorReceipts);
+		inOut.saveEx();
+		valueObject.setInOut(inOut);
+
+		// add lines if any
+		MOrderLine[] orderLines = valueObject.getOrder().getLines(true, "M_Product_ID");
+		if (orderLines.length > 0) {
+			for (MOrderLine orderLine : orderLines) {
+				MInOutLine line = new MInOutLine(inOut);
+				line.setOrderLine(orderLine, valueObject.getWarehouse().getDefaultLocator().get_ID(), Env.ZERO);
+				line.setQty(orderLine.getQtyOrdered());
+				line.saveEx(valueObject.get_trxName());
+			}
+		}
+
+		if (valueObject.getDocAction() != null) {
+			inOut.setDocAction(valueObject.getDocAction());
+			inOut.processIt(valueObject.getDocAction());
+		}
+		inOut.saveEx();
 	}
 }
