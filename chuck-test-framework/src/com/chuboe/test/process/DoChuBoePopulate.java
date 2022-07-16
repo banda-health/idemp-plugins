@@ -33,6 +33,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -59,7 +60,8 @@ import com.chuboe.test.populate.IPopulateAnnotation.Skip;
 public class DoChuBoePopulate extends SvrProcess {
 
 	int m_loopCount = 1;
-	String packageFilter = null;
+	String classFilter = null;
+	String testNameFilter = null;
 
 	public static List<ChuBoePopulateFactoryVO> getPopulators() {
 		List<IChuBoePopulateFactory> factories = Service.locator().list(IChuBoePopulateFactory.class).getServices();
@@ -80,8 +82,10 @@ public class DoChuBoePopulate extends SvrProcess {
 			String name = para.getParameterName();
 			if (name.equals("ChuBoe_Process_Loop_Count")) {
 				m_loopCount = para.getParameterAsInt();
-			} else if (name.equals("ChuBoe_Process_Package_Filter")) {
-				packageFilter = para.getParameterAsString();
+			} else if (name.equals("ChuBoe_Process_Class_Filter")) {
+				classFilter = para.getParameterAsString();
+			} else if (name.equals("ChuBoe_Process_TestNameFilter")) {
+				testNameFilter = para.getParameterAsString();
 			} else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -112,15 +116,16 @@ public class DoChuBoePopulate extends SvrProcess {
 		}
 
 		// Filter the packages, if need be
-		if (packageFilter != null && !packageFilter.isEmpty()) {
-			String[] packageFilters = packageFilter.split(",");
-			for (String filter : packageFilters) {
-				String packageName = filter.trim().toLowerCase();
-				populators = populators.stream()
-						.filter(populator -> populator.getClass().getPackageName().toLowerCase().contains(packageName))
+		if (classFilter != null && !classFilter.isEmpty() && !classFilter.isBlank()) {
+			String[] classFilters = classFilter.split(",");
+			for (String filter : classFilters) {
+				String className = filter.trim().toLowerCase();
+				populators = populators.stream().filter(
+								populator -> populator.getClass().getCanonicalName().toLowerCase().contains(className.toLowerCase()))
 						.collect(Collectors.toList());
 			}
 		}
+		boolean doesTestFilterExist = testNameFilter != null && !testNameFilter.isEmpty() && !testNameFilter.isBlank();
 
 		for (int i = 0; i < m_loopCount; i++) {
 			if (totalErrors > 0) {
@@ -160,6 +165,12 @@ public class DoChuBoePopulate extends SvrProcess {
 				pop.setTrx(pop_trx);
 
 				Method[] methods = pop.getClass().getMethods();
+
+				// If this class doesn't have a test matching the filter, skip it
+				if (doesTestFilterExist && Arrays.stream(methods)
+						.noneMatch(method -> method.getName().toLowerCase().contains(testNameFilter.toLowerCase()))) {
+					continue;
+				}
 
 				//Look for and document skipped methods
 				for (Method method : methods) {
@@ -206,6 +217,10 @@ public class DoChuBoePopulate extends SvrProcess {
 				for (Method method : methods) {
 					CanRun annos = method.getAnnotation(CanRun.class);
 					if (!classBreak && annos != null) {
+						// We'll skip the can run methods that don't match the filter, if there is one
+						if (doesTestFilterExist && !method.getName().toLowerCase().contains(testNameFilter.toLowerCase())) {
+							continue;
+						}
 						try {
 
 							//Look for and execute Before annotated methods
