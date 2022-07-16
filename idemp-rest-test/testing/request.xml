@@ -9,7 +9,7 @@
                         <_0:field column="ChuBoe_Process_Loop_Count">
                             <_0:val>1</_0:val>
                         </_0:field>
-                        <_0:field column="ChuBoe_Process_Package_Filter">
+                        <_0:field column="ChuBoe_Process_Class_Filter">
                             <_0:val>org.bandahealth.idempiere.rest.test</_0:val>
                         </_0:field>
                     </_0:ParamValues>
