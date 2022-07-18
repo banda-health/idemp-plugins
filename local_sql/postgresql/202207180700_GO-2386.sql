@@ -77,4 +77,6 @@ SELECT
 FROM
 	tmp_m_attributesetexclude;
 
+SELECT update_sequences();
+
 SELECT register_migration_script('202207180700_GO-2386.sql') FROM dual;
