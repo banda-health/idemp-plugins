@@ -32,7 +32,6 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
-
 		valueObject.setStepName("Create business partner");
 		BandaCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
