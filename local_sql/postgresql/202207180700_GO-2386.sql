@@ -1,5 +1,5 @@
 -- Some new clients didn't get any attribute set exclusions, so add them
-DROP TABLE IF EXISTS tmp_ad_client_id;DROP TABLE IF EXISTS tmp_ad_client_id;
+DROP TABLE IF EXISTS tmp_ad_client_id;
 SELECT DISTINCT
 	ad_client_id
 INTO TEMP TABLE
@@ -62,7 +62,7 @@ WHERE
 	ase.ad_client_id = 2;
 
 INSERT INTO
-	m_attributesetexclude (m_attributesetexclude_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+	m_attributesetexclude (m_attributesetexclude_id, ad_client_id, ad_org_id, createdby,
 	                       updatedby, m_attributeset_id, ad_table_id, issotrx, m_attributesetexclude_uu)
 SELECT
 	m_attributesetexclude_id,
