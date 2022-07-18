@@ -27,20 +27,32 @@
 	</style>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT p.m_product_id,
-       name                                     as ProductName,
-       sum(soh.qtyonhand)                       as BatchQuantity,
-       asi.guaranteedate,
-       (current_date - asi.guaranteedate::date) as ExpiryDays,
-       sum(p.bh_sellprice * soh.qtyonhand)      as Value
-from m_product p
-         left JOIN m_storageonhand soh ON p.m_product_id = soh.m_product_id
-         left JOIN m_attributesetinstance asi ON soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
-where p.ad_client_id = $P{AD_CLIENT_ID}
-  and asi.guaranteedate::date <= current_date
-  and sum(soh.qtyonhand)  > 0
-group by p.m_product_id, p.name, asi.guaranteedate, ExpiryDays
-order by ExpiryDays DESC, p.name ASC]]>
+		<![CDATA[SELECT *
+FROM
+	(
+		SELECT
+			p.m_product_id,
+			name                                     AS ProductName,
+			SUM(soh.qtyonhand)                       AS BatchQuantity,
+			asi.guaranteedate,
+			(CURRENT_DATE - asi.guaranteedate::date) AS ExpiryDays,
+			SUM(p.bh_sellprice * soh.qtyonhand)      AS Value
+		FROM
+			m_product p
+				LEFT JOIN m_storageonhand soh
+					ON p.m_product_id = soh.m_product_id
+				LEFT JOIN m_attributesetinstance asi
+					ON soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
+		WHERE
+			p.ad_client_id = $P{AD_CLIENT_ID}
+			AND asi.guaranteedate::date <= CURRENT_DATE
+		GROUP BY p.m_product_id, p.name, asi.guaranteedate, ExpiryDays
+	) e
+WHERE
+	e.BatchQuantity > 0
+ORDER BY
+	ExpiryDays DESC, ProductName
+]]>
 	</queryString>
 	<field name="m_product_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="m_product_id"/>
@@ -163,36 +175,36 @@ order by ExpiryDays DESC, p.name ASC]]>
 		<band height="15">
 			<frame>
 				<reportElement style="Table_TD" mode="Opaque" x="0" y="0" width="555" height="15" uuid="bb547c52-2483-45db-852d-4399b8e55727"/>
-				<textField>
-					<reportElement style="Table_TD" mode="Transparent" x="0" y="0" width="153" height="15" uuid="33183ddf-8351-4a18-9b63-8e49623dd5a4"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Transparent" x="0" y="0" width="153" height="15" uuid="33183ddf-8351-4a18-9b63-8e49623dd5a4"/>
 					<box leftPadding="3"/>
-					<textElement verticalAlignment="Middle"/>
+					<textElement verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$F{productname}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,###.###;(#,###.###-)">
-					<reportElement style="Table_TD" mode="Opaque" x="153" y="0" width="92" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982"/>
+				<textField isStretchWithOverflow="true" pattern="#,###.###;(#,###.###-)">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="153" y="0" width="92" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982"/>
 					<box rightPadding="2"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$F{batchquantity}]]></textFieldExpression>
 				</textField>
-				<textField pattern="M/d/yyyy">
-					<reportElement style="Table_TD" mode="Opaque" x="245" y="0" width="92" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff"/>
+				<textField isStretchWithOverflow="true" pattern="M/d/yyyy">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="245" y="0" width="92" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff"/>
 					<box rightPadding="2"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$F{guaranteedate}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement style="Table_TD" mode="Opaque" x="337" y="0" width="92" height="15" uuid="cec266f3-d3ca-4454-b63c-f9ab666e0b2e"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="337" y="0" width="92" height="15" uuid="cec266f3-d3ca-4454-b63c-f9ab666e0b2e"/>
 					<box rightPadding="2"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$F{expirydays}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.###;(#,##0.###-)">
-					<reportElement style="Table_TD" mode="Opaque" x="429" y="0" width="126" height="15" uuid="0a1acbc6-6fb2-4749-b400-63a4081d0606">
+				<textField isStretchWithOverflow="true" pattern="#,##0.###;(#,##0.###-)">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="429" y="0" width="126" height="15" uuid="0a1acbc6-6fb2-4749-b400-63a4081d0606">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<box rightPadding="2"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 				</textField>
 			</frame>
