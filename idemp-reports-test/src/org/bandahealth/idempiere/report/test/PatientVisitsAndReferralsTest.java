@@ -10,5 +10,6 @@ public class PatientVisitsAndReferralsTest extends ChuBoePopulateFactoryVO {
 
 	@IPopulateAnnotation.CanRun
 	public void canRunReport() throws SQLException, IOException {
+		// TODO: This report doesn't seem like it exists - should we remove it from the dropdown?
 	}
 }
