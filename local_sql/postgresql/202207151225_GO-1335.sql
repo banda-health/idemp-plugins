@@ -108,6 +108,9 @@ INSERT INTO adempiere.ad_window (ad_window_id, ad_client_id, ad_org_id, isactive
 -- Add Track Incomes menu
 INSERT INTO adempiere.ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, showonuimenu, iconclassname) VALUES ((SELECT MAX(ad_menu_id)+1 FROM AD_Menu), 0, 0, 'Y', '2022-07-18 20:13:04.045000', 100, '2022-07-18 20:21:24.840000', 'Track Incomes', 100, 'Track Incomes', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='44c02ddc-ef83-4020-8e4c-709d8cbeadc2'), null, null, null, null, null, 'U', 'Y', '88d5359a-4130-4863-830e-63a507a41cab', null, 'Y', 'fas fa-wallet') ON CONFLICT DO NOTHING;
 
+INSERT INTO adempiere.ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '88d5359a-4130-4863-830e-63a507a41cab'), 0, 0, 'Y', '2022-07-18 20:13:04.093665', 100, '2022-07-18 20:14:13.528488', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 2, 'fb7b43cb-fd96-4732-8c6f-f36adfb7e7d5') ON CONFLICT DO NOTHING;
+
+INSERT INTO adempiere.ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '4844b8ee-8387-40d8-80c8-5e73479b8b61'), 0, 0, 'Y', '2022-07-18 17:43:26.608449', 100, '2022-07-18 20:14:13.538705', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 5, 'deb2ce60-fef2-465b-ac37-67d173f3bf6d') ON CONFLICT DO NOTHING;
 
 -- Add window access to Advanced User role
 
