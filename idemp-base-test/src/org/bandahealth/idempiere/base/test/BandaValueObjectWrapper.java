@@ -29,8 +29,17 @@ public class BandaValueObjectWrapper extends ChuBoePopulateVO {
 	private MProduct_BH product;
 	private Boolean areRefreshing = false;
 	private File report;
+	private String reportType = "pdf";
 	private MInventory_BH inventory;
 	private MInventoryLine_BH inventoryLine;
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
 
 	public MInventory_BH getInventory() {
 		return inventory;

@@ -13,11 +13,11 @@ Import-Package: com.chuboe.test.assertion,
  com.chuboe.test.model,
  com.chuboe.test.populate,
  com.chuboe.test.process,
+ org.adempiere.base,
  org.adempiere.exceptions,
  org.bandahealth.idempiere.base.model,
- org.compiere,
- org.adempiere.base,
- org.bandahealth.idempiere.base.test
+ org.bandahealth.idempiere.base.test,
+ org.compiere
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
@@ -27,4 +27,12 @@ Bundle-ClassPath: .,
  lib/hamcrest.jar,
  lib/junit-jupiter-api.jar,
  lib/opentest4j.jar,
- lib/junit-platform-commons.jar
+ lib/junit-platform-commons.jar,
+ lib/poi.jar,
+ lib/poi-ooxml.jar,
+ lib/commons-io.jar,
+ lib/commons-collections4.jar,
+ lib/xmlbeans.jar,
+ lib/log4j-api.jar,
+ lib/commons-compress.jar,
+ lib/poi-ooxml-lite.jar

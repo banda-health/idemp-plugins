@@ -244,8 +244,9 @@ public class BandaCreateEntity extends ChuBoeCreateEntity {
 				new ProcessInfo("", process.get_ID(), valueObject.getProcessTable_ID(), valueObject.getProcessRecord_ID());
 		processInfo.setIsBatch(true);
 		processInfo.setExport(true);
-		processInfo.setReportType("PDF");
-		processInfo.setExportFileExtension("pdf");
+		String reportTypeToUse = valueObject.getReportType() == null ? "pdf" : valueObject.getReportType();
+		processInfo.setReportType(reportTypeToUse.toUpperCase());
+		processInfo.setExportFileExtension(reportTypeToUse.toLowerCase());
 
 		List<ProcessInfoParameter> params = valueObject.getProcessInfoParams();
 		if (!params.isEmpty()) {
