@@ -1,24 +1,10 @@
 package org.bandahealth.idempiere.base.model;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
-import org.compiere.model.MAttributeSetExclude;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
@@ -26,7 +12,6 @@ import org.compiere.model.MCostElement;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
-import org.compiere.model.MInOutLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
@@ -41,7 +26,6 @@ import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
-import org.compiere.model.MSerNoCtl;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
@@ -58,6 +42,19 @@ import org.compiere.util.CacheMgt;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * Initial setup of a client, but with the additional things needed in Banda Go
@@ -1277,8 +1274,8 @@ public class MBandaSetup {
 		List<Object> parameters = new ArrayList<>();
 		String whereClauseParameterList = QueryUtil.getWhereClauseAndSetParametersForSet(
 				attributeSets.stream().map(MAttributeSet_BH::get_ID).collect(Collectors.toSet()), parameters);
-		List<MAttributeSetExclude> attributeSetExclusions = new Query(context, MAttributeSetExclude.Table_Name,
-				MAttributeSetExclude.COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
+		List<X_M_AttributeSetExclude > attributeSetExclusions = new Query(context, X_M_AttributeSetExclude .Table_Name,
+				X_M_AttributeSetExclude .COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
 				getTransactionName()).setParameters(parameters).setOnlyActiveRecords(true).list();
 		// PO.clearCrossTenantSafe();
 
@@ -1330,11 +1327,11 @@ public class MBandaSetup {
 			}
 
 			// Add exclusions (largely so ASIs aren't required on sales orders)
-			List<MAttributeSetExclude> exclusionsForThisAttributeSet =
+			List<X_M_AttributeSetExclude > exclusionsForThisAttributeSet =
 					attributeSetExclusions.stream().filter(exclusion -> exclusion.getM_AttributeSet_ID() == attributeSet.get_ID())
 							.collect(Collectors.toList());
-			for (MAttributeSetExclude exclusion : exclusionsForThisAttributeSet) {
-				MAttributeSetExclude newExclusion = new MAttributeSetExclude(context, 0, getTransactionName());
+			for (X_M_AttributeSetExclude  exclusion : exclusionsForThisAttributeSet) {
+				X_M_AttributeSetExclude  newExclusion = new X_M_AttributeSetExclude (context, 0, getTransactionName());
 				newExclusion.setAD_Table_ID(exclusion.getAD_Table_ID());
 				newExclusion.setM_AttributeSet_ID(newAttributeSet.get_ID());
 				newExclusion.setIsSOTrx(exclusion.isSOTrx());
