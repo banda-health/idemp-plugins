@@ -18,7 +18,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -45,22 +44,25 @@ public class StockToBeOrderedTest extends ChuBoePopulateFactoryVO {
 		MProduct_BH product1 = valueObject.getProductBH();
 		product1.setbh_reorder_level(10);
 		product1.setbh_reorder_quantity(20);
+		product1.saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create a purchase order");
 		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQty(new BigDecimal(100));
 		BandaCreateEntity.createOrder(valueObject);
-		valueObject.getOrderLine().setPrice(new BigDecimal(100));
 		valueObject.getOrderLine().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create product 2");
 		valueObject.setProduct(null);
+		valueObject.setRandom();
 		BandaCreateEntity.createProduct(valueObject);
 		MProduct_BH product2 = valueObject.getProductBH();
 		product2.setbh_reorder_level(30);
 		product2.setbh_reorder_quantity(40);
+		product2.saveEx();
 		commitEx();
 
 		valueObject.setStepName("Add product 2 to purchase order");
@@ -93,8 +95,7 @@ public class StockToBeOrderedTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
-		BigDecimal quantitySold = new BigDecimal(95);
-		valueObject.setQty(quantitySold);
+		valueObject.setQty(new BigDecimal(95));
 		BandaCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -134,16 +135,11 @@ public class StockToBeOrderedTest extends ChuBoePopulateFactoryVO {
 					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
 							row.getCell(0).getStringCellValue().equalsIgnoreCase(product2.getName())).findFirst();
 
-			NumberFormat numberFormat = NumberFormat.getInstance();
-
 			assertTrue(product1Row.isPresent(), "Product 1 row exists");
 			assertTrue(product2Row.isEmpty(), "Product 2 row is missing");
-			assertThat("Existing quantity is correct", numberFormat.parse(product1Row.get().getCell(1).getStringCellValue()),
-					is(5L));
-			assertThat("Reorder level is correct", numberFormat.parse(product1Row.get().getCell(2).getStringCellValue()),
-					is(10L));
-			assertThat("Amount to order is correct", numberFormat.parse(product1Row.get().getCell(2).getStringCellValue()),
-					is(20L));
+			assertThat("Existing quantity is correct", product1Row.get().getCell(1).getNumericCellValue(), is(5D));
+			assertThat("Reorder level is correct", product1Row.get().getCell(2).getNumericCellValue(), is(10D));
+			assertThat("Amount to order is correct", product1Row.get().getCell(3).getNumericCellValue(), is(20D));
 		}
 	}
 }
