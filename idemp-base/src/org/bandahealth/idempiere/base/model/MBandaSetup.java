@@ -1,18 +1,6 @@
 package org.bandahealth.idempiere.base.model;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
@@ -24,7 +12,6 @@ import org.compiere.model.MCostElement;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
-import org.compiere.model.MInOutLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
@@ -39,7 +26,6 @@ import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
-import org.compiere.model.MSerNoCtl;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
@@ -56,6 +42,19 @@ import org.compiere.util.CacheMgt;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * Initial setup of a client, but with the additional things needed in Banda Go
@@ -160,9 +159,9 @@ public class MBandaSetup {
 				MCostElement.COLUMNNAME_Name + "=? AND " + MCostElement.COLUMNNAME_CostElementType + " =? AND "
 						+ MCostElement.COLUMNNAME_CostingMethod + " =?",
 				getTransactionName())
-						.setParameters("Last PO Price", MCostElement.COSTELEMENTTYPE_Material,
-								MCostElement.COSTINGMETHOD_LastPOPrice)
-						.setClient_ID().first();
+				.setParameters("Last PO Price", MCostElement.COSTELEMENTTYPE_Material,
+						MCostElement.COSTINGMETHOD_LastPOPrice)
+				.setClient_ID().first();
 		if (costElement == null) {
 			costElement = new MCostElement(context, 0, getTransactionName());
 			costElement.setName("Last PO Price");
@@ -176,7 +175,7 @@ public class MBandaSetup {
 	public boolean updateDefaultAccountMapping() {
 		MAcctSchemaDefault acctSchemaDefault = new Query(context, MAcctSchemaDefault.Table_Name,
 				MAcctSchemaDefault.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-						.setParameters(getAD_Client_ID()).first();
+				.setParameters(getAD_Client_ID()).first();
 		if (acctSchemaDefault == null) {
 			log.severe("No Accounting Schema Defaults for client");
 			transaction.rollback();
@@ -310,13 +309,13 @@ public class MBandaSetup {
 	 * Add the default charge types configured in the config client.
 	 *
 	 * @return A map of default charge type IDs to the charge type that was added
-	 *         for the client
+	 * for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
 		// PO.setCrossTenantSafe();
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
 				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeMap = new HashMap<>();
@@ -358,7 +357,7 @@ public class MBandaSetup {
 		// PO.setCrossTenantSafe();
 		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.Table_Name,
 				MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 
 		Map<Integer, Integer> defaultChargeToChargeMap = new HashMap<>();
@@ -399,7 +398,7 @@ public class MBandaSetup {
 			// Now get the charge's accounting mapping
 			X_C_Charge_Acct chargeAccountToModify = new Query(context, X_C_Charge_Acct.Table_Name,
 					X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?", getTransactionName())
-							.setParameters(charge.getC_Charge_ID()).first();
+					.setParameters(charge.getC_Charge_ID()).first();
 			if (chargeAccountToModify == null) {
 				String errorMessage = "Charge Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
@@ -431,7 +430,7 @@ public class MBandaSetup {
 		// PO.setCrossTenantSafe();
 		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
 				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 
 		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
@@ -457,7 +456,8 @@ public class MBandaSetup {
 
 			// We need to get all charge info values mapped for this charge info from the
 			// map.
-			for (MBHChargeInfoValue defaultChargeInformationValue : defaultChargeInformationValuesForDefaultChargeInformation) {
+			for (MBHChargeInfoValue defaultChargeInformationValue :
+					defaultChargeInformationValuesForDefaultChargeInformation) {
 				MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, 0, getTransactionName());
 				chargeInfoValue.setName(defaultChargeInformationValue.getName());
 				chargeInfoValue.setBH_Charge_Info_ID(chargeInfo.getBH_Charge_Info_ID());
@@ -517,7 +517,7 @@ public class MBandaSetup {
 			// Now get the product category's accounting mapping
 			MProductCategoryAcct productCategoryAccountToModify = new Query(context, MProductCategoryAcct.Table_Name,
 					MProductCategoryAcct.COLUMNNAME_M_Product_Category_ID + "=?", getTransactionName())
-							.setParameters(productCategoryToAdd.getM_Product_Category_ID()).first();
+					.setParameters(productCategoryToAdd.getM_Product_Category_ID()).first();
 			if (productCategoryAccountToModify == null) {
 				String errorMessage = "Product Category Account does not exist";
 				log.log(Level.SEVERE, errorMessage);
@@ -552,10 +552,10 @@ public class MBandaSetup {
 				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND" + " " + MReference_BH.Table_Name + "."
 						+ MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
 				getTransactionName())
-						.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
-								+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
-								+ MRefList.COLUMNNAME_AD_Reference_ID)
-						.setParameters(DB_USERTYPE_User, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+				.addJoinClause(" JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "."
+						+ MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "."
+						+ MRefList.COLUMNNAME_AD_Reference_ID)
+				.setParameters(DB_USERTYPE_User, MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 
 		// If the admin reference list doesn't exist, there's a big problem...
 		if (userRoleReferenceList == null) {
@@ -588,7 +588,7 @@ public class MBandaSetup {
 
 		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
 				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
-						.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
+				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 		if (userType == null) {
 			log.log(Level.SEVERE, "User type reference not defined");
 			return false;
@@ -596,7 +596,7 @@ public class MBandaSetup {
 
 		List<MRefList> userTypeValues = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
-						.setParameters(userType.getAD_Reference_ID()).list();
+				.setParameters(userType.getAD_Reference_ID()).list();
 
 		if (!createAdditionalRoles(userTypeValues, usersToAddRolesTo)) {
 			log.log(Level.SEVERE, "Error creating additional roles");
@@ -612,7 +612,7 @@ public class MBandaSetup {
 		Map<MRefList, MRole> rolesExceptAdminToConfigureByDBUserType = userTypeValues.stream()
 				.filter(userTypeValue -> !userTypeValue.getValue().equals(DB_USERTYPE_Admin))
 				.collect(HashMap::new, (rolesToConfigureByDBUserTypeTemp,
-						userTypeValue) -> rolesToConfigureByDBUserTypeTemp.put(userTypeValue, clientRoles.stream()
+								userTypeValue) -> rolesToConfigureByDBUserTypeTemp.put(userTypeValue, clientRoles.stream()
 								.filter(clientRole -> clientRole.getName()
 										.equals(MBandaSetup.getRoleName(client.getName(), userTypeValue.getName())))
 								.findFirst().orElse(null)),
@@ -668,7 +668,7 @@ public class MBandaSetup {
 	 * Handle updating document action access based on configured rules, if any.
 	 *
 	 * @return Whether the document action access exclusions were successfully
-	 *         applied
+	 * applied
 	 */
 	private boolean handleDocumentActionAccess(Map<MRefList, MRole> rolesToConfigureByDBUserType) {
 		// Pull the document action access exclusion values
@@ -683,7 +683,7 @@ public class MBandaSetup {
 		// iDempiere-8.2+
 		List<MDocType> docTypesForSystemAndClient = new Query(context, MDocType.Table_Name,
 				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
-						.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
+				.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
 		Map<Integer, Integer> clientDocTypeIdsBySystemDocTypeIds = docTypesForSystemAndClient.stream()
 				.filter(docType -> docType.getAD_Client_ID() == 0)
 				.collect(Collectors.toMap(MDocType::getC_DocType_ID,
@@ -699,8 +699,8 @@ public class MBandaSetup {
 				X_AD_Document_Action_Access.Table_Name,
 				X_AD_Document_Action_Access.COLUMNNAME_AD_Role_ID + " IN ("
 						+ rolesToConfigureByDBUserType.values().stream()
-								.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
-								.collect(Collectors.joining(","))
+						.map(roleToConfigure -> Integer.toString(roleToConfigure.getAD_Role_ID()))
+						.collect(Collectors.joining(","))
 						+ ")",
 				getTransactionName()).list();
 		Map<Integer, List<X_AD_Document_Action_Access>> currentAccessByRole = currentAccessForRolesToConfigure.stream()
@@ -722,7 +722,7 @@ public class MBandaSetup {
 					.filter(currentAccess -> specifiedAccessForThisRole.stream().noneMatch(
 							specifiedAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
 									&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
-											.get(specifiedAccess.getC_DocType_ID())))
+									.get(specifiedAccess.getC_DocType_ID())))
 					.forEach(accessToRemove -> {
 						if (!accessToRemove.delete(true)) {
 							String errorMessage = "Could not remove document action access for Role, DocType, and RefList: "
@@ -737,8 +737,8 @@ public class MBandaSetup {
 			// Add document access that isn't currently assigned, but was specified to be
 			// assigned
 			specifiedAccessForThisRole.stream().filter(specifiedAccess -> currentAccessForThisRole.stream()
-					.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
-							&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
+							.noneMatch(currentAccess -> currentAccess.getAD_Ref_List_ID() == specifiedAccess.getAD_Ref_List_ID()
+									&& currentAccess.getC_DocType_ID() == clientDocTypeIdsBySystemDocTypeIds
 									.get(specifiedAccess.getC_DocType_ID())))
 					.forEach(accessToAdd -> {
 						X_AD_Document_Action_Access clientAccess = new X_AD_Document_Action_Access(context, 0,
@@ -861,7 +861,7 @@ public class MBandaSetup {
 		List<MRoleIncluded> currentIncludedRolesForRolesToConfigure = new Query(context, MRoleIncluded.Table_Name,
 				MRoleIncluded.COLUMNNAME_AD_Role_ID + " IN ("
 						+ rolesToConfigureByDBUserType.values().stream()
-								.map(role -> Integer.toString(role.getAD_Role_ID())).collect(Collectors.joining(","))
+						.map(role -> Integer.toString(role.getAD_Role_ID())).collect(Collectors.joining(","))
 						+ ")",
 				getTransactionName()).list();
 		Map<Integer, List<MRoleIncluded>> currentIncludedRolesByRoleId = currentIncludedRolesForRolesToConfigure
@@ -871,11 +871,11 @@ public class MBandaSetup {
 		rolesToConfigureByDBUserType.forEach((referenceList, roleToConfigure) -> {
 			// Filter the default included roles to match this role
 			List<MBHDefaultIncludedRole> defaultIncludedRolesForRole = defaultIncludedRoles.stream().filter(
-					defaultIncludedRole -> defaultIncludedRole.getDB_UserType().equals(referenceList.getValue()))
+							defaultIncludedRole -> defaultIncludedRole.getDB_UserType().equals(referenceList.getValue()))
 					.collect(Collectors.toList());
 			List<MRoleIncluded> currentIncludedRolesForThisRole = currentIncludedRolesByRoleId.containsKey(
 					roleToConfigure.getAD_Role_ID()) ? currentIncludedRolesByRoleId.get(roleToConfigure.getAD_Role_ID())
-							: new ArrayList<>();
+					: new ArrayList<>();
 
 			// For any roles that are meant to be assigned but aren't, add them
 			// Filter out roles that are already assigned
@@ -927,7 +927,7 @@ public class MBandaSetup {
 	private boolean createPaymentBankAccountMappings() {
 		MReference paymentBankAccountMappingReference = new Query(context, MReference.Table_Name,
 				MReference.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
-						.setParameters(MBandaSetup.REFERENCE_PAYMENT_REF_UU).first();
+				.setParameters(MBandaSetup.REFERENCE_PAYMENT_REF_UU).first();
 		if (paymentBankAccountMappingReference == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
 			transaction.rollback();
@@ -936,7 +936,7 @@ public class MBandaSetup {
 		}
 		MRefTable paymentBankAccountMappingsReferenceLimiting = new Query(context, MRefTable.Table_Name,
 				MRefTable.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
-						.setParameters(paymentBankAccountMappingReference.getAD_Reference_ID()).first();
+				.setParameters(paymentBankAccountMappingReference.getAD_Reference_ID()).first();
 		if (paymentBankAccountMappingsReferenceLimiting == null) {
 			log.severe("No Reference in the System for Payment Bank Account Mappings");
 			transaction.rollback();
@@ -1021,7 +1021,7 @@ public class MBandaSetup {
 	private boolean updateAccountMappingsForBankAccount(MBankAccount bankAccount, MAccount inTransitAccount) {
 		X_C_BankAccount_Acct accountMapping = new Query(context, X_C_BankAccount_Acct.Table_Name,
 				X_C_BankAccount_Acct.COLUMNNAME_C_BankAccount_ID + "=?", getTransactionName())
-						.setParameters(bankAccount.getC_BankAccount_ID()).first();
+				.setParameters(bankAccount.getC_BankAccount_ID()).first();
 		if (accountMapping == null) {
 			log.severe("No Account Mapping for Bank Account");
 			transaction.rollback();
@@ -1062,7 +1062,7 @@ public class MBandaSetup {
 		MAccount account = new Query(context, MAccount.Table_Name,
 				MAccount.COLUMNNAME_AD_Client_ID + "=? AND " + MAccount.COLUMNNAME_Account_ID + "=?",
 				getTransactionName())
-						.setParameters(accountElement.getAD_Client_ID(), accountElement.getC_ElementValue_ID()).first();
+				.setParameters(accountElement.getAD_Client_ID(), accountElement.getC_ElementValue_ID()).first();
 		if (account != null) {
 			return account;
 		}
@@ -1089,7 +1089,7 @@ public class MBandaSetup {
 		// PO.setCrossTenantSafe();
 		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
 				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
-						.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
 		// PO.clearCrossTenantSafe();
 
 		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
@@ -1112,7 +1112,7 @@ public class MBandaSetup {
 		// PO.setCrossTenantSafe();
 		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
 				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
@@ -1125,7 +1125,7 @@ public class MBandaSetup {
 		// get the default warehouse and locator->rename and set to locator as default
 		MWarehouse_BH warehouse = new Query(this.context, MWarehouse.Table_Name,
 				MWarehouse.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(client.getAD_Client_ID())
-						.first();
+				.first();
 		MLocator locator = new Query(this.context, MLocator.Table_Name,
 				MWarehouse.COLUMNNAME_AD_Client_ID + "=? AND " + MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
 				getTransactionName()).setParameters(getAD_Client_ID(), warehouse.getM_Warehouse_ID()).first();
@@ -1222,7 +1222,7 @@ public class MBandaSetup {
 		// un-check automatic period control in accounting schema
 		MAcctSchema accountingSchema = new Query(context, MAcctSchema.Table_Name,
 				MAcctSchema.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
-						.first();
+				.first();
 		accountingSchema.setAutoPeriodControl(false);
 		if (!accountingSchema.save()) {
 			log.log(Level.SEVERE, "Failed: In activate automatic period control");
@@ -1236,7 +1236,7 @@ public class MBandaSetup {
 				.setParameters(getAD_Client_ID()).first();
 		List<MPeriod> calendarPeriods = new Query(context, MPeriod.Table_Name,
 				MPeriod.COLUMNNAME_AD_Client_ID + "=? AND " + MPeriod.COLUMNNAME_C_Year_ID + "=?", getTransactionName())
-						.setParameters(getAD_Client_ID(), year.getC_Year_ID()).list();
+				.setParameters(getAD_Client_ID(), year.getC_Year_ID()).list();
 
 		// set the record IDs for the periods to be opened.
 		List<Integer> recordIDs = calendarPeriods.stream().map(MPeriod::get_ID).collect(Collectors.toList());
@@ -1244,7 +1244,7 @@ public class MBandaSetup {
 		ProcessInfoParameter parameter1 = new ProcessInfoParameter(CALENDAR_PROCESS_PARAM_NAME,
 				CALENDAR_PROCESS_PARAM_ACTION, "", CALENDAR_PROCESS_PARAM_INFO, "");
 		ProcessInfo processInfo = new ProcessInfo(CALENDAR_PROCESS_INFO_NAME, 0, 0, 0);
-		processInfo.setParameter(new ProcessInfoParameter[] { parameter1 });
+		processInfo.setParameter(new ProcessInfoParameter[]{parameter1});
 		processInfo.setRecord_IDs(recordIDs);
 
 		MProcess process = new Query(context, MProcess.Table_Name, MProcess.COLUMNNAME_Value + "=?",
@@ -1266,9 +1266,18 @@ public class MBandaSetup {
 
 	public boolean createProductAttributeSets() {
 		// Get all active, attribute sets from the default configuration client
-		List<MAttributeSet> attributeSets = new Query(context, MAttributeSet.Table_Name,
+		// PO.setCrossTenantSafe();
+		List<MAttributeSet_BH> attributeSets = new Query(context, MAttributeSet.Table_Name,
 				MAttributeSet.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
-						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+
+		List<Object> parameters = new ArrayList<>();
+		String whereClauseParameterList = QueryUtil.getWhereClauseAndSetParametersForSet(
+				attributeSets.stream().map(MAttributeSet_BH::get_ID).collect(Collectors.toSet()), parameters);
+		List<X_M_AttributeSetExclude > attributeSetExclusions = new Query(context, X_M_AttributeSetExclude .Table_Name,
+				X_M_AttributeSetExclude .COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
+				getTransactionName()).setParameters(parameters).setOnlyActiveRecords(true).list();
+		// PO.clearCrossTenantSafe();
 
 		if (attributeSets.isEmpty()) {
 			String errorMessage = "Default AttributeSets NOT found";
@@ -1317,18 +1326,17 @@ public class MBandaSetup {
 				return false;
 			}
 
-			// Add exclusions so that ASIs aren't required on purchase/sales orders
-			X_M_AttributeSetExclude attributeSetExclude = new X_M_AttributeSetExclude(context, 0, null);
-			attributeSetExclude.setAD_Table_ID(MOrderLine_BH.Table_ID);
-			attributeSetExclude.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
-			attributeSetExclude.setIsSOTrx(true);
-			attributeSetExclude.saveEx();
-
-			attributeSetExclude = new X_M_AttributeSetExclude(context, 0, null);
-			attributeSetExclude.setAD_Table_ID(MInOutLine.Table_ID);
-			attributeSetExclude.setM_AttributeSet_ID(attributeSet.getM_AttributeSet_ID());
-			attributeSetExclude.setIsSOTrx(true);
-			attributeSetExclude.saveEx();
+			// Add exclusions (largely so ASIs aren't required on sales orders)
+			List<X_M_AttributeSetExclude > exclusionsForThisAttributeSet =
+					attributeSetExclusions.stream().filter(exclusion -> exclusion.getM_AttributeSet_ID() == attributeSet.get_ID())
+							.collect(Collectors.toList());
+			for (X_M_AttributeSetExclude  exclusion : exclusionsForThisAttributeSet) {
+				X_M_AttributeSetExclude  newExclusion = new X_M_AttributeSetExclude (context, 0, getTransactionName());
+				newExclusion.setAD_Table_ID(exclusion.getAD_Table_ID());
+				newExclusion.setM_AttributeSet_ID(newAttributeSet.get_ID());
+				newExclusion.setIsSOTrx(exclusion.isSOTrx());
+				newExclusion.saveEx();
+			}
 		}
 
 		return true;
