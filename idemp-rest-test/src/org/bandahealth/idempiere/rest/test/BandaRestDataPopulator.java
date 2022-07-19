@@ -6,6 +6,7 @@ import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.test.BandaCreateEntity;
 import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 
@@ -28,10 +29,10 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
 		// If the client doesn't exist, we'll create it
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		MClient_BH testClient = new Query(valueObject.getCtx(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
 				valueObject.get_trxName()).setParameters("Rest Test Client").first();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		if (testClient == null) {
 			valueObject.setStepName("Create Test Client");
@@ -71,10 +72,10 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
 
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		MClient_BH testClient = new Query(valueObject.getCtx(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
 				valueObject.get_trxName()).setParameters("Rest Test Client").first();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		assertNotNull(testClient);
 		ChuBoeAssert.executeSQLAsserts(getAssertionSQL(), valueObject.getCtx(), valueObject.get_trxName());
