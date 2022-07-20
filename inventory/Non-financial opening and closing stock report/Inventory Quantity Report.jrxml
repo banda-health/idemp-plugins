@@ -105,32 +105,10 @@ ORDER BY
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select currentqty.product as item_name
-from (
-         select m_product_id,
-                product
-         from bh_stocktake_v
-         where ad_client_id = $P{AD_CLIENT_ID}
-         group by m_product_id, product
-     ) as currentqty
-inner join
-    (
-select m_product_id,
-       sum(movementqty) as qtychanged
-from m_transaction
-where ad_client_id =  $P{AD_CLIENT_ID}
-    and (date(movementdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by m_product_id
-        ) as changesinqty on currentqty.m_product_id = changesinqty.m_product_id
-group by item_name
-limit 1;]]>
+		<![CDATA[select 1;]]>
 	</queryString>
-	<field name="item_name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="bh_stocktake_v"/>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
