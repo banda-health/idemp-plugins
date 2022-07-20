@@ -52,12 +52,16 @@ SELECT
 	c.ad_client_id,
 	ase.createdby,
 	ase.updatedby,
-	ase.m_attributeset_id,
+	clientattrs.m_attributeset_id,
 	ase.ad_table_id,
 	ase.issotrx
 FROM
 	m_attributesetexclude ase
 		CROSS JOIN tmp_ad_client_id c
+		JOIN m_attributeset configattrs
+			ON ase.m_attributeset_id = configattrs.m_attributeset_id
+		JOIN m_attributeset clientattrs
+			ON clientattrs.ad_client_id = c.ad_client_id AND configattrs.name = clientattrs.name
 WHERE
 	ase.ad_client_id = 2;
 
