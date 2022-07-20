@@ -1,5 +1,6 @@
 -- Add a check to only pull costs that match the currency of the client's default bank account's currency
-CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric)
+CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric,
+                                             m_product_ids character varying DEFAULT ''::character varying)
 	RETURNS TABLE
 	        (
 		        m_product_id              numeric,
@@ -11,21 +12,53 @@ CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric)
 AS
 $$
 BEGIN
+	DROP TABLE IF EXISTS tmp_m_product_id;
+	CREATE TEMP TABLE tmp_m_product_id
+	(
+		m_product_id numeric
+	);
+
+	IF m_product_ids = '' THEN
+		BEGIN
+			INSERT INTO tmp_m_product_id SELECT p.m_product_id FROM m_product p WHERE p.ad_client_id = $1;
+		END;
+	ELSE
+		BEGIN
+			EXECUTE
+						'INSERT INTO tmp_m_product_id SELECT p.m_product_id FROM m_product p WHERE p.ad_client_id = $1 AND p.m_product_id IN (' ||
+						$2 || ');' USING $1;
+		END;
+	END IF;
+
 	RETURN QUERY
 		SELECT
 			p.m_product_id,
-			soh.m_attributesetinstance_id,
+			p_asis.m_attributesetinstance_id                                                       AS m_attributesetinstance_id,
 			CASE
-				WHEN p.m_attributeset_id != 0 AND soh.m_attributesetinstance_id = 0 THEN NULL
+				WHEN p.m_attributeset_id != 0 AND p_asis.m_attributesetinstance_id = 0 THEN NULL
 				ELSE
 					COALESCE(price_on_reception.po_price, costs.currentcostprice, p.bh_buyprice, productPP.PurchasePrice,
 					         0) END                                                                    AS purchase_price,
 			CASE
-				WHEN p.m_attributeset_id != 0 AND soh.m_attributesetinstance_id = 0 THEN NULL
+				WHEN p.m_attributeset_id != 0 AND
+				     p_asis.m_attributesetinstance_id = 0 THEN NULL
 				ELSE
 					COALESCE(price_on_reception.date_purchased, soh.datematerialpolicy, p.created) END AS purchase_date
 		FROM
 			m_product p
+				JOIN (
+				SELECT
+					t.m_product_id,
+					t.m_attributesetinstance_id
+				FROM
+					m_transaction t
+						JOIN tmp_m_product_id tpi
+							ON t.m_product_id = tpi.m_product_id
+				WHERE
+					t.ad_client_id = $1
+				GROUP BY t.m_product_id, t.m_attributesetinstance_id
+			) p_asis
+					ON p_asis.m_product_id = p.m_product_id
 				LEFT JOIN (
 				SELECT
 					soh.m_product_id,
@@ -37,7 +70,7 @@ BEGIN
 					soh.ad_client_id = $1
 				GROUP BY soh.m_product_id, soh.m_attributesetinstance_id, soh.datematerialpolicy
 			) soh
-					ON p.m_product_id = soh.m_product_id
+					ON p.m_product_id = soh.m_product_id AND soh.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					l.m_product_id,
@@ -50,7 +83,7 @@ BEGIN
 							ol.m_product_id,
 							ol.priceactual                                                                                                    AS po_price,
 							ol.m_attributesetinstance_id,
-							o.dateordered::date + o.updated::time                                                                             AS date_purchased,
+							o.dateordered::DATE + o.updated::TIME                                                                             AS date_purchased,
 									ROW_NUMBER()
 									OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER BY o.dateordered DESC, o.updated DESC) AS rownum
 						FROM
@@ -66,8 +99,8 @@ BEGIN
 				WHERE
 					rownum = 1
 			) AS price_on_reception
-					ON p.m_product_id = price_on_reception.m_product_id
-				AND soh.m_attributesetinstance_id = price_on_reception.m_attributesetinstance_id
+					ON price_on_reception.m_product_id = p.m_product_id AND
+					   price_on_reception.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					c.m_product_id,
@@ -88,8 +121,7 @@ BEGIN
 					SELECT ba.c_currency_id FROM c_bankaccount ba WHERE ba.ad_client_id = $1 AND ba.isdefault = 'Y'
 				)
 			) costs
-					ON p.m_product_id = costs.m_product_id
-				AND soh.m_attributesetinstance_id = costs.m_attributesetinstance_id
+					ON costs.m_product_id = p.m_product_id AND costs.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					pp.m_product_id,
@@ -114,9 +146,11 @@ BEGIN
 				WHERE
 					pl.row_num = 1
 			) AS productPP
-					ON p.m_product_id = productPP.m_product_id
+					ON productPP.m_product_id = p.m_product_id
 		WHERE
 			p.ad_client_id = $1;
+
+	DROP TABLE IF EXISTS tmp_m_product_id;
 END
 $$;
 
