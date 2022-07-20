@@ -77,6 +77,13 @@ SELECT
 FROM
 	tmp_m_attributesetexclude;
 
+UPDATE m_attributeset
+SET
+	bh_locked = 'Y'
+WHERE
+	name IN ('With Expiry', 'Without Expiry')
+	AND bh_locked = 'N';
+
 SELECT update_sequences();
 
 SELECT register_migration_script('202207180700_GO-2386.sql') FROM dual;
