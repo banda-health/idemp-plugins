@@ -1,6 +1,8 @@
 package org.bandahealth.idempiere.report.test;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -9,11 +11,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
+import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,31 +31,41 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
 
 	@IPopulateAnnotation.CanRun
 	public void canRunReport() throws SQLException, IOException, ParseException {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		valueObject.setStdPriceSO(new BigDecimal(50));
-		BandaCreateEntity.createProduct(valueObject);
+		valueObject.setSalesStandardPrice(new BigDecimal(50));
+		ChuBoeCreateEntity.createProduct(valueObject);
 		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
 		valueObject.getProduct().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create order");
-		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
-		BandaCreateEntity.createOrder(valueObject);
-		valueObject.getOrderBH().setBH_Isexpense(false);
-		valueObject.getOrderBH().saveEx();
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.getOrder().setBH_Isexpense(false);
+		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Complete the order");
@@ -64,15 +75,15 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcess_UU("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
-		valueObject.setProcessInfoParams(Arrays.asList(
+		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
 				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
 				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
-		BandaCreateEntity.runReport(valueObject);
+		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {

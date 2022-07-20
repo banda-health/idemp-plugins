@@ -18,5 +18,4 @@ Bundle-ClassPath: lib/hamcrest.jar,
  lib/junit-platform-commons.jar
 Import-Package: com.chuboe.test.assertion,
  com.chuboe.test.populate,
- org.bandahealth.idempiere.base.model,
- org.bandahealth.idempiere.base.test
+ org.bandahealth.idempiere.base.model

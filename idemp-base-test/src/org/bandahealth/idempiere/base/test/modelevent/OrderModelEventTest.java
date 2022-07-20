@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.base.test.modelevent;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.MOrder;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,33 +16,33 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Open needed periods");
-		BandaCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
 		commitEx();
 	}
 
 	@IPopulateAnnotation.CanRun
 	public void orderIsCreatedCorrectlyWithModelEvents() throws Exception {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
 				false);
-		BandaCreateEntity.createOrder(valueObject);
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		MOrder order = valueObject.getOrder();

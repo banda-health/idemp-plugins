@@ -1,33 +1,34 @@
 /**********************************************************************
-* This file is part of iDempiere ERP Open Source and ERP Academy      *
-* http://www.idempiere.org                                            *
-* http://www.chuckboecking.com                                        *
-*                                                                     *
-* Copyright (C) Contributors                                          *
-*                                                                     *
-* This program is provided to current and former participants of      *
-* ERP Academy (erp-academy.chuckboecking.com). Once you have joined   *
-* the ERP Academy, you may use and modify it under the terms of       *
-* the GNU General Public License as published by the Free Software    *
-* Foundation; either version 2 of the License, or (at your option)    *
-* any later version.                                                  *
-*                                                                     *
-* This program is distributed in the hope that it will be useful,     *
-* but WITHOUT ANY WARRANTY; without even the implied warranty of      *
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the        *
-* GNU General Public License for more details.                        *
-*                                                                     *
-* You should have received a copy of the GNU General Public License   *
-* along with this program; if not, write to the Free Software         *
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,          *
-* MA 02110-1301, USA.                                                 *
-*                                                                     *
-* Contributors:                                                       *
-* - Chuck Boecking                                                    *
-**********************************************************************/
+ * This file is part of iDempiere ERP Open Source and ERP Academy      *
+ * http://www.idempiere.org                                            *
+ * http://www.chuckboecking.com                                        *
+ *                                                                     *
+ * Copyright (C) Contributors                                          *
+ *                                                                     *
+ * This program is provided to current and former participants of      *
+ * ERP Academy (erp-academy.chuckboecking.com). Once you have joined   *
+ * the ERP Academy, you may use and modify it under the terms of       *
+ * the GNU General Public License as published by the Free Software    *
+ * Foundation; either version 2 of the License, or (at your option)    *
+ * any later version.                                                  *
+ *                                                                     *
+ * This program is distributed in the hope that it will be useful,     *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of      *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the        *
+ * GNU General Public License for more details.                        *
+ *                                                                     *
+ * You should have received a copy of the GNU General Public License   *
+ * along with this program; if not, write to the Free Software         *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,          *
+ * MA 02110-1301, USA.                                                 *
+ *                                                                     *
+ * Contributors:                                                       *
+ * - Chuck Boecking                                                    *
+ **********************************************************************/
 
 package com.chuboe.test.populate;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -35,28 +36,32 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-import org.compiere.model.MBPartner;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MBankStatement;
 import org.compiere.model.MBankStatementLine;
-import org.compiere.model.MClient;
 import org.compiere.model.MCountry;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
-import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
-import org.compiere.model.MOrder;
-import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPayment;
 import org.compiere.model.MPriceList;
-import org.compiere.model.MProduct;
 import org.compiere.model.MRegion;
-import org.compiere.model.MUser;
-import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
 import org.compiere.model.X_C_Order;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogger;
@@ -64,217 +69,168 @@ import org.compiere.util.Env;
 import org.compiere.util.TimeUtil;
 
 public class ChuBoePopulateVO {
-	private MClient m_client = null;
-	private MOrg m_org = null;
-	private MUser m_user = null;
-	private MWarehouse m_warehouse = null;
-	private Timestamp m_date = null;
-	private Timestamp m_dateInitial =  null;
-	private Timestamp m_datePriceList = null;
-	private String m_scenarioName = null;
-	private String m_stepName = null;
-	private boolean m_isIncludeRandom = true;
-	private MBPartner m_bp = null;
-	private MBPartnerLocation m_bpLoc = null;
-	private MCountry m_country = null;
-	private MRegion m_region = null;
-	private String m_city = null;
-	private MCurrency m_currency = null;
-	private MUser m_contact = null;
-	private MPriceList m_priceListSO = null;
-	private MPriceList m_priceListPO = null;
-	private MProduct m_product = null;
-	private BigDecimal m_limitPriceSO = null;
-	private BigDecimal m_stdPriceSO = null;
-	private BigDecimal m_listPriceSO = null;
-	private BigDecimal m_limitPricePO = null;
-	private BigDecimal m_stdPricePO = null;
-	private BigDecimal m_listPricePO = null;
-	private BigDecimal m_qty = null;
-	private MDocType m_docType = null;
-	private String m_docAction = null;
-	private MOrder m_order = null;
-	private MOrderLine m_orderLine = null;
-	private MInOut m_inOut = null;
-	private MInOutLine m_inOutLine = null;
-	private MInvoice m_invoice = null;
-	private MInvoiceLine m_invoiceLine = null;
-	private MPayment m_payment = null;
-	private MBankAccount m_bankAcct = null;
-	private MBankStatement m_bs = null;
-	private MBankStatementLine m_bsLine = null;
-	private int m_random = 0;
-	private Properties m_ctx = null;
-	private String m_trxName = null;
-	private boolean m_isError = false;
-	private String m_errorMsg = null;
-	private Random m_rand = null;
-	private String m_separator = " - ";
-	private String m_prompt = ": ";
-	
-	private String m_process_UU = null;
-	private List<ProcessInfoParameter> m_processInfoParams = new ArrayList<ProcessInfoParameter>();
-	private int m_processTable_ID = 0;
-	private int m_processRecord_ID = 0;
-	
-	protected CLogger m_log = CLogger.getCLogger (getClass());
-	
+	protected CLogger logger = CLogger.getCLogger(getClass());
+	private MClient_BH client = null;
+	private MOrg organization = null;
+	private MUser_BH user = null;
+	private MWarehouse_BH warehouse = null;
+	private Timestamp date = null;
+	private Timestamp dateInitial = null;
+	private Timestamp datePriceList = null;
+	private String scenarioName = null;
+	private String stepName = null;
+	private boolean isIncludeRandom = true;
+	private MBPartner_BH businessPartner = null;
+	private MBPartnerLocation businessPartnerLocation = null;
+	private MCountry country = null;
+	private MRegion region = null;
+	private String city = null;
+	private MCurrency currency = null;
+	private MUser_BH contact = null;
+	private MPriceList salesPriceList = null;
+	private MPriceList purchasePriceList = null;
+	private MProduct_BH product = null;
+	private BigDecimal salesLimitPrice = null;
+	private BigDecimal salesStandardPrice = null;
+	private BigDecimal salesListPrice = null;
+	private BigDecimal purchaseLimitPrice = null;
+	private BigDecimal purchaseStandardPrice = null;
+	private BigDecimal purchaseListPrice = null;
+	private BigDecimal quantity = null;
+	private MDocType documentType = null;
+	private String documentAction = null;
+	private MAttributeSetInstance_BH attributeSetInstance = null;
+	private MOrder_BH order = null;
+	private MOrderLine_BH orderLine = null;
+	private MInOut inOut = null;
+	private MInOutLine inOutLine = null;
+	private MInvoice_BH invoice = null;
+	private MInvoiceLine invoiceLine = null;
+	private MInventory_BH inventory = null;
+	private MInventoryLine_BH inventoryLine = null;
+	private MPayment_BH payment = null;
+	private MBankAccount bankAccount = null;
+	private MBankStatement bankStatement = null;
+	private MBankStatementLine bankStatementLine = null;
+	private int randomNumber = 0;
+	private Properties context = null;
+	private String transactionName = null;
+	private boolean isError = false;
+	private String errorMessage = null;
+	private Random random = null;
+	private String separator = " - ";
+	private String prompt = ": ";
+	private String processUuid = null;
+	private List<ProcessInfoParameter> processInformationParameters = new ArrayList<ProcessInfoParameter>();
+	private String tenderType = null;
+	private int processTableId = 0;
+	private int processRecordId = 0;
+
+	private File report;
+	private String reportType = "pdf";
+
 	//TODO
-	//Create entries for Production, Movement, Physical Inventory, etc...
+	//Create entries for Production, Movement, etc...
 
 	public ChuBoePopulateVO() {
-	
+
 	}
-	
-	public String prepareIt(String m_scenarioName, boolean m_isIncludeRandom, String trx) {
-		return prepareIt(m_scenarioName, 
-				m_isIncludeRandom,
-				Env.getContextAsInt(Env.getCtx(), "#AD_Client_ID"), 
-				Env.getContextAsInt(Env.getCtx(), "#AD_Org_ID"), 
-				Env.getContextAsInt(Env.getCtx(), "#AD_User"), 
-				Env.getContextAsInt(Env.getCtx(), "#M_Warehouse_ID"), 
-				Env.getContextAsDate(Env.getCtx(), "#Date"), 
-				Env.getCtx(), 
-				trx);
+
+	public String prepareIt(String scenarioName, boolean isIncludeRandom, String transactionName) {
+		return prepareIt(scenarioName, isIncludeRandom, Env.getAD_Client_ID(Env.getCtx()), Env.getAD_Org_ID(Env.getCtx()),
+				Env.getAD_User_ID(Env.getCtx()), Env.getContextAsInt(Env.getCtx(), Env.M_WAREHOUSE_ID),
+				Env.getContextAsDate(Env.getCtx(), Env.DATE), Env.getCtx(), transactionName);
 	}
-	
-	public String prepareIt(String m_scenarioName, boolean m_isIncludeRandom,
-			int client_id, int org_id, 
-			int user_id, int warehouse_id, 
-			Timestamp date, Properties ctx, String trx) {
-		if (trx == null) {
-			//validation will set error below
-		}
-		else if (ctx == null) {
-			//validation will set error below
-		}
-		else {
-			setCtx(ctx);
-			set_trxName(trx);
-			m_client = new MClient(getCtx(), client_id, get_trxName());
-			m_org = new MOrg(getCtx(), org_id, get_trxName());
-			if (m_org.get_ID() == 0) 
-				ChuBoeCreateEntity.changeOrg(this);
-			m_user = new MUser(getCtx(), user_id, get_trxName());
+
+	public String prepareIt(String scenarioName, boolean isIncludeRandom, int clientId, int organizationId, int userId,
+			int warehouseId, Timestamp date, Properties context, String transactionName) {
+		if (transactionName != null && context != null) {
+			setContext(context);
+			setTransactionName(transactionName);
+			client = new MClient_BH(getContext(), clientId, getTransactionName());
+			organization = new MOrg(getContext(), organizationId, getTransactionName());
+			if (organization.get_ID() == 0) {
+				ChuBoeCreateEntity.changeOrganization(this);
+			}
+			user = new MUser_BH(getContext(), userId, getTransactionName());
 			//warehouse could have been set during changeOrg();
-			if (m_warehouse == null) 
-				m_warehouse = new MWarehouse(getCtx(), warehouse_id, get_trxName());
+			if (warehouse == null) {
+				warehouse = new MWarehouse_BH(getContext(), warehouseId, getTransactionName());
+			}
 			//user could have forgotten to choose a warehouse during login
-			if (m_warehouse == null) 
+			if (warehouse == null) {
 				ChuBoeCreateEntity.changeWarehouse(this);
-			m_date = TimeUtil.trunc(date, TimeUtil.TRUNC_DAY);
-			m_dateInitial = m_date;
-			setCurrency(new MCurrency(getCtx(), 100, get_trxName())); //default to USD
-			setCountry(new MCountry(getCtx(), 100, get_trxName())); //default to US
-			setRegion(new MRegion(getCtx(), 132, get_trxName())); //default to TX
-			setCity("Austin"); //default to Austin
-			setIsIncludeRandom(m_isIncludeRandom);
-			if (m_isIncludeRandom)
+			}
+			this.date = TimeUtil.trunc(date, TimeUtil.TRUNC_DAY);
+			dateInitial = this.date;
+			setCurrency(new MCurrency(getContext(), 100, getTransactionName())); //default to USD
+			setCountry(new MCountry(getContext(), 100, getTransactionName())); //default to US
+			setRegion(new MRegion(getContext(), 132, getTransactionName())); //default to TX
+			setCity("Nairobi"); //default to Nairobi
+			setIsIncludeRandom(isIncludeRandom);
+			if (isIncludeRandom) {
 				setRandom();
-			setScenarioName(m_scenarioName);
-			setDocAction(X_C_Order.DOCACTION_Complete);
-			setQty(ChuBoeCreateEntity.BD_ONE);
-			setPricePO(ChuBoeCreateEntity.BD_ONE);
-			setPriceSO(ChuBoeCreateEntity.BD_ONE);
+			}
+			setScenarioName(scenarioName);
+			setDocumentAction(X_C_Order.DOCACTION_Complete);
+			setQuantity(ChuBoeCreateEntity.BD_ONE);
+			setPurchasePrice(ChuBoeCreateEntity.BD_ONE);
+			setSalesPrice(ChuBoeCreateEntity.BD_ONE);
 		}
 		return validate();
 	}
-	
+
 	public void resetIt() {
 		//TODO: implement this
 	}
-	
-//	public ChuBoePopulateVO(String m_scenarioName, boolean m_isIncludeRandom, String trx) {
-//
-//		this(m_scenarioName, 
-//					m_isIncludeRandom,
-//					Env.getContextAsInt(Env.getCtx(), "#AD_Client_ID"), 
-//					Env.getContextAsInt(Env.getCtx(), "#AD_Org_ID"), 
-//					Env.getContextAsInt(Env.getCtx(), "#AD_User"), 
-//					Env.getContextAsInt(Env.getCtx(), "#M_Warehouse_ID"), 
-//					Env.getContextAsDate(Env.getCtx(), "#Date"), 
-//					Env.getCtx(), 
-//					trx);
-//	}
-//	
-//	public ChuBoePopulateVO(String m_scenarioName, boolean m_isIncludeRandom,
-//			int client_id, int org_id, 
-//			int user_id, int warehouse_id, 
-//			Timestamp date, Properties ctx, String trx)
-//	{
-//		if (trx == null) {
-//			//validation will set error below
-//		}
-//		else if (ctx == null) {
-//			//validation will set error below
-//		}
-//		else {
-//			setCtx(ctx);
-//			set_trxName(trx);
-//			m_client = new MClient(getCtx(), client_id, get_trxName());
-//			m_org = new MOrg(getCtx(), org_id, get_trxName());
-//			m_user = new MUser(getCtx(), user_id, get_trxName());
-//			m_warehouse = new MWarehouse(getCtx(), warehouse_id, get_trxName());
-//			m_date = date;
-//			setCurrency(new MCurrency(getCtx(), 100, get_trxName())); //default to USD
-//			setCountry(new MCountry(getCtx(), 100, get_trxName())); //default to US
-//			setRegion(new MRegion(getCtx(), 132, get_trxName())); //default to TX
-//			setCity("Austin"); //default to Austin
-//			setIsIncludeRandom(m_isIncludeRandom);
-//			if (m_isIncludeRandom)
-//				setRandom();
-//			setScenarioName(m_scenarioName);
-//		}
-//		
-//		validate();
-//	}
 
-	public MClient getClient() {
-		return m_client;
+
+	public MClient_BH getClient() {
+		return client;
 	}
 
-	public void setClient(MClient m_client) {
-		this.m_client = m_client;
+	public void setClient(MClient_BH client) {
+		this.client = client;
 	}
 
 	public MOrg getOrg() {
-		return m_org;
+		return organization;
 	}
 
-	public void setOrg(MOrg m_org) {
-		this.m_org = m_org;
+	public void setOrg(MOrg organization) {
+		this.organization = organization;
 	}
 
-	public MUser getUser() {
-		return m_user;
+	public MUser_BH getUser() {
+		return user;
 	}
 
-	public void setUser(MUser m_user) {
-		this.m_user = m_user;
+	public void setUser(MUser_BH user) {
+		this.user = user;
 	}
 
-	public MWarehouse getWarehouse() {
-		return m_warehouse;
+	public MWarehouse_BH getWarehouse() {
+		return warehouse;
 	}
 
-	public void setWarehouse(MWarehouse m_warehouse) {
-		this.m_warehouse = m_warehouse;
+	public void setWarehouse(MWarehouse_BH warehouse) {
+		this.warehouse = warehouse;
 	}
 
 	public Timestamp getDate() {
-		return m_date;
+		return date;
 	}
 
-	public void setDate(Timestamp m_date) {
-		this.m_date = m_date;
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
-	
+
 	public Timestamp getDateInitial() {
-		return m_dateInitial;
+		return dateInitial;
 	}
 
-	public void setDateInitial(Timestamp m_date) {
-		this.m_dateInitial = m_date;
+	public void setDateInitial(Timestamp date) {
+		this.dateInitial = date;
 	}
 
 	public void setDateOffset(int days) {
@@ -282,431 +238,438 @@ public class ChuBoePopulateVO {
 	}
 
 	public Timestamp getDatePriceList() {
-		return m_datePriceList;
+		return datePriceList;
 	}
 
 	public void setDatePriceList(Timestamp datePriceList) {
-		this.m_datePriceList = datePriceList;
+		this.datePriceList = datePriceList;
 	}
 
-	public MBPartner getBP() {
-		return m_bp;
+	public MBPartner_BH getBusinessPartner() {
+		return businessPartner;
 	}
 
-	public void setBP(MBPartner m_bp) {
-		this.m_bp = m_bp;
+	public void setBusinessPartner(MBPartner_BH m_bp) {
+		this.businessPartner = m_bp;
 	}
 
-	public MBPartnerLocation getBPLoc() {
-		return m_bpLoc;
+	public MBPartnerLocation getBusinessPartnerLocation() {
+		return businessPartnerLocation;
 	}
 
-	public void setBPLoc(MBPartnerLocation m_bpLoc) {
-		this.m_bpLoc = m_bpLoc;
+	public void setBusinessPartnerLocation(MBPartnerLocation businessPartnerLocation) {
+		this.businessPartnerLocation = businessPartnerLocation;
 	}
 
-	public MProduct getProduct() {
-		return m_product;
+	public MProduct_BH getProduct() {
+		return product;
 	}
 
-	public void setProduct(MProduct m_product) {
-		this.m_product = m_product;
+	public void setProduct(MProduct_BH product) {
+		this.product = product;
 	}
 
-	public MOrder getOrder() {
-		return m_order;
+	public MAttributeSetInstance_BH getAttributeSetInstance() {
+		return attributeSetInstance;
 	}
 
-	public void setOrder(MOrder m_po) {
-		this.m_order = m_po;
+	public void setAttributeSetInstance(MAttributeSetInstance_BH attributeSetInstance) {
+		this.attributeSetInstance = attributeSetInstance;
 	}
 
-	public MOrderLine getOrderLine() {
-		return m_orderLine;
+	public MOrder_BH getOrder() {
+		return order;
 	}
 
-	public void setOrderLine(MOrderLine m_poLine) {
-		this.m_orderLine = m_poLine;
+	public void setOrder(MOrder_BH order) {
+		this.order = order;
+	}
+
+	public MOrderLine_BH getOrderLine() {
+		return orderLine;
+	}
+
+	public void setOrderLine(MOrderLine_BH orderLine) {
+		this.orderLine = orderLine;
 	}
 
 	public MInOut getInOut() {
-		return m_inOut;
+		return inOut;
 	}
 
-	public void setInOut(MInOut m_mr) {
-		this.m_inOut = m_mr;
+	public void setInOut(MInOut inOut) {
+		this.inOut = inOut;
 	}
 
 	public MInOutLine getInOutLine() {
-		return m_inOutLine;
+		return inOutLine;
 	}
 
-	public void setInOutLine(MInOutLine m_mrLine) {
-		this.m_inOutLine = m_mrLine;
+	public void setInOutLine(MInOutLine inOutLine) {
+		this.inOutLine = inOutLine;
 	}
 
-	public MInvoice getInvoice() {
-		return m_invoice;
+	public MInvoice_BH getInvoice() {
+		return invoice;
 	}
 
-	public void setInvoice(MInvoice m_vi) {
-		this.m_invoice = m_vi;
+	public void setInvoice(MInvoice_BH invoice) {
+		this.invoice = invoice;
 	}
 
 	public MInvoiceLine getInvoiceLine() {
-		return m_invoiceLine;
+		return invoiceLine;
 	}
 
-	public void setInvoiceLine(MInvoiceLine m_viLine) {
-		this.m_invoiceLine = m_viLine;
+	public void setInvoiceLine(MInvoiceLine invoiceLine) {
+		this.invoiceLine = invoiceLine;
 	}
 
-	public MPayment getPayment() {
-		return m_payment;
+	public MPayment_BH getPayment() {
+		return payment;
 	}
 
-	public void setPayment(MPayment m_payment) {
-		this.m_payment = m_payment;
+	public void setPayment(MPayment_BH payment) {
+		this.payment = payment;
 	}
 
-	public MBankStatement getBS() {
-		return m_bs;
+	public MBankStatement getBankStatement() {
+		return bankStatement;
 	}
 
-	public void setBS(MBankStatement m_bs) {
-		this.m_bs = m_bs;
+	public void setBankStatement(MBankStatement bankStatement) {
+		this.bankStatement = bankStatement;
 	}
 
-	public MBankStatementLine getBSLine() {
-		return m_bsLine;
+	public MBankStatementLine getBankStatementLine() {
+		return bankStatementLine;
 	}
 
-	public void setM_BSLine(MBankStatementLine m_bsLine) {
-		this.m_bsLine = m_bsLine;
-	}
-	public BigDecimal getQty() {
-		return m_qty;
+	public void setBankStatementLine(MBankStatementLine bankStatementLine) {
+		this.bankStatementLine = bankStatementLine;
 	}
 
-	public void setQty(BigDecimal m_qty) {
-		this.m_qty = m_qty;
+	public BigDecimal getQuantity() {
+		return quantity;
 	}
 
-	public void setPriceSO(BigDecimal m_price) {
-		this.m_limitPriceSO = m_price;
-		this.m_listPriceSO = m_price;
-		this.m_stdPriceSO = m_price;
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
 	}
 
-	public BigDecimal getLimitPriceSO() {
-		return m_limitPriceSO;
+	public void setSalesPrice(BigDecimal salesPrice) {
+		this.salesLimitPrice = salesPrice;
+		this.salesListPrice = salesPrice;
+		this.salesStandardPrice = salesPrice;
 	}
 
-	public void setLimitPriceSO(BigDecimal m_limitPrice) {
-		this.m_limitPriceSO = m_limitPrice;
+	public BigDecimal getSalesLimitPrice() {
+		return salesLimitPrice;
 	}
 
-	public BigDecimal getStdPriceSO() {
-		return m_stdPriceSO;
+	public void setSalesLimitPrice(BigDecimal salesLimitPrice) {
+		this.salesLimitPrice = salesLimitPrice;
 	}
 
-	public void setStdPriceSO(BigDecimal m_stdPrice) {
-		this.m_stdPriceSO = m_stdPrice;
+	public BigDecimal getSalesStandardPrice() {
+		return salesStandardPrice;
 	}
 
-	public BigDecimal getListPriceSO() {
-		return m_listPriceSO;
+	public void setSalesStandardPrice(BigDecimal salesStandardPrice) {
+		this.salesStandardPrice = salesStandardPrice;
 	}
 
-	public void setListPriceSO(BigDecimal m_listPrice) {
-		this.m_listPriceSO = m_listPrice;
+	public BigDecimal getSalesListPrice() {
+		return salesListPrice;
 	}
 
-	public void setPricePO(BigDecimal m_price) {
-		this.m_limitPricePO = m_price;
-		this.m_listPricePO = m_price;
-		this.m_stdPricePO = m_price;
+	public void setSalesListPrice(BigDecimal salesListPrice) {
+		this.salesListPrice = salesListPrice;
 	}
 
-	public BigDecimal getLimitPricePO() {
-		return m_limitPricePO;
+	public void setPurchasePrice(BigDecimal purchasePrice) {
+		this.purchaseLimitPrice = purchasePrice;
+		this.purchaseListPrice = purchasePrice;
+		this.purchaseStandardPrice = purchasePrice;
 	}
 
-	public void setLimitPricePO(BigDecimal m_limitPrice) {
-		this.m_limitPricePO = m_limitPrice;
+	public BigDecimal getPurchaseLimitPrice() {
+		return purchaseLimitPrice;
 	}
 
-	public BigDecimal getStdPricePO() {
-		return m_stdPricePO;
+	public void setPurchaseLimitPrice(BigDecimal purchaseLimitPrice) {
+		this.purchaseLimitPrice = purchaseLimitPrice;
 	}
 
-	public void setStdPricePO(BigDecimal m_stdPrice) {
-		this.m_stdPricePO = m_stdPrice;
+	public BigDecimal getPurchaseStandardPrice() {
+		return purchaseStandardPrice;
 	}
 
-	public BigDecimal getListPricePO() {
-		return m_listPricePO;
+	public void setPurchaseStandardPrice(BigDecimal purchaseStandardPrice) {
+		this.purchaseStandardPrice = purchaseStandardPrice;
 	}
 
-	public void setListPricePO(BigDecimal m_listPrice) {
-		this.m_listPricePO = m_listPrice;
+	public BigDecimal getPurchaseListPrice() {
+		return purchaseListPrice;
+	}
+
+	public void setPurchaseListPrice(BigDecimal purchaseListPrice) {
+		this.purchaseListPrice = purchaseListPrice;
 	}
 
 	public String getScenarioName() {
-		if (isIncludeRandom())
-		{
-			return m_scenarioName + "_" + getRandom();
+		if (isIncludeRandom()) {
+			return scenarioName + "_" + getRandomNumber();
 		}
-		else return m_scenarioName;
+		return scenarioName;
 	}
 
-	public void setScenarioName(String m_scenarioName) {
-		this.m_scenarioName = m_scenarioName;
+	public void setScenarioName(String scenarioName) {
+		this.scenarioName = scenarioName;
 	}
-	
-	public int getRandom() {
-		return m_random;
+
+	public int getRandomNumber() {
+		return randomNumber;
 	}
 
 	public void setRandom() {
-		this.m_random = randInt(100, 100000000);
+		this.randomNumber = randInt(100, 100000000);
 	}
 
-	
 	public int randInt(int min, int max) {
+		if (random == null) {
+			random = new Random();
+		}
 
-	    if (m_rand == null)
-	    	m_rand = new Random();
-
-	    // nextInt is normally exclusive of the top value,
-	    // so add 1 to make it inclusive
-	    int randomNum = m_rand.nextInt((max - min) + 1) + min;
-
-	    return randomNum;
+		// nextInt is normally exclusive of the top value,
+		// so add 1 to make it inclusive
+		return random.nextInt((max - min) + 1) + min;
 	}
 
-	public Properties getCtx() {
-		return m_ctx;
+	public Properties getContext() {
+		return context;
 	}
 
-	public void setCtx(Properties m_ctx) {
-		this.m_ctx = m_ctx;
+	public void setContext(Properties context) {
+		this.context = context;
 	}
 
-	public String get_trxName() {
-		return m_trxName;
+	public String getTransactionName() {
+		return transactionName;
 	}
 
-	public void set_trxName(String m_trxName) {
-		this.m_trxName = m_trxName;
+	public void setTransactionName(String transactionName) {
+		this.transactionName = transactionName;
 	}
 
 	public boolean isError() {
-		return m_isError;
+		return isError;
 	}
 
-	public void setIsError(boolean m_isError) {
-		this.m_isError = m_isError;
+	public void setIsError(boolean isError) {
+		this.isError = isError;
 	}
 
-	public String getErrorMsg() {
-		return m_errorMsg;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
-	public String getErrorMsgLong() {
-		return "ERROR!!!!  Scenario" + getPrompt() + getScenarioName() + getSeparator()+ "Step" + getPrompt() + getStepName() + getSeparator() + "Error " + getSeparator() + getErrorMsg();
-	}
-
-	public void setErrorMsg(String m_errorMsg) {
-		this.m_errorMsg = m_errorMsg;
-		setIsError(true);
-	}
-	
-	public void appendErrorMsg(String m_errorMsg) {
-		if (getErrorMsg() != null)
-			this.m_errorMsg = this.m_errorMsg + " + " + m_errorMsg;
-		else this.m_errorMsg = m_errorMsg;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 		setIsError(true);
 	}
 
+	public String getErrorMessageLong() {
+		return "ERROR!!!!  Scenario" + getPrompt() + getScenarioName() + getSeparator() + "Step" + getPrompt() +
+				getStepName() + getSeparator() + "Error " + getSeparator() + getErrorMessage();
+	}
+
+	public void appendErrorMessage(String errorMessage) {
+		if (getErrorMessage() != null) {
+			this.errorMessage = this.errorMessage + " + " + errorMessage;
+		} else {
+			this.errorMessage = errorMessage;
+		}
+		setIsError(true);
+	}
 
 	public String validate() {
-		if (m_ctx == null){
-			appendErrorMsg("No Context");
+		if (context == null) {
+			appendErrorMessage("No Context");
 		}
-		if (m_trxName == null){
-			appendErrorMsg("No Transaction Name");
+		if (transactionName == null) {
+			appendErrorMessage("No Transaction Name");
 		}
-		if (m_client == null){
-			appendErrorMsg("No Client");
+		if (client == null) {
+			appendErrorMessage("No Client");
 		}
-		if (m_org == null){
-			appendErrorMsg("No Org");
+		if (organization == null) {
+			appendErrorMessage("No Org");
 		}
-		if (m_user == null){
-			appendErrorMsg("NO User");
+		if (user == null) {
+			appendErrorMessage("NO User");
 		}
-		if (m_warehouse == null){
-			appendErrorMsg("No Warehouse");
+		if (warehouse == null) {
+			appendErrorMessage("No Warehouse");
 		}
-		if (m_date == null){
-			appendErrorMsg("No Date");
+		if (date == null) {
+			appendErrorMessage("No Date");
 		}
-		if (m_currency == null){
-			appendErrorMsg("No Currency");
+		if (currency == null) {
+			appendErrorMessage("No Currency");
 		}
-		if (m_region == null){
-			appendErrorMsg("No Region");
+		if (region == null) {
+			appendErrorMessage("No Region");
 		}
-		if (m_city == null){
-			appendErrorMsg("No City");
+		if (city == null) {
+			appendErrorMessage("No City");
 		}
-		if (m_org == null || m_org.get_ID() == 0)
-			appendErrorMsg("Cannot Use null or * Org");
-		if (m_stepName == null)
+		if (organization == null || organization.get_ID() == 0)
+			appendErrorMessage("Cannot Use null or * Org");
+		if (stepName == null)
 			setStepName("No Step Name Provided");
-		return getErrorMsg();
+		return getErrorMessage();
 	}
 
 	public boolean isIncludeRandom() {
-		return m_isIncludeRandom;
+		return isIncludeRandom;
 	}
 
-	public void setIsIncludeRandom(boolean m_isIncludeRandom) {
-		this.m_isIncludeRandom = m_isIncludeRandom;
+	public void setIsIncludeRandom(boolean isIncludeRandom) {
+		this.isIncludeRandom = isIncludeRandom;
 	}
 
-	public MUser getContact() {
-		return m_contact;
+	public MUser_BH getContact() {
+		return contact;
 	}
 
-	public void setContact(MUser m_contact) {
-		this.m_contact = m_contact;
+	public void setContact(MUser_BH contact) {
+		this.contact = contact;
 	}
 
 	public MCurrency getCurrency() {
-		return m_currency;
+		return currency;
 	}
 
 	public void setCurrency(MCurrency m_currency) {
-		this.m_currency = m_currency;
+		this.currency = m_currency;
 	}
 
 	public MCountry getCountry() {
-		return m_country;
+		return country;
 	}
 
 	public void setCountry(MCountry m_country) {
-		this.m_country = m_country;
+		this.country = m_country;
 	}
 
 	public MRegion getRegion() {
-		return m_region;
+		return region;
 	}
 
 	public void setRegion(MRegion m_region) {
-		this.m_region = m_region;
+		this.region = m_region;
 	}
 
 	public String getCity() {
-		return m_city;
+		return city;
 	}
 
 	public void setCity(String m_city) {
-		this.m_city = m_city;
+		this.city = m_city;
 	}
 
-	public MDocType getDocType() {
-		return m_docType;
+	public MDocType getDocumentType() {
+		return documentType;
 	}
 
-	public void setDocType(MDocType m_docType) {
-		this.m_docType = m_docType;
-	}
-	
-	public void setDocBaseType(String m_docBaseType, String m_docSubTypeSO, 
-			boolean issotrx, boolean isshipconfirm, boolean ispickqaconfirm) {
-		setDocType(ChuBoeCreateEntity.getDocType(this,m_docBaseType, m_docSubTypeSO, 
-				issotrx, isshipconfirm, ispickqaconfirm));
+	public void setDocumentType(MDocType m_dodocumentTypeType) {
+		this.documentType = m_dodocumentTypeType;
 	}
 
-	public String getDocAction() {
-		return m_docAction;
+	public void setDocBaseType(String documentBaseType, String salesDocumentBaseType, boolean isSalesTransaction,
+			boolean isShipmentConfirm, boolean isPickQAConfirm) {
+		setDocumentType(
+				ChuBoeCreateEntity.getDocumentType(this, documentBaseType, salesDocumentBaseType, isSalesTransaction,
+						isShipmentConfirm, isPickQAConfirm));
 	}
 
-	public void setDocAction(String m_docAction) {
-		this.m_docAction = m_docAction;
+	public String getDocumentAction() {
+		return documentAction;
+	}
+
+	public void setDocumentAction(String documentAction) {
+		this.documentAction = documentAction;
 	}
 
 	public String getSeparator() {
-		return m_separator;
+		return separator;
 	}
 
-	public void setSeparator(String m_separator) {
-		this.m_separator = m_separator;
+	public void setSeparator(String separator) {
+		this.separator = separator;
 	}
 
 	public String getPrompt() {
-		return m_prompt;
+		return prompt;
 	}
 
-	public void setPrompt(String m_prompt) {
-		this.m_prompt = m_prompt;
+	public void setPrompt(String prompt) {
+		this.prompt = prompt;
 	}
 
 	public String getStepName() {
-		return m_stepName;
+		return stepName;
 	}
 
-	public String getStepMsg() {
-		if (isIncludeRandom())
-		{
-			return "Scenario" + getPrompt() + getRandom() + getSeparator() + "Step" + getPrompt() + getStepName();
+	public void setStepName(String stepName) {
+		this.stepName = stepName;
+	}
+
+	public String getStepMessage() {
+		if (isIncludeRandom()) {
+			return "Scenario" + getPrompt() + getRandomNumber() + getSeparator() + "Step" + getPrompt() + getStepName();
 		}
 		return "Scenario" + getPrompt() + getScenarioName() + getSeparator() + "Step" + getPrompt() + getStepName();
 	}
-	
-	public String getStepMsgLong() {
+
+	public String getStepMessageLong() {
 		//please note the below string can be very long
 		return "Scenario" + getPrompt() + getScenarioName() + getSeparator() + "Step" + getPrompt() + getStepName();
 	}
-	
-	public void setStepName(String m_stepName) {
-		this.m_stepName = m_stepName;
+
+	//only used when changing BPs
+	public MPriceList getSalesPriceList() {
+		return salesPriceList;
 	}
 
 	//only used when changing BPs
-	public MPriceList getPriceListSO() {
-		return m_priceListSO;
+	protected void setSalesPriceList(MPriceList m_priceListSO) {
+		this.salesPriceList = m_priceListSO;
 	}
 
 	//only used when changing BPs
-	protected void setPriceListSO(MPriceList m_priceListSO) {
-		this.m_priceListSO = m_priceListSO;
+	public MPriceList getPurchasePriceList() {
+		return purchasePriceList;
 	}
 
 	//only used when changing BPs
-	public MPriceList getPriceListPO() {
-		return m_priceListPO;
+	protected void setPurchasePriceList(MPriceList m_priceListPO) {
+		this.purchasePriceList = m_priceListPO;
 	}
 
-	//only used when changing BPs
-	protected void setPriceListPO(MPriceList m_priceListPO) {
-		this.m_priceListPO = m_priceListPO;
-	}
-	
 	//used to clear the current BP
-	public void clearBP() {
-		setBP(null);
-		setBPLoc(null);
+	public void clearBusinessPartner() {
+		setBusinessPartner(null);
+		setBusinessPartnerLocation(null);
 		setContact(null);
-		setRandom(); 
+		setRandom();
 	}
 
 	//used to clear the current BP
 	public void clearPriceLists() {
-		setPriceListPO(null);
-		setPriceListSO(null);
+		setPurchasePriceList(null);
+		setSalesPriceList(null);
 	}
 
 	//used to clear the current BP
@@ -714,55 +677,122 @@ public class ChuBoePopulateVO {
 		setProduct(null);
 		setRandom();
 	}
-	
-	public MBankAccount getBankAcct() {
-		return m_bankAcct;
+
+	public MBankAccount getBankAccount() {
+		return bankAccount;
 	}
 
-	public void setBankAcct(MBankAccount m_bankAcct) {
-		this.m_bankAcct = m_bankAcct;
+	public void setBankAccount(MBankAccount bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 
-	public CLogger getLog() {
-		return m_log;
+	public CLogger getLogger() {
+		return logger;
 	}
 
-	public String getProcess_UU() {
-		return m_process_UU;
+	public String getProcessUuid() {
+		return processUuid;
 	}
 
-	public void setProcess_UU(String m_process_UU) {
-		this.m_process_UU = m_process_UU;
+	public void setProcessUuid(String m_process_UU) {
+		this.processUuid = m_process_UU;
 	}
 
-	public List<ProcessInfoParameter> getProcessInfoParams() {
-		return m_processInfoParams;
+	public List<ProcessInfoParameter> getProcessInformationParameters() {
+		return processInformationParameters;
 	}
 
-	public void setProcessInfoParams(
-			List<ProcessInfoParameter> m_processInfoParams) {
-		this.m_processInfoParams = m_processInfoParams;
-	}
-	
-	public void addProcessInfoParam (ProcessInfoParameter procInfoParam) {
-		getProcessInfoParams().add(procInfoParam);
+	public void setProcessInformationParameters(List<ProcessInfoParameter> processInformationParameters) {
+		this.processInformationParameters = processInformationParameters;
 	}
 
-	public int getProcessTable_ID() {
-		return m_processTable_ID;
+	public void addProcessInformationParameter(ProcessInfoParameter processInformationParameter) {
+		getProcessInformationParameters().add(processInformationParameter);
 	}
 
-	public void setProcessTable_ID(int m_processTable_ID) {
-		this.m_processTable_ID = m_processTable_ID;
+	public int getProcessTableId() {
+		return processTableId;
 	}
 
-	public int getProcessRecord_ID() {
-		return m_processRecord_ID;
+	public void setProcessTableId(int processTableId) {
+		this.processTableId = processTableId;
 	}
 
-	public void setProcessRecord_ID(int m_processRecord_ID) {
-		this.m_processRecord_ID = m_processRecord_ID;
+	public int getProcessRecordId() {
+		return processRecordId;
 	}
 
+	public void setProcessRecordId(int processRecordId) {
+		this.processRecordId = processRecordId;
+	}
 
+	/**
+	 * A method to refresh a few properties on the value object.
+	 */
+	public void refresh() {
+		if (getOrder() != null) {
+			order = new Query(getContext(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
+					getTransactionName()).setParameters(getOrder().get_ID()).first();
+		}
+		if (getOrderLine() != null) {
+			orderLine = new Query(getContext(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_OrderLine_ID + "=?",
+					getTransactionName()).setParameters(getOrderLine().get_ID()).first();
+		}
+		if (getPayment() != null) {
+			payment = new Query(getContext(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_ID + "=?",
+					getTransactionName()).setParameters(getPayment().get_ID()).first();
+		}
+		if (getInvoice() != null) {
+			invoice = new Query(getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_ID + "=?",
+					getTransactionName()).setParameters(getInvoice().get_ID()).first();
+		}
+		if (getBusinessPartner() != null) {
+			businessPartner = new Query(getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=?",
+					getTransactionName()).setParameters(getBusinessPartner().get_ID()).first();
+		}
+		if (getProduct() != null) {
+			product = new Query(getContext(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_ID + "=?",
+					getTransactionName()).setParameters(getProduct().get_ID()).first();
+		}
+	}
+
+	public File getReport() {
+		return report;
+	}
+
+	public void setReport(File report) {
+		this.report = report;
+	}
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
+
+	public MInventory_BH getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(MInventory_BH inventory) {
+		this.inventory = inventory;
+	}
+
+	public MInventoryLine_BH getInventoryLine() {
+		return inventoryLine;
+	}
+
+	public void setInventoryLine(MInventoryLine_BH inventoryLine) {
+		this.inventoryLine = inventoryLine;
+	}
+
+	public String getTenderType() {
+		return tenderType;
+	}
+
+	public void setTenderType(String tenderType) {
+		this.tenderType = tenderType;
+	}
 }

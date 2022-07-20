@@ -5,10 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.Query;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,15 +22,15 @@ public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 
 	@IPopulateAnnotation.CanRun
 	public void businessPartnerGetsUpdatedWhenUsersFieldsChange() throws Exception {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create Patient");
-		MBPartner_BH patient = new MBPartner_BH(valueObject.getCtx(), 0, valueObject.get_trxName());
+		MBPartner_BH patient = new MBPartner_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		patient.setAD_Org_ID(0);
-		patient.setName(valueObject.getStepMsg());
-		patient.setDescription(valueObject.getStepMsgLong());
+		patient.setName(valueObject.getStepMessage());
+		patient.setDescription(valueObject.getStepMessageLong());
 		patient.setIsCustomer(true);
 		patient.setBH_IsPatient(true); // the BP model event currently uses this
 		patient.saveEx();
@@ -41,8 +41,8 @@ public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 		Timestamp birthday = new Timestamp(cal.getTimeInMillis());
 
 		valueObject.setStepName("Update Patient User's Details");
-		MUser_BH user = new Query(valueObject.getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_C_BPartner_ID + "=?",
-				valueObject.get_trxName()).setParameters(patient.getC_BPartner_ID()).first();
+		MUser_BH user = new Query(valueObject.getContext(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_C_BPartner_ID + "=?",
+				valueObject.getTransactionName()).setParameters(patient.getC_BPartner_ID()).first();
 		user.setBirthday(birthday);
 		user.setEMail("test@businesspartner.com");
 		user.setPhone("123456");
@@ -51,7 +51,7 @@ public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Reload the patient's details");
-		boolean reload = patient.load(valueObject.get_trxName());
+		boolean reload = patient.load(valueObject.getTransactionName());
 
 		assertTrue(reload, "Should reload Business Partner");
 		assertNotNull(user, "User should not be null");

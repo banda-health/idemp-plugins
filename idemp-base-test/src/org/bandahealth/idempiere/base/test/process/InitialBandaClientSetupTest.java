@@ -1,7 +1,9 @@
 package org.bandahealth.idempiere.base.test.process;
 
 import com.chuboe.test.assertion.ChuBoeAssert;
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
@@ -10,8 +12,6 @@ import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MElementValue;
@@ -43,30 +43,30 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRun
 	public void clientIsCreatedProperly() throws SQLException {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create a system user");
-		int currentClientId = Env.getAD_Client_ID(valueObject.getCtx());
-		Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, 0);
-		MUser_BH newSystemUser = new MUser_BH(valueObject.getCtx(), 0, valueObject.get_trxName());
+		int currentClientId = Env.getAD_Client_ID(valueObject.getContext());
+		Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
+		MUser_BH newSystemUser = new MUser_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		newSystemUser.setName(valueObject.getScenarioName());
-		newSystemUser.setDescription(valueObject.getStepMsgLong());
+		newSystemUser.setDescription(valueObject.getStepMessageLong());
 		newSystemUser.saveEx();
 		commitEx();
 
-		MUserRoles userRole = new MUserRoles(valueObject.getCtx(), 0, valueObject.get_trxName());
+		MUserRoles userRole = new MUserRoles(valueObject.getContext(), 0, valueObject.getTransactionName());
 		userRole.setAD_Role_ID(0);
 		userRole.setAD_User_ID(newSystemUser.get_ID());
 		userRole.saveEx();
 		commitEx();
-		Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, currentClientId);
+		Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 
 		valueObject.setStepName("Create Client");
-		valueObject.setProcess_UU("b6ad401a-b8e0-465e-8ffb-1d5485b96efd");
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
+		valueObject.setProcessUuid("b6ad401a-b8e0-465e-8ffb-1d5485b96efd");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
 		// The DB has many hard limits of 60 characters for names, some with something appended to the client name
 		// So, limit the client name to 40 characters (and replace any underscores from the scenario name with dashes)
 		String[] scenarioParts = valueObject.getScenarioName().split("_");
@@ -74,7 +74,7 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 		if (clientName.length() > 40) {
 			clientName = clientName.substring(0, 40);
 		}
-		valueObject.setProcessInfoParams(List.of(
+		valueObject.setProcessInformationParameters(List.of(
 				new ProcessInfoParameter("ClientName", clientName, null, null, null),
 				new ProcessInfoParameter("C_Currency_ID", 266, null, null, null), // KES
 				new ProcessInfoParameter("IsSetInitialPassword", "Y", null, null, null),
@@ -92,94 +92,94 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("InactivateDefaults", "N", null, null, null)
 		));
 
-		BandaCreateEntity.runProcessAsSystem(valueObject);
+		ChuBoeCreateEntity.runProcessAsSystem(valueObject);
 		commitEx();
 
 		try {
 			PO.setCrossTenantSafe();
 
 			// Assert client and organization are created
-			MClient_BH client = new Query(valueObject.getCtx(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
-					valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(clientName).first();
+			MClient_BH client = new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
+					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(clientName).first();
 			assertNotNull(client, "Client exists");
-			List<MOrg> organizations = new Query(valueObject.getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + "=?",
-					valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+			List<MOrg> organizations = new Query(valueObject.getContext(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + "=?",
+					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(1, organizations.size(), "Only one organization created by default");
 			MOrg organization = organizations.get(0);
 
 			// Assert correct creation and assignment of roles
-			List<MRole> masterRoles = new Query(valueObject.getCtx(), MRole.Table_Name,
+			List<MRole> masterRoles = new Query(valueObject.getContext(), MRole.Table_Name,
 					MRole.COLUMNNAME_IsMasterRole + "=? AND " + MRole.COLUMNNAME_AD_Role_ID + " IN (SELECT " +
 							MBHDefaultIncludedRole.COLUMNNAME_Included_Role_ID + " FROM " + MBHDefaultIncludedRole.Table_Name + ")",
-					valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters("Y").list();
-			List<MRole> clientRoles = new Query(valueObject.getCtx(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
-					valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters("Y").list();
+			List<MRole> clientRoles = new Query(valueObject.getContext(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
+					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(masterRoles.size(), clientRoles.size() - 2,
 					"A role was created for each master role, plus the two default roles");
 
-			MUser_BH clientAdminUser = new Query(valueObject.getCtx(), MUser_BH.Table_Name,
+			MUser_BH clientAdminUser = new Query(valueObject.getContext(), MUser_BH.Table_Name,
 					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?",
-					valueObject.get_trxName()).setOnlyActiveRecords(true)
+					valueObject.getTransactionName()).setOnlyActiveRecords(true)
 					.setParameters(client.get_ID(), client.getName() + "Admin").first();
 			assertNotNull(clientAdminUser, "Admin user was created");
 			// The `getRoles` method reads the environment context, so update it
-			Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, client.get_ID());
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, client.get_ID());
 			assertEquals(masterRoles.size() + 2, newSystemUser.getRoles(organization.get_ID()).length,
 					"System users are assigned new roles, including the two iDempiere adds by default");
-			Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, currentClientId);
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 
 			// Assert default warehouse & locators created
 			List<MWarehouse_BH> warehouses =
-					new Query(valueObject.getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_AD_Org_ID + "=?",
-							valueObject.get_trxName()).setParameters(organization.get_ID()).setOnlyActiveRecords(true).list();
+					new Query(valueObject.getContext(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_AD_Org_ID + "=?",
+							valueObject.getTransactionName()).setParameters(organization.get_ID()).setOnlyActiveRecords(true).list();
 			assertThat("Only one warehouse is created", warehouses.size(), is(1));
 			assertTrue(warehouses.get(0).isBH_IsDefaultWarehouse(), "The warehouse is default");
 			List<MLocator> locators =
-					new Query(valueObject.getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
-							valueObject.get_trxName()).setParameters(warehouses.get(0).get_ID()).setOnlyActiveRecords(true).list();
+					new Query(valueObject.getContext(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
+							valueObject.getTransactionName()).setParameters(warehouses.get(0).get_ID()).setOnlyActiveRecords(true).list();
 			assertThat("Only one locator is created", locators.size(), is(1));
 			assertTrue(locators.get(0).isDefault(), "The locator is default");
 
 			// Assert attribute sets created
 			List<MAttributeSet_BH> configurationClientAttributeSets =
-					new Query(valueObject.getCtx(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+					new Query(valueObject.getContext(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
 			List<MAttributeSet_BH> clientAttributeSets =
-					new Query(valueObject.getCtx(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+					new Query(valueObject.getContext(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(configurationClientAttributeSets.size(), clientAttributeSets.size(), "Attribute sets were created");
 			assertTrue(clientAttributeSets.stream().allMatch(MAttributeSet_BH::isBH_Locked),
 					"All client attributes sets are marked as locked");
 
 			// Assert default charges and charge types are created
 			List<MCharge_BH> configurationClientCharges =
-					new Query(valueObject.getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+					new Query(valueObject.getContext(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
 			List<MCharge_BH> clientCharges =
-					new Query(valueObject.getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+					new Query(valueObject.getContext(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(configurationClientCharges.size(), clientCharges.size(), "Charges were created");
 			assertTrue(clientCharges.stream().allMatch(MCharge_BH::isBH_Locked), "All client charges are marked as locked");
 
 			List<MChargeType_BH> configurationClientChargeTypes =
-					new Query(valueObject.getCtx(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+					new Query(valueObject.getContext(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
 			Set<Integer> clientChargeTypeIds =
 					clientCharges.stream().map(MCharge_BH::getC_ChargeType_ID).collect(Collectors.toSet());
 			assertTrue(clientChargeTypeIds.size() > 0, "Client charge types were created");
 			List<Object> parameters = new ArrayList<>();
 			String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(clientChargeTypeIds, parameters);
-			List<MChargeType_BH> clientChargeTypes = new Query(valueObject.getCtx(), MChargeType_BH.Table_Name,
+			List<MChargeType_BH> clientChargeTypes = new Query(valueObject.getContext(), MChargeType_BH.Table_Name,
 					MChargeType_BH.COLUMNNAME_C_ChargeType_ID + " IN (" + whereClause + ")",
-					valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(parameters).list();
+					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(parameters).list();
 			assertEquals(configurationClientChargeTypes.size(), clientChargeTypes.size(), "Charge Types were created");
 			assertTrue(clientChargeTypes.stream().allMatch(chargeType -> chargeType.getAD_Client_ID() == client.get_ID()),
 					"All client charge types are mapped to the correct client");
 
 			// Assert CoA is inserted
-			assertTrue(new Query(valueObject.getCtx(), MElementValue.Table_Name,
+			assertTrue(new Query(valueObject.getContext(), MElementValue.Table_Name,
 							MElementValue.COLUMNNAME_Value + "!=? AND " + MElementValue.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters("99999", client.get_ID()).count() > 0,
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters("99999", client.get_ID()).count() > 0,
 					"Non DO NOT USE accounts created");
 
 			// Assert bank accounts are created
@@ -213,8 +213,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 
 			// Assert price lists are created
 			List<MPriceList> priceLists =
-					new Query(valueObject.getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.get_trxName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+					new Query(valueObject.getContext(), MPriceList.Table_Name, MPriceList.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(2, priceLists.size(), "Only two price lists exist for a client");
 			assertTrue(priceLists.stream().anyMatch(MPriceList::isSOPriceList), "One is a sales price list");
 			assertTrue(priceLists.stream().anyMatch(Predicate.not(MPriceList::isSOPriceList)),
@@ -264,9 +264,9 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 		} finally {
 			PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...
-			Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, currentClientId);
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
 
-		ChuBoeAssert.executeSQLAsserts(getAssertionSQL(), valueObject.getCtx(), valueObject.get_trxName());
+		ChuBoeAssert.executeSQLAsserts(getAssertionSQL(), valueObject.getContext(), valueObject.getTransactionName());
 	}
 }

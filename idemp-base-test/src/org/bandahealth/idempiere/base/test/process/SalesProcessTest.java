@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.base.test.process;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
@@ -21,63 +21,63 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SalesProcessTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Open needed periods");
-		BandaCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
 		commitEx();
 	}
 
 	@IPopulateAnnotation.CanRun
 	public void testProcessRequest() throws Exception {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create order");
-		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
 				false);
-		BandaCreateEntity.createOrder(valueObject);
+		ChuBoeCreateEntity.createOrder(valueObject);
 		valueObject.getOrder().setDocAction(DocumentEngine.ACTION_Complete);
 		valueObject.getOrder().save();
 		commitEx();
 
 		valueObject.setStepName("Create payment");
 		valueObject.setInvoice(
-				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocType().get_ID(), valueObject.getDate()));
-		valueObject.setDocAction(null);
+				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocumentType().get_ID(), valueObject.getDate()));
+		valueObject.setDocumentAction(null);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		BandaCreateEntity.createPayment(valueObject);
-		valueObject.getPaymentBH().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPaymentBH().saveEx();
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Run the sales order completion process");
-		valueObject.setProcess_UU("c5f39620-b2dc-42ad-8626-7713c4f22e0c");
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
-		valueObject.setProcessInfoParams(
+		valueObject.setProcessUuid("c5f39620-b2dc-42ad-8626-7713c4f22e0c");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
 				Collections.singletonList(new ProcessInfoParameter("c_order_id", valueObject.getOrder().get_ID(), "", "",
 						"")));
-		BandaCreateEntity.runProcess(valueObject);
+		ChuBoeCreateEntity.runProcess(valueObject);
 
 		waitFor(() -> {
 			valueObject.refresh();
 			assertTrue(valueObject.getOrder().isComplete(), "Order is completed");
 			MInvoice_BH invoice =
-					new Query(valueObject.getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-							valueObject.get_trxName()).setParameters(valueObject.getOrder().get_ID()).first();
+					new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
+							valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
 			assertTrue(invoice.isComplete(), "Invoice is completed");
 			assertTrue(valueObject.getPayment().isComplete(), "Payment is completed");
 		});

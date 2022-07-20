@@ -1,17 +1,18 @@
 package org.bandahealth.idempiere.report.test;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
+import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,59 +29,63 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
 
 	@IPopulateAnnotation.CanRun
 	public void canRunReport() throws SQLException, IOException {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create purchase order");
-		valueObject.setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
-		valueObject.setQty(new BigDecimal(10));
-		BandaCreateEntity.createOrder(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create material receipt");
-		valueObject.setDocAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
-		BandaCreateEntity.createInOutFromOrder(valueObject);
+		valueObject.setQuantity(new BigDecimal(10));
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Adjust inventory");
-		valueObject.setDocAction(DocumentEngine.ACTION_Complete);
-		valueObject.setQty(new BigDecimal(50));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(50));
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
-		BandaCreateEntity.createInventory(valueObject);
+		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
-		valueObject.setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
-		valueObject.setQty(new BigDecimal(20));
-		BandaCreateEntity.createOrder(valueObject);
+		valueObject.setQuantity(new BigDecimal(20));
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcess_UU("93d7c1bc-2885-43f4-985f-90f57a414e5f");
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
-		valueObject.setProcessInfoParams(Arrays.asList(
+		valueObject.setProcessUuid("93d7c1bc-2885-43f4-985f-90f57a414e5f");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
 				new ProcessInfoParameter("Begin Date", TimestampUtils.lastMonth(), null, null, null),
 				new ProcessInfoParameter("End Date", new Timestamp(System.currentTimeMillis()), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
-		BandaCreateEntity.runReport(valueObject);
+		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {

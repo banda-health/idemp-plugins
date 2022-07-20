@@ -1,18 +1,19 @@
 package org.bandahealth.idempiere.report.test;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
+import org.hamcrest.Matchers;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,11 +31,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO {
 	private static final String reportUuid = "432eeb61-1a87-4880-bded-91927139341c";
 
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
+
 	@IPopulateAnnotation.CanRun
 	public void canRunReport() throws SQLException, IOException {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		String diagnosisToSearchFor = "Burns";
 		String diagnosisAfterDiagnosisToSearchForOnReport = "Snakebites";
@@ -42,33 +54,33 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
 		MBHCodedDiagnosis codedDiagnosis = null;
 		try {
-			Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, 0);
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 			codedDiagnosis =
-					new Query(valueObject.getCtx(), MBHCodedDiagnosis.Table_Name, MBHCodedDiagnosis.COLUMNNAME_BH_CielName +
-							"=?", valueObject.get_trxName()).setParameters(diagnosisToSearchFor).first();
+					new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name, MBHCodedDiagnosis.COLUMNNAME_BH_CielName +
+							"=?", valueObject.getTransactionName()).setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create the burns coded diagnosis");
-				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getCtx(), 0, valueObject.get_trxName());
+				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_CielName(diagnosisToSearchFor);
 			}
 			codedDiagnosis.setBH_MoH705BGreaterThan5("Burns");
 			codedDiagnosis.saveEx();
 			commitEx();
 		} finally {
-			Env.setContext(valueObject.getCtx(), Env.AD_CLIENT_ID, currentClientId);
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
 
 		valueObject.setStepName("Generate the report to get initial data");
-		valueObject.setProcess_UU(reportUuid);
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
 		Timestamp startOfMonth = TimestampUtils.startOfMonth();
 		Timestamp endOfMonth = TimestampUtils.endOfMonth();
-		valueObject.setProcessInfoParams(Arrays.asList(
+		valueObject.setProcessInformationParameters(Arrays.asList(
 				new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 				new ProcessInfoParameter("End Date", endOfMonth, null, null, null)
 		));
-		BandaCreateEntity.runReport(valueObject);
+		ChuBoeCreateEntity.runReport(valueObject);
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		List<String> diagnosisData =
 				getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor, diagnosisAfterDiagnosisToSearchForOnReport);
@@ -81,55 +93,55 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		Timestamp sixYearsAgo = new Timestamp(calendar.getTimeInMillis());
 
 		valueObject.setStepName("Create a young patient");
-		BandaCreateEntity.createBusinessPartner(valueObject);
-		valueObject.getBusinessPartnerBH().setBH_Birthday(threeYearsAgo);
-		valueObject.getBusinessPartnerBH().saveEx();
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(threeYearsAgo);
+		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create order");
 		valueObject.setRandom();
-		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
 				false, false);
-		BandaCreateEntity.createOrder(valueObject);
-		MOrder_BH order = valueObject.getOrderBH();
+		ChuBoeCreateEntity.createOrder(valueObject);
+		MOrder_BH order = valueObject.getOrder();
 		order.setBH_PrimaryCodedDiagnosisID(codedDiagnosis.get_ID());
 		order.setDocAction(MOrder_BH.ACTION_Complete);
 		order.processIt(MOrder_BH.ACTION_Complete);
 		commitEx();
 
 		valueObject.setStepName("Create an older patient");
-		valueObject.setBP(null);
-		BandaCreateEntity.createBusinessPartner(valueObject);
-		valueObject.getBusinessPartnerBH().setBH_Birthday(sixYearsAgo);
-		valueObject.getBusinessPartnerBH().saveEx();
+		valueObject.setBusinessPartner(null);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(sixYearsAgo);
+		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create order");
 		valueObject.setRandom();
-		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
 				false, false);
-		BandaCreateEntity.createOrder(valueObject);
-		order = valueObject.getOrderBH();
+		ChuBoeCreateEntity.createOrder(valueObject);
+		order = valueObject.getOrder();
 		order.setBH_PrimaryCodedDiagnosisID(codedDiagnosis.get_ID());
 		order.setDocAction(MOrder_BH.ACTION_Complete);
 		order.processIt(MOrder_BH.ACTION_Complete);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcess_UU(reportUuid);
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
-		valueObject.setProcessInfoParams(Arrays.asList(
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
 				new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 				new ProcessInfoParameter("End Date", endOfMonth, null, null, null)
 		));
-		BandaCreateEntity.runReport(valueObject);
+		ChuBoeCreateEntity.runReport(valueObject);
 
 		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		diagnosisData =

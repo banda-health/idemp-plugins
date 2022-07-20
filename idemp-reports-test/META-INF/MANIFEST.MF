@@ -16,7 +16,6 @@ Import-Package: com.chuboe.test.assertion,
  org.adempiere.base,
  org.adempiere.exceptions,
  org.bandahealth.idempiere.base.model,
- org.bandahealth.idempiere.base.test,
  org.compiere
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
 Bundle-ActivationPolicy: lazy

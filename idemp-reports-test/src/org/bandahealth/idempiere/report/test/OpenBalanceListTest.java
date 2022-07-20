@@ -1,15 +1,16 @@
 package org.bandahealth.idempiere.report.test;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.process.DocumentEngine;
+import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,35 +27,45 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
 
 	@IPopulateAnnotation.CanRun
 	public void canRunReport() throws SQLException, IOException, ParseException {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create order");
-		valueObject.setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
-		valueObject.setQty(new BigDecimal(100));
-		BandaCreateEntity.createOrder(valueObject);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcess_UU("b4f11e14-b9d8-4f6c-aa46-adfd77c4f773");
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
+		valueObject.setProcessUuid("b4f11e14-b9d8-4f6c-aa46-adfd77c4f773");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
-		BandaCreateEntity.runReport(valueObject);
+		ChuBoeCreateEntity.runReport(valueObject);
 		valueObject.refresh();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -62,7 +73,7 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Optional<Row> patientRow =
 					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBP().getName())).findFirst();
+							row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName())).findFirst();
 			assertTrue(patientRow.isPresent(), "Report contains patient");
 			assertThat("Patient's open balance is correct",
 					NumberFormat.getInstance().parse(patientRow.get().getCell(9).getStringCellValue().trim()),
