@@ -19,6 +19,10 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	private CLogger log = CLogger.getCLogger(BusinessPartnerModelEvent.class);
@@ -143,9 +147,18 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	}
 
 	private void translateToMaskedFields(MBPartner_BH businessPartner) {
-
 		businessPartner.setIsCustomer(businessPartner.isBH_IsPatient());
 		businessPartner.set_ValueOfColumn(MBPartner_BH.COLUMNNAME_BH_ApproximateYears, null);
+		// Make sure the birthday doesn't have a time
+		if (businessPartner.getBH_Birthday() != null) {
+			Calendar calendar = GregorianCalendar.getInstance();
+			calendar.setTimeInMillis(businessPartner.getBH_Birthday().getTime());
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			businessPartner.setBH_Birthday(new Timestamp(calendar.getTimeInMillis()));
+		}
 	}
 
 	private void afterSaveRequest(MBPartner_BH businessPartner) {

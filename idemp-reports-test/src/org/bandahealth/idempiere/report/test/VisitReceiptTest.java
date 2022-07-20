@@ -1,25 +1,23 @@
 package org.bandahealth.idempiere.report.test;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
+import org.hamcrest.Matchers;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -27,75 +25,81 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
-	private List<MRefList> tenderTypes = new ArrayList<>();
-
 	@IPopulateAnnotation.CanRunBeforeClass
-	public void populateTenderTypes() {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+	public void prepareIt() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
 
-		tenderTypes = new Query(valueObject.getCtx(), MRefList.Table_Name,
-				MReference_BH.Table_Name + "." + MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
-				valueObject.get_trxName()).setParameters(MReference_BH.TENDER_TYPE_AD_REFERENCE_UU).addJoinClause(
-				"JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "." +
-						MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "." +
-						MRefList.COLUMNNAME_AD_Reference_ID).list();
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
 	}
 
 	@IPopulateAnnotation.CanRun
 	public void canGenerateReceipt() throws SQLException, IOException {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create order");
-		valueObject.setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setQuantity(new BigDecimal(50));
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
 				false);
-		BandaCreateEntity.createOrder(valueObject);
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create payment");
-		MRefList tenderTypeToUse = tenderTypes.stream()
-				.filter(referenceList -> referenceList.getValue().equalsIgnoreCase(MPayment_BH.TENDERTYPE_Cash)).findFirst()
-				.orElse(new MRefList(valueObject.getCtx(), 0, valueObject.get_trxName()));
-		MInvoice_BH invoice =
-				new Query(valueObject.getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.get_trxName()).setParameters(valueObject.getOrder().get_ID()).first();
-		valueObject.setInvoice(invoice);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		BandaCreateEntity.createPayment(valueObject);
-		valueObject.getPaymentBH().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPaymentBH().setTenderType(tenderTypeToUse.getValue());
-		valueObject.getPaymentBH().saveEx();
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		MPayment_BH payment = new MPayment_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		payment.setAD_Org_ID(valueObject.getOrg().get_ID());
+		payment.setC_DocType_ID(valueObject.getDocumentType().get_ID());
+		payment.setIsReceipt(valueObject.getDocumentType().isSOTrx());
+		payment.setDateTrx(valueObject.getDate());
+		payment.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
+		payment.setDescription(valueObject.getStepMessageLong());
+		valueObject.setBankAccount(ChuBoeCreateEntity.getBankAccountOfOrganization(valueObject));
+		payment.setC_BankAccount_ID(valueObject.getBankAccount().get_ID());
+		payment.setPayAmt(new BigDecimal(20));
+		payment.setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		payment.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		payment.setC_Currency_ID(valueObject.getOrder().getC_Currency_ID());
+		payment.saveEx();
+		valueObject.setPayment(payment);
+		commitEx();
+
+		valueObject.setStepName("Complete the order");
+		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Complete);
+		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Complete);
+		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the receipt");
-		valueObject.setProcess_UU("30dd7243-11c1-4584-af26-5d977d117c84");
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
-		valueObject.setProcessInfoParams(Collections.singletonList(
+		valueObject.setProcessUuid("30dd7243-11c1-4584-af26-5d977d117c84");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
-		BandaCreateEntity.runReport(valueObject);
+		ChuBoeCreateEntity.runReport(valueObject);
 
 		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
 		assertThat("Patient's name is on the receipt", receiptContent,
-				containsString(valueObject.getBP().getName().substring(0, 12)));
+				containsString(valueObject.getBusinessPartner().getName().substring(0, 12)));
 		assertThat("Products are included", receiptContent,
 				containsString(valueObject.getOrderLine().getName().substring(0, 18)));
 		assertThat("Products prices are included", receiptContent,
 				containsString(String.valueOf(valueObject.getOrderLine().getLineNetAmt().intValue())));
-		assertThat("Payments are included", receiptContent.toLowerCase(),
-				containsString(tenderTypeToUse.getName().toLowerCase()));
+		assertThat("Payments are included", receiptContent.toLowerCase(), containsString("Cash".toLowerCase()));
 		assertThat("Products prices are included", receiptContent,
 				containsString(String.valueOf(valueObject.getPayment().getPayAmt().intValue())));
 	}

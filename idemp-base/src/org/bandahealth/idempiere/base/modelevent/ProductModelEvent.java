@@ -56,7 +56,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 	}
 
 	private void beforeSaveRequest(MProduct_BH product) {
-		product.setValue(product.getName());
+//		product.setValue(product.getName());
 	}
 
 	/* Add prices to product in the pricelist */

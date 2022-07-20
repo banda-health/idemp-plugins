@@ -1,6 +1,8 @@
 package org.bandahealth.idempiere.report.test;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -9,17 +11,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
-import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
-import org.compiere.util.Env;
+import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,14 +23,8 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.containsStringIgnoringCase;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -43,110 +33,102 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
-	private List<MRefList> tenderTypes = new ArrayList<>();
-
 	@IPopulateAnnotation.CanRunBeforeClass
-	public void populateTenderTypes() {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+	public void prepareIt() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
 
-		tenderTypes = new Query(valueObject.getCtx(), MRefList.Table_Name,
-				MReference_BH.Table_Name + "." + MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
-				valueObject.get_trxName()).setParameters(MReference_BH.TENDER_TYPE_AD_REFERENCE_UU).addJoinClause(
-				"JOIN " + MReference_BH.Table_Name + " ON " + MReference_BH.Table_Name + "." +
-						MReference_BH.COLUMNNAME_AD_Reference_ID + "=" + MRefList.Table_Name + "." +
-						MRefList.COLUMNNAME_AD_Reference_ID).list();
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
 	}
 
 	@IPopulateAnnotation.CanRun
 	public void canRunReport() throws SQLException, IOException, ParseException {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		BigDecimal visitCharge = new BigDecimal(100);
 		BigDecimal visitPayment = new BigDecimal(50);
 		BigDecimal debtPayment = new BigDecimal(20);
 
 		valueObject.setStepName("Create business partner");
-		valueObject.setStdPriceSO(visitCharge);
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		valueObject.setSalesStandardPrice(visitCharge);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create order for a previous day");
 		valueObject.setDate(TimestampUtils.today());
 		valueObject.setDateOffset(-1);
-		valueObject.setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
-		BandaCreateEntity.createOrder(valueObject);
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create payment");
-		MRefList tenderTypeToUse = tenderTypes.stream()
-				.filter(referenceList -> referenceList.getValue().equalsIgnoreCase(MPayment_BH.TENDERTYPE_Cash)).findFirst()
-				.orElse(new MRefList(valueObject.getCtx(), 0, valueObject.get_trxName()));
 		MInvoice_BH invoice =
-				new Query(valueObject.getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.get_trxName()).setParameters(valueObject.getOrder().get_ID()).first();
-		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setInvoice(invoice);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		BandaCreateEntity.createPayment(valueObject);
-		valueObject.getPaymentBH().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPaymentBH().setTenderType(tenderTypeToUse.getValue());
-		valueObject.getPaymentBH().setPayAmt(visitPayment);
-		valueObject.getPaymentBH().saveEx();
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPayment().setPayAmt(visitPayment);
+		valueObject.getPayment().saveEx();
 
-		valueObject.getPaymentBH().setDocAction(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPaymentBH().processIt(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPaymentBH().saveEx();
+		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
+		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
+		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Allocate the payment");
-		valueObject.getPaymentBH().allocateIt();
-		valueObject.getPaymentBH().saveEx();
+		valueObject.getPayment().allocateIt();
+		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create another payment");
 		valueObject.setPayment(null);
 		valueObject.setDateOffset(1);
 		valueObject.setInvoice(invoice);
-		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		BandaCreateEntity.createPayment(valueObject);
+		ChuBoeCreateEntity.createPayment(valueObject);
 		valueObject.refresh();
-		valueObject.getPaymentBH().setTenderType(tenderTypeToUse.getValue());
-		valueObject.getPaymentBH().setC_Invoice_ID(0);
-		valueObject.getPaymentBH().setPayAmt(debtPayment);
-		valueObject.getPaymentBH().saveEx();
+		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.getPayment().setC_Invoice_ID(0);
+		valueObject.getPayment().setPayAmt(debtPayment);
+		valueObject.getPayment().saveEx();
 		commitEx();
 
-		valueObject.getPaymentBH().setDocAction(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPaymentBH().processIt(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPaymentBH().saveEx();
+		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
+		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
+		valueObject.getPayment().saveEx();
 		commitEx();
 
 		// TODO: Remove this when we let iDempiere only handle open balance updating
 		valueObject.setStepName("Reset BP open balance because it's wrong");
-		valueObject.getBP().setTotalOpenBalance();
-		valueObject.getBP().saveEx();
+		valueObject.getBusinessPartner().setTotalOpenBalance();
+		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcess_UU("a7ac9f65-45d7-4ae0-80f3-72019de35a4a");
-		valueObject.setProcessRecord_ID(0);
-		valueObject.setProcessTable_ID(0);
-		valueObject.setProcessInfoParams(Collections.singletonList(
-				new ProcessInfoParameter("c_bpartner_uu", valueObject.getBP().getC_BPartner_UU(), null, null, null)
+		valueObject.setProcessUuid("a7ac9f65-45d7-4ae0-80f3-72019de35a4a");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("c_bpartner_uu", valueObject.getBusinessPartner().getC_BPartner_UU(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
-		BandaCreateEntity.runReport(valueObject);
+		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -186,7 +168,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 					is(totalOpenBalance.longValue()));
 
 			valueObject.refresh();
-			assertEquals(valueObject.getBP().getTotalOpenBalance().longValue(), totalOpenBalance.longValue(),
+			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), totalOpenBalance.longValue(),
 					"Total open balance matches what's on the business partner");
 		}
 	}

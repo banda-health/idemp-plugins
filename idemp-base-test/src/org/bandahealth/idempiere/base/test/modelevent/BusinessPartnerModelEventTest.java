@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.base.test.modelevent;
 
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MOrder;
 import org.compiere.model.MUser;
@@ -18,15 +18,15 @@ public class BusinessPartnerModelEventTest extends ChuBoePopulateFactoryVO {
 
 	@IPopulateAnnotation.CanRun
 	public void newPatientHasCorrectInvoiceAndPaymentRules() {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create Patient");
-		MBPartner_BH patient = new MBPartner_BH(valueObject.getCtx(), 0, valueObject.get_trxName());
+		MBPartner_BH patient = new MBPartner_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		patient.setAD_Org_ID(0);
-		patient.setName(valueObject.getStepMsg());
-		patient.setDescription(valueObject.getStepMsgLong());
+		patient.setName(valueObject.getStepMessage());
+		patient.setDescription(valueObject.getStepMessageLong());
 		patient.setIsCustomer(true);
 		patient.setBH_IsPatient(true); // the model event currently uses this
 		patient.saveEx();

@@ -18,8 +18,7 @@ Import-Package: com.chuboe.test.assertion,
  org.bandahealth.idempiere.base.utils,
  org.compiere
 Bundle-Activator: org.adempiere.plugin.utils.AdempiereActivator
-Export-Package: org.bandahealth.idempiere.base.test,
- org.bandahealth.idempiere.base.test.utils
+Export-Package: org.bandahealth.idempiere.base.test.utils
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/hamcrest.jar,
  .,

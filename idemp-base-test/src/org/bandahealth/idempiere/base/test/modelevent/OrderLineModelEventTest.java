@@ -1,12 +1,12 @@
 package org.bandahealth.idempiere.base.test.modelevent;
 
+import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.test.BandaCreateEntity;
-import org.bandahealth.idempiere.base.test.BandaValueObjectWrapper;
 import org.compiere.model.MInOut;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
@@ -19,37 +19,37 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
-	private BandaValueObjectWrapper valueObject;
+	private ChuBoePopulateVO valueObject;
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
-		BandaValueObjectWrapper valueObject = new BandaValueObjectWrapper();
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Open needed periods");
-		BandaCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
 		commitEx();
 	}
 
 	@IPopulateAnnotation.CanRunBefore
 	public void createOrder() throws Exception {
-		valueObject = new BandaValueObjectWrapper();
+		valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMsg(), is(nullValue()));
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		BandaCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
-		BandaCreateEntity.createProduct(valueObject);
+		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create order");
-		valueObject.setDocAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
-		BandaCreateEntity.createOrder(valueObject);
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.refresh();
@@ -57,18 +57,18 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 
 	@IPopulateAnnotation.CanRun
 	public void materialReceiptIsCreatedWhenReceiveAnOrder() throws Exception {
-		MOrderLine_BH orderLine = valueObject.getOrderLineBH();
+		MOrderLine_BH orderLine = valueObject.getOrderLine();
 
 		assertNotNull(orderLine, "Receive Product Order Line should not be null");
 
-		valueObject.getOrderBH().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getOrderBH().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getOrderBH().saveEx();
+		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Complete));
+		valueObject.getOrder().saveEx();
 		commitEx();
 		valueObject.refresh();
 
-		MInOut inOut = new Query(valueObject.getCtx(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?",
-				valueObject.get_trxName()).setParameters(valueObject.getOrderBH().get_ID()).first();
+		MInOut inOut = new Query(valueObject.getContext(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?",
+				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
 		assertNotNull(inOut, "MInOut should not be null");
 
 		assertEquals(MInOut.MOVEMENTTYPE_VendorReceipts, inOut.getMovementType());
