@@ -1,3 +1,11 @@
+-- Delete incorrectly assigned attribute set exclusions
+DELETE
+FROM
+	m_attributesetexclude
+WHERE
+	m_attributeset_id IN (1000146, 1000225)
+	AND ad_client_id != 2;
+
 -- Some new clients didn't get any attribute set exclusions, so add them
 DROP TABLE IF EXISTS tmp_ad_client_id;
 SELECT DISTINCT
