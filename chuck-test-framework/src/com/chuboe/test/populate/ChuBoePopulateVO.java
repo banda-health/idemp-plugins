@@ -139,7 +139,7 @@ public class ChuBoePopulateVO {
 	public String prepareIt(String scenarioName, boolean isIncludeRandom, String transactionName) {
 		return prepareIt(scenarioName, isIncludeRandom, Env.getAD_Client_ID(Env.getCtx()), Env.getAD_Org_ID(Env.getCtx()),
 				Env.getAD_User_ID(Env.getCtx()), Env.getContextAsInt(Env.getCtx(), Env.M_WAREHOUSE_ID),
-				Env.getContextAsDate(Env.getCtx(), Env.DATE), Env.getCtx(), transactionName);
+				Env.getContextAsDate(Env.getCtx(), "#Date"), Env.getCtx(), transactionName);
 	}
 
 	public String prepareIt(String scenarioName, boolean isIncludeRandom, int clientId, int organizationId, int userId,
