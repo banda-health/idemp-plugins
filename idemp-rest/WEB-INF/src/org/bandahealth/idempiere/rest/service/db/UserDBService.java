@@ -19,6 +19,7 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -187,6 +188,12 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		try {
 			MUser_BH user = getEntityByUuidFromDB(entity.getUuid());
 			user.setIsActive(entity.getIsActive());
+			
+			if (StringUtil.isNotNullAndEmpty(entity.getResetPassword())){
+				user.setPassword(entity.getResetPassword()); // will be hashed and validated on saveEx
+				user.setIsExpired(true); // Force Change On Next Login
+			}
+			
 			user.saveEx();
 			return entity;
 		} catch (Exception ex) {

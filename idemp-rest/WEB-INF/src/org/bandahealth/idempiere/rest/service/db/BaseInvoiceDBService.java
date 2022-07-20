@@ -27,6 +27,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	protected InvoiceLineDBService invoiceLineDBService;
 	@Autowired
 	protected ProcessDBService processDBService;
+	@Autowired
+	protected BusinessPartnerDBService businessPartnerDBService;
 
 	protected abstract void beforeSave(T entity, MInvoice_BH invoice);
 
@@ -130,6 +132,12 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
 				invoice.setDescription(entity.getDescription());
+			}
+
+			if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getUuid() != null) {
+				MBPartner_BH businessPartner =
+						businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
+				invoice.setC_BPartner_ID(businessPartner.get_ID());
 			}
 
 			invoice.setIsActive(entity.getIsActive());
