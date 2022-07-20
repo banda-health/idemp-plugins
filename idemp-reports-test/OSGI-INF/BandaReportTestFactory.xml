@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.bandahealth.idempiere.report.test.BandaReportTestFactory">
+   <implementation class="org.bandahealth.idempiere.report.test.BandaReportTestFactory"/>
+   <property name="service.ranking" type="Integer" value="10"/>
+   <service>
+      <provide interface="com.chuboe.test.populate.IChuBoePopulateFactory"/>
+   </service>
+</scr:component>

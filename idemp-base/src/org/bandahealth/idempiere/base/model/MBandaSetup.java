@@ -39,7 +39,6 @@ import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
-import org.compiere.model.MSerNoCtl;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
@@ -1266,9 +1265,11 @@ public class MBandaSetup {
 
 	public boolean createProductAttributeSets() {
 		// Get all active, attribute sets from the default configuration client
+		// PO.setCrossTenantSafe();
 		List<MAttributeSet> attributeSets = new Query(context, MAttributeSet.Table_Name,
 				MAttributeSet.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 						.setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		// PO.clearCrossTenantSafe();
 
 		if (attributeSets.isEmpty()) {
 			String errorMessage = "Default AttributeSets NOT found";
@@ -1296,7 +1297,7 @@ public class MBandaSetup {
 		}
 
 		for (MAttributeSet attributeSet : attributeSets) {
-			MAttributeSet newAttributeSet = new MAttributeSet(context, 0, getTransactionName());
+			MAttributeSet_BH newAttributeSet = new MAttributeSet_BH(context, 0, getTransactionName());
 			newAttributeSet.setName(attributeSet.getName());
 			newAttributeSet.setDescription(attributeSet.getDescription());
 
@@ -1307,6 +1308,7 @@ public class MBandaSetup {
 			newAttributeSet.setGuaranteeDays(attributeSet.getGuaranteeDays());
 			newAttributeSet.setIsInstanceAttribute(attributeSet.isInstanceAttribute());
 			newAttributeSet.setUseGuaranteeDateForMPolicy(attributeSet.isUseGuaranteeDateForMPolicy());
+			newAttributeSet.setBH_Locked(true);
 
 			if (!newAttributeSet.save()) {
 				String errorMessage = "Default AttributeSet NOT inserted";

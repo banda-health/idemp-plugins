@@ -47,11 +47,26 @@ public class UserModelEvent extends AbstractEventHandler {
 			MBPartner_BH businessPartner = (MBPartner_BH) MTable.get(Env.getCtx(), MBPartner_BH.Table_Name)
 					.getPO(user.getC_BPartner_ID(), user.get_TrxName());
 
-			businessPartner.setBH_Birthday(user.getBirthday());
-			businessPartner.setBH_EMail(user.getEMail());
-			businessPartner.setBH_Phone(user.getPhone());
+			boolean didUpdateBusinessPartner = false;
+			if (user.getBirthday() != null && (businessPartner.getBH_Birthday() == null ||
+					user.getBirthday().getTime() != businessPartner.getBH_Birthday().getTime())) {
+				didUpdateBusinessPartner = true;
+				businessPartner.setBH_Birthday(user.getBirthday());
+			}
+			if (user.getEMail() != null &&
+					(businessPartner.getBH_EMail() == null || !user.getEMail().equals(businessPartner.getBH_EMail()))) {
+				didUpdateBusinessPartner = true;
+				businessPartner.setBH_EMail(user.getEMail());
+			}
+			if (user.getPhone() != null &&
+					(businessPartner.getBH_Phone() == null || !user.getPhone().equals(businessPartner.getBH_Phone()))) {
+				didUpdateBusinessPartner = true;
+				businessPartner.setBH_Phone(user.getPhone());
+			}
 
-			businessPartner.save();
+			if (didUpdateBusinessPartner) {
+				businessPartner.save();
+			}
 		}
 	}
 
