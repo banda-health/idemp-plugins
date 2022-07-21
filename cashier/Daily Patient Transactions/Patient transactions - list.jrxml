@@ -159,7 +159,7 @@ SELECT
 	COALESCE(patient_payments.bank, 0)                    AS bank,
 	COALESCE(patient_payments."check", 0)                 AS "check",
 	COALESCE(patient_payments.other, 0)                   AS other,
-	ChargeType_name                                       AS InsuranceType,
+	ChargeType_name                                       AS insurance_type,
 	COALESCE(non_patient_payments.insurance, 0)           AS insurance,
 	COALESCE(non_patient_payments.waiver, 0)              AS waiver,
 	COALESCE(non_patient_payments.donation, 0)            AS donation
@@ -210,7 +210,7 @@ ORDER BY
 		<field name="bank" class="java.math.BigDecimal"/>
 		<field name="check" class="java.math.BigDecimal"/>
 		<field name="other" class="java.math.BigDecimal"/>
-		<field name="InsuranceType" class="java.lang.String"/>
+		<field name="insurance_type" class="java.lang.String"/>
 		<field name="insurance" class="java.math.BigDecimal"/>
 		<field name="waiver" class="java.math.BigDecimal"/>
 		<field name="donation" class="java.math.BigDecimal"/>
@@ -687,7 +687,7 @@ ORDER BY
 								<textElement textAlignment="Left" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{InsuranceType}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{insurance_type}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
