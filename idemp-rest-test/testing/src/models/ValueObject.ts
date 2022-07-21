@@ -1,3 +1,4 @@
+import { initialLoginData } from '../api';
 import {
 	Authentication,
 	AuthResponse,
@@ -14,9 +15,9 @@ import {
 	User,
 	Warehouse,
 } from '../types/org.bandahealth.idempiere.rest';
-import { getDateOffset, initialLoginData, login } from '../utils';
+import { getDateOffset, login } from '../utils';
 
-export default class ValueObject {
+export class ValueObject {
 	client?: Client;
 	organization?: Org;
 	user?: User;
@@ -38,12 +39,12 @@ export default class ValueObject {
 	// MPriceList priceListSO = null;
 	// MPriceList priceListPO = null;
 	product?: Product;
-	limitPriceSO?: number;
-	stdPriceSO?: number;
-	listPriceSO?: number;
-	limitPricePO?: number;
-	stdPricePO?: number;
-	listPricePO?: number;
+	salesLimitPrice?: number;
+	salesStandardPrice?: number;
+	salesListPrice?: number;
+	purchaseLimitPrice?: number;
+	purchaseStandardPrice?: number;
+	purchaseListPrice?: number;
 	quantity?: number;
 	documentType?: string;
 	documentAction?: string;
@@ -77,15 +78,9 @@ export default class ValueObject {
 
 	private prepareIt(loginInfo: AuthResponse & { client?: Client }) {
 		this.client = loginInfo.client;
-		this.organization = this.client?.orgs.find(
-			(organization) => organization.id === loginInfo.orgId
-		);
-		this.role = this.organization?.roles.find(
-			(role) => role.uuid === loginInfo.userUuid
-		);
-		this.warehouse = this.organization?.warehouses.find(
-			(warehouse) => warehouse.uuid === loginInfo.warehouseUuid
-		);
+		this.organization = this.client?.orgs.find((organization) => organization.id === loginInfo.orgId);
+		this.role = this.organization?.roles.find((role) => role.uuid === loginInfo.roleUuid);
+		this.warehouse = this.organization?.warehouses.find((warehouse) => warehouse.uuid === loginInfo.warehouseUuid);
 		this.sessionToken = loginInfo.token;
 
 		this.date = new Date();
@@ -96,8 +91,8 @@ export default class ValueObject {
 
 		this.documentAction = 'CO';
 		this.quantity = 1;
-		this.setPricePO(1);
-		this.setPriceSO(1);
+		this.setPurchasePrice(1);
+		this.setSalesPrice(1);
 	}
 
 	async login(roleName?: string) {
@@ -137,22 +132,20 @@ export default class ValueObject {
 		this.date = getDateOffset(this.date ?? new Date(), days);
 	}
 
-	setPriceSO(price: number) {
-		this.limitPriceSO = price;
-		this.listPriceSO = price;
-		this.stdPriceSO = price;
+	setSalesPrice(price: number) {
+		this.salesLimitPrice = price;
+		this.salesListPrice = price;
+		this.salesStandardPrice = price;
 	}
 
-	setPricePO(price: number) {
-		this.limitPricePO = price;
-		this.listPricePO = price;
-		this.stdPricePO = price;
+	setPurchasePrice(price: number) {
+		this.purchaseLimitPrice = price;
+		this.purchaseListPrice = price;
+		this.purchaseStandardPrice = price;
 	}
 
 	getDynamicScenarioName(): string {
-		return `${this.scenarioName}${
-			this.isIncludeRandom ? '_' + this.random : ''
-		}`;
+		return `${this.scenarioName}${this.isIncludeRandom ? '_' + this.random : ''}`;
 	}
 
 	setRandom() {
@@ -160,11 +153,9 @@ export default class ValueObject {
 	}
 
 	getErrorMsgLong() {
-		return `ERROR!!!!  Scenario${this.prompt}${this.getDynamicScenarioName()}${
-			this.separator
-		}Step${this.prompt}${this.stepName}${this.separator}Error ${
-			this.separator
-		}${this.errorMessage}`;
+		return `ERROR!!!!  Scenario${this.prompt}${this.getDynamicScenarioName()}${this.separator}Step${this.prompt}${
+			this.stepName
+		}${this.separator}Error ${this.separator}${this.errorMessage}`;
 	}
 
 	setErrorMessage(errorMessage: string) {
@@ -173,13 +164,11 @@ export default class ValueObject {
 	}
 
 	appendErrorMsg(errorMessage?: string) {
-		this.errorMessage = this.errorMessage
-			? this.errorMessage + ' + ' + errorMessage
-			: errorMessage;
+		this.errorMessage = this.errorMessage ? this.errorMessage + ' + ' + errorMessage : errorMessage;
 		this.isError = true;
 	}
 
-	validate(): string {
+	validate(): void {
 		if (this.loginInfo == null) {
 			this.appendErrorMsg('No Login Info');
 		}
@@ -198,10 +187,10 @@ export default class ValueObject {
 		if (!this.warehouse) {
 			this.appendErrorMsg('No Warehouse');
 		}
-		if (this.date) {
+		if (!this.date) {
 			this.appendErrorMsg('No Date');
 		}
-		if (this.sessionToken) {
+		if (!this.sessionToken) {
 			this.appendErrorMsg('No Session Token');
 		}
 		// if (m_currency == null) {
@@ -218,7 +207,10 @@ export default class ValueObject {
 		if (!this.stepName) {
 			this.stepName = 'No Step Name Provided';
 		}
-		return this.errorMessage ?? '';
+		
+		if (this.isError) {
+			throw new Error(this.errorMessage);
+		}
 	}
 
 	// public void setDocBaseType(String m_docBaseType, String m_docSubTypeSO,
@@ -228,16 +220,14 @@ export default class ValueObject {
 	// }
 
 	getDynamicStepMessage() {
-		return `Scenario${this.prompt}${
-			this.isIncludeRandom ? this.random : this.getDynamicScenarioName()
-		}${this.separator}Step${this.prompt}${this.stepName}`;
+		return `Scenario${this.prompt}${this.isIncludeRandom ? this.random : this.getDynamicScenarioName()}${
+			this.separator
+		}Step${this.prompt}${this.stepName}`;
 	}
 
 	getStepMessageLong() {
 		//please note the below string can be very long
-		return `Scenario${this.prompt}${this.getDynamicScenarioName()}${
-			this.separator
-		}Step${this.prompt}${this.stepName}`;
+		return `Scenario${this.prompt}${this.getDynamicScenarioName()}${this.separator}Step${this.prompt}${this.stepName}`;
 	}
 
 	//used to clear the current BP

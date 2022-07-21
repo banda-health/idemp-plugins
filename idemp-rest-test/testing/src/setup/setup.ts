@@ -1,17 +1,16 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
+import { initialLoginData } from '../api';
 import { Authentication } from '../types/org.bandahealth.idempiere.rest';
-import { initialLoginData, login } from '../utils';
+import { login } from '../utils/Utils';
 
 const workingDirectory = join(tmpdir(), 'idemp-rest-global-setup');
 
 export default async function () {
 	const loginInfo = await login();
 	// Find the client & org we'll use
-	let client = loginInfo.clients.find(
-		(client) => client.name === 'Rest Test Client'
-	);
+	let client = loginInfo.clients.find((client) => client.name === 'Rest Test Client');
 	let org = client?.orgs[0];
 	let roles = org?.roles;
 	if (!client || !org || !roles?.length) {
@@ -31,12 +30,13 @@ export default async function () {
 		const newLoginInfo = await login(baseLoginData);
 		// Update the session token appropriately
 		loginInfo.token = newLoginInfo.token;
+		loginInfo.clientUuid = newLoginInfo.clientUuid;
+		loginInfo.orgId = newLoginInfo.orgId;
+		loginInfo.roleUuid = newLoginInfo.roleUuid;
+		loginInfo.warehouseUuid = newLoginInfo.warehouseUuid;
 	}
 
 	// use the file system to expose the wsEndpoint for TestEnvironments
 	await mkdir(workingDirectory, { recursive: true });
-	await writeFile(
-		join(workingDirectory, 'loginInfo'),
-		JSON.stringify({ ...loginInfo, client })
-	);
+	await writeFile(join(workingDirectory, 'loginInfo'), JSON.stringify({ ...loginInfo, client }));
 }
