@@ -36,6 +36,7 @@ services:
       - IDEMPIERE_USER=${IDEMPIERE_USER}
       - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+      - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
 
   idemp-reports-test:
     build: idemp-reports-test/testing

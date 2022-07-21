@@ -17,8 +17,8 @@ function jestFakeTimersAreEnabled(): boolean {
 function waitFor<T>(
 	callback: () => Promise<T> | T,
 	{
-		timeout = 1000,
-		interval = 50,
+		timeout = 15000, // 15 seconds, less than the 30 we set for Jest
+		interval = 1000, // 1 second, since this will probably be used for API checking
 		onTimeout = (error) => error,
 	}: { timeout?: number; interval?: number; onTimeout?: (error: Error) => Error } = {},
 ) {

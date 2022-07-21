@@ -25,36 +25,6 @@ import {
 import { waitFor } from './waitFor';
 
 /**
- * Get the data to send as part of a request, including headers & a method type of `POST`
- * @param loginData What data should be sent in order to log in
- * @returns The request information to send in a fetch request
- */
-export function getRequestOptions(loginData?: Partial<Authentication>): RequestInit {
-	const myHeaders = new Headers();
-	myHeaders.append('Content-Type', 'application/json');
-	return {
-		method: 'POST',
-		headers: myHeaders,
-		body: JSON.stringify(loginData ?? initialLoginData),
-	};
-}
-
-/**
- * Login with a new set of data
- * @param loginData What data should be sent in order to log in
- * @returns The login response
- */
-export async function login(loginData?: Partial<Authentication>): Promise<AuthResponse> {
-	const loginResponse = await fetch(`${IDEMPIERE_ENDPOINT}/session`, getRequestOptions(loginData));
-	const loginInfo = await (loginResponse.json() as Promise<AuthResponse>);
-	if (!loginResponse.ok || loginInfo.status !== 'OK') {
-		throw new Error('could not login');
-	}
-
-	return loginInfo;
-}
-
-/**
  * Create a patient. If a business partner already exists on the value object, this won't do anything.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing

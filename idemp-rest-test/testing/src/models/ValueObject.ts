@@ -1,4 +1,4 @@
-import { initialLoginData } from '../api';
+import { authenticationApi, initialLoginData } from '../api';
 import {
 	Authentication,
 	AuthResponse,
@@ -15,7 +15,7 @@ import {
 	User,
 	Warehouse,
 } from '../types/org.bandahealth.idempiere.rest';
-import { getDateOffset, login } from '../utils';
+import { getDateOffset } from '../utils';
 
 export class ValueObject {
 	client?: Client;
@@ -110,7 +110,7 @@ export class ValueObject {
 			roleUuid: roleToUse?.uuid,
 			warehouseUuid: this.warehouse?.uuid,
 		};
-		const loginInfo = await login(baseLoginData);
+		const loginInfo = await authenticationApi.login(baseLoginData);
 		this.prepareIt({ ...loginInfo, client: this.client });
 
 		return this.validate();
@@ -207,7 +207,7 @@ export class ValueObject {
 		if (!this.stepName) {
 			this.stepName = 'No Step Name Provided';
 		}
-		
+
 		if (this.isError) {
 			throw new Error(this.errorMessage);
 		}
