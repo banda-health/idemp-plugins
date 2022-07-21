@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1740" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1740" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1875" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1875" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -57,110 +66,117 @@
 		<parameter name="Patient Type" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
+	SELECT
+		$P{AD_CLIENT_ID} AS ad_client_id,
         to_timestamp($P{Begin Date}, 'YYYY-MM-DD HH24:MI') AS begin_date,
         to_timestamp($P{End Date}, 'YYYY-MM-DD HH24:MI') AS end_date,
-        coalesce($P{Patient Type}, '') AS patient_type,
-        coalesce($P{Payment Mode}, '') AS payment_mode,
-        coalesce($P{AD_User_UU}, '') AS ad_user_uu
-), billdetails as (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           co.bh_visitdate as bill_date,
-           ad_user.name as Cashier,
-           cb.name as patientname,
-           sum(ol.linenetamt) as lineitemtotals
-    from c_order co
-        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        inner join ad_user on co.createdby = ad_user.ad_user_id
-        join c_orderline ol on co.c_order_id = ol.c_order_id
-        cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO' AND co.docstatus <> 'DR')
-          AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
-          AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
-          AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
-          AND issotrx = 'Y'
-        )
-        AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
-    order by 1
-), payment_filter as (
-    select bh_c_order_id
-    from c_payment p
-    inner join c_order co on co.c_order_id = p.bh_c_order_id
-    cross join params par
-    where ((p.ad_client_id = par.ad_client_id)
-        and ((p.docstatus = 'CO')
-        or (p.docstatus = 'DR' and p.bh_processing = 'Y')
-        or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-        and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
-                 OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-        )
-    group by bh_c_order_id
-    union
-    select o.c_order_id
-    from c_order o
-        join c_orderline ol on ol.c_order_id = o.c_order_id
-        join c_charge c on ol.c_charge_id = c.c_charge_id
-        cross join params p
-    where ol.c_charge_id IS NOT NULL
-        and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
-                 OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-                         and p.payment_mode IN ('I', 'W', 'T')))
-    order by 1
-), patient_payments as (
-    select p.bh_c_order_id as c_order_id,
-           sum(p.payamt) filter ( where tendertype = 'X' ) as cash,
-           sum(p.payamt) filter ( where tendertype = 'M' ) as mobile,
-           sum(p.payamt) filter ( where tendertype = 'C' ) as credit_debit,
-           sum(p.payamt) filter ( where tendertype = 'D' ) as bank,
-           sum(p.payamt) filter ( where tendertype = 'K' ) as "check",
-           sum(p.payamt) filter ( where tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) as other
-    from c_payment p
-        cross join params
-        join payment_filter pf on pf.bh_c_order_id = p.bh_c_order_id
-    where p.ad_client_id = params.ad_client_id
-    group by p.bh_c_order_id
-), non_patient_payments as (
-    select ol.c_order_id,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'I' ) * -1 as insurance,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'W' ) * -1 as waiver,
-           sum(ol.linenetamt) filter ( where c.bh_subtype = 'D' ) * -1 as donation,
-           olci.name as member_id
-    from c_orderline ol
-        join c_order o on ol.c_order_id = o.c_order_id
-        cross join params p
-        join c_charge c on ol.c_charge_id = c.c_charge_id
-        left join (
-            select olci.c_orderline_id, olci.name
-            from bh_orderline_charge_info olci
-                join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
-            where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-        ) as olci on olci.c_orderline_id = ol.c_orderline_id
-    where o.bh_visitdate between p.begin_date and p.end_date
-    group by ol.c_order_id, olci.name
-)
-select
-    billdetails.c_order_id,
-    billdetails.bill_date as billdate,
-    billdetails.Cashier as Cashier,
-    billdetails.patientname as patientname,
-    non_patient_payments.member_id,
-    coalesce(billdetails.lineitemtotals, 0) as billtotal,
-    coalesce(patient_payments.cash, 0) as cash,
-    coalesce(patient_payments.mobile, 0) as mobile,
-    coalesce(patient_payments.credit_debit, 0) as credit_debit,
-    coalesce(patient_payments.bank, 0) as bank,
-    coalesce(patient_payments."check", 0) as "check",
-    coalesce(patient_payments.other, 0) as other,
-    coalesce(non_patient_payments.insurance, 0) as insurance,
-    coalesce(non_patient_payments.waiver, 0) as waiver,
-    coalesce(non_patient_payments.donation, 0) as donation
-from billdetails
-    left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-    left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
+        COALESCE($P{Patient Type}, '') AS patient_type,
+        COALESCE($P{Payment Mode}, '') AS payment_mode,
+        COALESCE($P{AD_User_UU}, '') AS ad_user_uu
+),
+billdetails AS (
+		SELECT
+			bh_get_visit_details.c_order_id,
+			bh_get_visit_details.c_bpartner_id,
+			bh_visitdate       AS bill_date,
+			cashier_name,
+			patient_name,
+			bh_patienttype,
+			SUM(ol.linenetamt) AS lineitemtotals
+		FROM
+			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+				INNER JOIN c_bpartner cb
+					ON bh_get_visit_details.c_bpartner_id = cb.c_bpartner_id
+				INNER JOIN ad_user
+					ON bh_get_visit_details.ad_user_id = ad_user.ad_user_id
+				JOIN c_orderline ol
+					ON bh_get_visit_details.c_order_id = ol.c_order_id
+				CROSS JOIN params p
+		WHERE
+			((cb.ad_client_id = p.ad_client_id) AND
+			 (bh_get_visit_details.docstatus <> 'VO' AND bh_get_visit_details.docstatus <> 'DR')
+				AND (bh_get_visit_details.bh_visitdate BETWEEN p.begin_date AND p.end_date)
+				AND (p.patient_type = '' OR bh_get_visit_details.bh_patienttype = p.patient_type)
+				AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
+				)
+			AND ol.c_charge_id IS NULL
+		GROUP BY
+			bh_get_visit_details.c_order_id, bh_get_visit_details.c_bpartner_id, bh_get_visit_details.bh_visitdate,
+			cashier_name, patient_name, bh_patienttype
+		ORDER BY 1
+	),
+	patient_payments AS (
+		SELECT
+			bh_get_visit_payments.bh_c_order_id                                      AS c_order_id,
+			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                            AS cash,
+			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                            AS mobile,
+			SUM(payamt) FILTER ( WHERE tendertype = 'C' )                            AS credit_debit,
+			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                            AS bank,
+			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                            AS "check",
+			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS other
+		FROM
+			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+				CROSS JOIN params p
+		WHERE
+			p.payment_mode = ''
+			OR bh_get_visit_payments.tendertype = p.payment_mode
+		GROUP BY bh_get_visit_payments.bh_c_order_id, bh_get_visit_payments.payamt, linenetamt
+	),
+	non_patient_payments AS (
+		SELECT
+			c_order_id,
+			ChargeType_name,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1 AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1 AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1 AS donation,
+			member_id
+		FROM
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+				CROSS JOIN params p
+		WHERE
+			p.payment_mode = ''
+			OR bh_get_visit_non_patient_payments.bh_subtype = p.payment_mode
+		GROUP BY c_order_id, ChargeType_name, member_id
+	),
+	BillTotal AS (
+		SELECT
+			c_order_id,
+			SUM(linenetamt) AS total
+		FROM
+			bh_get_visit_products($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		GROUP BY c_order_id
+	)
+SELECT
+	billdetails.c_order_id,
+	billdetails.bill_date                                 AS billdate,
+	billdetails.cashier_name                              AS Cashier,
+	billdetails.patient_name                              AS patientname,
+	non_patient_payments.member_id,
+	COALESCE(billdetails.lineitemtotals, BillTotal.total) AS billtotal,
+	COALESCE(patient_payments.cash, 0)                    AS cash,
+	COALESCE(patient_payments.mobile, 0)                  AS mobile,
+	COALESCE(patient_payments.credit_debit, 0)            AS credit_debit,
+	COALESCE(patient_payments.bank, 0)                    AS bank,
+	COALESCE(patient_payments."check", 0)                 AS "check",
+	COALESCE(patient_payments.other, 0)                   AS other,
+	ChargeType_name                                       AS InsuranceType,
+	COALESCE(non_patient_payments.insurance, 0)           AS insurance,
+	COALESCE(non_patient_payments.waiver, 0)              AS waiver,
+	COALESCE(non_patient_payments.donation, 0)            AS donation
+FROM
+	billdetails
+		LEFT JOIN patient_payments
+			ON billdetails.c_order_id = patient_payments.c_order_id
+		LEFT JOIN non_patient_payments
+			ON billdetails.c_order_id = non_patient_payments.c_order_id
+		LEFT JOIN BillTotal
+			ON billdetails.c_order_id = BillTotal.c_order_id
+		CROSS JOIN params p
+WHERE
+	(p.patient_type = '' OR bh_patienttype = p.patient_type)
+	AND (p.payment_mode = '' OR p.payment_mode = p.payment_mode)
+ORDER BY
+	date(billdetails.bill_date) ASC, billdetails.patient_name ASC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -194,6 +210,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 		<field name="bank" class="java.math.BigDecimal"/>
 		<field name="check" class="java.math.BigDecimal"/>
 		<field name="other" class="java.math.BigDecimal"/>
+		<field name="InsuranceType" class="java.lang.String"/>
 		<field name="insurance" class="java.math.BigDecimal"/>
 		<field name="waiver" class="java.math.BigDecimal"/>
 		<field name="donation" class="java.math.BigDecimal"/>
@@ -294,7 +311,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 				<text><![CDATA[No data was found to display on the report]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="0" y="0" width="1740" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+				<reportElement x="0" y="0" width="1875" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -302,7 +319,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="809d0b84-40b8-4021-84b8-3486ba492287">
+					<datasetRun subDataset="tableDataset" uuid="24c6d4a0-d744-46d3-a0e1-d6b7837a2287">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -329,7 +346,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="30" uuid="51a7ec07-b72e-4573-974d-a69b9f0c49bf"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Bill Date]]></text>
@@ -340,7 +357,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="00832274-ddb5-4b2c-b800-a4025a10f934"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{billdate}]]></textFieldExpression>
@@ -354,7 +371,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="240" height="30" uuid="25e79ecd-978e-4059-a340-d901e531e6a5"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Cashier Name]]></text>
@@ -364,7 +381,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="c92a9f47-2934-49a5-897b-6a77bb978d8a"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Cashier}]]></textFieldExpression>
@@ -377,7 +394,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="240" height="30" uuid="66416d7a-8664-43da-a448-4d73827fadfc"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Patient Name]]></text>
@@ -387,7 +404,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="8525a671-43ca-40e6-b599-f10437cc3a14"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
@@ -400,7 +417,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="120" height="30" uuid="641a4d6b-77cf-408f-b7e7-9e3dec4f0ee0"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Insurance Member ID]]></text>
@@ -410,7 +427,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="17" uuid="3e6a3221-b00b-42e7-87dd-65d479cb4ced"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{member_id}]]></textFieldExpression>
@@ -423,7 +440,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="110" height="30" uuid="b79b3aad-bd79-4c3a-a7d9-5549f5be65bb"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Bill Total]]></text>
@@ -432,8 +449,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d58d2d6a-b4ee-4c23-bbf9-c73cf98f9d05"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumBillTotal}]]></textFieldExpression>
@@ -443,7 +460,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{billtotal}]]></textFieldExpression>
@@ -457,7 +474,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="30" uuid="f74cf3ae-168a-4df3-90a4-52484694ab26"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Total Payment]]></text>
@@ -466,8 +483,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="5dbc9a41-120c-45b3-bdbf-b880ba3914ae"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumTotalPayment}]]></textFieldExpression>
@@ -477,7 +494,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{totalPaymentsV}]]></textFieldExpression>
@@ -490,7 +507,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="302fd58a-20d3-48f0-9856-7c525f053e97"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Cash]]></text>
@@ -499,8 +516,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="84be1c48-9f63-4e02-9487-301e63ab8aa1"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumCash}]]></textFieldExpression>
@@ -510,7 +527,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="76a574a5-f325-4145-b1e0-566d4a68b8e4"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{cash}]]></textFieldExpression>
@@ -523,7 +540,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="bbc264bb-c760-4f91-bb8e-397df07a630e"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Mobile Money]]></text>
@@ -532,8 +549,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="e086dd4b-b9da-48fe-b838-9610ad83e49f"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumMobile}]]></textFieldExpression>
@@ -543,7 +560,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="b2574f0c-38cb-493d-bad9-2dc26c092941"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
@@ -556,7 +573,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="70" height="30" uuid="434ee692-9c17-4d53-96a8-1a55a9a2712e"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Credit/ Debit]]></text>
@@ -565,8 +582,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="2e70a233-9b50-4d34-8c0e-cd993182f659"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumCreditDebit}]]></textFieldExpression>
@@ -577,7 +594,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="7b26d0fe-8f87-4f9b-9181-6a84dc8fa90e"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{credit_debit}]]></textFieldExpression>
@@ -590,7 +607,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="30" uuid="41f5e47a-eab3-43d3-8c33-84e790168290"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Bank Transfer]]></text>
@@ -599,8 +616,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="7774515b-6df0-48b2-bbfb-c083cf915db6"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumBank}]]></textFieldExpression>
@@ -611,7 +628,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="c8eb8032-b843-4896-acba-a87e24594748"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{bank}]]></textFieldExpression>
@@ -624,7 +641,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="a89f1dfb-f63c-4473-bf7c-5734aa8f40de"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Cheque]]></text>
@@ -633,8 +650,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="59672b23-e32a-4779-9ac0-018b95e1748c"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumCheck}]]></textFieldExpression>
@@ -644,21 +661,44 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="c8b75400-512d-4fac-9f46-9e759505a17c"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{check}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="bb372198-7ca5-45c7-90d9-d605b3c4315f">
+					<jr:column width="130" uuid="5b6811db-83d8-470c-9fc4-605db697e2c2">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="130" height="30" uuid="31b665f7-fbcb-4cb1-9211-0ae4d8d1cdbe"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Insurance Type]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="130" height="17" uuid="37b8bd68-b919-4d0f-86c3-cad73de0576a"/>
+								<box leftPadding="2" rightPadding="0"/>
+								<textElement textAlignment="Left" verticalAlignment="Bottom">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{InsuranceType}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="bb372198-7ca5-45c7-90d9-d605b3c4315f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="0060567a-458d-4500-a8e2-06da7b56e35a"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Insurance]]></text>
@@ -667,8 +707,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="01b1d44b-8f7e-45c9-a9ad-c5311a802485"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumInsurance}]]></textFieldExpression>
@@ -678,7 +718,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="c1979b27-de58-4193-9610-8e305b9d3bc6"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{insurance}]]></textFieldExpression>
@@ -686,13 +726,13 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="60" uuid="87866248-734d-4d03-ac0b-f0470f323112">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
 								<reportElement x="0" y="0" width="60" height="30" uuid="6a8d6a27-e169-44d5-829d-6bfaab61a524"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Waiver]]></text>
@@ -701,8 +741,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="15ff9a14-32b9-4232-9710-40f684e6681c"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumWaiver}]]></textFieldExpression>
@@ -712,7 +752,7 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="4168c6bc-b653-46e7-9b07-311ce0dd1845"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{waiver}]]></textFieldExpression>
@@ -720,13 +760,13 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="80" uuid="0de33cc5-790e-4d35-8fd4-d06ad8afc9f7">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
 								<reportElement x="0" y="0" width="80" height="30" uuid="595b60dc-9617-4248-a5a2-9e13bdac7c9b"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Donations]]></text>
@@ -735,8 +775,8 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="7f642c67-f610-41a3-898e-1d09003e6f2a"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumDonation}]]></textFieldExpression>
@@ -746,21 +786,21 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="d0f1f6cb-fbd8-49f1-87ad-8e772e2ce2e9"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{donation}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="65" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
+					<jr:column width="80" uuid="27654303-c422-4735-9ae4-dbe470f41f71">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="65" height="30" uuid="2cae0e64-f12b-4ae5-af9b-3b86d2bf3bb9"/>
+								<reportElement x="0" y="0" width="80" height="30" uuid="2cae0e64-f12b-4ae5-af9b-3b86d2bf3bb9"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Other]]></text>
@@ -768,9 +808,9 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="143bca5a-6a24-48c0-8482-9297d7f102af"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="143bca5a-6a24-48c0-8482-9297d7f102af"/>
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumOther}]]></textFieldExpression>
@@ -778,23 +818,23 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="65" height="17" uuid="4a84764f-dc21-4a2b-b113-e8fb46d047eb"/>
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="4a84764f-dc21-4a2b-b113-e8fb46d047eb"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{other}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
+					<jr:column width="85" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column17"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="100" height="30" uuid="3e6106f0-5051-498d-a330-1bb5a578fa15"/>
+								<reportElement x="0" y="0" width="85" height="30" uuid="3e6106f0-5051-498d-a330-1bb5a578fa15"/>
 								<box leftPadding="2"/>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Unpaid Amount]]></text>
@@ -802,11 +842,11 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="71cafc65-11b0-45f2-91dc-3dcfd776e6eb">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="85" height="17" uuid="71cafc65-11b0-45f2-91dc-3dcfd776e6eb">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<box leftPadding="0" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 									<paragraph rightIndent="5"/>
 								</textElement>
@@ -815,11 +855,11 @@ order by date(billdetails.bill_date) ASC, billdetails.patientname ASC;]]>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00">
-								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="a5a192b8-1f1f-48d9-b728-881187d1f860">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="85" height="17" uuid="a5a192b8-1f1f-48d9-b728-881187d1f860">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph rightIndent="5"/>
 								</textElement>
