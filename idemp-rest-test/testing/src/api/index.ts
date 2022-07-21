@@ -1,5 +1,6 @@
 // @ts-create-index
 
+export * from './authenticationApi';
 export * from './baseApi';
 export * from './documentApi';
 export * from './invoices';
