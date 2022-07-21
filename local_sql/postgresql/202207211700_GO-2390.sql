@@ -70,7 +70,7 @@ BEGIN
 			AND c.bh_visitdate BETWEEN $2 AND $3
 		GROUP BY
 			c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
-			p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing;
+			p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing,p.bh_c_order_id;
 END
 $$;
 
