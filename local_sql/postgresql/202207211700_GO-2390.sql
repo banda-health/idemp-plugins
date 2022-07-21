@@ -1,6 +1,7 @@
 -- Get visits payments function.
 -- On this issue I added the bh_c_order_id column to this function
 
+DROP FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp, end_date timestamp);
 CREATE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
                                       end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
