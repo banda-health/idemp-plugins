@@ -1,0 +1,11 @@
+services:
+  idemp-rest-test:
+    build: ./idemp-rest-test/testing
+    volumes:
+      - ./idemp-rest-test/testing:/app
+      - /app/node_modules
+    environment:
+      - IDEMPIERE_USER=${IDEMPIERE_USER}
+      - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
+      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+    entrypoint: [tail, -f, /dev/null]
