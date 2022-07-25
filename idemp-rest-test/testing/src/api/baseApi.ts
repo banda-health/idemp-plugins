@@ -35,16 +35,19 @@ export abstract class BaseApi<T> {
 		filterJson?: string,
 	): Promise<BaseListResponse<T>> {
 		const response = await fetch(
-			`${IDEMPIERE_ENDPOINT}/${this.entityName}?page=${page}&size=${size}&sortJson=${sortJson}&filterJson=${filterJson}`,
+			`${IDEMPIERE_ENDPOINT}/${this.entityName}?page=${page || ''}&size=${size || ''}&sortJson=${
+				sortJson || ''
+			}&filterJson=${filterJson || ''}`,
 			{
 				method: 'GET',
 				headers: this.getAuthorizationHeaders(valueObject),
 			},
 		);
-		const results = await (response.json() as Promise<BaseListResponse<T>>);
 		if (!response.ok) {
+			console.log(response);
 			throw new Error(`could not get ${this.entityName}`);
 		}
+		const results = await (response.json() as Promise<BaseListResponse<T>>);
 		return results;
 	}
 
@@ -53,10 +56,11 @@ export abstract class BaseApi<T> {
 			method: 'GET',
 			headers: this.getAuthorizationHeaders(valueObject),
 		});
-		const result = await (response.json() as Promise<T>);
 		if (!response.ok) {
-			throw new Error(`could not single get ${this.entityName}`);
+			console.log(response);
+			throw new Error(`could not get single ${this.entityName}`);
 		}
+		const result = await (response.json() as Promise<T>);
 		return result;
 	}
 
@@ -66,10 +70,11 @@ export abstract class BaseApi<T> {
 			headers: this.getAuthorizationHeaders(valueObject),
 			body: JSON.stringify(data),
 		});
-		const result = await (response.json() as Promise<T>);
 		if (!response.ok) {
+			console.log(response);
 			throw new Error(`could not save ${this.entityName}`);
 		}
+		const result = await (response.json() as Promise<T>);
 		return result;
 	}
 
@@ -78,10 +83,11 @@ export abstract class BaseApi<T> {
 			method: 'DELETE',
 			headers: this.getAuthorizationHeaders(valueObject),
 		});
-		const result = await (response.json() as Promise<boolean>);
 		if (!response.ok) {
+			console.log(response);
 			throw new Error(`could not delete ${this.entityName}`);
 		}
+		const result = await (response.json() as Promise<boolean>);
 		return result;
 	}
 }
