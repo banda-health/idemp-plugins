@@ -7,6 +7,7 @@ export * from './invoices';
 export * from './menuApi';
 export * from './patients';
 export * from './payments';
+export * from './processes';
 export * from './productCategories';
 export * from './products';
 export * from './referenceLists';
