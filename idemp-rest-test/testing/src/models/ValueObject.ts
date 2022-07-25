@@ -63,6 +63,9 @@ export class ValueObject {
 	isError: boolean = false;
 	separator = ' - ';
 	prompt = ': ';
+	get windowAccess(): AuthResponse['windowAccessLevel'] | undefined {
+		return this.loginInfo?.windowAccessLevel;
+	}
 
 	// String m_process_UU = null;
 	// List<ProcessInfoParameter> m_processInfoParams = new ArrayList<ProcessInfoParameter>();
@@ -93,6 +96,7 @@ export class ValueObject {
 		this.quantity = 1;
 		this.setPurchasePrice(1);
 		this.setSalesPrice(1);
+		this.loginInfo = { ...loginInfo, client: this.client! };
 	}
 
 	async login(roleName?: string) {
@@ -101,7 +105,7 @@ export class ValueObject {
 		// Find the role ending with that role name
 		const roleToUse = this.client?.orgs
 			.flatMap((organization) => organization.roles)
-			.find((role) => role.name.endsWith(roleName ?? 'Admin'));
+			.find((role) => role.name.endsWith(roleName!));
 
 		const baseLoginData: Partial<Authentication> = {
 			...initialLoginData,
