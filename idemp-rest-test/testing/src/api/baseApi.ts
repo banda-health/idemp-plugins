@@ -35,7 +35,7 @@ export abstract class BaseApi<T> {
 		filterJson?: string,
 	): Promise<BaseListResponse<T>> {
 		const response = await fetch(
-			`${IDEMPIERE_ENDPOINT}/${this.entityName}?page=${page || ''}&size=${size || ''}&sortJson=${
+			`${IDEMPIERE_ENDPOINT}/${this.entityName}?page=${page || 0}&size=${size || 1000}&sortJson=${
 				sortJson || ''
 			}&filterJson=${filterJson || ''}`,
 			{
