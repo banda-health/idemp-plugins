@@ -36,7 +36,11 @@ public class ProductModelEvent extends AbstractEventHandler {
 		} else {
 			return;
 		}
-		if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
+		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
+			beforeSaveRequest(product);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
+			beforeSaveRequest(product);
+		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
 				|| event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
 			afterSaveRequest(product);
 		}
@@ -45,8 +49,14 @@ public class ProductModelEvent extends AbstractEventHandler {
 	@Override
 	protected void initialize() {
 		context = Env.getCtx();
+		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MProduct_BH.Table_Name);
+	}
+
+	private void beforeSaveRequest(MProduct_BH product) {
+		product.setValue(product.getName());
 	}
 
 	/* Add prices to product in the pricelist */
