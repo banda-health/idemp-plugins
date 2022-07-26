@@ -23,7 +23,7 @@ public class OrderLineModelEventTest extends ChuBoePopulateFactoryVO {
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 

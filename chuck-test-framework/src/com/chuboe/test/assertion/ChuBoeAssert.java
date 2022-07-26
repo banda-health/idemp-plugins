@@ -28,18 +28,22 @@
 
 package com.chuboe.test.assertion;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*; 
 
 public class ChuBoeAssert {
+	private static final CLogger logger = CLogger.getCLogger(ChuBoeAssert.class);
 	
 	public static void executeSQLAsserts(List<String> assertionSQL, Properties ctx, String trx) {
 		PreparedStatement ps = null;
@@ -54,11 +58,14 @@ public class ChuBoeAssert {
 					response = rs.getBoolean(2) 
 							+ " - " 
 							+ rs.getString(1) 
-							+ ((rs.getBoolean(2) == false) ? " - " + sql : "") //add sql in case of fail
+							+ ((!rs.getBoolean(2)) ? " - " + sql : "") //add sql in case of fail
 							; 
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				StringWriter stringWriter = new StringWriter();
+				PrintWriter printWriter = new PrintWriter(stringWriter);
+				e.printStackTrace(printWriter);
+				logger.severe(stringWriter.toString());
 			} finally {
 				DB.close(rs, ps);
 				rs = null; ps = null;
