@@ -324,7 +324,6 @@ FROM
 					transactions
 				WHERE
 					item = 'Starting balance'
-				-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 			) AS given_starting_balance
 		UNION
 		-- This is when the patient creation date is before the specified start date
@@ -342,7 +341,6 @@ FROM
 				SELECT *
 				FROM
 					transactions
-					-- WHERE date < '2020-07-19' -- UPDATE - use start date parameter
 				WHERE
 					date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
 				ORDER BY row DESC
@@ -361,7 +359,6 @@ FROM
 			row
 		FROM
 			transactions
-			-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 		WHERE
 		--This  retrieves records only when open balance was last above 0
 				date >= (
