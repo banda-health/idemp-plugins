@@ -290,7 +290,7 @@ public class ChuBoeCreateEntity {
 
 				MProductPrice productPurchasePrice = new Query(valueObject.getContext(), MProductPrice.Table_Name,
 						MProductPrice.COLUMNNAME_M_Product_ID + "=? AND " + MProductPrice.COLUMNNAME_M_PriceList_Version_ID + "=?",
-						valueObject.getTransactionName()).setParameters(product.get_ID(), purchasePriceList.get_ID())
+						valueObject.getTransactionName()).setParameters(product.get_ID(), purchasePriceListVersion.get_ID())
 						.setOnlyActiveRecords(true).first();
 				if (productPurchasePrice == null) {
 					productPurchasePrice = new MProductPrice(valueObject.getContext(), purchasePriceListVersion.get_ID(),
