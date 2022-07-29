@@ -84,7 +84,7 @@ billdetails AS (
 			bh_patienttype,
 			SUM(ol.linenetamt) AS lineitemtotals
 		FROM
-			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 				INNER JOIN c_bpartner cb
 					ON bh_get_visit_details.c_bpartner_id = cb.c_bpartner_id
 				INNER JOIN ad_user
@@ -115,7 +115,7 @@ billdetails AS (
 			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                            AS "check",
 			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS other
 		FROM
-			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 				CROSS JOIN params p
 		WHERE
 			p.payment_mode = ''
@@ -131,7 +131,7 @@ billdetails AS (
 			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1 AS donation,
 			member_id
 		FROM
-			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 				CROSS JOIN params p
 		WHERE
 			p.payment_mode = ''
@@ -143,7 +143,7 @@ billdetails AS (
 			c_order_id,
 			SUM(linenetamt) AS total
 		FROM
-			bh_get_visit_products($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_products($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 		GROUP BY c_order_id
 	)
 SELECT
