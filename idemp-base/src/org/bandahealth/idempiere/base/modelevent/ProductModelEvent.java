@@ -7,9 +7,7 @@ import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.compiere.model.MAttributeSet;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProductPrice;
@@ -36,11 +34,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 		} else {
 			return;
 		}
-		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			beforeSaveRequest(product);
-		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			beforeSaveRequest(product);
-		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
+		if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
 				|| event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
 			afterSaveRequest(product);
 		}
@@ -49,14 +43,8 @@ public class ProductModelEvent extends AbstractEventHandler {
 	@Override
 	protected void initialize() {
 		context = Env.getCtx();
-		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MProduct_BH.Table_Name);
-		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_NEW, MProduct_BH.Table_Name);
 		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MProduct_BH.Table_Name);
-	}
-
-	private void beforeSaveRequest(MProduct_BH product) {
-		product.setValue(product.getName());
 	}
 
 	/* Add prices to product in the pricelist */
