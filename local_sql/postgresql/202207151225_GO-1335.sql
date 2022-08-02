@@ -122,6 +122,16 @@ INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, 
 -- Add Income Categories window access to Clinic Admin Role
 INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='20639eca-bd84-4ae3-b890-7b32987fcb5e'), (SELECT ad_role_id FROM AD_Role WHERE ad_role_uu='461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2022-07-18 21:47:32.782000', 100, '2022-07-18 21:47:32.782000', 100, 'N', 'b87d6df9-658e-4baf-ace6-f02847c27139', 'N') ON CONFLICT DO NOTHING;
 
+-- Add bh_invoicetype element
+INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id)+1 FROM ad_element), 0, 0, 'Y', '2022-08-01 11:37:32.491000', 100, '2022-08-01 11:37:32.491000', 100, 'bh_invoicetype', 'U', 'bh_invoicetype', 'Invoice Type', 'Invoice Type', null, null, null, null, null, '086d36a0-7755-4c77-9148-6cd971d24b0b', null) ON CONFLICT DO NOTHING;
+
+-- add ad_column entry
+INSERT INTO adempiere.ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(ad_column_id)+1 FROM ad_column), 0, 0, 'Y', '2022-08-01 11:40:00.469000', '2022-08-01 11:40:00.469000', 100, 100, 'bh_invoicetype', 'Invoice Type', null, 0, 'U', 'bh_invoicetype', 318, 10, null, null, 5, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', (SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '086d36a0-7755-4c77-9148-6cd971d24b0b'), null, 'N', 'N', null, null, null, 'N', 'Y', null, '1e9b69bb-aa25-4eba-9a33-130143637063', 'Y', 0, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
+
+-- Add BH_InvoiceType column
+ALTER TABLE adempiere.c_invoice ADD COLUMN bh_invoicetype char default NULL::bpchar;
+
+
 SELECT update_sequences();
 
 SELECT register_migration_script('202207151225_GO-1335.sql') FROM dual;
