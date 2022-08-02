@@ -145,6 +145,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			invoice.setIsApproved(true);
 			invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
 			invoice.setPaymentRule(entity.getPaymentRule());
+			invoice.setBH_InvoiceType(entity.getInvoiceType());
 
 			beforeSave(entity, invoice);
 

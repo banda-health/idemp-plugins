@@ -143,7 +143,10 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 
 	@Override
 	protected Charge createInstanceWithAllFields(MCharge_BH instance) {
-		return new Charge(instance);
+		MElementValue account =  accountDBService.getEntityByIdFromDB(instance.getC_ElementValue_ID());
+		MChargeType_BH chargeType = chargeTypeDBService.getEntityByIdFromDB(instance.getC_ChargeType_ID());
+		
+		return new Charge(instance, chargeType, null, account);
 	}
 
 	@Override
