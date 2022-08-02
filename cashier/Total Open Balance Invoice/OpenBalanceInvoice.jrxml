@@ -48,7 +48,6 @@
 			bh_get_payment_trail($P{c_bpartner_uu})
 ),
 	OpenBalance AS (
-		-- Get totalopenbalance for the patient on first visit
 		SELECT
 			bp.name         AS patient_name,
 			bp.c_bpartner_id,
