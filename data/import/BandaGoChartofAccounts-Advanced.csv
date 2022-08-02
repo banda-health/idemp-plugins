@@ -1,0 +1,214 @@
+[Account_Value],[Account_Name],[Account_Description],[Account_Type],[Account_Sign],[Account_Document],[Account_Summary],[Default_Account],[Account_Parent]
+1,ASSETS,,Asset,,,Yes,,
+11,Cash,,Asset,,,Yes,,1
+11100,Current Account 1,Bank Asset,Asset,,Yes,No,B_INTRANSIT_ACCT,11
+11200,Current Account 2,Savings Accounts,Asset,,,No,,11
+11300,Savings Accounts,,Asset,,,No,,11
+11400,Mobile Money Accounts,,Asset,,,No,,11
+11800,Cash Box,,Asset,,,No,,11
+11900,Petty Cash (Float),,Asset,,Yes,No,CB_ASSET_ACCT,11
+12,Accounts Receivable,Accounts Receivables,Asset,,,Yes,,1
+121,Accounts Receivable - Clients,,Asset,,,Yes,,12
+12110,Accounts Receivable - Clients,,Asset,,Yes,No,C_RECEIVABLE_ACCT,121
+122,Credit Card in Transit,,Asset,,,Yes,,12
+12210,In Transit A/R Credit Card other,,Asset,,,No,,122
+12220,In Transit A/R Master Card,,Asset,,,No,,122
+12230,In Transit A/R Visa,,Asset,,,No,,122
+123,Accounts Receivable - Insurance,,Asset,,,Yes,,12
+12310,A/R - NHIF National Scheme,Inventory Account,Asset,,,No,,123
+12320,A/R - NHIF FFS,Product Inventory Account,Asset,,,No,,123
+12330,A/R - Insurance #3,,Asset,,,No,,123
+124,Loans Receivable,,Asset,,,Yes,,12
+12410,Loans Receivable Employees,,Asset,,,No,,124
+12420,Loans Receivable Owners/Shareholders,,Asset,,,No,,124
+12440,Loans Receivable Others,,Asset,,,No,,124
+12450,Interest Receivable,,Asset,,,No,,124
+125,Prepayments,,Asset,,,Yes,,12
+12510,Vendor prepayment,,Asset,,Yes,No,V_PREPAYMENT_ACCT,125
+12520,Employee Expense Prepayment,Accounts Payables,Asset,,Yes,No,,125
+126,Tax receivables,,Asset,,,Yes,,12
+12610,Tax credit A/R,,Asset,,Yes,No,T_CREDIT_ACCT,126
+12620,Tax receivables,,Asset,,Yes,No,,126
+12900,A/R Miscellaneous,,Asset,,,No,,12
+127,Accounts Receivable - Donations,Prepayments for future revenue,Asset,,,Yes,,12
+12710,Donor Fund,Payments that come from capitation,Asset,,,No,,127
+13,Investments,,Asset,,,Yes,,1
+14,Inventory,,Asset,,,Yes,,1
+14100,Medication and Supplies,Year end processing to balance account (Income Summary),Asset,,Yes,No,P_ASSET_ACCT,14
+14120,Inventory category 2,,Asset,,Yes,No,,14
+15,"Prepaid Expenses, Deposits & Other Current Assets",Default Product or Service revenue,Asset,,,Yes,,1
+151,Prepaid Expenses,,Asset,,,Yes,,15
+15110,Prepaid Insurance,,Asset,,,No,,151
+15120,Prepaid Rent,,Asset,,,No,,151
+15130,Prepaid Interest,,Asset,,,No,,151
+15190,Prepaid Others,,Asset,,,No,,151
+152,Deposits,,Asset,,,Yes,,15
+15210,Deposit Rent,,Asset,,,No,,152
+15220,Deposit Utilities,,Asset,,,No,,152
+15290,Deposit Others,,Asset,,,No,,152
+153,Other Current Assets,Granted Trade discounts (corrects Product Revenue),Asset,,,Yes,,15
+15300,Other Current Assets,Granted early payment discount to customers,Asset,,,No,,153
+16,Land and Building,,Asset,,,Yes,,1
+16100,Land,Cost of Goods Sold,Asset,,,No,,16
+16200,Building,,Asset,,,No,,16
+16300,Land Improvements,Inventory Actual Accounting Value Adjustment,Asset,,,No,,16
+16400,Building Improvements,,Asset,,,No,,16
+16500,Leasehold Improvements,,Asset,,,No,,16
+17,"Furniture, Fixtures & Equipment",,Asset,,,Yes,,1
+17100,Furniture,,Asset,,,No,,17
+17200,Fixtures (bolted to floor or wall),,Asset,,,No,,17
+17300,Equipment - Medical,,Asset,,,No,,17
+17400,Vehicles,,Asset,,,No,,17
+17500,Computer and Accessories,,Asset,,,No,,17
+17600,Software,,Asset,,,No,,17
+17700,Equipment  - Office,,Asset,,,No,,17
+19,Other Assets,,Asset,,,Yes,,1
+19900,Other Assets,"Garbage, etc.",Asset,,,No,,19
+2,LIABILITIES,,Liability,,,Yes,,
+21,Accounts Payables,,Liability,,,Yes,,2
+21100,Accounts Payable - Vendors,,Liability,,Yes,No,V_LIABILITY_ACCT,21
+215,Accounts Payable - Customers,,Liability,,,Yes,,21
+21510,Accounts Payable - Customer Prepayments,,Liability,,Yes,No,C_PREPAYMENT_ACCT,215
+216,Accounts Payable - Tax,,Liability,,,Yes,,21
+21620,KRA Corporate Tax,,Liability,,Yes,No,,216
+21630,Tax liability - other,,Liability,,,No,,216
+21700,VAT Withholding,,Liability,,Yes,No,,216
+22,Accrued Expenses,,Liability,,,Yes,,2
+22100,Accrued Payroll,,Liability,,,No,,22
+22210,PAYE Payable,Sales Tax paid to Vendors,Liability,,,No,,22
+22230,NHIF Payable,,Liability,,,No,,22
+22250,Local Tax Withholding,,Liability,,,No,,22
+22260,Other Payable 1,,Liability,,,No,,22
+22270,Other Payable 2,,Liability,,,No,,22
+22290,Other Payable 3,,Liability,,,No,,22
+22310,NSSF Payable - Employers Contribution,Receivables write-off - bad debt,Liability,,,No,,22
+22330,Union Dues Payable,,Liability,,,No,,22
+23,Current Note Payables,,Liability,,,Yes,,2
+23100,Short Term Obligation,,Liability,,,No,,23
+23900,Current Portion of Long Term Debt,,Liability,,,No,,23
+24,Non-Current Liabilities,,Liability,,,Yes,,2
+24100,Long Term Obligation,,Liability,,,No,,24
+24200,Mortgage,,Liability,,,No,,24
+24300,Loan from Owner/Stockholder,,Liability,,,No,,24
+24800,Other Long Term Obligation,,Liability,,,No,,24
+24900,Current Portion of Long Term Debt,,Liability,,,No,,24
+25,Liability Payments,,Liability,,,Yes,,2
+25100,Patient Prepayments,,Liability,,,No,C_PREPAYMENT_ACCT,25
+25200,NHIF National Scheme Payments,,Liability,,,No,,25
+3,OWNER EQUITY,,Owner's Equity,,,Yes,,
+31,Capital,,Owner's Equity,,,Yes,,3
+31000,Capital (funds invested),,Owner's Equity,,,No,,31
+31100,Designated Funds,,Owner's Equity,,,No,,31
+32,Earnings,,Owner's Equity,,,Yes,,3
+32900,Retained Earnings,,Owner's Equity,,Yes,No,,32
+4,REVENUE,,Revenue,,,Yes,,
+41,Patient Revenue,,Revenue,,Yes,Yes,,4
+41100,Patient Revenue - Services,,Revenue,,,No,,41
+41110,Patient Revenue - Pharmacy,,Revenue,,,No,,41
+41120,Patient Revenue - Laboratory,,Revenue,,,No,,41
+41130,Patient Revenue - Radiology,,Revenue,,,No,,41
+41140,Patient Revenue - Other,,Revenue,,,No,,41
+41150,Patient Revenue - Unassigned,,Revenue,,,No,P_REVENUE_ACCT,41
+42,Non Patient Revenue,,Revenue,,,Yes,,4
+42100,Investment Incomes,,Revenue,,,No,,42
+42110,Investment income 1,,Revenue,,,No,,42
+43,Other Non-Patient Revenue,,Revenue,,,Yes,,4
+43100,Other Non-Patient Revenue 1,,Revenue,,,No,,43
+43110,Other Non-Patient Revenue 2,,Revenue,,,No,,43
+43120,Other Non-Patient Revenue 3,,Revenue,,,No,,43
+43130,Other Non-Patient Revenue 4,,Revenue,,,No,,43
+44,Insurance Revenue,,Revenue,,,Yes,,4
+44100,NHIF National Scheme Revenue,,Revenue,,,No,,44
+49,Sales Discounts,,Revenue,,,Yes,,4
+49100,Charity Services Waiver (contra acct),,Revenue,,Yes,No,P_TRADEDISCOUNTGRANT_ACCT,49
+49200,Payment discount expense,,Revenue,,Yes,No,PAYDISCOUNT_EXP_ACCT,49
+80,Other Income,,Revenue,,,Yes,,
+80100,Interest Income,,Revenue,,Yes,No,B_INTERESTREV_ACCT,80
+80200,Dividend Income,,Revenue,,,No,,80
+80300,Rental Income,,Revenue,,,No,,80
+80800,Fixed Asset Sale Gain,,Revenue,,,No,,80
+80900,Other Income,,Revenue,,,No,,80
+5,Purchased Goods (to be sold),,Expense,,,Yes,,
+51100,Product CoGs,,Expense,,Yes,No,P_COGS_ACCT,5
+56,Inventory CoGs,,Expense,,,Yes,,5
+56300,Inventory Adjustment,,Expense,,Yes,No,,56
+6,EXPENSES,,Expense,,,Yes,,
+60,Payroll Expenses,,Expense,,,Yes,,6
+60110,Wages,,Expense,,,No,,60
+60130,Salaries,,Expense,,,No,,60
+60410,NSSF Paid,,Expense,,,No,,60
+60430,PAYE Paid,,Expense,,,No,,60
+60510,NHIF Paid,,Expense,,,No,,60
+60600,Employer's Liability Insurance,,Expense,,,No,,60
+60900,Other Benefit Expense,,Expense,,,No,,60
+60910,Staff Gifts & Perks,,Expense,,,No,,60
+60930,Other Payroll Expenses,,Expense,,,No,,60
+60990,Payroll Processing Expense,,Expense,,,No,,60
+61,Occupancy Cost,,Expense,,,Yes,,6
+61100,Rent Expense,,Expense,,,No,,61
+61200,Utilities,,Expense,,,No,,61
+61300,Other Occupancy Costs,,Expense,,,No,,61
+61400,Security - contracted services,,Expense,,,No,,61
+61500,Cleaning - contracted services,,Expense,,,No,,61
+61600,Other Contacted Services,,Expense,,,No,,61
+62,Advertising,,Expense,,,Yes,,6
+62100,Advertising Expense,,Expense,,,No,,62
+62200,Advertising Expense Category 2,,Expense,,,No,,62
+63,Telephone and Communications,,Expense,,,Yes,,6
+63200,Mobile Telephone Charges,,Expense,,,No,,63
+63300,Internet Charges,,Expense,,,No,,63
+64,Professional Services,,Expense,,,Yes,,6
+64100,Legal Fees,,Expense,,,No,,64
+64200,Accounting Fees,,Expense,,,No,,64
+64300,Inventory Verification Fees,,Expense,,,No,,64
+64500,Other Consulting Fees,,Expense,,,No,,64
+65,Stationary & Office Supplies,,Expense,,,Yes,,6
+65100,Stationary & Supplies - Office Use,,Expense,,,No,,65
+65500,Other Consumable Office Supplies,,Expense,,,No,,65
+66,"Data Processing (Accounting, Patient Records, etc)",,Expense,,,Yes,,6
+66300,Accounting and Clinical IT solutions,,Expense,,,No,,66
+68,Business Travel,,Expense,,,Yes,,6
+68100,Business Travel Category 1,,Expense,,,No,,68
+68200,Business Travel Category 2,,Expense,,,No,,68
+69,Insurance,,Expense,,,Yes,,6
+69100,Business Insurance,,Expense,,,No,,69
+69200,Real Estate Insurance,,Expense,,,No,,69
+69300,Vehicle Insurance,,Expense,,,No,,69
+69400,Other Insurance,,Expense,,,No,,69
+70,Payment Processor Costs,,Expense,,,Yes,,6
+70100,Credit Card Service Charges,,Expense,,,No,,70
+70200,Bank Service Charges,,Expense,,Yes,No,,70
+70900,Other Payment Service Charges,,Expense,,,No,,70
+71,Dues & Subscription,,Expense,,,Yes,,6
+71100,Association Membership Fees,,Expense,,,No,,71
+71200,Subscription Fees,,Expense,,,No,,71
+72,Office Expense,,Expense,,,Yes,,6
+72100,Office Expense,,Expense,,,No,,72
+73,Posting & Shipping,,Expense,,,Yes,,6
+73100,Postage Expense,,Expense,,,No,,73
+73300,Shipping Expenses,,Expense,,,No,,73
+74,Taxes and Licenses,,Expense,,,Yes,,6
+74100,KRA Corporate Tax Payment,,Expense,,Yes,No,T_EXPENSE_ACCT,74
+74200,Tax Payment Category 2,,Expense,,,No,,74
+74900,License Fees,,Expense,,,No,,74
+75,Education Costs,,Expense,,,Yes,,6
+75100,Education Course Fees,,Expense,,,No,,75
+75200,Education Travel,,Expense,,,No,,75
+75300,Education Meals & Entertainment,,Expense,,,No,,75
+75900,Education Other,,Expense,,,No,,75
+76,Equipment Rent,,Expense,,,Yes,,6
+76100,Office Equipment Rent,,Expense,,,No,,76
+76900,Equipment Rent Other,,Expense,,,No,,76
+77,Repairs & Maintenance,,Expense,,,Yes,,6
+77100,Building Repairs & Maintenance,,Expense,,,No,,77
+77200,"Furniture, Equipment Repairs & Maintenance",,Expense,,,No,,77
+77300,Data Processing Repairs & Maintenance,,Expense,,,No,,77
+77400,Software Maintenance,,Expense,,,No,,77
+77500,Vehicle Repairs & Maintenance,,Expense,,,No,,77
+77900,Repairs & Maintenance Other,,Expense,,,No,,77
+78,Other Operating Expenses,,Expense,,,Yes,,6
+78100,Bad Debts Write-off,,Expense,,Yes,No,WRITEOFF_ACCT,78
+78500,Vehicle Expense,,Expense,,,No,,78
+78900,Miscellaneous Expense,,Expense,,,No,,78
+82400,Charitable Contributions,,Expense,,,No,,6
+82900,Other Expenses,,Expense,,,No,,6

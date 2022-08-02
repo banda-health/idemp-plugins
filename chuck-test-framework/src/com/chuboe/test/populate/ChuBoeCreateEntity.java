@@ -160,35 +160,38 @@ public class ChuBoeCreateEntity {
 
 			businessPartner.saveEx();
 
-			//create loc
-			MBPartnerLocation businessPartnerLocation =
-					new MBPartnerLocation(valueObject.getContext(), 0, valueObject.getTransactionName());
-			businessPartnerLocation.setAD_Org_ID(0);
-			businessPartnerLocation.setC_BPartner_ID(businessPartner.get_ID());
-			MLocation loc =
-					new MLocation(valueObject.getContext(), valueObject.getCountry().get_ID(), valueObject.getRegion().get_ID(),
-							valueObject.getCity(), valueObject.getTransactionName());
-			loc.saveEx();
-			businessPartnerLocation.setC_Location_ID(loc.get_ID());
-			businessPartnerLocation.setName(valueObject.getCity() + " " + valueObject.getRegion().getName());
-			businessPartnerLocation.saveEx();
-			valueObject.setBusinessPartnerLocation(businessPartnerLocation);
+			// Currently, the location is created automatically on BP save
+//			//create loc
+//			MBPartnerLocation businessPartnerLocation =
+//					new MBPartnerLocation(valueObject.getContext(), 0, valueObject.getTransactionName());
+//			businessPartnerLocation.setAD_Org_ID(0);
+//			businessPartnerLocation.setC_BPartner_ID(businessPartner.get_ID());
+//			MLocation loc =
+//					new MLocation(valueObject.getContext(), valueObject.getCountry().get_ID(), valueObject.getRegion()
+//					.get_ID(),
+//							valueObject.getCity(), valueObject.getTransactionName());
+//			loc.saveEx();
+//			businessPartnerLocation.setC_Location_ID(loc.get_ID());
+//			businessPartnerLocation.setName(valueObject.getCity() + " " + valueObject.getRegion().getName());
+//			businessPartnerLocation.saveEx();
+//			valueObject.setBusinessPartnerLocation(businessPartnerLocation);
 
 			//create contact
 			List<MUser_BH> users =
 					new Query(valueObject.getContext(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_C_BPartner_ID + "=?",
 							valueObject.getTransactionName()).setParameters(valueObject.getBusinessPartner().get_ID())
 							.setOnlyActiveRecords(true).list();
-			MUser_BH user;
-			if (users != null && users.size() == 1) {
-				user = users.get(0);
-			} else {
-				user = new MUser_BH(valueObject.getBusinessPartner());
-			}
-			user.setNotificationType(X_AD_User.NOTIFICATIONTYPE_None);
-			user.setDescription(valueObject.getStepMessageLong());
-			user.saveEx();
-			valueObject.setUser(user);
+//			MUser_BH user;
+//			if (users != null && users.size() == 1) {
+//				user = users.get(0);
+//			} else {
+//				user = new MUser_BH(valueObject.getBusinessPartner());
+//			}
+//			user.setNotificationType(X_AD_User.NOTIFICATIONTYPE_None);
+//			user.setDescription(valueObject.getStepMessageLong());
+//			user.saveEx();
+//			valueObject.setUser(user);
+			valueObject.setUser(users.get(0));
 
 			businessPartner.setIsCustomer(true);
 			businessPartner.setBH_IsPatient(true); // the BP model event currently uses this

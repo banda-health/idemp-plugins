@@ -26,11 +26,15 @@ services:
     depends_on:
       idempiere:
         condition: service_healthy
+    environment:
+      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
 
   idemp-rest-test:
     build: idemp-rest-test/testing
     depends_on:
       idempiere:
+        condition: service_healthy
+      idemp-base-test:
         condition: service_healthy
     environment:
       - IDEMPIERE_USER=${IDEMPIERE_USER}
@@ -43,6 +47,12 @@ services:
     depends_on:
       idempiere:
         condition: service_healthy
+      idemp-base-test:
+        condition: service_healthy
+      idemp-rest-test:
+        condition: service_healthy
+    environment:
+      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
 
   postgres:
     image: postgres:12
