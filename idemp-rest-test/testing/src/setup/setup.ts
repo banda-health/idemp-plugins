@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { mkdir, writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
@@ -6,6 +7,7 @@ import { Authentication } from '../types/org.bandahealth.idempiere.rest';
 
 const workingDirectory = join(tmpdir(), 'idemp-rest-global-setup');
 const clientName = process.env.IDEMPIERE_REST_TEST_CLIENT || 'Rest Test Client';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export default async function () {
 	const loginInfo = await authenticationApi.login();

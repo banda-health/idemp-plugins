@@ -1,5 +1,5 @@
 import { Visit } from '../types/org.bandahealth.idempiere.rest';
-import { DocumentApi } from './documentApi';
+import { DocumentApi } from './documents';
 
 class VisitApi extends DocumentApi<Visit> {
 	entityName = 'visits';

@@ -1,23 +1,17 @@
+import axios from 'axios';
 import { DocumentAction, DocumentStatus, DocumentType, ValueObject } from '../models';
 import { ReferenceList } from '../types/org.bandahealth.idempiere.rest';
-import { BaseApi, IDEMPIERE_ENDPOINT } from './baseApi';
+import { BaseApi, IDEMPIERE_ENDPOINT } from './base';
 
 class ReferenceListApi extends BaseApi<ReferenceList> {
 	entityName = 'reference-lists';
 
 	async getDocumentStatusActionMap(valueObject: ValueObject) {
-		const response = await fetch(`${IDEMPIERE_ENDPOINT}/${this.entityName}/documentStatusActionMap`, {
-			method: 'GET',
-			headers: this.getAuthorizationHeaders(valueObject),
-		});
-		if (!response.ok) {
-			console.log(response);
-			throw new Error(`could not get single ${this.entityName}`);
-		}
-		const result = await (response.json() as Promise<{
-			[documentType in DocumentType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-		}>);
-		return result;
+		return (
+			await axios.get<{
+				[documentType in DocumentType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+			}>(`${IDEMPIERE_ENDPOINT}/${this.entityName}/documentStatusActionMap`, this.getAuthorizationHeaders(valueObject))
+		).data;
 	}
 }
 
