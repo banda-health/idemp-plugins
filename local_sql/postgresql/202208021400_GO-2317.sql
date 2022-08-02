@@ -323,7 +323,7 @@ BEGIN
 					transactions
 					-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 				WHERE
-					items != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
+					items != 'Starting balance'
 			) AS payments
 		ORDER BY
 			row;
