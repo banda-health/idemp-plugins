@@ -1,5 +1,5 @@
 FROM node:current-alpine
-RUN apk add --no-cache wget libxml2-utils bash
+RUN apk update && apk add --no-cache wget libxml2-utils bash
 RUN npm install jest ts-jest typescript ts-node --global
 
 WORKDIR /app
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-HEALTHCHECK --interval=1s --timeout=1s CMD ["sh", "-c", "[ ! -f \".unhealthy\" ] && exit 0 || exit 1"]
-CMD ["sleep", "infinity"]
+HEALTHCHECK --interval=1s --timeout=1s --retries=120 CMD ["sh", "-c", "[ ! -f \".unhealthy\" ] && exit 0 || exit 1"]
+CMD ["tail", "-f", "/dev/null"]
 ENTRYPOINT ["./runTests.sh"]

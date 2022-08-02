@@ -5,7 +5,7 @@ touch .unhealthy
 
 [ -f "testResults.txt" ] && rm testResults.txt
 # Send the SOAP request to run the tests
-wget http://idempiere:8080/ADInterface/services/ModelADService --post-file=request.xml -O testResults.xml >/dev/null 2>&1
+wget "${IDEMPIERE_ENDPOINT}/ADInterface/services/ModelADService" --post-file=request.xml -O testResults.xml >/dev/null 2>&1
 
 if [[ -f "testResults.xml" ]]; then
   # Parse the results
