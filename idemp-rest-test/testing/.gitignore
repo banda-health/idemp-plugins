@@ -2,6 +2,10 @@ package-lock.json
 # This file is auto-generated, so don't check it in
 **/org.bandahealth.idempiere.rest.d.ts
 
+tmp.txt
+testResults.xml
+.unhealthy
+
 # Created by https://www.toptal.com/developers/gitignore/api/node
 # Edit at https://www.toptal.com/developers/gitignore?templates=node
 
