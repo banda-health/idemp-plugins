@@ -33,7 +33,7 @@ BEGIN
 					AND p2.reversal_id = p1.c_payment_id
 					AND p1.c_bpartner_id = p2.c_bpartner_id
 			WHERE
-				bp.c_bpartner_uu = $1-- UPDATE - this is the person's UUID parameter
+				bp.c_bpartner_uu = $1
 				AND p1.payamt IS NOT NULL
 				AND p2.c_payment_id IS NULL
 				AND p1.docstatus != 'RE'
