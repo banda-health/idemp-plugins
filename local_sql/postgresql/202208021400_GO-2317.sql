@@ -252,7 +252,7 @@ BEGIN
 							0             AS open_balance,
 							1             AS sort
 						FROM
-							adempiere.c_bpartner bp
+							c_bpartner bp
 								JOIN payments p
 									ON p.c_bpartner_id = bp.c_bpartner_id
 					) AS transactions
