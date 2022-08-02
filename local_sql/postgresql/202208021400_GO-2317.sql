@@ -284,7 +284,6 @@ BEGIN
 							transactions
 						WHERE
 							items = 'Starting balance'
-						-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
 					) AS given_starting_balance
 				UNION
 				-- This is when the patient creation date is before the specified start date
