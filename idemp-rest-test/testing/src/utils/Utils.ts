@@ -1,18 +1,6 @@
-import {
-	IDEMPIERE_ENDPOINT,
-	initialLoginData,
-	invoiceApi,
-	patientApi,
-	paymentApi,
-	productApi,
-	productCategoryApi,
-	visitApi,
-	warehouseApi,
-} from '../api';
+import { invoiceApi, patientApi, paymentApi, productApi, productCategoryApi, visitApi, warehouseApi } from '../api';
 import { ValueObject } from '../models';
 import {
-	Authentication,
-	AuthResponse,
 	Invoice,
 	InvoiceLine,
 	OrderLine,

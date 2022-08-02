@@ -1,10 +1,10 @@
 // @ts-create-index
 
-export * from './authenticationApi';
-export * from './baseApi';
-export * from './documentApi';
+export * from './authentication';
+export * from './base';
+export * from './documents';
 export * from './invoices';
-export * from './menuApi';
+export * from './menus';
 export * from './patients';
 export * from './payments';
 export * from './processes';
