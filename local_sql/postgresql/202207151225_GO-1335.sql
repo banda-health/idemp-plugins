@@ -34,6 +34,7 @@ INSERT INTO tmp_c_chargetype (ad_client_id, description, name, value) SELECT c.a
 
 INSERT INTO c_chargetype (ad_client_id, ad_org_id, c_chargetype_id, created, createdby, description, help, isactive, name, updated, updatedby, value, c_chargetype_uu) SELECT ad_client_id, ad_org_id, c_chargetype_id, created, createdby, description, help, isactive, name, updated, updatedby, value, c_chargetype_uu FROM tmp_c_chargetype ON CONFLICT DO NOTHING;
 
+DROP TABLE tmp_c_chargetype;
 
 -- Add default incomes to configuration client.
 DROP TABLE IF EXISTS tmp_c_charge;
@@ -95,6 +96,7 @@ INSERT INTO tmp_c_charge (ad_client_id, name, description, c_chargetype_id, c_el
 
 INSERT INTO c_charge (c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded, c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype, bh_needadditionalvisitinfo) SELECT c_charge_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, chargeamt, issametax, issamecurrency, c_taxcategory_id, istaxincluded, c_bpartner_id, c_chargetype_id, c_charge_uu, c_elementvalue_id, bh_locked, bh_subtype, bh_needadditionalvisitinfo FROM tmp_c_charge ON CONFLICT DO NOTHING;
 
+DROP TABLE tmp_c_charge;
 
 -- Add Income Category window
 INSERT INTO adempiere.ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id)+1 FROM AD_Window), 0, 0, 'Y', '2022-07-18 17:27:54.767000', 100, '2022-07-18 17:27:54.767000', 100, 'Income Categories', 'Maintain Income Categories', 'The Income Categories Window defines the different incomes that may be received.', 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', '20639eca-bd84-4ae3-b890-7b32987fcb5e', null) ON CONFLICT DO NOTHING;
@@ -119,8 +121,46 @@ INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, 
 -- Add Track Incomes window access to Clinic Admin Role
 INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='44c02ddc-ef83-4020-8e4c-709d8cbeadc2'), (SELECT ad_role_id FROM AD_Role WHERE ad_role_uu='461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2022-07-18 21:45:58.222000', 100, '2022-07-18 21:45:58.222000', 100, 'Y', 'debd8a8c-69bb-4ebf-9769-1f96d5d0e432', 'Y') ON CONFLICT DO NOTHING;
 
+-- Add Track Incomes window access to Cashier/Registration Basic role
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='44c02ddc-ef83-4020-8e4c-709d8cbeadc2'), (SELECT ad_role_id FROM AD_Role WHERE ad_role_uu='09eb7fc8-9cc5-44b0-9d14-15258a066038'), 0, 0, 'Y', '2022-07-18 21:45:58.222000', 100, '2022-07-18 21:45:58.222000', 100, 'Y', '006a5bdd-ae86-498a-afad-a29ac41a2598', 'Y') ON CONFLICT DO NOTHING;
+
+-- Add Track Incomes window access to Accounting role
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='44c02ddc-ef83-4020-8e4c-709d8cbeadc2'), (SELECT ad_role_id FROM AD_Role WHERE ad_role_uu='93365778-a2d9-433b-b962-87fb150db4fa'), 0, 0, 'Y', '2022-07-18 21:45:58.222000', 100, '2022-07-18 21:45:58.222000', 100, 'Y', '0eb6fc09-56e2-48e0-89ce-4a6ee39a10ec', 'Y') ON CONFLICT DO NOTHING;
+
 -- Add Income Categories window access to Clinic Admin Role
 INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='20639eca-bd84-4ae3-b890-7b32987fcb5e'), (SELECT ad_role_id FROM AD_Role WHERE ad_role_uu='461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2022-07-18 21:47:32.782000', 100, '2022-07-18 21:47:32.782000', 100, 'N', 'b87d6df9-658e-4baf-ace6-f02847c27139', 'N') ON CONFLICT DO NOTHING;
+
+-- Add Income Categories window access to Accounting Role
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='20639eca-bd84-4ae3-b890-7b32987fcb5e'), (SELECT ad_role_id FROM AD_Role WHERE ad_role_uu='93365778-a2d9-433b-b962-87fb150db4fa'), 0, 0, 'Y', '2022-07-18 21:47:32.782000', 100, '2022-07-18 21:47:32.782000', 100, 'N', 'd747f05b-8f79-437d-be73-1e6a7bd0640b', 'N') ON CONFLICT DO NOTHING;
+
+-- Add window acess to non-manual roles.
+DROP TABLE IF EXISTS tmp_ad_window_access;
+
+CREATE TEMP TABLE tmp_ad_window_access
+(
+    ad_window_id               numeric(10)                     not null,
+    ad_role_id                 numeric(10) 		 	 not null,
+    ad_client_id               numeric(10)			 not null,
+    ad_org_id			numeric(10)			 not null,
+    isactive                   char        default 'Y'::bpchar not null,
+    created                    timestamp   default now()       not null,
+    createdby                  numeric(10) default 100         not null,
+    updated                    timestamp   default now()       not null,
+    updatedby                  numeric(10) default 100         not null,
+    isreadwrite		char	    default 'Y'	 not null,
+    ad_window_access_uu	varchar(36) not NULL default uuid_generate_v4(),
+    bh_candeactivate		char	    default 'N'	 not null
+);
+
+-- Track Incomes
+INSERT INTO tmp_ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id) SELECT (SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='44c02ddc-ef83-4020-8e4c-709d8cbeadc2'), ad_role_id, ad_client_id, ad_org_id FROM ad_role WHERE ad_client_id > 999999 and ismanual = 'N' ON CONFLICT DO NOTHING;
+
+-- Income Categories
+INSERT INTO tmp_ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id) SELECT (SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='20639eca-bd84-4ae3-b890-7b32987fcb5e'), ad_role_id, ad_client_id, ad_org_id FROM ad_role WHERE ad_client_id > 999999 and ismanual = 'N' ON CONFLICT DO NOTHING;
+
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) FROM tmp_ad_window_access ON CONFLICT DO NOTHING;
+
+DROP TABLE tmp_ad_window_access; -- no longer required
 
 -- Add bh_invoicetype element
 INSERT INTO adempiere.ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(ad_element_id)+1 FROM ad_element), 0, 0, 'Y', '2022-08-01 11:37:32.491000', 100, '2022-08-01 11:37:32.491000', 100, 'bh_invoicetype', 'U', 'bh_invoicetype', 'Invoice Type', 'Invoice Type', null, null, null, null, null, '086d36a0-7755-4c77-9148-6cd971d24b0b', null) ON CONFLICT DO NOTHING;
@@ -130,7 +170,6 @@ INSERT INTO adempiere.ad_column (ad_column_id, ad_client_id, ad_org_id, isactive
 
 -- Add BH_InvoiceType column
 ALTER TABLE adempiere.c_invoice ADD COLUMN bh_invoicetype char default NULL::bpchar;
-
 
 SELECT update_sequences();
 
