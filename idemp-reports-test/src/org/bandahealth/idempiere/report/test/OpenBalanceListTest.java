@@ -46,6 +46,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setName(String.valueOf(valueObject.getRandomNumber()));
+		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create product");

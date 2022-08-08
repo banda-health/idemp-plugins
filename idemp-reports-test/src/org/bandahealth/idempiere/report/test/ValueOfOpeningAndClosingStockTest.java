@@ -106,6 +106,7 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create product");
 		ChuBoeCreateEntity.createProduct(valueObject);
 		valueObject.getProduct().setM_AttributeSet_ID(attributeSet.get_ID());
+		valueObject.getProduct().setName(String.valueOf(valueObject.getRandomNumber()));
 		valueObject.getProduct().saveEx();
 		commitEx();
 

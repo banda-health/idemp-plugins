@@ -48,7 +48,8 @@ public class ExpiredProductListTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create attribute set to track expirations");
-		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
 		attributeSet.setIsGuaranteeDate(true);
 		attributeSet.setIsGuaranteeDateMandatory(true);
@@ -59,7 +60,8 @@ public class ExpiredProductListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create expired attribute set instance");
 		valueObject.setRandom();
-		MAttributeSetInstance_BH expiredAttributeSetInstance = new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MAttributeSetInstance_BH expiredAttributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		expiredAttributeSetInstance.setGuaranteeDate(TimestampUtils.yesterday());
 		expiredAttributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
 		expiredAttributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
@@ -69,7 +71,8 @@ public class ExpiredProductListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create valid attribute set instance");
 		valueObject.setRandom();
-		MAttributeSetInstance_BH validAttributeSetInstance = new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MAttributeSetInstance_BH validAttributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		validAttributeSetInstance.setGuaranteeDate(TimestampUtils.tomorrow());
 		validAttributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
 		validAttributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
@@ -94,7 +97,8 @@ public class ExpiredProductListTest extends ChuBoePopulateFactoryVO {
 		valueObject.clearProduct();
 		ChuBoeCreateEntity.createProduct(valueObject);
 		MProduct_BH expiredProduct = valueObject.getProduct();
-		String expiredProductNameSuffix = String.valueOf(valueObject.getRandomNumber());
+		expiredProduct.setName(String.valueOf(valueObject.getRandomNumber()));
+		String expiredProductName = expiredProduct.getName();
 		expiredProduct.setM_AttributeSet_ID(attributeSet.get_ID());
 		expiredProduct.saveEx();
 		commitEx();
@@ -150,8 +154,9 @@ public class ExpiredProductListTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		assertThat("The imperishable product isn't on the report", reportContent, not(containsString(imperishableProductName)));
+		assertThat("The imperishable product isn't on the report", reportContent,
+				not(containsString(imperishableProductName)));
 		assertThat("The valid product isn't on the report", reportContent, not(containsString(validProductNameSuffix)));
-		assertThat("The expired is on the report", reportContent, containsString(expiredProductNameSuffix));
+		assertThat("The expired is on the report", reportContent, containsString(expiredProductName));
 	}
 }

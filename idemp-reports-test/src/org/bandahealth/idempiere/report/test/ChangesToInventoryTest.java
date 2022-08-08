@@ -49,8 +49,10 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create product 1");
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(String.valueOf(valueObject.getRandomNumber()));
+		String product1Name = valueObject.getProduct().getName();
+		valueObject.getProduct().saveEx();
 		commitEx();
-		String product1NameSuffix = String.valueOf(valueObject.getRandomNumber());
 
 		valueObject.setStepName("Create purchase order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
@@ -60,11 +62,13 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create product 2");
-		valueObject.setProduct(null);
+		valueObject.clearProduct();
 		valueObject.setRandom();
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(String.valueOf(valueObject.getRandomNumber()));
+		String product2Name = valueObject.getProduct().getName();
+		valueObject.getProduct().saveEx();
 		commitEx();
-		String product2NameSuffix = String.valueOf(valueObject.getRandomNumber());
 
 		valueObject.setStepName("Add another product to purchase order");
 		MOrderLine_BH line = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -107,13 +111,13 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		assertThat("Product 2 is on the report", reportContent, containsString(product2NameSuffix));
+		assertThat("Product 2 is on the report", reportContent, containsString(product2Name));
 		assertThat("Product 2 starting inventory count is on the report", reportContent,
 				containsString(String.valueOf(startingProduct2Inventory.intValue())));
 		assertThat("Product 2 ending inventory count is on the report", reportContent,
 				containsString(String.valueOf(endingProduct2Inventory.intValue())));
 		assertThat("Product 2 inventory change amount is on the report", reportContent,
 				containsString(String.valueOf(endingProduct2Inventory.subtract(startingProduct2Inventory).intValue())));
-		assertThat("Product 1 is not on the report", reportContent, not(containsString(product1NameSuffix)));
+		assertThat("Product 1 is not on the report", reportContent, not(containsString(product1Name)));
 	}
 }
