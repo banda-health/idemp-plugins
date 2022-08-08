@@ -1264,7 +1264,7 @@ public class MBandaSetup {
 
 	public boolean createProductAttributeSets() {
 		// Get all active, attribute sets from the default configuration client
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MAttributeSet_BH> attributeSets = new Query(context, MAttributeSet.Table_Name,
 				MAttributeSet.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
@@ -1275,7 +1275,7 @@ public class MBandaSetup {
 		List<X_M_AttributeSetExclude > attributeSetExclusions = new Query(context, X_M_AttributeSetExclude .Table_Name,
 				X_M_AttributeSetExclude .COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
 				getTransactionName()).setParameters(parameters).setOnlyActiveRecords(true).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		if (attributeSets.isEmpty()) {
 			String errorMessage = "Default AttributeSets NOT found";

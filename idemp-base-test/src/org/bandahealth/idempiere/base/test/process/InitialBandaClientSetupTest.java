@@ -96,7 +96,7 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		try {
-			// PO.setCrossTenantSafe();
+			PO.setCrossTenantSafe();
 
 			// Assert client and organization are created
 			MClient_BH client = new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
@@ -262,7 +262,7 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"		           AND isactive = 'Y')                  AS result"
 			);
 		} finally {
-			// PO.clearCrossTenantSafe();
+			PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}

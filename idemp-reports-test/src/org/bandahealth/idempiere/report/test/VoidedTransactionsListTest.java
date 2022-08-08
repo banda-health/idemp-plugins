@@ -87,10 +87,10 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		valueObject.getPayment().saveEx();
 		commitEx();
 
-//		PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
 				valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
-//		PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		valueObject.setStepName("Void order");
 		valueObject.refresh();
