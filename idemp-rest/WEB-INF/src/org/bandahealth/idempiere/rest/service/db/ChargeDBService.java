@@ -72,11 +72,6 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 	@Override
 	public Charge saveEntity(Charge entity) {
 		// Save to the DB
-		if (entity == null) {
-			return null;
-		}
-		
-		
 		MCharge_BH charge = getEntityByUuidFromDB(entity.getUuid());
 		if (charge == null) {
 			charge = getModelInstance();
