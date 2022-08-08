@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/target/test-classes"/>
+	<contentEntry url="file://$MODULE_DIR$">
+		<excludeFolder url="file://$MODULE_DIR$/target"/>
+	</contentEntry>
+	<lib name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.0-M1" scope="TEST"/>
+	<lib name="Maven: org.opentest4j:opentest4j:1.2.0" scope="TEST"/>
+	<lib name="Maven: org.junit.platform:junit-platform-commons:1.9.0-M1" scope="TEST"/>
+	<lib name="Maven: org.apiguardian:apiguardian-api:1.1.2" scope="TEST"/>
+	<lib name="Maven: org.bandahealth.idempiere:com.chuboe.test.populate:lib/commons-lang3-3.4.jar:7.1.0.qualifier" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/chuck-test-framework/lib/commons-lang3-3.4.jar!/"/>
+	</lib>
+	<lib name="Maven: org.bandahealth.idempiere:com.chuboe.test.populate:lib/hamcrest.jar:7.1.0.qualifier" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/chuck-test-framework/lib/hamcrest.jar!/"/>
+	</lib>
+	<lib name="Maven: org.bandahealth.idempiere:com.chuboe.test.populate:lib/junit-jupiter-api.jar:7.1.0.qualifier" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/chuck-test-framework/lib/junit-jupiter-api.jar!/"/>
+	</lib>
+	<lib name="Maven: org.bandahealth.idempiere:com.chuboe.test.populate.source:lib/commons-lang3-3.4.jar:7.1.0.qualifier" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/chuck-test-framework/lib/commons-lang3-3.4.jar!/"/>
+	</lib>
+	<lib name="Maven: org.bandahealth.idempiere:com.chuboe.test.populate.source:lib/hamcrest.jar:7.1.0.qualifier" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/chuck-test-framework/lib/hamcrest.jar!/"/>
+	</lib>
+	<lib name="Maven: org.bandahealth.idempiere:com.chuboe.test.populate.source:lib/junit-jupiter-api.jar:7.1.0.qualifier" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/chuck-test-framework/lib/junit-jupiter-api.jar!/"/>
+	</lib>
+	<levels>
+		<level name="org.adempiere.base" value="project"/>
+		<level name="org.idempiere" value="project"/>
+		<level name="org.adempiere" value="project"/>
+		<level name="Maven: org.hamcrest:hamcrest:2.2" value="project"/>
+		<level name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.0-M1" value="project"/>
+		<level name="Maven: org.opentest4j:opentest4j:1.2.0" value="project"/>
+		<level name="Maven: org.junit.platform:junit-platform-commons:1.9.0-M1" value="project"/>
+		<level name="Maven: org.apiguardian:apiguardian-api:1.1.2" value="project"/>
+	</levels>
+</component>

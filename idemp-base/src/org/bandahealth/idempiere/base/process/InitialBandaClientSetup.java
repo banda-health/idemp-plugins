@@ -63,8 +63,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	public static final String PARAMETERNAME_USE_DEFAULT_COA = "UseDefaultCoA";
 	public static final String PARAMETERNAME_ADMIN_USER_NAME = "AdminUserName";
 	public static final String PARAMETERNAME_NORMAL_USER_NAME = "NormalUserName";
-	public static final String PARAMETERNAME_ADMIN_EMAIL= "AdminUserEmail";
-	public static final String PARAMETERNAME_USER_EMAIL= "NormalUserEmail";
+	public static final String PARAMETERNAME_ADMIN_EMAIL = "AdminUserEmail";
+	public static final String PARAMETERNAME_USER_EMAIL = "NormalUserEmail";
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
@@ -73,20 +73,18 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private final String coaBandaFile = Adempiere.getAdempiereHome() + File.separator + "data"
 			+ File.separator + "import"
 			+ File.separator + "BandaGoChartofAccounts-Basic.csv";
+	private final String SALES_PRICE_LIST_NAME = "Sales";
+	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
+	private final String PURCHASES_PRICE_LIST_NAME = "Purchase";
+	private final String PURCHASES_PRICE_LIST_VERSION_NAME = "Purchases PriceList Version 1";
 	private boolean wantsCashBoxAccount = false;
 	private boolean wantsMobileAccount = false;
 	private boolean wantsSavingsAccount = false;
 	private String clientName = null;
 	private String orgName = null;
 	private String adminUserName = null;
-	
 	private String clientLevel = CLIENTLEVEL_BASIC;
 	private int usersClientId;
-	
-	private final String SALES_PRICE_LIST_NAME = "Sales";
-	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
-	private final String PURCHASES_PRICE_LIST_NAME = "Purchase";
-	private final String PURCHASES_PRICE_LIST_VERSION_NAME = "Purchases PriceList Version 1";
 
 	/**
 	 * Prepare
@@ -124,8 +122,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		addAutomatedParameters();
 		super.prepare();
 
-		
-		
+
 	}
 
 	/**
@@ -138,11 +135,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * 6. Insert default Expense Categories (charges) for the client
 	 * 7. Create default product categories for products so they hit the correct revenue accounts
 	 * 8. Update the organization name and key
-	 * 9. Add custom warehouse and address 
+	 * 9. Add custom warehouse and address
 	 * 10. Create default sales and purchases price-lists
 	 * 11. Update calendar control
 	 * 12. Update users setup
-	 *
 	 *
 	 * @return info
 	 * @throws Exception
@@ -238,20 +234,20 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Purchase Price List Setup failed"));
 			}
-			if(!bandaSetup.createPriceList(SALES_PRICE_LIST_NAME, SALES_PRICE_LIST_VERSION_NAME, true)) {
+			if (!bandaSetup.createPriceList(SALES_PRICE_LIST_NAME, SALES_PRICE_LIST_VERSION_NAME, true)) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Sales Price List setup failed"));
 			}
-			if(!bandaSetup.openCalendarYearPeriods()) {
+			if (!bandaSetup.openCalendarYearPeriods()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Open calendar periods failed"));
 			}
-			if(!bandaSetup.configureClientUsers()) {
+			if (!bandaSetup.configureClientUsers()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Remove default business partners failed"));
 			}
 			addLog(bandaSetup.getThenResetInfo());
-			
+
 			if (!bandaSetup.createProductAttributeSets()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating attribute sets failed"));
@@ -293,10 +289,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " >= ? AND " + MUserRoles.Table_Name + "."
 						+ MUserRoles.COLUMNNAME_AD_Role_ID + "=? ",
 				get_TrxName())
-						.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
-								+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
-								+ MUserRoles.COLUMNNAME_AD_User_ID)
-						.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, MRole_BH.SYSTEM_ROLE_ID).list();
+				.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
+						+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
+						+ MUserRoles.COLUMNNAME_AD_User_ID)
+				.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, MRole_BH.SYSTEM_ROLE_ID).list();
 		Set<Integer> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
 
 		String whereClause = "?,".repeat(clientRoles.size());
@@ -304,10 +300,15 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 
 		String sysAdminCountWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(systemUsersToAdd, parameters);
 
-		List<MUserRoles> usersAssignedClientRoles = new Query(getCtx(), MUserRoles.Table_Name,
-				MUserRoles.COLUMNNAME_AD_Role_ID + " IN (" + whereClause + ")" + " AND "
-						+ MUserRoles.COLUMNNAME_AD_User_ID + " IN (" + sysAdminCountWhereClause + ")",
-				get_TrxName()).setParameters(parameters).list();
+		StringBuilder usersAssignedClientRolesWhereClause =
+				new StringBuilder(MUserRoles.COLUMNNAME_AD_Role_ID).append(" IN (").append(whereClause).append(")");
+		if (!systemUsersToAdd.isEmpty()) {
+			usersAssignedClientRolesWhereClause.append(" AND ").append(MUserRoles.COLUMNNAME_AD_User_ID).append(" IN (")
+					.append(sysAdminCountWhereClause).append(")");
+		}
+		List<MUserRoles> usersAssignedClientRoles =
+				new Query(getCtx(), MUserRoles.Table_Name, usersAssignedClientRolesWhereClause.toString(),
+						get_TrxName()).setParameters(parameters).list();
 		// If any roles have already been assigned for this user and client, we don't
 		// need to do anything
 		if (usersAssignedClientRoles.size() > 0) {
@@ -446,18 +447,22 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		}
 		return coaImportFile;
 	}
-	
-	
-	/** Add to parameters dynamically:
+
+
+	/**
+	 * Add to parameters dynamically:
 	 * admin/user names and email
-	  */
+	 */
 	private void addAutomatedParameters() {
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME,clientName, null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME, clientName, null, null, null));
 		String prefix = clientName.replaceAll("\\s", "");
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME,prefix + "Admin", null, null, null ));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME,prefix + "User", null, null, null ));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL, "admin@" + prefix.toLowerCase() + ".org", null, null, null ));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,"user@" + prefix.toLowerCase() + ".org", null, null, null ));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME, prefix + "Admin", null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME, prefix + "User", null, null, null));
+		addParameter(
+				new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL, "admin@" + prefix.toLowerCase() + ".org", null, null,
+						null));
+		addParameter(
+				new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL, "user@" + prefix.toLowerCase() + ".org", null, null, null));
 	}
 
 	private void addParameter(ProcessInfoParameter parameter) {
