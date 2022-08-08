@@ -20,14 +20,18 @@ if [[ -f "testResults.xml" ]]; then
   xmllint --xpath 'string(//*[name()="soap:Envelope"]/*[name()="soap:Body"]/*[name()="ns1:runProcessResponse"]/*[local-name()="RunProcessResponse"]/*[local-name()="Summary"])' testResults.xml >>testResults.txt
   # Get the returned HTML string
   xmllint --xpath 'string(//*[name()="soap:Envelope"]/*[name()="soap:Body"]/*[name()="ns1:runProcessResponse"]/*[local-name()="RunProcessResponse"]/*[local-name()="LogInfo"])' testResults.xml >>tmp.txt
-  xmllint --html --xpath '//table/tr/td/text()' tmp.txt >>testResults.txt
+
+  # Some versions of iDempiere don't return the results, so confirm that first
+  if [[ -f "tmp.txt" ]]; then
+    xmllint --html --xpath '//table/tr/td/text()' tmp.txt >>testResults.txt
+  fi
 
   # Set the file footer
   echo "" >>testResults.txt
   echo "" >>testResults.txt
 
-  rm testResults.xml >/dev/null 2>&1
-  rm tmp.txt >/dev/null 2>&1
+  [ -f "testResults.txt" ] && rm testResults.txt
+  [ -f "tmp.txt" ] && rm tmp.txt
 else
   echo "There was an error submitting the test SOAP request"
 fi
