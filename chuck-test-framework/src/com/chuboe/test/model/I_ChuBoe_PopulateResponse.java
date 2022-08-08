@@ -157,10 +157,10 @@ public interface I_ChuBoe_PopulateResponse
     /** Column name ExecutionTime */
     public static final String COLUMNNAME_ExecutionTime = "ExecutionTime";
 
-	/** Set ExecutionTime	  */
+	/** Set Execution Time	  */
 	public void setExecutionTime (BigDecimal ExecutionTime);
 
-	/** Get ExecutionTime	  */
+	/** Get Execution Time	  */
 	public BigDecimal getExecutionTime();
 
     /** Column name IsActive */

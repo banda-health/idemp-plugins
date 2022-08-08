@@ -33,7 +33,7 @@ public class X_ChuBoe_PopulateResponse extends PO implements I_ChuBoe_PopulateRe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20220630L;
+	private static final long serialVersionUID = 20220808L;
 
     /** Standard Constructor */
     public X_ChuBoe_PopulateResponse (Properties ctx, int ChuBoe_PopulateResponse_ID, String trxName)
@@ -199,15 +199,15 @@ public class X_ChuBoe_PopulateResponse extends PO implements I_ChuBoe_PopulateRe
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
-	/** Set ExecutionTime.
-		@param ExecutionTime ExecutionTime	  */
+	/** Set Execution Time.
+		@param ExecutionTime Execution Time	  */
 	public void setExecutionTime (BigDecimal ExecutionTime)
 	{
 		set_Value (COLUMNNAME_ExecutionTime, ExecutionTime);
 	}
 
-	/** Get ExecutionTime.
-		@return ExecutionTime	  */
+	/** Get Execution Time.
+		@return Execution Time	  */
 	public BigDecimal getExecutionTime () 
 	{
 		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ExecutionTime);
