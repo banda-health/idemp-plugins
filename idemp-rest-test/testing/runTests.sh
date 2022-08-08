@@ -28,7 +28,7 @@ if [[ -f "testResults.xml" ]]; then
   echo "" >>testResults.txt
   echo "" >>testResults.txt
 
-  [ -f "testResults.txt" ] && rm testResults.txt
+  [ -f "testResults.xml" ] && rm testResults.xml
   [ -f "tmp.txt" ] && rm tmp.txt
 else
   echo "There was an error submitting the test SOAP request"
