@@ -21,9 +21,7 @@ if [[ -f "testResults.xml" ]]; then
   xmllint --xpath 'string(//*[name()="soap:Envelope"]/*[name()="soap:Body"]/*[name()="ns1:runProcessResponse"]/*[local-name()="RunProcessResponse"]/*[local-name()="LogInfo"])' testResults.xml >>tmp.txt
 
   # Some versions of iDempiere don't return the results, so confirm that first
-  if [[ -f "tmp.txt" ]]; then
-    xmllint --html --xpath '//table/tr/td/text()' tmp.txt >>testResults.txt
-  fi
+  grep -q '[^[:space:]]' < "tmp.txt" && xmllint --html --xpath '//table/tr/td/text()' tmp.txt >>testResults.txt
 
   # Set the file footer
   echo "" >>testResults.txt
