@@ -196,7 +196,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 				.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 
 		return dbModels.stream().map(charge -> {
-			Charge chargeToReturn = createInstanceWithAllFields(charge);
+			Charge chargeToReturn = new Charge(charge);
 
 			// Now fill in the child data
 			chargeToReturn.setChargeType(new ChargeType(chargeTypesById.get(charge.getC_ChargeType_ID())));
