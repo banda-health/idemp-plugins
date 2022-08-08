@@ -158,7 +158,7 @@ INSERT INTO tmp_ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org
 -- Income Categories
 INSERT INTO tmp_ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id) SELECT (SELECT ad_window_id FROM AD_Window WHERE ad_window_uu='20639eca-bd84-4ae3-b890-7b32987fcb5e'), ad_role_id, ad_client_id, ad_org_id FROM ad_role WHERE ad_client_id > 999999 and ismanual = 'N' ON CONFLICT DO NOTHING;
 
-INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) FROM tmp_ad_window_access ON CONFLICT DO NOTHING;
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) SELECT ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate FROM tmp_ad_window_access ON CONFLICT DO NOTHING;
 
 DROP TABLE tmp_ad_window_access; -- no longer required
 
