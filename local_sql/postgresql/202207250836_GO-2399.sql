@@ -254,7 +254,8 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '226cdf47-9cde-43e8-b7ef-87b28d7ef2e2'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'
-	 ), 0, 0, 100, 100, 'Y');
+	 ), 0, 0, 100, 100, 'Y')
+ON CONFLICT DO NOTHING;
 -- Grant access to cashier/registration basic role: 09eb7fc8-9cc5-44b0-9d14-15258a066038
 INSERT INTO
 	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby, isreadwrite)
@@ -263,7 +264,8 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '226cdf47-9cde-43e8-b7ef-87b28d7ef2e2'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
-	 ), 0, 0, 100, 100, 'Y');
+	 ), 0, 0, 100, 100, 'Y')
+ON CONFLICT DO NOTHING;
 -- Grant access to cashier/registration basic role: 93365778-a2d9-433b-b962-87fb150db4fa
 INSERT INTO
 	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby, isreadwrite)
@@ -272,7 +274,8 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '226cdf47-9cde-43e8-b7ef-87b28d7ef2e2'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '93365778-a2d9-433b-b962-87fb150db4fa'
-	 ), 0, 0, 100, 100, 'Y');
+	 ), 0, 0, 100, 100, 'Y')
+ON CONFLICT DO NOTHING;
 
 /**********************************************************************************************************/
 -- Update the cashier patient transactions report: b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1
@@ -285,7 +288,8 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'
-	 ), 0, 0, 100, 100, 'Y');
+	 ), 0, 0, 100, 100, 'Y')
+ON CONFLICT DO NOTHING;
 -- Grant access to cashier/registration basic role: 09eb7fc8-9cc5-44b0-9d14-15258a066038
 INSERT INTO
 	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby, isreadwrite)
@@ -294,7 +298,8 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
-	 ), 0, 0, 100, 100, 'Y');
+	 ), 0, 0, 100, 100, 'Y')
+ON CONFLICT DO NOTHING;
 -- Grant access to accounting role: 93365778-a2d9-433b-b962-87fb150db4fa
 INSERT INTO
 	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby, isreadwrite)
@@ -303,7 +308,8 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '93365778-a2d9-433b-b962-87fb150db4fa'
-	 ), 0, 0, 100, 100, 'Y');
+	 ), 0, 0, 100, 100, 'Y')
+ON CONFLICT DO NOTHING;
 
 /**********************************************************************************************************/
 -- Update the payment trail report: a7ac9f65-45d7-4ae0-80f3-72019de35a4a
