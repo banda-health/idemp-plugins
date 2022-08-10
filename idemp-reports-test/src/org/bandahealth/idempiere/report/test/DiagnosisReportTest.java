@@ -52,9 +52,9 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create coded diagnosis");
 		valueObject.setRandom();
 		MBHCodedDiagnosis codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setBH_CielName(valueObject.getScenarioName());
+		codedDiagnosis.setBH_CielName(String.valueOf(valueObject.getRandomNumber()));
+		String diagnosisName = codedDiagnosis.getBH_CielName();
 		codedDiagnosis.saveEx();
-		String diagnosisNameSuffix = String.valueOf(valueObject.getRandomNumber());
 		commitEx();
 
 		valueObject.setStepName("Create order");
@@ -84,7 +84,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertThat("The patient's name is on the report", reportContent, containsString(patientNameSuffix));
-		assertThat("The coded diagnosis is on the report", reportContent, containsString(diagnosisNameSuffix));
+		assertThat("The coded diagnosis is on the report", reportContent, containsString(diagnosisName));
 		assertThat("The non-coded diagnosis is on the report", reportContent, containsString(nonCodedDiagnosis));
 	}
 }

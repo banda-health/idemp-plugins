@@ -80,11 +80,14 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		));
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		MUser_BH currentUser = new Query(valueObject.getContext(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_ID + "=?",
-				valueObject.getTransactionName()).setParameters(Env.getAD_User_ID(valueObject.getContext())).first();
+		MUser_BH currentUser =
+				new Query(valueObject.getContext(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_ID + "=?",
+						valueObject.getTransactionName()).setParameters(Env.getAD_User_ID(valueObject.getContext())).first();
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		assertThat("Patient's name is on the report", reportContent, containsString(valueObject.getBusinessPartner().getName()));
+		// iDempiere 7.1 truncates the business partner's name on render, so just look for a substring
+		assertThat("Patient's name is on the report", reportContent,
+				containsString(valueObject.getBusinessPartner().getName().substring(0, 30)));
 		assertThat("The cashier's name is on the report", reportContent, containsString(currentUser.getName()));
 	}
 }
