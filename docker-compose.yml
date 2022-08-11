@@ -1,0 +1,63 @@
+services:
+  idempiere:
+    image: openhmis/banda-idempiere:${IDEMPIERE_VERSION}
+    depends_on:
+      - postgres
+    volumes:
+      - ./testing:/home/src
+    environment:
+      - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
+      - DB_HOST=${POSTGRES_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_PASS=${IDEMPIERE_DATABASE_PASSWORD}
+      - DB_PORT=${POSTGRES_PORT}
+      - IDEMPIERE_FRESH_DB=${IDEMPIERE_FRESH_DB}
+      - IDEMPIERE_VERSION=${IDEMPIERE_VERSION}
+      - MIGRATE_EXISTING_DATABASE=${MIGRATE_EXISTING_DATABASE}
+      - GENERATE_PLUGIN_BUNDLE_INFO=${GENERATE_PLUGIN_BUNDLE_INFO}
+      - HEALTHY_AFTER_PLUGINS_START=${HEALTHY_AFTER_PLUGINS_START}
+    ports:
+      - ${IDEMPIERE_PORT}:8080
+      - ${IDEMPIERE_SSL_PORT}:8443
+      - ${TELNET_PORT}:12612
+
+  idemp-base-test:
+    build: idemp-base-test/testing
+    depends_on:
+      idempiere:
+        condition: service_healthy
+    environment:
+      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+
+  idemp-rest-test:
+    build: idemp-rest-test/testing
+    depends_on:
+      idempiere:
+        condition: service_healthy
+      idemp-base-test:
+        condition: service_healthy
+    environment:
+      - IDEMPIERE_USER=${IDEMPIERE_USER}
+      - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
+      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+      - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
+
+  idemp-reports-test:
+    build: idemp-reports-test/testing
+    depends_on:
+      idempiere:
+        condition: service_healthy
+      idemp-base-test:
+        condition: service_healthy
+      idemp-rest-test:
+        condition: service_healthy
+    environment:
+      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+
+  postgres:
+    image: postgres:12
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGPORT=${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}

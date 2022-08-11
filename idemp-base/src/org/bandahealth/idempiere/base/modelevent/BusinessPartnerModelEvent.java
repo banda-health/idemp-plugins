@@ -93,8 +93,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			businessPartner.setPaymentRule(MOrder.PAYMENTRULE_Cash);
 
 			// Set the payment term
-			MPaymentTerm paymentTerm = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_Name + " = 'Immediate'", null);
+			MPaymentTerm paymentTerm =
+					QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(), MPaymentTerm.Table_Name,
+							MPaymentTerm.COLUMNNAME_Name + " = 'Immediate'", businessPartner.get_TrxName());
 			businessPartner.setC_PaymentTerm_ID(paymentTerm.getC_PaymentTerm_ID());
 
 			// Set the price list
@@ -105,9 +106,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 						+ MPriceList.COLUMNNAME_IsSOPriceList + "='Y' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
 						+ Env.getAD_Org_ID(Env.getCtx());
 				// Get the default sales price list
-				priceListId = QueryUtil
-						.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, whereClause, null)
-						.setOnlyActiveRecords(true).firstId();
+				priceListId =
+						QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, whereClause,
+								businessPartner.get_TrxName()).setOnlyActiveRecords(true).firstId();
 			}
 			businessPartner.setM_PriceList_ID(priceListId);
 
@@ -120,7 +121,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 			// Set the PO payment term
 			MPaymentTerm purchasePaymentTerm = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPaymentTerm.Table_Name, "name = 'Immediate'", null);
+					MPaymentTerm.Table_Name, "name = 'Immediate'", businessPartner.get_TrxName());
 			if (purchasePaymentTerm == null) {
 				throw new RuntimeException(
 						"Could not find in table '" + MPaymentTerm.Table_Name + "'" + " record with name 'Immediate'");
@@ -132,8 +133,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 					+ MPriceList.COLUMNNAME_IsSOPriceList + "='N' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
 					+ Env.getAD_Org_ID(Env.getCtx());
 
-			MPriceList purchasePriceList = QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(),
-					MPriceList.Table_Name, defaultPurchasePList, null).setOnlyActiveRecords(true).first();
+			MPriceList purchasePriceList =
+					QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, defaultPurchasePList,
+							businessPartner.get_TrxName()).setOnlyActiveRecords(true).first();
 			if (purchasePriceList == null) {
 				throw new AdempiereException(
 						"Could not find a default purchase price list in table '" + MPriceList.Table_Name + "'");
@@ -143,7 +145,6 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 	}
 
 	private void translateToMaskedFields(MBPartner_BH businessPartner) {
-
 		businessPartner.setIsCustomer(businessPartner.isBH_IsPatient());
 		businessPartner.set_ValueOfColumn(MBPartner_BH.COLUMNNAME_BH_ApproximateYears, null);
 	}
@@ -159,8 +160,8 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(businessPartner);
 		if (businessPartner.getBH_C_Location_ID() == 0) {
 			MCountry country = (new Query(Env.getCtx(), MCountry.Table_Name,
-					MCountry.COLUMNNAME_CountryCode + " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'", null))
-							.first();
+					MCountry.COLUMNNAME_CountryCode + " = '" + IBHConfig.DEFAULT_LOCATION_COUNTRY_CODE + "'",
+					businessPartner.get_TrxName())).first();
 			MLocation location = new MLocation(country, null);
 			location.save();
 
@@ -185,7 +186,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	/**
 	 * Generate a unique patient id if the current one is not null
-	 * 
+	 *
 	 * @param patient
 	 */
 	private void generatePatientID(MBPartner_BH patient) {
