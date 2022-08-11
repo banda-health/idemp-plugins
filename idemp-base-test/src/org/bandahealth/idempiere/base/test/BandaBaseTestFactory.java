@@ -31,6 +31,9 @@ public class BandaBaseTestFactory implements IChuBoePopulateFactory {
 		tests.add(new InitialBandaClientSetupTest());
 		tests.add(new SalesProcessTest());
 
+		// Generic
+		tests.add(new OrderTest());
+
 		return tests;
 	}
 }

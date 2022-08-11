@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 @XmlRootElement(name = "payment")
 @JsonInclude(value = Include.NON_NULL)
@@ -28,6 +29,17 @@ public class Payment extends BaseMetadata {
 	private BigDecimal tenderAmount;
 
 	public Payment() {
+	}
+
+	public Payment(MPayment_BH entity) {
+		super(entity);
+
+		this.orderId = entity.getBH_C_Order_ID();
+		this.payAmount = entity.getPayAmt();
+		this.description = entity.getDescription();
+		this.docStatus = entity.getDocStatus();
+		this.transactionDate = DateUtil.parseDateOnly(entity.getDateTrx());
+		this.tenderType = entity.getTenderType();
 	}
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -237,9 +238,9 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	 */
 	protected MBankAccount getBankAccount(MPayment_BH payment) {
 		// First, get the default bank account that can be used with this payment
-		MBankAccount defaultBankAccount = new Query(payment.getCtx(), MBankAccount.Table_Name,
-				MBankAccount.COLUMNNAME_AD_Org_ID + "=? AND " + MBankAccount.COLUMNNAME_C_Currency_ID + "=?",
-				payment.get_TrxName()).setOnlyActiveRecords(true).setClient_ID().setOrderBy("IsDefault DESC").first();
+		MBankAccount defaultBankAccount =
+				new Query(payment.getCtx(), MBankAccount.Table_Name, null, payment.get_TrxName()).setOnlyActiveRecords(true)
+						.setClient_ID().setOrderBy("IsDefault DESC").first();
 
 		MBankAccount bankAccountToUse =
 				MBankAccount_BH.getBankAccountMappedToRefListValue(payment.getCtx(), payment.get_TrxName(),
@@ -299,6 +300,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 		List<MPayment_BH> mPaymentLines = new Query(Env.getCtx(), MPayment_BH.Table_Name, whereClause, null)
 				.setParameters(orderId).setClient_ID().list();
+		mPaymentLines = mPaymentLines.stream().filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
 		for (MPayment_BH mPayment : mPaymentLines) {
 			mPayment.deleteEx(false);
 		}

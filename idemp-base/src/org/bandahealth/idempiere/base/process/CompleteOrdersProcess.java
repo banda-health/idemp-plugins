@@ -4,21 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-import org.bandahealth.idempiere.base.callback.ProcessCallback;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.bandahealth.idempiere.base.process.call.ProcessSalesOrder;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAllocationLine;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInvoice;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
@@ -98,7 +97,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 					"					) " +
 					"				) " +
 					"			OR (o.docstatus NOT IN ('CO', 'VO', 'CL') AND (p.bh_processing = 'Y' OR p.docstatus = 'CO')) " +
-					"	);";
+					"	)";
 
 //			PO.setCrossTenantSafe();
 			List<MOrder_BH> erroredOrders = new Query(Env.getCtx(), MOrder_BH.Table_Name, whereClause, get_TrxName()).list();
@@ -113,14 +112,14 @@ public class CompleteOrdersProcess extends SvrProcess {
 			parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 			List<MInvoice_BH> invoicesForErroredOrders =
 					new Query(Env.getCtx(), MInvoice_BH.Table_Name, whereClause, get_TrxName()).setParameters(parameters).list();
-			Map<Integer, MInvoice_BH> invoiceByErroredOrderId = invoicesForErroredOrders.stream()
-					.collect(Collectors.toMap(MInvoice_BH::getC_Order_ID, invoice -> invoice));
+			Map<Integer, List<MInvoice_BH>> invoicesByErroredOrderId = invoicesForErroredOrders.stream()
+					.collect(Collectors.groupingBy(MInvoice_BH::getC_Order_ID));
 
 			// Now get any payments for these orders that aren't reversed
 			parameters = new ArrayList<>();
 			whereClause = MPayment_BH.COLUMNNAME_DocStatus + "!=?";
 			parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
-			whereClause += "(" + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " IN (" +
+			whereClause += " AND (" + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " IN (" +
 					QueryUtil.getWhereClauseAndSetParametersForSet(erroredOrderIds, parameters) + ") OR " +
 					MPayment_BH.COLUMNNAME_C_Payment_ID + " IN (SELECT " + MAllocationLine.COLUMNNAME_C_Payment_ID + " FROM " +
 					MAllocationLine.Table_Name + " WHERE " + MAllocationLine.COLUMNNAME_C_Invoice_ID + " IN (" +
@@ -148,44 +147,54 @@ public class CompleteOrdersProcess extends SvrProcess {
 				// Otherwise, if the invoice isn't complete, we need to get it completed
 				if (!erroredOrder.isComplete()) {
 					// If this order has an invoice, we need to do some stuff first
-					if (invoiceByErroredOrderId.containsKey(erroredOrder.get_ID())) {
-						MInvoice_BH invoice = invoiceByErroredOrderId.get(erroredOrder.get_ID());
-						// If the invoice is completed, reverse it
-						if (invoice.isComplete()) {
-							invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
-							invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual);
-							invoice.saveEx();
-						} else {
-							// Delete any invoice lines
-							Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
-							// Delete the invoice
-							invoice.deleteEx(true);
+					if (invoicesByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+						List<MInvoice_BH> invoices = invoicesByErroredOrderId.get(erroredOrder.get_ID());
+						for (MInvoice_BH invoice : invoices) {
+							// If the invoice is completed, reverse it
+							if (invoice.isComplete()) {
+								invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
+								invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual);
+								invoice.saveEx();
+
+								// Re-open any payments associated with this invoice, if any?
+								// Or maybe just reverse accrue the allocation lines?
+							} else {
+								// Delete any invoice lines
+								Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
+								// Delete the invoice
+								invoice.deleteEx(true);
+							}
 						}
 					}
 
 					completeOrder(erroredOrder);
-				} else if (invoiceByErroredOrderId.containsKey(erroredOrder.get_ID()) &&
-						!invoiceByErroredOrderId.get(erroredOrder.get_ID()).isComplete()) {
-					MInvoice_BH invoice = invoiceByErroredOrderId.get(erroredOrder.get_ID());
-					// If the invoice is voided, just re-open and re-complete the order
-					// Otherwise, try to complete the invoice. If it fails, we'll try to delete it and let the order re-create it
-					if (invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.STATUS_Voided)) {
-						reopenAndReCompleteOrder(erroredOrder);
-					} else {
-						invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
-						if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
-							// Delete any invoice lines
-							Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
-							// Delete the invoice
-							invoice.deleteEx(true);
-
-							// With the invoice deleted, re-open the order
+				} else if (invoicesByErroredOrderId.containsKey(erroredOrder.get_ID()) &&
+						invoicesByErroredOrderId.get(erroredOrder.get_ID()).stream().anyMatch(MInvoice::isComplete)) {
+					List<MInvoice_BH> incompleteInvoices =
+							invoicesByErroredOrderId.get(erroredOrder.get_ID()).stream().filter(Predicate.not(MInvoice::isComplete))
+									.collect(Collectors.toList());
+					for (MInvoice_BH invoice : incompleteInvoices) {
+						// If the invoice is voided, just re-open and re-complete the order
+						// Otherwise, try to complete the invoice. If it fails, we'll try to delete it and let the order
+						// re-create it
+						if (invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.STATUS_Voided)) {
 							reopenAndReCompleteOrder(erroredOrder);
 						} else {
-							invoice.saveEx();
+							invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
+							if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
+								// Delete any invoice lines
+								Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
+								// Delete the invoice
+								invoice.deleteEx(true);
+
+								// With the invoice deleted, re-open the order
+								reopenAndReCompleteOrder(erroredOrder);
+							} else {
+								invoice.saveEx();
+							}
 						}
 					}
-				} else if (!invoiceByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+				} else if (!invoicesByErroredOrderId.containsKey(erroredOrder.get_ID())) {
 					// This is a completed order that doesn't have an invoice, so reverse the order and try again
 					reopenAndReCompleteOrder(erroredOrder);
 				} else if (!paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
@@ -195,11 +204,12 @@ public class CompleteOrdersProcess extends SvrProcess {
 					count.getAndDecrement();
 				}
 				if (paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
-					paymentsByErroredOrderId.get(erroredOrder.get_ID()).forEach(payment -> {
-						payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-						payment.processIt(MPayment_BH.DOCACTION_Complete);
-						payment.saveEx();
-					});
+					paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream().filter(Predicate.not(MPayment_BH::isComplete))
+							.forEach(payment -> {
+								payment.setDocAction(MPayment_BH.DOCACTION_Complete);
+								payment.processIt(MPayment_BH.DOCACTION_Complete);
+								payment.saveEx();
+							});
 				}
 			});
 		} finally {
