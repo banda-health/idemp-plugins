@@ -7,7 +7,6 @@ xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
 });
 
-// Something is wrong with open balances at the moment, so skipping this test
 test(`patient open balance is 0 after visit if complete payment was made`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
@@ -37,7 +36,6 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
-// Something is wrong with open balances at the moment, so skipping this test
 test(`patient open balance updated after visit if complete payment wasn't made`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
@@ -67,7 +65,6 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(50);
 });
 
-// Something is wrong with open balances at the moment, so skipping this test
 test(`patient open balance reverted correctly after visit with partial payment is re-opened`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();

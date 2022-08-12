@@ -1,5 +1,15 @@
-import { invoiceApi, patientApi, paymentApi, productApi, productCategoryApi, visitApi, warehouseApi } from '../api';
-import { ValueObject } from '../models';
+import {
+	invoiceApi,
+	patientApi,
+	paymentApi,
+	productApi,
+	productCategoryApi,
+	receiveProductsApi,
+	vendorsApi,
+	visitApi,
+	warehouseApi,
+} from '../api';
+import { documentAction, documentStatus, ValueObject } from '../models';
 import {
 	Invoice,
 	InvoiceLine,
@@ -8,6 +18,8 @@ import {
 	Payment,
 	Product,
 	ProductCategory,
+	ReceiveProduct,
+	Vendor,
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
 import { waitFor } from './waitFor';
@@ -28,6 +40,26 @@ export async function createPatient(valueObject: ValueObject) {
 			gender: 'male',
 		};
 		valueObject.businessPartner = await patientApi.save(valueObject, patient as Patient);
+		if (!valueObject.businessPartner) {
+			throw new Error('Business partner not created');
+		}
+		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
+	}
+}
+/**
+ * Create a vendor. If a business partner already exists on the value object, this won't do anything.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+export async function createVendor(valueObject: ValueObject) {
+	valueObject.validate();
+
+	if (!valueObject.businessPartner) {
+		const businessPartner: Partial<Vendor> = {
+			name: valueObject.getDynamicStepMessage(),
+			description: valueObject.getStepMessageLong(),
+		};
+		valueObject.businessPartner = await vendorsApi.save(valueObject, businessPartner as Vendor);
 		if (!valueObject.businessPartner) {
 			throw new Error('Business partner not created');
 		}
@@ -109,6 +141,54 @@ export async function createVisit(valueObject: ValueObject) {
 
 	if (valueObject.documentAction) {
 		valueObject.order = await visitApi.process(valueObject, valueObject.order!.uuid, valueObject.documentAction!);
+		if (!valueObject.order) {
+			throw new Error('Order not processed');
+		}
+	}
+}
+
+/**
+ * Create an order (don't really have an ideal method for this at the moment - it duplicates visits).
+ * This requires a document type, a business partner, and a warehouse be selected on the value object.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+export async function createPurchaseOrder(valueObject: ValueObject) {
+	valueObject.validate();
+
+	//perform further validation if needed based on business logic
+	if (!valueObject.businessPartner) {
+		throw new Error('Business Partner is Null');
+	} else if (!valueObject.warehouse) {
+		throw new Error('Warehouse is Null');
+	}
+
+	const order: Partial<ReceiveProduct> = {
+		description: valueObject.getStepMessageLong(),
+		dateOrdered: valueObject.date?.toISOString(),
+		vendor: valueObject!.businessPartner as Vendor,
+		warehouse: valueObject!.warehouse,
+		orderLines: [],
+	};
+	const line: Partial<OrderLine> = {
+		description: valueObject.getStepMessageLong(),
+		product: valueObject.product,
+		quantity: valueObject.quantity || 1,
+	};
+	line.price = (line.quantity || 0) * (line.product?.sellPrice || 0);
+	order.orderLines?.push(line as OrderLine);
+	valueObject.order = await receiveProductsApi.save(valueObject, order as ReceiveProduct);
+	if (!valueObject.order) {
+		throw new Error('Order not created');
+	}
+	valueObject.orderLine = valueObject.order!.orderLines[0];
+
+	if (valueObject.documentAction) {
+		valueObject.order = await receiveProductsApi.process(
+			valueObject,
+			valueObject.order!.uuid,
+			valueObject.documentAction!,
+		);
 		if (!valueObject.order) {
 			throw new Error('Order not processed');
 		}
@@ -293,6 +373,6 @@ export function clearProcess(vo: ValueObject) {
 export async function waitForVisitToComplete(valueObject: ValueObject) {
 	await waitFor(async () => {
 		valueObject.order = await visitApi.getByUuid(valueObject, valueObject.order!.uuid);
-		return expect(valueObject.order!.docStatus).toBe('CO');
+		return expect(valueObject.order!.docStatus).toBe(documentStatus.Completed);
 	});
 }
