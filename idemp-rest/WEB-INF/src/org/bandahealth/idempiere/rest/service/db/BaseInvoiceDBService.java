@@ -125,6 +125,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 					invoice.setC_Invoice_UU(entity.getUuid());
 				}
 			}
+			
+			invoice.setIsSOTrx(entity.isIsSalesOrderTransaction());
 
 			if (entity.getDateInvoiced() != null) {
 				invoice.setDateInvoiced(DateUtil.getTimestamp(entity.getDateInvoiced()));
