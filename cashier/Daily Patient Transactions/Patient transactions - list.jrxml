@@ -67,14 +67,11 @@
 		<queryString language="SQL">
 			<![CDATA[WITH params AS (
 	SELECT
-		$P{AD_CLIENT_ID} AS ad_client_id,
-        to_timestamp($P{Begin Date}, 'YYYY-MM-DD HH24:MI') AS begin_date,
-        to_timestamp($P{End Date}, 'YYYY-MM-DD HH24:MI') AS end_date,
-        COALESCE($P{Patient Type}, '') AS patient_type,
-        COALESCE($P{Payment Mode}, '') AS payment_mode,
-        COALESCE($P{AD_User_UU}, '') AS ad_user_uu
+		COALESCE($P{Patient Type}, '') AS patient_type,
+		COALESCE($P{Payment Mode}, '') AS payment_mode,
+		COALESCE($P{AD_User_UU}, '') AS ad_user_uu
 ),
-billdetails AS (
+	billdetails AS (
 		SELECT
 			bh_get_visit_details.c_order_id,
 			bh_get_visit_details.c_bpartner_id,
@@ -93,9 +90,7 @@ billdetails AS (
 					ON bh_get_visit_details.c_order_id = ol.c_order_id
 				CROSS JOIN params p
 		WHERE
-			((cb.ad_client_id = p.ad_client_id) AND
-			 (bh_get_visit_details.docstatus <> 'VO' AND bh_get_visit_details.docstatus <> 'DR')
-				AND (bh_get_visit_details.bh_visitdate BETWEEN p.begin_date AND p.end_date)
+			((bh_get_visit_details.docstatus <> 'VO' AND bh_get_visit_details.docstatus <> 'DR')
 				AND (p.patient_type = '' OR bh_get_visit_details.bh_patienttype = p.patient_type)
 				AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
 				)
@@ -103,7 +98,6 @@ billdetails AS (
 		GROUP BY
 			bh_get_visit_details.c_order_id, bh_get_visit_details.c_bpartner_id, bh_get_visit_details.bh_visitdate,
 			cashier_name, patient_name, bh_patienttype
-		ORDER BY 1
 	),
 	patient_payments AS (
 		SELECT
@@ -171,12 +165,8 @@ FROM
 			ON billdetails.c_order_id = non_patient_payments.c_order_id
 		LEFT JOIN BillTotal
 			ON billdetails.c_order_id = BillTotal.c_order_id
-		CROSS JOIN params p
-WHERE
-	(p.patient_type = '' OR bh_patienttype = p.patient_type)
-	AND (p.payment_mode = '' OR p.payment_mode = p.payment_mode)
 ORDER BY
-	date(billdetails.bill_date) ASC, billdetails.patient_name ASC;]]>
+	date(billdetails.bill_date), billdetails.patient_name;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
