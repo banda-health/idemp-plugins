@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -137,7 +138,9 @@ public class MPayment_BH extends MPayment {
 				get_Logger().severe("Order isn't complete - can't allocate against any of it's invoices");
 				return false;
 			}
-			Optional<MInvoice> invoice = Arrays.stream(order.getInvoices()).filter(MInvoice::isComplete).findFirst();
+			Optional<MInvoice> invoice =
+					Arrays.stream(order.getInvoices()).filter(MInvoice::isComplete).filter(Predicate.not(MInvoice::isPaid))
+							.findFirst();
 			if (invoice.isEmpty()) {
 				get_Logger().severe("Invoice isn't complete for order - can't allocate against it");
 				return false;
@@ -176,7 +179,8 @@ public class MPayment_BH extends MPayment {
 				if (payAmount.compareTo(remainingPayment) > 0) {
 					payAmount = remainingPayment;
 				}
-				MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO, Env.ZERO);
+				MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO,
+						Env.ZERO);
 				allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
 				allocationLine.setC_Payment_ID(getC_Payment_ID());
 				allocationLine.setC_Invoice_ID(unpaidInvoice.get_ID());

@@ -50,6 +50,8 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 		AtomicInteger count = new AtomicInteger();
 		int usersAD_Client_ID = Env.getAD_Client_ID(Env.getCtx());
+		int currentRoleId = Env.getAD_Role_ID(Env.getCtx());
+		// PO.setCrossTenantSafe();
 		try {
 			// Get sales orders not completed (and are not processing) that have an invoice associated with them (invoices
 			// should only be created when completing a sales order), or that have payments that were marked as processing
@@ -99,7 +101,6 @@ public class CompleteOrdersProcess extends SvrProcess {
 					"			OR (o.docstatus NOT IN ('CO', 'VO', 'CL') AND (p.bh_processing = 'Y' OR p.docstatus = 'CO')) " +
 					"	)";
 
-//			PO.setCrossTenantSafe();
 			List<MOrder_BH> erroredOrders = new Query(Env.getCtx(), MOrder_BH.Table_Name, whereClause, get_TrxName()).list();
 			Set<Integer> erroredOrderIds = erroredOrders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet());
 
@@ -131,11 +132,10 @@ public class CompleteOrdersProcess extends SvrProcess {
 			Map<Integer, List<MPayment_BH>> paymentsByErroredOrderId =
 					paymentsForErroredOrders.stream().collect(Collectors.groupingBy(MPayment_BH::getBH_C_Order_ID));
 
-//			PO.clearCrossTenantSafe();
-
 			log.log(Level.INFO, "ERRORED ORDERs::::: " + erroredOrders.size());
+			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, 0);
 
-			erroredOrders.forEach(erroredOrder -> {
+			for (MOrder_BH erroredOrder : erroredOrders) {
 				count.getAndIncrement();
 
 				// Several entities use the AD_Client value in the context to determine their own
@@ -211,10 +211,12 @@ public class CompleteOrdersProcess extends SvrProcess {
 								payment.saveEx();
 							});
 				}
-			});
+			}
 		} finally {
 			// Reset the AD_Client_ID to be correct
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
+			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, currentRoleId);
+			//PO.clearCrossTenantSafe();
 		}
 
 		String msg = "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
