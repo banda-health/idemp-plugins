@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -173,6 +174,89 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.getPayment().saveEx();
 		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Second payment was completed");
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
+							row.getCell(5).getCellType().equals(CellType.STRING) &&
+							row.getCell(5).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
+					.collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient only appears once");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void visitWithMultipleChargesOnlyShowsUpOnce() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first charge");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		orderLine.setDescription(valueObject.getStepMessageLong());
+		orderLine.setC_Order_ID(valueObject.getOrder().get_ID());
+		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		orderLine.setQty(Env.ONE);
+		orderLine.setHeaderInfo(valueObject.getOrder());
+		orderLine.setPriceEntered(new BigDecimal(-4));
+		orderLine.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second charge");
+		valueObject.clearCharge();
+		ChuBoeCreateEntity.createCharge(valueObject);
+		orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		orderLine.setDescription(valueObject.getStepMessageLong());
+		orderLine.setC_Order_ID(valueObject.getOrder().get_ID());
+		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		orderLine.setQty(Env.ONE);
+		orderLine.setHeaderInfo(valueObject.getOrder());
+		orderLine.setPriceEntered(new BigDecimal(-6));
+		orderLine.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second product");
+		valueObject.clearProduct();
+		valueObject.setSalesPrice(new BigDecimal(5));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Complete the order");
+		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order was completed");
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
