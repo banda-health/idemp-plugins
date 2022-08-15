@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -30,6 +31,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -223,6 +225,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create first charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+		valueObject.getCharge().saveEx();
 		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
 		orderLine.setDescription(valueObject.getStepMessageLong());
@@ -231,12 +235,15 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		orderLine.setQty(Env.ONE);
 		orderLine.setHeaderInfo(valueObject.getOrder());
 		orderLine.setPriceEntered(new BigDecimal(-4));
+		orderLine.setPriceActual(new BigDecimal(-4));
 		orderLine.saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create second charge");
 		valueObject.clearCharge();
 		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
+		valueObject.getCharge().saveEx();
 		orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
 		orderLine.setDescription(valueObject.getStepMessageLong());
@@ -245,6 +252,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		orderLine.setQty(Env.ONE);
 		orderLine.setHeaderInfo(valueObject.getOrder());
 		orderLine.setPriceEntered(new BigDecimal(-6));
+		orderLine.setPriceActual(new BigDecimal(-6));
 		orderLine.saveEx();
 		commitEx();
 
