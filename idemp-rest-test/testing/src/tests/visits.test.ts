@@ -111,3 +111,62 @@ test(`patient open balance reverted correctly after visit with partial payment i
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(60);
 });
+
+test(`patient open balance correct with multiple payments`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create product';
+	const totalCharge = 100;
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
+	valueObject.order!.payments = [
+		{
+			payAmount: 50,
+			paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+		} as Payment,
+		{
+			payAmount: 30,
+			paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+		} as Payment,
+	];
+	let paymentTotal = valueObject.order!.payments.reduce(
+		(runningTotal, payment) => (runningTotal += payment.payAmount),
+		0,
+	);
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+	await waitForVisitToComplete(valueObject);
+
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		totalCharge - paymentTotal,
+	);
+
+	valueObject.stepName = 'Reverse visit';
+	valueObject.order = await visitApi.process(valueObject, valueObject.order.uuid, documentAction.ReActivate);
+
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Re-completing visit';
+	valueObject.order.payments[0].payAmount = 40;
+	paymentTotal = valueObject.order!.payments.reduce(
+		(runningTotal, payment) => (runningTotal += payment.payAmount),
+		0,
+	);
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+	await waitForVisitToComplete(valueObject);
+
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		totalCharge - paymentTotal,
+	);
+});
