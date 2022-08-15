@@ -99,66 +99,23 @@
 			bh_get_visit_details.c_order_id, bh_get_visit_details.c_bpartner_id, bh_get_visit_details.bh_visitdate,
 			cashier_name, patient_name, bh_patienttype
 	),
-	payment_filter AS (
-		SELECT
-			bh_c_order_id
-		FROM
-			c_payment p
-				INNER JOIN c_order co
-					ON co.c_order_id = p.bh_c_order_id
-				CROSS JOIN params par
-		WHERE
-			((p.docstatus = 'CO')
-				OR (p.docstatus = 'DR' AND p.bh_processing = 'Y')
-				OR (co.docstatus = 'CO' AND p.bh_processing = 'N'))
-			AND (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
-			OR (tendertype = par.payment_mode AND par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-		GROUP BY bh_c_order_id
-		UNION
-		SELECT
-			o.c_order_id
-		FROM
-			c_order o
-				JOIN c_orderline ol
-					ON ol.c_order_id = o.c_order_id
-				JOIN c_charge c
-					ON ol.c_charge_id = c.c_charge_id
-				CROSS JOIN params p
-		WHERE
-			ol.c_charge_id IS NOT NULL
-			AND (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
-			OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-				AND p.payment_mode IN ('I', 'W', 'T')))
-		ORDER BY 1
-	),
 	patient_payments AS (
 		SELECT
-			bh_get_visit_payments.bh_c_order_id                                      AS c_order_id,
-			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                            AS cash,
-			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                            AS mobile,
-			SUM(payamt) FILTER ( WHERE tendertype = 'C' )                            AS credit_debit,
-			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                            AS bank,
-			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                            AS "check",
-			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS other
+			bh_get_visit_payments.bh_c_order_id AS c_order_id,
+			payamt,
+			tendertype
 		FROM
 			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
-				CROSS JOIN params p
-				JOIN payment_filter pf
-					ON pf.bh_c_order_id = bh_get_visit_payments.bh_c_order_id
-		GROUP BY bh_get_visit_payments.bh_c_order_id
 	),
 	non_patient_payments AS (
 		SELECT
 			c_order_id,
 			ChargeType_name,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1 AS insurance,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1 AS waiver,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1 AS donation,
+			bh_subtype,
+			linenetamt,
 			member_id
 		FROM
 			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
-				CROSS JOIN params p
-		GROUP BY c_order_id, ChargeType_name, member_id
 	),
 	BillTotal AS (
 		SELECT
@@ -173,28 +130,81 @@ SELECT
 	billdetails.bill_date                                 AS billdate,
 	billdetails.cashier_name                              AS Cashier,
 	billdetails.patient_name                              AS patientname,
-	non_patient_payments.member_id,
+	insurance_info.member_id,
 	COALESCE(billdetails.lineitemtotals, BillTotal.total) AS billtotal,
-	COALESCE(patient_payments.cash, 0)                    AS cash,
-	COALESCE(patient_payments.mobile, 0)                  AS mobile,
-	COALESCE(patient_payments.credit_debit, 0)            AS credit_debit,
-	COALESCE(patient_payments.bank, 0)                    AS bank,
-	COALESCE(patient_payments."check", 0)                 AS "check",
-	COALESCE(patient_payments.other, 0)                   AS other,
-	ChargeType_name                                       AS insurance_type,
-	COALESCE(non_patient_payments.insurance, 0)           AS insurance,
-	COALESCE(non_patient_payments.waiver, 0)              AS waiver,
-	COALESCE(non_patient_payments.donation, 0)            AS donation
+	COALESCE(patient_payment_sums.cash, 0)                AS cash,
+	COALESCE(patient_payment_sums.mobile, 0)              AS mobile,
+	COALESCE(patient_payment_sums.credit_debit, 0)        AS credit_debit,
+	COALESCE(patient_payment_sums.bank, 0)                AS bank,
+	COALESCE(patient_payment_sums."check", 0)             AS "check",
+	COALESCE(patient_payment_sums.other, 0)               AS other,
+	insurance_info.ChargeType_name                        AS insurance_type,
+	COALESCE(non_patient_payment_totals.insurance, 0)     AS insurance,
+	COALESCE(non_patient_payment_totals.waiver, 0)        AS waiver,
+	COALESCE(non_patient_payment_totals.donation, 0)      AS donation
 FROM
 	billdetails
-		LEFT JOIN patient_payments
-			ON billdetails.c_order_id = patient_payments.c_order_id
-		LEFT JOIN non_patient_payments
-			ON billdetails.c_order_id = non_patient_payments.c_order_id
+		LEFT JOIN (
+		SELECT
+			c_order_id,
+			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                            AS cash,
+			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                            AS mobile,
+			SUM(payamt) FILTER ( WHERE tendertype = 'C' )                            AS credit_debit,
+			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                            AS bank,
+			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                            AS "check",
+			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS other
+		FROM
+			patient_payments
+		GROUP BY c_order_id
+	) patient_payment_sums
+			ON billdetails.c_order_id = patient_payment_sums.c_order_id
+		LEFT JOIN (
+		SELECT
+			c_order_id,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1 AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1 AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1 AS donation
+		FROM
+			non_patient_payments
+		GROUP BY c_order_id
+	) non_patient_payment_totals
+			ON billdetails.c_order_id = non_patient_payment_totals.c_order_id
 		LEFT JOIN BillTotal
 			ON billdetails.c_order_id = BillTotal.c_order_id
+		LEFT JOIN (
+        SELECT
+            c_order_id,
+            chargetype_name,
+            member_id
+        FROM
+            non_patient_payments
+        WHERE
+            bh_subtype = 'I'
+        GROUP BY c_order_id, chargetype_name, member_id
+    ) insurance_info
+            ON insurance_info.c_order_id = billdetails.c_order_id
+		CROSS JOIN params p
+WHERE
+		billdetails.c_order_id IN (
+		SELECT
+			c_order_id
+		FROM
+			patient_payments
+		WHERE
+			(p.payment_mode = '' OR p.payment_mode IN ('I', 'W', 'T')
+				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+		UNION
+		SELECT
+			c_order_id
+		FROM
+			non_patient_payments
+		WHERE
+			(p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
+				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+					AND p.payment_mode IN ('I', 'W', 'T')))
+	)
 ORDER BY
-	date(billdetails.bill_date), billdetails.patient_name;]]>
+	DATE(billdetails.bill_date), billdetails.patient_name;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
