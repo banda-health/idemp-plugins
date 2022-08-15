@@ -99,38 +99,6 @@
 			bh_get_visit_details.c_order_id, bh_get_visit_details.c_bpartner_id, bh_get_visit_details.bh_visitdate,
 			cashier_name, patient_name, bh_patienttype
 	),
-	payment_filter AS (
-		SELECT
-			bh_c_order_id
-		FROM
-			c_payment p
-				INNER JOIN c_order co
-					ON co.c_order_id = p.bh_c_order_id
-				CROSS JOIN params par
-		WHERE
-			((p.docstatus = 'CO')
-				OR (p.docstatus = 'DR' AND p.bh_processing = 'Y')
-				OR (co.docstatus = 'CO' AND p.bh_processing = 'N'))
-			AND (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
-			OR (tendertype = par.payment_mode AND par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-		GROUP BY bh_c_order_id
-		UNION
-		SELECT
-			o.c_order_id
-		FROM
-			c_order o
-				JOIN c_orderline ol
-					ON ol.c_order_id = o.c_order_id
-				JOIN c_charge c
-					ON ol.c_charge_id = c.c_charge_id
-				CROSS JOIN params p
-		WHERE
-			ol.c_charge_id IS NOT NULL
-			AND (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
-			OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-				AND p.payment_mode IN ('I', 'W', 'T')))
-		ORDER BY 1
-	),
 	patient_payments AS (
 		SELECT
 			bh_get_visit_payments.bh_c_order_id                                      AS c_order_id,
