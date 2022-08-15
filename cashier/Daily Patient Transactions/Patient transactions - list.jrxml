@@ -158,7 +158,6 @@
 		FROM
 			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 				CROSS JOIN params p
-		WHERE ChargeType_name NOT IN ('Bill Waiver', 'Donor Fund')
 		GROUP BY c_order_id, ChargeType_name, member_id
 	),
 	BillTotal AS (
