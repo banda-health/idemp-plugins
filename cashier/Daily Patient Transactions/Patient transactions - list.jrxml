@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1875" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1875" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -114,7 +114,7 @@
 		WHERE
 			p.payment_mode = ''
 			OR bh_get_visit_payments.tendertype = p.payment_mode
-		GROUP BY bh_get_visit_payments.bh_c_order_id, bh_get_visit_payments.payamt, linenetamt
+		GROUP BY bh_get_visit_payments.bh_c_order_id
 	),
 	non_patient_payments AS (
 		SELECT
