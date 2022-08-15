@@ -289,4 +289,163 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			assertEquals(1, patientRows.size(), "Patient only appears once");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void paymentFilterDoesntReduceTotalsShownOnVisit() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second product");
+		valueObject.clearProduct();
+		valueObject.setSalesPrice(new BigDecimal(5));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Add second order line");
+		MOrder_BH order = valueObject.getOrder();
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setOrder(order);
+		valueObject.getOrderLine().setC_Order_ID(order.get_ID());
+		valueObject.getOrderLine().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Complete the order");
+		order.setDocAction(DocAction.ACTION_Complete);
+		assertTrue(order.processIt(DocAction.ACTION_Complete), "Order was completed");
+		commitEx();
+
+		valueObject.setStepName("Create first payment");
+		MInvoice_BH invoice =
+				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		valueObject.setInvoice(invoice);
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPayment().setPayAmt(new BigDecimal(9));
+		valueObject.getPayment().saveEx();
+		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "First payment was completed");
+		commitEx();
+
+		valueObject.setStepName("Create second payment");
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPayment().setPayAmt(new BigDecimal(6));
+		valueObject.getPayment().saveEx();
+		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Second payment was completed");
+		commitEx();
+
+		valueObject.setStepName("Create second order");
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second order's payment");
+		invoice =
+				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		valueObject.setInvoice(invoice);
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPayment().saveEx();
+		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Second order's payment was completed");
+		commitEx();
+
+		valueObject.setStepName("Generate the report with Cash filter");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+				new ProcessInfoParameter("Payment Mode", MPayment_BH.TENDERTYPE_Cash, null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
+							row.getCell(5).getCellType().equals(CellType.STRING) &&
+							row.getCell(5).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
+					.collect(Collectors.toList());
+
+			assertEquals(2, patientRows.size(), "Both of the patient's visits appear");
+			Optional<Row> firstVisit =
+					patientRows.stream().filter(row -> row.getCell(9).getNumericCellValue() == 15D).findFirst();
+			assertTrue(firstVisit.isPresent(), "First visit is displayed");
+			Optional<Row> secondVisit =
+					patientRows.stream().filter(row -> row.getCell(9).getNumericCellValue() == 50D).findFirst();
+			assertTrue(secondVisit.isPresent(), "Second visit is displayed");
+
+			assertEquals(15D, firstVisit.get().getCell(10).getNumericCellValue(), "First visit's total payment is correct");
+			assertEquals(9D, firstVisit.get().getCell(12).getNumericCellValue(), "First visit's cash payment is correct");
+			assertEquals(6D, firstVisit.get().getCell(13).getNumericCellValue(), "First visit's mobile payment is correct");
+
+			assertEquals(50D, secondVisit.get().getCell(10).getNumericCellValue(), "First visit's total payment is correct");
+			assertEquals(50D, secondVisit.get().getCell(12).getNumericCellValue(), "First visit's cash payment is correct");
+			assertEquals(0D, secondVisit.get().getCell(13).getNumericCellValue(), "First visit's mobile payment is correct");
+		}
+
+		valueObject.setStepName("Generate the report with Cash filter");
+		ChuBoeCreateEntity.clearReport(valueObject);
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+				new ProcessInfoParameter("Payment Mode", MPayment_BH.TENDERTYPE_MPesa, null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
+							row.getCell(5).getCellType().equals(CellType.STRING) &&
+							row.getCell(5).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
+					.collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Only one of the patient's visits appear");
+
+			assertEquals(15D, patientRows.get(0).getCell(9).getNumericCellValue(), "Bill total is correct");
+			assertEquals(15D, patientRows.get(0).getCell(10).getNumericCellValue(), "Visit's total payment is correct");
+			assertEquals(9D, patientRows.get(0).getCell(12).getNumericCellValue(), "Visit's cash payment is correct");
+			assertEquals(6D, patientRows.get(0).getCell(13).getNumericCellValue(), "Visit's mobile payment is correct");
+		}
+	}
 }
