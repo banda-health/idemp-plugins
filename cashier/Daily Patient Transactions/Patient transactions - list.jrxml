@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient transactions - list" pageWidth="1875" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1875" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GO UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -99,6 +99,38 @@
 			bh_get_visit_details.c_order_id, bh_get_visit_details.c_bpartner_id, bh_get_visit_details.bh_visitdate,
 			cashier_name, patient_name, bh_patienttype
 	),
+	payment_filter AS (
+		SELECT
+			bh_c_order_id
+		FROM
+			c_payment p
+				INNER JOIN c_order co
+					ON co.c_order_id = p.bh_c_order_id
+				CROSS JOIN params par
+		WHERE
+			((p.docstatus = 'CO')
+				OR (p.docstatus = 'DR' AND p.bh_processing = 'Y')
+				OR (co.docstatus = 'CO' AND p.bh_processing = 'N'))
+			AND (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
+			OR (tendertype = par.payment_mode AND par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+		GROUP BY bh_c_order_id
+		UNION
+		SELECT
+			o.c_order_id
+		FROM
+			c_order o
+				JOIN c_orderline ol
+					ON ol.c_order_id = o.c_order_id
+				JOIN c_charge c
+					ON ol.c_charge_id = c.c_charge_id
+				CROSS JOIN params p
+		WHERE
+			ol.c_charge_id IS NOT NULL
+			AND (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
+			OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+				AND p.payment_mode IN ('I', 'W', 'T')))
+		ORDER BY 1
+	),
 	patient_payments AS (
 		SELECT
 			bh_get_visit_payments.bh_c_order_id                                      AS c_order_id,
@@ -111,10 +143,9 @@
 		FROM
 			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 				CROSS JOIN params p
-		WHERE
-			p.payment_mode = ''
-			OR bh_get_visit_payments.tendertype = p.payment_mode
-		GROUP BY bh_get_visit_payments.bh_c_order_id, bh_get_visit_payments.payamt, linenetamt
+				JOIN payment_filter pf
+					ON pf.bh_c_order_id = bh_get_visit_payments.bh_c_order_id
+		GROUP BY bh_get_visit_payments.bh_c_order_id
 	),
 	non_patient_payments AS (
 		SELECT
@@ -127,9 +158,6 @@
 		FROM
 			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 				CROSS JOIN params p
-		WHERE
-			p.payment_mode = ''
-			OR bh_get_visit_non_patient_payments.bh_subtype = p.payment_mode
 		GROUP BY c_order_id, ChargeType_name, member_id
 	),
 	BillTotal AS (
