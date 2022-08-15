@@ -37,7 +37,7 @@ fi
 echo "Finished tests!"
 cat testResults.txt
 
-if grep -q "FAIL" testResults.txt; then
+if ! grep -q "Success!!" testResults.txt; then
   exit 1
 fi
 
