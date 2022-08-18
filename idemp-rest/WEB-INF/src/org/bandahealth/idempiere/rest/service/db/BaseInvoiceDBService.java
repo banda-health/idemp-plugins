@@ -125,7 +125,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 					invoice.setC_Invoice_UU(entity.getUuid());
 				}
 			}
-			
+
 			invoice.setIsSOTrx(entity.isIsSalesOrderTransaction());
 
 			if (entity.getDateInvoiced() != null) {
@@ -137,8 +137,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			}
 
 			if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getUuid() != null) {
-				MBPartner_BH businessPartner =
-						businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
+				MBPartner_BH businessPartner = businessPartnerDBService
+						.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
 				invoice.setC_BPartner_ID(businessPartner.get_ID());
 			}
 
@@ -153,9 +153,16 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 			// set target document type
 			if (!invoice.isSOTrx()) {
-				int apInvoiceId = getAPInvoiceDocumentTypeId();
-				invoice.setC_DocType_ID(apInvoiceId);
-				invoice.setC_DocTypeTarget_ID(apInvoiceId);
+				// income should have ARI docType
+				int docTypeId;
+				if (MInvoice_BH.INCOME_InvoiceType == entity.getInvoiceType()) {
+					docTypeId = getInvoiceDocumentTypeId(MDocType.DOCBASETYPE_ARInvoice);
+				} else {
+					docTypeId = getInvoiceDocumentTypeId(MDocType.DOCBASETYPE_APInvoice);
+				}
+
+				invoice.setC_DocType_ID(docTypeId);
+				invoice.setC_DocTypeTarget_ID(docTypeId);
 			}
 
 			invoice.saveEx();
@@ -202,9 +209,9 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	 *
 	 * @return
 	 */
-	protected int getAPInvoiceDocumentTypeId() {
+	protected int getInvoiceDocumentTypeId(String baseDocType) {
 		return new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?", null).setClient_ID()
-				.setParameters(MDocType.DOCBASETYPE_APInvoice).firstId();
+				.setParameters(baseDocType).firstId();
 	}
 
 	/**
