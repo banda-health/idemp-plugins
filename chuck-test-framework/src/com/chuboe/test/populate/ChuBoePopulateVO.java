@@ -38,6 +38,7 @@ import java.util.Random;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
@@ -90,6 +91,7 @@ public class ChuBoePopulateVO {
 	private MPriceList salesPriceList = null;
 	private MPriceList purchasePriceList = null;
 	private MProduct_BH product = null;
+	private MCharge_BH charge = null;
 	private BigDecimal salesLimitPrice = null;
 	private BigDecimal salesStandardPrice = null;
 	private BigDecimal salesListPrice = null;
@@ -672,9 +674,15 @@ public class ChuBoePopulateVO {
 		setSalesPriceList(null);
 	}
 
-	//used to clear the current BP
+	//used to clear the current product
 	public void clearProduct() {
 		setProduct(null);
+		setRandom();
+	}
+
+	//used to clear the current charge
+	public void clearCharge() {
+		setCharge(null);
 		setRandom();
 	}
 
@@ -794,5 +802,13 @@ public class ChuBoePopulateVO {
 
 	public void setTenderType(String tenderType) {
 		this.tenderType = tenderType;
+	}
+
+	public MCharge_BH getCharge() {
+		return charge;
+	}
+
+	public void setCharge(MCharge_BH charge) {
+		this.charge = charge;
 	}
 }
