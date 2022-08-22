@@ -1,8 +1,9 @@
 import { authenticationApi, initialLoginData } from '../api';
 import {
+	Account,
 	Authentication,
 	AuthResponse,
-	BusinessPartner,
+	BusinessPartner, Charge, ChargeType,
 	Client,
 	Invoice,
 	InvoiceLine,
@@ -63,6 +64,9 @@ export class ValueObject {
 	isError: boolean = false;
 	separator = ' - ';
 	prompt = ': ';
+	charge?: Charge;
+	chargeType?: ChargeType;
+	account?: Account;
 	get windowAccess(): AuthResponse['windowAccessLevel'] | undefined {
 		return this.loginInfo?.windowAccessLevel;
 	}
@@ -73,7 +77,7 @@ export class ValueObject {
 	// int m_processRecord_ID = 0;
 
 	sessionToken?: string;
-	isSales = true;
+	isSalesOrderTransaction = true;
 
 	constructor(private loginInfo: AuthResponse & { client: Client }) {
 		this.prepareIt(loginInfo);

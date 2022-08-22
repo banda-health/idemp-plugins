@@ -1,6 +1,8 @@
 import { invoiceApi, patientApi, paymentApi, productApi, productCategoryApi, visitApi, warehouseApi } from '../api';
 import { ValueObject } from '../models';
 import {
+	Charge,
+	ChargeType,
 	Invoice,
 	InvoiceLine,
 	OrderLine,
@@ -11,6 +13,8 @@ import {
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
 import { waitFor } from './waitFor';
+import { chargeTypeApi } from '../api/chargeTypes';
+import { chargeApi } from '../api/charges';
 
 /**
  * Create a patient. If a business partner already exists on the value object, this won't do anything.
@@ -145,11 +149,13 @@ export async function createInvoice(valueObject: ValueObject) {
 		businessPartner: valueObject.businessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
+		isSalesOrderTransaction: valueObject.isSalesOrderTransaction,
 	};
 	const invoiceLine: Partial<InvoiceLine> = {
 		description: valueObject.getStepMessageLong(),
 		product: valueObject.product,
 		quantity: valueObject.quantity || 1,
+		charge: valueObject.charge,
 	};
 	invoiceLine.price = (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
 	invoice.invoiceLines?.push(invoiceLine as unknown as InvoiceLine);
@@ -225,6 +231,35 @@ export async function changeWarehouse(valueObject: ValueObject) {
 	if (!valueObject.warehouse) {
 		throw new Error('Warehouse not switched');
 	}
+}
+
+/**
+ * Create a charge type. We have two main charge types for income and expense charges.
+ * @param valueObject
+ * @returns Nohing
+ */
+export async function createChargeType(valueObject: ValueObject) {
+	valueObject.validate();
+
+	const chargeType: Partial<ChargeType> = {
+		orgId: 0,
+		description: valueObject.getStepMessageLong(),
+		name: valueObject.getDynamicScenarioName(),
+	}
+
+	valueObject.chargeType = await chargeTypeApi.save(valueObject, chargeType as ChargeType);
+}
+
+export async function createCharge(valueObject: ValueObject) {
+	valueObject.validate();
+
+	const charge: Partial<Charge> = {
+		orgId: 0,
+	  chargeType: valueObject.chargeType,
+		account: valueObject.account,
+	}
+
+	valueObject.charge = await chargeApi.save(valueObject, charge as Charge);
 }
 
 /**
