@@ -1,5 +1,5 @@
-import { patientApi, visitApi } from '../api';
-import { tenderType } from '../models';
+import { patientApi, referenceListApi, visitApi } from '../api';
+import { referenceUuid, tenderTypeName } from '../models';
 import { Payment, PaymentType, Visit } from '../types/org.bandahealth.idempiere.rest';
 import { createPatient, createProduct, createVisit, waitForVisitToComplete } from '../utils';
 
@@ -26,7 +26,9 @@ xtest(`patient open balance is 0 after visit if complete payment was made`, asyn
 	valueObject.order!.payments = [
 		{
 			payAmount: valueObject.orderLine!.lineNetAmount,
-			paymentType: tenderType.CASH as PaymentType,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
 		} as Payment,
 	];
 
@@ -56,7 +58,9 @@ xtest(`patient open balance updated after visit if complete payment wasn't made`
 	valueObject.order!.payments = [
 		{
 			payAmount: 50,
-			paymentType: tenderType.CASH as PaymentType,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
 		} as Payment,
 	];
 
@@ -86,7 +90,9 @@ xtest(`patient open balance reverted correctly after visit with partial payment 
 	valueObject.order!.payments = [
 		{
 			payAmount: 50,
-			paymentType: tenderType.CASH as PaymentType,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
 		} as Payment,
 	];
 
