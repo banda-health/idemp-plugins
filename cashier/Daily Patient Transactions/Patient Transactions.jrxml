@@ -177,15 +177,15 @@ WHERE
 		FROM
 			patient_payments
 		WHERE
-			(p.payment_mode = '' OR p.payment_mode IN ('I', 'W', 'T')
-				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+			(p.payment_mode = ''
+			  OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
 		UNION
 		SELECT
 			c_order_id
 		FROM
 			non_patient_payments
 		WHERE
-			(p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
+			(p.payment_mode = ''
 				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
 					AND p.payment_mode IN ('I', 'W', 'T')))
 	)
