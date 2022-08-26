@@ -1,5 +1,6 @@
 import { createChargeType, createCharge } from '../utils';
 import { chargeApi } from '../api/charges';
+import { chargeTypeApi } from '../api/chargeTypes';
 
 test('income category is saved and returned', async () => {
 	const INCOME_CATEGORY_CHARGE_TYPE_NAME = 'Default Income Category - DO NOT CHANGE';
@@ -7,24 +8,21 @@ test('income category is saved and returned', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	// create charge type
-	valueObject.stepName = INCOME_CATEGORY_CHARGE_TYPE_NAME;
-	await createChargeType(valueObject);
+	// get default charge type..
+	const filterJson = '{ "$and": [{"isactive" : {"$eq": true}}, {"c_chargetype": {"$eq" : "' + INCOME_CATEGORY_CHARGE_TYPE_NAME + '" }}]}';
+	const chargeTypes = (await chargeTypeApi.get(valueObject, 0, 1, undefined, filterJson)).results;
+	expect(chargeTypes.length).toBe(1);
+	valueObject.chargeType = chargeTypes[0];
 
 	// create a charge
 	valueObject.stepName = 'Create Charge';
-	valueObject.chargeType = valueObject.chargeType;
-	valueObject.account = valueObject.account;
 	await createCharge(valueObject);
 
-	// retrieve charges via rest
-	const filterJson = '{ "$and": [{"isactive" : {"$eq": true}}, {"c_chargetype": {"$eq" : "' + INCOME_CATEGORY_CHARGE_TYPE_NAME + '" }}]}';
 
-	const charges = (await chargeApi.get(globalThis.__VALUE_OBJECT__, 1, 100, undefined, filterJson)).results;
+	// retrieve charge via rest
+	const charge = (await chargeApi.getByUuid(globalThis.__VALUE_OBJECT__, valueObject.charge!.uuid));
 
-	expect(charges.length).toBe(1);
-
-	expect(charges[0].chargeType.name).toBe(INCOME_CATEGORY_CHARGE_TYPE_NAME);
+	expect(charge.name).toBe(valueObject.charge!.name);
 });
 
 

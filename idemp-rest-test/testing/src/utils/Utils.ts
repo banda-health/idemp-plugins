@@ -255,7 +255,8 @@ export async function createCharge(valueObject: ValueObject) {
 
 	const charge: Partial<Charge> = {
 		orgId: 0,
-	  chargeType: valueObject.chargeType,
+	    chargeType: valueObject.chargeType,
+		name: valueObject.getDynamicScenarioName(),
 		account: valueObject.account,
 	}
 
