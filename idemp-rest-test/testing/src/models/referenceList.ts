@@ -1,3 +1,6 @@
-export const tenderType = {
-	CASH: { uuid: '52c6c5a6-83ce-48c4-b874-721f8cd4e66b', value: 'X' },
+export const tenderTypeName = {
+	CASH: 'Cash',
+	CHEQUE: 'Cheque',
+	CREDIT_OR_DEBIT_CARD: 'Credit or Debit Card',
+	MOBILE_MONEY: 'Mobile Money',
 } as const;
