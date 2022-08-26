@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Payment Trail" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -50,290 +50,27 @@
 		</box>
 	</style>
 	<subDataset name="tableDataset" uuid="1cb87e7b-4d77-4091-9dae-89707248c7d9">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="c_bpartner_uu" class="java.lang.String">
 			<parameterDescription><![CDATA[Patient UUID]]></parameterDescription>
 		</parameter>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
-			<![CDATA[;WITH payments as (
-	-- Get all payments made by a person, except those that were reversed
-	SELECT
-		p1.c_payment_id,
-		p1.c_bpartner_id,
-		p1.bh_c_order_id,
-		date(p1.created) as date,
-		p1.tendertype,
-		p1.payamt
-	FROM adempiere.c_payment p1
-	INNER JOIN adempiere.c_bpartner bp
-	    ON p1.c_bpartner_id = bp.c_bpartner_id
-	LEFT JOIN adempiere.c_payment p2
-		ON p2.docstatus = 'RE'
-			AND p2.reversal_id = p1.c_payment_id
-			AND p1.c_bpartner_id = p2.c_bpartner_id
-	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
-		AND p1.payamt IS NOT NULL
-		AND p2.c_payment_id IS NULL
-		AND p1.docstatus != 'RE'
-), transactions as (
-	-- This categorizes the payments
-	SELECT
-		name,
-		date,
-		item,
-		charges,
-		visit_payments,
-		open_balance_payments,
-		open_balance,
-		row_number() over (order by sort, date) as row
-	FROM (
-		SELECT
-			name,
-			date,
-			CASE WHEN charges = 0 AND visit_payments = 0 THEN 'Open balance payment only' ELSE 'Visit Charges and payments' END AS item,
-			charges,
-			visit_payments * -1 as visit_payments,
-			open_balance_payments * -1 as open_balance_payments,
-			SUM(line_total) OVER (PARTITION BY name ORDER BY date ROWS UNBOUNDED PRECEDING) as open_balance,
-			2 as sort
-		FROM (
-			-- Sum all the payments and group them by date
-			SELECT
-				name,
-				date,
-				SUM(charges) as charges,
-				SUM(visit_payments) as visit_payments,
-				SUM(open_balance_payments) as open_balance_payments,
-				SUM(charges) + SUM(visit_payments) + SUM(open_balance_payments) AS line_total
-			FROM (
-				-- Here's where payments are categorized
-				SELECT
-					Name,
-					Date,
-					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Visit'), 0) AS charges,
-					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Bill Payment' OR type = 'Insurance, Waivers, and Deductions'), 0) AS visit_payments,
-					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Outstanding Balance Payment'), 0) AS open_balance_payments
-				FROM (
-					-- Bills
-					SELECT
-						o.c_order_id,
-						bp.name,
-						o.c_bpartner_id,
-						date(o.bh_visitdate) as date,
-						'Visit' as "type",
-						sum(ol.linenetamt) as grandtotal,
-						NULL as tendertype,
-						10 as sort
-					FROM adempiere.c_order o
-					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-                        INNER JOIN adempiere.c_bpartner bp
-                            ON o.c_bpartner_id = bp.c_bpartner_id
-					WHERE o.issotrx='Y'
-						AND o.docstatus='CO'
-					    AND ol.c_charge_id IS NULL
-					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
-					UNION
-					-- Insurance, waivers, and deductions
-					SELECT
-						o.c_order_id,
-						bp.name,
-						o.c_bpartner_id,
-						date(o.bh_visitdate) as date,
-						'Insurance, Waivers, and Deductions' as "type",
-						sum(ol.linenetamt) as grandtotal,
-						NULL as tendertype,
-						20 as sort
-					FROM adempiere.c_order o
-					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-                        INNER JOIN adempiere.c_bpartner bp
-                            ON o.c_bpartner_id = bp.c_bpartner_id
-					    JOIN c_charge c on ol.c_charge_id = c.c_charge_id
-					WHERE o.issotrx='Y'
-						AND o.docstatus='CO'
-					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
-					UNION
-					-- Bill Payments
-					SELECT
-						co.c_order_id,
-						bp.name,
-						cp.c_bpartner_id,
-						cp.date,
-						-- CASE
-						-- 	WHEN cp.tendertype IN ('M','MT') THEN 'Bill Payment - Mobile'
-						-- 	WHEN cp.tendertype IN ('X') THEN 'Bill Payment - Cash'
-						-- 	ELSE 'Bill Payment'
-						-- END as "type",
-						'Bill Payment' as "type",
-						cp.totalpayamt * -1,
-						cp.tendertype,
-						30 as sort
-					FROM (
-						SELECT
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date,
-							tendertype,
-							SUM(payamt) as totalpayamt
-						FROM payments
-						GROUP BY
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date,
-							tendertype
-					) cp
-					INNER JOIN adempiere.c_bpartner bp
-						ON cp.c_bpartner_id = bp.c_bpartner_id
-					LEFT JOIN adempiere.c_allocationline cal
-						ON cal.c_payment_id = cp.c_payment_id
-					LEFT JOIN adempiere.c_invoice i
-						ON i.c_invoice_id = cal.c_invoice_id
-					INNER JOIN adempiere.c_order co
-						ON i.c_order_id = co.c_order_id
-							OR co.c_order_id = cp.bh_c_order_id
-					WHERE co.issotrx='Y'
-						AND co.docstatus='CO'
-					UNION
-					-- Outstanding Balance Payments
-					SELECT
-						co.c_order_id,
-						bp.name,
-						cp.c_bpartner_id,
-						cp.date,
-						'Outstanding Balance Payment' as "type",
-						cp.totalpayamt * -1,
-						NULL as tendertype,
-						40 as sort
-					FROM (
-						SELECT
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date,
-							SUM(payamt) as totalpayamt
-						FROM payments
-						GROUP BY
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date
-					) cp
-					INNER JOIN adempiere.c_bpartner bp
-						ON cp.c_bpartner_id = bp.c_bpartner_id
-					LEFT JOIN adempiere.c_allocationline cal
-						ON cal.c_payment_id = cp.c_payment_id
-					LEFT JOIN adempiere.c_invoice i
-						ON i.c_invoice_id = cal.c_invoice_id
-					LEFT JOIN adempiere.c_order co
-						ON i.c_order_id = co.c_order_id
-							OR co.c_order_id = cp.bh_c_order_id
-					WHERE co.issotrx IS NULL
-						AND co.docstatus IS NULL
-				) as transactions
-				GROUP BY
-					Name,
-					Date,
-					type,
-					grandtotal,
-					sort,
-					c_bpartner_id
-			) as transactions
-			GROUP BY
-				name,
-				date
-		) as transactions
-		UNION
-		-- Add another row to show the starting balance of zero when the patient was created
-		SELECT
-			name,
-			date(created) as date,
-			'Starting balance',
-			0 as charges,
-			0 as visit_payments,
-			0 as open_balance_payments,
-			0 as open_balance,
-			1 as sort
-		FROM adempiere.c_bpartner bp
-		JOIN payments p
-			ON p.c_bpartner_id = bp.c_bpartner_id
-	) as transactions
-)
-SELECT
-	name,
-	date,
-	item,
-	charges,
-	visit_payments,
-	open_balance_payments,
-	open_balance
-FROM (
-	-- This is when the patient creation date is after the specified start date
-	SELECT
-		name,
-		date,
-		item,
-		NULL::numeric as charges,
-		NULL::numeric as visit_payments,
-		NULL::numeric as open_balance_payments,
-		0 as open_balance,
-		row
-	FROM (
-		SELECT *
-		FROM transactions
-		WHERE item = 'Starting balance'
-			-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
-	) as given_starting_balance
-	UNION
-	-- This is when the patient creation date is before the specified start date
-	SELECT
-		name,
-		'2020-07-19', -- UPDATE - use start date parameter
-		'Starting balance as of ' || '2020-07-19' as item, -- UPDATE - use start date parameter (formatted as needed)
-		NULL as charges,
-		NULL as visit_payments,
-		NULL as open_balance_payments,
-		open_balance,
-		0 as row
-	FROM (
-		SELECT *
-		FROM transactions
-		-- WHERE date < '2020-07-19' -- UPDATE - use start date parameter
-		WHERE date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
-		ORDER BY row desc
-		LIMIT 1
-	) as calculated_starting_balance
-	UNION
-	-- This sums up and displays the remainder of the open balance rows, up to the end date
-	SELECT
-		name,
-		date,
-		item,
-		CASE WHEN charges = 0 and visit_payments = 0 THEN NULL ELSE charges END as charges,
-		CASE WHEN charges = 0 and visit_payments = 0 THEN NULL ELSE visit_payments END as visit_payments,
-		CASE WHEN open_balance_payments = 0 THEN NULL ELSE open_balance_payments END as open_balance_payments,
-		open_balance,
-		row
-	FROM transactions
-	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
-	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
-) as payments
-ORDER BY row]]>
+			<![CDATA[SELECT *
+FROM
+	bh_get_payment_trail($P{c_bpartner_uu});]]>
 		</queryString>
-		<field name="name" class="java.lang.String">
+		<field name="patient_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="name"/>
 		</field>
-		<field name="date" class="java.sql.Date">
+		<field name="payment_date" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="date"/>
 		</field>
 		<field name="item" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item"/>
 		</field>
-		<field name="charges" class="java.math.BigDecimal">
+		<field name="visit_charges" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="charges"/>
 		</field>
 		<field name="visit_payments" class="java.math.BigDecimal">
@@ -342,7 +79,7 @@ ORDER BY row]]>
 		<field name="open_balance_payments" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="open_balance_payments"/>
 		</field>
-		<field name="open_balance" class="java.math.BigDecimal">
+		<field name="patient_open_balance" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="open_balance"/>
 		</field>
 	</subDataset>
@@ -351,294 +88,8 @@ ORDER BY row]]>
 	</parameter>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[;WITH payments as (
-	-- Get all payments made by a person, except those that were reversed
-	SELECT
-		p1.c_payment_id,
-		p1.c_bpartner_id,
-		p1.bh_c_order_id,
-		date(p1.created) as date,
-		p1.tendertype,
-		p1.payamt
-	FROM adempiere.c_payment p1
-	INNER JOIN adempiere.c_bpartner bp
-	    ON p1.c_bpartner_id = bp.c_bpartner_id
-	LEFT JOIN adempiere.c_payment p2
-		ON p2.docstatus = 'RE'
-			AND p2.reversal_id = p1.c_payment_id
-			AND p1.c_bpartner_id = p2.c_bpartner_id
-	WHERE bp.c_bpartner_uu = $P{c_bpartner_uu} -- UPDATE - this is the person's UUID parameter
-		AND p1.payamt IS NOT NULL
-		AND p2.c_payment_id IS NULL
-		AND p1.docstatus != 'RE'
-), transactions as (
-	-- This categorizes the payments
-	SELECT
-		name,
-		date,
-		item,
-		charges,
-		visit_payments,
-		open_balance_payments,
-		open_balance,
-		row_number() over (order by sort, date) as row
-	FROM (
-		SELECT
-			name,
-			date,
-			CASE WHEN charges = 0 AND visit_payments = 0 THEN 'Open balance payment only' ELSE 'Visit Charges and payments' END AS item,
-			charges,
-			visit_payments * -1 as visit_payments,
-			open_balance_payments * -1 as open_balance_payments,
-			SUM(line_total) OVER (PARTITION BY name ORDER BY date ROWS UNBOUNDED PRECEDING) as open_balance,
-			2 as sort
-		FROM (
-			-- Sum all the payments and group them by date
-			SELECT
-				name,
-				date,
-				SUM(charges) as charges,
-				SUM(visit_payments) as visit_payments,
-				SUM(open_balance_payments) as open_balance_payments,
-				SUM(charges) + SUM(visit_payments) + SUM(open_balance_payments) AS line_total
-			FROM (
-				-- Here's where payments are categorized
-				SELECT
-					Name,
-					Date,
-					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Visit'), 0) AS charges,
-					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Bill Payment' OR type = 'Insurance, Waivers, and Deductions'), 0) AS visit_payments,
-					COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Outstanding Balance Payment'), 0) AS open_balance_payments
-				FROM (
-					-- Bills
-					SELECT
-						o.c_order_id,
-						bp.name,
-						o.c_bpartner_id,
-						date(o.bh_visitdate) as date,
-						'Visit' as "type",
-						sum(ol.linenetamt) as grandtotal,
-						NULL as tendertype,
-						10 as sort
-					FROM adempiere.c_order o
-					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-                        INNER JOIN adempiere.c_bpartner bp
-                            ON o.c_bpartner_id = bp.c_bpartner_id
-					WHERE o.issotrx='Y'
-						AND o.docstatus='CO'
-					    AND ol.c_charge_id IS NULL
-					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
-					UNION
-					-- Insurance, waivers, and deductions
-					SELECT
-						o.c_order_id,
-						bp.name,
-						o.c_bpartner_id,
-						date(o.bh_visitdate) as date,
-						'Insurance, Waivers, and Deductions' as "type",
-						sum(ol.linenetamt) as grandtotal,
-						NULL as tendertype,
-						20 as sort
-					FROM adempiere.c_order o
-					    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-                        INNER JOIN adempiere.c_bpartner bp
-                            ON o.c_bpartner_id = bp.c_bpartner_id
-					    JOIN c_charge c on ol.c_charge_id = c.c_charge_id
-					WHERE o.issotrx='Y'
-						AND o.docstatus='CO'
-					    AND o.c_bpartner_id IN (SELECT c_bpartner_id FROM payments)
-					GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
-					UNION
-					-- Bill Payments
-					SELECT
-						co.c_order_id,
-						bp.name,
-						cp.c_bpartner_id,
-						cp.date,
-						-- CASE
-						-- 	WHEN cp.tendertype IN ('M','MT') THEN 'Bill Payment - Mobile'
-						-- 	WHEN cp.tendertype IN ('X') THEN 'Bill Payment - Cash'
-						-- 	ELSE 'Bill Payment'
-						-- END as "type",
-						'Bill Payment' as "type",
-						cp.totalpayamt * -1,
-						cp.tendertype,
-						30 as sort
-					FROM (
-						SELECT
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date,
-							tendertype,
-							SUM(payamt) as totalpayamt
-						FROM payments
-						GROUP BY
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date,
-							tendertype
-					) cp
-					INNER JOIN adempiere.c_bpartner bp
-						ON cp.c_bpartner_id = bp.c_bpartner_id
-					LEFT JOIN adempiere.c_allocationline cal
-						ON cal.c_payment_id = cp.c_payment_id
-					LEFT JOIN adempiere.c_invoice i
-						ON i.c_invoice_id = cal.c_invoice_id
-					INNER JOIN adempiere.c_order co
-						ON i.c_order_id = co.c_order_id
-							OR co.c_order_id = cp.bh_c_order_id
-					WHERE co.issotrx='Y'
-						AND co.docstatus='CO'
-					UNION
-					-- Outstanding Balance Payments
-					SELECT
-						co.c_order_id,
-						bp.name,
-						cp.c_bpartner_id,
-						cp.date,
-						'Outstanding Balance Payment' as "type",
-						cp.totalpayamt * -1,
-						NULL as tendertype,
-						40 as sort
-					FROM (
-						SELECT
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date,
-							SUM(payamt) as totalpayamt
-						FROM payments
-						GROUP BY
-							c_payment_id,
-							c_bpartner_id,
-							bh_c_order_id,
-							date
-					) cp
-					INNER JOIN adempiere.c_bpartner bp
-						ON cp.c_bpartner_id = bp.c_bpartner_id
-					LEFT JOIN adempiere.c_allocationline cal
-						ON cal.c_payment_id = cp.c_payment_id
-					LEFT JOIN adempiere.c_invoice i
-						ON i.c_invoice_id = cal.c_invoice_id
-					LEFT JOIN adempiere.c_order co
-						ON i.c_order_id = co.c_order_id
-							OR co.c_order_id = cp.bh_c_order_id
-					WHERE co.issotrx IS NULL
-						AND co.docstatus IS NULL
-				) as transactions
-				GROUP BY
-					Name,
-					Date,
-					type,
-					grandtotal,
-					sort,
-					c_bpartner_id
-			) as transactions
-			GROUP BY
-				name,
-				date
-		) as transactions
-		UNION
-		-- Add another row to show the starting balance of zero when the patient was created
-		SELECT
-			name,
-			date(created) as date,
-			'Starting balance',
-			0 as charges,
-			0 as visit_payments,
-			0 as open_balance_payments,
-			0 as open_balance,
-			1 as sort
-		FROM adempiere.c_bpartner bp
-		JOIN payments p
-			ON p.c_bpartner_id = bp.c_bpartner_id
-	) as transactions
-)
-SELECT
-	name,
-	date,
-	item,
-	charges,
-	visit_payments,
-	open_balance_payments,
-	open_balance
-FROM (
-	-- This is when the patient creation date is after the specified start date
-	SELECT
-		name,
-		date,
-		item,
-		NULL::numeric as charges,
-		NULL::numeric as visit_payments,
-		NULL::numeric as open_balance_payments,
-		0 as open_balance,
-		row
-	FROM (
-		SELECT *
-		FROM transactions
-		WHERE item = 'Starting balance'
-			-- AND date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
-	) as given_starting_balance
-	UNION
-	-- This is when the patient creation date is before the specified start date
-	SELECT
-		name,
-		'2020-07-19', -- UPDATE - use start date parameter
-		'Starting balance as of ' || '2020-07-19' as item, -- UPDATE - use start date parameter (formatted as needed)
-		NULL as charges,
-		NULL as visit_payments,
-		NULL as open_balance_payments,
-		open_balance,
-		0 as row
-	FROM (
-		SELECT *
-		FROM transactions
-		-- WHERE date < '2020-07-19' -- UPDATE - use start date parameter
-		WHERE date < '2010-01-01' -- REMOVE - when we use the start/end dates and use the line above
-		ORDER BY row desc
-		LIMIT 1
-	) as calculated_starting_balance
-	UNION
-	-- This sums up and displays the remainder of the open balance rows, up to the end date
-	SELECT
-		name,
-		date,
-		item,
-		CASE WHEN charges = 0 and visit_payments = 0 THEN NULL ELSE charges END as charges,
-		CASE WHEN charges = 0 and visit_payments = 0 THEN NULL ELSE visit_payments END as visit_payments,
-		CASE WHEN open_balance_payments = 0 THEN NULL ELSE open_balance_payments END as open_balance_payments,
-		open_balance,
-		row
-	FROM transactions
-	-- WHERE date between '2020-07-19' and '2020-08-10' -- UPDATE - use start and end date parameters
-	WHERE item != 'Starting balance' -- REMOVE - when we use the start/end dates and use the line above
-) as payments
-ORDER BY row]]>
+		<![CDATA[SELECT 1;]]>
 	</queryString>
-	<field name="name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="name"/>
-	</field>
-	<field name="date" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="date"/>
-	</field>
-	<field name="item" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="item"/>
-	</field>
-	<field name="charges" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="charges"/>
-	</field>
-	<field name="visit_payments" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="visit_payments"/>
-	</field>
-	<field name="open_balance_payments" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="open_balance_payments"/>
-	</field>
-	<field name="open_balance" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="open_balance"/>
-	</field>
 	<title>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -696,7 +147,7 @@ ORDER BY row]]>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{patient_name}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -722,7 +173,7 @@ ORDER BY row]]>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{payment_date}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -772,7 +223,7 @@ ORDER BY row]]>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{charges}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{visit_charges}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -844,7 +295,7 @@ ORDER BY row]]>
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{open_balance}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{patient_open_balance}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
