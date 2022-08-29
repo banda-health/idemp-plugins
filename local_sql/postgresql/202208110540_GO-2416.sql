@@ -42,7 +42,7 @@ SELECT
 	ad.name                         AS cashier_name,
 	cb.c_bpartner_id                AS patient_id,
 	cb.name                         AS patient_name,
-	c.bh_patienttype                AS patient_type,
+	c.bh_patienttype::varchar       AS patient_type,
 	r.name                          AS bh_patienttype_name,
 	cb.bh_patientid                 AS patient_no,
 	cb.bh_birthday                  AS patient_birthday,
