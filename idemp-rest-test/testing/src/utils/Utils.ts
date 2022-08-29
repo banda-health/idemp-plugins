@@ -149,7 +149,7 @@ export async function createInvoice(valueObject: ValueObject) {
 		businessPartner: valueObject.businessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
-		isSalesOrderTransaction: valueObject.isSalesOrderTransaction,
+		isSalesOrderTransaction: valueObject.isSalesTransaction,
 	};
 	const invoiceLine: Partial<InvoiceLine> = {
 		description: valueObject.getStepMessageLong(),

@@ -77,7 +77,7 @@ export class ValueObject {
 	// int m_processRecord_ID = 0;
 
 	sessionToken?: string;
-	isSalesOrderTransaction = true;
+	isSalesTransaction = true;
 
 	constructor(private loginInfo: AuthResponse & { client: Client }) {
 		this.prepareIt(loginInfo);

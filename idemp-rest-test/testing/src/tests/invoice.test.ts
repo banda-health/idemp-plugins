@@ -21,15 +21,9 @@ test('Track income works', async () => {
 	valueObject.stepName = 'Create Supplier';
 	await createBusinessPartner(valueObject);
 
-	// set date
-	valueObject.date = new Date();
-
 	// create invoice
 	valueObject.stepName = 'Create Invoice';
-	//valueObject.businessPartner =
 	await createInvoice(valueObject);
 	
 	expect(( await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid))).toBe(valueObject.invoice!.uuid);
 });
-
-

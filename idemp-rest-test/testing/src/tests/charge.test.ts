@@ -18,11 +18,8 @@ test('income category is saved and returned', async () => {
 	valueObject.stepName = 'Create Charge';
 	await createCharge(valueObject);
 
-
 	// retrieve charge via rest
 	const charge = (await chargeApi.getByUuid(globalThis.__VALUE_OBJECT__, valueObject.charge!.uuid));
 
 	expect(charge.name).toBe(valueObject.charge!.name);
 });
-
-
