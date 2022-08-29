@@ -192,10 +192,10 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue()
-									.equalsIgnoreCase(valueObject.getBusinessPartner().getName().substring(0, 30)))
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(5) != null && row.getCell(5).getCellType().equals(CellType.STRING) &&
+									row.getCell(5).getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0,
+											30)))
 					.collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Patient only appears once");
@@ -282,10 +282,10 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue()
-									.equalsIgnoreCase(valueObject.getBusinessPartner().getName().substring(0, 30)))
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(5) != null && row.getCell(5).getCellType().equals(CellType.STRING) &&
+									row.getCell(5).getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0,
+											30)))
 					.collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Patient only appears once");
@@ -399,10 +399,10 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue()
-									.equalsIgnoreCase(valueObject.getBusinessPartner().getName().substring(0, 30)))
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(5) != null && row.getCell(5).getCellType().equals(CellType.STRING) &&
+									row.getCell(5).getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0,
+											30)))
 					.collect(Collectors.toList());
 
 			assertEquals(2, patientRows.size(), "Both of the patient's visits appear");
@@ -438,10 +438,10 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue()
-									.equalsIgnoreCase(valueObject.getBusinessPartner().getName().substring(0, 30)))
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(5) != null && row.getCell(5).getCellType().equals(CellType.STRING) &&
+									row.getCell(5).getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0,
+											30)))
 					.collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Only one of the patient's visits appear");
