@@ -116,7 +116,13 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		}
 
 		if (entity.getPaymentType() != null) {
-			mPayment.setTenderType(entity.getPaymentType().getValue());
+			// get tender type by value
+			MRefList paymentTypeReference = new Query(Env.getCtx(), MRefList.Table_Name,
+					MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", null)
+							.setParameters(entity.getPaymentType().getUuid()).first();
+			if (paymentTypeReference != null) {
+				mPayment.setTenderType(paymentTypeReference.getValue());
+			}
 		}
 
 		// get currency
