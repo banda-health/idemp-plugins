@@ -152,19 +152,16 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			beforeSave(entity, invoice);
 
 			// set target document type
+			int docTypeId;
 			if (!invoice.isSOTrx()) {
-				// income should have ARI docType
-				int docTypeId;
-				if (MInvoice_BH.INCOME_InvoiceType == entity.getInvoiceType()) {
-					docTypeId = getInvoiceDocumentTypeId(MDocType.DOCBASETYPE_ARInvoice);
-				} else {
-					docTypeId = getInvoiceDocumentTypeId(MDocType.DOCBASETYPE_APInvoice);
-				}
-
-				invoice.setC_DocType_ID(docTypeId);
-				invoice.setC_DocTypeTarget_ID(docTypeId);
+				docTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_APInvoice);
+			} else {
+				docTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_ARInvoice);
 			}
 
+			invoice.setC_DocType_ID(docTypeId);
+			invoice.setC_DocTypeTarget_ID(docTypeId);
+			
 			invoice.saveEx();
 
 			// list of persisted invoice line ids
@@ -202,16 +199,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	@Override
 	protected MInvoice_BH getModelInstance() {
 		return new MInvoice_BH(Env.getCtx(), 0, null);
-	}
-
-	/**
-	 * Get the Invoice (Vendor) document type id
-	 *
-	 * @return
-	 */
-	protected int getInvoiceDocumentTypeId(String baseDocType) {
-		return new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?", null).setClient_ID()
-				.setParameters(baseDocType).firstId();
 	}
 
 	/**
