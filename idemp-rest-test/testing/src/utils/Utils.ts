@@ -1,11 +1,21 @@
-import { invoiceApi, patientApi, paymentApi, productApi, productCategoryApi, visitApi, warehouseApi } from '../api';
-import { ValueObject } from '../models';
+import {
+	invoiceApi,
+	patientApi,
+	paymentApi,
+	productApi,
+	productCategoryApi,
+	referenceListApi,
+	visitApi,
+	warehouseApi,
+} from '../api';
+import { referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
 	Invoice,
 	InvoiceLine,
 	OrderLine,
 	Patient,
 	Payment,
+	PaymentType,
 	Product,
 	ProductCategory,
 	Visit,
@@ -42,7 +52,7 @@ export async function createPatient(valueObject: ValueObject) {
  * @returns Nothing
  */
 export async function createBusinessPartner(valueObject: ValueObject) {
-	createPatient(valueObject);
+	await createPatient(valueObject);
 }
 
 /**
@@ -122,7 +132,7 @@ export async function createVisit(valueObject: ValueObject) {
  * @returns Nothing
  */
 export async function createOrder(valueObject: ValueObject) {
-	createVisit(valueObject);
+	await createVisit(valueObject);
 }
 
 /**
@@ -185,6 +195,9 @@ export async function createPayment(valueObject: ValueObject) {
 		patient: valueObject.businessPartner as unknown as Patient,
 		description: valueObject.getStepMessageLong(),
 		payAmount: valueObject.invoice?.grandTotal || 1,
+		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+			(tenderType) => tenderType.name === tenderTypeName.CASH,
+		) as PaymentType,
 	};
 	valueObject.payment = await paymentApi.save(valueObject, payment as Payment);
 	if (!valueObject.payment) {
