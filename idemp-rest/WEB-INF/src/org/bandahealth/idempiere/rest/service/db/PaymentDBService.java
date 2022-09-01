@@ -117,9 +117,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 		if (entity.getPaymentType() != null) {
 			// get tender type by value
-			MRefList paymentTypeReference = new Query(Env.getCtx(), MRefList.Table_Name,
-					MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", null)
-							.setParameters(entity.getPaymentType().getUuid()).first();
+			MRefList paymentTypeReference = referenceListDBService.getEntityByUuidFromDB(entity.getPaymentType().getUuid());
 			if (paymentTypeReference != null) {
 				mPayment.setTenderType(paymentTypeReference.getValue());
 			}
