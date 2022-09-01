@@ -1,10 +1,13 @@
-import { authenticationApi, initialLoginData } from '../api';
+import { authenticationApi, documentTypeApi, initialLoginData } from '../api';
 import {
 	Account,
 	Authentication,
 	AuthResponse,
-	BusinessPartner, Charge, ChargeType,
+	BusinessPartner,
+	Charge,
+	ChargeType,
 	Client,
+	DocumentType,
 	Invoice,
 	InvoiceLine,
 	Order,
@@ -40,6 +43,7 @@ export class ValueObject {
 	// MPriceList priceListSO = null;
 	// MPriceList priceListPO = null;
 	product?: Product;
+	charge?: Charge;
 	salesLimitPrice?: number;
 	salesStandardPrice?: number;
 	salesListPrice?: number;
@@ -47,7 +51,7 @@ export class ValueObject {
 	purchaseStandardPrice?: number;
 	purchaseListPrice?: number;
 	quantity?: number;
-	documentType?: string;
+	documentType?: DocumentType;
 	documentAction?: string;
 	order?: Order;
 	orderLine?: OrderLine;
@@ -64,9 +68,6 @@ export class ValueObject {
 	isError: boolean = false;
 	separator = ' - ';
 	prompt = ': ';
-	charge?: Charge;
-	chargeType?: ChargeType;
-	account?: Account;
 	get windowAccess(): AuthResponse['windowAccessLevel'] | undefined {
 		return this.loginInfo?.windowAccessLevel;
 	}
@@ -77,7 +78,6 @@ export class ValueObject {
 	// int m_processRecord_ID = 0;
 
 	sessionToken?: string;
-	isSalesTransaction = true;
 
 	constructor(private loginInfo: AuthResponse & { client: Client }) {
 		this.prepareIt(loginInfo);
@@ -221,11 +221,29 @@ export class ValueObject {
 		}
 	}
 
-	// public void setDocBaseType(String m_docBaseType, String m_docSubTypeSO,
-	// 		boolean issotrx, boolean isshipconfirm, boolean ispickqaconfirm) {
-	// 	setDocType(ChuBoeCreateEntity.getDocType(this,m_docBaseType, m_docSubTypeSO,
-	// 			issotrx, isshipconfirm, ispickqaconfirm));
-	// }
+	async setDocumentBaseType(
+		documentBaseType: string,
+		documentSalesSubType: string | null,
+		isSalesTransaction: boolean,
+		isShipmentConfirm: boolean,
+		isPickQAConfirm: boolean,
+	) {
+		this.documentType = (
+			await documentTypeApi.get(
+				this,
+				0,
+				100,
+				undefined,
+				JSON.stringify({
+					docbasetype: documentBaseType,
+					issotrx: isSalesTransaction,
+					isshipconfirm: isShipmentConfirm,
+					ispickqaconfirm: isPickQAConfirm,
+					docsubtypeso: documentSalesSubType ? documentSalesSubType : { $null: true },
+				}),
+			)
+		).results[0];
+	}
 
 	getDynamicStepMessage() {
 		return `Scenario${this.prompt}${this.isIncludeRandom ? this.random : this.getDynamicScenarioName()}${
@@ -238,7 +256,9 @@ export class ValueObject {
 		return `Scenario${this.prompt}${this.getDynamicScenarioName()}${this.separator}Step${this.prompt}${this.stepName}`;
 	}
 
-	//used to clear the current BP
+	/**
+	 * Clear the current business partner (and reset the random number)
+	 */
 	clearBusinessPartner() {
 		this.businessPartner = undefined;
 		// this.businessPartnerLocation = undefined;
@@ -251,8 +271,19 @@ export class ValueObject {
 	// 	setPriceListSO(null);
 	// }
 
+	/**
+	 * Clear the current product (and reset the random number)
+	 */
 	clearProduct() {
 		this.product = undefined;
+		this.setRandom();
+	}
+
+	/**
+	 * Clear the current charge (and reset the random number)
+	 */
+	clearCharge() {
+		this.charge = undefined;
 		this.setRandom();
 	}
 }

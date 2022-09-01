@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 
@@ -25,6 +26,7 @@ public class Invoice extends BaseMetadata {
 	private String dateInvoiced;
 	private Timestamp dateInvoicedCreated;
 	private BigDecimal grandTotal;
+	@JsonProperty("isSalesOrderTransaction")
 	private boolean isSalesOrderTransaction;
 	private Boolean isExpense;
 	private String description;
@@ -103,8 +105,7 @@ public class Invoice extends BaseMetadata {
 		this.grandTotal = grandTotal;
 	}
 
-	@JsonIgnore
-	public boolean isIsSalesOrderTransaction() {
+	public boolean isSalesOrderTransaction() {
 		return isSalesOrderTransaction;
 	}
 

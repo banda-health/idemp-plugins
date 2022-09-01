@@ -126,7 +126,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 				}
 			}
 
-			invoice.setIsSOTrx(entity.isIsSalesOrderTransaction());
+			invoice.setIsSOTrx(entity.isSalesOrderTransaction());
 
 			if (entity.getDateInvoiced() != null) {
 				invoice.setDateInvoiced(DateUtil.getTimestamp(entity.getDateInvoiced()));
@@ -146,7 +146,9 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 			invoice.setIsApproved(true);
 			invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
-			invoice.setPaymentRule(entity.getPaymentRule());
+			if (!StringUtil.isNullOrEmpty(entity.getPaymentRule())) {
+				invoice.setPaymentRule(entity.getPaymentRule());
+			}
 			invoice.setBH_InvoiceType(entity.getInvoiceType());
 
 			beforeSave(entity, invoice);
