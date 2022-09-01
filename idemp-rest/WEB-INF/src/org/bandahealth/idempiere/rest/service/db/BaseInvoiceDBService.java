@@ -161,7 +161,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 				docTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_ARInvoice);
 			}
 
-			invoice.setC_DocType_ID(docTypeId);
 			invoice.setC_DocTypeTarget_ID(docTypeId);
 			
 			invoice.saveEx();
