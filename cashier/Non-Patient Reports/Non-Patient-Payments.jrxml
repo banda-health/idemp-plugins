@@ -38,38 +38,38 @@
 ),
 	Visit_info AS (
 		SELECT
-			bh_get_visit_details.c_order_id,
-			bh_get_visit_details.c_bpartner_id,
+			bv.c_order_id,
+			bv.c_bpartner_id,
 			bh_visitdate       AS bill_date,
 			patient_name,
-			bh_get_visit_details.bh_patientid,
+			bv.bh_patientid,
 			bh_patienttype,
 			bh_patienttype_name,
 			SUM(ol.linenetamt) AS lineitemtotals
 		FROM
-			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date})) bv
 				INNER JOIN c_bpartner cb
-					ON bh_get_visit_details.c_bpartner_id = cb.c_bpartner_id
+					ON bv.c_bpartner_id = cb.c_bpartner_id
 				INNER JOIN ad_user
-					ON bh_get_visit_details.ad_user_id = ad_user.ad_user_id
+					ON bv.ad_user_id = ad_user.ad_user_id
 				JOIN c_orderline ol
-					ON bh_get_visit_details.c_order_id = ol.c_order_id
+					ON bv.c_order_id = ol.c_order_id
 				CROSS JOIN params p
 		WHERE
-			((bh_get_visit_details.docstatus <> 'VO' AND bh_get_visit_details.docstatus <> 'DR')
+			((bv.docstatus <> 'VO' AND bv.docstatus <> 'DR')
 				)
 			AND ol.c_charge_id IS NULL
 		GROUP BY
-			bh_get_visit_details.c_order_id, bh_get_visit_details.c_bpartner_id, bh_get_visit_details.bh_visitdate,
-			patient_name, bh_patienttype, bh_get_visit_details.bh_patientid,bh_patienttype_name
+			bv.c_order_id, bv.c_bpartner_id, bv.bh_visitdate,
+			patient_name, bh_patienttype, bv.bh_patientid,bh_patienttype_name
 	),
 	DirectPayments AS (
 		SELECT
-			bh_get_visit_payments.bh_c_order_id AS c_order_id,
+			bp.bh_c_order_id AS c_order_id,
 			payamt,
 			tendertype
 		FROM
-			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date})) bp
 	),
 	non_patient_payments AS (
 		SELECT
