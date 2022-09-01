@@ -36,9 +36,9 @@ export abstract class BaseApi<T> {
 	): Promise<BaseListResponse<T>> {
 		return (
 			await axios.get<BaseListResponse<T>>(
-				`${IDEMPIERE_ENDPOINT}/${this.entityName}?page=${page || 0}&size=${size || 1000}&sortJson=${
+				`${IDEMPIERE_ENDPOINT}/${this.entityName}?page=${page || 0}&size=${size || 1000}&sorting=${
 					sortJson || ''
-				}&filterJson=${filterJson || ''}`,
+				}&filter=${filterJson || ''}`,
 				this.getAuthorizationHeaders(valueObject),
 			)
 		).data;

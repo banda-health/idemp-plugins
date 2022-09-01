@@ -13,6 +13,18 @@ class ReferenceListApi extends BaseApi<ReferenceList> {
 			}>(`${IDEMPIERE_ENDPOINT}/${this.entityName}/documentStatusActionMap`, this.getAuthorizationHeaders(valueObject))
 		).data;
 	}
+
+	async getByReference(
+		valueObject: ValueObject,
+		referenceUuid: string,
+		includeInactive: boolean,
+	): Promise<ReferenceList[]> {
+		const filter = { ad_reference: { ad_reference_uu: referenceUuid } } as any; // not sure if we want any types for the filter
+		if (!includeInactive) {
+			filter.isactive = 'Y';
+		}
+		return (await this.get(valueObject, 0, 100, undefined, JSON.stringify(filter))).results;
+	}
 }
 
 export const referenceListApi = new ReferenceListApi();
