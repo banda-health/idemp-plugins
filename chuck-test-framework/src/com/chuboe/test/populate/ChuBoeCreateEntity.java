@@ -37,6 +37,7 @@ import java.util.List;
 
 import org.adempiere.base.Core;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
@@ -319,6 +320,25 @@ public class ChuBoeCreateEntity {
 			}
 		}
 	} //create product
+
+	//create product second
+	public static void createCharge(ChuBoePopulateVO valueObject) {
+		valueObject.validate();
+		if (valueObject.isError()) {
+			return;
+		}
+
+		//use valueObject.clearCharge() to create new charge
+		if (valueObject.getCharge() == null) {
+			MCharge_BH charge = new MCharge_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			charge.setAD_Org_ID(0);
+			charge.setDescription(valueObject.getStepMessageLong());
+			charge.setC_TaxCategory_ID(getDefaultTaxCategoryId(valueObject));
+			charge.setName(valueObject.getRandomNumber() + "_" + valueObject.getScenarioName());
+			charge.saveEx();
+			valueObject.setCharge(charge);
+		}
+	}
 
 	public static void createProductBOM(ChuBoePopulateVO valueObject, BigDecimal quantity, MProduct parentProduct) {
 		valueObject.validate();
