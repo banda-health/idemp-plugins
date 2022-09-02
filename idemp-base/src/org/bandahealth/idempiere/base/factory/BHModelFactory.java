@@ -27,6 +27,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
@@ -139,6 +140,8 @@ public class BHModelFactory implements IModelFactory {
 			return MSerNoCtl_BH.class;
 		} else if (tableName.equalsIgnoreCase(MClient_BH.Table_Name)) {
 			return MClient_BH.class;
+		} else if (tableName.equalsIgnoreCase(MDocType_BH.Table_Name)) {
+			return MDocType_BH.class;
 		}
 
 		return null;
@@ -232,6 +235,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MSerNoCtl_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MClient_BH.Table_Name)) {
 			return new MClient_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MDocType_BH.Table_Name)) {
+			return new MDocType_BH(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -325,6 +330,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MSerNoCtl_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MClient_BH.Table_Name)) {
 			return new MClient_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MDocType_BH.Table_Name)) {
+			return new MDocType_BH(Env.getCtx(), rs, trxName);
 		}
 
 		return null;

@@ -59,6 +59,7 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_MOVEMENT, MMovement_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_PHYSICAL_INVENTORY, MInventory_BH.Table_ID);
 		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_CUSTOMER_INVOICE, MInvoice_BH.Table_ID);
+		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_VENDOR_INVOICE, MInvoice_BH.Table_ID);
 	}
 
 	@Override

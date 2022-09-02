@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 
@@ -25,6 +26,7 @@ public class Invoice extends BaseMetadata {
 	private String dateInvoiced;
 	private Timestamp dateInvoicedCreated;
 	private BigDecimal grandTotal;
+	@JsonProperty("isSalesOrderTransaction")
 	private boolean isSalesOrderTransaction;
 	private Boolean isExpense;
 	private String description;
@@ -33,6 +35,7 @@ public class Invoice extends BaseMetadata {
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
+	private String invoiceType;
 
 	public Invoice() {
 	}
@@ -47,6 +50,7 @@ public class Invoice extends BaseMetadata {
 		description = entity.getDescription();
 		paymentRule = entity.getPaymentRule();
 		docStatus = entity.getDocStatus();
+		invoiceType = entity.getBH_InvoiceType();
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -101,8 +105,7 @@ public class Invoice extends BaseMetadata {
 		this.grandTotal = grandTotal;
 	}
 
-	@JsonIgnore
-	public boolean isIsSalesOrderTransaction() {
+	public boolean isSalesOrderTransaction() {
 		return isSalesOrderTransaction;
 	}
 
@@ -117,6 +120,10 @@ public class Invoice extends BaseMetadata {
 
 	public void setIsExpense(Boolean isExpense) {
 		this.isExpense = isExpense;
+		
+		if (isExpense) {
+			setInvoiceType(MInvoice_BH.EXPENSE_InvoiceType);
+		}
 	}
 
 	@XmlElement
@@ -169,5 +176,13 @@ public class Invoice extends BaseMetadata {
 
 	public void setDateInvoicedCreated(Timestamp dateInvoicedCreated) {
 		this.dateInvoicedCreated = dateInvoicedCreated;
+	}
+
+	public String getInvoiceType() {
+		return invoiceType;
+	}
+
+	public void setInvoiceType(String invoiceType) {
+		this.invoiceType = invoiceType;
 	}
 }
