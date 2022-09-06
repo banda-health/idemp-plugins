@@ -6,10 +6,11 @@ import {
 	paymentApi,
 	productApi,
 	productCategoryApi,
+	referenceListApi,
 	visitApi,
 	warehouseApi,
 } from '../api';
-import { ValueObject } from '../models';
+import { referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
 	BusinessPartner,
 	Charge,
@@ -19,6 +20,7 @@ import {
 	OrderLine,
 	Patient,
 	Payment,
+	PaymentType,
 	Product,
 	ProductCategory,
 	Visit,
@@ -276,6 +278,9 @@ export async function createPayment(valueObject: ValueObject) {
 		patient: valueObject.businessPartner as unknown as Patient,
 		description: valueObject.getStepMessageLong(),
 		payAmount: valueObject.invoice?.grandTotal || 1,
+		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+			(tenderType) => tenderType.name === tenderTypeName.CASH,
+		) as PaymentType,
 	};
 	valueObject.payment = await paymentApi.save(valueObject, payment as Payment);
 	if (!valueObject.payment) {
