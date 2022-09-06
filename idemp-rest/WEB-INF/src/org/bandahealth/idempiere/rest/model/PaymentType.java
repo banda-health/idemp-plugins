@@ -8,25 +8,14 @@ import org.compiere.model.MRefList;
 
 @XmlRootElement(name = "paymentType")
 @JsonInclude(value = Include.NON_NULL)
-public class PaymentType extends BaseEntity {
+public class PaymentType extends ReferenceList {
 
 	private static final long serialVersionUID = 1L;
 
 	public PaymentType() {
 	}
 
-	public PaymentType(String value) {
-		setValue(value);
-	}
-
-	public PaymentType(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			String name, String value) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, name, null);
-
-		setValue(value);
-	}
-
 	public PaymentType(MRefList entity) {
-		super(entity, entity.getName(), entity.getDescription(), entity.getValue());
+		super(entity);
 	}
 }

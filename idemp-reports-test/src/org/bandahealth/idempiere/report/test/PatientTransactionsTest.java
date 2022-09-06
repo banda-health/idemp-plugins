@@ -45,6 +45,29 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 	private static final String patientTransactionReportUuid = "4cf22d3f-1fc8-4bdd-83e1-fc5d79537269";
 
+	private Row getHeaderRow(Sheet sheet, String headerRowStartingColumnText) {
+		Optional<Row> headerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+						row -> row.getCell(row.getFirstCellNum()) != null &&
+								row.getCell(row.getFirstCellNum()).getCellType().equals(CellType.STRING) &&
+								row.getCell(row.getFirstCellNum()).getStringCellValue().equalsIgnoreCase(headerRowStartingColumnText))
+				.findFirst();
+		assertTrue(headerRow.isPresent(), "Header row exists");
+		return headerRow.get();
+	}
+
+	private int getColumnIndex(Row headerRow, String columnHeaderText) {
+		int columnIndex = -1;
+		for (int i = headerRow.getFirstCellNum(); i < headerRow.getLastCellNum(); i++) {
+			if (headerRow.getCell(i) != null && headerRow.getCell(i).getCellType().equals(CellType.STRING) &&
+					headerRow.getCell(i).getStringCellValue().equalsIgnoreCase(columnHeaderText)) {
+				columnIndex = i;
+				break;
+			}
+		}
+		assertTrue(columnIndex > -1, columnHeaderText + " column exists");
+		return columnIndex;
+	}
+
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -192,11 +215,13 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
-					.collect(Collectors.toList());
+			Row headerRow = getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
 
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null && row.getCell(5).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
 			assertEquals(1, patientRows.size(), "Patient only appears once");
 		}
 	}
@@ -281,10 +306,14 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
-					.collect(Collectors.toList());
+			Row headerRow = getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Patient only appears once");
 		}
@@ -397,26 +426,42 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
-					.collect(Collectors.toList());
+			Row headerRow = getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = getColumnIndex(headerRow, "Mobile Money");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
 
 			assertEquals(2, patientRows.size(), "Both of the patient's visits appear");
 			Optional<Row> firstVisit =
-					patientRows.stream().filter(row -> row.getCell(9).getNumericCellValue() == 15D).findFirst();
+					patientRows.stream().filter(row -> row.getCell(billTotalColumnIndex).getNumericCellValue() == 15D)
+							.findFirst();
 			assertTrue(firstVisit.isPresent(), "First visit is displayed");
 			Optional<Row> secondVisit =
-					patientRows.stream().filter(row -> row.getCell(9).getNumericCellValue() == 50D).findFirst();
+					patientRows.stream().filter(row -> row.getCell(billTotalColumnIndex).getNumericCellValue() == 50D)
+							.findFirst();
 			assertTrue(secondVisit.isPresent(), "Second visit is displayed");
 
-			assertEquals(15D, firstVisit.get().getCell(10).getNumericCellValue(), "First visit's total payment is correct");
-			assertEquals(9D, firstVisit.get().getCell(12).getNumericCellValue(), "First visit's cash payment is correct");
-			assertEquals(6D, firstVisit.get().getCell(13).getNumericCellValue(), "First visit's mobile payment is correct");
+			assertEquals(15D, firstVisit.get().getCell(totalPaymentColumnIndex).getNumericCellValue(),
+					"First visit's total payment is correct");
+			assertEquals(9D, firstVisit.get().getCell(cashColumnIndex).getNumericCellValue(),
+					"First visit's cash payment is correct");
+			assertEquals(6D, firstVisit.get().getCell(mobileMoneyColumnIndex).getNumericCellValue(),
+					"First visit's mobile payment is correct");
 
-			assertEquals(50D, secondVisit.get().getCell(10).getNumericCellValue(), "First visit's total payment is correct");
-			assertEquals(50D, secondVisit.get().getCell(12).getNumericCellValue(), "First visit's cash payment is correct");
-			assertEquals(0D, secondVisit.get().getCell(13).getNumericCellValue(), "First visit's mobile payment is correct");
+			assertEquals(50D, secondVisit.get().getCell(totalPaymentColumnIndex).getNumericCellValue(),
+					"First visit's total payment is correct");
+			assertEquals(50D, secondVisit.get().getCell(cashColumnIndex).getNumericCellValue(),
+					"First visit's cash payment is correct");
+			assertEquals(0D, secondVisit.get().getCell(mobileMoneyColumnIndex).getNumericCellValue(),
+					"First visit's mobile payment is correct");
 		}
 
 		valueObject.setStepName("Generate the report with Cash filter");
@@ -435,17 +480,29 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(5) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(5).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
-					.collect(Collectors.toList());
+			Row headerRow = getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = getColumnIndex(headerRow, "Mobile Money");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Only one of the patient's visits appear");
 
-			assertEquals(15D, patientRows.get(0).getCell(9).getNumericCellValue(), "Bill total is correct");
-			assertEquals(15D, patientRows.get(0).getCell(10).getNumericCellValue(), "Visit's total payment is correct");
-			assertEquals(9D, patientRows.get(0).getCell(12).getNumericCellValue(), "Visit's cash payment is correct");
-			assertEquals(6D, patientRows.get(0).getCell(13).getNumericCellValue(), "Visit's mobile payment is correct");
+			assertEquals(15D, patientRows.get(0).getCell(billTotalColumnIndex).getNumericCellValue(),
+					"Bill total is correct");
+			assertEquals(15D, patientRows.get(0).getCell(totalPaymentColumnIndex).getNumericCellValue(),
+					"Visit's total payment is correct");
+			assertEquals(9D, patientRows.get(0).getCell(cashColumnIndex).getNumericCellValue(),
+					"Visit's cash payment is correct");
+			assertEquals(6D, patientRows.get(0).getCell(mobileMoneyColumnIndex).getNumericCellValue(),
+					"Visit's mobile payment is correct");
 		}
 	}
 }

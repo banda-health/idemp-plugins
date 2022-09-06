@@ -1,7 +1,11 @@
 // @ts-create-index
 
+export * from './accounts';
 export * from './authentication';
 export * from './base';
+export * from './chargeTypes';
+export * from './charges';
+export * from './documentTypes';
 export * from './documents';
 export * from './invoices';
 export * from './menus';
