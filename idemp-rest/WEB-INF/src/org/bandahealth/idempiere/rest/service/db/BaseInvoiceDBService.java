@@ -126,6 +126,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 				}
 			}
 
+			invoice.setIsSOTrx(entity.isSalesOrderTransaction());
+
 			if (entity.getDateInvoiced() != null) {
 				invoice.setDateInvoiced(DateUtil.getTimestamp(entity.getDateInvoiced()));
 			}
@@ -135,8 +137,8 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			}
 
 			if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getUuid() != null) {
-				MBPartner_BH businessPartner =
-						businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
+				MBPartner_BH businessPartner = businessPartnerDBService
+						.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
 				invoice.setC_BPartner_ID(businessPartner.get_ID());
 			}
 
@@ -144,17 +146,23 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 
 			invoice.setIsApproved(true);
 			invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
-			invoice.setPaymentRule(entity.getPaymentRule());
+			if (!StringUtil.isNullOrEmpty(entity.getPaymentRule())) {
+				invoice.setPaymentRule(entity.getPaymentRule());
+			}
+			invoice.setBH_InvoiceType(entity.getInvoiceType());
 
 			beforeSave(entity, invoice);
 
 			// set target document type
+			int docTypeId;
 			if (!invoice.isSOTrx()) {
-				int apInvoiceId = getAPInvoiceDocumentTypeId();
-				invoice.setC_DocType_ID(apInvoiceId);
-				invoice.setC_DocTypeTarget_ID(apInvoiceId);
+				docTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_APInvoice);
+			} else {
+				docTypeId = MDocType.getDocType(MDocType.DOCBASETYPE_ARInvoice);
 			}
 
+			invoice.setC_DocTypeTarget_ID(docTypeId);
+			
 			invoice.saveEx();
 
 			// list of persisted invoice line ids
@@ -192,16 +200,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 	@Override
 	protected MInvoice_BH getModelInstance() {
 		return new MInvoice_BH(Env.getCtx(), 0, null);
-	}
-
-	/**
-	 * Get the Invoice (Vendor) document type id
-	 *
-	 * @return
-	 */
-	protected int getAPInvoiceDocumentTypeId() {
-		return new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_DocBaseType + "=?", null).setClient_ID()
-				.setParameters(MDocType.DOCBASETYPE_APInvoice).firstId();
 	}
 
 	/**

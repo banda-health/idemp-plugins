@@ -1,4 +1,6 @@
 import {
+	chargeApi,
+	chargeTypeApi,
 	invoiceApi,
 	patientApi,
 	paymentApi,
@@ -10,6 +12,9 @@ import {
 } from '../api';
 import { referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
+	BusinessPartner,
+	Charge,
+	ChargeType,
 	Invoice,
 	InvoiceLine,
 	OrderLine,
@@ -82,6 +87,25 @@ export async function createProduct(valueObject: ValueObject) {
 }
 
 /**
+ * Create a charge. If a charge already exists on the value object, this won't do anything.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+export async function createCharge(valueObject: ValueObject) {
+	valueObject.validate();
+
+	//use valueObject.clearCharge() to create new charge
+	if (!valueObject.charge) {
+		const charge: Partial<Charge> = {
+			orgId: 0,
+			description: valueObject.getStepMessageLong(),
+			name: `${valueObject.random}_${valueObject.scenarioName}`,
+		};
+		valueObject.charge = await chargeApi.save(valueObject, charge as Charge);
+	}
+}
+
+/**
  * Create an order (don't really have an ideal method for this at the moment - have to go through visits).
  * This requires a document type, a business partner, and a warehouse be selected on the value object.
  * @param valueObject The value object containing information to create the entity
@@ -143,7 +167,9 @@ export async function createOrder(valueObject: ValueObject) {
 export async function createInvoice(valueObject: ValueObject) {
 	valueObject.validate();
 
-	if (!valueObject.businessPartner) {
+	if (!valueObject.documentType) {
+		throw new Error('Document Type is Null');
+	} else if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
 	} else if (valueObject.order?.docStatus !== 'CO') {
 		throw new Error('Order Not Completed');
@@ -155,12 +181,69 @@ export async function createInvoice(valueObject: ValueObject) {
 		businessPartner: valueObject.businessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
+		isSalesOrderTransaction: valueObject.documentType!.isSalesTransaction,
 	};
 	const invoiceLine: Partial<InvoiceLine> = {
 		description: valueObject.getStepMessageLong(),
 		product: valueObject.product,
 		quantity: valueObject.quantity || 1,
 	};
+	invoiceLine.price = (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
+	invoice.invoiceLines?.push(invoiceLine as unknown as InvoiceLine);
+
+	valueObject.invoice = await invoiceApi.save(valueObject, invoice as Invoice);
+	if (!valueObject.invoice) {
+		throw new Error('Invoice not created');
+	}
+	valueObject.invoiceLine = valueObject.invoice!.invoiceLines[0];
+
+	if (valueObject.documentAction) {
+		valueObject.invoice = await invoiceApi.process(valueObject, valueObject.invoice!.uuid, valueObject.documentAction);
+		if (!valueObject.invoice) {
+			throw new Error('Invoice not processed');
+		}
+	}
+}
+
+/**
+ * Create an invoice. This requires a document type and a business partner, but no order to be selected on the value object.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+export async function createStandaloneInvoice(valueObject: ValueObject) {
+	valueObject.validate();
+
+	if (!valueObject.documentType) {
+		throw new Error('Document Type is Null');
+	} else if (!valueObject.businessPartner) {
+		throw new Error('Business Partner is Null');
+	}
+
+	const invoice: Partial<Invoice> = {
+		orgId: 0,
+		description: valueObject.getStepMessageLong(),
+		businessPartner: {
+			...valueObject.businessPartner,
+			patientNumber: undefined,
+			dateOfBirth: undefined,
+			gender: undefined,
+			nhifRelationship: undefined,
+			totalVisits: undefined,
+			isApproximateDateOfBirth: undefined,
+		} as BusinessPartner,
+		dateInvoiced: valueObject.date?.toISOString(),
+		invoiceLines: [],
+		isSalesOrderTransaction: valueObject.documentType!.isSalesTransaction,
+	};
+	const invoiceLine: Partial<InvoiceLine> = {
+		description: valueObject.getStepMessageLong(),
+		quantity: valueObject.quantity || 1,
+	};
+	if (valueObject.product) {
+		invoiceLine.product = valueObject.product;
+	} else if (valueObject.charge) {
+		invoiceLine.charge = valueObject.charge;
+	}
 	invoiceLine.price = (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
 	invoice.invoiceLines?.push(invoiceLine as unknown as InvoiceLine);
 
