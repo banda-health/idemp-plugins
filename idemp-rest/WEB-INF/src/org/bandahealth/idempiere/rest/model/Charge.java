@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.compiere.model.MElementValue;
 import org.compiere.model.MRefList;
 
 import java.util.ArrayList;
@@ -32,10 +33,10 @@ public class Charge extends BaseEntity {
 	}
 
 	public Charge(MCharge_BH entity, MChargeType_BH chargeType) {
-		this(entity, chargeType, null);
+		this(entity, chargeType, null, null);
 	}
 
-	public Charge(MCharge_BH entity, MChargeType_BH chargeType, MRefList subType) {
+	public Charge(MCharge_BH entity, MChargeType_BH chargeType, MRefList subType, MElementValue account) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 		setNeedAdditionalVisitInformation(entity.isBH_NeedAdditionalVisitInfo());
 		setChargeTypeId(entity.getC_ChargeType_ID());
@@ -46,6 +47,9 @@ public class Charge extends BaseEntity {
 		}
 		if (subType != null) {
 			setSubType(new ReferenceList(subType));
+		}
+		if (account != null) {
+			setAccount(new Account(account));
 		}
 	}
 
