@@ -21,10 +21,8 @@ beforeEach(async () => {
 	}
 
 	// Initialize the value object with the base login info of an Admin
-	globalThis.__VALUE_OBJECT__ = new ValueObject(
-		JSON.parse(stringifiedLoginInfo) as AuthResponse & { client: Client },
-	);
-	globalThis.__VALUE_OBJECT__.scenarioName = toCamelCase(expect.getState().currentTestName);
+	globalThis.__VALUE_OBJECT__ = new ValueObject(JSON.parse(stringifiedLoginInfo) as AuthResponse & { client: Client });
+	globalThis.__VALUE_OBJECT__.scenarioName = toCamelCase(expect.getState().currentTestName || 'No test name');
 });
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';

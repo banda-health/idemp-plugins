@@ -416,7 +416,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
-
+			
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 			List<S> entities = getTranslations(query.list());

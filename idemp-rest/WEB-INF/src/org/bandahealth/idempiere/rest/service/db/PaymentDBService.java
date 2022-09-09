@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,7 +119,11 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		}
 
 		if (entity.getPaymentType() != null) {
-			mPayment.setTenderType(entity.getPaymentType().getValue());
+			// get tender type by value
+			MRefList paymentTypeReference = referenceListDBService.getEntityByUuidFromDB(entity.getPaymentType().getUuid());
+			if (paymentTypeReference != null) {
+				mPayment.setTenderType(paymentTypeReference.getValue());
+			}
 		}
 
 		// get currency
@@ -167,32 +172,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	@Override
 	protected Payment createInstanceWithDefaultFields(MPayment_BH instance) {
-		try {
-			String nhifType = instance.getBH_NHIF_Type();
-			String relationship = instance.getbh_nhif_relationship();
-			String claimNumber = instance.getbh_nhif_claim_number();
-			String memberId = instance.getbh_nhif_member_id();
-			String number = instance.getNHIF_Number();
-			String memberName = instance.getbh_nhif_member_name();
-
-			Patient patient = null;
-			MBPartner_BH mPatient = patientDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
-			if (mPatient != null) {
-				patient = new Patient(mPatient.getC_BPartner_UU(), mPatient.getName(), mPatient.getTotalOpenBalance());
-			}
-
-			return new Payment(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Payment_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), patient,
-					instance.getBH_C_Order_ID(), instance.getPayAmt(), new PaymentType(instance.getTenderType()),
-					instance.getDescription(),
-					new NHIF(new NHIFType(nhifType), new NHIFRelationship(relationship), claimNumber, memberId, number,
-							memberName),
-					instance.getDocStatus(),
-					DateUtil.parseDateOnly(instance.getDateTrx()), instance.getBH_TenderAmount(), instance);
-		} catch (Exception ex) {
-			log.severe("Error creating product instance: " + ex);
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
@@ -331,5 +311,38 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 			return processEntity(entity.getUuid(), docAction);
 		}
 		return super.saveAndProcessEntity(entity, docAction);
+	}
+
+	@Override
+	public List<Payment> transformData(List<MPayment_BH> dbModels) {
+		if (dbModels == null || dbModels.isEmpty()) {
+			return new ArrayList<>();
+		}
+
+		Set<Integer> businessPartnerIds = dbModels.stream().map(MPayment_BH::getC_BPartner_ID).collect(Collectors.toSet());
+		Map<Integer, MBPartner_BH> businessPartnersById =
+				businessPartnerIds.isEmpty() ? new HashMap<>() : patientDBService.getByIds(businessPartnerIds);
+		Set<String> tenderTypeValues = dbModels.stream().map(MPayment_BH::getTenderType).collect(Collectors.toSet());
+		Map<String, MRefList> tenderTypesByValue = tenderTypeValues.isEmpty() ? new HashMap<>() :
+				referenceListDBService.getTypes(MReference_BH.TENDER_TYPE_AD_REFERENCE_UU, tenderTypeValues).stream()
+						.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
+
+		return dbModels.stream().map(payment -> {
+			Payment newPayment = new Payment(payment);
+			newPayment.setNhif(
+					new NHIF(new NHIFType(payment.getBH_NHIF_Type()), new NHIFRelationship(payment.getbh_nhif_relationship()),
+							payment.getbh_nhif_claim_number(), payment.getbh_nhif_member_id(), payment.getNHIF_Number(),
+							payment.getbh_nhif_member_name()));
+
+			if (businessPartnersById.containsKey(payment.getC_BPartner_ID())) {
+				MBPartner_BH businessPartner = businessPartnersById.get(payment.getC_BPartner_ID());
+				newPayment.setPatient(new Patient(businessPartner.getC_BPartner_UU(), businessPartner.getName(),
+						businessPartner.getTotalOpenBalance()));
+			}
+			if (tenderTypesByValue.containsKey(payment.getTenderType())) {
+				newPayment.setPaymentType(new PaymentType(tenderTypesByValue.get(payment.getTenderType())));
+			}
+			return newPayment;
+		}).collect(Collectors.toList());
 	}
 }

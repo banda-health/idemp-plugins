@@ -39,7 +39,8 @@ public class Payment extends BaseMetadata {
 		this.description = entity.getDescription();
 		this.docStatus = entity.getDocStatus();
 		this.transactionDate = DateUtil.parseDateOnly(entity.getDateTrx());
-		this.tenderType = entity.getTenderType();
+		this.tenderAmount = entity.getBH_TenderAmount();
+		setTenderType(entity.getTenderType());
 	}
 
 	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
