@@ -138,7 +138,7 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 
 	@Override
 	protected Charge createInstanceWithAllFields(MCharge_BH instance) {
-		return new Charge(instance);
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
@@ -191,11 +191,13 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 				.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 
 		return dbModels.stream().map(charge -> {
-			Charge chargeToReturn = createInstanceWithAllFields(charge);
+			Charge chargeToReturn = new Charge(charge);
 
 			// Now fill in the child data
-			chargeToReturn.setChargeType(new ChargeType(chargeTypesById.get(charge.getC_ChargeType_ID())));
-			if (!StringUtil.isNullOrEmpty(charge.getBH_SubType())) {
+			if (chargeTypesById.containsKey(charge.getC_ChargeType_ID())) {
+				chargeToReturn.setChargeType(new ChargeType(chargeTypesById.get(charge.getC_ChargeType_ID())));
+			}
+			if (!StringUtil.isNullOrEmpty(charge.getBH_SubType()) && subTypeByValue.containsKey(charge.getBH_SubType())) {
 				chargeToReturn.setSubType(new ReferenceList(subTypeByValue.get(charge.getBH_SubType())));
 			}
 			if (chargeInfoByCharge.containsKey(charge.get_ID())) {

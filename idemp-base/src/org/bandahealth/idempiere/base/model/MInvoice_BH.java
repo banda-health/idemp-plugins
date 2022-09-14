@@ -22,6 +22,10 @@ public class MInvoice_BH extends MInvoice {
 	public static final String PAYMENTRULE_MobileAccount = "A";
 	/** BH Cash Account = b */
 	public static final String PAYMENTRULE_BHCashAccount = "b";
+	
+	public static final String EXPENSE_InvoiceType = "e";
+	
+	public static final String INCOME_InvoiceType = "i";
 
 	/**
 	 * Column name BH_Processing
@@ -100,6 +104,29 @@ public class MInvoice_BH extends MInvoice {
 	 */
 	public String getBH_DocAction() {
 		return (String) get_Value(COLUMNNAME_BH_DocAction);
+	}
+	
+	/**
+	 * Column name BH_InvoiceType
+	 */
+	public static final String COLUMNNAME_BH_InvoiceType = "BH_InvoiceType";
+
+	/**
+	 * Set BH_InvoiceType.
+	 *
+	 * @param invoiceType
+	 */
+	public void setBH_InvoiceType(String invoiceType) {
+		set_Value(COLUMNNAME_BH_InvoiceType, invoiceType);
+	}
+
+	/**
+	 * Get BH_InvoiceType.
+	 *
+	 * @return BH_InvoiceType
+	 */
+	public String getBH_InvoiceType() {
+		return (String) get_Value(COLUMNNAME_BH_InvoiceType);
 	}
 
 	/**

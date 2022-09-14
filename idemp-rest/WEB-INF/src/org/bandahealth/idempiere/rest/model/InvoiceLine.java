@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.compiere.model.MInvoiceLine;
+
 import java.math.BigDecimal;
 
 /**
@@ -31,9 +35,20 @@ public class InvoiceLine extends BaseMetadata {
 	public InvoiceLine() {
 	}
 
+	public InvoiceLine(MInvoiceLine instance) {
+		super(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_InvoiceLine_UU(), instance.isActive(),
+				DateUtil.parse(instance.getCreated()), instance.getCreatedBy());
+
+		this.invoiceId = instance.getC_Invoice_ID();
+		this.price = instance.getPriceActual();
+		this.quantity = instance.getQtyEntered();
+		this.lineNetAmount = instance.getLineNetAmt();
+		this.description = instance.getDescription();
+	}
+
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity,
-										 BigDecimal lineNetAmount, String description) {
+			Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
+			String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.invoiceId = invoiceId;
@@ -45,8 +60,8 @@ public class InvoiceLine extends BaseMetadata {
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 ExpenseCategory expenseCategory, Integer invoiceId, BigDecimal price, BigDecimal quantity,
-										 BigDecimal lineNetAmount, String description) {
+			ExpenseCategory expenseCategory, Integer invoiceId, BigDecimal price, BigDecimal quantity,
+			BigDecimal lineNetAmount, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.expenseCategory = expenseCategory;
@@ -58,7 +73,7 @@ public class InvoiceLine extends BaseMetadata {
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, String description) {
+			Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.invoiceId = invoiceId;
@@ -69,7 +84,7 @@ public class InvoiceLine extends BaseMetadata {
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-										 Integer invoiceId, ExpenseCategory expenseCategory, BigDecimal price, String description) {
+			Integer invoiceId, ExpenseCategory expenseCategory, BigDecimal price, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.invoiceId = invoiceId;
