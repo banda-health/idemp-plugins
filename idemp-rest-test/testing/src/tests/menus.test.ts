@@ -24,6 +24,8 @@ test('correct menu names are returned', async () => {
 	expect(accountingMenu?.subMenus.find((menu) => menu.name === 'Non-Patient Payments')).not.toBeUndefined();
 	expect(accountingMenu?.subMenus.find((menu) => menu.name === 'Expense Categories')).not.toBeUndefined();
 	expect(accountingMenu?.subMenus.find((menu) => menu.name === 'Suppliers')).not.toBeUndefined();
+	// expect(accountingMenu?.subMenus.find((menu) => menu.name === 'Track Income')).not.toBeUndefined();
+	// expect(accountingMenu?.subMenus.find((menu) => menu.name === 'Income Categories')).not.toBeUndefined();
 
 	const backEndMenu = menus.find((menu) => menu.name === 'Back-End');
 	expect(backEndMenu).not.toBeUndefined();
