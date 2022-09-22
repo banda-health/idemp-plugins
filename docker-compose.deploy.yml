@@ -1,0 +1,6 @@
+services:
+  idempiere:
+    image: openhmis/banda-idempiere:${IDEMPIERE_VERSION}-full-${CODE_VERSION}
+    build:
+      context: ./
+      dockerfile: Dockerfile.deploy
