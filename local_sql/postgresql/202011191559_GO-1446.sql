@@ -1487,6 +1487,7 @@ ALTER TABLE BH_PaymentRef DROP CONSTRAINT IF EXISTS bh_paymentref_ad_client_id_f
 ALTER TABLE BH_PaymentRef ADD CONSTRAINT ADClient_BHPaymentRef FOREIGN KEY (AD_Client_ID) REFERENCES ad_client(ad_client_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE BH_PaymentRef DROP CONSTRAINT IF EXISTS bh_paymentref_ad_reference_id_fkey;
 ALTER TABLE BH_PaymentRef DROP CONSTRAINT IF EXISTS bh_paymentref_ad_org_id_fkey;
+ALTER TABLE BH_PaymentRef DROP CONSTRAINT IF EXISTS ADOrg_BHPaymentRef;
 ALTER TABLE BH_PaymentRef ADD CONSTRAINT ADOrg_BHPaymentRef FOREIGN KEY (AD_Org_ID) REFERENCES ad_org(ad_org_id) DEFERRABLE INITIALLY DEFERRED;
 
 SELECT update_sequences();
