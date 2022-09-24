@@ -1,3 +1,7 @@
+
+alter table c_payment
+    add column if not exists bh_c_order_id        numeric(10);
+
 CREATE OR REPLACE VIEW bh_c_order_v AS
 WITH payments AS (
          SELECT COALESCE(sum(p_1.payamt), 0::numeric) AS paytotal,
