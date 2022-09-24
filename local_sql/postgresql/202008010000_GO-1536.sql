@@ -1,20 +1,29 @@
-
-alter table c_payment
-    add column if not exists bh_c_order_id        numeric(10);
-
-CREATE OR REPLACE VIEW bh_c_order_v AS
-WITH payments AS (
-         SELECT COALESCE(sum(p_1.payamt), 0::numeric) AS paytotal,
-            p_1.bh_c_order_id AS c_order_id
-           FROM c_payment p_1
-          GROUP BY p_1.bh_c_order_id
-        )
- SELECT c.c_order_id,
-    c.c_bpartner_id,
-    COALESCE(c.grandtotal, 0::numeric) AS grandtotal,
-    COALESCE(p.paytotal, 0::numeric) AS paytotal,
-    COALESCE(c.grandtotal, 0::numeric) - COALESCE(p.paytotal, 0::numeric) AS amtleft
-   FROM c_order c
-     LEFT JOIN payments p ON c.c_order_id = p.c_order_id;
+DO
+$$
+	BEGIN
+		IF EXISTS(SELECT * FROM ad_migrationscript WHERE name = '202009011159_SYSTEM_BandaTables.sql') THEN
+			UPDATE ad_migrationscript
+			SET
+				name     = '202008011159_SYSTEM_BandaTables.sql',
+				filename = 'postgresql/202008011159_SYSTEM_BandaTables.sql'
+			WHERE
+				name = '202009011159_SYSTEM_BandaTables.sql';
+			
+			UPDATE ad_migrationscript
+			SET
+				name     = '202008011200_GO-1536_BandaDBInit.sql',
+				filename = 'postgresql/202008011200_GO-1536_BandaDBInit.sql'
+			WHERE
+				name = '202009011200_GO-1536_BandaDBInit.sql';
+			
+			UPDATE ad_migrationscript
+			SET
+				name     = '202008011201_Galmi-Sync.sql',
+				filename = 'postgresql/202008011201_Galmi-Sync.sql'
+			WHERE
+				name = '202009011201_Galmi-Sync.sql';
+		END IF;
+	END
+$$;
 
 SELECT register_migration_script('202008010000_GO-1536.sql') FROM dual;

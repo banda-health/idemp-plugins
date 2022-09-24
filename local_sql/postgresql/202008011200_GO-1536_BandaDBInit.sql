@@ -1241,4 +1241,4 @@ UPDATE ad_sysconfig set value='N' where ad_sysconfig_uu='f473c472-1285-4936-8bb8
 
 SELECT update_sequences();
 
-SELECT register_migration_script('202009011200_GO-1536_BandaDBInit.sql') FROM dual;
+SELECT register_migration_script('202008011200_GO-1536_BandaDBInit.sql') FROM dual;
