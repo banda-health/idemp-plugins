@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS tmp_c_bpartner;
 
 CREATE TEMP TABLE tmp_c_bpartner
 (
-    c_bpartner_id          numeric(10)   serial              	not null,        
+    c_bpartner_id          serial              			not null,        
     ad_client_id           numeric(10)                       	not null,
     ad_org_id              numeric(10)   default 0           	not null,
     isactive               char          default 'Y'::bpchar 	not null,
@@ -11,9 +11,16 @@ CREATE TEMP TABLE tmp_c_bpartner
     createdby              numeric(10)   default 100         	not null,
     updated                timestamp     default now()       	not null,
     updatedby              numeric(10)   default 100         	not null,
+    invoicerule	    char	  default 'I'			not null,
+    paymentrule	    char	  default 'B'			not null,
+    c_paymentterm_id	    numeric(10)  				not null,
+    m_pricelist_id	    numeric(10)				not null,
+    bh_patientid	    varchar(22),
+    bh_ispatient	    char	  default 'Y'::bpchar,
     value                  varchar(40)                       	not null,
     name                   varchar(120)                      	not null,
-    c_bp_group_id          numeric(10)                       	not null,
+    description	    varchar(100) default 'DO NOT CHANGE',
+    c_bp_group_id          numeric(10),
     c_bpartner_uu	    uuid         default uuid_generate_v4()	not null
 );
 
@@ -29,9 +36,10 @@ SELECT setval(
 	false
 );
 
-INSERT INTO tmp_c_bpartner (ad_client_id, name, value, c_bp_group_id) SELECT c.ad_client_id, CONCAT('OTC - ', c.name), (SELECT max(c_bpartner.value) + 1 FROM c_bpartner WHERE c_bpartner.ad_client_id = c.ad_client_id), c.ad_client_id FROM ad_client c WHERE c.ad_client_id > 999999;
+INSERT INTO tmp_c_bpartner (ad_client_id, name, value, c_bp_group_id, c_paymentterm_id, m_pricelist_id, bh_patientid) SELECT c.ad_client_id, CONCAT('OTC - ', c.name), (SELECT max(cast(c_bpartner.value as numeric)) + 1 FROM c_bpartner WHERE c_bpartner.ad_client_id = c.ad_client_id and isnumeric(c_bpartner.value)), (SELECT c_bp_group.c_bp_group_id FROM c_bp_group WHERE c_bp_group.ad_client_id = c.ad_client_id), (SELECT c_paymentterm_id FROM c_paymentterm WHERE c_paymentterm.ad_client_id = c.ad_client_id AND c_paymentterm.name = 'Immediate'), (SELECT COALESCE((SELECT g.m_pricelist_id from C_BP_Group g
+WHERE g.ad_client_id = c.ad_client_id and g.isdefault = 'Y'), (SELECT l.m_pricelist_id FROM m_pricelist l WHERE l.ad_client_id = c.ad_client_id and isdefault = 'Y' and issopricelist = 'Y'))), (SELECT COALESCE((SELECT MAX(CAST(c_bpartner.bh_patientid as NUMERIC)) + 1 FROM c_bpartner WHERE c_bpartner.ad_client_id = c.ad_client_id and isnumeric(c_bpartner.bh_patientid) and c_bpartner.bh_ispatient = 'Y' ), (SELECT CAST(c_bpartner.bh_patientid as NUMERIC) + 1 FROM c_bpartner WHERE c_bpartner.ad_client_id = c.ad_client_id and isnumeric(c_bpartner.bh_patientid) ORDER BY c_bpartner.created desc LIMIT 1))) FROM ad_client c WHERE c.ad_client_id > 999999 AND c.isactive = 'Y';
 
-INSERT INTO c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, c_bp_group_id, c_bpartner_uu) SELECT c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, c_bp_group_id, c_bpartner_uu FROM tmp_c_bpartner ON CONFLICT DO NOTHING;
+INSERT INTO c_bpartner (c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, invoicerule, paymentrule, c_paymentterm_id, m_pricelist_id, bh_patientid, bh_ispatient, value, name, description, c_bp_group_id, c_bpartner_uu) SELECT c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, invoicerule, paymentrule, c_paymentterm_id, m_pricelist_id, bh_patientid, bh_ispatient, value, name, description, c_bp_group_id, c_bpartner_uu FROM tmp_c_bpartner ON CONFLICT DO NOTHING;
 
 DROP TABLE tmp_c_bpartner;
 
