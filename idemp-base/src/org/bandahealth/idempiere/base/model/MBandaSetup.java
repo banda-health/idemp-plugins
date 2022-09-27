@@ -588,7 +588,7 @@ public class MBandaSetup {
 
 		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
 				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
-				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).setOnlyActiveRecords(true).first();
+				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 		if (userType == null) {
 			log.log(Level.SEVERE, "User type reference not defined");
 			return false;
@@ -596,7 +596,7 @@ public class MBandaSetup {
 
 		List<MRefList> userTypeValues = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
-				.setParameters(userType.getAD_Reference_ID()).list();
+				.setParameters(userType.getAD_Reference_ID()).setOnlyActiveRecords(true).list();
 
 		if (!createAdditionalRoles(userTypeValues, usersToAddRolesTo)) {
 			log.log(Level.SEVERE, "Error creating additional roles");
