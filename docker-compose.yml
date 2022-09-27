@@ -4,7 +4,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./testing:/home/src
+      - ./testing:${INSTALLATION_HOME}
     environment:
       - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
       - DB_HOST=${POSTGRES_HOST}
