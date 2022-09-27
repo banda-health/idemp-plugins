@@ -1,3 +1,85 @@
+-- create OTC bpartner groups..
+DROP TABLE IF EXISTS tmp_c_bp_group;
+
+CREATE TEMP TABLE tmp_c_bp_group
+(
+    c_bp_group_id        serial                     			not null,
+    ad_client_id         numeric(10)               			not null,
+    ad_org_id            numeric(10) default 0     			not null,
+    isactive             char        default 'Y'    			not null,
+    createdby            numeric(10) default 100    			not null,
+    updated              timestamp   default now()  			not null,
+    updatedby            numeric(10) default 100    			not null,
+    value                varchar(40) default 'OTC Patient'		not null,
+    name                 varchar(60) default 'OTC Patient'   	not null,
+    description          varchar(255) default 'DO NOT CHANGE',
+    prioritybase         char,
+    m_pricelist_id       numeric(10),
+    po_pricelist_id      numeric(10),
+    m_discountschema_id  numeric(10),
+    po_discountschema_id numeric(10),
+    creditwatchpercent   numeric,
+    pricematchtolerance  numeric,
+    c_dunning_id         numeric(10),
+    c_bp_group_uu        uuid        default uuid_generate_v4()	not null
+);
+
+-- SET sequence
+SELECT setval(
+	'tmp_c_bp_group_c_bp_group_id_seq', 
+	(
+		SELECT currentnext 
+		FROM ad_sequence 
+		WHERE name = 'C_BP_Group' 
+		LIMIT 1
+	)::INT, 
+	false
+);
+
+INSERT INTO tmp_c_bp_group (ad_client_id, ad_org_id, prioritybase, m_pricelist_id, po_pricelist_id, m_discountschema_id, po_discountschema_id, creditwatchpercent, pricematchtolerance, c_dunning_id) SELECT c.ad_client_id, bp.ad_org_id, bp.prioritybase, bp.m_pricelist_id, bp.po_pricelist_id, bp.m_discountschema_id, bp.po_discountschema_id, bp.creditwatchpercent, bp.pricematchtolerance, bp.c_dunning_id FROM ad_client c INNER JOIN c_bp_group bp ON c.ad_client_id = bp.ad_client_id WHERE c.ad_client_id > 999999 AND c.isactive = 'Y' AND bp.name = 'Standard' AND bp.isdefault = 'Y';
+
+INSERT INTO c_bp_group(c_bp_group_id, ad_client_id, ad_org_id, isactive, createdby, updated, updatedby, value, name, description, prioritybase, m_pricelist_id, po_pricelist_id, m_discountschema_id, po_discountschema_id, creditwatchpercent, pricematchtolerance, c_dunning_id, c_bp_group_uu) SELECT c_bp_group_id, ad_client_id, ad_org_id, isactive, createdby, updated, updatedby, value, name, description, prioritybase, m_pricelist_id, po_pricelist_id, m_discountschema_id, po_discountschema_id, creditwatchpercent, pricematchtolerance, c_dunning_id, c_bp_group_uu FROM tmp_c_bp_group ON CONFLICT DO NOTHING;
+
+-- Add OTC bp group a/cs
+DROP TABLE IF EXISTS tmp_c_bp_group_acct;
+
+CREATE TEMP TABLE tmp_c_bp_group_acct
+(
+    c_acctschema_id             serial                     	  not null,
+    c_bp_group_id               numeric(10)                     not null,
+    ad_client_id                numeric(10)                     not null,
+    ad_org_id                   numeric(10)                     not null,
+    isactive                    char        default 'Y'	  not null,
+    created                     timestamp   default now()       not null,
+    createdby                   numeric(10) default 100         not null,
+    updated                     timestamp   default now()       not null,
+    updatedby                   numeric(10) default 100         not null,
+    c_receivable_acct           numeric(10)                     not null,
+    c_prepayment_acct           numeric(10)                     not null,
+    v_liability_acct            numeric(10)                     not null,
+    v_liability_services_acct   numeric(10),
+    v_prepayment_acct           numeric(10)                     not null,
+    paydiscount_exp_acct        numeric(10)                     not null,
+    paydiscount_rev_acct        numeric(10)                     not null,
+    writeoff_acct               numeric(10)                     not null,
+    notinvoicedreceipts_acct    numeric(10)                     not null,
+    unearnedrevenue_acct        numeric(10),
+    notinvoicedrevenue_acct     numeric(10),
+    notinvoicedreceivables_acct numeric(10),
+    processing                  char,
+    c_receivable_services_acct  numeric(10),
+    c_bp_group_acct_uu          uuid        default uuid_generate_v4()
+);
+
+-- needs fixing
+INSERT INTO tmp_c_bp_group_acct (c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, c_receivable_acct, c_prepayment_acct, v_liability_acct, v_liability_services_acct, v_prepayment_acct, paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct, notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct, notinvoicedreceivables_acct, processing, c_receivable_services_acct) SELECT bpa.c_acctschema_id, bp2.c_bp_group_id, bpa.ad_client_id, bpa.ad_org_id, bpa.c_receivable_acct, bpa.c_prepayment_acct, bpa.v_liability_acct, bpa.v_liability_services_acct, bpa.v_prepayment_acct, bpa.paydiscount_exp_acct, bpa.paydiscount_rev_acct, bpa.writeoff_acct, bpa.notinvoicedreceipts_acct, bpa.unearnedrevenue_acct, bpa.notinvoicedrevenue_acct, bpa.notinvoicedreceivables_acct, bpa.processing, bpa.c_receivable_services_acct FROM ad_client c INNER JOIN c_bp_group_acct bpa ON c.ad_client_id = bpa.ad_client_id INNER JOIN c_bp_group bp ON bpa.c_bp_group_id = bp.c_bp_group_id AND bp.name = 'Standard' INNER JOIN c_bp_group bp2 ON bp.ad_client_id = bp2.ad_client_id AND bp2.name = 'OTC Patient' WHERE c.ad_client_id > 999999 AND c.isactive = 'Y' AND bp.name = 'OTC Patient' AND bp.isdefault = 'N';
+
+INSERT INTO c_bp_group_acct (c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct, v_liability_acct, v_liability_services_acct, v_prepayment_acct, paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct, notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct, notinvoicedreceivables_acct, processing, c_receivable_services_acct, c_bp_group_acct_uu) SELECT c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct, v_liability_acct, v_liability_services_acct, v_prepayment_acct, paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct, notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct, notinvoicedreceivables_acct, processing, c_receivable_services_acct, c_bp_group_acct_uu FROM tmp_c_bp_group_acct;
+
+DROP TABLE tmp_c_bp_group_acct;
+
+DROP TABLE tmp_c_bp_group;
+
 -- Add OTC patient to existing clients.
 DROP TABLE IF EXISTS tmp_c_bpartner;
 
