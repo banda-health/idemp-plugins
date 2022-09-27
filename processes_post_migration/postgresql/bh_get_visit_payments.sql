@@ -1,3 +1,4 @@
+DROP FUNCTION bh_get_visit_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
                                                  end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE

@@ -1,3 +1,4 @@
+DROP FUNCTION get_inventory_changes(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE OR REPLACE FUNCTION get_inventory_changes(ad_client_id numeric,
                                                  start_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
                                                  end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
@@ -8,7 +9,6 @@ CREATE OR REPLACE FUNCTION get_inventory_changes(ad_client_id numeric,
 		        purchase_price            numeric,
 		        purchase_date             timestamp WITHOUT TIME ZONE,
 		        sell_price                numeric,
-		        sell_date                 timestamp WITHOUT TIME ZONE,
 		        cost_of_goods_sold        numeric,
 		        gross_profit              numeric,
 		        ending_stock              numeric,
@@ -48,7 +48,6 @@ BEGIN
 			p.PurchasePrice                                           AS purchase_price,
 			p.PurchaseDate                                            AS purchase_date,
 			p.sell_price,
-			p.sell_date,
 			CASE
 				WHEN p.PurchasePrice IS NULL THEN NULL
 				ELSE p.soldstock * p.PurchasePrice END                  AS cost_of_goods_sold,
@@ -70,8 +69,7 @@ BEGIN
 					COALESCE(stocktakechange.qtybalanced, 0) AS balancestock,
 					product_costs.purchase_price             AS PurchasePrice,
 					product_costs.purchase_date              AS PurchaseDate,
-					stocksold.price                          AS sell_price,
-					stocksold.sell_date
+					stocksold.price                          AS sell_price
 				FROM
 					(
 						SELECT
@@ -149,7 +147,6 @@ BEGIN
 							iol.m_product_id,
 							iolma.m_attributesetinstance_id,
 							ol.priceactual         AS price,
-							ol.dateordered         AS sell_date,
 							SUM(iolma.movementqty) AS qtysold
 						FROM
 							m_inoutline iol
@@ -168,8 +165,7 @@ BEGIN
 						GROUP BY
 							iol.m_product_id,
 							iolma.m_attributesetinstance_id,
-							ol.priceactual,
-							ol.dateordered
+							ol.priceactual
 					) stocksold
 							ON productname.m_product_id = stocksold.m_product_id
 						AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
@@ -184,6 +180,3 @@ BEGIN
 			OR balancestock > 0;
 END
 $$;
-
-
-

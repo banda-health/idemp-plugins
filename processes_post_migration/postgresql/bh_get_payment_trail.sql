@@ -1,3 +1,4 @@
+DROP FUNCTION bh_get_payment_trail(character varying);
 CREATE OR REPLACE FUNCTION bh_get_payment_trail(c_bpartner_uu character varying)
 	RETURNS TABLE
 	        (
