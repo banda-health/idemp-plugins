@@ -239,6 +239,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order completed");
+		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create cash payment");
@@ -261,6 +262,30 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 				valueObject.getPayment().get_ID(), valueObject.getTransactionName());
 		valueObject.getPayment().saveEx();
 		commitEx();
+
+		// TODO: Uncomment when we've fixed the open balance stuff
+//		valueObject.setStepName("Re-open order");
+//		valueObject.getOrder().setDocAction(DocAction.ACTION_ReActivate);
+//		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_ReActivate), "Order re-activated");
+//		valueObject.getOrder().saveEx();
+//		commitEx();
+//
+//		valueObject.setStepName("Re-complete order");
+//		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+//		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order re-completed");
+//		valueObject.getOrder().saveEx();
+//		commitEx();
+//
+//		valueObject.setStepName("Complete payment that was auto-created after re-opening a visit");
+//		List<MPayment_BH> recreatedPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
+//				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
+//				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+//				.list();
+//		assertEquals(1, recreatedPayments.size(), "Assigned payment was re-created when visit re-opened");
+//		recreatedPayments.get(0).setDocAction(MPayment_BH.DOCACTION_Complete);
+//		recreatedPayments.get(0).processIt(MPayment_BH.DOCACTION_Complete);
+//		recreatedPayments.get(0).saveEx();
+//		commitEx();
 
 		valueObject.setStepName("Create mobile payment for today");
 		valueObject.setDateOffset(1);
