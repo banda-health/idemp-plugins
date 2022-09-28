@@ -597,7 +597,7 @@ public class MBandaSetup {
 
 		List<MRefList> userTypeValues = new Query(Env.getCtx(), MRefList.Table_Name,
 				MRefList.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
-				.setParameters(userType.getAD_Reference_ID()).list();
+				.setParameters(userType.getAD_Reference_ID()).setOnlyActiveRecords(true).list();
 
 		if (!createAdditionalRoles(userTypeValues, usersToAddRolesTo)) {
 			log.log(Level.SEVERE, "Error creating additional roles");
