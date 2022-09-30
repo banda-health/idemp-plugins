@@ -1,20 +1,13 @@
 package org.bandahealth.idempiere.base.process.call;
 
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 import java.util.Properties;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.callback.ProcessCallback;
-import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.compiere.model.MInvoice;
 import org.compiere.model.MMessage;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
@@ -76,48 +69,9 @@ public class ProcessSalesOrder {
 			if (!salesOrderIsComplete) {
 				callback.onError("Error trying to complete order " + salesOrder.getC_Order_ID(), context,
 						transactionName);
-				return;
+			} else {
+				callback.onSuccess(context, transactionName);
 			}
-			salesOrder.saveEx();
-			Optional<MInvoice> invoice = Arrays.stream(salesOrder.getInvoices()).filter(MInvoice::isComplete).findFirst();
-			if (invoice.isEmpty()) {
-				callback.onError("Error trying to complete order " + salesOrder.getC_Order_ID() + " - invoice wasn't created",
-						context, transactionName);
-				return;
-			}
-			// Get the payments associated with this order and complete them
-			List<MPayment_BH> orderPayments = new Query(context, MPayment_BH.Table_Name,
-					MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + " NOT IN (?)",
-					transactionName).setParameters(salesOrder.get_ID(), MPayment_BH.DOCSTATUS_Reversed).list();
-			AtomicBoolean successfullyCompletedPayments = new AtomicBoolean(true);
-			AtomicBoolean successfullyAllocatedPayments = new AtomicBoolean(true);
-			orderPayments.forEach(payment -> {
-				if (!payment.isComplete()) {
-					payment.setC_Invoice_ID(invoice.get().get_ID());
-					payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-					if (!payment.processIt(MPayment_BH.DOCACTION_Complete)) {
-						successfullyCompletedPayments.set(false);
-						return;
-					}
-				} else if (!payment.isAllocated()) {
-					if (!payment.allocateIt()) {
-						successfullyAllocatedPayments.set(false);
-						return;
-					}
-				}
-				payment.saveEx();
-			});
-			if (!successfullyCompletedPayments.get()) {
-				callback.onError("Error trying to complete order payments " + salesOrder.getC_Order_ID(), context,
-						transactionName);
-				return;
-			}
-			if (!successfullyAllocatedPayments.get()) {
-				callback.onError("Error trying to allocate order payments " + salesOrder.getC_Order_ID(), context,
-						transactionName);
-				return;
-			}
-			callback.onSuccess(context, transactionName);
 		} catch (AdempiereException ex) {
 			callback.onError("Could not complete order " + salesOrder.getC_Order_ID() + ". Error: " + ex.getMessage(),
 					context, transactionName);
