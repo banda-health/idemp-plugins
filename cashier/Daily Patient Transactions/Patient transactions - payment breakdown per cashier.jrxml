@@ -56,105 +56,152 @@
 		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[WITH params AS (
-    SELECT
-        $P{AD_CLIENT_ID} AS ad_client_id,
-        to_timestamp($P{Begin Date}, 'YYYY-MM-DD HH24:MI') AS begin_date,
-        to_timestamp($P{End Date}, 'YYYY-MM-DD HH24:MI') AS end_date,
-        coalesce($P{Patient Type}, '') AS patient_type,
-        coalesce($P{Payment Mode}, '') AS payment_mode,
-        coalesce($P{AD_User_UU}, '') AS ad_user_uu
-), billdetails as (
-    select co.c_order_id,
-           cb.c_bpartner_id,
-           co.bh_visitdate as bill_date,
-           ad_user.name as Cashier,
-           cb.name as patientname,
-           sum(ol.linenetamt) as lineitemtotals
-    from c_order co
-        inner join c_bpartner cb on co.c_bpartner_id = cb.c_bpartner_id
-        inner join ad_user on co.createdby = ad_user.ad_user_id
-        join c_orderline ol on co.c_order_id = ol.c_order_id
-        cross join params p
-    where ((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
-          AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
-          AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
-          AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
-          AND issotrx = 'Y'
-        )
-        AND ol.c_charge_id IS NULL
-    group by co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
-    order by 1
-), payment_filter as (
-    select bh_c_order_id
-    from c_payment p
-    inner join c_order co on co.c_order_id = p.bh_c_order_id
-    cross join params par
-    where ((p.ad_client_id = par.ad_client_id)
-        and ((p.docstatus = 'CO')
-        or (p.docstatus = 'DR' and p.bh_processing = 'Y')
-        or (co.docstatus = 'CO' and p.bh_processing = 'N'))
-        and (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
-                 OR (tendertype = par.payment_mode and par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-        )
-    group by bh_c_order_id
-    union
-    select o.c_order_id
-    from c_order o
-        join c_orderline ol on ol.c_order_id = o.c_order_id
-        join c_charge c on ol.c_charge_id = c.c_charge_id
-        cross join params p
-    where ol.c_charge_id IS NOT NULL
-        and (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
-                 OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-                         and p.payment_mode IN ('I', 'W', 'T')))
-    order by 1
-), patient_payments as (
-    select p.bh_c_order_id as c_order_id,
-           sum(p.payamt) as amount,
-           case when rl.value NOT IN ('X', 'M', 'C', 'D', 'K') then 'Other' else rl.name end as payment_type
-    from c_payment p
-        cross join params
-        join payment_filter pf on p.bh_c_order_id = pf.bh_c_order_id
-        join ad_ref_list rl on rl.value = tendertype AND rl.ad_reference_id = 214
-    where p.ad_client_id = params.ad_client_id
-    group by p.bh_c_order_id, case when rl.value NOT IN ('X', 'M', 'C', 'D', 'K') then 'Other' else rl.name end
-), non_patient_payments as (
-    select ol.c_order_id,
-           sum(ol.linenetamt) * -1 as amount,
-           rl.name as payment_type
-    from c_orderline ol
-        join c_order o on ol.c_order_id = o.c_order_id
-        cross join params p
-        join payment_filter pf on o.c_order_id = pf.bh_c_order_id
-        join c_charge c on ol.c_charge_id = c.c_charge_id
-        left join (
-            select olci.c_orderline_id, olci.name
-            from bh_orderline_charge_info olci
-                join bh_charge_info ci ON olci.bh_charge_info_id = ci.bh_charge_info_id
-            where (ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-        ) as olci on olci.c_orderline_id = ol.c_orderline_id
-        join ad_ref_list rl on c.bh_subtype = rl.value
-        join ad_reference r on rl.ad_reference_id = r.ad_reference_id AND r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
-    where o.bh_visitdate between p.begin_date and p.end_date
-    group by ol.c_order_id, rl.name
-)
-select
-    billdetails.c_order_id,
-    billdetails.Cashier as Cashiername,
-    patient_payments.amount as paymentamount,
-    patient_payments.payment_type as paymentmode
-from billdetails
-    left join patient_payments on billdetails.c_order_id = patient_payments.c_order_id
-where patient_payments.payment_type is not null and patient_payments.amount is not null
-union
-select
-    billdetails.c_order_id,
-    billdetails.Cashier as Cashier,
-    non_patient_payments.amount as paymentamount,
-    non_patient_payments.payment_type as paymentmode
-from billdetails
-    left join non_patient_payments on billdetails.c_order_id = non_patient_payments.c_order_id
-where non_patient_payments.payment_type is not null and non_patient_payments.amount is not null]]>
+	SELECT
+		$P{AD_CLIENT_ID}                                AS ad_client_id,
+		TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI') AS begin_date,
+		TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI') AS end_date,
+		COALESCE($P{Patient Type}, '')                       AS patient_type,
+		COALESCE($P{Payment Mode}, '')                       AS payment_mode,
+		COALESCE($P{AD_User_UU}, '')                       AS ad_user_uu
+),
+	billdetails AS (
+		SELECT
+			co.c_order_id,
+			cb.c_bpartner_id,
+			co.bh_visitdate    AS bill_date,
+			ad_user.name       AS Cashier,
+			cb.name            AS patientname,
+			SUM(ol.linenetamt) AS lineitemtotals
+		FROM
+			c_order co
+				INNER JOIN c_bpartner cb
+					ON co.c_bpartner_id = cb.c_bpartner_id
+				INNER JOIN ad_user
+					ON co.createdby = ad_user.ad_user_id
+				JOIN c_orderline ol
+					ON co.c_order_id = ol.c_order_id
+				CROSS JOIN params p
+		WHERE
+			((co.ad_client_id = p.ad_client_id) AND (co.docstatus <> 'VO')
+				AND (co.bh_visitdate BETWEEN p.begin_date AND p.end_date)
+				AND (p.patient_type = '' OR co.bh_patienttype = p.patient_type)
+				AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
+				AND issotrx = 'Y'
+				)
+			AND ol.c_charge_id IS NULL
+		GROUP BY co.c_order_id, cb.c_bpartner_id, co.bh_visitdate, cb.name, ad_user.name
+		ORDER BY 1
+	),
+	payment_filter AS (
+		SELECT
+			bh_c_order_id
+		FROM
+			c_payment p
+				INNER JOIN c_order co
+					ON co.c_order_id = p.bh_c_order_id
+				CROSS JOIN params par
+		WHERE
+			((p.ad_client_id = par.ad_client_id)
+				AND ((p.docstatus = 'CO')
+					OR (p.docstatus = 'DR' AND p.bh_processing = 'Y')
+					OR (co.docstatus = 'CO' AND p.bh_processing = 'N'))
+				AND (par.payment_mode = '' OR par.payment_mode IN ('I', 'W', 'T')
+					OR (tendertype = par.payment_mode AND par.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+				)
+		GROUP BY bh_c_order_id
+		UNION
+		SELECT
+			o.c_order_id
+		FROM
+			c_order o
+				JOIN c_orderline ol
+					ON ol.c_order_id = o.c_order_id
+				JOIN c_charge c
+					ON ol.c_charge_id = c.c_charge_id
+				CROSS JOIN params p
+		WHERE
+			ol.c_charge_id IS NOT NULL
+			AND (p.payment_mode = '' OR p.payment_mode IN ('X', 'K', 'C', 'D', 'M')
+			OR (c.name = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+				AND p.payment_mode IN ('I', 'W', 'T')))
+		ORDER BY 1
+	),
+	patient_payments AS (
+		SELECT
+			p.bh_c_order_id                                                                   AS c_order_id,
+			SUM(p.payamt)                                                                     AS amount,
+			CASE WHEN rl.value NOT IN ('X', 'M', 'C', 'D', 'K') THEN 'Other' ELSE rl.name END AS payment_type
+		FROM
+			c_payment p
+				CROSS JOIN params
+				JOIN payment_filter pf
+					ON p.bh_c_order_id = pf.bh_c_order_id
+				JOIN ad_ref_list rl
+					ON rl.value = tendertype AND rl.ad_reference_id = 214
+		WHERE
+			p.ad_client_id = params.ad_client_id
+		GROUP BY p.bh_c_order_id, CASE WHEN rl.value NOT IN ('X', 'M', 'C', 'D', 'K') THEN 'Other' ELSE rl.name END
+	),
+	non_patient_payments AS (
+		SELECT
+			ol.c_order_id,
+			SUM(ol.linenetamt) * -1 AS amount,
+			rl.name                 AS payment_type
+		FROM
+			c_orderline ol
+				JOIN c_order o
+					ON ol.c_order_id = o.c_order_id
+				CROSS JOIN params p
+				JOIN payment_filter pf
+					ON o.c_order_id = pf.bh_c_order_id
+				JOIN c_charge c
+					ON ol.c_charge_id = c.c_charge_id
+				LEFT JOIN (
+				SELECT
+					olci.c_orderline_id,
+					olci.name
+				FROM
+					bh_orderline_charge_info olci
+						JOIN bh_charge_info ci
+							ON olci.bh_charge_info_id = ci.bh_charge_info_id
+				WHERE
+					(ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
+			) AS olci
+					ON olci.c_orderline_id = ol.c_orderline_id
+				JOIN ad_ref_list rl
+					ON c.bh_subtype = rl.value
+				JOIN ad_reference r
+					ON rl.ad_reference_id = r.ad_reference_id AND r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
+		WHERE
+			o.bh_visitdate BETWEEN p.begin_date AND p.end_date
+		GROUP BY ol.c_order_id, rl.name
+	)
+SELECT
+	billdetails.c_order_id,
+	billdetails.Cashier           AS Cashiername,
+	patient_payments.amount       AS paymentamount,
+	patient_payments.payment_type AS paymentmode
+FROM
+	billdetails
+		LEFT JOIN patient_payments
+			ON billdetails.c_order_id = patient_payments.c_order_id
+WHERE
+	patient_payments.payment_type IS NOT NULL
+	AND patient_payments.amount IS NOT NULL
+UNION
+SELECT
+	billdetails.c_order_id,
+	billdetails.Cashier               AS Cashier,
+	non_patient_payments.amount       AS paymentamount,
+	non_patient_payments.payment_type AS paymentmode
+FROM
+	billdetails
+		LEFT JOIN non_patient_payments
+			ON billdetails.c_order_id = non_patient_payments.c_order_id
+WHERE
+	non_patient_payments.payment_type IS NOT NULL
+	AND non_patient_payments.amount IS NOT NULL
+]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
