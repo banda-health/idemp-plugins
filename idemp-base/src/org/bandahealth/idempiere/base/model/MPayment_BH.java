@@ -2,15 +2,26 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.compiere.model.MAllocationHdr;
+import org.compiere.model.MAllocationLine;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MDocTypeCounter;
+import org.compiere.model.MInvoice;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPayment;
+import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
+import org.compiere.util.Msg;
 
 public class MPayment_BH extends MPayment {
 
@@ -110,10 +121,88 @@ public class MPayment_BH extends MPayment {
 		super(ctx, rs, trxName);
 	}
 
+	@Override
+	public boolean allocateIt() {
+		// If this is assigned to a visit, we'll allocate against the invoice
+		MAllocationHdr allocationHeader = new MAllocationHdr(getCtx(), false, getDateTrx(), getC_Currency_ID(),
+				Msg.translate(getCtx(), "C_Payment_ID") + ": " + getDocumentNo(), get_TrxName());
+		allocationHeader.setAD_Org_ID(getAD_Org_ID());
+		allocationHeader.setDateAcct(
+				getDateAcct()); // in case date acct is different from datetrx in payment; IDEMPIERE-1532 tbayen
+		if (getBH_C_Order_ID() > 0) {
+			allocationHeader.saveEx();
+			// Get the invoice amount
+			MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
+					get_TrxName()).setParameters(getBH_C_Order_ID()).first();
+			if (!order.isComplete()) {
+				get_Logger().severe("Order isn't complete - can't allocate against any of it's invoices");
+				return false;
+			}
+			Optional<MInvoice> invoice =
+					Arrays.stream(order.getInvoices()).filter(MInvoice::isComplete).filter(Predicate.not(MInvoice::isPaid))
+							.findFirst();
+			if (invoice.isEmpty()) {
+				get_Logger().severe("Invoice isn't complete for order - can't allocate against it");
+				return false;
+			}
+			BigDecimal payAmount = invoice.get().getGrandTotal();
+			// If the invoiced amount is greater than the payment, only allocate what was paid
+			if (payAmount.compareTo(getPayAmt()) > 0) {
+				payAmount = getPayAmt();
+			}
+			MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO, Env.ZERO);
+			allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
+			allocationLine.setC_Payment_ID(getC_Payment_ID());
+			allocationLine.setC_Invoice_ID(invoice.get().get_ID());
+			allocationLine.saveEx(get_TrxName());
+			if (!allocationHeader.processIt(DocAction.ACTION_Complete)) {
+				throw new AdempiereException(
+						Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + allocationHeader.getProcessMsg());
+			}
+			allocationHeader.saveEx();
+			return true;
+		}
+		// If this is a receipt and the invoice is empty, start allocating against the oldest, unpaid invoice
+		if (getC_Invoice_ID() == 0 && isReceipt()) {
+			allocationHeader.saveEx();
+			List<MInvoice_BH> unpaidInvoices = new Query(getCtx(), MInvoice_BH.Table_Name,
+					MInvoice_BH.COLUMNNAME_C_BPartner_ID + "=? AND " + MInvoice_BH.COLUMNNAME_DocStatus + "=? AND " +
+							MInvoice_BH.COLUMNNAME_IsPaid + "=?", get_TrxName()).setParameters(getC_BPartner_ID(),
+					MInvoice_BH.DOCSTATUS_Completed, "N").setOrderBy(MInvoice_BH.COLUMNNAME_Created + " ASC").list();
+			BigDecimal remainingPayment = getPayAmt();
+			for (MInvoice_BH unpaidInvoice : unpaidInvoices) {
+				if (remainingPayment.signum() <= 0) {
+					break;
+				}
+				BigDecimal payAmount = unpaidInvoice.getGrandTotal();
+				// If this invoice is greater than what's remaining, just use the amount remaining for allocation
+				if (payAmount.compareTo(remainingPayment) > 0) {
+					payAmount = remainingPayment;
+				}
+				MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO,
+						Env.ZERO);
+				allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
+				allocationLine.setC_Payment_ID(getC_Payment_ID());
+				allocationLine.setC_Invoice_ID(unpaidInvoice.get_ID());
+				allocationLine.saveEx(get_TrxName());
+				remainingPayment = remainingPayment.subtract(payAmount);
+			}
+			if (!allocationHeader.processIt(DocAction.ACTION_Complete)) {
+				throw new AdempiereException(
+						Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + allocationHeader.getProcessMsg());
+			}
+			allocationHeader.saveEx();
+			return true;
+		}
+		// Otherwise, pass it up
+		allocationHeader.delete(true);
+		return super.allocateIt();
+	}
+
 	/**
-	 * Copy a payment, typically meant to be done when a visit is reactivated and all old payments are reversed.
+	 * Copy the payment, typically meant to be done when a visit is reactivated and all old payments are reversed.
 	 * Largely copied from {@link MPayment#createCounterDoc()}
-	 * @param payment The payment to copy from
+	 *
 	 * @return The new, unsaved payment
 	 */
 	public MPayment_BH copy() {
@@ -134,13 +223,13 @@ public class MPayment_BH extends MPayment {
 		newPayment.setDiscountAmt(getDiscountAmt());
 		newPayment.setTaxAmt(getTaxAmt());
 		newPayment.setWriteOffAmt(getWriteOffAmt());
-		newPayment.setIsOverUnderPayment (isOverUnderPayment());
+		newPayment.setIsOverUnderPayment(isOverUnderPayment());
 		newPayment.setOverUnderAmt(getOverUnderAmt());
 		newPayment.setC_Currency_ID(getC_Currency_ID());
 		newPayment.setC_ConversionType_ID(getC_ConversionType_ID());
 		//
-		newPayment.setDateTrx (getDateTrx());
-		newPayment.setDateAcct (getDateAcct());
+		newPayment.setDateTrx(getDateTrx());
+		newPayment.setDateAcct(getDateAcct());
 		newPayment.setRef_Payment_ID(getC_Payment_ID());
 		//
 		newPayment.setC_BankAccount_ID(getC_BankAccount_ID());
