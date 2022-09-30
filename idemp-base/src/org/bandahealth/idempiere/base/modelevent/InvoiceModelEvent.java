@@ -13,28 +13,51 @@ public class InvoiceModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void initialize() {
+
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MInvoice_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_AFTER_NEW, MInvoice_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MInvoice_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_AFTER_CHANGE, MInvoice_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_DELETE, MInvoice_BH.Table_Name);
 	}
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		MInvoice_BH invoice;
+		MInvoice_BH charge = null;
 		PO persistentObject = getPO(event);
 		if (persistentObject instanceof MInvoice_BH) {
-			invoice = (MInvoice_BH) persistentObject;
+			charge = (MInvoice_BH) persistentObject;
 		} else {
 			return;
 		}
 
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			beforeSaveRequest(invoice);
+			beforeSaveRequest(charge);
+		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
+			afterSaveRequest(charge);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
+			beforeChangeRequest(charge);
+		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
+			afterChangeRequest(charge);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_DELETE)) {
+			beforeDeleteRequest(charge);
 		}
 	}
 
+	private void beforeChangeRequest(MInvoice_BH invoice) {
+	}
+
+	private void afterChangeRequest(MInvoice_BH invoice) {
+	}
+
 	private void beforeSaveRequest(MInvoice_BH invoice) {
-		if (invoice.getDateAcct() == null) {
-			// Update account date to be same as invoice date
-			invoice.setDateAcct(invoice.getDateInvoiced());
-		}
+		// Update account date to be same as invoice date
+		invoice.setDateAcct(invoice.getDateInvoiced());
+	}
+
+	private void afterSaveRequest(MInvoice_BH invoice) {
+	}
+
+	private void beforeDeleteRequest(MInvoice_BH invoice) {
 	}
 }

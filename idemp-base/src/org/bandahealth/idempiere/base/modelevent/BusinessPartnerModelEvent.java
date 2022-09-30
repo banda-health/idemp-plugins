@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCountry;
 import org.compiere.model.MLocation;
+import org.compiere.model.MOrder;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MUser;
@@ -83,80 +84,63 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		// businessPartner.setBPGroup(group);
 
 		if (businessPartner.isCustomer()) {
-			if (businessPartner.getInvoiceRule() == null) {
-				// Set the invoice rule
-				businessPartner.setInvoiceRule(MBPartner_BH.INVOICERULE_Immediate);
-			}
+			// Set the invoice rule
+			businessPartner.setInvoiceRule(MOrder.INVOICERULE_Immediate);
 
 			// Set the invoice schedule?
 
-			if (businessPartner.getPaymentRule() == null) {
-				// Set the payment rule
-				businessPartner.setPaymentRule(MBPartner_BH.PAYMENTRULE_OnCredit);
-			}
-			if (businessPartner.getSOCreditStatus() == null) {
-				businessPartner.setSOCreditStatus(MBPartner_BH.SOCREDITSTATUS_NoCreditCheck);
-			}
+			// Set the payment rule
+			businessPartner.setPaymentRule(MOrder.PAYMENTRULE_Cash);
 
-			if (businessPartner.getC_PaymentTerm_ID() < 1) {
-				// Set the payment term
-				MPaymentTerm paymentTerm =
-						QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(), MPaymentTerm.Table_Name,
-								MPaymentTerm.COLUMNNAME_Name + " = 'Immediate'", businessPartner.get_TrxName());
-				businessPartner.setC_PaymentTerm_ID(paymentTerm.getC_PaymentTerm_ID());
-			}
+			// Set the payment term
+			MPaymentTerm paymentTerm =
+					QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(), MPaymentTerm.Table_Name,
+							MPaymentTerm.COLUMNNAME_Name + " = 'Immediate'", businessPartner.get_TrxName());
+			businessPartner.setC_PaymentTerm_ID(paymentTerm.getC_PaymentTerm_ID());
 
-			if (businessPartner.getM_PriceList_ID() < 1) {
-				// Set the price list
-				// First check to see if any pricing list has been defaulted for the BP Group
-				int priceListId = businessPartner.getBPGroup().getM_PriceList_ID();
-				if (priceListId == 0) {
-					String whereClause = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
-							+ MPriceList.COLUMNNAME_IsSOPriceList + "='Y' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
-							+ Env.getAD_Org_ID(Env.getCtx());
-					// Get the default sales price list
-					priceListId =
-							QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, whereClause,
-									businessPartner.get_TrxName()).setOnlyActiveRecords(true).firstId();
-				}
-				businessPartner.setM_PriceList_ID(priceListId);
+			// Set the price list
+			// First check to see if any pricing list has been defaulted for the BP Group
+			int priceListId = businessPartner.getBPGroup().getM_PriceList_ID();
+			if (priceListId == 0) {
+				String whereClause = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
+						+ MPriceList.COLUMNNAME_IsSOPriceList + "='Y' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
+						+ Env.getAD_Org_ID(Env.getCtx());
+				// Get the default sales price list
+				priceListId =
+						QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, whereClause,
+								businessPartner.get_TrxName()).setOnlyActiveRecords(true).firstId();
 			}
+			businessPartner.setM_PriceList_ID(priceListId);
 
 			// check unique patient id
 			generatePatientID(businessPartner);
 		}
 		if (businessPartner.isVendor()) {
-			if (businessPartner.getPaymentRulePO() == null) {
-				// Set the payment rule
-				businessPartner.setPaymentRulePO(MBPartner_BH.PAYMENTRULE_DirectDeposit);
-			}
+			// Set the payment rule
+			businessPartner.setPaymentRulePO(MOrder.PAYMENTRULE_DirectDeposit);
 
-			if (businessPartner.getPO_PaymentTerm_ID() < 1) {
-				// Set the PO payment term
-				MPaymentTerm purchasePaymentTerm = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
-						MPaymentTerm.Table_Name, "name = 'Immediate'", businessPartner.get_TrxName());
-				if (purchasePaymentTerm == null) {
-					throw new RuntimeException(
-							"Could not find in table '" + MPaymentTerm.Table_Name + "'" + " record with name 'Immediate'");
-				}
-				businessPartner.setPO_PaymentTerm_ID(purchasePaymentTerm.getC_PaymentTerm_ID());
+			// Set the PO payment term
+			MPaymentTerm purchasePaymentTerm = QueryUtil.queryTableByOrgAndClient(clientId, orgId, Env.getCtx(),
+					MPaymentTerm.Table_Name, "name = 'Immediate'", businessPartner.get_TrxName());
+			if (purchasePaymentTerm == null) {
+				throw new RuntimeException(
+						"Could not find in table '" + MPaymentTerm.Table_Name + "'" + " record with name 'Immediate'");
 			}
+			businessPartner.setPO_PaymentTerm_ID(purchasePaymentTerm.getC_PaymentTerm_ID());
 
-			if (businessPartner.getPO_PriceList_ID() < 1) {
-				// Get the default purchase price list for vendors
-				String defaultPurchasePList = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
-						+ MPriceList.COLUMNNAME_IsSOPriceList + "='N' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
-						+ Env.getAD_Org_ID(Env.getCtx());
+			// Get the default purchase price list for vendors
+			String defaultPurchasePList = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
+					+ MPriceList.COLUMNNAME_IsSOPriceList + "='N' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
+					+ Env.getAD_Org_ID(Env.getCtx());
 
-				MPriceList purchasePriceList =
-						QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, defaultPurchasePList,
-								businessPartner.get_TrxName()).setOnlyActiveRecords(true).first();
-				if (purchasePriceList == null) {
-					throw new AdempiereException(
-							"Could not find a default purchase price list in table '" + MPriceList.Table_Name + "'");
-				}
-				businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
+			MPriceList purchasePriceList =
+					QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, defaultPurchasePList,
+							businessPartner.get_TrxName()).setOnlyActiveRecords(true).first();
+			if (purchasePriceList == null) {
+				throw new AdempiereException(
+						"Could not find a default purchase price list in table '" + MPriceList.Table_Name + "'");
 			}
+			businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
 		}
 	}
 
