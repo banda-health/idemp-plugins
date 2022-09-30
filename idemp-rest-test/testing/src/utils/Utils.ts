@@ -86,31 +86,6 @@ export async function createProduct(valueObject: ValueObject) {
 	}
 }
 
-/**
- * Create a product (don't really have an ideal method for this at the moment - have to go through items).
- * If a product already exists on the value object, this won't do anything.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createProductInventory(valueObject: ValueObject) {
-	valueObject.validate();
-
-	if (!valueObject.product) {
-		const product: Partial<Product> = {
-			orgId: 0,
-			description: valueObject.getStepMessageLong(),
-			name: valueObject.getDynamicScenarioName(),
-			productCategoryUuid: '',
-			totalQuantity: -100,
-			buyPrice: valueObject.purchaseStandardPrice ?? 1,
-			sellPrice: valueObject.salesStandardPrice ?? 1,
-		};
-		valueObject.product = await productApi.save(valueObject, product as Product);
-		if (!valueObject.product) {
-			throw new Error('Product not created');
-		}
-	}
-}
 
 /**
  * Create a charge. If a charge already exists on the value object, this won't do anything.
