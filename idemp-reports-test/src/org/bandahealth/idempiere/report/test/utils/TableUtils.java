@@ -4,10 +4,10 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TableUtils {
 	/**
@@ -19,13 +19,30 @@ public class TableUtils {
 	 * @return The header row
 	 */
 	public static Row getHeaderRow(Sheet sheet, String headerRowStartingColumnText) {
-		Optional<Row> headerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-						row -> row.getCell(row.getFirstCellNum()) != null &&
-								row.getCell(row.getFirstCellNum()).getCellType().equals(CellType.STRING) &&
-								row.getCell(row.getFirstCellNum()).getStringCellValue().equalsIgnoreCase(headerRowStartingColumnText))
-				.findFirst();
-		assertTrue(headerRow.isPresent(), "Header row exists");
-		return headerRow.get();
+		return getHeaderRow(sheet, headerRowStartingColumnText, sheet.getFirstRowNum());
+	}
+
+	/**
+	 * Get the header row of a table in a spreadsheet given the text that should be in the table's first cell (though
+	 * not necessarily the first column of the spreadsheet) from a given starting row index (in case a sheet has multiple
+	 * tables in it)
+	 *
+	 * @param sheet                       The spreadsheet to search through
+	 * @param headerRowStartingColumnText The text of the tables first cell
+	 * @param startingRowIndex            The row from which to start searching
+	 * @return The header row
+	 */
+	public static Row getHeaderRow(Sheet sheet, String headerRowStartingColumnText, int startingRowIndex) {
+		for (int i = startingRowIndex; i < sheet.getLastRowNum(); i++) {
+			Row row = sheet.getRow(i);
+			if (StreamSupport.stream(row.spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+							cell.getStringCellValue().equalsIgnoreCase(headerRowStartingColumnText))) {
+				return row;
+			}
+		}
+		fail("Header row exists");
+		return null;
 	}
 
 	/**
@@ -46,5 +63,23 @@ public class TableUtils {
 		}
 		assertTrue(columnIndex > -1, columnHeaderText + " column exists");
 		return columnIndex;
+	}
+
+	/**
+	 * Get the index of the provided row in the sheet
+	 *
+	 * @param sheet The spreadsheet to search through
+	 * @param row   The row in the sheet to get the index of
+	 * @return The row index
+	 */
+	public static int getIndexOfRow(Sheet sheet, Row row) {
+		int rowIndex = -1;
+		for (int i = sheet.getFirstRowNum(); i < sheet.getLastRowNum(); i++) {
+			if (sheet.getRow(i) == row) {
+				rowIndex = i;
+				break;
+			}
+		}
+		return rowIndex;
 	}
 }
