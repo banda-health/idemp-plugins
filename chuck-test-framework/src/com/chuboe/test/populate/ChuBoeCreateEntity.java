@@ -607,6 +607,9 @@ public class ChuBoeCreateEntity {
 		if (valueObject.getTenderType() != null) {
 			payment.setTenderType(valueObject.getTenderType());
 		}
+		if (valueObject.getOrder() != null) {
+			payment.setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		}
 
 		payment.setC_Currency_ID(valueObject.getInvoice().getC_Currency_ID());
 		payment.setPayAmt(valueObject.getInvoice().getGrandTotal());
