@@ -107,10 +107,9 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDateOffset(1);
 		valueObject.setInvoice(invoice);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.refresh();
-		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.getPayment().setC_Invoice_ID(0);
 		valueObject.getPayment().setPayAmt(debtPayment);
 		valueObject.getPayment().saveEx();
@@ -119,12 +118,6 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
 		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
 		valueObject.getPayment().saveEx();
-		commitEx();
-
-		// TODO: Remove this when we let iDempiere only handle open balance updating
-		valueObject.setStepName("Reset BP open balance because it's wrong");
-		valueObject.getBusinessPartner().setTotalOpenBalance();
-		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
