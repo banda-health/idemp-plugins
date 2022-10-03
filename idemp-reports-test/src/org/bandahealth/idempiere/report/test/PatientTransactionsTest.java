@@ -520,12 +520,12 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = getHeaderRow(sheet, "Bill Date");
-			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
-			int billTotalColumnIndex = getColumnIndex(headerRow, "Bill Total");
-			int totalPaymentColumnIndex = getColumnIndex(headerRow, "Total Payment");
-			int cashColumnIndex = getColumnIndex(headerRow, "Cash");
-			int mobileMoneyColumnIndex = getColumnIndex(headerRow, "Mobile Money");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = TableUtils.getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = TableUtils.getColumnIndex(headerRow, "Mobile Money");
 
 			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex) != null &&
