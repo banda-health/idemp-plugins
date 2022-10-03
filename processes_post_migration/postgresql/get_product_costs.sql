@@ -1,4 +1,4 @@
-DROP FUNCTION get_product_costs(numeric, character varying);
+DROP FUNCTION IF EXISTS get_product_costs(numeric, character varying);
 CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric,
                                              m_product_ids character varying DEFAULT ''::character varying)
 	RETURNS TABLE
