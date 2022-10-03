@@ -24,7 +24,6 @@ public class MBHPaymentRef extends X_BH_PaymentRef {
 				get_TrxName()
 		)
 				.setParameters(getBH_PaymentRef_ID())
-				.setOrderBy(MBHPaymentRefBankAccount.COLUMNNAME_Created + " DESC")
 				.list();
 		return paymentRefBankAccounts == null ? new ArrayList<MBHPaymentRefBankAccount>() : paymentRefBankAccounts;
 	}
