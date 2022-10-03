@@ -2,50 +2,42 @@ package org.bandahealth.idempiere.base.modelevent;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.utils.QueryConstants;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
-import org.compiere.model.MOrder;
-import org.compiere.model.MRoleOrgAccess;
-import org.compiere.model.MUserOrgAccess;
+import org.compiere.model.MInOutLine;
+import org.compiere.model.MOrderLine;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
-import org.compiere.util.AdempiereSystemError;
+import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
+import java.sql.Timestamp;
+
 public class OrderModelEvent extends AbstractEventHandler {
 
-	private int clientId = -1;
+	CLogger logger = CLogger.getCLogger(OrderModelEvent.class);
 
 	@Override
 	protected void doHandleEvent(Event event) {
 		MOrder_BH order = null;
 		PO persistantObject = getPO(event);
-		clientId = persistantObject.getAD_Client_ID();
 		if (persistantObject instanceof MOrder_BH) {
 			order = (MOrder_BH) persistantObject;
 		} else {
 			return;
 		}
 
-		boolean isPurchase = true;
-		if (order.isSOTrx()) {
-			order.setBH_Isexpense(false);
-			isPurchase = false;
-		}
+		boolean isPurchase = !order.isSOTrx();
+		order.setBH_Isexpense(isPurchase);
 
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			if (!isPurchase) {
 				beforeSalesOrderSaveRequest(order);
-			}
-		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
-//			afterSaveRequest(businessPartner);
-		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			if (!isPurchase) {
-				beforeSalesOrderUpdateRequest(order);
 			}
 		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_VOID)) {
 			if (isPurchase) {
@@ -54,88 +46,64 @@ public class OrderModelEvent extends AbstractEventHandler {
 		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_COMPLETE)) {
 			if (!isPurchase) {
 				order.setBH_ProcessStage(null);
+			} else {
+				createMaterialReceiptFromPurchaseOrder(order);
 			}
 		}
 	}
 
+	private void createMaterialReceiptFromPurchaseOrder(MOrder_BH order) {
+		// Create Material Receipt header
+		Timestamp movementDate = order.getDateOrdered() != null ? order.getDateOrdered()
+				: new Timestamp(System.currentTimeMillis());
+		MDocType docTypeShipment =
+				new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_PrintName + "=?", order.get_TrxName())
+						.setParameters(MDocType_BH.DOCUMENTBASETYPE_ORDER_CONFIRMATION).setClient_ID().first();
+		if (docTypeShipment == null) {
+			throw new AdempiereException("Shipment DocType not defined");
+		}
+		MInOut mReceipt = new MInOut(order, docTypeShipment.getC_DocTypeShipment_ID(), movementDate);
+
+		mReceipt.setMovementType(MInOut.MOVEMENTTYPE_VendorReceipts);
+		mReceipt.setDocAction(MInOut.DOCACTION_Complete);
+		mReceipt.save();
+
+		// add lines if any
+		MOrderLine[] oLines = order.getLines(true, "M_Product_ID");
+		if (oLines.length > 0) {
+			MWarehouse mWarehouse = new MWarehouse(Env.getCtx(), order.getM_Warehouse_ID(), order.get_TrxName());
+			for (MOrderLine oLine : oLines) {
+				MInOutLine line = new MInOutLine(mReceipt);
+				line.setOrderLine(oLine, mWarehouse.getDefaultLocator().get_ID(), Env.ZERO);
+				line.setQty(oLine.getQtyOrdered());
+				line.saveEx(order.get_TrxName());
+			}
+		}
+
+		// complete operation
+		String m_status = mReceipt.completeIt();
+		mReceipt.setDocStatus(m_status);
+		mReceipt.save();
+	}
+
 	private void afterPurchaseOrderVoid(MOrder_BH order) {
 		// Get the material receipt associated with this order, if any
-		MInOut materialReceipt =
-				new Query(Env.getCtx(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?", order.get_TrxName())
-						.setParameters(order.getC_Order_ID()).setClient_ID().first();
+		MInOut materialReceipt = new Query(Env.getCtx(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?",
+				order.get_TrxName()).setParameters(order.getC_Order_ID()).setClient_ID().first();
 		if (materialReceipt == null) {
 			return;
 		}
-		// "Void" the material receipt as well, which is a "RA" for them
-		materialReceipt.processIt(MInOut.ACTION_Reverse_Accrual);
+		// "Void" the material receipt as well
+		materialReceipt.processIt(MInOut.ACTION_Void);
 		// Since processing an entity doesn't save it, now save it
 		materialReceipt.saveEx();
 	}
 
 	private void beforeSalesOrderSaveRequest(MOrder_BH salesOrder) {
-
-		int userId = Env.getAD_User_ID(Env.getCtx());
-
-		if (salesOrder.getM_Warehouse_ID() == 0) {
-			MWarehouse[] warehouses = MWarehouse.getForOrg(Env.getCtx(), salesOrder.getAD_Org_ID());
-			if (warehouses.length == 0) {
-				throw new Error(new AdempiereSystemError("No warehouses are assigned to this organization."));
-			}
-			salesOrder.setM_Warehouse_ID(warehouses[0].getM_Warehouse_ID());
+		// If no sales rep was passed in, just use the logged-in user
+		if (salesOrder.getSalesRep_ID() == 0) {
+			salesOrder.setSalesRep_ID(Env.getAD_User_ID(Env.getCtx()));
 		}
-
-		salesOrder.setSalesRep_ID(userId);
-
-		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
-
-		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
-				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
-				.firstId();
-		salesOrder.setC_DocType_ID(posOrderDocTypeId);
-		salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
-
-		salesOrder.setPaymentRule(MOrder.PAYMENTRULE_Cash);
-	}
-
-	private void beforeSalesOrderUpdateRequest(MOrder_BH salesOrder) {
-		String WHERE = MDocType.COLUMNNAME_DocSubTypeSO + " = ? AND " + MDocType.COLUMNNAME_AD_Client_ID + " = ?";
-
-		int posOrderDocTypeId = (new Query(Env.getCtx(), MDocType.Table_Name, WHERE, null))
-				.setParameters(MOrder.DocSubTypeSO_POS, clientId)
-				.firstId();
-
-		MDocType docType = MDocType.get(Env.getCtx(), posOrderDocTypeId);
-
-		if (docType.getAD_Client_ID() != clientId) {
-			salesOrder.setC_DocType_ID(posOrderDocTypeId);
-			salesOrder.setC_DocTypeTarget_ID(posOrderDocTypeId);
-		}
-
-	}
-
-	private int getOrganizationIDForUser(int userId, int roleId, int clientId) {
-		// Check to see if they are limited to an org
-		String whereClause = String.format("%1$s = ? and %2$s = ? and %3$s <> ?",
-				QueryConstants.USER_ID_COLUMN_NAME,
-				QueryConstants.CLIENT_ID_COLUMN_NAME,
-				QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
-		Query query = new Query(Env.getCtx(), MUserOrgAccess.Table_Name, whereClause, null)
-				.setParameters(userId, clientId, QueryConstants.BASE_ORGANIZATION_ID);
-		if (query.count() == 0) {
-			// The org assignment must be in the role
-			whereClause = String.format("%1$s = ? and %2$s = ? and %3$s <> ?",
-					QueryConstants.ROLE_ID_COLUMN_NAME,
-					QueryConstants.CLIENT_ID_COLUMN_NAME,
-					QueryConstants.ORGANIZATION_ID_COLUMN_NAME);
-			query = new Query(Env.getCtx(), MRoleOrgAccess.Table_Name, whereClause, null)
-					.setParameters(roleId, clientId, QueryConstants.BASE_ORGANIZATION_ID);
-		}
-
-		if (query.count() == 0) {
-			throw new Error(new AdempiereSystemError("User not assigned to any organizations."));
-		}
-
-		return query.first().getAD_Org_ID();
 	}
 
 	@Override

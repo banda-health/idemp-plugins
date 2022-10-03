@@ -7,9 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
@@ -131,7 +133,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		}
 
 		// get bank account
-		MBankAccount bankAccount = getBankAccount();
+		MBankAccount bankAccount = getBankAccount(mPayment);
 		if (bankAccount != null) {
 			mPayment.setC_BankAccount_ID(bankAccount.get_ID());
 		}
@@ -214,11 +216,21 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	 *
 	 * @return
 	 */
-	protected MBankAccount getBankAccount() {
-		MBankAccount bankAccount = new Query(Env.getCtx(), MBankAccount.Table_Name, null, null)
-				.setOnlyActiveRecords(true).setClient_ID().setOrderBy(MBankAccount.COLUMNNAME_IsDefault + " DESC")
-				.first();
-		return bankAccount;
+	protected MBankAccount getBankAccount(MPayment_BH payment) {
+		// First, get the default bank account that can be used with this payment
+		MBankAccount defaultBankAccount =
+				new Query(payment.getCtx(), MBankAccount.Table_Name, null, payment.get_TrxName()).setOnlyActiveRecords(true)
+						.setClient_ID().setOrderBy("IsDefault DESC").first();
+
+		MBankAccount bankAccountToUse =
+				MBankAccount_BH.getBankAccountMappedToRefListValue(payment.getCtx(), payment.get_TrxName(),
+						MPayment_BH.TENDERTYPE_AD_Reference_ID, payment.getTenderType());
+		if (bankAccountToUse == null) {
+			logger.warning("No bank account mapping found for payment rule '" + payment.getTenderType() +
+					"'. Using default bank account.");
+			bankAccountToUse = defaultBankAccount;
+		}
+		return bankAccountToUse;
 	}
 
 	/**
@@ -268,6 +280,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 		List<MPayment_BH> mPaymentLines = new Query(Env.getCtx(), MPayment_BH.Table_Name, whereClause, null)
 				.setParameters(orderId).setClient_ID().list();
+		mPaymentLines = mPaymentLines.stream().filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
 		for (MPayment_BH mPayment : mPaymentLines) {
 			mPayment.deleteEx(false);
 		}
