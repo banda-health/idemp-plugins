@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
+import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
@@ -44,29 +45,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 	private static final String patientTransactionReportUuid = "4cf22d3f-1fc8-4bdd-83e1-fc5d79537269";
-
-	private Row getHeaderRow(Sheet sheet, String headerRowStartingColumnText) {
-		Optional<Row> headerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-						row -> row.getCell(row.getFirstCellNum()) != null &&
-								row.getCell(row.getFirstCellNum()).getCellType().equals(CellType.STRING) &&
-								row.getCell(row.getFirstCellNum()).getStringCellValue().equalsIgnoreCase(headerRowStartingColumnText))
-				.findFirst();
-		assertTrue(headerRow.isPresent(), "Header row exists");
-		return headerRow.get();
-	}
-
-	private int getColumnIndex(Row headerRow, String columnHeaderText) {
-		int columnIndex = -1;
-		for (int i = headerRow.getFirstCellNum(); i < headerRow.getLastCellNum(); i++) {
-			if (headerRow.getCell(i) != null && headerRow.getCell(i).getCellType().equals(CellType.STRING) &&
-					headerRow.getCell(i).getStringCellValue().equalsIgnoreCase(columnHeaderText)) {
-				columnIndex = i;
-				break;
-			}
-		}
-		assertTrue(columnIndex > -1, columnHeaderText + " column exists");
-		return columnIndex;
-	}
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
@@ -215,8 +193,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = getHeaderRow(sheet, "Bill Date");
-			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 
 			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex) != null && row.getCell(5).getCellType().equals(CellType.STRING) &&
@@ -306,8 +284,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = getHeaderRow(sheet, "Bill Date");
-			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 
 			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex) != null &&
@@ -426,12 +404,12 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = getHeaderRow(sheet, "Bill Date");
-			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
-			int billTotalColumnIndex = getColumnIndex(headerRow, "Bill Total");
-			int totalPaymentColumnIndex = getColumnIndex(headerRow, "Total Payment");
-			int cashColumnIndex = getColumnIndex(headerRow, "Cash");
-			int mobileMoneyColumnIndex = getColumnIndex(headerRow, "Mobile Money");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = TableUtils.getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = TableUtils.getColumnIndex(headerRow, "Mobile Money");
 
 			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex) != null &&
@@ -480,12 +458,12 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = getHeaderRow(sheet, "Bill Date");
-			int patientNameColumnIndex = getColumnIndex(headerRow, "Patient Name");
-			int billTotalColumnIndex = getColumnIndex(headerRow, "Bill Total");
-			int totalPaymentColumnIndex = getColumnIndex(headerRow, "Total Payment");
-			int cashColumnIndex = getColumnIndex(headerRow, "Cash");
-			int mobileMoneyColumnIndex = getColumnIndex(headerRow, "Mobile Money");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = TableUtils.getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = TableUtils.getColumnIndex(headerRow, "Mobile Money");
 
 			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex) != null &&
