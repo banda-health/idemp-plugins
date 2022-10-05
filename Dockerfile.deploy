@@ -1,0 +1,21 @@
+ARG IDEMPIERE_VERSION
+FROM openhmis/banda-idempiere:${IDEMPIERE_VERSION}
+
+ENV IDEMPIERE_FRESH_DB=false
+ENV MIGRATE_EXISTING_DATABASE=true
+ENV GENERATE_PLUGIN_BUNDLE_INFO=true
+ENV HEALTHY_AFTER_PLUGINS_START=true
+ENV REMOVE_SOURCES_AFTER_COPY=true
+
+# Put the specified sources in the appropriate place
+ARG INSTALLATION_HOME
+COPY /testing/data ${INSTALLATION_HOME}/data
+COPY /testing/migration ${INSTALLATION_HOME}/migration
+COPY /testing/plugins ${INSTALLATION_HOME}/plugins
+COPY /testing/reports ${INSTALLATION_HOME}/reports
+
+# Install sources
+RUN ./install-sources.sh
+
+# Update the command to just start iDempiere since we've already installed sources
+CMD ["idempiere"]
