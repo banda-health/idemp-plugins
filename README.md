@@ -1,7 +1,6 @@
 # BandaGo Plug-ins Project | ![TeamCity build status](https://teamcity.bandahealth.org/app/rest/builds/buildType:id:BHGO_Plugins_BuildDevelop/statusIcon.svg)
-A repository that houses all Banda Health's plugins for iDempiere.
+A repository that houses all Banda Health's plugins for iDempiere. The modular architecture of iDempiere allows us to build custom functionality onto existing layers without affecting the core functionality of the ERP. Our plugins are built to implement these features. You can read more on iDempiere's architecture in [iDempiere and Modularity](https://wiki.idempiere.org/en/Equinox_OSGi_framework). 
 
-This resolves all BandaGo plugin dependencies and builds the deployment artifacts.
 The included plugins are: 
 * idemp-base
 * idemp-base-editor
@@ -9,6 +8,22 @@ The included plugins are:
 * idemp-rest
 
 Additionally, the project also contains the data folders used during client creation. To leverage these files (located in the `data` directory) in your local instance, copy this directory to your `[IDEMPIERE_HOME]` directory.
+
+The plugins handle the following things:
+| Plugin                | Description                                                                                                                                                                                                              |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ~~idemp-base-editor~~ | **DEPRECATED**<br>Defines a custom ribbon that holds navigation buttons. These buttons allow the user to move between different windows of the system and also complete tasks.                                           |
+| idemp-base            | All custom BandaGo models, model events, processes, and callouts are contained in this plugin.                                                                                                                           |
+| idemp-rest            | Provides a RESTful API interface to the business functionality implemented in BandaGo.                                                                                                                                   |
+| ~~idemp-webui~~       | **DEPRECATED**<br>Most of the UI customization can be found in this plugin. It contains 'BandaGo' look-and-feel customization, implementation for the main menu widget, terms of service and data metrics functionality. |
+
+### Test Plugins
+We also have several plugins that are meant to run unit tests on the system. These are not deployed to our environments but are only used in our CI/CD pipelines. The plugins are:
+| Test Plugin        | Description                                                                         |
+|--------------------|-------------------------------------------------------------------------------------|
+| idemp-base-test    | Runs tests to ensure the model events & processes are handled correctly.            |
+| idemp-reports-test | Run reports to confirm that reports generate correctly with the appropriate values. |
+| idemp-rest-test    | Tests workflows and calls to our API to validate the system operates correctly.     |
 
 ## Building the Plugins
 To build all BandaGo plugins, run:

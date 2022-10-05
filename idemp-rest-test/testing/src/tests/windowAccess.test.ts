@@ -109,6 +109,7 @@ test('admin role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: true, canDeactivate: true });
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toMatchObject({ canWrite: true, canDeactivate: true });
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).not.toBeUndefined();
@@ -211,6 +212,7 @@ test('clinic admin role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: true, canDeactivate: true });
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toMatchObject({ canWrite: true, canDeactivate: true });
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).not.toBeUndefined();
@@ -313,6 +315,7 @@ test('cashier/registration basic role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).toBeUndefined();
@@ -415,6 +418,7 @@ test('cashier/registration advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).toBeUndefined();
@@ -517,6 +521,7 @@ test('inventory/pharmacy role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).not.toBeUndefined();
@@ -619,6 +624,7 @@ test('clinician/nurse basic role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).toBeUndefined();
@@ -721,6 +727,7 @@ test('clinician/nurse advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).toBeUndefined();
@@ -823,6 +830,7 @@ test('triage role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).toBeUndefined();
@@ -925,6 +933,7 @@ test('lab/radiology role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).toBeUndefined();
@@ -1027,6 +1036,7 @@ test('accounting role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: true, canDeactivate: false });
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).toBeUndefined();
@@ -1129,6 +1139,7 @@ test('clinic user role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: false, canDeactivate: false });
 
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.manageUsers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.transferInventory)).not.toBeUndefined();
