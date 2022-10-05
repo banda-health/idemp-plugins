@@ -17,4 +17,5 @@ export * from './products';
 export * from './referenceLists';
 export * from './visits';
 export * from './warehouses';
-
+export * from './receiveProducts';
+export * from './vendors';

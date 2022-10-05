@@ -15,6 +15,7 @@ import {
 	Org,
 	Payment,
 	Product,
+	ReceiveProduct,
 	Role,
 	User,
 	Warehouse,
@@ -55,6 +56,7 @@ export class ValueObject {
 	documentAction?: string;
 	order?: Order;
 	orderLine?: OrderLine;
+	recieveProduct?: ReceiveProduct;
 	// MInOut m_inOut = null;
 	// MInOutLine m_inOutLine = null;
 	invoice?: Invoice;

@@ -9,6 +9,8 @@ import {
 	referenceListApi,
 	visitApi,
 	warehouseApi,
+	receiveProductApi,
+	vendorApi
 } from '../api';
 import { referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
@@ -17,6 +19,7 @@ import {
 	ChargeType,
 	Invoice,
 	InvoiceLine,
+	Order,
 	OrderLine,
 	Patient,
 	Payment,
@@ -24,6 +27,9 @@ import {
 	Product,
 	ProductCategory,
 	Visit,
+	Warehouse,
+	ReceiveProduct,
+	Vendor
 } from '../types/org.bandahealth.idempiere.rest';
 import { waitFor } from './waitFor';
 
@@ -51,12 +57,43 @@ export async function createPatient(valueObject: ValueObject) {
 }
 
 /**
+ * Create a supplier. If a business partner already exists on the value object, this won't do anything.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+export async function createVendor(valueObject: ValueObject){
+	valueObject.validate();
+
+	if (!valueObject.businessPartner) {
+		const vendor: Partial<Vendor> = {
+			name: valueObject.getDynamicStepMessage(),
+			description: valueObject.getStepMessageLong(),
+		};
+		valueObject.businessPartner = await vendorApi.save(valueObject, vendor as Vendor);
+		if (!valueObject.businessPartner) {
+			throw new Error('Vendor not created');
+		}
+		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
+	}
+}
+
+/**
  * Create a business partner (don't really have an ideal method for this at the moment - have to go through patients).
  * If a business partner already exists on the value object, this won't do anything.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing
  */
-export async function createBusinessPartner(valueObject: ValueObject) {
+export async function createBusinessPartnerAsVendor(valueObject: ValueObject) {
+	await createVendor(valueObject);
+}
+
+/**
+ * Create a business partner (don't really have an ideal method for this at the moment - have to go through patients).
+ * If a business partner already exists on the value object, this won't do anything.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+ export async function createBusinessPartner(valueObject: ValueObject) {
 	await createPatient(valueObject);
 }
 
@@ -104,6 +141,45 @@ export async function createCharge(valueObject: ValueObject) {
 		};
 		valueObject.charge = await chargeApi.save(valueObject, charge as Charge);
 	}
+}
+
+/**
+ * Receives product
+ * This requires a document type, a business partner, and a warehouse be selected on the value object.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+
+export async function receiveProduct(valueObject: ValueObject){
+	valueObject.validate();
+
+	if (!valueObject.businessPartner) {
+		throw new Error('Business Partner is Null');
+	} else if (!valueObject.warehouse) {
+		throw new Error('Warehouse is Null');
+	}
+
+	const receiveProduct: Partial<ReceiveProduct> = {
+		description: valueObject.getStepMessageLong(),
+		dateOrdered: valueObject.date?.toISOString(),
+		vendor : valueObject.businessPartner as Vendor | undefined,
+		warehouse : valueObject.warehouse,
+		orderLines: []
+	}
+
+	const line: Partial<OrderLine> = {
+		description: valueObject.getStepMessageLong(),
+		product: valueObject.product,
+		quantity: 10
+	};
+
+	line.price = (line.quantity || 0) * (line.product?.sellPrice || 0);
+	receiveProduct.orderLines?.push(line as OrderLine);
+	valueObject.recieveProduct = await receiveProductApi.save(valueObject, receiveProduct as ReceiveProduct);
+	if (!valueObject.recieveProduct) {
+		throw new Error('Receive Product not created');
+	}
+
 }
 
 /**
@@ -323,6 +399,7 @@ export async function changeWarehouse(valueObject: ValueObject) {
 		throw new Error('Warehouse not switched');
 	}
 }
+
 
 /**
  * Add (or subtract) days from a given date
