@@ -1235,10 +1235,13 @@ INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, crea
 INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited, istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth, isorglevelsequence, orgcolumn) VALUES ((SELECT MAX(ad_sequence_id + 1) FROM ad_sequence), 0, 0, 'Y', '2018-06-12 11:07:23.659000', 100, '2018-06-12 11:07:23.659000', 100, 'BH_DbrdBtnGrp', 'Table BH_DbrdBtnGrp', null, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', null, null, 'N', null, null, '46f5d119-7dbc-458e-9899-09d2f115b2fc', 'N', 'N', null);
 INSERT INTO ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited, istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth, isorglevelsequence, orgcolumn) VALUES ((SELECT MAX(ad_sequence_id + 1) FROM ad_sequence), 0, 0, 'Y', '2018-06-12 11:07:24.189000', 100, '2018-06-12 11:07:24.189000', 100, 'BH_DbrdBtnGrp_Btn', 'Table BH_DbrdBtnGrp_Btn', null, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', null, null, 'N', null, null, '4b2f8649-6786-455c-aee4-31a27b8166b3', 'N', 'N', null);
 
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2018-07-05 11:47:44.237000', 100, '2018-07-31 15:18:37.873000', 'BH Daily Activities', 100, null, 'N', 'N', 'N', 'R', null, null, null, (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '97256934-cced-48fa-9cc6-5170e2a772a7'), null, null, 'U', 'Y', '6491bbbc-8bb1-47d5-9019-622f38b51be7', null)
+ON CONFLICT DO NOTHING;
+
 --set banda theme as default
 update ad_sysconfig set value='bandahealth' where ad_sysconfig.name='ZK_THEME';
 UPDATE ad_sysconfig set value='N' where ad_sysconfig_uu='f473c472-1285-4936-8bb8-2f36f68de12e';
 
 SELECT update_sequences();
 
-SELECT register_migration_script('202009011200_GO-1536_BandaDBInit.sql') FROM dual;
+SELECT register_migration_script('202008011200_GO-1536_BandaDBInit.sql') FROM dual;
