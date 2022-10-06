@@ -259,6 +259,9 @@ DROP TABLE tmp_c_bpartner_location;
 DROP TABLE tmp_c_bp_customer_acct;
 DROP TABLE tmp_c_bp_vendor_acct;
 
+-- Add OTC Type
+INSERT INTO adempiere.ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id)+1 FROM ad_ref_list), 0, 0, 'Y', '2022-10-06 10:48:58.570000', 100, '2022-10-06 10:48:58.570000', 100, 'ot', 'Over The Counter (OTC)', null, (SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'), null, null, 'U', '6ba8938f-3337-4224-be0b-0cbcd3c606ad', null, null) ON CONFLICT DO NOTHING;
+
 -- Add OTC window
 INSERT INTO adempiere.ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id)+1 FROM AD_Window), 0, 0, 'Y', '2022-09-21 15:16:36.986000', 100, '2022-09-21 15:16:36.986000', 100, 'Pharmacy Sales (OTC)', 'Pharmacy Sales (OTC)', null, 'T', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', '3a4ac3cd-9e1b-4a2c-82d3-78f698ec9e1f', null) ON CONFLICT DO NOTHING;
 
