@@ -21,7 +21,7 @@ WHERE
 		FROM
 			c_order o
 				LEFT JOIN c_invoice i
-					ON o.c_order_id = i.c_order_id AND i.docstatus NOT IN ('RE', 'RA', 'VO')
+					ON o.c_order_id = i.c_order_id AND i.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
 				LEFT JOIN c_allocationline al
 					ON i.c_invoice_id = al.c_invoice_id
 				LEFT JOIN c_allocationhdr ah
@@ -29,16 +29,29 @@ WHERE
 				LEFT JOIN c_payment p
 					ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id) AND p.docstatus != 'RE'
 		WHERE
-			o.issotrx = 'Y'
-			AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
-			AND (
-				(
-							o.docstatus IN ('CO', 'CL') AND (
-								i.docstatus NOT IN ('CO', 'CL') OR
-								(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
-						)
-					)
-				OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus = 'CO')))
+					o.issotrx = 'Y'
+				AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
+				AND (
+							(
+										o.docstatus IN ('CO', 'CL') AND (
+											i.docstatus NOT IN ('CO', 'CL') OR
+											(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
+									)
+								)
+							OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus = 'CO'))
+							OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal))
+			OR o.c_order_id IN (
+			SELECT
+				c_order_id
+			FROM
+				c_invoice
+			WHERE
+				docstatus = 'CO'
+				AND isactive = 'Y'
+			GROUP BY c_order_id
+			HAVING
+				COUNT(*) > 1
+		)
 	);
 
 -- Make sure the errored orders now have the correct payment rule
@@ -374,6 +387,64 @@ FROM
 -- Make sure periods exist for any errored order (or associated invoice/payment)
 -- Get all the accounting date information we'll need for the various tables
 DROP TABLE IF EXISTS tmp_account_dates;
+WITH account_dates AS (
+-- Insert years for all errored orders
+	SELECT
+		o.ad_client_id,
+		o.dateacct
+	FROM
+		c_order o
+			JOIN tmp_errored_order_ids teoi
+				ON teoi.c_order_id = o.c_order_id
+			JOIN c_calendar c
+				ON c.ad_client_id = o.ad_client_id
+	UNION
+-- Insert years for all invoices associated with errored orders
+	SELECT
+		i.ad_client_id,
+		i.dateacct
+	FROM
+		c_invoice i
+			JOIN tmp_errored_order_ids teoi
+				ON teoi.c_order_id = i.c_order_id
+			JOIN c_calendar c
+				ON c.ad_client_id = i.ad_client_id
+	UNION
+-- Insert years for all payments associated with errored orders
+	SELECT
+		p.ad_client_id,
+		p.dateacct
+	FROM
+		c_order o
+			JOIN tmp_errored_order_ids teoi
+				ON teoi.c_order_id = o.c_order_id
+			JOIN c_calendar c
+				ON c.ad_client_id = o.ad_client_id
+			LEFT JOIN c_invoice i
+				ON o.c_order_id = i.c_order_id
+			LEFT JOIN c_allocationline al
+				ON i.c_invoice_id = al.c_invoice_id
+			LEFT JOIN c_payment p
+				ON al.c_payment_id = p.c_payment_id OR p.bh_c_order_id = o.c_order_id
+),
+	account_dates_plus_today AS (
+		SELECT
+			ad_client_id,
+			dateacct
+		FROM
+			account_dates
+		UNION
+		SELECT
+			ad.ad_client_id,
+			NOW()::date
+		FROM
+			(
+				SELECT DISTINCT
+					ad_client_id
+				FROM
+					account_dates
+			) ad
+	)
 SELECT DISTINCT
 	ad_client_id,
 	EXTRACT(YEAR FROM dateacct)                                                 AS calendar_year,
@@ -384,46 +455,7 @@ SELECT DISTINCT
 INTO TEMP TABLE
 	tmp_account_dates
 FROM
-	(
--- Insert years for all errored orders
-		SELECT
-			o.ad_client_id,
-			o.dateacct
-		FROM
-			c_order o
-				JOIN tmp_errored_order_ids teoi
-					ON teoi.c_order_id = o.c_order_id
-				JOIN c_calendar c
-					ON c.ad_client_id = o.ad_client_id
-		UNION
--- Insert years for all invoices associated with errored orders
-		SELECT
-			i.ad_client_id,
-			i.dateacct
-		FROM
-			c_invoice i
-				JOIN tmp_errored_order_ids teoi
-					ON teoi.c_order_id = i.c_order_id
-				JOIN c_calendar c
-					ON c.ad_client_id = i.ad_client_id
-		UNION
--- Insert years for all payments associated with errored orders
-		SELECT
-			p.ad_client_id,
-			p.dateacct
-		FROM
-			c_order o
-				JOIN tmp_errored_order_ids teoi
-					ON teoi.c_order_id = o.c_order_id
-				JOIN c_calendar c
-					ON c.ad_client_id = o.ad_client_id
-				LEFT JOIN c_invoice i
-					ON o.c_order_id = i.c_order_id
-				LEFT JOIN c_allocationline al
-					ON i.c_invoice_id = al.c_invoice_id
-				LEFT JOIN c_payment p
-					ON al.c_payment_id = p.c_payment_id OR p.bh_c_order_id = o.c_order_id
-	) p;
+	account_dates_plus_today;
 
 -- First create any years that don't yet exist
 DROP TABLE IF EXISTS tmp_c_year;
@@ -518,19 +550,34 @@ CREATE TEMP TABLE IF NOT EXISTS tmp_c_period
 	c_period_uu  uuid        DEFAULT uuid_generate_v4()
 );
 
+SELECT
+	SETVAL(
+			'tmp_c_period_c_period_id_seq',
+			(
+				SELECT
+					currentnext
+				FROM
+					ad_sequence
+				WHERE
+					name = 'C_Period'
+				LIMIT 1
+			)::INT,
+			FALSE
+		);
+
 INSERT INTO
 	tmp_c_period (ad_client_id, name, periodno, c_year_id, startdate, enddate)
 SELECT
 	ad.ad_client_id,
 	ad.name,
 	ad.calendar_month,
-	ty.c_year_id,
+	y.c_year_id,
 	ad.startdate,
 	ad.enddate
 FROM
 	tmp_account_dates ad
-		JOIN tmp_c_year ty
-			ON ty.fiscalyear = ad.calendar_year::varchar AND ty.ad_client_id = ad.ad_client_id;
+		JOIN c_year y
+			ON y.fiscalyear = ad.calendar_year::varchar AND y.ad_client_id = ad.ad_client_id;
 
 INSERT INTO
 	c_period (c_period_id, ad_client_id, ad_org_id, createdby, updatedby, name, periodno, c_year_id, startdate, enddate,
@@ -549,7 +596,8 @@ SELECT
 	periodtype,
 	processing
 FROM
-	tmp_c_period;
+	tmp_c_period
+ON CONFLICT DO NOTHING;
 
 -- Lastly, insert the period controls
 DROP TABLE IF EXISTS tmp_c_periodcontrol;
@@ -571,6 +619,21 @@ CREATE TEMP TABLE tmp_c_periodcontrol
 	c_periodcontrol_uu uuid        DEFAULT uuid_generate_v4()
 );
 
+SELECT
+	SETVAL(
+			'tmp_c_periodcontrol_c_periodcontrol_id_seq',
+			(
+				SELECT
+					currentnext
+				FROM
+					ad_sequence
+				WHERE
+					name = 'C_PeriodControl'
+				LIMIT 1
+			)::INT,
+			FALSE
+		);
+
 INSERT INTO
 	tmp_c_periodcontrol (ad_client_id, c_period_id, docbasetype)
 SELECT
@@ -578,7 +641,17 @@ SELECT
 	tp.c_period_id,
 	dt.docbasetype
 FROM
-	tmp_c_period tp
+	(
+		SELECT
+			c_period_id,
+			p.ad_client_id
+		FROM
+			tmp_account_dates ad
+				JOIN c_year y
+					ON y.fiscalyear = ad.calendar_year::varchar AND y.ad_client_id = ad.ad_client_id
+				JOIN c_period p
+					ON y.c_year_id = p.c_year_id AND ad.calendar_month = p.periodno
+	) tp
 		JOIN (
 		SELECT DISTINCT
 			ad_client_id,
@@ -603,9 +676,63 @@ SELECT
 	periodaction,
 	processing
 FROM
-	tmp_c_periodcontrol;
+	tmp_c_periodcontrol
+ON CONFLICT DO NOTHING;
 
--- Set the compoletion process to not run at the same time
+UPDATE c_periodcontrol
+SET
+	periodstatus = 'O'
+WHERE
+		c_periodcontrol_id IN (
+		SELECT
+			c_periodcontrol_id
+		FROM
+			tmp_c_periodcontrol
+	);
+
+-- Update completed invoices marked as paid to not be paid if they have no active allocation headers associated with them
+UPDATE c_invoice
+SET
+	ispaid = 'N'
+WHERE
+	ispaid = 'Y'
+	AND isactive = 'Y'
+	AND c_invoice_id IN (
+	SELECT
+		i.c_invoice_id
+	FROM
+		c_invoice i
+			LEFT JOIN c_allocationline al
+				ON i.c_invoice_id = al.c_invoice_id AND al.isactive = 'Y'
+			LEFT JOIN c_allocationhdr ah
+				ON al.c_allocationhdr_id = ah.c_allocationhdr_id AND ah.docstatus != 'RE'
+	WHERE
+		al.c_invoice_id IS NULL
+		OR ah.c_allocationhdr_id IS NULL
+);
+
+UPDATE c_payment
+SET
+	isallocated  = 'N',
+	c_invoice_id = NULL
+WHERE
+		c_payment_id IN (
+		SELECT
+			p.c_payment_id
+		FROM
+			c_payment p
+				LEFT JOIN c_allocationline al
+					ON p.c_payment_id = al.c_payment_id AND al.isactive = 'Y'
+				LEFT JOIN c_allocationhdr ah
+					ON al.c_allocationhdr_id = ah.c_allocationhdr_id AND ah.docstatus != 'RE'
+		WHERE
+			al.c_payment_id IS NULL
+			OR ah.c_allocationhdr_id IS NULL
+	)
+	AND isactive = 'Y'
+	AND isallocated = 'Y';
+
+-- Set the completion process to not run at the same time
 UPDATE ad_process
 SET
 	allowmultipleexecution = 'N'
