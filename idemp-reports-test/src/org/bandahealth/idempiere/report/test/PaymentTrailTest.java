@@ -112,6 +112,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.refresh();
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.getPayment().setC_Invoice_ID(0);
+		valueObject.getPayment().setBH_C_Order_ID(0);
 		valueObject.getPayment().setPayAmt(debtPayment);
 		valueObject.getPayment().saveEx();
 		commitEx();
