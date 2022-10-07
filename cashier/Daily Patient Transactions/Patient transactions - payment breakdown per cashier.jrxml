@@ -72,8 +72,10 @@
 			bh_get_visit_details($P{AD_CLIENT_ID}, TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI')::timestamp, TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI')::timestamp) vd
 				CROSS JOIN params p
 		WHERE
-			p.ad_user_uu = ''
-			OR p.ad_user_uu = createdby_user_uu
+			(p.ad_user_uu = ''
+				OR p.ad_user_uu = createdby_user_uu)
+			AND vd.docstatus != 'VO'
+			AND vd.docstatus != 'DR'
 		GROUP BY
 			c_order_id, c_bpartner_id, bh_visitdate, cashier_name, patient_name, bh_patienttype
 	),
@@ -153,8 +155,7 @@ WHERE
 			(p.payment_mode = ''
 				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
 					AND p.payment_mode IN ('I', 'W', 'T')))
-	);
-]]>
+	);]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
