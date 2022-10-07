@@ -4,6 +4,7 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -277,14 +278,17 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalsRowIndex = -1;
 			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
-				if (row.getCell(patientNameColumnIndex) != null &&
-						row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
-						row.getCell(patientNameColumnIndex).getStringCellValue().isEmpty()) {
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
+						patientNameCell.getStringCellValue().isEmpty() && totalPaymentCell != null &&
+						totalPaymentCell.getCellType().equals(CellType.NUMERIC) && totalPaymentCell.getNumericCellValue() > 0) {
 					totalsRowIndex = i;
 					break;
 				}
 			}
 
+			assertTrue(totalsRowIndex > -1, "Row totals displayed for transactions");
 			totalCharged = sheet.getRow(totalsRowIndex).getCell(totalPaymentColumnIndex).getNumericCellValue();
 
 			Row cashierPivotTableHeaderRow = TableUtils.getHeaderRow(sheet, "Cash", totalsRowIndex + 1);
