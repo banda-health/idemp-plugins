@@ -37,6 +37,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -287,6 +288,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			totalCharged = sheet.getRow(totalsRowIndex).getCell(totalPaymentColumnIndex).getNumericCellValue();
 
 			Row cashierPivotTableHeaderRow = TableUtils.getHeaderRow(sheet, "Cash", totalsRowIndex + 1);
+			assertNotNull(cashierPivotTableHeaderRow, "Cashier income table exists");
 			int cashierTotalsColumnIndex = TableUtils.getColumnIndex(cashierPivotTableHeaderRow, "Total");
 
 			assertEquals(totalCharged, sheet.getRow(TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1)

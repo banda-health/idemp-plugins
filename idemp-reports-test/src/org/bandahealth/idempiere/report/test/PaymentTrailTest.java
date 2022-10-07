@@ -111,7 +111,6 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		valueObject.refresh();
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
-		valueObject.getPayment().setC_Invoice_ID(0);
 		valueObject.getPayment().setBH_C_Order_ID(0);
 		valueObject.getPayment().setPayAmt(debtPayment);
 		valueObject.getPayment().saveEx();
@@ -311,6 +310,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
 		valueObject.getPayment().setPayAmt(debtPayment);
+		valueObject.getPayment().setBH_C_Order_ID(0);
 		valueObject.getPayment().saveEx();
 
 		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
@@ -350,7 +350,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
-							.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
 			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
 
