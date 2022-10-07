@@ -57,6 +57,8 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create product");
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create purchase order");
@@ -95,9 +97,10 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Optional<Row> productRow =
-					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName())).findFirst();
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(0) != null &&
+									row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
+					.findFirst();
 			assertTrue(productRow.isPresent(), "Report contains product");
 			assertThat("Opening stock for this product is correct", productRow.get().getCell(1).getNumericCellValue(),
 					is(0.0D));
@@ -124,6 +127,8 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create product");
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create purchase order");
@@ -173,7 +178,7 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			List<Row> productRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName()))
+							row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
 					.collect(Collectors.toList());
 			assertEquals(1, productRows.size(), "Only one row is returned");
 			Row productRow = productRows.get(0);

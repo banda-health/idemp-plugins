@@ -153,7 +153,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
-							.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
 			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
 
