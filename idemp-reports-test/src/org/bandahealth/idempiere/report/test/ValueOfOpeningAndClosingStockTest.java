@@ -317,6 +317,8 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create product");
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create purchase order");
@@ -360,7 +362,7 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			List<Row> productRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName()))
+							row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
 					.sorted(Comparator.comparingDouble(row -> row.getCell(2).getNumericCellValue())).collect(Collectors.toList());
 
 			assertEquals(1, productRows.size(), "Only one product row appears");
