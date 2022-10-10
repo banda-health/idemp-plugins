@@ -7,7 +7,6 @@ class VendorApi extends BaseApi<Vendor> {
 	entityName = 'vendors';
 
 	async save(valueObject: ValueObject, data: Vendor): Promise<Vendor> {
-		const headers = this.getAuthorizationHeaders(valueObject);
 		return (
 			await axios.post<Vendor>(
 				`${IDEMPIERE_ENDPOINT}/${this.entityName}/save`,

@@ -78,7 +78,7 @@ export async function createVendor(valueObject: ValueObject){
 }
 
 /**
- * Create a business partner (don't really have an ideal method for this at the moment - have to go through patients).
+ * Create a business partner as a vendor
  * If a business partner already exists on the value object, this won't do anything.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing

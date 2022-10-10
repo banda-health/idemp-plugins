@@ -34,7 +34,7 @@ test(`product created and sold with more than received quantity`, async () => {
 	];
 
 	valueObject.stepName = 'Complete visit';
-	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, 'DR');
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, 'CO');
 	await waitForVisitToComplete(valueObject);
 
 });
