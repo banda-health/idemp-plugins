@@ -170,3 +170,52 @@ test(`patient open balance correct with multiple payments`, async () => {
 		totalCharge - paymentTotal,
 	);
 });
+
+test('payments can be removed and added to re-opened visit', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.order!.payments = [
+		{
+			payAmount: valueObject.salesStandardPrice,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
+		} as Payment,
+	];
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+	await waitForVisitToComplete(valueObject);
+
+	// expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Reverse visit';
+	valueObject.order = await visitApi.process(valueObject, valueObject.order.uuid, 'RE');
+
+	// expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Re-completing visit';
+	valueObject.order.payments[0] = {
+		payAmount: valueObject.salesStandardPrice,
+		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+			(tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY,
+		) as PaymentType,
+	} as Payment;
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, 'CO');
+	await waitForVisitToComplete(valueObject);
+
+	// expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+});
+

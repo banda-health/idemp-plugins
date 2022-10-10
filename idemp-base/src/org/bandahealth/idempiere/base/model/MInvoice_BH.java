@@ -1,46 +1,60 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.compiere.model.MBankAccount;
-import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 import org.compiere.model.PO;
-import org.compiere.model.Query;
-import org.compiere.process.DocAction;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Properties;
 
 public class MInvoice_BH extends MInvoice {
-	
-	private static final long serialVersionUID = 1L;
 
-	/** Mobile Account = A */
+	/**
+	 * Mobile Account = A
+	 */
 	public static final String PAYMENTRULE_MobileAccount = "A";
-	/** BH Cash Account = b */
+	/**
+	 * BH Cash Account = b
+	 */
 	public static final String PAYMENTRULE_BHCashAccount = "b";
-	
 	public static final String EXPENSE_InvoiceType = "e";
-	
 	public static final String INCOME_InvoiceType = "i";
-
 	/**
 	 * Column name BH_Processing
 	 */
 	public static final String COLUMNNAME_BH_Processing = "BH_Processing";
-	
 	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
-
 	/**
-	 * Set BH_Processing.
-	 *
-	 * @param bhProcessing Whether this invoice is an expense or not
+	 * Column name BH_IsExpense
 	 */
-	public void setBH_Processing(boolean bhProcessing) {
-		set_Value(COLUMNNAME_BH_Processing, bhProcessing);
+	public static final String COLUMNNAME_BH_IsExpense = "BH_IsExpense";
+	/**
+	 * Column name BH_DocAction
+	 */
+	public static final String COLUMNNAME_BH_DocAction = "BH_DocAction";
+	/**
+	 * Column name BH_InvoiceType
+	 */
+	public static final String COLUMNNAME_BH_InvoiceType = "BH_InvoiceType";
+	private static final long serialVersionUID = 1L;
+
+	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
+		super(ctx, C_Invoice_ID, trxName);
+	}
+
+	public MInvoice_BH(Properties ctx, ResultSet rs, String trxName) {
+		super(ctx, rs, trxName);
+	}
+
+	public MInvoice_BH(MOrder order, int C_DocTypeTarget_ID, Timestamp invoiceDate) {
+		super(order, C_DocTypeTarget_ID, invoiceDate);
+	}
+
+	public MInvoice_BH(MInvoice invoice) {
+		super(invoice.getCtx(), 0, invoice.get_TrxName());
+
+		PO.copyValues(invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
 	}
 
 	/**
@@ -57,17 +71,12 @@ public class MInvoice_BH extends MInvoice {
 	}
 
 	/**
-	 * Column name BH_IsExpense
-	 */
-	public static final String COLUMNNAME_BH_IsExpense = "BH_IsExpense";
-
-	/**
-	 * Set BH_IsExpense.
+	 * Set BH_Processing.
 	 *
-	 * @param bhIsExpense Whether this invoice is an expense or not
+	 * @param bhProcessing Whether this invoice is an expense or not
 	 */
-	public void setBH_IsExpense(boolean bhIsExpense) {
-		set_Value(COLUMNNAME_BH_IsExpense, bhIsExpense);
+	public void setBH_Processing(boolean bhProcessing) {
+		set_Value(COLUMNNAME_BH_Processing, bhProcessing);
 	}
 
 	/**
@@ -84,17 +93,12 @@ public class MInvoice_BH extends MInvoice {
 	}
 
 	/**
-	 * Column name BH_DocAction
-	 */
-	public static final String COLUMNNAME_BH_DocAction = "BH_DocAction";
-
-	/**
-	 * Set BH_DocAction.
+	 * Set BH_IsExpense.
 	 *
-	 * @param bhDocAction Get the code-set value of the doc action (not used in UI anywhere)
+	 * @param bhIsExpense Whether this invoice is an expense or not
 	 */
-	public void setBH_DocAction(String bhDocAction) {
-		set_Value(COLUMNNAME_BH_DocAction, bhDocAction);
+	public void setBH_IsExpense(boolean bhIsExpense) {
+		set_Value(COLUMNNAME_BH_IsExpense, bhIsExpense);
 	}
 
 	/**
@@ -105,19 +109,14 @@ public class MInvoice_BH extends MInvoice {
 	public String getBH_DocAction() {
 		return (String) get_Value(COLUMNNAME_BH_DocAction);
 	}
-	
-	/**
-	 * Column name BH_InvoiceType
-	 */
-	public static final String COLUMNNAME_BH_InvoiceType = "BH_InvoiceType";
 
 	/**
-	 * Set BH_InvoiceType.
+	 * Set BH_DocAction.
 	 *
-	 * @param invoiceType
+	 * @param bhDocAction Get the code-set value of the doc action (not used in UI anywhere)
 	 */
-	public void setBH_InvoiceType(String invoiceType) {
-		set_Value(COLUMNNAME_BH_InvoiceType, invoiceType);
+	public void setBH_DocAction(String bhDocAction) {
+		set_Value(COLUMNNAME_BH_DocAction, bhDocAction);
 	}
 
 	/**
@@ -130,51 +129,14 @@ public class MInvoice_BH extends MInvoice {
 	}
 
 	/**
-	 * 	Get Process Message
-	 *	@return clear text error message
+	 * Set BH_InvoiceType.
+	 *
+	 * @param invoiceType
 	 */
-	@Override
-	public String getProcessMsg()
-	{
-		return super.getProcessMsg();
-	}	//	getProcessMsg
-
-	/**
-	 * Set process message
-	 * @param processMsg
-	 */
-	@Override
-	public void setProcessMessage(String processMsg)
-	{
-		super.setProcessMessage(processMsg);
+	public void setBH_InvoiceType(String invoiceType) {
+		set_Value(COLUMNNAME_BH_InvoiceType, invoiceType);
 	}
 
-	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
-		super(ctx, C_Invoice_ID, trxName);
-	}
-	
-	public MInvoice_BH(Properties ctx, ResultSet rs, String trxName) {
-		super(ctx, rs, trxName);
-	}
-	
-	public MInvoice_BH(MOrder order, int C_DocTypeTarget_ID, Timestamp invoiceDate) {
-		super(order, C_DocTypeTarget_ID, invoiceDate);
-	}
-	
-	public MInvoice_BH (MInvoice invoice) {
-		super(invoice.getCtx(), 0, invoice.get_TrxName());
-
-		PO.copyValues (invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
-	}
-
-	/**
-	 * Copied from MInvoice.java
-	 * @param doc
-	 */
-	private void addDocsPostProcess(PO doc) {
-		getDocsPostProcess().add(doc);
-	}
-	
 	public int getBH_VoidedReasonID() {
 		Integer ii = (Integer) get_Value(COLUMNNAME_BH_VOIDED_REASON_ID);
 		if (ii == null)
