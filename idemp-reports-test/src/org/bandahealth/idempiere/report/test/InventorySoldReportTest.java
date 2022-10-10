@@ -122,6 +122,8 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create product");
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create purchase order");
@@ -165,7 +167,7 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			List<Row> productRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName()))
+							row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
 					.collect(Collectors.toList());
 			double totalQuantitySold = quantitySold.doubleValue() * 2;
 			assertEquals(1, productRows.size(), "Only one row is returned");
