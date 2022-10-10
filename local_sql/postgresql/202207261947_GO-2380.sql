@@ -732,6 +732,50 @@ WHERE
 	AND isactive = 'Y'
 	AND isallocated = 'Y';
 
+-- For the errored orders, make sure their grand totals are correct
+UPDATE c_order o
+SET
+	grandtotal = t.grandtotal,
+	totallines = t.grandtotal
+FROM
+	(
+		SELECT
+			teoi.c_order_id,
+			SUM(linenetamt) AS grandtotal
+		FROM
+			tmp_errored_order_ids teoi
+				JOIN c_orderline ol
+					ON ol.c_order_id = teoi.c_order_id
+		GROUP BY teoi.c_order_id
+	) t
+WHERE
+	t.c_order_id = o.c_order_id;
+
+-- Fix any price lists versions's valid-from to be before any orders that need to be worked with
+UPDATE m_pricelist_version plv
+SET
+	validfrom = mins.min_dateacct
+FROM
+	(
+		SELECT
+			p.m_product_id,
+			MIN(o.dateacct) min_dateacct
+		FROM
+			tmp_errored_order_ids teoi
+				JOIN c_order o
+					ON teoi.c_order_id = o.c_order_id
+				JOIN c_orderline ol
+					ON o.c_order_id = ol.c_order_id
+				JOIN m_product p
+					ON ol.m_product_id = p.m_product_id
+		GROUP BY p.m_product_id
+	) mins
+		JOIN m_productprice pp
+			ON mins.m_product_id = pp.m_product_id
+WHERE
+	pp.m_pricelist_version_id = plv.m_pricelist_version_id
+	AND mins.min_dateacct < plv.validfrom;
+
 -- Set the completion process to not run at the same time
 UPDATE ad_process
 SET
