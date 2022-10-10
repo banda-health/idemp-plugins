@@ -4,6 +4,7 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -37,6 +38,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -276,21 +278,31 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalsRowIndex = -1;
 			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
-				if (row.getCell(patientNameColumnIndex) != null &&
-						row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
-						row.getCell(patientNameColumnIndex).getStringCellValue().isEmpty()) {
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
+						patientNameCell.getStringCellValue().isEmpty() && totalPaymentCell != null &&
+						totalPaymentCell.getCellType().equals(CellType.NUMERIC) && totalPaymentCell.getNumericCellValue() > 0) {
 					totalsRowIndex = i;
+					totalCharged = totalPaymentCell.getNumericCellValue();
 					break;
 				}
 			}
 
-			totalCharged = sheet.getRow(totalsRowIndex).getCell(totalPaymentColumnIndex).getNumericCellValue();
+			assertTrue(totalsRowIndex > -1, "Row totals displayed for transactions");
+			assertTrue(totalCharged > 0, "Total charged is greater than zero");
 
 			Row cashierPivotTableHeaderRow = TableUtils.getHeaderRow(sheet, "Cash", totalsRowIndex + 1);
+			assertNotNull(cashierPivotTableHeaderRow, "Cashier income table exists");
 			int cashierTotalsColumnIndex = TableUtils.getColumnIndex(cashierPivotTableHeaderRow, "Total");
 
-			assertEquals(totalCharged, sheet.getRow(TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1)
-					.getCell(cashierTotalsColumnIndex).getNumericCellValue(), "Cashier total matches total payment");
+			Row cashierPivotTableFooterRow =
+					TableUtils.getHeaderRow(sheet, "Total", TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1);
+			assertNotNull(cashierPivotTableFooterRow, "Cashier income table has a footer row");
+			assertEquals(CellType.NUMERIC, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getCellType(),
+					"Cashiers' totals cell is numeric");
+			assertEquals(totalCharged, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getNumericCellValue(),
+					"Cashier total matches total payment");
 		}
 
 		valueObject.setStepName("Generate the income & expense report");
