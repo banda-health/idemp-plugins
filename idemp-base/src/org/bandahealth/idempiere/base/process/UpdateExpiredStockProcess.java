@@ -30,7 +30,6 @@ public class UpdateExpiredStockProcess extends SvrProcess {
 
     @Override
     protected String doIt() throws Exception {
-        long start = System.currentTimeMillis();
         log.log(Level.INFO, "START " + PROCESS_NAME);
 
         int count = 0; 
@@ -47,8 +46,7 @@ public class UpdateExpiredStockProcess extends SvrProcess {
             count++;
         }
 
-        String msg = "STOP " + PROCESS_NAME + ". Took " + (System.currentTimeMillis() - start) / 1000 / 60
-                + " mins. Processed " + count + " records(s).";
+        String msg = "STOP " + PROCESS_NAME + ". Processed " + count + " records(s).";
         log.log(Level.INFO, msg);
 
         return msg;
