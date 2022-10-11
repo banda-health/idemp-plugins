@@ -1,17 +1,17 @@
 package org.bandahealth.idempiere.base.process;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MAttributeSetInstance;
+import org.compiere.model.MDocType;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.process.StorageCleanup;
 import org.compiere.process.SvrProcess;
 
 /**
@@ -24,50 +24,73 @@ import org.compiere.process.SvrProcess;
 public class UpdateExpiredStockProcess extends SvrProcess {
 
     private final String PROCESS_NAME = this.getClass().getName();
-    private int AD_CLIENT_ID = 0;
-    private int M_AttributeSetInstance_ID = 0;
+    public static final String PARAMETERNAME_C_DocType_ID = "C_DocType_ID";
     
     @Override
     protected void prepare() {
-        //Read all parameters
-        ProcessInfoParameter[] parameters = getParameter();
-        for (int i = 0; i < parameters.length; i++) {
-            String name = parameters[i].getParameterName(); 
-            if (parameters[i].getParameter() == null) {
-                
-            }else if (name.equalsIgnoreCase("AD_CLIENT_ID")) {
-                AD_CLIENT_ID = parameters[i].getParameterAsInt();
-            } else if (name.equalsIgnoreCase("M_AttributeSetInstance_ID")) {
-                M_AttributeSetInstance_ID = parameters[i].getParameterAsInt();
-            }else {
-                log.severe("Unknown parameter " + name);
-            }
-        }
-        log.info("Process prepared with " + AD_CLIENT_ID + " - " + M_AttributeSetInstance_ID);
     }
 
     @Override
     protected String doIt() throws Exception {
         log.log(Level.INFO, "START " + PROCESS_NAME);
 
-        int count = 0; 
-        String whereClause = MStorageOnHand.COLUMNNAME_QtyOnHand + "> 0";
-        List<MStorageOnHand> stocks = new Query(getCtx(), MStorageOnHand.Table_Name, whereClause, get_TrxName())
-                .setClient_ID().setOnlyActiveRecords(true).list();
-        for (MStorageOnHand stock : stocks) {
-            //check if expired
-            MAttributeSetInstance mAttributeSetInstance = new Query(getCtx(), MAttributeSetInstance.Table_Name, MAttributeSetInstance.COLUMNNAME_GuaranteeDate  + " < now() AND " + MAttributeSetInstance.COLUMNNAME_M_AttributeSetInstance_ID + " = " + stock.getM_AttributeSetInstance_ID(),
-                    get_TrxName()).first();
-            if(mAttributeSetInstance != null) {
+        int count = 0;
+        //Get all Attribute Set Instance that are expired for this client
+        String attributeWhereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate  + " < now()";
+        List<MAttributeSetInstance> expiredAttributes = new Query(getCtx(), MAttributeSetInstance.Table_Name, attributeWhereClause, get_TrxName())
+                .setClient_ID()
+                .setOnlyActiveRecords(true)
+                .list();
+        for (MAttributeSetInstance expiredAttribute : expiredAttributes) {
+            //Get all stocks that have this expired attribute
+            String whereClause = MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "=?";
+            List<MStorageOnHand> stocks = new Query(getCtx(), MStorageOnHand.Table_Name, whereClause, get_TrxName())
+                    .setClient_ID()
+                    .setParameters(expiredAttribute.getM_AttributeSetInstance_ID())
+                    .setOnlyActiveRecords(true)
+                    .list();
+            for (MStorageOnHand stock : stocks) {
                 UpdateStock.updateStock(stock, BigDecimal.ZERO);
-            }            
-            count++;
+                count++;
+            }
         }
+        
+        // Kick off the storage cleanup process
+        StorageCleanup storageCleanupProcess = new StorageCleanup();
+        //Get C_DocType_ID for this client before clearing parameters
+        String whereClause  = "DocBaseType=?";
+        MDocType mDocType = new Query(getCtx(), MDocType.Table_Name, whereClause, null)
+                .setClient_ID()
+                .setParameters(MDocType.DOCBASETYPE_MaterialMovement)
+                .setOnlyActiveRecords(true)
+                .first();
+        if (mDocType != null) {
+            //Clear Parameters
+            clearParameters();
+            // Add Doc Type Parameter.
+            addParameter(new ProcessInfoParameter(PARAMETERNAME_C_DocType_ID, mDocType.getC_DocType_ID(), null, null, null));
+            storageCleanupProcess.startProcess(getCtx(), getProcessInfo(), null);
+        }
+        
 
         String msg = "STOP " + PROCESS_NAME + ". Processed " + count + " records(s).";
         log.log(Level.INFO, msg);
 
         return msg;
+    }
+    
+    private void clearParameters() {
+        List<ProcessInfoParameter> parameters = new ArrayList<ProcessInfoParameter>(Arrays.asList(getParameter()));
+        parameters.clear();
+        // Set the parameters so they can be accessed by everyone
+        getProcessInfo().setParameter(parameters.toArray(ProcessInfoParameter[]::new));
+    }
+    
+    private void addParameter(ProcessInfoParameter parameter) {
+        List<ProcessInfoParameter> parameters = new ArrayList<ProcessInfoParameter>(Arrays.asList(getParameter()));
+        parameters.add(parameter);
+        // Set the parameters so they can be accessed by everyone
+        getProcessInfo().setParameter(parameters.toArray(ProcessInfoParameter[]::new));
     }
 
 }
