@@ -86,7 +86,7 @@ FROM
 	<parameter name="c_bpartner_uu" class="java.lang.String">
 		<parameterDescription><![CDATA[Patient UUID]]></parameterDescription>
 	</parameter>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
