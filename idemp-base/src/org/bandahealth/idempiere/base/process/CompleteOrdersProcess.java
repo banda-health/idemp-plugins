@@ -84,7 +84,8 @@ public class CompleteOrdersProcess extends SvrProcess {
 			//					LEFT JOIN c_allocationhdr ah
 			//						ON al.c_allocationhdr_id = ah.c_allocationhdr_id
 			//					LEFT JOIN c_payment p
-			//						ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id) AND p.docstatus != 'RE'
+			//						ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id)
+			//							AND p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
 			//			WHERE
 			//						o.issotrx = 'Y'
 			//					AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
@@ -117,13 +118,14 @@ public class CompleteOrdersProcess extends SvrProcess {
 					"		FROM " +
 					"			c_order o " +
 					"				LEFT JOIN c_invoice i " +
-					"					ON o.c_order_id = i.c_order_id AND i.docstatus NOT IN ('RE', 'RA', 'VO') " +
+					"					ON o.c_order_id = i.c_order_id AND i.docstatus NOT IN ('RE', 'RA', 'RC', 'VO') " +
 					"				LEFT JOIN c_allocationline al " +
 					"					ON i.c_invoice_id = al.c_invoice_id " +
 					"				LEFT JOIN c_allocationhdr ah " +
 					"					ON al.c_allocationhdr_id = ah.c_allocationhdr_id " +
 					"				LEFT JOIN c_payment p " +
-					"					ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id) AND p.docstatus != 'RE' " +
+					"					ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id) " +
+					"						AND p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO') " +
 					"		WHERE " +
 					"			o.issotrx = 'Y' " +
 					"			AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC')) " +
@@ -192,6 +194,14 @@ public class CompleteOrdersProcess extends SvrProcess {
 				// the wrong AD_Client_IDs and can't fetch the appropriate Bank Accounts and Account Schemas
 				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, erroredOrder.getAD_Client_ID());
 				boolean doesOrderHaveInvoices = invoicesByErroredOrderId.containsKey(erroredOrder.get_ID());
+				// If there are any invoices with a weird status, update those
+				for (MInvoice_BH invoice : invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>())) {
+					if (invoice.getDocAction().equals(MInvoice_BH.DOCACTION_Close) && invoice.isProcessed() &&
+							!invoice.isComplete()) {
+						invoice.setDocStatus(MInvoice_BH.DOCSTATUS_Completed);
+						invoice.saveEx();
+					}
+				}
 				// Now check the various ways invoices could be wrong
 				List<MInvoice_BH> correctIncompleteInvoices =
 						invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
@@ -247,13 +257,15 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 					if (shouldNotReopenOrder) {
 						MInvoice_BH invoice = correctIncompleteInvoices.get(0);
-						// If the document is invalid, we'll just void it
 						if (invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Invalid)) {
+							// If the document is invalid, we'll just void it
 							invoice.setDocAction(MInvoice_BH.DOCACTION_Void);
 							if (!invoice.processIt(MInvoice_BH.DOCACTION_Void)) {
 								log.severe("Couldn't void invoice " + invoice.get_ID() + " to remove it. Please investigate.");
 							}
 						} else {
+							// Update the payment type so that payments don't automatically get created...
+							invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
 							invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
 							if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
 								log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
@@ -286,7 +298,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 								invoice.deleteEx(true);
 							} else {
 								// Some of these invoices are drafted (and somehow have allocations...), so first try to complete the
-								// invoice
+								// invoice so we can immediately reverse it
 								if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
 									invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
 									if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
@@ -318,13 +330,27 @@ public class CompleteOrdersProcess extends SvrProcess {
 					count.getAndDecrement();
 				}
 				if (paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+					// Sometimes we have some weird payments - update those
+					for (MPayment_BH payment : paymentsByErroredOrderId.get(erroredOrder.get_ID())) {
+						if (payment.isAllocated() && payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Drafted)) {
+							payment.setDocStatus(MPayment_BH.DOCSTATUS_Completed);
+							payment.saveEx();
+						}
+					}
+					// For any payments that are allocated by have an incomplete doc status, just update the doc status
+					List<MPayment_BH> incorrectDocumentStatusPayments =
+							paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream().filter(MPayment_BH::isAllocated)
+									.filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
+					for (MPayment_BH payment : incorrectDocumentStatusPayments) {
+						payment.setDocStatus(MPayment_BH.DOCSTATUS_Completed);
+						payment.saveEx();
+					}
 					// Complete any payments that haven't been completed yet
-					paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream().filter(Predicate.not(MPayment_BH::isComplete))
-							.forEach(payment -> {
-								payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-								payment.processIt(MPayment_BH.DOCACTION_Complete);
-								payment.saveEx();
-							});
+					List<MPayment_BH> incompletePayments = paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream()
+							.filter(Predicate.not(MPayment_BH::isAllocated)).collect(Collectors.toList());
+					for (MPayment_BH payment : incompletePayments) {
+						tryToCompleteAndAllocatePayment(payment);
+					}
 					// Fetch the payments again, now that they've been updated
 					paymentParameters = new ArrayList<>();
 					paymentWhereClause = getPaymentWhereClause(Collections.singleton(erroredOrder.get_ID()), paymentParameters);
@@ -336,48 +362,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 							paymentsForErroredOrder.stream().filter(Predicate.not(MPayment_BH::isAllocated))
 									.collect(Collectors.toList());
 					for (MPayment_BH payment : unallocatedPayments) {
-						// Try to allocate the payment - if it fails, it's probably due to the allocation date, so we'll just
-						// re-open and re-complete the payment in that case
-						try {
-							if (!payment.isComplete()) {
-								payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-								if (!payment.processIt(MPayment_BH.DOCACTION_Complete)) {
-									log.severe("Could not complete payment with ID " + payment.get_ID() + ", please investigate");
-								}
-							} else {
-								payment.allocateIt();
-							}
-							payment.saveEx();
-						} catch (AdempiereException exception) {
-							if (!exception.getMessage().contains("Wrong allocation date")) {
-								throw exception;
-							}
-							// There may be allocations to delete
-							MAllocationHdr[] allocations = MAllocationHdr.getOfPayment(getCtx(), payment.get_ID(), get_TrxName());
-							for (MAllocationHdr allocationHeader : allocations) {
-								if (allocationHeader.getDocStatus().equals(MAllocationHdr.STATUS_Drafted)) {
-									Arrays.stream(allocationHeader.getLines(true))
-											.forEach(allocationLine -> allocationLine.deleteEx(false, get_TrxName()));
-									allocationHeader.deleteEx(true, get_TrxName());
-								}
-							}
-							MPayment_BH newPayment = payment.copy();
-							newPayment.setDateAcct(new Timestamp(System.currentTimeMillis()));
-							payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
-							if (!payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual)) {
-								log.severe("Could not reverse payment with ID " + payment.get_ID() + ", please investigate");
-								continue;
-							}
-							payment.saveEx();
-							newPayment.saveEx();
-							newPayment.setDocAction(MPayment_BH.DOCACTION_Complete);
-							if (!newPayment.processIt(MPayment_BH.DOCACTION_Complete)) {
-								log.severe("Could not complete new payment from reversed payment with ID " + payment.get_ID() +
-										", please investigate");
-								continue;
-							}
-							newPayment.saveEx();
-						}
+						tryToCompleteAndAllocatePayment(payment);
 					}
 				}
 			}
@@ -400,12 +385,74 @@ public class CompleteOrdersProcess extends SvrProcess {
 		String message = "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60
 				+ " mins. Processed " + count.get() + " order(s).";
 		if (!notFixedOrderIds.isEmpty()) {
-			message += " " + notFixedOrderIds.size() + " order(s) not fixed: " +
+			String ordersNotFixed = notFixedOrderIds.size() + " order(s) not fixed: " +
 					notFixedOrderIds.stream().map(String::valueOf).collect(Collectors.joining(","));
+			message += " " + ordersNotFixed;
+			log.severe(ordersNotFixed);
 		}
 		log.log(Level.INFO, message);
 
 		return message;
+	}
+
+	/**
+	 * This method tries to complete and allocate a payment, if possible. If a payment throws an error when allocating
+	 * due to the wrong allocation date, the method will just create a duplicate payment being made for the current date
+	 *
+	 * @param payment The payment to try and complete and/or allocate
+	 */
+	private void tryToCompleteAndAllocatePayment(MPayment_BH payment) {
+		// Try to allocate the payment - if it fails, it's probably due to the allocation date, so we'll just
+		// re-open and re-complete the payment in that case
+		try {
+			if (!payment.isComplete()) {
+				payment.setDocAction(MPayment_BH.DOCACTION_Complete);
+				if (!payment.processIt(MPayment_BH.DOCACTION_Complete)) {
+					log.severe("Could not complete payment with ID " + payment.get_ID() + ", please investigate");
+				}
+			} else {
+				payment.allocateIt();
+			}
+			payment.saveEx();
+		} catch (AdempiereException exception) {
+			if (!exception.getMessage().contains("Wrong allocation date")) {
+				throw exception;
+			}
+			// There may be allocations to delete
+			MAllocationHdr[] allocations = MAllocationHdr.getOfPayment(getCtx(), payment.get_ID(), get_TrxName());
+			for (MAllocationHdr allocationHeader : allocations) {
+				if (allocationHeader.getDocStatus().equals(MAllocationHdr.STATUS_Drafted)) {
+					Arrays.stream(allocationHeader.getLines(true))
+							.forEach(allocationLine -> allocationLine.deleteEx(false, get_TrxName()));
+					allocationHeader.deleteEx(true, get_TrxName());
+				}
+			}
+			MPayment_BH newPayment = payment.copy();
+			newPayment.setDateAcct(new Timestamp(System.currentTimeMillis()));
+			// If the payment isn't complete, we'll just void it
+			if (!payment.isComplete()) {
+				payment.setDocAction(MPayment_BH.DOCACTION_Void);
+				if (!payment.processIt(MPayment_BH.DOCACTION_Void)) {
+					log.severe("Could not void payment with ID " + payment.get_ID() + ", please investigate");
+					return;
+				}
+			} else {
+				payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+				if (!payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual)) {
+					log.severe("Could not reverse payment with ID " + payment.get_ID() + ", please investigate");
+					return;
+				}
+			}
+			payment.saveEx();
+			newPayment.saveEx();
+			newPayment.setDocAction(MPayment_BH.DOCACTION_Complete);
+			if (!newPayment.processIt(MPayment_BH.DOCACTION_Complete)) {
+				log.severe("Could not complete new payment from reversed payment with ID " + payment.get_ID() +
+						", please investigate");
+				return;
+			}
+			newPayment.saveEx();
+		}
 	}
 
 	/**
@@ -528,8 +575,9 @@ public class CompleteOrdersProcess extends SvrProcess {
 	 * @return A WHERE clause to pass to the DB
 	 */
 	private String getPaymentWhereClause(Set<Integer> orderIds, List<Object> parameters) {
-		String paymentWhereClause = MPayment_BH.COLUMNNAME_DocStatus + "!=?";
+		String paymentWhereClause = MPayment_BH.COLUMNNAME_DocStatus + " NOT IN (?,?)";
 		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
+		parameters.add(MInvoice_BH.DOCSTATUS_Voided);
 		return paymentWhereClause + " AND (" + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " IN (" +
 				QueryUtil.getWhereClauseAndSetParametersForSet(orderIds, parameters) + ") OR " +
 				MPayment_BH.COLUMNNAME_C_Payment_ID + " IN (SELECT " + MAllocationLine.COLUMNNAME_C_Payment_ID + " FROM " +
