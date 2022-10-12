@@ -40,7 +40,11 @@ public class UpdateExpiredStockProcess extends SvrProcess {
                         " < now()", get_TrxName()).addJoinClause(
                 "JOIN " + MAttributeSetInstance.Table_Name + " ON " + MAttributeSetInstance.Table_Name + "." +
                         MAttributeSetInstance.COLUMNNAME_M_AttributeSetInstance_ID + "=" + MStorageOnHand.Table_Name + "." +
-                        MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID).setClient_ID().setOnlyActiveRecords(true).list();
+                        MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID +
+                        "WHERE " + MStorageOnHand.COLUMNNAME_QtyOnHand + " NOT IN (0)")
+                .setClient_ID()
+                .setOnlyActiveRecords(true)
+                .list();
 
         int count = 0;
         //Get all Attribute Set Instance that are expired for this client
