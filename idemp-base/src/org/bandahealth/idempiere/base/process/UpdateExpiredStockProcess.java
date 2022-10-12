@@ -13,6 +13,7 @@ import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.StorageCleanup;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.Env;
 
 /**
  * This process resets expired stocks to zero for a given client
@@ -33,6 +34,13 @@ public class UpdateExpiredStockProcess extends SvrProcess {
     @Override
     protected String doIt() throws Exception {
         log.log(Level.INFO, "START " + PROCESS_NAME);
+        
+        List<MStorageOnHand> expiredStock = new Query(Env.getCtx(), MStorageOnHand.Table_Name,
+                MAttributeSetInstance.Table_Name + "." + MAttributeSetInstance.COLUMNNAME_GuaranteeDate +
+                        " < now()", get_TrxName()).addJoinClause(
+                "JOIN " + MAttributeSetInstance.Table_Name + " ON " + MAttributeSetInstance.Table_Name + "." +
+                        MAttributeSetInstance.COLUMNNAME_M_AttributeSetInstance_ID + "=" + MStorageOnHand.Table_Name + "." +
+                        MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID).setClient_ID().setOnlyActiveRecords(true).list();
 
         int count = 0;
         //Get all Attribute Set Instance that are expired for this client
