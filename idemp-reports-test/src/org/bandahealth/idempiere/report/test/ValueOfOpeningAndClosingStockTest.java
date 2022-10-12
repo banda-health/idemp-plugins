@@ -38,6 +38,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
+	private final String reportUuid = "630fc1ab-0b64-459b-b10f-68549d21f507";
+
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -70,7 +72,8 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create attribute set to track expirations");
-		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
 		attributeSet.setIsGuaranteeDate(true);
 		attributeSet.setIsGuaranteeDateMandatory(true);
@@ -221,7 +224,7 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runProcess(valueObject);
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("630fc1ab-0b64-459b-b10f-68549d21f507");
+		valueObject.setProcessUuid(reportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
@@ -294,6 +297,87 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 					productRow.getCell(6).getNumericCellValue(), is(productExpirationDate3PurchasePrice.doubleValue()));
 			assertThat("Product expiration 3 closing stock value is correct", productRow.getCell(7).getNumericCellValue(),
 					is(product3RemainingAmount.doubleValue() * productExpirationDate3PurchasePrice.doubleValue()));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void duplicateProductQuantityDoesntAppearWhenSellingOnDifferentDays() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		BigDecimal productPurchasePrice = new BigDecimal(14);
+		BigDecimal productQuantityReceived = new BigDecimal(25);
+		BigDecimal productSellingQuantity = new BigDecimal(5);
+
+		valueObject.setStepName("Create business partner");
+		valueObject.setPurchaseStandardPrice(productPurchasePrice);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDateOffset(-1);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(productQuantityReceived);
+		valueObject.setPurchaseStandardPrice(productPurchasePrice);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(productSellingQuantity);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second sales order");
+		valueObject.setDateOffset(1);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(productSellingQuantity);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			List<Row> productRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
+							row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
+					.sorted(Comparator.comparingDouble(row -> row.getCell(2).getNumericCellValue())).collect(Collectors.toList());
+
+			assertEquals(1, productRows.size(), "Only one product row appears");
+			Row productRow = productRows.get(0);
+			assertThat("Product opening value is correct", productRow.getCell(1).getNumericCellValue(), is(0D));
+			assertThat("Product received value is correct", productRow.getCell(2).getNumericCellValue(),
+					is(productQuantityReceived.doubleValue()));
+			assertThat("Product sold value is correct", productRow.getCell(3).getNumericCellValue(),
+					is(productSellingQuantity.doubleValue() * 2));
+			assertThat("Product balanced value is correct", productRow.getCell(4).getNumericCellValue(), is(0D));
+			assertThat("Product closing value is correct", productRow.getCell(5).getNumericCellValue(), is(15D));
+			assertThat("Product purchase price value is correct", productRow.getCell(6).getNumericCellValue(),
+					is(productPurchasePrice.doubleValue()));
+			assertThat("Product closing stock value is correct", productRow.getCell(7).getNumericCellValue(),
+					is(15D * productPurchasePrice.doubleValue()));
 		}
 	}
 }
