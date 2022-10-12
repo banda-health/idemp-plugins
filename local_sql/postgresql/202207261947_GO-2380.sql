@@ -27,7 +27,8 @@ WHERE
 				LEFT JOIN c_allocationhdr ah
 					ON al.c_allocationhdr_id = ah.c_allocationhdr_id
 				LEFT JOIN c_payment p
-					ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id) AND p.docstatus != 'RE'
+					ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id) AND
+					   p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
 		WHERE
 					o.issotrx = 'Y'
 				AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
@@ -775,6 +776,46 @@ FROM
 WHERE
 	pp.m_pricelist_version_id = plv.m_pricelist_version_id
 	AND mins.min_dateacct < plv.validfrom;
+
+-- Update payments that aren't marked as completed, but really are
+UPDATE c_payment
+SET
+	docstatus = 'CO'
+WHERE
+	isallocated = 'Y'
+	AND docstatus = 'DR'
+	AND c_payment_id IN (
+	SELECT
+		p.c_payment_id
+	FROM
+		tmp_errored_order_ids teoi
+			LEFT JOIN c_invoice i
+				ON teoi.c_order_id = i.c_order_id AND i.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
+			LEFT JOIN c_allocationline al
+				ON i.c_invoice_id = al.c_invoice_id
+			LEFT JOIN c_allocationhdr ah
+				ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+			LEFT JOIN c_payment p
+				ON (p.bh_c_order_id = teoi.c_order_id OR p.c_payment_id = al.c_payment_id) AND
+				   p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
+);
+
+-- Update invoices that aren't marked as completed, but really are
+UPDATE c_invoice
+SET
+	docstatus = 'CO'
+WHERE
+	issotrx = 'Y'
+	AND docstatus IN ('IP')
+	AND docaction = 'CL'
+	AND c_invoice_id IN (
+	SELECT
+		i.c_invoice_id
+	FROM
+		tmp_errored_order_ids teoi
+			LEFT JOIN c_invoice i
+				ON teoi.c_order_id = i.c_order_id AND i.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
+);
 
 -- Set the completion process to not run at the same time
 UPDATE ad_process
