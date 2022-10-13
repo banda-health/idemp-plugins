@@ -11,6 +11,7 @@ CREATE OR REPLACE FUNCTION get_inventory_changes(ad_client_id numeric,
 		        sell_price                numeric,
 		        cost_of_goods_sold        numeric,
 		        gross_profit              numeric,
+		        opening_stock             numeric,
 		        ending_stock              numeric,
 		        received_stock            numeric,
 		        sold_stock                numeric,
@@ -54,6 +55,7 @@ BEGIN
 			CASE
 				WHEN p.PurchasePrice IS NULL THEN NULL
 				ELSE p.soldstock * (p.sell_price - p.PurchasePrice) END AS gross_profit,
+			p.openingstock                                            AS opening_stock,
 			p.endingstock                                             AS ending_stock,
 			p.receivedstock                                           AS received_stock,
 			p.soldstock                                               AS sold_stock,
@@ -63,6 +65,7 @@ BEGIN
 				SELECT
 					productname.m_product_id,
 					productname.m_attributesetinstance_id,
+					COALESCE(openqty.openqty, 0)             AS openingstock,
 					COALESCE(currentqty.closingqty, 0)       AS endingstock,
 					COALESCE(stockreceived.qtyreceived, 0)   AS receivedstock,
 					COALESCE(stocksold.qtysold, 0)           AS soldstock,
@@ -87,6 +90,24 @@ BEGIN
 							p.name,
 							pc.m_attributesetinstance_id
 					) productname
+						LEFT JOIN (
+						SELECT
+							t.m_product_id,
+							t.m_attributesetinstance_id,
+							SUM(t.movementqty) AS openqty
+						FROM
+							m_transaction t
+						WHERE
+							t.ad_client_id = $1
+							AND DATE(movementdate) < start_date
+							AND t.isactive = 'Y'
+						GROUP BY
+							t.m_product_id,
+							t.m_attributesetinstance_id
+					) openqty
+							ON openqty.m_product_id = productname.m_product_id
+						AND openqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
+						AND openqty >= 0
 						LEFT JOIN (
 						SELECT
 							soh.m_product_id,
