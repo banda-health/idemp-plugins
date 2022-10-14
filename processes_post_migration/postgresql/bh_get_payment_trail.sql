@@ -32,7 +32,15 @@ WITH payments AS (
 			AND p2.reversal_id = p1.c_payment_id
 			AND p1.c_bpartner_id = p2.c_bpartner_id
 			LEFT JOIN c_allocationline al
-				ON p1.c_payment_id = al.c_payment_id
+				ON p1.c_payment_id = al.c_payment_id AND
+				   c_allocationhdr_id NOT IN (
+					   SELECT
+						   c_allocationhdr_id
+					   FROM
+						   c_allocationhdr
+					   WHERE
+						   docstatus IN ('RE', 'VO')
+				   )
 			LEFT JOIN c_invoice i
 				ON al.c_invoice_id = i.c_invoice_id
 			LEFT JOIN c_order o
@@ -112,12 +120,7 @@ WITH payments AS (
 											o.issotrx = 'Y'
 											AND o.docstatus = 'CO'
 											AND ol.c_charge_id IS NULL
-											AND o.c_bpartner_id IN (
-											SELECT
-												c_bpartner_id
-											FROM
-												payments
-										)
+											AND bp.c_bpartner_uu = $1
 										GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
 										UNION
 										-- Insurance, waivers, and deductions
@@ -141,12 +144,7 @@ WITH payments AS (
 										WHERE
 											o.issotrx = 'Y'
 											AND o.docstatus = 'CO'
-											AND o.c_bpartner_id IN (
-											SELECT
-												c_bpartner_id
-											FROM
-												payments
-										)
+											AND bp.c_bpartner_uu = $1
 										GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
 										UNION
 										-- Bill Payments

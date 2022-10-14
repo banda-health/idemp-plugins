@@ -27,32 +27,45 @@ WHERE
 				LEFT JOIN c_allocationhdr ah
 					ON al.c_allocationhdr_id = ah.c_allocationhdr_id
 				LEFT JOIN c_payment p
-					ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id) AND
-					   p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
+					ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id)
+				AND p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
+				LEFT JOIN (
+				SELECT
+					c_payment_id,
+					SUM(amount) AS total_allocated
+				FROM
+					c_allocationline
+				WHERE
+					isactive = 'Y'
+					AND c_payment_id IS NOT NULL
+				GROUP BY c_payment_id
+			) payment_allocations
+					ON p.c_payment_id = payment_allocations.c_payment_id
 		WHERE
-					o.issotrx = 'Y'
-				AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
-				AND (
-							(
-										o.docstatus IN ('CO', 'CL') AND (
-											i.docstatus NOT IN ('CO', 'CL') OR
-											(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
-									)
-								)
-							OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus = 'CO'))
-							OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal))
-			OR o.c_order_id IN (
-			SELECT
-				c_order_id
-			FROM
-				c_invoice
-			WHERE
-				docstatus = 'CO'
-				AND isactive = 'Y'
-			GROUP BY c_order_id
-			HAVING
-				COUNT(*) > 1
-		)
+			o.issotrx = 'Y'
+			AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
+			AND (
+				(
+							o.docstatus IN ('CO', 'CL') AND (
+								i.docstatus NOT IN ('CO', 'CL') OR
+								(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
+						)
+					)
+				OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus = 'CO'))
+				OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal)
+				OR o.c_order_id IN (
+				SELECT
+					c_order_id
+				FROM
+					c_invoice
+				WHERE
+					docstatus = 'CO'
+					AND isactive = 'Y'
+				GROUP BY c_order_id
+				HAVING
+					COUNT(*) > 1
+			)
+			)
 	);
 
 -- Make sure the errored orders now have the correct payment rule
@@ -816,6 +829,416 @@ WHERE
 			LEFT JOIN c_invoice i
 				ON teoi.c_order_id = i.c_order_id AND i.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
 );
+
+-- Fix times when more was allocated than was paid
+DROP TABLE IF EXISTS tmp_allocation_headers_to_make_prices_match;
+SELECT
+	ah.c_allocationhdr_id
+INTO TEMP TABLE
+	tmp_allocation_headers_to_make_prices_match
+FROM
+	c_payment p
+		JOIN c_allocationline al
+			ON p.c_payment_id = al.c_payment_id
+		JOIN c_allocationhdr ah
+			ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+WHERE
+	p.payamt < al.amount
+	AND al.isactive = 'Y'
+	AND p.docstatus = 'CO'
+	AND ah.docstatus NOT IN ('RE');
+
+UPDATE c_allocationline al
+SET
+	amount = p.payamt
+FROM
+	c_payment p
+WHERE
+	al.c_payment_id = p.c_payment_id
+	AND al.c_allocationhdr_id IN (
+	SELECT
+		c_allocationhdr_id
+	FROM
+		tmp_allocation_headers_to_make_prices_match
+);
+
+UPDATE c_allocationhdr ah
+SET
+	approvalamt = SUM(al.amount)
+FROM
+	c_allocationline al
+WHERE
+	al.c_allocationhdr_id = ah.c_allocationhdr_id
+	AND ah.c_allocationhdr_id IN (
+	SELECT
+		c_allocationhdr_id
+	FROM
+		tmp_allocation_headers_to_make_prices_match
+);
+
+UPDATE fact_acct fa
+SET
+	amtsourcedr = CASE WHEN amtsourcedr = 0 THEN 0 ELSE amt.amount END,
+	amtsourcecr = CASE WHEN amtsourcecr = 0 THEN 0 ELSE amt.amount END,
+	amtacctdr   = CASE WHEN amtacctdr = 0 THEN 0 ELSE amt.amount END,
+	amtacctcr   = CASE WHEN amtacctcr = 0 THEN 0 ELSE amt.amount END
+FROM
+	(
+		SELECT
+			tahtmpm.c_allocationhdr_id,
+			SUM(al.amount) AS amount
+		FROM
+			tmp_allocation_headers_to_make_prices_match tahtmpm
+				JOIN c_allocationline al
+					ON tahtmpm.c_allocationhdr_id = al.c_allocationhdr_id
+		GROUP BY tahtmpm.c_allocationhdr_id
+	) amt
+WHERE
+	amt.c_allocationhdr_id = fa.record_id
+	AND fa.ad_table_id = 735;
+
+-- Get allocations that were accidentally "doubly made" for a payment (used to happen when an old order was re-opened)
+DROP TABLE IF EXISTS tmp_c_allocationhdrs_to_reverse;
+SELECT
+	c_allocationhdr_id
+INTO TEMP TABLE
+	tmp_c_allocationhdrs_to_reverse
+FROM
+	c_allocationhdr
+WHERE
+		c_allocationhdr_id IN (
+		SELECT
+			al.c_allocationhdr_id
+		FROM
+			c_invoice i
+				JOIN c_allocationline al
+					ON i.c_invoice_id = al.c_invoice_id
+				JOIN c_payment p
+					ON al.c_payment_id = p.c_payment_id
+				JOIN c_allocationhdr ah
+					ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+		WHERE
+			al.isactive = 'Y'
+			AND i.docstatus = 'RE'
+			AND ah.docstatus = 'CO'
+			AND al.amount = i.grandtotal * -1
+			AND p.payamt != al.amount
+	);
+
+-- Create new allocation with all same values, except document number is old appended by ^ and different description, give reversal ID
+DROP TABLE IF EXISTS tmp_c_allocationhdr;
+CREATE TEMP TABLE tmp_c_allocationhdr
+(
+	c_allocationhdr_id serial                          NOT NULL,
+	ad_client_id       numeric(10)                     NOT NULL,
+	ad_org_id          numeric(10)                     NOT NULL,
+-- 	isactive           char        DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created            timestamp   DEFAULT NOW()       NOT NULL,
+	createdby          numeric(10) DEFAULT 100         NOT NULL,
+-- 	updated            timestamp   DEFAULT NOW()       NOT NULL,
+	updatedby          numeric(10) DEFAULT 100         NOT NULL,
+	documentno         varchar(30)                     NOT NULL,
+	description        varchar(255),
+	datetrx            timestamp   DEFAULT date(NOW()) NOT NULL,
+	dateacct           timestamp   DEFAULT date(NOW()) NOT NULL,
+	c_currency_id      numeric(10)                     NOT NULL,
+-- 	approvalamt        numeric     DEFAULT 0           NOT NULL,
+-- 	ismanual           char        DEFAULT 'N'::bpchar NOT NULL,
+	docstatus          char(2)     DEFAULT 'RE'        NOT NULL,
+	docaction          char(2)     DEFAULT '--'        NOT NULL,
+	isapproved         char        DEFAULT 'Y'::bpchar NOT NULL,
+	processing         char        DEFAULT 'N',
+	processed          char        DEFAULT 'Y'::bpchar NOT NULL,
+	posted             char        DEFAULT 'Y'::bpchar NOT NULL,
+	processedon        numeric     DEFAULT EXTRACT(EPOCH FROM NOW()),
+	c_allocationhdr_uu uuid        DEFAULT uuid_generate_v4(),
+	reversal_id        numeric(10) DEFAULT NULL::numeric,
+	c_doctype_id       numeric(10) DEFAULT NULL::numeric
+);
+
+SELECT
+	SETVAL(
+			'tmp_c_allocationhdr_c_allocationhdr_id_seq',
+			(
+				SELECT
+					currentnext
+				FROM
+					ad_sequence
+				WHERE
+					name = 'C_AllocationHdr'
+				LIMIT 1
+			)::INT,
+			FALSE
+		);
+
+INSERT INTO
+	tmp_c_allocationhdr (ad_client_id, ad_org_id, documentno, description, c_currency_id, reversal_id, c_doctype_id)
+SELECT
+	ad_client_id,
+	ad_org_id,
+	documentno || '^',
+	description || ' | {->' || documentno || '}',
+	c_currency_id,
+	c_allocationhdr_id,
+	c_doctype_id
+FROM
+	c_allocationhdr
+WHERE
+		c_allocationhdr_id IN (
+		SELECT
+			c_allocationhdr_id
+		FROM
+			tmp_c_allocationhdrs_to_reverse
+	);
+
+INSERT INTO
+	c_allocationhdr (c_allocationhdr_id, ad_client_id, ad_org_id, createdby, updatedby, documentno, description, datetrx,
+	                 dateacct, c_currency_id, docstatus, docaction, processing, processedon)
+SELECT
+	c_allocationhdr_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	documentno,
+	description,
+	datetrx,
+	dateacct,
+	c_currency_id,
+	docstatus,
+	docaction,
+	processing,
+	processedon
+FROM
+	tmp_c_allocationhdr;
+
+-- Set the allocation's document status & action, description, plus updated/updatedby, then approvalamt to 0
+UPDATE c_allocationhdr
+SET
+	docstatus   = 'RE',
+	docaction   = '--',
+	description = description || ' | (' || documentno || '^<-)',
+	updated     = NOW(),
+	updatedby   = 100,
+	approvalamt = 0
+WHERE
+		c_allocationhdr_id IN (
+		SELECT
+			c_allocationhdr_id
+		FROM
+			tmp_c_allocationhdrs_to_reverse
+	);
+
+-- Create new allocation lines that simply negates the amount
+DROP TABLE IF EXISTS tmp_c_allocationline;
+CREATE TABLE tmp_c_allocationline
+(
+	c_allocationline_id serial                  NOT NULL,
+	ad_client_id        numeric(10)             NOT NULL,
+	ad_org_id           numeric(10)             NOT NULL,
+-- 	isactive            char        DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created             timestamp   DEFAULT NOW()       NOT NULL,
+	createdby           numeric(10) DEFAULT 100 NOT NULL,
+-- 	updated             timestamp   DEFAULT NOW() NOT NULL,
+	updatedby           numeric(10) DEFAULT 100 NOT NULL,
+	allocationno        numeric(10),
+	datetrx             timestamp   DEFAULT date(NOW()),
+-- 	ismanual            char        DEFAULT 'N'::bpchar,
+	c_invoice_id        numeric(10),
+	c_bpartner_id       numeric(10),
+	c_order_id          numeric(10),
+	c_payment_id        numeric(10),
+	c_cashline_id       numeric(10),
+	amount              numeric     DEFAULT 0   NOT NULL,
+-- 	discountamt         numeric     DEFAULT 0   NOT NULL,
+-- 	writeoffamt         numeric     DEFAULT 0   NOT NULL,
+-- 	overunderamt        numeric     DEFAULT 0,
+	c_allocationhdr_id  numeric(10)             NOT NULL,
+	c_allocationline_uu uuid        DEFAULT uuid_generate_v4()
+-- 	c_charge_id         numeric(10) DEFAULT NULL::numeric
+);
+
+SELECT
+	SETVAL(
+			'tmp_c_allocationline_c_allocationline_id_seq',
+			(
+				SELECT
+					currentnext
+				FROM
+					ad_sequence
+				WHERE
+					name = 'C_AllocationLine'
+				LIMIT 1
+			)::INT,
+			FALSE
+		);
+
+INSERT INTO
+	tmp_c_allocationline (ad_client_id, ad_org_id, allocationno, c_invoice_id, c_bpartner_id, c_order_id, c_payment_id,
+	                      c_cashline_id, amount, c_allocationhdr_id)
+SELECT
+	al.ad_client_id,
+	al.ad_org_id,
+	al.allocationno,
+	al.c_invoice_id,
+	al.c_bpartner_id,
+	al.c_order_id,
+	al.c_payment_id,
+	al.c_cashline_id,
+	al.amount * -1,
+	tah.c_allocationhdr_id
+FROM
+	tmp_c_allocationhdr tah
+		JOIN c_allocationhdr rah
+			ON tah.reversal_id = rah.c_allocationhdr_id
+		JOIN c_allocationline al
+			ON rah.c_allocationhdr_id = al.c_allocationhdr_id;
+
+INSERT INTO
+	c_allocationline (c_allocationline_id, ad_client_id, ad_org_id, createdby, updatedby, allocationno, datetrx,
+	                  c_invoice_id, c_bpartner_id, c_order_id, c_payment_id, c_cashline_id, c_allocationhdr_id)
+SELECT
+	c_allocationline_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	allocationno,
+	datetrx,
+	c_invoice_id,
+	c_bpartner_id,
+	c_order_id,
+	c_payment_id,
+	c_cashline_id,
+	c_allocationhdr_id
+FROM
+	tmp_c_allocationline;
+
+-- Update fact_acct with records matching reverse accruing
+DROP TABLE IF EXISTS tmp_fact_acct;
+CREATE TABLE tmp_fact_acct
+(
+	fact_acct_id    serial                          NOT NULL,
+	ad_client_id    numeric(10)                     NOT NULL,
+	ad_org_id       numeric(10)                     NOT NULL,
+-- 	isactive          char      DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created           timestamp DEFAULT NOW()       NOT NULL,
+	createdby       numeric(10) DEFAULT 100         NOT NULL,
+-- 	updated           timestamp DEFAULT NOW()       NOT NULL,
+	updatedby       numeric(10) DEFAULT 100         NOT NULL,
+	c_acctschema_id numeric(10)                     NOT NULL,
+	account_id      numeric(10)                     NOT NULL,
+	datetrx         timestamp   DEFAULT date(NOW()) NOT NULL,
+	dateacct        timestamp   DEFAULT date(NOW()) NOT NULL,
+	c_period_id     numeric(10),
+	ad_table_id     numeric(10) DEFAULT 735         NOT NULL,
+	record_id       numeric(10)                     NOT NULL,
+	line_id         numeric(10),
+	gl_category_id  numeric(10),
+-- 	gl_budget_id      numeric(10),
+-- 	c_tax_id          numeric(10),
+-- 	m_locator_id      numeric(10),
+	postingtype     char        DEFAULT 'A'         NOT NULL,
+	c_currency_id   numeric(10)                     NOT NULL,
+	amtsourcedr     numeric                         NOT NULL,
+	amtsourcecr     numeric                         NOT NULL,
+	amtacctdr       numeric                         NOT NULL,
+	amtacctcr       numeric                         NOT NULL,
+-- 	c_uom_id          numeric(10),
+	qty             numeric     DEFAULT 0,
+-- 	m_product_id      numeric(10),
+	c_bpartner_id   numeric(10),
+-- 	ad_orgtrx_id      numeric(10),
+-- 	c_locfrom_id      numeric(10),
+-- 	c_locto_id        numeric(10),
+-- 	c_salesregion_id  numeric(10),
+-- 	c_project_id      numeric(10),
+-- 	c_campaign_id     numeric(10),
+-- 	c_activity_id     numeric(10),
+-- 	user1_id          numeric(10),
+-- 	user2_id          numeric(10),
+	description     varchar(255),
+-- 	a_asset_id        numeric(10),
+-- 	c_subacct_id      numeric(10),
+-- 	userelement1_id   numeric(10),
+-- 	userelement2_id   numeric(10),
+-- 	c_projectphase_id numeric(10),
+-- 	c_projecttask_id  numeric(10),
+	fact_acct_uu    uuid        DEFAULT uuid_generate_v4()
+);
+
+SELECT
+	SETVAL(
+			'tmp_fact_acct_fact_acct_id_seq',
+			(
+				SELECT
+					currentnext
+				FROM
+					ad_sequence
+				WHERE
+					name = 'Fact_Acct'
+				LIMIT 1
+			)::INT,
+			FALSE
+		);
+
+INSERT INTO
+	tmp_fact_acct (ad_client_id, ad_org_id, c_acctschema_id, account_id, c_period_id, record_id, line_id, gl_category_id,
+	               c_currency_id, amtsourcedr, amtsourcecr, amtacctdr, amtacctcr, c_bpartner_id, description)
+SELECT
+	tah.ad_client_id,
+	tah.ad_org_id,
+	c_acctschema_id,
+	ev.c_elementvalue_id,
+	per.c_period_id,
+	tah.c_allocationhdr_id,
+	tal.c_allocationline_id,
+	gl_category_id,
+	tah.c_currency_id,
+	CASE WHEN ev.value = '99999' THEN tal.amount ELSE 0 END,
+	CASE WHEN ev.value = '99999' THEN 0 ELSE tal.amount END,
+	CASE WHEN ev.value = '99999' THEN tal.amount ELSE 0 END,
+	CASE WHEN ev.value = '99999' THEN 0 ELSE tal.amount END,
+	c_bpartner_id,
+	tah.documentno || ' #0 ' || tah.description
+FROM
+	tmp_c_allocationline tal
+		JOIN tmp_c_allocationhdr tah
+			ON tal.c_allocationhdr_id = tah.c_allocationhdr_id
+		JOIN c_acctschema accts
+			ON tah.ad_client_id = accts.ad_client_id
+		JOIN c_elementvalue ev
+			ON tah.ad_client_id = ev.ad_client_id AND value IN ('99999', '12110')
+		JOIN c_period per
+			ON tah.ad_client_id = per.ad_client_id AND NOW() BETWEEN startdate AND enddate
+		JOIN gl_category glc
+			ON glc.ad_client_id = tah.ad_client_id AND glc.name = 'Cash/Payments';
+
+INSERT INTO
+	fact_acct (fact_acct_id, ad_client_id, ad_org_id, createdby, updatedby, c_acctschema_id, account_id, datetrx,
+	           dateacct, c_period_id, ad_table_id, record_id, line_id, gl_category_id, postingtype, c_currency_id,
+	           c_bpartner_id, description)
+SELECT
+	fact_acct_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	c_acctschema_id,
+	account_id,
+	datetrx,
+	dateacct,
+	c_period_id,
+	ad_table_id,
+	record_id,
+	line_id,
+	gl_category_id,
+	postingtype,
+	c_currency_id,
+	c_bpartner_id,
+	description
+FROM
+	tmp_fact_acct;
 
 -- Set the completion process to not run at the same time
 UPDATE ad_process
