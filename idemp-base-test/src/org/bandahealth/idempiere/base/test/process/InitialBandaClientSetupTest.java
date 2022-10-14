@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -102,18 +103,22 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			MClient_BH client = new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
 					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(clientName).first();
 			assertNotNull(client, "Client exists");
-			List<MOrg> organizations = new Query(valueObject.getContext(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + "=?",
-					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+			List<MOrg> organizations =
+					new Query(valueObject.getContext(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(1, organizations.size(), "Only one organization created by default");
 			MOrg organization = organizations.get(0);
 
 			// Assert correct creation and assignment of roles
+			// Get the master roles (except the "Must Haves" role)
 			List<MRole> masterRoles = new Query(valueObject.getContext(), MRole.Table_Name,
 					MRole.COLUMNNAME_IsMasterRole + "=? AND " + MRole.COLUMNNAME_AD_Role_ID + " IN (SELECT " +
-							MBHDefaultIncludedRole.COLUMNNAME_Included_Role_ID + " FROM " + MBHDefaultIncludedRole.Table_Name + ")",
-					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters("Y").list();
-			List<MRole> clientRoles = new Query(valueObject.getContext(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
-					valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+							MBHDefaultIncludedRole.COLUMNNAME_Included_Role_ID + " FROM " + MBHDefaultIncludedRole.Table_Name +
+							") AND " + MRole.COLUMNNAME_AD_Role_UU + "!=?", valueObject.getTransactionName()).setOnlyActiveRecords(
+					true).setParameters("Y", MRole_BH.MUST_HAVES_UU).list();
+			List<MRole> clientRoles =
+					new Query(valueObject.getContext(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(masterRoles.size(), clientRoles.size() - 2,
 					"A role was created for each master role, plus the two default roles");
 
@@ -136,16 +141,20 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			assertTrue(warehouses.get(0).isBH_IsDefaultWarehouse(), "The warehouse is default");
 			List<MLocator> locators =
 					new Query(valueObject.getContext(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
-							valueObject.getTransactionName()).setParameters(warehouses.get(0).get_ID()).setOnlyActiveRecords(true).list();
+							valueObject.getTransactionName()).setParameters(warehouses.get(0).get_ID()).setOnlyActiveRecords(true)
+							.list();
 			assertThat("Only one locator is created", locators.size(), is(1));
 			assertTrue(locators.get(0).isDefault(), "The locator is default");
 
 			// Assert attribute sets created
 			List<MAttributeSet_BH> configurationClientAttributeSets =
-					new Query(valueObject.getContext(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+					new Query(valueObject.getContext(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID +
+							"=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG)
+							.list();
 			List<MAttributeSet_BH> clientAttributeSets =
-					new Query(valueObject.getContext(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID + "=?",
+					new Query(valueObject.getContext(), MAttributeSet.Table_Name, MAttributeSet_BH.COLUMNNAME_AD_Client_ID +
+							"=?",
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(configurationClientAttributeSets.size(), clientAttributeSets.size(), "Attribute sets were created");
 			assertTrue(clientAttributeSets.stream().allMatch(MAttributeSet_BH::isBH_Locked),
@@ -154,7 +163,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			// Assert default charges and charge types are created
 			List<MCharge_BH> configurationClientCharges =
 					new Query(valueObject.getContext(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG)
+							.list();
 			List<MCharge_BH> clientCharges =
 					new Query(valueObject.getContext(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_AD_Client_ID + "=?",
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
@@ -163,7 +173,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 
 			List<MChargeType_BH> configurationClientChargeTypes =
 					new Query(valueObject.getContext(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG)
+							.list();
 			Set<Integer> clientChargeTypeIds =
 					clientCharges.stream().map(MCharge_BH::getC_ChargeType_ID).collect(Collectors.toSet());
 			assertTrue(clientChargeTypeIds.size() > 0, "Client charge types were created");
@@ -179,7 +190,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			// Assert CoA is inserted
 			assertTrue(new Query(valueObject.getContext(), MElementValue.Table_Name,
 							MElementValue.COLUMNNAME_Value + "!=? AND " + MElementValue.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters("99999", client.get_ID()).count() > 0,
+							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters("99999", client.get_ID()).count() >
+							0,
 					"Non DO NOT USE accounts created");
 
 			// Assert bank accounts are created

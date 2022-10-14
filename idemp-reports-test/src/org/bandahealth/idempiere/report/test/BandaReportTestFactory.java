@@ -11,6 +11,7 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 	public List<ChuBoePopulateFactoryVO> newChuBoePopulateInstance() {
 		List<ChuBoePopulateFactoryVO> tests = new ArrayList<>();
 
+		// Reports
 		tests.add(new CashierPatientTransactionsTest());
 		tests.add(new CashierTransactionDifferencesTest());
 		tests.add(new ChangesToInventoryTest());
@@ -35,6 +36,9 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new ValueOfOpeningAndClosingStockTest());
 		tests.add(new VisitReceiptTest());
 		tests.add(new VoidedTransactionsListTest());
+
+		// Report cross-checking
+//		tests.add(new IncomeTest()); // TODO Add this when open balances are fixed
 
 		return tests;
 	}
