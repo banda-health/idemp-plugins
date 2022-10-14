@@ -1359,6 +1359,24 @@ public class MBandaSetup {
 		});
 		return true;
 	}
+	
+	/**
+	 * Create OTC patient for new clients
+	 * @return
+	 */
+	public boolean createDefaultOTCPatient() {
+		MBPartner_BH otcPatient = new MBPartner_BH(context, 0, getTransactionName());
+		otcPatient.setName("OTC - " + client.getName());
+		otcPatient.setDescription("DO NOT CHANGE");
+		otcPatient.setBH_IsPatient(true);
+		
+		if (!otcPatient.save()) {
+			log.warning("Failure: Could not save default OTC patient");
+			return false;
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Get Client

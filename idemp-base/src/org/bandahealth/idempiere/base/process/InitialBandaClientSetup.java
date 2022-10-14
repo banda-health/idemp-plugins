@@ -252,6 +252,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating attribute sets failed"));
 			}
+			
+			if (!bandaSetup.createDefaultOTCPatient()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default OTC patient failed"));
+			}
 
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);
