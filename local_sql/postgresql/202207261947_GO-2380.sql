@@ -864,9 +864,16 @@ WHERE
 
 UPDATE c_allocationhdr ah
 SET
-	approvalamt = SUM(al.amount)
+	approvalamt = al.amount
 FROM
-	c_allocationline al
+	(
+		SELECT
+			c_allocationhdr_id,
+			SUM(amount) AS amount
+		FROM
+			c_allocationline
+		GROUP BY c_allocationhdr_id
+	) al
 WHERE
 	al.c_allocationhdr_id = ah.c_allocationhdr_id
 	AND ah.c_allocationhdr_id IN (
@@ -1207,8 +1214,34 @@ FROM
 			ON tal.c_allocationhdr_id = tah.c_allocationhdr_id
 		JOIN c_acctschema accts
 			ON tah.ad_client_id = accts.ad_client_id
-		JOIN c_elementvalue ev
-			ON tah.ad_client_id = ev.ad_client_id AND value IN ('99999', '12110')
+		JOIN (
+		SELECT
+			c.ad_client_id,
+			COALESCE(ev1.c_elementvalue_id, ev2.c_elementvalue_id, ev3.c_elementvalue_id) AS c_elementvalue_id,
+			'99999'                                                                       AS value
+		FROM
+			ad_client c
+				LEFT JOIN c_elementvalue ev1
+					ON c.ad_client_id = ev1.ad_client_id AND ev1.value = '99999'
+				LEFT JOIN c_elementvalue ev2
+					ON c.ad_client_id = ev2.ad_client_id AND ev2.value = '121'
+				LEFT JOIN c_elementvalue ev3
+					ON c.ad_client_id = ev3.ad_client_id AND ev3.value = 'P_LANDEDCOSTCLEARING'
+		UNION
+		SELECT
+			c.ad_client_id,
+			COALESCE(ev2.c_elementvalue_id, ev1.c_elementvalue_id, ev3.c_elementvalue_id) AS c_elementvalue_id,
+			'12110'                                                                       AS value
+		FROM
+			ad_client c
+				LEFT JOIN c_elementvalue ev1
+					ON c.ad_client_id = ev1.ad_client_id AND ev1.value = '99999'
+				LEFT JOIN c_elementvalue ev2
+					ON c.ad_client_id = ev2.ad_client_id AND ev2.value = '12110'
+				LEFT JOIN c_elementvalue ev3
+					ON c.ad_client_id = ev3.ad_client_id AND ev3.value = 'C_RECEIVABLE'
+	) ev
+			ON tah.ad_client_id = ev.ad_client_id
 		JOIN c_period per
 			ON tah.ad_client_id = per.ad_client_id AND NOW() BETWEEN startdate AND enddate
 		JOIN gl_category glc
