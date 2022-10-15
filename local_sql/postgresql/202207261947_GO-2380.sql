@@ -1000,7 +1000,8 @@ WHERE
 
 INSERT INTO
 	c_allocationhdr (c_allocationhdr_id, ad_client_id, ad_org_id, createdby, updatedby, documentno, description, datetrx,
-	                 dateacct, c_currency_id, docstatus, docaction, processing, processedon)
+	                 dateacct, c_currency_id, docstatus, docaction, processing, processedon, c_allocationhdr_uu,
+	                 reversal_id, c_doctype_id)
 SELECT
 	c_allocationhdr_id,
 	ad_client_id,
@@ -1015,7 +1016,10 @@ SELECT
 	docstatus,
 	docaction,
 	processing,
-	processedon
+	processedon,
+	c_allocationhdr_uu,
+	reversal_id,
+	c_doctype_id
 FROM
 	tmp_c_allocationhdr;
 
@@ -1081,12 +1085,14 @@ SELECT
 		);
 
 INSERT INTO
-	tmp_c_allocationline (ad_client_id, ad_org_id, allocationno, c_invoice_id, c_bpartner_id, c_order_id, c_payment_id,
+	tmp_c_allocationline (ad_client_id, ad_org_id, allocationno, datetrx, c_invoice_id, c_bpartner_id, c_order_id,
+	                      c_payment_id,
 	                      c_cashline_id, amount, c_allocationhdr_id)
 SELECT
 	al.ad_client_id,
 	al.ad_org_id,
 	al.allocationno,
+	al.datetrx,
 	al.c_invoice_id,
 	al.c_bpartner_id,
 	al.c_order_id,
@@ -1103,7 +1109,8 @@ FROM
 
 INSERT INTO
 	c_allocationline (c_allocationline_id, ad_client_id, ad_org_id, createdby, updatedby, allocationno, datetrx,
-	                  c_invoice_id, c_bpartner_id, c_order_id, c_payment_id, c_cashline_id, c_allocationhdr_id)
+	                  c_invoice_id, c_bpartner_id, c_order_id, c_payment_id, c_cashline_id, amount, c_allocationhdr_id,
+	                  c_allocationline_uu)
 SELECT
 	c_allocationline_id,
 	ad_client_id,
@@ -1117,7 +1124,9 @@ SELECT
 	c_order_id,
 	c_payment_id,
 	c_cashline_id,
-	c_allocationhdr_id
+  amount,
+	c_allocationhdr_id,
+  c_allocationline_uu
 FROM
 	tmp_c_allocationline;
 
