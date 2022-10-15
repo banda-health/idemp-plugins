@@ -59,8 +59,8 @@ public class CompleteOrdersProcess extends SvrProcess {
 		log.log(Level.INFO, "START CompleteOrdersProcess");
 
 		AtomicInteger count = new AtomicInteger();
-		int usersAD_Client_ID = Env.getAD_Client_ID(Env.getCtx());
-		int currentRoleId = Env.getAD_Role_ID(Env.getCtx());
+		int usersAD_Client_ID = Env.getAD_Client_ID(getCtx());
+		int currentRoleId = Env.getAD_Role_ID(getCtx());
 		// PO.setCrossTenantSafe();
 		IProcessUI processMonitor = Env.getProcessUI(getCtx());
 		Set<Integer> notFixedOrderIds = new HashSet<>();
@@ -98,7 +98,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 			//									)
 			//								OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus =
 			//								'CO'))
-			//								OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal))
+			//								OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal)
 			//				OR o.c_order_id IN (
 			//				SELECT
 			//					c_order_id
@@ -110,6 +110,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 			//				GROUP BY c_order_id
 			//				HAVING
 			//					COUNT(*) > 1
+			//			)
 			//			)
 			//		);
 			String erroredOrderWhereClause = "c_order_id IN (" +
@@ -137,7 +138,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 					"						) " +
 					"					) " +
 					"				OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus = 'CO'))" +
-					"				OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal)) " +
+					"				OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal) " +
 					"				OR o.c_order_id IN (" +
 					"				SELECT" +
 					"					c_order_id" +
@@ -150,235 +151,247 @@ public class CompleteOrdersProcess extends SvrProcess {
 					"				HAVING" +
 					"					COUNT(*) > 1" +
 					"			)" +
+					"			)" +
 					"	)";
 
 			// Since this process can take a while, we'll limit it to 50 orders we need to process at a time (this should
 			// never happen, except in the case where we're doing a payment overhaul and have a lot to fix...)
 			List<MOrder_BH> erroredOrders =
-					new Query(Env.getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setPage(50, 0).list();
+					new Query(getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setPage(50, 0).list();
 			Set<Integer> erroredOrderIds = erroredOrders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet());
 
-			// Now get any invoices for these orders that aren't reversed
-			List<Object> parameters = new ArrayList<>();
-			String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(erroredOrderIds, parameters);
-			whereClause =
-					MInvoice_BH.COLUMNNAME_C_Order_ID + " IN (" + whereClause + ") AND " + MInvoice_BH.COLUMNNAME_DocStatus +
-							"!=?";
-			parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
-			List<MInvoice_BH> invoicesForErroredOrders =
-					new Query(Env.getCtx(), MInvoice_BH.Table_Name, whereClause, get_TrxName()).setParameters(parameters).list();
-			Map<Integer, List<MInvoice_BH>> invoicesByErroredOrderId = invoicesForErroredOrders.stream()
-					.collect(Collectors.groupingBy(MInvoice_BH::getC_Order_ID));
+			if (!erroredOrderIds.isEmpty()) {
+				// Now get any invoices for these orders that aren't reversed
+				List<Object> parameters = new ArrayList<>();
+				String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(erroredOrderIds, parameters);
+				whereClause =
+						MInvoice_BH.COLUMNNAME_C_Order_ID + " IN (" + whereClause + ") AND " + MInvoice_BH.COLUMNNAME_DocStatus +
+								"!=?";
+				parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
+				List<MInvoice_BH> invoicesForErroredOrders =
+						new Query(getCtx(), MInvoice_BH.Table_Name, whereClause, get_TrxName()).setParameters(parameters)
+								.list();
+				Map<Integer, List<MInvoice_BH>> invoicesByErroredOrderId = invoicesForErroredOrders.stream()
+						.collect(Collectors.groupingBy(MInvoice_BH::getC_Order_ID));
 
-			// Now get any payments for these orders that aren't reversed
-			List<Object> paymentParameters = new ArrayList<>();
-			String paymentWhereClause = getPaymentWhereClause(erroredOrderIds, paymentParameters);
-			List<MPayment_BH> paymentsForErroredOrders =
-					new Query(Env.getCtx(), MPayment_BH.Table_Name, paymentWhereClause, get_TrxName()).setParameters(
-							paymentParameters).list();
-			Map<Integer, List<MPayment_BH>> paymentsByErroredOrderId =
-					paymentsForErroredOrders.stream().collect(Collectors.groupingBy(MPayment_BH::getBH_C_Order_ID));
+				// Now get any payments for these orders that aren't reversed
+				List<Object> paymentParameters = new ArrayList<>();
+				String paymentWhereClause = getPaymentWhereClause(erroredOrderIds, paymentParameters);
+				List<MPayment_BH> paymentsForErroredOrders =
+						new Query(getCtx(), MPayment_BH.Table_Name, paymentWhereClause, get_TrxName()).setParameters(
+								paymentParameters).list();
+				Map<Integer, List<MPayment_BH>> paymentsByErroredOrderId =
+						paymentsForErroredOrders.stream().collect(Collectors.groupingBy(MPayment_BH::getBH_C_Order_ID));
 
-			log.log(Level.INFO, "ERRORED ORDERs::::: " + erroredOrders.size());
-			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, 0);
-			int numberOfOrdersToProcess = erroredOrders.size();
+				log.log(Level.INFO, "ERRORED ORDERs::::: " + erroredOrders.size());
+				Env.setContext(getCtx(), Env.AD_ROLE_ID, 0);
+				int numberOfOrdersToProcess = erroredOrders.size();
 
-			for (MOrder_BH erroredOrder : erroredOrders) {
-				count.getAndIncrement();
-				if (processMonitor != null) {
-					processMonitor.statusUpdate("Updating order " + count.get() + " of " + numberOfOrdersToProcess);
-				}
-
-				// Several entities use the AD_Client value in the context to determine their own
-				// This leads to bad results when processing orders because then the allocations have
-				// the wrong AD_Client_IDs and can't fetch the appropriate Bank Accounts and Account Schemas
-				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, erroredOrder.getAD_Client_ID());
-				boolean doesOrderHaveInvoices = invoicesByErroredOrderId.containsKey(erroredOrder.get_ID());
-				// If there are any invoices with a weird status, update those
-				for (MInvoice_BH invoice : invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>())) {
-					if (invoice.getDocAction().equals(MInvoice_BH.DOCACTION_Close) && invoice.isProcessed() &&
-							!invoice.isComplete()) {
-						invoice.setDocStatus(MInvoice_BH.DOCSTATUS_Completed);
-						invoice.saveEx();
-					}
-				}
-				// Now check the various ways invoices could be wrong
-				List<MInvoice_BH> correctIncompleteInvoices =
-						invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
-								invoice -> !invoice.isComplete() &&
-										!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Voided) &&
-										invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) == 0).collect(Collectors.toList());
-				List<MInvoice_BH> incorrectIncompleteInvoices =
-						invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
-								invoice -> !invoice.isComplete() &&
-										!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Voided) &&
-										invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) != 0).collect(Collectors.toList());
-				List<MInvoice_BH> correctCompleteInvoices =
-						invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
-								invoice -> invoice.isComplete() &&
-										!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Reversed) &&
-										invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) == 0).collect(Collectors.toList());
-				List<MInvoice_BH> incorrectCompleteInvoices =
-						invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
-								invoice -> invoice.isComplete() &&
-										!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Reversed) &&
-										invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) != 0).collect(Collectors.toList());
-
-				// If this order isn't complete, we need to complete it
-				// Otherwise, if the invoice isn't complete, we need to get it completed
-				if (!erroredOrder.isComplete()) {
-					// If this order has an invoice, we need to do some stuff first
-					if (invoicesByErroredOrderId.containsKey(erroredOrder.get_ID())) {
-						List<MInvoice_BH> invoices = invoicesByErroredOrderId.get(erroredOrder.get_ID());
-						for (MInvoice_BH invoice : invoices) {
-							// If the invoice is completed, reverse it
-							if (invoice.isComplete()) {
-								reverseInvoiceAndAllocationHeaderIfInvoiceIsPaid(invoice);
-								invoice.saveEx();
-							} else {
-								// Delete any invoice lines
-								Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
-								// Delete the invoice
-								invoice.deleteEx(true);
-							}
-						}
+				for (MOrder_BH erroredOrder : erroredOrders) {
+					count.getAndIncrement();
+					if (processMonitor != null) {
+						processMonitor.statusUpdate("Updating order " + count.get() + " of " + numberOfOrdersToProcess);
 					}
 
-					completeOrder(erroredOrder);
-				} else if (!doesOrderHaveInvoices) {
-					// This is a completed order that doesn't have an invoice, so reverse the order and try again
-					tryToReopenAndReCompleteOrder(erroredOrder);
-				} else if (!incorrectCompleteInvoices.isEmpty() || !incorrectIncompleteInvoices.isEmpty() ||
-						!correctIncompleteInvoices.isEmpty() || correctCompleteInvoices.size() > 1) {
-					// If we have any incomplete invoices, incorrect complete invoices, or too many complete invoices, do some
-					// work
-					boolean shouldNotReopenOrder = correctIncompleteInvoices.size() == 1 && correctCompleteInvoices.isEmpty() &&
-							incorrectCompleteInvoices.isEmpty() && incorrectIncompleteInvoices.isEmpty();
-
-					if (shouldNotReopenOrder) {
-						MInvoice_BH invoice = correctIncompleteInvoices.get(0);
-						if (invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Invalid)) {
-							// If the document is invalid, we'll just void it
-							invoice.setDocAction(MInvoice_BH.DOCACTION_Void);
-							if (!invoice.processIt(MInvoice_BH.DOCACTION_Void)) {
-								log.severe("Couldn't void invoice " + invoice.get_ID() + " to remove it. Please investigate.");
-							}
-						} else {
-							// Update the payment type so that payments don't automatically get created...
-							invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
-							invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
-							if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
-								log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
-							}
-						}
-						invoice.saveEx();
-					} else {
-						boolean shouldDoOrderWorkBecauseInvoiceWorkSucceeded = true;
-						List<MInvoice_BH> completedInvoices =
-								Stream.concat(correctCompleteInvoices.stream(), incorrectCompleteInvoices.stream())
-										.collect(Collectors.toList());
-						for (MInvoice_BH invoice : completedInvoices) {
-							if (!reverseInvoiceAndAllocationHeaderIfInvoiceIsPaid(invoice)) {
-								log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
-								shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
-							}
+					// Several entities use the AD_Client value in the context to determine their own
+					// This leads to bad results when processing orders because then the allocations have
+					// the wrong AD_Client_IDs and can't fetch the appropriate Bank Accounts and Account Schemas
+					Env.setContext(getCtx(), Env.AD_CLIENT_ID, erroredOrder.getAD_Client_ID());
+					boolean doesOrderHaveInvoices = invoicesByErroredOrderId.containsKey(erroredOrder.get_ID());
+					// If there are any invoices with a weird status, update those
+					for (MInvoice_BH invoice : invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>())) {
+						if (invoice.getDocAction().equals(MInvoice_BH.DOCACTION_Close) && invoice.isProcessed() &&
+								!invoice.isComplete()) {
+							invoice.setDocStatus(MInvoice_BH.DOCSTATUS_Completed);
 							invoice.saveEx();
 						}
-						List<MInvoice_BH> incompleteInvoices =
-								Stream.concat(correctIncompleteInvoices.stream(), incorrectIncompleteInvoices.stream())
-										.collect(Collectors.toList());
-						for (MInvoice_BH invoice : incompleteInvoices) {
-							// If this invoice has any allocations, we can't delete it
-							MAllocationHdr[] allocationHeaders =
-									MAllocationHdr.getOfInvoice(Env.getCtx(), invoice.get_ID(), get_TrxName());
-							if (allocationHeaders.length == 0) {
-								// Delete any invoice lines
-								Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
-								// Delete the invoice
-								invoice.deleteEx(true);
-							} else {
-								// Some of these invoices are drafted (and somehow have allocations...), so first try to complete the
-								// invoice so we can immediately reverse it
-								if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
-									invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
-									if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
-										log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
-										shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
-									}
+					}
+					// Now check the various ways invoices could be wrong
+					List<MInvoice_BH> correctIncompleteInvoices =
+							invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
+											invoice -> !invoice.isComplete() &&
+													!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Voided) &&
+													invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) == 0)
+									.collect(Collectors.toList());
+					List<MInvoice_BH> incorrectIncompleteInvoices =
+							invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
+											invoice -> !invoice.isComplete() &&
+													!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Voided) &&
+													invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) != 0)
+									.collect(Collectors.toList());
+					List<MInvoice_BH> correctCompleteInvoices =
+							invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
+											invoice -> invoice.isComplete() &&
+													!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Reversed) &&
+													invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) == 0)
+									.collect(Collectors.toList());
+					List<MInvoice_BH> incorrectCompleteInvoices =
+							invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>()).stream().filter(
+											invoice -> invoice.isComplete() &&
+													!invoice.getDocStatus().equalsIgnoreCase(MInvoice_BH.DOCSTATUS_Reversed) &&
+													invoice.getGrandTotal().compareTo(erroredOrder.getGrandTotal()) != 0)
+									.collect(Collectors.toList());
+
+					// If this order isn't complete, we need to complete it
+					// Otherwise, if the invoice isn't complete, we need to get it completed
+					if (!erroredOrder.isComplete()) {
+						// If this order has an invoice, we need to do some stuff first
+						if (invoicesByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+							List<MInvoice_BH> invoices = invoicesByErroredOrderId.get(erroredOrder.get_ID());
+							for (MInvoice_BH invoice : invoices) {
+								// If the invoice is completed, reverse it
+								if (invoice.isComplete()) {
+									reverseInvoiceAndHandleAnyAutoCreatedPayments(invoice);
 									invoice.saveEx();
+								} else {
+									// Delete any invoice lines
+									Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
+									// Delete the invoice
+									invoice.deleteEx(true);
 								}
-								// Just reverse the invoice
-								invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
-								if (!invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual)) {
-									// There's still something wrong, so not sure what to do...
+							}
+						}
+
+						completeOrder(erroredOrder);
+					} else if (!doesOrderHaveInvoices) {
+						// This is a completed order that doesn't have an invoice, so reverse the order and try again
+						tryToReopenAndReCompleteOrder(erroredOrder);
+					} else if (!incorrectCompleteInvoices.isEmpty() || !incorrectIncompleteInvoices.isEmpty() ||
+							!correctIncompleteInvoices.isEmpty() || correctCompleteInvoices.size() > 1) {
+						// If we have any incomplete invoices, incorrect complete invoices, or too many complete invoices, do some
+						// work
+						boolean shouldNotReopenOrder =
+								correctIncompleteInvoices.size() == 1 && correctCompleteInvoices.isEmpty() &&
+										incorrectCompleteInvoices.isEmpty() && incorrectIncompleteInvoices.isEmpty();
+
+						if (shouldNotReopenOrder) {
+							MInvoice_BH invoice = correctIncompleteInvoices.get(0);
+							if (invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Invalid)) {
+								// If the document is invalid, we'll just void it
+								invoice.setDocAction(MInvoice_BH.DOCACTION_Void);
+								if (!invoice.processIt(MInvoice_BH.DOCACTION_Void)) {
+									log.severe("Couldn't void invoice " + invoice.get_ID() + " to remove it. Please investigate.");
+								}
+							} else {
+								// Update the payment type so that payments don't automatically get created...
+								invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
+								invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
+								if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
+									log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
+								}
+							}
+							invoice.saveEx();
+						} else {
+							boolean shouldDoOrderWorkBecauseInvoiceWorkSucceeded = true;
+							List<MInvoice_BH> completedInvoices =
+									Stream.concat(correctCompleteInvoices.stream(), incorrectCompleteInvoices.stream())
+											.collect(Collectors.toList());
+							for (MInvoice_BH invoice : completedInvoices) {
+								if (!reverseInvoiceAndHandleAnyAutoCreatedPayments(invoice)) {
 									log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
 									shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
 								}
 								invoice.saveEx();
 							}
-						}
+							List<MInvoice_BH> incompleteInvoices =
+									Stream.concat(correctIncompleteInvoices.stream(), incorrectIncompleteInvoices.stream())
+											.collect(Collectors.toList());
+							for (MInvoice_BH invoice : incompleteInvoices) {
+								// If this invoice has any allocations, we can't delete it
+								MAllocationHdr[] allocationHeaders =
+										MAllocationHdr.getOfInvoice(getCtx(), invoice.get_ID(), get_TrxName());
+								if (allocationHeaders.length == 0) {
+									// Delete any invoice lines
+									Arrays.stream(invoice.getLines(true)).forEach(invoiceLine -> invoiceLine.deleteEx(true));
+									// Delete the invoice
+									invoice.deleteEx(true);
+								} else {
+									// Some of these invoices are drafted (and somehow have allocations...), so first try to complete the
+									// invoice so we can immediately reverse it
+									if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
+										// Update the payment type so that payments don't automatically get created...
+										invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
+										invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
+										if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
+											log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
+											shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
+										}
+										invoice.saveEx();
+									}
+									// Just reverse the invoice
+									invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
+									if (!invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual)) {
+										// There's still something wrong, so not sure what to do...
+										log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
+										shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
+									}
+									invoice.saveEx();
+								}
+							}
 
-						if (shouldDoOrderWorkBecauseInvoiceWorkSucceeded) {
-							// With the invoice deleted, re-open the order
-							tryToReopenAndReCompleteOrder(erroredOrder);
+							if (shouldDoOrderWorkBecauseInvoiceWorkSucceeded) {
+								// With the invoice deleted, re-open the order
+								tryToReopenAndReCompleteOrder(erroredOrder);
+							}
 						}
+					} else if (!paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+						// Something isn't wrong with the payments, so no idea what the issue was
+						log.severe("Unsure of how to handle scenario for order ID " + erroredOrder.get_ID() + ", please " +
+								"investigate");
+						count.getAndDecrement();
 					}
-				} else if (!paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
-					// Something isn't wrong with the payments, so no idea what the issue was
-					log.severe("Unsure of how to handle scenario for order ID " + erroredOrder.get_ID() + ", please " +
-							"investigate");
-					count.getAndDecrement();
-				}
-				if (paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
-					// Sometimes we have some weird payments - update those
-					for (MPayment_BH payment : paymentsByErroredOrderId.get(erroredOrder.get_ID())) {
-						if (payment.isAllocated() && payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Drafted)) {
+					if (paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+						// Sometimes we have some weird payments - update those
+						for (MPayment_BH payment : paymentsByErroredOrderId.get(erroredOrder.get_ID())) {
+							if (payment.isAllocated() && payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Drafted)) {
+								payment.setDocStatus(MPayment_BH.DOCSTATUS_Completed);
+								payment.saveEx();
+							}
+						}
+						// For any payments that are allocated by have an incomplete doc status, just update the doc status
+						List<MPayment_BH> incorrectDocumentStatusPayments =
+								paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream().filter(MPayment_BH::isAllocated)
+										.filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
+						for (MPayment_BH payment : incorrectDocumentStatusPayments) {
 							payment.setDocStatus(MPayment_BH.DOCSTATUS_Completed);
 							payment.saveEx();
 						}
-					}
-					// For any payments that are allocated by have an incomplete doc status, just update the doc status
-					List<MPayment_BH> incorrectDocumentStatusPayments =
-							paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream().filter(MPayment_BH::isAllocated)
-									.filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
-					for (MPayment_BH payment : incorrectDocumentStatusPayments) {
-						payment.setDocStatus(MPayment_BH.DOCSTATUS_Completed);
-						payment.saveEx();
-					}
-					// Complete any payments that haven't been completed yet
-					List<MPayment_BH> incompletePayments = paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream()
-							.filter(Predicate.not(MPayment_BH::isAllocated)).collect(Collectors.toList());
-					for (MPayment_BH payment : incompletePayments) {
-						tryToCompleteAndAllocatePayment(payment);
-					}
-					// Fetch the payments again, now that they've been updated
-					paymentParameters = new ArrayList<>();
-					paymentWhereClause = getPaymentWhereClause(Collections.singleton(erroredOrder.get_ID()), paymentParameters);
-					List<MPayment_BH> paymentsForErroredOrder =
-							new Query(Env.getCtx(), MPayment_BH.Table_Name, paymentWhereClause, get_TrxName()).setParameters(
-									paymentParameters).list();
-					// For all this order's unallocated payments, make sure they're allocated
-					List<MPayment_BH> unallocatedPayments =
-							paymentsForErroredOrder.stream().filter(Predicate.not(MPayment_BH::isAllocated))
-									.collect(Collectors.toList());
-					for (MPayment_BH payment : unallocatedPayments) {
-						tryToCompleteAndAllocatePayment(payment);
+						// Complete any payments that haven't been completed yet
+						List<MPayment_BH> incompletePayments = paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream()
+								.filter(Predicate.not(MPayment_BH::isAllocated)).collect(Collectors.toList());
+						for (MPayment_BH payment : incompletePayments) {
+							tryToCompleteAndAllocatePayment(payment);
+						}
+						// Fetch the payments again, now that they've been updated
+						paymentParameters = new ArrayList<>();
+						paymentWhereClause = getPaymentWhereClause(Collections.singleton(erroredOrder.get_ID()),
+								paymentParameters);
+						List<MPayment_BH> paymentsForErroredOrder =
+								new Query(getCtx(), MPayment_BH.Table_Name, paymentWhereClause, get_TrxName()).setParameters(
+										paymentParameters).list();
+						// For all this order's unallocated payments, make sure they're allocated
+						List<MPayment_BH> unallocatedPayments =
+								paymentsForErroredOrder.stream().filter(Predicate.not(MPayment_BH::isAllocated))
+										.collect(Collectors.toList());
+						for (MPayment_BH payment : unallocatedPayments) {
+							tryToCompleteAndAllocatePayment(payment);
+						}
 					}
 				}
+
+				parameters = new ArrayList<>();
+				erroredOrderWhereClause +=
+						" AND c_order_id IN (" + QueryUtil.getWhereClauseAndSetParametersForSet(erroredOrderIds, parameters) + ")";
+
+				List<MOrder_BH> ordersNotFixed =
+						new Query(getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setParameters(
+								parameters).list();
+				notFixedOrderIds = ordersNotFixed.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet());
 			}
-
-			parameters = new ArrayList<>();
-			erroredOrderWhereClause +=
-					" AND c_order_id IN (" + QueryUtil.getWhereClauseAndSetParametersForSet(erroredOrderIds, parameters) + ")";
-
-			List<MOrder_BH> ordersNotFixed =
-					new Query(Env.getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setParameters(
-							parameters).list();
-			notFixedOrderIds = ordersNotFixed.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet());
 		} finally {
 			// Reset the AD_Client_ID to be correct
-			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
-			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, currentRoleId);
+			Env.setContext(getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
+			Env.setContext(getCtx(), Env.AD_ROLE_ID, currentRoleId);
 			//PO.clearCrossTenantSafe();
 		}
 
@@ -461,9 +474,29 @@ public class CompleteOrdersProcess extends SvrProcess {
 	 * @param invoice The invoice to work with
 	 * @return Whether all operations were successful
 	 */
-	private boolean reverseInvoiceAndAllocationHeaderIfInvoiceIsPaid(MInvoice invoice) {
+	private boolean reverseInvoiceAndHandleAnyAutoCreatedPayments(MInvoice invoice) {
+		// If we're reversing a cash invoice, it should try to auto-create a payment (which we don't want)
+		boolean reverseAutoCreatedPayments = invoice.getPaymentRule().equals(MInvoice_BH.PAYMENTRULE_Cash);
 		invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
-		return invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual);
+		boolean wasInvoiceReversalSuccessful = invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual);
+
+		if (reverseAutoCreatedPayments) {
+			MInvoice reversalInvoice = (MInvoice) invoice.getReversal();
+			List<MPayment_BH> autoCreatedPayments =
+					new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Invoice_ID + "=?",
+							get_TrxName()).setParameters(reversalInvoice.get_ID()).list();
+			List<MPayment_BH> paymentsWithAmounts =
+					autoCreatedPayments.stream().filter(payment -> payment.getPayAmt().signum() != 0)
+							.collect(Collectors.toList());
+			for (MPayment_BH payment : paymentsWithAmounts) {
+				payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+				if (!payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual)) {
+					log.severe("Could not reverse auto-created payment with ID " + payment.get_ID() + ". Please investigate");
+				}
+			}
+		}
+
+		return wasInvoiceReversalSuccessful;
 	}
 
 	/**

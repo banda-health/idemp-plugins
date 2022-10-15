@@ -65,11 +65,11 @@ public class InvoiceModelEvent extends AbstractEventHandler {
 		}
 
 		MDocType documentType = MDocType.get(invoice.getCtx(), order.getC_DocType_ID());
-		String DocSubTypeSO = documentType.getDocSubTypeSO();
+		String salesDocumentSubType = documentType.getDocSubTypeSO();
 		// If this invoice was created automatically from its order, we need to ensure charges are on it
-		if (MDocType.DOCSUBTYPESO_POSOrder.equals(DocSubTypeSO) ||
-				MDocType.DOCSUBTYPESO_OnCreditOrder.equals(DocSubTypeSO) ||
-				MDocType.DOCSUBTYPESO_PrepayOrder.equals(DocSubTypeSO)) {
+		if (MDocType.DOCSUBTYPESO_POSOrder.equals(salesDocumentSubType) ||
+				MDocType.DOCSUBTYPESO_OnCreditOrder.equals(salesDocumentSubType) ||
+				MDocType.DOCSUBTYPESO_PrepayOrder.equals(salesDocumentSubType)) {
 			List<MOrderLine> orderLinesWithCharges =
 					Arrays.stream(order.getLines()).filter(orderLine -> orderLine.getC_Charge_ID() > 0)
 							.collect(Collectors.toList());

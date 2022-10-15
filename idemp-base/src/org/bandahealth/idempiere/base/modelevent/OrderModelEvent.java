@@ -9,14 +9,20 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Msg;
 import org.osgi.service.event.Event;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.logging.Level;
 
 public class OrderModelEvent extends AbstractEventHandler {
 
@@ -52,38 +58,59 @@ public class OrderModelEvent extends AbstractEventHandler {
 		}
 	}
 
+	/**
+	 * This is largely copied from {@link org.compiere.model.MOrder#createShipment(MDocType, Timestamp)} and meant to
+	 * apply for purchase orders
+	 *
+	 * @param order The order to create a shipment off of
+	 */
 	private void createMaterialReceiptFromPurchaseOrder(MOrder_BH order) {
 		// Create Material Receipt header
 		Timestamp movementDate = order.getDateOrdered() != null ? order.getDateOrdered()
 				: new Timestamp(System.currentTimeMillis());
-		MDocType docTypeShipment =
-				new Query(Env.getCtx(), MDocType.Table_Name, MDocType.COLUMNNAME_PrintName + "=?", order.get_TrxName())
-						.setParameters(MDocType_BH.DOCUMENTBASETYPE_ORDER_CONFIRMATION).setClient_ID().first();
-		if (docTypeShipment == null) {
-			throw new AdempiereException("Shipment DocType not defined");
+		MDocType shipmentDocumentType = MDocType.getOfDocBaseType(Env.getCtx(), MDocType.DOCBASETYPE_MaterialReceipt)[0];
+
+		MInOut shipment = new MInOut(order, shipmentDocumentType.get_ID(), movementDate);
+		//	shipment.setDateAcct(getDateAcct());
+		if (!shipment.save(order.get_TrxName())) {
+			throw new AdempiereException("Could not create Shipment");
 		}
-		MInOut mReceipt = new MInOut(order, docTypeShipment.getC_DocTypeShipment_ID(), movementDate);
+		//
+		MOrderLine[] oLines = order.getLines(true, null);
+		for (MOrderLine oLine : oLines) {
+			MInOutLine ioLine = new MInOutLine(shipment);
+			//	Qty = Ordered - Delivered
+			BigDecimal MovementQty = oLine.getQtyOrdered().subtract(oLine.getQtyDelivered());
+			if (MovementQty.signum() == 0 && order.getProcessedOn().signum() != 0) {
+				// do not create lines with qty = 0 when the order is reactivated and completed again
+				continue;
+			}
+			//	Location
+			int M_Locator_ID = MStorageOnHand.getM_Locator_ID(oLine.getM_Warehouse_ID(), oLine.getM_Product_ID(),
+					oLine.getM_AttributeSetInstance_ID(), MovementQty, order.get_TrxName());
+			//	Get default Location
+			if (M_Locator_ID == 0) {
+				MWarehouse wh = MWarehouse.get(order.getCtx(), oLine.getM_Warehouse_ID());
+				M_Locator_ID = wh.getDefaultLocator().getM_Locator_ID();
+			}
 
-		mReceipt.setMovementType(MInOut.MOVEMENTTYPE_VendorReceipts);
-		mReceipt.setDocAction(MInOut.DOCACTION_Complete);
-		mReceipt.save();
-
-		// add lines if any
-		MOrderLine[] oLines = order.getLines(true, "M_Product_ID");
-		if (oLines.length > 0) {
-			MWarehouse mWarehouse = new MWarehouse(Env.getCtx(), order.getM_Warehouse_ID(), order.get_TrxName());
-			for (MOrderLine oLine : oLines) {
-				MInOutLine line = new MInOutLine(mReceipt);
-				line.setOrderLine(oLine, mWarehouse.getDefaultLocator().get_ID(), Env.ZERO);
-				line.setQty(oLine.getQtyOrdered());
-				line.saveEx(order.get_TrxName());
+			ioLine.setOrderLine(oLine, M_Locator_ID, MovementQty);
+			ioLine.setQty(MovementQty);
+			if (oLine.getQtyEntered().compareTo(oLine.getQtyOrdered()) != 0) {
+				ioLine.setQtyEntered(MovementQty
+						.multiply(oLine.getQtyEntered())
+						.divide(oLine.getQtyOrdered(), 6, RoundingMode.HALF_UP));
+			}
+			if (!ioLine.save(order.get_TrxName())) {
+				throw new AdempiereException("Could not create Shipment Line");
 			}
 		}
 
-		// complete operation
-		String m_status = mReceipt.completeIt();
-		mReceipt.setDocStatus(m_status);
-		mReceipt.save();
+		if (!shipment.processIt(DocAction.ACTION_Complete)) {
+			throw new AdempiereException(
+					Msg.getMsg(order.getCtx(), "FailedProcessingDocument") + " - " + shipment.getProcessMsg());
+		}
+		shipment.saveEx(order.get_TrxName());
 	}
 
 	private void afterPurchaseOrderVoid(MOrder_BH order) {

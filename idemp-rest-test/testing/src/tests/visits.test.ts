@@ -199,12 +199,12 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
 	await waitForVisitToComplete(valueObject);
 
-	// expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.order = await visitApi.process(valueObject, valueObject.order.uuid, 'RE');
 
-	// expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	valueObject.order.payments[0] = {
@@ -216,6 +216,5 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, 'CO');
 	await waitForVisitToComplete(valueObject);
 
-	// expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
-
