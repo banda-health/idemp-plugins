@@ -75,6 +75,7 @@
 		purchase_price
 	FROM
 		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+	WHERE opening_stock >= 0
 	GROUP BY m_product_id, purchase_price
 )
 SELECT
@@ -113,10 +114,6 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.label" value="purchaseprice"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
 		</field>
-		<variable name="stockchanges" class="java.math.BigDecimal">
-			<variableExpression><![CDATA[$F{receivedstock}.subtract($F{soldstock}).add($F{balancestock})]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
-		</variable>
 		<variable name="closingStockValue" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{endingstock}.multiply($F{purchaseprice})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
