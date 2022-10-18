@@ -191,6 +191,7 @@ BEGIN
 			) p
 		WHERE
 			endingstock > 0
+			OR openingstock > 0
 			OR receivedstock > 0
 			OR soldstock > 0
 			OR balancestock > 0;
