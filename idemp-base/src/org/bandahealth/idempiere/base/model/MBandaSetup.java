@@ -5,6 +5,7 @@ import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
+import org.compiere.model.MBPGroup;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
@@ -1361,19 +1362,35 @@ public class MBandaSetup {
 	}
 	
 	/**
-	 * Create OTC patient for new clients
+	 * Create default patients for new clients
 	 * @return
 	 */
-	public boolean createDefaultOTCPatient() {
-		MBPartner_BH otcPatient = new MBPartner_BH(context, 0, getTransactionName());
-		otcPatient.setName("OTC - " + client.getName());
-		otcPatient.setDescription("DO NOT CHANGE");
-		otcPatient.setBH_IsPatient(true);
+	public boolean createDefaultPatients() {
+		List<MBPartner_BH> patients = new Query(this.context, MBPartner_BH.Table_Name,
+				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(client.getAD_Client_ID())
+				.list();
+		patients.forEach((patient) -> {
+			if (!patient.save()) {
+				log.warning("Failure: Could not save default patient");
+			}
+		});
 		
-		if (!otcPatient.save()) {
-			log.warning("Failure: Could not save default OTC patient");
-			return false;
-		}
+		return true;
+	}
+	
+	/**
+	 * Create default bpartner groups for new clients
+	 * @return
+	 */
+	public boolean createDefaultBPartnerGroups() {
+		List<MBPGroup> bpGroups = new Query(this.context, MBPGroup.Table_Name,
+				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(client.getAD_Client_ID())
+				.list();
+		bpGroups.forEach((group) -> {
+			if (!group.save()) {
+				log.warning("Failure: Could not save default group");
+			}
+		});
 		
 		return true;
 	}
