@@ -253,14 +253,14 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating attribute sets failed"));
 			}
 			
-			if (!bandaSetup.createDefaultBPartnerGroups()) {
+			if (!bandaSetup.createDefaultBusinessPartnerGroups()) {
 				rollback(bandaSetup);
-				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default bpartner groups failed"));
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default business partner groups failed"));
 			}
 			
-			if (!bandaSetup.createDefaultPatients()) {
+			if (!bandaSetup.createDefaultBusinessPartners()) {
 				rollback(bandaSetup);
-				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default patients failed"));
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default business partners failed"));
 			}
 
 			if (!bandaSetup.finish()) {

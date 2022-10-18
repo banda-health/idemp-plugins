@@ -1362,12 +1362,12 @@ public class MBandaSetup {
 	}
 	
 	/**
-	 * Create default patients for new clients
+	 * Create default business partners for new clients
 	 * @return
 	 */
-	public boolean createDefaultPatients() {
+	public boolean createDefaultBusinessPartners() {
 		List<MBPartner_BH> patients = new Query(this.context, MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(client.getAD_Client_ID())
+				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
 				.list();
 		patients.forEach((patient) -> {
 			if (!patient.save()) {
@@ -1379,12 +1379,12 @@ public class MBandaSetup {
 	}
 	
 	/**
-	 * Create default bpartner groups for new clients
+	 * Create default business partner groups for new clients
 	 * @return
 	 */
-	public boolean createDefaultBPartnerGroups() {
+	public boolean createDefaultBusinessPartnerGroups() {
 		List<MBPGroup> bpGroups = new Query(this.context, MBPGroup.Table_Name,
-				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(client.getAD_Client_ID())
+				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
 				.list();
 		bpGroups.forEach((group) -> {
 			if (!group.save()) {
