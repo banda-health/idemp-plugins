@@ -125,6 +125,9 @@ test('admin role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toMatchObject({ canWrite: true, canDeactivate: true });
+	
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: true });
 });
 
 test('clinic admin role has correct access', async () => {
