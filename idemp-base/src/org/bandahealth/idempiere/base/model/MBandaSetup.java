@@ -1366,12 +1366,39 @@ public class MBandaSetup {
 	 * @return
 	 */
 	public boolean createDefaultBusinessPartners() {
-		List<MBPartner_BH> patients = new Query(this.context, MBPartner_BH.Table_Name,
+		List<MBPartner_BH> businessPartners = new Query(this.context, MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
 				.list();
-		patients.forEach((patient) -> {
-			if (!patient.save()) {
-				log.warning("Failure: Could not save default patient");
+		businessPartners.forEach((businessPartner) -> {
+			MBPartner_BH instance = new MBPartner_BH(context, 0, getTransactionName());
+			instance.setName(businessPartner.getName());
+			instance.setDescription(businessPartner.getDescription());
+			instance.setValue(businessPartner.getValue());
+			instance.setPaymentRule(businessPartner.getPaymentRule());
+			instance.setIsCustomer(businessPartner.isCustomer());
+			instance.setIsProspect(businessPartner.isProspect());
+			instance.setIsOneTime(businessPartner.isOneTime());
+			instance.setIsVendor(businessPartner.isVendor());
+			instance.setIsSummary(businessPartner.isSummary());
+			instance.setIsEmployee(businessPartner.isEmployee());
+			instance.setIsSalesRep(businessPartner.isSalesRep());
+			instance.setIsTaxExempt(businessPartner.isTaxExempt());
+			instance.setIsPOTaxExempt(businessPartner.isPOTaxExempt());
+			instance.setIsDiscountPrinted(businessPartner.isDiscountPrinted());
+			instance.setSO_CreditLimit(businessPartner.getSO_CreditLimit());
+			instance.setSO_CreditUsed(businessPartner.getSO_CreditUsed());
+			instance.setTotalOpenBalance(businessPartner.getTotalOpenBalance());
+			instance.setSOCreditStatus(businessPartner.getSOCreditStatus());
+			instance.setFirstSale(businessPartner.getFirstSale());
+			instance.setActualLifeTimeValue(businessPartner.getActualLifeTimeValue());
+			instance.setPotentialLifeTimeValue(businessPartner.getPotentialLifeTimeValue());
+			instance.setAcqusitionCost(businessPartner.getAcqusitionCost());
+			instance.setShareOfCustomer(businessPartner.getShareOfCustomer());
+			instance.setSalesVolume(businessPartner.getSalesVolume());
+			instance.setC_BP_Group_ID(businessPartner.getC_BP_Group_ID());
+			
+			if (!instance.save()) {
+				log.warning("Failure: Could not save default business partner");
 			}
 		});
 		
@@ -1383,12 +1410,19 @@ public class MBandaSetup {
 	 * @return
 	 */
 	public boolean createDefaultBusinessPartnerGroups() {
-		List<MBPGroup> bpGroups = new Query(this.context, MBPGroup.Table_Name,
+		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
 				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
 				.list();
-		bpGroups.forEach((group) -> {
-			if (!group.save()) {
-				log.warning("Failure: Could not save default group");
+		businessPartnerGroups.forEach((businessPartnerGroup) -> {
+			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
+			instance.setName(businessPartnerGroup.getName());
+			instance.setDescription(businessPartnerGroup.getDescription());
+			instance.setValue(businessPartnerGroup.getValue());
+			instance.setIsConfidentialInfo(businessPartnerGroup.isConfidentialInfo());
+			instance.setIsDefault(businessPartnerGroup.isDefault());
+			instance.setPriorityBase(businessPartnerGroup.getPriorityBase());
+			if (!instance.save()) {
+				log.warning("Failure: Could not save default business partner group");
 			}
 		});
 		
