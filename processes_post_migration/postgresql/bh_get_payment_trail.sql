@@ -251,8 +251,7 @@ WITH payments AS (
 					1             AS sort
 				FROM
 					c_bpartner bp
-						JOIN payments p
-							ON p.c_bpartner_id = bp.c_bpartner_id
+			  WHERE bp.c_bpartner_uu = $1
 			) AS transactions
 	)
 SELECT

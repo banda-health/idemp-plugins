@@ -65,6 +65,8 @@ WHERE
 	AND c.issotrx = 'Y'
 	AND c.bh_visitdate BETWEEN begin_date AND end_date
 	AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
+	AND p.bh_c_order_id IS NOT NULL
+	AND p.bh_c_order_id != 0
 GROUP BY
 	c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
 	p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing, p.bh_c_order_id;
