@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION bh_get_debt_payments(ad_client_id numeric, begin_date
 		        cashier_id          numeric,
 		        cashier_uu          character varying,
 		        cashier             character varying,
-		        payment_date        date,
+		        payment_date        timestamp,
 		        patient_id          numeric,
 		        patient_uu          character varying,
 		        patient_name        character varying,
