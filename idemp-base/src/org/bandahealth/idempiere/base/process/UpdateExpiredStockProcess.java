@@ -8,9 +8,13 @@ import java.util.logging.Level;
 
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MDocType;
+import org.compiere.model.MPInstance;
+import org.compiere.model.MProcess;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
+import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.process.ServerProcessCtl;
 import org.compiere.process.StorageCleanup;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
@@ -35,7 +39,9 @@ public class UpdateExpiredStockProcess extends SvrProcess {
     protected String doIt() throws Exception {
         log.log(Level.INFO, "START " + PROCESS_NAME);
         
-        List<MStorageOnHand> expiredStock = new Query(Env.getCtx(), MStorageOnHand.Table_Name,
+        MDocType materialMovementDocumentType = MDocType.getOfDocBaseType(Env.getCtx(), MDocType.DOCBASETYPE_MaterialMovement)[0];
+        
+        List<MStorageOnHand> expiredStocks = new Query(Env.getCtx(), MStorageOnHand.Table_Name,
                 MAttributeSetInstance.Table_Name + "." + MAttributeSetInstance.COLUMNNAME_GuaranteeDate +
                         " < now()", get_TrxName()).addJoinClause(
                 "JOIN " + MAttributeSetInstance.Table_Name + " ON " + MAttributeSetInstance.Table_Name + "." +
@@ -47,48 +53,51 @@ public class UpdateExpiredStockProcess extends SvrProcess {
                 .list();
 
         int count = 0;
-        //Get all Attribute Set Instance that are expired for this client
-        String attributeWhereClause = MAttributeSetInstance.COLUMNNAME_GuaranteeDate  + " < now()";
-        List<MAttributeSetInstance> expiredAttributes = new Query(getCtx(), MAttributeSetInstance.Table_Name, attributeWhereClause, get_TrxName())
-                .setClient_ID()
-                .setOnlyActiveRecords(true)
-                .list();
-        for (MAttributeSetInstance expiredAttribute : expiredAttributes) {
-            //Get all stocks that have this expired attribute
-            String whereClause = MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID + "=?";
-            List<MStorageOnHand> stocks = new Query(getCtx(), MStorageOnHand.Table_Name, whereClause, get_TrxName())
-                    .setClient_ID()
-                    .setParameters(expiredAttribute.getM_AttributeSetInstance_ID())
-                    .setOnlyActiveRecords(true)
-                    .list();
-            for (MStorageOnHand stock : stocks) {
-                UpdateStock.updateStock(stock, BigDecimal.ZERO);
-                count++;
-            }
+        for (MStorageOnHand expiredStock : expiredStocks) {
+            UpdateStock.updateStock(expiredStock, BigDecimal.ZERO);
+            count++;
         }
         
+        MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_AD_Process_UU + "=?",
+                get_TrxName()).setOnlyActiveRecords(true).setParameters("8e270648-1d54-46d9-9161-2d0300dd80ff").first();
+
+        MPInstance mpInstance = new MPInstance(mprocess, 0);
+
+        ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
+        processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
+        processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
+
+        processInfo.setParameter(new ProcessInfoParameter[]{
+                new ProcessInfoParameter(PARAMETERNAME_C_DocType_ID, materialMovementDocumentType.getC_DocType_ID(), null, null, null)});
+
+        ServerProcessCtl.process(processInfo, null);
+
+        return processInfo.getSummary();
+        
         // Kick off the storage cleanup process
-        StorageCleanup storageCleanupProcess = new StorageCleanup();
+        //StorageCleanup storageCleanupProcess = new StorageCleanup();
         //Get C_DocType_ID for this client before clearing parameters
-        String whereClause  = "DocBaseType=?";
-        MDocType mDocType = new Query(getCtx(), MDocType.Table_Name, whereClause, null)
+        //String whereClause  = "DocBaseType=?";
+       /** MDocType mDocType = new Query(getCtx(), MDocType.Table_Name, whereClause, null)
                 .setClient_ID()
                 .setParameters(MDocType.DOCBASETYPE_MaterialMovement)
                 .setOnlyActiveRecords(true)
                 .first();
-        if (mDocType != null) {
+        /**
+         if (mDocType != null) {
+         
             //Clear Parameters
             clearParameters();
             // Add Doc Type Parameter.
             addParameter(new ProcessInfoParameter(PARAMETERNAME_C_DocType_ID, mDocType.getC_DocType_ID(), null, null, null));
             storageCleanupProcess.startProcess(getCtx(), getProcessInfo(), null);
-        }
+        }**/
         
 
-        String msg = "STOP " + PROCESS_NAME + ". Processed " + count + " records(s).";
-        log.log(Level.INFO, msg);
+        //String msg = "STOP " + PROCESS_NAME + ". Processed " + count + " records(s).";
+        //log.log(Level.INFO, msg);
 
-        return msg;
+        //return msg;
     }
     
     private void clearParameters() {
