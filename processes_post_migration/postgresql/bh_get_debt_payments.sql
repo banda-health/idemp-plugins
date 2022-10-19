@@ -55,5 +55,7 @@ WHERE
 	AND (p.bh_c_order_id = 0 OR bh_c_order_id IS NULL)
 	AND date(p.datetrx) BETWEEN date($2) AND date($3)
 	AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
-	AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RE', 'RA', 'VO'));
+	AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RE', 'RA', 'VO'))
+	AND p.reversal_id IS NULL
+	AND p.docstatus NOT IN ('RE', 'VO');
 $$;
