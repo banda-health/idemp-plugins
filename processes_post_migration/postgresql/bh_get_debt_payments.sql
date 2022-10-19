@@ -34,7 +34,7 @@ SELECT
 	rl.name               AS payment_mode_name,
 	bp.totalopenbalance   AS totalopenbalance,
 	p.payamt              AS payment_amount,
-	p.docstatus,
+	p.docstatus::varchar,
 	p.processing::varchar
 FROM
 	c_payment p
