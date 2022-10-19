@@ -2,6 +2,7 @@ DROP FUNCTION IF EXISTS bh_get_payment_trail(character varying);
 CREATE OR REPLACE FUNCTION bh_get_payment_trail(c_bpartner_uu character varying)
 	RETURNS TABLE
 	        (
+		        c_bpartner_id         numeric,
 		        patient_name          character varying,
 		        payment_date          date,
 		        item                  text,
@@ -16,6 +17,7 @@ $$
 WITH transactions AS (
 	-- This categorizes the payments
 	SELECT
+		c_bpartner_id,
 		name,
 		date,
 		items,
@@ -27,6 +29,7 @@ WITH transactions AS (
 	FROM
 		(
 			SELECT
+				c_bpartner_id,
 				name,
 				date,
 				CASE
@@ -41,6 +44,7 @@ WITH transactions AS (
 				(
 					-- Sum all the payments and group them by date
 					SELECT
+						c_bpartner_id,
 						name,
 						date,
 						SUM(charges)                                                  AS charges,
@@ -51,6 +55,7 @@ WITH transactions AS (
 						(
 							-- Here's where payments are categorized
 							SELECT
+								c_bpartner_id,
 								Name,
 								Date,
 								COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Visit'), 0) AS charges,
@@ -187,6 +192,7 @@ WITH transactions AS (
 										OR cp.bh_c_order_id = 0
 								) AS transactions
 							GROUP BY
+								c_bpartner_id,
 								Name,
 								Date,
 								type,
@@ -195,12 +201,14 @@ WITH transactions AS (
 								c_bpartner_id
 						) AS transactions
 					GROUP BY
+						c_bpartner_id,
 						name,
 						date
 				) AS transactions
 			UNION
 			-- Add another row to show the starting balance of zero when the patient was created
 			SELECT
+				c_bpartner_id,
 				name,
 				date(created) AS date,
 				'Starting balance',
@@ -216,6 +224,7 @@ WITH transactions AS (
 		) AS transactions
 )
 SELECT
+	c_bpartner_id,
 	name                 AS patient_name,
 	date                 AS payment_date,
 	items                AS item,
