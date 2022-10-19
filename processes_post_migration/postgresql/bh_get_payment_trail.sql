@@ -18,7 +18,6 @@ WITH transactions AS (
 	-- This categorizes the payments
 	SELECT
 		c_bpartner_id,
-		name,
 		date,
 		items,
 		charges,
@@ -30,22 +29,20 @@ WITH transactions AS (
 		(
 			SELECT
 				c_bpartner_id,
-				name,
 				date,
 				CASE
 					WHEN charges = 0 AND visit_payment = 0 THEN 'Open balance payment only'
-					ELSE 'Visit Charges and payments' END                                             AS items,
+					ELSE 'Visit Charges and payments' END                                                      AS items,
 				charges,
-				visit_payment * -1                                                                  AS visit_payment,
-				open_balance_payment * -1                                                           AS open_balance_payment,
-						SUM(line_total) OVER (PARTITION BY name ORDER BY date ROWS UNBOUNDED PRECEDING) AS open_balance,
-				2                                                                                   AS sort
+				visit_payment * -1                                                                           AS visit_payment,
+				open_balance_payment * -1                                                                    AS open_balance_payment,
+						SUM(line_total) OVER (PARTITION BY c_bpartner_id ORDER BY date ROWS UNBOUNDED PRECEDING) AS open_balance,
+				2                                                                                            AS sort
 			FROM
 				(
 					-- Sum all the payments and group them by date
 					SELECT
 						c_bpartner_id,
-						name,
 						date,
 						SUM(charges)                                                  AS charges,
 						SUM(visit_payment)                                            AS visit_payment,
@@ -56,8 +53,7 @@ WITH transactions AS (
 							-- Here's where payments are categorized
 							SELECT
 								c_bpartner_id,
-								Name,
-								Date,
+								date,
 								COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Visit'), 0) AS charges,
 								COALESCE(SUM(grandtotal)
 								         FILTER (WHERE type = 'Bill Payment' OR type = 'Insurance, Waivers, and Deductions'),
@@ -69,7 +65,6 @@ WITH transactions AS (
 									-- Bills
 									SELECT
 										o.c_order_id,
-										bp.name,
 										o.c_bpartner_id,
 										date(o.bh_visitdate) AS date,
 										'Visit'              AS "type",
@@ -80,19 +75,18 @@ WITH transactions AS (
 										c_order o
 											JOIN c_orderline ol
 												ON o.c_order_id = ol.c_order_id
-											INNER JOIN c_bpartner bp
+											JOIN c_bpartner bp
 												ON o.c_bpartner_id = bp.c_bpartner_id
 									WHERE
 										o.issotrx = 'Y'
 										AND o.docstatus = 'CO'
 										AND ol.c_charge_id IS NULL
 										AND bp.c_bpartner_uu = $1
-									GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
-									UNION
+									GROUP BY o.c_order_id, o.c_bpartner_id, date
+									UNION ALL
 									-- Insurance, waivers, and deductions
 									SELECT
 										o.c_order_id,
-										bp.name,
 										o.c_bpartner_id,
 										date(o.bh_visitdate)                 AS date,
 										'Insurance, Waivers, and Deductions' AS "type",
@@ -103,7 +97,7 @@ WITH transactions AS (
 										c_order o
 											JOIN c_orderline ol
 												ON o.c_order_id = ol.c_order_id
-											INNER JOIN c_bpartner bp
+											JOIN c_bpartner bp
 												ON o.c_bpartner_id = bp.c_bpartner_id
 											JOIN c_charge c
 												ON ol.c_charge_id = c.c_charge_id
@@ -111,12 +105,11 @@ WITH transactions AS (
 										o.issotrx = 'Y'
 										AND o.docstatus = 'CO'
 										AND bp.c_bpartner_uu = $1
-									GROUP BY o.c_order_id, bp.name, o.c_bpartner_id, date(o.bh_visitdate)
-									UNION
+									GROUP BY o.c_order_id, o.c_bpartner_id, date(o.bh_visitdate)
+									UNION ALL
 									-- Bill Payments
 									SELECT
 										p.bh_c_order_id AS c_order_id,
-										patient_name    AS name,
 										p.c_bpartner_id,
 										p.visit_date,
 										-- CASE
@@ -134,7 +127,6 @@ WITH transactions AS (
 												gvp.c_payment_id,
 												bp.c_bpartner_id,
 												gvp.bh_c_order_id,
-												gvp.patient_name,
 												date(o.bh_visitdate) AS visit_date,
 												tendertype,
 												SUM(gvp.payamt)      AS totalpayamt
@@ -150,19 +142,17 @@ WITH transactions AS (
 												gvp.c_payment_id,
 												bp.c_bpartner_id,
 												bh_c_order_id,
-												gvp.patient_name,
 												visit_date,
 												tendertype
 										) p
-									UNION
+									UNION ALL
 									-- Outstanding Balance Payments
 									SELECT
-										cp.bh_c_order_id              AS c_order_id,
-										bp.name,
-										cp.c_bpartner_id,
-										cp.date,
+										p.bh_c_order_id               AS c_order_id,
+										p.c_bpartner_id,
+										p.date,
 										'Outstanding Balance Payment' AS "type",
-										cp.totalpayamt * -1,
+										p.totalpayamt * -1,
 										NULL                          AS tendertype,
 										40                            AS sort
 									FROM
@@ -184,32 +174,23 @@ WITH transactions AS (
 												c_bpartner_id,
 												bh_c_order_id,
 												date
-										) cp
-											INNER JOIN c_bpartner bp
-												ON cp.c_bpartner_id = bp.c_bpartner_id
-									WHERE
-										cp.bh_c_order_id IS NULL
-										OR cp.bh_c_order_id = 0
+										) p
 								) AS transactions
 							GROUP BY
 								c_bpartner_id,
-								Name,
 								Date,
 								type,
 								grandtotal,
-								sort,
-								c_bpartner_id
+								sort
 						) AS transactions
 					GROUP BY
 						c_bpartner_id,
-						name,
 						date
 				) AS transactions
-			UNION
+			UNION ALL
 			-- Add another row to show the starting balance of zero when the patient was created
 			SELECT
 				c_bpartner_id,
-				name,
 				date(created) AS date,
 				'Starting balance',
 				0             AS charges,
@@ -224,8 +205,8 @@ WITH transactions AS (
 		) AS transactions
 )
 SELECT
-	c_bpartner_id,
-	name                 AS patient_name,
+	bp.c_bpartner_id,
+	bp.name              AS patient_name,
 	date                 AS payment_date,
 	items                AS item,
 	charges              AS visit_charges,
@@ -234,6 +215,8 @@ SELECT
 	open_balance         AS patient_open_balance
 FROM
 	transactions
+		JOIN c_bpartner bp
+			ON transactions.c_bpartner_id = bp.c_bpartner_id
 ORDER BY
 	row;
 $$;
