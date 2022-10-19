@@ -253,5 +253,5 @@ test('re-opened visit returns voided/reversed payments', async () => {
 		valueObject.order.payments.some(
 			(payment) => payment.docStatus === documentStatus.Reversed || payment.docStatus === documentStatus.Voided,
 		),
-	);
+	).toBeTruthy();
 });

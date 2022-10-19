@@ -134,7 +134,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
-				List<Payment> newPayments = new ArrayList<>();
 				Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
 						visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
 				for (MPayment_BH payment : existingPayments) {
@@ -146,9 +145,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
 					newPayment.setBH_C_Order_ID(visit.getId());
 					newPayment.saveEx();
-					newPayments.add(new Payment(newPayment));
 				}
-				visit.setPayments(newPayments);
+				visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			}
 			return visit;
 		}
