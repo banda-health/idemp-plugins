@@ -6,6 +6,7 @@ import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MInvoice;
@@ -97,6 +98,7 @@ public class InvoiceModelEventTest extends ChuBoePopulateFactoryVO {
 		chargeOrderLine.setOrder(valueObject.getOrder());
 		chargeOrderLine.saveEx();
 		commitEx();
+		valueObject.refresh();
 
 		valueObject.setStepName("Complete the order");
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Complete);
@@ -122,8 +124,12 @@ public class InvoiceModelEventTest extends ChuBoePopulateFactoryVO {
 
 		ordersInvoices = valueObject.getOrder().getInvoices();
 		assertEquals(2, ordersInvoices.length, "Invoice was created for for reopened order");
-		assertTrue(ordersInvoices[0].isComplete() && ordersInvoices[0].isReversal(), "Original invoice is completed");
-		assertTrue(ordersInvoices[1].isComplete() && ordersInvoices[1].isReversal(), "Second invoice is completed");
+		assertTrue(
+				ordersInvoices[0].isComplete() && ordersInvoices[0].getDocStatus().equals(MInvoice_BH.DOCSTATUS_Reversed),
+				"Original invoice is completed");
+		assertTrue(
+				ordersInvoices[1].isComplete() && ordersInvoices[1].getDocStatus().equals(MInvoice_BH.DOCSTATUS_Reversed),
+				"Second invoice is completed");
 		assertEquals(0, ordersInvoices[0].getGrandTotal().negate().compareTo(ordersInvoices[1].getGrandTotal()),
 				"Invoices have opposite grand totals");
 		assertEquals(0, new MBPartner_BH(valueObject.getContext(), valueObject.getBusinessPartner().get_ID(),

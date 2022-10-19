@@ -263,6 +263,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
+		valueObject.getOrder().saveEx();
 		commitEx();
 		valueObject.setPayment(null);
 
@@ -324,6 +325,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setC_Invoice_ID(0);
 		valueObject.getPayment().setPayAmt(debtPayment);
 		valueObject.getPayment().setBH_C_Order_ID(0);
 		valueObject.getPayment().saveEx();
@@ -467,7 +469,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
 							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
-			assertThat("Only three rows exist for patient on report", tableRows.size(), is(2));
+			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
 
 			NumberFormat numberFormat = NumberFormat.getInstance();
 

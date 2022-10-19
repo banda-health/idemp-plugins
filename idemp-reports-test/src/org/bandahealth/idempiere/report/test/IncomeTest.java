@@ -294,6 +294,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
+		valueObject.getOrder().saveEx();
 		commitEx();
 		valueObject.setPayment(null);
 
@@ -334,37 +335,72 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		double totalCharged = 0;
+		double totalPaid = 0;
+		double totalCashPaid = 0;
+		double totalMobileMoneyPaid = 0;
+		double totalCreditDebitPaid = 0;
+		double totalBankTransferPaid = 0;
+		double totalChequePaid = 0;
+		double totalInsurancePaid = 0;
+		double totalWaiverPaid = 0;
+		double totalDonationsPaid = 0;
+		double totalOtherPaid = 0;
+		double totalUnpaid = 0;
+		double totalDebtPayments = 0;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
 			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
 			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = TableUtils.getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = TableUtils.getColumnIndex(headerRow, "Mobile Money");
+			int creditDebitColumnIndex = TableUtils.getColumnIndex(headerRow, "Credit/ Debit");
+			int bankTransferColumnIndex = TableUtils.getColumnIndex(headerRow, "Bank Transfer");
+			int chequeColumnIndex = TableUtils.getColumnIndex(headerRow, "Cheque");
+			int insuranceColumnIndex = TableUtils.getColumnIndex(headerRow, "Insurance");
+			int waiverColumnIndex = TableUtils.getColumnIndex(headerRow, "Waiver");
+			int donationsColumnIndex = TableUtils.getColumnIndex(headerRow, "Donations");
+			int otherColumnIndex = TableUtils.getColumnIndex(headerRow, "Other");
+			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
 
 			int totalsRowIndex = -1;
 			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
-				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
+				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
 				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
-						patientNameCell.getStringCellValue().isEmpty() && totalPaymentCell != null &&
-						totalPaymentCell.getCellType().equals(CellType.NUMERIC) && totalPaymentCell.getNumericCellValue() > 0) {
+						patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null &&
+						billTotalTotalsCell.getCellType().equals(CellType.NUMERIC) &&
+						billTotalTotalsCell.getNumericCellValue() > 0) {
 					totalsRowIndex = i;
-					totalCharged = totalPaymentCell.getNumericCellValue();
+					totalCharged = billTotalTotalsCell.getNumericCellValue();
+					totalPaid = row.getCell(totalPaymentColumnIndex).getNumericCellValue();
+					totalCashPaid = row.getCell(cashColumnIndex).getNumericCellValue();
+					totalMobileMoneyPaid = row.getCell(mobileMoneyColumnIndex).getNumericCellValue();
+					totalCreditDebitPaid = row.getCell(creditDebitColumnIndex).getNumericCellValue();
+					totalBankTransferPaid = row.getCell(bankTransferColumnIndex).getNumericCellValue();
+					totalChequePaid = row.getCell(chequeColumnIndex).getNumericCellValue();
+					totalInsurancePaid = row.getCell(insuranceColumnIndex).getNumericCellValue();
+					totalWaiverPaid = row.getCell(waiverColumnIndex).getNumericCellValue();
+					totalDonationsPaid = row.getCell(donationsColumnIndex).getNumericCellValue();
+					totalOtherPaid = row.getCell(otherColumnIndex).getNumericCellValue();
+					totalUnpaid = row.getCell(unpaidColumnIndex).getNumericCellValue();
 					break;
 				}
 			}
 
 			assertTrue(totalsRowIndex > -1, "Row totals displayed for transactions");
-			assertTrue(totalCharged > 0, "Total charged is greater than zero");
+			assertTrue(totalPaid > 0, "Total charged is greater than zero");
 
 			Row cashierPivotTableHeaderRow = TableUtils.getHeaderRow(sheet, "Cash", totalsRowIndex + 1);
 			assertNotNull(cashierPivotTableHeaderRow, "Cashier income table exists");
@@ -375,8 +411,26 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			assertNotNull(cashierPivotTableFooterRow, "Cashier income table has a footer row");
 			assertEquals(CellType.NUMERIC, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getCellType(),
 					"Cashiers' totals cell is numeric");
-			assertEquals(totalCharged, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getNumericCellValue(),
+			assertEquals(totalPaid, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getNumericCellValue(),
 					"Cashier total matches total payment");
+
+			Row outstandingBalanceHeaderRow =
+					TableUtils.getHeaderRow(sheet, "Date Paid", TableUtils.getIndexOfRow(sheet, cashierPivotTableFooterRow));
+			assertNotNull(outstandingBalanceHeaderRow, "Outstanding balance table header row exists");
+			int amountPaidColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Amount Paid");
+			patientNameColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Patient Name");
+			headerRowIndex = TableUtils.getIndexOfRow(sheet, outstandingBalanceHeaderRow);
+			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell amountPaidCell = row.getCell(amountPaidColumnIndex);
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
+						patientNameCell.getStringCellValue().isEmpty() && amountPaidCell != null &&
+						amountPaidCell.getCellType().equals(CellType.NUMERIC) && amountPaidCell.getNumericCellValue() > 0) {
+					totalDebtPayments = amountPaidCell.getNumericCellValue();
+					break;
+				}
+			}
 		}
 
 		valueObject.setStepName("Generate the income & expense report");
@@ -384,8 +438,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("pdf");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -393,6 +447,16 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 
 		DecimalFormat decimalFormat = new DecimalFormat("#,###");
-		assertThat("Income total is correct", reportContent, containsString(decimalFormat.format(totalCharged)));
+		double totalIncome =
+				totalPaid - totalInsurancePaid - totalWaiverPaid - totalOtherPaid - totalDonationsPaid + totalDebtPayments;
+		assertThat("Income total is correct", reportContent, containsString(decimalFormat.format(totalIncome)));
+		assertThat("Payments received from visits is correct", reportContent,
+				containsString(decimalFormat.format(totalIncome - totalDebtPayments)));
+		assertEquals(totalIncome - totalDebtPayments,
+				totalCashPaid + totalMobileMoneyPaid + totalCreditDebitPaid + totalBankTransferPaid + totalChequePaid,
+				"Payments received from visits is calculated correctly");
+		assertThat("Debt payments correct", reportContent, containsString(decimalFormat.format(totalDebtPayments)));
+		assertThat("Waived balance is correct", reportContent, containsString(decimalFormat.format(totalWaiverPaid)));
+		assertThat("Unpaid balance is correct", reportContent, containsString(decimalFormat.format(totalUnpaid)));
 	}
 }

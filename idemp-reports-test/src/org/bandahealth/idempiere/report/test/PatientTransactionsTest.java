@@ -97,8 +97,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -186,8 +186,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -277,8 +277,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -396,8 +396,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
 				new ProcessInfoParameter("Payment Mode", MPayment_BH.TENDERTYPE_Cash, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
@@ -450,8 +450,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
 				new ProcessInfoParameter("Payment Mode", MPayment_BH.TENDERTYPE_MPesa, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
@@ -513,8 +513,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -572,6 +572,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create partial payment");
+		valueObject.setInvoice(
+				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocumentType().get_ID(), valueObject.getDate()));
 		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
@@ -588,8 +590,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -656,6 +658,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
+		valueObject.getOrder().saveEx();
 		commitEx();
 		valueObject.setPayment(null);
 
@@ -696,8 +699,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -759,7 +762,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 	}
 
 	@IPopulateAnnotation.CanRun
-	public void openBalancePaymentsShowCorrectly() throws SQLException, IOException {
+		public void openBalancePaymentsShowCorrectly() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
@@ -789,6 +792,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setInvoice(
 				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocumentType().get_ID(), valueObject.getDate()));
 		valueObject.setDocumentAction(null);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
 		valueObject.getPayment().setPayAmt(new BigDecimal(4));
@@ -805,8 +809,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -866,7 +870,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 					"Cashier total matches total payment");
 
 			Row outstandingBalanceHeaderRow =
-					TableUtils.getHeaderRow(sheet, "Bill Date", TableUtils.getIndexOfRow(sheet, cashierPivotTableFooterRow));
+					TableUtils.getHeaderRow(sheet, "Date Paid", TableUtils.getIndexOfRow(sheet, cashierPivotTableFooterRow));
 			assertNotNull(outstandingBalanceHeaderRow, "Outstanding balance table header row exists");
 			int openBalancePatientNameColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Patient Name");
 			int paymentModeColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Payment Mode");

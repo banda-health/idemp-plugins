@@ -12,14 +12,10 @@ import java.util.logging.Level;
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
-import org.compiere.model.MBPartner;
-import org.compiere.model.MDocTypeCounter;
 import org.compiere.model.MInvoice;
-import org.compiere.model.MOrg;
 import org.compiere.model.MPayment;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 
@@ -230,7 +226,6 @@ public class MPayment_BH extends MPayment {
 		//
 		newPayment.setDateTrx(getDateTrx());
 		newPayment.setDateAcct(getDateAcct());
-		newPayment.setRef_Payment_ID(getC_Payment_ID());
 		//
 		newPayment.setC_BankAccount_ID(getC_BankAccount_ID());
 
@@ -245,8 +240,9 @@ public class MPayment_BH extends MPayment {
 		newPayment.setBH_C_Order_ID(getBH_C_Order_ID());
 
 		newPayment.saveEx(get_TrxName());
-		if (log.isLoggable(Level.FINE)) log.fine(newPayment.toString());
-		setRef_Payment_ID(newPayment.getC_Payment_ID());
+		if (log.isLoggable(Level.FINE)) {
+			log.fine(newPayment.toString());
+		}
 
 		// Document action typically set to complete, even though we may not be completing it yet
 		newPayment.setDocAction(DOCACTION_None);

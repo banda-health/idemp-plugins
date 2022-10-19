@@ -166,6 +166,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Order was re-activated");
+		valueObject.getOrder().saveEx();
 		commitEx();
 		valueObject.setPayment(null);
 

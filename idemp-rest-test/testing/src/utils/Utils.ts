@@ -241,7 +241,7 @@ export async function createInvoice(valueObject: ValueObject) {
 		throw new Error('Document Type is Null');
 	} else if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
-	} else if (valueObject.order?.docStatus !== 'CO') {
+	} else if (valueObject.order?.docStatus !== documentStatus.Completed) {
 		throw new Error('Order Not Completed');
 	}
 

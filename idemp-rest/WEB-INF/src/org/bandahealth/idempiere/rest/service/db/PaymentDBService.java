@@ -282,7 +282,13 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 				.setParameters(orderId).setClient_ID().list();
 		mPaymentLines = mPaymentLines.stream().filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
 		for (MPayment_BH mPayment : mPaymentLines) {
-			mPayment.deleteEx(false);
+			// If the payment is completed, just make sure the bh_c_order_id isn't set
+			if (mPayment.isComplete()) {
+				mPayment.setBH_C_Order_ID(0);
+				mPayment.saveEx();
+			} else {
+				mPayment.deleteEx(false);
+			}
 		}
 	}
 
