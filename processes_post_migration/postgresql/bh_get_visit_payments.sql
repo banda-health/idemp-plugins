@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS bh_get_visit_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
+DROP FUNCTION IF EXISTS bh_get_visit_payments(NUMERIC, TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE);
 CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
                                                  end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
@@ -71,6 +71,12 @@ WHERE
 	AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
 	AND p.bh_c_order_id IS NOT NULL
 	AND p.bh_c_order_id != 0
+	AND p.docstatus NOT IN ('RE', 'VO')
+	AND p.c_payment_id NOT IN (
+	SELECT reversal_id
+	FROM c_payment
+	WHERE a.ad_client_id = $1
+)
 GROUP BY
 	c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
 	p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing, p.bh_c_order_id, p.c_payment_id;
