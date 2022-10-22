@@ -37,7 +37,7 @@ public class BusinessPartnerModelEventTest extends ChuBoePopulateFactoryVO {
 
 		assertTrue(patient.isCustomer(), "Is Patient?");
 		assertThat("Should have an Invoice Rule: ", patient.getInvoiceRule(), is(MOrder.INVOICERULE_Immediate));
-		assertThat("Should have a Payment Rule: ", patient.getPaymentRule(), is(MOrder.PAYMENTRULE_Cash));
+		assertThat("Should have a Payment Rule: ", patient.getPaymentRule(), is(MOrder.PAYMENTRULE_OnCredit));
 
 		// should have a user contact
 		MUser user = patient.getContacts(false).length > 0 ? patient.getContacts(false)[0] : null;

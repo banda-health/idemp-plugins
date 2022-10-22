@@ -86,6 +86,8 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete), "Payment was completed");
 		valueObject.getPayment().saveEx();
 		commitEx();
 
@@ -100,6 +102,12 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
 		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void);
 		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Reverse payment");
+		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+		assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Reverse_Accrual), "Payment was reversed");
+		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
