@@ -1353,6 +1353,7 @@ WHERE
 		SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '1d5191dd-4792-464f-94c5-5b4d652e5fe5'
 	);
 
+BEGIN;
 DROP FUNCTION IF EXISTS bh_get_visit_payments(NUMERIC, TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE);
 CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
                                                  end_date timestamp WITHOUT TIME ZONE)
@@ -1428,9 +1429,12 @@ WHERE
 	AND p.bh_c_order_id != 0
 	AND p.docstatus NOT IN ('RE', 'VO')
 	AND p.c_payment_id NOT IN (
-	SELECT reversal_id
-	FROM c_payment
-	WHERE a.ad_client_id = $1
+	SELECT
+		reversal_id
+	FROM
+		c_payment
+	WHERE
+		a.ad_client_id = $1
 )
 GROUP BY
 	c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
@@ -1722,8 +1726,9 @@ WHERE
 	AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RE', 'RA', 'VO'))
 	AND p.reversal_id IS NULL
 	AND p.docstatus NOT IN ('RE', 'VO')
-  AND p2.c_payment_id IS NULL;
+	AND p2.c_payment_id IS NULL;
 $$;
+COMMIT;
 
 SELECT
 	update_sequences();
