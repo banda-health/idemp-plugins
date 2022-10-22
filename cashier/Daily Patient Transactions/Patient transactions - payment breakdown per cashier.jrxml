@@ -171,40 +171,13 @@ WHERE
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select
-  cashier.name as cashiername
- from
-  c_payment p
-    inner join c_order co on p.bh_c_order_id = co.c_order_id
-    and co.docstatus <> 'VO'
-    inner join ad_user cashier on p.createdby = cashier.ad_user_id
-where
-   ((p.ad_client_id = $P{AD_CLIENT_ID}) and ((p.docstatus = 'CO') OR (p.docstatus = 'DR' and p.bh_processing = 'Y'))
-    AND (date(co.bh_visitdate) BETWEEN  date($P{Begin Date}) AND date($P{End Date})) )
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR $P{Payment Mode} IN ('I', 'W', 'T') OR tendertype = $P{Payment Mode})
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR co.bh_patienttype = $P{Patient Type})
-UNION
-SELECT u.name as cashiername
-FROM c_order o
-    JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-    JOIN ad_user u ON ol.createdby = u.ad_user_id
-    JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
-WHERE o.ad_client_id = $P{AD_CLIENT_ID}
-    AND o.docstatus <> 'VO'
-    AND date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})
-    AND ($P{Payment Mode} IS NULL OR $P{Payment Mode} = '' OR $P{Payment Mode} IN ('X', 'K', 'C', 'D') OR c.bh_subtype = CASE WHEN $P{Payment Mode} = 'T' THEN 'D' ELSE $P{Payment Mode} END)
-    AND ($P{Patient Type} IS NULL OR $P{Patient Type} = '' OR o.bh_patienttype = $P{Patient Type})
-limit 1;]]>
+		<![CDATA[select 1]]>
 	</queryString>
-	<field name="cashiername" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
