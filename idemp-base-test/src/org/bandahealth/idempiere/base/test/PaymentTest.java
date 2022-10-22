@@ -4,12 +4,11 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.compiere.model.MBPartner;
-import org.compiere.model.MInvoice;
 import org.compiere.process.DocumentEngine;
 
 import java.math.BigDecimal;
@@ -61,14 +60,15 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		assertTrue(valueObject.getPayment().isAllocated(), "First payment is allocated");
-		MInvoice firstInvoice = MInvoice_BH.get(firstInvoicesId);
+		MInvoice_BH firstInvoice =
+				new MInvoice_BH(valueObject.getContext(), firstInvoicesId, valueObject.getTransactionName());
 		assertFalse(firstInvoice.isPaid(), "First invoice isn't paid");
 		assertEquals(0,
 				firstInvoice.getGrandTotal().subtract(firstInvoice.getAllocatedAmt()).compareTo(new BigDecimal(50)),
 				"First invoice has the correct amount remaining to allocate");
-		assertEquals(0,
-				MBPartner.get(valueObject.getContext(), valueObject.getBusinessPartner().get_ID()).getTotalOpenBalance()
-						.compareTo(new BigDecimal(50)), "BP open balance correct after first sales order");
+		assertEquals(0, new MBPartner_BH(valueObject.getContext(), valueObject.getBusinessPartner().get_ID(),
+						valueObject.getTransactionName()).getTotalOpenBalance().compareTo(new BigDecimal(50)),
+				"BP open balance correct after first sales order");
 
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -94,14 +94,15 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		assertTrue(valueObject.getPayment().isAllocated(), "Second payment is allocated");
-		MInvoice secondInvoice = MInvoice_BH.get(secondInvoicesId);
+		MInvoice_BH secondInvoice =
+				new MInvoice_BH(valueObject.getContext(), secondInvoicesId, valueObject.getTransactionName());
 		assertFalse(secondInvoice.isPaid(), "Second invoice isn't paid");
 		assertEquals(0,
 				secondInvoice.getGrandTotal().subtract(secondInvoice.getAllocatedAmt()).compareTo(new BigDecimal(40)),
 				"Second invoice has the correct amount remaining to allocate");
-		assertEquals(0,
-				MBPartner.get(valueObject.getContext(), valueObject.getBusinessPartner().get_ID()).getTotalOpenBalance()
-						.compareTo(new BigDecimal(90)), "BP open balance correct after second sales order");
+		assertEquals(0, new MBPartner_BH(valueObject.getContext(), valueObject.getBusinessPartner().get_ID(),
+						valueObject.getTransactionName()).getTotalOpenBalance().compareTo(new BigDecimal(90)),
+				"BP open balance correct after second sales order");
 
 		valueObject.setStepName("Create third sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -127,17 +128,18 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		assertTrue(valueObject.getPayment().isAllocated(), "Third payment is allocated");
-		firstInvoice = MInvoice_BH.get(firstInvoicesId);
+		firstInvoice = new MInvoice_BH(valueObject.getContext(), firstInvoicesId, valueObject.getTransactionName());
 		assertTrue(firstInvoice.isPaid(), "First invoice is paid");
 		assertEquals(0, firstInvoice.getGrandTotal().subtract(firstInvoice.getAllocatedAmt()).signum(),
 				"First invoice is fully paid");
 
-		secondInvoice = MInvoice_BH.get(secondInvoicesId);
+		secondInvoice = new MInvoice_BH(valueObject.getContext(), secondInvoicesId, valueObject.getTransactionName());
 		assertTrue(secondInvoice.isPaid(), "Second invoice is paid");
 		assertEquals(0, secondInvoice.getGrandTotal().subtract(secondInvoice.getAllocatedAmt()).signum(),
 				"Second invoice is fully paid");
 
-		MInvoice thirdInvoice = MInvoice_BH.get(thirdInvoicesId);
+		MInvoice_BH thirdInvoice =
+				new MInvoice_BH(valueObject.getContext(), thirdInvoicesId, valueObject.getTransactionName());
 		assertFalse(thirdInvoice.isPaid(), "Third invoice is not paid");
 		assertEquals(0,
 				thirdInvoice.getGrandTotal().subtract(thirdInvoice.getAllocatedAmt()).compareTo(new BigDecimal(40)),
