@@ -53,18 +53,18 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[select cashier.name as cashiername,
-       tendertype.name as paymentmode,
-       sum(cp.payamt) as paymentamount
-from c_payment cp
-    inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
-    inner join ad_user cashier on cp.createdby = cashier.ad_user_id
-    inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
-    and AD_Reference_ID=214
-where (cp.ad_client_id = $P{AD_CLIENT_ID})
-      and (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
-      and (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-group by cashier.name, tendertype.name;]]>
+			<![CDATA[SELECT
+	cashier    AS cashiername,
+	payment_mode_name AS paymentmode,
+	sum(payment_amount)  AS paymentamount
+FROM
+	bh_get_debt_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		CROSS JOIN (
+		SELECT COALESCE($P{AD_User_UU}, '') AS ad_user_uu
+	) params
+WHERE
+	cashier_uu = params.ad_user_uu OR params.ad_user_uu = ''
+GROUP BY cashier, payment_mode_name;]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
@@ -80,24 +80,11 @@ group by cashier.name, tendertype.name;]]>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select cashier.name as cashiername
-from c_payment cp
-    inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
-    inner join ad_user cashier on cp.createdby = cashier.ad_user_id
-    cross join (select coalesce($P{AD_User_UU}, '') as ad_user_uu) params
-where (cp.ad_client_id = $P{AD_CLIENT_ID})
-      AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
-      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-      AND (params.ad_user_uu = '' OR cashier.ad_user_uu = params.ad_user_uu)
-limit 1;]]>
+		<![CDATA[select 1]]>
 	</queryString>
-	<field name="cashiername" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -215,7 +202,7 @@ limit 1;]]>
 				</measure>
 				<crosstabCell width="80" height="17">
 					<cellContents mode="Opaque" style="Crosstab_CD">
-						<textField pattern="#,##0.###">
+						<textField pattern="#,##0.00">
 							<reportElement x="0" y="0" width="80" height="17" uuid="3da43d54-ae63-4f02-a17c-eabf605eed86"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<paragraph rightIndent="5"/>
@@ -226,7 +213,7 @@ limit 1;]]>
 				</crosstabCell>
 				<crosstabCell width="90" height="17" columnTotalGroup="PaymentMode">
 					<cellContents mode="Opaque" style="Crosstab_CT">
-						<textField pattern="#,##0.###">
+						<textField pattern="#,##0.00">
 							<reportElement x="0" y="0" width="90" height="17" forecolor="#050505" uuid="acf3f525-85a1-484f-bb90-4241d46b3488"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font size="11" isBold="true"/>
@@ -238,7 +225,7 @@ limit 1;]]>
 				</crosstabCell>
 				<crosstabCell width="80" height="17" rowTotalGroup="CashierName">
 					<cellContents mode="Opaque" style="Crosstab_CT">
-						<textField pattern="#,##0.###">
+						<textField pattern="#,##0.00">
 							<reportElement x="0" y="0" width="80" height="17" forecolor="#050505" backcolor="#F7FAFC" uuid="7b7c6746-25df-4f2c-b79c-f937985796f5"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font size="11" isBold="true"/>
@@ -250,7 +237,7 @@ limit 1;]]>
 				</crosstabCell>
 				<crosstabCell width="90" height="17" rowTotalGroup="CashierName" columnTotalGroup="PaymentMode">
 					<cellContents mode="Opaque" style="Crosstab_CT">
-						<textField pattern="#,##0.###">
+						<textField pattern="#,##0.00">
 							<reportElement x="0" y="0" width="90" height="17" forecolor="#050505" uuid="893b7e8e-331e-467a-b7cb-29fbda466f75"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font size="11" isBold="true"/>
