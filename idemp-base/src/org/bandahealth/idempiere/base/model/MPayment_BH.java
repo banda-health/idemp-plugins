@@ -170,7 +170,9 @@ public class MPayment_BH extends MPayment {
 				if (remainingPayment.signum() <= 0) {
 					break;
 				}
-				BigDecimal payAmount = unpaidInvoice.getGrandTotal();
+				// Get the amount remaining to allocate on this invoice
+				BigDecimal payAmount = unpaidInvoice.getGrandTotal()
+						.subtract(unpaidInvoice.getAllocatedAmt() == null ? BigDecimal.ZERO : unpaidInvoice.getAllocatedAmt());
 				// If this invoice is greater than what's remaining, just use the amount remaining for allocation
 				if (payAmount.compareTo(remainingPayment) > 0) {
 					payAmount = remainingPayment;
