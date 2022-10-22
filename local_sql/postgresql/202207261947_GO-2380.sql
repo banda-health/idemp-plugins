@@ -1513,7 +1513,7 @@ CREATE OR REPLACE FUNCTION bh_get_payment_trail(c_bpartner_uu character varying)
 	        (
 		        c_bpartner_id         numeric,
 		        patient_name          character varying,
-		        payment_date          timezone,
+		        payment_date          timestamp,
 		        item                  text,
 		        visit_charges         numeric,
 		        visit_payments        numeric,
