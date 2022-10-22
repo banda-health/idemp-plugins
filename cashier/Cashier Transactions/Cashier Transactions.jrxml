@@ -101,21 +101,25 @@
 		GROUP BY c_order_id, bh_subtype
 	)
 SELECT
-	billdetails.c_order_id                                                          AS receipt_number,
-	billdetails.bill_date                                                           AS bill_date,
-	billdetails.patient_number                                                      AS patient_number,
-	billdetails.patientname                                                         AS patient,
-	u.name                                                                          AS cashier,
-	COALESCE(billdetails.lineitemtotals, 0)                                         AS bill_total,
-		COALESCE(patient_payments.total, 0) + COALESCE(non_patient_payments.total, 0) AS total_payment,
-		COALESCE(billdetails.lineitemtotals, 0) - COALESCE(patient_payments.total, 0) -
-		COALESCE(non_patient_payments.total, 0)                                       AS unpaid_balance
+	billdetails.c_order_id                         AS receipt_number,
+	billdetails.bill_date                          AS bill_date,
+	billdetails.patient_number                     AS patient_number,
+	billdetails.patientname                        AS patient,
+	u.name                                         AS cashier,
+	COALESCE(billdetails.lineitemtotals, 0)        AS bill_total,
+	COALESCE(pp.total, 0) + COALESCE(npp.total, 0) AS total_payment,
+		COALESCE(billdetails.lineitemtotals, 0) - COALESCE(pp.total, 0) -
+		COALESCE(npp.total, 0)                       AS unpaid_balance
 FROM
 	billdetails
-		LEFT JOIN patient_payments
-			ON billdetails.c_order_id = patient_payments.c_order_id
-		LEFT JOIN non_patient_payments
-			ON billdetails.c_order_id = non_patient_payments.c_order_id
+		LEFT JOIN (
+		SELECT c_order_id, SUM(total) AS total FROM patient_payments GROUP BY c_order_id
+	) pp
+			ON billdetails.c_order_id = pp.c_order_id
+		LEFT JOIN (
+		SELECT c_order_id, SUM(total) AS total FROM non_patient_payments GROUP BY c_order_id
+	) npp
+			ON billdetails.c_order_id = npp.c_order_id
 		JOIN ad_user u
 			ON u.ad_user_id = billdetails.cashier_id
 		CROSS JOIN params p
