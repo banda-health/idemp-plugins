@@ -4,6 +4,7 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -41,6 +42,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
@@ -95,8 +97,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -184,8 +186,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -275,8 +277,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -394,8 +396,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
 				new ProcessInfoParameter("Payment Mode", MPayment_BH.TENDERTYPE_Cash, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
@@ -448,8 +450,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
 				new ProcessInfoParameter("Payment Mode", MPayment_BH.TENDERTYPE_MPesa, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
@@ -511,8 +513,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -539,6 +541,353 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			assertEquals(0D, visit.getCell(totalPaymentColumnIndex).getNumericCellValue(), "Total payment is correct");
 			assertEquals(0D, visit.getCell(cashColumnIndex).getNumericCellValue(), "Cash payment is correct");
 			assertEquals(0D, visit.getCell(mobileMoneyColumnIndex).getNumericCellValue(), "Mobile payment is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void recompletedVisitsShowTheCorrectValues() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create partial payment");
+		valueObject.setInvoice(
+				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocumentType().get_ID(), valueObject.getDate()));
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPayment().setPayAmt(new BigDecimal(6));
+		valueObject.getPayment().saveEx();
+		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was completed");
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = TableUtils.getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = TableUtils.getColumnIndex(headerRow, "Mobile Money");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient's visit appears");
+			Row visit = patientRows.get(0);
+			assertEquals(10D, visit.getCell(billTotalColumnIndex).getNumericCellValue(), "Bill total is correct");
+			assertEquals(6D, visit.getCell(totalPaymentColumnIndex).getNumericCellValue(), "Total payment is correct");
+			assertEquals(0D, visit.getCell(cashColumnIndex).getNumericCellValue(), "Cash payment is correct");
+			assertEquals(6D, visit.getCell(mobileMoneyColumnIndex).getNumericCellValue(), "Mobile payment is correct");
+
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int totalsRowIndex = -1;
+			double totalCharged = 0;
+			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
+						patientNameCell.getStringCellValue().isEmpty() && totalPaymentCell != null &&
+						totalPaymentCell.getCellType().equals(CellType.NUMERIC) && totalPaymentCell.getNumericCellValue() > 0) {
+					totalsRowIndex = i;
+					totalCharged = totalPaymentCell.getNumericCellValue();
+					break;
+				}
+			}
+
+			assertTrue(totalsRowIndex > -1, "Row totals displayed for transactions");
+			assertTrue(totalCharged > 0, "Total charged is greater than zero");
+
+			Row cashierPivotTableHeaderRow = TableUtils.getHeaderRow(sheet, "Cash", totalsRowIndex + 1);
+			assertNotNull(cashierPivotTableHeaderRow, "Cashier income table exists");
+			int cashierTotalsColumnIndex = TableUtils.getColumnIndex(cashierPivotTableHeaderRow, "Total");
+
+			Row cashierPivotTableFooterRow =
+					TableUtils.getHeaderRow(sheet, "Total", TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1);
+			assertNotNull(cashierPivotTableFooterRow, "Cashier income table has a footer row");
+			assertEquals(CellType.NUMERIC, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getCellType(),
+					"Cashiers' totals cell is numeric");
+			assertEquals(totalCharged, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getNumericCellValue(),
+					"Cashier total matches total payment");
+		}
+
+		valueObject.setStepName("Re-open SO");
+		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
+				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
+						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
+				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
+		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
+		valueObject.getOrder().saveEx();
+		commitEx();
+		valueObject.setPayment(null);
+
+		valueObject.setStepName("Cancel previous payments");
+		for (MPayment_BH payment : ordersPayments) {
+			MPayment_BH newPayment = payment.copy();
+			newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
+			newPayment.saveEx();
+
+			payment.setDocAction(DocAction.ACTION_Reverse_Accrual);
+			assertTrue(payment.processIt(DocAction.ACTION_Reverse_Accrual), "Old payment was reversed");
+			payment.saveEx();
+		}
+		commitEx();
+		valueObject.refresh();
+
+		valueObject.setPayment(new Query(valueObject.getContext(), MPayment_BH.Table_Name,
+				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
+				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+				.first());
+		valueObject.refresh();
+
+		valueObject.setStepName("Re-complete SO");
+		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Complete), "Sales order was re-completed");
+		commitEx();
+
+		valueObject.setStepName("Change payment");
+		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.getPayment().setPayAmt(new BigDecimal(4));
+		valueObject.getPayment().saveEx();
+		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was re-completed");
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = TableUtils.getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = TableUtils.getColumnIndex(headerRow, "Mobile Money");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient's visit appears");
+			Row visit = patientRows.get(0);
+			assertEquals(10D, visit.getCell(billTotalColumnIndex).getNumericCellValue(), "Bill total is correct");
+			assertEquals(4D, visit.getCell(totalPaymentColumnIndex).getNumericCellValue(), "Total payment is correct");
+			assertEquals(4D, visit.getCell(cashColumnIndex).getNumericCellValue(), "Cash payment is correct");
+			assertEquals(0D, visit.getCell(mobileMoneyColumnIndex).getNumericCellValue(), "Mobile payment is correct");
+
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int totalsRowIndex = -1;
+			double totalCharged = 0;
+			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
+						patientNameCell.getStringCellValue().isEmpty() && totalPaymentCell != null &&
+						totalPaymentCell.getCellType().equals(CellType.NUMERIC) && totalPaymentCell.getNumericCellValue() > 0) {
+					totalsRowIndex = i;
+					totalCharged = totalPaymentCell.getNumericCellValue();
+					break;
+				}
+			}
+
+			assertTrue(totalsRowIndex > -1, "Row totals displayed for transactions");
+			assertTrue(totalCharged > 0, "Total charged is greater than zero");
+
+			Row cashierPivotTableHeaderRow = TableUtils.getHeaderRow(sheet, "Cash", totalsRowIndex + 1);
+			assertNotNull(cashierPivotTableHeaderRow, "Cashier income table exists");
+			int cashierTotalsColumnIndex = TableUtils.getColumnIndex(cashierPivotTableHeaderRow, "Total");
+
+			Row cashierPivotTableFooterRow =
+					TableUtils.getHeaderRow(sheet, "Total", TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1);
+			assertNotNull(cashierPivotTableFooterRow, "Cashier income table has a footer row");
+			assertEquals(CellType.NUMERIC, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getCellType(),
+					"Cashiers' totals cell is numeric");
+			assertEquals(totalCharged, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getNumericCellValue(),
+					"Cashier total matches total payment");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+		public void openBalancePaymentsShowCorrectly() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create open-balance payment");
+		valueObject.setInvoice(
+				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocumentType().get_ID(), valueObject.getDate()));
+		valueObject.setDocumentAction(null);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setPayAmt(new BigDecimal(4));
+		valueObject.getPayment().setC_Invoice_ID(0);
+		valueObject.getPayment().setBH_C_Order_ID(0);
+		valueObject.getPayment().saveEx();
+		commitEx();
+		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Open-balance payment was completed");
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int cashColumnIndex = TableUtils.getColumnIndex(headerRow, "Cash");
+			int mobileMoneyColumnIndex = TableUtils.getColumnIndex(headerRow, "Mobile Money");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient's visit appears");
+			Row visit = patientRows.get(0);
+			assertEquals(10D, visit.getCell(billTotalColumnIndex).getNumericCellValue(), "Bill total is correct");
+			assertEquals(0D, visit.getCell(totalPaymentColumnIndex).getNumericCellValue(), "Total payment is correct");
+			assertEquals(0D, visit.getCell(cashColumnIndex).getNumericCellValue(), "Cash payment is correct");
+			assertEquals(0D, visit.getCell(mobileMoneyColumnIndex).getNumericCellValue(), "Mobile payment is correct");
+
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int totalsRowIndex = -1;
+			double totalCharged = 0;
+			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
+						patientNameCell.getStringCellValue().isEmpty() && totalPaymentCell != null &&
+						totalPaymentCell.getCellType().equals(CellType.NUMERIC) && totalPaymentCell.getNumericCellValue() > 0) {
+					totalsRowIndex = i;
+					totalCharged = totalPaymentCell.getNumericCellValue();
+					break;
+				}
+			}
+
+			assertTrue(totalsRowIndex > -1, "Row totals displayed for transactions");
+			assertTrue(totalCharged > 0, "Total charged is greater than zero");
+
+			Row cashierPivotTableHeaderRow = TableUtils.getHeaderRow(sheet, "Cash", totalsRowIndex + 1);
+			assertNotNull(cashierPivotTableHeaderRow, "Cashier income table exists");
+			int cashierTotalsColumnIndex = TableUtils.getColumnIndex(cashierPivotTableHeaderRow, "Total");
+
+			Row cashierPivotTableFooterRow =
+					TableUtils.getHeaderRow(sheet, "Total", TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1);
+			assertNotNull(cashierPivotTableFooterRow, "Cashier income table has a footer row");
+			assertEquals(CellType.NUMERIC, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getCellType(),
+					"Cashiers' totals cell is numeric");
+			assertEquals(totalCharged, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getNumericCellValue(),
+					"Cashier total matches total payment");
+
+			Row outstandingBalanceHeaderRow =
+					TableUtils.getHeaderRow(sheet, "Date Paid", TableUtils.getIndexOfRow(sheet, cashierPivotTableFooterRow));
+			assertNotNull(outstandingBalanceHeaderRow, "Outstanding balance table header row exists");
+			int openBalancePatientNameColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Patient Name");
+			int paymentModeColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Payment Mode");
+			int amountPaidColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Amount Paid");
+			int openBalanceColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Open Balance");
+
+			patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(openBalancePatientNameColumnIndex) != null &&
+							row.getCell(openBalancePatientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(openBalancePatientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient's visit appears");
+			Row openBalanceForPatient = patientRows.get(0);
+			assertEquals("Cash", openBalanceForPatient.getCell(paymentModeColumnIndex).getStringCellValue(), "Payment mode is correct");
+			assertEquals(4D, openBalanceForPatient.getCell(amountPaidColumnIndex).getNumericCellValue(), "Amount paid is correct");
+			assertEquals(6D, openBalanceForPatient.getCell(openBalanceColumnIndex).getNumericCellValue(), "Open balance is correct");
 		}
 	}
 }
