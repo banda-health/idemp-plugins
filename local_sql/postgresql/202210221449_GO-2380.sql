@@ -376,6 +376,6 @@ $$;
 COMMIT;
 
 SELECT
-	register_migration_script(''202210221449_GO-2380.sql'')
+	register_migration_script('202210221449_GO-2380.sql')
 FROM
 	dual;
