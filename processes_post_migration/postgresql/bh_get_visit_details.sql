@@ -34,29 +34,29 @@ CREATE OR REPLACE FUNCTION bh_get_visit_details(ad_client_id numeric,
 AS
 $$
 SELECT
-	o.bh_visitdate                  AS visit_date,
+	o.bh_visitdate                                   AS visit_date,
 	o.c_order_id,
 	o.c_order_uu,
 	o.ad_org_id,
-	o.c_order_id                    AS receipt_number,
-	createdby_user.ad_user_id       AS cashier_id,
-	createdby_user.name             AS cashier_name,
-	createdby_user.ad_user_uu       AS createdby_user_uu,
-	bp.c_bpartner_id                AS patient_id,
-	bp.name                         AS patient_name,
-	o.bh_patienttype                AS patient_type,
-	rl.name                         AS bh_patienttype_name,
-	bp.bh_patientid                 AS patient_no,
-	bp.bh_birthday                  AS patient_birthday,
-	bp.bh_gender                    AS patient_gender,
-	bp.bh_phone                     AS patient_phoneNumber,
-	o.bh_primarycodeddiagnosis_id   AS primary_coded,
-	o.bh_secondarycodeddiagnosis_id AS secondary_coded,
-	o.bh_primaryuncodeddiagnosis    AS primary_uncoded,
-	o.bh_secondaryuncodeddiagnosis  AS secondary_uncoded,
-	o.docstatus                     AS docstatus,
-	o.bh_clinician_user_id          AS clinician_id,
-	o.processing                    AS processing,
+	o.c_order_id                                     AS receipt_number,
+	createdby_user.ad_user_id                        AS cashier_id,
+	createdby_user.name                              AS cashier_name,
+	createdby_user.ad_user_uu                        AS createdby_user_uu,
+	bp.c_bpartner_id                                 AS patient_id,
+	bp.name                                          AS patient_name,
+	o.bh_patienttype                                 AS patient_type,
+	rl.name                                          AS bh_patienttype_name,
+	COALESCE(bp.bh_local_patientid, bp.bh_patientid) AS bh_patientid,
+	bp.bh_birthday                                   AS patient_birthday,
+	bp.bh_gender                                     AS patient_gender,
+	bp.bh_phone                                      AS patient_phoneNumber,
+	o.bh_primarycodeddiagnosis_id                    AS primary_coded,
+	o.bh_secondarycodeddiagnosis_id                  AS secondary_coded,
+	o.bh_primaryuncodeddiagnosis                     AS primary_uncoded,
+	o.bh_secondaryuncodeddiagnosis                   AS secondary_uncoded,
+	o.docstatus                                      AS docstatus,
+	o.bh_clinician_user_id                           AS clinician_id,
+	o.processing                                     AS processing,
 	saleslineitemtotals,
 	salestotals
 FROM
@@ -73,7 +73,7 @@ FROM
 		SELECT
 			o.c_order_id,
 			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
-			COALESCE(SUM(ol.linenetamt), 0)                                          AS salestotals
+			COALESCE(SUM(ol.linenetamt), 0)                                         AS salestotals
 		FROM
 			c_order o
 				JOIN c_orderline ol

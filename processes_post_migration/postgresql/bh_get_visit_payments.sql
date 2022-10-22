@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS bh_get_visit_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
+DROP FUNCTION IF EXISTS bh_get_visit_payments(NUMERIC, TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE);
 CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
                                                  end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
@@ -6,10 +6,12 @@ CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_dat
 		        c_order_id        numeric,
 		        bh_c_order_id     numeric,
 		        ad_org_id         numeric,
+		        c_payment_id      numeric,
 		        payamt            numeric,
 		        tendertype        character,
 		        payment_mode_name character varying,
 		        datetrx           timestamp WITHOUT TIME ZONE,
+		        patient_id        numeric,
 		        patient_name      character varying,
 		        isallocated       character,
 		        invoice_id        numeric,
@@ -27,10 +29,12 @@ SELECT
 	c.c_order_id,
 	p.bh_c_order_id,
 	c.ad_org_id,
+	p.c_payment_id,
 	p.payamt           AS payment_amount,
 	p.tendertype       AS payment_mode_letter,
 	r.name             AS payment_mode_name,
 	p.datetrx          AS payment_date,
+	p.c_bpartner_id    AS patient_id,
 	cb.name            AS patient_name,
 	p.isallocated,
 	p.c_invoice_id     AS invoice_id,
@@ -65,7 +69,15 @@ WHERE
 	AND c.issotrx = 'Y'
 	AND c.bh_visitdate BETWEEN begin_date AND end_date
 	AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
+	AND p.bh_c_order_id IS NOT NULL
+	AND p.bh_c_order_id != 0
+	AND p.docstatus NOT IN ('RE', 'VO')
+	AND p.c_payment_id NOT IN (
+	SELECT reversal_id
+	FROM c_payment
+	WHERE a.ad_client_id = $1
+)
 GROUP BY
 	c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
-	p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing, p.bh_c_order_id;
+	p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing, p.bh_c_order_id, p.c_payment_id;
 $$;
