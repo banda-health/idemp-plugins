@@ -308,26 +308,42 @@ public class CompleteOrdersProcess extends SvrProcess {
 									// Delete the invoice
 									invoice.deleteEx(true);
 								} else {
-									// Some of these invoices are drafted (and somehow have allocations...), so first try to complete the
-									// invoice so we can immediately reverse it
-									if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
-										// Update the payment type so that payments don't automatically get created...
-										invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
-										invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
-										if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
+									boolean wasTryingToCompleteTheInvoice = false;
+									try {
+										// Some of these invoices are drafted (and somehow have allocations...), so first try to complete
+										// the
+										// invoice so we can immediately reverse it
+										if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
+											wasTryingToCompleteTheInvoice = true;
+											// Update the payment type so that payments don't automatically get created...
+											invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
+											invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
+											if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
+												log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
+												shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
+											}
+											invoice.saveEx();
+										}
+										// Just reverse the invoice
+										invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
+										if (!invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual)) {
+											// There's still something wrong, so not sure what to do...
 											log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
 											shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
 										}
 										invoice.saveEx();
+									} catch (Exception exception) {
+										log.severe(exception.getMessage());
+										// If we failed because we were trying to complete the invoice, see if it's drafted and just void
+										// it, if so
+										invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
+										invoice.setDocAction(MInvoice_BH.DOCACTION_Void);
+										if (!invoice.processIt(MInvoice_BH.DOCACTION_Void)) {
+											log.severe("Couldn't void invoice " + invoice.get_ID() + ". Please investigate.");
+											shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
+										}
+										invoice.saveEx();
 									}
-									// Just reverse the invoice
-									invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
-									if (!invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual)) {
-										// There's still something wrong, so not sure what to do...
-										log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
-										shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
-									}
-									invoice.saveEx();
 								}
 							}
 
