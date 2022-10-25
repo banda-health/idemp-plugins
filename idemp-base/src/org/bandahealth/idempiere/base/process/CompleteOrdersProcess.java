@@ -189,8 +189,10 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 				for (MOrder_BH erroredOrder : erroredOrders) {
 					count.getAndIncrement();
+					log.log(Level.INFO, "Processing order " + erroredOrder.get_ID());
 					if (processMonitor != null) {
-						processMonitor.statusUpdate("Updating order " + count.get() + " of " + numberOfOrdersToProcess);
+						processMonitor.statusUpdate(
+								"Updating order " + erroredOrder.get_ID() + ", " + count.get() + " of " + numberOfOrdersToProcess);
 					}
 
 					// Several entities use the AD_Client value in the context to determine their own
