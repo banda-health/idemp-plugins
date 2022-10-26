@@ -279,4 +279,4 @@ INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, 
 
 SELECT update_sequences();
 
-SELECT register_migration_script('202209211525_GO-2039') FROM dual;
+SELECT register_migration_script('202209211525_GO-2039.sql') FROM dual;
