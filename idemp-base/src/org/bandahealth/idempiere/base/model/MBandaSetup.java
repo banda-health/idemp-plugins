@@ -6,6 +6,7 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
@@ -1370,33 +1371,8 @@ public class MBandaSetup {
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
 				.list();
 		businessPartners.forEach((businessPartner) -> {
-			MBPartner_BH instance = new MBPartner_BH(context, 0, getTransactionName());
-			instance.setName(businessPartner.getName());
-			instance.setDescription(businessPartner.getDescription());
-			instance.setValue(businessPartner.getValue());
-			instance.setPaymentRule(businessPartner.getPaymentRule());
-			instance.setIsCustomer(businessPartner.isCustomer());
-			instance.setIsProspect(businessPartner.isProspect());
-			instance.setIsOneTime(businessPartner.isOneTime());
-			instance.setIsVendor(businessPartner.isVendor());
-			instance.setIsSummary(businessPartner.isSummary());
-			instance.setIsEmployee(businessPartner.isEmployee());
-			instance.setIsSalesRep(businessPartner.isSalesRep());
-			instance.setIsTaxExempt(businessPartner.isTaxExempt());
-			instance.setIsPOTaxExempt(businessPartner.isPOTaxExempt());
-			instance.setIsDiscountPrinted(businessPartner.isDiscountPrinted());
-			instance.setSO_CreditLimit(businessPartner.getSO_CreditLimit());
-			instance.setSO_CreditUsed(businessPartner.getSO_CreditUsed());
-			instance.setTotalOpenBalance(businessPartner.getTotalOpenBalance());
-			instance.setSOCreditStatus(businessPartner.getSOCreditStatus());
-			instance.setFirstSale(businessPartner.getFirstSale());
-			instance.setActualLifeTimeValue(businessPartner.getActualLifeTimeValue());
-			instance.setPotentialLifeTimeValue(businessPartner.getPotentialLifeTimeValue());
-			instance.setAcqusitionCost(businessPartner.getAcqusitionCost());
-			instance.setShareOfCustomer(businessPartner.getShareOfCustomer());
-			instance.setSalesVolume(businessPartner.getSalesVolume());
-			instance.setC_BP_Group_ID(businessPartner.getC_BP_Group_ID());
-			
+			MBPartner instance = new MBPartner(context, 0, getTransactionName());
+			MBPartner.copyValues(businessPartner, instance);
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner");
 			}
@@ -1415,6 +1391,7 @@ public class MBandaSetup {
 				.list();
 		businessPartnerGroups.forEach((businessPartnerGroup) -> {
 			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
+			MBPGroup.copyValues(businessPartnerGroup, instance);
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner group");
 			}
