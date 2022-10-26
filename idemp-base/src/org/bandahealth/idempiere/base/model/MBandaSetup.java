@@ -1415,12 +1415,6 @@ public class MBandaSetup {
 				.list();
 		businessPartnerGroups.forEach((businessPartnerGroup) -> {
 			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
-			instance.setName(businessPartnerGroup.getName());
-			instance.setDescription(businessPartnerGroup.getDescription());
-			instance.setValue(businessPartnerGroup.getValue());
-			instance.setIsConfidentialInfo(businessPartnerGroup.isConfidentialInfo());
-			instance.setIsDefault(businessPartnerGroup.isDefault());
-			instance.setPriorityBase(businessPartnerGroup.getPriorityBase());
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner group");
 			}
