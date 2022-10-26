@@ -185,6 +185,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 				log.log(Level.INFO, "ERRORED ORDERs::::: " + erroredOrders.size());
 				Env.setContext(getCtx(), Env.AD_ROLE_ID, 0);
+				Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, 0);
 				int numberOfOrdersToProcess = erroredOrders.size();
 
 				for (MOrder_BH erroredOrder : erroredOrders) {
@@ -199,6 +200,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 					// This leads to bad results when processing orders because then the allocations have
 					// the wrong AD_Client_IDs and can't fetch the appropriate Bank Accounts and Account Schemas
 					Env.setContext(getCtx(), Env.AD_CLIENT_ID, erroredOrder.getAD_Client_ID());
+					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, erroredOrder.getAD_Client_ID());
 					boolean doesOrderHaveInvoices = invoicesByErroredOrderId.containsKey(erroredOrder.get_ID());
 					// If there are any invoices with a weird status, update those
 					for (MInvoice_BH invoice : invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>())) {
@@ -308,42 +310,26 @@ public class CompleteOrdersProcess extends SvrProcess {
 									// Delete the invoice
 									invoice.deleteEx(true);
 								} else {
-									boolean wasTryingToCompleteTheInvoice = false;
-									try {
-										// Some of these invoices are drafted (and somehow have allocations...), so first try to complete
-										// the
-										// invoice so we can immediately reverse it
-										if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
-											wasTryingToCompleteTheInvoice = true;
-											// Update the payment type so that payments don't automatically get created...
-											invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
-											invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
-											if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
-												log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
-												shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
-											}
-											invoice.saveEx();
-										}
-										// Just reverse the invoice
-										invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
-										if (!invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual)) {
-											// There's still something wrong, so not sure what to do...
+									// Some of these invoices are drafted (and somehow have allocations...), so first try to complete
+									// the invoice so we can immediately reverse it
+									if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
+										// Update the payment type so that payments don't automatically get created...
+										invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
+										invoice.setDocAction(MInvoice_BH.DOCACTION_Complete);
+										if (!invoice.processIt(MInvoice_BH.DOCACTION_Complete)) {
 											log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
 											shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
 										}
 										invoice.saveEx();
-									} catch (Exception exception) {
-										log.severe(exception.getMessage());
-										// If we failed because we were trying to complete the invoice, see if it's drafted and just void
-										// it, if so
-										invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
-										invoice.setDocAction(MInvoice_BH.DOCACTION_Void);
-										if (!invoice.processIt(MInvoice_BH.DOCACTION_Void)) {
-											log.severe("Couldn't void invoice " + invoice.get_ID() + ". Please investigate.");
-											shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
-										}
-										invoice.saveEx();
 									}
+									// Just reverse the invoice
+									invoice.setDocAction(MInvoice_BH.DOCACTION_Reverse_Accrual);
+									if (!invoice.processIt(MInvoice_BH.DOCACTION_Reverse_Accrual)) {
+										// There's still something wrong, so not sure what to do...
+										log.severe("Couldn't work with invoice " + invoice.get_ID() + ". Please investigate.");
+										shouldDoOrderWorkBecauseInvoiceWorkSucceeded = false;
+									}
+									invoice.saveEx();
 								}
 							}
 
@@ -409,7 +395,9 @@ public class CompleteOrdersProcess extends SvrProcess {
 		} finally {
 			// Reset the AD_Client_ID to be correct
 			Env.setContext(getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
 			Env.setContext(getCtx(), Env.AD_ROLE_ID, currentRoleId);
+			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, currentRoleId);
 			//PO.clearCrossTenantSafe();
 		}
 
