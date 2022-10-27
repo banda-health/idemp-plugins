@@ -1367,12 +1367,22 @@ public class MBandaSetup {
 	 * @return
 	 */
 	public boolean createDefaultBusinessPartners() {
+		// get business partner group
+		MBPGroup businessPartnerGroup = new Query(this.context, MBPGroup.Table_Name, MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+				.setParameters(client.get_ID()).first();
+		if (businessPartnerGroup == null) {
+			log.warning("Failure: Could not find a business partner group for this client");
+			return false;
+		}
+		
 		List<MBPartner_BH> businessPartners = new Query(this.context, MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
 				.list();
+		
 		businessPartners.forEach((businessPartner) -> {
 			MBPartner instance = new MBPartner(context, 0, getTransactionName());
 			MBPartner.copyValues(businessPartner, instance);
+			instance.setC_BP_Group_ID(businessPartnerGroup.get_ID());
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner");
 			}
