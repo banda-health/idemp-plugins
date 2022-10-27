@@ -8,8 +8,6 @@ import java.util.Properties;
 public class MDocType_BH extends MDocType {
 	public static final int DOCTYPEID_NEW = 0;
 
-	public static String DOCUMENTBASETYPE_ORDER_CONFIRMATION = "Order Confirmation";
-
 	public MDocType_BH(Properties ctx, int C_DocType_ID, String trxName) {
 		super(ctx, C_DocType_ID, trxName);
 	}

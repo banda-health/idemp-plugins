@@ -175,7 +175,7 @@ public class ChuBoeCreateEntity {
 //			businessPartnerLocation.setC_Location_ID(loc.get_ID());
 //			businessPartnerLocation.setName(valueObject.getCity() + " " + valueObject.getRegion().getName());
 //			businessPartnerLocation.saveEx();
-//			valueObject.setBusinessPartnerLocation(businessPartnerLocation);
+			valueObject.setBusinessPartnerLocation(businessPartner.getLocations(false)[0]);
 
 			//create contact
 			List<MUser_BH> users =
