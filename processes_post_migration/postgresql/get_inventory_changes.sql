@@ -1,7 +1,7 @@
-DROP FUNCTION get_inventory_changes(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
+DROP FUNCTION IF EXISTS get_inventory_changes(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE OR REPLACE FUNCTION get_inventory_changes(ad_client_id numeric,
-                                                 start_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                                                 end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
+                                    start_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                                    end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
 		        m_product_id              numeric,
@@ -9,9 +9,9 @@ CREATE OR REPLACE FUNCTION get_inventory_changes(ad_client_id numeric,
 		        purchase_price            numeric,
 		        purchase_date             timestamp WITHOUT TIME ZONE,
 		        sell_price                numeric,
-		        sell_date                 timestamp WITHOUT TIME ZONE,
 		        cost_of_goods_sold        numeric,
 		        gross_profit              numeric,
+		        opening_stock             numeric,
 		        ending_stock              numeric,
 		        received_stock            numeric,
 		        sold_stock                numeric,
@@ -49,13 +49,9 @@ BEGIN
 			p.PurchasePrice                                           AS purchase_price,
 			p.PurchaseDate                                            AS purchase_date,
 			p.sell_price,
-			p.sell_date,
-			CASE
-				WHEN p.PurchasePrice IS NULL THEN NULL
-				ELSE p.soldstock * p.PurchasePrice END                  AS cost_of_goods_sold,
-			CASE
-				WHEN p.PurchasePrice IS NULL THEN NULL
-				ELSE p.soldstock * (p.sell_price - p.PurchasePrice) END AS gross_profit,
+			p.soldstock * p.PurchasePrice                             AS cost_of_goods_sold,
+			p.soldstock * (p.sell_price - p.PurchasePrice)            AS gross_profit,
+			p.openingstock                                            AS opening_stock,
 			p.endingstock                                             AS ending_stock,
 			p.receivedstock                                           AS received_stock,
 			p.soldstock                                               AS sold_stock,
@@ -65,14 +61,14 @@ BEGIN
 				SELECT
 					productname.m_product_id,
 					productname.m_attributesetinstance_id,
+					COALESCE(openqty.openqty, 0)             AS openingstock,
 					COALESCE(currentqty.closingqty, 0)       AS endingstock,
 					COALESCE(stockreceived.qtyreceived, 0)   AS receivedstock,
 					COALESCE(stocksold.qtysold, 0)           AS soldstock,
 					COALESCE(stocktakechange.qtybalanced, 0) AS balancestock,
 					product_costs.purchase_price             AS PurchasePrice,
 					product_costs.purchase_date              AS PurchaseDate,
-					stocksold.price                          AS sell_price,
-					stocksold.sell_date
+					stocksold.price                          AS sell_price
 				FROM
 					(
 						SELECT
@@ -92,18 +88,35 @@ BEGIN
 					) productname
 						LEFT JOIN (
 						SELECT
-							soh.m_product_id,
-							soh.m_attributesetinstance_id,
-							SUM(soh.qtyonhand) AS closingqty
+							t.m_product_id,
+							t.m_attributesetinstance_id,
+							SUM(t.movementqty) AS openqty
 						FROM
-							m_storageonhand soh
+							m_transaction t
 						WHERE
-							soh.ad_client_id = $1
-							AND date(soh.updated) <= end_date
-							AND soh.isactive = 'Y'
+							t.ad_client_id = $1
+							AND DATE(movementdate) < start_date
+							AND t.isactive = 'Y'
 						GROUP BY
-							soh.m_product_id,
-							soh.m_attributesetinstance_id
+							t.m_product_id,
+							t.m_attributesetinstance_id
+					) openqty
+							ON openqty.m_product_id = productname.m_product_id
+						AND openqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
+						LEFT JOIN (
+						SELECT
+							t.m_product_id,
+							t.m_attributesetinstance_id,
+							SUM(t.movementqty) AS closingqty
+						FROM
+							m_transaction t
+						WHERE
+							t.ad_client_id = $1
+							AND DATE(movementdate) <= end_date
+							AND t.isactive = 'Y'
+						GROUP BY
+							t.m_product_id,
+							t.m_attributesetinstance_id
 					) currentqty
 							ON currentqty.m_product_id = productname.m_product_id
 						AND currentqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
@@ -150,7 +163,6 @@ BEGIN
 							iol.m_product_id,
 							iolma.m_attributesetinstance_id,
 							ol.priceactual         AS price,
-							ol.dateordered         AS sell_date,
 							SUM(iolma.movementqty) AS qtysold
 						FROM
 							m_inoutline iol
@@ -169,8 +181,7 @@ BEGIN
 						GROUP BY
 							iol.m_product_id,
 							iolma.m_attributesetinstance_id,
-							ol.priceactual,
-							ol.dateordered
+							ol.priceactual
 					) stocksold
 							ON productname.m_product_id = stocksold.m_product_id
 						AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
@@ -180,11 +191,9 @@ BEGIN
 			) p
 		WHERE
 			endingstock > 0
+			OR openingstock > 0
 			OR receivedstock > 0
 			OR soldstock > 0
 			OR balancestock > 0;
 END
 $$;
-
-
-
