@@ -1367,10 +1367,8 @@ public class MBandaSetup {
 	 * @return
 	 */
 	public boolean createDefaultBusinessPartners() {
-		// get business partner group
-		MBPGroup businessPartnerGroup = new Query(this.context, MBPGroup.Table_Name, MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
-				.setParameters(client.get_ID()).first();
-		if (businessPartnerGroup == null) {
+		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = addDefaultBusinessPartnerGroups();
+		if (defaultBusinessPartnerGroups.isEmpty()) {
 			log.warning("Failure: Could not find a business partner group for this client");
 			return false;
 		}
@@ -1382,7 +1380,7 @@ public class MBandaSetup {
 		businessPartners.forEach((businessPartner) -> {
 			MBPartner instance = new MBPartner(context, 0, getTransactionName());
 			MBPartner.copyValues(businessPartner, instance);
-			instance.setC_BP_Group_ID(businessPartnerGroup.get_ID());
+			instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner");
 			}
@@ -1395,7 +1393,8 @@ public class MBandaSetup {
 	 * Create default business partner groups for new clients
 	 * @return
 	 */
-	public boolean createDefaultBusinessPartnerGroups() {
+	private Map<Integer, MBPGroup> addDefaultBusinessPartnerGroups() {
+		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = new HashMap<>();
 		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
 				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
 				.list();
@@ -1405,9 +1404,11 @@ public class MBandaSetup {
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner group");
 			}
+			
+			defaultBusinessPartnerGroups.put(businessPartnerGroup.get_ID(), instance);
 		});
 		
-		return true;
+		return defaultBusinessPartnerGroups;
 	}
 
 	/**
