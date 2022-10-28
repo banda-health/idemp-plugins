@@ -21,6 +21,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
@@ -126,9 +127,22 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
-		// We need to do something special for completing a sales order - do it
-		// asynchronously
-		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
+		int clientId = Env.getAD_Client_ID(Env.getCtx());
+		String clientIdsForSynchronousProcessingString =
+				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
+		List<Integer> clientIdsForSynchronousProcessing = new ArrayList<>();
+		try {
+			if (!StringUtil.isNullOrEmpty(clientIdsForSynchronousProcessingString)) {
+				clientIdsForSynchronousProcessing = Arrays.stream(clientIdsForSynchronousProcessingString.split(","))
+						.map(stringClientId -> Integer.parseInt(stringClientId.trim())).collect(Collectors.toList());
+			}
+		} catch (Exception exception) {
+			log.severe(exception.getMessage());
+		}
+		// We need to do something special for completing a sales order - do it asynchronously (except for the clients we
+		// want to do it synchronously for)
+		if (StringUtil.isNullOrEmpty(docAction) || (!docAction.equalsIgnoreCase(DocAction.ACTION_Complete) &&
+				!clientIdsForSynchronousProcessing.contains(clientId))) {
 			Visit visit = super.processEntity(uuid, docAction);
 			// If this is a reversal, we also need to take care of the payments
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
@@ -147,6 +161,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					newPayment.saveEx();
 				}
 				visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
+			} else if (visit.getDocStatus().equalsIgnoreCase(DocAction.ACTION_Complete)) {
+				// Process the visit's payments
 			}
 			return visit;
 		}
