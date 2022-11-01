@@ -161,10 +161,22 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					newPayment.saveEx();
 				}
 				visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
-			} else if (visit.getDocStatus().equalsIgnoreCase(DocAction.ACTION_Complete)) {
-				// Process the visit's payments
-			}
+			} 
 			return visit;
+		} else if (docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
+		    Visit visit = super.processEntity(uuid, docAction);
+		    // Process the visit's payments for synchronous
+            Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+                    visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
+            for (MPayment_BH payment : existingPayments) {
+
+                payment.setDocAction(MPayment_BH.DOCACTION_Complete);
+                payment.processIt(MPayment_BH.DOCACTION_Complete);
+                payment.saveEx();
+
+            }
+            visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
+            return visit;
 		}
 
 		if (!isDocActionValidForUser(docAction)) {
