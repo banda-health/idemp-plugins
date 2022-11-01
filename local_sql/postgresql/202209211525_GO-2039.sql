@@ -71,18 +71,6 @@ CREATE TEMP TABLE tmp_c_bp_group_acct
     c_bp_group_acct_uu          uuid        default uuid_generate_v4()
 );
 
--- SET sequence
-SELECT setval(
-	'tmp_c_bp_group_acct_c_bp_group_acct_id_seq', 
-	(
-		SELECT currentnext 
-		FROM ad_sequence 
-		WHERE name = 'C_BP_Group_Acct' 
-		LIMIT 1
-	)::INT, 
-	false
-);
-
 INSERT INTO tmp_c_bp_group_acct (c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, c_receivable_acct, c_prepayment_acct, v_liability_acct, v_liability_services_acct, v_prepayment_acct, paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct, notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct, notinvoicedreceivables_acct, processing, c_receivable_services_acct) SELECT bpa.c_acctschema_id, bp2.c_bp_group_id, bpa.ad_client_id, bpa.ad_org_id, bpa.c_receivable_acct, bpa.c_prepayment_acct, bpa.v_liability_acct, bpa.v_liability_services_acct, bpa.v_prepayment_acct, bpa.paydiscount_exp_acct, bpa.paydiscount_rev_acct, bpa.writeoff_acct, bpa.notinvoicedreceipts_acct, bpa.unearnedrevenue_acct, bpa.notinvoicedrevenue_acct, bpa.notinvoicedreceivables_acct, bpa.processing, bpa.c_receivable_services_acct FROM ad_client c INNER JOIN c_bp_group_acct bpa ON c.ad_client_id = bpa.ad_client_id INNER JOIN c_bp_group bp ON bpa.c_bp_group_id = bp.c_bp_group_id AND bp.name = 'Standard' INNER JOIN c_bp_group bp2 ON bp.ad_client_id = bp2.ad_client_id AND bp2.name = 'OTC Patient' WHERE (c.ad_client_id > 999999 OR c.ad_client_id = 2) AND c.isactive = 'Y';
 
 INSERT INTO c_bp_group_acct (c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct, v_liability_acct, v_liability_services_acct, v_prepayment_acct, paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct, notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct, notinvoicedreceivables_acct, processing, c_receivable_services_acct, c_bp_group_acct_uu) SELECT c_acctschema_id, c_bp_group_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, c_receivable_acct, c_prepayment_acct, v_liability_acct, v_liability_services_acct, v_prepayment_acct, paydiscount_exp_acct, paydiscount_rev_acct, writeoff_acct, notinvoicedreceipts_acct, unearnedrevenue_acct, notinvoicedrevenue_acct, notinvoicedreceivables_acct, processing, c_receivable_services_acct, c_bp_group_acct_uu FROM tmp_c_bp_group_acct;
