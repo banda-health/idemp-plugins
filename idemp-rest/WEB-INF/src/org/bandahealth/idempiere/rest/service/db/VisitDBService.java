@@ -127,6 +127,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
+	    
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
 		String clientIdsForSynchronousProcessingString =
 				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
@@ -163,7 +164,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			} 
 			return visit;
-		} else if (docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
+		} else if (StringUtil.isNullOrEmpty(docAction) || (docAction.equalsIgnoreCase(DocAction.ACTION_Complete) &&
+                clientIdsForSynchronousProcessing.contains(clientId))) {
 		    Visit visit = super.processEntity(uuid, docAction);
 		    // Process the visit's payments for synchronous
             Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
