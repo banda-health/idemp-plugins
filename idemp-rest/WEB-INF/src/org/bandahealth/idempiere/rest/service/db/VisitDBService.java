@@ -39,6 +39,8 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.I_AD_Client;
+import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrder;
 import org.compiere.model.MUser;
@@ -128,14 +130,17 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
 	    
-		int clientId = Env.getAD_Client_ID(Env.getCtx());
-		String clientIdsForSynchronousProcessingString =
+	    MClient client = new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null)
+                .setParameters(Env.getAD_Client_ID(Env.getCtx()))
+                .first();
+	    
+		String clientUuidsForSynchronousProcessingString =
 				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
-		List<Integer> clientIdsForSynchronousProcessing = new ArrayList<>();
+		List<String> clientIdsForSynchronousProcessing = new ArrayList<>();
 		try {
-			if (!StringUtil.isNullOrEmpty(clientIdsForSynchronousProcessingString)) {
-				clientIdsForSynchronousProcessing = Arrays.stream(clientIdsForSynchronousProcessingString.split(","))
-						.map(stringClientId -> Integer.parseInt(stringClientId.trim())).collect(Collectors.toList());
+			if (!StringUtil.isNullOrEmpty(clientUuidsForSynchronousProcessingString)) {
+				clientIdsForSynchronousProcessing = Arrays.stream(clientUuidsForSynchronousProcessingString.split(","))
+						.map(stringClientId -> stringClientId.trim()).collect(Collectors.toList());
 			}
 		} catch (Exception exception) {
 			log.severe(exception.getMessage());
@@ -143,7 +148,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		// We need to do something special for completing a sales order - do it asynchronously (except for the clients we
 		// want to do it synchronously for)
 		if (StringUtil.isNullOrEmpty(docAction) || (!docAction.equalsIgnoreCase(DocAction.ACTION_Complete) &&
-				!clientIdsForSynchronousProcessing.contains(clientId))) {
+				!clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU()))) {
 			Visit visit = super.processEntity(uuid, docAction);
 			// If this is a reversal, we also need to take care of the payments
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
@@ -165,7 +170,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			} 
 			return visit;
 		} else if (StringUtil.isNullOrEmpty(docAction) || (docAction.equalsIgnoreCase(DocAction.ACTION_Complete) &&
-                clientIdsForSynchronousProcessing.contains(clientId))) {
+                clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU()))) {
 		    Visit visit = super.processEntity(uuid, docAction);
 		    // Process the visit's payments for synchronous
             Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
