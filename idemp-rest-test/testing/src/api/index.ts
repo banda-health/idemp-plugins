@@ -7,6 +7,7 @@ export * from './chargeTypes';
 export * from './charges';
 export * from './documentTypes';
 export * from './documents';
+export * from './expenseCategories';
 export * from './invoices';
 export * from './menus';
 export * from './patients';
