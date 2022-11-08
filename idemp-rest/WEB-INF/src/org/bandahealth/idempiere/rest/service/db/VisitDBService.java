@@ -39,7 +39,6 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.I_AD_Client;
 import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrder;
