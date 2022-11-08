@@ -1,5 +1,4 @@
-import { expenseCategoryApi } from 'src/api/expenseCategories';
-import { accountApi, chargeApi, chargeTypeApi } from '../api';
+import { accountApi, chargeApi, chargeTypeApi, expenseCategoryApi } from '../api';
 import { Account, Charge, ExpenseCategory } from '../types/org.bandahealth.idempiere.rest';
 import { createCharge } from '../utils';
 
