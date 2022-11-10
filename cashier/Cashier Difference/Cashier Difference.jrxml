@@ -53,9 +53,6 @@
 	<queryString language="SQL">
 		<![CDATA[WITH params AS (
 	SELECT
-		$P{AD_CLIENT_ID}               AS ad_client_id,
-		date($P{Begin Date})           AS begin_date,
-		date($P{End Date})             AS end_date,
 		COALESCE($P{Patient Type}, '') AS patient_type,
 		COALESCE($P{Payment Mode}, '') AS payment_mode
 ),
@@ -65,8 +62,7 @@
 			saleslineitemtotals AS lineitemtotals,
 			ad_user_id          AS cashier_id
 		FROM
-			params p
-				CROSS JOIN bh_get_visit_details(p.ad_client_id, p.begin_date, p.end_date)
+			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 	),
 	patient_payments AS (
 		SELECT
@@ -74,8 +70,7 @@
 			tendertype,
 			SUM(payamt) AS total_payments
 		FROM
-			params p
-				CROSS JOIN bh_get_visit_payments(p.ad_client_id, p.begin_date, p.end_date)
+			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 		GROUP BY c_order_id, tendertype
 	),
 	non_patient_payments AS (
@@ -84,8 +79,7 @@
 			bh_subtype,
 			SUM(linenetamt) * -1 AS total
 		FROM
-			params p
-				CROSS JOIN bh_get_visit_non_patient_payments(p.ad_client_id, p.begin_date, p.end_date)
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 		GROUP BY c_order_id, bh_subtype
 	)
 SELECT
