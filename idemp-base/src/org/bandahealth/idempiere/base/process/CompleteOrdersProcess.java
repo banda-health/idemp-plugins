@@ -21,6 +21,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
@@ -28,6 +29,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
@@ -85,33 +87,33 @@ public class CompleteOrdersProcess extends SvrProcess {
 			//						ON al.c_allocationhdr_id = ah.c_allocationhdr_id
 			//					LEFT JOIN c_payment p
 			//						ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id)
-			//							AND p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
+			//					AND p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
 			//			WHERE
-			//						o.issotrx = 'Y'
-			//					AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
-			//					AND (
-			//								(
-			//											o.docstatus IN ('CO', 'CL') AND (
-			//												i.docstatus NOT IN ('CO', 'CL') OR
-			//												(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
-			//										)
-			//									)
-			//								OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus =
-			//								'CO'))
-			//								OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal)
-			//				OR o.c_order_id IN (
-			//				SELECT
-			//					c_order_id
-			//				FROM
-			//					c_invoice
-			//				WHERE
-			//					docstatus = 'CO'
-			//					AND isactive = 'Y'
-			//				GROUP BY c_order_id
-			//				HAVING
-			//					COUNT(*) > 1
-			//			)
-			//			)
+			//				o.issotrx = 'Y'
+			//				AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
+			//				AND (
+			//					(
+			//								o.docstatus IN ('CO', 'CL') AND (
+			//									i.docstatus NOT IN ('CO', 'CL') OR
+			//									(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
+			//							)
+			//						)
+			//					OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus =
+			//					                                                                              'CO'))
+			//					OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal)
+			//					OR o.c_order_id IN (
+			//					SELECT
+			//						c_order_id
+			//					FROM
+			//						c_invoice
+			//					WHERE
+			//						docstatus = 'CO'
+			//						AND isactive = 'Y'
+			//					GROUP BY c_order_id
+			//					HAVING
+			//						COUNT(*) > 1
+			//				) OR (p.bh_processing = 'Y' AND p.docstatus != 'IP' AND o.docstatus IN ('DR', 'IP'))
+			//				)
 			//		);
 			String erroredOrderWhereClause = "c_order_id IN (" +
 					"		SELECT " +
@@ -150,14 +152,18 @@ public class CompleteOrdersProcess extends SvrProcess {
 					"				GROUP BY c_order_id" +
 					"				HAVING" +
 					"					COUNT(*) > 1" +
-					"			)" +
+					"			) OR (p.bh_processing = 'Y' AND p.docstatus != 'IP' AND o.docstatus IN ('DR', 'IP'))" +
 					"			)" +
 					"	)";
 
 			// Since this process can take a while, we'll limit it to 50 orders we need to process at a time (this should
 			// never happen, except in the case where we're doing a payment overhaul and have a lot to fix...)
+			String shouldProcessMostRecentFirst =
+					MSysConfig.getValue(MSysConfig_BH.AUTOCOMPLETE_MOST_RECENT_VISITS_FIRST, "N");
 			List<MOrder_BH> erroredOrders =
-					new Query(getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setPage(50, 0).list();
+					new Query(getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setPage(50, 0).setOrderBy(
+							MOrder_BH.COLUMNNAME_Created + " " +
+									(shouldProcessMostRecentFirst.equalsIgnoreCase("Y") ? "DESC" : "ASC")).list();
 			Set<Integer> erroredOrderIds = erroredOrders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet());
 
 			if (!erroredOrderIds.isEmpty()) {
