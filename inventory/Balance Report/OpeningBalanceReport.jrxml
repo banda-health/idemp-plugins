@@ -3,6 +3,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OpeningBalanceReport" pageWidth="595" pageHeight="842" columnWidth="570" leftMargin="10" rightMargin="15" topMargin="10" bottomMargin="0" uuid="b72f4765-1b93-4447-a94b-c90fd3ac66b1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.removeEmptySpaceBetweenRows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.removeEmptySpaceBetweenColumns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.fontSizeFixEnabled" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -104,8 +109,7 @@ ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format(new Date())
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="40" width="130" height="20" uuid="08c976fa-deb9-4178-8d12-6ebb9f758ddd"/>
@@ -115,7 +119,9 @@ ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
 				<textFieldExpression><![CDATA["Total Open Balance:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;(#,##0.00#-)" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="474" y="40" width="60" height="20" forecolor="#000000" backcolor="#969696" uuid="ad4dfe8c-e64c-454e-8c44-51ec187bbc78"/>
+				<reportElement mode="Opaque" x="474" y="40" width="60" height="20" forecolor="#000000" backcolor="#969696" uuid="ad4dfe8c-e64c-454e-8c44-51ec187bbc78">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -274,6 +280,7 @@ ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
 							<textField pattern="#,##0.00#;(#,##0.00#-)">
 								<reportElement x="0" y="0" width="117" height="15" uuid="4e10fc3e-a0bb-41bd-bd88-b64fbbebe95d">
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
 								</reportElement>
 								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="2">
 									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
