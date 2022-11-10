@@ -1396,7 +1396,8 @@ public class MBandaSetup {
 	private Map<Integer, MBPGroup> addDefaultBusinessPartnerGroups() {
 		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = new HashMap<>();
 		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
-				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
+				MBPGroup.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup.COLUMNNAME_Name + " !=?", 
+				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, DEFAULT_IDEMPIERE_ENTITY_NAME)
 				.list();
 		businessPartnerGroups.forEach((businessPartnerGroup) -> {
 			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
