@@ -13,6 +13,10 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.removeEmptySpaceBetweenRows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.removeEmptySpaceBetweenColumns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.fontSizeFixEnabled" value="true"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -117,6 +121,7 @@ FROM
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="tableDataset" uuid="3d24d28f-1b10-4c78-9df4-859159fc1372">
@@ -221,7 +226,9 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="70" height="17" uuid="967bd211-a426-4bce-9581-7c60fe5668df"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="70" height="17" uuid="967bd211-a426-4bce-9581-7c60fe5668df">
+									<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
@@ -245,7 +252,9 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="83bac46a-a4e4-45b6-b813-14f3b79274e0"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="83bac46a-a4e4-45b6-b813-14f3b79274e0">
+									<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
@@ -269,7 +278,9 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="17" uuid="dde9872f-00f1-4a1e-84a7-20cecc136a10"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="17" uuid="dde9872f-00f1-4a1e-84a7-20cecc136a10">
+									<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
@@ -293,7 +304,9 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="72" height="17" uuid="97f797af-574c-405f-b7b2-10725107539f"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="72" height="17" uuid="97f797af-574c-405f-b7b2-10725107539f">
+									<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
