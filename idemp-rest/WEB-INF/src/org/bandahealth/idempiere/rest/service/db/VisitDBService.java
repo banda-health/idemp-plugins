@@ -21,6 +21,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
@@ -38,6 +39,7 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrder;
 import org.compiere.model.MUser;
@@ -126,17 +128,40 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
-		// We need to do something special for completing a sales order - do it
-		// asynchronously
-		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
+	    
+	    MClient client = new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null)
+                .setParameters(Env.getAD_Client_ID(Env.getCtx()))
+                .first();
+	    
+		String clientUuidsForSynchronousProcessingString =
+				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
+		List<String> clientIdsForSynchronousProcessing = new ArrayList<>();
+		try {
+			if (!StringUtil.isNullOrEmpty(clientUuidsForSynchronousProcessingString)) {
+				clientIdsForSynchronousProcessing = Arrays.stream(clientUuidsForSynchronousProcessingString.split(","))
+						.map(stringClientId -> stringClientId.trim()).collect(Collectors.toList());
+			}
+		} catch (Exception exception) {
+			log.severe(exception.getMessage());
+		}
+		// We need to do something special for completing a sales order - do it asynchronously (except for the clients we
+		// want to do it synchronously for)
+		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete) ||
+				clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU())) {
 			Visit visit = super.processEntity(uuid, docAction);
+			Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+                    visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
 			// If this is a reversal, we also need to take care of the payments
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
-				Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-						visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
-				for (MPayment_BH payment : existingPayments) {
+
+				Collection<MPayment_BH> existingCompletedPayments =
+						paymentDBService.getByUuids(visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet()))
+								.values().stream().filter(
+										payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
+								.collect(Collectors.toList());
+				for (MPayment_BH payment : existingCompletedPayments) {
 					MPayment_BH newPayment = payment.copy();
 					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
 					payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual);
@@ -146,11 +171,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					newPayment.setBH_C_Order_ID(visit.getId());
 					newPayment.saveEx();
 				}
-				visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
+				
+			} else {
+			    for (MPayment_BH payment : existingPayments) {
+	                payment.setDocAction(MPayment_BH.DOCACTION_Complete);
+	                payment.processIt(MPayment_BH.DOCACTION_Complete);
+	                payment.saveEx();
+	            }
 			}
+			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
-		}
-
+		} 
+		
 		if (!isDocActionValidForUser(docAction)) {
 			return null;
 		}
@@ -318,9 +350,15 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		// list of persisted payment line ids
 		String lineIds = "";
 		List<Payment> payments = entity.getPayments();
-		if (payments != null && entity.isIsSalesOrderTransaction()) {
+		if (payments != null && !payments.isEmpty() && entity.isIsSalesOrderTransaction()) {
 			int count = 0;
-			for (Payment payment : entity.getPayments()) {
+			// We only update incomplete payments
+			Set<String> completePaymentUuids =
+					paymentDBService.getByUuids(payments.stream().map(Payment::getUuid).collect(Collectors.toSet())).values()
+							.stream().filter(MPayment_BH::isComplete).map(MPayment_BH::getC_Payment_UU).collect(Collectors.toSet());
+			payments = payments.stream().filter(payment -> !completePaymentUuids.contains(payment.getUuid()))
+					.collect(Collectors.toList());
+			for (Payment payment : payments) {
 				payment.setOrderId(mOrder.get_ID());
 				// Read the patient assigned to the entity
 				// NOTE: DO NOT use the mPatient property because this class is a singleton and
