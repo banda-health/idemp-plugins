@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -378,6 +379,68 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 					is(productPurchasePrice.doubleValue()));
 			assertThat("Product closing stock value is correct", productRow.getCell(7).getNumericCellValue(),
 					is(15D * productPurchasePrice.doubleValue()));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void startingQuantityCorrectWhenRunOnOldPeriod() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDateOffset(-10);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(20));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDateOffset(5);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date",
+						ChuBoeCreateEntity.getDateOffset(new Timestamp(System.currentTimeMillis()), -11), null, null, null),
+				new ProcessInfoParameter("End Date",
+						ChuBoeCreateEntity.getDateOffset(new Timestamp(System.currentTimeMillis()), -8), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			List<Row> productRows = StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
+							row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
+					.sorted(Comparator.comparingDouble(row -> row.getCell(2).getNumericCellValue())).collect(Collectors.toList());
+
+			assertEquals(1, productRows.size(), "Only one product row appears");
+			Row productRow = productRows.get(0);
+			assertThat("Product opening value is correct", productRow.getCell(1).getNumericCellValue(), is(0D));
+			assertThat("Product received value is correct", productRow.getCell(2).getNumericCellValue(), is(20D));
+			assertThat("Product sold value is correct", productRow.getCell(3).getNumericCellValue(), is(0D));
+			assertThat("Product balanced value is correct", productRow.getCell(4).getNumericCellValue(), is(0D));
+			assertThat("Product closing value is correct", productRow.getCell(5).getNumericCellValue(), is(20D));
 		}
 	}
 }
