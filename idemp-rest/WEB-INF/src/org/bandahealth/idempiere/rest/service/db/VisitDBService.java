@@ -146,15 +146,16 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 		// We need to do something special for completing a sales order - do it asynchronously (except for the clients we
 		// want to do it synchronously for)
-		if (StringUtil.isNullOrEmpty(docAction) || (!docAction.equalsIgnoreCase(DocAction.ACTION_Complete) &&
-				!clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU()))) {
+		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete) ||
+				clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU())) {
 			Visit visit = super.processEntity(uuid, docAction);
+			Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+                    visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
 			// If this is a reversal, we also need to take care of the payments
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
-				Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-						visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
+				
 				for (MPayment_BH payment : existingPayments) {
 					MPayment_BH newPayment = payment.copy();
 					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
@@ -165,26 +166,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					newPayment.setBH_C_Order_ID(visit.getId());
 					newPayment.saveEx();
 				}
-				visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
-			} 
+				
+			} else {
+			    for (MPayment_BH payment : existingPayments) {
+	                payment.setDocAction(MPayment_BH.DOCACTION_Complete);
+	                payment.processIt(MPayment_BH.DOCACTION_Complete);
+	                payment.saveEx();
+	            }
+			}
+			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
-		} else if (StringUtil.isNullOrEmpty(docAction) || (docAction.equalsIgnoreCase(DocAction.ACTION_Complete) &&
-                clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU()))) {
-		    Visit visit = super.processEntity(uuid, docAction);
-		    // Process the visit's payments for synchronous
-            Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-                    visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
-            for (MPayment_BH payment : existingPayments) {
-
-                payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-                payment.processIt(MPayment_BH.DOCACTION_Complete);
-                payment.saveEx();
-
-            }
-            visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
-            return visit;
-		}
-
+		} 
+		
 		if (!isDocActionValidForUser(docAction)) {
 			return null;
 		}
