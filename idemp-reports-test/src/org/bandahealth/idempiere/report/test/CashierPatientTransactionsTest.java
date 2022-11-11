@@ -365,22 +365,21 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 
 		valueObject.setStepName("Create SO");
-		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocumentAction(null);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create payment");
-		MInvoice_BH invoice =
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		MInvoice_BH invoice = new MInvoice_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		invoice.setC_Currency_ID(valueObject.getOrder().getC_Currency_ID());
+		invoice.setGrandTotal(valueObject.getOrder().getGrandTotal());
 		valueObject.setInvoice(invoice);
+		valueObject.setDocumentAction(null);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
@@ -404,7 +403,7 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(patientNameColumnIndex) != null &&
 							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(patientNameColumnIndex).getStringCellValue()
-									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+									.contains(valueObject.getBusinessPartner().getName())).collect(Collectors.toList());
 
 			assertEquals(0, patientRows.size(), "Patient's visit doesn't appear");
 		}
