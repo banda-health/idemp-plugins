@@ -155,8 +155,13 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
-				
-				for (MPayment_BH payment : existingPayments) {
+
+				Collection<MPayment_BH> existingCompletedPayments =
+						paymentDBService.getByUuids(visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet()))
+								.values().stream().filter(
+										payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
+								.collect(Collectors.toList());
+				for (MPayment_BH payment : existingCompletedPayments) {
 					MPayment_BH newPayment = payment.copy();
 					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
 					payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual);
@@ -345,9 +350,15 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		// list of persisted payment line ids
 		String lineIds = "";
 		List<Payment> payments = entity.getPayments();
-		if (payments != null && entity.isIsSalesOrderTransaction()) {
+		if (payments != null && !payments.isEmpty() && entity.isIsSalesOrderTransaction()) {
 			int count = 0;
-			for (Payment payment : entity.getPayments()) {
+			// We only update incomplete payments
+			Set<String> completePaymentUuids =
+					paymentDBService.getByUuids(payments.stream().map(Payment::getUuid).collect(Collectors.toSet())).values()
+							.stream().filter(MPayment_BH::isComplete).map(MPayment_BH::getC_Payment_UU).collect(Collectors.toSet());
+			payments = payments.stream().filter(payment -> !completePaymentUuids.contains(payment.getUuid()))
+					.collect(Collectors.toList());
+			for (Payment payment : payments) {
 				payment.setOrderId(mOrder.get_ID());
 				// Read the patient assigned to the entity
 				// NOTE: DO NOT use the mPatient property because this class is a singleton and
