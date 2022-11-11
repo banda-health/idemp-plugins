@@ -342,4 +342,70 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			assertEquals(4D, visit.getCell(unpaidAmountMoneyColumnIndex).getNumericCellValue(), "Mobile payment is correct");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void draftedOrdersDontShowUp() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setName(String.valueOf(valueObject.getRandomNumber()));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDocumentAction(null);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		MInvoice_BH invoice = new MInvoice_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		invoice.setC_Currency_ID(valueObject.getOrder().getC_Currency_ID());
+		invoice.setGrandTotal(valueObject.getOrder().getGrandTotal());
+		valueObject.setInvoice(invoice);
+		valueObject.setDocumentAction(null);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).collect(Collectors.toList());
+
+			assertEquals(0, patientRows.size(), "Patient's visit doesn't appear");
+		}
+	}
 }
