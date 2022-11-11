@@ -14,7 +14,6 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
@@ -23,7 +22,6 @@ import org.hamcrest.Matchers;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Optional;
@@ -127,8 +125,6 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> patientRow =
 					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(1) != null &&
 							row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName())).findFirst();
-
-			NumberFormat numberFormat = NumberFormat.getInstance();
 
 			assertTrue(patientRow.isPresent(), "Voided record exists");
 			assertThat("Voided reason is present", patientRow.get().getCell(4).getStringCellValue(),

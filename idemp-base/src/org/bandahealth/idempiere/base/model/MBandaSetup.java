@@ -5,6 +5,8 @@ import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
+import org.compiere.model.MBPGroup;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
@@ -1356,6 +1358,55 @@ public class MBandaSetup {
 			}
 		});
 		return true;
+	}
+	
+	/**
+	 * Create default business partners for new clients
+	 * @return
+	 */
+	public boolean createDefaultBusinessPartners() {
+		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = addDefaultBusinessPartnerGroups();
+		if (defaultBusinessPartnerGroups.isEmpty()) {
+			log.warning("Failure: Could not find a business partner group for this client");
+			return false;
+		}
+		
+		List<MBPartner_BH> businessPartners = new Query(this.context, MBPartner_BH.Table_Name,
+				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
+				.list();
+		
+		businessPartners.forEach((businessPartner) -> {
+			MBPartner instance = new MBPartner(context, 0, getTransactionName());
+			MBPartner.copyValues(businessPartner, instance);
+			instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
+			if (!instance.save()) {
+				log.warning("Failure: Could not save default business partner");
+			}
+		});
+		
+		return true;
+	}
+	
+	/**
+	 * Create default business partner groups for new clients
+	 * @return
+	 */
+	private Map<Integer, MBPGroup> addDefaultBusinessPartnerGroups() {
+		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = new HashMap<>();
+		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
+				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
+				.list();
+		businessPartnerGroups.forEach((businessPartnerGroup) -> {
+			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
+			MBPGroup.copyValues(businessPartnerGroup, instance);
+			if (!instance.save()) {
+				log.warning("Failure: Could not save default business partner group");
+			}
+			
+			defaultBusinessPartnerGroups.put(businessPartnerGroup.get_ID(), instance);
+		});
+		
+		return defaultBusinessPartnerGroups;
 	}
 
 	/**
