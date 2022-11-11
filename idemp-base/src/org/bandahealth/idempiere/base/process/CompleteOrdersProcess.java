@@ -21,6 +21,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
@@ -28,6 +29,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
@@ -85,33 +87,33 @@ public class CompleteOrdersProcess extends SvrProcess {
 			//						ON al.c_allocationhdr_id = ah.c_allocationhdr_id
 			//					LEFT JOIN c_payment p
 			//						ON (p.bh_c_order_id = o.c_order_id OR p.c_payment_id = al.c_payment_id)
-			//							AND p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
+			//					AND p.docstatus NOT IN ('RE', 'RA', 'RC', 'VO')
 			//			WHERE
-			//						o.issotrx = 'Y'
-			//					AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
-			//					AND (
-			//								(
-			//											o.docstatus IN ('CO', 'CL') AND (
-			//												i.docstatus NOT IN ('CO', 'CL') OR
-			//												(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
-			//										)
-			//									)
-			//								OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus =
-			//								'CO'))
-			//								OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal)
-			//				OR o.c_order_id IN (
-			//				SELECT
-			//					c_order_id
-			//				FROM
-			//					c_invoice
-			//				WHERE
-			//					docstatus = 'CO'
-			//					AND isactive = 'Y'
-			//				GROUP BY c_order_id
-			//				HAVING
-			//					COUNT(*) > 1
-			//			)
-			//			)
+			//				o.issotrx = 'Y'
+			//				AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RA', 'RC'))
+			//				AND (
+			//					(
+			//								o.docstatus IN ('CO', 'CL') AND (
+			//									i.docstatus NOT IN ('CO', 'CL') OR
+			//									(p.docstatus IS NOT NULL AND p.docstatus NOT IN ('CO', 'CL'))
+			//							)
+			//						)
+			//					OR (o.docstatus NOT IN ('CO', 'VO', 'CL', 'IN') AND (p.bh_processing = 'Y' OR p.docstatus =
+			//					                                                                              'CO'))
+			//					OR (o.docstatus = 'CO' AND i.docstatus = 'CO' AND o.grandtotal != i.grandtotal)
+			//					OR o.c_order_id IN (
+			//					SELECT
+			//						c_order_id
+			//					FROM
+			//						c_invoice
+			//					WHERE
+			//						docstatus = 'CO'
+			//						AND isactive = 'Y'
+			//					GROUP BY c_order_id
+			//					HAVING
+			//						COUNT(*) > 1
+			//				) OR (p.bh_processing = 'Y' AND p.docstatus != 'IP' AND o.docstatus IN ('DR', 'IP'))
+			//				)
 			//		);
 			String erroredOrderWhereClause = "c_order_id IN (" +
 					"		SELECT " +
@@ -150,14 +152,18 @@ public class CompleteOrdersProcess extends SvrProcess {
 					"				GROUP BY c_order_id" +
 					"				HAVING" +
 					"					COUNT(*) > 1" +
-					"			)" +
+					"			) OR (p.bh_processing = 'Y' AND p.docstatus != 'IP' AND o.docstatus IN ('DR', 'IP'))" +
 					"			)" +
 					"	)";
 
 			// Since this process can take a while, we'll limit it to 50 orders we need to process at a time (this should
 			// never happen, except in the case where we're doing a payment overhaul and have a lot to fix...)
+			String shouldProcessMostRecentFirst =
+					MSysConfig.getValue(MSysConfig_BH.AUTOCOMPLETE_MOST_RECENT_VISITS_FIRST, "N");
 			List<MOrder_BH> erroredOrders =
-					new Query(getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setPage(50, 0).list();
+					new Query(getCtx(), MOrder_BH.Table_Name, erroredOrderWhereClause, get_TrxName()).setPage(50, 0).setOrderBy(
+							MOrder_BH.COLUMNNAME_Created + " " +
+									(shouldProcessMostRecentFirst.equalsIgnoreCase("Y") ? "DESC" : "ASC")).list();
 			Set<Integer> erroredOrderIds = erroredOrders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet());
 
 			if (!erroredOrderIds.isEmpty()) {
@@ -185,18 +191,22 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 				log.log(Level.INFO, "ERRORED ORDERs::::: " + erroredOrders.size());
 				Env.setContext(getCtx(), Env.AD_ROLE_ID, 0);
+				Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, 0);
 				int numberOfOrdersToProcess = erroredOrders.size();
 
 				for (MOrder_BH erroredOrder : erroredOrders) {
 					count.getAndIncrement();
+					log.log(Level.INFO, "Processing order " + erroredOrder.get_ID());
 					if (processMonitor != null) {
-						processMonitor.statusUpdate("Updating order " + count.get() + " of " + numberOfOrdersToProcess);
+						processMonitor.statusUpdate(
+								"Updating order " + erroredOrder.get_ID() + ", " + count.get() + " of " + numberOfOrdersToProcess);
 					}
 
 					// Several entities use the AD_Client value in the context to determine their own
 					// This leads to bad results when processing orders because then the allocations have
 					// the wrong AD_Client_IDs and can't fetch the appropriate Bank Accounts and Account Schemas
 					Env.setContext(getCtx(), Env.AD_CLIENT_ID, erroredOrder.getAD_Client_ID());
+					Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, erroredOrder.getAD_Client_ID());
 					boolean doesOrderHaveInvoices = invoicesByErroredOrderId.containsKey(erroredOrder.get_ID());
 					// If there are any invoices with a weird status, update those
 					for (MInvoice_BH invoice : invoicesByErroredOrderId.getOrDefault(erroredOrder.get_ID(), new ArrayList<>())) {
@@ -306,8 +316,8 @@ public class CompleteOrdersProcess extends SvrProcess {
 									// Delete the invoice
 									invoice.deleteEx(true);
 								} else {
-									// Some of these invoices are drafted (and somehow have allocations...), so first try to complete the
-									// invoice so we can immediately reverse it
+									// Some of these invoices are drafted (and somehow have allocations...), so first try to complete
+									// the invoice so we can immediately reverse it
 									if (!invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed)) {
 										// Update the payment type so that payments don't automatically get created...
 										invoice.setPaymentRule(MInvoice_BH.PAYMENTRULE_OnCredit);
@@ -391,7 +401,9 @@ public class CompleteOrdersProcess extends SvrProcess {
 		} finally {
 			// Reset the AD_Client_ID to be correct
 			Env.setContext(getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
+			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
 			Env.setContext(getCtx(), Env.AD_ROLE_ID, currentRoleId);
+			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, currentRoleId);
 			//PO.clearCrossTenantSafe();
 		}
 
