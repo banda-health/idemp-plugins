@@ -47,6 +47,8 @@ FROM
 			SUM(salestotals)         AS salestotals
 		FROM
 			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		WHERE
+			docstatus NOT IN ('VO', 'DR')
 	) AS billdetails
 		CROSS JOIN (
 		SELECT
@@ -70,20 +72,9 @@ FROM
 	) AS non_patient_payments
 		CROSS JOIN (
 		SELECT
-			COALESCE(SUM(p.payamt), 0) AS debtpaymentamount
+			COALESCE(SUM(payment_amount), 0) AS debtpaymentamount
 		FROM
-			c_payment p
-				JOIN params
-					ON p.ad_client_id = params.ad_client_id
-				LEFT JOIN c_allocationline al
-					ON p.c_payment_id = al.c_payment_id
-				LEFT JOIN c_invoice i
-					ON al.c_invoice_id = i.c_invoice_id
-		WHERE
-			((p.docstatus = 'CO') OR (p.docstatus = 'DR' AND p.bh_processing = 'Y'))
-			AND (p.bh_c_order_id = 0 OR bh_c_order_id IS NULL)
-			AND (DATE(p.datetrx) BETWEEN params.begin_date AND params.end_date)
-			AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
+			bh_get_debt_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 	) AS debtPayments
 		CROSS JOIN (
 		SELECT
@@ -139,8 +130,7 @@ FROM
 			o.docstatus = 'CO'
 			AND o.bh_isexpense = 'N'
 			AND (DATE(o.bh_visitdate) BETWEEN params.begin_date AND params.end_date)
-	) AS charges;
-]]>
+	) AS charges;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
@@ -1290,7 +1280,7 @@ FROM
 					<font size="11"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{donations}).subtract($F{insurance}).subtract($F{salesrevenue}).subtract($F{debtrevenue}).subtract($F{waivers})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{donations}).subtract($F{insurance}).subtract($F{salesrevenue}).subtract($F{waivers})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="77" y="79" width="358" height="17" forecolor="#000000" backcolor="#8EA9DB" uuid="86a5da29-7e63-44e1-87bc-dc6ce8ea6253">
@@ -1329,7 +1319,7 @@ FROM
 					<font size="11" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{donations}).subtract($F{insurance}).subtract($F{salesrevenue}).subtract($F{debtrevenue})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{billtotal}.subtract($F{donations}).subtract($F{insurance}).subtract($F{salesrevenue})]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="77" y="17" width="440" height="1" uuid="acbf0dd7-421d-4f20-a9a0-3671a73d8746">

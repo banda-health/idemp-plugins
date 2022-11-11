@@ -54,23 +54,21 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[select date(cp.datetrx) as bill_date,
-       cb.name as patientname,
-       tendertype.name as paymentmode,
-       cb.totalopenbalance as totaldebt,
-       cp.payamt as amountpaid
-from c_payment cp
-    inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
-    inner join AD_Ref_List tendertype on cp.tendertype = tendertype.value
-    and AD_Reference_ID=214
-    inner join ad_user cashier on cp.createdby = cashier.ad_user_id
-    cross join (select coalesce($P{AD_User_UU}, '') as ad_user_uu) params
-where ((cp.ad_client_id = $P{AD_CLIENT_ID})
-      and (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
-      and (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-    )
-    and (cashier.ad_user_uu = params.ad_user_uu OR params.ad_user_uu = '')
-order by bill_date desc;]]>
+			<![CDATA[SELECT
+	date(payment_date)    AS bill_date,
+	patient_name             AS patientname,
+	payment_mode_name     AS paymentmode,
+	totalopenbalance AS totaldebt,
+	payment_amount           AS amountpaid
+FROM
+	bh_get_debt_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		CROSS JOIN (
+		SELECT COALESCE($P{AD_User_UU}, '') AS ad_user_uu
+	) params
+WHERE
+	cashier_uu = params.ad_user_uu OR params.ad_user_uu = ''
+ORDER BY
+	date(payment_date) DESC;]]>
 		</queryString>
 		<field name="bill_date" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
@@ -102,36 +100,11 @@ order by bill_date desc;]]>
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select date(cp.datetrx) as bill_date,
-       cb.name as patientname,
-       cb.totalopenbalance as totaldebt,
-       cp.payamt as amountpaid
-from c_payment cp
-    inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
-where ((cp.ad_client_id = $P{AD_CLIENT_ID})
-      AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
-      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-    )
-order by cb.name asc;]]>
+		<![CDATA[select 1]]>
 	</queryString>
-	<field name="bill_date" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
-	</field>
-	<field name="patientname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="totaldebt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="totaldebt"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="amountpaid" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="amountpaid"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
-	</field>
 	<pageHeader>
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
