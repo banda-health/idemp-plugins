@@ -8,6 +8,7 @@ import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
@@ -263,8 +264,9 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"		           AND (p.isactive = 'N' OR pc.periodstatus = 'C')) AS result"
 			);
 
+			// PS: Deactivating this test - We now accept default business partners
 			// Assert default business partners are deactivated
-			addAssertionSQL(
+			/*addAssertionSQL(
 					"SELECT " +
 							"	'Default customer Business Partners are inactive' AS name, " +
 							"	NOT EXISTS(SELECT * " +
@@ -274,16 +276,21 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"		           ad_client_id = " + client.get_ID() +
 							"		           AND iscustomer = 'Y' " +
 							"		           AND isactive = 'Y')                  AS result"
-			);
+			);*/
 			
 			// Assert default business partners are created
 			List<MBPartner_BH> configurationBusinessPartners =
-					new Query(valueObject.getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(MClient_BH.CLIENTID_CONFIG)
-							.list();
+					new Query(valueObject.getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " 
+							+ MBPartner_BH.COLUMNNAME_Name + " !=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true)
+					.setParameters(MClient_BH.CLIENTID_CONFIG, MBandaSetup.DEFAULT_IDEMPIERE_ENTITY_NAME)
+					.list();
 			List<MBPartner_BH> clientBusinessPartners =
-					new Query(valueObject.getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
+					new Query(valueObject.getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " 
+							+ MBPartner_BH.COLUMNNAME_Name + " !=?",
+							valueObject.getTransactionName()).setOnlyActiveRecords(true)
+					.setParameters(client.get_ID(), MBandaSetup.DEFAULT_IDEMPIERE_ENTITY_NAME)
+					.list();
 			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(), "Business Partners were created");
 			
 			// Assert default business partner groups are created

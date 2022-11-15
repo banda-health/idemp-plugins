@@ -94,7 +94,7 @@ public class MBandaSetup {
 	private final String SUFFIX_BANK_NAME = " Bank";
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
-	private final String DEFAULT_IDEMPIERE_ENTITY_NAME = "Standard";
+	public static final String DEFAULT_IDEMPIERE_ENTITY_NAME = "Standard";
 	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
@@ -1378,7 +1378,10 @@ public class MBandaSetup {
 		businessPartners.forEach((businessPartner) -> {
 			MBPartner instance = new MBPartner(context, 0, getTransactionName());
 			MBPartner.copyValues(businessPartner, instance);
-			instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
+			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
+				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());	
+			}
+			
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner");
 			}
@@ -1394,7 +1397,8 @@ public class MBandaSetup {
 	private Map<Integer, MBPGroup> addDefaultBusinessPartnerGroups() {
 		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = new HashMap<>();
 		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
-				MBPGroup.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
+				MBPGroup.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup.COLUMNNAME_Name + " !=?", 
+				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, DEFAULT_IDEMPIERE_ENTITY_NAME)
 				.list();
 		businessPartnerGroups.forEach((businessPartnerGroup) -> {
 			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
