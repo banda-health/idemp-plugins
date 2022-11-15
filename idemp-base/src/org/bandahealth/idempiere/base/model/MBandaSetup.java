@@ -1375,7 +1375,7 @@ public class MBandaSetup {
 		}
 
 		// PO.setCrossTenantSafe();
-		MClient configurationClient = MClient_BH.get(MClient_BH.CLIENTID_CONFIG);
+		MClient configurationClient = MClient_BH.get(Env.getCtx(), MClient_BH.CLIENTID_CONFIG);
 		List<MBPartner_BH> businessPartners = new Query(this.context, MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %' AND " +
 						MBPartner_BH.COLUMNNAME_Name + "!=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG,

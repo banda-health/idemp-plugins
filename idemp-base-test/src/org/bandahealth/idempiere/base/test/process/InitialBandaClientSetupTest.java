@@ -280,7 +280,7 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			);*/
 
 			// Assert default business partners are created
-			MClient configurationClient = MClient_BH.get(MClient_BH.CLIENTID_CONFIG);
+			MClient configurationClient = MClient_BH.get(valueObject.getContext(), MClient_BH.CLIENTID_CONFIG);
 			List<MBPartner_BH> configurationBusinessPartners = new Query(valueObject.getContext(), MBPartner_BH.Table_Name,
 					MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " !=? AND " +
 							MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %'",
