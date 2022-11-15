@@ -1274,8 +1274,8 @@ public class MBandaSetup {
 		List<Object> parameters = new ArrayList<>();
 		String whereClauseParameterList = QueryUtil.getWhereClauseAndSetParametersForSet(
 				attributeSets.stream().map(MAttributeSet_BH::get_ID).collect(Collectors.toSet()), parameters);
-		List<X_M_AttributeSetExclude > attributeSetExclusions = new Query(context, X_M_AttributeSetExclude .Table_Name,
-				X_M_AttributeSetExclude .COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
+		List<X_M_AttributeSetExclude> attributeSetExclusions = new Query(context, X_M_AttributeSetExclude.Table_Name,
+				X_M_AttributeSetExclude.COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
 				getTransactionName()).setParameters(parameters).setOnlyActiveRecords(true).list();
 		PO.clearCrossTenantSafe();
 
@@ -1328,11 +1328,11 @@ public class MBandaSetup {
 			}
 
 			// Add exclusions (largely so ASIs aren't required on sales orders)
-			List<X_M_AttributeSetExclude > exclusionsForThisAttributeSet =
+			List<X_M_AttributeSetExclude> exclusionsForThisAttributeSet =
 					attributeSetExclusions.stream().filter(exclusion -> exclusion.getM_AttributeSet_ID() == attributeSet.get_ID())
 							.collect(Collectors.toList());
-			for (X_M_AttributeSetExclude  exclusion : exclusionsForThisAttributeSet) {
-				X_M_AttributeSetExclude  newExclusion = new X_M_AttributeSetExclude (context, 0, getTransactionName());
+			for (X_M_AttributeSetExclude exclusion : exclusionsForThisAttributeSet) {
+				X_M_AttributeSetExclude newExclusion = new X_M_AttributeSetExclude(context, 0, getTransactionName());
 				newExclusion.setAD_Table_ID(exclusion.getAD_Table_ID());
 				newExclusion.setM_AttributeSet_ID(newAttributeSet.get_ID());
 				newExclusion.setIsSOTrx(exclusion.isSOTrx());
@@ -1359,9 +1359,10 @@ public class MBandaSetup {
 		});
 		return true;
 	}
-	
+
 	/**
 	 * Create default business partners for new clients
+	 *
 	 * @return
 	 */
 	public boolean createDefaultBusinessPartners() {
@@ -1370,46 +1371,63 @@ public class MBandaSetup {
 			log.warning("Failure: Could not find a business partner group for this client");
 			return false;
 		}
-		
+
+		PO.setCrossTenantSafe();
+		MClient configurationClient = MClient_BH.get(MClient_BH.CLIENTID_CONFIG);
 		List<MBPartner_BH> businessPartners = new Query(this.context, MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
-				.list();
-		
+				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %' AND " +
+						MBPartner_BH.COLUMNNAME_Name + "!=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG,
+				configurationClient.getName(), DEFAULT_IDEMPIERE_ENTITY_NAME).list();
+		PO.clearCrossTenantSafe();
+
 		businessPartners.forEach((businessPartner) -> {
 			MBPartner instance = new MBPartner(context, 0, getTransactionName());
 			MBPartner.copyValues(businessPartner, instance);
 			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
-				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());	
+				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
 			}
-			
+
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner");
 			}
 		});
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Create default business partner groups for new clients
+	 *
 	 * @return
 	 */
 	private Map<Integer, MBPGroup> addDefaultBusinessPartnerGroups() {
 		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = new HashMap<>();
+		PO.setCrossTenantSafe();
 		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
-				MBPGroup.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup.COLUMNNAME_Name + " !=?", 
+				MBPGroup.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup.COLUMNNAME_Name + " !=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, DEFAULT_IDEMPIERE_ENTITY_NAME)
 				.list();
+		PO.clearCrossTenantSafe();
 		businessPartnerGroups.forEach((businessPartnerGroup) -> {
 			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
 			MBPGroup.copyValues(businessPartnerGroup, instance);
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner group");
 			}
-			
+
 			defaultBusinessPartnerGroups.put(businessPartnerGroup.get_ID(), instance);
 		});
-		
+
+		// Add a mapping for the standard BP Group
+		PO.setCrossTenantSafe();
+		List<MBPGroup> standardBusinessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
+				MBPGroup.COLUMNNAME_AD_Client_ID + " IN (?,?) AND " + MBPGroup.COLUMNNAME_Name + "=?",
+				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID(),
+				DEFAULT_IDEMPIERE_ENTITY_NAME).setOrderBy(MClient_BH.COLUMNNAME_AD_Client_ID).list();
+		PO.clearCrossTenantSafe();
+		defaultBusinessPartnerGroups.put(standardBusinessPartnerGroups.get(0).getC_BP_Group_ID(),
+				standardBusinessPartnerGroups.get(1));
+
 		return defaultBusinessPartnerGroups;
 	}
 

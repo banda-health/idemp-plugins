@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
+import org.compiere.model.MClient;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
@@ -277,22 +278,24 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"		           AND iscustomer = 'Y' " +
 							"		           AND isactive = 'Y')                  AS result"
 			);*/
-			
+
 			// Assert default business partners are created
-			List<MBPartner_BH> configurationBusinessPartners =
-					new Query(valueObject.getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " 
-							+ MBPartner_BH.COLUMNNAME_Name + " !=?",
-							valueObject.getTransactionName()).setOnlyActiveRecords(true)
-					.setParameters(MClient_BH.CLIENTID_CONFIG, MBandaSetup.DEFAULT_IDEMPIERE_ENTITY_NAME)
-					.list();
+			MClient configurationClient = MClient_BH.get(MClient_BH.CLIENTID_CONFIG);
+			List<MBPartner_BH> configurationBusinessPartners = new Query(valueObject.getContext(), MBPartner_BH.Table_Name,
+					MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " !=? AND " +
+							MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %'",
+					valueObject.getTransactionName()).setOnlyActiveRecords(true)
+					.setParameters(MClient_BH.CLIENTID_CONFIG, MBandaSetup.DEFAULT_IDEMPIERE_ENTITY_NAME,
+							configurationClient.getName()).list();
 			List<MBPartner_BH> clientBusinessPartners =
-					new Query(valueObject.getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " 
+					new Query(valueObject.getContext(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND "
 							+ MBPartner_BH.COLUMNNAME_Name + " !=?",
 							valueObject.getTransactionName()).setOnlyActiveRecords(true)
-					.setParameters(client.get_ID(), MBandaSetup.DEFAULT_IDEMPIERE_ENTITY_NAME)
-					.list();
-			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(), "Business Partners were created");
-			
+							.setParameters(client.get_ID(), MBandaSetup.DEFAULT_IDEMPIERE_ENTITY_NAME)
+							.list();
+			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(),
+					"Business Partners were created");
+
 			// Assert default business partner groups are created
 			List<MBPGroup> configurationBusinessPartnerGroups =
 					new Query(valueObject.getContext(), MBPGroup.Table_Name, MBPGroup.COLUMNNAME_AD_Client_ID + "=?",
@@ -301,7 +304,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			List<MBPGroup> clientBusinessPartnerGroups =
 					new Query(valueObject.getContext(), MBPGroup.Table_Name, MBPGroup.COLUMNNAME_AD_Client_ID + "=?",
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
-			assertEquals(configurationBusinessPartnerGroups.size(), clientBusinessPartnerGroups.size(), "Business Partner Groups were created");
+			assertEquals(configurationBusinessPartnerGroups.size(), clientBusinessPartnerGroups.size(),
+					"Business Partner Groups were created");
 		} finally {
 			PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...
