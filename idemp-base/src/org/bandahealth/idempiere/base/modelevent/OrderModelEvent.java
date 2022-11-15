@@ -39,7 +39,6 @@ public class OrderModelEvent extends AbstractEventHandler {
 		}
 
 		boolean isPurchase = !order.isSOTrx();
-		order.setBH_Isexpense(isPurchase);
 
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			if (!isPurchase) {
