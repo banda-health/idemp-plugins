@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
@@ -111,5 +112,29 @@ public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 				"=?", valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
 
 		assertTrue(materialReceipt.getDocStatus().equalsIgnoreCase(MInOut.STATUS_Reversed), "Material receipt is voided");
+	}
+	
+	@IPopulateAnnotation.CanRun
+	public void purchaseOrderIsNotAnExpense() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void), "Order was successfully voided");
+		assertNull(valueObject.getOrder().getBH_Isexpense(), "Is Expense is null");
 	}
 }
