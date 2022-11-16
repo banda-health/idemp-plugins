@@ -117,6 +117,9 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		if (entity.getPayAmount() != null && entity.getPayAmount().compareTo(BigDecimal.ZERO) >= 0) {
 			mPayment.setPayAmt(entity.getPayAmount());
 		}
+		if (entity.getPayAmount() != null && entity.getPayAmount().compareTo(BigDecimal.ZERO) >= 0) {
+			mPayment.setBH_TenderAmount(entity.getTenderAmount());
+		}
 
 		if (entity.getPaymentType() != null) {
 			// get tender type by value
