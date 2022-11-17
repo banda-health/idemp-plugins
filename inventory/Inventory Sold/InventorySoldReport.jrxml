@@ -147,23 +147,8 @@ ORDER BY
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select
-    item.name as item_name
-from c_orderline coline
-    inner join c_order sorder on coline.c_order_id = sorder.c_order_id
-    and sorder.bh_isexpense = 'N'
-    inner join m_product item on coline.m_product_id = item.m_product_id
-    and item.producttype = 'I'
-where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
-    and (date(sorder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
-group by item.name
-order by item.name asc
-limit 1;]]>
+		<![CDATA[select 1;]]>
 	</queryString>
-	<field name="item_name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
