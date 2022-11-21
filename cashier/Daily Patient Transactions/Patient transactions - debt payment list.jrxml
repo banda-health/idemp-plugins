@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Debt Payments" pageWidth="610" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="610" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -67,8 +67,6 @@ FROM
 	) params
 WHERE
 	cashier_uu = params.ad_user_uu OR params.ad_user_uu = ''
-GROUP BY
-	c_payment_id, payment_date, patient_name, payment_mode_name, totalopenbalance, payment_amount
 ORDER BY
 	date(payment_date) DESC;]]>
 		</queryString>
