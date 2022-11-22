@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -88,7 +88,7 @@ inner join (
         coline.linenetamt as amount
     from c_orderline coline
     inner join c_order sorder on coline.c_order_id = sorder.c_order_id
-        and sorder.bh_isexpense = 'N'
+        and sorder.issotrx = 'Y'
     inner join m_product item on coline.m_product_id = item.m_product_id
         and item.producttype = 'S'
     where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
