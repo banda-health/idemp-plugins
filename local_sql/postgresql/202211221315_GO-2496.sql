@@ -444,14 +444,22 @@ ALTER TABLE c_acctschema_element
 -- Update the charges to have the correct
 UPDATE c_charge c
 SET
-	c_elementvalue_id = vc.account_id
+	c_elementvalue_id = ev.c_elementvalue_id
 FROM
-	c_charge_acct ca
+	c_charge cc
+		JOIN c_charge_acct cac
+			ON cc.c_charge_id = cac.c_charge_id
 		JOIN c_validcombination vc
-			ON ca.ch_expense_acct = vc.c_validcombination_id
+			ON cac.ch_expense_acct = vc.c_validcombination_id
+		JOIN c_elementvalue evc
+			ON vc.account_id = evc.c_elementvalue_id
+		JOIN c_elementvalue ev
+			ON ev.value = evc.value
 WHERE
 	c.bh_locked = 'Y'
-	AND c.c_charge_id = ca.c_charge_id
+	AND c.name = cc.name
+	AND cc.ad_client_id = 2
+	AND c.ad_client_id = ev.ad_client_id
 	AND c.ad_client_id IN (
 	SELECT
 		ad_client_id
