@@ -34,3 +34,23 @@ test('payment type updated with UUID, not value', async () => {
 	});
 	expect(updatedPayment.paymentType.uuid).toBe(mobilePaymentType.uuid);
 });
+
+test('payment values are saved correctly', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create Business Partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create Cash Payment';
+	valueObject.documentAction = undefined;
+	await createPayment(valueObject);
+
+	valueObject.payment!.payAmount = 500;
+	valueObject.payment!.tenderAmount = 600;
+
+	const newPayment = await paymentApi.save(valueObject, valueObject.payment!);
+
+	expect(newPayment.payAmount).toBe(valueObject.payment!.payAmount);
+	expect(newPayment.tenderAmount).toBe(valueObject.payment!.tenderAmount);
+});
