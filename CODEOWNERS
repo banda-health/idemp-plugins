@@ -1,1 +1,8 @@
+# Generally the developers should be included on reviews
 * @banda-health/developers
+
+# Reports-specific reviewers
+/reports/ @banda-health/data-analysts
+
+# SQL-specific reviewers
+*.sql @banda-health/data-analysts
