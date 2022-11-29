@@ -1,0 +1,18 @@
+@mixin border-radius($radius) {
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-o-border-radius: $radius;
+	-ms-border-radius: $radius;
+	-khtml-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin background-gradient($start-color, $end-color) {
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, $start-color), color-stop(100%, $end-color));
+	background: -webkit-linear-gradient(top, $start-color, $end-color);
+	background: -moz-linear-gradient(top, $start-color, $end-color);
+	background: -o-linear-gradient(top, $start-color, $end-color);
+	background: -ms-linear-gradient(top, $start-color, $end-color);
+	background: linear-gradient(top, $start-color, $end-color);
+	background-color: $end-color;
+}
