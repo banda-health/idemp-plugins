@@ -1,3 +1,75 @@
+DROP FUNCTION IF EXISTS bh_execute_statement_without_indexes(varchar, varchar);
+CREATE OR REPLACE FUNCTION bh_execute_statement_without_indexes(_sql_to_execute varchar, _column_to_remove_indexes_from varchar)
+	RETURNS void
+AS
+$$
+DECLARE
+	statement varchar;
+BEGIN
+	DROP TABLE IF EXISTS tmp_constraint_deletions;
+	DROP TABLE IF EXISTS tmp_constraint_additions;
+
+	CREATE TEMP TABLE tmp_constraint_deletions
+	(
+		statement varchar
+	);
+	CREATE TEMP TABLE tmp_constraint_additions
+	(
+		statement varchar
+	);
+
+	-- Fetch the constraints
+	INSERT INTO tmp_constraint_deletions
+	SELECT
+								'ALTER TABLE ' || nspname || '."' || relname || '" DROP CONSTRAINT "' || conname || '";'
+	FROM
+		pg_constraint
+			INNER JOIN pg_class
+				ON conrelid = pg_class.oid
+			INNER JOIN pg_namespace
+				ON pg_namespace.oid = pg_class.relnamespace
+	WHERE
+			LOWER(PG_GET_CONSTRAINTDEF(pg_constraint.oid)) LIKE '%' || LOWER('c_elementvalue_id') || '%'
+		AND contype != 'p'
+	ORDER BY CASE WHEN contype = 'f' THEN 0 ELSE 1 END, contype, nspname, relname, conname;
+
+	INSERT INTO tmp_constraint_additions
+	SELECT
+										'ALTER TABLE ' || nspname || '."' || relname || '" ADD CONSTRAINT "' || conname || '" ' ||
+										PG_GET_CONSTRAINTDEF(pg_constraint.oid) || ';'
+	FROM
+		pg_constraint
+			INNER JOIN pg_class
+				ON conrelid = pg_class.oid
+			INNER JOIN pg_namespace
+				ON pg_namespace.oid = pg_class.relnamespace
+	WHERE
+			LOWER(PG_GET_CONSTRAINTDEF(pg_constraint.oid)) LIKE '%' || LOWER(_column_to_remove_indexes_from) || '%'
+		AND contype != 'p'
+	ORDER BY CASE WHEN contype = 'f' THEN 0 ELSE 1 END DESC, contype DESC, nspname DESC, relname DESC, conname DESC;
+
+	-- Drop the constraints
+	FOR statement IN SELECT * FROM tmp_constraint_deletions
+		LOOP
+			EXECUTE statement;
+		END LOOP;
+
+	-- Execute the SQL passed in
+	EXECUTE _sql_to_execute;
+
+	-- Re-add the constraints
+	FOR statement IN SELECT * FROM tmp_constraint_additions
+		LOOP
+			EXECUTE statement;
+		END LOOP;
+
+	-- Clean up
+	DROP TABLE IF EXISTS tmp_constraint_deletions;
+	DROP TABLE IF EXISTS tmp_constraint_additions;
+END
+$$
+	LANGUAGE plpgsql;
+
 -- Get the clients to update
 DROP TABLE IF EXISTS tmp_c_client_id;
 SELECT
@@ -157,117 +229,8 @@ WHERE
 	AND vc.ad_client_id = tevitu.ad_client_id;
 
 -- Update other tables that were mapping to these accounts
-ALTER TABLE c_acctschema_element
-	DROP CONSTRAINT celementvalue_caschemaelement;
-ALTER TABLE c_cash
-	DROP CONSTRAINT celementvalueuser1_ccash;
-ALTER TABLE c_cash
-	DROP CONSTRAINT celementvalueuser2_ccash;
-ALTER TABLE c_cashplan
-	DROP CONSTRAINT user1_ccashplan;
-ALTER TABLE c_cashplan
-	DROP CONSTRAINT user2_ccashplan;
-ALTER TABLE c_cashplanline
-	DROP CONSTRAINT user1_ccashplanline;
-ALTER TABLE c_cashplanline
-	DROP CONSTRAINT user2_ccashplanline;
-ALTER TABLE c_invoicebatchline
-	DROP CONSTRAINT celementvalueu1_cinvoicebline;
-ALTER TABLE c_invoicebatchline
-	DROP CONSTRAINT celementvalueu2_cinvoicebline;
-ALTER TABLE c_paymenttransaction
-	DROP CONSTRAINT user1_cpaymenttransaction;
-ALTER TABLE c_paymenttransaction
-	DROP CONSTRAINT user2_cpaymenttransaction;
-ALTER TABLE c_subacct
-	DROP CONSTRAINT celementvalue_csubacct;
-ALTER TABLE dd_order
-	DROP CONSTRAINT user1_ddorder;
-ALTER TABLE dd_order
-	DROP CONSTRAINT user2_ddorder;
-ALTER TABLE dd_orderline
-	DROP CONSTRAINT user1_ddorderline;
-ALTER TABLE dd_orderline
-	DROP CONSTRAINT user2_ddorderline;
-ALTER TABLE fact_acct_summary
-	DROP CONSTRAINT account_factacctsummary;
-ALTER TABLE fact_acct_summary
-	DROP CONSTRAINT user1_factacctsummary;
-ALTER TABLE fact_acct_summary
-	DROP CONSTRAINT user2_factacctsummary;
-ALTER TABLE gl_distribution
-	DROP CONSTRAINT cevalueacct_gldist;
-ALTER TABLE gl_distribution
-	DROP CONSTRAINT cevalueuser1_gldist;
-ALTER TABLE gl_distribution
-	DROP CONSTRAINT cevalueuser2_gldist;
-ALTER TABLE gl_distributionline
-	DROP CONSTRAINT cevalueacct_gldistline;
-ALTER TABLE gl_distributionline
-	DROP CONSTRAINT cevalueuser1_gldistline;
-ALTER TABLE gl_distributionline
-	DROP CONSTRAINT cevalueuser2_gldistline;
-ALTER TABLE gl_fundrestriction
-	DROP CONSTRAINT celementvalue_glfundrestr;
-ALTER TABLE gl_journalgenerator
-	DROP CONSTRAINT celementvalueadjustcr_qssjourn;
-ALTER TABLE gl_journalgenerator
-	DROP CONSTRAINT celementvalueadjustdr_qssjourn;
-ALTER TABLE gl_journalgeneratorline
-	DROP CONSTRAINT celementvaluecr_qssjournalgene;
-ALTER TABLE gl_journalgeneratorline
-	DROP CONSTRAINT celementvaluedr_qssjournalgene;
-ALTER TABLE gl_journalgeneratorsource
-	DROP CONSTRAINT celementvalue_qssjournalgenera;
-ALTER TABLE gl_journalline
-	DROP CONSTRAINT account_gljournalline;
-ALTER TABLE gl_journalline
-	DROP CONSTRAINT user1_gljournalline;
-ALTER TABLE gl_journalline
-	DROP CONSTRAINT user2_gljournalline;
-ALTER TABLE hr_concept_acct
-	DROP CONSTRAINT user1_hrconceptacct;
-ALTER TABLE hr_movement
-	DROP CONSTRAINT user1_hrmovement;
-ALTER TABLE hr_movement
-	DROP CONSTRAINT user2_hrmovement;
-ALTER TABLE i_fajournal
-	DROP CONSTRAINT account_ifajournal;
-ALTER TABLE i_fajournal
-	DROP CONSTRAINT user1_ifajournal;
-ALTER TABLE i_fajournal
-	DROP CONSTRAINT user2_ifajournal;
-ALTER TABLE i_gljournal
-	DROP CONSTRAINT celvalueaccount_igljournal;
-ALTER TABLE i_gljournal
-	DROP CONSTRAINT celvalueuser2_igljournal;
-ALTER TABLE i_gljournal
-	DROP CONSTRAINT cevalueuser1_igljournal;
-ALTER TABLE i_reportline
-	DROP CONSTRAINT celementvalue_ireportline;
-ALTER TABLE m_inventory
-	DROP CONSTRAINT celementvalueuser1_minvent;
-ALTER TABLE m_inventory
-	DROP CONSTRAINT celementvalueuser2_minvent;
-ALTER TABLE m_movement
-	DROP CONSTRAINT celementvalueuser1_mmove;
-ALTER TABLE m_movement
-	DROP CONSTRAINT celementvalueuser2_mmove;
-ALTER TABLE m_production
-	DROP CONSTRAINT celementvalueuser1_mprod;
-ALTER TABLE m_production
-	DROP CONSTRAINT celementvalueuser2_mprod;
-ALTER TABLE pa_ratioelement
-	DROP CONSTRAINT celementvalue_paratioelement;
-ALTER TABLE pa_reportcolumn
-	DROP CONSTRAINT celementvalue_pareportcolumn;
-ALTER TABLE pa_reportsource
-	DROP CONSTRAINT celementvalue_pareportsource;
-ALTER TABLE pp_order
-	DROP CONSTRAINT user1_pporder;
-ALTER TABLE pp_order
-	DROP CONSTRAINT user2_pporder;
-
+SELECT
+	bh_execute_statement_without_indexes('
 UPDATE fact_acct fa
 SET
 	account_id = tevitu.c_elementvalue_id
@@ -328,118 +291,7 @@ WHERE
 			c_elementvalue_id
 		FROM
 			tmp_c_elementvalue_id_to_remove
-	);
-
-ALTER TABLE pp_order
-	ADD CONSTRAINT user2_pporder FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE pp_order
-	ADD CONSTRAINT user1_pporder FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE pa_reportsource
-	ADD CONSTRAINT celementvalue_pareportsource FOREIGN KEY (c_elementvalue_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE pa_reportcolumn
-	ADD CONSTRAINT celementvalue_pareportcolumn FOREIGN KEY (c_elementvalue_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE pa_ratioelement
-	ADD CONSTRAINT celementvalue_paratioelement FOREIGN KEY (account_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE m_production
-	ADD CONSTRAINT celementvalueuser2_mprod FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE m_production
-	ADD CONSTRAINT celementvalueuser1_mprod FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE m_movement
-	ADD CONSTRAINT celementvalueuser2_mmove FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE m_movement
-	ADD CONSTRAINT celementvalueuser1_mmove FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE m_inventory
-	ADD CONSTRAINT celementvalueuser2_minvent FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE m_inventory
-	ADD CONSTRAINT celementvalueuser1_minvent FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_reportline
-	ADD CONSTRAINT celementvalue_ireportline FOREIGN KEY (c_elementvalue_id) REFERENCES c_elementvalue (c_elementvalue_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_gljournal
-	ADD CONSTRAINT cevalueuser1_igljournal FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_gljournal
-	ADD CONSTRAINT celvalueuser2_igljournal FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_gljournal
-	ADD CONSTRAINT celvalueaccount_igljournal FOREIGN KEY (account_id) REFERENCES c_elementvalue (c_elementvalue_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_fajournal
-	ADD CONSTRAINT user2_ifajournal FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_fajournal
-	ADD CONSTRAINT user1_ifajournal FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_fajournal
-	ADD CONSTRAINT account_ifajournal FOREIGN KEY (account_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE hr_movement
-	ADD CONSTRAINT user2_hrmovement FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE hr_movement
-	ADD CONSTRAINT user1_hrmovement FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE hr_concept_acct
-	ADD CONSTRAINT user1_hrconceptacct FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalline
-	ADD CONSTRAINT user2_gljournalline FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalline
-	ADD CONSTRAINT user1_gljournalline FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalline
-	ADD CONSTRAINT account_gljournalline FOREIGN KEY (account_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalgeneratorsource
-	ADD CONSTRAINT celementvalue_qssjournalgenera FOREIGN KEY (c_elementvalue_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalgeneratorline
-	ADD CONSTRAINT celementvaluedr_qssjournalgene FOREIGN KEY (c_elementvaluedr_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalgeneratorline
-	ADD CONSTRAINT celementvaluecr_qssjournalgene FOREIGN KEY (c_elementvaluecr_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalgenerator
-	ADD CONSTRAINT celementvalueadjustdr_qssjourn FOREIGN KEY (c_elementvalueadjustdr_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_journalgenerator
-	ADD CONSTRAINT celementvalueadjustcr_qssjourn FOREIGN KEY (c_elementvalueadjustcr_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_fundrestriction
-	ADD CONSTRAINT celementvalue_glfundrestr FOREIGN KEY (c_elementvalue_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_distributionline
-	ADD CONSTRAINT cevalueuser2_gldistline FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_distributionline
-	ADD CONSTRAINT cevalueuser1_gldistline FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_distributionline
-	ADD CONSTRAINT cevalueacct_gldistline FOREIGN KEY (account_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_distribution
-	ADD CONSTRAINT cevalueuser2_gldist FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_distribution
-	ADD CONSTRAINT cevalueuser1_gldist FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE gl_distribution
-	ADD CONSTRAINT cevalueacct_gldist FOREIGN KEY (account_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE fact_acct_summary
-	ADD CONSTRAINT user2_factacctsummary FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE fact_acct_summary
-	ADD CONSTRAINT user1_factacctsummary FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE fact_acct_summary
-	ADD CONSTRAINT account_factacctsummary FOREIGN KEY (account_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE dd_orderline
-	ADD CONSTRAINT user2_ddorderline FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE dd_orderline
-	ADD CONSTRAINT user1_ddorderline FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE dd_order
-	ADD CONSTRAINT user2_ddorder FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE dd_order
-	ADD CONSTRAINT user1_ddorder FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_subacct
-	ADD CONSTRAINT celementvalue_csubacct FOREIGN KEY (c_elementvalue_id) REFERENCES c_elementvalue (c_elementvalue_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_paymenttransaction
-	ADD CONSTRAINT user2_cpaymenttransaction FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_paymenttransaction
-	ADD CONSTRAINT user1_cpaymenttransaction FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_invoicebatchline
-	ADD CONSTRAINT celementvalueu2_cinvoicebline FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_invoicebatchline
-	ADD CONSTRAINT celementvalueu1_cinvoicebline FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_cashplanline
-	ADD CONSTRAINT user2_ccashplanline FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_cashplanline
-	ADD CONSTRAINT user1_ccashplanline FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_cashplan
-	ADD CONSTRAINT user2_ccashplan FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_cashplan
-	ADD CONSTRAINT user1_ccashplan FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_cash
-	ADD CONSTRAINT celementvalueuser2_ccash FOREIGN KEY (user2_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_cash
-	ADD CONSTRAINT celementvalueuser1_ccash FOREIGN KEY (user1_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_acctschema_element
-	ADD CONSTRAINT celementvalue_caschemaelement FOREIGN KEY (c_elementvalue_id) REFERENCES c_elementvalue (c_elementvalue_id) DEFERRABLE INITIALLY DEFERRED;
+	);', 'c_elementvalue_id');
 
 -- Update the charges to have the correct
 UPDATE c_charge c
