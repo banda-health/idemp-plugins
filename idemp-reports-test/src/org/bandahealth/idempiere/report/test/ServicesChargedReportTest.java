@@ -56,6 +56,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setSalesStandardPrice(new BigDecimal(50));
 		ChuBoeCreateEntity.createProduct(valueObject);
 		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
 		valueObject.getProduct().saveEx();
 		commitEx();
 
@@ -88,9 +89,11 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Optional<Row> productRow =
-					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName())).findFirst();
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(0) != null &&
+									row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName().substring(0,
+											30)))
+					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
 			assertThat("Times charged is correct", productRow.get().getCell(1).getNumericCellValue(), is(1D));
@@ -112,6 +115,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create product");
 		valueObject.setSalesStandardPrice(new BigDecimal(50));
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
 		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
 		valueObject.getProduct().saveEx();
 		commitEx();
@@ -145,9 +149,11 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Optional<Row> productRow =
-					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName())).findFirst();
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(0) != null &&
+									row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName().substring(0,
+											30)))
+					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
 		}
