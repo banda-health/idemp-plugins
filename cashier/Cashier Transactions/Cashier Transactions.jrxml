@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cashier Transactions" pageWidth="1040" pageHeight="744" orientation="Landscape" columnWidth="1040" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="cc04d203-d034-4a9b-95b5-22b226c482fc">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F0F8FF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="Payment Mode" class="java.lang.String"/>
+	<parameter name="Patient Type" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[WITH params AS (
+	SELECT
+		COALESCE($P{Patient Type}, '') AS patient_type,
+		COALESCE($P{Payment Mode}, '') AS payment_mode
+),
+	billdetails AS (
+		SELECT
+			c_order_id,
+			bh_visitdate        AS bill_date,
+			bh_patientid        AS patient_number,
+			patient_name        AS patientname,
+			saleslineitemtotals AS lineitemtotals,
+			ad_user_id          AS cashier_id
+		FROM
+			params p
+				CROSS JOIN bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		WHERE
+			docstatus != 'VO'
+			AND docstatus != 'DR'
+	),
+	patient_payments AS (
+		SELECT
+			c_order_id  AS c_order_id,
+			tendertype,
+			SUM(payamt) AS total
+		FROM
+			params p
+				CROSS JOIN bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		GROUP BY c_order_id, tendertype
+	),
+	non_patient_payments AS (
+		SELECT
+			c_order_id           AS c_order_id,
+			bh_subtype,
+			SUM(linenetamt) * -1 AS total
+		FROM
+			params p
+				CROSS JOIN bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		GROUP BY c_order_id, bh_subtype
+	)
+SELECT
+	billdetails.c_order_id                         AS receipt_number,
+	billdetails.bill_date                          AS bill_date,
+	billdetails.patient_number                     AS patient_number,
+	billdetails.patientname                        AS patient,
+	u.name                                         AS cashier,
+	COALESCE(billdetails.lineitemtotals, 0)        AS bill_total,
+	COALESCE(pp.total, 0) + COALESCE(npp.total, 0) AS total_payment,
+		COALESCE(billdetails.lineitemtotals, 0) - COALESCE(pp.total, 0) -
+		COALESCE(npp.total, 0)                       AS unpaid_balance
+FROM
+	billdetails
+		LEFT JOIN (
+		SELECT c_order_id, SUM(total) AS total FROM patient_payments GROUP BY c_order_id
+	) pp
+			ON billdetails.c_order_id = pp.c_order_id
+		LEFT JOIN (
+		SELECT c_order_id, SUM(total) AS total FROM non_patient_payments GROUP BY c_order_id
+	) npp
+			ON billdetails.c_order_id = npp.c_order_id
+		JOIN ad_user u
+			ON u.ad_user_id = billdetails.cashier_id
+		CROSS JOIN params p
+WHERE
+		billdetails.c_order_id IN (
+		SELECT
+			billdetails.c_order_id
+		FROM
+			billdetails
+				LEFT JOIN patient_payments
+					ON billdetails.c_order_id = patient_payments.c_order_id
+		WHERE
+			(p.payment_mode = ''
+				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+		UNION
+		SELECT
+			billdetails.c_order_id
+		FROM
+			billdetails
+				LEFT JOIN non_patient_payments
+					ON billdetails.c_order_id = non_patient_payments.c_order_id
+		WHERE
+			(p.payment_mode = ''
+				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+					AND p.payment_mode IN ('I', 'W', 'T')))
+	)
+ORDER BY
+	bill_date, u.name;]]>
+	</queryString>
+	<field name="receipt_number" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="receipt_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	</field>
+	<field name="bill_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
+	</field>
+	<field name="patient_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patient_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patient"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="cashier" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cashier"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="bill_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="bill_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	</field>
+	<field name="total_payment" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="total_payment"/>
+	</field>
+	<field name="unpaid_balance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="unpaid_balance"/>
+	</field>
+	<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{bill_total}]]></variableExpression>
+	</variable>
+	<variable name="sumTotalPayment" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_payment}]]></variableExpression>
+	</variable>
+	<variable name="sumUnpaidAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{unpaid_balance}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="510" height="20" uuid="af3a97ef-6512-482f-8904-cf4d8a996a48">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cashier Transactions Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="Table_CH" x="0" y="0" width="100" height="30" uuid="1e9e5eb0-0959-4667-96c6-50307d1e7d90"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="100" y="0" width="210" height="30" uuid="ca326952-17ff-4182-8e8d-3e49ff90f241"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cashier Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="550" y="0" width="80" height="30" uuid="9414f193-329c-4ac5-a413-922a1c37c2fb"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="630" y="0" width="100" height="30" uuid="62fe5853-90f1-43e9-b57f-6270372a7509"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receipt #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="730" y="0" width="110" height="30" uuid="3922c8ae-b829-451b-977c-84c4d381a2b1"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="940" y="0" width="100" height="30" uuid="691546af-8ea8-4a26-b66b-a3e77250e503"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unpaid Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="840" y="0" width="100" height="30" uuid="0eef9cce-2370-454d-847a-97f5273b2f84"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Payment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="310" y="0" width="240" height="30" uuid="6979cf47-dfe8-4f8d-b568-54ca40c4d683"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="9f1e9016-392d-48df-ab22-082c99d2cd81"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bill_date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="100" y="0" width="210" height="17" uuid="29688a39-6b27-4ca3-b22f-91637f2f0d9e"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="550" y="0" width="80" height="17" uuid="f27d1858-0e10-4b5e-8ff8-b7415719ee21"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patient_number}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="630" y="0" width="100" height="17" uuid="5a96cafe-6aaf-4d4f-912f-68337eb825f0"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{receipt_number}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+				<reportElement style="Table_TD" stretchType="ContainerBottom" x="730" y="0" width="110" height="17" uuid="647a1f07-30d8-471b-89a2-0d34f899a71a">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bill_total}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="310" y="0" width="240" height="17" uuid="1541a8da-585b-4e81-a67e-9806f94f0d8a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patient}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+				<reportElement style="Table_TD" stretchType="ContainerBottom" x="840" y="0" width="100" height="17" uuid="c15c3984-6054-41f0-91f5-c44ad2390395">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_payment}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+				<reportElement style="Table_TD" stretchType="ContainerBottom" x="940" y="0" width="100" height="17" uuid="a8d14b75-d940-4919-a082-ba51491ea815">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unpaid_balance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField pattern="#,##0.00">
+				<reportElement style="Table_CH" x="730" y="0" width="110" height="17" uuid="13c76f68-b04c-470a-88b5-3420908ef1fe">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumBillTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Table_CH" x="840" y="0" width="100" height="17" uuid="285a547e-16ff-44fd-a1d5-c21a766bc4d7">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumTotalPayment}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Table_CH" x="940" y="0" width="100" height="17" uuid="0da04a84-8cc2-4ec7-94f8-83b0af8238c4">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumUnpaidAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<noData>
+		<band height="16">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement key="" x="0" y="0" width="510" height="16" uuid="545e2303-c229-493b-80f9-b557a4630633"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

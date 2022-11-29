@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Expired Products List" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="119c2304-e36c-455c-b968-eaaad289bbac">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Table_TH" mode="Transparent" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}.intValue()%2==1]]></conditionExpression>
+			<style backcolor="#FFFFFF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM
+	(
+		SELECT
+			p.m_product_id,
+			name                                     AS ProductName,
+			SUM(soh.qtyonhand)                       AS BatchQuantity,
+			asi.guaranteedate,
+			(CURRENT_DATE - asi.guaranteedate::date) AS ExpiryDays,
+			SUM(p.bh_sellprice * soh.qtyonhand)      AS Value
+		FROM
+			m_product p
+				LEFT JOIN m_storageonhand soh
+					ON p.m_product_id = soh.m_product_id
+				LEFT JOIN m_attributesetinstance asi
+					ON soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
+		WHERE
+			p.ad_client_id = $P{AD_CLIENT_ID}
+			AND asi.guaranteedate::date <= CURRENT_DATE
+		GROUP BY p.m_product_id, p.name, asi.guaranteedate, ExpiryDays
+	) e
+WHERE
+	e.BatchQuantity > 0
+ORDER BY
+	ExpiryDays DESC, ProductName
+]]>
+	</queryString>
+	<field name="m_product_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="m_product_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+	</field>
+	<field name="productname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="productname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+	</field>
+	<field name="batchquantity" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="batchquantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_storageonhand"/>
+	</field>
+	<field name="guaranteedate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="guaranteedate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_attributesetinstance"/>
+	</field>
+	<field name="expirydays" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="expirydays"/>
+	</field>
+	<field name="value" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<variable name="Sum Products" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{value}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61">
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="20" uuid="8f97d6f9-8c95-4fb0-85be-6a7c402bbdde"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expired Products]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="61" height="18" uuid="2adefb60-fe55-415c-93cc-c782df228a0e"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="29" width="180" height="20" uuid="ed11e112-5023-4ecd-833c-964b78cd9060"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Value of Expired Products:]]></text>
+			</staticText>
+			<textField evaluationTime="Auto" pattern="#,##0.###;(#,##0.###-)">
+				<reportElement mode="Opaque" x="484" y="29" width="71" height="19" backcolor="#BFBFBF" uuid="37daf747-597c-4d21-8073-e31f2746b241"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Sum Products}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="30" width="139" height="18" uuid="64ef52a0-6ea4-45e9-a65d-e0b694b21a39"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<frame>
+				<reportElement style="Table_TH" mode="Opaque" x="0" y="0" width="555" height="20" uuid="510e560f-900b-4602-98c3-e3cf245df49b"/>
+				<staticText>
+					<reportElement style="Table_TH" mode="Transparent" x="0" y="0" width="153" height="20" uuid="3f6c283d-23f0-4ee8-bec1-5f2935a91c84"/>
+					<box leftPadding="3"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Product Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table_TH" mode="Transparent" x="153" y="0" width="92" height="20" uuid="813980b8-a474-43b3-ad41-af38713389ad"/>
+					<box leftPadding="3"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Batch Quantity]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table_TH" mode="Transparent" x="245" y="0" width="92" height="20" uuid="d28eeb01-769a-4919-baf3-09303388e539"/>
+					<box leftPadding="3"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Expiration Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table_TH" mode="Transparent" x="337" y="0" width="92" height="20" uuid="0c4fb8d8-0e1e-42db-9e3f-713fc565edcd"/>
+					<box leftPadding="3"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Days Since Expiry]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table_TH" mode="Transparent" x="429" y="0" width="126" height="20" uuid="2b05729a-2f39-4bdd-9131-5a05009ff34b"/>
+					<box leftPadding="3"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Value of Expired Product]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<frame>
+				<reportElement style="Table_TD" mode="Opaque" x="0" y="0" width="555" height="15" uuid="bb547c52-2483-45db-852d-4399b8e55727"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Transparent" x="0" y="0" width="153" height="15" uuid="33183ddf-8351-4a18-9b63-8e49623dd5a4"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{productname}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,###.###;(#,###.###-)">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="153" y="0" width="92" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982"/>
+					<box rightPadding="2"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{batchquantity}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="M/d/yyyy">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="245" y="0" width="92" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff"/>
+					<box rightPadding="2"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{guaranteedate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="337" y="0" width="92" height="15" uuid="cec266f3-d3ca-4454-b63c-f9ab666e0b2e"/>
+					<box rightPadding="2"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{expirydays}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.###;(#,##0.###-)">
+					<reportElement style="Table_TD" stretchType="ContainerHeight" mode="Opaque" x="429" y="0" width="126" height="15" uuid="0a1acbc6-6fb2-4749-b400-63a4081d0606">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box rightPadding="2"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="12" width="259" height="20" uuid="c954df1f-e22f-4bd9-a0c3-de0e83368e58">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="468" y="12" width="87" height="20" uuid="ad2b78ed-d1db-4f53-9a6c-98bb3d1910d4">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="20" uuid="f98a634e-0534-4d68-96c1-3005df629083">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

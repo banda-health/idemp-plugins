@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt Payments" pageWidth="162" pageHeight="134" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="40dbf2df-a037-42cd-9808-b1285b682703">
+	<property name="ireport.zoom" value="3.305785123966942"/>
+	<property name="ireport.x" value="29"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Galmi Live"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<parameter name="billId" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="totalCost" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+    ol.c_order_id as bill_id,
+    c.name as name,
+    SUM(ol.linenetamt) * -1 as linenetamt
+FROM c_orderline ol
+JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
+WHERE c_order_id = $P{billId}
+    AND c.c_charge_id IS NOT NULL
+GROUP BY ol.c_order_id, c.name
+UNION
+select
+  payment.bh_c_order_id as bill_id,
+  rlt.name as name,
+  coalesce(sum(payment.bh_tender_amount), sum(payment.payamt)) as amount_tendered
+from
+  c_payment payment
+  inner join AD_Ref_List tendertype on payment.tendertype = tendertype.value and AD_Reference_ID=214
+    join ad_ref_list_trl rlt on tendertype.ad_ref_list_id = rlt.ad_ref_list_id and ad_language = 'fr_FR'
+where
+  payment.bh_c_order_id = $P{billId}
+group by payment.bh_c_order_id, tendertype.name;]]>
+	</queryString>
+	<field name="bill_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="amount_tendered" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
+	</field>
+	<variable name="totalPayments" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount_tendered}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement key="" x="3" y="0" width="86" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement key="" x="94" y="0" width="68" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount_tendered}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="92" y="6" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="94" y="26" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}).abs()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="6" width="80" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Paiement total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="0" y="26" width="120" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) >= 0)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Monnaie à rendre:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="96" y="2" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+			</line>
+			<line>
+				<reportElement x="97" y="21" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+			</line>
+			<staticText>
+				<reportElement key="" x="0" y="26" width="120" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) < 0)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Impayé:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

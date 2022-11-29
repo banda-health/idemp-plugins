@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Insurance" pageWidth="595" pageHeight="842" columnWidth="560" leftMargin="20" rightMargin="15" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="NewData" uuid="6d05f800-2db4-4778-b078-3f85c7208aab">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="C_Order_UU" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT product.name as Product, line.priceactual as Charge, line.qtyordered as Qty, line.linenetamt as Total,
+       date(c.created) as Date, c.grandtotal as Total_Payment ,b.name as Patient,
+       b.bh_local_patientid as FileNo,
+       a.name as ServedBy
+FROM c_orderline line
+    INNER JOIN m_product product ON line.m_product_id = product.m_product_id
+    INNER JOIN c_order c ON line.c_order_id = c.c_order_id
+    INNER JOIN c_bpartner b ON c.c_bpartner_id = b.c_bpartner_id
+    LEFT JOIN ad_user a ON c.salesrep_id = a.ad_user_id
+    WHERE issotrx='Y'
+     and c.c_order_uu = $P{C_Order_UU}]]>
+		</queryString>
+		<field name="product" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="product"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+		</field>
+		<field name="charge" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="charge"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<field name="qty" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="qty"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<field name="total" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="total"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<group name="product">
+			<groupExpression><![CDATA[$F{product}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="ProductsDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="C_Order_UU" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT product.name         as Product,
+       line.priceactual     as Charge,
+       line.qtyordered      as Qty,
+       line.linenetamt      as Total
+--        c.grandtotal         as Total_Payment
+FROM c_orderline line
+         INNER JOIN m_product product ON line.m_product_id = product.m_product_id
+         INNER JOIN c_order c ON line.c_order_id = c.c_order_id
+WHERE issotrx = 'Y'
+  and c.c_order_uu = $P{C_Order_UU}]]>
+		</queryString>
+		<field name="product" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="product"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+		</field>
+		<field name="charge" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="charge"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<field name="qty" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="qty"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<field name="total" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="total"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<group name="product">
+			<groupExpression><![CDATA[$F{product}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[WITH payment AS (
+    select rl.name as PaymentType,
+           p.c_order_id
+    from ad_ref_list rl
+             join c_payment p on p.tendertype = rl.value and rl.ad_reference_id = 214
+             left join c_order co ON p.bh_c_order_id = co.c_order_id
+    where co.c_order_uu =  $P{C_Order_UU}
+    union
+    select c.name, co.c_order_id
+    from c_charge c
+             join c_orderline ol on c.c_charge_id = ol.c_charge_id
+             JOIN c_order co ON ol.c_order_id = co.c_order_id
+    where co.c_order_uu =  $P{C_Order_UU}
+), patient_detail AS (
+    SELECT date(c.created)      as Date,
+       b.name               as Patient,
+       b.bh_patientid as FileNo,
+       a.name               as ServedBy,
+       o.name               as Client_name,
+       c.c_order_id         as Order_id
+    FROM c_order c
+    INNER JOIN c_bpartner b ON c.c_bpartner_id = b.c_bpartner_id
+    LEFT JOIN ad_user a ON c.salesrep_id = a.ad_user_id
+    LEFT JOIN ad_org o ON o.ad_client_id = c.ad_client_id
+    WHERE issotrx = 'Y'
+    and c.c_order_uu =  $P{C_Order_UU}
+)
+SELECT pd.Date,
+	   pd.Order_id,
+       pd.FileNo,
+       pd.Patient,
+       pd.ServedBy,
+       coalesce(p.PaymentType, 'None') as PaymentType
+FROM patient_detail pd
+    LEFT JOIN payment p ON 1=1;]]>
+	</queryString>
+	<field name="Date" class="java.sql.Date"/>
+	<field name="FileNo" class="java.lang.String"/>
+	<field name="Patient" class="java.lang.String"/>
+	<field name="ServedBy" class="java.lang.String"/>
+	<field name="PaymentType" class="java.lang.String"/>
+	<field name="Order_id" class="java.math.BigDecimal"/>
+	<variable name="Total" class="java.math.BigDecimal" calculation="Sum"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="91" y="-21" width="376" height="51" uuid="4e1c7929-9a3b-4a62-b844-1a5b6d9f5670"/>
+				<subreportParameter name="C_Order_UU">
+					<subreportParameterExpression><![CDATA[$P{C_Order_UU}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "A5_Title.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="153">
+			<staticText>
+				<reportElement x="93" y="-10" width="376" height="17" uuid="680115a8-ec6e-4994-9aee-bf760977d7cc"/>
+				<box>
+					<pen lineStyle="Dashed" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="18" width="60" height="16" uuid="6a5ed8e7-8d5e-41c2-9666-be018bfa68e2"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="18" width="141" height="17" uuid="c6cfefdc-3a09-425c-b291-835d5a75e7f3"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{Date})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="51" width="141" height="17" uuid="6bb9a355-3494-46d6-92fb-55a5dee11cc7"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FileNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="51" width="60" height="17" uuid="c2268eb9-d71b-4679-ab1f-93d61a0c1328"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[File #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="68" width="60" height="17" uuid="368e6a67-3db3-4f91-940c-03754c4d6f79"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="68" width="141" height="17" uuid="2028b392-a23a-4ac5-8d64-f29488103c42"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Patient}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="85" width="141" height="16" uuid="2ecbd556-7a2d-4fda-9cbb-313c2d923e41"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ServedBy}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="85" width="60" height="16" uuid="451b3683-b658-4991-84af-325ab402021a"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Served by:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="101" width="141" height="16" uuid="7ab0cba5-f3be-4315-b3a2-fac72cf57dac"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PaymentType}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="91" y="122" width="380" height="30" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ProductsDataSet" uuid="77f05f28-fa97-43f1-88b9-ebd17b6e4fdd">
+						<datasetParameter name="C_Order_UU">
+							<datasetParameterExpression><![CDATA[$P{C_Order_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="111" uuid="12c1984e-fcd4-4dc1-b557-47b4d537182f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="111" height="15" uuid="9986b691-2847-415d-8822-066b21d8d5ed">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Product]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="111" height="15" uuid="138a0fd1-3d00-491c-b7a8-30c2685dd428">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="93" uuid="f6ac971d-6ade-4fef-8fa1-5ee2b17a142e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="93" height="15" uuid="f02ea4ec-4f1c-4a89-b21e-ff61242b0d91">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Charge]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="93" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{charge}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="91" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="91" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Qty]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="91" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="85" uuid="f8fe607e-ee2b-4d58-a7b7-4006bf725c69">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="85" height="15" uuid="1660fb8e-34f5-4aa4-89a1-7163e7a59c23">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="85" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="90" y="34" width="60" height="17" uuid="d92b6940-562c-477e-82be-13e15b585f8e"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice #:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="34" width="141" height="17" uuid="7415e059-f1ff-4785-b11b-6bd444be3a1f"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Order_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="101" width="60" height="16" uuid="43363581-2196-4653-baf0-c9703b69d3b3"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="23">
+			<textField>
+				<reportElement x="89" y="3" width="259" height="20" uuid="aac9248b-b0c4-4242-8281-90f0b70ea9ae"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Receipt Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="467" y="1" width="33" height="20" uuid="f41613e4-3d98-4d4e-a352-24eda04f6495">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="1" width="87" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="83">
+			<subreport>
+				<reportElement x="90" y="0" width="382" height="80" uuid="0aaa4000-0e13-4713-8664-56497eb636e9"/>
+				<subreportParameter name="C_Order_UU">
+					<subreportParameterExpression><![CDATA[$P{C_Order_UU}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PaymentType.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+	<noData>
+		<band height="18">
+			<staticText>
+				<reportElement x="0" y="0" width="480" height="16" uuid="7227fd38-a730-477d-a761-4778225a2517">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

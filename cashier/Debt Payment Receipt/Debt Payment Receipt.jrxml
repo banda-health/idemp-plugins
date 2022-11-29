@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Debt Payment Receipt" pageWidth="162" pageHeight="134" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="40dbf2df-a037-42cd-9808-b1285b682703">
+	<property name="ireport.zoom" value="3.305785123966942"/>
+	<property name="ireport.x" value="29"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="debtPaymentID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+  payment.c_payment_id as debt_id,
+  tendertype.name as name,
+  sum(payment.payamt) as pamount,
+  coalesce(sum(payment.bh_tender_amount), sum(payment.payamt)) as amount_tendered
+from
+  c_payment payment
+  inner join AD_Ref_List tendertype on payment.tendertype = tendertype.value
+  and AD_Reference_ID=214
+where
+  payment.c_payment_id = $P{debtPaymentID}
+group by payment.c_payment_id, tendertype.name;]]>
+	</queryString>
+	<field name="debt_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="debt_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
+	</field>
+	<field name="pamount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="pamount"/>
+	</field>
+	<field name="amount_tendered" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
+	</field>
+	<variable name="totalPayments" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount_tendered}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totalAmounts" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{pamount}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="" x="3" y="0" width="86" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="" x="94" y="0" width="68" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount_tendered}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="92" y="4" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="94" y="26" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPayments}.subtract($V{totalAmounts}).abs()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="4" width="80" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Total Payment:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="20" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($V{totalAmounts})).compareTo(BigDecimal.ZERO) >= 0)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Change Due:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="96" y="2" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+			</line>
+			<line>
+				<reportElement x="97" y="21" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+			</line>
+			<staticText>
+				<reportElement key="" x="20" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($V{totalAmounts})).compareTo(BigDecimal.ZERO) < 0)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Outstanding:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

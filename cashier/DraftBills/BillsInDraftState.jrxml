@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BillsInDraftState" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="565b6965-3ce5-4ce9-9c33-2c97078b335c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idemp_bluesky.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1000003]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT o.name,
+       u.name as createdby,
+       p.name as billedto,
+       c.documentno,
+       c.created,
+       c.grandtotal
+FROM c_order c
+         INNER JOIN ad_org o ON c.ad_org_id = o.ad_org_id
+         INNER JOIN c_bpartner p ON p.c_bpartner_id = c.c_bpartner_id
+         INNER JOIN ad_user u ON u.ad_user_id = c.createdby
+WHERE c.ad_client_id = $P{AD_CLIENT_ID}
+AND docstatus = 'DR'
+AND issotrx = 'Y'
+AND c.isactive = 'Y']]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="createdby" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="createdby"/>
+	</field>
+	<field name="billedto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="billedto"/>
+	</field>
+	<field name="documentno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="documentno"/>
+	</field>
+	<field name="created" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="created"/>
+	</field>
+	<field name="grandtotal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="grandtotal"/>
+	</field>
+	<sortField name="created"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="78" y="40" width="398" height="20" uuid="2f58e711-ed27-4364-8d5f-88a832a5c2d0"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[UPPER($F{name})]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="7" width="398" height="20" uuid="bf35e543-2e71-4cbf-980a-a6ac7ce1c3f4"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[UPPER("uncompleted patient bills" )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="197" y="0" width="100" height="20" uuid="c26463f9-7c31-425b-b16c-8247a9364919">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f5acd802-2a8c-4936-80d0-b1b58df93ff5"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receipt No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="20" uuid="d126f1bd-65af-4725-bf9d-07b6245c2511">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a47ac963-3159-4770-b86b-017b133e2e51"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Created On]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="0" width="87" height="20" uuid="8d44840c-cace-4e5d-8283-09e540399d19">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2aaf76dc-8c9e-423a-9c5c-98b7b1e70111"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Billed By]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="0" width="96" height="20" uuid="18101432-324d-4819-a4a2-f15a273b5621">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8aec0b3-5a03-4007-8719-54d91cab9594"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Billed To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="134" height="22" uuid="564d0820-8dc9-4e73-ad5e-977e96f6f0e6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e1bb87f-9ee1-451d-be18-747808d4bd7e"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Amount (KSHs)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="-8" width="550" height="1" forecolor="#171616" uuid="e9b46321-5a94-4f47-a775-4bdc0c24f8e6"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="197" y="0" width="100" height="20" uuid="4d9e1130-359c-4c77-8bff-99d73d8c6bb0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f5acd802-2a8c-4936-80d0-b1b58df93ff5"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{documentno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="70" height="20" uuid="82d39931-2fa1-4f95-bcd2-dc449685469b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a47ac963-3159-4770-b86b-017b133e2e51"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[DATEFORMAT($F{created}, "dd-MM YYYY ")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="0" width="87" height="20" uuid="c7a4e8ae-1d79-4005-9168-0cf3c0311f8a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2aaf76dc-8c9e-423a-9c5c-98b7b1e70111"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{createdby}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="0" width="96" height="20" uuid="786af216-da32-42a4-b2c5-afc3a3287d24">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8aec0b3-5a03-4007-8719-54d91cab9594"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{billedto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,###.00;¤-#,###.00">
+				<reportElement x="410" y="1" width="134" height="19" uuid="217314a0-a1b7-4a72-a435-3507a74692d2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e1bb87f-9ee1-451d-be18-747808d4bd7e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{grandtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="112" y="10" width="354" height="20" uuid="557597b7-983b-4a31-971a-c8180e112f6d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Printed: " + DATEFORMAT(NOW( ),"dd MMMM, YYYY hh:mm a")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50" splitType="Stretch"/>
+	</summary>
+</jasperReport>

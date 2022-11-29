@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NHIF Fee For Service" language="groovy" pageWidth="595" pageHeight="850" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="C_ORDER_ID" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1000195]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT	
+	to_char(corder.created, 'YYYY-MM-DD') AS DATE_CREATED,
+	payment.nhif_number AS NHIF_NO,
+	payment.bh_nhif_member_id AS ID_NO,
+	payment.bh_nhif_member_name AS MEMBER_NAME,
+	CASE 
+		WHEN payment.bh_nhif_relationship = 'P' THEN 'Principal Member'
+		WHEN payment.bh_nhif_relationship = 'S' THEN 'Spouse'
+		WHEN payment.bh_nhif_relationship = 'C' THEN 'Child'
+	END AS RELATIONSHIP,
+	bpartner.name AS PATIENT_NAME,
+	to_char(bpartner.bh_birthday, 'YYYY-MM-DD') AS DATE_OF_BIRTH,
+	bpartner.bh_phone AS PATIENT_PHONE,
+	to_char(corder.created, 'HH24:MI AM') AS TIME_IN,
+	to_char(payment.created, 'HH24:MI AM') AS TIME_OUT,
+	corder.description AS DIAGNOSIS
+FROM c_order corder
+INNER JOIN c_bpartner bpartner ON corder.c_bpartner_id = bpartner.c_bpartner_id
+INNER JOIN c_payment payment ON corder.c_order_id = payment.bh_c_order_id
+WHERE payment.tendertype = 'N' AND corder.docstatus  = 'CO' 
+AND corder.c_order_id = $P{C_ORDER_ID} ]]>
+	</queryString>
+	<field name="DATE_CREATED" class="java.lang.String"/>
+	<field name="NHIF_NO" class="java.lang.String"/>
+	<field name="ID_NO" class="java.lang.String"/>
+	<field name="MEMBER_NAME" class="java.lang.String"/>
+	<field name="PATIENT_NAME" class="java.lang.String"/>
+	<field name="TIME_IN" class="java.lang.String"/>
+	<field name="TIME_OUT" class="java.lang.String"/>
+	<field name="DIAGNOSIS" class="java.lang.String"/>
+	<field name="RELATIONSHIP" class="java.lang.String"/>
+	<field name="DATE_OF_BIRTH" class="java.lang.String"/>
+	<field name="PATIENT_PHONE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="-43" width="555" height="25" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NHIF FFS OUTPATIENT FORM INFORMATION"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="273" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement x="1" y="115" width="85" height="16" uuid="de140269-bbf7-4026-a3ea-6c1254aaaf56"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of visit:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="0" width="107" height="16" uuid="47474ccf-9801-42d2-b3c8-0e9dd5805389"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Member NHIF #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="1" width="108" height="16" uuid="3353f64b-8d84-48c0-9700-8384cc14c569"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Member's ID #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="52" width="78" height="16" uuid="08138a37-96d1-4fca-86d2-017b6d54dc6c"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="139" width="70" height="16" uuid="3416f17b-2346-4043-b1ba-336a08d4485b"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time in:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="-23" width="92" height="16" uuid="abc0041b-c7a0-4ce4-99e1-8af36b1a89b8"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="141" width="74" height="16" uuid="a5192417-c8f0-4841-976e-e77113df6ad0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time out:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="27" width="78" height="16" uuid="8919f6f2-547a-4cec-adc3-5c436abaa989"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relationship:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="163" width="78" height="16" uuid="f34e877e-3032-4752-9152-1c44966162e2"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diagnosis:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="93" y="115" width="117" height="16" uuid="a4ceb03f-ea50-424f-99fc-7bd205a1be9a"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DATE_CREATED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="279" y="0" width="84" height="16" uuid="6466658b-14fd-4f79-b32b-a2adfd819650"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{NHIF_NO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="91" y="1" width="84" height="16" uuid="bb045ab2-a238-4187-803b-a7261d7e3d81"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{ID_NO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="83" y="53" width="99" height="16" uuid="f2bc303b-2b17-4e2b-bb07-bbc77bdf204c"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DATE_OF_BIRTH}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="86" y="-23" width="84" height="16" uuid="2b9956ad-5bb2-4b37-82fc-3e232fa0f6fe"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{PATIENT_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="76" y="139" width="84" height="16" uuid="3ecea53b-6bf9-47dd-8c47-287c9c803bfb"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TIME_IN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="259" y="141" width="84" height="16" uuid="b3af258f-be26-4a05-8884-4914b9395961"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TIME_OUT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="80" y="163" width="84" height="16" uuid="649071d2-4907-44ed-b142-d72bca3851b9"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DIAGNOSIS}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="-52" width="530" height="1" uuid="d7ed1daa-4359-45d9-81b9-4ef49e65e154"/>
+			</line>
+			<line>
+				<reportElement x="12" y="208" width="530" height="1" uuid="09635107-5034-4f0c-b5f6-1961563b7881"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="84" y="27" width="106" height="16" uuid="71218996-3e53-4ff7-8611-3c59f6ac1192"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{RELATIONSHIP}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="289" y="51" width="117" height="16" uuid="1ddfd69b-d446-4fd2-a7b3-81c72a80737f"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{PATIENT_PHONE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="182" y="51" width="118" height="16" uuid="46fa2efb-5f75-45cf-a1a7-e192178161d4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient's phone #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="-45" width="234" height="16" uuid="2a0df922-c2e1-459f-9523-747715defdd6"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="92" width="234" height="16" uuid="f4e7bcfa-6f5e-411f-9f41-cee46490915e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Treatment Authentication]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<noData>
+		<band height="21">
+			<staticText>
+				<reportElement x="156" y="1" width="306" height="16" uuid="e8da193c-2a64-44be-96ca-7416132f7400"/>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>
