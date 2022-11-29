@@ -1,7 +1,7 @@
 -- Update certain purchase orders to not be marked as expenses
 UPDATE c_order
 SET
-	bh_isexpense = 'N'
+	bh_isexpense = NULL
 WHERE
 	bh_isexpense = 'Y'
 	AND issotrx = 'N'
