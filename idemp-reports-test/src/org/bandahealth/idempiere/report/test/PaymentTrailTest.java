@@ -27,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.List;
@@ -150,28 +149,23 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
 
-			NumberFormat numberFormat = NumberFormat.getInstance();
-
 			assertThat("Starting balance appears", tableRows.get(0).getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Starting Balance"));
-			assertThat("Starting balance is zero",
-					numberFormat.parse(tableRows.get(0).getCell(openBalanceColumnIndex).getStringCellValue().trim()), is(0L));
+			assertThat("Starting balance is zero", tableRows.get(0).getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(0D));
 
 			assertThat("Visit payment information appears", tableRows.get(1).getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Visit Charges and payments"));
-			assertThat("Visit charge is correct",
-					numberFormat.parse(tableRows.get(1).getCell(chargesColumnIndex).getStringCellValue()),
-					is(visitCharge.longValue()));
-			assertThat("Visit payment is correct",
-					numberFormat.parse(tableRows.get(1).getCell(visitPaymentsColumnIndex).getStringCellValue()),
-					is(visitPayment.longValue()));
+			assertThat("Visit charge is correct", tableRows.get(1).getCell(chargesColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Visit payment is correct", tableRows.get(1).getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+					is(visitPayment.doubleValue()));
 			assertThat("Debt payment is correct",
-					numberFormat.parse(tableRows.get(1).getCell(openBalancePaymentsColumnIndex).getStringCellValue()),
-					is(debtPayment.longValue()));
+					tableRows.get(1).getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+					is(debtPayment.doubleValue()));
 			BigDecimal totalOpenBalance = visitCharge.subtract(visitPayment).subtract(debtPayment);
-			assertThat("Open balance is correct",
-					numberFormat.parse(tableRows.get(1).getCell(openBalanceColumnIndex).getStringCellValue()),
-					is(totalOpenBalance.longValue()));
+			assertThat("Open balance is correct", tableRows.get(1).getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(totalOpenBalance.doubleValue()));
 
 			valueObject.refresh();
 			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), totalOpenBalance.longValue(),
@@ -365,45 +359,34 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
 
-			NumberFormat numberFormat = NumberFormat.getInstance();
-
 			Row row = tableRows.get(0);
 			assertThat("Starting balance appears", row.getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Starting Balance"));
-			assertThat("Starting balance is zero",
-					numberFormat.parse(row.getCell(openBalanceColumnIndex).getStringCellValue().trim()), is(0L));
+			assertThat("Starting balance is zero", row.getCell(openBalanceColumnIndex).getNumericCellValue(), is(0D));
 
 			row = tableRows.get(1);
 			assertThat("Visit payment information appears", row.getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Visit Charges and payments"));
-			assertThat("Visit charge is correct",
-					numberFormat.parse(row.getCell(chargesColumnIndex).getStringCellValue()),
-					is(visitCharge.longValue()));
-			assertThat("Visit payment is correct",
-					numberFormat.parse(row.getCell(visitPaymentsColumnIndex).getStringCellValue()),
-					is(visitMobilePayment.longValue() + visitCashPayment.longValue() + visitWaiver.longValue()));
-			assertThat("Debt payment is correct",
-					numberFormat.parse(row.getCell(openBalancePaymentsColumnIndex).getStringCellValue()), is(0L));
+			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+					is(visitMobilePayment.doubleValue() + visitCashPayment.doubleValue() + visitWaiver.doubleValue()));
+			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(), is(0D));
 			BigDecimal totalOpenBalance =
 					visitCharge.subtract(visitMobilePayment).subtract(visitCashPayment).subtract(visitWaiver);
-			assertThat("Open balance is correct",
-					numberFormat.parse(row.getCell(openBalanceColumnIndex).getStringCellValue()),
-					is(totalOpenBalance.longValue()));
+			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(totalOpenBalance.doubleValue()));
 
 			row = tableRows.get(2);
 			assertThat("Open balance information appears", row.getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Open balance payment only"));
-			assertThat("Visit charge is correct", numberFormat.parse(row.getCell(chargesColumnIndex).getStringCellValue()),
-					is(0L));
-			assertThat("Visit payment is correct",
-					numberFormat.parse(row.getCell(visitPaymentsColumnIndex).getStringCellValue()), is(0L));
-			assertThat("Debt payment is correct",
-					numberFormat.parse(row.getCell(openBalancePaymentsColumnIndex).getStringCellValue()),
-					is(debtPayment.longValue()));
+			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(), is(0D));
+			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(), is(0D));
+			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+					is(debtPayment.doubleValue()));
 			totalOpenBalance = totalOpenBalance.subtract(debtPayment);
-			assertThat("Open balance is correct",
-					numberFormat.parse(row.getCell(openBalanceColumnIndex).getStringCellValue()),
-					is(totalOpenBalance.longValue()));
+			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(totalOpenBalance.doubleValue()));
 
 			valueObject.refresh();
 			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), totalOpenBalance.longValue(),
@@ -471,26 +454,20 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
 
-			NumberFormat numberFormat = NumberFormat.getInstance();
-
 			Row row = tableRows.get(0);
 			assertThat("Starting balance appears", row.getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Starting Balance"));
-			assertThat("Starting balance is zero",
-					numberFormat.parse(row.getCell(openBalanceColumnIndex).getStringCellValue().trim()), is(0L));
+			assertThat("Starting balance is zero", row.getCell(openBalanceColumnIndex).getNumericCellValue(), is(0D));
 
 			row = tableRows.get(1);
 			assertThat("Visit payment information appears", row.getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Visit Charges and payments"));
-			assertThat("Visit charge is correct",
-					numberFormat.parse(row.getCell(chargesColumnIndex).getStringCellValue()),
-					is(visitCharge.longValue()));
-			assertThat("Visit payment is correct",
-					numberFormat.parse(row.getCell(visitPaymentsColumnIndex).getStringCellValue()), is(0L));
-			assertThat("Debt payment is correct",
-					numberFormat.parse(row.getCell(openBalancePaymentsColumnIndex).getStringCellValue()), is(0L));
-			assertThat("Open balance is correct",
-					numberFormat.parse(row.getCell(openBalanceColumnIndex).getStringCellValue()), is(visitCharge.longValue()));
+			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(), is(0D));
+			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(), is(0D));
+			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
 
 			valueObject.refresh();
 			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), visitCharge.longValue(),
