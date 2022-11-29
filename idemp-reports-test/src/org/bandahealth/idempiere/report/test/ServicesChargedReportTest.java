@@ -91,8 +91,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 							row -> row.getCell(0) != null &&
-									row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName().substring(0,
-											30)))
+									row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
 					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
@@ -151,8 +150,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 							row -> row.getCell(0) != null &&
-									row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName().substring(0,
-											30)))
+									row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
 					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
