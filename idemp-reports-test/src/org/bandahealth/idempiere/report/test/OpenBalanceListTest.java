@@ -16,7 +16,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -75,11 +74,11 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Optional<Row> patientRow =
 					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-							row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName())).findFirst();
+									row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
+							.findFirst();
 			assertTrue(patientRow.isPresent(), "Report contains patient");
-			assertThat("Patient's open balance is correct",
-					NumberFormat.getInstance().parse(patientRow.get().getCell(9).getStringCellValue().trim()),
-					is(valueObject.getOrder().getGrandTotal().longValue()));
+			assertThat("Patient's open balance is correct", patientRow.get().getCell(9).getNumericCellValue(),
+					is(valueObject.getOrder().getGrandTotal().doubleValue()));
 		}
 	}
 }

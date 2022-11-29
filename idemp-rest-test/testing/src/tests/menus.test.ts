@@ -7,6 +7,7 @@ test('correct menu names are returned', async () => {
 	expect(menus.find((menu) => menu.name === 'Dashboard')).not.toBeUndefined();
 	expect(menus.find((menu) => menu.name === 'Visits/Bills')).not.toBeUndefined();
 	expect(menus.find((menu) => menu.name === 'Patients')).not.toBeUndefined();
+	expect(menus.find((menu) => menu.name === 'Pharmacy Sales (OTC)')).not.toBeUndefined();
 
 	const inventoryMenu = menus.find((menu) => menu.name === 'Inventory');
 	expect(inventoryMenu).not.toBeUndefined();
