@@ -1,13 +1,14 @@
-# BandaGo Plug-ins Project | ![TeamCity build status](https://teamcity.bandahealth.org/app/rest/builds/buildType:id:BHGO_Plugins_BuildDevelop/statusIcon.svg)
-A repository that houses all Banda Health's plugins for iDempiere. The modular architecture of iDempiere allows us to build custom functionality onto existing layers without affecting the core functionality of the ERP. Our plugins are built to implement these features. You can read more on iDempiere's architecture in [iDempiere and Modularity](https://wiki.idempiere.org/en/Equinox_OSGi_framework). 
+# BandaGo iDempiere Project | ![TeamCity build status](https://teamcity.bandahealth.org/app/rest/builds/buildType:id:BHGO_Plugins_BuildDevelop/statusIcon.svg)
+A repository that houses all Banda Health's plugins, data import files, DB migrations, and reports for iDempiere. 
+
+## Plugins
+The modular architecture of iDempiere allows us to build custom functionality onto existing layers without affecting the core functionality of the ERP. Our plugins are built to implement these features. You can read more on iDempiere's architecture in [iDempiere and Modularity](https://wiki.idempiere.org/en/Equinox_OSGi_framework). 
 
 The included plugins are: 
-* idemp-base
-* idemp-base-editor
-* idemp-webui
-* idemp-rest
-
-Additionally, the project also contains the data folders used during client creation. To leverage these files (located in the `data` directory) in your local instance, copy this directory to your `[IDEMPIERE_HOME]` directory.
+* base
+* base-editor
+* webui
+* rest
 
 The plugins handle the following things:
 | Plugin                | Description                                                                                                                                                                                                              |
@@ -25,8 +26,18 @@ We also have several plugins that are meant to run unit tests on the system. The
 | idemp-reports-test | Run reports to confirm that reports generate correctly with the appropriate values. |
 | idemp-rest-test    | Tests workflows and calls to our API to validate the system operates correctly.     |
 
-## Building the Plugins
-To build all BandaGo plugins, run:
+## Data Imports
+Additionally, the project also contains the data folders used during client creation. To leverage these files (located in the `data` directory) in your local instance, copy this directory to your `[IDEMPIERE_HOME]` directory, or see [Building the Plugins](#building-the-plugins) below.
+
+## Reports
+Located in the `./reports` directory, these are reports available to our iDempiere installation, from receipts to patient transactions.
+
+## DB Migration
+Located in the `./migration` directory, these files are used to automate iDempiere DB migrations. They also house our custom functions that are stored in the DB.
+
+
+## Building the Plugins & Project
+To build all BandaGo plugins and place files in the correction location, run:
 ```
 mvn verify -Didempiere.home.dir=<absolute_path_to_idemp_repo/>
 ```
@@ -48,6 +59,8 @@ You can also configure your global settings so you don't have to provide the pro
 </settings>
 ```
 
+This will build the plugins, compile the reports, and move data imports, DB migration files, and compiled reports into their correct directories in you iDempiere installation directory.
+
 ## Running Tests
 A database (DB) is needed to run tests (we test business logic, not implementation logic). You can either use your own and have test data be filled in it, or you can use a fresh DB. The Banda Health iDempiere image comes with data to initialize a new DB, if you'd like. Check the `.env.default` file for information that's available, plus the [Banda iDempiere Docker Image Repo](https://github.com/banda-health/idempiere-docker) for full image information.
 
@@ -62,8 +75,8 @@ You can optionally add the user and hostname/port flags, if needed.
 
 ### Base Plugin & Report Testing
 For the base plugin tests and for reports, you can run them
-1. Through the UI or
-2. Through Docker compose
+1. [Through the UI](#in-the-ui) or
+2. [Through Docker compose](#through-docker-compose)
 
 #### In the UI
 Log in as the Garden World client and search for `Populate` to see the screen appear. You can enter the number of loops and an optional package for your tests. This is based off [Chuck's testing framework](https://erp-academy.chuckboecking.com/?page_id=3711).
