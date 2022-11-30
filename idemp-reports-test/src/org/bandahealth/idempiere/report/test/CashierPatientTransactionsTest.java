@@ -55,6 +55,34 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Open needed periods");
 		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
 		commitEx();
+
+		// Create at least one completed order so the report generates
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		MInvoice_BH invoice =
+				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		valueObject.setInvoice(invoice);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		valueObject.getPayment().saveEx();
+		commitEx();
 	}
 
 	@IPopulateAnnotation.CanRun
