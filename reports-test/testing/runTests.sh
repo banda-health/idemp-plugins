@@ -13,7 +13,7 @@ if [[ -f "testResults.xml" ]]; then
 
   # Set the file header
   echo "++++++++++++++++++++++++++++++++++" >testResults.txt
-  echo "idemp-reports Tests" >>testResults.txt
+  echo "reports Tests" >>testResults.txt
   echo "++++++++++++++++++++++++++++++++++" >>testResults.txt
 
   xmllint --xpath 'string(//*[name()="soap:Envelope"]/*[name()="soap:Body"]/*[name()="ns1:runProcessResponse"]/*[local-name()="RunProcessResponse"]/*[local-name()="Summary"])' testResults.xml >>testResults.txt

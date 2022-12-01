@@ -2,9 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.bandahealth.idempiere.reports</groupId>
+	<parent>
+		<groupId>org.bandahealth.idempiere</groupId>
+		<artifactId>idempiere-banda</artifactId>
+		<version>7.1.0-SNAPSHOT</version>
+	</parent>
 	<version>7.1.0-SNAPSHOT</version>
-	<artifactId>reports</artifactId>
+	<artifactId>idempiere-banda-reports</artifactId>
 	<packaging>pom</packaging>
 	
 	<pluginRepositories>
@@ -34,7 +38,7 @@
 				</executions>
 				<configuration>
 					<sourceDirectory>./</sourceDirectory>
-					<outputDirectory>${project.build.directory}/jasper</outputDirectory>
+					<outputDirectory>${project.build.directory}/target</outputDirectory>
 				</configuration>
 				<dependencies>
 					<dependency>
