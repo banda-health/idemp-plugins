@@ -54,6 +54,18 @@
             </plugin>
 
             <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven-clean-plugin.version}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${idempiere.home.dir}/reports</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.2.0</version>
@@ -68,7 +80,7 @@
                             <outputDirectory>${project.parent.basedir}/testing/reports</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/reports/target</directory>
+                                    <directory>${project.basedir}/target</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -83,7 +95,7 @@
                             <outputDirectory>${idempiere.home.dir}/reports</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/reports/target</directory>
+                                    <directory>${project.basedir}/target</directory>
                                 </resource>
                             </resources>
                         </configuration>

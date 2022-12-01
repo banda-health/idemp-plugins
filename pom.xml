@@ -169,6 +169,33 @@
 			</plugin>
 
 			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${maven-clean-plugin.version}</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${idempiere.home.dir}/migration/local_sql</directory>
+						</fileset>
+						<fileset>
+							<directory>${idempiere.home.dir}/migration/zip_2pack</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/data</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/migration</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/plugins</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/reports</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.2.0</version>
