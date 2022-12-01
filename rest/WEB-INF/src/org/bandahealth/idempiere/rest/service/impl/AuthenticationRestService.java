@@ -171,6 +171,7 @@ public class AuthenticationRestService {
 					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Role_ID;
 
+			PO.setCrossTenantSafe();
 			MUserRoles userRoles = new Query(Env.getCtx(), MUserRoles.Table_Name, whereClause, null)
 					.addJoinClause(joinClause).setParameters(parameters).first();
 			if (userRoles == null) {
@@ -200,6 +201,7 @@ public class AuthenticationRestService {
 					return new AuthResponse(Status.UNAUTHORIZED);
 				}
 			}
+			PO.clearCrossTenantSafe();
 
 			Builder builder = JWT.create().withSubject(credentials.getUsername());
 			Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
@@ -382,6 +384,7 @@ public class AuthenticationRestService {
 	 * @param builder
 	 */
 	private void changeLoginProperties(Authentication credentials, Builder builder, AuthResponse response) {
+		PO.setCrossTenantSafe();
 		// set client id
 		if (credentials.getClientUuid() != null) {
 			Client client = clientDBService.getEntity(credentials.getClientUuid());
@@ -418,6 +421,7 @@ public class AuthenticationRestService {
 			response.setWarehouseUuid(credentials.getWarehouseUuid());
 		}
 
+		PO.clearCrossTenantSafe();
 	}
 
 	/**
@@ -433,7 +437,7 @@ public class AuthenticationRestService {
 		// the context, so store what's there
 		// now
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
-		// PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		PO.setCrossTenantSafe();
 		try {
 			// parse all clients that the user has access to.
 			// Batch call the client data
@@ -499,7 +503,7 @@ public class AuthenticationRestService {
 			}
 		} finally {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-			// PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+			PO.clearCrossTenantSafe();
 		}
 	}
 

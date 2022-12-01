@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.base.editor.factory;
 
+import org.adempiere.webui.editor.IEditorConfiguration;
 import org.adempiere.webui.editor.WEditor;
 import org.adempiere.webui.factory.IEditorFactory;
 import org.bandahealth.idempiere.base.editor.editor.WBHTabNavButtons;
@@ -34,5 +35,11 @@ public class BHEditorFactory implements IEditorFactory {
 		}
 
 		return editor;
+	}
+
+	@Override
+	public WEditor getEditor(GridTab gridTab, GridField gridField, boolean tableEditor,
+			IEditorConfiguration editorConfiguration) {
+		return getEditor(gridTab, gridField, tableEditor);
 	}
 }

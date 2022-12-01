@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
@@ -89,10 +90,10 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		valueObject.getPayment().saveEx();
 		commitEx();
 
-//		PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
 				valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
-//		PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		valueObject.setStepName("Void order");
 		valueObject.refresh();

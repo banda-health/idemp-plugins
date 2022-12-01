@@ -80,7 +80,9 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 
 		mCodedDiagnosis.setIsActive(entity.getIsActive());
 
+		PO.setCrossTenantSafe();
 		mCodedDiagnosis.saveEx();
+		PO.clearCrossTenantSafe();
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(mCodedDiagnosis.getBH_CodedDiagnosis_UU()));
 	}

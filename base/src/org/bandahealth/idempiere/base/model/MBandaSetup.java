@@ -32,6 +32,7 @@ import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.MYear;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BankAccount_Acct;
@@ -314,11 +315,11 @@ public class MBandaSetup {
 	 * for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
 				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeMap = new HashMap<>();
 		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
@@ -356,11 +357,11 @@ public class MBandaSetup {
 			return false;
 		}
 		// Get all active, default charges from the default client
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.Table_Name,
 				MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<Integer, Integer> defaultChargeToChargeMap = new HashMap<>();
 
@@ -429,11 +430,11 @@ public class MBandaSetup {
 	private boolean addChargeInformation(Map<Integer, Integer> defaultChargeToChargeMap) {
 		Map<Integer, MBHChargeInfoValue> infoValues = getAllInfoValuesMap();
 
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
 				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
 			MBHChargeInfo chargeInfo = new MBHChargeInfo(context, 0, getTransactionName());
@@ -680,9 +681,7 @@ public class MBandaSetup {
 		// We need to get a map of the default doc action exclusion IDs (which are for
 		// System) and map them to the ones
 		// assigned to this client
-		// PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so
-		// enable that // <- uncomment for
-		// iDempiere-8.2+
+		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that
 		List<MDocType> docTypesForSystemAndClient = new Query(context, MDocType.Table_Name,
 				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
@@ -693,8 +692,7 @@ public class MBandaSetup {
 								.filter(docType -> docType.getAD_Client_ID() != 0
 										&& docType.getName().equals(systemDocType.getName()))
 								.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
-		// PO.clearCrossTenantSafe(); // disable what was done previously // <-
-		// uncomment for iDempiere-8.2+
+		PO.clearCrossTenantSafe(); // disable what was done previously
 
 		// Get all access for the roles we'll configure
 		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(Env.getCtx(),
@@ -1088,11 +1086,11 @@ public class MBandaSetup {
 	 * @return map of accounts
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
 				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
 				.filter(elementValue -> elementValue.getAD_Client_ID() == getAD_Client_ID())
@@ -1111,11 +1109,11 @@ public class MBandaSetup {
 	 * @return a map of the info values
 	 */
 	private Map<Integer, MBHChargeInfoValue> getAllInfoValuesMap() {
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
 				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
 	}
@@ -1268,7 +1266,7 @@ public class MBandaSetup {
 
 	public boolean createProductAttributeSets() {
 		// Get all active, attribute sets from the default configuration client
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MAttributeSet_BH> attributeSets = new Query(context, MAttributeSet.Table_Name,
 				MAttributeSet.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
@@ -1279,7 +1277,7 @@ public class MBandaSetup {
 		List<X_M_AttributeSetExclude> attributeSetExclusions = new Query(context, X_M_AttributeSetExclude.Table_Name,
 				X_M_AttributeSetExclude.COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
 				getTransactionName()).setParameters(parameters).setOnlyActiveRecords(true).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		if (attributeSets.isEmpty()) {
 			String errorMessage = "Default AttributeSets NOT found";
@@ -1374,13 +1372,13 @@ public class MBandaSetup {
 			return false;
 		}
 
-		// PO.setCrossTenantSafe();
-		MClient configurationClient = MClient_BH.get(Env.getCtx(), MClient_BH.CLIENTID_CONFIG);
+		PO.setCrossTenantSafe();
+		MClient configurationClient = MClient_BH.get(MClient_BH.CLIENTID_CONFIG);
 		List<MBPartner_BH> businessPartners = new Query(this.context, MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %' AND " +
 						MBPartner_BH.COLUMNNAME_Name + "!=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG,
 				configurationClient.getName(), DEFAULT_IDEMPIERE_ENTITY_NAME).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		businessPartners.forEach((businessPartner) -> {
 			MBPartner instance = new MBPartner(context, 0, getTransactionName());
@@ -1404,12 +1402,12 @@ public class MBandaSetup {
 	 */
 	private Map<Integer, MBPGroup> addDefaultBusinessPartnerGroups() {
 		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = new HashMap<>();
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
 				MBPGroup.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup.COLUMNNAME_Name + " !=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, DEFAULT_IDEMPIERE_ENTITY_NAME)
 				.list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 		businessPartnerGroups.forEach((businessPartnerGroup) -> {
 			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
 			MBPGroup.copyValues(businessPartnerGroup, instance);
@@ -1421,12 +1419,12 @@ public class MBandaSetup {
 		});
 
 		// Add a mapping for the standard BP Group
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBPGroup> standardBusinessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
 				MBPGroup.COLUMNNAME_AD_Client_ID + " IN (?,?) AND " + MBPGroup.COLUMNNAME_Name + "=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID(),
 				DEFAULT_IDEMPIERE_ENTITY_NAME).setOrderBy(MClient_BH.COLUMNNAME_AD_Client_ID).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 		defaultBusinessPartnerGroups.put(standardBusinessPartnerGroups.get(0).getC_BP_Group_ID(),
 				standardBusinessPartnerGroups.get(1));
 

@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.sql.Timestamp;
 
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Component;
@@ -31,12 +32,14 @@ public class TermsOfServiceDBService {
 	 * User accepts terms of service.
 	 */
 	public static boolean acceptTermsOfUse(boolean accept) {
+		PO.setCrossTenantSafe();
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		if (user != null) {
 			user.setBH_HasAcceptedTermsOfUse(accept);
 			user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
 			user.save();
 		}
+		PO.clearCrossTenantSafe();
 
 		return accept;
 	}
