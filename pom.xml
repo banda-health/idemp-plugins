@@ -233,36 +233,6 @@
 							</resources>
 						</configuration>
 					</execution>
-					<execution>
-						<id>copy-reports-for-testing</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.basedir}/testing/reports</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.basedir}/reports/target</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-reports-for-idempiere</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${idempiere.home.dir}/reports</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.basedir}/reports/target</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
 				</executions>
 			</plugin>
 		</plugins>
