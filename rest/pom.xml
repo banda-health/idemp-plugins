@@ -8,7 +8,7 @@
 		<version>7.1.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>idempiere-banda-rest</artifactId>
+	<artifactId>org.bandahealth.idempiere.rest</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
 	<dependencies>

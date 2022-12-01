@@ -7,7 +7,7 @@
         <artifactId>idempiere-banda</artifactId>
         <version>7.1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>idempiere-banda-base-test</artifactId>
+    <artifactId>org.bandahealth.idempiere.base.test</artifactId>
     <packaging>eclipse-plugin</packaging>
 
     <dependencies>

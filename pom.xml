@@ -249,7 +249,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>copy-migrations-for-idempiere</id>
+						<id>copy-reports-for-idempiere</id>
 						<phase>pre-integration-test</phase>
 						<goals>
 							<goal>copy-resources</goal>

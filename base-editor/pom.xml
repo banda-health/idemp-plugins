@@ -6,7 +6,7 @@
 		<artifactId>idempiere-banda</artifactId>
 		<version>7.1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>idempiere-banda-base-editor</artifactId>
+	<artifactId>org.bandahealth.idempiere.base.editor</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
 	<build>

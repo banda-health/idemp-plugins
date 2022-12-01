@@ -8,7 +8,7 @@
 		<version>7.1.0-SNAPSHOT</version>
 	</parent>
 	<version>7.1.0-SNAPSHOT</version>
-	<artifactId>idempiere-banda-reports</artifactId>
+	<artifactId>org.bandahealth.idempiere.reports</artifactId>
 	<packaging>pom</packaging>
 	
 	<pluginRepositories>
