@@ -11,20 +11,20 @@ The included plugins are:
 * rest
 
 The plugins handle the following things:
-| Plugin                | Description                                                                                                                                                                                                              |
-|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ~~idemp-base-editor~~ | **DEPRECATED**<br>Defines a custom ribbon that holds navigation buttons. These buttons allow the user to move between different windows of the system and also complete tasks.                                           |
-| idemp-base            | All custom BandaGo models, model events, processes, and callouts are contained in this plugin.                                                                                                                           |
-| idemp-rest            | Provides a RESTful API interface to the business functionality implemented in BandaGo.                                                                                                                                   |
-| ~~idemp-webui~~       | **DEPRECATED**<br>Most of the UI customization can be found in this plugin. It contains 'BandaGo' look-and-feel customization, implementation for the main menu widget, terms of service and data metrics functionality. |
+| Plugin | Description |
+|-|-|
+| base | All custom BandaGo models, model events, processes, and callouts are contained in this plugin. |
+| ~~base-editor~~ | **DEPRECATED**<br>Defines a custom ribbon that holds navigation buttons. These buttons allow the user to move between different windows of the system and also complete tasks. |
+| rest | Provides a RESTful API interface to the business functionality implemented in BandaGo. |
+| ~~webui~~ | **DEPRECATED**<br>Most of the UI customization can be found in this plugin. It contains 'BandaGo' look-and-feel customization, implementation for the main menu widget, terms of service and data metrics functionality. |
 
 ### Test Plugins
 We also have several plugins that are meant to run unit tests on the system. These are not deployed to our environments but are only used in our CI/CD pipelines. The plugins are:
-| Test Plugin        | Description                                                                         |
-|--------------------|-------------------------------------------------------------------------------------|
-| idemp-base-test    | Runs tests to ensure the model events & processes are handled correctly.            |
-| idemp-reports-test | Run reports to confirm that reports generate correctly with the appropriate values. |
-| idemp-rest-test    | Tests workflows and calls to our API to validate the system operates correctly.     |
+| Test Plugin | Description |
+|-|-|
+| test | Runs tests to ensure the model events & processes are handled correctly. |
+| reports-test | Run reports to confirm that reports generate correctly with the appropriate values. |
+| rest-test | Tests workflows and calls to our API to validate the system operates correctly. |
 
 ## Data Imports
 Additionally, the project also contains the data folders used during client creation. To leverage these files (located in the `data` directory) in your local instance, copy this directory to your `[IDEMPIERE_HOME]` directory, or see [Building the Plugins](#building-the-plugins) below.
