@@ -152,7 +152,7 @@ UPDATE ad_process
 SET
 	jasperreport = 'inventory/Stock_Reorder/reorderStock.jasper'
 WHERE
-	ad_process_uu = 'd42deea6-c650-42b4-a21c-90b3ef0fa99f';
+		ad_process_uu IN ('d42deea6-c650-42b4-a21c-90b3ef0fa99f', '03ba009a-68bb-4b12-a5bc-e58a9bce1545');
 UPDATE ad_process
 SET
 	jasperreport = 'patient_demographics/DailyPatientVisitCount/Visits.jasper'
