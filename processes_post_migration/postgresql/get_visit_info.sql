@@ -1,7 +1,7 @@
 DROP FUNCTION IF EXISTS get_visit_info(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE FUNCTION get_visit_info(ad_client_id numeric,
-                               begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                               end_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE)
+CREATE OR REPLACE FUNCTION get_visit_info(ad_client_id numeric,
+                                          begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                                          end_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
 		        c_order_id          numeric,
@@ -57,7 +57,7 @@ WITH OrderInfo AS (
 	WHERE
 		(
 				(co.ad_client_id = $1)
-				AND (date(co.bh_visitdate) BETWEEN $2 AND $3)
+				AND co.bh_visitdate BETWEEN $2 AND $3
 				AND (co.docstatus <> 'VO' AND co.docstatus <> 'DR')
 				AND issotrx = 'Y'
 			)
@@ -150,7 +150,7 @@ WITH OrderInfo AS (
 					ON bci.c_orderline_id = ol.c_orderline_id
 		WHERE
 			o.ad_client_id = $1
-			AND (date(o.bh_visitdate) BETWEEN $2 AND $3)
+			AND o.bh_visitdate BETWEEN $2 AND $3
 		GROUP BY ol.c_order_id, olci.name, bci.name, olc.name, bol.name
 	)
 SELECT
