@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.bandahealth.idempiere</groupId>
 	<version>7.1.0-SNAPSHOT</version>
-	<artifactId>idempiere-banda</artifactId>
+	<artifactId>org.bandahealth.idempiere</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -286,31 +286,6 @@
 		            <url>http://repo.jenkins-ci.org/releases</url>
 	            </repository>
 			</repositories>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho.version}</version>
-						<configuration>
-							<environments>
-								<environment>
-									<os>linux</os>
-									<ws>gtk</ws>
-									<arch>x86_64</arch>
-								</environment>
-								<environment>
-									<os>win32</os>
-									<ws>win32</ws>
-									<arch>x86_64</arch>
-								</environment>
-							</environments>
-							<executionEnvironmentDefault>JavaSE-11</executionEnvironmentDefault>
-							<executionEnvironment>JavaSE-11</executionEnvironment>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 	    </profile>
 	</profiles>
 
