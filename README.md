@@ -1,4 +1,4 @@
-# BandaGo iDempiere Project | ![TeamCity build status](https://teamcity.bandahealth.org/app/rest/builds/buildType:id:BHGO_Plugins_BuildDevelop/statusIcon.svg)
+# BandaGo iDempiere Project | ![TeamCity build status](https://teamcity.bandahealth.org/app/rest/builds/buildType:id:BHGO_IDempiereBanda_BuildDevelop/statusIcon.svg)
 A repository that houses all Banda Health's plugins, data import files, DB migrations, and reports for iDempiere. 
 
 ## Plugins

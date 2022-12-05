@@ -89,6 +89,6 @@ WHERE
 );
 
 SELECT
-	register_migration_script('202212021409_GO-2447.sql')
+	register_migration_script('202212021409_GO-2509.sql')
 FROM
 	dual;

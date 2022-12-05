@@ -128,11 +128,10 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
-	    
-	    MClient client = new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null)
-                .setParameters(Env.getAD_Client_ID(Env.getCtx()))
-                .first();
-	    
+		MClient client =
+				new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null).setParameters(
+						Env.getAD_Client_ID(Env.getCtx())).first();
+
 		String clientUuidsForSynchronousProcessingString =
 				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
 		List<String> clientIdsForSynchronousProcessing = new ArrayList<>();
@@ -150,7 +149,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU())) {
 			Visit visit = super.processEntity(uuid, docAction);
 			Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-                    visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
+					visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
 			// If this is a reversal, we also need to take care of the payments
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
@@ -171,18 +170,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					newPayment.setBH_C_Order_ID(visit.getId());
 					newPayment.saveEx();
 				}
-				
+
 			} else {
-			    for (MPayment_BH payment : existingPayments) {
-	                payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-	                payment.processIt(MPayment_BH.DOCACTION_Complete);
-	                payment.saveEx();
-	            }
+				for (MPayment_BH payment : existingPayments) {
+					payment.setDocAction(docAction);
+					payment.processIt(docAction);
+					payment.saveEx();
+				}
 			}
 			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
-		} 
-		
+		}
+
 		if (!isDocActionValidForUser(docAction)) {
 			return null;
 		}
