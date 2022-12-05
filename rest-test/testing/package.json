@@ -1,5 +1,5 @@
 {
-  "name": "idemp-rest-test",
+  "name": "rest-test",
   "version": "1.0.0",
   "description": "This is where the API calls are made to test our REST plugin",
   "main": "index.js",
