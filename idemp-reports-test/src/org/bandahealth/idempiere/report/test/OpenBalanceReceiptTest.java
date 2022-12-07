@@ -70,6 +70,7 @@ public class OpenBalanceReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setBankAccount(ChuBoeCreateEntity.getBankAccountOfOrganization(valueObject));
 		payment.setC_BankAccount_ID(valueObject.getBankAccount().get_ID());
 		payment.setPayAmt(new BigDecimal(20));
+		payment.setBH_TenderAmount(new BigDecimal(20));
 		payment.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 
 		MInvoice_BH invoice =
@@ -90,11 +91,13 @@ public class OpenBalanceReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("debtPaymentID", new BigDecimal(valueObject.getPayment().get_ID()), null, null, null)));
+				new ProcessInfoParameter("debtPaymentID", new BigDecimal(valueObject.getPayment().get_ID()), null, null,
+						null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertThat("Patient's name is on the receipt", receiptContent,
 				containsString(valueObject.getBusinessPartner().getName().substring(0, 12)));
+		assertThat("Payment amount is on the receipt", receiptContent, containsString("Payment Amount Cash 20"));
 	}
 }
