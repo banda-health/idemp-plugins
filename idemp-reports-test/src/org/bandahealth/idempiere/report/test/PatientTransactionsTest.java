@@ -762,7 +762,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 	}
 
 	@IPopulateAnnotation.CanRun
-		public void openBalancePaymentsShowCorrectly() throws SQLException, IOException {
+	public void openBalancePaymentsShowCorrectly() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
@@ -885,9 +885,97 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 
 			assertEquals(1, patientRows.size(), "Patient's visit appears");
 			Row openBalanceForPatient = patientRows.get(0);
-			assertEquals("Cash", openBalanceForPatient.getCell(paymentModeColumnIndex).getStringCellValue(), "Payment mode is correct");
-			assertEquals(4D, openBalanceForPatient.getCell(amountPaidColumnIndex).getNumericCellValue(), "Amount paid is correct");
-			assertEquals(6D, openBalanceForPatient.getCell(openBalanceColumnIndex).getNumericCellValue(), "Open balance is correct");
+			assertEquals("Cash", openBalanceForPatient.getCell(paymentModeColumnIndex).getStringCellValue(),
+					"Payment mode is correct");
+			assertEquals(4D, openBalanceForPatient.getCell(amountPaidColumnIndex).getNumericCellValue(),
+					"Amount paid is correct");
+			assertEquals(6D, openBalanceForPatient.getCell(openBalanceColumnIndex).getNumericCellValue(),
+					"Open balance is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void openBalancePaymentsNotDuplicated() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Create first SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create third SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create open-balance payment");
+		valueObject.setInvoice(
+				new MInvoice_BH(valueObject.getOrder(), valueObject.getDocumentType().get_ID(), valueObject.getDate()));
+		valueObject.setDocumentAction(null);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setPayAmt(new BigDecimal(30));
+		valueObject.getPayment().setC_Invoice_ID(0);
+		valueObject.getPayment().setBH_C_Order_ID(0);
+		valueObject.getPayment().saveEx();
+		commitEx();
+		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Open-balance payment was completed");
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row outstandingBalanceHeaderRow = TableUtils.getHeaderRow(sheet, "Date Paid");
+			assertNotNull(outstandingBalanceHeaderRow, "Outstanding balance table header row exists");
+			int openBalancePatientNameColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Patient Name");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(openBalancePatientNameColumnIndex) != null &&
+							row.getCell(openBalancePatientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(openBalancePatientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient's payments aren't duplicated");
 		}
 	}
 }

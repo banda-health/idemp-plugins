@@ -1,5 +1,5 @@
 import { menuApi, referenceListApi } from '../api';
-import { documentAction, documentStatus, documentBaseType } from '../models';
+import { documentAction, documentBaseType, documentStatus } from '../models';
 
 const windowUuid = {
 	clinicalDetails: '2e37e97b-aeb5-47d7-add3-0d602233c2aa',
@@ -125,8 +125,8 @@ test('admin role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toMatchObject({ canWrite: true, canDeactivate: true });
-	
-	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
+
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: true });
 });
 
@@ -231,7 +231,7 @@ test('clinic admin role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toMatchObject({ canWrite: true, canDeactivate: true });
-	
+
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: true });
 });
@@ -337,9 +337,9 @@ test('cashier/registration basic role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
-	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
+
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: false });
 });
 
 test('cashier/registration advanced role has correct access', async () => {
@@ -443,9 +443,9 @@ test('cashier/registration advanced role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
-	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
+
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: false });
 });
 
 test('inventory/pharmacy role has correct access', async () => {
@@ -549,9 +549,9 @@ test('inventory/pharmacy role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
-	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
+
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: false });
 });
 
 test('clinician/nurse basic role has correct access', async () => {
@@ -655,7 +655,7 @@ test('clinician/nurse basic role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
+
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
 });
@@ -761,7 +761,7 @@ test('clinician/nurse advanced role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
+
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
 });
@@ -867,7 +867,7 @@ test('triage role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
+
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
 });
@@ -973,9 +973,9 @@ test('lab/radiology role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
-	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
+
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: false });
 });
 
 test('accounting role has correct access', async () => {
@@ -1079,7 +1079,7 @@ test('accounting role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
-	
+
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
 });
@@ -1185,7 +1185,7 @@ test('clinic user role has correct access', async () => {
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toMatchObject({ canWrite: false, canDeactivate: false });
-	
-	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
+
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: false });
 });
