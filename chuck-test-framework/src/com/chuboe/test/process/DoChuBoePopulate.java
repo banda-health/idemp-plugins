@@ -151,7 +151,7 @@ public class DoChuBoePopulate extends SvrProcess {
 				//create a new response record in the class's transaction
 				MChuBoePopulateResponse pop_response = new MChuBoePopulateResponse(getCtx(), 0, pop_trxName);
 				pop_response.setAD_Org_ID(0);
-				pop_response.setClassname(pop.getClass().getSimpleName());
+				pop_response.setClassname(pop.getClass().getCanonicalName());
 				pop_response.setName(pop_response.getClassname());
 				pop_response.setAD_Process_ID(this.getProcessInfo().getAD_Process_ID());
 				pop_response.setAD_PInstance_ID(this.getAD_PInstance_ID());

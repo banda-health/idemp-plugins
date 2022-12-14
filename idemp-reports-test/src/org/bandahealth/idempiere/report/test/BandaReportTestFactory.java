@@ -38,7 +38,7 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new VoidedTransactionsListTest());
 
 		// Report cross-checking
-//		tests.add(new IncomeTest()); // TODO Add this when open balances are fixed
+		tests.add(new IncomeTest());
 
 		return tests;
 	}

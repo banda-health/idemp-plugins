@@ -21,6 +21,7 @@ import {
 	Warehouse,
 } from '../types/org.bandahealth.idempiere.rest';
 import { getDateOffset } from '../utils';
+import { documentAction } from './documentEngine';
 
 export class ValueObject {
 	client?: Client;
@@ -98,7 +99,7 @@ export class ValueObject {
 			this.setRandom();
 		}
 
-		this.documentAction = 'CO';
+		this.documentAction = documentAction.Complete;
 		this.quantity = 1;
 		this.setPurchasePrice(1);
 		this.setSalesPrice(1);

@@ -1,21 +1,28 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
@@ -33,6 +40,8 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MClient;
+import org.compiere.model.MDocType;
 import org.compiere.model.MOrder;
 import org.compiere.model.MUser;
 import org.compiere.model.Query;
@@ -103,27 +112,95 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	public static String getLastVisitDate(MBPartner_BH patient) {
+		return getLastVisitDateByPatients(Collections.singleton(patient.get_ID())).get(patient.get_ID());
+	}
+
+	public static Map<Integer, String> getLastVisitDateByPatients(Set<Integer> patientIds) {
+		if (patientIds.isEmpty()) {
+			return new HashMap<>();
+		}
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
-		parameters.add(patient.get_ID());
+		String whereClause =
+				"WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " IN (" +
+						QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND " +
+						MOrder_BH.COLUMNNAME_AD_Client_ID + "=?";
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 
-		MOrder_BH latestVisit = new Query(Env.getCtx(), MOrder_BH.Table_Name,
-				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-						.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
-						.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
+		String sql =
+				"SELECT " + MOrder_BH.COLUMNNAME_C_BPartner_ID + ", MAX(" + MOrder_BH.COLUMNNAME_BH_VisitDate + ") FROM " +
+						MOrder_BH.Table_Name + " " + whereClause + " GROUP BY " + MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
-		if (latestVisit == null) {
-			return null;
-		}
-		return DateUtil.parseDateOnly(latestVisit.getBH_VisitDate());
+		Map<Integer, String> lastVisitDatesByPatientId = new HashMap<>();
+		patientIds.forEach(patientId -> {
+			lastVisitDatesByPatientId.put(patientId, null);
+		});
+
+		SqlUtil.executeQuery(sql, parameters, null, (resultSet) -> {
+			try {
+				lastVisitDatesByPatientId.put(resultSet.getInt(1), DateUtil.parseDateOnly(resultSet.getTimestamp(2)));
+			} catch (Exception e) {
+				log.severe(e.getMessage());
+			}
+		});
+
+		return lastVisitDatesByPatientId;
 	}
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
-		// We need to do something special for completing a sales order - do it
-		// asynchronously
-		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete)) {
-			return super.processEntity(uuid, docAction);
+		MClient client =
+				new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null).setParameters(
+						Env.getAD_Client_ID(Env.getCtx())).first();
+
+		String clientUuidsForSynchronousProcessingString =
+				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
+		List<String> clientIdsForSynchronousProcessing = new ArrayList<>();
+		try {
+			if (!StringUtil.isNullOrEmpty(clientUuidsForSynchronousProcessingString)) {
+				clientIdsForSynchronousProcessing = Arrays.stream(clientUuidsForSynchronousProcessingString.split(","))
+						.map(stringClientId -> stringClientId.trim()).collect(Collectors.toList());
+			}
+		} catch (Exception exception) {
+			log.severe(exception.getMessage());
+		}
+		// We need to do something special for completing a sales order - do it asynchronously (except for the clients we
+		// want to do it synchronously for)
+		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete) ||
+				clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU())) {
+			Visit visit = super.processEntity(uuid, docAction);
+			Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+					visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
+			// If this is a reversal, we also need to take care of the payments
+			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
+					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
+					docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
+
+				Collection<MPayment_BH> existingCompletedPayments =
+						paymentDBService.getByUuids(visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet()))
+								.values().stream().filter(
+										payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
+								.collect(Collectors.toList());
+				for (MPayment_BH payment : existingCompletedPayments) {
+					MPayment_BH newPayment = payment.copy();
+					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+					payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual);
+					payment.saveEx();
+
+					newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
+					newPayment.setBH_C_Order_ID(visit.getId());
+					newPayment.saveEx();
+				}
+
+			} else {
+				for (MPayment_BH payment : existingPayments) {
+					payment.setDocAction(docAction);
+					payment.processIt(docAction);
+					payment.saveEx();
+				}
+			}
+			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
+			return visit;
 		}
 
 		if (!isDocActionValidForUser(docAction)) {
@@ -151,6 +228,17 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	protected void beforeSave(Visit entity, MOrder_BH mOrder) {
+		if (mOrder.getC_DocType_ID() == 0) {
+			Optional<MDocType> onCreditOrderDocumentType =
+					Arrays.stream(MDocType_BH.getOfDocBaseType(mOrder.getCtx(), MDocType_BH.DOCBASETYPE_SalesOrder)).filter(
+							documentType -> documentType.getDocSubTypeSO() != null &&
+									documentType.getDocSubTypeSO().equalsIgnoreCase(MDocType_BH.DOCSUBTYPESO_OnCreditOrder)).findFirst();
+			if (onCreditOrderDocumentType.isEmpty()) {
+				throw new AdempiereException("No on-credit document type found");
+			}
+			mOrder.setC_DocTypeTarget_ID(onCreditOrderDocumentType.get().get_ID());
+		}
+
 		if (StringUtil.isNotNullAndEmpty(entity.getClinicalNotes())) {
 			mOrder.setBH_ClinicalNotes(entity.getClinicalNotes());
 		}
@@ -282,9 +370,15 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		// list of persisted payment line ids
 		String lineIds = "";
 		List<Payment> payments = entity.getPayments();
-		if (payments != null && entity.isIsSalesOrderTransaction()) {
+		if (payments != null && !payments.isEmpty() && entity.isIsSalesOrderTransaction()) {
 			int count = 0;
-			for (Payment payment : entity.getPayments()) {
+			// We only update incomplete payments
+			Set<String> completePaymentUuids =
+					paymentDBService.getByUuids(payments.stream().map(Payment::getUuid).collect(Collectors.toSet())).values()
+							.stream().filter(MPayment_BH::isComplete).map(MPayment_BH::getC_Payment_UU).collect(Collectors.toSet());
+			payments = payments.stream().filter(payment -> !completePaymentUuids.contains(payment.getUuid()))
+					.collect(Collectors.toList());
+			for (Payment payment : payments) {
 				payment.setOrderId(mOrder.get_ID());
 				// Read the patient assigned to the entity
 				// NOTE: DO NOT use the mPatient property because this class is a singleton and
@@ -430,11 +524,11 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					instance.getBH_Height(), instance.getBH_Weight(),
 					secondaryCodedDiagnosis != null
 							? new CodedDiagnosis(secondaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-									secondaryCodedDiagnosis.getBH_CielName())
+							secondaryCodedDiagnosis.getBH_CielName())
 							: null,
 					primaryCodedDiagnosis != null
 							? new CodedDiagnosis(primaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-									primaryCodedDiagnosis.getBH_CielName())
+							primaryCodedDiagnosis.getBH_CielName())
 							: null,
 					user != null ? new User(user.getAD_User_UU()) : null,
 					new ProcessStage(instance.getBH_ProcessStage()), instance);
@@ -498,7 +592,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-							.setClient_ID().setOnlyActiveRecords(true);
+					.setClient_ID().setOnlyActiveRecords(true);
 
 			if (parameters != null) {
 				query = query.setParameters(parameters);

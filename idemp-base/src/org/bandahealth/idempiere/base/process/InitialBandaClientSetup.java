@@ -252,6 +252,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating attribute sets failed"));
 			}
+			
+			if (!bandaSetup.createDefaultBusinessPartners()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default business partners failed"));
+			}
 
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);

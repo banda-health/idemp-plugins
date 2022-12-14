@@ -1,5 +1,5 @@
 FROM node:current-alpine
-RUN apk update && apk add --no-cache wget libxml2-utils bash
+RUN apk update && apk add --no-cache wget libxml2-utils bash postgresql-client
 RUN npm install jest ts-jest typescript ts-node --global
 
 WORKDIR /app

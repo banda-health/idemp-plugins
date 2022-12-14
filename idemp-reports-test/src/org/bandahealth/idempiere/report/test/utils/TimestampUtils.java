@@ -18,9 +18,23 @@ public class TimestampUtils {
 		return new Timestamp(calendar.getTimeInMillis());
 	}
 
+	public static Timestamp endOfTomorrow() {
+		Calendar calendar = getCalendarForNow();
+		calendar.add(Calendar.DAY_OF_YEAR, 1);
+		setTimeToEndofDay(calendar);
+		return new Timestamp(calendar.getTimeInMillis());
+	}
+
 	public static Timestamp yesterday() {
 		Calendar calendar = getCalendarForNow();
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
+		return new Timestamp(calendar.getTimeInMillis());
+	}
+
+	public static Timestamp startOfYesterday() {
+		Calendar calendar = getCalendarForNow();
+		calendar.add(Calendar.DAY_OF_YEAR, -1);
+		setTimeToBeginningOfDay(calendar);
 		return new Timestamp(calendar.getTimeInMillis());
 	}
 
