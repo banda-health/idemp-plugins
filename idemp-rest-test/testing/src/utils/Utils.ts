@@ -9,7 +9,7 @@ import {
 	referenceListApi,
 	vendorsApi,
 	visitApi,
-	warehouseApi
+	warehouseApi,
 } from '../api';
 import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
@@ -25,7 +25,7 @@ import {
 	ProductCategory,
 	ReceiveProduct,
 	Vendor,
-	Visit
+	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
 import { waitFor } from './waitFor';
 
