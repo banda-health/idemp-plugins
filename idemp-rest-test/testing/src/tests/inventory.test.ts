@@ -1,20 +1,14 @@
 import { referenceListApi, visitApi } from '../api';
 import { referenceUuid, tenderTypeName } from '../models';
 import { Payment, PaymentType, Visit } from '../types/org.bandahealth.idempiere.rest';
-import {
-	createBusinessPartnerAsVendor,
-	createProduct,
-	createVisit,
-	receiveProduct,
-	waitForVisitToComplete,
-} from '../utils';
+import { createProduct, createVendor, createVisit, createReceiveProduct, waitForVisitToComplete } from '../utils';
 
 test(`product created and sold with more than received quantity`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create Business Partner';
-	await createBusinessPartnerAsVendor(valueObject);
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -22,7 +16,7 @@ test(`product created and sold with more than received quantity`, async () => {
 
 	//Create a purchase order to receive the product
 	valueObject.stepName = 'Create purchase order';
-	await receiveProduct(valueObject);
+	await createReceiveProduct(valueObject);
 
 	//create a sale with more than received
 	valueObject.stepName = 'Create visit';

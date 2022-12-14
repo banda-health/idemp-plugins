@@ -9,7 +9,7 @@ import {
 	referenceListApi,
 	vendorsApi,
 	visitApi,
-	warehouseApi,
+	warehouseApi
 } from '../api';
 import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
@@ -25,7 +25,7 @@ import {
 	ProductCategory,
 	ReceiveProduct,
 	Vendor,
-	Visit,
+	Visit
 } from '../types/org.bandahealth.idempiere.rest';
 import { waitFor } from './waitFor';
 
@@ -70,16 +70,6 @@ export async function createVendor(valueObject: ValueObject) {
 		}
 		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
 	}
-}
-
-/**
- * Create a business partner as a vendor
- * If a business partner already exists on the value object, this won't do anything.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createBusinessPartnerAsVendor(valueObject: ValueObject) {
-	await createVendor(valueObject);
 }
 
 /**
@@ -138,15 +128,14 @@ export async function createCharge(valueObject: ValueObject) {
 }
 
 /**
- * Receives product
  * This requires a document type, a business partner, and a warehouse be selected on the value object.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing
  */
-
-export async function receiveProduct(valueObject: ValueObject) {
+export async function createReceiveProduct(valueObject: ValueObject) {
 	valueObject.validate();
 
+	//perform further validation if needed based on business logic
 	if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
 	} else if (!valueObject.warehouse) {
@@ -160,25 +149,23 @@ export async function receiveProduct(valueObject: ValueObject) {
 		warehouse: valueObject.warehouse,
 		orderLines: [],
 	};
-
 	const line: Partial<OrderLine> = {
 		description: valueObject.getStepMessageLong(),
 		product: valueObject.product,
-		quantity: 10,
+		quantity: valueObject.quantity || 1,
 	};
-
 	line.price = (line.quantity || 0) * (line.product?.sellPrice || 0);
 	receiveProduct.orderLines?.push(line as OrderLine);
 	valueObject.order = await receiveProductsApi.save(valueObject, receiveProduct as ReceiveProduct);
 	if (!valueObject.order) {
-		throw new Error('Receive Product not created');
+		throw new Error('Order not created');
 	}
 	valueObject.orderLine = valueObject.order!.orderLines[0];
 
 	if (valueObject.documentAction) {
 		valueObject.order = await visitApi.process(valueObject, valueObject.order!.uuid, valueObject.documentAction!);
 		if (!valueObject.order) {
-			throw new Error('Receive Product not processed');
+			throw new Error('Order not processed');
 		}
 	}
 }
