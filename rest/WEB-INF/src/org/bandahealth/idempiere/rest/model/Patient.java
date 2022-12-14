@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 @XmlRootElement(name = "patient")
 @JsonInclude(value = Include.NON_NULL)
@@ -40,6 +41,26 @@ public class Patient extends BusinessPartner {
 	public Patient() {
 	}
 
+	public Patient(MBPartner_BH model) {
+		super(model);
+
+		this.patientNumber = model.getBH_PatientID();
+		this.dateOfBirth = DateUtil.parseDateOnly(model.getBH_Birthday());
+		this.phone = model.getBH_Phone();
+		this.gender = model.getbh_gender();
+		this.email = model.getBH_EMail();
+		this.nhifRelationship = model.getbh_nhif_relationship();
+		this.nhifMemberName = model.getbh_nhif_member_name();
+		this.nhifNumber = model.getNHIF_Number();
+		this.nhifType = model.getBH_NHIF_Type();
+		this.nationalId = model.getNationalID();
+		this.occupation = model.getbh_occupation();
+		this.nextOfKinName = model.getNextOfKin_Name();
+		this.nextOfKinContact = model.getNextOfKin_Contact();
+		this.localPatientNumber = model.getBH_Local_PatientID();
+		this.isApproximateDateOfBirth = model.isBH_IsApproximateDateOfBirth();
+	}
+
 	public Patient(String name, String uuid) {
 		setName(name);
 		setUuid(uuid);
@@ -49,46 +70,6 @@ public class Patient extends BusinessPartner {
 		setUuid(uuid);
 		setName(name);
 		setTotalOpenBalance(totalOpenBalance);
-	}
-
-	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String phone,
-			String address, String gender, String email, String nhifRelationship, String nhifMemberName,
-			String nhifNumber, String nhifType, String nationalId, String occupation, String nextOfKinName,
-			String nextOfKinContact, String localPatientNumber, int totalVisits, String lastVisitDate, MBPartner_BH mbPartnerBHModel) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
-
-		this.patientNumber = patientNumber;
-		this.dateOfBirth = dateOfBirth;
-		this.phone = phone;
-		this.address = address;
-		this.gender = gender;
-		this.email = email;
-		this.nhifRelationship = nhifRelationship;
-		this.nhifMemberName = nhifMemberName;
-		this.nhifNumber = nhifNumber;
-		this.nhifType = nhifType;
-		this.nationalId = nationalId;
-		this.occupation = occupation;
-		this.nextOfKinName = nextOfKinName;
-		this.nextOfKinContact = nextOfKinContact;
-		this.localPatientNumber = localPatientNumber;
-		this.totalVisits = totalVisits;
-		this.lastVisitDate= lastVisitDate;
-		this.isApproximateDateOfBirth = mbPartnerBHModel.isBH_IsApproximateDateOfBirth();
-	}
-
-	public Patient(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, String name,
-			String description, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth, String gender,
-			String phone, String localPatientNumber, MBPartner_BH instance) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, name, description, totalOpenBalance);
-
-		this.patientNumber = patientNumber;
-		this.dateOfBirth = dateOfBirth;
-		this.gender = gender;
-		this.phone = phone;
-		this.localPatientNumber = localPatientNumber;
-		setId(instance.get_ID());
 	}
 
 	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,
@@ -105,13 +86,13 @@ public class Patient extends BusinessPartner {
 		this.dateOfBirth = dateOfBirth;
 		this.localPatientNumber = localPatientNumber;
 		this.totalVisits = totalVisits;
-		this.lastVisitDate= lastVisitDate;
+		this.lastVisitDate = lastVisitDate;
 
 		String description = name;
 		if (patientNumber != null) {
 			description += ", patient #:" + patientNumber;
 		}
-		
+
 		if (localPatientNumber != null) {
 			description += ", local ID:" + localPatientNumber;
 		}
@@ -267,7 +248,7 @@ public class Patient extends BusinessPartner {
 	public void setLocalPatientNumber(String localPatientNumber) {
 		this.localPatientNumber = localPatientNumber;
 	}
-	
+
 	@XmlElement
 	public int getTotalVisits() {
 		return totalVisits;
@@ -285,12 +266,12 @@ public class Patient extends BusinessPartner {
 	public void setLastVisitDate(String lastVisitDate) {
 		this.lastVisitDate = lastVisitDate;
 	}
-	
+
 	public void setIsApproximateDateOfBirth(Boolean isApproximateDateOfBirth) {
 		this.isApproximateDateOfBirth = isApproximateDateOfBirth;
 	}
-	
-	public Boolean isApproximateDateOfBirth () {
+
+	public Boolean isApproximateDateOfBirth() {
 		return isApproximateDateOfBirth;
 	}
 }

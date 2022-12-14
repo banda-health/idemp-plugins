@@ -15,7 +15,7 @@ export * from './payments';
 export * from './processes';
 export * from './productCategories';
 export * from './products';
-export * from './receiveProductsApi';
+export * from './receiveProducts';
 export * from './referenceLists';
 export * from './vendors';
 export * from './visits';
