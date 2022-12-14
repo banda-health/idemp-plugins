@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -111,19 +112,39 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	public static String getLastVisitDate(MBPartner_BH patient) {
+		return getLastVisitDateByPatients(Collections.singleton(patient.get_ID())).get(patient.get_ID());
+	}
+
+	public static Map<Integer, String> getLastVisitDateByPatients(Set<Integer> patientIds) {
+		if (patientIds.isEmpty()) {
+			return new HashMap<>();
+		}
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
-		parameters.add(patient.get_ID());
+		String whereClause =
+				"WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " IN (" +
+						QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND " +
+						MOrder_BH.COLUMNNAME_AD_Client_ID + "=?";
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 
-		MOrder_BH latestVisit = new Query(Env.getCtx(), MOrder_BH.Table_Name,
-				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
-				.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
+		String sql =
+				"SELECT " + MOrder_BH.COLUMNNAME_C_BPartner_ID + ", MAX(" + MOrder_BH.COLUMNNAME_BH_VisitDate + ") FROM " +
+						MOrder_BH.Table_Name + " " + whereClause + " GROUP BY " + MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
-		if (latestVisit == null) {
-			return null;
-		}
-		return DateUtil.parseDateOnly(latestVisit.getBH_VisitDate());
+		Map<Integer, String> lastVisitDatesByPatientId = new HashMap<>();
+		patientIds.forEach(patientId -> {
+			lastVisitDatesByPatientId.put(patientId, null);
+		});
+
+		SqlUtil.executeQuery(sql, parameters, null, (resultSet) -> {
+			try {
+				lastVisitDatesByPatientId.put(resultSet.getInt(1), DateUtil.parseDateOnly(resultSet.getTimestamp(2)));
+			} catch (Exception e) {
+				log.severe(e.getMessage());
+			}
+		});
+
+		return lastVisitDatesByPatientId;
 	}
 
 	@Override
