@@ -45,6 +45,4 @@ class VendorsApi extends BaseApi<Vendor> {
 	}
 }
 
-
-export const vendorApi = new VendorApi();
-
+export const vendorsApi = new VendorsApi();

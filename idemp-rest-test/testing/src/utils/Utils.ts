@@ -10,8 +10,6 @@ import {
 	vendorsApi,
 	visitApi,
 	warehouseApi,
-	receiveProductApi,
-	vendorApi
 } from '../api';
 import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
@@ -19,7 +17,6 @@ import {
 	Charge,
 	Invoice,
 	InvoiceLine,
-	Order,
 	OrderLine,
 	Patient,
 	Payment,
@@ -29,9 +26,6 @@ import {
 	ReceiveProduct,
 	Vendor,
 	Visit,
-	Warehouse,
-	ReceiveProduct,
-	Vendor
 } from '../types/org.bandahealth.idempiere.rest';
 import { waitFor } from './waitFor';
 
@@ -79,27 +73,6 @@ export async function createVendor(valueObject: ValueObject) {
 }
 
 /**
- * Create a supplier. If a business partner already exists on the value object, this won't do anything.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createVendor(valueObject: ValueObject){
-	valueObject.validate();
-
-	if (!valueObject.businessPartner) {
-		const vendor: Partial<Vendor> = {
-			name: valueObject.getDynamicStepMessage(),
-			description: valueObject.getStepMessageLong(),
-		};
-		valueObject.businessPartner = await vendorApi.save(valueObject, vendor as Vendor);
-		if (!valueObject.businessPartner) {
-			throw new Error('Vendor not created');
-		}
-		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
-	}
-}
-
-/**
  * Create a business partner as a vendor
  * If a business partner already exists on the value object, this won't do anything.
  * @param valueObject The value object containing information to create the entity
@@ -115,7 +88,7 @@ export async function createBusinessPartnerAsVendor(valueObject: ValueObject) {
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing
  */
- export async function createBusinessPartner(valueObject: ValueObject) {
+export async function createBusinessPartner(valueObject: ValueObject) {
 	await createPatient(valueObject);
 }
 
@@ -145,7 +118,6 @@ export async function createProduct(valueObject: ValueObject) {
 	}
 }
 
-
 /**
  * Create a charge. If a charge already exists on the value object, this won't do anything.
  * @param valueObject The value object containing information to create the entity
@@ -172,7 +144,7 @@ export async function createCharge(valueObject: ValueObject) {
  * @returns Nothing
  */
 
-export async function receiveProduct(valueObject: ValueObject){
+export async function receiveProduct(valueObject: ValueObject) {
 	valueObject.validate();
 
 	if (!valueObject.businessPartner) {
@@ -184,24 +156,31 @@ export async function receiveProduct(valueObject: ValueObject){
 	const receiveProduct: Partial<ReceiveProduct> = {
 		description: valueObject.getStepMessageLong(),
 		dateOrdered: valueObject.date?.toISOString(),
-		vendor : valueObject.businessPartner as Vendor | undefined,
-		warehouse : valueObject.warehouse,
-		orderLines: []
-	}
+		vendor: valueObject.businessPartner as Vendor | undefined,
+		warehouse: valueObject.warehouse,
+		orderLines: [],
+	};
 
 	const line: Partial<OrderLine> = {
 		description: valueObject.getStepMessageLong(),
 		product: valueObject.product,
-		quantity: 10
+		quantity: 10,
 	};
 
 	line.price = (line.quantity || 0) * (line.product?.sellPrice || 0);
 	receiveProduct.orderLines?.push(line as OrderLine);
-	valueObject.recieveProduct = await receiveProductApi.save(valueObject, receiveProduct as ReceiveProduct);
-	if (!valueObject.recieveProduct) {
+	valueObject.order = await receiveProductsApi.save(valueObject, receiveProduct as ReceiveProduct);
+	if (!valueObject.order) {
 		throw new Error('Receive Product not created');
 	}
+	valueObject.orderLine = valueObject.order!.orderLines[0];
 
+	if (valueObject.documentAction) {
+		valueObject.order = await visitApi.process(valueObject, valueObject.order!.uuid, valueObject.documentAction!);
+		if (!valueObject.order) {
+			throw new Error('Receive Product not processed');
+		}
+	}
 }
 
 /**
@@ -470,7 +449,6 @@ export async function changeWarehouse(valueObject: ValueObject) {
 		throw new Error('Warehouse not switched');
 	}
 }
-
 
 /**
  * Add (or subtract) days from a given date
