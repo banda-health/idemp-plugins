@@ -43,7 +43,7 @@ if ! grep -q "Success!!" testResults.txt; then
   exit 1
 fi
 
-jest --ci
+jest --runInBand
 
 rm .unhealthy
 exec "$@"
