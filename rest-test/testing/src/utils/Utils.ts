@@ -149,6 +149,7 @@ export async function createVisit(valueObject: ValueObject) {
 		patient: valueObject.businessPartner as Patient | undefined,
 		warehouse: valueObject.warehouse,
 		orderLines: [],
+		visitDate: valueObject.date,
 	};
 	const line: Partial<OrderLine> = {
 		description: valueObject.getStepMessageLong(),

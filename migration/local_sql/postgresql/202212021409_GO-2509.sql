@@ -18,7 +18,7 @@ VALUES
 	 ), 10, 0, 'Y', 'N', 'N', 'N', NULL, 'N', NULL, NULL, NULL, NULL, 'N', NULL, 'N', NULL, NULL, 'N', 'U', NULL, NULL,
 	 NULL, 'Y', 'N', NULL, '99e99517-f9fb-44b4-afc4-b61174359dfe', NULL, 'B', 0);
 
--- add otc to cashier/registration basic & advanced role and clinic user role
+-- add otc to cashier/registration basic & advanced role, clinic user role, and lab/radiology
 INSERT INTO
 	ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby, isreadwrite,
 	                  bh_candeactivate)
@@ -37,6 +37,11 @@ VALUES
 		 SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '3a4ac3cd-9e1b-4a2c-82d3-78f698ec9e1f'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ee008abc-2c16-4230-b48c-b1f5577ea270'
+	 ), 0, 0, 100, 100, 'Y', 'N'),
+	((
+		 SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '3a4ac3cd-9e1b-4a2c-82d3-78f698ec9e1f'
+	 ), (
+		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '097feff0-3aa6-41fe-bf76-936b03859846'
 	 ), 0, 0, 100, 100, 'Y', 'N');
 
 -- make sure inventory/pharmacy can't deactivate on OTC

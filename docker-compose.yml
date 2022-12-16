@@ -29,6 +29,11 @@ services:
         condition: service_healthy
     environment:
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+      - PGHOST=${POSTGRES_HOST}
+      - PGPORT=${POSTGRES_PORT}
+      - PGDATABASE=${DB_NAME}
+      - PGUSER=adempiere
+      - PGPASSWORD=${IDEMPIERE_DATABASE_PASSWORD}
 
   rest-test:
     build: rest-test/testing
@@ -42,6 +47,11 @@ services:
       - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
+      - PGHOST=${POSTGRES_HOST}
+      - PGPORT=${POSTGRES_PORT}
+      - PGDATABASE=${DB_NAME}
+      - PGUSER=adempiere
+      - PGPASSWORD=${IDEMPIERE_DATABASE_PASSWORD}
 
   reports-test:
     build: reports-test/testing
@@ -54,6 +64,11 @@ services:
         condition: service_healthy
     environment:
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+      - PGHOST=${POSTGRES_HOST}
+      - PGPORT=${POSTGRES_PORT}
+      - PGDATABASE=${DB_NAME}
+      - PGUSER=adempiere
+      - PGPASSWORD=${IDEMPIERE_DATABASE_PASSWORD}
 
   postgres:
     image: postgres:12

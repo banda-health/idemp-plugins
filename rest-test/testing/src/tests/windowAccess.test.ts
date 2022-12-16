@@ -974,8 +974,8 @@ test('lab/radiology role has correct access', async () => {
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.dashboard)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
 
-	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.otcPharmacySales)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ canWrite: true, canDeactivate: false });
 });
 
 test('accounting role has correct access', async () => {
