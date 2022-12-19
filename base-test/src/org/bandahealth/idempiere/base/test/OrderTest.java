@@ -62,26 +62,17 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 				"Business partner has an open balance");
 
 		valueObject.setStepName("Create payments");
-		valueObject.setDocumentAction(null);
+		valueObject.setInvoice(null);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(5));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(5));
-		valueObject.getPayment().setC_Invoice_ID(0); // we associate to invoices through the allocation
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(5));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(5));
-		valueObject.getPayment().setC_Invoice_ID(0); // we associate to invoices through the allocation
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.refresh();

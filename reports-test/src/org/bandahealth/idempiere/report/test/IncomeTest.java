@@ -94,20 +94,11 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment for the first sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(1300));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(new BigDecimal(1300));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Payment for the first sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create second sales order");
@@ -119,20 +110,11 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment for the second sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(1690));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(new BigDecimal(1690));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Payment for the second sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create third sales order");
@@ -144,20 +126,11 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment for the third sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(6840));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(new BigDecimal(6840));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Payment for the third sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create fourth sales order");
@@ -169,20 +142,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment for the fourth sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
-		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(1550));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(new BigDecimal(1550));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Payment for the fourth sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create fifth sales order");
@@ -194,20 +157,11 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment for the fifth sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(1100));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(new BigDecimal(1100));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Payment for the fifth sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create waiver charge");
@@ -238,31 +192,17 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment for the sixth sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(1000));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setPayAmt(new BigDecimal(1000));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"First payment for the sixth sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
-		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setPayAmt(new BigDecimal(1000));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Second payment for the sixth sales order was completed");
-		valueObject.getPayment().saveEx();
+		valueObject.setPaymentAmount(new BigDecimal(1000));
 		commitEx();
 
 		valueObject.setStepName("Create seventh sales order");
@@ -274,20 +214,11 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create partial payment for the seventh sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(9000));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(new BigDecimal(9000));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Payment for the seventh sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Re-open seventh sales order");
@@ -328,6 +259,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Change payment");
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.getPayment().setPayAmt(new BigDecimal(8000));
+		valueObject.getPayment().setBH_TenderAmount(new BigDecimal(8000));
 		valueObject.getPayment().saveEx();
 		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was re-completed");
@@ -493,20 +425,11 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment for the sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(1300));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(new BigDecimal(1300));
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete),
-				"Payment for the sales order was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the patient transaction report");
