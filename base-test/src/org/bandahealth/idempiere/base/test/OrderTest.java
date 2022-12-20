@@ -84,7 +84,8 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
 						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+						valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed)
+				.setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID + " ASC").list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate));
 		valueObject.getOrder().saveEx();
