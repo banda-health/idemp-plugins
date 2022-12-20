@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
@@ -267,7 +268,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * @param pagingInfo The paging info object to udpate with data from the DB
 	 * @return A list of processes and their child info
 	 */
-	public BaseListResponse<Process> getAll(String filter, String sortJson, Paging pagingInfo) {
+	@Override
+	public BaseListResponse<Process> getAll(Paging pagingInfo, String sortJson, String filter) {
 		// Get processes for GL
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MClient_BH.CLIENTID_LAST_SYSTEM);
@@ -455,12 +457,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 
 	@Override
 	public Process saveEntity(Process entity) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
