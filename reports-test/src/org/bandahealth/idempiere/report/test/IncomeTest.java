@@ -31,6 +31,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -69,6 +70,16 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		Timestamp beginDate = TimestampUtils.startOfYesterday();
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, 2);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -270,8 +281,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -373,8 +384,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
 		));
 		valueObject.setReportType("pdf");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -400,6 +411,16 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		Timestamp beginDate = TimestampUtils.startOfYesterday();
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, 2);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -437,8 +458,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -479,8 +500,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -519,8 +540,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
