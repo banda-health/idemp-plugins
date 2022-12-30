@@ -31,7 +31,7 @@ public class ReferenceListRestService extends BaseRestService<ReferenceList, MRe
 	}
 
 	@GET
-	@Path("/documentActionAccess")
+	@Path("/document-action-access")
 	public Map<String, List<ReferenceList>> getDocumentActionAccessByDocumentType() {
 		return dbService.getDocumentActionAccessByDocumentType().entrySet()
 				.stream().collect(Collectors.toMap(
@@ -42,7 +42,7 @@ public class ReferenceListRestService extends BaseRestService<ReferenceList, MRe
 	}
 
 	@GET
-	@Path("/documentStatusActionMap")
+	@Path("/document-status-action-map")
 	public Map<String, Map<String, List<String>>> getDocumentStatusActionMap() {
 		return dbService.getDocumentStatusActionMap().entrySet()
 				.stream().collect(
@@ -68,21 +68,21 @@ public class ReferenceListRestService extends BaseRestService<ReferenceList, MRe
 	}
 
 	@GET
-	@Path("/nonPatientPaymentSubTypes")
+	@Path("/non-patient-payment-sub-types")
 	public List<ReferenceList> getNonPatientPaymentSubTypes() {
 		return dbService.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 
 	@GET
-	@Path("/chargeInformationDataTypes")
+	@Path("/charge-information-data-types")
 	public List<ReferenceList> getChargeInformationDataTypes() {
 		return dbService.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 	
 	@GET
-	@Path("/stockUpdateReasons")
+	@Path("/stock-update-reasons")
 	public List<ReferenceList> getStockUpdateReasons() {
 		return dbService.getTypes(MReference_BH.STOCK_UPDATE_REASONS_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());

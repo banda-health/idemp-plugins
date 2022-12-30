@@ -6,7 +6,7 @@ public interface IRestConfigs {
 	String AUTHENTICATION_PATH = "/auth";
 
 	String AUTHENTICATION_SESSION_PATH = "/session";
-	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms";
+	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms-of-service";
 	String CHANGEPASSWORD_PATH = AUTHENTICATION_SESSION_PATH + "/change-password";
 	String CHANGEACCESS_PATH = AUTHENTICATION_SESSION_PATH + "/change-access";
 
@@ -65,7 +65,7 @@ public interface IRestConfigs {
 
 	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/business-partners";
 	
-	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/voidedreasons";
+	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/void-reasons";
 	
 	String WAREHOUSES_PATH = AUTHENTICATION_PATH + "/warehouses";
 	
