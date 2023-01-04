@@ -65,7 +65,7 @@ public interface IRestConfigs {
 
 	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/business-partners";
 	
-	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/void-reasons";
+	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/voided-reasons";
 	
 	String WAREHOUSES_PATH = AUTHENTICATION_PATH + "/warehouses";
 	
