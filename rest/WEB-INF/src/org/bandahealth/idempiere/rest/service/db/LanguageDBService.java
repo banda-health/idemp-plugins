@@ -18,6 +18,29 @@ import java.util.stream.Collectors;
 
 @Component
 public class LanguageDBService extends BaseDBService<Language, MLanguage> {
+
+	@Override
+	public BaseListResponse<Language> getAll(Paging pagingInfo, String sortJson, String filterJson) {
+		List<String> supportedLoginLanguages = Env.getLoginLanguages();
+		String[] availableLanguages = org.compiere.util.Language.getNames();
+		Set<String> languageNamesOfLanguagesToReturn = new HashSet<>();
+		for (String langName : availableLanguages) {
+			org.compiere.util.Language language = org.compiere.util.Language.getLanguage(langName);
+			if (!supportedLoginLanguages.contains(language.getAD_Language())) {
+				continue;
+			}
+			languageNamesOfLanguagesToReturn.add(language.getAD_Language());
+		}
+		List<Object> parameters = new ArrayList<>();
+		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(languageNamesOfLanguagesToReturn,
+				parameters);
+		List<MLanguage> languages = new Query(Env.getCtx(), MLanguage.Table_Name,
+				MLanguage.COLUMNNAME_AD_Language + " IN (" + whereCondition + ")", null)
+				.setParameters(parameters).list();
+		return new BaseListResponse<>(languages.stream().map(Language::new).collect(Collectors.toList()),
+				new Paging(0, languages.size()));
+	}
+
 	@Override
 	public Language saveEntity(Language entity) {
 		throw new NotImplementedException();
