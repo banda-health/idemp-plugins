@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -362,6 +361,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), mOrder::setBH_ReferredFromTo);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateOrdered);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setBH_VisitDate);
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateAcct);
 		mOrder.setBH_OxygenSaturation(entity.getOxygenSaturation());
 	}
 
@@ -380,6 +380,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					.collect(Collectors.toList());
 			for (Payment payment : payments) {
 				payment.setOrderId(mOrder.get_ID());
+				payment.setTransactionDate(DateUtil.parse(entity.getVisitDate()));
 				// Read the patient assigned to the entity
 				// NOTE: DO NOT use the mPatient property because this class is a singleton and
 				// there exists the possibility

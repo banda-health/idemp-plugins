@@ -123,10 +123,7 @@ public class MPayment_BH extends MPayment {
 		MAllocationHdr allocationHeader = new MAllocationHdr(getCtx(), false, getDateTrx(), getC_Currency_ID(),
 				Msg.translate(getCtx(), "C_Payment_ID") + ": " + getDocumentNo(), get_TrxName());
 		allocationHeader.setAD_Org_ID(getAD_Org_ID());
-		allocationHeader.setDateAcct(
-				getDateAcct()); // in case date acct is different from datetrx in payment; IDEMPIERE-1532 tbayen
 		if (getBH_C_Order_ID() > 0) {
-			allocationHeader.saveEx();
 			// Get the invoice amount
 			MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
 					get_TrxName()).setParameters(getBH_C_Order_ID()).first();
@@ -146,6 +143,9 @@ public class MPayment_BH extends MPayment {
 			if (payAmount.compareTo(getPayAmt()) > 0) {
 				payAmount = getPayAmt();
 			}
+			allocationHeader.saveEx();
+			allocationHeader.setDateAcct(
+					invoice.get().getDateAcct().compareTo(getDateAcct()) > 0 ? invoice.get().getDateAcct() : getDateAcct());
 			MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO, Env.ZERO);
 			allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
 			allocationLine.setC_Payment_ID(getC_Payment_ID());
@@ -160,37 +160,42 @@ public class MPayment_BH extends MPayment {
 		}
 		// If this is a receipt and the invoice is empty, start allocating against the oldest, unpaid invoice
 		if (getC_Invoice_ID() == 0 && isReceipt()) {
-			allocationHeader.saveEx();
 			List<MInvoice_BH> unpaidInvoices = new Query(getCtx(), MInvoice_BH.Table_Name,
 					MInvoice_BH.COLUMNNAME_C_BPartner_ID + "=? AND " + MInvoice_BH.COLUMNNAME_DocStatus + "=? AND " +
 							MInvoice_BH.COLUMNNAME_IsPaid + "=?", get_TrxName()).setParameters(getC_BPartner_ID(),
 					MInvoice_BH.DOCSTATUS_Completed, "N").setOrderBy(MInvoice_BH.COLUMNNAME_Created + " ASC").list();
-			BigDecimal remainingPayment = getPayAmt();
-			for (MInvoice_BH unpaidInvoice : unpaidInvoices) {
-				if (remainingPayment.signum() <= 0) {
-					break;
+			if (unpaidInvoices.size() > 0) {
+				allocationHeader.saveEx();
+				BigDecimal remainingPayment = getPayAmt();
+				for (MInvoice_BH unpaidInvoice : unpaidInvoices) {
+					if (remainingPayment.signum() <= 0) {
+						break;
+					}
+					// Since we're emulating what's done on the Payment Allocation, set the date acct as whatever is the latest
+					allocationHeader.setDateAcct(
+							unpaidInvoice.getDateAcct().compareTo(getDateAcct()) > 0 ? unpaidInvoice.getDateAcct() : getDateAcct());
+					// Get the amount remaining to allocate on this invoice
+					BigDecimal payAmount = unpaidInvoice.getGrandTotal()
+							.subtract(unpaidInvoice.getAllocatedAmt() == null ? BigDecimal.ZERO : unpaidInvoice.getAllocatedAmt());
+					// If this invoice is greater than what's remaining, just use the amount remaining for allocation
+					if (payAmount.compareTo(remainingPayment) > 0) {
+						payAmount = remainingPayment;
+					}
+					MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO,
+							Env.ZERO);
+					allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
+					allocationLine.setC_Payment_ID(getC_Payment_ID());
+					allocationLine.setC_Invoice_ID(unpaidInvoice.get_ID());
+					allocationLine.saveEx(get_TrxName());
+					remainingPayment = remainingPayment.subtract(payAmount);
 				}
-				// Get the amount remaining to allocate on this invoice
-				BigDecimal payAmount = unpaidInvoice.getGrandTotal()
-						.subtract(unpaidInvoice.getAllocatedAmt() == null ? BigDecimal.ZERO : unpaidInvoice.getAllocatedAmt());
-				// If this invoice is greater than what's remaining, just use the amount remaining for allocation
-				if (payAmount.compareTo(remainingPayment) > 0) {
-					payAmount = remainingPayment;
+				if (!allocationHeader.processIt(DocAction.ACTION_Complete)) {
+					throw new AdempiereException(
+							Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + allocationHeader.getProcessMsg());
 				}
-				MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO,
-						Env.ZERO);
-				allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
-				allocationLine.setC_Payment_ID(getC_Payment_ID());
-				allocationLine.setC_Invoice_ID(unpaidInvoice.get_ID());
-				allocationLine.saveEx(get_TrxName());
-				remainingPayment = remainingPayment.subtract(payAmount);
+				allocationHeader.saveEx();
+				return true;
 			}
-			if (!allocationHeader.processIt(DocAction.ACTION_Complete)) {
-				throw new AdempiereException(
-						Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + allocationHeader.getProcessMsg());
-			}
-			allocationHeader.saveEx();
-			return true;
 		}
 		// Otherwise, pass it up
 		allocationHeader.delete(true);

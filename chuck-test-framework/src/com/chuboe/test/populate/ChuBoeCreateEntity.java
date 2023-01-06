@@ -585,6 +585,10 @@ public class ChuBoeCreateEntity {
 		} else if (valueObject.getBusinessPartner() == null) {
 			valueObject.appendErrorMessage("BP is Null");
 			return;
+		} else if (valueObject.getPaymentAmount() == null && valueObject.getInvoice() == null &&
+				valueObject.getOrder() == null) {
+			valueObject.appendErrorMessage("Need Payment Amount is Null");
+			return;
 		}
 
 		//create payment
@@ -593,9 +597,9 @@ public class ChuBoeCreateEntity {
 		payment.setC_DocType_ID(valueObject.getDocumentType().get_ID());
 		payment.setIsReceipt(valueObject.getDocumentType().isSOTrx());
 		payment.setDateTrx(valueObject.getDate());
+		payment.setDateAcct(valueObject.getDate());
 		payment.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
 		payment.setDescription(valueObject.getStepMessageLong());
-		payment.setC_Invoice_ID(valueObject.getInvoice().get_ID());
 		if (valueObject.getBankAccount() == null) {
 			valueObject.setBankAccount(getBankAccountOfOrganization(valueObject));
 		}
@@ -606,13 +610,48 @@ public class ChuBoeCreateEntity {
 		payment.setC_BankAccount_ID(valueObject.getBankAccount().get_ID());
 		if (valueObject.getTenderType() != null) {
 			payment.setTenderType(valueObject.getTenderType());
+		} else {
+			payment.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		}
 		if (valueObject.getOrder() != null) {
 			payment.setBH_C_Order_ID(valueObject.getOrder().get_ID());
+		} else {
+			payment.setBH_C_Order_ID(0);
 		}
 
-		payment.setC_Currency_ID(valueObject.getInvoice().getC_Currency_ID());
-		payment.setPayAmt(valueObject.getInvoice().getGrandTotal());
+		BigDecimal paymentTotal = null;
+		BigDecimal tenderAmount = null;
+		if (valueObject.getInvoice() != null) {
+			payment.setC_Invoice_ID(valueObject.getInvoice().get_ID());
+			payment.setC_Currency_ID(valueObject.getInvoice().getC_Currency_ID());
+			if (valueObject.getPaymentAmount() != null) {
+				tenderAmount = valueObject.getPaymentAmount();
+				paymentTotal = tenderAmount.compareTo(valueObject.getInvoice().getGrandTotal()) > 0 ?
+						valueObject.getInvoice().getGrandTotal() : tenderAmount;
+			} else {
+				tenderAmount = valueObject.getInvoice().getGrandTotal();
+				paymentTotal = tenderAmount;
+			}
+		} else {
+			payment.setC_Invoice_ID(0);
+			if (valueObject.getOrder() != null) {
+				payment.setC_Currency_ID(valueObject.getOrder().getC_Currency_ID());
+				if (valueObject.getPaymentAmount() != null) {
+					tenderAmount = valueObject.getPaymentAmount();
+					paymentTotal = tenderAmount.compareTo(valueObject.getOrder().getGrandTotal()) > 0 ?
+							valueObject.getOrder().getGrandTotal() : tenderAmount;
+				} else {
+					tenderAmount = valueObject.getOrder().getGrandTotal();
+					paymentTotal = tenderAmount;
+				}
+			} else {
+				payment.setC_Currency_ID(valueObject.getCurrency().get_ID());
+				tenderAmount = valueObject.getPaymentAmount();
+				paymentTotal = tenderAmount;
+			}
+		}
+		payment.setPayAmt(paymentTotal);
+		payment.setBH_TenderAmount(tenderAmount);
 
 		payment.saveEx();
 		valueObject.setPayment(payment);
@@ -622,7 +661,6 @@ public class ChuBoeCreateEntity {
 			payment.processIt(valueObject.getDocumentAction());
 		}
 		payment.saveEx();
-
 	}
 
 	//***********************************
