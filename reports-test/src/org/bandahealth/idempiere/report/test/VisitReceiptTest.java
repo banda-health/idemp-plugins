@@ -130,19 +130,11 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
+		valueObject.setPaymentAmount(new BigDecimal(20));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(20));
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the receipt");
