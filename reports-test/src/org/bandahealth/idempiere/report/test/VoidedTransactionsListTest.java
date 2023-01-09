@@ -81,12 +81,9 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
 		valueObject.setInvoice(invoice);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete), "Payment was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 //		PO.setCrossTenantSafe();

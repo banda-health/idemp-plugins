@@ -111,28 +111,47 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	public static String getLastVisitDate(MBPartner_BH patient) {
+		return getLastVisitDateByPatients(Collections.singleton(patient.get_ID())).get(patient.get_ID());
+	}
+
+	public static Map<Integer, String> getLastVisitDateByPatients(Set<Integer> patientIds) {
+		if (patientIds.isEmpty()) {
+			return new HashMap<>();
+		}
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
-		parameters.add(patient.get_ID());
+		String whereClause =
+				"WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " IN (" +
+						QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND " +
+						MOrder_BH.COLUMNNAME_AD_Client_ID + "=?";
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 
-		MOrder_BH latestVisit = new Query(Env.getCtx(), MOrder_BH.Table_Name,
-				MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " = ?", null)
-				.setParameters(parameters).setClient_ID().setOnlyActiveRecords(true)
-				.setOrderBy(MOrder_BH.COLUMNNAME_BH_VisitDate + " DESC").first();
+		String sql =
+				"SELECT " + MOrder_BH.COLUMNNAME_C_BPartner_ID + ", MAX(" + MOrder_BH.COLUMNNAME_BH_VisitDate + ") FROM " +
+						MOrder_BH.Table_Name + " " + whereClause + " GROUP BY " + MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
-		if (latestVisit == null) {
-			return null;
-		}
-		return DateUtil.parseDateOnly(latestVisit.getBH_VisitDate());
+		Map<Integer, String> lastVisitDatesByPatientId = new HashMap<>();
+		patientIds.forEach(patientId -> {
+			lastVisitDatesByPatientId.put(patientId, null);
+		});
+
+		SqlUtil.executeQuery(sql, parameters, null, (resultSet) -> {
+			try {
+				lastVisitDatesByPatientId.put(resultSet.getInt(1), DateUtil.parseDateOnly(resultSet.getTimestamp(2)));
+			} catch (Exception e) {
+				log.severe(e.getMessage());
+			}
+		});
+
+		return lastVisitDatesByPatientId;
 	}
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
-	    
-	    MClient client = new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null)
-                .setParameters(Env.getAD_Client_ID(Env.getCtx()))
-                .first();
-	    
+		MClient client =
+				new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null).setParameters(
+						Env.getAD_Client_ID(Env.getCtx())).first();
+
 		String clientUuidsForSynchronousProcessingString =
 				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
 		List<String> clientIdsForSynchronousProcessing = new ArrayList<>();
@@ -150,7 +169,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU())) {
 			Visit visit = super.processEntity(uuid, docAction);
 			Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-                    visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
+					visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
 			// If this is a reversal, we also need to take care of the payments
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
@@ -171,18 +190,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					newPayment.setBH_C_Order_ID(visit.getId());
 					newPayment.saveEx();
 				}
-				
+
 			} else {
-			    for (MPayment_BH payment : existingPayments) {
-	                payment.setDocAction(MPayment_BH.DOCACTION_Complete);
-	                payment.processIt(MPayment_BH.DOCACTION_Complete);
-	                payment.saveEx();
-	            }
+				for (MPayment_BH payment : existingPayments) {
+					payment.setDocAction(docAction);
+					payment.processIt(docAction);
+					payment.saveEx();
+				}
 			}
 			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
-		} 
-		
+		}
+
 		if (!isDocActionValidForUser(docAction)) {
 			return null;
 		}
@@ -246,7 +265,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				// Reset the patient info in the entity so it can be passed for saving (used for
 				// payments below)
 				entity.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
-				mOrder.setC_BPartner_ID(patient.get_ID());
+				mOrder.setBPartner(patient);
 			}
 		}
 
@@ -342,6 +361,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), mOrder::setBH_ReferredFromTo);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateOrdered);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setBH_VisitDate);
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateAcct);
 		mOrder.setBH_OxygenSaturation(entity.getOxygenSaturation());
 	}
 
@@ -360,6 +380,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					.collect(Collectors.toList());
 			for (Payment payment : payments) {
 				payment.setOrderId(mOrder.get_ID());
+				payment.setTransactionDate(DateUtil.parse(entity.getVisitDate()));
 				// Read the patient assigned to the entity
 				// NOTE: DO NOT use the mPatient property because this class is a singleton and
 				// there exists the possibility
