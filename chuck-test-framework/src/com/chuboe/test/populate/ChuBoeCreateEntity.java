@@ -321,7 +321,7 @@ public class ChuBoeCreateEntity {
 		}
 	} //create product
 
-	//create product second
+	//create charge
 	public static void createCharge(ChuBoePopulateVO valueObject) {
 		valueObject.validate();
 		if (valueObject.isError()) {

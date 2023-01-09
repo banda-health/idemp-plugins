@@ -13,13 +13,14 @@
 	<parameter name="totalCost" class="java.math.BigDecimal" isForPrompting="false">
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
 	c_order_id           AS bill_id,
 	chargetype_name      AS name,
 	SUM(linenetamt) * -1 AS linenetamt
 FROM
-	bh_get_visit_non_patient_payments(11, '-infinity'::timestamp, 'infinity'::timestamp)
+	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
 WHERE
 	c_order_id = $P{billId}
 GROUP BY
@@ -30,7 +31,7 @@ SELECT
 	payment_mode_name,
 	payamt
 FROM
-	bh_get_visit_payments(11, '-infinity'::timestamp, 'infinity'::timestamp)
+	bh_get_visit_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
 WHERE
 	bh_c_order_id = $P{billId}]]>
 	</queryString>
