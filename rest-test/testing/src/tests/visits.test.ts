@@ -1,7 +1,15 @@
+import PdfParse from 'pdf-parse';
 import { patientApi, referenceListApi, visitApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
-import { Payment, PaymentType, Visit } from '../types/org.bandahealth.idempiere.rest';
-import { createPatient, createProduct, createVisit, waitForVisitToComplete } from '../utils';
+import {
+	BusinessPartner,
+	Patient,
+	Payment,
+	PaymentType,
+	ProcessInfoParameter,
+	Visit,
+} from '../types/org.bandahealth.idempiere.rest';
+import { createPatient, createProduct, createVisit, runReport, waitForVisitToComplete } from '../utils';
 
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -382,4 +390,42 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+});
+
+test('correct patient shown when patient changed after initial switch', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create first patient';
+	await createPatient(valueObject);
+	const firstPatientName = valueObject.businessPartner!.name;
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create second patient';
+	valueObject.businessPartner = undefined;
+	valueObject.setRandom();
+	await createPatient(valueObject);
+	(valueObject.order! as Visit).patient = { uuid: valueObject.businessPartner!.uuid } as Patient;
+	const secondPatientName = valueObject.businessPartner!.name;
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+
+	valueObject.stepName = 'Print the receipt';
+	valueObject.processUuid = '30dd7243-11c1-4584-af26-5d977d117c84';
+	valueObject.processInformationParameters = [
+		{ parameterName: 'billId', parameter: valueObject.order.uuid } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	const pdfReceiptContent = (await PdfParse(valueObject.report!)).text;
+	expect(pdfReceiptContent).toContain(secondPatientName.substring(0, 20));
+	expect(pdfReceiptContent).not.toContain(firstPatientName.substring(0, 20));
 });

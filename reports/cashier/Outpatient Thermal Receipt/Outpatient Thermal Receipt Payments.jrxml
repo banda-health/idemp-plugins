@@ -27,13 +27,15 @@ GROUP BY
 	c_order_id, chargetype_name
 UNION
 SELECT
-	bh_c_order_id,
-	payment_mode_name,
-	payamt
+	c_order_id                             AS bill_id,
+	payment_mode_name                      AS name,
+	COALESCE(SUM(tender_amt), SUM(payamt)) AS linenetamt
 FROM
 	bh_get_visit_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
 WHERE
-	bh_c_order_id = $P{billId}]]>
+	c_order_id = $P{billId}
+GROUP BY
+	c_order_id, payment_mode_name]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>

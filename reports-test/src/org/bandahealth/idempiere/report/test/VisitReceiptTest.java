@@ -76,6 +76,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setBankAccount(ChuBoeCreateEntity.getBankAccountOfOrganization(valueObject));
 		payment.setC_BankAccount_ID(valueObject.getBankAccount().get_ID());
 		payment.setPayAmt(new BigDecimal(20));
+		payment.setBH_TenderAmount(new BigDecimal(20));
 		payment.setBH_C_Order_ID(valueObject.getOrder().get_ID());
 		payment.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		payment.setC_Currency_ID(valueObject.getOrder().getC_Currency_ID());
@@ -191,9 +192,17 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Change payment");
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.getPayment().setPayAmt(new BigDecimal(21));
+		valueObject.getPayment().setBH_TenderAmount(new BigDecimal(21));
 		valueObject.getPayment().saveEx();
 		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was re-completed");
+		commitEx();
+
+		valueObject.setStepName("Add new payment");
+		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(10));
+		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Regenerate the receipt");
@@ -207,8 +216,9 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
 		assertThat("'Outstanding' is still on the receipt", receiptContent, containsString("Outstanding"));
 		assertThat("'MOBILE MONEY' is on the receipt", receiptContent, containsString("MOBILE MONEY"));
+		assertThat("'CASH' is on the receipt", receiptContent, containsString("CASH"));
 		assertThat("Payment is on the receipt", receiptContent, containsString("21"));
-		assertThat("Outstanding balance is on the receipt", receiptContent, containsString("29"));
+		assertThat("Outstanding balance is on the receipt", receiptContent, containsString("19"));
 	}
 
 	@IPopulateAnnotation.CanRun

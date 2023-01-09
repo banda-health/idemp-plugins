@@ -3,6 +3,7 @@ import {
 	invoiceApi,
 	patientApi,
 	paymentApi,
+	processApi,
 	productApi,
 	productCategoryApi,
 	receiveProductsApi,
@@ -21,6 +22,7 @@ import {
 	Patient,
 	Payment,
 	PaymentType,
+	ProcessInfoParameter,
 	Product,
 	ProductCategory,
 	ReceiveProduct,
@@ -348,7 +350,7 @@ export async function createPayment(valueObject: ValueObject) {
 		orgId: 0,
 		patient: valueObject.businessPartner as unknown as Patient,
 		description: valueObject.getStepMessageLong(),
-		payAmount: valueObject.invoice?.grandTotal || 1,
+		payAmount: valueObject.invoice?.grandTotal || valueObject.order?.grandTotal || 1,
 		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 			(tenderType) => tenderType.name === tenderTypeName.CASH,
 		) as PaymentType,
@@ -450,11 +452,67 @@ export async function runProcess(vo: ValueObject) {
 	// clearProcess(vo);
 }
 
-export function clearProcess(vo: ValueObject) {
-	// vo.setProcess_UU(null);
-	// vo.setProcessInfoParams(new ArrayList<ProcessInfoParameter>());
-	// vo.setProcessRecord_ID(0);
-	// vo.setProcessTable_ID(0);
+export function clearProcess(valueObject: ValueObject) {
+	valueObject.processUuid = undefined;
+	valueObject.processInformationParameters = [];
+}
+
+/**
+ * This is the same as the {@link #runProcess(ValueObject)}, except that it sets a file to the value object
+ * and doesn't clear the process. You must run {@link #clearReport(ValueObject)} after retrieving the
+ * generated report file.
+ * <br/><br/>
+ * Instructions:
+ * <ul>
+ *   <li>Step 1: Set processUuid</li>
+ *   <li>Step 2: Add parameters: see example below</li>
+ * </ul>
+ *
+ * @param valueObject The value object used to store all information
+ */
+export async function runReport(valueObject: ValueObject) {
+	valueObject.validate();
+	if (valueObject.isError) {
+		return;
+	}
+
+	//further validation
+	if (!valueObject.processInformationParameters) {
+		valueObject.errorMessage += 'Parameter List is null - It should at least be an empty List';
+	} else if (!valueObject.processUuid) {
+		valueObject.errorMessage += 'Process UU is null - cannot look up process';
+	}
+	if (valueObject.isError) {
+		return;
+	}
+
+	const process = await processApi.getByUuid(valueObject, valueObject.processUuid!);
+
+	// Create a process info instance. This is a composite class containing the parameters.
+	valueObject.reportType ||= 'pdf';
+
+	// Map parameter names to their actual parameters
+	let processInformationParameters: ProcessInfoParameter[] = [];
+	if (valueObject.processInformationParameters!.length) {
+		valueObject.processInformationParameters = valueObject.processInformationParameters!.map(
+			(processInformationParameter) => {
+				const specifiedParameter = process.parameters.find(
+					(parameter) =>
+						processInformationParameter.uuid === parameter.uuid ||
+						processInformationParameter.parameterName === parameter.name,
+				);
+				if (specifiedParameter) {
+					return {
+						...processInformationParameter,
+						processParameterUuid: specifiedParameter.uuid,
+					} as ProcessInfoParameter;
+				}
+				return processInformationParameter;
+			},
+		);
+	}
+
+	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject))
 }
 
 export async function waitForVisitToComplete(valueObject: ValueObject) {

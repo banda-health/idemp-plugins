@@ -58,18 +58,11 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create partial payment for first sales order");
 		int firstInvoicesId = valueObject.getOrder().getInvoices()[0].get_ID();
-		valueObject.setInvoice(
-				new MInvoice_BH(valueObject.getContext(), firstInvoicesId, valueObject.getTransactionName()));
-		valueObject.setDocumentAction(null);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(50));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(50));
-		valueObject.getPayment().setC_Invoice_ID(0); // we associate to invoices through the allocation
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		assertTrue(valueObject.getPayment().isAllocated(), "First payment is allocated");
@@ -92,18 +85,11 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create partial payment for second sales order");
 		int secondInvoicesId = valueObject.getOrder().getInvoices()[0].get_ID();
-		valueObject.setInvoice(
-				new MInvoice_BH(valueObject.getContext(), secondInvoicesId, valueObject.getTransactionName()));
-		valueObject.setDocumentAction(null);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(60));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(60));
-		valueObject.getPayment().setC_Invoice_ID(0); // we associate to invoices through the allocation
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		assertTrue(valueObject.getPayment().isAllocated(), "Second payment is allocated");
@@ -126,18 +112,13 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create open-debt payment for some of current balance");
 		int thirdInvoicesId = valueObject.getOrder().getInvoices()[0].get_ID();
-		valueObject.setInvoice(
-				new MInvoice_BH(valueObject.getContext(), thirdInvoicesId, valueObject.getTransactionName()));
-		valueObject.setDocumentAction(null);
+		valueObject.setOrder(null);
+		valueObject.setInvoice(null);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(150));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(150));
-		valueObject.getPayment().setC_Invoice_ID(0); // we associate to invoices through the allocation
-		valueObject.getPayment().setBH_C_Order_ID(0);
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		assertTrue(valueObject.getPayment().isAllocated(), "Third payment is allocated");

@@ -265,7 +265,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				// Reset the patient info in the entity so it can be passed for saving (used for
 				// payments below)
 				entity.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
-				mOrder.setC_BPartner_ID(patient.get_ID());
+				mOrder.setBPartner(patient);
 			}
 		}
 
