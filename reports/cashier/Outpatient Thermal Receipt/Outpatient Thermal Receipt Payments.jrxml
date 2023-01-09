@@ -13,28 +13,29 @@
 	<parameter name="totalCost" class="java.math.BigDecimal" isForPrompting="false">
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-    ol.c_order_id as bill_id,
-    c.name as name,
-    SUM(ol.linenetamt) * -1 as linenetamt
-FROM c_orderline ol
-JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
-WHERE c_order_id = $P{billId}
-    AND c.c_charge_id IS NOT NULL
-GROUP BY ol.c_order_id, c.name
+	c_order_id AS bill_id,
+	chargetype_name      AS name,
+	SUM(linenetamt) * -1 AS linenetamt
+FROM
+	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
+WHERE
+	c_order_id = $P{billId}
+GROUP BY
+	c_order_id, chargetype_name
 UNION
-select
-  payment.bh_c_order_id as bill_id,
-  tendertype.name as name,
-  coalesce(sum(payment.bh_tender_amount), sum(payment.payamt)) as amount_tendered
-from
-  c_payment payment
-  inner join AD_Ref_List tendertype on payment.tendertype = tendertype.value
-  and AD_Reference_ID=214
-where
-  payment.bh_c_order_id = $P{billId}
-group by payment.bh_c_order_id, tendertype.name;]]>
+SELECT
+	c_order_id                             AS bill_id,
+	payment_mode_name                      AS name,
+	COALESCE(SUM(tender_amt), SUM(payamt)) AS linenetamt
+FROM
+	bh_get_visit_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
+WHERE
+	c_order_id = $P{billId}
+GROUP BY
+	c_order_id, payment_mode_name]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
