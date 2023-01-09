@@ -321,7 +321,7 @@ public class ChuBoeCreateEntity {
 		}
 	} //create product
 
-	//create product second
+	//create charge
 	public static void createCharge(ChuBoePopulateVO valueObject) {
 		valueObject.validate();
 		if (valueObject.isError()) {
@@ -597,6 +597,7 @@ public class ChuBoeCreateEntity {
 		payment.setC_DocType_ID(valueObject.getDocumentType().get_ID());
 		payment.setIsReceipt(valueObject.getDocumentType().isSOTrx());
 		payment.setDateTrx(valueObject.getDate());
+		payment.setDateAcct(valueObject.getDate());
 		payment.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
 		payment.setDescription(valueObject.getStepMessageLong());
 		if (valueObject.getBankAccount() == null) {

@@ -16,7 +16,7 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-	c_order_id AS bill_id,
+	c_order_id           AS bill_id,
 	chargetype_name      AS name,
 	SUM(linenetamt) * -1 AS linenetamt
 FROM

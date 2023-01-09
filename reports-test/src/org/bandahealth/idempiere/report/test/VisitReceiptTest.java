@@ -4,8 +4,9 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
@@ -13,6 +14,7 @@ import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
 import java.io.IOException;
@@ -217,5 +219,65 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		assertThat("'CASH' is on the receipt", receiptContent, containsString("CASH"));
 		assertThat("Payment is on the receipt", receiptContent, containsString("21"));
 		assertThat("Outstanding balance is on the receipt", receiptContent, containsString("19"));
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void nonPatientPaymentsAppearOnReceipt() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create non-patient payment");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setQuantity(new BigDecimal(50));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Add non-patient payment to order");
+		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		orderLine.setDescription(valueObject.getStepMessageLong());
+		orderLine.setC_Order_ID(valueObject.getOrder().get_ID());
+		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		orderLine.setQty(Env.ONE);
+		orderLine.setPrice(new BigDecimal(-20));
+		orderLine.setHeaderInfo(valueObject.getOrder());
+		orderLine.setPrice();
+		orderLine.saveEx();
+		commitEx();
+
+		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order completes");
+		commitEx();
+
+		valueObject.setStepName("Generate the receipt");
+		valueObject.setProcessUuid("30dd7243-11c1-4584-af26-5d977d117c84");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
+		assertThat("'Outstanding' is on the receipt", receiptContent, containsString("Outstanding"));
+		assertThat("'CASH' is on the receipt", receiptContent,
+				containsString(valueObject.getCharge().getName().substring(0, 8)));
+		assertThat("Payment is on the receipt", receiptContent, containsString("20"));
+		assertThat("Outstanding balance is on the receipt", receiptContent, containsString("30"));
 	}
 }
