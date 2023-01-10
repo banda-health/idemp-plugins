@@ -11,7 +11,7 @@ class ProcessApi extends BaseApi<Process> {
 			await axios.post<ArrayBuffer>(
 				`${IDEMPIERE_ENDPOINT}/${
 					this.entityName
-				}/runandexport/${valueObject.processUuid!}/${valueObject.reportType.toUpperCase()}`,
+				}/run-and-export/${valueObject.processUuid!}/${valueObject.reportType.toUpperCase()}`,
 				valueObject.processInformationParameters,
 				{ ...this.getAuthorizationHeaders(valueObject), responseType: 'arraybuffer' },
 			)
