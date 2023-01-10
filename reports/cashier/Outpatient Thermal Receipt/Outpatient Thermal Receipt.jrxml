@@ -22,7 +22,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select
   billHeader.orgID as orgID,
@@ -357,6 +357,9 @@ where sorder.c_order_id =  $P{billId}
 				</subreportParameter>
 				<subreportParameter name="billId">
 					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AD_CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Outpatient Thermal Receipt Payments.jasper"]]></subreportExpression>
