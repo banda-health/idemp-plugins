@@ -376,7 +376,7 @@ export async function createPayment(valueObject: ValueObject) {
 export async function getDefaultProductCategory(valueObject: ValueObject): Promise<ProductCategory | undefined> {
 	valueObject.validate();
 
-	return (await productCategoryApi.getAll(valueObject)).find(
+	return (await productCategoryApi.get(valueObject)).results.find(
 		(productCategory) => productCategory.productCategoryType === 'Product',
 	);
 }
@@ -492,7 +492,6 @@ export async function runReport(valueObject: ValueObject) {
 	valueObject.reportType ||= 'pdf';
 
 	// Map parameter names to their actual parameters
-	let processInformationParameters: ProcessInfoParameter[] = [];
 	if (valueObject.processInformationParameters!.length) {
 		valueObject.processInformationParameters = valueObject.processInformationParameters!.map(
 			(processInformationParameter) => {
