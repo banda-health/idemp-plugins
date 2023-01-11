@@ -492,7 +492,6 @@ export async function runReport(valueObject: ValueObject) {
 	valueObject.reportType ||= 'pdf';
 
 	// Map parameter names to their actual parameters
-	let processInformationParameters: ProcessInfoParameter[] = [];
 	if (valueObject.processInformationParameters!.length) {
 		valueObject.processInformationParameters = valueObject.processInformationParameters!.map(
 			(processInformationParameter) => {

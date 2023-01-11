@@ -113,13 +113,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		return response;
 	}
 
-	/**
-	 * Retrieve process with the given uuid
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public static Process getProcess(String uuid) {
+	@Override
+	public Process getEntity(String uuid) {
 		MProcess process = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_AD_Process_UU + "=?", null)
 				.setOnlyActiveRecords(true).setParameters(uuid).first();
 
