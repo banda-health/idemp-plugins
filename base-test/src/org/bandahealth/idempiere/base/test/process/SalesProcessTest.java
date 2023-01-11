@@ -59,8 +59,6 @@ public class SalesProcessTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(null);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Run the sales order completion process");

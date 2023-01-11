@@ -20,7 +20,8 @@ CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_dat
 		        cashier_uu        character varying,
 		        docstatus         character,
 		        processing        character,
-		        linenetamt        numeric
+		        linenetamt        numeric,
+		        tender_amt        numeric
 	        )
 	LANGUAGE sql
 AS
@@ -30,20 +31,21 @@ SELECT
 	p.bh_c_order_id,
 	c.ad_org_id,
 	p.c_payment_id,
-	p.payamt           AS payment_amount,
-	p.tendertype       AS payment_mode_letter,
-	r.name             AS payment_mode_name,
-	p.datetrx          AS payment_date,
-	p.c_bpartner_id    AS patient_id,
-	cb.name            AS patient_name,
+	p.payamt        AS payment_amount,
+	p.tendertype    AS payment_mode_letter,
+	r.name          AS payment_mode_name,
+	p.datetrx       AS payment_date,
+	p.c_bpartner_id AS patient_id,
+	cb.name         AS patient_name,
 	p.isallocated,
-	p.c_invoice_id     AS invoice_id,
-	c.createdby        AS cashier_id,
-	ad.name            AS cashier,
-	ad.ad_user_uu      AS cashier_uu,
-	c.docstatus        AS docstatus,
-	c.processing       AS processing,
-	SUM(ol.linenetamt) AS lineitemtotals
+	p.c_invoice_id  AS invoice_id,
+	c.createdby     AS cashier_id,
+	ad.name         AS cashier,
+	ad.ad_user_uu   AS cashier_uu,
+	c.docstatus     AS docstatus,
+	c.processing    AS processing,
+	ol.linenetamt   AS lineitemtotals,
+	p.bh_tender_amount
 FROM
 	c_payment p
 		LEFT JOIN c_allocationline al
@@ -52,7 +54,17 @@ FROM
 			ON al.c_invoice_id = i.c_invoice_id
 		JOIN c_order c
 			ON i.c_order_id = c.c_order_id OR p.bh_c_order_id = c.c_order_id
-		JOIN c_orderline ol
+		JOIN (
+		SELECT
+			c_order_id,
+			SUM(linenetamt) AS linenetamt
+		FROM
+			c_orderline
+		WHERE
+			c_charge_id IS NULL
+			AND c_orderline.ad_client_id = $1
+		GROUP BY c_order_id
+	) ol
 			ON c.c_order_id = ol.c_order_id
 		JOIN c_bpartner cb
 			ON c.c_bpartner_id = cb.c_bpartner_id
@@ -65,7 +77,6 @@ FROM
 WHERE
 	p.ad_client_id = $1
 	AND ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
-	AND ol.c_charge_id IS NULL
 	AND c.issotrx = 'Y'
 	AND c.bh_visitdate BETWEEN begin_date AND end_date
 	AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
@@ -73,11 +84,12 @@ WHERE
 	AND p.bh_c_order_id != 0
 	AND p.docstatus NOT IN ('RE', 'VO')
 	AND p.c_payment_id NOT IN (
-	SELECT reversal_id
-	FROM c_payment
-	WHERE a.ad_client_id = $1
-)
-GROUP BY
-	c.c_order_id, c.ad_org_id, p.payamt, p.tendertype, r.name, p.datetrx, cb.name, p.isallocated,
-	p.c_invoice_id, c.createdby, ad.name, ad.ad_user_uu, c.docstatus, c.processing, p.bh_c_order_id, p.c_payment_id;
+	SELECT
+		reversal_id
+	FROM
+		c_payment
+	WHERE
+		c_payment.ad_client_id = $1
+		AND reversal_id IS NOT NULL
+);
 $$;

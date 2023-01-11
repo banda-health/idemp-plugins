@@ -125,6 +125,7 @@ public class ChuBoePopulateVO {
 	private String processUuid = null;
 	private List<ProcessInfoParameter> processInformationParameters = new ArrayList<ProcessInfoParameter>();
 	private String tenderType = null;
+	private BigDecimal paymentAmount = null;
 	private int processTableId = 0;
 	private int processRecordId = 0;
 
@@ -810,5 +811,13 @@ public class ChuBoePopulateVO {
 
 	public void setCharge(MCharge_BH charge) {
 		this.charge = charge;
+	}
+
+	public BigDecimal getPaymentAmount() {
+		return paymentAmount;
+	}
+
+	public void setPaymentAmount(BigDecimal paymentAmount) {
+		this.paymentAmount = paymentAmount;
 	}
 }

@@ -87,36 +87,23 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		MInvoice_BH invoice =
 				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
 						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setInvoice(invoice);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(visitPayment);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(visitPayment);
-		valueObject.getPayment().saveEx();
-
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create another payment");
-		valueObject.setPayment(null);
+		valueObject.setOrder(null);
+		valueObject.setInvoice(null);
 		valueObject.setDateOffset(1);
-		valueObject.setInvoice(invoice);
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(debtPayment);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(0);
-		valueObject.getPayment().setPayAmt(debtPayment);
-		valueObject.getPayment().saveEx();
-		commitEx();
-
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
@@ -233,22 +220,17 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		MInvoice_BH invoice =
 				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
 						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setInvoice(invoice);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(visitCashPayment);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(visitCashPayment);
-		valueObject.getPayment().saveEx();
+		commitEx();
 
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
 		DB.executeUpdate("UPDATE " + MPayment_BH.Table_Name + " SET " + MPayment_BH.COLUMNNAME_Created + " = " +
 				DB.TO_DATE(valueObject.getDate()) + " WHERE " + MPayment_BH.COLUMNNAME_C_Payment_ID + "=" +
 				valueObject.getPayment().get_ID(), valueObject.getTransactionName());
-		valueObject.getPayment().saveEx();
-		commitEx();
 
 		valueObject.setStepName("Re-open order");
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
@@ -299,34 +281,22 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create mobile payment for today");
 		valueObject.setDateOffset(1);
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setInvoice(invoice);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(visitMobilePayment);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setPayAmt(visitMobilePayment);
-		valueObject.getPayment().saveEx();
-
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create debt payment for today");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
-		valueObject.setInvoice(invoice);
+		valueObject.setOrder(null);
+		valueObject.setInvoice(null);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(debtPayment);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setPayAmt(debtPayment);
-		valueObject.getPayment().setBH_C_Order_ID(0);
-		valueObject.getPayment().saveEx();
-
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete);
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");

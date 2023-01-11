@@ -1,11 +1,9 @@
 import { authenticationApi, documentTypeApi, initialLoginData } from '../api';
 import {
-	Account,
 	Authentication,
 	AuthResponse,
 	BusinessPartner,
 	Charge,
-	ChargeType,
 	Client,
 	DocumentType,
 	Invoice,
@@ -14,6 +12,7 @@ import {
 	OrderLine,
 	Org,
 	Payment,
+	ProcessInfoParameter,
 	Product,
 	Role,
 	User,
@@ -73,10 +72,10 @@ export class ValueObject {
 		return this.loginInfo?.windowAccessLevel;
 	}
 
-	// String m_process_UU = null;
-	// List<ProcessInfoParameter> m_processInfoParams = new ArrayList<ProcessInfoParameter>();
-	// int m_processTable_ID = 0;
-	// int m_processRecord_ID = 0;
+	processUuid?: string;
+	processInformationParameters?: ProcessInfoParameter[];
+	reportType: string = 'pdf';
+	report?: Buffer;
 
 	sessionToken?: string;
 

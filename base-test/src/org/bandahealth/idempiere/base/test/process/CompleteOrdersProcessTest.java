@@ -57,13 +57,10 @@ public class CompleteOrdersProcessTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create first order's payment");
 		MOrder_BH firstOrder = valueObject.getOrder();
 		valueObject.setInvoice(new MInvoice_BH(firstOrder.getInvoices()[0]));
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(firstOrder.get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete);
 		commitEx();
 
 		valueObject.setStepName("Re-activate order");
@@ -113,13 +110,10 @@ public class CompleteOrdersProcessTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create second order's payment");
 		valueObject.setInvoice(new MInvoice_BH(valueObject.getOrder().getInvoices()[0]));
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete);
 		commitEx();
 
 		valueObject.setStepName("Re-activate order");
