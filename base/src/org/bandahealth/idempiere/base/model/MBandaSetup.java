@@ -7,6 +7,7 @@ import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
@@ -48,6 +49,7 @@ import org.compiere.util.Trx;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -1392,6 +1394,19 @@ public class MBandaSetup {
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner");
 			}
+			
+			// set locations
+			MBPartnerLocation[] locations =  businessPartner.getLocations(false);
+			if (locations.length > 0) {
+				Arrays.asList(locations).forEach((location) -> {
+					MBPartnerLocation mLocation = new MBPartnerLocation(context, 0, getTransactionName());
+					MBPartnerLocation.copyValues(location, mLocation);
+					if (!mLocation.save()) {
+						log.warning("Failure: Could not save business partner location");
+					}
+				});
+			}
+
 		});
 
 		return true;
