@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-touch .unhealthy
-
 [ -f "testResults.txt" ] && rm testResults.txt
 # Send the SOAP request to run the tests
 wget "${IDEMPIERE_ENDPOINT}/ADInterface/services/ModelADService" --post-file=request.xml -O testResults.xml >/dev/null 2>&1
@@ -40,6 +38,3 @@ psql -c "select case when description = 'Error' then 'FAIL' else 'PASS' end as s
 if ! grep -q "Success!!" testResults.txt; then
   exit 1
 fi
-
-rm .unhealthy
-exec "$@"
