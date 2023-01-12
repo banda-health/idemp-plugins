@@ -38,5 +38,3 @@ psql -c "select case when description = 'Error' then 'FAIL' else 'PASS' end as s
 if ! grep -q "Success!!" testResults.txt; then
   exit 1
 fi
-
-exec "$@"
