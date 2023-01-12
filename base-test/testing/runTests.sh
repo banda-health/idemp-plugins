@@ -31,7 +31,6 @@ else
   echo "There was an error submitting the test SOAP request"
 fi
 
-echo "Finished tests!"
 cat testResults.txt
 
 psql -c "select case when description = 'Error' then 'FAIL' else 'PASS' end as status, name as test_suite, round(executiontime / 1000, 3) as \"execution_time [s]\", case when description = 'Error' then note end as result from chuboe_populateresponse where lower(classname) like 'org.bandahealth.idempiere.base.test%' order by created"

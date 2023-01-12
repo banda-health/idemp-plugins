@@ -31,7 +31,6 @@ else
   echo "There was an error submitting the test SOAP request"
 fi
 
-echo "Finished tests!"
 cat testResults.txt
 
 psql -c "select case when description = 'Error' then 'FAIL' else 'PASS' end as status, name as test_suite, round(executiontime / 1000, 3) as \"execution_time [s]\", case when description = 'Error' then note end as result from chuboe_populateresponse where lower(classname) like 'org.bandahealth.idempiere.rest.test%' order by created"
@@ -43,7 +42,7 @@ fi
 # There's something wrong with running Jest in sequence and it won't output any results (both --runInBand and --maxWorkers=1
 # don't output log files). Also, something is wrong with Jest and it's not outputting the results, so we have to do it
 # manually. So, loop over the test files so Jest can run one test at a time in parallel. 😂
-{ echo && echo "Running Jest Tests..." && echo; }
+{ echo && echo "Running Jest Tests..."; }
 
 # Find the tests like Jest does
 [ -f "tests-to-execute.txt" ] && rm tests-to-execute.txt
@@ -66,6 +65,7 @@ while IFS= read -r line; do
 done <tests-to-execute.txt
 
 cat full-test-results.txt
+{ echo && echo; }
 if grep -q "FAIL " full-test-results.txt; then
   exit 1
 fi
