@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocation;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,6 +29,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
+	@Autowired
+	private LocationDBService locationDBService;
 	private static String COLUMNNAME_GENDER = "bh_gender";
 	private static String COLUMNNAME_OCCUPATION = "bh_occupation";
 	private static String COLUMNNAME_NEXTOFKIN_NAME = "nextofkin_name";
@@ -154,7 +157,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 			if (StringUtil.isNotNullAndEmpty(entity.getLocalPatientNumber())) {
 				patient.setBH_Local_PatientID(entity.getLocalPatientNumber());
 			}
-			
+
 			if (entity.isApproximateDateOfBirth() != null) {
 				patient.setBH_IsApproximateDateOfBirth(entity.isApproximateDateOfBirth());
 			}
@@ -171,60 +174,17 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	protected Patient createInstanceWithAllFields(MBPartner_BH instance) {
-		try {
-			String address = "";
-			if (instance.getBH_C_Location() != null) {
-				address = instance.getBH_C_Location().getAddress1();
-			}
-
-			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
-					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getBH_Phone(), address, instance.getbh_gender(), instance.getBH_EMail(),
-					instance.getbh_nhif_relationship(), instance.getbh_nhif_member_name(), instance.getNHIF_Number(),
-					instance.getBH_NHIF_Type(), instance.getNationalID(), instance.getbh_occupation(),
-					instance.getNextOfKin_Name(), instance.getNextOfKin_Contact(),
-					instance.getBH_Local_PatientID(), VisitDBService.getVisitsCount(instance.get_ID()),
-					VisitDBService.getLastVisitDate(instance), instance);
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-			throw new AdempiereException(ex.getLocalizedMessage());
-		}
+		return new Patient(instance);
 	}
 
 	@Override
 	protected Patient createInstanceWithDefaultFields(MBPartner_BH instance) {
-		try {
-			return new Patient(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_BPartner_UU(),
-					instance.isActive(), DateUtil.parseDateOnly(instance.getCreated()), instance.getCreatedBy(),
-					instance.getName(), instance.getDescription(), instance.getTotalOpenBalance(),
-					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getbh_gender(), instance.getBH_Phone(), instance.getBH_Local_PatientID(), instance);
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-			throw new AdempiereException(ex.getLocalizedMessage());
-		}
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
 	protected Patient createInstanceWithSearchFields(MBPartner_BH instance) {
-		try {
-			String address = "";
-			if (instance.getBH_C_Location() != null) {
-				address = instance.getBH_C_Location().getAddress1();
-			}
-
-			return new Patient(instance.getC_BPartner_UU(), instance.getName(), instance.getTotalOpenBalance(),
-					instance.getBH_PatientID(), DateUtil.parseDateOnly(instance.getBH_Birthday()),
-					instance.getBH_Phone(), address, DateUtil.parseDateOnly(instance.getCreated()),
-					instance.getbh_gender(), instance.isActive(), instance.getBH_Local_PatientID(),
-					VisitDBService.getVisitsCount(instance.get_ID()),
-					VisitDBService.getLastVisitDate(instance));
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-			throw new AdempiereException(ex.getLocalizedMessage());
-		}
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
@@ -245,13 +205,28 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	public List<Patient> transformData(List<MBPartner_BH> dbModels) {
-		if (dbModels != null && !dbModels.isEmpty()) {
-			Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
-			Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
-			return dbModels.stream().map(this::createInstanceWithDefaultFields)
-					.peek(patient -> patient.setTotalVisits(visitsCount.getOrDefault(patient.getId(), 0)))
-					.collect(Collectors.toList());
+		if (dbModels == null || dbModels.isEmpty()) {
+			return new ArrayList<>();
 		}
-		return new ArrayList<>();
+		Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
+		Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
+		Map<Integer, String> lastVisitDateByPatientId = VisitDBService.getLastVisitDateByPatients(patientIds);
+
+		Set<Integer> locationIds =
+				dbModels.stream().map(MBPartner_BH::getBH_C_Location_ID).filter(locationId -> locationId > 0)
+						.collect(Collectors.toSet());
+		Map<Integer, MLocation> locationsById =
+				locationIds.isEmpty() ? new HashMap<>() : locationDBService.getByIds(locationIds);
+
+		return dbModels.stream().map(businessPartner -> {
+			Patient patient = createInstanceWithDefaultFields(businessPartner);
+
+			patient.setTotalVisits(visitsCount.getOrDefault(patient.getId(), 0));
+			patient.setLastVisitDate(lastVisitDateByPatientId.getOrDefault(patient.getId(), null));
+			if (locationsById.containsKey(businessPartner.getBH_C_Location_ID())) {
+				patient.setAddress(locationsById.get(businessPartner.getBH_C_Location_ID()).getAddress1());
+			}
+			return patient;
+		}).collect(Collectors.toList());
 	}
 }

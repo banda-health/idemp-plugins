@@ -164,6 +164,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 		if (entity.getTransactionDate() != null) {
 			mPayment.setDateTrx(DateUtil.getTimestamp(entity.getTransactionDate()));
+			mPayment.setDateAcct(DateUtil.getTimestamp(entity.getTransactionDate()));
 		}
 
 		mPayment.setIsActive(entity.getIsActive());
