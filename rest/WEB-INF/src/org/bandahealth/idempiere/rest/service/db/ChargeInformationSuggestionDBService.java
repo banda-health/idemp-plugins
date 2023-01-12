@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoSuggestion;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.ChargeInformationSuggestion;
 import org.bandahealth.idempiere.rest.model.ChargeInformationValueSuggestion;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -74,12 +75,12 @@ public class ChargeInformationSuggestionDBService
 
 	@Override
 	public ChargeInformationSuggestion saveEntity(ChargeInformationSuggestion entity) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new NotImplementedException();
 	}
 
 	@Override

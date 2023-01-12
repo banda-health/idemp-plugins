@@ -2,7 +2,10 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +78,10 @@ public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetIns
 	@Override
 	protected MAttributeSetInstance_BH getModelInstance() {
 		return new MAttributeSetInstance_BH(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public BaseListResponse<AttributeSetInstance> getAll(Paging pagingInfo, String sortJson, String filterJson) {
+		throw new NotImplementedException();
 	}
 }

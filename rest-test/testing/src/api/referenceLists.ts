@@ -10,7 +10,7 @@ class ReferenceListApi extends BaseApi<ReferenceList> {
 		return (
 			await axios.get<{
 				[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-			}>(`${IDEMPIERE_ENDPOINT}/${this.entityName}/documentStatusActionMap`, this.getAuthorizationHeaders(valueObject))
+			}>(`${IDEMPIERE_ENDPOINT}/${this.entityName}/document-status-action-map`, this.getAuthorizationHeaders(valueObject))
 		).data;
 	}
 

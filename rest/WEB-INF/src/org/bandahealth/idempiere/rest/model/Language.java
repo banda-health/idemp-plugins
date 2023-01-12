@@ -2,31 +2,20 @@ package org.bandahealth.idempiere.rest.model;
 
 import org.compiere.model.MLanguage;
 
-public class Language {
-	private String uuid;
+public class Language extends BaseMetadata {
 	private boolean isBaseLanguage;
 	private String printName;
 	private boolean isSystemLanguage;
-	private boolean isActive;
 	private String languageISO;
 	private String locale;
 
 	public Language(MLanguage language) {
-		uuid = language.getAD_Language_UU();
+		super(language);
 		isBaseLanguage = language.isBaseLanguage();
 		printName = language.getPrintName();
 		isSystemLanguage = language.isSystemLanguage();
-		isActive = language.isActive();
 		languageISO = language.getLanguageISO();
 		locale = language.getAD_Language();
-	}
-
-	public boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(boolean active) {
-		isActive = active;
 	}
 
 	public boolean getIsBaseLanguage() {
@@ -67,13 +56,5 @@ public class Language {
 
 	public void setPrintName(String printName) {
 		this.printName = printName;
-	}
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
 	}
 }

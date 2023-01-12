@@ -1,6 +1,9 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Language;
+import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.Query;
@@ -14,8 +17,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class LanguageDBService {
-	public List<Language> getAll() {
+public class LanguageDBService extends BaseDBService<Language, MLanguage> {
+
+	@Override
+	public BaseListResponse<Language> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<String> supportedLoginLanguages = Env.getLoginLanguages();
 		String[] availableLanguages = org.compiere.util.Language.getNames();
 		Set<String> languageNamesOfLanguagesToReturn = new HashSet<>();
@@ -32,6 +37,37 @@ public class LanguageDBService {
 		List<MLanguage> languages = new Query(Env.getCtx(), MLanguage.Table_Name,
 				MLanguage.COLUMNNAME_AD_Language + " IN (" + whereCondition + ")", null)
 				.setParameters(parameters).list();
-		return languages.stream().map(Language::new).collect(Collectors.toList());
+		return new BaseListResponse<>(languages.stream().map(Language::new).collect(Collectors.toList()),
+				new Paging(0, languages.size()));
+	}
+
+	@Override
+	public Language saveEntity(Language entity) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	protected Language createInstanceWithDefaultFields(MLanguage instance) {
+		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	protected Language createInstanceWithAllFields(MLanguage instance) {
+		return new Language(instance);
+	}
+
+	@Override
+	protected Language createInstanceWithSearchFields(MLanguage instance) {
+		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	protected MLanguage getModelInstance() {
+		return new MLanguage(Env.getCtx(), 0, null);
 	}
 }

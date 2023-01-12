@@ -17,10 +17,10 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class AttributeSetRestService extends BaseRestService<AttributeSet, MAttributeSet_BH, AttributeSetDBService> {
 	@Autowired
-	private AttributeSetDBService attributeSetDBService;
+	private AttributeSetDBService dbService;
 
 	@Override
 	protected AttributeSetDBService getDBService() {
-		return attributeSetDBService;
+		return dbService;
 	}
 }

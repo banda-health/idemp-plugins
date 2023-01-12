@@ -23,17 +23,17 @@ import java.util.stream.Collectors;
 public class ReferenceListRestService extends BaseRestService<ReferenceList, MRefList, ReferenceListDBService> {
 
 	@Autowired
-	private ReferenceListDBService dataService;
+	private ReferenceListDBService dbService;
 
 	@Override
 	protected ReferenceListDBService getDBService() {
-		return dataService;
+		return dbService;
 	}
 
 	@GET
-	@Path("/documentActionAccess")
+	@Path("/document-action-access")
 	public Map<String, List<ReferenceList>> getDocumentActionAccessByDocumentType() {
-		return dataService.getDocumentActionAccessByDocumentType().entrySet()
+		return dbService.getDocumentActionAccessByDocumentType().entrySet()
 				.stream().collect(Collectors.toMap(
 						documentActionAccessByDocumentTypeEntry -> documentActionAccessByDocumentTypeEntry.getKey()
 								.getDocBaseType(),
@@ -42,9 +42,9 @@ public class ReferenceListRestService extends BaseRestService<ReferenceList, MRe
 	}
 
 	@GET
-	@Path("/documentStatusActionMap")
+	@Path("/document-status-action-map")
 	public Map<String, Map<String, List<String>>> getDocumentStatusActionMap() {
-		return dataService.getDocumentStatusActionMap().entrySet()
+		return dbService.getDocumentStatusActionMap().entrySet()
 				.stream().collect(
 						Collectors.toMap(documentStatusActionMapEntry -> documentStatusActionMapEntry.getKey().getDocBaseType(),
 								documentStatusActionMapEntry -> documentStatusActionMapEntry.getValue().entrySet().stream()
@@ -68,23 +68,23 @@ public class ReferenceListRestService extends BaseRestService<ReferenceList, MRe
 	}
 
 	@GET
-	@Path("/nonPatientPaymentSubTypes")
+	@Path("/non-patient-payment-sub-types")
 	public List<ReferenceList> getNonPatientPaymentSubTypes() {
-		return dataService.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU, null).stream()
+		return dbService.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 
 	@GET
-	@Path("/chargeInformationDataTypes")
+	@Path("/charge-information-data-types")
 	public List<ReferenceList> getChargeInformationDataTypes() {
-		return dataService.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU, null).stream()
+		return dbService.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 	
 	@GET
-	@Path("/stockUpdateReasons")
+	@Path("/stock-update-reasons")
 	public List<ReferenceList> getStockUpdateReasons() {
-		return dataService.getTypes(MReference_BH.STOCK_UPDATE_REASONS_AD_REFERENCE_UU, null).stream()
+		return dbService.getTypes(MReference_BH.STOCK_UPDATE_REASONS_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 }
