@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.bandahealth.idempiere.rest;singleton:=true
 Bundle-Version: 7.1.0.qualifier
 Automatic-Module-Name: org.bandahealth.idempiere.rest
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Import-Package: java.util,
- javax.activation,
+Import-Package: javax.activation,
  javax.jws,
  javax.jws.soap;version="1.1.0",
  javax.servlet;version="3.0.0",
