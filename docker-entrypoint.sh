@@ -12,5 +12,6 @@ cd ../rest-test
 cd ../reports-test
 ./runTests.sh
 
+cd ../
 rm .unhealthy
 exec "$@"
