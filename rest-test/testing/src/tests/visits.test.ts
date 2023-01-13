@@ -426,6 +426,6 @@ test('correct patient shown when patient changed after initial switch', async ()
 	await runReport(valueObject);
 
 	const pdfReceiptContent = (await PdfParse(valueObject.report!)).text;
-	expect(pdfReceiptContent).toContain(secondPatientName.substring(0, 20));
-	expect(pdfReceiptContent).not.toContain(firstPatientName.substring(0, 20));
+	expect(pdfReceiptContent).toContain(secondPatientName.substring(0, 18));
+	expect(pdfReceiptContent).not.toContain(firstPatientName.substring(0, 18));
 });
