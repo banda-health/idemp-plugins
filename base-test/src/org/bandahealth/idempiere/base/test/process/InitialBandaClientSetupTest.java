@@ -297,9 +297,10 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(),
 					"Business Partners were created");
 			
+			final String clinicName = "OTC - " + clientName;
 			// Assert OTC patient created
 			assertEquals(clientBusinessPartners.stream().filter(
-					businessPartner -> businessPartner.getName().contains("OTC - " + clientName)).collect(Collectors.toList()).size(), 1);
+					businessPartner -> businessPartner.getName().contains(clinicName)).collect(Collectors.toList()).size(), 1);
 			
 			 // Assert default business partner locations are created.
 			List<MBPartnerLocation> configurationBusinessPartnerLocations = new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
