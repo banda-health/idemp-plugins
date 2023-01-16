@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,11 +23,8 @@ import java.util.List;
  */
 public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDBService<T, MInvoice_BH> {
 
-	private final String PURCHASE_ORDER = "Purchase Order";
 	@Autowired
 	protected InvoiceLineDBService invoiceLineDBService;
-	@Autowired
-	protected ProcessDBService processDBService;
 	@Autowired
 	protected BusinessPartnerDBService businessPartnerDBService;
 
@@ -202,22 +200,19 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 		return new MInvoice_BH(Env.getCtx(), 0, null);
 	}
 
-	/**
-	 * Asynchronously deletes or reverse corrects an invoice
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public boolean asyncDeleteEntity(String uuid) {
-		MInvoice_BH invoice = getEntityByUuidFromDB(uuid);
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		MInvoice_BH invoice = getEntityByUuidFromDB(entityUuid);
 		if (invoice == null) {
-			log.severe("No order with uuid = " + uuid);
+			log.severe("No invoice with uuid = " + entityUuid);
 			return false;
 		}
 
 		try {
 			if (invoice.isComplete()) {
-				this.runAsyncEntityDeleteProcess(invoice);
+				invoice.setDocAction(DocAction.ACTION_Reverse_Accrual);
+				invoice.processIt(DocAction.ACTION_None);
+				invoice.saveEx();
 			} else {
 				invoice.deleteEx(false);
 			}
@@ -227,15 +222,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 		}
 
 		return false;
-	}
-
-	/**
-	 * Override this for invoices that need a different process
-	 *
-	 * @param entity
-	 */
-	protected void runAsyncEntityDeleteProcess(MInvoice_BH entity) {
-		processDBService.runExpenseProcess(entity.get_ID(), true);
 	}
 
 	@Override

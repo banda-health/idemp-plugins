@@ -513,10 +513,3 @@ export async function runReport(valueObject: ValueObject) {
 
 	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject))
 }
-
-export async function waitForVisitToComplete(valueObject: ValueObject) {
-	await waitFor(async () => {
-		valueObject.order = await visitApi.getByUuid(valueObject, valueObject.order!.uuid);
-		return expect(valueObject.order!.docStatus).toBe(documentStatus.Completed);
-	});
-}
