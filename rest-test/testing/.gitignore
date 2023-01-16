@@ -4,6 +4,9 @@ package-lock.json
 
 tmp.txt
 testResults.xml
+tests-to-execute.txt
+full-test-results.txt
+jestResults.json
 .unhealthy
 
 # Created by https://www.toptal.com/developers/gitignore/api/node

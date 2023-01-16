@@ -10,6 +10,17 @@ export const initialLoginData: Partial<Authentication> = {
 	language: 'en_US',
 } as const;
 
+axios.interceptors.response.use(
+	(response) => response,
+	(error) => {
+		throw new Error(
+			`${error?.message}\nMethod: ${error?.config?.method}\nURL: ${error?.request?.path || error?.config?.url}\nData: ${
+				error?.config?.data
+			}`,
+		);
+	},
+);
+
 /**
  * An abstract class containing base logic for connecting to the API and getting data back
  */
