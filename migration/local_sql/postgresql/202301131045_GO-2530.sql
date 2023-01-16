@@ -8,6 +8,15 @@ WHERE
 	);
 
 /**********************************************************************************************************/
+-- Remove System Configurator value that was for synchronous order completion
+/**********************************************************************************************************/
+DELETE
+FROM
+	ad_sysconfig
+WHERE
+	name = 'CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING';
+
+/**********************************************************************************************************/
 -- Remove the expense deletion process
 /**********************************************************************************************************/
 -- Delete process parameter relations
@@ -277,10 +286,15 @@ DELETE
 FROM
 	ad_pinstance
 WHERE
-	ad_process_id IN (
-	SELECT ad_process_id FROM ad_process WHERE ad_process_uu IN (
-	'a144d5d3-0a3f-42a7-820a-23585c767f8b'
-	, '06780c3f-8482-439d-a878-2f61878535e4'));
+		ad_process_id IN (
+		SELECT
+			ad_process_id
+		FROM
+			ad_process
+		WHERE
+				ad_process_uu IN (
+				                  'a144d5d3-0a3f-42a7-820a-23585c767f8b', '06780c3f-8482-439d-a878-2f61878535e4')
+	);
 
 -- Handle process access removal
 DELETE
