@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MClient;
 import org.compiere.model.MElementValue;
@@ -47,6 +48,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
+	
+	private static final String PREFIX_OTC_BUSINESS_PARTNER = "OTC - ";
+	
 	@IPopulateAnnotation.CanRun
 	public void clientIsCreatedProperly() throws SQLException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -297,10 +301,9 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(),
 					"Business Partners were created");
 			
-			final String clinicName = "OTC - " + clientName;
 			// Assert OTC patient created
 			assertEquals(clientBusinessPartners.stream().filter(
-					businessPartner -> businessPartner.getName().contains(clinicName)).collect(Collectors.toList()).size(), 1);
+					businessPartner -> businessPartner.getBPGroup().getName().startsWith(PREFIX_OTC_BUSINESS_PARTNER)).collect(Collectors.toList()).size(), 1);
 			
 			 // Assert default business partner locations are created.
 			List<MBPartnerLocation> configurationBusinessPartnerLocations = new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
