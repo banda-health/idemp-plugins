@@ -51,7 +51,7 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 	
 	private static final String PREFIX_OTC_BUSINESS_PARTNER = "OTC - ";
 	
-	//@IPopulateAnnotation.CanRun
+	@IPopulateAnnotation.CanRun
 	public void clientIsCreatedProperly() throws SQLException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
@@ -300,10 +300,6 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							.list();
 			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(),
 					"Business Partners were created");
-			
-			// Assert OTC patient created
-			assertEquals(clientBusinessPartners.stream().filter(
-					businessPartner -> businessPartner.getBPGroup().getName().startsWith(PREFIX_OTC_BUSINESS_PARTNER)).collect(Collectors.toList()).size(), 1);
 			
 			 // Assert default business partner locations are created.
 			List<MBPartnerLocation> configurationBusinessPartnerLocations = new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,

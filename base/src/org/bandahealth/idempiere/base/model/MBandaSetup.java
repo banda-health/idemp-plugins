@@ -15,6 +15,7 @@ import org.compiere.model.MCostElement;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
@@ -1385,8 +1386,10 @@ public class MBandaSetup {
 		// PO.clearCrossTenantSafe();
 
 		businessPartners.forEach((businessPartner) -> {
-			MBPartner instance = new MBPartner(context, 0, getTransactionName());
-			MBPartner.copyValues(businessPartner, instance);
+			MBPartner_BH instance = new MBPartner_BH(context, 0, getTransactionName());
+			MBPartner_BH.copyValues(businessPartner, instance);
+			instance.setM_PriceList_ID(0);
+			instance.setPO_PriceList_ID(0);
 			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
 				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
 			}
@@ -1394,19 +1397,6 @@ public class MBandaSetup {
 			if (!instance.save()) {
 				log.warning("Failure: Could not save default business partner");
 			}
-			
-			// set locations
-			MBPartnerLocation[] locations =  businessPartner.getLocations(false);
-			if (locations.length > 0) {
-				Arrays.asList(locations).forEach((location) -> {
-					MBPartnerLocation mLocation = new MBPartnerLocation(context, 0, getTransactionName());
-					MBPartnerLocation.copyValues(location, mLocation);
-					if (!mLocation.save()) {
-						log.warning("Failure: Could not save business partner location");
-					}
-				});
-			}
-
 		});
 
 		return true;
