@@ -15,6 +15,8 @@ FROM
 	ad_sysconfig
 WHERE
 	name = 'CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING';
+ALTER TABLE ad_sysconfig
+	ALTER COLUMN value TYPE varchar;
 
 /**********************************************************************************************************/
 -- Remove the expense deletion process
