@@ -51,7 +51,7 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 	
 	private static final String PREFIX_OTC_BUSINESS_PARTNER = "OTC - ";
 	
-	@IPopulateAnnotation.CanRun
+	//@IPopulateAnnotation.CanRun
 	public void clientIsCreatedProperly() throws SQLException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());

@@ -434,12 +434,14 @@ test('create and complete pharmacy sales visit', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	const pharmacySalesPatient = (
-		await patientApi.get(valueObject, 0, 1, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
+	const pharmacySalesPatients = (
+		await patientApi.get(valueObject, 0, 10, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
 	).results;
+	expect(pharmacySalesPatients.length).toBe(1);
+	const pharmacySalesPatient = pharmacySalesPatients[0];
 	
-	valueObject.businessPartner = pharmacySalesPatient[0];
-
+	delete (pharmacySalesPatient as Partial<Patient>).approximateDateOfBirth;
+	valueObject.businessPartner = pharmacySalesPatient;
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
