@@ -46,12 +46,12 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 		}
 
 		// Process the document and, if it fails, throw an exception
-		if (!documentEntity.processIt(docAction)) {
-			documentEntity.saveEx();
+		boolean wasProcessingSuccessful = documentEntity.processIt(docAction);
+		documentEntity.saveEx();
+		if (!wasProcessingSuccessful) {
 			throw new AdempiereException(documentEntity.getProcessMsg());
 		}
 
-		documentEntity.saveEx();
 		return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
 	}
 
