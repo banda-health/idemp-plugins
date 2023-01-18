@@ -97,6 +97,7 @@ public class MBandaSetup {
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
 	public static final String DEFAULT_IDEMPIERE_ENTITY_NAME = "Standard";
+	public static final String PREFIX_OTC_BUSINESS_PARTNER = "OTC - ";
 	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
@@ -1390,6 +1391,7 @@ public class MBandaSetup {
 			MBPartner_BH.copyValues(businessPartner, instance);
 			instance.setM_PriceList_ID(0);
 			instance.setPO_PriceList_ID(0);
+			instance.setName(PREFIX_OTC_BUSINESS_PARTNER + client.getName());
 			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
 				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
 			}

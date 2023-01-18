@@ -49,8 +49,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 	
-	private static final String PREFIX_OTC_BUSINESS_PARTNER = "OTC - ";
-	
 	@IPopulateAnnotation.CanRun
 	public void clientIsCreatedProperly() throws SQLException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
