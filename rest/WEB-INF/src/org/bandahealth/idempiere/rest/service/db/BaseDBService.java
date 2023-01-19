@@ -416,14 +416,18 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
-			
+
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 			List<S> entities = getTranslations(query.list());
 
-			results = transformData(entities);
+			if (entities != null) {
+				results = transformData(entities);
+			} else {
+				results = new ArrayList<>();
+			}
 
-			return new BaseListResponse<T>(results, pagingInfo);
+			return new BaseListResponse<>(results, pagingInfo);
 
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -628,9 +632,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return The transformed data into idemp-rest models
 	 */
 	public List<T> transformData(List<S> dbModels) {
-		if (dbModels != null && !dbModels.isEmpty()) {
-			return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
-		}
-		return new ArrayList<>();
+		return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
 	}
 }
