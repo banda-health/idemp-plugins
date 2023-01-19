@@ -1,6 +1,7 @@
 -- 1. Update Payment Rules.
 -- 2. Create missing locations.
 -- 3. Fix erroneous OTC names. 
+-- 4. Fix missing pricelists
 
 -- Update payment rules of the OTC business partners to be credit
 UPDATE c_bpartner
@@ -20,12 +21,33 @@ CREATE TEMP TABLE tmp_otc_c_bpartner
 	c_bpartner_id  				numeric(10)             NOT NULL,
 	c_bpartner_location_id      numeric(10)             NULL,
 	name          				varchar(255)			NOT NULL,
-	client_name					varchar(255)			NOT NULL
+	client_name					varchar(255)			NOT NULL,
+	m_pricelist_id				numeric(10)				NULL,
+	existing_pricelist_id		numeric(10)				NULL
 );
 INSERT INTO
-	tmp_otc_c_bpartner (ad_client_id, ad_org_id, c_bpartner_id, c_bpartner_location_id, name, client_name)
-SELECT 
-	bp.ad_client_id, bp.ad_org_id, bp.c_bpartner_id, l.c_bpartner_location_id, bp.name, a.name 
+	tmp_otc_c_bpartner (ad_client_id, ad_org_id, c_bpartner_id, c_bpartner_location_id, name, client_name, m_pricelist_id, existing_pricelist_id) 
+	SELECT 
+			bp.ad_client_id, bp.ad_org_id, bp.c_bpartner_id, l.c_bpartner_location_id, bp.name, a.name, COALESCE(g.m_pricelist_id, (
+				         SELECT
+					         l.m_pricelist_id
+				         FROM
+					         m_pricelist l
+				         WHERE
+					         l.ad_client_id = bp.ad_client_id
+					         AND isdefault = 'Y'
+					         AND issopricelist = 'Y'
+			         ), (
+				         SELECT
+					         l.m_pricelist_id
+				         FROM
+					         m_pricelist l
+				         WHERE
+					         l.ad_client_id = bp.ad_client_id
+					         AND isdefault = 'Y'
+				         LIMIT 1
+			         ), 0), 
+	bp.m_pricelist_id 
 FROM 
 	c_bpartner bp 
 INNER JOIN 
@@ -170,6 +192,18 @@ FROM
 	tmp_otc_c_bpartner tmp
 WHERE 
 	replace(tmp.name, 'OTC - ', '') != tmp.client_name 
+AND 
+	c.c_bpartner_id = tmp.c_bpartner_id;
+	
+-- Fix missing pricelists..
+UPDATE 
+	c_bpartner c
+SET 
+	m_pricelist_id = tmp.m_pricelist_id
+FROM 
+	tmp_otc_c_bpartner tmp
+WHERE 
+	tmp.existing_pricelist_id is null
 AND 
 	c.c_bpartner_id = tmp.c_bpartner_id;
 	
