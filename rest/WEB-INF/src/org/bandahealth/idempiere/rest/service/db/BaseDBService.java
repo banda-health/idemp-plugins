@@ -367,7 +367,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
 			String filterJson, String joinClause, boolean shouldUseContextClientId) {
 		try {
-			List<T> results = new ArrayList<>();
 			if (parameters == null) {
 				parameters = new ArrayList<>();
 			}
@@ -421,10 +420,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 			List<S> entities = getTranslations(query.list());
 
+			List<T> results = new ArrayList<>();
 			if (entities != null) {
 				results = transformData(entities);
-			} else {
-				results = new ArrayList<>();
 			}
 
 			return new BaseListResponse<>(results, pagingInfo);
