@@ -132,10 +132,4 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	protected Expense createInstanceWithSearchFields(MInvoice_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
-
-	@Override
-	public Boolean deleteEntity(String entityUuid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

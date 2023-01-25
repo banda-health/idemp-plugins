@@ -21,7 +21,6 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
@@ -39,13 +38,13 @@ import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrder;
 import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -148,76 +147,63 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	public Visit processEntity(String uuid, String docAction) throws Exception {
-		MClient client =
-				new Query(Env.getCtx(), MClient.Table_Name, MClient.COLUMNNAME_AD_Client_ID + " =?", null).setParameters(
-						Env.getAD_Client_ID(Env.getCtx())).first();
-
-		String clientUuidsForSynchronousProcessingString =
-				MSysConfig_BH.getValue(MSysConfig_BH.CLIENT_IDS_FOR_SYNCHRONOUS_SALES_ORDER_PROCESSING, "");
-		List<String> clientIdsForSynchronousProcessing = new ArrayList<>();
-		try {
-			if (!StringUtil.isNullOrEmpty(clientUuidsForSynchronousProcessingString)) {
-				clientIdsForSynchronousProcessing = Arrays.stream(clientUuidsForSynchronousProcessingString.split(","))
-						.map(stringClientId -> stringClientId.trim()).collect(Collectors.toList());
-			}
-		} catch (Exception exception) {
-			log.severe(exception.getMessage());
+		if (!isDocActionValidForUser(docAction)) {
+			return null;
 		}
-		// We need to do something special for completing a sales order - do it asynchronously (except for the clients we
-		// want to do it synchronously for)
-		if (StringUtil.isNullOrEmpty(docAction) || !docAction.equalsIgnoreCase(DocAction.ACTION_Complete) ||
-				clientIdsForSynchronousProcessing.contains(client.getAD_Client_UU())) {
-			Visit visit = super.processEntity(uuid, docAction);
-			Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-					visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet())).values();
+
+		// Create a transaction so all parts of the visit can pass or fail together
+		Trx processVisitTransaction = Trx.get(Trx.createTrxName("ProcessVisit"), true);
+		try {
+			MOrder_BH order = getEntityByUuidFromDB(uuid);
+			order.set_TrxName(processVisitTransaction.getTrxName());
+			order.setDocAction(docAction);
+			if (!order.processIt(docAction)) {
+				throw new AdempiereException(order.getProcessMsg());
+			}
+			order.saveEx();
+
+			List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+							paymentDBService.getPaymentsByOrderId(order.get_ID()).stream().map(Payment::getUuid)
+									.collect(Collectors.toSet())).values().stream()
+					.peek(payment -> payment.set_TrxName(processVisitTransaction.getTrxName())).collect(Collectors.toList());
+			Collection<MPayment_BH> existingUnfinalizedPayments = existingPayments.stream()
+					.filter(payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
+					.collect(Collectors.toList());
 			// If this is a reversal, we also need to take care of the payments
 			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
 					docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
 
-				Collection<MPayment_BH> existingCompletedPayments =
-						paymentDBService.getByUuids(visit.getPayments().stream().map(Payment::getUuid).collect(Collectors.toSet()))
-								.values().stream().filter(
-										payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
-								.collect(Collectors.toList());
-				for (MPayment_BH payment : existingCompletedPayments) {
+				for (MPayment_BH payment : existingUnfinalizedPayments) {
 					MPayment_BH newPayment = payment.copy();
 					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
-					payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual);
+					if (!payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual)) {
+						throw new AdempiereException(order.getProcessMsg());
+					}
 					payment.saveEx();
 
 					newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
-					newPayment.setBH_C_Order_ID(visit.getId());
+					newPayment.setBH_C_Order_ID(order.get_ID());
 					newPayment.saveEx();
 				}
 
 			} else {
-				for (MPayment_BH payment : existingPayments) {
+				for (MPayment_BH payment : existingUnfinalizedPayments) {
 					payment.setDocAction(docAction);
-					payment.processIt(docAction);
+					if (!payment.processIt(docAction)) {
+						throw new AdempiereException(payment.getProcessMsg());
+					}
 					payment.saveEx();
 				}
 			}
+			processVisitTransaction.commit();
+			Visit visit = createInstanceWithAllFields(order);
 			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
+		} catch (Exception exception) {
+			processVisitTransaction.rollback();
+			throw exception;
 		}
-
-		if (!isDocActionValidForUser(docAction)) {
-			return null;
-		}
-
-		MOrder_BH order = getEntityByUuidFromDB(uuid);
-		if (order == null) {
-			log.severe("No entity with uuid = " + uuid);
-			return null;
-		}
-		processDBService.runOrderProcess(order.get_ID());
-
-		// Since the async process will take some time, assume it completed successfully
-		// and return the appropriate status
-		Visit visit = createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
-		visit.setDocStatus(DocAction.STATUS_Completed);
-		return visit;
 	}
 
 	@Override

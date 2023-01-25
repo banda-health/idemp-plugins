@@ -41,8 +41,6 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	@Autowired
 	protected EntityMetadataDBService entityMetadataDBService;
 	@Autowired
-	protected ProcessDBService processDBService;
-	@Autowired
 	protected VoidedReasonDBService voidedReasonDBService;
 	@Autowired
 	protected AttributeSetInstanceDBService attributeSetInstanceDBService;
