@@ -217,10 +217,6 @@ ALTER TABLE c_depositbatchline
 	DROP CONSTRAINT cpayment_cdepositbatchline;
 ALTER TABLE c_dunningrunline
 	DROP CONSTRAINT cpayment_cdunningrunline;
-ALTER TABLE c_invoice
-	DROP CONSTRAINT c_invoice_c_payment_id_fkey;
-ALTER TABLE c_order
-	DROP CONSTRAINT c_order_c_payment_id_fkey;
 ALTER TABLE c_payment
 	DROP CONSTRAINT c_payment_ref_payment_id_fkey;
 ALTER TABLE c_payment
@@ -281,10 +277,6 @@ ALTER TABLE c_payment
 	ADD CONSTRAINT c_payment_reversal_id_fkey FOREIGN KEY (reversal_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_payment
 	ADD CONSTRAINT c_payment_ref_payment_id_fkey FOREIGN KEY (ref_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_order
-	ADD CONSTRAINT c_order_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_invoice
-	ADD CONSTRAINT c_invoice_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_dunningrunline
 	ADD CONSTRAINT cpayment_cdunningrunline FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_depositbatchline
