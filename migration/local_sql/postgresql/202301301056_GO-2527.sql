@@ -50,7 +50,7 @@ SET
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 
 UPDATE C_BankStatementLine
 SET
@@ -58,133 +58,133 @@ SET
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_AllocationLine
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE R_RequestAction
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_DunningRunLine
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_Recurring_Run
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE B_SellerFunds
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_Recurring
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE I_BankStatement
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE B_BuyerFunds
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_PaymentAllocate
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE I_Payment
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_DepositBatchLine
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_Invoice
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_PaymentTransaction
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_PaySelectionCheck
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE R_Request
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_Order
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_POSPayment
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 UPDATE C_CashLine
 SET
 	c_payment_id = banda_payment_id
 FROM
 	tmp_payment_id_mapping
 WHERE
-		c_payment_id = idemp_payment_id;
+	c_payment_id = idemp_payment_id;
 
 /**********************************************************************************************************/
 -- 3. Delete the automatically-created iDempiere payments
@@ -204,43 +204,47 @@ WHERE
 -- 4. Mark the Banda payments as allocated
 /**********************************************************************************************************/
 ALTER TABLE b_buyerfunds
-	DROP CONSTRAINT cpayment_bbuyerfunds;
+	DROP CONSTRAINT IF EXISTS cpayment_bbuyerfunds;
 ALTER TABLE b_sellerfunds
-	DROP CONSTRAINT cpayment_bsellerfunds;
+	DROP CONSTRAINT IF EXISTS cpayment_bsellerfunds;
 ALTER TABLE c_allocationline
-	DROP CONSTRAINT c_allocationline_c_payment_id_fkey;
+	DROP CONSTRAINT IF EXISTS c_allocationline_c_payment_id_fkey;
 ALTER TABLE c_bankstatementline
-	DROP CONSTRAINT cpayment_cbankstmtline;
+	DROP CONSTRAINT IF EXISTS cpayment_cbankstmtline;
 ALTER TABLE c_cashline
-	DROP CONSTRAINT cpayment_ccashline;
+	DROP CONSTRAINT IF EXISTS cpayment_ccashline;
 ALTER TABLE c_depositbatchline
-	DROP CONSTRAINT cpayment_cdepositbatchline;
+	DROP CONSTRAINT IF EXISTS cpayment_cdepositbatchline;
 ALTER TABLE c_dunningrunline
-	DROP CONSTRAINT cpayment_cdunningrunline;
+	DROP CONSTRAINT IF EXISTS cpayment_cdunningrunline;
+ALTER TABLE c_invoice
+	DROP CONSTRAINT IF EXISTS c_invoice_c_payment_id_fkey;
+ALTER TABLE c_order
+	DROP CONSTRAINT IF EXISTS c_order_c_payment_id_fkey;
 ALTER TABLE c_payment
-	DROP CONSTRAINT c_payment_ref_payment_id_fkey;
+	DROP CONSTRAINT IF EXISTS c_payment_ref_payment_id_fkey;
 ALTER TABLE c_payment
-	DROP CONSTRAINT c_payment_reversal_id_fkey;
+	DROP CONSTRAINT IF EXISTS c_payment_reversal_id_fkey;
 ALTER TABLE c_paymentallocate
-	DROP CONSTRAINT cpayment_cpaymentallocate;
+	DROP CONSTRAINT IF EXISTS cpayment_cpaymentallocate;
 ALTER TABLE c_paymenttransaction
-	DROP CONSTRAINT cpayment_cpaymenttransaction;
+	DROP CONSTRAINT IF EXISTS cpayment_cpaymenttransaction;
 ALTER TABLE c_payselectioncheck
-	DROP CONSTRAINT cpayment_cpayselectioncheck;
+	DROP CONSTRAINT IF EXISTS cpayment_cpayselectioncheck;
 ALTER TABLE c_pospayment
-	DROP CONSTRAINT cpayment_cpospayment;
+	DROP CONSTRAINT IF EXISTS cpayment_cpospayment;
 ALTER TABLE c_recurring
-	DROP CONSTRAINT cpayment_crecurring;
+	DROP CONSTRAINT IF EXISTS cpayment_crecurring;
 ALTER TABLE c_recurring_run
-	DROP CONSTRAINT cpayment_crecurringrun;
+	DROP CONSTRAINT IF EXISTS cpayment_crecurringrun;
 ALTER TABLE i_bankstatement
-	DROP CONSTRAINT cpayment_ibankstatement;
+	DROP CONSTRAINT IF EXISTS cpayment_ibankstatement;
 ALTER TABLE i_payment
-	DROP CONSTRAINT cpayment_ipayment;
+	DROP CONSTRAINT IF EXISTS cpayment_ipayment;
 ALTER TABLE r_request
-	DROP CONSTRAINT cpayment_rrequest;
+	DROP CONSTRAINT IF EXISTS cpayment_rrequest;
 ALTER TABLE r_requestaction
-	DROP CONSTRAINT cpayment_rrequestaction;
+	DROP CONSTRAINT IF EXISTS cpayment_rrequestaction;
 
 UPDATE c_payment
 SET
@@ -277,6 +281,10 @@ ALTER TABLE c_payment
 	ADD CONSTRAINT c_payment_reversal_id_fkey FOREIGN KEY (reversal_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_payment
 	ADD CONSTRAINT c_payment_ref_payment_id_fkey FOREIGN KEY (ref_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_order
+	ADD CONSTRAINT c_order_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE c_invoice
+	ADD CONSTRAINT c_invoice_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_dunningrunline
 	ADD CONSTRAINT cpayment_cdunningrunline FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE c_depositbatchline
@@ -315,7 +323,7 @@ FROM
 				         FROM
 					         C_Invoice_v i
 				         WHERE
-						         i.C_BPartner_ID = bp.C_BPartner_ID
+					         i.C_BPartner_ID = bp.C_BPartner_ID
 					         AND i.IsSOTrx = 'Y'
 					         AND i.IsPaid = 'N'
 					         AND i.DocStatus IN ('CO', 'CL')
@@ -327,7 +335,7 @@ FROM
 					         FROM
 						         C_Invoice_v i
 					         WHERE
-							         i.C_BPartner_ID = bp.C_BPartner_ID
+						         i.C_BPartner_ID = bp.C_BPartner_ID
 						         AND i.IsPaid = 'N'
 						         AND i.DocStatus IN ('CO', 'CL')
 				         ), 0) - COALESCE((
@@ -337,7 +345,7 @@ FROM
 					                          FROM
 						                          C_Payment_v p
 					                          WHERE
-							                          p.C_BPartner_ID = bp.C_BPartner_ID
+						                          p.C_BPartner_ID = bp.C_BPartner_ID
 						                          AND p.IsAllocated = 'N'
 						                          AND p.C_Charge_ID IS NULL
 						                          AND p.DocStatus IN ('CO', 'CL')
@@ -361,7 +369,7 @@ FROM
 			)
 	) calc
 WHERE
-		calc.c_bpartner_id = bp.c_bpartner_id;
+	calc.c_bpartner_id = bp.c_bpartner_id;
 
 /**********************************************************************************************************/
 -- 6. Update payment rules and wrap up
@@ -374,7 +382,8 @@ SET
 	paymentrule    = 'P', -- on credit
 	socreditstatus = 'X'  -- no credit check
 WHERE
-	ad_client_id > 999999 or ad_client_id = 2;
+	ad_client_id > 999999
+	OR ad_client_id = 2;
 
 SELECT
 	register_migration_script('202301301056_GO-2527.sql')
