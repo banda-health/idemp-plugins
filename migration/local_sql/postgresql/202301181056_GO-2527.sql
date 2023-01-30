@@ -2,7 +2,6 @@
 -- 2. Create missing locations.
 -- 3. Fix erroneous OTC names. 
 -- 4. Fix missing pricelists
--- 5. Remove duplicated payments and allocations.
 
 -- Update payment rules of the OTC business partners to be credit
 UPDATE c_bpartner
@@ -213,22 +212,6 @@ DROP TABLE tmp_c_location;
 DROP TABLE tmp_c_bpartner_location;
 
 DROP TABLE tmp_otc_c_bpartner;
-
--- Remove duplicated payments and allocations
-DELETE FROM c_allocationline WHERE c_payment_id IN 
-	(
-		SELECT c_payment_id FROM c_payment WHERE c_bpartner_id IN
-			( 
-				SELECT c_bpartner_id FROM tmp_otc_c_bpartner
-			) 
-		AND bh_tender_amount IS NULL 
-	);
-	
-DELETE FROM c_payment WHERE c_bpartner_id IN 
-	(
-		SELECT c_bpartner_id FROM tmp_otc_c_bpartner 
-	) 
-	AND bh_tender_amount IS NULL;
 	
 SELECT
 	update_sequences();
