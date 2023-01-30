@@ -2,7 +2,6 @@
 -- 2. Create missing locations.
 -- 3. Fix erroneous OTC names. 
 -- 4. Fix missing pricelists
-
 -- Update payment rules of the OTC business partners to be credit
 UPDATE c_bpartner
 SET
