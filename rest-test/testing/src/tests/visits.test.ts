@@ -441,7 +441,5 @@ test('create and complete pharmacy sales visit', async () => {
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
-
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
