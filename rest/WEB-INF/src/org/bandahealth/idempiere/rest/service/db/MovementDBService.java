@@ -314,10 +314,6 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	@Override
 	public List<Movement> transformData(List<MMovement_BH> dbModels) {
 		List<Movement> results = new ArrayList<>();
-		if (dbModels == null || dbModels.isEmpty()) {
-			return results;
-		}
-
 		// get available warehouses
 		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
 
