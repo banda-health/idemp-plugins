@@ -22,6 +22,7 @@ import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.rest.exceptions.DocumentProcessException;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
@@ -157,10 +158,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			MOrder_BH order = getEntityByUuidFromDB(uuid);
 			order.set_TrxName(processVisitTransaction.getTrxName());
 			order.setDocAction(docAction);
-			if (!order.processIt(docAction)) {
-				throw new AdempiereException(order.getProcessMsg());
-			}
-			order.saveEx();
+			ModelUtil.processDocumentOrError(order, docAction);
 
 			List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
 							paymentDBService.getPaymentsByOrderId(order.get_ID()).stream().map(Payment::getUuid)
@@ -177,23 +175,16 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				for (MPayment_BH payment : existingUnfinalizedPayments) {
 					MPayment_BH newPayment = payment.copy();
 					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
-					if (!payment.processIt(MPayment_BH.DOCACTION_Reverse_Accrual)) {
-						throw new AdempiereException(order.getProcessMsg());
-					}
-					payment.saveEx();
+					ModelUtil.processDocumentOrError(payment, MPayment_BH.DOCACTION_Reverse_Accrual);
 
 					newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
 					newPayment.setBH_C_Order_ID(order.get_ID());
 					newPayment.saveEx();
 				}
-
 			} else {
 				for (MPayment_BH payment : existingUnfinalizedPayments) {
 					payment.setDocAction(docAction);
-					if (!payment.processIt(docAction)) {
-						throw new AdempiereException(payment.getProcessMsg());
-					}
-					payment.saveEx();
+					ModelUtil.processDocumentOrError(payment, docAction);
 				}
 			}
 			processVisitTransaction.commit();
