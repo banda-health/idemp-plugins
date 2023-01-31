@@ -46,9 +46,9 @@ public class ModelUtil {
 	public static void processDocumentOrError(DocAction document, String processAction) throws Exception {
 		try {
 			if (!document.processIt(processAction)) {
-				document.saveEx();
 				throw new AdempiereException(document.getProcessMsg());
 			}
+			document.saveEx();
 		} catch (AdempiereException exception) {
 			document.save();
 			throw new DocumentProcessException(exception.getLocalizedMessage());
