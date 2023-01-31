@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
@@ -112,13 +113,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 		return response;
 	}
 
-	/**
-	 * Retrieve process with the given uuid
-	 *
-	 * @param uuid
-	 * @return
-	 */
-	public static Process getProcess(String uuid) {
+	@Override
+	public Process getEntity(String uuid) {
 		MProcess process = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_AD_Process_UU + "=?", null)
 				.setOnlyActiveRecords(true).setParameters(uuid).first();
 
@@ -172,94 +168,6 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	}
 
 	/**
-	 * Call and run the SalesProcess
-	 *
-	 * @param orderId
-	 */
-	public String runOrderProcess(int orderId) {
-		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
-				.setOnlyActiveRecords(true).setParameters(SALES_PROCESS_CLASS_NAME).first();
-
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
-
-		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
-		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
-		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
-
-		processInfo.setParameter(new ProcessInfoParameter[]{
-				new ProcessInfoParameter(MOrder_BH.COLUMNNAME_C_Order_ID, orderId, null, null, null)});
-
-		ServerProcessCtl.process(processInfo, null);
-
-		return Process.PROCESSING_MESSAGE;
-	}
-
-	/**
-	 * Call and run the SalesProcess
-	 *
-	 * @param invoiceId
-	 */
-	public String runExpenseProcess(int invoiceId, boolean delete) {
-		MProcess mprocess = new Query(
-				Env.getCtx(),
-				MProcess.Table_Name,
-				MProcess.COLUMNNAME_Classname + "=?",
-				null
-		)
-				.setOnlyActiveRecords(true).setParameters(EXPENSE_PROCESS_CLASS_NAME).first();
-
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
-
-		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
-		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
-		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
-
-		processInfo.setParameter(new ProcessInfoParameter[]{
-				new ProcessInfoParameter(ExpenseProcess.PARAMETERNAME_C_INVOICE_ID, invoiceId, null, null, null),
-				new ProcessInfoParameter(
-						ExpenseProcess.PARAMETERNAME_PROCESS_ACTION,
-						delete ? ExpenseProcess.PROCESSACTION_Remove : ExpenseProcess.PROCESSACTION_Complete,
-						null,
-						null,
-						null
-				)
-		});
-
-		ServerProcessCtl.process(processInfo, null);
-
-		return Process.PROCESSING_MESSAGE;
-	}
-
-	/**
-	 * Call and run StockTake process
-	 *
-	 * @param productID
-	 * @param attributeSetInstanceId
-	 * @param quantity
-	 */
-	public String runStockTakeProcess(int productID, int attributeSetInstanceId, int quantity) {
-		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_Classname + "=?", null)
-				.setOnlyActiveRecords(true).setParameters(STOCKTAKE_PROCESS_CLASS_NAME).first();
-
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
-
-		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
-		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
-		processInfo.setAD_Process_UU(mprocess.getAD_Process_UU());
-
-		processInfo
-				.setParameter(new ProcessInfoParameter[]{
-						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_Product_ID, productID, null, null, null),
-						new ProcessInfoParameter(MStorageOnHand.COLUMNNAME_M_AttributeSetInstance_ID,
-								attributeSetInstanceId, null, null, null),
-						new ProcessInfoParameter(QUANTITY, quantity, null, null, null)});
-
-		ServerProcessCtl.process(processInfo, null);
-
-		return processInfo.getSummary();
-	}
-
-	/**
 	 * Return all active processes for the logged in client
 	 *
 	 * @param filter     The filter JSON in case any reports should be filtered
@@ -267,7 +175,8 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	 * @param pagingInfo The paging info object to udpate with data from the DB
 	 * @return A list of processes and their child info
 	 */
-	public BaseListResponse<Process> getAll(String filter, String sortJson, Paging pagingInfo) {
+	@Override
+	public BaseListResponse<Process> getAll(Paging pagingInfo, String sortJson, String filter) {
 		// Get processes for GL
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MClient_BH.CLIENTID_LAST_SYSTEM);
@@ -455,12 +364,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 
 	@Override
 	public Process saveEntity(Process entity) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
