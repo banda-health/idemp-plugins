@@ -7,6 +7,7 @@ import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
@@ -14,6 +15,7 @@ import org.compiere.model.MCostElement;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
@@ -48,6 +50,7 @@ import org.compiere.util.Trx;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -94,6 +97,7 @@ public class MBandaSetup {
 	private final String SUFFIX_BANK_ACCOUNT_NAME = " Account";
 	private final String SUFFIX_BANK_ACCOUNT_NUMBER = "AccountNo";
 	public static final String DEFAULT_IDEMPIERE_ENTITY_NAME = "Standard";
+	public static final String PREFIX_OTC_BUSINESS_PARTNER = "OTC - ";
 	protected CLogger log = CLogger.getCLogger(getClass());
 	private StringBuffer info;
 
@@ -1383,8 +1387,11 @@ public class MBandaSetup {
 		// PO.clearCrossTenantSafe();
 
 		businessPartners.forEach((businessPartner) -> {
-			MBPartner instance = new MBPartner(context, 0, getTransactionName());
-			MBPartner.copyValues(businessPartner, instance);
+			MBPartner_BH instance = new MBPartner_BH(context, 0, getTransactionName());
+			MBPartner_BH.copyValues(businessPartner, instance);
+			instance.setM_PriceList_ID(0);
+			instance.setPO_PriceList_ID(0);
+			instance.setName(PREFIX_OTC_BUSINESS_PARTNER + client.getName());
 			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
 				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
 			}

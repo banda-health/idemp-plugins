@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MClient;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
@@ -25,7 +26,6 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
@@ -46,6 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
+	
 	@IPopulateAnnotation.CanRun
 	public void clientIsCreatedProperly() throws SQLException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -295,6 +296,17 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							.list();
 			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(),
 					"Business Partners were created");
+			
+			 // Assert default business partner locations are created.
+			List<MBPartnerLocation> configurationBusinessPartnerLocations = new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
+					MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?", valueObject.getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
+					.list();
+			List<MBPartnerLocation> clientBusinessPartnerLocations =
+					new Query(valueObject.getContext(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setParameters(client.get_ID())
+							.list();
+			assertEquals(configurationBusinessPartnerLocations.size(), clientBusinessPartnerLocations.size(),
+					"Business Partners locations were created");
 
 			// Assert default business partner groups are created
 			List<MBPGroup> configurationBusinessPartnerGroups =

@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoSuggestion;
 import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.ChargeInformationSuggestion;
 import org.bandahealth.idempiere.rest.model.ChargeInformationValueSuggestion;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -27,59 +29,14 @@ public class ChargeInformationSuggestionDBService
 	@Autowired
 	private ReferenceListDBService referenceListDBService;
 
-	public List<ChargeInformationSuggestion> get() {
-		List<ChargeInformationSuggestion> chargeInformationSuggestions =
-				super.getAll(null, null, Paging.ALL.getInstance(), null, null).getResults();
-		if (chargeInformationSuggestions == null) {
-			return new ArrayList<>();
-		}
-
-		Set<Integer> chargeInfoSuggestionIds =
-				chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getId).collect(Collectors.toSet());
-		// Batch call to get charge info values
-		Map<Integer, List<MBHChargeInfoValueSuggestion>> chargeInfoValueSuggestionsByChargeInfoSuggestion =
-				chargeInformationValueSuggestionDBService.getGroupsByIds(
-						MBHChargeInfoValueSuggestion::getBH_Charge_Info_Suggestion_ID,
-						MBHChargeInfoValueSuggestion.COLUMNNAME_BH_Charge_Info_Suggestion_ID, chargeInfoSuggestionIds);
-
-		// Batch calls to get reference lists for charge info suggestions
-		Map<String, MRefList> subTypeByValue = referenceListDBService
-				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
-						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getSubTypeValue)
-								.collect(Collectors.toSet()))
-				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
-		Map<String, MRefList> dataTypesByValue = referenceListDBService
-				.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU,
-						chargeInformationSuggestions.stream().map(ChargeInformationSuggestion::getDataTypeValue)
-								.collect(Collectors.toSet()))
-				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
-
-		return chargeInformationSuggestions.stream().peek(chargeInformationSuggestion -> {
-			// Now fill in the batched data
-			if (!StringUtil.isNullOrEmpty(chargeInformationSuggestion.getSubTypeValue())) {
-				chargeInformationSuggestion.setSubType(
-						new ReferenceList(subTypeByValue.get(chargeInformationSuggestion.getSubTypeValue())));
-			}
-			if (!StringUtil.isNullOrEmpty(chargeInformationSuggestion.getDataTypeValue())) {
-				chargeInformationSuggestion
-						.setDataType(new ReferenceList(dataTypesByValue.get(chargeInformationSuggestion.getDataTypeValue())));
-			}
-			if (chargeInfoValueSuggestionsByChargeInfoSuggestion.containsKey(chargeInformationSuggestion.getId())) {
-				chargeInformationSuggestion.setValues(
-						chargeInfoValueSuggestionsByChargeInfoSuggestion.get(chargeInformationSuggestion.getId()).stream()
-								.map(ChargeInformationValueSuggestion::new).collect(Collectors.toList()));
-			}
-		}).collect(Collectors.toList());
-	}
-
 	@Override
 	public ChargeInformationSuggestion saveEntity(ChargeInformationSuggestion entity) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -105,5 +62,44 @@ public class ChargeInformationSuggestionDBService
 	@Override
 	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return false;
+	}
+
+	@Override
+	public List<ChargeInformationSuggestion> transformData(List<MBHChargeInfoSuggestion> dbModels) {
+		Set<Integer> chargeInfoSuggestionIds =
+				dbModels.stream().map(MBHChargeInfoSuggestion::get_ID).collect(Collectors.toSet());
+		// Batch call to get charge info values
+		Map<Integer, List<MBHChargeInfoValueSuggestion>> chargeInfoValueSuggestionsByChargeInfoSuggestion =
+				chargeInformationValueSuggestionDBService.getGroupsByIds(
+						MBHChargeInfoValueSuggestion::getBH_Charge_Info_Suggestion_ID,
+						MBHChargeInfoValueSuggestion.COLUMNNAME_BH_Charge_Info_Suggestion_ID, chargeInfoSuggestionIds);
+
+		// Batch calls to get reference lists for charge info suggestions
+		Map<String, MRefList> subTypeByValue = referenceListDBService
+				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
+						dbModels.stream().map(MBHChargeInfoSuggestion::getBH_SubType)
+								.collect(Collectors.toSet()))
+				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
+		Map<String, MRefList> dataTypesByValue = referenceListDBService
+				.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU,
+						dbModels.stream().map(MBHChargeInfoSuggestion::getBH_ChargeInfoDataType)
+								.collect(Collectors.toSet()))
+				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
+
+		return dbModels.stream().map(chargeInformationSuggestion -> {
+			ChargeInformationSuggestion model = createInstanceWithAllFields(chargeInformationSuggestion);
+			// Now fill in the batched data
+			if (!StringUtil.isNullOrEmpty(model.getSubTypeValue())) {
+				model.setSubType(new ReferenceList(subTypeByValue.get(model.getSubTypeValue())));
+			}
+			if (!StringUtil.isNullOrEmpty(model.getDataTypeValue())) {
+				model.setDataType(new ReferenceList(dataTypesByValue.get(model.getDataTypeValue())));
+			}
+			if (chargeInfoValueSuggestionsByChargeInfoSuggestion.containsKey(model.getId())) {
+				model.setValues(chargeInfoValueSuggestionsByChargeInfoSuggestion.get(model.getId()).stream()
+						.map(ChargeInformationValueSuggestion::new).collect(Collectors.toList()));
+			}
+			return model;
+		}).collect(Collectors.toList());
 	}
 }

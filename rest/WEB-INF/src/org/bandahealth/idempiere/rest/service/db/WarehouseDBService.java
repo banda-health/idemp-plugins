@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MLocator;
@@ -28,12 +29,12 @@ public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse_BH> 
 
 	@Override
 	public Warehouse saveEntity(Warehouse entity) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -58,11 +59,6 @@ public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse_BH> 
 
 	@Override
 	public List<Warehouse> transformData(List<MWarehouse_BH> dbModels) {
-		dbModels = dbModels == null ? new ArrayList<>() : dbModels;
-		if (dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		// Get the locators to batch
 		Map<Integer, List<MLocator>> locatorsByWarehouseId =
 				getLocatorDBService().getGroupsByIds(MLocator::getM_Warehouse_ID, MLocator.COLUMNNAME_M_Warehouse_ID,
