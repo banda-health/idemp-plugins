@@ -1,6 +1,9 @@
 package org.bandahealth.idempiere.rest.utils;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.rest.exceptions.DocumentProcessException;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
+import org.compiere.process.DocAction;
 
 import java.util.List;
 
@@ -29,6 +32,26 @@ public class ModelUtil {
 			}
 		} else {
 			propertySetter.apply(propertyValue);
+		}
+	}
+
+	/**
+	 * Since processing a document can either fail or throw an error, capture both paths in a single method. An error
+	 * will be thrown if the processing is unsuccessful.
+	 *
+	 * @param document      The document to process
+	 * @param processAction Which action to take on the document
+	 * @throws Exception An error with the failed process message as the body
+	 */
+	public static void processDocumentOrError(DocAction document, String processAction) throws Exception {
+		try {
+			if (!document.processIt(processAction)) {
+				throw new AdempiereException(document.getProcessMsg());
+			}
+			document.saveEx();
+		} catch (AdempiereException exception) {
+			document.save();
+			throw new DocumentProcessException(exception.getLocalizedMessage());
 		}
 	}
 }
