@@ -19,6 +19,7 @@ export * from './productCategories';
 export * from './products';
 export * from './receiveProductsApi';
 export * from './referenceLists';
+export * from './services';
 export * from './vendors';
 export * from './visits';
 export * from './warehouses';
