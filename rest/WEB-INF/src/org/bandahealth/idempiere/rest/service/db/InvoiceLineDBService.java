@@ -140,10 +140,6 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 
 	@Override
 	public List<InvoiceLine> transformData(List<MInvoiceLine> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		// Batch call to get products
 		Set<Integer> productIds = dbModels.stream().map(MInvoiceLine::getM_Product_ID).collect(Collectors.toSet());
 		Map<Integer, MProduct_BH> products = productDBService.getByIds(productIds);

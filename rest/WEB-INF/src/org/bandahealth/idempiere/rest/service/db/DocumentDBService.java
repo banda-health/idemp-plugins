@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.rest.exceptions.DocumentProcessException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
@@ -9,7 +10,6 @@ import org.compiere.model.PO;
 import org.compiere.process.DocAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,13 +46,14 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 		}
 
 		// Process the document and, if it fails, throw an exception
-		boolean wasProcessingSuccessful = documentEntity.processIt(docAction);
-		documentEntity.saveEx();
-		if (!wasProcessingSuccessful) {
-			throw new AdempiereException(documentEntity.getProcessMsg());
+		try {
+			ModelUtil.processDocumentOrError(documentEntity, docAction);
+			documentEntity.saveEx();
+			return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
+		} catch (Exception exception) {
+			documentEntity.saveEx();
+			throw exception;
 		}
-
-		return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
 	}
 
 	/**

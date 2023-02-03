@@ -115,9 +115,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 
 	@Override
 	public List<Inventory> transformData(List<MInventory_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
 		// Get ids to batch
 		Set<Integer> inventoryIds = dbModels.stream().map(MInventory_BH::get_ID).collect(Collectors.toSet());
 		Set<Integer> warehouseIds = dbModels.stream().map(MInventory_BH::getM_Warehouse_ID).collect(Collectors.toSet());

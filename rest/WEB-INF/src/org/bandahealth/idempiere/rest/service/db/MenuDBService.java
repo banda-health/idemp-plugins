@@ -139,11 +139,6 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 	@Override
 	public List<Menu> transformData(List<MMenu_BH> dbModels) {
-		List<Menu> results = new ArrayList<>();
-		if (dbModels == null || dbModels.isEmpty()) {
-			return results;
-		}
-
 		// get menu ids
 		Set<Integer> windowIds = dbModels.stream().map(MMenu_BH::getAD_Window_ID).collect(Collectors.toSet());
 

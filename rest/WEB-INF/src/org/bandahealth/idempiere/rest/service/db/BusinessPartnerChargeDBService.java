@@ -123,9 +123,6 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 
 	@Override
 	public List<BusinessPartnerCharge> transformData(List<MBHBPartnerCharge> dbModels) {
-		if (dbModels == null) {
-			return new ArrayList<>();
-		}
 		Set<Integer> businessPartnerChargeIds =
 				dbModels.stream().map(MBHBPartnerCharge::getBH_BPartner_Charge_ID).collect(Collectors.toSet());
 		Set<Integer> chargeIds = dbModels.stream().map(MBHBPartnerCharge::getC_Charge_ID).collect(Collectors.toSet());

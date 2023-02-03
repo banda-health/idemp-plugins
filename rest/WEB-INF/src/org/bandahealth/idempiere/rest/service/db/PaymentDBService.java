@@ -325,10 +325,6 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	@Override
 	public List<Payment> transformData(List<MPayment_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MPayment_BH::getC_BPartner_ID).collect(Collectors.toSet());
 		Map<Integer, MBPartner_BH> businessPartnersById =
 				businessPartnerIds.isEmpty() ? new HashMap<>() : patientDBService.getByIds(businessPartnerIds);

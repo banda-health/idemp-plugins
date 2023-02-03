@@ -67,10 +67,6 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 
 	@Override
 	public List<StorageOnHand> transformData(List<MStorageOnHand> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		Set<Integer> productIds = dbModels.stream().map(MStorageOnHand::getM_Product_ID).collect(Collectors.toSet());
 		Set<Integer> attributeSetInstanceIds = dbModels.stream().map(MStorageOnHand::getM_AttributeSetInstance_ID)
 				.collect(Collectors.toSet());

@@ -47,10 +47,6 @@ public class InvoiceDBService extends BaseInvoiceDBService<Invoice> {
 
 	@Override
 	public List<Invoice> transformData(List<MInvoice_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MInvoice_BH::getC_BPartner_ID)
 				.collect(Collectors.toSet());
 		// Batch call to get business partners

@@ -205,9 +205,6 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	public List<Patient> transformData(List<MBPartner_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
 		Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
 		Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
 		Map<Integer, String> lastVisitDateByPatientId = VisitDBService.getLastVisitDateByPatients(patientIds);

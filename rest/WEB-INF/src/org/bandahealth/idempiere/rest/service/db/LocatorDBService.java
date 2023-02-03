@@ -49,10 +49,6 @@ public class LocatorDBService extends BaseDBService<Locator, MLocator> {
 
 	@Override
 	public List<Locator> transformData(List<MLocator> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		// Batch the warehouse calls
 		Set<Integer> warehouseIds =
 				dbModels.stream().map(MLocator::getM_Warehouse_ID).filter(warehouseId -> warehouseId > 0)

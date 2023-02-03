@@ -59,11 +59,6 @@ public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse_BH> 
 
 	@Override
 	public List<Warehouse> transformData(List<MWarehouse_BH> dbModels) {
-		dbModels = dbModels == null ? new ArrayList<>() : dbModels;
-		if (dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		// Get the locators to batch
 		Map<Integer, List<MLocator>> locatorsByWarehouseId =
 				getLocatorDBService().getGroupsByIds(MLocator::getM_Warehouse_ID, MLocator.COLUMNNAME_M_Warehouse_ID,
