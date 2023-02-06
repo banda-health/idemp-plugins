@@ -152,21 +152,17 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		// Create a transaction so all parts of the visit can pass or fail together
-		// Comment out new transaction to fix show-stopper issue. Remove this comment once issue is fixed. 
-		// Trx processVisitTransaction = Trx.get(Trx.createTrxName("ProcessVisit"), true);
+		Trx processVisitTransaction = Trx.get(Trx.createTrxName("ProcessVisit"), true);
 		try {
 			MOrder_BH order = getEntityByUuidFromDB(uuid);
-			//order.set_TrxName(processVisitTransaction.getTrxName());
+			order.set_TrxName(processVisitTransaction.getTrxName());
 			order.setDocAction(docAction);
 			ModelUtil.processDocumentOrError(order, docAction);
 
-			//List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-			//				paymentDBService.getPaymentsByOrderId(order.get_ID()).stream().map(Payment::getUuid)
-			//						.collect(Collectors.toSet())).values().stream()
-			//		.peek(payment -> payment.set_TrxName(processVisitTransaction.getTrxName())).collect(Collectors.toList());
-			Collection<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-									paymentDBService.getPaymentsByOrderId(order.get_ID()).stream().map(Payment::getUuid)
-											.collect(Collectors.toSet())).values();
+			List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+							paymentDBService.getPaymentsByOrderId(order.get_ID()).stream().map(Payment::getUuid)
+									.collect(Collectors.toSet())).values().stream()
+					.peek(payment -> payment.set_TrxName(processVisitTransaction.getTrxName())).collect(Collectors.toList());
 			Collection<MPayment_BH> existingUnfinalizedPayments = existingPayments.stream()
 					.filter(payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
 					.collect(Collectors.toList());
@@ -190,13 +186,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					ModelUtil.processDocumentOrError(payment, docAction);
 				}
 			}
-			//Make sure the transaction is committed and closed
-			//processVisitTransaction.commit();
+			processVisitTransaction.commit();
 			Visit visit = createInstanceWithAllFields(order);
 			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
 		} catch (Exception exception) {
-			//processVisitTransaction.rollback();
+			processVisitTransaction.rollback();
 			throw exception;
 		}
 	}
