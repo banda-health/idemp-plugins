@@ -186,15 +186,21 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					ModelUtil.processDocumentOrError(payment, docAction);
 				}
 			}
-			processVisitTransaction.commit();
-			processVisitTransaction.close();
+			if (!processVisitTransaction.commit(true)) {
+				logger.severe("Could not commit visit transaction");
+			}
 			Visit visit = createInstanceWithAllFields(order);
 			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
 		} catch (Exception exception) {
-			processVisitTransaction.rollback();
-			processVisitTransaction.close();
+			if (!processVisitTransaction.rollback(true)) {
+				logger.severe("Could not roll back visit transaction");
+			}
 			throw exception;
+		} finally {
+			if (!processVisitTransaction.close()) {
+				logger.severe("Could not close visit transaction");
+			}
 		}
 	}
 
