@@ -61,7 +61,7 @@ while IFS= read -r line; do
     sleep 1
     ((waitCounter++))
   done
-  jq -r '.testResults[]|if .status=="passed" then "PASS "+.name+" ("+((.endTime-.startTime)/1000000|tostring)+")" else "FAIL "+.name+"\n"+.message+"\n" end' <jestResults.json >>full-test-results.txt
+  jq -r '.testResults[]|if .status=="passed" or .status=="focused" then "PASS "+.name+" ("+((.endTime-.startTime)/1000000|tostring)+")" else "FAIL "+.name+"\n"+.message+"\n" end' <jestResults.json >>full-test-results.txt
 done <tests-to-execute.txt
 
 cat full-test-results.txt
