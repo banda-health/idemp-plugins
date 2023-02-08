@@ -187,11 +187,13 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				}
 			}
 			processVisitTransaction.commit();
+			processVisitTransaction.close();
 			Visit visit = createInstanceWithAllFields(order);
 			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
 			return visit;
 		} catch (Exception exception) {
 			processVisitTransaction.rollback();
+			processVisitTransaction.close();
 			throw exception;
 		}
 	}
