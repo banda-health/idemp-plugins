@@ -101,8 +101,9 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
 		assertThat("Patient's name is on the receipt", receiptContent,
 				containsString(valueObject.getBusinessPartner().getName().substring(0, 12)));
-		assertThat("Products are included", receiptContent,
-				containsString(valueObject.getOrderLine().getName().substring(0, 18)));
+		String casedProductName = valueObject.getOrderLine().getName();
+		casedProductName = casedProductName.substring(0, 1).toUpperCase() + casedProductName.substring(1).toLowerCase();
+		assertThat("Products are included", receiptContent, containsString(casedProductName.substring(0, 18)));
 		assertThat("Products prices are included", receiptContent,
 				containsString(String.valueOf(valueObject.getOrderLine().getLineNetAmt().intValue())));
 		assertThat("Payments are included", receiptContent.toLowerCase(), containsString("Cash".toLowerCase()));
