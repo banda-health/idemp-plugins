@@ -420,7 +420,6 @@ test('create and complete pharmacy sales visit', async () => {
 	expect(pharmacySalesPatients.length).toBe(1);
 	const pharmacySalesPatient = pharmacySalesPatients[0];
 	
-	delete (pharmacySalesPatient as Partial<Patient>).approximateDateOfBirth;
 	valueObject.businessPartner = pharmacySalesPatient;
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -461,7 +460,6 @@ test(`get method returns the correct data`, async () => {
 	};
 	const savedPatient = await patientApi.save(valueObject, patient as Patient);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
-	delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;

@@ -33,7 +33,6 @@ public class Patient extends BusinessPartner {
 	private String localPatientNumber;
 	private int totalVisits;
 	private String lastVisitDate;
-	@JsonProperty("isApproximateDateOfBirth")
 	private Boolean isApproximateDateOfBirth;
 
 	public Patient() {
@@ -223,10 +222,12 @@ public class Patient extends BusinessPartner {
 		this.lastVisitDate = lastVisitDate;
 	}
 
+	@JsonProperty("isApproximateDateOfBirth")
 	public void setIsApproximateDateOfBirth(Boolean isApproximateDateOfBirth) {
 		this.isApproximateDateOfBirth = isApproximateDateOfBirth;
 	}
 
+	@JsonProperty("isApproximateDateOfBirth")
 	public Boolean isApproximateDateOfBirth() {
 		return isApproximateDateOfBirth;
 	}
