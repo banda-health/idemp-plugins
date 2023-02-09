@@ -1,8 +1,8 @@
 import PdfParse from 'pdf-parse';
 import { patientApi, referenceListApi, visitApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
-import { Patient, Payment, PaymentType, ProcessInfoParameter, Visit } from '../types/org.bandahealth.idempiere.rest';
-import { createPatient, createProduct, createVisit, runReport } from '../utils';
+import { BusinessPartner, Patient, Payment, PaymentType, ProcessInfoParameter, Visit } from '../types/org.bandahealth.idempiere.rest';
+import { createPatient, createProduct, createVisit, formatDate, runReport } from '../utils';
 
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -442,4 +442,45 @@ test('create and complete pharmacy sales visit', async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+});
+
+test(`get method returns the correct data`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	const patient: Partial<Patient> = {
+		name: valueObject.getDynamicStepMessage(),
+		description: valueObject.getStepMessageLong(),
+		dateOfBirth: valueObject.date?.toISOString(),
+		gender: 'male',
+		nationalId: '156156',
+		occupation: 'Programmer',
+		nextOfKinName: 'Wifey',
+		nextOfKinContact: '155155',
+	};
+	const savedPatient = await patientApi.save(valueObject, patient as Patient);
+	valueObject.businessPartner = savedPatient as BusinessPartner;
+	delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	const twoDaysAgo = new Date();
+	twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+	twoDaysAgo.setUTCHours(12);
+	valueObject.date = twoDaysAgo;
+	await createVisit(valueObject);
+
+	const fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.order!.uuid);
+	expect(fetchedVisit.patient).toBeTruthy();
+	expect(fetchedVisit.patient.lastVisitDate).toBe(formatDate(twoDaysAgo));
+	expect(fetchedVisit.patient.totalVisits).toBe(1);
+	expect(fetchedVisit.patient.nationalId).toBe(patient.nationalId);
+	expect(fetchedVisit.patient.occupation).toBe(patient.occupation);
+	expect(fetchedVisit.patient.nextOfKinName).toBe(patient.nextOfKinName);
+	expect(fetchedVisit.patient.nextOfKinContact).toBe(patient.nextOfKinContact);
 });

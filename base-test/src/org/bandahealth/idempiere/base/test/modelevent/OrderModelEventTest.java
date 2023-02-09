@@ -135,6 +135,6 @@ public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void), "Order was successfully voided");
-		assertNull(valueObject.getOrder().getBH_Isexpense(), "Is Expense is null");
+		assertNull(valueObject.getOrder().isBH_IsExpense(), "Is Expense is null");
 	}
 }
