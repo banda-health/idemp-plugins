@@ -3,6 +3,7 @@
 export * from './accounts';
 export * from './authentication';
 export * from './base';
+export * from './codedDiagnosis';
 export * from './chargeInformationSuggestions';
 export * from './chargeTypes';
 export * from './charges';
