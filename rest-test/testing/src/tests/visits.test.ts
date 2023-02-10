@@ -486,3 +486,32 @@ test('can remove a payment from a re-opened visit', async () => {
 		valueObject.salesStandardPrice,
 	);
 });
+
+test('can delete a drafted visit', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+	valueObject.order!.payments = [
+		{
+			payAmount: valueObject.salesStandardPrice,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
+		} as Payment,
+	];
+	valueObject.order = await visitApi.save(valueObject, valueObject.order as Visit);
+
+	valueObject.stepName = 'Delete visit';
+	expect(await visitApi.delete(valueObject, valueObject.order.uuid)).toBe(true);
+	expect(await visitApi.getByUuid(valueObject, valueObject.order.uuid)).toBeFalsy();
+});
