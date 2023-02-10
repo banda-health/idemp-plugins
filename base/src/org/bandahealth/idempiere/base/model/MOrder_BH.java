@@ -120,7 +120,7 @@ public class MOrder_BH extends MOrder {
 	 * @param BH_IsExpense BH_IsExpense
 	 */
 	public void setBH_IsExpense(Boolean BH_IsExpense) {
-		set_Value(COLUMNNAME_BH_IsExpense, Boolean.valueOf(BH_IsExpense));
+		set_Value(COLUMNNAME_BH_IsExpense, BH_IsExpense);
 	}
 
 	/**
