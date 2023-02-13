@@ -13,11 +13,13 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.compiere.model.MSequence;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 
 public class QueryUtil {
 
@@ -123,9 +125,14 @@ public class QueryUtil {
 	 *
 	 * @return
 	 */
-	public static Object generateNextBHPatientId() {
+	public static Object generateNextBHPatientId(MBPartner_BH patient) {
+		if (patient == null) {
+			return null;
+		}
+		
+		return MSequence.getDocumentNo(Env.getAD_Client_ID(Env.getCtx()), "BH_PatientID_C_BPartner", Trx.createTrxName("GeneratePatientID"), patient);
 		// default patient id
-		Integer initialClientPatientId = 100000;
+		/*Integer initialClientPatientId = 100000;
 
 		// First, try to see if we can fetch their current maximum numeric Banda patient id
 		StringBuilder sqlQuery = new StringBuilder("SELECT MAX(CAST(").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
@@ -173,7 +180,7 @@ public class QueryUtil {
 			clientsCurrentMaxPatientId = initialClientPatientId;
 		}
 
-		return clientsCurrentMaxPatientId;
+		return clientsCurrentMaxPatientId;*/
 	}
 
 	/**

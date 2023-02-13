@@ -24,7 +24,7 @@ public class CalloutGeneratePatientId implements IColumnCallout {
 			}
 
 			// generate next patient id
-			Object generatedPatientId = QueryUtil.generateNextBHPatientId();
+			Object generatedPatientId = QueryUtil.generateNextBHPatientId(null);
 			if (generatedPatientId == null) {
 				return null;
 			}
