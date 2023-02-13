@@ -1,391 +1,205 @@
-/**********************************************************************************************************/
--- This script tries to clean up the open balances for our OTC patients by doing the following things:
--- 1. Get a list of all Banda payments and the iDempiere payments
--- 2. Update all allocations for the automatically-created iDempiere payments to point to Banda's
--- 3. Delete the automatically-created iDempiere payments
--- 4. Mark the Banda payments as allocated
--- 5. Update total open balance for all the OTC business partners
--- 6. Update payment rules and wrap up
-/**********************************************************************************************************/
-
-/**********************************************************************************************************/
--- 1. Get a list of all Banda payments and the iDempiere payments
-/**********************************************************************************************************/
-DROP TABLE IF EXISTS tmp_payment_id_mapping;
-
-SELECT
-	ip.c_payment_id   AS idemp_payment_id,
-	banp.c_payment_id AS banda_payment_id
-INTO TEMP TABLE
-	tmp_payment_id_mapping
-FROM
-	c_payment ip
-		JOIN c_allocationline al
-			ON ip.c_payment_id = al.c_payment_id
-		JOIN c_allocationhdr ah
-			ON al.c_allocationhdr_id = ah.c_allocationhdr_id
-		JOIN c_invoice i
-			ON al.c_invoice_id = i.c_invoice_id
-		JOIN c_order o
-			ON i.c_order_id = o.c_order_id
-		JOIN c_payment banp
-			ON banp.bh_c_order_id = o.c_order_id
-		JOIN c_bpartner bp
-			ON o.c_bpartner_id = bp.c_bpartner_id
-		JOIN c_bp_group bpg
-			ON bp.c_bp_group_id = bpg.c_bp_group_id
-WHERE
-	ip.bh_tender_amount IS NULL
-	AND banp.bh_tender_amount IS NOT NULL
-	AND ip.isallocated = 'Y'
-	AND bpg.name = 'OTC Patient'
-	AND ah.docstatus NOT IN ('VO', 'RE', 'RA');
-
-/**********************************************************************************************************/
--- 2. Update all allocations for the automatically-created iDempiere payments to point to Banda's
-/**********************************************************************************************************/
-UPDATE c_allocationline
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-
-UPDATE C_BankStatementLine
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_AllocationLine
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE R_RequestAction
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_DunningRunLine
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_Recurring_Run
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE B_SellerFunds
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_Recurring
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE I_BankStatement
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE B_BuyerFunds
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_PaymentAllocate
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE I_Payment
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_DepositBatchLine
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_Invoice
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_PaymentTransaction
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_PaySelectionCheck
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE R_Request
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_Order
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_POSPayment
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-UPDATE C_CashLine
-SET
-	c_payment_id = banda_payment_id
-FROM
-	tmp_payment_id_mapping
-WHERE
-	c_payment_id = idemp_payment_id;
-
-/**********************************************************************************************************/
--- 3. Delete the automatically-created iDempiere payments
-/**********************************************************************************************************/
-DELETE
-FROM
-	c_payment
-WHERE
-		c_payment_id IN (
-		SELECT
-			idemp_payment_id
-		FROM
-			tmp_payment_id_mapping
-	);
-
-/**********************************************************************************************************/
--- 4. Mark the Banda payments as allocated
-/**********************************************************************************************************/
-ALTER TABLE b_buyerfunds
-	DROP CONSTRAINT IF EXISTS cpayment_bbuyerfunds;
-ALTER TABLE b_sellerfunds
-	DROP CONSTRAINT IF EXISTS cpayment_bsellerfunds;
-ALTER TABLE c_allocationline
-	DROP CONSTRAINT IF EXISTS c_allocationline_c_payment_id_fkey;
-ALTER TABLE c_bankstatementline
-	DROP CONSTRAINT IF EXISTS cpayment_cbankstmtline;
-ALTER TABLE c_cashline
-	DROP CONSTRAINT IF EXISTS cpayment_ccashline;
-ALTER TABLE c_depositbatchline
-	DROP CONSTRAINT IF EXISTS cpayment_cdepositbatchline;
-ALTER TABLE c_dunningrunline
-	DROP CONSTRAINT IF EXISTS cpayment_cdunningrunline;
-ALTER TABLE c_invoice
-	DROP CONSTRAINT IF EXISTS c_invoice_c_payment_id_fkey;
-ALTER TABLE c_order
-	DROP CONSTRAINT IF EXISTS c_order_c_payment_id_fkey;
-ALTER TABLE c_payment
-	DROP CONSTRAINT IF EXISTS c_payment_ref_payment_id_fkey;
-ALTER TABLE c_payment
-	DROP CONSTRAINT IF EXISTS c_payment_reversal_id_fkey;
-ALTER TABLE c_paymentallocate
-	DROP CONSTRAINT IF EXISTS cpayment_cpaymentallocate;
-ALTER TABLE c_paymenttransaction
-	DROP CONSTRAINT IF EXISTS cpayment_cpaymenttransaction;
-ALTER TABLE c_payselectioncheck
-	DROP CONSTRAINT IF EXISTS cpayment_cpayselectioncheck;
-ALTER TABLE c_pospayment
-	DROP CONSTRAINT IF EXISTS cpayment_cpospayment;
-ALTER TABLE c_recurring
-	DROP CONSTRAINT IF EXISTS cpayment_crecurring;
-ALTER TABLE c_recurring_run
-	DROP CONSTRAINT IF EXISTS cpayment_crecurringrun;
-ALTER TABLE i_bankstatement
-	DROP CONSTRAINT IF EXISTS cpayment_ibankstatement;
-ALTER TABLE i_payment
-	DROP CONSTRAINT IF EXISTS cpayment_ipayment;
-ALTER TABLE r_request
-	DROP CONSTRAINT IF EXISTS cpayment_rrequest;
-ALTER TABLE r_requestaction
-	DROP CONSTRAINT IF EXISTS cpayment_rrequestaction;
-
-UPDATE c_payment
-SET
-	isallocated = 'Y'
-WHERE
-		c_payment_id IN (
-		SELECT
-			banda_payment_id
-		FROM
-			tmp_payment_id_mapping
-	);
-
-ALTER TABLE r_requestaction
-	ADD CONSTRAINT cpayment_rrequestaction FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE r_request
-	ADD CONSTRAINT cpayment_rrequest FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_payment
-	ADD CONSTRAINT cpayment_ipayment FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE i_bankstatement
-	ADD CONSTRAINT cpayment_ibankstatement FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_recurring_run
-	ADD CONSTRAINT cpayment_crecurringrun FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_recurring
-	ADD CONSTRAINT cpayment_crecurring FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_pospayment
-	ADD CONSTRAINT cpayment_cpospayment FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_payselectioncheck
-	ADD CONSTRAINT cpayment_cpayselectioncheck FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_paymenttransaction
-	ADD CONSTRAINT cpayment_cpaymenttransaction FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_paymentallocate
-	ADD CONSTRAINT cpayment_cpaymentallocate FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_payment
-	ADD CONSTRAINT c_payment_reversal_id_fkey FOREIGN KEY (reversal_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_payment
-	ADD CONSTRAINT c_payment_ref_payment_id_fkey FOREIGN KEY (ref_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_order
-	ADD CONSTRAINT c_order_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_invoice
-	ADD CONSTRAINT c_invoice_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_dunningrunline
-	ADD CONSTRAINT cpayment_cdunningrunline FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_depositbatchline
-	ADD CONSTRAINT cpayment_cdepositbatchline FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_cashline
-	ADD CONSTRAINT cpayment_ccashline FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_bankstatementline
-	ADD CONSTRAINT cpayment_cbankstmtline FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE c_allocationline
-	ADD CONSTRAINT c_allocationline_c_payment_id_fkey FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE b_sellerfunds
-	ADD CONSTRAINT cpayment_bsellerfunds FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE b_buyerfunds
-	ADD CONSTRAINT cpayment_bbuyerfunds FOREIGN KEY (c_payment_id) REFERENCES c_payment (c_payment_id) DEFERRABLE INITIALLY DEFERRED;
-
-/**********************************************************************************************************/
--- 5. Update total open balance for all the OTC business partners
-/**********************************************************************************************************/
-UPDATE c_bpartner bp
-SET
-	so_creditused    = COALESCE(calc.so_creditused, bp.so_creditused),
-	totalopenbalance = COALESCE(calc.totalopenbalance, bp.totalopenbalance),
-	socreditstatus   = CASE
-		                   WHEN bp.socreditstatus IN ('X', 'S') OR bp.so_creditlimit = 0 THEN bp.socreditstatus
-		                   WHEN bp.so_creditlimit < COALESCE(calc.totalopenbalance, bp.totalopenbalance) THEN 'H'
-		                   WHEN bp.so_creditlimit * 0.9 < COALESCE(calc.totalopenbalance, bp.totalopenbalance) THEN 'W'
-		                   ELSE 'O' END
-FROM
-	(
-		SELECT
-			COALESCE((
-				         SELECT
-					         SUM(currencyBase(invoiceOpen(i.C_Invoice_ID, i.C_InvoicePaySchedule_ID), i.C_Currency_ID,
-					                          i.DateInvoiced,
-					                          i.AD_Client_ID, i.AD_Org_ID))
-				         FROM
-					         C_Invoice_v i
-				         WHERE
-					         i.C_BPartner_ID = bp.C_BPartner_ID
-					         AND i.IsSOTrx = 'Y'
-					         AND i.IsPaid = 'N'
-					         AND i.DocStatus IN ('CO', 'CL')
-			         ), 0)                    AS so_creditused,
-				COALESCE((
-					         SELECT
-						         SUM(currencyBase(invoiceOpen(i.C_Invoice_ID, i.C_InvoicePaySchedule_ID), i.C_Currency_ID,
-						                          i.DateInvoiced, i.AD_Client_ID, i.AD_Org_ID) * i.MultiplierAP)
-					         FROM
-						         C_Invoice_v i
-					         WHERE
-						         i.C_BPartner_ID = bp.C_BPartner_ID
-						         AND i.IsPaid = 'N'
-						         AND i.DocStatus IN ('CO', 'CL')
-				         ), 0) - COALESCE((
-					                          SELECT
-						                          SUM(currencyBase(Paymentavailable(p.C_Payment_ID), p.C_Currency_ID, p.DateTrx,
-						                                           p.AD_Client_ID, p.AD_Org_ID))
-					                          FROM
-						                          C_Payment_v p
-					                          WHERE
-						                          p.C_BPartner_ID = bp.C_BPartner_ID
-						                          AND p.IsAllocated = 'N'
-						                          AND p.C_Charge_ID IS NULL
-						                          AND p.DocStatus IN ('CO', 'CL')
-				                          ), 0) AS totalopenbalance,
-			c_bpartner_id
-		FROM
-			C_BPartner bp
-		WHERE
-				bp.c_bpartner_id IN (
+-- Duplicating the post-migration script so it gets run
+DROP FUNCTION IF EXISTS get_inventory_changes(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
+CREATE FUNCTION get_inventory_changes(ad_client_id numeric,
+                                      start_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                                      end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
+	RETURNS TABLE
+	        (
+		        m_product_id              numeric,
+		        m_attributesetinstance_id numeric,
+		        purchase_price            numeric,
+		        purchase_date             timestamp WITHOUT TIME ZONE,
+		        sell_price                numeric,
+		        cost_of_goods_sold        numeric,
+		        gross_profit              numeric,
+		        opening_stock             numeric,
+		        ending_stock              numeric,
+		        received_stock            numeric,
+		        sold_stock                numeric,
+		        balanced_stock            numeric
+	        )
+	LANGUAGE plpgsql
+AS
+$$
+BEGIN
+	RETURN QUERY
+		WITH product_costs AS (
+			SELECT
+				pc.m_product_id,
+				pc.m_attributesetinstance_id,
+				pc.purchase_price,
+				pc.purchase_date
+			FROM
+				get_product_costs($1) pc
+		),
+			non_reversed_inoutlines AS (
 				SELECT
-					c_bpartner_id
+					iol.m_inoutline_id
 				FROM
-					c_payment
+					m_inoutline iol
+						LEFT JOIN m_inoutline riol
+							ON iol.m_inoutline_id = riol.reversalline_id
 				WHERE
-						c_payment_id IN (
-						SELECT
-							banda_payment_id
-						FROM
-							tmp_payment_id_mapping
-					)
+						iol.ad_client_id = $1
+					AND riol.m_inoutline_id IS NULL
+					AND iol.reversalline_id IS NULL
 			)
-	) calc
-WHERE
-	calc.c_bpartner_id = bp.c_bpartner_id;
-
-/**********************************************************************************************************/
--- 6. Update payment rules and wrap up
-/**********************************************************************************************************/
-DROP TABLE tmp_payment_id_mapping;
-
--- Update payment rules of the OTC business partners to be credit
-UPDATE c_bpartner
-SET
-	paymentrule    = 'P', -- on credit
-	socreditstatus = 'X'  -- no credit check
-WHERE
-	ad_client_id > 999999
-	OR ad_client_id = 2;
+		SELECT
+			p.m_product_id,
+			p.m_attributesetinstance_id,
+			p.PurchasePrice                                AS purchase_price,
+			p.PurchaseDate                                 AS purchase_date,
+			p.sell_price,
+				p.soldstock * p.PurchasePrice                  AS cost_of_goods_sold,
+				p.soldstock * (p.sell_price - p.PurchasePrice) AS gross_profit,
+			p.openingstock                                 AS opening_stock,
+			p.endingstock                                  AS ending_stock,
+			p.receivedstock                                AS received_stock,
+			p.soldstock                                    AS sold_stock,
+			p.balancestock                                 AS balanced_stock
+		FROM
+			(
+				SELECT
+					productname.m_product_id,
+					productname.m_attributesetinstance_id,
+					COALESCE(openqty.openqty, 0)             AS openingstock,
+					COALESCE(currentqty.closingqty, 0)       AS endingstock,
+					COALESCE(stockreceived.qtyreceived, 0)   AS receivedstock,
+					COALESCE(stocksold.qtysold, 0)           AS soldstock,
+					COALESCE(stocktakechange.qtybalanced, 0) AS balancestock,
+					product_costs.purchase_price             AS PurchasePrice,
+					product_costs.purchase_date              AS PurchaseDate,
+					stocksold.price                          AS sell_price
+				FROM
+					(
+						SELECT
+							p.m_product_id,
+							pc.m_attributesetinstance_id,
+							p.name
+						FROM
+							m_product p
+								LEFT JOIN product_costs pc
+									ON pc.m_product_id = p.m_product_id
+						WHERE
+								p.ad_client_id = $1
+						GROUP BY
+							p.m_product_id,
+							p.name,
+							pc.m_attributesetinstance_id
+					) productname
+						LEFT JOIN (
+						SELECT
+							t.m_product_id,
+							t.m_attributesetinstance_id,
+							SUM(t.movementqty) AS openqty
+						FROM
+							m_transaction t
+						WHERE
+								t.ad_client_id = $1
+							AND DATE(movementdate) < start_date
+							AND t.isactive = 'Y'
+						GROUP BY
+							t.m_product_id,
+							t.m_attributesetinstance_id
+					) openqty
+							ON openqty.m_product_id = productname.m_product_id
+						AND openqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
+						LEFT JOIN (
+						SELECT
+							t.m_product_id,
+							t.m_attributesetinstance_id,
+							SUM(t.movementqty) AS closingqty
+						FROM
+							m_transaction t
+						WHERE
+								t.ad_client_id = $1
+							AND DATE(movementdate) <= end_date
+							AND t.isactive = 'Y'
+						GROUP BY
+							t.m_product_id,
+							t.m_attributesetinstance_id
+					) currentqty
+							ON currentqty.m_product_id = productname.m_product_id
+						AND currentqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
+						LEFT JOIN (
+						SELECT
+							ol.m_product_id,
+							ol.m_attributesetinstance_id,
+							SUM(ol.qtyentered) AS qtyreceived
+						FROM
+							c_orderline ol
+								JOIN c_order o
+									ON ol.c_order_id = o.c_order_id
+						WHERE
+								o.ad_client_id = $1
+							AND DATE(ol.dateordered) BETWEEN $2 AND $3
+							AND o.issotrx = 'N'
+							AND o.docstatus IN ('CL', 'CO')
+							AND ol.m_product_id IS NOT NULL
+						GROUP BY
+							ol.m_product_id,
+							ol.m_attributesetinstance_id
+					) stockreceived
+							ON productname.m_product_id = stockreceived.m_product_id
+						AND productname.m_attributesetinstance_id = stockreceived.m_attributesetinstance_id
+						LEFT JOIN (
+						SELECT
+							t.m_product_id,
+							t.m_attributesetinstance_id,
+							SUM(t.movementqty) AS qtybalanced
+						FROM
+							m_transaction t
+						WHERE
+								t.ad_client_id = $1
+							AND date(t.movementdate) BETWEEN $2 AND $3
+							AND movementtype IN ('I+', 'I-')
+						GROUP BY
+							t.m_product_id,
+							t.m_attributesetinstance_id
+					) stocktakechange
+							ON productname.m_product_id = stocktakechange.m_product_id
+						AND productname.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
+						LEFT JOIN (
+						SELECT
+							iol.m_product_id,
+							COALESCE(iolma.m_attributesetinstance_id, iol.m_attributesetinstance_id) AS m_attributesetinstance_id,
+							ol.priceactual                                                           AS price,
+							SUM(COALESCE(iolma.movementqty, iol.movementqty))                        AS qtysold
+						FROM
+							m_inoutline iol
+								JOIN non_reversed_inoutlines nriol
+									ON nriol.m_inoutline_id = iol.m_inoutline_id
+								JOIN m_inout io
+									ON iol.m_inout_id = io.m_inout_id
+								LEFT JOIN m_inoutlinema iolma
+									ON iol.m_inoutline_id = iolma.m_inoutline_id
+								JOIN c_orderline ol
+									ON iol.c_orderline_id = ol.c_orderline_id
+						WHERE
+								iol.ad_client_id = $1
+							AND date(io.movementdate) BETWEEN $2 AND $3
+							AND io.movementtype = 'C-'
+						GROUP BY
+							iol.m_product_id,
+							COALESCE(iolma.m_attributesetinstance_id, iol.m_attributesetinstance_id),
+							ol.priceactual
+					) stocksold
+							ON productname.m_product_id = stocksold.m_product_id
+						AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
+						LEFT JOIN product_costs
+							ON product_costs.m_product_id = productname.m_product_id
+						AND product_costs.m_attributesetinstance_id = productname.m_attributesetinstance_id
+			) p
+		WHERE
+				endingstock > 0
+			OR openingstock > 0
+			OR receivedstock > 0
+			OR soldstock > 0
+			OR balancestock > 0;
+END
+$$;
 
 SELECT
-	register_migration_script('202301301056_GO-2527.sql')
+	register_migration_script('202302130854_GO-2563.sql')
 FROM
 	dual;

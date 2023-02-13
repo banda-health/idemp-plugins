@@ -197,6 +197,3 @@ BEGIN
 			OR balancestock > 0;
 END
 $$;
-
-ALTER FUNCTION get_inventory_changes(numeric, timestamp, timestamp) OWNER TO adempiere;
-
