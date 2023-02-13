@@ -4,8 +4,9 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
@@ -13,6 +14,7 @@ import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
 import java.io.IOException;
@@ -74,6 +76,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setBankAccount(ChuBoeCreateEntity.getBankAccountOfOrganization(valueObject));
 		payment.setC_BankAccount_ID(valueObject.getBankAccount().get_ID());
 		payment.setPayAmt(new BigDecimal(20));
+		payment.setBH_TenderAmount(new BigDecimal(20));
 		payment.setBH_C_Order_ID(valueObject.getOrder().get_ID());
 		payment.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		payment.setC_Currency_ID(valueObject.getOrder().getC_Currency_ID());
@@ -98,8 +101,9 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
 		assertThat("Patient's name is on the receipt", receiptContent,
 				containsString(valueObject.getBusinessPartner().getName().substring(0, 12)));
-		assertThat("Products are included", receiptContent,
-				containsString(valueObject.getOrderLine().getName().substring(0, 18)));
+		String casedProductName = valueObject.getOrderLine().getName();
+		casedProductName = casedProductName.substring(0, 1).toUpperCase() + casedProductName.substring(1).toLowerCase();
+		assertThat("Products are included", receiptContent, containsString(casedProductName.substring(0, 18)));
 		assertThat("Products prices are included", receiptContent,
 				containsString(String.valueOf(valueObject.getOrderLine().getLineNetAmt().intValue())));
 		assertThat("Payments are included", receiptContent.toLowerCase(), containsString("Cash".toLowerCase()));
@@ -130,19 +134,11 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create payment");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
-		valueObject.setInvoice(
-				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first());
+		valueObject.setPaymentAmount(new BigDecimal(20));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(20));
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setC_Invoice_ID(0);
-		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the receipt");
@@ -197,9 +193,17 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Change payment");
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.getPayment().setPayAmt(new BigDecimal(21));
+		valueObject.getPayment().setBH_TenderAmount(new BigDecimal(21));
 		valueObject.getPayment().saveEx();
 		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was re-completed");
+		commitEx();
+
+		valueObject.setStepName("Add new payment");
+		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(10));
+		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Regenerate the receipt");
@@ -213,7 +217,68 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
 		assertThat("'Outstanding' is still on the receipt", receiptContent, containsString("Outstanding"));
 		assertThat("'MOBILE MONEY' is on the receipt", receiptContent, containsString("MOBILE MONEY"));
+		assertThat("'CASH' is on the receipt", receiptContent, containsString("CASH"));
 		assertThat("Payment is on the receipt", receiptContent, containsString("21"));
-		assertThat("Outstanding balance is on the receipt", receiptContent, containsString("29"));
+		assertThat("Outstanding balance is on the receipt", receiptContent, containsString("19"));
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void nonPatientPaymentsAppearOnReceipt() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create non-patient payment");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setQuantity(new BigDecimal(50));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Add non-patient payment to order");
+		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		orderLine.setDescription(valueObject.getStepMessageLong());
+		orderLine.setC_Order_ID(valueObject.getOrder().get_ID());
+		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		orderLine.setQty(Env.ONE);
+		orderLine.setPrice(new BigDecimal(-20));
+		orderLine.setHeaderInfo(valueObject.getOrder());
+		orderLine.setPrice();
+		orderLine.saveEx();
+		commitEx();
+
+		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order completes");
+		commitEx();
+
+		valueObject.setStepName("Generate the receipt");
+		valueObject.setProcessUuid("30dd7243-11c1-4584-af26-5d977d117c84");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
+		assertThat("'Outstanding' is on the receipt", receiptContent, containsString("Outstanding"));
+		assertThat("'CASH' is on the receipt", receiptContent,
+				containsString(valueObject.getCharge().getName().substring(0, 8)));
+		assertThat("Payment is on the receipt", receiptContent, containsString("20"));
+		assertThat("Outstanding balance is on the receipt", receiptContent, containsString("30"));
 	}
 }

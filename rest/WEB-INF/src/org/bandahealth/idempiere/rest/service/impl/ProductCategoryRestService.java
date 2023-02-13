@@ -1,13 +1,16 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
+import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.ProductCategory;
+import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductCategoryDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * Expose Product Category REST functionality
@@ -15,14 +18,14 @@ import java.util.List;
 @Path(IRestConfigs.PRODUCT_CATEGORIES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ProductCategoryRestService {
+public class ProductCategoryRestService
+		extends BaseRestService<ProductCategory, MProductCategory_BH, ProductCategoryDBService> {
 
 	@Autowired
 	private ProductCategoryDBService dbService;
 
-	@POST
-	@Path(IRestConfigs.ROOT_PATH)
-	public List<ProductCategory> get() {
-		return dbService.get();
+	@Override
+	protected ProductCategoryDBService getDBService() {
+		return dbService;
 	}
 }

@@ -1,7 +1,8 @@
+import PdfParse from 'pdf-parse';
 import { patientApi, referenceListApi, visitApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
-import { Payment, PaymentType, Visit } from '../types/org.bandahealth.idempiere.rest';
-import { createPatient, createProduct, createVisit, waitForVisitToComplete } from '../utils';
+import { Patient, Payment, PaymentType, ProcessInfoParameter, Visit } from '../types/org.bandahealth.idempiere.rest';
+import { createPatient, createProduct, createVisit, runReport } from '../utils';
 
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -33,7 +34,6 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
@@ -64,7 +64,6 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order! as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(50);
 });
@@ -95,7 +94,6 @@ test(`patient open balance reverted correctly after visit with partial payment i
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(50);
 
@@ -109,7 +107,6 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	expect(newPayment).not.toBeUndefined();
 	newPayment!.payAmount = 40;
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(60);
 });
@@ -148,7 +145,6 @@ test(`patient open balance correct with multiple payments`, async () => {
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		totalCharge - paymentTotal,
@@ -167,7 +163,6 @@ test(`patient open balance correct with multiple payments`, async () => {
 		.order!.payments.filter((payment) => !['RE', 'VO'].includes(payment.docStatus))
 		.reduce((runningTotal, payment) => (runningTotal += payment.payAmount), 0);
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		totalCharge - paymentTotal,
@@ -200,7 +195,6 @@ test('payments can be removed and added to re-opened visit', async () => {
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
@@ -218,7 +212,6 @@ test('payments can be removed and added to re-opened visit', async () => {
 		) as PaymentType,
 	} as Payment);
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
@@ -236,7 +229,6 @@ test('payments can be removed and added to re-opened visit', async () => {
 		) as PaymentType,
 	} as Payment);
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
@@ -267,7 +259,6 @@ test('re-opened visit returns voided/reversed payments', async () => {
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
@@ -308,7 +299,6 @@ test('tender amount set correctly for payments', async () => {
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 	expect(valueObject.order.payments[0].payAmount).toBe(valueObject.salesStandardPrice);
@@ -341,7 +331,6 @@ test('voiding visit returns voided/reversed payments', async () => {
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
-	await waitForVisitToComplete(valueObject);
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
@@ -350,4 +339,179 @@ test('voiding visit returns voided/reversed payments', async () => {
 
 	expect(valueObject.order.payments.every((payment) => payment.docStatus === documentStatus.Reversed)).toBeTruthy();
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+});
+
+test(`completing a "future" visit doesn't cause problems with the payment`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	valueObject.setDateOffset(5);
+	await createVisit(valueObject);
+
+	valueObject.order!.payments = [
+		{
+			payAmount: valueObject.salesStandardPrice,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
+		} as Payment,
+	];
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+});
+
+test('correct patient shown when patient changed after initial switch', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create first patient';
+	await createPatient(valueObject);
+	const firstPatientName = valueObject.businessPartner!.name;
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create second patient';
+	valueObject.businessPartner = undefined;
+	valueObject.setRandom();
+	await createPatient(valueObject);
+	(valueObject.order! as Visit).patient = { uuid: valueObject.businessPartner!.uuid } as Patient;
+	const secondPatientName = valueObject.businessPartner!.name;
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+
+	valueObject.stepName = 'Print the receipt';
+	valueObject.processUuid = '30dd7243-11c1-4584-af26-5d977d117c84';
+	valueObject.processInformationParameters = [
+		{ parameterName: 'billId', parameter: valueObject.order.uuid } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	const pdfReceiptContent = (await PdfParse(valueObject.report!)).text;
+	expect(pdfReceiptContent).toContain(secondPatientName.substring(0, 18));
+	expect(pdfReceiptContent).not.toContain(firstPatientName.substring(0, 18));
+});
+
+test('create and complete pharmacy sales visit', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const pharmacySalesPatients = (
+		await patientApi.get(valueObject, 0, 10, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
+	).results;
+	expect(pharmacySalesPatients.length).toBe(1);
+	const pharmacySalesPatient = pharmacySalesPatients[0];
+	
+	delete (pharmacySalesPatient as Partial<Patient>).approximateDateOfBirth;
+	valueObject.businessPartner = pharmacySalesPatient;
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.order!.payments = [
+		{
+			payAmount: valueObject.salesStandardPrice,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
+		} as Payment,
+	];
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+});
+
+test('can remove a payment from a re-opened visit', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.order!.payments = [
+		{
+			payAmount: valueObject.salesStandardPrice,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
+		} as Payment,
+	];
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Reactivate visit';
+	valueObject.order = await visitApi.process(valueObject, valueObject.order.uuid, documentAction.ReActivate);
+
+	valueObject.stepName = 'Remove the payments';
+	valueObject.order.payments.length = 0;
+
+	valueObject.stepName = 'Re-complete visit';
+	valueObject.order = await visitApi.saveAndProcess(valueObject, valueObject.order as Visit, documentAction.Complete);
+
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		valueObject.salesStandardPrice,
+	);
+});
+
+test('can delete a drafted visit', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+	valueObject.order!.payments = [
+		{
+			payAmount: valueObject.salesStandardPrice,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
+		} as Payment,
+	];
+	valueObject.order = await visitApi.save(valueObject, valueObject.order as Visit);
+
+	valueObject.stepName = 'Delete visit';
+	expect(await visitApi.delete(valueObject, valueObject.order.uuid)).toBe(true);
+	expect(await visitApi.getByUuid(valueObject, valueObject.order.uuid)).toBeFalsy();
 });

@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="3.305785123966942"/>
 	<property name="ireport.x" value="29"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="build DO UAT "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
 	<parameter name="billId" class="java.math.BigDecimal">
@@ -13,28 +13,29 @@
 	<parameter name="totalCost" class="java.math.BigDecimal" isForPrompting="false">
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-    ol.c_order_id as bill_id,
-    c.name as name,
-    SUM(ol.linenetamt) * -1 as linenetamt
-FROM c_orderline ol
-JOIN c_charge c ON ol.c_charge_id = c.c_charge_id
-WHERE c_order_id = $P{billId}
-    AND c.c_charge_id IS NOT NULL
-GROUP BY ol.c_order_id, c.name
+	c_order_id           AS bill_id,
+	chargetype_name      AS name,
+	SUM(linenetamt) * -1 AS linenetamt
+FROM
+	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
+WHERE
+	c_order_id = $P{billId}
+GROUP BY
+	c_order_id, chargetype_name
 UNION
-select
-  payment.bh_c_order_id as bill_id,
-  tendertype.name as name,
-  coalesce(sum(payment.bh_tender_amount), sum(payment.payamt)) as amount_tendered
-from
-  c_payment payment
-  inner join AD_Ref_List tendertype on payment.tendertype = tendertype.value
-  and AD_Reference_ID=214
-where
-  payment.bh_c_order_id = $P{billId}
-group by payment.bh_c_order_id, tendertype.name;]]>
+SELECT
+	c_order_id                             AS bill_id,
+	payment_mode_name                      AS name,
+	COALESCE(SUM(tender_amt), SUM(payamt)) AS linenetamt
+FROM
+	bh_get_visit_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
+WHERE
+	c_order_id = $P{billId}
+GROUP BY
+	c_order_id, payment_mode_name]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
@@ -51,23 +52,27 @@ group by payment.bh_c_order_id, tendertype.name;]]>
 		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
+	<variable name="Outstanding" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}).abs()]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="13" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="" x="3" y="0" width="86" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
-				<textElement textAlignment="Right">
+				<reportElement key="" x="0" y="2" width="101" height="15" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}.toUpperCase()]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement key="" x="94" y="0" width="68" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" size="10"/>
-					<paragraph rightIndent="10"/>
+			<textField>
+				<reportElement x="124" y="2" width="38" height="14" uuid="053ef0e2-306c-41a5-8636-f7e49ba02d23"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{linenetamt}]]></textFieldExpression>
 			</textField>
@@ -76,49 +81,59 @@ group by payment.bh_c_order_id, tendertype.name;]]>
 	<summary>
 		<band height="42" splitType="Stretch">
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement x="92" y="6" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<reportElement x="99" y="8" width="70" height="14" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 					<paragraph rightIndent="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement x="94" y="26" width="67" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
-				<textElement textAlignment="Right">
+				<reportElement x="99" y="30" width="71" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="Arial"/>
 					<paragraph rightIndent="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}).abs()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="6" width="80" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
+				<reportElement x="0" y="8" width="90" height="14" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
+				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Payment:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="20" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+				<reportElement key="" x="1" y="30" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
 					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) >= 0)]]></printWhenExpression>
 				</reportElement>
-				<textElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Bottom">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Change Due:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="96" y="2" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+				<reportElement x="0" y="3" width="163" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="97" y="21" width="63" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+				<reportElement x="0" y="27" width="165" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement key="" x="20" y="26" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+				<reportElement key="" x="1" y="30" width="70" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
 					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) < 0)]]></printWhenExpression>
 				</reportElement>
-				<textElement>
-					<font fontName="Arial"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Outstanding:]]></text>
 			</staticText>

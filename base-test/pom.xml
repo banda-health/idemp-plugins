@@ -89,8 +89,6 @@
                             </artifactItems>
                             <outputDirectory>lib</outputDirectory>
                             <stripVersion>true</stripVersion>
-                            <overWriteReleases>true</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
                     </execution>
                 </executions>
