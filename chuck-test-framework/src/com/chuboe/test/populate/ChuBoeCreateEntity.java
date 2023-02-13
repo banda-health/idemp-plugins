@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.base.Core;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -823,16 +825,18 @@ public class ChuBoeCreateEntity {
 					") and C_Calendar_ID = " + calendar.get_ID();
 			List<MYear> years = new Query(valueObject.getContext(), X_C_Year.Table_Name, where,
 					valueObject.getTransactionName()).setOnlyActiveRecords(true).setClient_ID().list();
+			Set<String> fiscalYears = years.stream().map(MYear::getFiscalYear).collect(Collectors.toSet());
 
 			//create a set of all three years
-			List<String> neededYears = new ArrayList<String>();
-			neededYears.add(String.valueOf(currentYear));
-			neededYears.add(String.valueOf(currentYear + 1));
-			neededYears.add(String.valueOf(currentYear - 1));
-
-			//iterate across years and remove present from set
-			for (MYear year : years) {
-				neededYears.remove(year.getFiscalYear());
+			List<String> neededYears = new ArrayList<>();
+			if (!fiscalYears.contains(String.valueOf(currentYear))) {
+				neededYears.add(String.valueOf(currentYear));
+			}
+			if (!fiscalYears.contains(String.valueOf(currentYear + 1))) {
+				neededYears.add(String.valueOf(currentYear + 1));
+			}
+			if (!fiscalYears.contains(String.valueOf(currentYear - 1))) {
+				neededYears.add(String.valueOf(currentYear - 1));
 			}
 
 			//iterate across the set to create the years that remain
