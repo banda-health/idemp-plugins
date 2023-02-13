@@ -211,7 +211,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		}
 
 		Object generatedPatientId = QueryUtil.generateNextBHPatientId(patient);
-		if (generatedPatientId == null || generatedPatientId instanceof String) {
+		if (generatedPatientId == null) {
 			return;
 		}
 
