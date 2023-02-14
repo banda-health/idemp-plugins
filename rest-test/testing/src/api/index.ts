@@ -6,6 +6,7 @@ export * from './base';
 export * from './chargeInformationSuggestions';
 export * from './chargeTypes';
 export * from './charges';
+export * from './codedDiagnosis';
 export * from './documentTypes';
 export * from './documents';
 export * from './expenseCategories';

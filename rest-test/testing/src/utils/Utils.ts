@@ -50,7 +50,6 @@ export async function createPatient(valueObject: ValueObject) {
 		if (!valueObject.businessPartner) {
 			throw new Error('Business partner not created');
 		}
-		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
 	}
 }
 /**
@@ -70,7 +69,6 @@ export async function createVendor(valueObject: ValueObject) {
 		if (!valueObject.businessPartner) {
 			throw new Error('Business partner not created');
 		}
-		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
 	}
 }
 

@@ -1,7 +1,7 @@
 DROP FUNCTION IF EXISTS get_inventory_changes(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE OR REPLACE FUNCTION get_inventory_changes(ad_client_id numeric,
-                                    start_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                                    end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
+CREATE FUNCTION get_inventory_changes(ad_client_id numeric,
+                                      start_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                                      end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
 		        m_product_id              numeric,
@@ -46,16 +46,16 @@ BEGIN
 		SELECT
 			p.m_product_id,
 			p.m_attributesetinstance_id,
-			p.PurchasePrice                                           AS purchase_price,
-			p.PurchaseDate                                            AS purchase_date,
+			p.PurchasePrice                                AS purchase_price,
+			p.PurchaseDate                                 AS purchase_date,
 			p.sell_price,
-			p.soldstock * p.PurchasePrice                             AS cost_of_goods_sold,
-			p.soldstock * (p.sell_price - p.PurchasePrice)            AS gross_profit,
-			p.openingstock                                            AS opening_stock,
-			p.endingstock                                             AS ending_stock,
-			p.receivedstock                                           AS received_stock,
-			p.soldstock                                               AS sold_stock,
-			p.balancestock                                            AS balanced_stock
+			p.soldstock * p.PurchasePrice                  AS cost_of_goods_sold,
+			p.soldstock * (p.sell_price - p.PurchasePrice) AS gross_profit,
+			p.openingstock                                 AS opening_stock,
+			p.endingstock                                  AS ending_stock,
+			p.receivedstock                                AS received_stock,
+			p.soldstock                                    AS sold_stock,
+			p.balancestock                                 AS balanced_stock
 		FROM
 			(
 				SELECT
@@ -161,16 +161,16 @@ BEGIN
 						LEFT JOIN (
 						SELECT
 							iol.m_product_id,
-							iolma.m_attributesetinstance_id,
-							ol.priceactual         AS price,
-							SUM(iolma.movementqty) AS qtysold
+							COALESCE(iolma.m_attributesetinstance_id, iol.m_attributesetinstance_id) AS m_attributesetinstance_id,
+							ol.priceactual                                                           AS price,
+							SUM(COALESCE(iolma.movementqty, iol.movementqty))                        AS qtysold
 						FROM
 							m_inoutline iol
 								JOIN non_reversed_inoutlines nriol
 									ON nriol.m_inoutline_id = iol.m_inoutline_id
-								INNER JOIN m_inout io
+								JOIN m_inout io
 									ON iol.m_inout_id = io.m_inout_id
-								JOIN m_inoutlinema iolma
+								LEFT JOIN m_inoutlinema iolma
 									ON iol.m_inoutline_id = iolma.m_inoutline_id
 								JOIN c_orderline ol
 									ON iol.c_orderline_id = ol.c_orderline_id
@@ -180,7 +180,7 @@ BEGIN
 							AND io.movementtype = 'C-'
 						GROUP BY
 							iol.m_product_id,
-							iolma.m_attributesetinstance_id,
+							COALESCE(iolma.m_attributesetinstance_id, iol.m_attributesetinstance_id),
 							ol.priceactual
 					) stocksold
 							ON productname.m_product_id = stocksold.m_product_id
