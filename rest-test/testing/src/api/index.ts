@@ -11,6 +11,7 @@ export * from './documents';
 export * from './expenseCategories';
 export * from './expenses';
 export * from './invoices';
+export * from './languages';
 export * from './menus';
 export * from './patients';
 export * from './payments';

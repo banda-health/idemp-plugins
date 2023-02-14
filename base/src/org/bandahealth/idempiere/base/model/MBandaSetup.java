@@ -1128,6 +1128,12 @@ public class MBandaSetup {
 	 * Custom warehouse configuration
 	 */
 	public boolean updateWarehouseLocatorSetUp() {
+//		PO.setCrossTenantSafe();
+		MWarehouse_BH configurationClientWarehouse = new Query(this.context, MWarehouse_BH.Table_Name,
+				MWarehouse.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
+				.first();
+//		PO.clearCrossTenantSafe();
+
 		// get the default warehouse and locator->rename and set to locator as default
 		MWarehouse_BH warehouse = new Query(this.context, MWarehouse.Table_Name,
 				MWarehouse.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(client.getAD_Client_ID())
@@ -1140,6 +1146,7 @@ public class MBandaSetup {
 		warehouse.setName(organization.getName());
 		warehouse.setValue(organization.getName());
 		warehouse.setBH_IsDefaultWarehouse(true);
+		warehouse.setIsDisallowNegativeInv(configurationClientWarehouse.isDisallowNegativeInv());
 		if (!locator.save()) {
 			transaction.rollback();
 			transaction.close();

@@ -263,7 +263,6 @@ public class DoChuBoePopulate extends SvrProcess {
 
 						} catch (Exception e) {
 							totalErrors++;
-							classBreak = true;
 							didErrorOccurForThisTest = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
 							pop_response.saveEx();
@@ -287,7 +286,6 @@ public class DoChuBoePopulate extends SvrProcess {
 							pop_response.saveEx();
 						} catch (Exception e) {
 							totalErrors++;
-							classBreak = true;
 							didErrorOccurForThisTest = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
 							pop_response.saveEx();

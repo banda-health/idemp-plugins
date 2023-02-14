@@ -130,49 +130,6 @@ export async function createCharge(valueObject: ValueObject) {
 }
 
 /**
- * This requires a document type, a business partner, and a warehouse be selected on the value object.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createReceiveProduct(valueObject: ValueObject) {
-	valueObject.validate();
-
-	//perform further validation if needed based on business logic
-	if (!valueObject.businessPartner) {
-		throw new Error('Business Partner is Null');
-	} else if (!valueObject.warehouse) {
-		throw new Error('Warehouse is Null');
-	}
-
-	const receiveProduct: Partial<ReceiveProduct> = {
-		description: valueObject.getStepMessageLong(),
-		dateOrdered: valueObject.date?.toISOString(),
-		vendor: valueObject.businessPartner as Vendor | undefined,
-		warehouse: valueObject.warehouse,
-		orderLines: [],
-	};
-	const line: Partial<OrderLine> = {
-		description: valueObject.getStepMessageLong(),
-		product: valueObject.product,
-		quantity: valueObject.quantity || 1,
-	};
-	line.price = (line.quantity || 0) * (line.product?.sellPrice || 0);
-	receiveProduct.orderLines?.push(line as OrderLine);
-	valueObject.order = await receiveProductsApi.save(valueObject, receiveProduct as ReceiveProduct);
-	if (!valueObject.order) {
-		throw new Error('Order not created');
-	}
-	valueObject.orderLine = valueObject.order!.orderLines[0];
-
-	if (valueObject.documentAction) {
-		valueObject.order = await visitApi.process(valueObject, valueObject.order!.uuid, valueObject.documentAction!);
-		if (!valueObject.order) {
-			throw new Error('Order not processed');
-		}
-	}
-}
-
-/**
  * Create an order (don't really have an ideal method for this at the moment - have to go through visits).
  * This requires a document type, a business partner, and a warehouse be selected on the value object.
  * @param valueObject The value object containing information to create the entity
@@ -554,5 +511,5 @@ export async function runReport(valueObject: ValueObject) {
 		);
 	}
 
-	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject))
+	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject));
 }
