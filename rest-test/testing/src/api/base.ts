@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ValueObject } from '../models';
 import { Authentication, BaseListResponse } from '../types/org.bandahealth.idempiere.rest';
 
@@ -12,12 +12,16 @@ export const initialLoginData: Partial<Authentication> = {
 
 axios.interceptors.response.use(
 	(response) => response,
-	(error) => {
-		throw new Error(
-			`${error?.message}\nMethod: ${error?.config?.method}\nURL: ${error?.request?.path || error?.config?.url}\nData: ${
-				error?.config?.data
-			}`,
-		);
+	(error: Error | AxiosError) => {
+		let errorMessage = '';
+		if (axios.isAxiosError(error)) {
+			errorMessage = `${error.message}${error.response?.data ? ' - ' + error.response.data : ''}\nMethod: ${
+				error.config.method
+			}\nURL: ${error.request?.path || error.config.url}\nData: ${error.config.data}`;
+		} else {
+			errorMessage = error.message;
+		}
+		throw new Error(errorMessage);
 	},
 );
 
