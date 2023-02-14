@@ -1,4 +1,4 @@
--- Revert the negative inventory check until we know how we're going to solve this problem
+-- Redo the negative inventory check
 UPDATE m_warehouse
 SET
 	isdisallownegativeinv = 'Y'
