@@ -1391,6 +1391,8 @@ public class MBandaSetup {
 			MBPartner_BH.copyValues(businessPartner, instance);
 			instance.setM_PriceList_ID(0);
 			instance.setPO_PriceList_ID(0);
+			instance.setC_PaymentTerm_ID(0);
+			instance.setPO_PaymentTerm_ID(0);
 			instance.setName(PREFIX_OTC_BUSINESS_PARTNER + client.getName());
 			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
 				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
