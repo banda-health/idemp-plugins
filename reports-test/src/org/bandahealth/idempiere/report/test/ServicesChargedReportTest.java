@@ -65,7 +65,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		valueObject.getOrder().setBH_Isexpense(false);
+		valueObject.getOrder().setBH_IsExpense(false);
 		valueObject.getOrder().saveEx();
 		commitEx();
 
@@ -124,7 +124,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		valueObject.getOrder().setBH_Isexpense(null);
+		valueObject.getOrder().setBH_IsExpense(null);
 		valueObject.getOrder().saveEx();
 		commitEx();
 
