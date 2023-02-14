@@ -1,4 +1,4 @@
-import PdfParse from 'pdf-parse';
+import { PdfData } from 'pdfdataextract';
 import { patientApi, referenceListApi, visitApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
 import { Patient, Payment, PaymentType, ProcessInfoParameter, Visit } from '../types/org.bandahealth.idempiere.rest';
@@ -405,7 +405,7 @@ test('correct patient shown when patient changed after initial switch', async ()
 	];
 	await runReport(valueObject);
 
-	const pdfReceiptContent = (await PdfParse(valueObject.report!)).text;
+	const pdfReceiptContent = (await PdfData.extract(valueObject.report!)).text?.join('');
 	expect(pdfReceiptContent).toContain(secondPatientName.substring(0, 18));
 	expect(pdfReceiptContent).not.toContain(firstPatientName.substring(0, 18));
 });
@@ -419,7 +419,7 @@ test('create and complete pharmacy sales visit', async () => {
 	).results;
 	expect(pharmacySalesPatients.length).toBe(1);
 	const pharmacySalesPatient = pharmacySalesPatients[0];
-	
+
 	delete (pharmacySalesPatient as Partial<Patient>).approximateDateOfBirth;
 	valueObject.businessPartner = pharmacySalesPatient;
 	valueObject.stepName = 'Create product';
