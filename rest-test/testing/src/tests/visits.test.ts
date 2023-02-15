@@ -1,3 +1,4 @@
+import axios, { AxiosError } from 'axios';
 import { PdfData } from 'pdfdataextract';
 import { languageApi, patientApi, referenceListApi, visitApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
@@ -721,18 +722,19 @@ test(`selling more than in inventory error message is correct and is the same in
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = documentAction.Complete;
 	valueObject.quantity = 100;
-	let negativeInventoryError: Error;
+	let negativeInventoryError: AxiosError;
 	try {
 		await createVisit(valueObject);
 		expect(false).toBe(true);
 		return;
 	} catch (error) {
-		negativeInventoryError = error as Error;
+		expect(axios.isAxiosError(error)).toBe(true);
+		negativeInventoryError = error as AxiosError;
 	}
 	// Since we'll be using this message in the front-end, it needs to be this exact value
 	const disallowNegativeInventoryMessage =
 		/The .+ warehouse does not allow negative inventory for Product = (.+), ASI = .+, Locator = .+ \(Shortage of (\d+)\)/;
-	expect(negativeInventoryError.message).toMatch(disallowNegativeInventoryMessage);
+	expect(negativeInventoryError.response?.data).toMatch(disallowNegativeInventoryMessage);
 
 	const french = (await languageApi.get(valueObject)).results.find((language) => language.printName === 'Français');
 	expect(french).toBeTruthy();
