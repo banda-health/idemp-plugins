@@ -37,7 +37,6 @@ test(`get method returns the correct data`, async () => {
 	};
 	const savedPatient = await patientApi.save(valueObject, patient as Patient);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
-	delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;

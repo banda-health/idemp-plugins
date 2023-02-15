@@ -1,10 +1,9 @@
 package org.bandahealth.idempiere.rest.model;
 
+import org.bandahealth.idempiere.base.model.MUser_BH;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.compiere.model.MRole;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -20,24 +19,31 @@ public class User extends BaseMetadata {
 
 	public User() {
 	}
-	
+
+	public User(MUser_BH model) {
+		super(model);
+
+		this.setName(model.getName());
+	}
+
 	public User(String uuid) {
 		this.setUuid(uuid);
 	}
-	
+
 	public User(String name, String uuid) {
 		this.setName(name);
 		this.setUuid(uuid);
 	}
-	
+
 	public User(String name, String uuid, Timestamp createdTimestamp, Timestamp lastLogin) {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.setCreatedTimestamp(createdTimestamp);
 		this.setDateLastLogin(lastLogin);
 	}
-	
-	public User(String name, String uuid, Timestamp createdTimestamp, Timestamp lastLogin, boolean isActive, List<Role> roles) {
+
+	public User(String name, String uuid, Timestamp createdTimestamp, Timestamp lastLogin, boolean isActive,
+			List<Role> roles) {
 		this.setName(name);
 		this.setUuid(uuid);
 		this.setCreatedTimestamp(createdTimestamp);

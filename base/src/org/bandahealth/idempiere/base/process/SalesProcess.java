@@ -43,7 +43,7 @@ public class SalesProcess extends SvrProcess {
 		MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?", get_TrxName())
 				.setParameters(orderId).first();
 		if (!order.isSOTrx()) {
-			order.setBH_Isexpense(true);
+			order.setBH_IsExpense(true);
 			order.processIt(DocAction.ACTION_Complete);
 			return null;
 		}
