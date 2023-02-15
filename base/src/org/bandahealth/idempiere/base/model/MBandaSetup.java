@@ -30,6 +30,7 @@ import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
+import org.compiere.model.MSequence;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
@@ -1438,6 +1439,31 @@ public class MBandaSetup {
 				standardBusinessPartnerGroups.get(1));
 
 		return defaultBusinessPartnerGroups;
+	}
+	
+	/**
+	 * Create default patient number sequence
+	 * 
+	 * @return
+	 */
+	public boolean createDefaultPatientNumberSequence() {
+		// PO.setCrossTenantSafe();
+		MSequence patientNumberSequence = new Query(this.context, 
+					MSequence.Table_Name, 
+					MSequence.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence.COLUMNNAME_Name  + "=?", getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME).first();
+		// PO.clearCrossTenantSafe();
+		if (patientNumberSequence != null) {
+			MSequence instance = new MSequence(context,  0, getTransactionName());
+			MSequence.copyValues(patientNumberSequence, instance);
+			if (!instance.save()) {
+				log.warning("Failure: Could not save patient number sequence");
+				return false;
+			}
+		}
+		
+		
+		return true;
 	}
 
 	/**

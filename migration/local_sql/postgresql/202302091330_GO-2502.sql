@@ -72,6 +72,9 @@ SELECT
 	ad_client_id, bh_patientid
 FROM tmp_client_bpartner_number;
 
+-- insert into configuration client
+INSERT INTO tmp_ad_sequence(ad_client_id, currentnext) VALUES (2, 100000);
+
 INSERT INTO ad_sequence (
 	ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, 
 	updatedby, name, description, vformat, isautosequence, incrementno, startno, 
@@ -88,6 +91,7 @@ SELECT
 FROM tmp_ad_sequence;
 
 DROP TABLE tmp_client_bpartner_number;
+DROP TABLE tmp_ad_sequence;
 	
 SELECT
 	update_sequences();

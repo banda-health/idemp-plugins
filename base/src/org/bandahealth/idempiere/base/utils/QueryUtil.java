@@ -121,7 +121,7 @@ public class QueryUtil {
 	 */
 	public static Object generateNextBHPatientId(MBPartner_BH patient) {
 		if (patient == null) {
-			return null;
+			patient = new MBPartner_BH(Env.getCtx(), 0, null);
 		}
 		
 		return MSequence.getDocumentNo(Env.getAD_Client_ID(Env.getCtx()), MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME, null, patient);

@@ -25,6 +25,7 @@ import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MRole;
+import org.compiere.model.MSequence;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
@@ -318,6 +319,19 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(configurationBusinessPartnerGroups.size(), clientBusinessPartnerGroups.size(),
 					"Business Partner Groups were created");
+			
+			// Assert patient number sequence is created
+			MSequence configurationPatientNumberSequence = new Query(valueObject.getContext(), 
+					MSequence.Table_Name, 
+					MSequence.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME).first();
+			
+			MSequence clientPatientNumberSequence = new Query(valueObject.getContext(), 
+					MSequence.Table_Name, 
+					MSequence.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME).first();
+			
+			assertEquals(configurationPatientNumberSequence.getName(), clientPatientNumberSequence.getName(), "Patient Sequence was created");
 		} finally {
 			// PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...
