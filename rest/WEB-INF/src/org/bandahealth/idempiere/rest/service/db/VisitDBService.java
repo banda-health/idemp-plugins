@@ -1,19 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -21,7 +7,6 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.OrderStatus;
@@ -29,8 +14,6 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
-import org.bandahealth.idempiere.rest.model.ProcessStage;
-import org.bandahealth.idempiere.rest.model.Referral;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -47,6 +30,21 @@ import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Visit/billing functionality
@@ -75,7 +73,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 							+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 			put(MUser.Table_Name,
 					"LEFT JOIN " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "."
-							+ MOrder_BH.COLUMMNAME_BH_CLINICIAN_USER_ID + " = " + MUser.Table_Name + "."
+							+ MOrder_BH.COLUMNNAME_BH_Clinician_User_ID + " = " + MUser.Table_Name + "."
 							+ MUser.COLUMNNAME_AD_User_ID);
 		}
 	};
@@ -290,7 +288,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		if (entity.getPrimaryCodedDiagnosis() != null || entity.getSecondaryCodedDiagnosis() != null) {
-			List<String> uuids = new ArrayList<>();
+			Set<String> uuids = new HashSet<>();
 
 			if (entity.getPrimaryCodedDiagnosis() != null) {
 				uuids.add(entity.getPrimaryCodedDiagnosis().getUuid());
@@ -299,23 +297,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				uuids.add(entity.getSecondaryCodedDiagnosis().getUuid());
 			}
 			// prefetch coded diagnosis list
-			List<MBHCodedDiagnosis> prefetchedCodedDiagnosisList = codedDiagnosisDBService
-					.getCodedDiagnosesByUuids(uuids);
+			Map<String, MBHCodedDiagnosis> codedDiagnosesByUuid = codedDiagnosisDBService.getByUuids(uuids);
 
-			if (entity.getPrimaryCodedDiagnosis() != null) {
-				MBHCodedDiagnosis primaryCodedDiagnosis = searchPrefetchCodedDiagnosisListByUuid(
-						entity.getPrimaryCodedDiagnosis().getUuid(), prefetchedCodedDiagnosisList);
-				if (primaryCodedDiagnosis != null) {
-					mOrder.setBH_PrimaryCodedDiagnosisID(primaryCodedDiagnosis.get_ID());
-				}
+			if (entity.getPrimaryCodedDiagnosis() != null &&
+					codedDiagnosesByUuid.containsKey(entity.getPrimaryCodedDiagnosis().getUuid())) {
+				mOrder.setBH_PrimaryCodedDiagnosisID(
+						codedDiagnosesByUuid.get(entity.getPrimaryCodedDiagnosis().getUuid()).get_ID());
 			}
 
-			if (entity.getSecondaryCodedDiagnosis() != null) {
-				MBHCodedDiagnosis secondaryCodedDiagnosis = searchPrefetchCodedDiagnosisListByUuid(
-						entity.getSecondaryCodedDiagnosis().getUuid(), prefetchedCodedDiagnosisList);
-				if (secondaryCodedDiagnosis != null) {
-					mOrder.setBH_SecondaryCodedDiagnosisID(secondaryCodedDiagnosis.get_ID());
-				}
+			if (entity.getSecondaryCodedDiagnosis() != null &&
+					codedDiagnosesByUuid.containsKey(entity.getSecondaryCodedDiagnosis().getUuid())) {
+				mOrder.setBH_SecondaryCodedDiagnosisID(
+						codedDiagnosesByUuid.get(entity.getSecondaryCodedDiagnosis().getUuid()).get_ID());
 			}
 		}
 
@@ -332,7 +325,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_UU + " =?", null)
 					.setParameters(entity.getClinician().getUuid()).first();
 			if (user != null) {
-				mOrder.setBH_ClinicianUserID(user.get_ID());
+				mOrder.setBH_Clinician_User_ID(user.get_ID());
 			}
 		}
 
@@ -352,7 +345,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	@Override
 	protected void afterSave(Visit entity, MOrder_BH mOrder) {
 		// list of persisted payment line ids
-		String lineIds = "";
+		StringBuilder lineIds = new StringBuilder();
 		List<Payment> payments = entity.getPayments();
 		if (payments != null && !payments.isEmpty() && entity.isIsSalesOrderTransaction()) {
 			int count = 0;
@@ -375,15 +368,15 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				}
 
 				Payment response = paymentDBService.saveEntity(payment);
-				lineIds += "'" + response.getUuid() + "'";
+				lineIds.append("'").append(response.getUuid()).append("'");
 				if (++count < payments.size()) {
-					lineIds += ",";
+					lineIds.append(",");
 				}
 			}
 		}
 
 		// delete payment lines not in request
-		paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds);
+		paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds.toString());
 	}
 
 	@Override
@@ -443,85 +436,53 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 	@Override
 	protected Visit createInstanceWithAllFields(MOrder_BH instance) {
-		try {
-			// get patient
-			// TODO: This needs to be fetched from a preloaded list
-			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
-			if (patient == null) {
-				log.severe("Missing patient");
-				return null;
-			}
+		Visit visit = new Visit(instance);
+		visit.setStatus(getOrderStatus(instance));
 
-			// retrieve payments
-			List<Payment> payments = paymentDBService.getPaymentsByOrderId(instance.get_ID());
+		// get patient
+		MBPartner_BH businessPartner = patientDBService.getPatientById(instance.getC_BPartner_ID());
+		if (businessPartner == null) {
+			throw new AdempiereException("Missing patient");
+		}
+		visit.setPatient(patientDBService.transformData(Collections.singletonList(businessPartner)).get(0));
+		visit.setPayments(paymentDBService.getPaymentsByOrderId(instance.get_ID()));
+		visit.setOrderLines(orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
 
-			String clinicalNotes = instance.getBH_ClinicalNotes();
-			String labNotes = instance.getBH_LabNotes();
-			String patientType = instance.get_Value(COLUMNNAME_PATIENT_TYPE) != null
-					? (String) instance.get_Value(COLUMNNAME_PATIENT_TYPE)
-					: null;
-			String referral = instance.get_Value(COLUMNNAME_REFERRAL) != null
-					? (String) instance.get_Value(COLUMNNAME_REFERRAL)
-					: null;
-
-			// THIS NEEDS TO BE REVISED! The `createInstanceWithAllFields` call does not
-			// happen in a loop, hence it makes no sense pre-fetching a list of all users
-			// only to filter out one user. This logic will only make sense if the
-			// `createInstanceWithAllFields` is called in a loop, and even so, we only need
-			// to make sure the prefetchedList is retrieved once..
-			MUser_BH user = searchUserInPrefetchedList(instance.getBH_ClinicianUserID());
-
-			List<Integer> codedDiagnosisIds = new ArrayList<>();
-
-			MBHCodedDiagnosis primaryCodedDiagnosis = null;
-			MBHCodedDiagnosis secondaryCodedDiagnosis = null;
-			if (instance.getBH_PrimaryCodedDiagnosisID() > 0) {
-				codedDiagnosisIds.add(instance.getBH_PrimaryCodedDiagnosisID());
-			}
-
-			if (instance.getBH_SecondaryCodedDiagnosisID() > 0) {
-				codedDiagnosisIds.add(instance.getBH_SecondaryCodedDiagnosisID());
-			}
-
-			if (!codedDiagnosisIds.isEmpty()) {
-				List<MBHCodedDiagnosis> prefetchCodedDiagnosisList = codedDiagnosisDBService
-						.getCodedDiagnosesByIds(codedDiagnosisIds);
-
-				primaryCodedDiagnosis = searchPrefetchCodedDiagnosisListById(instance.getBH_PrimaryCodedDiagnosisID(),
-						prefetchCodedDiagnosisList);
-				secondaryCodedDiagnosis = searchPrefetchCodedDiagnosisListById(
-						instance.getBH_SecondaryCodedDiagnosisID(), prefetchCodedDiagnosisList);
-
-			}
-
-			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Patient(patient.getC_BPartner_UU(), patient.getName(), patient.getTotalOpenBalance(),
-							patient.getBH_PatientID(), DateUtil.parseDateOnly(patient.getBH_Birthday()),
-							patient.getBH_Phone(), patient.getBH_EMail(), DateUtil.parse(patient.getCreated()),
-							patient.getbh_gender(), patient.isActive(), patient.getBH_Local_PatientID(),
-							getVisitsCount(patient.get_ID()), getLastVisitDate(patient)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
-					instance.isBH_NewVisit(), clinicalNotes, instance.getDescription(), new PatientType(patientType),
-					new Referral(referral), orderLineDBService.getOrderLinesByOrderId(instance.get_ID()), payments,
-					instance.getDocStatus(), getOrderStatus(instance), instance.getBH_Chief_Complaint(),
-					instance.getBH_Temperature(), instance.getBH_Pulse(), instance.getBH_Respiratory_Rate(),
-					instance.getBH_Height(), instance.getBH_Weight(),
-					secondaryCodedDiagnosis != null
-							? new CodedDiagnosis(secondaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-							secondaryCodedDiagnosis.getBH_CielName())
-							: null,
-					primaryCodedDiagnosis != null
-							? new CodedDiagnosis(primaryCodedDiagnosis.getBH_CodedDiagnosis_UU(),
-							primaryCodedDiagnosis.getBH_CielName())
-							: null,
-					user != null ? new User(user.getAD_User_UU()) : null,
-					new ProcessStage(instance.getBH_ProcessStage()), instance);
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
+		// THIS NEEDS TO BE REVISED! The `createInstanceWithAllFields` call does not
+		// happen in a loop, hence it makes no sense pre-fetching a list of all users
+		// only to filter out one user. This logic will only make sense if the
+		// `createInstanceWithAllFields` is called in a loop, and even so, we only need
+		// to make sure the prefetchedList is retrieved once...
+		if (instance.getBH_Clinician_User_ID() > 0) {
+			userDBService.getClinicians(null).stream()
+					.filter(user -> user.getAD_User_ID() == instance.getBH_Clinician_User_ID()).findFirst()
+					.ifPresent(clinician -> visit.setClinician(new User(clinician)));
 		}
 
-		return null;
+		Set<Integer> codedDiagnosisIds = new HashSet<>();
+
+		if (instance.getBH_PrimaryCodedDiagnosisID() > 0) {
+			codedDiagnosisIds.add(instance.getBH_PrimaryCodedDiagnosisID());
+		}
+
+		if (instance.getBH_SecondaryCodedDiagnosisID() > 0) {
+			codedDiagnosisIds.add(instance.getBH_SecondaryCodedDiagnosisID());
+		}
+
+		if (!codedDiagnosisIds.isEmpty()) {
+			Map<Integer, MBHCodedDiagnosis> codedDiagnosesById = codedDiagnosisDBService.getByIds(codedDiagnosisIds);
+
+			if (codedDiagnosesById.containsKey(instance.getBH_PrimaryCodedDiagnosisID())) {
+				visit.setPrimaryCodedDiagnosis(
+						new CodedDiagnosis(codedDiagnosesById.get(instance.getBH_PrimaryCodedDiagnosisID())));
+			}
+			if (codedDiagnosesById.containsKey(instance.getBH_SecondaryCodedDiagnosisID())) {
+				visit.setSecondaryCodedDiagnosis(
+						new CodedDiagnosis(codedDiagnosesById.get(instance.getBH_SecondaryCodedDiagnosisID())));
+			}
+		}
+
+		return visit;
 	}
 
 	@Override
@@ -579,9 +540,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
 					.setClient_ID().setOnlyActiveRecords(true);
 
-			if (parameters != null) {
-				query = query.setParameters(parameters);
-			}
+			query = query.setParameters(parameters);
 
 			// default sorting i.e created desc
 			String orderBy = getOrderBy(null, null);
@@ -704,27 +663,4 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		return sqlWhere.toString();
 	}
-
-	private MUser_BH searchUserInPrefetchedList(Integer userId) {
-		if (userId == null) {
-			return null;
-		}
-
-		return userDBService.getClinicians(null).stream().filter(user -> user.getAD_User_ID() == userId).findFirst()
-				.orElse(null);
-	}
-
-	private MBHCodedDiagnosis searchPrefetchCodedDiagnosisListById(int codedDiagnosisId,
-			List<MBHCodedDiagnosis> prefetchedList) {
-		return prefetchedList.stream()
-				.filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_ID() == codedDiagnosisId).findFirst()
-				.orElse(null);
-	}
-
-	private MBHCodedDiagnosis searchPrefetchCodedDiagnosisListByUuid(String uuid,
-			List<MBHCodedDiagnosis> prefetchedList) {
-		return prefetchedList.stream().filter(codedDiagnosis -> codedDiagnosis.getBH_CodedDiagnosis_UU().equals(uuid))
-				.findFirst().orElse(null);
-	}
-
 }
