@@ -1,8 +1,23 @@
 import { PdfData } from 'pdfdataextract';
 import { languageApi, patientApi, referenceListApi, visitApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
-import { BusinessPartner, Patient, Payment, PaymentType, ProcessInfoParameter, Visit } from '../types/org.bandahealth.idempiere.rest';
-import { createPatient, createProduct, createPurchaseOrder, createVendor, createVisit, formatDate, runReport } from '../utils';
+import {
+	BusinessPartner,
+	Patient,
+	Payment,
+	PaymentType,
+	ProcessInfoParameter,
+	Visit,
+} from '../types/org.bandahealth.idempiere.rest';
+import {
+	createPatient,
+	createProduct,
+	createPurchaseOrder,
+	createVendor,
+	createVisit,
+	formatDate,
+	runReport,
+} from '../utils';
 
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -510,7 +525,7 @@ test('create and complete pharmacy sales visit', async () => {
 	).results;
 	expect(pharmacySalesPatients.length).toBe(1);
 	const pharmacySalesPatient = pharmacySalesPatients[0];
-	
+
 	valueObject.businessPartner = pharmacySalesPatient;
 
 	valueObject.stepName = 'Create visit';
@@ -684,7 +699,7 @@ test(`product created and sold with more than received quantity throws an error`
 	await expect(createVisit(valueObject)).rejects.toBeTruthy();
 });
 
-test(`selling more than in inventory error message the same in every language`, async () => {
+test(`selling more than in inventory error message is correct and is the same in every language`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -714,6 +729,10 @@ test(`selling more than in inventory error message the same in every language`, 
 	} catch (error) {
 		negativeInventoryError = error as Error;
 	}
+	// Since we'll be using this message in the front-end, it needs to be this exact value
+	const disallowNegativeInventoryMessage =
+		/The .+ warehouse does not allow negative inventory for Product = (.+), ASI = .+, Locator = .+ \(Shortage of (\d+)\)/;
+	expect(negativeInventoryError.message).toMatch(disallowNegativeInventoryMessage);
 
 	const french = (await languageApi.get(valueObject)).results.find((language) => language.printName === 'Français');
 	expect(french).toBeTruthy();
