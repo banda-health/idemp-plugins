@@ -1454,11 +1454,10 @@ public class MBandaSetup {
 				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_FULL_TABLE_NAME).first();
 		// PO.clearCrossTenantSafe();
 		if (patientNumberSequence != null) {
-			MSequence instance = new MSequence(context,  0, getTransactionName());
+			MSequence instance = new MSequence(this.context,  0, getTransactionName());
 			MSequence.copyValues(patientNumberSequence, instance);
 			if (!instance.save()) {
 				log.warning("Failure: Could not save patient number sequence");
-				return false;
 			}
 		}
 		
