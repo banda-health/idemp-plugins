@@ -1451,7 +1451,7 @@ public class MBandaSetup {
 		MSequence patientNumberSequence = new Query(this.context, 
 					MSequence.Table_Name, 
 					MSequence.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence.COLUMNNAME_Name  + "=?", getTransactionName())
-				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME).first();
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_FULL_TABLE_NAME).first();
 		// PO.clearCrossTenantSafe();
 		if (patientNumberSequence != null) {
 			MSequence instance = new MSequence(context,  0, getTransactionName());

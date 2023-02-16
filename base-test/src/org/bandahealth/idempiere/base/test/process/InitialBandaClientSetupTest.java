@@ -324,12 +324,12 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			MSequence configurationPatientNumberSequence = new Query(valueObject.getContext(), 
 					MSequence.Table_Name, 
 					MSequence.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
-				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME).first();
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_FULL_TABLE_NAME).first();
 			
 			MSequence clientPatientNumberSequence = new Query(valueObject.getContext(), 
 					MSequence.Table_Name, 
 					MSequence.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
-				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME).first();
+				.setParameters(client.get_ID(), MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_FULL_TABLE_NAME).first();
 			
 			assertEquals(configurationPatientNumberSequence.getName(), clientPatientNumberSequence.getName(), "Patient Sequence was created");
 		} finally {
