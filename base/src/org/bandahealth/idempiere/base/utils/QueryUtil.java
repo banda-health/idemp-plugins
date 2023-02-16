@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.compiere.model.MSequence;
+import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -124,7 +124,8 @@ public class QueryUtil {
 			patient = new MBPartner_BH(Env.getCtx(), 0, null);
 		}
 		
-		return MSequence.getDocumentNo(Env.getAD_Client_ID(Env.getCtx()), MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME, null, patient);
+		return MSequence_BH.getDocumentNo(Env.getAD_Client_ID(Env.getCtx()), 
+				MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX, null, patient);
 	}
 
 	/**

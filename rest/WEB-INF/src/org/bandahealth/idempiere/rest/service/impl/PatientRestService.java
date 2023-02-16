@@ -34,7 +34,7 @@ public class PatientRestService extends BaseRestService<Patient, MBPartner_BH, P
 	@Path(IRestConfigs.PATIENT_GENERATE_ID)
 	public Patient generatePatientId() {
 		Patient patient = new Patient();
-		patient.setPatientNumber(QueryUtil.generateNextBHPatientId(new MBPartner_BH(Env.getCtx(), 0, null)).toString());
+		patient.setPatientNumber(QueryUtil.generateNextBHPatientId(null).toString());
 		return patient;
 	}
 

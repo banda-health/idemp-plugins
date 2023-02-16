@@ -75,10 +75,6 @@ public class MBPartner_BH extends MBPartner {
 	/** Column name BH_Local_PatientID */
 	public static final String COLUMNNAME_BH_Local_PatientID = "BH_Local_PatientID";
 	
-	public static final String GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME = "BH_PatientID_C_BPartner";
-	
-	public static final String GENERERATE_PATIENT_NUMBER_SEQUENCE_FULL_TABLE_NAME = "DocumentNo_" + GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME;
-
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
 	}

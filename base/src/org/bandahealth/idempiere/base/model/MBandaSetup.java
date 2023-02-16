@@ -30,7 +30,6 @@ import org.compiere.model.MReference;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
-import org.compiere.model.MSequence;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
@@ -1448,14 +1447,14 @@ public class MBandaSetup {
 	 */
 	public boolean createDefaultPatientNumberSequence() {
 		// PO.setCrossTenantSafe();
-		MSequence patientNumberSequence = new Query(this.context, 
-					MSequence.Table_Name, 
-					MSequence.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence.COLUMNNAME_Name  + "=?", getTransactionName())
-				.setParameters(MClient_BH.CLIENTID_CONFIG, MBPartner_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_FULL_TABLE_NAME).first();
+		MSequence_BH patientNumberSequence = new Query(this.context, 
+				MSequence_BH.Table_Name, 
+				MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
 		// PO.clearCrossTenantSafe();
 		if (patientNumberSequence != null) {
-			MSequence instance = new MSequence(this.context,  0, getTransactionName());
-			MSequence.copyValues(patientNumberSequence, instance);
+			MSequence_BH instance = new MSequence_BH(this.context,  0, getTransactionName());
+			MSequence_BH.copyValues(patientNumberSequence, instance);
 			if (!instance.save()) {
 				log.warning("Failure: Could not save patient number sequence");
 			}
