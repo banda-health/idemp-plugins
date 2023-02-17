@@ -1396,6 +1396,7 @@ public class MBandaSetup {
 		businessPartners.forEach((businessPartner) -> {
 			MBPartner_BH instance = new MBPartner_BH(context, 0, getTransactionName());
 			MBPartner_BH.copyValues(businessPartner, instance);
+			instance.setClientOrg(getAD_Client_ID(), getAD_Org_ID());
 			instance.setM_PriceList_ID(0);
 			instance.setPO_PriceList_ID(0);
 			instance.setC_PaymentTerm_ID(0);
