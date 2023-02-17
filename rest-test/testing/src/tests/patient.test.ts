@@ -1,7 +1,7 @@
 import { patientApi } from '../api';
 import { documentAction } from '../models';
 import { BusinessPartner, Patient } from '../types/org.bandahealth.idempiere.rest';
-import { createProduct, createVisit, formatDate } from '../utils';
+import { createProduct, createPurchaseOrder, createVendor, createVisit, formatDate } from '../utils';
 
 test(`information saved correctly`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -24,7 +24,19 @@ test(`get method returns the correct data`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
 	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
 	const patient: Partial<Patient> = {
 		name: valueObject.getDynamicStepMessage(),
 		description: valueObject.getStepMessageLong(),
@@ -37,10 +49,6 @@ test(`get method returns the correct data`, async () => {
 	};
 	const savedPatient = await patientApi.save(valueObject, patient as Patient);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
-
-	valueObject.stepName = 'Create product';
-	valueObject.salesStandardPrice = 100;
-	await createProduct(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = documentAction.Complete;

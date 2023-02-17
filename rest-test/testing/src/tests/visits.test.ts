@@ -1,8 +1,24 @@
+import axios, { AxiosError } from 'axios';
 import { PdfData } from 'pdfdataextract';
-import { patientApi, referenceListApi, visitApi } from '../api';
+import { languageApi, patientApi, referenceListApi, visitApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
-import { BusinessPartner, Patient, Payment, PaymentType, ProcessInfoParameter, Visit } from '../types/org.bandahealth.idempiere.rest';
-import { createPatient, createProduct, createVisit, formatDate, runReport } from '../utils';
+import {
+	BusinessPartner,
+	Patient,
+	Payment,
+	PaymentType,
+	ProcessInfoParameter,
+	Visit,
+} from '../types/org.bandahealth.idempiere.rest';
+import {
+	createPatient,
+	createProduct,
+	createPurchaseOrder,
+	createVendor,
+	createVisit,
+	formatDate,
+	runReport,
+} from '../utils';
 
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -12,12 +28,20 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -42,12 +66,20 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -72,12 +104,20 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -115,13 +155,21 @@ test(`patient open balance correct with multiple payments`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	const totalCharge = 100;
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -173,12 +221,20 @@ test('payments can be removed and added to re-opened visit', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -237,12 +293,20 @@ test('re-opened visit returns voided/reversed payments', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -276,12 +340,20 @@ test('tender amount set correctly for payments', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -309,12 +381,20 @@ test('voiding visit returns voided/reversed payments', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -345,12 +425,20 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -376,13 +464,21 @@ test('correct patient shown when patient changed after initial switch', async ()
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create first patient';
-	await createPatient(valueObject);
-	const firstPatientName = valueObject.businessPartner!.name;
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create first patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+	const firstPatientName = valueObject.businessPartner!.name;
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -414,16 +510,24 @@ test('create and complete pharmacy sales visit', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
 	const pharmacySalesPatients = (
 		await patientApi.get(valueObject, 0, 10, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
 	).results;
 	expect(pharmacySalesPatients.length).toBe(1);
 	const pharmacySalesPatient = pharmacySalesPatients[0];
-	
+
 	valueObject.businessPartner = pharmacySalesPatient;
-	valueObject.stepName = 'Create product';
-	valueObject.salesStandardPrice = 100;
-	await createProduct(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -487,12 +591,20 @@ test('can remove a payment from a re-opened visit', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -530,12 +642,20 @@ test('can delete a drafted visit', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	await createPatient(valueObject);
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -553,4 +673,72 @@ test('can delete a drafted visit', async () => {
 	valueObject.stepName = 'Delete visit';
 	expect(await visitApi.delete(valueObject, valueObject.order.uuid)).toBe(true);
 	expect(await visitApi.getByUuid(valueObject, valueObject.order.uuid)).toBeFalsy();
+});
+
+test(`product created and sold with more than received quantity throws an error`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create Patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.quantity = 100;
+	await expect(createVisit(valueObject)).rejects.toBeTruthy();
+});
+
+test(`selling more than in inventory error message is correct and is the same in every language`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create Patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.quantity = 100;
+	let negativeInventoryError: AxiosError;
+	try {
+		await createVisit(valueObject);
+		expect(false).toBe(true);
+		return;
+	} catch (error) {
+		expect(axios.isAxiosError(error)).toBe(true);
+		negativeInventoryError = error as AxiosError;
+	}
+	// Since we'll be using this message in the front-end, it needs to be this exact value
+	const disallowNegativeInventoryMessage =
+		/The .+ warehouse does not allow negative inventory for Product = (.+), ASI = .+, Locator = .+ \(Shortage of (\d+)\)/;
+	expect(negativeInventoryError.response?.data).toMatch(disallowNegativeInventoryMessage);
+
+	const french = (await languageApi.get(valueObject)).results.find((language) => language.printName === 'Français');
+	expect(french).toBeTruthy();
+	valueObject.language = french?.locale;
+	await valueObject.login();
+	await expect(createVisit(valueObject)).rejects.toThrowError(negativeInventoryError);
 });
