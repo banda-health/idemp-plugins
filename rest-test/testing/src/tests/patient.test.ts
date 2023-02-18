@@ -13,11 +13,13 @@ test(`information saved correctly`, async () => {
 		description: valueObject.getStepMessageLong(),
 		dateOfBirth: valueObject.date?.toISOString(),
 		gender: 'male',
+		address: '505 W 5th St'
 	};
 	const savedPatient = await patientApi.save(valueObject, patient as Patient);
 
 	expect(savedPatient.totalOpenBalance).toBe(0);
 	expect(savedPatient.name).toBe(patient.name);
+	expect(savedPatient.address).toBe(patient.address);
 });
 
 test(`get method returns the correct data`, async () => {
