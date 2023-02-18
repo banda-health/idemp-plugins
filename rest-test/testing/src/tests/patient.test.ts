@@ -48,6 +48,7 @@ test(`get method returns the correct data`, async () => {
 		occupation: 'Programmer',
 		nextOfKinName: 'Wifey',
 		nextOfKinContact: '155155',
+		address: '514 E North Ave'
 	};
 	const savedPatient = await patientApi.save(valueObject, patient as Patient);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
@@ -70,4 +71,5 @@ test(`get method returns the correct data`, async () => {
 	expect(searchedPatients[0].occupation).toBe(patient.occupation);
 	expect(searchedPatients[0].nextOfKinName).toBe(patient.nextOfKinName);
 	expect(searchedPatients[0].nextOfKinContact).toBe(patient.nextOfKinContact);
+	expect(searchedPatients[0].address).toBe(patient.address);
 });
