@@ -3,21 +3,13 @@ package org.bandahealth.idempiere.base.model;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.compiere.model.MOrder;
 import org.compiere.model.MProject;
-import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 public class MOrder_BH extends MOrder {
-
-	/**
-	 * Column name BH_Payments
-	 */
-	public static final String COLUMNNAME_BH_Payments = "BH_Payments";
 	/**
 	 * Column name bh_isexpense
 	 */
@@ -30,7 +22,10 @@ public class MOrder_BH extends MOrder {
 	public static final String COLUMNNAME_BH_BLOOD_PRESSURE = "BH_BloodPressure";
 	public static final String COLUMNNAME_BH_HEIGHT = "BH_Height";
 	public static final String COLUMNNAME_BH_WEIGHT = "BH_Weight";
-	public static final String COLUMMNAME_BH_CLINICIAN_USER_ID = "BH_Clinician_User_ID";
+	/**
+	 * Column name BH_Clinician_User_ID
+	 */
+	public static final String COLUMNNAME_BH_Clinician_User_ID = "BH_Clinician_User_ID";
 	public static final String COLUMNNAME_BH_PROCESS_STAGE = "BH_Process_Stage";
 	public static final String COLUMNNAME_BH_PRIMARY_CODED_DIAGNOSIS_ID = "BH_PrimaryCodedDiagnosis_ID";
 	public static final String COLUMNNAME_BH_SECONDARY_CODED_DIAGNOSIS_ID = "BH_SecondaryCodedDiagnosis_ID";
@@ -120,29 +115,27 @@ public class MOrder_BH extends MOrder {
 	}
 
 	/**
-	 * Get Payments.
+	 * Set BH_IsExpense.
 	 *
-	 * @return Payments
+	 * @param BH_IsExpense BH_IsExpense
 	 */
-	public Object getBH_Payments() {
-		return get_Value(COLUMNNAME_BH_Payments);
+	public void setBH_IsExpense(Boolean BH_IsExpense) {
+		set_Value(COLUMNNAME_BH_IsExpense, BH_IsExpense);
 	}
 
 	/**
-	 * Set Payments.
+	 * Get BH_IsExpense.
 	 *
-	 * @param BH_Payments Payments
+	 * @return BH_IsExpense
 	 */
-	public void setBH_Payments(Object BH_Payments) {
-		set_Value(COLUMNNAME_BH_Payments, BH_Payments);
-	}
-
-	public Object getBH_Isexpense() {
-		return get_Value(COLUMNNAME_BH_IsExpense);
-	}
-
-	public void setBH_Isexpense(Object bh_isexpense) {
-		set_Value(COLUMNNAME_BH_IsExpense, bh_isexpense);
+	public Boolean isBH_IsExpense() {
+		Object oo = get_Value(COLUMNNAME_BH_IsExpense);
+		if (oo != null) {
+			if (oo instanceof Boolean)
+				return ((Boolean) oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return null;
 	}
 
 	public boolean isBH_NewVisit() {
@@ -336,12 +329,28 @@ public class MOrder_BH extends MOrder {
 		set_Value(COLUMNNAME_BH_PatientType, BH_PatientType);
 	}
 
-	public Integer getBH_ClinicianUserID() {
-		return (Integer) get_Value(COLUMMNAME_BH_CLINICIAN_USER_ID);
+	/**
+	 * Set BH_Clinician_User_ID.
+	 *
+	 * @param BH_Clinician_User_ID BH_Clinician_User_ID
+	 */
+	public void setBH_Clinician_User_ID(int BH_Clinician_User_ID) {
+		if (BH_Clinician_User_ID < 1)
+			set_Value(COLUMNNAME_BH_Clinician_User_ID, null);
+		else
+			set_Value(COLUMNNAME_BH_Clinician_User_ID, Integer.valueOf(BH_Clinician_User_ID));
 	}
 
-	public void setBH_ClinicianUserID(Integer clinicianUserID) {
-		set_Value(COLUMMNAME_BH_CLINICIAN_USER_ID, clinicianUserID);
+	/**
+	 * Get BH_Clinician_User_ID.
+	 *
+	 * @return BH_Clinician_User_ID
+	 */
+	public int getBH_Clinician_User_ID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_Clinician_User_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 
 	public String getBH_ProcessStage() {

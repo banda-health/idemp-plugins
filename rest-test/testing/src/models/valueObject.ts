@@ -27,6 +27,7 @@ export class ValueObject {
 	user?: User;
 	warehouse?: Warehouse;
 	role?: Role;
+	language?: string;
 	date?: Date;
 	dateInitial?: Date;
 	datePriceList?: Date;
@@ -97,7 +98,7 @@ export class ValueObject {
 		}
 
 		this.documentAction = documentAction.Complete;
-		this.quantity = 1;
+		this.quantity = this.quantity || 1;
 		this.setPurchasePrice(1);
 		this.setSalesPrice(1);
 		this.loginInfo = { ...loginInfo, client: this.client! };
@@ -118,6 +119,9 @@ export class ValueObject {
 			roleUuid: roleToUse?.uuid,
 			warehouseUuid: this.warehouse?.uuid,
 		};
+		if (this.language) {
+			baseLoginData.language = this.language;
+		}
 		const loginInfo = await authenticationApi.login(baseLoginData);
 		this.prepareIt({ ...loginInfo, client: this.client });
 

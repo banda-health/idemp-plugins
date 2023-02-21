@@ -1,4 +1,4 @@
-import { ReceiveProduct, Visit } from '../types/org.bandahealth.idempiere.rest';
+import { ReceiveProduct } from '../types/org.bandahealth.idempiere.rest';
 import { DocumentApi } from './documents';
 
 class ReceiveProductsApi extends DocumentApi<ReceiveProduct> {

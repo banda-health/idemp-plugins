@@ -1,10 +1,6 @@
 package org.bandahealth.idempiere.base.utils;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -13,10 +9,10 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 public class QueryUtil {
@@ -123,57 +119,13 @@ public class QueryUtil {
 	 *
 	 * @return
 	 */
-	public static Object generateNextBHPatientId() {
-		// default patient id
-		Integer initialClientPatientId = 100000;
-
-		// First, try to see if we can fetch their current maximum numeric Banda patient id
-		StringBuilder sqlQuery = new StringBuilder("SELECT MAX(CAST(").append(MBPartner_BH.COLUMNNAME_BH_PatientID)
-				.append(" AS NUMERIC)) FROM ").append(MBPartner_BH.Table_Name).append(" WHERE ")
-				.append(MBPartner_BH.COLUMNNAME_AD_Client_ID).append("=? AND isnumeric(")
-				.append(MBPartner_BH.COLUMNNAME_BH_PatientID).append(") AND ").append(MBPartner_BH.COLUMNNAME_BH_IsPatient)
-				.append("=? AND ").append(MBPartner_BH.COLUMNNAME_AD_Org_ID).append("=?");
-		Integer clientsCurrentMaxPatientId = 0;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			statement = DB.prepareStatement(sqlQuery.toString(), null);
-			DB.setParameters(statement,
-					Arrays.asList(Env.getAD_Client_ID(Env.getCtx()), "Y", Env.getAD_Org_ID(Env.getCtx())));
-
-			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				clientsCurrentMaxPatientId = resultSet.getInt(1);
-			}
-
-		} catch (SQLException maxIdCheckException) {
-			logger.info("Error checking for existing BH Patient Local ID max: " + maxIdCheckException.getMessage());
-		} finally {
-			DB.close(resultSet, statement);
-			resultSet = null;
-			statement = null;
+	public static Object generateNextBHPatientId(MBPartner_BH patient) {
+		if (patient == null) {
+			patient = new MBPartner_BH(Env.getCtx(), 0, null);
 		}
-
-		// If the value was updated from 0, we found it!
-		if (clientsCurrentMaxPatientId != 0) {
-			return clientsCurrentMaxPatientId + 1;
-		}
-
-		// There was an error checking the maximum, so get the most recent patient
-		// check the last created patient id
-		MBPartner_BH lastCreatedPatient = new Query(Env.getCtx(), MBPartner_BH.Table_Name,
-				MBPartner_BH.COLUMNNAME_BH_IsPatient + "=? AND " + MBPartner_BH.COLUMNNAME_AD_Org_ID + "=?",
-				null)
-				.setClient_ID().setOrderBy(MBPartner_BH.COLUMNNAME_Created + " DESC")
-				.setParameters("Y", Env.getAD_Org_ID(Env.getCtx())).first();
-
-		if (lastCreatedPatient != null && NumberUtils.isNumeric(lastCreatedPatient.getBH_PatientID())) {
-			clientsCurrentMaxPatientId = Integer.parseInt(lastCreatedPatient.getBH_PatientID()) + 1;
-		} else {
-			clientsCurrentMaxPatientId = initialClientPatientId;
-		}
-
-		return clientsCurrentMaxPatientId;
+		
+		return MSequence_BH.getDocumentNo(Env.getAD_Client_ID(Env.getCtx()), 
+				MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX, null, patient);
 	}
 
 	/**

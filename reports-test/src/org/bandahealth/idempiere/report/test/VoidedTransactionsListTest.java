@@ -22,6 +22,7 @@ import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -62,7 +63,13 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);

@@ -23,13 +23,7 @@ public class CalloutGeneratePatientId implements IColumnCallout {
 				return null;
 			}
 
-			// generate next patient id
-			Object generatedPatientId = QueryUtil.generateNextBHPatientId();
-			if (generatedPatientId == null) {
-				return null;
-			}
-
-			mTab.setValue(MBPartner_BH.COLUMNNAME_BH_PatientID, generatedPatientId.toString());
+			mTab.setValue(MBPartner_BH.COLUMNNAME_BH_PatientID, null);
 
 		}
 

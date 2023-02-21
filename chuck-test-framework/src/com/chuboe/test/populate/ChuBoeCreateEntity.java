@@ -1216,6 +1216,7 @@ public class ChuBoeCreateEntity {
 		inventory.setDescription(valueObject.getStepMessageLong());
 		inventory.setC_DocType_ID(valueObject.getDocumentType().get_ID());
 		inventory.setM_Warehouse_ID(valueObject.getWarehouse().get_ID());
+		inventory.setMovementDate(valueObject.getDate());
 		inventory.saveEx();
 		valueObject.setInventory(inventory);
 

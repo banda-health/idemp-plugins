@@ -10,18 +10,26 @@ export const initialLoginData: Partial<Authentication> = {
 	language: 'en_US',
 } as const;
 
+/**
+ * Axios does a poor job showing where errors are thrown. This is an attempt to allow the stack trace
+ * to be as close to the call as possible. We'll log a new error per request URL (meaning we can have
+ * issues if we have tests running in parallel, which they aren't in the CI pipeline) and, if an error
+ * was thrown by the request, we'll use the stack trace of the error for that call.
+ */
+let errorTracker: { [route: string]: Error | undefined } = {};
+axios.interceptors.request.use((config) => {
+	// Create an error close to the calling code
+	errorTracker[config.baseURL!] = new Error();
+	return config;
+});
 axios.interceptors.response.use(
 	(response) => response,
 	(error: Error | AxiosError) => {
-		let errorMessage = '';
+		// If this is an Axios error, we'll use our own error tracking
 		if (axios.isAxiosError(error)) {
-			errorMessage = `${error.message}${error.response?.data ? ' - ' + error.response.data : ''}\nMethod: ${
-				error.config.method
-			}\nURL: ${error.request?.path || error.config.url}\nData: ${error.config.data}`;
-		} else {
-			errorMessage = error.message;
+			error.stack = errorTracker[error.config!.baseURL!]?.stack;
 		}
-		throw new Error(errorMessage);
+		throw error;
 	},
 );
 

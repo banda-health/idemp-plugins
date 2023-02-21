@@ -15,6 +15,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
@@ -72,7 +73,13 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
@@ -119,11 +126,11 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setSalesPrice(BigDecimal.TEN);
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
+		MProduct_BH firstProduct = valueObject.getProduct();
 
-		valueObject.setStepName("Create order");
-		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -132,8 +139,24 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setSalesPrice(new BigDecimal(5));
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
+		MProduct_BH secondProduct = valueObject.getProduct();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setProduct(firstProduct);
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
 
 		valueObject.setStepName("Add second order line");
+		valueObject.setProduct(secondProduct);
 		MOrder_BH order = valueObject.getOrder();
 		ChuBoeCreateEntity.createOrder(valueObject);
 		valueObject.setOrder(order);
@@ -197,12 +220,18 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create first product");
+		valueObject.setStepName("Create product");
 		valueObject.setSalesPrice(BigDecimal.TEN);
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
@@ -242,13 +271,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		orderLine.saveEx();
 		commitEx();
 
-		valueObject.setStepName("Create second product");
-		valueObject.clearProduct();
-		valueObject.setSalesPrice(new BigDecimal(5));
-		ChuBoeCreateEntity.createProduct(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Complete the order");
+		valueObject.setStepName("Complete the sales order");
 		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order was completed");
 		commitEx();
@@ -294,11 +317,12 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setSalesPrice(BigDecimal.TEN);
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
+		MProduct_BH firstProduct = valueObject.getProduct();
 
-		valueObject.setStepName("Create order");
-		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setStepName("Create first purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -307,8 +331,25 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setSalesPrice(new BigDecimal(5));
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
+		MProduct_BH secondProduct = valueObject.getProduct();
+
+		valueObject.setStepName("Create second purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setQuantity(null);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setProduct(firstProduct);
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
 
 		valueObject.setStepName("Add second order line");
+		valueObject.setProduct(secondProduct);
 		MOrder_BH order = valueObject.getOrder();
 		ChuBoeCreateEntity.createOrder(valueObject);
 		valueObject.setOrder(order);
@@ -463,7 +504,13 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
@@ -863,7 +910,10 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create PO");
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(10));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setQuantity(null);
+		commitEx();
 
 		valueObject.setStepName("Create first SO");
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
