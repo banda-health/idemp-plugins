@@ -1,16 +1,3 @@
--- Get the SOH records that should be kept (we want the ASI, locator, and product to be unique in the SOH table)
-SELECT
-	m_product_id,
-	m_locator_id,
-	m_attributesetinstance_id,
-	MAX(datematerialpolicy) AS datematerialpolicy
-INTO TEMP TABLE
-	tmp_soh_to_keep
-FROM
-	m_storageonhand
-GROUP BY
-	m_product_id, m_locator_id, m_attributesetinstance_id;
-
 -- Delete the duplicate records that aren't the most recent
 DELETE
 FROM
