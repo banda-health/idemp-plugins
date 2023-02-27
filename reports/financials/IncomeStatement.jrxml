@@ -4,8 +4,8 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -86,7 +86,7 @@ FROM
 		WHERE
 			i.docstatus = 'CO'
 			AND i.bh_isexpense = 'Y'
-			AND (date(i.dateinvoiced) BETWEEN params.begin_date AND params.end_date)
+			AND ((i.dateinvoiced)::timestamp BETWEEN params.begin_date AND params.end_date)
 	) AS expenses
 		CROSS JOIN (
 		SELECT
@@ -107,7 +107,7 @@ FROM
 			o.issotrx = 'N'
 			AND o.bh_isexpense IS NULL
 			AND o.docstatus = 'CO'
-			AND (date(o.dateordered) BETWEEN params.begin_date AND params.end_date)
+			AND ((o.dateordered)::timestamp BETWEEN params.begin_date AND params.end_date)
 	) received_products
 		CROSS JOIN (
 		SELECT
@@ -129,7 +129,7 @@ FROM
 		WHERE
 			o.docstatus = 'CO'
 			AND o.issotrx = 'Y'
-			AND (DATE(o.bh_visitdate) BETWEEN params.begin_date AND params.end_date)
+			AND ((o.bh_visitdate)::timestamp BETWEEN params.begin_date AND params.end_date)
 	) AS charges;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">

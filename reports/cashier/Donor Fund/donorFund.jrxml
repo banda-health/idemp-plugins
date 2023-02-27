@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -73,8 +73,8 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
 			<![CDATA[select
   sorder.bh_visitdate as date,
@@ -93,7 +93,7 @@ from c_order sorder
 where
 	invoice.docstatus != 'RE' AND
   payment.tendertype = 'F' and payment.ad_org_id =  $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.bh_visitdate) BETWEEN  $P{Begin Date} AND  $P{End Date})
+  and (date(sorder.bh_visitdate) BETWEEN  $P{Begin Date}::timestamp AND  $P{End Date}::timestamp)
 group by sorder.bh_visitdate, patient.name, patientID.bh_patientid, invoice.description
 order by sorder.bh_visitdate asc;]]>
 		</queryString>
@@ -123,9 +123,9 @@ order by sorder.bh_visitdate asc;]]>
 			<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
 		</field>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select
   UPPER(clientName.name) as clientname
