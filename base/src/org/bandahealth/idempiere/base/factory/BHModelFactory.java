@@ -36,6 +36,7 @@ import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -145,6 +146,8 @@ public class BHModelFactory implements IModelFactory {
 			return MDocType_BH.class;
 		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
 			return MSequence_BH.class;
+		} else if (tableName.equalsIgnoreCase(MOrgInfo_BH.Table_Name)) {
+			return MOrgInfo_BH.class;
 		}
 
 		return null;
@@ -243,7 +246,7 @@ public class BHModelFactory implements IModelFactory {
 		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
 			return new MSequence_BH(Env.getCtx(), Record_ID, trxName);
 		}
-
+		
 		return null;
 	}
 
@@ -339,6 +342,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MDocType_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
 			return new MSequence_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MOrgInfo_BH.Table_Name)) {
+			return new MOrgInfo_BH(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
