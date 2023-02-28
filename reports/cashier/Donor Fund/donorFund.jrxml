@@ -93,7 +93,7 @@ from c_order sorder
 where
 	invoice.docstatus != 'RE' AND
   payment.tendertype = 'F' and payment.ad_org_id =  $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.bh_visitdate) BETWEEN  $P{Begin Date}::timestamp AND  $P{End Date}::timestamp)
+  and sorder.bh_visitdate BETWEEN  $P{Begin Date} AND  $P{End Date}
 group by sorder.bh_visitdate, patient.name, patientID.bh_patientid, invoice.description
 order by sorder.bh_visitdate asc;]]>
 		</queryString>
@@ -136,7 +136,7 @@ from c_order sorder
 where
 	invoice.docstatus != 'RE' AND
   payment.tendertype = 'F' and payment.ad_org_id = $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.bh_visitdate) BETWEEN $P{Begin Date} AND  $P{End Date})
+  and sorder.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 LIMIT 1;]]>
 	</queryString>
 	<field name="clientname" class="java.lang.String">

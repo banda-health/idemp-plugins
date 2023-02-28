@@ -51,7 +51,7 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
-		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
        co.updated AS voiddate,
@@ -68,7 +68,7 @@ LEFT JOIN bh_voided_reason vreason on co.bh_voided_reason_id = vreason.bh_voided
 WHERE
     co.docstatus = 'VO'
     AND co.ad_client_id = $P{AD_CLIENT_ID}
-    AND DATE(co.updated) BETWEEN ($P{Begin Date})::timestamp AND ($P{End Date})::timestamp
+    AND co.updated BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY 1;]]>
 		</queryString>
 		<field name="voiddate" class="java.sql.Timestamp">
@@ -115,7 +115,7 @@ LEFT JOIN bh_voided_reason vreason on co.bh_voided_reason_id = vreason.bh_voided
 WHERE
     co.docstatus = 'VO'
     AND co.ad_client_id = $P{AD_CLIENT_ID}
-    AND DATE(co.updated) BETWEEN DATE($P{Begin Date}) AND DATE($P{End Date})
+    AND co.updated BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY 1;]]>
 	</queryString>
 	<field name="voiddate" class="java.sql.Timestamp">

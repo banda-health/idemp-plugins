@@ -92,7 +92,7 @@ inner join (
     inner join m_product item on coline.m_product_id = item.m_product_id
         and item.producttype = 'S'
     where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
-        and (date(sorder.bh_visitdate) BETWEEN $P{Begin Date}::timestamp AND $P{End Date}::timestamp))
+       and sorder.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 ) as billdetails on billitems.m_product_id = billdetails.m_product_id
 group by billitems.item_name,billdetails.saleprice
 order by billitems.item_name asc]]>

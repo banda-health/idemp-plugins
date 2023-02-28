@@ -86,7 +86,7 @@ FROM
 		WHERE
 			i.docstatus = 'CO'
 			AND i.bh_isexpense = 'Y'
-			AND ((i.dateinvoiced)::timestamp BETWEEN params.begin_date AND params.end_date)
+			AND i.dateinvoiced BETWEEN params.begin_date AND params.end_date
 	) AS expenses
 		CROSS JOIN (
 		SELECT
@@ -107,7 +107,7 @@ FROM
 			o.issotrx = 'N'
 			AND o.bh_isexpense IS NULL
 			AND o.docstatus = 'CO'
-			AND ((o.dateordered)::timestamp BETWEEN params.begin_date AND params.end_date)
+			AND o.dateordered BETWEEN params.begin_date AND params.end_date
 	) received_products
 		CROSS JOIN (
 		SELECT
@@ -129,7 +129,7 @@ FROM
 		WHERE
 			o.docstatus = 'CO'
 			AND o.issotrx = 'Y'
-			AND ((o.bh_visitdate)::timestamp BETWEEN params.begin_date AND params.end_date)
+			AND o.bh_visitdate BETWEEN params.begin_date AND params.end_date
 	) AS charges;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">

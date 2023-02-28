@@ -31,7 +31,7 @@ FROM c_charge c
         JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
         WHERE
             o.ad_client_id = $P{AD_CLIENT_ID}
-            AND ((o.bh_visitdate)::timestamp BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+            AND o.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
             AND o.docstatus IN ('CO','DR')
             AND ol.c_charge_id IS NOT NULL
     ) ol ON c.c_charge_id = ol.c_charge_id

@@ -17,7 +17,7 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="textBackground" mode="Opaque" backcolor="#E6E6FA" pattern=""/>
 	<style name="titleBackground" mode="Opaque" backcolor="#00008B"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
@@ -69,7 +69,7 @@
         ci.ad_client_id = $P{AD_CLIENT_ID}
         AND ci.docstatus = 'CO'
         AND ci.bh_isexpense = 'Y'
-        AND ((ci.dateinvoiced)::timestamp BETWEEN ($P{Begin Date})::timestamp AND ($P{End Date})::timestamp)
+        AND ci.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
 ) p
 CROSS JOIN (
     SELECT
@@ -85,7 +85,7 @@ CROSS JOIN (
         AND o.bh_isexpense IS NULL
         AND o.docstatus = 'CO'
         AND o.ad_client_id = $P{AD_CLIENT_ID}
-        AND ((o.dateordered)::timestamp BETWEEN ($P{Begin Date})::timestamp AND ($P{End Date})::timestamp)
+        AND o.dateordered BETWEEN $P{Begin Date} AND $P{End Date}
 ) meds_supplies
 ;]]>
 	</queryString>

@@ -63,7 +63,7 @@
 		SUM(sold_stock)     AS sold_stock,
 		SUM(balanced_stock) AS balanced_stock
 	FROM
-		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
   GROUP BY m_product_id
 )
 SELECT
