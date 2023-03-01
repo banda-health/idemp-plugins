@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -64,8 +64,8 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
 			<![CDATA[select
     billdetails.bill_date as billdate,
@@ -76,10 +76,10 @@
 from
 (
 select co.c_order_id,
-       date(co.bh_visitdate) as bill_date
+       co.bh_visitdate as bill_date
 from c_order co
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND co.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
     )
 ) as billdetails
 inner join
@@ -103,7 +103,7 @@ from c_orderline as corderline
   inner join m_warehouse dispensepoint on corderline.m_warehouse_id = dispensepoint.m_warehouse_id
   join c_order o on o.c_order_id = corderline.c_order_id
 where corderline.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y' and producttype = 'I'
-group by corderline.c_order_id, item.name, date(o.bh_visitdate), corderline.priceactual, dispensepoint.name
+group by corderline.c_order_id, item.name, o.bh_visitdate, corderline.priceactual, dispensepoint.name
 ) as billitems on payments.bh_c_order_id = billitems.c_order_id
 group by billdetails.bill_date, billitems.item_name, billitems.price, billitems.dispensepoint
 order by billdetails.bill_date, billitems.item_name asc;]]>
@@ -132,19 +132,19 @@ order by billdetails.bill_date, billitems.item_name asc;]]>
 			<initialValueExpression><![CDATA[$F{price}.multiply($F{quantity})]]></initialValueExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select
     billdetails.bill_date as billdate
 from
 (
 select co.c_order_id,
-       date(co.bh_visitdate) as bill_date
+       co.bh_visitdate as bill_date
 from c_order co
 where ((co.ad_client_id = $P{AD_CLIENT_ID}) AND (co.docstatus <> 'VO')
-      AND (date(co.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND co.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
     )
 ) as billdetails
 inner join
@@ -168,7 +168,7 @@ from c_orderline as corderline
   inner join m_warehouse dispensepoint on corderline.m_warehouse_id = dispensepoint.m_warehouse_id
   join c_order o on o.c_order_id = corderline.c_order_id
 where corderline.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y' and producttype = 'I'
-group by corderline.c_order_id, item.name, date(o.bh_visitdate), corderline.priceactual, dispensepoint.name
+group by corderline.c_order_id, item.name, o.bh_visitdate, corderline.priceactual, dispensepoint.name
 ) as billitems on payments.bh_c_order_id = billitems.c_order_id
 order by billdetails.bill_date, billitems.item_name asc
 limit 1;]]>

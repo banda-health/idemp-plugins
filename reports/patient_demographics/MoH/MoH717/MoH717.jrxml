@@ -18,8 +18,8 @@
 	<queryString language="SQL">
 		<![CDATA[with params as (
     select $P{AD_CLIENT_ID} as ad_client_id,
-                $P{Begin Date} as begin_date,
-                $P{End Date} as end_date
+                $P{Begin Date}::timestamp as begin_date,
+                $P{End Date}::timestamp as end_date
 ), patients as (
     select c_bpartner_id, bh_gender, bh_birthday
     from c_bpartner bp
@@ -39,7 +39,7 @@ select coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(Y
        coalesce(count(c_order_id), 0)             as countofpatientbills
 from c_order o
     join patients patient on patient.c_bpartner_id = o.c_bpartner_id
-   join params p on o.ad_client_id = p.ad_client_id and o.bh_visitdate BETWEEN p.begin_date::timestamp AND p.end_date::timestamp;]]>
+    join params p on o.ad_client_id = p.ad_client_id and o.bh_visitdate BETWEEN p.begin_date AND p.end_date;]]>
 	</queryString>
 	<field name="maleover5newvisit" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="maleover5newvisit"/>

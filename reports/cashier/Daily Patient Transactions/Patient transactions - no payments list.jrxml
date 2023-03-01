@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Debt Payments" pageWidth="420" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="420" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -58,12 +58,12 @@
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
-		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[select
-    date(o.bh_visitdate) as bill_date,
+    o.bh_visitdate as bill_date,
     cb.name as patientname,
     invoice.grandtotal as billtotal
 from c_invoice invoice
@@ -72,7 +72,7 @@ from c_invoice invoice
 where invoice.ad_client_id = $P{AD_CLIENT_ID}
     and invoice.ispaid = 'N' and invoice.c_payment_id is null
     and invoice.docstatus = 'CO'
-    and date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})
+    and o.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 order by cb.name asc;]]>
 		</queryString>
 		<field name="bill_date" class="java.sql.Date">
@@ -87,11 +87,11 @@ order by cb.name asc;]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
 		</field>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select date(cp.datetrx) as bill_date,
+		<![CDATA[select cp.datetrx as bill_date,
        cb.name as patientname,
        cb.totalopenbalance as totaldebt,
        cp.payamt as amountpaid
@@ -99,11 +99,11 @@ from c_payment cp
     inner join c_bpartner cb on cp.c_bpartner_id = cb.c_bpartner_id
 where ((cp.ad_client_id = $P{AD_CLIENT_ID})
       AND (cp.c_invoice_id is null and cp.isallocated = 'N' and cp.bh_c_order_id = 0)
-      AND (date(cp.datetrx) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+      AND cp.datetrx BETWEEN $P{Begin Date} AND $P{End Date}
     )
 order by cb.name asc;]]>
 	</queryString>
-	<field name="bill_date" class="java.sql.Date">
+	<field name="bill_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
 	</field>
 	<field name="patientname" class="java.lang.String">
