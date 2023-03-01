@@ -18,7 +18,7 @@ test('creating an invoice with a charge', async () => {
 	valueObject.stepName = 'Create Charge';
 	await createCharge(valueObject);
 
-	valueObject.stepName = 'Create Business Partner';
+	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create Invoice';

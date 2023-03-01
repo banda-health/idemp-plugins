@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.PatientDBService;
+import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
@@ -33,7 +34,7 @@ public class PatientRestService extends BaseRestService<Patient, MBPartner_BH, P
 	@Path(IRestConfigs.PATIENT_GENERATE_ID)
 	public Patient generatePatientId() {
 		Patient patient = new Patient();
-		patient.setPatientNumber(QueryUtil.generateNextBHPatientId().toString());
+		patient.setPatientNumber(QueryUtil.generateNextBHPatientId(null).toString());
 		return patient;
 	}
 

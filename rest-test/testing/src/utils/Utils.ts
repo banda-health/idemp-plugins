@@ -509,5 +509,5 @@ export async function runReport(valueObject: ValueObject) {
 		);
 	}
 
-	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject))
+	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject));
 }

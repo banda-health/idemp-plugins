@@ -74,9 +74,15 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order for a previous day");
+		valueObject.setStepName("Create purchase order for a previous day");
 		valueObject.setDate(TimestampUtils.today());
 		valueObject.setDateOffset(-1);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
@@ -186,9 +192,15 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createCharge(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order for a previous day");
+		valueObject.setStepName("Create purchase order for a previous day");
 		valueObject.setDate(TimestampUtils.today());
 		valueObject.setDateOffset(-1);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);

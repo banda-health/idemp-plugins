@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
+import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
@@ -55,7 +56,14 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setQuantity(new BigDecimal(50));
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
@@ -101,8 +109,9 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport());
 		assertThat("Patient's name is on the receipt", receiptContent,
 				containsString(valueObject.getBusinessPartner().getName().substring(0, 12)));
-		assertThat("Products are included", receiptContent,
-				containsString(valueObject.getOrderLine().getName().substring(0, 18)));
+		String casedProductName = valueObject.getOrderLine().getName();
+		casedProductName = casedProductName.substring(0, 1).toUpperCase() + casedProductName.substring(1).toLowerCase();
+		assertThat("Products are included", receiptContent, containsString(casedProductName.substring(0, 18)));
 		assertThat("Products prices are included", receiptContent,
 				containsString(String.valueOf(valueObject.getOrderLine().getLineNetAmt().intValue())));
 		assertThat("Payments are included", receiptContent.toLowerCase(), containsString("Cash".toLowerCase()));
@@ -124,7 +133,14 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(50));
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
@@ -235,13 +251,20 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create non-patient payment");
 		ChuBoeCreateEntity.createCharge(valueObject);
 		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
 		valueObject.getCharge().saveEx();
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setQuantity(new BigDecimal(50));
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
