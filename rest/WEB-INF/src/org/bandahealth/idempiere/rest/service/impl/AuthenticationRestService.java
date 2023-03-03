@@ -452,7 +452,7 @@ public class AuthenticationRestService {
 				// check orgs.
 				MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), client.getId(), null));
 				for (MOrg org : orgs) {
-					Org orgResponse = new Org(org.get_ID(), org.getName());
+					Org orgResponse = new Org(org);
 
 					// set default org
 					if (orgs.length == 1) {
