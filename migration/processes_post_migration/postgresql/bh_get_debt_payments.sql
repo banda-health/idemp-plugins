@@ -62,11 +62,15 @@ WHERE
 			LEFT JOIN c_allocationhdr ah
 				ON al.c_allocationhdr_id = ah.c_allocationhdr_id
 	WHERE
-				p.ad_client_id = $1
-			AND (p.isallocated = 'Y'
-			AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
-			AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RE', 'RA', 'VO')))
-		OR p.isallocated = 'N'
+		p.ad_client_id = $1
+		AND (
+			(
+						p.isallocated = 'Y'
+					AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
+					AND (ah.docstatus IS NULL OR ah.docstatus NOT IN ('RE', 'RA', 'VO'))
+				)
+			OR p.isallocated = 'N'
+		)
 )
 	AND p.reversal_id IS NULL
 	AND p.docstatus NOT IN ('RE', 'VO')
