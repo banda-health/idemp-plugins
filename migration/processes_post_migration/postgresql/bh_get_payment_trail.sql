@@ -45,8 +45,8 @@ WITH transactions AS (
 					JOIN (
 					SELECT
 						i.c_order_id,
-								SUM(il.linenetamt) FILTER ( WHERE i.c_charge_id IS NULL )     AS non_charges,
-								SUM(il.linenetamt) FILTER ( WHERE i.c_charge_id IS NOT NULL ) AS charges
+								SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NULL )     AS non_charges,
+								SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NOT NULL ) AS charges
 					FROM
 						c_invoice i
 							JOIN c_invoiceline il
