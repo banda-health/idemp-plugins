@@ -18,6 +18,7 @@ CREATE FUNCTION get_inventory_changes(ad_client_id numeric,
 		        balanced_stock            numeric
 	        )
 	LANGUAGE plpgsql
+	STABLE
 AS
 $$
 BEGIN

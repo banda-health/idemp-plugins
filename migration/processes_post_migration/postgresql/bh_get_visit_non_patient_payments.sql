@@ -17,6 +17,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_non_patient_payments(ad_client_id numeri
 		        relationship        character varying
 	        )
 	LANGUAGE sql
+	STABLE
 AS
 $$
 SELECT

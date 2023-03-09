@@ -30,6 +30,7 @@ CREATE OR REPLACE FUNCTION get_visit_info(ad_client_id numeric,
 		        totalnonpayments    numeric
 	        )
 	LANGUAGE sql
+	STABLE
 AS
 $$
 	-- Order Info

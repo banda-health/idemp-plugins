@@ -15,6 +15,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.model.MAllocationHdr;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
@@ -453,6 +454,249 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			valueObject.refresh();
 			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), visitCharge.longValue(),
+					"Total open balance matches what's on the business partner");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void extraDebtPaymentShowsUp() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		BigDecimal visitCharge = new BigDecimal(1200);
+
+		valueObject.setStepName("Create business partner");
+		valueObject.setSalesStandardPrice(visitCharge);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create debt payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setPaymentAmount(visitCharge);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(0);
+		valueObject.getPayment().setDocAction(DocumentEngine.ACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(DocumentEngine.ACTION_Complete));
+		valueObject.getPayment().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Re-open order");
+		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
+		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate));
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.refresh();
+		assertTrue(valueObject.getPayment().getDocStatus().equalsIgnoreCase(MPayment_BH.DOCSTATUS_Completed));
+
+		valueObject.setStepName("Re-complete order");
+		valueObject.getOrder().setDocAction(DocumentEngine.ACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(DocumentEngine.ACTION_Complete));
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create visit payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("c_bpartner_uu", valueObject.getBusinessPartner().getC_BPartner_UU(), null, null,
+						null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Name");
+			assertNotNull(headerRow, "Header row exists");
+
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
+			int visitPaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit Payments");
+			int openBalancePaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance Payments");
+			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
+
+			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
+							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
+
+			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
+
+			Row row = tableRows.get(1);
+			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(visitCharge.negate().doubleValue()));
+
+			valueObject.refresh();
+			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(),
+					visitCharge.negate().longValue(),
+					"Total open balance matches what's on the business partner");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void doublePaymentsDontAppearWhenMultipleAllocations() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		BigDecimal visitCharge = new BigDecimal(1200);
+
+		valueObject.setStepName("Create business partner");
+		valueObject.setSalesStandardPrice(visitCharge);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create partial visit payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setPaymentAmount(BigDecimal.valueOf(visitCharge.doubleValue() / 2));
+		valueObject.setInvoice(new MInvoice_BH(valueObject.getContext(), valueObject.getOrder().getInvoices()[0].get_ID(),
+				valueObject.getTransactionName()));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Re-do the allocations");
+		MPayment_BH visitPayment = valueObject.getPayment();
+		MAllocationHdr[] visitPaymentAllocations =
+				MAllocationHdr.getOfPayment(valueObject.getContext(), visitPayment.get_ID(),
+						valueObject.getTransactionName());
+		assertEquals(1, visitPaymentAllocations.length, "Only one allocation made for visit payment");
+		visitPaymentAllocations[0].setDocAction(MAllocationHdr.DOCACTION_Reverse_Accrual);
+		assertTrue(visitPaymentAllocations[0].processIt(MAllocationHdr.DOCACTION_Reverse_Accrual),
+				"Allocation was reversed");
+		commitEx();
+
+		visitPayment = new MPayment_BH(valueObject.getContext(), visitPayment.get_ID(), valueObject.getTransactionName());
+		assertTrue(!visitPayment.isAllocated(), "Payment is no longer allocated");
+		assertTrue(visitPayment.allocateIt(), "Payment was allocated");
+		commitEx();
+
+		visitPaymentAllocations =
+				MAllocationHdr.getOfPayment(valueObject.getContext(), visitPayment.get_ID(), valueObject.getTransactionName());
+		assertEquals(3, visitPaymentAllocations.length, "Three allocations exist");
+
+		valueObject.setStepName("Create debt payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setPaymentAmount(BigDecimal.valueOf(visitCharge.doubleValue() / 2));
+		valueObject.setInvoice(null);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		valueObject.getPayment().setBH_C_Order_ID(0);
+		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
+		assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete), "Debt payment is completed");
+		valueObject.getPayment().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Re-do the allocations");
+		MPayment_BH debtPayment = valueObject.getPayment();
+		MAllocationHdr[] debtPaymentAllocations =
+				MAllocationHdr.getOfPayment(valueObject.getContext(), debtPayment.get_ID(),
+						valueObject.getTransactionName());
+		assertEquals(1, debtPaymentAllocations.length, "Only one allocation made for visit payment");
+		debtPaymentAllocations[0].setDocAction(MAllocationHdr.DOCACTION_Reverse_Accrual);
+		assertTrue(debtPaymentAllocations[0].processIt(MAllocationHdr.DOCACTION_Reverse_Accrual),
+				"Allocation was reversed");
+		commitEx();
+
+		debtPayment = new MPayment_BH(valueObject.getContext(), debtPayment.get_ID(), valueObject.getTransactionName());
+		assertTrue(!debtPayment.isAllocated(), "Payment is no longer allocated");
+		assertTrue(debtPayment.allocateIt(), "Payment was allocated");
+		commitEx();
+
+		debtPaymentAllocations =
+				MAllocationHdr.getOfPayment(valueObject.getContext(), debtPayment.get_ID(), valueObject.getTransactionName());
+		assertEquals(3, debtPaymentAllocations.length, "Three allocations exist");
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("c_bpartner_uu", valueObject.getBusinessPartner().getC_BPartner_UU(), null, null,
+						null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Name");
+			assertNotNull(headerRow, "Header row exists");
+
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
+			int visitPaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit Payments");
+			int openBalancePaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance Payments");
+			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
+
+			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
+							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
+
+			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
+
+			Row row = tableRows.get(1);
+			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue() / 2));
+			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue() / 2));
+			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(), is(0D));
+
+			valueObject.refresh();
+			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), 0L,
 					"Total open balance matches what's on the business partner");
 		}
 	}
