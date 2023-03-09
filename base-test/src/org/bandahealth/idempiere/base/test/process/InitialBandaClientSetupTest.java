@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MRole_BH;
+import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -26,6 +27,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
@@ -46,7 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
-	
+
 	@IPopulateAnnotation.CanRun
 	public void clientIsCreatedProperly() throws SQLException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -144,6 +146,11 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							valueObject.getTransactionName()).setParameters(organization.get_ID()).setOnlyActiveRecords(true).list();
 			assertThat("Only one warehouse is created", warehouses.size(), is(1));
 			assertTrue(warehouses.get(0).isBH_IsDefaultWarehouse(), "The warehouse is default");
+			MWarehouse_BH configurationClientWarehouse =
+					new Query(valueObject.getContext(), MWarehouse_BH.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
+							valueObject.getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG).first();
+			assertEquals(warehouses.get(0).isDisallowNegativeInv(), configurationClientWarehouse.isDisallowNegativeInv(),
+					"The warehouse is default");
 			List<MLocator> locators =
 					new Query(valueObject.getContext(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Warehouse_ID + "=?",
 							valueObject.getTransactionName()).setParameters(warehouses.get(0).get_ID()).setOnlyActiveRecords(true)
@@ -296,13 +303,16 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							.list();
 			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(),
 					"Business Partners were created");
-			
-			 // Assert default business partner locations are created.
-			List<MBPartnerLocation> configurationBusinessPartnerLocations = new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
-					MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?", valueObject.getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
-					.list();
+
+			// Assert default business partner locations are created.
+			List<MBPartnerLocation> configurationBusinessPartnerLocations =
+					new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
+							MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?", valueObject.getTransactionName()).setParameters(
+									MClient_BH.CLIENTID_CONFIG)
+							.list();
 			List<MBPartnerLocation> clientBusinessPartnerLocations =
-					new Query(valueObject.getContext(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?",
+					new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
+							MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?",
 							valueObject.getTransactionName()).setParameters(client.get_ID())
 							.list();
 			assertEquals(configurationBusinessPartnerLocations.size(), clientBusinessPartnerLocations.size(),
@@ -318,6 +328,19 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(configurationBusinessPartnerGroups.size(), clientBusinessPartnerGroups.size(),
 					"Business Partner Groups were created");
+			
+			// Assert patient number sequence is created
+			MSequence_BH configurationPatientNumberSequence = new Query(valueObject.getContext(), 
+					MSequence_BH.Table_Name, 
+					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
+			
+			MSequence_BH clientPatientNumberSequence = new Query(valueObject.getContext(), 
+					MSequence_BH.Table_Name, 
+					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
+				.setParameters(client.get_ID(), MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
+			
+			assertEquals(configurationPatientNumberSequence.getName(), clientPatientNumberSequence.getName(), "Patient Sequence was created");
 		} finally {
 			// PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...

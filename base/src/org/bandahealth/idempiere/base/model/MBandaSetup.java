@@ -1128,6 +1128,12 @@ public class MBandaSetup {
 	 * Custom warehouse configuration
 	 */
 	public boolean updateWarehouseLocatorSetUp() {
+//		PO.setCrossTenantSafe();
+		MWarehouse_BH configurationClientWarehouse = new Query(this.context, MWarehouse_BH.Table_Name,
+				MWarehouse.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG)
+				.first();
+//		PO.clearCrossTenantSafe();
+
 		// get the default warehouse and locator->rename and set to locator as default
 		MWarehouse_BH warehouse = new Query(this.context, MWarehouse.Table_Name,
 				MWarehouse.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(client.getAD_Client_ID())
@@ -1140,6 +1146,7 @@ public class MBandaSetup {
 		warehouse.setName(organization.getName());
 		warehouse.setValue(organization.getName());
 		warehouse.setBH_IsDefaultWarehouse(true);
+		warehouse.setIsDisallowNegativeInv(configurationClientWarehouse.isDisallowNegativeInv());
 		if (!locator.save()) {
 			transaction.rollback();
 			transaction.close();
@@ -1389,8 +1396,11 @@ public class MBandaSetup {
 		businessPartners.forEach((businessPartner) -> {
 			MBPartner_BH instance = new MBPartner_BH(context, 0, getTransactionName());
 			MBPartner_BH.copyValues(businessPartner, instance);
+			instance.setClientOrg(getAD_Client_ID(), getAD_Org_ID());
 			instance.setM_PriceList_ID(0);
 			instance.setPO_PriceList_ID(0);
+			instance.setC_PaymentTerm_ID(0);
+			instance.setPO_PaymentTerm_ID(0);
 			instance.setName(PREFIX_OTC_BUSINESS_PARTNER + client.getName());
 			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
 				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
@@ -1438,6 +1448,30 @@ public class MBandaSetup {
 				standardBusinessPartnerGroups.get(1));
 
 		return defaultBusinessPartnerGroups;
+	}
+	
+	/**
+	 * Create default patient number sequence
+	 * 
+	 * @return
+	 */
+	public boolean createDefaultPatientNumberSequence() {
+		// PO.setCrossTenantSafe();
+		MSequence_BH patientNumberSequence = new Query(this.context, 
+				MSequence_BH.Table_Name, 
+				MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", getTransactionName())
+				.setParameters(MClient_BH.CLIENTID_CONFIG, MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
+		// PO.clearCrossTenantSafe();
+		if (patientNumberSequence != null) {
+			MSequence_BH instance = new MSequence_BH(this.context,  0, getTransactionName());
+			MSequence_BH.copyValues(patientNumberSequence, instance);
+			if (!instance.save()) {
+				log.warning("Failure: Could not save patient number sequence");
+			}
+		}
+		
+		
+		return true;
 	}
 
 	/**
