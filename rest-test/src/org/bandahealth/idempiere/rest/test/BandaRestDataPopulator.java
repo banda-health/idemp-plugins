@@ -6,13 +6,10 @@ import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MClient_BH;
-<<<<<<< Updated upstream
-=======
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.PO;
->>>>>>> Stashed changes
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
@@ -37,18 +34,11 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		// If the client doesn't exist, we'll create it
-<<<<<<< Updated upstream
 		// PO.setCrossTenantSafe();
-		MClient_BH testClient = new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
-				valueObject.getTransactionName()).setParameters("Rest Test Client").first();
-		// PO.clearCrossTenantSafe();
-=======
-		PO.setCrossTenantSafe();
 		MClient_BH testClient =
 				new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
 						valueObject.getTransactionName()).setParameters("Rest Test Client").first();
-		PO.clearCrossTenantSafe();
->>>>>>> Stashed changes
+		// PO.clearCrossTenantSafe();
 
 		if (testClient == null) {
 			valueObject.setStepName("Create Test Client");
@@ -81,8 +71,7 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 				"' as name, EXISTS(SELECT * FROM ad_client WHERE name = 'Rest Test Client') as result ";
 		addAssertionSQL(sql);
 
-		// If the client doesn't exist, we'll create it
-		PO.setCrossTenantSafe();
+//		PO.setCrossTenantSafe();
 		testClient = new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
 				valueObject.getTransactionName()).setParameters("Rest Test Client").first();
 		int currentClientId = Env.getAD_Client_ID(valueObject.getContext());
@@ -135,7 +124,7 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
-		PO.clearCrossTenantSafe();
+//		PO.clearCrossTenantSafe();
 	}
 
 	@IPopulateAnnotation.CanRun
@@ -144,18 +133,11 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-<<<<<<< Updated upstream
 		// PO.setCrossTenantSafe();
-		MClient_BH testClient = new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
-				valueObject.getTransactionName()).setParameters("Rest Test Client").first();
-		// PO.clearCrossTenantSafe();
-=======
-		PO.setCrossTenantSafe();
 		MClient_BH testClient =
 				new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
 						valueObject.getTransactionName()).setParameters("Rest Test Client").first();
-		PO.clearCrossTenantSafe();
->>>>>>> Stashed changes
+		// PO.clearCrossTenantSafe();
 
 		assertNotNull(testClient);
 		ChuBoeAssert.executeSQLAsserts(getAssertionSQL(), valueObject.getContext(), valueObject.getTransactionName());
