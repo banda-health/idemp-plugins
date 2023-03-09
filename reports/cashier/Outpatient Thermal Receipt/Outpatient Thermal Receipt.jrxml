@@ -253,114 +253,120 @@ where sorder.c_order_id = $P{billId}
 		</band>
 	</title>
 	<detail>
-		<band height="116">
+		<band height="110">
 			<textField>
-				<reportElement key="" style="style1" x="52" y="20" width="109" height="17" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
+				<reportElement key="" style="style1" x="52" y="18" width="110" height="15" uuid="0d6439ca-7f1c-489d-944a-c648c6a72d21"/>
 				<box leftPadding="1"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receipt_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement key="" x="52" y="3" width="109" height="17" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" x="52" y="3" width="110" height="15" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<box leftPadding="1"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy hh:mm").format($F{bill_date})
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy hh:mm").format($F{bill_date})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement key="" x="52" y="52" width="109" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" x="52" y="48" width="110" height="15" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<box leftPadding="2"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="2" y="20" width="50" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
+				<reportElement key="" x="0" y="18" width="52" height="15" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Receipt #:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="2" y="3" width="50" height="17" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
+				<reportElement key="" x="0" y="3" width="52" height="15" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Billed On:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="2" y="37" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
+				<reportElement key="" x="0" y="33" width="52" height="15" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Served By:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="2" y="52" width="50" height="16" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
-				<textElement>
+				<reportElement key="" x="0" y="48" width="52" height="15" uuid="11372256-903a-4f4c-9d38-a588c5f39958"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Patient:]]></text>
 			</staticText>
 			<textField>
-				<reportElement key="" x="52" y="37" width="109" height="16" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
+				<reportElement key="" x="52" y="33" width="110" height="15" uuid="a7732435-dc8b-4660-a88b-2aa12830e7b5"/>
 				<box leftPadding="2"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="2" y="84" width="50" height="16" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
-				<textElement>
+				<reportElement key="" x="0" y="78" width="52" height="15" uuid="aaa8366b-9c4e-4856-b003-9573638e9859"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[File No:]]></text>
 			</staticText>
 			<textField>
-				<reportElement key="" style="style1" x="52" y="84" width="109" height="16" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
+				<reportElement key="" style="style1" x="52" y="78" width="110" height="15" uuid="9167388e-3e9c-47c0-9310-2e7f03805b3d"/>
 				<box leftPadding="1"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{filenumber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement key="" x="52" y="100" width="109" height="16" isRemoveLineWhenBlank="true" uuid="46547160-0dd1-4c29-b5b7-dd5bdb24eca4">
+				<reportElement key="" x="52" y="93" width="110" height="15" isRemoveLineWhenBlank="true" uuid="46547160-0dd1-4c29-b5b7-dd5bdb24eca4">
 					<printWhenExpression><![CDATA[$F{clinicianname} != null]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="2"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{clinicianname}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="2" y="100" width="50" height="16" isRemoveLineWhenBlank="true" uuid="4f465785-034c-4372-8180-40b1a16bf748">
+				<reportElement key="" x="0" y="93" width="52" height="15" isRemoveLineWhenBlank="true" uuid="4f465785-034c-4372-8180-40b1a16bf748">
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 					<printWhenExpression><![CDATA[$F{clinicianname} != null]]></printWhenExpression>
 				</reportElement>
-				<textElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Clinician:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" style="style1" x="52" y="68" width="109" height="16" uuid="b8a55f1b-1555-4753-a596-50ffd926428e"/>
+				<reportElement key="" style="style1" x="52" y="63" width="110" height="15" uuid="b8a55f1b-1555-4753-a596-50ffd926428e"/>
 				<box leftPadding="1"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="2" y="68" width="50" height="16" uuid="60935f3d-fe92-4237-bc93-d20a1a0dadc0"/>
-				<textElement>
+				<reportElement key="" x="0" y="63" width="52" height="15" uuid="60935f3d-fe92-4237-bc93-d20a1a0dadc0"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Age:]]></text>
@@ -396,52 +402,54 @@ where sorder.c_order_id = $P{billId}
 		</band>
 	</detail>
 	<summary>
-		<band height="79">
+		<band height="75">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" x="-1" y="46" width="162" height="24" uuid="d5be11a0-03ed-4ed1-a195-13f11eb806e9">
+				<reportElement key="" x="0" y="43" width="162" height="24" uuid="d5be11a0-03ed-4ed1-a195-13f11eb806e9">
 					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 					<property name="com.jaspersoft.studio.unit.y" value="mm"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="7" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receiptfooter}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
-				<reportElement x="113" y="0" width="45" height="15" uuid="4c05bb13-9d84-4c95-aa50-dba44fbcad84"/>
-				<box topPadding="1" rightPadding="0"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="113" y="0" width="49" height="15" uuid="4c05bb13-9d84-4c95-aa50-dba44fbcad84"/>
+				<box topPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{totalopenbalance}.subtract($V{totalPayment}).abs()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="0" width="150" height="15" uuid="7845820c-3b05-4969-8b9c-75e5d1163e5f"/>
-				<box leftPadding="3"/>
+				<box leftPadding="2"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Outstanding previous visit:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="30" width="113" height="16" uuid="e6ff2a0f-20f8-4ad1-a900-e90d4e0deb9d"/>
-				<box leftPadding="3"/>
-				<textElement>
-					<font size="12" isBold="true"/>
+				<reportElement x="0" y="27" width="113" height="16" uuid="e6ff2a0f-20f8-4ad1-a900-e90d4e0deb9d"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Outsanding:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="-1" y="22" width="164" height="1" uuid="00019a21-6556-4884-9970-491e0e9e5abb"/>
+				<reportElement x="-1" y="20" width="164" height="1" uuid="00019a21-6556-4884-9970-491e0e9e5abb"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
 			<textField pattern="#,##0.###;(#,##0.###-)">
-				<reportElement x="120" y="30" width="38" height="16" uuid="1ec27074-e823-433f-84af-7ff57f5b011d"/>
-				<box rightPadding="0"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+				<reportElement x="120" y="27" width="42" height="16" uuid="1ec27074-e823-433f-84af-7ff57f5b011d"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalopenbalance}]]></textFieldExpression>
 			</textField>
