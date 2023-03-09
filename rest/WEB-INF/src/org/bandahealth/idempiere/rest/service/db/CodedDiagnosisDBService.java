@@ -124,8 +124,7 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 
 	@Override
 	protected CodedDiagnosis createInstanceWithDefaultFields(MBHCodedDiagnosis instance) {
-		return new CodedDiagnosis(instance.getBH_CodedDiagnosis_UU(), instance.getBH_CielName(), instance.getBH_ICD10(),
-				instance.getBH_Synonyms());
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
