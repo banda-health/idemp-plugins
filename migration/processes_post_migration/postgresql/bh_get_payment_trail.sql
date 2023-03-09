@@ -12,6 +12,7 @@ CREATE OR REPLACE FUNCTION bh_get_payment_trail(c_bpartner_uu character varying)
 		        patient_open_balance  numeric
 	        )
 	LANGUAGE sql
+	STABLE
 AS
 $$
 WITH transactions AS (
