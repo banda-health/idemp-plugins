@@ -50,7 +50,7 @@ public class ModelUtil {
 	 */
 	public static <T extends PO & DocAction> void processDocumentOrError(int documentProcessId, T document,
 			String processAction) {
-		MProcess documentProcess = MProcess.get(documentProcessId);
+		MProcess documentProcess = MProcess.get(Env.getCtx(), documentProcessId);
 		ProcessInfo processInformation =
 				new ProcessInfo("Process Document", documentProcess.get_ID(), documentProcess.get_Table_ID(),
 						document.get_ID());
