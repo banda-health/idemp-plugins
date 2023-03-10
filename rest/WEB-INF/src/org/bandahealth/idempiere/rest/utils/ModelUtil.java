@@ -54,6 +54,7 @@ public class ModelUtil {
 		ProcessInfo processInformation =
 				new ProcessInfo("Process Document", documentProcess.get_ID(), documentProcess.get_Table_ID(),
 						document.get_ID());
+		processInformation.setTransactionName(document.get_TrxName());
 		try {
 			document.set_ValueOfColumn("DocAction", processAction);
 			document.saveEx();
