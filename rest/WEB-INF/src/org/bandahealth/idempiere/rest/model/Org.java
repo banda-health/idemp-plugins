@@ -27,9 +27,7 @@ public class Org extends BaseEntity {
 	}
 
 	public Org(MOrg org) {
-		setId(org.get_ID());
-		setName(org.getName());
-		setUuid(getUuid());
+		super(org, org.getName(), org.getDescription(), null);
 	}
 
 	@XmlElement

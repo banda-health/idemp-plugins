@@ -15,6 +15,8 @@ public class MOrgInfo_BH extends MOrgInfo {
 	
 	public static final String COLUMNNAME_BH_PAYMENT_INFORMATION = "BH_PaymentInformation";
 	
+	public static final String LOGO_STORAGEPROVIDER_UU = "8b887c9c-d8ca-4b9c-a548-267b1e9c7c5c";
+	
 	public MOrgInfo_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}

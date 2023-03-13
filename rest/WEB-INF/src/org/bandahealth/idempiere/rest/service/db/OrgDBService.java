@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.Base64;
 import java.util.Collections;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Component;
 public class OrgDBService extends BaseDBService<Org, MOrg> {
 
 	private final LocationDBService locationDBService = new LocationDBService();
+	private MStorageProvider imageProvider;
+	private ImageFileStorageImpl fileStorage;
 
 	/**
 	 * Updates the OrgInfo object that's nested in Org. Updating the Org object is
@@ -52,11 +55,11 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 			}
 
 			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getFacilityNumber())) {
-				orgInfo.setBH_Header(orgInfoEntity.getFacilityNumber());
+				orgInfo.setBH_FacilityNumber(orgInfoEntity.getFacilityNumber());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getPaymentInformation())) {
-				orgInfo.setBH_Header(orgInfoEntity.getPaymentInformation());
+				orgInfo.setBH_PaymentInformation(orgInfoEntity.getPaymentInformation());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getPhone())) {
@@ -64,7 +67,7 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 			}
 
 			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getReceiptFooterMessage())) {
-				orgInfo.setBH_Header(orgInfoEntity.getReceiptFooterMessage());
+				orgInfo.setReceiptFooterMsg(orgInfoEntity.getReceiptFooterMessage());
 			}
 
 			// set location
@@ -93,17 +96,21 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 			}
 
 			// set logo
-			if (orgInfoEntity.getLogo() != null) {
+			if (orgInfoEntity.getLogo() != null
+					&& StringUtil.isNotNullAndEmpty(orgInfoEntity.getLogo().getBinaryData())) {
 				Image imageEntity = orgInfoEntity.getLogo();
 
 				MImage image = new Query(Env.getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + " =?", null)
 						.setParameters(imageEntity.getUuid()).first();
 				if (image == null) {
 					image = new MImage(Env.getCtx(), 0, null);
+					image.saveEx(); // an existing image is required inorder to save the image in the file storage.
 				}
 
-				new ImageFileStorageImpl().save(image, new MStorageProvider(Env.getCtx(), 0, null),
-						imageEntity.getBinaryData());
+				image.setName(imageEntity.getName());
+
+				getFileStorage().save(image, getImageProvider(),
+						Base64.getDecoder().decode(imageEntity.getBinaryData()));
 
 				image.saveEx();
 
@@ -128,8 +135,21 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 
 	@Override
 	protected Org createInstanceWithAllFields(MOrg instance) {
-		Org org = new Org();
-		return org;
+		Org result = new Org(instance);
+
+		MOrgInfo_BH mOrgInfo = (MOrgInfo_BH) instance.getInfo();
+		OrgInfo orgInfo = new OrgInfo(mOrgInfo);
+		if (mOrgInfo.getLogo_ID() > 0) {
+			MImage mImage = MImage.get(Env.getCtx(), mOrgInfo.getLogo_ID());
+			Image image = new Image(mImage);
+			// load image from drive and encode to string.
+			image.setBinaryData(Base64.getEncoder().encodeToString(getFileStorage().load(mImage, getImageProvider())));
+			orgInfo.setLogo(image);
+		}
+
+		result.setOrgInfo(orgInfo);
+
+		return result;
 	}
 
 	@Override
@@ -139,6 +159,26 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 
 	@Override
 	protected MOrg getModelInstance() {
-		throw new UnsupportedOperationException("Operation Not Supported");
+		return new MOrg(Env.getCtx(), 0, null);
+	}
+
+	private MStorageProvider getImageProvider() {
+		if (imageProvider != null) {
+			return imageProvider;
+		}
+
+		imageProvider = new Query(Env.getCtx(), MStorageProvider.Table_Name,
+				MStorageProvider.COLUMNNAME_AD_StorageProvider_UU + " =?", null)
+						.setParameters(MOrgInfo_BH.LOGO_STORAGEPROVIDER_UU).first();
+
+		return imageProvider;
+	}
+
+	private ImageFileStorageImpl getFileStorage() {
+		if (fileStorage != null) {
+			return fileStorage;
+		}
+
+		return fileStorage = new ImageFileStorageImpl();
 	}
 }

@@ -20,6 +20,9 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 ALTER TABLE AD_OrgInfo ADD BH_PaymentInformation VARCHAR2(100) DEFAULT NULL;
 
+-- add global storage provider
+INSERT INTO ad_storageprovider (ad_client_id, ad_org_id, ad_storageprovider_id, ad_storageprovider_uu, created, createdby, folder, isactive, method, name, password, updated, updatedby, url, username) VALUES (0, 0, (SELECT MAX(ad_storageprovider_id) + 1 FROM ad_storageprovider), '8b887c9c-d8ca-4b9c-a548-267b1e9c7c5c', '2023-03-10 14:54:49.201000', 100, '/opt/idempiere-server/logo-images', 'Y', 'FileSystem', 'LogoStorageProvider', null, '2023-03-10 14:54:49.201000', 100, null, null) ON CONFLICT DO NOTHING;
+
 SELECT
 	register_migration_script('202302281219_GO-2343.sql')
 FROM

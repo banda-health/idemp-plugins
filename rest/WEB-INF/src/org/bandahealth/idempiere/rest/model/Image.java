@@ -2,6 +2,8 @@ package org.bandahealth.idempiere.rest.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.compiere.model.MImage;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -13,9 +15,16 @@ public class Image extends BaseEntity {
 
 	private String entityType;
 	private String imageUrl;
-	private byte[] binaryData;
+	private String binaryData;
 
 	public Image() {
+	}
+
+	public Image(MImage instance) {
+		super(instance, instance.getName(), instance.getDescription(), null);
+
+		this.entityType = instance.getEntityType();
+		this.imageUrl = instance.getImageURL();
 	}
 
 	public String getEntityType() {
@@ -34,11 +43,11 @@ public class Image extends BaseEntity {
 		this.imageUrl = imageUrl;
 	}
 
-	public byte[] getBinaryData() {
-		return binaryData;
+	public void setBinaryData(String binaryData) {
+		this.binaryData = binaryData;
 	}
 
-	public void setBinaryData(byte[] binaryData) {
-		this.binaryData = binaryData;
+	public String getBinaryData() {
+		return binaryData;
 	}
 }

@@ -2,6 +2,8 @@ package org.bandahealth.idempiere.rest.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -19,6 +21,16 @@ public class OrgInfo extends BaseMetadata {
 	private Location location;
 
 	public OrgInfo() {
+	}
+	
+	public OrgInfo(MOrgInfo_BH instance) {
+		super(instance);
+		
+		this.receiptFooterMessage = instance.getReceiptFooterMsg();
+		this.phone = instance.getPhone();
+		this.headerMessage = instance.getBH_Header();
+		this.facilityNumber = instance.getBH_FacilityNumber();
+		this.paymentInformation = instance.getBH_PaymentInformation();
 	}
 
 	public String getReceiptFooterMessage() {
