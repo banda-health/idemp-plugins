@@ -199,6 +199,7 @@ public class InvoiceModelEventTest extends ChuBoePopulateFactoryVO {
 		assertEquals(0, ordersInvoices.length, "No invoice was created for order");
 
 		valueObject.setStepName("Create invoice");
+		valueObject.setCharge(null);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
 		ChuBoeCreateEntity.createInvoice(valueObject);
