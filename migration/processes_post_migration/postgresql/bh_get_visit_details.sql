@@ -31,6 +31,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_details(ad_client_id numeric,
 		        salestotals                   numeric
 	        )
 	LANGUAGE sql
+	STABLE
 AS
 $$
 SELECT
