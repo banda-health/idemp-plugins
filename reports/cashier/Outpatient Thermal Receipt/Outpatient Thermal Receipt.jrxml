@@ -8,8 +8,14 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="573"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="417"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="style1" fontName="Courier New" fontSize="12"/>
 	<parameter name="billId" class="java.math.BigDecimal"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -415,8 +421,10 @@ where sorder.c_order_id = $P{billId}
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receiptfooter}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
-				<reportElement x="113" y="0" width="49" height="15" uuid="4c05bb13-9d84-4c95-aa50-dba44fbcad84"/>
+			<textField pattern="#,##0.###;(-#,##0.###)" isBlankWhenNull="true">
+				<reportElement x="113" y="0" width="49" height="15" uuid="4c05bb13-9d84-4c95-aa50-dba44fbcad84">
+					<printWhenExpression><![CDATA[($F{totalopenbalance}.subtract($V{totalPayment}).compareTo(BigDecimal.ZERO) >= 0)]]></printWhenExpression>
+				</reportElement>
 				<box topPadding="1" rightPadding="2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
@@ -452,6 +460,16 @@ where sorder.c_order_id = $P{billId}
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalopenbalance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###;(-#,##0.###)" isBlankWhenNull="false">
+				<reportElement x="113" y="0" width="49" height="15" uuid="d859c1ee-bcfe-4e7a-874c-30212ca74603">
+					<printWhenExpression><![CDATA[($F{totalopenbalance}.subtract($V{totalPayment}).compareTo(BigDecimal.ZERO) < 0)]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["0"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
