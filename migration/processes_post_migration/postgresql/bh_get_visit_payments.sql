@@ -1,6 +1,6 @@
 DROP FUNCTION IF EXISTS bh_get_visit_payments(NUMERIC, TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE);
-CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
-                                                 end_date timestamp WITHOUT TIME ZONE)
+CREATE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
+                                      end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
 		        c_order_id        numeric,
@@ -24,6 +24,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_dat
 		        tender_amt        numeric
 	        )
 	LANGUAGE sql
+	STABLE
 AS
 $$
 SELECT
@@ -48,12 +49,8 @@ SELECT
 	p.bh_tender_amount
 FROM
 	c_payment p
-		LEFT JOIN c_allocationline al
-			ON p.c_payment_id = al.c_payment_id
-		LEFT JOIN c_invoice i
-			ON al.c_invoice_id = i.c_invoice_id
 		JOIN c_order c
-			ON i.c_order_id = c.c_order_id OR p.bh_c_order_id = c.c_order_id
+			ON p.bh_c_order_id = c.c_order_id AND c.issotrx = 'Y' AND c.bh_visitdate BETWEEN begin_date AND end_date
 		JOIN (
 		SELECT
 			c_order_id,
@@ -77,11 +74,6 @@ FROM
 WHERE
 	p.ad_client_id = $1
 	AND ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
-	AND c.issotrx = 'Y'
-	AND c.bh_visitdate BETWEEN begin_date AND end_date
-	AND (i.docstatus IS NULL OR i.docstatus NOT IN ('RE', 'RA', 'VO'))
-	AND p.bh_c_order_id IS NOT NULL
-	AND p.bh_c_order_id != 0
 	AND p.docstatus NOT IN ('RE', 'VO')
 	AND p.c_payment_id NOT IN (
 	SELECT
