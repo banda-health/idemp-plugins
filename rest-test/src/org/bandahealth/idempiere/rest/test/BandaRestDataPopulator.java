@@ -6,6 +6,7 @@ import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
@@ -118,6 +119,18 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 					"' as name, EXISTS(SELECT * FROM m_locator WHERE isdefault = 'Y' AND m_warehouse_id = " +
 					secondWarehouse.get_ID() + ") as result ";
 			addAssertionSQL(sql);
+
+			valueObject.setStepName("Make sure the rest client always uses any new features");
+			MSysConfig_BH newFeatureClientUuids = MSysConfig_BH.getByNameForSystem(valueObject.getContext(),
+					MSysConfig_BH.NEW_FEATURE_ROLLOUT_ALLOW_FOR_CLIENTS, valueObject.getTransactionName());
+			if (!newFeatureClientUuids.getValue().contains(testClient.getAD_Client_UU())) {
+				if (newFeatureClientUuids.getValue().isEmpty() || newFeatureClientUuids.getValue().isEmpty()) {
+					newFeatureClientUuids.setValue(testClient.getAD_Client_UU());
+				} else {
+					newFeatureClientUuids.setValue(newFeatureClientUuids.getValue() + "," + testClient.getAD_Client_UU());
+				}
+				newFeatureClientUuids.saveEx();
+			}
 			commitEx();
 		} catch (Exception exception) {
 			fail(exception);

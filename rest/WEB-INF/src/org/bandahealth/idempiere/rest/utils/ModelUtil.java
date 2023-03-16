@@ -2,6 +2,8 @@ package org.bandahealth.idempiere.rest.utils;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.ProcessUtil;
+import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.rest.exceptions.DocumentProcessException;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.compiere.model.MProcess;
@@ -56,16 +58,26 @@ public class ModelUtil {
 						document.get_ID());
 		processInformation.setTransactionName(document.get_TrxName());
 		try {
-			document.set_ValueOfColumn("DocAction", processAction);
-			document.saveEx();
-			ProcessUtil.startWorkFlow(Env.getCtx(), processInformation, documentProcess.getAD_Workflow_ID());
-			if (processInformation.isError()) {
-				throw new AdempiereException(processInformation.getSummary());
+			// Check if the new feature is enabled for this client
+			if (MSysConfig_BH.getValue(MSysConfig_BH.NEW_FEATURE_ROLLOUT_ALLOW_FOR_CLIENTS)
+					.contains(MClient_BH.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx())).getAD_Client_UU())) {
+				document.set_ValueOfColumn("DocAction", processAction);
+				document.saveEx();
+				ProcessUtil.startWorkFlow(Env.getCtx(), processInformation, documentProcess.getAD_Workflow_ID());
+				if (processInformation.isError()) {
+					throw new AdempiereException(processInformation.getSummary());
+				}
+			} else {
+				if (!document.processIt(processAction)) {
+					throw new AdempiereException(document.getProcessMsg());
+				}
 			}
 			document.saveEx();
 		} catch (AdempiereException exception) {
 			document.save();
 			throw new DocumentProcessException(exception.getLocalizedMessage());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
