@@ -2,22 +2,28 @@ package org.bandahealth.idempiere.rest.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.compiere.model.MCity;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @XmlRootElement(name = "city")
 @JsonInclude(value = Include.NON_NULL)
-public class City extends BaseObject {
+public class City extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
 
 	private String name;
 	private String postal;
-	private String areadCode;
+	private String areaCode;
 	private Country country;
 
-	public City(int id, String name) {
-		super(id, name);
+	public City(MCity instance) {
+		super(instance);
+
+		this.name = instance.getName();
+		this.postal = instance.getPostal();
+		this.areaCode = instance.getAreaCode();
 	}
 
 	public String getName() {
@@ -36,12 +42,12 @@ public class City extends BaseObject {
 		this.postal = postal;
 	}
 
-	public String getAreadCode() {
-		return areadCode;
+	public String getAreaCode() {
+		return areaCode;
 	}
 
-	public void setAreadCode(String areadCode) {
-		this.areadCode = areadCode;
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
 	}
 
 	public Country getCountry() {
