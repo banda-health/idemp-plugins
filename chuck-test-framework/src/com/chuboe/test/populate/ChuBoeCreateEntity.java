@@ -524,7 +524,8 @@ public class ChuBoeCreateEntity {
 		} else if (valueObject.getBusinessPartner() == null) {
 			valueObject.appendErrorMessage("BP is Null");
 			return;
-		} else if (!valueObject.getOrder().getDocStatus().equals(X_C_Order.DOCSTATUS_Completed)) {
+		} else if (valueObject.getOrder() != null &&
+				!valueObject.getOrder().getDocStatus().equals(X_C_Order.DOCSTATUS_Completed)) {
 			valueObject.appendErrorMessage("Order Not Completed");
 			return;
 		}
@@ -542,7 +543,9 @@ public class ChuBoeCreateEntity {
 		invoice.setC_DocType_ID(valueObject.getDocumentType().get_ID());
 		invoice.setDateInvoiced(valueObject.getDate());
 		invoice.setIsSOTrx(valueObject.getDocumentType().isSOTrx());
-		invoice.setC_Order_ID(valueObject.getOrder().get_ID());
+		if (valueObject.getOrder() != null) {
+			invoice.setC_Order_ID(valueObject.getOrder().get_ID());
+		}
 
 		invoice.saveEx();
 		valueObject.setInvoice(invoice);
@@ -552,8 +555,12 @@ public class ChuBoeCreateEntity {
 		invoiceLine.setC_Invoice_ID(valueObject.getInvoice().get_ID());
 		invoiceLine.setDescription(valueObject.getStepMessageLong());
 		invoiceLine.setAD_Org_ID(valueObject.getOrg().get_ID());
-		invoiceLine.setM_Product_ID(valueObject.getProduct().get_ID());
-		invoiceLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		if (valueObject.getCharge() != null) {
+			invoiceLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		} else if (valueObject.getProduct() != null) {
+			invoiceLine.setM_Product_ID(valueObject.getProduct().get_ID());
+			invoiceLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		}
 		invoiceLine.setM_AttributeSetInstance_ID(
 				valueObject.getAttributeSetInstance() == null ? 0 : valueObject.getAttributeSetInstance().get_ID());
 		if (valueObject.getQuantity() == null || valueObject.getQuantity().compareTo(Env.ZERO) == 0) {
@@ -561,8 +568,15 @@ public class ChuBoeCreateEntity {
 		} else {
 			invoiceLine.setQty(valueObject.getQuantity());
 		}
-		invoiceLine.setC_OrderLine_ID(valueObject.getOrderLine().get_ID());
-		invoiceLine.setPrice();
+		if (valueObject.getOrderLine() != null) {
+			invoiceLine.setC_OrderLine_ID(valueObject.getOrderLine().get_ID());
+		}
+		if (valueObject.getCharge() != null && valueObject.getSalesStandardPrice() != null &&
+				valueObject.getSalesStandardPrice().compareTo(Env.ZERO) != 0) {
+			invoiceLine.setPrice(valueObject.getSalesStandardPrice());
+		} else {
+			invoiceLine.setPrice();
+		}
 
 		invoiceLine.saveEx();
 		valueObject.setInvoiceLine(invoiceLine);

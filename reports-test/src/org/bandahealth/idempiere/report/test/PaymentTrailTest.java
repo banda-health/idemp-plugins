@@ -8,6 +8,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MChargeType_BH;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -29,6 +31,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,17 +134,16 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 			assertNotNull(headerRow, "Header row exists");
 
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
-			int itemColumnIndex = TableUtils.getColumnIndex(headerRow, "item");
+			int itemColumnIndex = TableUtils.getColumnIndex(headerRow, "Item");
 			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
-			int visitPaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit Payments");
-			int openBalancePaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance Payments");
+			int paymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Payments");
 			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
 
 			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
 							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
-			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
+			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
 
 			assertThat("Starting balance appears", tableRows.get(0).getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Starting Balance"));
@@ -149,16 +151,23 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 					is(0D));
 
 			assertThat("Visit payment information appears", tableRows.get(1).getCell(itemColumnIndex).getStringCellValue(),
-					containsStringIgnoringCase("Visit Charges and payments"));
+					containsStringIgnoringCase("Visit charges and payments"));
 			assertThat("Visit charge is correct", tableRows.get(1).getCell(chargesColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
-			assertThat("Visit payment is correct", tableRows.get(1).getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+			assertThat("Visit payment is correct", tableRows.get(1).getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(visitPayment.doubleValue()));
-			assertThat("Debt payment is correct",
-					tableRows.get(1).getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+			assertThat("Visit difference is correct", tableRows.get(1).getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue() - visitPayment.doubleValue()));
+
+
+			assertThat("Debt payment information appears", tableRows.get(2).getCell(itemColumnIndex).getStringCellValue(),
+					containsStringIgnoringCase("Outstanding Balance Payment"));
+			assertThat("Debt charge is correct", tableRows.get(2).getCell(chargesColumnIndex).getNumericCellValue(),
+					is(0D));
+			assertThat("Debt payment is correct", tableRows.get(2).getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(debtPayment.doubleValue()));
 			BigDecimal totalOpenBalance = visitCharge.subtract(visitPayment).subtract(debtPayment);
-			assertThat("Open balance is correct", tableRows.get(1).getCell(openBalanceColumnIndex).getNumericCellValue(),
+			assertThat("Open balance is correct", tableRows.get(2).getCell(openBalanceColumnIndex).getNumericCellValue(),
 					is(totalOpenBalance.doubleValue()));
 
 			valueObject.refresh();
@@ -330,10 +339,10 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 			assertNotNull(headerRow, "Header row exists");
 
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
-			int itemColumnIndex = TableUtils.getColumnIndex(headerRow, "item");
+			int dateColumnIndex = TableUtils.getColumnIndex(headerRow, "Date");
+			int itemColumnIndex = TableUtils.getColumnIndex(headerRow, "Item");
 			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
-			int visitPaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit Payments");
-			int openBalancePaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance Payments");
+			int paymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Payments");
 			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
 
 			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -343,18 +352,20 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
 
 			Row row = tableRows.get(0);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			assertThat("Starting balance date correct", dateFormat.format(row.getCell(dateColumnIndex).getDateCellValue()),
+					containsStringIgnoringCase(dateFormat.format(TimestampUtils.yesterday())));
 			assertThat("Starting balance appears", row.getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Starting Balance"));
 			assertThat("Starting balance is zero", row.getCell(openBalanceColumnIndex).getNumericCellValue(), is(0D));
 
 			row = tableRows.get(1);
 			assertThat("Visit payment information appears", row.getCell(itemColumnIndex).getStringCellValue(),
-					containsStringIgnoringCase("Visit Charges and payments"));
+					containsStringIgnoringCase("Visit charges and payments"));
 			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
-			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+			assertThat("Visit payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(visitMobilePayment.doubleValue() + visitCashPayment.doubleValue() + visitWaiver.doubleValue()));
-			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(), is(0D));
 			BigDecimal totalOpenBalance =
 					visitCharge.subtract(visitMobilePayment).subtract(visitCashPayment).subtract(visitWaiver);
 			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
@@ -362,10 +373,9 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			row = tableRows.get(2);
 			assertThat("Open balance information appears", row.getCell(itemColumnIndex).getStringCellValue(),
-					containsStringIgnoringCase("Open balance payment only"));
+					containsStringIgnoringCase("Outstanding Balance Payment"));
 			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(), is(0D));
-			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(), is(0D));
-			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+			assertThat("Debt payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(debtPayment.doubleValue()));
 			totalOpenBalance = totalOpenBalance.subtract(debtPayment);
 			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
@@ -425,10 +435,9 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 			assertNotNull(headerRow, "Header row exists");
 
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
-			int itemColumnIndex = TableUtils.getColumnIndex(headerRow, "item");
+			int itemColumnIndex = TableUtils.getColumnIndex(headerRow, "Item");
 			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
-			int visitPaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit Payments");
-			int openBalancePaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance Payments");
+			int paymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Payments");
 			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
 
 			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -444,11 +453,10 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			row = tableRows.get(1);
 			assertThat("Visit payment information appears", row.getCell(itemColumnIndex).getStringCellValue(),
-					containsStringIgnoringCase("Visit Charges and payments"));
+					containsStringIgnoringCase("Visit"));
 			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
-			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(), is(0D));
-			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(), is(0D));
+			assertThat("Visit payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(), is(0D));
 			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
 
@@ -539,22 +547,23 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
 			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
-			int visitPaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit Payments");
-			int openBalancePaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance Payments");
+			int paymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Payments");
 			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
 
 			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
 							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
-			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
+			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
 
 			Row row = tableRows.get(1);
 			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
-			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+			assertThat("Visit payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
-			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+
+			row = tableRows.get(2);
+			assertThat("Debt payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
 			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
 					is(visitCharge.negate().doubleValue()));
@@ -676,27 +685,142 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
 			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
-			int visitPaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit Payments");
-			int openBalancePaymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance Payments");
+			int paymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Payments");
 			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
 
 			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
 							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
-			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
+			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
 
 			Row row = tableRows.get(1);
 			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue()));
-			assertThat("Visit payment is correct", row.getCell(visitPaymentsColumnIndex).getNumericCellValue(),
+			assertThat("Visit payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue() / 2));
-			assertThat("Debt payment is correct", row.getCell(openBalancePaymentsColumnIndex).getNumericCellValue(),
+
+			row = tableRows.get(2);
+			assertThat("Debt payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
 					is(visitCharge.doubleValue() / 2));
 			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(), is(0D));
 
 			valueObject.refresh();
 			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), 0L,
+					"Total open balance matches what's on the business partner");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void debtWaiversAppear() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		BigDecimal visitCharge = new BigDecimal(1200);
+
+		valueObject.setStepName("Create business partner");
+		valueObject.setSalesStandardPrice(visitCharge);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create waiver charge");
+		MChargeType_BH oneOffsChargeType =
+				new Query(valueObject.getContext(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_Name + "=?",
+						valueObject.getTransactionName()).setParameters("One-offs - DO NOT CHANGE").setClient_ID().first();
+		if (oneOffsChargeType == null) {
+			oneOffsChargeType = new MChargeType_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			oneOffsChargeType.setName("One-offs - DO NOT CHANGE");
+			oneOffsChargeType.saveEx();
+			commitEx();
+		}
+		MCharge_BH badDebtWriteOffCharge = new Query(valueObject.getContext(), MCharge_BH.Table_Name,
+				MCharge_BH.COLUMNNAME_Name + "=? AND " + MCharge_BH.COLUMNNAME_C_ChargeType_ID + "=?",
+				valueObject.getTransactionName()).setParameters("Bad debt write-off - DO NOT CHANGE",
+				oneOffsChargeType.get_ID()).setClient_ID().first();
+		if (badDebtWriteOffCharge == null) {
+			ChuBoeCreateEntity.createCharge(valueObject);
+			valueObject.getCharge().setName("Bad debt write-off - DO NOT CHANGE");
+			valueObject.getCharge().setC_ChargeType_ID(oneOffsChargeType.get_ID());
+			valueObject.getCharge().saveEx();
+			commitEx();
+		} else {
+			valueObject.setCharge(badDebtWriteOffCharge);
+		}
+
+		valueObject.setStepName("Waive part of the open balance");
+		valueObject.setOrder(null);
+		valueObject.setSalesPrice(BigDecimal.valueOf(visitCharge.negate().doubleValue() / 2));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("c_bpartner_uu", valueObject.getBusinessPartner().getC_BPartner_UU(), null, null,
+						null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Name");
+			assertNotNull(headerRow, "Header row exists");
+
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+			int itemColumnIndex = TableUtils.getColumnIndex(headerRow, "Item");
+			int chargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Charges");
+			int paymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Payments");
+			int openBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Open Balance");
+
+			List<Row> tableRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
+							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
+
+			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
+
+			Row row = tableRows.get(1);
+			assertThat("Visit charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+			assertThat("Visit payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
+					is(0D));
+			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue()));
+
+			row = tableRows.get(2);
+			assertThat("Waiver information appears", row.getCell(itemColumnIndex).getStringCellValue(),
+					containsStringIgnoringCase("Waived Open Balance"));
+			assertThat("Waived charge is correct", row.getCell(chargesColumnIndex).getNumericCellValue(), is(0D));
+			assertThat("Debt payment is correct", row.getCell(paymentsColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue() / 2));
+			assertThat("Open balance is correct", row.getCell(openBalanceColumnIndex).getNumericCellValue(),
+					is(visitCharge.doubleValue() / 2));
+
+			valueObject.refresh();
+			assertEquals(valueObject.getBusinessPartner().getTotalOpenBalance().longValue(), visitCharge.longValue() / 2,
 					"Total open balance matches what's on the business partner");
 		}
 	}
