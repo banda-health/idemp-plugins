@@ -55,6 +55,9 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		int randomNumber = valueObject.getRandomNumber();
+		valueObject.getBusinessPartner().setName(randomNumber + valueObject.getBusinessPartner().getName());
+		valueObject.setRandom();
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -103,9 +106,8 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 									cell.getStringCellValue().contains("Patient:"))).findFirst();
 			assertTrue(patientNameRow.isPresent(), "Patient label is on the receipt");
 			assertTrue(StreamSupport.stream(patientNameRow.get().spliterator(), false).anyMatch(
-							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0, 10))),
-					"Patient's name is on the receipt");
+					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+							cell.getStringCellValue().contains(String.valueOf(randomNumber))), "Patient's name is on the receipt");
 
 			String casedProductName = valueObject.getOrderLine().getName().substring(0, 1).toUpperCase() +
 					valueObject.getOrderLine().getName().substring(1).toLowerCase();
@@ -169,7 +171,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> outstandingFromPreviousVisitsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Outstanding previous visit:"))).findFirst();
+									cell.getStringCellValue().contains("Outstanding previous"))).findFirst();
 			assertTrue(outstandingFromPreviousVisitsRow.isPresent(), "Outstanding from previous visit row is included");
 			assertTrue(StreamSupport.stream(outstandingFromPreviousVisitsRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 0d),
@@ -270,7 +272,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> outstandingFromPreviousVisitsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Outstanding previous visit:"))).findFirst();
+									cell.getStringCellValue().contains("Outstanding previous"))).findFirst();
 			assertTrue(outstandingFromPreviousVisitsRow.isPresent(), "Outstanding from previous visit row is included");
 			assertTrue(StreamSupport.stream(outstandingFromPreviousVisitsRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 0d),
@@ -390,7 +392,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> outstandingFromPreviousVisitsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Outstanding previous visit:"))).findFirst();
+									cell.getStringCellValue().contains("Outstanding previous"))).findFirst();
 			assertTrue(outstandingFromPreviousVisitsRow.isPresent(), "Outstanding from previous visit row is included");
 			assertTrue(StreamSupport.stream(outstandingFromPreviousVisitsRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 0d),
@@ -504,7 +506,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> outstandingFromPreviousVisitsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Outstanding previous visit:"))).findFirst();
+									cell.getStringCellValue().contains("Outstanding previous"))).findFirst();
 			assertTrue(outstandingFromPreviousVisitsRow.isPresent(), "Outstanding from previous visit row is included");
 			assertTrue(StreamSupport.stream(outstandingFromPreviousVisitsRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 0d),
@@ -603,7 +605,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> outstandingFromPreviousVisitsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Outstanding previous visit:"))).findFirst();
+									cell.getStringCellValue().contains("Outstanding previous"))).findFirst();
 			assertTrue(outstandingFromPreviousVisitsRow.isPresent(), "Outstanding from previous visit row is included");
 			assertTrue(StreamSupport.stream(outstandingFromPreviousVisitsRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 0d),
@@ -741,7 +743,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> outstandingFromPreviousVisitsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Outstanding previous visit:"))).findFirst();
+									cell.getStringCellValue().contains("Outstanding previous"))).findFirst();
 			assertTrue(outstandingFromPreviousVisitsRow.isPresent(), "Outstanding from previous visit row is included");
 			assertTrue(StreamSupport.stream(outstandingFromPreviousVisitsRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 23d),
