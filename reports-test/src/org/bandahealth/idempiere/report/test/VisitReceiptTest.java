@@ -55,7 +55,6 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
-		int randomNumber = valueObject.getRandomNumber();
 		// Set the BP's name to be short so the visit receipt can show it properly in an Excel export
 		valueObject.getBusinessPartner().setName(valueObject.getBusinessPartner().getName().substring(0, 19));
 		valueObject.getBusinessPartner().saveEx();
