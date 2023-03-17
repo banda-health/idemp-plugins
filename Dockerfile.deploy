@@ -1,5 +1,5 @@
 ARG IDEMPIERE_VERSION
-FROM openhmis/banda-idempiere:${IDEMPIERE_VERSION}
+FROM ghcr.io/banda-health/banda-idempiere:${IDEMPIERE_VERSION}
 
 ENV IDEMPIERE_FRESH_DB=false
 ENV MIGRATE_EXISTING_DATABASE=true

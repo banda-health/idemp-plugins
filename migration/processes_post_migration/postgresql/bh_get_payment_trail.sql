@@ -1,222 +1,183 @@
 DROP FUNCTION IF EXISTS bh_get_payment_trail(character varying);
-CREATE OR REPLACE FUNCTION bh_get_payment_trail(c_bpartner_uu character varying)
+CREATE FUNCTION bh_get_payment_trail(_c_bpartner_uu character varying)
 	RETURNS TABLE
 	        (
-		        c_bpartner_id         numeric,
-		        patient_name          character varying,
-		        payment_date          timestamp,
-		        item                  text,
-		        visit_charges         numeric,
-		        visit_payments        numeric,
-		        open_balance_payments numeric,
-		        patient_open_balance  numeric
+		        c_bpartner_id        numeric,
+		        patient_name         character varying,
+		        transaction_date     timestamp WITHOUT TIME ZONE,
+		        item                 text,
+		        debits               numeric,
+		        credits              numeric,
+		        patient_open_balance numeric
 	        )
+	STABLE
 	LANGUAGE sql
 AS
 $$
-WITH transactions AS (
-	-- This categorizes the payments
+WITH visit_payments AS (
 	SELECT
-		c_bpartner_id,
-		date,
-		items,
-		charges,
-		visit_payment,
-		open_balance_payment,
-		open_balance,
-		ROW_NUMBER() OVER (ORDER BY sort, date) AS row
+		c_order_id,
+		SUM(payamt) AS payamt
 	FROM
-		(
-			SELECT
-				c_bpartner_id,
-				date,
-				CASE
-					WHEN charges = 0 AND visit_payment = 0 THEN 'Open balance payment only'
-					ELSE 'Visit Charges and payments' END                                                      AS items,
-				charges,
-				visit_payment * -1                                                                           AS visit_payment,
-				open_balance_payment * -1                                                                    AS open_balance_payment,
-						SUM(line_total) OVER (PARTITION BY c_bpartner_id ORDER BY date ROWS UNBOUNDED PRECEDING) AS open_balance,
-				2                                                                                            AS sort
-			FROM
-				(
-					-- Sum all the payments and group them by date
-					SELECT
-						c_bpartner_id,
-						date,
-						SUM(charges)                                                  AS charges,
-						SUM(visit_payment)                                            AS visit_payment,
-						SUM(open_balance_payment)                                     AS open_balance_payment,
-						SUM(charges) + SUM(visit_payment) + SUM(open_balance_payment) AS line_total
-					FROM
-						(
-							-- Here's where payments are categorized
-							SELECT
-								c_bpartner_id,
-								date,
-								COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Visit'), 0) AS charges,
-								COALESCE(SUM(grandtotal)
-								         FILTER (WHERE type = 'Bill Payment' OR type = 'Insurance, Waivers, and Deductions'),
-								         0)                                                AS visit_payment,
-								COALESCE(SUM(grandtotal) FILTER (WHERE type = 'Outstanding Balance Payment'),
-								         0)                                                AS open_balance_payment
-							FROM
-								(
-									-- Bills
-									SELECT
-										o.c_order_id,
-										o.c_bpartner_id,
-										date(o.bh_visitdate) AS date,
-										'Visit'              AS "type",
-										SUM(ol.linenetamt)   AS grandtotal,
-										NULL                 AS tendertype,
-										10                   AS sort
-									FROM
-										c_order o
-											JOIN c_orderline ol
-												ON o.c_order_id = ol.c_order_id
-											JOIN c_bpartner bp
-												ON o.c_bpartner_id = bp.c_bpartner_id
-									WHERE
-										o.issotrx = 'Y'
-										AND o.docstatus = 'CO'
-										AND ol.c_charge_id IS NULL
-										AND bp.c_bpartner_uu = $1
-									GROUP BY o.c_order_id, o.c_bpartner_id, date
-									UNION ALL
-									-- Insurance, waivers, and deductions
-									SELECT
-										o.c_order_id,
-										o.c_bpartner_id,
-										date(o.bh_visitdate)                 AS date,
-										'Insurance, Waivers, and Deductions' AS "type",
-										SUM(ol.linenetamt)                   AS grandtotal,
-										NULL                                 AS tendertype,
-										20                                   AS sort
-									FROM
-										c_order o
-											JOIN c_orderline ol
-												ON o.c_order_id = ol.c_order_id
-											JOIN c_bpartner bp
-												ON o.c_bpartner_id = bp.c_bpartner_id
-											JOIN c_charge c
-												ON ol.c_charge_id = c.c_charge_id
-									WHERE
-										o.issotrx = 'Y'
-										AND o.docstatus = 'CO'
-										AND bp.c_bpartner_uu = $1
-									GROUP BY o.c_order_id, o.c_bpartner_id, date(o.bh_visitdate)
-									UNION ALL
-									-- Bill Payments
-									SELECT
-										p.bh_c_order_id AS c_order_id,
-										p.c_bpartner_id,
-										p.visit_date,
-										-- CASE
-										-- 	WHEN cp.tendertype IN ('M','MT') THEN 'Bill Payment - Mobile'
-										-- 	WHEN cp.tendertype IN ('X') THEN 'Bill Payment - Cash'
-										-- 	ELSE 'Bill Payment'
-										-- END as "type",
-										'Bill Payment'  AS "type",
-										p.totalpayamt * -1,
-										p.tendertype,
-										30              AS sort
-									FROM
-										(
-											SELECT
-												gvp.c_payment_id,
-												bp.c_bpartner_id,
-												gvp.bh_c_order_id,
-												date(o.bh_visitdate) AS visit_date,
-												tendertype,
-												SUM(gvp.payamt)      AS totalpayamt
-											FROM
-												c_bpartner bp
-													JOIN bh_get_visit_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gvp
-														ON gvp.patient_id = bp.c_bpartner_id
-													JOIN c_order o
-														ON gvp.bh_c_order_id = o.c_order_id
-											WHERE
-												bp.c_bpartner_uu = $1
-											GROUP BY
-												gvp.c_payment_id,
-												bp.c_bpartner_id,
-												bh_c_order_id,
-												visit_date,
-												tendertype
-										) p
-									UNION ALL
-									-- Outstanding Balance Payments
-									SELECT
-										p.bh_c_order_id               AS c_order_id,
-										p.c_bpartner_id,
-										p.date,
-										'Outstanding Balance Payment' AS "type",
-										p.totalpayamt * -1,
-										NULL                          AS tendertype,
-										40                            AS sort
-									FROM
-										(
-											SELECT
-												c_payment_id,
-												c_bpartner_id,
-												NULL::numeric       AS bh_c_order_id,
-												payment_date        AS date,
-												SUM(payment_amount) AS totalpayamt
-											FROM
-												c_bpartner bp
-													JOIN bh_get_debt_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gdp
-														ON gdp.patient_id = bp.c_bpartner_id
-											WHERE
-												bp.c_bpartner_uu = $1
-											GROUP BY
-												c_payment_id,
-												c_bpartner_id,
-												bh_c_order_id,
-												date
-										) p
-								) AS transactions
-							GROUP BY
-								c_bpartner_id,
-								Date,
-								type,
-								grandtotal,
-								sort
-						) AS transactions
-					GROUP BY
-						c_bpartner_id,
-						date
-				) AS transactions
-			UNION ALL
-			-- Add another row to show the starting balance of zero when the patient was created
-			SELECT
-				c_bpartner_id,
-				date(created) AS date,
-				'Starting balance',
-				0             AS charges,
-				0             AS visit_payment,
-				0             AS open_balance_payment,
-				0             AS open_balance,
-				1             AS sort
-			FROM
-				c_bpartner bp
-			WHERE
-				bp.c_bpartner_uu = $1
-		) AS transactions
-)
+		c_bpartner bp
+			JOIN bh_get_visit_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gvp
+				ON gvp.patient_id = bp.c_bpartner_id
+	WHERE
+			bp.c_bpartner_uu = _c_bpartner_uu
+	GROUP BY c_order_id
+),
+	transactions AS (
+		-- Sum all the payments and group them by date
+		SELECT
+			transactions.c_bpartner_id,
+			transactions.date,
+			transactions."type"                                                              AS item,
+			COALESCE(SUM(transactions.debits), 0)                                            AS debits,
+			COALESCE(SUM(transactions.credits), 0)                                           AS credits,
+				COALESCE(SUM(transactions.debits), 0) - COALESCE(SUM(transactions.credits), 0) AS net,
+			transactions.sort
+		FROM
+			(
+				-- Bills
+				SELECT
+					o.c_bpartner_id,
+					date(o.bh_visitdate)                                 AS date,
+					CASE
+						WHEN COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) = 0 THEN 'Visit'
+						ELSE 'Visit charges and payments' END              AS "type",
+					i.non_charges                                        AS debits,
+						COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) AS credits,
+					10                                                   AS sort
+				FROM
+					c_order o
+						JOIN c_bpartner bp
+							ON o.c_bpartner_id = bp.c_bpartner_id
+						LEFT JOIN visit_payments vp
+							ON o.c_order_id = vp.c_order_id
+						JOIN (
+						SELECT
+							i.c_order_id,
+									SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NULL )     AS non_charges,
+									SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NOT NULL ) AS charges
+						FROM
+							c_invoice i
+								JOIN c_invoiceline il
+									ON i.c_invoice_id = il.c_invoice_id
+								JOIN c_bpartner bp
+									ON i.c_bpartner_id = bp.c_bpartner_id
+						WHERE
+								bp.c_bpartner_uu = _c_bpartner_uu
+							AND i.docstatus = 'CO'
+						GROUP BY i.c_order_id
+					) i
+							ON i.c_order_id = o.c_order_id
+				WHERE
+						o.issotrx = 'Y'
+					AND o.docstatus = 'CO'
+					AND bp.c_bpartner_uu = _c_bpartner_uu
+				GROUP BY o.c_order_id, o.c_bpartner_id, date, non_charges, charges
+				UNION ALL
+				-- Outstanding Balance Payments
+				SELECT
+					bp.c_bpartner_id,
+					date(gdp.payment_date)        AS date,
+					'Outstanding Balance Payment' AS "type",
+					NULL                          AS debits,
+					SUM(payment_amount)           AS credits,
+					20                            AS sort
+				FROM
+					c_bpartner bp
+						JOIN bh_get_debt_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gdp
+							ON gdp.patient_id = bp.c_bpartner_id
+				WHERE
+						bp.c_bpartner_uu = _c_bpartner_uu
+				GROUP BY
+					bp.c_bpartner_id,
+					date
+				UNION ALL
+				-- Waived open balance
+				SELECT
+					i.c_bpartner_id,
+					date(i.dateinvoiced)    AS date,
+					'Waived Open Balance'   AS "type",
+					NULL                    AS debits,
+						SUM(il.linenetamt) * -1 AS credits,
+					30                      AS sort
+				FROM
+					c_invoice i
+						JOIN c_bpartner bp
+							ON i.c_bpartner_id = bp.c_bpartner_id
+						JOIN c_invoiceline il
+							ON i.c_invoice_id = il.c_invoice_id
+						JOIN c_charge c
+							ON il.c_charge_id = c.c_charge_id
+						JOIN c_chargetype ct
+							ON c.c_chargetype_id = ct.c_chargetype_id
+				WHERE
+						bp.c_bpartner_uu = _c_bpartner_uu
+					AND c.name = 'Bad debt write-off - DO NOT CHANGE'
+					AND ct.name = 'One-offs - DO NOT CHANGE'
+				GROUP BY
+					i.c_invoice_id,
+					bp.c_bpartner_id, dateinvoiced
+			) AS transactions
+		GROUP BY
+			transactions.c_bpartner_id,
+			transactions.date,
+			transactions."type",
+			transactions.sort
+	),
+	orderings AS (
+-- This categorizes the payments
+		SELECT
+			orderings.*,
+					ROW_NUMBER() OVER (ORDER BY secondary_sort, date, sort) AS row
+		FROM
+			(
+				SELECT
+					transactions.c_bpartner_id,
+					transactions.date,
+					transactions.item,
+					transactions.debits,
+					transactions.credits,
+					transactions.net,
+							SUM(transactions.net)
+							OVER (PARTITION BY transactions.c_bpartner_id ORDER BY transactions.date, transactions.sort ROWS UNBOUNDED PRECEDING) AS open_balance,
+					transactions.sort,
+					2                                                                                                                         AS secondary_sort
+				FROM
+					transactions
+				UNION ALL
+				-- Add another row to show the starting balance of zero when the patient was created
+				SELECT
+					bp.c_bpartner_id,
+					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END,
+					'Starting balance',
+					0,
+					0,
+					0,
+					0,
+					0,
+					1 AS sort
+				FROM
+					c_bpartner bp
+						JOIN transactions t
+							ON t.c_bpartner_id = bp.c_bpartner_id
+				GROUP BY bp.c_bpartner_id
+			) AS orderings
+	)
 SELECT
 	bp.c_bpartner_id,
-	bp.name              AS patient_name,
-	date                 AS payment_date,
-	items                AS item,
-	charges              AS visit_charges,
-	visit_payment        AS visit_payments,
-	open_balance_payment AS open_balance_payments,
-	open_balance         AS patient_open_balance
+	bp.name      AS patient_name,
+	date         AS transaction_date,
+	item         AS item,
+	debits,
+	credits,
+	open_balance AS patient_open_balance
 FROM
-	transactions
+	orderings o
 		JOIN c_bpartner bp
-			ON transactions.c_bpartner_id = bp.c_bpartner_id
+			ON o.c_bpartner_id = bp.c_bpartner_id
 ORDER BY
 	row;
 $$;
