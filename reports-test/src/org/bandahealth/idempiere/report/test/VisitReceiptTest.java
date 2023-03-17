@@ -464,6 +464,14 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order completes");
 		commitEx();
 
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(14));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Generate the receipt");
 		valueObject.setProcessUuid("30dd7243-11c1-4584-af26-5d977d117c84");
 		valueObject.setProcessRecordId(0);
@@ -476,6 +484,16 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
+
+			Optional<Row> cashRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains("CASH"))).findFirst();
+			assertTrue(cashRow.isPresent(), "Cash row is included");
+			assertTrue(StreamSupport.stream(cashRow.get().spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+					"Cash amount is correct");
 
 			Optional<Row> nonPatientPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
@@ -492,10 +510,10 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 									cell.getStringCellValue().contains("Total Payment:"))).findFirst();
 			assertTrue(totalPaymentRow.isPresent(), "Total payment row is included");
 			assertTrue(StreamSupport.stream(totalPaymentRow.get().spliterator(), false).anyMatch(
-							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 20d),
+							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 34d),
 					"Total payment amount is correct");
 
-			double outstandingAmount = 30d;
+			double outstandingAmount = 16d;
 			Optional<Row> outstandingAmountRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
