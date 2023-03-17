@@ -56,7 +56,9 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		int randomNumber = valueObject.getRandomNumber();
-		valueObject.getBusinessPartner().setName(randomNumber + valueObject.getBusinessPartner().getName());
+		// Set the BP's name to be short so the visit receipt can show it properly in an Excel export
+		valueObject.getBusinessPartner().setName(valueObject.getBusinessPartner().getName().substring(0, 19));
+		valueObject.getBusinessPartner().saveEx();
 		valueObject.setRandom();
 		commitEx();
 
@@ -105,11 +107,9 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
 									cell.getStringCellValue().contains("Patient:"))).findFirst();
 			assertTrue(patientNameRow.isPresent(), "Patient label is on the receipt");
-			// For some reason just searching the patient row fails iDempiere 7.1, so just searching all cells
-			assertTrue(StreamSupport.stream(sheet.spliterator(), false).anyMatch(
-							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-									cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-											cell.getStringCellValue().contains(String.valueOf(randomNumber)))),
+			assertTrue(StreamSupport.stream(patientNameRow.get().spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName())),
 					"Patient's name is on the receipt");
 
 			String casedProductName = valueObject.getOrderLine().getName().substring(0, 1).toUpperCase() +
