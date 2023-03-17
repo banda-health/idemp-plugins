@@ -105,9 +105,12 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
 									cell.getStringCellValue().contains("Patient:"))).findFirst();
 			assertTrue(patientNameRow.isPresent(), "Patient label is on the receipt");
-			assertTrue(StreamSupport.stream(patientNameRow.get().spliterator(), false).anyMatch(
-					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-							cell.getStringCellValue().contains(String.valueOf(randomNumber))), "Patient's name is on the receipt");
+			// For some reason just searching the patient row fails iDempiere 7.1, so just searching all cells
+			assertTrue(StreamSupport.stream(sheet.spliterator(), false).anyMatch(
+							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+									cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+											cell.getStringCellValue().contains(String.valueOf(randomNumber)))),
+					"Patient's name is on the receipt");
 
 			String casedProductName = valueObject.getOrderLine().getName().substring(0, 1).toUpperCase() +
 					valueObject.getOrderLine().getName().substring(1).toLowerCase();
