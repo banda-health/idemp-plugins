@@ -82,5 +82,5 @@ public interface IRestConfigs {
 	
 	String CHARGE_TYPES_PATH = AUTHENTICATION_PATH + "/charge-types";
 	
-	String ORGS_PATH = AUTHENTICATION_PATH + "/orgs";
+	String ORGANIZATIONS_PATH = AUTHENTICATION_PATH + "/organizations";
 }

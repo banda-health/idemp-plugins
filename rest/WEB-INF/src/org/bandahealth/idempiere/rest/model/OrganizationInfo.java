@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @XmlRootElement(name = "orginfo")
 @JsonInclude(value = Include.NON_NULL)
-public class OrgInfo extends BaseMetadata {
+public class OrganizationInfo extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 
 	private String receiptFooterMessage;
@@ -20,10 +20,10 @@ public class OrgInfo extends BaseMetadata {
 	private String paymentInformation;
 	private Location location;
 
-	public OrgInfo() {
+	public OrganizationInfo() {
 	}
 	
-	public OrgInfo(MOrgInfo_BH instance) {
+	public OrganizationInfo(MOrgInfo_BH instance) {
 		super(instance);
 		
 		this.receiptFooterMessage = instance.getReceiptFooterMsg();

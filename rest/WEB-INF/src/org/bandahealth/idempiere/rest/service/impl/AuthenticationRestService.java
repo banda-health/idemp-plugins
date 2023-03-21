@@ -13,10 +13,11 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.AuthResponse;
 import org.bandahealth.idempiere.rest.model.Authentication;
 import org.bandahealth.idempiere.rest.model.Client;
-import org.bandahealth.idempiere.rest.model.Org;
+import org.bandahealth.idempiere.rest.model.Organization;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.db.ClientDBService;
+import org.bandahealth.idempiere.rest.service.db.OrganizationDBService;
 import org.bandahealth.idempiere.rest.service.db.RoleDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
 import org.bandahealth.idempiere.rest.service.db.WarehouseDBService;
@@ -78,6 +79,8 @@ public class AuthenticationRestService {
 	private RoleDBService roleDBService;
 	@Autowired
 	private ClientDBService clientDBService;
+	@Autowired
+	private OrganizationDBService orgDBService;
 
 	@POST
 	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
@@ -87,7 +90,7 @@ public class AuthenticationRestService {
 
 	@POST
 	@Path(IRestConfigs.CHANGEPASSWORD_PATH)
-	public AuthResponse changePassword(Authentication credentials) {
+ 	public AuthResponse changePassword(Authentication credentials) {
 		Login login = new Login(Env.getCtx());
 
 		if (Util.isEmpty(credentials.getUsername())) {
@@ -181,9 +184,12 @@ public class AuthenticationRestService {
 			List<MBHRoleWarehouseAccess> warehouseAccessList = new Query(Env.getCtx(),
 					MBHRoleWarehouseAccess.Table_Name, null, null).list();
 			if (!warehouseAccessList.isEmpty()) {
+				// fetch organization
+				MOrg organization = orgDBService.getByUuids(Collections.singleton(credentials.getOrganizationUuid()))
+						.get(credentials.getOrganizationUuid());
 				// get available warehouses
 				List<MWarehouse> warehouses = Arrays
-						.asList(MWarehouse.getForOrg(Env.getCtx(), credentials.getOrganizationId()));
+						.asList(MWarehouse.getForOrg(Env.getCtx(), organization.get_ID()));
 
 				Role role = roleDBService.getEntity(credentials.getRoleUuid());
 				Optional<MBHRoleWarehouseAccess> foundWarehouseAccess = warehouseAccessList.stream()
@@ -403,10 +409,12 @@ public class AuthenticationRestService {
 		}
 
 		// check organization
-		if (credentials.getOrganizationId() != null) {
-			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, credentials.getOrganizationId());
-			builder.withClaim(LoginClaims.AD_Org_ID.name(), credentials.getOrganizationId());
-			response.setOrgId(credentials.getOrganizationId());
+		if (credentials.getOrganizationUuid() != null) {
+			MOrg organization = orgDBService.getByUuids(Collections.singleton(credentials.getOrganizationUuid()))
+					.get(credentials.getOrganizationUuid());
+			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, organization.get_ID());
+			builder.withClaim(LoginClaims.AD_Org_ID.name(), organization.get_ID());
+			response.setOrganizationUuid(credentials.getOrganizationUuid());
 		}
 
 		// check warehouse
@@ -452,13 +460,13 @@ public class AuthenticationRestService {
 				// check orgs.
 				MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), client.getId(), null));
 				for (MOrg org : orgs) {
-					Org orgResponse = new Org(org);
+					Organization orgResponse = new Organization(org);
 
 					// set default org
 					if (orgs.length == 1) {
 						Env.setContext(Env.getCtx(), Env.AD_ORG_ID, orgResponse.getId());
 						builder.withClaim(LoginClaims.AD_Org_ID.name(), orgResponse.getId());
-						response.setOrgId(orgResponse.getId());
+						response.setOrganizationUuid(orgResponse.getUuid());
 					}
 
 					// check roles

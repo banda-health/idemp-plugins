@@ -11,9 +11,9 @@ import org.compiere.model.MOrg;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "org")
+@XmlRootElement(name = "organization")
 @JsonInclude(value = Include.NON_NULL)
-public class Org extends BaseEntity {
+public class Organization extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,12 +21,12 @@ public class Org extends BaseEntity {
 
 	private List<Warehouse> warehouses = new ArrayList<>();
 
-	private OrgInfo orgInfo;
+	private OrganizationInfo organizationInfo;
 
-	public Org() {
+	public Organization() {
 	}
 
-	public Org(MOrg org) {
+	public Organization(MOrg org) {
 		super(org, org.getName(), org.getDescription(), null);
 	}
 
@@ -48,11 +48,11 @@ public class Org extends BaseEntity {
 		this.warehouses = warehouses;
 	}
 
-	public OrgInfo getOrgInfo() {
-		return orgInfo;
+	public OrganizationInfo getOrganizationInfo() {
+		return organizationInfo;
 	}
 
-	public void setOrgInfo(OrgInfo orgInfo) {
-		this.orgInfo = orgInfo;
+	public void setOrgInfo(OrganizationInfo organizationInfo) {
+		this.organizationInfo = organizationInfo;
 	}
 }

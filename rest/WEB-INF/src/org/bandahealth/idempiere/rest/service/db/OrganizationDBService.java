@@ -7,8 +7,8 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.rest.model.Image;
 import org.bandahealth.idempiere.rest.model.Location;
-import org.bandahealth.idempiere.rest.model.Org;
-import org.bandahealth.idempiere.rest.model.OrgInfo;
+import org.bandahealth.idempiere.rest.model.Organization;
+import org.bandahealth.idempiere.rest.model.OrganizationInfo;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.ImageFileStorageImpl;
 import org.compiere.model.MImage;
@@ -20,58 +20,58 @@ import org.compiere.util.Env;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrgDBService extends BaseDBService<Org, MOrg> {
+public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 
 	private final LocationDBService locationDBService = new LocationDBService();
 	private MStorageProvider imageProvider;
 	private ImageFileStorageImpl fileStorage;
 
 	/**
-	 * Updates the OrgInfo object that's nested in Org. Updating the Org object is
+	 * Updates the OrganizationInfo object that's nested in Organization. Updating the Organization object is
 	 * not yet supported.
 	 * 
 	 */
 	@Override
-	public Org saveEntity(Org entity) {
+	public Organization saveEntity(Organization entity) {
 		// get org
 		MOrg org = new Query(Env.getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + " =?", null)
 				.setParameters(entity.getUuid()).first();
 		if (org == null) {
-			throw new AdempiereException("Organisation not found.");
+			throw new AdempiereException("Organization not found.");
 		}
 
-		MOrgInfo_BH orgInfo = (MOrgInfo_BH) MOrgInfo_BH.get(Env.getCtx(), org.get_ID(), null); // this method checks
+		MOrgInfo_BH organizationInfo = (MOrgInfo_BH) MOrgInfo_BH.get(Env.getCtx(), org.get_ID(), null); // this method checks
 																								// cache..
-		if (orgInfo == null) {
-			throw new AdempiereException("Missing organisation information");
+		if (organizationInfo == null) {
+			throw new AdempiereException("Missing organization information");
 		}
 
-		OrgInfo orgInfoEntity = entity.getOrgInfo();
+		OrganizationInfo organizationInfoEntity = entity.getOrganizationInfo();
 		// safe check in the event the implementation logic doesn't set this as a
 		// required field
-		if (orgInfoEntity != null) {
-			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getHeaderMessage())) {
-				orgInfo.setBH_Header(orgInfoEntity.getHeaderMessage());
+		if (organizationInfoEntity != null) {
+			if (StringUtil.isNotNullAndEmpty(organizationInfoEntity.getHeaderMessage())) {
+				organizationInfo.setBH_Header(organizationInfoEntity.getHeaderMessage());
 			}
 
-			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getFacilityNumber())) {
-				orgInfo.setBH_FacilityNumber(orgInfoEntity.getFacilityNumber());
+			if (StringUtil.isNotNullAndEmpty(organizationInfoEntity.getFacilityNumber())) {
+				organizationInfo.setBH_FacilityNumber(organizationInfoEntity.getFacilityNumber());
 			}
 
-			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getPaymentInformation())) {
-				orgInfo.setBH_PaymentInformation(orgInfoEntity.getPaymentInformation());
+			if (StringUtil.isNotNullAndEmpty(organizationInfoEntity.getPaymentInformation())) {
+				organizationInfo.setBH_PaymentInformation(organizationInfoEntity.getPaymentInformation());
 			}
 
-			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getPhone())) {
-				orgInfo.setPhone(orgInfoEntity.getPhone());
+			if (StringUtil.isNotNullAndEmpty(organizationInfoEntity.getPhone())) {
+				organizationInfo.setPhone(organizationInfoEntity.getPhone());
 			}
 
-			if (StringUtil.isNotNullAndEmpty(orgInfoEntity.getReceiptFooterMessage())) {
-				orgInfo.setReceiptFooterMsg(orgInfoEntity.getReceiptFooterMessage());
+			if (StringUtil.isNotNullAndEmpty(organizationInfoEntity.getReceiptFooterMessage())) {
+				organizationInfo.setReceiptFooterMsg(organizationInfoEntity.getReceiptFooterMessage());
 			}
 
 			// set location
-			Location locationEntity = orgInfoEntity.getLocation();
+			Location locationEntity = organizationInfoEntity.getLocation();
 			if (locationEntity != null) {
 				MLocation location = locationDBService.getEntityByUuidFromDB(locationEntity.getUuid());
 				if (location == null) {
@@ -92,13 +92,13 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 
 				location.saveEx();
 
-				orgInfo.setC_Location_ID(location.get_ID());
+				organizationInfo.setC_Location_ID(location.get_ID());
 			}
 
 			// set logo
-			if (orgInfoEntity.getLogo() != null
-					&& StringUtil.isNotNullAndEmpty(orgInfoEntity.getLogo().getBinaryData())) {
-				Image imageEntity = orgInfoEntity.getLogo();
+			if (organizationInfoEntity.getLogo() != null
+					&& StringUtil.isNotNullAndEmpty(organizationInfoEntity.getLogo().getBinaryData())) {
+				Image imageEntity = organizationInfoEntity.getLogo();
 
 				MImage image = new Query(Env.getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + " =?", null)
 						.setParameters(imageEntity.getUuid()).first();
@@ -114,10 +114,10 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 
 				image.saveEx();
 
-				orgInfo.setLogo_ID(image.get_ID());
+				organizationInfo.setLogo_ID(image.get_ID());
 			}
 
-			orgInfo.saveEx();
+			organizationInfo.saveEx();
 		}
 
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(org.getAD_Org_UU()))).get(0);
@@ -129,16 +129,16 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 	}
 
 	@Override
-	protected Org createInstanceWithDefaultFields(MOrg instance) {
+	protected Organization createInstanceWithDefaultFields(MOrg instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected Org createInstanceWithAllFields(MOrg instance) {
-		Org result = new Org(instance);
+	protected Organization createInstanceWithAllFields(MOrg instance) {
+		Organization result = new Organization(instance);
 
 		MOrgInfo_BH mOrgInfo = (MOrgInfo_BH) instance.getInfo();
-		OrgInfo orgInfo = new OrgInfo(mOrgInfo);
+		OrganizationInfo orgInfo = new OrganizationInfo(mOrgInfo);
 		if (mOrgInfo.getLogo_ID() > 0) {
 			MImage mImage = MImage.get(Env.getCtx(), mOrgInfo.getLogo_ID());
 			Image image = new Image(mImage);
@@ -153,7 +153,7 @@ public class OrgDBService extends BaseDBService<Org, MOrg> {
 	}
 
 	@Override
-	protected Org createInstanceWithSearchFields(MOrg instance) {
+	protected Organization createInstanceWithSearchFields(MOrg instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
