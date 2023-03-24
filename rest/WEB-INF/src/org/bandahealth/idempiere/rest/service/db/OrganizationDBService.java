@@ -2,6 +2,8 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Base64;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
@@ -27,8 +29,8 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 	private ImageFileStorageImpl fileStorage;
 
 	/**
-	 * Updates the OrganizationInfo object that's nested in Organization. Updating the Organization object is
-	 * not yet supported.
+	 * Updates the OrganizationInfo object that's nested in Organization. Updating
+	 * the Organization object is not yet supported.
 	 * 
 	 */
 	@Override
@@ -40,8 +42,8 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 			throw new AdempiereException("Organization not found.");
 		}
 
-		MOrgInfo_BH organizationInfo = (MOrgInfo_BH) MOrgInfo_BH.get(Env.getCtx(), org.get_ID(), null); // this method checks
-																								// cache..
+		// utilize cache
+		MOrgInfo_BH organizationInfo = (MOrgInfo_BH) MOrgInfo_BH.get(Env.getCtx(), org.get_ID(), null);
 		if (organizationInfo == null) {
 			throw new AdempiereException("Missing organization information");
 		}
@@ -73,7 +75,7 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 			// set location
 			Location locationEntity = organizationInfoEntity.getLocation();
 			if (locationEntity != null) {
-				MLocation location = locationDBService.getEntityByUuidFromDB(locationEntity.getUuid());
+				MLocation location = MLocation.get(Env.getCtx(), organizationInfo.getC_Location_ID(), null);
 				if (location == null) {
 					location = new MLocation(Env.getCtx(), 0, null);
 				}
@@ -83,11 +85,11 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 				}
 
 				if (StringUtil.isNotNullAndEmpty(locationEntity.getAddress2())) {
-					location.setAddress1(locationEntity.getAddress1());
+					location.setAddress2(locationEntity.getAddress2());
 				}
 
 				if (StringUtil.isNotNullAndEmpty(locationEntity.getAddress3())) {
-					location.setAddress1(locationEntity.getAddress1());
+					location.setAddress3(locationEntity.getAddress3());
 				}
 
 				location.saveEx();
@@ -120,7 +122,7 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 			organizationInfo.saveEx();
 		}
 
-		return transformData(Collections.singletonList(getEntityByUuidFromDB(org.getAD_Org_UU()))).get(0);
+		return createInstanceWithAllFields(org);
 	}
 
 	@Override
@@ -135,26 +137,46 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 
 	@Override
 	protected Organization createInstanceWithAllFields(MOrg instance) {
-		Organization result = new Organization(instance);
-
-		MOrgInfo_BH mOrgInfo = (MOrgInfo_BH) instance.getInfo();
-		OrganizationInfo orgInfo = new OrganizationInfo(mOrgInfo);
-		if (mOrgInfo.getLogo_ID() > 0) {
-			MImage mImage = MImage.get(Env.getCtx(), mOrgInfo.getLogo_ID());
-			Image image = new Image(mImage);
-			// load image from drive and encode to string.
-			image.setBinaryData(Base64.getEncoder().encodeToString(getFileStorage().load(mImage, getImageProvider())));
-			orgInfo.setLogo(image);
-		}
-
-		result.setOrgInfo(orgInfo);
-
-		return result;
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
 	protected Organization createInstanceWithSearchFields(MOrg instance) {
 		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	public List<Organization> transformData(List<MOrg> dbModels) {
+		return dbModels.stream().map(organization -> {
+			Organization result = new Organization(organization);
+
+			MOrgInfo_BH mOrgInfo = (MOrgInfo_BH) organization.getInfo();
+			OrganizationInfo orgInfo = new OrganizationInfo(mOrgInfo);
+			if (mOrgInfo.getLogo_ID() > 0) {
+				MImage mImage = MImage.get(Env.getCtx(), mOrgInfo.getLogo_ID());
+				Image image = new Image(mImage);
+				try {
+					// load image from drive and encode to string.
+					byte[] imageBytes = getFileStorage().load(mImage, getImageProvider());
+					if (imageBytes != null) {
+						image.setBinaryData(Base64.getEncoder().encodeToString(imageBytes));
+						orgInfo.setLogo(image);
+					}
+				} catch (Exception ex) {
+					log.severe(ex.getMessage());
+				}
+			}
+
+			if (mOrgInfo.getC_Location_ID() > 0) {
+				MLocation mLocation = MLocation.get(Env.getCtx(), mOrgInfo.getC_Location_ID(), null);
+				orgInfo.setLocation(new Location(mLocation));
+			}
+
+			result.setOrganizationInfo(orgInfo);
+
+			return result;
+
+		}).collect(Collectors.toList());
 	}
 
 	@Override

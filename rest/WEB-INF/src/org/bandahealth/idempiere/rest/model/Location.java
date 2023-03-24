@@ -25,6 +25,7 @@ public class Location extends BaseMetadata {
 	public Location(MLocation instance) {
 		this.address1 = instance.getAddress1();
 		this.address2 = instance.getAddress2();
+		this.address3 = instance.getAddress3();
 	}
 
 	public String getAddress1() {

@@ -18,6 +18,9 @@ public class City extends BaseMetadata {
 	private String areaCode;
 	private Country country;
 
+	public City() {
+	}
+
 	public City(MCity instance) {
 		super(instance);
 

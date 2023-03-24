@@ -13,6 +13,9 @@ public class Country extends BaseEntity {
 
 	private String countryCode;
 
+	public Country() {
+	}
+
 	public String getCountryCode() {
 		return countryCode;
 	}

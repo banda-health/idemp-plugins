@@ -52,7 +52,7 @@ public class Organization extends BaseEntity {
 		return organizationInfo;
 	}
 
-	public void setOrgInfo(OrganizationInfo organizationInfo) {
+	public void setOrganizationInfo(OrganizationInfo organizationInfo) {
 		this.organizationInfo = organizationInfo;
 	}
 }
