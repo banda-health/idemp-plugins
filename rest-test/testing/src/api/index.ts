@@ -1,6 +1,8 @@
 // @ts-create-index
 
 export * from './accounts';
+export * from './attributeSetInstances';
+export * from './attributeSets';
 export * from './authentication';
 export * from './base';
 export * from './chargeInformationSuggestions';

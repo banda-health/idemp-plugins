@@ -124,7 +124,7 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 			MSysConfig_BH newFeatureClientUuids = MSysConfig_BH.getByNameForSystem(valueObject.getContext(),
 					MSysConfig_BH.NEW_FEATURE_ROLLOUT_ALLOW_FOR_CLIENTS, valueObject.getTransactionName());
 			if (!newFeatureClientUuids.getValue().contains(testClient.getAD_Client_UU())) {
-				if (newFeatureClientUuids.getValue().isEmpty() || newFeatureClientUuids.getValue().isEmpty()) {
+				if (newFeatureClientUuids.getValue().isEmpty() || newFeatureClientUuids.getValue().isBlank()) {
 					newFeatureClientUuids.setValue(testClient.getAD_Client_UU());
 				} else {
 					newFeatureClientUuids.setValue(newFeatureClientUuids.getValue() + "," + testClient.getAD_Client_UU());

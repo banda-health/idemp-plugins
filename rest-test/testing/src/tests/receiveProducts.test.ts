@@ -1,7 +1,7 @@
-import { receiveProductsApi, vendorsApi } from '../api';
+import { attributeSetApi, attributeSetInstanceApi, productApi, receiveProductsApi, vendorsApi } from '../api';
 import { documentAction, documentStatus } from '../models';
-import { ReceiveProduct } from '../types/org.bandahealth.idempiere.rest';
-import { createPatient, createProduct, createPurchaseOrder, createVendor, createVisit } from '../utils';
+import { AttributeSetInstance, Product, ReceiveProduct, VoidedReason } from '../types/org.bandahealth.idempiere.rest';
+import { createProduct, createPurchaseOrder, createVendor, getDateOffset } from '../utils';
 
 xtest(`information saved correctly after completing a purchase order`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -33,14 +33,28 @@ test(`invalid orders can be completed`, async () => {
 	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create product';
+	const expiringAttributeSet = (
+		await attributeSetApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ isguaranteedate: true }))
+	).results[0];
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
+	valueObject.product!.attributeSet = expiringAttributeSet;
+	valueObject.product = await productApi.save(valueObject, valueObject.product as Product);
+
+	valueObject.stepName = 'Create expiring attribute set instance';
+	let expiringAttributeSetInstance: Partial<AttributeSetInstance> = {
+		guaranteeDate: getDateOffset(new Date(), 365),
+		updateReason: {} as VoidedReason,
+		attributeSet: expiringAttributeSet,
+	};
+	expiringAttributeSetInstance = await attributeSetInstanceApi.save(
+		valueObject,
+		expiringAttributeSetInstance as AttributeSetInstance,
+	);
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = undefined;
 	await createPurchaseOrder(valueObject);
-	const orderLines = valueObject.order!.orderLines;
-	valueObject.order!.orderLines = [];
 	let savedOrder: ReceiveProduct | undefined;
 	try {
 		let savedOrder = await receiveProductsApi.saveAndProcess(
@@ -48,10 +62,11 @@ test(`invalid orders can be completed`, async () => {
 			valueObject.order as ReceiveProduct,
 			documentAction.Complete,
 		);
+		expect(true).toBe(false);
 	} catch {}
 
-	valueObject.stepName = 'Add line and complete PO';
-	valueObject.order!.orderLines = orderLines;
+	valueObject.stepName = 'Add expiration and complete PO';
+	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
 	savedOrder = await receiveProductsApi.saveAndProcess(
 		valueObject,
 		valueObject.order as ReceiveProduct,
