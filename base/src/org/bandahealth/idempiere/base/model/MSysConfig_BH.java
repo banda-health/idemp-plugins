@@ -24,12 +24,10 @@ public class MSysConfig_BH extends MSysConfig {
 	}
 
 	public static MSysConfig_BH getByNameForSystem(Properties ctx, String name, String trxName) {
-		//PO.setCrossTenantSafe();
 		MSysConfig_BH systemConfigurator = new Query(ctx, MSysConfig_BH.Table_Name,
 				MSysConfig_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MSysConfig_BH.COLUMNNAME_AD_Org_ID + "=? AND " +
 						MSysConfig_BH.COLUMNNAME_IsActive + "=? AND " + MSysConfig_BH.COLUMNNAME_Name + "=?",
 				trxName).setParameters(0, 0, true, name).first();
-		//PO.clearCrossTenantSafe();
 		return systemConfigurator;
 	}
 }

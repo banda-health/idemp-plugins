@@ -1,4 +1,4 @@
-import { attributeSetApi, attributeSetInstanceApi, productApi, receiveProductsApi, vendorsApi } from '../api';
+import { attributeSetApi, attributeSetInstanceApi, productApi, receiveProductsApi, vendorsApi, visitApi } from '../api';
 import { documentAction, documentStatus } from '../models';
 import { AttributeSetInstance, Product, ReceiveProduct, VoidedReason } from '../types/org.bandahealth.idempiere.rest';
 import { createProduct, createPurchaseOrder, createVendor, getDateOffset } from '../utils';
@@ -64,6 +64,7 @@ test(`invalid orders can be completed`, async () => {
 		);
 		expect(true).toBe(false);
 	} catch {}
+	expect((await visitApi.getByUuid(valueObject, valueObject.order!.uuid)).docStatus).toBe(documentStatus.Invalid);
 
 	valueObject.stepName = 'Add expiration and complete PO';
 	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;

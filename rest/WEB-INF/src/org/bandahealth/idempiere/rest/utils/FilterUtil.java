@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -302,14 +301,12 @@ public class FilterUtil {
 
 			// Try to see if this property should be a date
 			boolean dbColumnIsDateType = false;
-			if (dbModelInfo != null) {
+			if (dbModelInfo != null && dbModelInfo.getColumnIndex(dbColumnName) >= 0) {
 				dbColumnIsDateType = dbModelInfo.getColumnClass(dbModelInfo.getColumnIndex(dbColumnName)) == Timestamp.class;
 			}
-			if (!dbColumnIsDateType) {
-				// As a last precaution, check if the name has "date" in it
-				if (dbColumnName.toLowerCase().contains("date")) {
-					dbColumnIsDateType = true;
-				}
+			// As a last precaution, check if the name has "date" in it
+			else if (dbColumnName.toLowerCase().contains("date")) {
+				dbColumnIsDateType = true;
 			}
 
 			// Alias the column name (in case there are any joins outside this clause)
