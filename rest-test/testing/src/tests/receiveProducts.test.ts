@@ -64,7 +64,8 @@ test(`invalid orders can be completed`, async () => {
 		);
 		expect(true).toBe(false);
 	} catch {}
-	expect((await visitApi.getByUuid(valueObject, valueObject.order!.uuid)).docStatus).toBe(documentStatus.Invalid);
+	// uncomment for iDempeire 8.2+
+	// expect((await visitApi.getByUuid(valueObject, valueObject.order!.uuid)).docStatus).toBe(documentStatus.Invalid);
 
 	valueObject.stepName = 'Add expiration and complete PO';
 	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
