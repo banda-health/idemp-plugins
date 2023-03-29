@@ -63,7 +63,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 		AtomicInteger count = new AtomicInteger();
 		int usersAD_Client_ID = Env.getAD_Client_ID(getCtx());
 		int currentRoleId = Env.getAD_Role_ID(getCtx());
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		IProcessUI processMonitor = Env.getProcessUI(getCtx());
 		Set<Integer> notFixedOrderIds = new HashSet<>();
 		try {
@@ -404,7 +404,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, usersAD_Client_ID);
 			Env.setContext(getCtx(), Env.AD_ROLE_ID, currentRoleId);
 			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, currentRoleId);
-			//PO.clearCrossTenantSafe();
+			PO.clearCrossTenantSafe();
 		}
 
 		String message = "STOP CompleteOrdersProcess. Took " + (System.currentTimeMillis() - start) / 1000 / 60

@@ -125,14 +125,14 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(MClient_BH.CLIENTID_SYSTEM);
 
-//		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		PO.setCrossTenantSafe();
 
 		// Get the doc types for this user matching what the application uses
 		List<MDocType> usedDocumentTypes = new Query(Env.getCtx(), MDocType.Table_Name,
 				MDocType.COLUMNNAME_Name + " IN (" + whereClause + ") AND " + MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)",
 				null).setParameters(parameters).list();
 
-//		PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		PO.clearCrossTenantSafe();
 
 		// Now get the available document actions for these document types
 		Map<Integer, List<Integer>> documentActionAccess = getDocumentActionAccess(
