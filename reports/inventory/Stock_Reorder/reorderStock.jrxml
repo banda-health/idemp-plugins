@@ -48,13 +48,10 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-	p.name                                     AS DrugName,
-	COALESCE(s.existingquantity, soh.total, 0) AS ExistingQuantity,
-	COALESCE(s.reorderlevel, 0)                AS ReorderLevel,
-	s.reorderquantity                          AS ReorderQuantity,
-	s.store                                    AS Store,
-	s.ad_org_id                                AS AD_Org_ID,
-	s.Client_Name                              AS Client_Name
+	p.name                 AS DrugName,
+	COALESCE(soh.total, 0) AS ExistingQuantity,
+	p.bh_reorder_level     AS ReorderLevel,
+	p.bh_reorder_quantity  AS ReorderQuantity
 FROM
 	m_product p
 		LEFT JOIN (
@@ -73,32 +70,9 @@ FROM
 		WHERE
 			(((attrs.m_attributeset_id IS NULL OR attrs.isguaranteedate = 'N') AND asi.guaranteedate IS NULL) OR
 			 (attrs.isguaranteedate = 'Y' AND asi.guaranteedate >= date(NOW())))
-			AND soh.ad_client_ID = $P{AD_CLIENT_ID}
 		GROUP BY soh.m_product_id, soh.m_attributesetinstance_id
 	) soh
 			ON soh.m_product_id = p.m_product_id
-		LEFT JOIN (
-		SELECT
-			p.m_product_id,
-			s.product          AS DrugName,
-			s.existingquantity AS ExistingQuantity,
-			s.reorderlevel     AS ReorderLevel,
-			s.reorderquantity  AS ReorderQuantity,
-			s.store            AS Store,
-			s.ad_org_id        AS AD_Org_ID,
-			client.name        AS Client_Name
-		FROM
-			bh_stock_reorder_levels_v s
-				INNER JOIN AD_Client client
-					ON s.ad_client_id = client.ad_client_id
-				JOIN m_product p
-					ON s.product = p.name AND s.ad_client_id = p.ad_client_id
-		WHERE
-			s.ad_client_ID = $P{AD_CLIENT_ID}
-			AND s.existingquantity <= s.reorderlevel
-			AND p.isactive = 'Y'
-	) s
-			ON s.m_product_id = p.m_product_id
 WHERE
 	p.ad_client_id = $P{AD_CLIENT_ID}
 	AND p.isactive = 'Y'
@@ -121,18 +95,6 @@ ORDER BY
 		<field name="reorderquantity" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="reorderquantity"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stock_reorder_levels_v"/>
-		</field>
-		<field name="store" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="store"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stock_reorder_levels_v"/>
-		</field>
-		<field name="ad_org_id" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stock_reorder_levels_v"/>
-		</field>
-		<field name="client_name" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="client_name"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ad_client"/>
 		</field>
 	</subDataset>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
