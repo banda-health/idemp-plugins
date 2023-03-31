@@ -1,11 +1,14 @@
 import { authenticationApi, documentTypeApi, initialLoginData } from '../api';
 import {
+	AttributeSetInstance,
 	Authentication,
 	AuthResponse,
 	BusinessPartner,
 	Charge,
 	Client,
 	DocumentType,
+	Inventory,
+	InventoryLine,
 	Invoice,
 	InvoiceLine,
 	Order,
@@ -54,12 +57,15 @@ export class ValueObject {
 	quantity?: number;
 	documentType?: DocumentType;
 	documentAction?: string;
+	attributeSetInstance?: AttributeSetInstance;
 	order?: Order;
 	orderLine?: OrderLine;
 	// MInOut m_inOut = null;
 	// MInOutLine m_inOutLine = null;
 	invoice?: Invoice;
 	invoiceLine?: InvoiceLine;
+	inventory?: Inventory;
+	inventoryLine?: InventoryLine;
 	payment?: Payment;
 	// private MBankAccount m_bankAcct = null;
 	// MBankStatement m_bs = null;
