@@ -1,13 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
@@ -17,6 +9,13 @@ import org.bandahealth.idempiere.rest.model.InvoiceLine;
 import org.compiere.model.MInvoiceLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class InvoiceDBService extends BaseInvoiceDBService<Invoice> {

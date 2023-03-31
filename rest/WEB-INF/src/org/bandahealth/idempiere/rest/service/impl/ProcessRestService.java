@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.Process;
@@ -25,7 +26,7 @@ import java.util.List;
 @Path(IRestConfigs.PROCESS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ProcessRestService extends BaseRestService<Process, MProcess, ProcessDBService> {
+public class ProcessRestService extends BaseRestService<Process, MProcess_BH, ProcessDBService> {
 
 	@Autowired
 	private ProcessDBService dbService;

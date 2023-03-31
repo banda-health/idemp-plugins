@@ -1,5 +1,6 @@
 import {
 	chargeApi,
+	inventoryApi,
 	invoiceApi,
 	patientApi,
 	paymentApi,
@@ -16,6 +17,8 @@ import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../m
 import {
 	BusinessPartner,
 	Charge,
+	Inventory,
+	InventoryLine,
 	Invoice,
 	InvoiceLine,
 	OrderLine,
@@ -29,7 +32,6 @@ import {
 	Vendor,
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
-import { waitFor } from './waitFor';
 
 /**
  * Create a patient. If a business partner already exists on the value object, this won't do anything.
@@ -510,4 +512,52 @@ export async function runReport(valueObject: ValueObject) {
 	}
 
 	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject));
+}
+
+/**
+ * Create an inventory record
+ *
+ * @param valueObject The value object used to store all information
+ */
+export async function createInventory(valueObject: ValueObject) {
+	valueObject.validate();
+
+	// perform further validation if needed based on business logic
+	if (!valueObject.businessPartner) {
+		throw new Error('Business Partner is Null');
+	} else if (!valueObject.warehouse) {
+		throw new Error('Warehouse is Null');
+	}
+
+	const inventory = {
+		orgId: 0,
+		description: valueObject.getStepMessageLong(),
+		warehouse: valueObject.warehouse,
+	} as Inventory;
+	const inventoryLine = {
+		orgId: 0,
+		description: valueObject.getStepMessageLong(),
+		product: valueObject.product,
+		attributeSetInstance: valueObject.attributeSetInstance,
+		locator: valueObject.warehouse.locators[0],
+		quantityCount: valueObject.quantity || 1,
+		line: 10,
+	} as InventoryLine;
+	inventory.inventoryLines = [inventoryLine];
+	valueObject.inventory = await inventoryApi.save(valueObject, inventory);
+	if (!valueObject.inventory) {
+		throw new Error('Inventory not created');
+	}
+	valueObject.inventoryLine = valueObject.inventory!.inventoryLines[0];
+
+	if (valueObject.documentAction) {
+		valueObject.inventory = await inventoryApi.process(
+			valueObject,
+			valueObject.inventory!.uuid,
+			valueObject.documentAction!,
+		);
+		if (!valueObject.inventory) {
+			throw new Error('Inventory not processed');
+		}
+	}
 }

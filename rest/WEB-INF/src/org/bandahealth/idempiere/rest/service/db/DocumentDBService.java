@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.rest.exceptions.DocumentProcessException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -28,6 +27,8 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 
 	protected abstract String getDocumentTypeName();
 
+	abstract int getDocumentProcessId();
+
 	/**
 	 * Synchronously process order
 	 *
@@ -47,7 +48,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 
 		// Process the document and, if it fails, throw an exception
 		try {
-			ModelUtil.processDocumentOrError(documentEntity, docAction);
+			ModelUtil.processDocumentOrError(getDocumentProcessId(), documentEntity, docAction);
 			documentEntity.saveEx();
 			return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
 		} catch (Exception exception) {

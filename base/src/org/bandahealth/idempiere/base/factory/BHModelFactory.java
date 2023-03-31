@@ -37,11 +37,13 @@ import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
+import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
 import org.bandahealth.idempiere.base.model.MUIButton;
@@ -137,6 +139,10 @@ public class BHModelFactory implements IModelFactory {
 			return MMenu_BH.class;
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return MAttributeSet_BH.class;
+		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
+			return MProcess_BH.class;
+		} else if (tableName.equalsIgnoreCase(MSysConfig_BH.Table_Name)) {
+			return MSysConfig_BH.class;
 		} else if (tableName.equalsIgnoreCase(MSerNoCtl_BH.Table_Name)) {
 			return MSerNoCtl_BH.class;
 		} else if (tableName.equalsIgnoreCase(MClient_BH.Table_Name)) {
@@ -234,6 +240,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MMenu_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
+			return new MProcess_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MSysConfig_BH.Table_Name)) {
+			return new MSysConfig_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MSerNoCtl_BH.Table_Name)) {
 			return new MSerNoCtl_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MClient_BH.Table_Name)) {
@@ -331,6 +341,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MMenu_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
+			return new MProcess_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MSysConfig_BH.Table_Name)) {
+			return new MSysConfig_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MSerNoCtl_BH.Table_Name)) {
 			return new MSerNoCtl_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MClient_BH.Table_Name)) {
