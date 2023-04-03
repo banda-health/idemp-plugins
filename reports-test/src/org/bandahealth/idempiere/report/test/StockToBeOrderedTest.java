@@ -160,6 +160,7 @@ public class StockToBeOrderedTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create product 1");
 		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
 		valueObject.getProduct().setbh_reorder_level(10);
 		valueObject.getProduct().setbh_reorder_quantity(20);
 		valueObject.getProduct().saveEx();
@@ -201,8 +202,10 @@ public class StockToBeOrderedTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-					row -> row.getCell(0) != null &&
-							row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName())).findFirst();
+							row -> row.getCell(0) != null &&
+									row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName().substring(0,
+											20)))
+					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Product row exists");
 			assertThat("Existing quantity is correct", productRow.get().getCell(1).getNumericCellValue(), is(0D));
