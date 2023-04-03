@@ -203,8 +203,7 @@ public class StockToBeOrderedTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 							row -> row.getCell(0) != null &&
-									row.getCell(0).getStringCellValue().equalsIgnoreCase(valueObject.getProduct().getName().substring(0,
-											20)))
+									row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 20)))
 					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Product row exists");
