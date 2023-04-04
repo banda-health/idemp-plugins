@@ -4,7 +4,7 @@
 	<property name="template.engine" value="tabular_template"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="Table">
 		<box>
@@ -47,20 +47,38 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT s.product          AS DrugName,
-       s.existingquantity AS ExistingQuantity,
-       s.reorderlevel     AS ReorderLevel,
-       s.reorderquantity  AS ReorderQuantity,
-       s.store            AS Store,
-       s.ad_org_id        AS AD_Org_ID,
-       client.name        AS Client_Name
-FROM bh_stock_reorder_levels_v s
-         INNER JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
-         JOIN m_product p on s.product = p.name and s.ad_client_id = p.ad_client_id
-WHERE s.ad_client_ID = $P{AD_CLIENT_ID}
-  AND s.existingquantity <= s.reorderlevel
-  AND p.isactive = 'Y'
-ORDER BY s.product]]>
+			<![CDATA[SELECT
+	p.name                 AS DrugName,
+	COALESCE(soh.total, 0) AS ExistingQuantity,
+	p.bh_reorder_level     AS ReorderLevel,
+	p.bh_reorder_quantity  AS ReorderQuantity
+FROM
+	m_product p
+		LEFT JOIN (
+		SELECT
+			soh.m_product_id,
+			soh.m_attributesetinstance_id,
+			SUM(qtyonhand) AS total
+		FROM
+			m_storageonhand soh
+				LEFT JOIN m_product p
+					ON p.m_product_id = soh.m_product_id
+				LEFT JOIN m_attributeset attrs
+					ON p.m_attributeset_id = attrs.m_attributeset_id
+				LEFT JOIN m_attributesetinstance asi
+					ON soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
+		WHERE
+			(((attrs.m_attributeset_id IS NULL OR attrs.isguaranteedate = 'N') AND asi.guaranteedate IS NULL) OR
+			 (attrs.isguaranteedate = 'Y' AND asi.guaranteedate >= date(NOW())))
+		GROUP BY soh.m_product_id, soh.m_attributesetinstance_id
+	) soh
+			ON soh.m_product_id = p.m_product_id
+WHERE
+	p.ad_client_id = $P{AD_CLIENT_ID}
+	AND p.isactive = 'Y'
+	AND p.bh_reorder_level >= COALESCE(soh.total, 0)
+ORDER BY
+	p.name;]]>
 		</queryString>
 		<field name="drugname" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="drugname"/>
@@ -78,36 +96,11 @@ ORDER BY s.product]]>
 			<property name="com.jaspersoft.studio.field.label" value="reorderquantity"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stock_reorder_levels_v"/>
 		</field>
-		<field name="store" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="store"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stock_reorder_levels_v"/>
-		</field>
-		<field name="ad_org_id" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stock_reorder_levels_v"/>
-		</field>
-		<field name="client_name" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="client_name"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ad_client"/>
-		</field>
 	</subDataset>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT
-    s.ad_org_id AS AD_Org_ID,
-    client.name AS Client_Name
-FROM bh_stock_reorder_levels_v s
-    INNER JOIN AD_Client client ON s.ad_client_id = client.ad_client_id
-WHERE (s.ad_client_ID =   $P{AD_CLIENT_ID}) and (s.existingquantity <= s.reorderlevel)
-ORDER BY s.product ASC
-LIMIT 1;]]>
+		<![CDATA[SELECT 1;]]>
 	</queryString>
-	<field name="ad_org_id" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>
-	</field>
-	<field name="client_name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="client_name"/>
-	</field>
 	<pageHeader>
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>

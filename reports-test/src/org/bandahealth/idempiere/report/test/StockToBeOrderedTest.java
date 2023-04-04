@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.compiere.process.DocumentEngine;
+import org.compiere.util.DB;
 import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
@@ -144,6 +145,71 @@ public class StockToBeOrderedTest extends ChuBoePopulateFactoryVO {
 			assertThat("Existing quantity is correct", product1Row.get().getCell(1).getNumericCellValue(), is(5D));
 			assertThat("Reorder level is correct", product1Row.get().getCell(2).getNumericCellValue(), is(10D));
 			assertThat("Amount to order is correct", product1Row.get().getCell(3).getNumericCellValue(), is(20D));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void cleanedInventoryAppears() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product 1");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().setbh_reorder_level(10);
+		valueObject.getProduct().setbh_reorder_quantity(20);
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create a purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Update storage on hand DB created date so it can be cleaned");
+		DB.executeUpdate("UPDATE m_storageonhand SET created = created - '7 days'::interval WHERE m_product_id = " +
+				valueObject.getProduct().get_ID(), valueObject.getTransactionName());
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Clean the inventory");
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessUuid("8e270648-1d54-46d9-9161-2d0300dd80ff");
+		ChuBoeCreateEntity.runProcess(valueObject);
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("03ba009a-68bb-4b12-a5bc-e58a9bce1545");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(0) != null &&
+									row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 20)))
+					.findFirst();
+
+			assertTrue(productRow.isPresent(), "Product row exists");
+			assertThat("Existing quantity is correct", productRow.get().getCell(1).getNumericCellValue(), is(0D));
+			assertThat("Reorder level is correct", productRow.get().getCell(2).getNumericCellValue(), is(10D));
+			assertThat("Amount to order is correct", productRow.get().getCell(3).getNumericCellValue(), is(20D));
 		}
 	}
 }
