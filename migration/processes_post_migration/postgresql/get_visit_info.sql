@@ -1,13 +1,14 @@
 DROP FUNCTION IF EXISTS get_visit_info(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE OR REPLACE FUNCTION get_visit_info(ad_client_id numeric,
-                                          begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                                          end_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE)
+CREATE FUNCTION get_visit_info(ad_client_id numeric,
+                               begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                               end_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
 		        c_order_id          numeric,
 		        c_bpartner_id       numeric,
 		        bill_date           timestamp WITHOUT TIME ZONE,
 		        cashier             character varying,
+		        cashier_id          numeric,
 		        patientname         character varying,
 		        patientno           character varying,
 		        patienttype         character varying,
@@ -29,8 +30,8 @@ CREATE OR REPLACE FUNCTION get_visit_info(ad_client_id numeric,
 		        donation            numeric,
 		        totalnonpayments    numeric
 	        )
-	LANGUAGE sql
 	STABLE
+	LANGUAGE sql
 AS
 $$
 	-- Order Info
@@ -40,6 +41,7 @@ WITH OrderInfo AS (
 		cb.c_bpartner_id,
 		co.bh_visitdate           AS bill_date,
 		ad.name                   AS Cashier,
+		ad.ad_user_id             AS cashier_id,
 		cb.name                   AS patientname,
 		cb.bh_patientid           AS PatientNo,
 		co.bh_patienttype         AS PatientType,
@@ -63,7 +65,7 @@ WITH OrderInfo AS (
 				AND issotrx = 'Y'
 			)
 		AND ol.c_charge_id IS NULL
-	GROUP BY co.c_order_id, cb.c_bpartner_id, ol.c_charge_id, co.bh_visitdate, cb.name, ad.name
+	GROUP BY co.c_order_id, cb.c_bpartner_id, ol.c_charge_id, co.bh_visitdate, cb.name, ad.name, ad.ad_user_id
 	ORDER BY 1
 ),
 	patient_payments AS (
@@ -77,88 +79,30 @@ WITH OrderInfo AS (
 			SUM(p.payamt) FILTER ( WHERE tendertype NOT IN ('I', 'D', 'W'))                AS TotalDirectPayments,
 					SUM(p.payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS OtherNewPayments
 		FROM
-			c_payment p
-		WHERE
-			p.ad_client_id = $1
+			bh_get_visit_payments($1, $2, $3) p
 		GROUP BY p.bh_c_order_id
 	),
 	non_patient_payments AS (
 		SELECT
 			ol.c_order_id,
-			SUM(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'I' ) * -1                   AS insurance,
-			SUM(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'W' ) * -1                   AS waiver,
-			SUM(ol.linenetamt) FILTER ( WHERE c.bh_subtype = 'D' ) * -1                   AS donation,
-						SUM(ol.linenetamt) FILTER ( WHERE c.bh_subtype IN ('D', 'W', 'I')) * -1 AS TotalNonPayments,
-			olci.name                                                                     AS member_id,
-			bol.name                                                                      AS MemberName,
-			olc.name                                                                      AS ClaimNo,
-			bci.name                                                                      AS Relationship
+			SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype = 'I' ) * -1                   AS insurance,
+			SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype = 'W' ) * -1                   AS waiver,
+			SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype = 'D' ) * -1                   AS donation,
+						SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype IN ('D', 'W', 'I')) * -1 AS TotalNonPayments,
+			member_id,
+			MemberName,
+			ClaimNo,
+			Relationship
 		FROM
-			c_orderline ol
-				JOIN c_order o
-					ON ol.c_order_id = o.c_order_id
-				JOIN c_charge c
-					ON ol.c_charge_id = c.c_charge_id
-				LEFT JOIN (
-				SELECT
-					olci.c_orderline_id,
-					olci.name
-				FROM
-					bh_orderline_charge_info olci
-						JOIN bh_charge_info ci
-							ON olci.bh_charge_info_id = ci.bh_charge_info_id
-				WHERE
-					(ci.name IN ('Member ID', 'NHIF Number') OR ci.name IS NULL)
-			) AS olci
-					ON olci.c_orderline_id = ol.c_orderline_id
-				LEFT JOIN (
-				SELECT
-					bol.c_orderline_id,
-					bol.name
-				FROM
-					bh_orderline_charge_info bol
-						JOIN bh_charge_info ci
-							ON bol.bh_charge_info_id = ci.bh_charge_info_id
-				WHERE
-					(ci.name IN ('Patient Name', 'Member Name') OR ci.name IS NULL)
-			) bol
-					ON bol.c_orderline_id = ol.c_orderline_id
-				LEFT JOIN (
-				SELECT
-					olc.c_orderline_id,
-					olc.name
-				FROM
-					bh_orderline_charge_info olc
-						JOIN bh_charge_info ci
-							ON olc.bh_charge_info_id = ci.bh_charge_info_id
-				WHERE
-					(ci.name IN ('Claim Number') OR ci.name IS NULL)
-					AND (ci.bh_chargeinfodatatype = 'T' AND ci.bh_fillfrompatient = 'N')
-			) olc
-					ON olc.c_orderline_id = ol.c_orderline_id
-				LEFT JOIN (
-				SELECT
-					bci.c_orderline_id,
-					bci.name
-				FROM
-					bh_orderline_charge_info bci
-						JOIN bh_charge_info ci
-							ON bci.bh_charge_info_id = ci.bh_charge_info_id
-				WHERE
-					(ci.name IN ('Relationship') OR ci.name IS NULL)
-					AND (ci.bh_chargeinfodatatype = 'L' AND ci.bh_fillfrompatient = 'Y')
-			) bci
-					ON bci.c_orderline_id = ol.c_orderline_id
-		WHERE
-			o.ad_client_id = $1
-			AND o.bh_visitdate BETWEEN $2 AND $3
-		GROUP BY ol.c_order_id, olci.name, bci.name, olc.name, bol.name
+			bh_get_visit_non_patient_payments($1, $2, $3) ol
+		GROUP BY ol.c_order_id, member_id, membername, claimno, relationship
 	)
 SELECT
 	OrderInfo.c_order_id,
 	OrderInfo.c_bpartner_id,
 	OrderInfo.bill_date,
 	OrderInfo.Cashier,
+	OrderInfo.cashier_id,
 	OrderInfo.patientname,
 	OrderInfo.PatientNo,
 	OrderInfo.PatientType::varchar,
