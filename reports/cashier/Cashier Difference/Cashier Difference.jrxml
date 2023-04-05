@@ -104,24 +104,32 @@ FROM
 		CROSS JOIN params p
 WHERE
 	EXISTS (
-		SELECT 1
-		FROM billdetails bd
-		LEFT JOIN patient_payments pp
-			ON bd.c_order_id = pp.c_order_id
-		WHERE bd.c_order_id = billdetails.c_order_id AND (
-			(p.payment_mode = '' OR (pp.tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-			OR
-			(p.payment_mode = '' OR (
-				pp.c_order_id IS NULL AND bd.c_order_id IN (
-					SELECT c_order_id
-					FROM non_patient_payments
-					WHERE
-						c_order_id = bd.c_order_id AND
-						(bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END)
-						AND p.payment_mode IN ('I', 'W', 'T')
-				)
-			))
-		)
+		SELECT *
+		FROM
+			(
+				SELECT
+					billdetails.c_order_id
+				FROM
+					billdetails
+						LEFT JOIN patient_payments
+							ON billdetails.c_order_id = patient_payments.c_order_id
+				WHERE
+					(p.payment_mode = ''
+						OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+				UNION ALL
+				SELECT
+					billdetails.c_order_id
+				FROM
+					billdetails
+						LEFT JOIN non_patient_payments
+							ON billdetails.c_order_id = non_patient_payments.c_order_id
+				WHERE
+					(p.payment_mode = ''
+						OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+							AND p.payment_mode IN ('I', 'W', 'T')))
+			) f
+		WHERE
+			f.c_order_id = billdetails.c_order_id
 	)
 GROUP BY
 	u.name
