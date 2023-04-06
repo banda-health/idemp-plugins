@@ -543,6 +543,13 @@ WHERE
 /**********************************************************************************************************/
 -- 6. Finish up
 /**********************************************************************************************************/
+UPDATE m_storageonhand
+SET
+	datematerialpolicy = '2020-01-01'
+WHERE
+	m_attributesetinstance_id = 0
+  AND qtyonhand != 0;
+
 SELECT
 	register_migration_script('202303311325_GO-2661.sql')
 FROM
