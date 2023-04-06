@@ -282,22 +282,22 @@ FROM
 /**********************************************************************************************************/
 UPDATE ad_sequence
 SET
-	currentnext = (
-		SELECT
-			MAX(m_inventory_id) + 1
-		FROM
-			tmp_m_inventory
-	)
+	currentnext = COALESCE((
+		                       SELECT
+			                       MAX(m_inventory_id) + 1
+		                       FROM
+			                       tmp_m_inventory
+	                       ), currentnext)
 WHERE
 	name = 'M_Inventory';
 UPDATE ad_sequence
 SET
-	currentnext = (
-		SELECT
-			MAX(m_inventoryline_id) + 1
-		FROM
-			tmp_m_inventoryline
-	)
+	currentnext = COALESCE((
+		                       SELECT
+			                       MAX(m_inventoryline_id) + 1
+		                       FROM
+			                       tmp_m_inventoryline
+	                       ), currentnext)
 WHERE
 	name = 'M_InventoryLine';
 
