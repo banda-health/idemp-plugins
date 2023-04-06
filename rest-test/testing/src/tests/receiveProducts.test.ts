@@ -76,3 +76,25 @@ test(`invalid orders can be completed`, async () => {
 	);
 	expect(savedOrder.docStatus).toBe(documentStatus.Completed);
 });
+
+test(`completed order can't be clsoed`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login('Clinic Admin');
+
+	valueObject.stepName = 'Create vendor';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+	try {
+		await receiveProductsApi.process(valueObject, valueObject.order!.uuid, documentAction.Close);
+		expect(true).toBe(false);
+	} catch {
+		expect(true).toBe(true);
+	}
+});
