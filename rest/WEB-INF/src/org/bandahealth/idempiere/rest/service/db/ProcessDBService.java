@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.process.ExpenseProcess;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
@@ -51,7 +52,7 @@ import org.springframework.stereotype.Component;
  * @author andrew
  */
 @Component
-public class ProcessDBService extends BaseDBService<Process, MProcess> {
+public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 
 	// report UUIDs
 	public static final String THERMAL_RECEIPT_REPORT = "30dd7243-11c1-4584-af26-5d977d117c84";
@@ -373,30 +374,30 @@ public class ProcessDBService extends BaseDBService<Process, MProcess> {
 	}
 
 	@Override
-	protected Process createInstanceWithDefaultFields(MProcess instance) {
+	protected Process createInstanceWithDefaultFields(MProcess_BH instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected Process createInstanceWithAllFields(MProcess instance) {
+	protected Process createInstanceWithAllFields(MProcess_BH instance) {
 		return new Process(instance, null);
 	}
 
 	@Override
-	protected Process createInstanceWithSearchFields(MProcess instance) {
+	protected Process createInstanceWithSearchFields(MProcess_BH instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected MProcess getModelInstance() {
-		return new MProcess(Env.getCtx(), 0, null);
+	protected MProcess_BH getModelInstance() {
+		return new MProcess_BH(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	protected Map<String, Function<MProcess, VoidFunction<String>>> getColumnsToTranslate() {
+	protected Map<String, Function<MProcess_BH, VoidFunction<String>>> getColumnsToTranslate() {
 		return new HashMap<>() {{
-			put(MProcess.COLUMNNAME_Name, entity -> entity::setName);
-			put(MProcess.COLUMNNAME_Description, entity -> entity::setDescription);
+			put(MProcess_BH.COLUMNNAME_Name, entity -> entity::setName);
+			put(MProcess_BH.COLUMNNAME_Description, entity -> entity::setDescription);
 		}};
 	}
 }
