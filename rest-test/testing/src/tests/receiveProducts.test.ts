@@ -77,7 +77,7 @@ test(`invalid orders can be completed`, async () => {
 	expect(savedOrder.docStatus).toBe(documentStatus.Completed);
 });
 
-test(`completed order can't be clsoed`, async () => {
+test(`completed order can't be closed`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login('Clinic Admin');
 
@@ -91,6 +91,7 @@ test(`completed order can't be clsoed`, async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
+	expect(valueObject.order.docStatus).toBe(documentStatus.Completed);
 	try {
 		await receiveProductsApi.process(valueObject, valueObject.order!.uuid, documentAction.Close);
 		expect(true).toBe(false);
