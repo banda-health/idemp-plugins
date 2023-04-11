@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.base.process;
 
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAttributeSetInstance;
@@ -29,7 +30,6 @@ import java.util.stream.Collectors;
  *
  * @author clinton
  */
-
 public class CleanExpiredStockProcess extends SvrProcess {
 
 	private final String PROCESS_NAME = this.getClass().getName();
@@ -133,7 +133,8 @@ public class CleanExpiredStockProcess extends SvrProcess {
 												inventoryLine.saveEx();
 											})));
 
-			inventory.completeIt();
+			inventory.setDocAction(MInventory_BH.ACTION_Complete);
+			inventory.processIt(MInventory_BH.ACTION_Complete);
 			inventory.saveEx();
 		}
 	}
