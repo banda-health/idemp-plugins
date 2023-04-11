@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @author clinton
  */
 
-public class UpdateExpiredStockProcess extends SvrProcess {
+public class CleanExpiredStockProcess extends SvrProcess {
 
 	private final String PROCESS_NAME = this.getClass().getName();
 	public static final String PARAMETERNAME_C_DocType_ID = "C_DocType_ID";

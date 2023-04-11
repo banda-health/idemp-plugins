@@ -1,16 +1,12 @@
 package org.bandahealth.idempiere.base.test.process;
 
 import com.chuboe.test.populate.ChuBoeCreateEntity;
-
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.process.DocumentEngine;
 import org.hamcrest.Matchers;
@@ -19,13 +15,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ExpiredStockProcessTest extends ChuBoePopulateFactoryVO {
+public class CleanExpiredStockProcessTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -72,21 +66,24 @@ public class ExpiredStockProcessTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create product that has expired");
-		valueObject.clearProduct();
 		ChuBoeCreateEntity.createProduct(valueObject);
-		MProduct_BH expiredProduct = valueObject.getProduct();
-		expiredProduct.setName(String.valueOf(valueObject.getRandomNumber()));
-		expiredProduct.setM_AttributeSet_ID(attributeSet.get_ID());
-		expiredProduct.saveEx();
+		valueObject.getProduct().setName(String.valueOf(valueObject.getRandomNumber()));
+		valueObject.getProduct().setM_AttributeSet_ID(attributeSet.get_ID());
+		valueObject.getProduct().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create purchase order");
-		valueObject.setRandom();
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(10));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
+
+		MStorageOnHand productStorage =
+				MStorageOnHand.get(valueObject.getContext(), valueObject.getWarehouse().getDefaultLocator().get_ID(),
+						valueObject.getProduct().get_ID(), valueObject.getAttributeSetInstance().get_ID(), null,
+						valueObject.getTransactionName());
+		assertThat("The expired stock quantity is correct", productStorage.getQtyOnHand().doubleValue(), is(10d));
 
 		valueObject.setStepName("Clean Expired Products");
 		valueObject.setProcessUuid("e79541fb-9b70-4a10-bfef-7401401b8c56");
@@ -95,10 +92,11 @@ public class ExpiredStockProcessTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runProcess(valueObject);
 		commitEx();
 
-		MStorageOnHand productStorage = MStorageOnHand.get(valueObject.getContext(), valueObject.getProduct().get_ID(),
-				valueObject.getWarehouse().getDefaultLocator().get_ID(), valueObject.getAttributeSetInstance().get_ID(), null,
-				valueObject.getTransactionName());
+		productStorage =
+				MStorageOnHand.get(valueObject.getContext(), valueObject.getWarehouse().getDefaultLocator().get_ID(),
+						valueObject.getProduct().get_ID(), valueObject.getAttributeSetInstance().get_ID(), null,
+						valueObject.getTransactionName());
 
-		assertThat("The expired stock is zero", productStorage.getQtyOnHand().doubleValue(), is(0d));
+		assertThat("The expired stock quantity is zero", productStorage.getQtyOnHand().doubleValue(), is(0d));
 	}
 }

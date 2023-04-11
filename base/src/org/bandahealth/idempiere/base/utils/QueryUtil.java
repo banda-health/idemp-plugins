@@ -167,7 +167,9 @@ public class QueryUtil {
 		}
 		List<Object> parameters = new ArrayList<>();
 		String whereClause = getWhereClauseAndSetParametersForSet(ids, parameters);
-		List<T> entities = new Query(context, tableName, whereClause, transactionName).setParameters(parameters).list();
+		List<T> entities =
+				new Query(context, tableName, tableName + "_ID IN (" + whereClause + ")", transactionName).setParameters(
+						parameters).list();
 		return entities.stream().collect(Collectors.toMap(T::get_ID, entity -> entity));
 	}
 }
