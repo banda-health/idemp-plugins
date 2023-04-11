@@ -91,7 +91,7 @@ test(`completed order can't be closed`, async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-	expect(valueObject.order.docStatus).toBe(documentStatus.Completed);
+	expect(valueObject.order?.docStatus).toBe(documentStatus.Completed);
 	try {
 		await receiveProductsApi.process(valueObject, valueObject.order!.uuid, documentAction.Close);
 		expect(true).toBe(false);
