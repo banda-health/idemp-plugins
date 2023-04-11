@@ -19,7 +19,7 @@ VALUES
 			 ad_process
 	 ), 'BH Update Expired Stock Process', 'Remove lots with zero quantity or lots that are expired', NULL, '3', 'U',
 	 NULL, 'N', 'N', NULL, 'org.bandahealth.idempiere.base.process.CleanExpiredStockProcess', 0, 0, NULL, NULL, NULL,
-	 'N', NULL, 'Y', NULL, NULL, 'N', 'e79541fb-9b70-4a10-bfef-7401401b8c56', NULL, NULL, 'P')
+	 'N', 'N', 'Y', NULL, NULL, 'N', 'e79541fb-9b70-4a10-bfef-7401401b8c56', NULL, NULL, 'P')
 ON CONFLICT DO NOTHING;
 
 -- Add the process to the correct existing roles
