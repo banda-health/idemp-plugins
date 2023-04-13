@@ -78,31 +78,31 @@
 		<queryString>
 			<![CDATA[SELECT
 	b.c_order_id,
-	sorder.bh_visitdate      AS date,
-	patient.name             AS name,
-	patient.bh_birthday      AS DOB,
-	''                       AS ke_NO,
-	patient.bh_patientid     AS opd_NO,
-	bh_cielname              AS diagnoses,
-	(SUM(b.linenetamt)) * -1 AS amount_tendered
+	co.bh_visitdate                                      AS date,
+	cb.name                                              AS name,
+	cb.bh_birthday                                       AS DOB,
+	''                                                   AS ke_NO,
+	cb.bh_patientid                                      AS patient_NO,
+	COALESCE(bh_cielname, co.bh_primaryuncodeddiagnosis) AS diagnoses,
+	(SUM(b.linenetamt)) * -1                             AS amount_tendered
 FROM
 	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) b
-		INNER JOIN c_order sorder
-			ON b.c_order_id = sorder.c_order_id
-		INNER JOIN c_invoice invoice
-			ON sorder.c_order_id = invoice.c_order_id
-		INNER JOIN c_bpartner patient
-			ON sorder.c_bpartner_id = patient.c_bpartner_id
+		INNER JOIN c_order co
+			ON b.c_order_id = co.c_order_id
+		INNER JOIN c_invoice ci
+			ON co.c_order_id = ci.c_order_id
+		INNER JOIN c_bpartner cb
+			ON co.c_bpartner_id = cb.c_bpartner_id
 		LEFT JOIN bh_coded_diagnosis diagnosis
-			ON sorder.bh_primarycodeddiagnosis_id = diagnosis.bh_coded_diagnosis_id
+			ON co.bh_primarycodeddiagnosis_id = diagnosis.bh_coded_diagnosis_id
 WHERE
-	invoice.docstatus != 'RE'
+	ci.docstatus != 'RE'
 	AND b.bh_subtype = 'D'
 GROUP BY
-	sorder.bh_visitdate, patient.name, patient.bh_patientid, b.c_order_id, invoice.description, diagnosis.bh_cielname,
-	patient.bh_birthday
+	co.bh_visitdate, cb.name, cb.bh_patientid, b.c_order_id, ci.description, diagnosis.bh_cielname,
+	cb.bh_birthday, co.bh_primaryuncodeddiagnosis
 ORDER BY
-	sorder.bh_visitdate ASC;]]>
+	co.bh_visitdate ASC;]]>
 		</queryString>
 		<field name="date" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="date"/>
@@ -117,7 +117,7 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.label" value="opd_no"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
-		<field name="opd_no" class="java.lang.String"/>
+		<field name="patient_NO" class="java.lang.String"/>
 		<field name="diagnoses" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="diagnoses"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
@@ -131,11 +131,11 @@ ORDER BY
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-	UPPER(clientName.name) AS clientname
+	UPPER(ad.name) AS clientname
 FROM
-	ad_client clientName
+	ad_client ad
 WHERE
-	clientName.ad_client_id = $P{AD_CLIENT_ID};]]>
+	ad.ad_client_id = $P{AD_CLIENT_ID};]]>
 	</queryString>
 	<field name="clientname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="clientname"/>
@@ -296,7 +296,7 @@ WHERE
 									<font isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<text><![CDATA[Pt Donor ID#]]></text>
+								<text><![CDATA[Patient Donor ID#]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
@@ -323,7 +323,7 @@ WHERE
 								<textElement verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Pt Clinic ID#]]></text>
+								<text><![CDATA[Patient Clinic ID#]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
@@ -331,7 +331,7 @@ WHERE
 								<reportElement x="0" y="0" width="100" height="15" uuid="61dca274-d68a-42d4-b641-ae1ce091f48e"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{opd_no}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{patient_NO}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
