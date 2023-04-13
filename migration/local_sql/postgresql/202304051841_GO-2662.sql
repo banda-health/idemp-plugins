@@ -4,3 +4,4 @@ SELECT
 	register_migration_script('202304051841_GO-2662.sql')
 FROM
 	dual;
+	
