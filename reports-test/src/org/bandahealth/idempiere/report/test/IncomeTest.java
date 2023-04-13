@@ -53,6 +53,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 	private final String patientTransactionsReportUuid = "4cf22d3f-1fc8-4bdd-83e1-fc5d79537269";
 	private final String cashierTransactionsReportUuid = "b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1";
 	private final String cashierTransactionsDifferencesReportUuid = "226cdf47-9cde-43e8-b7ef-87b28d7ef2e2";
+	private final String cashierCollectionsReportUuid = "fb90406f-1ba4-43df-9cec-6844e10c13d9";
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
@@ -509,7 +510,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill DaPatientte");
 			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
@@ -570,6 +571,147 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 							"Total received matches on cashier differences report");
 					assertEquals(totalUnpaid, row.getCell(differenceColumnIndex).getNumericCellValue(),
 							"Difference matches on cashier differences report");
+					break;
+				}
+			}
+		}
+	}
+	
+	@IPopulateAnnotation.CanRun
+	public void dailyCashierCollectionsReportMatchesTheTransactionDifferenceReportNumbers() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		Timestamp beginDate = TimestampUtils.startOfYesterday();
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, 2);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(50000));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(1300));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment for the sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(1000));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+		
+		valueObject.setStepName("Create second payment for the sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(300));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+		
+		valueObject.setStepName("Generate the daily cashier collections transaction report");
+		valueObject.setProcessUuid(cashierCollectionsReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		double totalCharged = 0;
+		double totalPaid = 0;
+		double totalUnpaid = 0;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
+
+			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
+						patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null &&
+						billTotalTotalsCell.getCellType().equals(CellType.NUMERIC) &&
+						billTotalTotalsCell.getNumericCellValue() > 0) {
+					totalCharged = billTotalTotalsCell.getNumericCellValue();
+					totalPaid = row.getCell(totalPaymentColumnIndex).getNumericCellValue();
+					totalUnpaid = row.getCell(unpaidColumnIndex).getNumericCellValue();
+					break;
+				}
+			}
+
+			assertTrue(totalPaid > 0, "Total charged is greater than zero");
+		}
+		
+		valueObject.setStepName("Generate the cashier transactions differences report");
+		valueObject.setProcessUuid(cashierTransactionsDifferencesReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Cashier Name");
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int cashierNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Cashier Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalReceivedColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Received");
+			int differenceColumnIndex = TableUtils.getColumnIndex(headerRow, "Difference");
+
+			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell cashierNameCell = row.getCell(cashierNameColumnIndex);
+				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
+				if (cashierNameCell != null && cashierNameCell.getCellType().equals(CellType.STRING) &&
+						cashierNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null &&
+						billTotalTotalsCell.getCellType().equals(CellType.NUMERIC) &&
+						billTotalTotalsCell.getNumericCellValue() > 0) {
+					
+					totalCharged = billTotalTotalsCell.getNumericCellValue();
+					
+					assertEquals(totalCharged, billTotalTotalsCell.getNumericCellValue(),
+							"Bill total matches on cashier collections report");
+					assertEquals(totalPaid, row.getCell(totalReceivedColumnIndex).getNumericCellValue(),
+							"Total received matches on cashier collections report");
+					assertEquals(totalUnpaid, row.getCell(differenceColumnIndex).getNumericCellValue(),
+							"Difference matches on cashier collections report");
 					break;
 				}
 			}
