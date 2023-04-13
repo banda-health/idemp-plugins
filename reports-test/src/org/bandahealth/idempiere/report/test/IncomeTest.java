@@ -510,7 +510,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill DaPatientte");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
 			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
