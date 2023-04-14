@@ -182,6 +182,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							pop_response.saveEx();
 						} catch (Exception e) {
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
+							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
@@ -205,6 +206,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							didErrorOccurForThisTest = true;
 							classBreak = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
+							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
@@ -265,6 +267,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							totalErrors++;
 							didErrorOccurForThisTest = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
+							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
@@ -288,6 +291,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							totalErrors++;
 							didErrorOccurForThisTest = true;
 							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
+							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
