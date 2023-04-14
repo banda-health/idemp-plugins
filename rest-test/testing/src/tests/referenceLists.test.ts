@@ -1,5 +1,5 @@
 import { referenceListApi } from '../api';
-import { referenceUuid, tenderTypeName } from '../models';
+import { documentAction, referenceUuid, tenderTypeName, ValueObject } from '../models';
 
 test('tender type names to be correct', async () => {
 	globalThis.__VALUE_OBJECT__.login();
@@ -34,4 +34,268 @@ test('tender type names to be correct', async () => {
 	expect(tenderTypes.find((tenderType) => tenderType.name === 'PesaPal')).toBeUndefined();
 
 	// Not sure about 'Direct Debit' & 'Debit Card' - should those show up?
+});
+
+test('document action access is correct for admins', async () => {
+	await globalThis.__VALUE_OBJECT__.login();
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('clinic admin role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Clinic Admin');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('cashier/registration basic role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Cashier/Registration Basic');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('cashier/registration advanced role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Cashier/Registration Advanced');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('inventory/pharmacy role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Inventory/Pharmacy');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('clinician/nurse basic role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Clinician/Nurse Basic');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('clinician/nurse advanced role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Clinician/Nurse Advanced');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('triage role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Triage');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('lab/radiology role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Lab/Radiology');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('accounting role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Accounting');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
+});
+
+test('clinic user role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login('Clinic User');
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		expect(
+			statusActionMapForASpecificDocumentBaseType.CO.some(
+				(action) =>
+					action === documentAction.ReActivate ||
+					action === documentAction.Void ||
+					action === documentAction.ReverseAccrual ||
+					action === documentAction.ReverseCorrect,
+			),
+		);
+	});
 });
