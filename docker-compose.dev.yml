@@ -1,9 +1,9 @@
 services:
-  idemp-rest-test:
-    build: ./idemp-rest-test/testing
+  test:
+    build: .
     volumes:
-      - ./idemp-rest-test/testing:/app
-      - /app/node_modules
+      - ./rest-test/testing:/app/rest-test
+      - /app/rest-test/node_modules
     environment:
       - IDEMPIERE_USER=${IDEMPIERE_USER}
       - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}

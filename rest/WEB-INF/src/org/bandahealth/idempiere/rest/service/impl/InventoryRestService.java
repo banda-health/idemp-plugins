@@ -18,10 +18,10 @@ import static org.bandahealth.idempiere.rest.IRestConfigs.AUTHENTICATION_PATH;
 @Produces(MediaType.APPLICATION_JSON)
 public class InventoryRestService extends DocumentRestService<Inventory, MInventory_BH, InventoryDBService> {
 	@Autowired
-	private InventoryDBService inventoryDBService;
+	private InventoryDBService dbService;
 
 	@Override
 	protected InventoryDBService getDBService() {
-		return inventoryDBService;
+		return dbService;
 	}
 }

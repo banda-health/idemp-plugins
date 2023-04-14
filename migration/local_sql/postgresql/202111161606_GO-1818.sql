@@ -1,0 +1,4 @@
+-- assign 'clinical admin` access to User window
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '6b934ec2-7f45-4104-ba10-08e3ce54de7e'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2021-11-16 13:04:52.290776', 100, '2021-11-16 13:04:52.290776', 100, 'N', '7bf95307-99a9-4304-a888-c4b475f9ec11', 'N') ON CONFLICT DO NOTHING;
+
+SELECT register_migration_script('202111161606_GO-1818.sql') FROM dual;

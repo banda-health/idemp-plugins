@@ -1,8 +1,10 @@
 import {
 	chargeApi,
+	inventoryApi,
 	invoiceApi,
 	patientApi,
 	paymentApi,
+	processApi,
 	productApi,
 	productCategoryApi,
 	receiveProductsApi,
@@ -15,19 +17,21 @@ import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../m
 import {
 	BusinessPartner,
 	Charge,
+	Inventory,
+	InventoryLine,
 	Invoice,
 	InvoiceLine,
 	OrderLine,
 	Patient,
 	Payment,
 	PaymentType,
+	ProcessInfoParameter,
 	Product,
 	ProductCategory,
 	ReceiveProduct,
 	Vendor,
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
-import { waitFor } from './waitFor';
 
 /**
  * Create a patient. If a business partner already exists on the value object, this won't do anything.
@@ -48,7 +52,6 @@ export async function createPatient(valueObject: ValueObject) {
 		if (!valueObject.businessPartner) {
 			throw new Error('Business partner not created');
 		}
-		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
 	}
 }
 /**
@@ -68,7 +71,6 @@ export async function createVendor(valueObject: ValueObject) {
 		if (!valueObject.businessPartner) {
 			throw new Error('Business partner not created');
 		}
-		delete (valueObject.businessPartner as Partial<Patient>).approximateDateOfBirth;
 	}
 }
 
@@ -348,7 +350,7 @@ export async function createPayment(valueObject: ValueObject) {
 		orgId: 0,
 		patient: valueObject.businessPartner as unknown as Patient,
 		description: valueObject.getStepMessageLong(),
-		payAmount: valueObject.invoice?.grandTotal || 1,
+		payAmount: valueObject.invoice?.grandTotal || valueObject.order?.grandTotal || 1,
 		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 			(tenderType) => tenderType.name === tenderTypeName.CASH,
 		) as PaymentType,
@@ -374,7 +376,7 @@ export async function createPayment(valueObject: ValueObject) {
 export async function getDefaultProductCategory(valueObject: ValueObject): Promise<ProductCategory | undefined> {
 	valueObject.validate();
 
-	return (await productCategoryApi.getAll(valueObject)).find(
+	return (await productCategoryApi.get(valueObject)).results.find(
 		(productCategory) => productCategory.productCategoryType === 'Product',
 	);
 }
@@ -450,16 +452,112 @@ export async function runProcess(vo: ValueObject) {
 	// clearProcess(vo);
 }
 
-export function clearProcess(vo: ValueObject) {
-	// vo.setProcess_UU(null);
-	// vo.setProcessInfoParams(new ArrayList<ProcessInfoParameter>());
-	// vo.setProcessRecord_ID(0);
-	// vo.setProcessTable_ID(0);
+export function clearProcess(valueObject: ValueObject) {
+	valueObject.processUuid = undefined;
+	valueObject.processInformationParameters = [];
 }
 
-export async function waitForVisitToComplete(valueObject: ValueObject) {
-	await waitFor(async () => {
-		valueObject.order = await visitApi.getByUuid(valueObject, valueObject.order!.uuid);
-		return expect(valueObject.order!.docStatus).toBe(documentStatus.Completed);
-	});
+/**
+ * This is the same as the {@link #runProcess(ValueObject)}, except that it sets a file to the value object
+ * and doesn't clear the process. You must run {@link #clearReport(ValueObject)} after retrieving the
+ * generated report file.
+ * <br/><br/>
+ * Instructions:
+ * <ul>
+ *   <li>Step 1: Set processUuid</li>
+ *   <li>Step 2: Add parameters: see example below</li>
+ * </ul>
+ *
+ * @param valueObject The value object used to store all information
+ */
+export async function runReport(valueObject: ValueObject) {
+	valueObject.validate();
+	if (valueObject.isError) {
+		return;
+	}
+
+	//further validation
+	if (!valueObject.processInformationParameters) {
+		valueObject.errorMessage += 'Parameter List is null - It should at least be an empty List';
+	} else if (!valueObject.processUuid) {
+		valueObject.errorMessage += 'Process UU is null - cannot look up process';
+	}
+	if (valueObject.isError) {
+		return;
+	}
+
+	const process = await processApi.getByUuid(valueObject, valueObject.processUuid!);
+
+	// Create a process info instance. This is a composite class containing the parameters.
+	valueObject.reportType ||= 'pdf';
+
+	// Map parameter names to their actual parameters
+	if (valueObject.processInformationParameters!.length) {
+		valueObject.processInformationParameters = valueObject.processInformationParameters!.map(
+			(processInformationParameter) => {
+				const specifiedParameter = process.parameters.find(
+					(parameter) =>
+						processInformationParameter.uuid === parameter.uuid ||
+						processInformationParameter.parameterName === parameter.name,
+				);
+				if (specifiedParameter) {
+					return {
+						...processInformationParameter,
+						processParameterUuid: specifiedParameter.uuid,
+					} as ProcessInfoParameter;
+				}
+				return processInformationParameter;
+			},
+		);
+	}
+
+	valueObject.report = Buffer.from(await processApi.runAndExport(valueObject));
+}
+
+/**
+ * Create an inventory record
+ *
+ * @param valueObject The value object used to store all information
+ */
+export async function createInventory(valueObject: ValueObject) {
+	valueObject.validate();
+
+	// perform further validation if needed based on business logic
+	if (!valueObject.businessPartner) {
+		throw new Error('Business Partner is Null');
+	} else if (!valueObject.warehouse) {
+		throw new Error('Warehouse is Null');
+	}
+
+	const inventory = {
+		orgId: 0,
+		description: valueObject.getStepMessageLong(),
+		warehouse: valueObject.warehouse,
+	} as Inventory;
+	const inventoryLine = {
+		orgId: 0,
+		description: valueObject.getStepMessageLong(),
+		product: valueObject.product,
+		attributeSetInstance: valueObject.attributeSetInstance,
+		locator: valueObject.warehouse.locators[0],
+		quantityCount: valueObject.quantity || 1,
+		line: 10,
+	} as InventoryLine;
+	inventory.inventoryLines = [inventoryLine];
+	valueObject.inventory = await inventoryApi.save(valueObject, inventory);
+	if (!valueObject.inventory) {
+		throw new Error('Inventory not created');
+	}
+	valueObject.inventoryLine = valueObject.inventory!.inventoryLines[0];
+
+	if (valueObject.documentAction) {
+		valueObject.inventory = await inventoryApi.process(
+			valueObject,
+			valueObject.inventory!.uuid,
+			valueObject.documentAction!,
+		);
+		if (!valueObject.inventory) {
+			throw new Error('Inventory not processed');
+		}
+	}
 }

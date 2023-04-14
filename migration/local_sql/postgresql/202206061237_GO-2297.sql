@@ -1,0 +1,3 @@
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT AD_Window_ID FROM AD_Window WHERE AD_Window_UU = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'), (SELECT AD_Role_ID FROM AD_Role WHERE AD_Role_UU = '461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2022-06-06 11:20:09.857000', 100, '2022-06-06 11:20:09.857000', 100, 'Y', 'cefdad10-e09f-42bb-9863-0504e8c615e2', 'Y') ON CONFLICT DO NOTHING; 
+
+SELECT register_migration_script('202206061237_GO-2297.sql') FROM dual;

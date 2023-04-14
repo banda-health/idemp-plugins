@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -166,7 +167,7 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 			patient.saveEx();
 
-			return createInstanceWithAllFields(getEntityByUuidFromDB(patient.getC_BPartner_UU()));
+			return transformData(Collections.singletonList(getEntityByUuidFromDB(patient.getC_BPartner_UU()))).get(0);
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
@@ -205,9 +206,6 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	public List<Patient> transformData(List<MBPartner_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
 		Set<Integer> patientIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
 		Map<Integer, Integer> visitsCount = VisitDBService.getVisitCountsByPatients(patientIds);
 		Map<Integer, String> lastVisitDateByPatientId = VisitDBService.getLastVisitDateByPatients(patientIds);

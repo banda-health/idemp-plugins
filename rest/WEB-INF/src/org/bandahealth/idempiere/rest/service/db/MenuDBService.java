@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMenu_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Menu;
@@ -139,11 +140,6 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 	@Override
 	public List<Menu> transformData(List<MMenu_BH> dbModels) {
-		List<Menu> results = new ArrayList<>();
-		if (dbModels == null || dbModels.isEmpty()) {
-			return results;
-		}
-
 		// get menu ids
 		Set<Integer> windowIds = dbModels.stream().map(MMenu_BH::getAD_Window_ID).collect(Collectors.toSet());
 
@@ -154,7 +150,7 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 		Set<Integer> processIds = dbModels.stream().map(MMenu_BH::getAD_Process_ID).collect(Collectors.toSet());
 
 		// get process
-		Map<Integer, MProcess> processes = processDBService.getByIds(processIds);
+		Map<Integer, MProcess_BH> processes = processDBService.getByIds(processIds);
 
 		// transform data
 		return dbModels.stream().map(model -> {

@@ -36,27 +36,27 @@ test('report names are correct', async () => {
 
 	const reportMenuList = (await menuApi.getByRootId(globalThis.__VALUE_OBJECT__, reportsMenuRootUuid)).results;
 
-	expect(reportMenuList.find((menu) => menu.name === 'Expired Products List'));
-	expect(reportMenuList.find((menu) => menu.name === 'Daily Cashier Collections'));
-	expect(reportMenuList.find((menu) => menu.name === 'Inventory Quantity Report'));
-	expect(reportMenuList.find((menu) => menu.name === 'Voided Transactions List'));
-	expect(reportMenuList.find((menu) => menu.name === 'Open Balance List'));
-	expect(reportMenuList.find((menu) => menu.name === 'Cashier Transaction Differences'));
-	expect(reportMenuList.find((menu) => menu.name === 'Cashier Patient Transactions'));
-	expect(reportMenuList.find((menu) => menu.name === 'Services Charged Report'));
-	expect(reportMenuList.find((menu) => menu.name === 'Diagnosis Report'));
-	expect(reportMenuList.find((menu) => menu.name === 'Changes to Inventory'));
-	expect(reportMenuList.find((menu) => menu.name === 'Inventory Sold Report'));
-	expect(reportMenuList.find((menu) => menu.name === 'MoH705B Out Patient Over 5yr Summary'));
-	expect(reportMenuList.find((menu) => menu.name === 'MoH717 New and Revisit Patient Count'));
-	expect(reportMenuList.find((menu) => menu.name === 'MoH705A Out Patient Under 5yr Summary'));
-	expect(reportMenuList.find((menu) => menu.name === 'Patient Visits and Referrals'));
-	expect(reportMenuList.find((menu) => menu.name === 'Patient Transactions'));
-	expect(reportMenuList.find((menu) => menu.name === 'Value of Opening and Closing Stock'));
-	expect(reportMenuList.find((menu) => menu.name === 'Donor Fund Report'));
-	expect(reportMenuList.find((menu) => menu.name === 'Products and Prices'));
-	expect(reportMenuList.find((menu) => menu.name === 'Income & Expenses'));
-	expect(reportMenuList.find((menu) => menu.name === 'Stock to be Ordered'));
+	expect(reportMenuList.find((menu) => menu.name === 'Expired Products List')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Daily Cashier Collections')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Inventory Quantity Report')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Voided Transactions List')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Open Balance List')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Cashier Transaction Differences')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Cashier Patient Transactions')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Services Charged Report')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Diagnosis Report')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Changes to Inventory')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Inventory Sold Report')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'MoH705B Out Patient Over 5yr Summary')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'MoH717 New and Revisit Patient Count')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'MoH705A Out Patient Under 5yr Summary')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Patient Visits and Referrals')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Patient Transactions')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Value of Opening and Closing Stock ')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Donor Fund Report')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Products and Prices')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Income & Expenses')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Stock to be Ordered')).toBeTruthy();
 });
 
 test('certain reports are not returned as part of the menus', async () => {
@@ -732,9 +732,7 @@ test(`triage role has correct access`, async () => {
 	).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.valueOfOpeningAndClosingStock)).toBeUndefined();
 
-	expect(
-		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.stockToBeOrdered),
-	).toBeUndefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.stockToBeOrdered)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.stockToBeOrdered)).toBeUndefined();
 
 	expect(
@@ -745,9 +743,7 @@ test(`triage role has correct access`, async () => {
 	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.donorFundReport)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.donorFundReport)).toBeUndefined();
 
-	expect(
-		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.diagnosisReport),
-	).toBeUndefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.diagnosisReport)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.diagnosisReport)).toBeUndefined();
 
 	expect(reports.find((report) => report.uuid === reportUuid.paymentReceipt)).toBeUndefined();
@@ -832,9 +828,7 @@ test(`lab/radiology role has correct access`, async () => {
 	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.donorFundReport)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.donorFundReport)).toBeUndefined();
 
-	expect(
-		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.diagnosisReport),
-	).toBeUndefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.diagnosisReport)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.diagnosisReport)).toBeUndefined();
 
 	expect(reports.find((report) => report.uuid === reportUuid.paymentReceipt)).toBeUndefined();
@@ -883,7 +877,9 @@ test(`accounting role has correct access`, async () => {
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.productsAndPrices)).not.toBeUndefined();
 
-	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.incomeAndExpense)).not.toBeUndefined();
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.incomeAndExpense),
+	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.incomeAndExpense)).not.toBeUndefined();
 
 	expect(
@@ -916,19 +912,21 @@ test(`accounting role has correct access`, async () => {
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.stockDiscrepancyReport)).not.toBeUndefined();
 
-	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.donorFundReport)).not.toBeUndefined();
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.donorFundReport),
+	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.donorFundReport)).not.toBeUndefined();
 
-	expect(
-		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.diagnosisReport),
-	).toBeUndefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.diagnosisReport)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.diagnosisReport)).toBeUndefined();
 
 	expect(reports.find((report) => report.uuid === reportUuid.paymentReceipt)).not.toBeUndefined();
 
 	expect(reports.find((report) => report.uuid === reportUuid.paymentTrail)).not.toBeUndefined();
 
-	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.openBalanceList)).not.toBeUndefined();
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.openBalanceList),
+	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.openBalanceList)).not.toBeUndefined();
 
 	expect(
@@ -970,9 +968,7 @@ test(`clinic user role has correct access`, async () => {
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.productsAndPrices)).not.toBeUndefined();
 
-	expect(
-		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.incomeAndExpense),
-	).toBeUndefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.incomeAndExpense)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.incomeAndExpense)).toBeUndefined();
 
 	expect(
@@ -1005,9 +1001,7 @@ test(`clinic user role has correct access`, async () => {
 	).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.stockDiscrepancyReport)).toBeUndefined();
 
-	expect(
-		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.donorFundReport),
-	).toBeUndefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.donorFundReport)).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.donorFundReport)).toBeUndefined();
 
 	expect(

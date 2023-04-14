@@ -6,7 +6,7 @@ import { ValueObject } from '../models';
 import { AuthResponse, Client } from '../types/org.bandahealth.idempiere.rest';
 import { toCamelCase } from '../utils';
 
-const workingDirectory = join(tmpdir(), 'idemp-rest-global-setup');
+const workingDirectory = join(tmpdir(), 'rest-global-setup');
 
 // Since we're dealing with APIs and processing documents, calls may take a while
 // depending on the DB. So, increase the test timeout to handle it

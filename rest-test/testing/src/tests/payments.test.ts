@@ -1,13 +1,20 @@
 import { paymentApi, referenceListApi } from '../api';
-import { referenceUuid, tenderTypeName } from '../models';
+import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
 import { PaymentType } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createPayment } from '../utils';
+import {
+	createBusinessPartner,
+	createPayment,
+	createProduct,
+	createPurchaseOrder,
+	createVendor,
+	createVisit,
+} from '../utils';
 
 test('payment type updated with UUID, not value', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create Business Partner';
+	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create Cash Payment';
@@ -39,7 +46,7 @@ test('payment values are saved correctly', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create Business Partner';
+	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create Cash Payment';
@@ -53,4 +60,37 @@ test('payment values are saved correctly', async () => {
 
 	expect(newPayment.payAmount).toBe(valueObject.payment!.payAmount);
 	expect(newPayment.tenderAmount).toBe(valueObject.payment!.tenderAmount);
+});
+
+test('debt payments are processed correctly', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create business partner';
+	valueObject.businessPartner = undefined;
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = documentAction.Complete;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create Cash Payment';
+	valueObject.documentAction = undefined;
+	await createPayment(valueObject);
+	const newPayment = await paymentApi.saveAndProcess(valueObject, valueObject.payment!, documentAction.Complete);
+
+	expect(newPayment.payAmount).toBe(valueObject.payment!.payAmount);
+	expect(newPayment.tenderAmount).toBe(valueObject.payment!.tenderAmount);
+	expect(newPayment.docStatus).toBe(documentStatus.Completed);
 });

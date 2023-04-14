@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,12 +58,14 @@ public class InventoryLineDBService extends BaseDBService<InventoryLine, MInvent
 			inventoryLine.setM_Locator_ID(
 					locatorDBService.getEntityByUuidFromDB(entity.getLocator().getUuid()).getM_Locator_ID());
 		}
-		if (entity.getAttributeSetInstance().getId() != null) {
-			inventoryLine.setM_AttributeSetInstance_ID(entity.getAttributeSetInstance().getId());
-		} else if (!StringUtil.isNullOrEmpty(entity.getAttributeSetInstance().getUuid())) {
-			inventoryLine.setM_AttributeSetInstance_ID(
-					attributeSetInstanceDBService.getEntityByUuidFromDB(entity.getAttributeSetInstance().getUuid())
-							.getM_AttributeSetInstance_ID());
+		if (entity.getAttributeSetInstance() != null) {
+			if (entity.getAttributeSetInstance().getId() != null) {
+				inventoryLine.setM_AttributeSetInstance_ID(entity.getAttributeSetInstance().getId());
+			} else if (!StringUtil.isNullOrEmpty(entity.getAttributeSetInstance().getUuid())) {
+				inventoryLine.setM_AttributeSetInstance_ID(
+						attributeSetInstanceDBService.getEntityByUuidFromDB(entity.getAttributeSetInstance().getUuid())
+								.getM_AttributeSetInstance_ID());
+			}
 		}
 
 		inventoryLine.setLine(entity.getLine());
@@ -122,8 +125,8 @@ public class InventoryLineDBService extends BaseDBService<InventoryLine, MInvent
 		Set<String> locatorUuids =
 				inventoryLinesToSave.stream().map(InventoryLine::getLocator).map(Locator::getUuid).collect(Collectors.toSet());
 		Set<String> attributeSetInstanceUuids =
-				inventoryLinesToSave.stream().map(InventoryLine::getAttributeSetInstance).map(AttributeSetInstance::getUuid)
-						.collect(Collectors.toSet());
+				inventoryLinesToSave.stream().map(InventoryLine::getAttributeSetInstance).filter(Objects::nonNull)
+						.map(AttributeSetInstance::getUuid).collect(Collectors.toSet());
 
 		// Get the inventory line batch models
 		Map<String, MProduct_BH> productsByUuid =
@@ -138,11 +141,13 @@ public class InventoryLineDBService extends BaseDBService<InventoryLine, MInvent
 			inventoryLine.setInventoryId(entity.getId());
 			inventoryLine.getProduct().setId(productsByUuid.get(inventoryLine.getProduct().getUuid()).get_ID());
 			inventoryLine.getLocator().setId(locatorsByUuid.get(inventoryLine.getLocator().getUuid()).get_ID());
-			if (attributeSetInstancesByUuid.containsKey(inventoryLine.getAttributeSetInstance().getUuid())) {
-				inventoryLine.getAttributeSetInstance()
-						.setId(attributeSetInstancesByUuid.get(inventoryLine.getAttributeSetInstance().getUuid()).get_ID());
-			} else {
-				inventoryLine.getAttributeSetInstance().setId(0);
+			if (inventoryLine.getAttributeSetInstance() != null) {
+				if (attributeSetInstancesByUuid.containsKey(inventoryLine.getAttributeSetInstance().getUuid())) {
+					inventoryLine.getAttributeSetInstance()
+							.setId(attributeSetInstancesByUuid.get(inventoryLine.getAttributeSetInstance().getUuid()).get_ID());
+				} else {
+					inventoryLine.getAttributeSetInstance().setId(0);
+				}
 			}
 
 			saveEntity(inventoryLine);

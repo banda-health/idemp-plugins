@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="End Stock value report" pageWidth="860" pageHeight="585" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="860" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="End stock value" uuid="4ddff745-c801-490f-9e16-520912866ea0">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+		<parameter name="Begin Date" class="java.util.Date"/>
+		<parameter name="End Date" class="java.util.Date"/>
+		<queryString>
+			<![CDATA[WITH inventory_changes AS (
+	SELECT
+		m_product_id,
+		SUM(ending_stock)   AS ending_stock,
+		SUM(received_stock) AS received_stock,
+		SUM(sold_stock)     AS sold_stock,
+		SUM(balanced_stock) AS balanced_stock
+	FROM
+		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+  GROUP BY m_product_id
+)
+SELECT
+	p.name            AS item_name,
+	ic.ending_stock   AS endingstock,
+	ic.received_stock AS receivedstock,
+	ic.sold_stock     AS soldstock,
+	ic.balanced_stock AS balancestock
+FROM
+	m_product p
+		JOIN inventory_changes ic
+			ON p.m_product_id = ic.m_product_id
+ORDER BY
+	item_name;]]>
+		</queryString>
+		<field name="item_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_stocktake_v"/>
+		</field>
+		<field name="endingstock" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="endingstock"/>
+		</field>
+		<field name="receivedstock" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="receivedstock"/>
+		</field>
+		<field name="soldstock" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="soldstock"/>
+		</field>
+		<field name="balancestock" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="balancestock"/>
+		</field>
+		<variable name="stockchanges" class="java.math.BigDecimal">
+			<variableExpression><![CDATA[$F{receivedstock}.subtract($F{soldstock}).add($F{balancestock})]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="endstock" class="java.math.BigDecimal">
+			<variableExpression><![CDATA[$F{endingstock}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select 1;]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="860" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Inventory Quantity Report Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="48">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="860" height="47" uuid="f7c68e6d-0720-43f6-8820-6b8549999ed1">
+					<property name="com.jaspersoft.studio.table.style.column_header" value="table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="table 1_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="End stock value" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
+						<datasetParameter name="Begin Date">
+							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="End Date">
+							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="AD_CLIENT_ID">
+							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="360" uuid="b58cb061-182d-4902-848e-c1f76933c76c">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="360" height="17" uuid="aaa1b9e9-0f6d-448e-a6be-eb96b5581819"/>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<text><![CDATA[Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="360" height="15" uuid="5787820a-0aaf-40bf-bd59-0afac03294e6"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="c535b35f-570e-4e9c-b6eb-624615030595">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="17" uuid="c3199e2a-044a-4370-9b7a-f18aa0274ce2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Opening]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="#,##0" isBlankWhenNull="false">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="3dc6affc-89e0-41e4-979d-3b53a941835f"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{endstock}.subtract($V{stockchanges})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="6fdb6a67-a703-46fd-be30-0f64950205f3">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="17" uuid="1b3aec8c-6e17-4bd2-8385-67dabd0d8cbe"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Received]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField pattern="#,##0" isBlankWhenNull="false">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="21425c3c-7256-4496-b9fb-28f70b9a583c"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{receivedstock}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="e542933e-1bd6-49b2-8991-afa9ff8865eb">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="17" uuid="d91f3df3-4e75-4814-b2dd-4b7de467ff07"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Sold]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField pattern="#,##0" isBlankWhenNull="false">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="ac53ae70-2504-4761-9fb4-1083896c717b"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{soldstock}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="59a83745-f95c-4d5a-9104-45bc0d12825d">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="17" uuid="6779be22-1846-4d30-9f1a-66d17ffb1b3e"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Balanced]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="15">
+							<textField pattern="#,##0" isBlankWhenNull="false">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="71a24340-6079-4e26-ae29-206a927d2b71"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{balancestock}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="4428dc26-e90a-4b52-8fc1-b10a0f3605ff">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="table 1_CH" height="17" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="17" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<text><![CDATA[Closing]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{endstock}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<noData>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="860" height="20" uuid="e8da193c-2a64-44be-96ca-7416132f7400">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

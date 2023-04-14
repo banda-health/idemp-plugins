@@ -21,6 +21,7 @@ import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -61,7 +62,13 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
@@ -81,12 +88,9 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
 		valueObject.setInvoice(invoice);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Complete), "Payment was completed");
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 //		PO.setCrossTenantSafe();

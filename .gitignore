@@ -1,7 +1,7 @@
 **/target
 **/lib
-idemp-rest/WEB-INF/lib/
-idemp-base-test/lib/
+rest/WEB-INF/lib/
+base-test/lib/
 
 /testing/
 .env

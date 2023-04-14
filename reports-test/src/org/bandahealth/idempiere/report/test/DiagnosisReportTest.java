@@ -49,6 +49,12 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create coded diagnosis");
 		valueObject.setRandom();
 		MBHCodedDiagnosis codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -57,7 +63,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		codedDiagnosis.saveEx();
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create sales order");
 		valueObject.setRandom();
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,

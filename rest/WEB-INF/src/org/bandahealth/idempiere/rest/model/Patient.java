@@ -1,16 +1,14 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.math.BigDecimal;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.bandahealth.idempiere.base.model.MBPartner_BH;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.math.BigDecimal;
 
 @XmlRootElement(name = "patient")
 @JsonInclude(value = Include.NON_NULL)
@@ -35,7 +33,6 @@ public class Patient extends BusinessPartner {
 	private String localPatientNumber;
 	private int totalVisits;
 	private String lastVisitDate;
-	@JsonProperty("isApproximateDateOfBirth")
 	private Boolean isApproximateDateOfBirth;
 
 	public Patient() {
@@ -70,48 +67,6 @@ public class Patient extends BusinessPartner {
 		setUuid(uuid);
 		setName(name);
 		setTotalOpenBalance(totalOpenBalance);
-	}
-
-	public Patient(String uuid, String name, BigDecimal totalOpenBalance, String patientNumber, String dateOfBirth,
-			String phone, String address, String created, String gender, boolean isActive, String localPatientNumber,
-			int totalVisits, String lastVisitDate) {
-		setUuid(uuid);
-		setName(name);
-		setTotalOpenBalance(totalOpenBalance);
-		setIsActive(isActive);
-		this.phone = phone;
-		this.address = address;
-		this.gender = gender;
-		this.setCreated(created);
-		this.dateOfBirth = dateOfBirth;
-		this.localPatientNumber = localPatientNumber;
-		this.totalVisits = totalVisits;
-		this.lastVisitDate = lastVisitDate;
-
-		String description = name;
-		if (patientNumber != null) {
-			description += ", patient #:" + patientNumber;
-		}
-
-		if (localPatientNumber != null) {
-			description += ", local ID:" + localPatientNumber;
-		}
-
-		if (dateOfBirth != null) {
-			description += ", date of birth:" + dateOfBirth;
-		}
-
-		if (phone != null) {
-			description += ", phone:" + phone;
-		}
-
-		if (address != null) {
-			description += ", address:" + address;
-		}
-
-		setDescription(description);
-
-		this.patientNumber = patientNumber;
 	}
 
 	@XmlElement
@@ -267,10 +222,12 @@ public class Patient extends BusinessPartner {
 		this.lastVisitDate = lastVisitDate;
 	}
 
+	@JsonProperty("isApproximateDateOfBirth")
 	public void setIsApproximateDateOfBirth(Boolean isApproximateDateOfBirth) {
 		this.isApproximateDateOfBirth = isApproximateDateOfBirth;
 	}
 
+	@JsonProperty("isApproximateDateOfBirth")
 	public Boolean isApproximateDateOfBirth() {
 		return isApproximateDateOfBirth;
 	}

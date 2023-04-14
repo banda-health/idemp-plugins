@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Order;
@@ -40,8 +41,6 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	protected OrderLineDBService orderLineDBService;
 	@Autowired
 	protected EntityMetadataDBService entityMetadataDBService;
-	@Autowired
-	protected ProcessDBService processDBService;
 	@Autowired
 	protected VoidedReasonDBService voidedReasonDBService;
 	@Autowired
@@ -274,5 +273,10 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		}
 
 		return super.saveAndProcessEntity(entity, docAction);
+	}
+
+	@Override
+	int getDocumentProcessId() {
+		return MProcess_BH.PROCESSID_PROCESS_ORDERS;
 	}
 }

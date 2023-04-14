@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.bandahealth.idempiere</groupId>
-        <artifactId>org.bandahealth.idempiere.plugins</artifactId>
+        <artifactId>org.bandahealth.idempiere</artifactId>
         <version>7.1.0-SNAPSHOT</version>
     </parent>
     <artifactId>org.bandahealth.idempiere.base.test</artifactId>
@@ -89,8 +89,6 @@
                             </artifactItems>
                             <outputDirectory>lib</outputDirectory>
                             <stripVersion>true</stripVersion>
-                            <overWriteReleases>true</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
                     </execution>
                 </executions>

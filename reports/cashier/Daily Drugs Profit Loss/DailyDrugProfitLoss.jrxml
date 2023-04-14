@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Drug Profit/Loss" language="groovy" pageWidth="595" pageHeight="850" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres ERP"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="beginDate" class="java.util.Date"/>
+	<parameter name="endDate" class="java.util.Date"/>
+	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1000002]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+	p.client_name AS Client_Name,
+    p.name  AS Product_Name,
+    p.qtyordered AS Quantity_Ordered,
+    p.pricesold AS Price_Sold,
+    p.pricebought AS Price_Bought,
+    p.bh_visitdate AS Date_Ordered
+    FROM bh_drug_profit_loss_v AS p
+WHERE ad_client_id =  $P{AD_CLIENT_ID}   
+AND bh_visitdate BETWEEN $P{beginDate} AND  $P{endDate}]]>
+	</queryString>
+	<field name="Client_Name" class="java.lang.String"/>
+	<field name="Product_Name" class="java.lang.String"/>
+	<field name="Quantity_Ordered" class="java.lang.Integer"/>
+	<field name="Price_Sold" class="java.lang.Double"/>
+	<field name="Price_Bought" class="java.lang.Double"/>
+	<field name="Date_Ordered" class="java.sql.Date"/>
+	<variable name="TotalSales" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[SUM($F{Price_Sold} * $F{Quantity_Ordered} )]]></variableExpression>
+	</variable>
+	<variable name="TotalPurchases" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[SUM($F{Price_Bought} * $F{Quantity_Ordered})]]></variableExpression>
+	</variable>
+	<variable name="Profit_Loss" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{TotalSales} - $V{TotalPurchases}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="46" uuid="c877cca5-9599-4880-b36b-b97a665dccdd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Client_Name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="25" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Drug Profit/Loss Report"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="16" uuid="de140269-bbf7-4026-a3ea-6c1254aaaf56"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="0" width="82" height="16" uuid="47474ccf-9801-42d2-b3c8-0e9dd5805389"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Drug]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="0" width="71" height="16" uuid="3353f64b-8d84-48c0-9700-8384cc14c569"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity Ordered]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="78" height="16" uuid="08138a37-96d1-4fca-86d2-017b6d54dc6c"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sell Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="0" width="119" height="16" uuid="3416f17b-2346-4043-b1ba-336a08d4485b"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profit/Loss]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="13" width="530" height="1" uuid="e9ae85de-7d27-47b6-9abb-dfd5c972ef8d"/>
+			</line>
+			<staticText>
+				<reportElement x="317" y="1" width="85" height="16" uuid="abc0041b-c7a0-4ce4-99e1-8af36b1a89b8"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Buy Price]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<textField pattern="d MMM, yyyy">
+				<reportElement x="0" y="0" width="75" height="16" uuid="089ae30e-2a51-4419-ab4a-99216852769d"/>
+				<textFieldExpression><![CDATA[$F{Date_Ordered}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="77" y="0" width="91" height="16" uuid="e562d461-d810-4383-a579-885fa2ae3251"/>
+				<textFieldExpression><![CDATA[$F{Product_Name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="187" y="0" width="57" height="16" uuid="55e65eeb-2bd6-4d0a-839b-215119463781"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{Quantity_Ordered}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="254" y="0" width="58" height="16" uuid="b112dbde-59e8-4a99-ba20-0b1b16c22f2a"/>
+				<textFieldExpression><![CDATA[$F{Price_Sold}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="439" y="0" width="71" height="16" uuid="29817303-1a87-45f4-9cb5-3927a9925476"/>
+				<textFieldExpression><![CDATA[($F{Price_Sold} - $F{Price_Bought}) * $F{Quantity_Ordered}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="346" y="1" width="65" height="16" uuid="b6d94475-40b0-4140-8d35-a138f3630209"/>
+				<textFieldExpression><![CDATA[$F{Price_Bought}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="379" height="16" uuid="6c430987-cd11-40be-bd9d-2077e233745f"/>
+				<textFieldExpression><![CDATA["Generated at " + new SimpleDateFormat("yyyy-MMM-dd HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="522" y="3" width="33" height="16" uuid="7a9813a0-b37a-4dcb-a749-b1725b610579"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="3" width="87" height="16" uuid="f96d7780-6357-4924-b519-27f72a508d29"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="61" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="352" y="3" width="75" height="16" uuid="a2509bd4-a44c-413d-94ea-4b5738900864"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalSales}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="352" y="22" width="75" height="16" uuid="c24bf36f-9a0a-4d2a-a13c-051656a198ac"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalPurchases}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="214" y="3" width="126" height="16" uuid="de140269-bbf7-4026-a3ea-6c1254aaaf56"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Sales:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="23" width="126" height="16" uuid="43bc3df0-9aa5-4c2e-b838-92c9f3bacf54"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Purchases:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="530" height="1" uuid="0e6fac0c-085f-45c3-93f3-37c2a067f3af"/>
+			</line>
+			<staticText>
+				<reportElement x="215" y="41" width="126" height="16" uuid="4b9964d1-0fba-4e45-8337-72084a0250b4"/>
+				<textElement textAlignment="Left">
+					<font fontName="Bitstream Vera Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profit/Loss:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="352" y="42" width="75" height="16" uuid="bc4be155-6f2a-4e97-ade4-ac0c9fa47d27"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Profit_Loss}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="60" width="530" height="1" uuid="09635107-5034-4f0c-b5f6-1961563b7881"/>
+			</line>
+		</band>
+	</summary>
+	<noData>
+		<band height="21">
+			<staticText>
+				<reportElement x="0" y="2" width="306" height="16" uuid="e8da193c-2a64-44be-96ca-7416132f7400"/>
+				<textElement textAlignment="Left">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

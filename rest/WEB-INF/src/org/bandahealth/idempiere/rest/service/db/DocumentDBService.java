@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
@@ -9,7 +9,6 @@ import org.compiere.model.PO;
 import org.compiere.process.DocAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,15 +22,12 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	public final static String DOCUMENTNAME_PHYSICAL_INVENTORY = "Physical Inventory";
 	public final static String DOCUMENTNAME_CUSTOMER_INVOICE = "AR Invoice";
 	public final static String DOCUMENTNAME_VENDOR_INVOICE = "AP Invoice";
-	private final Map<String, String> docActionToStatusMap = new HashMap<>() {{
-		put(DocAction.ACTION_Complete, DocAction.STATUS_Completed);
-		put(DocAction.ACTION_Void, DocAction.STATUS_Voided);
-		put(DocAction.ACTION_Approve, DocAction.STATUS_Approved);
-	}};
 	@Autowired
 	protected ReferenceListDBService referenceListDBService;
 
 	protected abstract String getDocumentTypeName();
+
+	abstract int getDocumentProcessId();
 
 	/**
 	 * Synchronously process order
@@ -51,18 +47,14 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 		}
 
 		// Process the document and, if it fails, throw an exception
-		if (documentEntity.processIt(docAction)) {
-			if (docActionToStatusMap.containsKey(docAction)) {
-				documentEntity.setDocStatus(docActionToStatusMap.get(docAction));
-			}
-		} else {
-			// When visits can receive a failure and not freak the user out, return an error here
-//			throw new AdempiereException(documentEntity.getProcessMsg());
-			logger.severe("Could not process document " + getDocumentTypeName() + ", UUID: " + uuid);
+		try {
+			ModelUtil.processDocumentOrError(getDocumentProcessId(), documentEntity, docAction);
+			documentEntity.saveEx();
+			return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
+		} catch (Exception exception) {
+			documentEntity.saveEx();
+			throw exception;
 		}
-		documentEntity.saveEx();
-
-		return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
 	}
 
 	/**

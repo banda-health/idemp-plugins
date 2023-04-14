@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
@@ -16,7 +17,6 @@ import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -70,6 +70,11 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	@Override
 	protected String getDocumentTypeName() {
 		return DOCUMENTNAME_MOVEMENT;
+	}
+
+	@Override
+	int getDocumentProcessId() {
+		return MProcess_BH.PROCESSID_PROCESS_MOVEMENTS;
 	}
 
 	@Override
@@ -139,6 +144,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 						.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,
 								attributeSetInstanceByUuid -> attributeSetInstanceByUuid.getValue().get_ID()));
 
+				List<MovementLine> savedMovementLines = new ArrayList<>();
 				for (MovementLine movementLine : entity.getMovementLines()) {
 					movementLine.setLocatorId(locatorId);
 					movementLine.setLocatorToId(locatorToId);
@@ -152,8 +158,9 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 								attributeSetInstanceIdsByUuid.get(movementLine.getAttributeSetInstance().getUuid()));
 					}
 
-					movementLineDBService.saveEntity(movementLine);
+					savedMovementLines.add(movementLineDBService.saveEntity(movementLine));
 				}
+				entity.setMovementLines(savedMovementLines);
 			}
 
 			// Delete movement lines not on the movement anymore
@@ -314,10 +321,6 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	@Override
 	public List<Movement> transformData(List<MMovement_BH> dbModels) {
 		List<Movement> results = new ArrayList<>();
-		if (dbModels == null || dbModels.isEmpty()) {
-			return results;
-		}
-
 		// get available warehouses
 		List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())));
 

@@ -1,19 +1,21 @@
 import { authenticationApi, documentTypeApi, initialLoginData } from '../api';
 import {
-	Account,
+	AttributeSetInstance,
 	Authentication,
 	AuthResponse,
 	BusinessPartner,
 	Charge,
-	ChargeType,
 	Client,
 	DocumentType,
+	Inventory,
+	InventoryLine,
 	Invoice,
 	InvoiceLine,
 	Order,
 	OrderLine,
 	Org,
 	Payment,
+	ProcessInfoParameter,
 	Product,
 	Role,
 	User,
@@ -28,6 +30,7 @@ export class ValueObject {
 	user?: User;
 	warehouse?: Warehouse;
 	role?: Role;
+	language?: string;
 	date?: Date;
 	dateInitial?: Date;
 	datePriceList?: Date;
@@ -54,12 +57,15 @@ export class ValueObject {
 	quantity?: number;
 	documentType?: DocumentType;
 	documentAction?: string;
+	attributeSetInstance?: AttributeSetInstance;
 	order?: Order;
 	orderLine?: OrderLine;
 	// MInOut m_inOut = null;
 	// MInOutLine m_inOutLine = null;
 	invoice?: Invoice;
 	invoiceLine?: InvoiceLine;
+	inventory?: Inventory;
+	inventoryLine?: InventoryLine;
 	payment?: Payment;
 	// private MBankAccount m_bankAcct = null;
 	// MBankStatement m_bs = null;
@@ -73,10 +79,10 @@ export class ValueObject {
 		return this.loginInfo?.windowAccessLevel;
 	}
 
-	// String m_process_UU = null;
-	// List<ProcessInfoParameter> m_processInfoParams = new ArrayList<ProcessInfoParameter>();
-	// int m_processTable_ID = 0;
-	// int m_processRecord_ID = 0;
+	processUuid?: string;
+	processInformationParameters?: ProcessInfoParameter[];
+	reportType: string = 'pdf';
+	report?: Buffer;
 
 	sessionToken?: string;
 
@@ -98,7 +104,7 @@ export class ValueObject {
 		}
 
 		this.documentAction = documentAction.Complete;
-		this.quantity = 1;
+		this.quantity = this.quantity || 1;
 		this.setPurchasePrice(1);
 		this.setSalesPrice(1);
 		this.loginInfo = { ...loginInfo, client: this.client! };
@@ -119,6 +125,9 @@ export class ValueObject {
 			roleUuid: roleToUse?.uuid,
 			warehouseUuid: this.warehouse?.uuid,
 		};
+		if (this.language) {
+			baseLoginData.language = this.language;
+		}
 		const loginInfo = await authenticationApi.login(baseLoginData);
 		this.prepareIt({ ...loginInfo, client: this.client });
 

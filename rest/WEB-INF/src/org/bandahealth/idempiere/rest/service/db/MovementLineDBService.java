@@ -107,10 +107,6 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 
 	@Override
 	public List<MovementLine> transformData(List<MMovementLine_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		// get list of products
 		Set<Integer> productIds = dbModels.stream().map(MMovementLine_BH::getM_Product_ID)
 				.filter(m_product_id -> m_product_id > 0).collect(Collectors.toSet());

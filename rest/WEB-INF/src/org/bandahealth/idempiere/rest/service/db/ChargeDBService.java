@@ -153,9 +153,6 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 
 	@Override
 	public List<Charge> transformData(List<MCharge_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
 		Set<Integer> chargeIds = dbModels.stream().map(MCharge_BH::getC_Charge_ID).collect(Collectors.toSet());
 		// Batch call to get charge info
 		Map<Integer, List<MBHChargeInfo>> chargeInfoByCharge = chargeInformationDBService

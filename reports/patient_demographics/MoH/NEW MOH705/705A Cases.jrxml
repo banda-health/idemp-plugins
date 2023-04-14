@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Cases" pageWidth="900" pageHeight="615" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="7317436c-2db2-4a0b-9652-bea518e43b91">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.report.description" value="Diagnoses Count under 5yrs"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CG" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CT" mode="Opaque" backcolor="#406280">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 1_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 2_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 2_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 2_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab 2_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="MOH_A Dataset" uuid="3b0d1345-0360-41e5-97ee-180a3cc3fe01">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="Begin Date" class="java.sql.Date"/>
+		<parameter name="End Date" class="java.sql.Date"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+		<queryString language="SQL">
+			<![CDATA[WITH date_limitter AS (
+     SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
+), diagnosis_list AS (
+    SELECT DISTINCT
+        bh_moh705a_lessthan5 as diagnosis
+    FROM bh_coded_diagnosis
+    WHERE bh_moh705a_lessthan5 NOT IN ('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Overweight (BMI>25)',
+                                       'Other Diseases Of Respiratory System','Tuberculosis','Sexually Transmitted Infections', 'Fevers',
+                                      'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)', 'Upper Respiratory Infection',
+                                      'Other Eye Conditions', 'Plague','Arthritis; Joint pains; etc','Diarrhea','Kalaazar','Congenital Anomalies',
+                                      'Ear infections / conditions','Newly Diagnosed HIV','Tetanus (not neonatal)','Sexual Assault','Dracunculiasis (Guinea Worm)',
+                                      'Neoplasms', 'Physical Disability','Cardiovascular Conditions','Musculoskeletal Conditions','Other Central Nervous System Conditions')
+
+), diagnosis_count AS (
+    SELECT DISTINCT
+        b.bh_moh705a_lessthan5 as diagnosis,
+        c.calendar,
+        coalesce(c.noofdiagnosis, 0) as noofdiagnosis
+    FROM bh_coded_diagnosis b
+        LEFT JOIN (
+            SELECT
+                bh_moh705a_lessthan5,
+                cast(bh_visitdate as date) as calendar,
+                COUNT(bh_primarycodeddiagnosis_id) AS noofdiagnosis
+            FROM c_order c
+                JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
+                JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
+                JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
+           WHERE c.ad_client_id = $P{AD_CLIENT_ID}
+                  AND bh_primarycodeddiagnosis_id IS NOT NULL
+                  AND bp.bh_birthday IS NOT NULL AND date_part('year', age(bp.bh_birthday)) < 5
+            GROUP BY bh_moh705a_lessthan5, cast(bh_visitdate as date)
+        ) c ON b.bh_moh705a_lessthan5 = c.bh_moh705a_lessthan5
+)
+SELECT
+    dl.diagnosis,
+    dali.calendar,
+    COALESCE(dc.noofdiagnosis, 0) as noofdiagnosis
+    -- c.calendar
+FROM diagnosis_list dl
+    CROSS JOIN date_limitter dali
+    LEFT JOIN diagnosis_count dc
+        ON dc.calendar = dali.calendar
+            AND dl.diagnosis = dc.diagnosis
+   JOIN (
+    SELECT 'Diarrhea with no dehydration' diagnosis, 10 as "order" UNION
+    SELECT 'Diarrhea with some dehydration', 20 UNION
+    SELECT 'Diarrhea with severe dehydration', 30 UNION
+    SELECT 'Cholera', 40 UNION
+    SELECT 'Dysentery (Bloody Diarrhea)', 50 UNION
+    SELECT 'Gastroenteritis', 60 UNION
+    SELECT 'Pneumonia', 70 UNION
+    SELECT 'Severe pneumonia', 80 UNION
+    SELECT 'Upper Respiratory Tract Infections', 90 UNION
+    SELECT 'Lower Respiratory Tract Infection', 100 UNION
+    SELECT 'Asthma', 110 UNION
+    SELECT 'Presumed Tuberculosis', 120 UNION
+    SELECT 'Suspected Malaria', 130 UNION
+    SELECT 'Tested for malaria', 140 UNION
+    SELECT 'Confirmed Malaria (Only Positive Cases)', 150 UNION
+    SELECT 'Ear infections', 160 UNION
+    SELECT 'Malnutrition', 170 UNION
+    SELECT 'Anemia', 180 UNION
+    SELECT 'Meningococcal Meningitis', 190 UNION
+    SELECT 'Other Meningitis', 200 UNION
+    SELECT 'Neonatal Sepsis', 210 UNION
+    SELECT 'Neonatal Tetanus', 220 UNION
+    SELECT 'Poliomyelitis (AFP)', 230 UNION
+    SELECT 'Chickenpox', 240 UNION
+    SELECT 'Measles', 250 UNION
+    SELECT 'Hepatitis', 260 UNION
+    SELECT 'Amoebiasis', 270 UNION
+    SELECT 'Mumps', 280 UNION
+    SELECT 'Typhoid Fever', 290 UNION
+    SELECT 'Bilharzia', 300 UNION
+    SELECT 'Intestinal Worms', 310 UNION
+    SELECT 'Eye Infections', 320 UNION
+    SELECT 'Tonsillitis', 330 UNION
+    SELECT'Urinary Tract Infection', 340 UNION
+    SELECT 'Mental Disorders', 350 UNION
+    SELECT 'Dental Disorders',360 UNION
+    SELECT 'Jiggers Infestation', 370 UNION
+    SELECT 'Diseases Of The Skin', 380 UNION
+    SELECT 'Downs Syndrome', 390 UNION
+    SELECT 'Poisoning', 400 UNION
+    SELECT 'Road Traffic Injuries', 410 UNION
+    SELECT 'Deaths Due To Road Traffic Injuries', 420 UNION
+    SELECT 'Violence Related Injuries', 430 UNION
+    SELECT 'Other Injuries', 440 UNION
+    SELECT 'Sexual violence', 450 UNION
+    SELECT 'Burns', 460 UNION
+    SELECT 'Snakebites', 470 UNION
+    SELECT 'Dog Bites', 480 UNION
+    SELECT 'Other Bites', 490 UNION
+    SELECT 'Diabetes', 500 UNION
+    SELECT 'Epilepsy', 510 UNION
+    SELECT 'Other Convulsive Disorders', 520 UNION
+    SELECT 'Rheumatic Fever', 530 UNION
+    SELECT 'Brucellosis', 540 UNION
+    SELECT 'Rickets', 550 UNION
+    SELECT 'Cerebral Palsy', 560 UNION
+    SELECT 'Autism', 570 UNION
+    SELECT 'Trypanosomiasis', 580 UNION
+    SELECT 'Yellow Fever', 590 UNION
+    SELECT 'Viral Hemorrhagic Fever', 600 UNION
+    SELECT 'Rift Valley Fever', 610 UNION
+    SELECT 'Chikugunya', 620 UNION
+    SELECT 'Dengue Fever', 630 UNION
+    SELECT 'Leishmaniasis (Kalaazar)', 640 UNION
+    SELECT 'Cutaneous leishmaniasis', 650 UNION
+    SELECT 'Suspected Anthrax', 660 UNION
+    SELECT 'Suspected Childhood Cancer', 670 UNION
+    SELECT 'Hypoxemia (Sat <90%)', 680 UNION 
+    SELECT 'All Other Diseases', 690
+ ) dlo ON dl.diagnosis = dlo.diagnosis
+-- GROUP BY dl.diagnosis,noofdiagnosis,dali.calendar
+ORDER BY dlo."order", dali.calendar]]>
+		</queryString>
+		<field name="calendar" class="java.sql.Date">
+			<property name="com.jaspersoft.studio.field.label" value="calendar"/>
+		</field>
+		<field name="diagnosis" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="diagnosis"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_coded_diagnosis"/>
+		</field>
+		<field name="noofdiagnosis" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="noofdiagnosis"/>
+		</field>
+		<group name="calendar">
+			<groupExpression><![CDATA[$F{calendar}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[select
+    date(c.bh_visitdate) as calendar,
+    client.name AS name
+from c_order c
+    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id::numeric
+    right join ad_org client on c.ad_client_id = client.ad_client_id
+     and client.isactive = 'Y'
+    where  c.ad_client_id  = $P{AD_CLIENT_ID}
+ GROUP BY c.bh_visitdate, client.name, b.bh_moh705a_lessthan5]]>
+	</queryString>
+	<field name="calendar" class="java.sql.Date"/>
+	<field name="name" class="java.lang.String"/>
+	<pageHeader>
+		<band height="34" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="2" width="70" height="30" uuid="f4f2b554-fe23-4520-a275-b4c92396f270"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facility Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="2" width="200" height="32" uuid="eb02bf4f-4d00-4ddd-8a0d-467d8798eca4">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box topPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="640" y="0" width="100" height="26" uuid="ce3392d2-e8ce-42c7-9630-c4b8e732b210">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box topPadding="0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Month:" +  new SimpleDateFormat("MMMM").format($P{Begin Date})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="740" y="0" width="100" height="26" uuid="c33eae00-2291-4157-a308-280a44ce834d">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box topPadding="0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Year:" +  new SimpleDateFormat("yyyy").format($P{Begin Date})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="800" y="-20" width="100" height="26" uuid="0e8fa573-ced8-4f91-882c-401321711de4">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box topPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MOH 705 A"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="84" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="1" width="879" height="80" uuid="d9c5f3e6-c068-4f3a-a6c7-426af827bde3">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab 2_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab 2_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab 2_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab 2_CD"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<crosstabDataset isDataPreSorted="true">
+					<dataset>
+						<datasetRun subDataset="MOH_A Dataset" uuid="2b8f2d40-004b-493e-9a5e-d19459b57525">
+							<datasetParameter name="Begin Date">
+								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="AD_CLIENT_ID">
+								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+				</crosstabDataset>
+				<rowGroup name="diagnosis" width="180" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{diagnosis}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab 2_CH">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<textField>
+								<reportElement x="19" y="0" width="161" height="20" forecolor="#080808" backcolor="#030202" uuid="928d29a9-14c0-4ffd-b7b4-ad4d3ae3b0ed">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
+								<box leftPadding="4"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{diagnosis}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement mode="Opaque" x="1" y="1" width="21" height="19" uuid="4aff36c1-a6dc-4d42-b38c-bf902bcf6c60">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#FFFFFF" style="Crosstab 2_CT">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<textField>
+								<reportElement mode="Opaque" x="1" y="20" width="21" height="20" uuid="81fda6cb-960a-4afa-acf4-ffc71508a1cc">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA["71"]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement mode="Opaque" x="22" y="20" width="158" height="20" forecolor="#080808" backcolor="#F0F8FF" uuid="9e1af5dd-ad61-481e-97e0-79d2cfcc7a1b">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
+								<box leftPadding="2">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#080808"/>
+								</box>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[""]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement mode="Opaque" x="22" y="0" width="158" height="20" backcolor="#F0F8FF" uuid="fab32a9e-fc94-4cd1-b2de-92fef1b17d67"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<text><![CDATA[]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="0" y="0" width="21" height="19" uuid="f3d355eb-0218-4185-be20-1425d1ea0651">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA["70"]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="calendar" height="20" totalPosition="End">
+					<bucket class="java.sql.Date">
+						<bucketExpression><![CDATA[$F{calendar}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 2_CH">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<textField>
+								<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="20" forecolor="#000000" uuid="17ace83d-e4d9-4d9f-b557-904a8d854146">
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
+								<box topPadding="0" leftPadding="0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[DAY($V{calendar} )]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab 2_CT">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<staticText>
+								<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="5d61000e-2fc8-42c7-b35e-0e9946430890">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
+								<box topPadding="0" leftPadding="0">
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total calendar]]></text>
+							</staticText>
+							<staticText>
+								<reportElement mode="Opaque" x="41" y="0" width="20" height="20" uuid="5d091617-21d2-4111-a045-ed965602c92d">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
+								<text><![CDATA[]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="noofdiagnosis_MEASURE" class="java.lang.Long" calculation="Sum">
+					<measureExpression><![CDATA[$F{noofdiagnosis}]]></measureExpression>
+				</measure>
+				<crosstabCell width="20" height="20">
+					<cellContents mode="Opaque" style="Crosstab 2_CD">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<textField>
+							<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="20" uuid="841ee31f-6dfb-4656-92bd-b5c0f588f53a">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<box topPadding="0" leftPadding="0"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="10"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{noofdiagnosis_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="61" height="20" columnTotalGroup="calendar">
+					<cellContents mode="Opaque" style="Crosstab 2_CT">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<textField>
+							<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="6b324806-f103-44e3-be6c-bcca8492b6a3"/>
+							<box topPadding="0" leftPadding="0">
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="10"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{noofdiagnosis_MEASURE}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement mode="Opaque" x="41" y="0" width="20" height="20" forecolor="#000000" uuid="b4e5186d-99cf-47a3-aabf-ce939c2de388">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$V{ROW_COUNT}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="20" height="40" rowTotalGroup="diagnosis">
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab 2_CT">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<textField>
+							<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="20" uuid="b16d492a-4ed2-4f96-9a84-64a158aeda77">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<box topPadding="0" leftPadding="0">
+								<pen lineWidth="0.25"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="10"/>
+							</textElement>
+							<textFieldExpression><![CDATA[""]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="1" y="21" width="19" height="19" uuid="f29ee0a0-23b5-485d-8f39-34cbf77aefa5">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<box topPadding="0" leftPadding="0"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="10"/>
+							</textElement>
+							<textFieldExpression><![CDATA[""]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="61" height="40" rowTotalGroup="diagnosis" columnTotalGroup="calendar">
+					<cellContents backcolor="#0863B4" mode="Opaque" style="Crosstab 2_CT">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<textField>
+							<reportElement mode="Opaque" x="41" y="1" width="20" height="20" forecolor="#000000" uuid="29579da3-d844-498d-884f-f9b1aabaaeff">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
+							<box>
+								<pen lineWidth="0.25"/>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA["70"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement mode="Opaque" x="41" y="21" width="20" height="19" forecolor="#000000" uuid="087c71ac-c20a-4c52-8a81-1ee601092bb5">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA["71"]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement mode="Opaque" x="1" y="0" width="38" height="20" backcolor="#005FB3" uuid="3b003c4f-d74d-464f-9bcb-93fd434ef0c2"/>
+							<box>
+								<pen lineWidth="0.25"/>
+							</box>
+							<text><![CDATA[]]></text>
+						</staticText>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+			<textField>
+				<reportElement x="0" y="1" width="180" height="19" uuid="41168f2f-e6b1-4475-bea1-c80d06221c1e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DISEASES(New Cases Only)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

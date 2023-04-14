@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Cashier Collections" pageWidth="1480" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1480" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+	<property name="template.engine" value="tabular_template"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F0F8FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="lnUAT"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="Begin Date" class="java.lang.String"/>
+		<parameter name="End Date" class="java.lang.String"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT
+	c_order_id,
+	bill_date                     AS billdate,
+	cashier                       AS cashier,
+	patientname                   AS patientname,
+	product_list                  AS itemname,
+	patientno                     AS patientid,
+	COALESCE(lineitemtotals, 0)   AS billtotal,
+	COALESCE(cash, 0)             AS cash,
+	COALESCE(mobile, 0)           AS mobile,
+	COALESCE(credit_debit, 0)     AS credit_debit,
+	COALESCE(bank, 0)             AS bank,
+	COALESCE(checks, 0)           AS check,
+	COALESCE(othernewpayments, 0) AS othrenewpayments,
+	COALESCE(insurance, 0)        AS insurance,
+	COALESCE(waiver, 0)           AS waiver,
+	COALESCE(donation, 0)         AS donation
+FROM
+	get_visit_info($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+ORDER BY
+	date(bill_date) ASC;]]>
+		</queryString>
+		<field name="c_order_id" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+		</field>
+		<field name="billdate" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.label" value="billdate"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+		</field>
+		<field name="cashier" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="cashier"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+		</field>
+		<field name="patientname" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="patientname"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
+		<field name="itemname" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="itemname"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+		</field>
+		<field name="patientid" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="patientid"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
+		<field name="billtotal" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+		</field>
+		<field name="cash" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="cash"/>
+		</field>
+		<field name="mobile" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="mobile"/>
+		</field>
+		<field name="credit_debit" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="credit_debit"/>
+		</field>
+		<field name="bank" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="bank"/>
+		</field>
+		<field name="check" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="check"/>
+		</field>
+		<field name="othrenewpayments" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="othrenewpayments"/>
+		</field>
+		<field name="insurance" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="insurance"/>
+		</field>
+		<field name="waiver" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="waiver"/>
+		</field>
+		<field name="donation" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="donation"/>
+		</field>
+		<variable name="totalPaymentsV" class="java.math.BigDecimal">
+			<variableExpression><![CDATA[$F{cash}.add($F{mobile}).add($F{credit_debit}).add($F{bank}).add($F{check}).add($F{othrenewpayments}).add($F{insurance}).add($F{waiver}).add($F{donation})]]></variableExpression>
+		</variable>
+		<variable name="totalOutstanding" class="java.math.BigDecimal">
+			<variableExpression><![CDATA[$F{billtotal}.subtract($V{totalPaymentsV})]]></variableExpression>
+		</variable>
+		<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{billtotal}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumTotalPayment" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$V{totalPaymentsV}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumCash" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{cash}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumMobile" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{mobile}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumCreditDebit" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{credit_debit}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumBank" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{bank}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumCheck" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{check}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumOther" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{othrenewpayments}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumInsurance" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{insurance}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumWaiver" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{waiver}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumDonation" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{donation}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+		<variable name="sumUnpaidAmount" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT 1;]]>
+	</queryString>
+	<pageHeader>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="1480" height="20" uuid="e3d84c61-13c8-4aa1-a3a6-2bdc3ac3d496">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cashier Transaction and Payment Totals Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="64" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<staticText>
+				<reportElement key="" x="0" y="0" width="1480" height="16" uuid="646204ca-7dca-49e5-a1c1-ad8c02bf78d7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="0" y="0" width="1480" height="64" uuid="5d629562-296e-4d03-a1bd-69743c2164a5">
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="tableDataset" uuid="fbe727c0-4267-4ed5-b450-2cb83b88cf5b">
+						<datasetParameter name="AD_CLIENT_ID">
+							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Begin Date">
+							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="End Date">
+							<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="150" uuid="2e918708-7435-4e89-82c3-665e206e7dc5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="30" uuid="51a7ec07-b72e-4573-974d-a69b9f0c49bf"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Bill Time & Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy HH:mm:ss">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="150" height="17" uuid="00832274-ddb5-4b2c-b800-a4025a10f934"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{billdate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="240" uuid="475a9086-5c10-4faf-8d4d-da1f69660ad9">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="240" height="30" uuid="25e79ecd-978e-4059-a340-d901e531e6a5"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cashier Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="c92a9f47-2934-49a5-897b-6a77bb978d8a"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="240" uuid="01d58eb3-cb77-4f24-973a-c7bb1e292b87">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="240" height="30" uuid="66416d7a-8664-43da-a448-4d73827fadfc"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Patient Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="8525a671-43ca-40e6-b599-f10437cc3a14"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{patientname}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="300" uuid="3dc2de99-4863-4df5-ba7b-4f49669065d3">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="300" height="30" uuid="1ca4de84-784f-4572-a05e-0579d5e9f6c6">
+									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+								</reportElement>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Bill Description]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="300" height="17" uuid="39547252-a360-448c-9e06-cd4f2d90e7d1">
+									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+								</reportElement>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{itemname}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="9b9a44cd-7fde-425a-966a-d77c6f2fb5d2">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" uuid="641a4d6b-77cf-408f-b7e7-9e3dec4f0ee0"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Patient #]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="17" uuid="3e6a3221-b00b-42e7-87dd-65d479cb4ced"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{patientid}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="27b59684-8844-4179-a20d-ca696e1afde0">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" uuid="45a7efa2-c163-4a2c-8285-b5e1558f2be9"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Receipt #]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="17" uuid="4d2cffe5-3b41-4f0e-8c40-5b52fc671206"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{c_order_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="11f224aa-d428-4312-9f07-ac270a70ed25">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="b79b3aad-bd79-4c3a-a7d9-5549f5be65bb"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Bill Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d58d2d6a-b4ee-4c23-bbf9-c73cf98f9d05"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumBillTotal}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{billtotal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="8a17b70a-6a6b-4b98-8143-08c36f936108">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="f74cf3ae-168a-4df3-90a4-52484694ab26"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Payment]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="5dbc9a41-120c-45b3-bdbf-b880ba3914ae"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumTotalPayment}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="3991214f-9d6d-4a78-a564-8e20030f0b69"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{totalPaymentsV}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="e78926a8-15b4-4b5b-bfc0-b08c220e0308">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="3e6106f0-5051-498d-a330-1bb5a578fa15"/>
+								<box leftPadding="2"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Unpaid Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="71cafc65-11b0-45f2-91dc-3dcfd776e6eb">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+									<paragraph rightIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{sumUnpaidAmount}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="a5a192b8-1f1f-48d9-b728-881187d1f860">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right">
+									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{totalOutstanding}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,6 +1,6 @@
 services:
   idempiere:
-    image: openhmis/banda-idempiere:${IDEMPIERE_VERSION}
+    image: ghcr.io/banda-health/banda-idempiere:${IDEMPIERE_VERSION}
     depends_on:
       - postgres
     volumes:
@@ -22,48 +22,16 @@ services:
       - ${IDEMPIERE_SSL_PORT}:8443
       - ${TELNET_PORT}:12612
 
-  idemp-base-test:
-    build: idemp-base-test/testing
+  tests:
+    build: .
     depends_on:
       idempiere:
         condition: service_healthy
     environment:
-      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
-      - PGHOST=${POSTGRES_HOST}
-      - PGPORT=${POSTGRES_PORT}
-      - PGDATABASE=${DB_NAME}
-      - PGUSER=adempiere
-      - PGPASSWORD=${IDEMPIERE_DATABASE_PASSWORD}
-
-  idemp-rest-test:
-    build: idemp-rest-test/testing
-    depends_on:
-      idempiere:
-        condition: service_healthy
-      idemp-base-test:
-        condition: service_healthy
-    environment:
-      - IDEMPIERE_USER=${IDEMPIERE_USER}
-      - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
-      - PGHOST=${POSTGRES_HOST}
-      - PGPORT=${POSTGRES_PORT}
-      - PGDATABASE=${DB_NAME}
-      - PGUSER=adempiere
-      - PGPASSWORD=${IDEMPIERE_DATABASE_PASSWORD}
-
-  idemp-reports-test:
-    build: idemp-reports-test/testing
-    depends_on:
-      idempiere:
-        condition: service_healthy
-      idemp-base-test:
-        condition: service_healthy
-      idemp-rest-test:
-        condition: service_healthy
-    environment:
-      - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
+      - IDEMPIERE_USER=${IDEMPIERE_USER}
+      - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
       - PGHOST=${POSTGRES_HOST}
       - PGPORT=${POSTGRES_PORT}
       - PGDATABASE=${DB_NAME}

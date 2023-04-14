@@ -1,0 +1,18 @@
+--create clinical details window
+INSERT INTO adempiere.ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id + 1) FROM ad_window), 0, 0, 'Y', '2021-07-05 17:12:45.803000', 100, '2021-07-05 17:12:45.803000', 100, 'Clinical Details', 'Clinical Details', 'This window exists to help hide clinical details from non clinical stuff, it is assigned Clinician/Nurse, lab and clinical officer roles', 'M', 'Y', 'U', 'N', null, null, 'N', 0, 0, 'N', '2e37e97b-aeb5-47d7-add3-0d602233c2aa', null) ON CONFLICT DO NOTHING;
+
+-- include tab linked to C_order
+INSERT INTO adempiere.ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, ad_table_id, ad_window_id, seqno, tablevel, issinglerow, isinfotab, istranslationtab, isreadonly, ad_column_id, hastree, whereclause, orderbyclause, commitwarning, ad_process_id, processing, ad_image_id, importfields, ad_columnsortorder_id, ad_columnsortyesno_id, issorttab, entitytype, included_tab_id, readonlylogic, displaylogic, isinsertrecord, isadvancedtab, parent_column_id, ad_tab_uu, ad_ctxhelp_id, treedisplayedon, maxqueryrecords) VALUES ((SELECT MAX(ad_tab_id + 1) FROM ad_tab), 0, 0, 'Y', '2021-07-13 11:35:45.465000', 100, '2021-07-13 12:01:58.328000', 100, 'Clinical Details', 'Clinical Details', null, 259, (SELECT ad_window_id FROM ad_window where ad_window_uu = '2e37e97b-aeb5-47d7-add3-0d602233c2aa'), 10, 0, 'Y', 'N', 'N', 'N', null, 'N', null, null, null, null, 'N', null, 'N', null, null, 'N', 'U', null, null, null, 'Y', 'N', null, '69b0d4b6-a323-4224-924e-d9d3d2aa5e1b', default, 'B', 0) ON CONFLICT DO NOTHING;;
+
+--Allow Clinical staff to view clinical details array
+
+--Clinicians/Nurses Role
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '2e37e97b-aeb5-47d7-add3-0d602233c2aa'), (select ad_role_id FROM ad_role where ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'), 0, 0, 'Y', '2021-07-05 17:19:46.044000', 100, '2021-07-05 17:20:05.974000', 100, 'Y', 'e1eff3bc-68d8-4b40-baa8-9891f60571ef', 'Y') ON CONFLICT DO NOTHING;
+
+-- Lab/Radiology
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '2e37e97b-aeb5-47d7-add3-0d602233c2aa'), (select ad_role_id FROM ad_role where ad_role_uu = '097feff0-3aa6-41fe-bf76-936b03859846'), 0, 0, 'Y', '2021-07-13 13:23:47.707000', 100, '2021-07-13 13:23:47.707000', 100, 'Y', 'ea2ac780-75e0-4c07-8f9c-13c2661acc19', 'Y') ON CONFLICT DO NOTHING;
+
+-- Clinical Admin Role
+INSERT INTO adempiere.ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '2e37e97b-aeb5-47d7-add3-0d602233c2aa'),  (select ad_role_id FROM ad_role where ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2021-07-13 12:34:35.643000', 100, '2021-07-13 12:34:35.643000', 100, 'Y', '09d6ad3c-acce-4603-9d36-b176f4a060c8', 'Y') ON CONFLICT DO NOTHING;
+
+SELECT register_migration_script('202107130920_GO-1738.sql') FROM dual;

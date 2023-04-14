@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.compiere.model.MProcess;
 
 @XmlRootElement(name = "process")
@@ -52,7 +53,7 @@ public class Process extends BaseEntity {
 		this.parameters = parameters;
 	}
 
-	public Process(MProcess model, List<ProcessParameter> parameters) {
+	public Process(MProcess_BH model, List<ProcessParameter> parameters) {
 		super(model, model.getName(), model.getDescription(), null);
 
 		this.adFormId = model.getAD_Form_ID();

@@ -1,13 +1,13 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @XmlRootElement(name = "visit")
 @JsonInclude(value = Include.NON_NULL)
@@ -43,45 +43,29 @@ public class Visit extends Order {
 		setIsSalesOrderTransaction(true);
 	}
 
-	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,
-			String dateOrdered, BigDecimal grandTotal, Boolean newVisit, String clinicalNotes, String diagnosis,
-			PatientType patientType, Referral referral, List<OrderLine> orderLines, List<Payment> payments,
-			String documentStatus, OrderStatus status, String chiefComplaint, String temperature, String pulse,
-			String respiratoryRate, String height, String weight,
-			CodedDiagnosis secondaryCodedDiagnosis, CodedDiagnosis primaryCodedDiagnosis, User clinician,
-			ProcessStage processStage, MOrder_BH order) {
-		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateOrdered, grandTotal, true, diagnosis,
-				orderLines, payments, documentStatus);
+	public Visit(MOrder_BH model) {
+		super(model);
 
-		this.newVisit = newVisit;
-		this.clinicalNotes = clinicalNotes;
-		this.labNotes = order.getBH_LabNotes();
-		this.patientType = patientType;
-		this.referral = referral;
-		this.patient = patient;
-		this.status = status;
-		this.chiefComplaint = chiefComplaint;
-		this.temperature = temperature;
-		this.pulse = pulse;
-		this.respiratoryRate = respiratoryRate;
-		this.height = height;
-		this.weight = weight;
-		this.secondaryCodedDiagnosis = secondaryCodedDiagnosis;
-		this.primaryCodedDiagnosis = primaryCodedDiagnosis;
-		this.clinician = clinician;
-		this.processStage = processStage;
-		if (order != null) {
-			this.referredFromTo = order.getBH_ReferredFromTo();
-			this.visitDate = order.getBH_VisitDate();
-			this.primaryUnCodedDiagnosis = order.getBH_PrimaryUnCodedDiagnosis();
-			this.secondaryUnCodedDiagnosis = order.getBH_SecondaryUnCodedDiagnosis();
-			this.systolicBloodPressure = order.getbh_systolic_blood_pressure();
-			this.diastolicBloodPressure = order.getbh_diastolic_blood_pressure();
-			setId(order.get_ID());
-			setOxygenSaturation(order.getBH_OxygenSaturation());
-		}
-
-		setIsSalesOrderTransaction(true);
+		this.newVisit = model.isBH_NewVisit();
+		this.clinicalNotes = model.getBH_ClinicalNotes();
+		this.labNotes = model.getBH_LabNotes();
+		this.patientType = new PatientType(model.getBH_PatientType());
+		this.referral = new Referral(model.getbh_referral());
+		this.chiefComplaint = model.getBH_Chief_Complaint();
+		this.temperature = model.getBH_Temperature();
+		this.pulse = model.getBH_Pulse();
+		this.respiratoryRate = model.getBH_Respiratory_Rate();
+		this.height = model.getBH_Height();
+		this.weight = model.getBH_Weight();
+		this.processStage = new ProcessStage(model.getBH_ProcessStage());
+		this.referredFromTo = model.getBH_ReferredFromTo();
+		this.visitDate = model.getBH_VisitDate();
+		this.primaryUnCodedDiagnosis = model.getBH_PrimaryUnCodedDiagnosis();
+		this.secondaryUnCodedDiagnosis = model.getBH_SecondaryUnCodedDiagnosis();
+		this.systolicBloodPressure = model.getbh_systolic_blood_pressure();
+		this.diastolicBloodPressure = model.getbh_diastolic_blood_pressure();
+		setOxygenSaturation(model.getBH_OxygenSaturation());
+		setIsSalesOrderTransaction(model.isSOTrx());
 	}
 
 	public Visit(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy, Patient patient,

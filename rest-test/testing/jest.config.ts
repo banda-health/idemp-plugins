@@ -144,7 +144,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "./setup/idemp-rest-environment.ts",
+  testEnvironment: "./setup/rest-environment.ts",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

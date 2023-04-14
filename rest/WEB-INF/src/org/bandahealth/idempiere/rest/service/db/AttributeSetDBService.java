@@ -53,10 +53,6 @@ public class AttributeSetDBService extends BaseDBService<AttributeSet, MAttribut
 
 	@Override
 	public List<AttributeSet> transformData(List<MAttributeSet_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		// Get the serial number controls
 		Set<Integer> serialNumberControlIds = dbModels.stream().map(MAttributeSet_BH::getM_SerNoCtl_ID)
 				.filter(serialNumberControlId -> serialNumberControlId > 0).collect(Collectors.toSet());

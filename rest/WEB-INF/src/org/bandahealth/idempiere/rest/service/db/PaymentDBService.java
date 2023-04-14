@@ -1,18 +1,9 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.NHIF;
@@ -32,6 +23,16 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Payment DB Functionality
@@ -55,6 +56,11 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	@Override
 	protected String getDocumentTypeName() {
 		return DOCUMENTNAME_PAYMENTS;
+	}
+
+	@Override
+	int getDocumentProcessId() {
+		return MProcess_BH.PROCESSID_PROCESS_PAYMENT;
 	}
 
 	@Override
@@ -164,6 +170,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 		if (entity.getTransactionDate() != null) {
 			mPayment.setDateTrx(DateUtil.getTimestamp(entity.getTransactionDate()));
+			mPayment.setDateAcct(DateUtil.getTimestamp(entity.getTransactionDate()));
 		}
 
 		mPayment.setIsActive(entity.getIsActive());
@@ -324,10 +331,6 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	@Override
 	public List<Payment> transformData(List<MPayment_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
-
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MPayment_BH::getC_BPartner_ID).collect(Collectors.toSet());
 		Map<Integer, MBPartner_BH> businessPartnersById =
 				businessPartnerIds.isEmpty() ? new HashMap<>() : patientDBService.getByIds(businessPartnerIds);

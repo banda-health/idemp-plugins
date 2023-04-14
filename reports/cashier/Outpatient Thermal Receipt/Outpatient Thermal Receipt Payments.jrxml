@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt Payments" pageWidth="162" pageHeight="134" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="40dbf2df-a037-42cd-9808-b1285b682703">
+	<property name="ireport.zoom" value="3.305785123966942"/>
+	<property name="ireport.x" value="29"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<parameter name="billId" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="totalCost" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+	c_order_id           AS bill_id,
+	chargetype_name      AS name,
+	SUM(linenetamt) * -1 AS linenetamt
+FROM
+	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
+WHERE
+	c_order_id = $P{billId}
+GROUP BY
+	c_order_id, chargetype_name
+UNION
+SELECT
+	c_order_id                             AS bill_id,
+	payment_mode_name                      AS name,
+	COALESCE(SUM(tender_amt), SUM(payamt)) AS linenetamt
+FROM
+	bh_get_visit_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
+WHERE
+	c_order_id = $P{billId}
+GROUP BY
+	c_order_id, payment_mode_name]]>
+	</queryString>
+	<field name="bill_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
+	</field>
+	<field name="linenetamt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="linenetamt"/>
+	</field>
+	<variable name="totalPayments" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="Outstanding" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}).abs()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="" x="0" y="2" width="101" height="15" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###;(#,##0.###-)">
+				<reportElement x="124" y="2" width="38" height="14" uuid="053ef0e2-306c-41a5-8636-f7e49ba02d23"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{linenetamt}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="99" y="8" width="63" height="14" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+					<paragraph rightIndent="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="99" y="30" width="63" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial"/>
+					<paragraph rightIndent="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}).abs()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="8" width="90" height="14" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Payment:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="0" y="30" width="71" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) >= 0)]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Change Due:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="3" width="163" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="27" width="165" height="1" uuid="5215741e-00ff-4a42-9306-c0e4933cd70d"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="" x="0" y="30" width="71" height="12" uuid="1e8beb63-73e7-4b46-9a7f-56e10587f782">
+					<printWhenExpression><![CDATA[(($V{totalPayments}.subtract($P{totalCost})).compareTo(BigDecimal.ZERO) < 0)]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Outstanding:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

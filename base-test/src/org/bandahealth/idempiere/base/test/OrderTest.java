@@ -42,7 +42,13 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create order");
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
@@ -62,26 +68,17 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 				"Business partner has an open balance");
 
 		valueObject.setStepName("Create payments");
-		valueObject.setDocumentAction(null);
+		valueObject.setInvoice(null);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(5));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(5));
-		valueObject.getPayment().setC_Invoice_ID(0); // we associate to invoices through the allocation
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(5));
 		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setPayAmt(new BigDecimal(5));
-		valueObject.getPayment().setC_Invoice_ID(0); // we associate to invoices through the allocation
-		valueObject.getPayment().setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		valueObject.getPayment().setDocAction(MOrder_BH.DOCACTION_Complete);
-		assertTrue(valueObject.getPayment().processIt(MOrder_BH.DOCACTION_Complete));
-		valueObject.getPayment().saveEx();
 		commitEx();
 
 		valueObject.refresh();
@@ -93,7 +90,8 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
 						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+						valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed)
+				.setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID + " ASC").list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate));
 		valueObject.getOrder().saveEx();

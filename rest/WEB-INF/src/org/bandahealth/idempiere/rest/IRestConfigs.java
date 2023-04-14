@@ -2,98 +2,72 @@ package org.bandahealth.idempiere.rest;
 
 public interface IRestConfigs {
 
-	String ROOT_PATH = "/";
 	String AUTHENTICATION = "auth";
-	String AUTHENTICATION_PATH = ROOT_PATH + AUTHENTICATION;
+	String AUTHENTICATION_PATH = "/auth";
 
 	String AUTHENTICATION_SESSION_PATH = "/session";
-	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms";
-	String CHANGEPASSWORD_PATH = AUTHENTICATION_SESSION_PATH + "/changePassword";
-	String CHANGEACCESS_PATH = AUTHENTICATION_SESSION_PATH + "/changeAccess";
-
-	String SAVE_PATH = "/save";
-
-	String SEARCH_PATH = "/search";
+	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms-of-service";
+	String CHANGEPASSWORD_PATH = AUTHENTICATION_SESSION_PATH + "/change-password";
+	String CHANGEACCESS_PATH = AUTHENTICATION_SESSION_PATH + "/change-access";
 
 	String UUID_PATH = "/{uuid}";
 
-	String PRINT_RECEIPT_PATH = UUID_PATH + "/printreceipt";
-
 	String PATIENTS_PATH = AUTHENTICATION_PATH + "/patients";
-	String PATIENT_PATH = "/patient/{uuid}";
-	String PATIENT_SUMMARY_PATH = AUTHENTICATION_PATH + "/patientsummary";
-	String PATIENT_GENERATE_ID = "/generatepatientid";
+	String PATIENT_GENERATE_ID = "/generate-id";
 
 	String VENDORS_PATH = AUTHENTICATION_PATH + "/vendors";
-	String VENDOR_PATH = "/vendor/{uuid}";
 
 	String MENUS_PATH = AUTHENTICATION_PATH + "/menus";
-	String MENU_PATH = "/menu/{uuid}";
 
-	String PROCESS_PATH = AUTHENTICATION_PATH + "/process";
-	String RUN_AND_EXPORT_PATH = "/runandexport";
-
-	String REPORTS_PATH = AUTHENTICATION_PATH + "/reports";
-	String GENERATE_PATH = "/generate";
+	String PROCESS_PATH = AUTHENTICATION_PATH + "/processes";
+	String RUN_AND_EXPORT_PATH = "/run-and-export";
 
 	String PRODUCTS_PATH = AUTHENTICATION_PATH + "/products";
-	String PRODUCT_PATH = "/product/{uuid}";
-	String SEARCH_ITEMS_PATH = "/searchitems";
+	String SEARCH_ITEMS_PATH = "/search/items";
 
 	// 'services' used by iDemp WebServices.
-	String SERVICES_PATH = AUTHENTICATION_PATH + "/bhservices";
-	String SERVICE_PATH = "/service/{uuid}";
+	String SERVICES_PATH = AUTHENTICATION_PATH + "/bh-services";
 
-	String EXPENSE_CATEGORIES_PATH = AUTHENTICATION_PATH + "/expensecategories";
-	String EXPENSE_CATEGORY_PATH = "/expensecategory/{uuid}";
+	String EXPENSE_CATEGORIES_PATH = AUTHENTICATION_PATH + "/expense-categories";
 
-	String PRODUCT_CATEGORIES_PATH = AUTHENTICATION_PATH + "/productcategories";
-
-	String STOCK_TAKE_ITEMS_PATH = AUTHENTICATION_PATH + "/stocktake";
-	String STOCK_TAKE_ITEM_PATH = "/stocktake/{uuid}";
-
-	String ENTITY_PROCESS_PATH = "/{uuid}/process/{processType}";
-	String ENTITY_SAVE_AND_PROCESS_PATH = "/process/{processType}";
+	String PRODUCT_CATEGORIES_PATH = AUTHENTICATION_PATH + "/product-categories";
 
 	String VISITS_PATH = AUTHENTICATION_PATH + "/visits";
-	String VISIT_QUEUE_PATH = "/visitqueue";
-	String VISIT_OPEN_DRAFTS = "/opendrafts";
+	String VISIT_QUEUE_PATH = "/queue";
+	String VISIT_OPEN_DRAFTS = "/open-drafts";
 	String VISIT_OPEN_DRAFTS_COUNT = VISIT_OPEN_DRAFTS + "/count";
 
 	String PAYMENTS_PATH = AUTHENTICATION_PATH + "/payments";
 
 	String METADATA_PATH = AUTHENTICATION_PATH + "/metadata";
 
-	String RECEIVE_PRODUCTS_PATH = AUTHENTICATION_PATH + "/receiveproducts";
+	String RECEIVE_PRODUCTS_PATH = AUTHENTICATION_PATH + "/receive-products";
 
 	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
 
 	String ACCOUNTS_PATH = AUTHENTICATION_PATH + "/accounts";
-	String ACCOUNTS_UUID_PATH = "/account/{uuid}";
 
 	String USERS_PATH = AUTHENTICATION_PATH + "/users";
 	String CLINICIANS_PATH = "/clinicians";
-	String NON_ADMINS_PATH = "/nonadmins";
+	String NON_ADMINS_PATH = "/non-admins";
 
 	String APPLICATION_PDF = "application/pdf";
 
 	String REFERENCE_LISTS_PATH = AUTHENTICATION_PATH + "/reference-lists";
 	String LANGUAGES_PATH = AUTHENTICATION_PATH + "/languages";
 	
-	String CODED_DIAGNOSES_PATH = AUTHENTICATION_PATH + "/codeddiagnoses";
-	String CODED_DIAGNOSIS_PATH = "/codeddiagnosis/{uuid}";
+	String CODED_DIAGNOSES_PATH = AUTHENTICATION_PATH + "/coded-diagnoses";
 
 	String CHARGES = "/charges";
 	String CHARGE_PATH = AUTHENTICATION_PATH + "/charges";
-	String NON_PATIENT_PAYMENTS_PATH = "/nonpatientpayments";
-	String CHARGE_INFORMATION_SUGGESTION_PATH = AUTHENTICATION_PATH + "/chargeInformationSuggestions";
+	String NON_PATIENT_PAYMENTS_PATH = "/non-patient-payments";
+	String CHARGE_INFORMATION_SUGGESTION_PATH = AUTHENTICATION_PATH + "/charge-information-suggestions";
 
-	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/businessPartners";
+	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/business-partners";
 	
-	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/voidedreasons";
+	String VOIDED_REASONS_PATH = AUTHENTICATION_PATH + "/voided-reasons";
 	
 	String WAREHOUSES_PATH = AUTHENTICATION_PATH + "/warehouses";
-	String WAREHOUSE_PATH = "/warehouse/{uuid}";
 	
 	String MOVEMENTS_PATH = AUTHENTICATION_PATH + "/movements";
 
@@ -103,7 +77,6 @@ public interface IRestConfigs {
 	String QUERY_PARAMETER_SIZE = "size";
 	String QUERY_PARAMETER_SORTING = "sorting";
 	String QUERY_PARAMETER_FILTER = "filter";
-	String QUERY_PARAMETER_VALUE = "value";
 	
 	String STORAGE_ON_HAND_PATH = AUTHENTICATION_PATH + "/storage-on-hand";
 	

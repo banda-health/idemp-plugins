@@ -210,11 +210,7 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			return;
 		}
 
-		Object generatedPatientId = QueryUtil.generateNextBHPatientId();
-		if (generatedPatientId == null || generatedPatientId instanceof String) {
-			return;
-		}
-
+		Object generatedPatientId = QueryUtil.generateNextBHPatientId(patient);
 		patient.setBH_PatientID(String.valueOf(generatedPatientId));
 	}
 }

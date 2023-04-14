@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.bandahealth.idempiere</groupId>
 	<version>7.1.0-SNAPSHOT</version>
-	<artifactId>org.bandahealth.idempiere.plugins</artifactId>
+	<artifactId>org.bandahealth.idempiere</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -169,12 +169,39 @@
 			</plugin>
 
 			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${maven-clean-plugin.version}</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${idempiere.home.dir}/migration/local_sql</directory>
+						</fileset>
+						<fileset>
+							<directory>${idempiere.home.dir}/migration/zip_2pack</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/data</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/migration</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/plugins</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.basedir}/testing/reports</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.2.0</version>
 				<executions>
 					<execution>
-						<id>copy-jars</id>
+						<id>copy-data-for-testing</id>
 						<phase>pre-integration-test</phase>
 						<goals>
 							<goal>copy-resources</goal>
@@ -184,6 +211,51 @@
 							<resources>
 								<resource>
 									<directory>${project.basedir}/data</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-data-for-idempiere</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${idempiere.home.dir}/data</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/data</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-migrations-for-testing</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/testing/migration</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/migration</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-migrations-for-idempiere</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${idempiere.home.dir}/migration</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/migration</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -214,42 +286,18 @@
 		            <url>http://repo.jenkins-ci.org/releases</url>
 	            </repository>
 			</repositories>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho.version}</version>
-						<configuration>
-							<environments>
-								<environment>
-									<os>linux</os>
-									<ws>gtk</ws>
-									<arch>x86_64</arch>
-								</environment>
-								<environment>
-									<os>win32</os>
-									<ws>win32</ws>
-									<arch>x86_64</arch>
-								</environment>
-							</environments>
-							<executionEnvironmentDefault>JavaSE-11</executionEnvironmentDefault>
-							<executionEnvironment>JavaSE-11</executionEnvironment>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 	    </profile>
 	</profiles>
 
 	<modules>
 		<module>chuck-test-framework</module>
-		<module>idemp-base</module>
-		<module>idemp-base-editor</module>
-		<module>idemp-base-test</module>
-		<module>idemp-reports-test</module>
-		<module>idemp-webui</module>
-		<module>idemp-rest</module>
-		<module>idemp-rest-test</module>
+		<module>base</module>
+		<module>base-editor</module>
+		<module>base-test</module>
+		<module>reports</module>
+		<module>reports-test</module>
+		<module>webui</module>
+		<module>rest</module>
+		<module>rest-test</module>
 	</modules>
 </project>

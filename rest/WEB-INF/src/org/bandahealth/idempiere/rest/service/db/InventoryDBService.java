@@ -4,6 +4,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -22,7 +23,6 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -115,9 +115,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 
 	@Override
 	public List<Inventory> transformData(List<MInventory_BH> dbModels) {
-		if (dbModels == null || dbModels.isEmpty()) {
-			return new ArrayList<>();
-		}
 		// Get ids to batch
 		Set<Integer> inventoryIds = dbModels.stream().map(MInventory_BH::get_ID).collect(Collectors.toSet());
 		Set<Integer> warehouseIds = dbModels.stream().map(MInventory_BH::getM_Warehouse_ID).collect(Collectors.toSet());
@@ -190,5 +187,10 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 	@Override
 	protected String getDocumentTypeName() {
 		return DOCUMENTNAME_PHYSICAL_INVENTORY;
+	}
+
+	@Override
+	int getDocumentProcessId() {
+		return MProcess_BH.PROCESSID_PROCESS_INVENTORY_COUNT;
 	}
 }

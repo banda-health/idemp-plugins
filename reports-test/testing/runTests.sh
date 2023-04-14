@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-touch .unhealthy
-
 [ -f "testResults.txt" ] && rm testResults.txt
 # Send the SOAP request to run the tests
 wget "${IDEMPIERE_ENDPOINT}/ADInterface/services/ModelADService" --post-file=request.xml -O testResults.xml >/dev/null 2>&1
@@ -13,7 +11,7 @@ if [[ -f "testResults.xml" ]]; then
 
   # Set the file header
   echo "++++++++++++++++++++++++++++++++++" >testResults.txt
-  echo "idemp-reports Tests" >>testResults.txt
+  echo "reports Tests" >>testResults.txt
   echo "++++++++++++++++++++++++++++++++++" >>testResults.txt
 
   xmllint --xpath 'string(//*[name()="soap:Envelope"]/*[name()="soap:Body"]/*[name()="ns1:runProcessResponse"]/*[local-name()="RunProcessResponse"]/*[local-name()="Summary"])' testResults.xml >>testResults.txt
@@ -33,7 +31,6 @@ else
   echo "There was an error submitting the test SOAP request"
 fi
 
-echo "Finished tests!"
 cat testResults.txt
 
 psql -c "select case when description = 'Error' then 'FAIL' else 'PASS' end as status, name as test_suite, round(executiontime / 1000, 3) as \"execution_time [s]\", case when description = 'Error' then note end as result from chuboe_populateresponse where lower(classname) like 'org.bandahealth.idempiere.report.test%' order by created"
@@ -41,6 +38,3 @@ psql -c "select case when description = 'Error' then 'FAIL' else 'PASS' end as s
 if ! grep -q "Success!!" testResults.txt; then
   exit 1
 fi
-
-rm .unhealthy
-exec "$@"

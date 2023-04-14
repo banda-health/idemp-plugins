@@ -367,7 +367,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
 			String filterJson, String joinClause, boolean shouldUseContextClientId) {
 		try {
-			List<T> results = new ArrayList<>();
 			if (parameters == null) {
 				parameters = new ArrayList<>();
 			}
@@ -416,14 +415,17 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
-			
+
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 			List<S> entities = getTranslations(query.list());
 
-			results = transformData(entities);
+			List<T> results = new ArrayList<>();
+			if (entities != null) {
+				results = transformData(entities);
+			}
 
-			return new BaseListResponse<T>(results, pagingInfo);
+			return new BaseListResponse<>(results, pagingInfo);
 
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -628,9 +630,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return The transformed data into idemp-rest models
 	 */
 	public List<T> transformData(List<S> dbModels) {
-		if (dbModels != null && !dbModels.isEmpty()) {
-			return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
-		}
-		return new ArrayList<>();
+		return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
 	}
 }

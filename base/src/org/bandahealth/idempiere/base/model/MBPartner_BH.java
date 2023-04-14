@@ -74,7 +74,7 @@ public class MBPartner_BH extends MBPartner {
 	
 	/** Column name BH_Local_PatientID */
 	public static final String COLUMNNAME_BH_Local_PatientID = "BH_Local_PatientID";
-
+	
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
 	}

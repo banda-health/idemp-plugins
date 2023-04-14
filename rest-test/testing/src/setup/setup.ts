@@ -4,7 +4,7 @@ import { join } from 'path';
 import { authenticationApi, initialLoginData } from '../api';
 import { Authentication } from '../types/org.bandahealth.idempiere.rest';
 
-const workingDirectory = join(tmpdir(), 'idemp-rest-global-setup');
+const workingDirectory = join(tmpdir(), 'rest-global-setup');
 const clientName = process.env.IDEMPIERE_REST_TEST_CLIENT || 'Rest Test Client';
 
 export default async function () {

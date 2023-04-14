@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.rest.service.impl;
 import org.bandahealth.idempiere.base.model.MBHBPartnerCharge;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerCharge;
+import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerChargeDBService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerDBService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 @Path(IRestConfigs.BUSINESS_PARTNER_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class BusinessPartnerRestService {
+public class BusinessPartnerRestService extends BaseRestService<BusinessPartner, MBPartner_BH, BusinessPartnerDBService> {
 	@Autowired
 	private BusinessPartnerChargeDBService businessPartnerChargeDBService;
 	@Autowired
@@ -80,5 +82,10 @@ public class BusinessPartnerRestService {
 		businessPartnerCharge.setUuid(businessPartnerChargeUuid);
 		businessPartnerCharge.setBusinessPartnerId(businessPartner.getC_BPartner_ID());
 		return businessPartnerChargeDBService.saveEntity(businessPartnerCharge);
+	}
+
+	@Override
+	protected BusinessPartnerDBService getDBService() {
+		return businessPartnerDBService;
 	}
 }

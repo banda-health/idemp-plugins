@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DepartmentCollectionDetail" language="groovy" pageWidth="540" pageHeight="802" whenNoDataType="NoDataSection" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1830272f-5b5f-44f5-ba3b-a20e5380986e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgre Idemp"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="beginDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="departmentId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_ORG_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+    product.name as Item,
+    COALESCE(outgoing_stock.qty, (0)::numeric) AS Count,
+    COALESCE(outgoing_stock.price, (0)::numeric) AS Amount
+   FROM (m_product product
+     INNER JOIN
+     (
+       SELECT col.m_product_id,
+            sum(col.qtyinvoiced) AS qty,
+            sum((col.priceentered * col.qtyinvoiced)) AS price
+       FROM c_orderline col
+              where col.qtyinvoiced > 0
+              and (col.updated::date between $P{beginDate} AND $P{endDate})
+              and col.m_warehouse_id = $P{departmentId}
+       GROUP BY col.m_product_id) outgoing_stock ON ((product.m_product_id = outgoing_stock.m_product_id)))]]>
+	</queryString>
+	<field name="Item" class="java.lang.String"/>
+	<field name="Count" class="java.lang.Long"/>
+	<field name="Amount" class="java.math.BigDecimal"/>
+	<variable name="runningTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Amount}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{Amount}]]></initialValueExpression>
+	</variable>
+	<variable name="countTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Count}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="amountTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Amount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="265" height="16" uuid="10786d67-c525-4fab-9b8c-b3b47ae5f901"/>
+				<textFieldExpression><![CDATA[$F{Item}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="265" y="0" width="75" height="16" uuid="2dfaca2b-bc53-4c03-a098-764fcfe42e66"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{Count}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="340" y="0" width="100" height="16" uuid="1199cd76-3096-4efc-817d-214dfc7982fe"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="440" y="0" width="100" height="16" uuid="a97ba823-ce46-4c86-8655-e8d7690209f4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{runningTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<textField pattern="#,##0">
+				<reportElement x="440" y="4" width="100" height="16" uuid="a97ba823-ce46-4c86-8655-e8d7690209f4"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{runningTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="4" width="75" height="16" uuid="130489fd-d61d-4dd5-b6dc-8d61e24ba845"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{countTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="165" y="4" width="100" height="16" uuid="f35521de-6209-4bc5-9e3d-8e2fb0b89b74"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="225" y="0" width="315" height="1" uuid="0f2e8b35-ba78-41f2-b0c4-3f63d41316de"/>
+			</line>
+		</band>
+	</summary>
+	<noData>
+		<band height="16">
+			<staticText>
+				<reportElement x="0" y="0" width="285" height="14" uuid="ecb5b1c1-d131-4011-b7b7-ad58372b4ef9"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No Department Collections]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>
