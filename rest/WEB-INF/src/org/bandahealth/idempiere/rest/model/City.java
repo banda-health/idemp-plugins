@@ -1,13 +1,10 @@
 package org.bandahealth.idempiere.rest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.compiere.model.MCity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "city")
 @JsonInclude(value = Include.NON_NULL)
 public class City extends BaseMetadata {
 

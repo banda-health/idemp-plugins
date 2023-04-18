@@ -1,13 +1,10 @@
 package org.bandahealth.idempiere.rest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.compiere.model.MImage;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "image")
 @JsonInclude(value = Include.NON_NULL)
 public class Image extends BaseEntity {
 

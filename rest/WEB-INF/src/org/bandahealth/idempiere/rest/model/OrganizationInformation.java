@@ -1,15 +1,12 @@
 package org.bandahealth.idempiere.rest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "orginfo")
 @JsonInclude(value = Include.NON_NULL)
-public class OrganizationInfo extends BaseMetadata {
+public class OrganizationInformation extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 
 	private String receiptFooterMessage;
@@ -20,10 +17,10 @@ public class OrganizationInfo extends BaseMetadata {
 	private String paymentInformation;
 	private Location location;
 
-	public OrganizationInfo() {
+	public OrganizationInformation() {
 	}
 	
-	public OrganizationInfo(MOrgInfo_BH instance) {
+	public OrganizationInformation(MOrgInfo_BH instance) {
 		super(instance);
 		
 		this.receiptFooterMessage = instance.getReceiptFooterMsg();

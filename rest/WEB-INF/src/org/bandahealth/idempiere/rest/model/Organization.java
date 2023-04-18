@@ -21,7 +21,7 @@ public class Organization extends BaseEntity {
 
 	private List<Warehouse> warehouses = new ArrayList<>();
 
-	private OrganizationInfo organizationInfo;
+	private OrganizationInformation organizationInformation;
 
 	public Organization() {
 	}
@@ -48,11 +48,11 @@ public class Organization extends BaseEntity {
 		this.warehouses = warehouses;
 	}
 
-	public OrganizationInfo getOrganizationInfo() {
-		return organizationInfo;
+	public OrganizationInformation getOrganizationInformation() {
+		return organizationInformation;
 	}
 
-	public void setOrganizationInfo(OrganizationInfo organizationInfo) {
-		this.organizationInfo = organizationInfo;
+	public void setOrganizationInformation(OrganizationInformation organizationInformation) {
+		this.organizationInformation = organizationInformation;
 	}
 }

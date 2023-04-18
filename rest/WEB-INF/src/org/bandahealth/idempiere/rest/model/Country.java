@@ -1,11 +1,8 @@
 package org.bandahealth.idempiere.rest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "country")
 @JsonInclude(value = Include.NON_NULL)
 public class Country extends BaseEntity {
 

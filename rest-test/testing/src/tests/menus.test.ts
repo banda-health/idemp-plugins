@@ -34,4 +34,5 @@ test('correct menu names are returned', async () => {
 	expect(backEndMenu?.subMenus.find((menu) => menu.name === 'Diagnoses')).not.toBeUndefined();
 	expect(backEndMenu?.subMenus.find((menu) => menu.name === 'Suppliers')).not.toBeUndefined();
 	expect(backEndMenu?.subMenus.find((menu) => menu.name === 'Manage Users')).not.toBeUndefined();
+	expect(backEndMenu?.subMenus.find((menu) => menu.name === 'Facility Information')).not.toBeUndefined();
 });
