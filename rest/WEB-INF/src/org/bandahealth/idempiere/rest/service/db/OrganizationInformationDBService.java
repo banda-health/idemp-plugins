@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -12,20 +12,20 @@ import org.bandahealth.idempiere.rest.model.Image;
 import org.bandahealth.idempiere.rest.model.Location;
 import org.bandahealth.idempiere.rest.model.OrganizationInformation;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.ImageFileStorageImpl;
 import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
-import org.compiere.model.MStorageProvider;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrganizationInformationDBService extends BaseDBService<OrganizationInformation, MOrgInfo_BH> {
-
-	private MStorageProvider imageProvider;
-	private ImageFileStorageImpl fileStorage;
+	@Autowired
+	private LocationDBService locationDBService;
+	@Autowired
+	private ImageDBService imageDBService;
 
 	/**
 	 * Updates the OrganizationInfo object that's nested in Organization.
@@ -34,8 +34,8 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 	@Override
 	public OrganizationInformation saveEntity(OrganizationInformation entity) {
 		// get organization information
-		MOrgInfo_BH organizationInfo = new Query(Env.getCtx(), MOrg.Table_Name, MOrgInfo_BH.COLUMNNAME_AD_OrgInfo_UU + " =?", null)
-				.setParameters(entity.getUuid()).first();
+		MOrgInfo_BH organizationInfo = new Query(Env.getCtx(), MOrg.Table_Name,
+				MOrgInfo_BH.COLUMNNAME_AD_OrgInfo_UU + " =?", null).setParameters(entity.getUuid()).first();
 		if (organizationInfo == null) {
 			throw new AdempiereException("Missing organization information.");
 		}
@@ -66,46 +66,18 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 			// set location
 			Location locationEntity = entity.getLocation();
 			if (locationEntity != null) {
-				MLocation location = MLocation.get(Env.getCtx(), organizationInfo.getC_Location_ID(), null);
-				if (location == null) {
-					location = new MLocation(Env.getCtx(), 0, null);
-				}
-
-				if (StringUtil.isNotNullAndEmpty(locationEntity.getAddress1())) {
-					location.setAddress1(locationEntity.getAddress1());
-				}
-
-				if (StringUtil.isNotNullAndEmpty(locationEntity.getAddress2())) {
-					location.setAddress2(locationEntity.getAddress2());
-				}
-
-				if (StringUtil.isNotNullAndEmpty(locationEntity.getAddress3())) {
-					location.setAddress3(locationEntity.getAddress3());
-				}
-
-				location.saveEx();
-
+				locationEntity = locationDBService.saveEntity(locationEntity);
+				MLocation location = new Query(Env.getCtx(), MLocation.Table_Name,
+						MLocation.COLUMNNAME_C_Location_UU + " =?", null).setParameters(locationEntity.getUuid())
+								.first();
 				organizationInfo.setC_Location_ID(location.get_ID());
 			}
 
 			// set logo
-			if (entity.getLogo() != null
-					&& StringUtil.isNotNullAndEmpty(entity.getLogo().getBinaryData())) {
-				Image imageEntity = entity.getLogo();
-
+			if (entity.getLogo() != null && StringUtil.isNotNullAndEmpty(entity.getLogo().getBinaryData())) {
+				Image imageEntity = imageDBService.saveEntity(entity.getLogo());
 				MImage image = new Query(Env.getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + " =?", null)
 						.setParameters(imageEntity.getUuid()).first();
-				if (image == null) {
-					image = new MImage(Env.getCtx(), 0, null);
-					image.saveEx(); // an existing image is required inorder to save the image in the file storage.
-				}
-
-				image.setName(imageEntity.getName());
-
-				getFileStorage().save(image, getImageProvider(),
-						Base64.getDecoder().decode(imageEntity.getBinaryData()));
-
-				image.saveEx();
 
 				organizationInfo.setLogo_ID(image.get_ID());
 			}
@@ -138,26 +110,28 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 
 	@Override
 	public List<OrganizationInformation> transformData(List<MOrgInfo_BH> dbModels) {
+		// Batch call to get images
+		Map<Integer, MImage> imagesById = imageDBService
+				.getByIds(dbModels.stream().map(MOrgInfo_BH::getLogo_ID).collect(Collectors.toSet()));
+
+		// Batch call to get locations
+		Map<Integer, MLocation> locationsById = locationDBService
+				.getByIds(dbModels.stream().map(MOrgInfo_BH::getC_Location_ID).collect(Collectors.toSet()));
+
 		return dbModels.stream().map(mOrganizationInformation -> {
 			OrganizationInformation organizationInfo = new OrganizationInformation(mOrganizationInformation);
-			if (mOrganizationInformation.getLogo_ID() > 0) {	
-				MImage mImage = MImage.get(Env.getCtx(), mOrganizationInformation.getLogo_ID());
-				Image image = new Image(mImage);
-				try {
-					// load image from drive and encode to string.
-					byte[] imageBytes = getFileStorage().load(mImage, getImageProvider());
-					if (imageBytes != null) {
-						image.setBinaryData(Base64.getEncoder().encodeToString(imageBytes));
-						organizationInfo.setLogo(image);
-					}
-				} catch (Exception ex) {
-					log.severe(ex.getMessage());
-				}
+			if (mOrganizationInformation.getLogo_ID() > 0) {
+				Image image = imageDBService
+						.transformData(Collections.singletonList(imagesById.get(mOrganizationInformation.getLogo_ID())))
+						.get(0);
+				organizationInfo.setLogo(image);
 			}
 
 			if (mOrganizationInformation.getC_Location_ID() > 0) {
-				MLocation mLocation = MLocation.get(Env.getCtx(), mOrganizationInformation.getC_Location_ID(), null);
-				organizationInfo.setLocation(new Location(mLocation));
+				Location location = locationDBService.transformData(
+						Collections.singletonList(locationsById.get(mOrganizationInformation.getC_Location_ID())))
+						.get(0);
+				organizationInfo.setLocation(location);
 			}
 
 			return organizationInfo;
@@ -168,25 +142,5 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 	@Override
 	protected MOrgInfo_BH getModelInstance() {
 		return new MOrgInfo_BH(Env.getCtx(), null, null);
-	}
-
-	private MStorageProvider getImageProvider() {
-		if (imageProvider != null) {
-			return imageProvider;
-		}
-
-		imageProvider = new Query(Env.getCtx(), MStorageProvider.Table_Name,
-				MStorageProvider.COLUMNNAME_AD_StorageProvider_UU + " =?", null)
-						.setParameters(MOrgInfo_BH.LOGO_STORAGEPROVIDER_UU).first();
-
-		return imageProvider;
-	}
-
-	private ImageFileStorageImpl getFileStorage() {
-		if (fileStorage != null) {
-			return fileStorage;
-		}
-
-		return fileStorage = new ImageFileStorageImpl();
 	}
 }

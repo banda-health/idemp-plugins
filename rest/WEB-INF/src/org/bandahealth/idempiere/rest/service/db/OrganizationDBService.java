@@ -9,12 +9,14 @@ import org.bandahealth.idempiere.rest.model.Organization;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 
-	private OrganizationInformationDBService organizationInformationDBService = new OrganizationInformationDBService();
+	@Autowired
+	private OrganizationInformationDBService organizationInformationDBService;
 
 	/**
 	 * Updates the OrganizationInfo object that's nested in Organization. Updating
