@@ -48,61 +48,66 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="AD_ORG_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
-			<![CDATA[WITH inventory_changes AS (
+			<![CDATA[WITH product_costs AS (
 	SELECT
 		m_product_id,
 		purchase_price,
 		purchase_date,
-		ROW_NUMBER() OVER (PARTITION BY m_product_id ORDER BY purchase_date DESC) AS rownum
+				ROW_NUMBER()
+				OVER (PARTITION BY m_product_id ORDER BY COALESCE(purchase_date, '-infinity'::timestamp) DESC) AS rownum
 	FROM
-		get_inventory_changes($P{AD_CLIENT_ID})
-        GROUP BY m_product_id,purchase_price,purchase_date
+		get_product_costs($P{AD_CLIENT_ID})
+	GROUP BY m_product_id, purchase_price, purchase_date
 )
 SELECT
-	p.name                           AS drugName,
-	purchase_price                   AS buyingPrice,
-	productSP.SalesPrice             AS sellingPrice,
-	COALESCE(productqty.quantity, 0) AS current_qty
+	p.name                      AS drugName,
+	COALESCE(purchase_price, 0) AS buyingPrice,
+	productSP.SalesPrice        AS sellingPrice,
+	COALESCE(q.total_qty, 0)    AS current_qty
 FROM
 	m_product p
-		JOIN inventory_changes ic
-			ON p.m_product_id = ic.m_product_id
+		LEFT JOIN product_costs pc
+			ON p.m_product_id = pc.m_product_id AND pc.rownum = 1
 		LEFT JOIN
 		(
 			SELECT
-				productPrice.m_product_id,
-				productPrice.pricestd AS SalesPrice
+				pp.m_product_id,
+				pp.pricestd                                                                   AS SalesPrice,
+						ROW_NUMBER() OVER (PARTITION BY pp.m_product_id ORDER BY pp.created DESC) AS rownum
 			FROM
-				m_pricelist priceList
-					INNER JOIN m_pricelist_version priceListVersion
-						ON priceList.m_pricelist_id = priceListVersion.m_pricelist_id
-					INNER JOIN m_productprice productPrice
-						ON priceListVersion.m_pricelist_version_id = productPrice.m_pricelist_version_id
+				m_pricelist pl
+					INNER JOIN m_pricelist_version plv
+						ON pl.m_pricelist_id = plv.m_pricelist_id
+					INNER JOIN m_productprice pp
+						ON plv.m_pricelist_version_id = pp.m_pricelist_version_id
 			WHERE
-				priceList.issopricelist = 'Y'
-				AND priceList.isdefault = 'Y'
+				pl.issopricelist = 'Y'
+				AND pl.isdefault = 'Y'
 		) AS productSP
-				ON p.m_product_id = productSP.m_product_id
-		LEFT JOIN
-		(
-			SELECT
-				t.m_product_id,
-				SUM(t.qtyonhand) AS quantity
-			FROM
-				m_storageonhand t
-					LEFT JOIN m_attributesetinstance m
-						ON m.m_attributesetinstance_id = t.m_attributesetinstance_id
-			WHERE
-				t.ad_client_id = $P{AD_CLIENT_ID}
-				AND (m.guaranteedate IS NULL OR m.guaranteedate >= CURRENT_DATE)
-				AND t.isactive = 'Y'
-			GROUP BY
-				t.m_product_id
-		) AS productqty
-				ON p.m_product_id = productqty.m_product_id
+				ON p.m_product_id = productSP.m_product_id and productSP.rownum = 1
+		LEFT JOIN (
+		SELECT
+			soh.m_product_id,
+			SUM(soh.qtyonhand) AS total_qty
+		FROM
+			m_storageonhand soh
+				JOIN m_attributesetinstance asi
+					ON soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
+				JOIN m_product p
+					ON soh.m_product_id = p.m_product_id
+				JOIN m_attributeset attrs
+					ON p.m_attributeset_id = attrs.m_attributeset_id
+		WHERE
+			attrs.m_attributeset_id = asi.m_attributeset_id
+			AND ((attrs.isguaranteedate = 'Y' AND asi.guaranteedate >= CURRENT_DATE)
+			OR (attrs.isguaranteedate = 'N' AND asi.guaranteedate IS NULL))
+		GROUP BY soh.m_product_id
+	) q
+			ON p.m_product_id = q.m_product_id
 WHERE
-	ic.purchase_price IS NOT NULL
-	AND ic.rownum = 1
+	p.isactive = 'Y'
+	AND p.ad_client_id = $P{AD_CLIENT_ID}
+	AND p.producttype = 'I'
 ORDER BY
 	p.name;]]>
 		</queryString>
@@ -162,7 +167,7 @@ from ad_org org
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[UPPER("Product and Prices Report ") ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[UPPER("Product and Prices Report")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="110" width="730" height="18" uuid="b30479cc-0eed-4498-8e26-45d0b88fbac3"/>

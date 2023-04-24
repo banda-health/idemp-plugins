@@ -320,7 +320,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
 
 			int totalsRowIndex = -1;
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
@@ -366,7 +366,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int amountPaidColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Amount Paid");
 			patientNameColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Patient Name");
 			headerRowIndex = TableUtils.getIndexOfRow(sheet, outstandingBalanceHeaderRow);
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell amountPaidCell = row.getCell(amountPaidColumnIndex);
@@ -477,7 +477,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
 			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
 
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
@@ -516,7 +516,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
 			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
 
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
@@ -556,7 +556,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalReceivedColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Received");
 			int differenceColumnIndex = TableUtils.getColumnIndex(headerRow, "Difference");
 
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell cashierNameCell = row.getCell(cashierNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
