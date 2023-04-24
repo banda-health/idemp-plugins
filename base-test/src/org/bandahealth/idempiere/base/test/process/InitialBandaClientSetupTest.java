@@ -330,17 +330,11 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 					"Business Partner Groups were created");
 			
 			// Assert patient number sequence is created
-			MSequence_BH configurationPatientNumberSequence = new Query(valueObject.getContext(), 
-					MSequence_BH.Table_Name, 
-					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
-				.setParameters(MClient_BH.CLIENTID_CONFIG, MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
-			
 			MSequence_BH clientPatientNumberSequence = new Query(valueObject.getContext(), 
 					MSequence_BH.Table_Name, 
 					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
 				.setParameters(client.get_ID(), MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
-			
-			assertEquals(configurationPatientNumberSequence.getName(), clientPatientNumberSequence.getName(), "Patient Sequence was created");
+			assertEquals(MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX, clientPatientNumberSequence.getName(), "Patient Sequence was created");
 		} finally {
 			// PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...

@@ -8,8 +8,14 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="573"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="417"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="style1" fontName="Courier New" fontSize="12"/>
 	<parameter name="billId" class="java.math.BigDecimal"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -374,7 +380,7 @@ where sorder.c_order_id = $P{billId}
 		</band>
 		<band height="23" splitType="Stretch">
 			<subreport isUsingCache="false">
-				<reportElement key="" x="0" y="0" width="161" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
+				<reportElement key="" x="0" y="0" width="162" height="18" uuid="43fd8c34-ad1b-4f84-a082-d22f749fe009"/>
 				<subreportParameter name="billId">
 					<subreportParameterExpression><![CDATA[$P{billId}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -385,7 +391,7 @@ where sorder.c_order_id = $P{billId}
 		</band>
 		<band height="21">
 			<subreport>
-				<reportElement key="" x="0" y="-5" width="161" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
+				<reportElement key="" x="0" y="-5" width="162" height="21" uuid="1e6ea689-e420-4b4e-b7a9-fe9cf5da9b91"/>
 				<subreportParameter name="totalCost">
 					<subreportParameterExpression><![CDATA[$V{totalCost}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -396,7 +402,7 @@ where sorder.c_order_id = $P{billId}
 					<subreportParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<returnValue subreportVariable="Outstanding" toVariable="totalPayment"/>
+				<returnValue subreportVariable="totalPayments" toVariable="totalPayment"/>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Outpatient Thermal Receipt Payments.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
@@ -404,6 +410,14 @@ where sorder.c_order_id = $P{billId}
 	<summary>
 		<band height="75">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+			<staticText>
+				<reportElement x="0" y="0" width="120" height="15" uuid="7845820c-3b05-4969-8b9c-75e5d1163e5f"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Outstanding previous visit:]]></text>
+			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement key="" x="0" y="43" width="162" height="24" uuid="d5be11a0-03ed-4ed1-a195-13f11eb806e9">
 					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
@@ -415,29 +429,23 @@ where sorder.c_order_id = $P{billId}
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receiptfooter}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
-				<reportElement x="113" y="0" width="49" height="15" uuid="4c05bb13-9d84-4c95-aa50-dba44fbcad84"/>
+			<textField pattern="#,##0.###;(-#,##0.###)" isBlankWhenNull="true">
+				<reportElement x="120" y="0" width="42" height="15" uuid="4c05bb13-9d84-4c95-aa50-dba44fbcad84">
+					<printWhenExpression><![CDATA[($F{totalopenbalance}.compareTo(BigDecimal.ZERO) >= 0)]]></printWhenExpression>
+				</reportElement>
 				<box topPadding="1" rightPadding="2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{totalopenbalance}.subtract($V{totalPayment}).abs()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalopenbalance}.subtract($V{totalCost}.compareTo($V{totalPayment}) > 0 ? $V{totalCost}.subtract($V{totalPayment}) : BigDecimal.ZERO)]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="0" width="150" height="15" uuid="7845820c-3b05-4969-8b9c-75e5d1163e5f"/>
-				<box leftPadding="2"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<text><![CDATA[Outstanding previous visit:]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="0" y="27" width="113" height="16" uuid="e6ff2a0f-20f8-4ad1-a900-e90d4e0deb9d"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Outsanding:]]></text>
+				<text><![CDATA[Total Outstanding:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="-1" y="20" width="164" height="1" uuid="00019a21-6556-4884-9970-491e0e9e5abb"/>
@@ -452,6 +460,16 @@ where sorder.c_order_id = $P{billId}
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalopenbalance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###;(-#,##0.###)" isBlankWhenNull="false">
+				<reportElement x="120" y="0" width="42" height="15" uuid="d859c1ee-bcfe-4e7a-874c-30212ca74603">
+					<printWhenExpression><![CDATA[($F{totalopenbalance}.compareTo(BigDecimal.ZERO) < 0)]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["0"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

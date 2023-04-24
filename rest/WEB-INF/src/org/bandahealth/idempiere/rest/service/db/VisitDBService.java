@@ -155,7 +155,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			MOrder_BH order = getEntityByUuidFromDB(uuid);
 			order.set_TrxName(processVisitTransaction.getTrxName());
 			order.setDocAction(docAction);
-			ModelUtil.processDocumentOrError(order, docAction);
+			ModelUtil.processDocumentOrError(getDocumentProcessId(), order, docAction);
 
 			List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
 							paymentDBService.getPaymentsByOrderId(order.get_ID()).stream().map(Payment::getUuid)
@@ -172,7 +172,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				for (MPayment_BH payment : existingUnfinalizedPayments) {
 					MPayment_BH newPayment = payment.copy();
 					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
-					ModelUtil.processDocumentOrError(payment, MPayment_BH.DOCACTION_Reverse_Accrual);
+					ModelUtil.processDocumentOrError(paymentDBService.getDocumentProcessId(), payment,
+							MPayment_BH.DOCACTION_Reverse_Accrual);
 
 					newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
 					newPayment.setBH_C_Order_ID(order.get_ID());
@@ -181,7 +182,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			} else {
 				for (MPayment_BH payment : existingUnfinalizedPayments) {
 					payment.setDocAction(docAction);
-					ModelUtil.processDocumentOrError(payment, docAction);
+					ModelUtil.processDocumentOrError(paymentDBService.getDocumentProcessId(), payment, docAction);
 				}
 			}
 			if (!processVisitTransaction.commit(true)) {
@@ -631,8 +632,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	 * Get Open Visits
 	 *
 	 * @param pagingInfo
-	 * @param sortColumn
-	 * @param sortOrder
+	 * @param sortJson
 	 * @return
 	 */
 	public BaseListResponse<Visit> getOpenVisitDrafts(Paging pagingInfo, String sortJson) {

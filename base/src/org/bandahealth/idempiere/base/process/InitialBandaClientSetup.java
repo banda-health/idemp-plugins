@@ -257,11 +257,6 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default business partners failed"));
 			}
-			
-			if (!bandaSetup.createDefaultPatientNumberSequence()) {
-				rollback(bandaSetup);
-				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default patient number sequence failed"));
-			}
 
 			if (!bandaSetup.finish()) {
 				rollback(bandaSetup);

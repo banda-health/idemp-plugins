@@ -120,7 +120,9 @@ public class OrderModelEvent extends AbstractEventHandler {
 			return;
 		}
 		// "Void" the material receipt as well
-		materialReceipt.processIt(MInOut.ACTION_Void);
+		if (!materialReceipt.processIt(MInOut.ACTION_Reverse_Accrual)) {
+			throw new AdempiereException(materialReceipt.getProcessMsg());
+		}
 		// Since processing an entity doesn't save it, now save it
 		materialReceipt.saveEx();
 	}

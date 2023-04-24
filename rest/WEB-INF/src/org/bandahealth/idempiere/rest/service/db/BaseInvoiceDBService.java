@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.rest.model.*;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -160,7 +161,7 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			}
 
 			invoice.setC_DocTypeTarget_ID(docTypeId);
-			
+
 			invoice.saveEx();
 
 			// list of persisted invoice line ids
@@ -242,5 +243,10 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 		}
 
 		return super.saveAndProcessEntity(entity, docAction);
+	}
+
+	@Override
+	int getDocumentProcessId() {
+		return MProcess_BH.PROCESSID_PROCESS_INVOICE;
 	}
 }
