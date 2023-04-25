@@ -4,6 +4,7 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -12,6 +13,9 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.report.test.utils.TableUtils;
+import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.hamcrest.Matchers;
 
@@ -26,6 +30,7 @@ import java.util.stream.StreamSupport;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
@@ -51,7 +56,8 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create attribute set to track expirations");
-		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
 		attributeSet.setName(valueObject.getScenarioName());
 		attributeSet.setDescription(valueObject.getScenarioName());
@@ -67,7 +73,8 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create valid attribute set instance");
 		MAttributeSetInstance_BH
-				validAttributeSetInstance = new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+				validAttributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		validAttributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
 		validAttributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
 		validAttributeSetInstance.setDescription(valueObject.getScenarioName());
@@ -105,6 +112,80 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 			assertTrue(productRow.isPresent(), "Product row exists");
 			assertThat("Last Buying Price is correct", productRow.get().getCell(1).getNumericCellValue(), is(20D));
 			assertThat("Selling Price is correct", productRow.get().getCell(2).getNumericCellValue(), is(50D));
+			assertThat("Selling Price is correct", productRow.get().getCell(3).getNumericCellValue(), is(1D));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void dataDisplayedCorrectly() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create attribute set to track expirations");
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSet.setName(valueObject.getScenarioName());
+		attributeSet.setDescription(valueObject.getScenarioName());
+		attributeSet.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesStandardPrice(new BigDecimal(50));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setM_AttributeSet_ID(attributeSet.get_ID());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create valid attribute set instance");
+		MAttributeSetInstance_BH
+				validAttributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		validAttributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
+		validAttributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		validAttributeSetInstance.setDescription(valueObject.getScenarioName());
+		validAttributeSetInstance.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setAttributeSetInstance(validAttributeSetInstance);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("3edf67b9-ee3d-4b73-a02e-deb1c1811db5");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		// Get the number of products we should see on the report
+		int productCount = new Query(valueObject.getContext(), MProduct_BH.Table_Name,
+				MProduct_BH.COLUMNNAME_IsActive + "=? AND " + MProduct_BH.COLUMNNAME_ProductType + "=?",
+				valueObject.getTransactionName()).setParameters("Y", "I").setClient_ID().count();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			int reportProductCount = 0;
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Name");
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int productNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
+				if (sheet.getRow(i).getCell(productNameColumnIndex).getCellType().equals(CellType.STRING) &&
+						!sheet.getRow(i).getCell(productNameColumnIndex).getStringCellValue().isEmpty()) {
+					reportProductCount++;
+				}
+			}
+			assertEquals(productCount, reportProductCount, "All active products returned on the report");
 		}
 	}
 }

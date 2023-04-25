@@ -1,6 +1,5 @@
 DROP FUNCTION IF EXISTS get_product_costs(numeric, character varying);
-CREATE OR REPLACE FUNCTION get_product_costs(ad_client_id numeric,
-                                             m_product_ids character varying DEFAULT ''::character varying)
+CREATE FUNCTION get_product_costs(ad_client_id numeric, m_product_ids character varying DEFAULT ''::character varying)
 	RETURNS TABLE
 	        (
 		        m_product_id              numeric,
@@ -40,7 +39,7 @@ BEGIN
 			(
 				SELECT
 					p.m_product_id,
-					p_asis.m_attributesetinstance_id                                                       AS m_attributesetinstance_id,
+					COALESCE(p_asis.m_attributesetinstance_id, 0)                                          AS m_attributesetinstance_id,
 					CASE
 						WHEN p.m_attributeset_id != 0 AND p_asis.m_attributesetinstance_id = 0 THEN NULL
 						ELSE
@@ -53,7 +52,9 @@ BEGIN
 							COALESCE(price_on_reception.date_purchased, soh.datematerialpolicy, p.created) END AS purchase_date
 				FROM
 					m_product p
-						JOIN (
+						JOIN tmp_m_product_id tpi
+							ON p.m_product_id = tpi.m_product_id
+						LEFT JOIN (
 						SELECT
 							t.m_product_id,
 							t.m_attributesetinstance_id
@@ -62,7 +63,7 @@ BEGIN
 								JOIN tmp_m_product_id tpi
 									ON t.m_product_id = tpi.m_product_id
 						WHERE
-							t.ad_client_id = $1
+								t.ad_client_id = $1
 						GROUP BY t.m_product_id, t.m_attributesetinstance_id
 					) p_asis
 							ON p_asis.m_product_id = p.m_product_id
@@ -74,7 +75,7 @@ BEGIN
 						FROM
 							m_storageonhand soh
 						WHERE
-							soh.ad_client_id = $1
+								soh.ad_client_id = $1
 						GROUP BY soh.m_product_id, soh.m_attributesetinstance_id, soh.datematerialpolicy
 					) soh
 							ON p.m_product_id = soh.m_product_id AND soh.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
@@ -90,7 +91,7 @@ BEGIN
 									ol.m_product_id,
 									ol.priceactual                                                                                                    AS po_price,
 									ol.m_attributesetinstance_id,
-									o.dateordered::DATE + o.updated::TIME                                                                             AS date_purchased,
+										o.dateordered::DATE + o.updated::TIME                                                                             AS date_purchased,
 											ROW_NUMBER()
 											OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER BY o.dateordered DESC, o.updated DESC) AS rownum
 								FROM
@@ -98,13 +99,13 @@ BEGIN
 										JOIN c_order o
 											ON ol.c_order_id = o.c_order_id
 								WHERE
-									o.issotrx = 'N'
+										o.issotrx = 'N'
 									AND o.docstatus IN ('CL', 'CO')
 									AND ol.m_product_id IS NOT NULL
 									AND o.ad_client_id = $1
 							) l
 						WHERE
-							rownum = 1
+								rownum = 1
 					) AS price_on_reception
 							ON price_on_reception.m_product_id = p.m_product_id AND
 							   price_on_reception.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
@@ -122,7 +123,7 @@ BEGIN
 									ON c.m_costelement_id = ce.m_costelement_id
 								AND ce.costingmethod = actsch.costingmethod
 						WHERE
-							c.currentcostprice > 0
+								c.currentcostprice > 0
 							AND c.ad_client_id = $1
 							AND actsch.c_currency_id IN (
 							SELECT ba.c_currency_id FROM c_bankaccount ba WHERE ba.ad_client_id = $1 AND ba.isdefault = 'Y'
@@ -138,11 +139,11 @@ BEGIN
 							(
 								SELECT
 									pl.m_pricelist_id,
-									ROW_NUMBER() OVER (ORDER BY pl.created DESC) AS row_num
+											ROW_NUMBER() OVER (ORDER BY pl.created DESC) AS row_num
 								FROM
 									m_pricelist pl
 								WHERE
-									pl.issopricelist = 'N'
+										pl.issopricelist = 'N'
 									AND pl.isdefault = 'Y'
 									AND pl.isactive = 'Y'
 									AND pl.ad_client_id = $1
@@ -152,11 +153,11 @@ BEGIN
 								JOIN m_productprice pp
 									ON plv.m_pricelist_version_id = pp.m_pricelist_version_id
 						WHERE
-							pl.row_num = 1
+								pl.row_num = 1
 					) AS productPP
 							ON productPP.m_product_id = p.m_product_id
 				WHERE
-					p.ad_client_id = $1
+						p.ad_client_id = $1
 			) t
 		GROUP BY t.m_product_id, t.m_attributesetinstance_id, t.purchase_price, t.purchase_date;
 

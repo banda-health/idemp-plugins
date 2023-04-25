@@ -33,7 +33,7 @@ public class TableUtils {
 	 * @return The header row
 	 */
 	public static Row getHeaderRow(Sheet sheet, String headerRowStartingColumnText, int startingRowIndex) {
-		for (int i = startingRowIndex; i < sheet.getLastRowNum(); i++) {
+		for (int i = startingRowIndex; i <= sheet.getLastRowNum(); i++) {
 			Row row = sheet.getRow(i);
 			if (StreamSupport.stream(row.spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
@@ -74,7 +74,7 @@ public class TableUtils {
 	 */
 	public static int getIndexOfRow(Sheet sheet, Row row) {
 		int rowIndex = -1;
-		for (int i = sheet.getFirstRowNum(); i < sheet.getLastRowNum(); i++) {
+		for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
 			if (sheet.getRow(i) == row) {
 				rowIndex = i;
 				break;
