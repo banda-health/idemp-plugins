@@ -20,6 +20,8 @@ public class Location extends BaseMetadata {
 	}
 
 	public Location(MLocation instance) {
+		super(instance);
+		
 		this.address1 = instance.getAddress1();
 		this.address2 = instance.getAddress2();
 		this.address3 = instance.getAddress3();

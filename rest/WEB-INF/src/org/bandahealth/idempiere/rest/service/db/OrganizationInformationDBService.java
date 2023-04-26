@@ -34,7 +34,7 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 	@Override
 	public OrganizationInformation saveEntity(OrganizationInformation entity) {
 		// get organization information
-		MOrgInfo_BH organizationInfo = new Query(Env.getCtx(), MOrg.Table_Name,
+		MOrgInfo_BH organizationInfo = new Query(Env.getCtx(), MOrgInfo_BH.Table_Name,
 				MOrgInfo_BH.COLUMNNAME_AD_OrgInfo_UU + " =?", null).setParameters(entity.getUuid()).first();
 		if (organizationInfo == null) {
 			throw new AdempiereException("Missing organization information.");

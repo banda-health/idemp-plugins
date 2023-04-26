@@ -1,11 +1,22 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.rest.model.Image;
+import org.bandahealth.idempiere.rest.model.Location;
 import org.bandahealth.idempiere.rest.model.Organization;
+import org.bandahealth.idempiere.rest.model.OrganizationInformation;
+import org.compiere.model.MImage;
+import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -39,7 +50,7 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 		}
 
 		organizationInformationDBService.saveEntity(entity.getOrganizationInformation());
-		
+
 		return createInstanceWithAllFields(organization);
 	}
 
@@ -67,4 +78,27 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 	protected MOrg getModelInstance() {
 		return new MOrg(Env.getCtx(), 0, null);
 	}
+
+	@Override
+	public List<Organization> transformData(List<MOrg> dbModels) {
+		// Batch call to get organization information
+		Set<Integer> organizationIds = dbModels.stream().map(MOrg::get_ID).collect(Collectors.toSet());
+
+		Map<Integer, List<MOrgInfo_BH>> organizationInformationByOrganizationId = organizationInformationDBService
+				.getGroupsByIds(MOrgInfo_BH::getAD_Org_ID, MOrgInfo_BH.COLUMNNAME_AD_Org_ID, organizationIds);
+
+		return dbModels.stream().map(mOrganization -> {
+			Organization organization = new Organization(mOrganization);
+			if (organizationInformationByOrganizationId.containsKey(mOrganization.getAD_Org_ID())) {
+				organization.setOrganizationInformation(organizationInformationDBService
+						.transformData(Collections.singletonList(
+								organizationInformationByOrganizationId.get(mOrganization.getAD_Org_ID()).get(0)))
+						.get(0));
+			}
+
+			return organization;
+
+		}).collect(Collectors.toList());
+	}
+
 }
