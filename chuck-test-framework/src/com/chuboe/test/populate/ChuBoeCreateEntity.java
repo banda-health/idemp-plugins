@@ -28,18 +28,11 @@
 
 package com.chuboe.test.populate;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.adempiere.base.Core;
+import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
@@ -50,7 +43,6 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.compiere.model.MAcctSchema;
-import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MDiscountSchema;
@@ -76,12 +68,10 @@ import org.compiere.model.MSession;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
-import org.compiere.model.MWarehouse;
 import org.compiere.model.MYear;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Org;
 import org.compiere.model.X_AD_Process;
-import org.compiere.model.X_AD_User;
 import org.compiere.model.X_C_AcctSchema;
 import org.compiere.model.X_C_BankAccount;
 import org.compiere.model.X_C_Calendar;
@@ -97,6 +87,15 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ChuBoeCreateEntity {
 
@@ -402,6 +401,9 @@ public class ChuBoeCreateEntity {
 		order.setDateOrdered(valueObject.getDate());
 		order.setDatePromised(valueObject.getDate());
 		order.setIsSOTrx(valueObject.getDocumentType().isSOTrx());
+		if (valueObject.getDocumentType().isSOTrx() && valueObject.getVisit() != null) {
+			order.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		}
 		order.setBPartner(valueObject.getBusinessPartner());
 		order.setM_PriceList_ID(
 				valueObject.getDocumentType().isSOTrx() ? valueObject.getBusinessPartner().getM_PriceList_ID() :
@@ -444,6 +446,25 @@ public class ChuBoeCreateEntity {
 
 	} //create order
 
+	public static void createVisit(ChuBoePopulateVO valueObject) {
+		valueObject.validate();
+		if (valueObject.isError()) {
+			return;
+		}
+
+		//perform further validation if needed based on business logic
+		if (valueObject.getBusinessPartner() == null) {
+			valueObject.appendErrorMessage("BP is Null");
+			return;
+		}
+
+		MBHVisit visit = new MBHVisit(valueObject.getContext(), 0, valueObject.getTransactionName());
+		visit.setPatient_ID(valueObject.getBusinessPartner().get_ID());
+		visit.setBH_VisitDate(valueObject.getDate());
+		visit.saveEx();
+		valueObject.setVisit(visit);
+	} //create visit
+
 	public static void createInOut(ChuBoePopulateVO valueObject) {
 		valueObject.validate();
 		if (valueObject.isError()) {
@@ -466,7 +487,7 @@ public class ChuBoeCreateEntity {
 		}
 
 		//create inout header
-		MInOut inOut = new MInOut(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MInOut_BH inOut = new MInOut_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		inOut.setAD_Org_ID(valueObject.getOrg().get_ID());
 		inOut.setDescription(valueObject.getStepMessageLong());
 		inOut.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
@@ -478,6 +499,9 @@ public class ChuBoeCreateEntity {
 		inOut.setMovementDate(valueObject.getDate());
 		inOut.setDateAcct(valueObject.getDate());
 		inOut.setIsSOTrx(valueObject.getDocumentType().isSOTrx());
+		if (valueObject.getDocumentType().isSOTrx() && valueObject.getVisit() != null) {
+			inOut.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		}
 		inOut.setMovementType(valueObject.getDocumentType().isSOTrx() ? X_M_InOut.MOVEMENTTYPE_CustomerShipment :
 				X_M_InOut.MOVEMENTTYPE_VendorReceipts);
 
@@ -543,6 +567,9 @@ public class ChuBoeCreateEntity {
 		invoice.setC_DocType_ID(valueObject.getDocumentType().get_ID());
 		invoice.setDateInvoiced(valueObject.getDate());
 		invoice.setIsSOTrx(valueObject.getDocumentType().isSOTrx());
+		if (valueObject.getDocumentType().isSOTrx() && valueObject.getVisit() != null) {
+			invoice.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		}
 		if (valueObject.getOrder() != null) {
 			invoice.setC_Order_ID(valueObject.getOrder().get_ID());
 		}
@@ -629,10 +656,8 @@ public class ChuBoeCreateEntity {
 		} else {
 			payment.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		}
-		if (valueObject.getOrder() != null) {
-			payment.setBH_C_Order_ID(valueObject.getOrder().get_ID());
-		} else {
-			payment.setBH_C_Order_ID(0);
+		if (valueObject.getVisit() != null) {
+			payment.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		}
 
 		BigDecimal paymentTotal = null;
@@ -1312,17 +1337,15 @@ public class ChuBoeCreateEntity {
 		inOut.setMovementType(valueObject.getDocumentType().isSOTrx() ? X_M_InOut.MOVEMENTTYPE_CustomerShipment :
 				X_M_InOut.MOVEMENTTYPE_VendorReceipts);
 		inOut.saveEx();
-		valueObject.setInOut(inOut);
+		valueObject.setInOut(new MInOut_BH(valueObject.getContext(), inOut.get_ID(), valueObject.getTransactionName()));
 
 		// add lines if any
 		MOrderLine[] orderLines = valueObject.getOrder().getLines(true, "M_Product_ID");
-		if (orderLines.length > 0) {
-			for (MOrderLine orderLine : orderLines) {
-				MInOutLine line = new MInOutLine(inOut);
-				line.setOrderLine(orderLine, valueObject.getWarehouse().getDefaultLocator().get_ID(), Env.ZERO);
-				line.setQty(orderLine.getQtyOrdered());
-				line.saveEx(valueObject.getTransactionName());
-			}
+		for (MOrderLine orderLine : orderLines) {
+			MInOutLine line = new MInOutLine(inOut);
+			line.setOrderLine(orderLine, valueObject.getWarehouse().getDefaultLocator().get_ID(), Env.ZERO);
+			line.setQty(orderLine.getQtyOrdered());
+			line.saveEx(valueObject.getTransactionName());
 		}
 
 		if (valueObject.getDocumentAction() != null) {

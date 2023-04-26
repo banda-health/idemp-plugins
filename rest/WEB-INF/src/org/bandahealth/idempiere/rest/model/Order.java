@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +22,19 @@ public class Order extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
 	private BusinessPartner businessPartner;
-	private String dateOrdered;
+	private Timestamp dateOrdered;
+	private Timestamp dateAccount;
 	private BigDecimal grandTotal;
 	private boolean isSalesOrderTransaction;
 	private Boolean isExpense;
 	private String description;
 	private List<OrderLine> orderLines;
-	private List<Payment> payments;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
 	private Warehouse warehouse;
+	@JsonIgnore
+	private int documentTypeTargetId;
 
 	public Order() {
 	}
@@ -40,53 +43,24 @@ public class Order extends BaseMetadata {
 		super(model);
 
 		this.businessPartner = new BusinessPartner();
-		this.dateOrdered = DateUtil.parseDateOnly(model.getDateOrdered());
+		this.dateOrdered = model.getDateOrdered();
 		this.grandTotal = model.getGrandTotal();
 		this.isSalesOrderTransaction = model.isSOTrx();
 		this.description = model.getDescription();
 		this.docStatus = model.getDocStatus();
 		this.orderLines = new ArrayList<>();
-		this.payments = new ArrayList<>();
+		this.documentTypeTargetId = model.getC_DocTypeTarget_ID();
 	}
 
-	public Order(MOrder_BH model, BusinessPartner businessPartner, List<OrderLine> orderLines, List<Payment> payments) {
+	public Order(MOrder_BH model, BusinessPartner businessPartner, List<OrderLine> orderLines) {
 		this(model);
 
 		this.businessPartner = businessPartner == null ? new BusinessPartner() : businessPartner;
 		this.orderLines = orderLines == null ? new ArrayList<>() : orderLines;
-		this.payments = payments == null ? new ArrayList<>() : payments;
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateOrdered, BigDecimal grandTotal, boolean isSalesOrderTransaction,
-			String description, List<OrderLine> orderLines, List<Payment> payments, String docStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateOrdered = dateOrdered;
-		this.grandTotal = grandTotal;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.description = description;
-		this.orderLines = orderLines;
-		this.payments = payments;
-		this.docStatus = docStatus;
-	}
-
-	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateOrdered, boolean isSalesOrderTransaction,
-			List<OrderLine> orderLines, List<Payment> payments, String docStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateOrdered = dateOrdered;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.orderLines = orderLines;
-		this.payments = payments;
-		this.docStatus = docStatus;
-	}
-
-	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateOrdered, boolean isSalesOrderTransaction,
+			BusinessPartner businessPartner, Timestamp dateOrdered, boolean isSalesOrderTransaction,
 			List<OrderLine> orderLines, String docStatus) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
@@ -98,7 +72,7 @@ public class Order extends BaseMetadata {
 	}
 
 	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateOrdered, boolean isSalesOrderTransaction, String docStatus,
+			BusinessPartner businessPartner, Timestamp dateOrdered, boolean isSalesOrderTransaction, String docStatus,
 			BigDecimal grandTotal) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
@@ -118,11 +92,11 @@ public class Order extends BaseMetadata {
 	}
 
 	@XmlElement
-	public String getDateOrdered() {
+	public Timestamp getDateOrdered() {
 		return dateOrdered;
 	}
 
-	public void setDateOrdered(String dateOrdered) {
+	public void setDateOrdered(Timestamp dateOrdered) {
 		this.dateOrdered = dateOrdered;
 	}
 
@@ -172,15 +146,6 @@ public class Order extends BaseMetadata {
 	}
 
 	@XmlElement
-	public List<Payment> getPayments() {
-		return payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
-	}
-
-	@XmlElement
 	public String getDocStatus() {
 		return docStatus;
 	}
@@ -203,5 +168,21 @@ public class Order extends BaseMetadata {
 
 	public void setWarehouse(Warehouse warehouse) {
 		this.warehouse = warehouse;
+	}
+
+	public int getDocumentTypeTargetId() {
+		return documentTypeTargetId;
+	}
+
+	public void setDocumentTypeTargetId(int documentTypeTargetId) {
+		this.documentTypeTargetId = documentTypeTargetId;
+	}
+
+	public Timestamp getDateAccount() {
+		return dateAccount;
+	}
+
+	public void setDateAccount(Timestamp dateAccount) {
+		this.dateAccount = dateAccount;
 	}
 }

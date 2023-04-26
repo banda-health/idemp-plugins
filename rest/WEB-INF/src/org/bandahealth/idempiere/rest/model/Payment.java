@@ -17,7 +17,7 @@ public class Payment extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 	private Patient patient;
 	private int chargeId;
-	private int orderId;
+	private int visitId;
 	private BigDecimal payAmount;
 	@JsonIgnore
 	private String tenderType;
@@ -34,29 +34,12 @@ public class Payment extends BaseMetadata {
 	public Payment(MPayment_BH entity) {
 		super(entity);
 
-		this.orderId = entity.getBH_C_Order_ID();
+		this.visitId = entity.getBH_Visit_ID();
 		this.payAmount = entity.getPayAmt();
 		this.description = entity.getDescription();
 		this.docStatus = entity.getDocStatus();
 		this.transactionDate = DateUtil.parseDateOnly(entity.getDateTrx());
 		this.tenderAmount = entity.getBH_TenderAmount();
-		setTenderType(entity.getTenderType());
-	}
-
-	public Payment(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Patient patient, int orderId, BigDecimal payAmount, PaymentType paymentType, String description, NHIF nhif,
-			String docStatus, String transactionDate, BigDecimal tenderAmount, MPayment_BH entity) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.patient = patient;
-		this.orderId = orderId;
-		this.payAmount = payAmount;
-		this.paymentType = paymentType;
-		this.description = description;
-		this.nhif = nhif;
-		this.docStatus = docStatus;
-		this.transactionDate = transactionDate;
-		this.tenderAmount = tenderAmount;
 		setTenderType(entity.getTenderType());
 	}
 
@@ -76,12 +59,12 @@ public class Payment extends BaseMetadata {
 		this.chargeId = chargeId;
 	}
 
-	public int getOrderId() {
-		return orderId;
+	public int getVisitId() {
+		return visitId;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
 	}
 
 	public BigDecimal getPayAmount() {

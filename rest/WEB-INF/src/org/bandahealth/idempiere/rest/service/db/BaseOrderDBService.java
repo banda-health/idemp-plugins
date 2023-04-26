@@ -108,10 +108,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		if (orderBy != null) {
 			query = query.setOrderBy(orderBy);
 		}
-
-		if (parameters != null) {
-			query = query.setParameters(parameters);
-		}
+		query = query.setParameters(parameters);
 
 		// get total count without pagination parameters
 		pagingInfo.setTotalRecordCount(query.count());
@@ -145,7 +142,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			}
 
 			if (entity.getDateOrdered() != null) {
-				mOrder.setDateOrdered(DateUtil.getTimestamp(entity.getDateOrdered()));
+				mOrder.setDateOrdered(entity.getDateOrdered());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
@@ -246,33 +243,6 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		}
 
 		return 0;
-	}
-
-	@Override
-	public T saveAndProcessEntity(T entity, String docAction) throws Exception {
-		// Orders that have already been processed can't be saved again
-		MOrder_BH order = getEntityByUuidFromDB(entity.getUuid());
-
-		if (order != null) {
-			if (docAction.equals(MOrder_BH.DOCACTION_Void)) {
-				// set voided reason
-				VoidedReason voidedReason = entity.getVoidedReason();
-				if (voidedReason != null && StringUtil.isNotNullAndEmpty(voidedReason.getUuid())) {
-					MBHVoidedReason mVoidedReason = voidedReasonDBService.getEntityByUuidFromDB(voidedReason.getUuid());
-					if (mVoidedReason != null) {
-						order.setBH_VoidedReasonID(mVoidedReason.get_ID());
-						order.saveEx();
-					}
-				}
-			}
-
-			// If this order is complete already (i.e. we're voiding/re-activating), we shouldn't save it
-			if (order.isComplete()) {
-				return processEntity(entity.getUuid(), docAction);
-			}
-		}
-
-		return super.saveAndProcessEntity(entity, docAction);
 	}
 
 	@Override

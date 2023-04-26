@@ -2,18 +2,23 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Predicate;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MOrder;
 import org.compiere.model.MPayment;
+import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
@@ -41,10 +46,6 @@ public class MPayment_BH extends MPayment {
 	 * NHIF = N
 	 */
 	public static final String TENDERTYPE_NHIF = "N";
-	/**
-	 * Column name BH_C_Order_ID
-	 */
-	public static final String COLUMNNAME_BH_C_Order_ID = "BH_C_Order_ID";
 	/**
 	 * Column name BH_MPesaPhnTrx_Num
 	 */
@@ -107,6 +108,11 @@ public class MPayment_BH extends MPayment {
 	 * Child = C
 	 */
 	public static final String BH_NHIF_RELATIONSHIP_Child = "C";
+	/**
+	 * Column name BH_Visit_ID
+	 */
+	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
+
 	private static final long serialVersionUID = 1L;
 
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
@@ -123,34 +129,46 @@ public class MPayment_BH extends MPayment {
 		MAllocationHdr allocationHeader = new MAllocationHdr(getCtx(), false, getDateTrx(), getC_Currency_ID(),
 				Msg.translate(getCtx(), "C_Payment_ID") + ": " + getDocumentNo(), get_TrxName());
 		allocationHeader.setAD_Org_ID(getAD_Org_ID());
-		if (getBH_C_Order_ID() > 0) {
+		if (getBH_Visit_ID() > 0) {
 			// Get the invoice amount
-			MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
-					get_TrxName()).setParameters(getBH_C_Order_ID()).first();
-			if (!order.isComplete()) {
-				get_Logger().severe("Order isn't complete - can't allocate against any of it's invoices");
+			List<MOrder_BH> orders = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_BH_Visit_ID + "=?",
+					get_TrxName()).setParameters(getBH_Visit_ID()).list();
+			if (orders.stream().noneMatch(MOrder::isComplete)) {
+				get_Logger().severe("No orders are complete - can't allocate against any of their invoices");
 				return false;
 			}
-			Optional<MInvoice> invoice =
-					Arrays.stream(order.getInvoices()).filter(MInvoice::isComplete).filter(Predicate.not(MInvoice::isPaid))
-							.findFirst();
-			if (invoice.isEmpty()) {
-				get_Logger().severe("Invoice isn't complete for order - can't allocate against it");
+			List<Object> parameters = new ArrayList<>();
+			String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+					orders.stream().filter(MOrder_BH::isComplete).map(MOrder_BH::get_ID).collect(Collectors.toSet()),
+					parameters);
+			List<MInvoice_BH> invoices =
+					new Query(getCtx(), MInvoice_BH.Table_Name, whereClause, get_TrxName()).setParameters(parameters).list();
+			List<MInvoice_BH> unpaidInvoices = invoices.stream()
+					.filter(((Predicate<MInvoice_BH>) MInvoice_BH::isComplete).and(Predicate.not(MInvoice_BH::isPaid)))
+					.collect(Collectors.toList());
+			if (unpaidInvoices.isEmpty()) {
+				get_Logger().severe("Invoices aren't complete or are paid for all orders - can't allocate against them");
 				return false;
-			}
-			BigDecimal payAmount = invoice.get().getGrandTotal();
-			// If the invoiced amount is greater than the payment, only allocate what was paid
-			if (payAmount.compareTo(getPayAmt()) > 0) {
-				payAmount = getPayAmt();
 			}
 			allocationHeader.saveEx();
-			allocationHeader.setDateAcct(
-					invoice.get().getDateAcct().compareTo(getDateAcct()) > 0 ? invoice.get().getDateAcct() : getDateAcct());
-			MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO, Env.ZERO);
-			allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
-			allocationLine.setC_Payment_ID(getC_Payment_ID());
-			allocationLine.setC_Invoice_ID(invoice.get().get_ID());
-			allocationLine.saveEx(get_TrxName());
+			allocationHeader.setDateAcct(getDateAcct());
+			BigDecimal remainingPaymentAmount = getPayAmt();
+			for (MInvoice_BH invoice : unpaidInvoices) {
+				if (remainingPaymentAmount.compareTo(BigDecimal.ZERO) <= 0) {
+					break;
+				}
+				BigDecimal amountToPay = invoice.getGrandTotal();
+				// If the invoiced amount is greater than the payment, only allocate what was paid
+				if (amountToPay.compareTo(remainingPaymentAmount) > 0) {
+					amountToPay = remainingPaymentAmount;
+				}
+				MAllocationLine allocationLine = new MAllocationLine(allocationHeader, amountToPay, Env.ZERO, Env.ZERO, Env.ZERO);
+				allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
+				allocationLine.setC_Payment_ID(getC_Payment_ID());
+				allocationLine.setC_Invoice_ID(invoice.get_ID());
+				allocationLine.saveEx(get_TrxName());
+				remainingPaymentAmount = remainingPaymentAmount.subtract(amountToPay);
+			}
 			if (!allocationHeader.processIt(DocAction.ACTION_Complete)) {
 				throw new AdempiereException(
 						Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + allocationHeader.getProcessMsg());
@@ -244,7 +262,7 @@ public class MPayment_BH extends MPayment {
 		newPayment.setUser2_ID(getUser2_ID());
 
 		// Banda-specific fields
-		newPayment.setBH_C_Order_ID(getBH_C_Order_ID());
+		newPayment.setBH_Visit_ID(getBH_Visit_ID());
 
 		newPayment.saveEx(get_TrxName());
 		if (log.isLoggable(Level.FINE)) {
@@ -255,36 +273,6 @@ public class MPayment_BH extends MPayment {
 		newPayment.setDocAction(DOCACTION_None);
 
 		return newPayment;
-	}
-
-	/**
-	 * Get BH_C_Order_ID.
-	 *
-	 * @return BH_C_Order_ID
-	 */
-	public int getBH_C_Order_ID() {
-		Integer ii = (Integer) get_Value(COLUMNNAME_BH_C_Order_ID);
-		if (ii == null) {
-			return 0;
-		}
-		return ii.intValue();
-	}
-
-	/**
-	 * Set BH_C_Order_ID.
-	 *
-	 * @param BH_C_Order_ID BH_C_Order_ID
-	 */
-	public void setBH_C_Order_ID(int BH_C_Order_ID) {
-		if (BH_C_Order_ID < 1) {
-			set_Value(COLUMNNAME_BH_C_Order_ID, null);
-		} else {
-			set_Value(COLUMNNAME_BH_C_Order_ID, Integer.valueOf(BH_C_Order_ID));
-		}
-	}
-
-	public void setDefaultBH_C_Order_ID() {
-		set_Value(COLUMNNAME_BH_C_Order_ID, 0);
 	}
 
 	/**
@@ -439,5 +427,34 @@ public class MPayment_BH extends MPayment {
 	 */
 	public void setNHIF_Number(String NHIF_Number) {
 		set_Value(COLUMNNAME_NHIF_Number, NHIF_Number);
+	}
+
+	public I_BH_Visit getBH_Visit() throws RuntimeException {
+		return (I_BH_Visit) MTable.get(getCtx(), I_BH_Visit.Table_Name)
+				.getPO(getBH_Visit_ID(), get_TrxName());
+	}
+
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+	public void setBH_Visit_ID(int BH_Visit_ID) {
+		if (BH_Visit_ID < 1)
+			set_Value(COLUMNNAME_BH_Visit_ID, null);
+		else
+			set_Value(COLUMNNAME_BH_Visit_ID, Integer.valueOf(BH_Visit_ID));
+	}
+
+	/**
+	 * Get Visit.
+	 *
+	 * @return Visit
+	 */
+	public int getBH_Visit_ID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_Visit_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 }

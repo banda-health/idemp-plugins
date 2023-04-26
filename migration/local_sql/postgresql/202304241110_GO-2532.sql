@@ -1,5 +1,3 @@
-ROLLBACK ;
-
 /**********************************************************************************************************/
 -- Since there are a lot of function updates, this handles doing them all at once to prevent difficulties
 -- This duplicates what's in process_post_migration as of this point
@@ -825,3 +823,13 @@ $$;
 
 COMMIT;
 
+/**********************************************************************************************************/
+-- Wrap up
+/**********************************************************************************************************/
+SELECT
+	update_sequences();
+
+SELECT
+	register_migration_script('202304241108_GO-2532.sql')
+FROM
+	dual;

@@ -18,28 +18,28 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import org.compiere.model.MTable;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Voided_Reason
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 8.2
  */
 @SuppressWarnings("all")
-public interface I_BH_VoidedReason 
+public interface I_BH_Voided_Reason 
 {
 
     /** TableName=BH_Voided_Reason */
     public static final String Table_Name = "BH_Voided_Reason";
 
+    /** AD_Table_ID=1000036 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
-    /** AccessLevel = 4 - System 
+    /** AccessLevel = 3 - Client - Org 
      */
-    BigDecimal accessLevel = BigDecimal.valueOf(4);
+    BigDecimal accessLevel = BigDecimal.valueOf(3);
 
     /** Load Meta Data */
 
@@ -68,19 +68,28 @@ public interface I_BH_VoidedReason
     public static final String COLUMNNAME_BH_Voided_Reason_ID = "BH_Voided_Reason_ID";
 
 	/** Set BH_Voided_Reason_ID	  */
-	public void setBH_VoidedReason_ID (int BH_VoidedReason_ID);
+	public void setBH_Voided_Reason_ID (int BH_Voided_Reason_ID);
 
-	/** Get BH_VoidedReason	  */
-	public int getBH_VoidedReason_ID();
+	/** Get BH_Voided_Reason_ID	  */
+	public int getBH_Voided_Reason_ID();
 
-    /** Column name BH_VoidedReason_UU */
-    public static final String COLUMNNAME_BH_Voided_Reason_UU = "BH_Voided_Reason_UU";
+    /** Column name bh_voided_reason_uu */
+    public static final String COLUMNNAME_bh_voided_reason_uu = "bh_voided_reason_uu";
 
-	/** Set BH_VoidedReason_UU	  */
-	public void setBH_VoidedReason_UU (String BH_VoidedReason_UU);
+	/** Set bh_voided_reason_uu	  */
+	public void setbh_voided_reason_uu (String bh_voided_reason_uu);
 
-	/** Get BH_VoidedReason_UU	  */
-	public String getBH_VoidedReason_UU();
+	/** Get bh_voided_reason_uu	  */
+	public String getbh_voided_reason_uu();
+
+    /** Column name bh_window_id */
+    public static final String COLUMNNAME_bh_window_id = "bh_window_id";
+
+	/** Set Window ID	  */
+	public void setbh_window_id (BigDecimal bh_window_id);
+
+	/** Get Window ID	  */
+	public BigDecimal getbh_window_id();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -98,17 +107,6 @@ public interface I_BH_VoidedReason
 	  */
 	public int getCreatedBy();
 
-	/** Column name Name */
-    public static final String COLUMNNAME_Name = "Name";
-
-	/** Set Name.
-	  */
-	public void setName (String Name);
-
-	/** Get Name.
-	  */
-	public String getName();
-	
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
 
@@ -135,6 +133,32 @@ public interface I_BH_VoidedReason
 	  */
 	public boolean isActive();
 
+    /** Column name LineNo */
+    public static final String COLUMNNAME_LineNo = "LineNo";
+
+	/** Set Line.
+	  * Line No
+	  */
+	public void setLineNo (int LineNo);
+
+	/** Get Line.
+	  * Line No
+	  */
+	public int getLineNo();
+
+    /** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
+
+	/** Set Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name);
+
+	/** Get Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getName();
+
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 
@@ -150,17 +174,4 @@ public interface I_BH_VoidedReason
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
-
-	public static final String COLUMNNAME_BH_Window_Id = "bh_window_id";
-
-	public void setBH_WindowId (int bh_windowId);
-
-	public int getBH_WindowId();
-
-	public static final String COLUMNNAME_LINE_NO = "lineno";
-
-	public void setLineNo (int lineNo);
-
-	public int getLineNo();
-
 }

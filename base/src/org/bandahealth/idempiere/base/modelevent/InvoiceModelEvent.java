@@ -11,6 +11,7 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.osgi.service.event.Event;
 
 import java.util.Arrays;
@@ -24,6 +25,7 @@ public class InvoiceModelEvent extends AbstractEventHandler {
 	@Override
 	protected void initialize() {
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MInvoice_BH.Table_Name);
+		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MInvoice_BH.Table_Name);
 		registerTableEvent(IEventTopics.DOC_BEFORE_PREPARE, MInvoice_BH.Table_Name);
 	}
 
@@ -40,10 +42,26 @@ public class InvoiceModelEvent extends AbstractEventHandler {
 			return;
 		}
 
-		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW) && invoice != null) {
-			beforeSaveRequest(invoice);
+		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
+			if (invoice != null) {
+				beforeSaveRequest(invoice);
+			}
+			setVisitIdFromOrder(invoice == null ? invoiceFromCode : invoice);
+		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
+			setVisitIdFromOrder(invoice == null ? invoiceFromCode : invoice);
 		} else if (event.getTopic().equals(IEventTopics.DOC_BEFORE_PREPARE)) {
 			addChargesFromSalesOrder(invoice == null ? invoiceFromCode : invoice);
+		}
+	}
+
+	/**
+	 * Takes care of setting the visit ID from the order
+	 */
+	private void setVisitIdFromOrder(MInvoice invoice) {
+		if (invoice.getC_Order_ID() > 0) {
+			invoice.set_ValueOfColumn(MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+					DB.getSQLValueEx(invoice.get_TrxName(), "SELECT bh_visit_id FROM c_order WHERE c_order_id = ?",
+							invoice.getC_Order_ID()));
 		}
 	}
 
