@@ -181,8 +181,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							pop_response.appendNote("Skipping... " + pop.getScenarioName());
 							pop_response.saveEx();
 						} catch (Exception e) {
-							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
-							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
+							logError(pop_response, e);
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
@@ -205,8 +204,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							totalErrors++;
 							didErrorOccurForThisTest = true;
 							classBreak = true;
-							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
-							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
+							logError(pop_response, e);
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
@@ -266,8 +264,7 @@ public class DoChuBoePopulate extends SvrProcess {
 						} catch (Exception e) {
 							totalErrors++;
 							didErrorOccurForThisTest = true;
-							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
-							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
+							logError(pop_response, e);
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
@@ -290,8 +287,7 @@ public class DoChuBoePopulate extends SvrProcess {
 						} catch (Exception e) {
 							totalErrors++;
 							didErrorOccurForThisTest = true;
-							pop_response.appendNote(ExceptionUtils.getRootCauseMessage(e));
-							pop_response.appendNote(String.join("\n", ExceptionUtils.getRootCauseStackTrace(e)));
+							logError(pop_response, e);
 							pop_response.saveEx();
 						} finally {
 							pop_trx.commit(true);
@@ -331,4 +327,18 @@ public class DoChuBoePopulate extends SvrProcess {
 		//TODO: Consider adding a parameter to determine if process should create a pack out of the test results.
 	}
 
+	/**
+	 * This adds whatever error was thrown to the population response that gets saved to the DB
+	 *
+	 * @param populateResponse The response to fill with the error
+	 * @param exception        The exception thrown
+	 */
+	private void logError(MChuBoePopulateResponse populateResponse, Exception exception) {
+		populateResponse.appendNote(ExceptionUtils.getRootCauseMessage(exception));
+		// Only log the stack trace if this didn't fail because of an assertion
+		String stackTrace = String.join("\n", ExceptionUtils.getRootCauseStackTrace(exception));
+		if (!stackTrace.toLowerCase().contains("assert")) {
+			populateResponse.appendNote(stackTrace);
+		}
+	}
 }
