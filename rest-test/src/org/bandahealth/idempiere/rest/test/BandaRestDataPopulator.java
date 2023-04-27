@@ -72,7 +72,7 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 				"' as name, EXISTS(SELECT * FROM ad_client WHERE name = 'Rest Test Client') as result ";
 		addAssertionSQL(sql);
 
-//		PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		testClient = new Query(valueObject.getContext(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_Name + "=?",
 				valueObject.getTransactionName()).setParameters("Rest Test Client").first();
 		int currentClientId = Env.getAD_Client_ID(valueObject.getContext());
@@ -137,7 +137,7 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
-//		PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 	}
 
 	@IPopulateAnnotation.CanRun
