@@ -4,8 +4,8 @@ ALTER TABLE bh_coded_diagnosis
 UPDATE ad_element
 SET
 	columnname = 'BH_CielID',
-	name='BH_CielID',
-	printname='BH_CielID'
+	name       = 'BH_CielID',
+	printname  = 'BH_CielID'
 WHERE
 	ad_element_uu = 'b3d486a4-9e79-4052-a44b-fa5eeb863c3d';
 UPDATE ad_column c
@@ -23,14 +23,14 @@ WHERE
 UPDATE ad_element
 SET
 	columnname = 'BH_Voided_Reason_ID',
-	name='BH_Voided_Reason_ID',
-	printname='BH_Voided_Reason_ID'
+	name       = 'BH_Voided_Reason_ID',
+	printname  = 'BH_Voided_Reason_ID'
 WHERE
 	ad_element_uu = '9f1bb1b0-353c-4f5c-a034-e5faea969b35';
 UPDATE ad_column c
 SET
-	columnname      = e.columnname,
-	name            = e.name
+	columnname = e.columnname,
+	name       = e.name
 FROM
 	ad_element e
 WHERE

@@ -125,6 +125,10 @@ public class DailyCashierCollectionsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setRandom();
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -156,13 +160,17 @@ public class DailyCashierCollectionsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_VisitDate(TimeUtil.addMinutess(TimestampUtils.today(), 60));
+		commitEx();
+
 		valueObject.setStepName("Create second sales order");
 		valueObject.setRandom();
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		valueObject.getOrder().setBH_VisitDate(TimeUtil.addMinutess(TimestampUtils.today(), 60));
 		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Second order was completed");
 		valueObject.getOrder().saveEx();

@@ -165,6 +165,14 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				}
 			}
 
+			if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
+				MBHVoidedReason voidingReason =
+						voidedReasonDBService.getEntityByUuidFromDB(entity.getVoidedReason().getUuid());
+				if (voidingReason != null) {
+					mOrder.setBH_Voided_Reason_ID(voidingReason.get_ID());
+				}
+			}
+
 			beforeSave(entity, mOrder);
 
 			// set target document type

@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.base.modelevent;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
@@ -58,10 +59,11 @@ public class InvoiceModelEvent extends AbstractEventHandler {
 	 * Takes care of setting the visit ID from the order
 	 */
 	private void setVisitIdFromOrder(MInvoice invoice) {
-		if (invoice.getC_Order_ID() > 0) {
-			invoice.set_ValueOfColumn(MInvoice_BH.COLUMNNAME_BH_Visit_ID,
-					DB.getSQLValueEx(invoice.get_TrxName(), "SELECT bh_visit_id FROM c_order WHERE c_order_id = ?",
-							invoice.getC_Order_ID()));
+		int visitId;
+		if (invoice.getC_Order_ID() > 0 && (visitId =
+				DB.getSQLValueEx(invoice.get_TrxName(), "SELECT bh_visit_id FROM c_order WHERE c_order_id = ?",
+						invoice.getC_Order_ID())) > 0) {
+			invoice.set_ValueOfColumn(MInOut_BH.COLUMNNAME_BH_Visit_ID, visitId);
 		}
 	}
 

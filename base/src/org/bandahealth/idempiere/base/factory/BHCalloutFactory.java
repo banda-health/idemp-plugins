@@ -4,7 +4,6 @@ import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.bandahealth.idempiere.base.callout.BusinessPartnerAge;
 import org.bandahealth.idempiere.base.callout.CalloutGeneratePatientId;
-import org.bandahealth.idempiere.base.callout.CalloutPayment;
 import org.bandahealth.idempiere.base.callout.CalloutPaymentNHIF;
 import org.bandahealth.idempiere.base.callout.InventoryLineExpirationDateRequired;
 import org.bandahealth.idempiere.base.callout.InventoryQuantity;
@@ -50,9 +49,6 @@ public class BHCalloutFactory implements IColumnCalloutFactory {
 		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
 			if (columnName.equalsIgnoreCase(MPayment_BH.COLUMNNAME_TenderType)) {
 				callouts.add(new CalloutPaymentNHIF());
-			}
-			if (columnName.equalsIgnoreCase(MPayment_BH.COLUMNNAME_C_BPartner_ID)) {
-				callouts.add(new CalloutPayment());
 			}
 		}
 

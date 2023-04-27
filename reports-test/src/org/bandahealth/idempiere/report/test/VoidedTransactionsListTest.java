@@ -100,7 +100,7 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Void order");
 		valueObject.refresh();
-		valueObject.getOrder().setBH_VoidedReasonID(voidedReason.get_ID());
+		valueObject.getOrder().setBH_Voided_Reason_ID(voidedReason.get_ID());
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
 		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void);
 		valueObject.getOrder().saveEx();

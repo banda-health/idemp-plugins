@@ -7,7 +7,6 @@ import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.compiere.process.DocumentEngine;
 import org.hamcrest.Matchers;
@@ -57,6 +56,10 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(null);
 		commitEx();
 
+		valueObject.setStepName("Create first visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -83,6 +86,10 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		assertEquals(0, new MBPartner_BH(valueObject.getContext(), valueObject.getBusinessPartner().get_ID(),
 						valueObject.getTransactionName()).getTotalOpenBalance().compareTo(new BigDecimal(50)),
 				"BP open balance correct after first sales order");
+
+		valueObject.setStepName("Create second visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
 
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -111,6 +118,10 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 						valueObject.getTransactionName()).getTotalOpenBalance().compareTo(new BigDecimal(90)),
 				"BP open balance correct after second sales order");
 
+		valueObject.setStepName("Create third visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create third sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -120,6 +131,7 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create open-debt payment for some of current balance");
 		int thirdInvoicesId = valueObject.getOrder().getInvoices()[0].get_ID();
+		valueObject.setVisit(null);
 		valueObject.setOrder(null);
 		valueObject.setInvoice(null);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -174,6 +186,10 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create first visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDateOffset(1);
 		valueObject.setQuantity(BigDecimal.ONE);
@@ -204,6 +220,10 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 						valueObject.getTransactionName()).getTotalOpenBalance().compareTo(new BigDecimal(50)),
 				"BP open balance correct after first sales order");
 
+		valueObject.setStepName("Create second visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDateOffset(10);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -211,10 +231,13 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
-		MInvoice_BH secondInvoice = new MInvoice_BH(valueObject.getContext(), valueObject.getOrder().getInvoices()[0].get_ID(), valueObject.getTransactionName());
+		MInvoice_BH secondInvoice =
+				new MInvoice_BH(valueObject.getContext(), valueObject.getOrder().getInvoices()[0].get_ID(),
+						valueObject.getTransactionName());
 
 		valueObject.setStepName("Create open-debt payment for all of the current balance");
 		valueObject.setDateOffset(-15);
+		valueObject.setVisit(null);
 		valueObject.setOrder(null);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
@@ -229,7 +252,8 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		assertEquals(0, firstInvoice.getGrandTotal().subtract(firstInvoice.getAllocatedAmt()).signum(),
 				"First invoice is fully paid");
 
-		secondInvoice = new MInvoice_BH(valueObject.getContext(), secondInvoice.get_ID(), valueObject.getTransactionName());
+		secondInvoice = new MInvoice_BH(valueObject.getContext(), secondInvoice.get_ID(),
+				valueObject.getTransactionName());
 		assertTrue(secondInvoice.isPaid(), "Second invoice is paid");
 		assertEquals(0, secondInvoice.getGrandTotal().subtract(secondInvoice.getAllocatedAmt()).signum(),
 				"Second invoice is fully paid");

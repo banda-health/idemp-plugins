@@ -18,6 +18,7 @@ export * from './invoices';
 export * from './languages';
 export * from './menus';
 export * from './movement';
+export * from './order';
 export * from './patients';
 export * from './payments';
 export * from './processes';

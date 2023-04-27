@@ -60,13 +60,15 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getProduct().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		valueObject.getOrder().setBH_IsExpense(false);
-		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Complete the order");
@@ -119,13 +121,15 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getProduct().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		valueObject.getOrder().setBH_IsExpense(null);
-		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Complete the order");

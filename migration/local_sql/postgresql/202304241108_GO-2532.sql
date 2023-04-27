@@ -3,11 +3,13 @@
 --  1. Create new bh_visit table
 --  2. Create document sequence for the visits
 --  3. Migrate data from c_order to bh_visit
---  4. Point anything needing visit stuff currently using c_order to bh_visit
---  5. Delete columns from c_order (and anything that used them that we don't currently use)
---  6. Add bh_visit_id to c_order, c_invoice, m_inout, & c_payment
---  7. Set bh_visit_id column on all tables
---  8. Wrap up
+--  4. Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
+--			an existing column)
+--  5. Point anything needing visit stuff currently using c_order to bh_visit
+--  6. Delete columns from c_order (and anything that used them that we don't currently use)
+--	7. Add bh_visit_id to c_payment by altering bh_c_order_id
+--  8. Set bh_visit_id column on all tables
+--  9. Wrap up
 /**********************************************************************************************************/
 
 /**********************************************************************************************************/
@@ -97,7 +99,7 @@ ALTER TABLE bh_visit
 ALTER TABLE BH_Visit
 	DROP CONSTRAINT IF EXISTS cbpartner_p_bhvisit;
 ALTER TABLE BH_Visit
-	ADD CONSTRAINT cbpartner_p_bhvisit FOREIGN KEY (Patient_ID) REFERENCES c_bpartner (c_bpartner_id) DEFERRABLE INITIALLY DEFERRED
+	ADD CONSTRAINT cbpartner_p_bhvisit FOREIGN KEY (Patient_ID) REFERENCES c_bpartner (c_bpartner_id) DEFERRABLE INITIALLY DEFERRED;
 
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
@@ -443,30 +445,6 @@ There are two reasons for de-activating and not deleting records:
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'b31f7d52-846f-40ac-b1d2-33bae38a247e'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, 'e3ca8199-48a5-443f-97e0-9cd5b6580a10', 'N', NULL, 'N', 'N',
 	 NULL, NULL, 'N', NULL, NULL, 'N')
-ON CONFLICT DO NOTHING;
-INSERT INTO
-	ad_column (ad_column_id, ad_client_id, ad_org_id, createdby, updatedby, name, description, help, version,
-	           entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
-	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier,
-	           seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn,
-	           ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic,
-	           infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy,
-	           seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype,
-	           pa_dashboardcontent_id, placeholder, ishtml)
-VALUES
-	((
-		 SELECT
-			 MAX(ad_column_id) + 1
-		 FROM
-			 ad_column
-	 ), 0, 0, 100, 100, 'Name', 'Alphanumeric identifier of the entity',
-	 'The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.',
-	 1, 'U', 'Name', (
-		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'd2c9b934-ef14-483f-ac29-6a68611b0552'
-	 ), 10, NULL, NULL, 60, NULL, 'N', 'N', 'Y', 'Y', NULL, 'Y', 1, 'N', 'N', NULL, NULL, NULL, NULL, 'Y', (
-		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '3a38ae9b-e9df-4678-bca8-fa97b457d8d4'
-	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '91d67bab-b5b0-4ac4-8543-b4262c577409', 'Y', 20, 'N', 'N', NULL,
-	 NULL, 'N', NULL, NULL, 'N')
 ON CONFLICT DO NOTHING;
 INSERT INTO
 	ad_column (ad_column_id, ad_client_id, ad_org_id, createdby, updatedby, name, description, help, version,
@@ -972,6 +950,29 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-04-25 09:02:38.874000', '2023-04-25 09:14:23.419000', 100, 100, 'Patient',
+	 'The Patient must be a valid business partner.', NULL, 0, 'U', 'Patient_ID', (
+		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'd2c9b934-ef14-483f-ac29-6a68611b0552'
+	 ), 18, 173, NULL, 22, NULL, 'N', 'N', 'Y', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'b7e75979-daae-4d47-9dc1-d15c58f42374'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '948a726d-0219-4051-a7e0-a04441e17cf9', 'Y', 0, 'N', 'N', NULL,
+	 'cbpartner_p_bhvisit', 'N', NULL, NULL)
+ON CONFLICT DO NOTHING;
+
+INSERT INTO
 	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
 	             description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited,
 	             istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth,
@@ -1257,8 +1258,34 @@ WHERE
 	AND s.name = 'DocumentNo_BH_Visit';
 
 /**********************************************************************************************************/
--- 4. Point anything needing visit stuff currently using c_order to bh_visit
+-- 4. Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
+-- an existing column)
 /**********************************************************************************************************/
+ALTER TABLE C_Order
+	ADD IF NOT EXISTS BH_Visit_ID numeric(10) DEFAULT NULL;
+ALTER TABLE C_Order
+	DROP CONSTRAINT IF EXISTS BHVisit_COrder;
+ALTER TABLE C_Order
+	ADD CONSTRAINT BHVisit_COrder FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE M_InOut
+	ADD IF NOT EXISTS BH_Visit_ID numeric(10) DEFAULT NULL;
+ALTER TABLE M_InOut
+	DROP CONSTRAINT IF EXISTS BHVisit_MInOut;
+ALTER TABLE M_InOut
+	ADD CONSTRAINT BHVisit_MInOut FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE C_Invoice
+	ADD IF NOT EXISTS BH_Visit_ID numeric(10) DEFAULT NULL;
+ALTER TABLE C_Invoice
+	DROP CONSTRAINT IF EXISTS BHVisit_CInvoice;
+ALTER TABLE C_Invoice
+	ADD CONSTRAINT BHVisit_CInvoice FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
+
+/**********************************************************************************************************/
+-- 5. Point anything needing visit stuff currently using c_order to bh_visit
+/**********************************************************************************************************/
+DROP VIEW IF EXISTS bh_drug_profit_loss_v;
 CREATE OR REPLACE VIEW bh_drug_profit_loss_v
 			(ad_client_id, ad_org_id, bh_visitdate, name, qtyordered, quantityreceived, pricesold, pricebought, client_name,
 			 guaranteedate)
@@ -1322,7 +1349,7 @@ ORDER BY
 	v.bh_visitdate DESC;
 
 /**********************************************************************************************************/
--- 5. Delete columns from c_order (and anything that used them that we don't currently use)
+-- 6. Delete columns from c_order (and anything that used them that we don't currently use)
 /**********************************************************************************************************/
 DROP VIEW IF EXISTS bh_drug_profit_loss_v;
 ALTER TABLE c_order
@@ -1391,8 +1418,6 @@ ALTER TABLE c_order
 ALTER TABLE c_order
 	DROP COLUMN IF EXISTS bh_visitdate;
 ALTER TABLE c_order
-	DROP COLUMN IF EXISTS bh_voided_reason_id;
-ALTER TABLE c_order
 	DROP COLUMN IF EXISTS bh_weight;
 
 DELETE
@@ -1456,39 +1481,26 @@ FROM
 	ad_field
 WHERE
 		ad_column_id IN (
-		SELECT ad_column_id FROM ad_column WHERE ad_table_id = 259 AND LOWER(columnname) LIKE 'bh_%'
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+			ad_table_id = 259
+			AND LOWER(columnname) LIKE 'bh_%'
+			AND columnname != 'bh_voided_reason_ID'
 	);
 DELETE
 FROM
 	ad_column
 WHERE
 	ad_table_id = 259
-	AND LOWER(columnname) LIKE 'bh_%';
+	AND LOWER(columnname) LIKE 'bh_%'
+	AND columnname != 'bh_voided_reason_ID';
 
 /**********************************************************************************************************/
--- 6. Add bh_visit_id to c_order, c_invoice, m_inout, & c_payment
+-- 7. Add bh_visit_id to c_payment by altering bh_c_order_id
 /**********************************************************************************************************/
-ALTER TABLE C_Order
-	ADD IF NOT EXISTS BH_Visit_ID numeric(10) DEFAULT NULL;
-ALTER TABLE C_Order
-	DROP CONSTRAINT IF EXISTS BHVisit_COrder;
-ALTER TABLE C_Order
-	ADD CONSTRAINT BHVisit_COrder FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE M_InOut
-	ADD IF NOT EXISTS BH_Visit_ID numeric(10) DEFAULT NULL;
-ALTER TABLE M_InOut
-	DROP CONSTRAINT IF EXISTS BHVisit_MInOut;
-ALTER TABLE M_InOut
-	ADD CONSTRAINT BHVisit_MInOut FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE C_Invoice
-	ADD IF NOT EXISTS BH_Visit_ID numeric(10) DEFAULT NULL;
-ALTER TABLE C_Invoice
-	DROP CONSTRAINT IF EXISTS BHVisit_CInvoice;
-ALTER TABLE C_Invoice
-	ADD CONSTRAINT BHVisit_CInvoice FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
-
 ALTER TABLE c_payment
 	RENAME COLUMN bh_c_order_id TO bh_visit_id;
 DROP INDEX IF EXISTS c_payment_bh_corder_id_index;
@@ -1609,14 +1621,47 @@ SET
 	ad_chart_id            = NULL,
 	fkconstraintname       = NULL,
 	fkconstrainttype       = 'N',
-	pa_dashboardcontent_id = NULL,
-	placeholder            = NULL,
-	ishtml                 = 'N'
+	pa_dashboardcontent_id = NULL
 WHERE
-	ad_column_id = 1000849;
+		ad_element_id = (
+		SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '44545cf6-6e23-465b-9ce3-7b27e17c64c8'
+	);
+
+-- Delete the BH_C_Order_ID AD_Element (which was only used on C_Payment)
+DELETE
+FROM
+	ad_element
+WHERE
+	ad_element_uu = '44545cf6-6e23-465b-9ce3-7b27e17c64c8';
+
+-- Delete some virtual columns from c_payment
+DELETE
+FROM
+	ad_field
+WHERE
+		ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+				ad_column_uu IN ('619e14e6-7a21-4e18-ab89-dde7486392df', 'fbeff64e-7682-40a9-b0cd-bee70e01a729')
+	);
+DELETE
+FROM
+	ad_column
+WHERE
+		ad_column_uu IN ('619e14e6-7a21-4e18-ab89-dde7486392df', 'fbeff64e-7682-40a9-b0cd-bee70e01a729');
+
+-- Delete the BH_RmngInvcAmt AD_Element (which is only used on C_Payment)
+DELETE
+FROM
+	ad_element
+WHERE
+	ad_element_uu = '6dcbcd3a-5bee-425d-bc8c-59679e61af5f';
 
 /**********************************************************************************************************/
--- 7. Set bh_visit_id column on all tables
+-- 8. Set bh_visit_id column on all tables
 /**********************************************************************************************************/
 UPDATE c_order o
 SET
@@ -1662,7 +1707,7 @@ ALTER TABLE c_payment
 	ADD CONSTRAINT BHVisit_CPayment FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
 
 /**********************************************************************************************************/
--- 8. Wrap up
+-- 9. Wrap up
 /**********************************************************************************************************/
 SELECT
 	update_sequences();

@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,11 @@ public class OrderDBService extends BaseOrderDBService<Order> {
 	@Override
 	protected String getDocumentTypeName() {
 		return DOCUMENTNAME_BILLS;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		throw new NotImplementedException();
 	}
 
 	@Override

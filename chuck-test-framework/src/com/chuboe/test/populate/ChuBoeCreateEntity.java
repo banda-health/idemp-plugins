@@ -459,6 +459,8 @@ public class ChuBoeCreateEntity {
 		}
 
 		MBHVisit visit = new MBHVisit(valueObject.getContext(), 0, valueObject.getTransactionName());
+		visit.setAD_Org_ID(valueObject.getOrg().get_ID());
+		visit.setDescription(valueObject.getStepMessageLong());
 		visit.setPatient_ID(valueObject.getBusinessPartner().get_ID());
 		visit.setBH_VisitDate(valueObject.getDate());
 		visit.saveEx();

@@ -15,10 +15,12 @@ import {
 	OrderLine,
 	Org,
 	Payment,
+	PaymentType,
 	ProcessInfoParameter,
 	Product,
 	Role,
 	User,
+	Visit,
 	Warehouse,
 } from '../types/org.bandahealth.idempiere.rest';
 import { getDateOffset } from '../utils';
@@ -58,6 +60,7 @@ export class ValueObject {
 	documentType?: DocumentType;
 	documentAction?: string;
 	attributeSetInstance?: AttributeSetInstance;
+	visit?: Visit;
 	order?: Order;
 	orderLine?: OrderLine;
 	// MInOut m_inOut = null;
@@ -67,6 +70,8 @@ export class ValueObject {
 	inventory?: Inventory;
 	inventoryLine?: InventoryLine;
 	payment?: Payment;
+	tenderType?: PaymentType;
+	paymentAmount?: number;
 	// private MBankAccount m_bankAcct = null;
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;

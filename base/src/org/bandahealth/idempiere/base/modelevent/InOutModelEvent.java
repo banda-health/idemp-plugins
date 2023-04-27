@@ -43,10 +43,11 @@ public class InOutModelEvent extends AbstractEventHandler {
 	 * Takes care of setting the visit ID from the order
 	 */
 	private void setVisitIdFromOrder(MInOut inOut) {
-		if (inOut.getC_Order_ID() > 0) {
-			inOut.set_ValueOfColumn(MInOut_BH.COLUMNNAME_BH_Visit_ID,
-					DB.getSQLValueEx(inOut.get_TrxName(), "SELECT bh_visit_id FROM c_order WHERE c_order_id = ?",
-							inOut.getC_Order_ID()));
+		int visitId;
+		if (inOut.getC_Order_ID() > 0 && (visitId =
+				DB.getSQLValueEx(inOut.get_TrxName(), "SELECT bh_visit_id FROM c_order WHERE c_order_id = ?",
+						inOut.getC_Order_ID())) > 0) {
+			inOut.set_ValueOfColumn(MInOut_BH.COLUMNNAME_BH_Visit_ID, visitId);
 		}
 	}
 }

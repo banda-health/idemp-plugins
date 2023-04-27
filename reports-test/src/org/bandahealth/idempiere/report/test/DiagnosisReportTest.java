@@ -58,9 +58,16 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create coded diagnosis");
 		valueObject.setRandom();
 		MBHCodedDiagnosis codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setBH_CielName(String.valueOf(valueObject.getRandomNumber()));
-		String diagnosisName = codedDiagnosis.getBH_CielName();
+		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		String diagnosisName = codedDiagnosis.getbh_cielname();
 		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		String nonCodedDiagnosis = "The Diagnosis of the Century";
+		valueObject.getVisit().setbh_primaryuncodeddiagnosis(nonCodedDiagnosis);
+		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
@@ -70,9 +77,6 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		MOrder_BH order = valueObject.getOrder();
-		String nonCodedDiagnosis = "The Diagnosis of the Century";
-		order.setBH_PrimaryUnCodedDiagnosis(nonCodedDiagnosis);
-		order.setBH_PrimaryCodedDiagnosisID(codedDiagnosis.get_ID());
 		order.setDocAction(MOrder_BH.ACTION_Complete);
 		order.processIt(MOrder_BH.ACTION_Complete);
 		commitEx();

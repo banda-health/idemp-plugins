@@ -66,6 +66,7 @@ public class VisitRestService extends BaseRestService<Visit, MBHVisit, VisitDBSe
 	}
 
 	// TODO: Remove these endpoints when order processing is separate from a visit
+
 	/**
 	 * A process method to allow visits to handle everything
 	 *
@@ -92,10 +93,9 @@ public class VisitRestService extends BaseRestService<Visit, MBHVisit, VisitDBSe
 	@POST
 	@Path("/process/{processType}")
 	public Visit saveAndProcess(Visit entity, @PathParam("processType") String documentAction) throws Exception {
-			if (!documentAction.equals(MOrder_BH.DOCACTION_Void)) {
-//				entity.set
-//				// set voided reason
-			}
+		if (!documentAction.equals(MOrder_BH.DOCACTION_Void)) {
+			entity.setVoidedReason(null);
+		}
 		getDBService().saveEntity(entity);
 		return getDBService().processDependentEntities(entity.getUuid(), documentAction);
 	}

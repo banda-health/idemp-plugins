@@ -330,12 +330,14 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setBH_Process_Stage(entity.getProcessStage().getValue());
 		}
 
-//		if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
-//			MBHVoidedReason voidingReason = voidedReasonDBService.getEntityByUuidFromDB(entity.getVoidedReason().getUuid());
-//			if (voidingReason != null) {
-//				visit.setBH_VoidedReasonID(voidingReason.get_ID());
-//			}
-//		}
+		if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
+			MBHVoidedReason voidingReason = voidedReasonDBService.getEntityByUuidFromDB(entity.getVoidedReason().getUuid());
+			if (voidingReason != null) {
+				visit.setBH_Voided_Reason_ID(voidingReason.get_ID());
+				// Set for all orders as well
+				entity.getOrders().forEach(order -> order.setVoidedReason(entity.getVoidedReason()));
+			}
+		}
 
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), visit::setBH_ReferredFromTo);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), visit::setBH_VisitDate);

@@ -43,6 +43,7 @@ public class Visit extends BaseEntity {
 	private BigDecimal oxygenSaturation;
 	private List<Payment> payments = new ArrayList<>();
 	private List<Order> orders = new ArrayList<>();
+	private VoidedReason voidedReason;
 
 	public Visit() {
 	}
@@ -302,5 +303,13 @@ public class Visit extends BaseEntity {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	public VoidedReason getVoidedReason() {
+		return voidedReason;
+	}
+
+	public void setVoidedReason(VoidedReason voidedReason) {
+		this.voidedReason = voidedReason;
 	}
 }

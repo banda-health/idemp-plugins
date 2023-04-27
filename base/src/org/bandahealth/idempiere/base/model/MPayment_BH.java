@@ -1,21 +1,9 @@
 package org.bandahealth.idempiere.base.model;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
-import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 import org.compiere.model.MPayment;
 import org.compiere.model.MTable;
@@ -23,6 +11,16 @@ import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class MPayment_BH extends MPayment {
 
@@ -71,10 +69,8 @@ public class MPayment_BH extends MPayment {
 	 * Column name BH_NHIF_Type
 	 */
 	public static final String COLUMNNAME_BH_NHIF_Type = "BH_NHIF_Type";
-	public static final String COLUMNAME_TOTAL_OPEN_BALANCE = "TotalOpenBalance";
 	public static final String COLUMNNAME_BH_PROCESSING = "BH_processing";
 	public static final String COLUMNNAME_BH_TENDER_AMOUNT = "BH_tender_amount";
-	public static final String COLUMNNAME_BH_REMAINING_INVOICE_AMOUNT = "BH_RmngInvcAmt";
 	public static final String COLUMNNAME_BH_IsServiceDebt = "BH_IsServiceDebt";
 	/**
 	 * Column name bh_nhif_claim_number
@@ -142,7 +138,8 @@ public class MPayment_BH extends MPayment {
 					orders.stream().filter(MOrder_BH::isComplete).map(MOrder_BH::get_ID).collect(Collectors.toSet()),
 					parameters);
 			List<MInvoice_BH> invoices =
-					new Query(getCtx(), MInvoice_BH.Table_Name, whereClause, get_TrxName()).setParameters(parameters).list();
+					new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " IN (" + whereClause + ")",
+							get_TrxName()).setParameters(parameters).list();
 			List<MInvoice_BH> unpaidInvoices = invoices.stream()
 					.filter(((Predicate<MInvoice_BH>) MInvoice_BH::isComplete).and(Predicate.not(MInvoice_BH::isPaid)))
 					.collect(Collectors.toList());
@@ -151,24 +148,30 @@ public class MPayment_BH extends MPayment {
 				return false;
 			}
 			allocationHeader.saveEx();
-			allocationHeader.setDateAcct(getDateAcct());
+			// Sometimes (weirdly) the invoice date is ahead of the current date acct => update the date to use to match it
+			Timestamp allocationDateToUse = getDateAcct();
 			BigDecimal remainingPaymentAmount = getPayAmt();
 			for (MInvoice_BH invoice : unpaidInvoices) {
 				if (remainingPaymentAmount.compareTo(BigDecimal.ZERO) <= 0) {
 					break;
+				}
+				if (invoice.getDateAcct().compareTo(allocationDateToUse) > 0) {
+					allocationDateToUse = invoice.getDateAcct();
 				}
 				BigDecimal amountToPay = invoice.getGrandTotal();
 				// If the invoiced amount is greater than the payment, only allocate what was paid
 				if (amountToPay.compareTo(remainingPaymentAmount) > 0) {
 					amountToPay = remainingPaymentAmount;
 				}
-				MAllocationLine allocationLine = new MAllocationLine(allocationHeader, amountToPay, Env.ZERO, Env.ZERO, Env.ZERO);
+				MAllocationLine allocationLine =
+						new MAllocationLine(allocationHeader, amountToPay, Env.ZERO, Env.ZERO, Env.ZERO);
 				allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
 				allocationLine.setC_Payment_ID(getC_Payment_ID());
 				allocationLine.setC_Invoice_ID(invoice.get_ID());
 				allocationLine.saveEx(get_TrxName());
 				remainingPaymentAmount = remainingPaymentAmount.subtract(amountToPay);
 			}
+			allocationHeader.setDateAcct(allocationDateToUse);
 			if (!allocationHeader.processIt(DocAction.ACTION_Complete)) {
 				throw new AdempiereException(
 						Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + allocationHeader.getProcessMsg());
