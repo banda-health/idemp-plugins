@@ -649,7 +649,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		double totalUnpaid = 0;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Time & Date");
 			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
