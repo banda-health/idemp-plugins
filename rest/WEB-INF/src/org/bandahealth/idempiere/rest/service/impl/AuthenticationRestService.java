@@ -32,6 +32,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -491,7 +492,7 @@ public class AuthenticationRestService {
 					// check warehouses
 					List<MWarehouse_BH> dbWarehouses = new Query(Env.getCtx(), MWarehouse_BH.Table_Name, "AD_Org_ID=?",
 							null).setParameters(Env.getAD_Org_ID(Env.getCtx())).setOnlyActiveRecords(true)
-									.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
+							.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
 					List<Warehouse> warehouses = warehouseDBService.transformData(dbWarehouses);
 					for (Warehouse warehouse : warehouses) {
 						orgResponse.getWarehouses().add(warehouse);
