@@ -81,4 +81,6 @@ public interface IRestConfigs {
 	String STORAGE_ON_HAND_PATH = AUTHENTICATION_PATH + "/storage-on-hand";
 	
 	String CHARGE_TYPES_PATH = AUTHENTICATION_PATH + "/charge-types";
+	
+	String ORGANIZATIONS_PATH = AUTHENTICATION_PATH + "/organizations";
 }

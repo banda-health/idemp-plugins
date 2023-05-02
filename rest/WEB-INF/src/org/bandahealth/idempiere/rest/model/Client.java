@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Client extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-	private List<Org> orgs = new ArrayList<>();
+	private List<Organization> organizations = new ArrayList<>();
 
 	public Client(int id, String name) {
 		setName(name);
@@ -24,11 +24,11 @@ public class Client extends BaseEntity {
 	}
 
 	@XmlElement
-	public List<Org> getOrgs() {
-		return orgs;
+	public List<Organization> getOrganizations() {
+		return organizations;
 	}
 
-	public void setOrgs(List<Org> orgs) {
-		this.orgs = orgs;
+	public void setOrganizations(List<Organization> organizations) {
+		this.organizations = organizations;
 	}
 }

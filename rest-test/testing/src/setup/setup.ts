@@ -11,9 +11,9 @@ export default async function () {
 	const loginInfo = await authenticationApi.login();
 	// Find the client & org we'll use
 	let client = loginInfo.clients.find((client) => client.name === clientName);
-	let org = client?.orgs[0];
-	let roles = org?.roles;
-	if (!client || !org || !roles?.length) {
+	let organization = client?.organizations[0];
+	let roles = organization?.roles;
+	if (!client || !organization || !roles?.length) {
 		throw new Error(`could not find client "${clientName}"`);
 	}
 
@@ -23,15 +23,15 @@ export default async function () {
 		const baseLoginData: Partial<Authentication> = {
 			...initialLoginData,
 			clientUuid: client.uuid,
-			organizationId: org.id,
+			organizationUuid: organization.uuid,
 			roleUuid: adminRole.uuid,
-			warehouseUuid: org.warehouses[0].uuid,
+			warehouseUuid: organization.warehouses[0].uuid,
 		};
 		const newLoginInfo = await authenticationApi.login(baseLoginData);
 		// Update the session token appropriately
 		loginInfo.token = newLoginInfo.token;
 		loginInfo.clientUuid = newLoginInfo.clientUuid;
-		loginInfo.orgId = newLoginInfo.orgId;
+		loginInfo.organizationUuid = newLoginInfo.organizationUuid;
 		loginInfo.roleUuid = newLoginInfo.roleUuid;
 		loginInfo.warehouseUuid = newLoginInfo.warehouseUuid;
 	}

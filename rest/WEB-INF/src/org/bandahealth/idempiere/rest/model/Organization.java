@@ -6,12 +6,14 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.compiere.model.MOrg;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "org")
+@XmlRootElement(name = "organization")
 @JsonInclude(value = Include.NON_NULL)
-public class Org extends BaseObject {
+public class Organization extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,8 +21,13 @@ public class Org extends BaseObject {
 
 	private List<Warehouse> warehouses = new ArrayList<>();
 
-	public Org(int id, String name) {
-		super(id, name);
+	private OrganizationInformation organizationInformation;
+
+	public Organization() {
+	}
+
+	public Organization(MOrg org) {
+		super(org, org.getName(), org.getDescription(), null);
 	}
 
 	@XmlElement
@@ -39,5 +46,13 @@ public class Org extends BaseObject {
 
 	public void setWarehouses(List<Warehouse> warehouses) {
 		this.warehouses = warehouses;
+	}
+
+	public OrganizationInformation getOrganizationInformation() {
+		return organizationInformation;
+	}
+
+	public void setOrganizationInformation(OrganizationInformation organizationInformation) {
+		this.organizationInformation = organizationInformation;
 	}
 }

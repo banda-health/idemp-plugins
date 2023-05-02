@@ -1,26 +1,39 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
-import org.bandahealth.idempiere.rest.model.BaseMetadata;
-import org.bandahealth.idempiere.rest.model.Locator;
-import org.bandahealth.idempiere.rest.model.Warehouse;
+import org.bandahealth.idempiere.rest.model.Location;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocation;
-import org.compiere.model.MLocator;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @Component
-public class LocationDBService extends BaseDBService<BaseMetadata, MLocation> {
+public class LocationDBService extends BaseDBService<Location, MLocation> {
 	@Override
-	public BaseMetadata saveEntity(BaseMetadata entity) {
-		throw new NotImplementedException();
+	public Location saveEntity(Location entity) {
+		// set location
+		MLocation location = new Query(Env.getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + " =?",
+				null).setParameters(entity.getUuid()).first();
+		if (location == null) {
+			location = new MLocation(Env.getCtx(), 0, null);
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getAddress1())) {
+			location.setAddress1(entity.getAddress1());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getAddress2())) {
+			location.setAddress2(entity.getAddress2());
+		}
+
+		if (StringUtil.isNotNullAndEmpty(entity.getAddress3())) {
+			location.setAddress3(entity.getAddress3());
+		}
+
+		location.saveEx();
+
+		return createInstanceWithAllFields(location);
 	}
 
 	@Override
@@ -29,17 +42,17 @@ public class LocationDBService extends BaseDBService<BaseMetadata, MLocation> {
 	}
 
 	@Override
-	protected BaseMetadata createInstanceWithDefaultFields(MLocation instance) {
+	protected Location createInstanceWithDefaultFields(MLocation instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected BaseMetadata createInstanceWithAllFields(MLocation instance) {
-		return new BaseMetadata(instance);
+	protected Location createInstanceWithAllFields(MLocation instance) {
+		return new Location(instance);
 	}
 
 	@Override
-	protected BaseMetadata createInstanceWithSearchFields(MLocation instance) {
+	protected Location createInstanceWithSearchFields(MLocation instance) {
 		return createInstanceWithAllFields(instance);
 	}
 

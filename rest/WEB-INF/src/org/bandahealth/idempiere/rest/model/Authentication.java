@@ -12,7 +12,7 @@ public class Authentication {
 	private String answer;
 	private String clientUuid;
 	private String roleUuid;
-	private Integer organizationId;
+	private String organizationUuid;
 	private String warehouseUuid;
 	/**
 	 * The language that is stored in the DB as AD_Language (e.g. en_US)
@@ -66,13 +66,13 @@ public class Authentication {
 		this.roleUuid = adRoleId;
 	}
 
-	@XmlElement
-	public Integer getOrganizationId() {
-		return organizationId;
+
+	public String getOrganizationUuid() {
+		return organizationUuid;
 	}
 
-	public void setOrganizationId(Integer adOrganizationId) {
-		this.organizationId = adOrganizationId;
+	public void setOrganizationUuid(String organizationUuid) {
+		this.organizationUuid = organizationUuid;
 	}
 
 	@XmlElement
