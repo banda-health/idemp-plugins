@@ -19,6 +19,7 @@ export * from './languages';
 export * from './menus';
 export * from './movement';
 export * from './order';
+export * from './organizations';
 export * from './patients';
 export * from './payments';
 export * from './processes';

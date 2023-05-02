@@ -34,6 +34,7 @@ export default class IDempRestEnvironment extends NodeEnvironment {
 			// Replace the last error in the array with ours
 			event.test.errors.pop();
 			event.test.errors.push(modifiedAxiosError);
+			event.test.asyncError = modifiedAxiosError;
 		}
 	}
 }
