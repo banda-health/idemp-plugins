@@ -31,8 +31,6 @@ export default class IDempRestEnvironment extends NodeEnvironment {
 					error.stack ? '\n\n' + error.stack : undefined
 				}`,
 			);
-			// Remove the stack trace so it doesn't override the original message (and we've included the stack trace above already)
-			modifiedAxiosError.stack = undefined;
 			// Replace the last error in the array with ours
 			event.test.errors.pop();
 			event.test.errors.push(modifiedAxiosError);

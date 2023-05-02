@@ -22,7 +22,6 @@ import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
-import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
@@ -63,8 +62,6 @@ import java.util.stream.Collectors;
 @Component
 public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
-	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
-	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	@Autowired
 	private CodedDiagnosisDBService codedDiagnosisDBService;
 	@Autowired
@@ -81,6 +78,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	private EntityMetadataDBService entityMetadataDBService;
 	@Autowired
 	private VoidedReasonDBService voidedReasonDBService;
+	@Autowired
+	private BusinessPartnerDBService businessPartnerDBService;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -93,20 +92,20 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	};
 
 	public static Map<Integer, Integer> getVisitCountsByPatients(Set<Integer> patientIds) {
-		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
-				.append(MOrder_BH.COLUMNNAME_IsActive).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_DocStatus)
-				.append("!=? AND ").append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" IN (");
-
 		List<Object> parameters = new ArrayList<>();
+		String sqlWhere =
+				"WHERE " + MBHVisit.COLUMNNAME_BH_Visit_ID + " IN (SELECT " + MOrder_BH.COLUMNNAME_BH_Visit_ID + " FROM " +
+						MOrder_BH.Table_Name + " WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " +
+						MOrder_BH.COLUMNNAME_DocStatus + "!=? AND " + MOrder_BH.COLUMNNAME_AD_Client_ID + "=?) AND " +
+						MBHVisit.COLUMNNAME_Patient_ID + " IN (";
 
 		parameters.add("Y");
-		parameters.add("Y");
-		parameters.add(MOrder_BH.DOCSTATUS_Voided);
-
+		parameters.add("VO");
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		String patientIdInWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters);
-		sqlWhere.append(patientIdInWhereClause).append(")");
 
-		return SqlUtil.getGroupCount(MOrder_BH.Table_Name, sqlWhere.toString(), MOrder_BH.COLUMNNAME_C_BPartner_ID,
+		return SqlUtil.getGroupCount(MBHVisit.Table_Name, sqlWhere + patientIdInWhereClause + ")",
+				MBHVisit.COLUMNNAME_Patient_ID,
 				parameters, (resultSet -> {
 					try {
 						return resultSet.getInt(1);
@@ -122,7 +121,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			return new HashMap<>();
 		}
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
 		String whereClause = "WHERE " + MBHVisit.COLUMNNAME_Patient_ID + " IN (" +
 				QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND " +
 				MBHVisit.COLUMNNAME_AD_Client_ID + "=?";
@@ -339,11 +337,19 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			}
 		}
 
+		MBPartner_BH businessPartner;
+		if (entity.getPatient() != null && entity.getPatient().getUuid() != null &&
+				(businessPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getPatient().getUuid())) != null) {
+			visit.setPatient_ID(businessPartner.get_ID());
+			entity.getOrders().forEach(order -> order.getBusinessPartner().setUuid(businessPartner.getC_BPartner_UU()));
+		}
+
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), visit::setBH_ReferredFromTo);
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), visit::setBH_VisitDate);
 		visit.setBH_OxygenSaturation(entity.getOxygenSaturation());
 
 		visit.saveEx();
+		entity.setId(visit.get_ID());
 
 		// TODO: Eventually handle when orders are removed/added...
 		// Now take care of the orders
@@ -359,6 +365,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			entity.setOrders(new ArrayList<>());
 		}
 		for (Order order : entity.getOrders()) {
+			order.setVisitId(visit.get_ID());
 			order.setDocumentTypeTargetId(onCreditOrderDocumentType.get().get_ID());
 
 			// set patient
@@ -410,7 +417,12 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// delete payment lines not in request
 		paymentDBService.deletePaymentLinesByVisit(visit.get_ID(), lineIds.toString());
 
-		return createInstanceWithAllFields(visit);
+		Visit model = createInstanceWithAllFields(visit);
+		model.setOrders(orderDBService.transformData(
+				orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
+						Collections.singleton(visit.get_ID())).get(visit.get_ID())));
+		model.setPayments(paymentDBService.getPaymentsByVisitId(model.getId()));
+		return model;
 	}
 
 	@Override
@@ -436,23 +448,24 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			List<MPayment_BH> visitsPayments =
 					new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?",
 							deleteVisitTransaction.getTrxName()).setParameters(visit.get_ID()).list();
+
 			Predicate<DocAction> isNotDrafted =
 					(DocAction entity) -> !DocumentEngine.STATUS_Drafted.equals(entity.getDocStatus());
-
 			if (visitsOrders.stream().anyMatch(isNotDrafted) || visitsInOuts.stream().anyMatch(isNotDrafted) ||
 					visitsInvoices.stream().anyMatch(isNotDrafted) || visitsPayments.stream().anyMatch(isNotDrafted)) {
 				throw new AdempiereException("Visit is already completed");
 			}
 
-			Predicate<PO> deleteEntity = (PO entity) -> entity.delete(false);
-			if (!visitsOrders.stream().allMatch(deleteEntity) && !visitsInOuts.stream().allMatch(deleteEntity) &&
-					!visitsInvoices.stream().allMatch(deleteEntity) && !visitsPayments.stream().allMatch(deleteEntity)) {
+			Predicate<PO> deleteEntity = (PO entity) -> entity.delete(true);
+			if (!(visitsPayments.stream().allMatch(deleteEntity) && visitsInvoices.stream().allMatch(deleteEntity) &&
+					visitsInOuts.stream().allMatch(deleteEntity) && visitsOrders.stream().allMatch(deleteEntity))) {
 				throw new AdempiereException("Could not delete dependent entities");
 			}
 
-			boolean didDelete = visit.delete(false);
+			boolean didDelete = visit.delete(true);
 			if (!deleteVisitTransaction.commit(true)) {
 				logger.severe("Could not commit visit transaction");
+				return false;
 			}
 			return didDelete;
 		} catch (Exception ex) {

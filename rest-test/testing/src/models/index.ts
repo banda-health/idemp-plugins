@@ -1,6 +1,6 @@
 // @ts-create-index
 
-export * from './documentBaseType';
+export * from './documentTypeConstants';
 export * from './documentEngine';
 export * from './reference';
 export * from './referenceList';

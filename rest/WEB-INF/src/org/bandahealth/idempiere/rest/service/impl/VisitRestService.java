@@ -96,7 +96,7 @@ public class VisitRestService extends BaseRestService<Visit, MBHVisit, VisitDBSe
 		if (!documentAction.equals(MOrder_BH.DOCACTION_Void)) {
 			entity.setVoidedReason(null);
 		}
-		getDBService().saveEntity(entity);
-		return getDBService().processDependentEntities(entity.getUuid(), documentAction);
+		Visit savedEntity = getDBService().saveEntity(entity);
+		return getDBService().processDependentEntities(savedEntity.getUuid(), documentAction);
 	}
 }

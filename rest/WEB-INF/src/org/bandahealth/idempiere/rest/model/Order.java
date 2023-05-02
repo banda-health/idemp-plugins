@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 
@@ -35,6 +37,9 @@ public class Order extends BaseMetadata {
 	private Warehouse warehouse;
 	@JsonIgnore
 	private int documentTypeTargetId;
+	@JsonIgnore
+	private int visitId;
+	private DocumentType documentTypeTarget;
 
 	public Order() {
 	}
@@ -109,7 +114,6 @@ public class Order extends BaseMetadata {
 		this.grandTotal = grandTotal;
 	}
 
-	@JsonIgnore
 	public boolean isIsSalesOrderTransaction() {
 		return isSalesOrderTransaction;
 	}
@@ -184,5 +188,21 @@ public class Order extends BaseMetadata {
 
 	public void setDateAccount(Timestamp dateAccount) {
 		this.dateAccount = dateAccount;
+	}
+
+	public int getVisitId() {
+		return visitId;
+	}
+
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
+	}
+
+	public DocumentType getDocumentTypeTarget() {
+		return documentTypeTarget;
+	}
+
+	public void setDocumentTypeTarget(DocumentType documentTypeTarget) {
+		this.documentTypeTarget = documentTypeTarget;
 	}
 }

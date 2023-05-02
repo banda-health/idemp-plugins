@@ -1,7 +1,14 @@
 import axios, { AxiosError } from 'axios';
 import { PdfData } from 'pdfdataextract';
 import { languageApi, patientApi, referenceListApi, visitApi } from '../api';
-import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
+import {
+	documentAction,
+	documentBaseType,
+	documentStatus,
+	documentSubTypeSalesOrder,
+	referenceUuid,
+	tenderTypeName,
+} from '../models';
 import {
 	BusinessPartner,
 	Order,
@@ -54,6 +61,13 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create payment';
@@ -101,7 +115,7 @@ test(`visit saved from scratch is correct`, async () => {
 					{
 						description: valueObject.getStepMessageLong(),
 						product: valueObject.product,
-						quantity: 10,
+						quantity: 1,
 						price: 100,
 					} as OrderLine,
 				],
@@ -157,6 +171,13 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create payment';
@@ -198,6 +219,13 @@ test(`patient open balance reverted correctly after visit with partial payment i
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create payment';
@@ -253,6 +281,13 @@ test(`patient open balance correct with multiple payments`, async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
@@ -322,6 +357,13 @@ test('payments can be removed and added to re-opened visit', async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create payment';
@@ -397,6 +439,13 @@ test('re-opened visit returns voided/reversed payments', async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.visit!.payments = [
@@ -448,6 +497,13 @@ test('tender amount set correctly for payments', async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.visit!.payments = [
@@ -493,6 +549,13 @@ test('voiding visit returns voided/reversed payments', async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.visit!.payments = [
@@ -542,6 +605,13 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.visit!.payments = [
@@ -585,6 +655,13 @@ test('correct patient shown when patient changed after initial switch', async ()
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create second patient';
@@ -638,6 +715,13 @@ test('create and complete pharmacy sales visit', async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.visit!.payments = [
@@ -684,7 +768,19 @@ test(`get method returns the correct data`, async () => {
 	valueObject.date = twoDaysAgo;
 	await createVisit(valueObject);
 
-	const fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.order!.uuid);
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+
+	const fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.visit!.uuid);
 	expect(fetchedVisit.patient).toBeTruthy();
 	expect(fetchedVisit.patient.lastVisitDate).toBe(formatDate(twoDaysAgo));
 	expect(fetchedVisit.patient.totalVisits).toBe(1);
@@ -719,6 +815,13 @@ test('can remove a payment from a re-opened visit', async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.visit!.payments = [
@@ -774,6 +877,13 @@ test('can delete a drafted visit', async () => {
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
 
 	valueObject.visit!.payments = [
@@ -811,13 +921,21 @@ test(`product created and sold with more than received quantity throws an error`
 	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
-	valueObject.documentAction = documentAction.Complete;
-	valueObject.quantity = 100;
-	await expect(createVisit(valueObject)).rejects.toBeTruthy();
+	await createVisit(valueObject);
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
+	valueObject.quantity = 100;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	await createOrder(valueObject);
+
+	await expect(visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete)).rejects.toBeTruthy();
 });
 
 test(`selling more than in inventory error message is correct and is the same in every language`, async () => {
@@ -840,11 +958,23 @@ test(`selling more than in inventory error message is correct and is the same in
 	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
-	valueObject.documentAction = documentAction.Complete;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
 	valueObject.quantity = 100;
+	await createOrder(valueObject);
+
 	let negativeInventoryError: AxiosError;
 	try {
-		await createVisit(valueObject);
+		await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 		expect(false).toBe(true);
 		return;
 	} catch (error) {
@@ -860,5 +990,23 @@ test(`selling more than in inventory error message is correct and is the same in
 	expect(french).toBeTruthy();
 	valueObject.language = french?.locale;
 	await valueObject.login();
-	await expect(createVisit(valueObject)).rejects.toThrowError(negativeInventoryError);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	valueObject.quantity = 100;
+	await createOrder(valueObject);
+
+	await expect(visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete)).rejects.toThrowError(
+		negativeInventoryError,
+	);
 });

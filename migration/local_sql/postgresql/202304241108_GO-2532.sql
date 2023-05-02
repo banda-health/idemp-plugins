@@ -3,7 +3,7 @@
 --  1. Create new bh_visit table
 --  2. Create document sequence for the visits
 --  3. Migrate data from c_order to bh_visit
---  4. Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
+--	4. Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
 --			an existing column)
 --  5. Point anything needing visit stuff currently using c_order to bh_visit
 --  6. Delete columns from c_order (and anything that used them that we don't currently use)
@@ -127,7 +127,17 @@ VALUES
 	 ), 0, 0, 'Y', '2023-04-25 09:01:05.204000', 100, '2023-04-25 09:01:05.204000', 100, 'Patient_ID', 'U', 'Patient',
 	 'Patient', 'The Patient must be a valid business partner.', NULL, NULL, NULL, NULL, NULL,
 	 'b7e75979-daae-4d47-9dc1-d15c58f42374', NULL);
-
+INSERT INTO
+	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
+	            entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help,
+	            ad_element_uu, placeholder)
+VALUES
+	((
+		 SELECT MAX(ad_element_id) + 1
+		 FROM ad_element
+	 ), 0, 0, 'Y', '2023-04-24 11:18:39.501000', 100, '2023-04-24 11:18:39.501000', 100, 'BH_Visit_UU', 'U',
+	 'BH_Visit_UU', 'BH_Visit_UU', NULL, NULL, NULL, NULL, NULL, NULL, 'a699c600-3a66-4151-aadf-4cbfd2118abc', NULL)
+ON CONFLICT DO NOTHING;
 
 INSERT INTO
 	ad_table (ad_table_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
