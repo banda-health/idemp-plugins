@@ -21,6 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path(IRestConfigs.PROCESS_PATH)
@@ -39,6 +40,9 @@ public class ProcessRestService extends BaseRestService<Process, MProcess_BH, Pr
 		if (StringUtil.isNullOrEmpty(processUuid)) {
 			log.severe("Report not specified");
 			return null;
+		}
+		if (processInfoParameters == null) {
+			processInfoParameters = new ArrayList<>();
 		}
 		MProcess process = dbService.getEntityByUuidFromDB(processUuid);
 
@@ -61,6 +65,9 @@ public class ProcessRestService extends BaseRestService<Process, MProcess_BH, Pr
 		if (StringUtil.isNullOrEmpty(processUuid)) {
 			log.severe("Process not specified");
 			return null;
+		}
+		if (processInfoParameters == null) {
+			processInfoParameters = new ArrayList<>();
 		}
 		MProcess process = dbService.getEntityByUuidFromDB(processUuid);
 		String processResponse = dbService.run(process, processInfoParameters);
