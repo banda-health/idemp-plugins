@@ -1,5 +1,5 @@
 DROP FUNCTION IF EXISTS bh_get_visit_details(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE OR REPLACE FUNCTION bh_get_visit_details(ad_client_id numeric,
+CREATE FUNCTION bh_get_visit_details(ad_client_id numeric,
                                                 begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
                                                 end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE

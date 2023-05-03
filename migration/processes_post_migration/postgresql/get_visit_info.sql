@@ -1,5 +1,5 @@
 DROP FUNCTION IF EXISTS get_visit_info(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE OR REPLACE FUNCTION get_visit_info(ad_client_id numeric,
+CREATE FUNCTION get_visit_info(ad_client_id numeric,
                                           begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
                                           end_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
