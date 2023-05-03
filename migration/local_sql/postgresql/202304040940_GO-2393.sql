@@ -40,7 +40,7 @@ WHERE
 		p.ad_process_uu = 'e79541fb-9b70-4a10-bfef-7401401b8c56'
 ON CONFLICT DO NOTHING;
 
--- Ensure the base clean process is available to the correct roles
+-- Ensure the clean process is available to the correct roles
 INSERT INTO
 	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby)
 SELECT
@@ -61,6 +61,28 @@ FROM
 		)
 WHERE
 		p.ad_process_uu = 'e79541fb-9b70-4a10-bfef-7401401b8c56';
+
+-- Ensure the base clean process is available to the correct roles
+INSERT INTO
+	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby)
+SELECT
+	p.ad_process_id,
+	r.ad_role_id,
+	r.ad_client_id,
+	0,
+	100,
+	100
+FROM
+	ad_process p
+		JOIN ad_role r
+			ON r.ad_role_uu IN ('461b31c5-cae2-449d-8a0c-7385b12f4685', -- clinic admin
+			                    'ee008abc-2c16-4230-b48c-b1f5577ea270', -- cashier/registration advanced
+			                    'ec17fee0-a53a-4dbb-b946-423ce14880eb', -- inventory/pharmacy
+			                    'c54253cf-c86b-4aaa-b472-ed8880635c62', -- clinician/nurse advanced
+			                    '097feff0-3aa6-41fe-bf76-936b03859846' -- lab/radiology
+		)
+WHERE
+		p.ad_process_uu = '8e270648-1d54-46d9-9161-2d0300dd80ff';
 
 SELECT
 	update_sequences();

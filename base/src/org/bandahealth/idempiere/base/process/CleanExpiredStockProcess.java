@@ -17,6 +17,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -66,7 +67,7 @@ public class CleanExpiredStockProcess extends SvrProcess {
 						MDocType.getDocType(MDocType.DOCBASETYPE_MaterialMovement),
 						null, null, null)});
 
-		ServerProcessCtl.process(processInfo, null);
+		ServerProcessCtl.process(processInfo, Trx.get(get_TrxName(), false));
 
 		return processInfo.getSummary();
 	}
