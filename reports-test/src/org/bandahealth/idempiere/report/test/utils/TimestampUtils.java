@@ -44,6 +44,20 @@ public class TimestampUtils {
 		return new Timestamp(calendar.getTimeInMillis());
 	}
 
+	/**
+	 * Adds or subtracts the specified amount of time to the today. For example, to subtract 5 days from
+	 * today, you can achieve it by calling:
+	 * <p><code>TimestampUtils.addToNow(Calendar.DAY_OF_MONTH, -5)</code>.
+	 *
+	 * @param field the calendar field.
+	 * @param amount the amount of date or time to be added to the field.
+	 */
+	public static Timestamp addToNow(int field, int amount) {
+		Calendar calendar = getCalendarForNow();
+		calendar.add(field, amount);
+		return new Timestamp(calendar.getTimeInMillis());
+	}
+
 	public static Timestamp startOfMonth() {
 		Calendar calendar = getCalendarForNow();
 		calendar.set(Calendar.DAY_OF_MONTH,
