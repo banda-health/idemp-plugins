@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
+import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
-import { languageApi, patientApi, referenceListApi, visitApi } from '../api';
+import { languageApi, patientApi, referenceListApi, visitApi, voidedReasonApi } from '../api';
 import {
 	documentAction,
 	documentBaseType,
@@ -17,7 +18,6 @@ import {
 	Payment,
 	PaymentType,
 	ProcessInfoParameter,
-	Vendor,
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
 import {
@@ -30,6 +30,8 @@ import {
 	createVisit,
 	formatDate,
 	runReport,
+	tomorrow,
+	yesterday,
 } from '../utils';
 
 xtest(`information saved correctly after completing a visit`, async () => {
@@ -1009,4 +1011,74 @@ test(`selling more than in inventory error message is correct and is the same in
 	await expect(visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete)).rejects.toThrowError(
 		negativeInventoryError,
 	);
+});
+
+test('voiding visits shows data on the report correctly', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.visit!.payments = [
+		{
+			payAmount: valueObject.salesStandardPrice,
+			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType,
+		} as Payment,
+	];
+
+	valueObject.stepName = 'Complete visit';
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
+
+	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Void visit';
+	valueObject.visit!.voidedReason = (await voidedReasonApi.get(valueObject)).results[0];
+	const voidingReason = valueObject.visit.voidedReason;
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Void);
+
+	valueObject.stepName = 'Run the report';
+	valueObject.processUuid = '20a623fb-e127-4c26-98d5-3604a6d100b2';
+	valueObject.reportType = 'xlsx';
+	valueObject.processInformationParameters = [
+		{ parameterName: 'Begin Date', parameter: yesterday() } as ProcessInfoParameter,
+		{ parameterName: 'End Date', parameter: tomorrow() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	const excelFile = xlsx.parse(valueObject.report!);
+	const voidedVisitRow = excelFile[0].data.filter((row) =>
+		(row[1]?.toString() as string).includes(valueObject.businessPartner!.name.substring(0, 30)),
+	)?.[0];
+	expect(voidedVisitRow).toBeTruthy();
+	expect(voidedVisitRow[4]).toBe(voidingReason.name);
 });

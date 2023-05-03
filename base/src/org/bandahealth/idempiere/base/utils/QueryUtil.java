@@ -2,9 +2,7 @@ package org.bandahealth.idempiere.base.utils;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
-import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.compiere.model.PO;
 import org.compiere.model.Query;

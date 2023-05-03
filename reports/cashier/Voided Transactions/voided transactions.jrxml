@@ -66,6 +66,8 @@ FROM
 			ON v.bh_visit_id = o.bh_visit_id
 		JOIN c_payment p
 			ON v.bh_visit_id = p.bh_visit_id
+		JOIN c_payment rev_p
+			ON p.reversal_id = rev_p.c_payment_id AND p.created < rev_p.created
 		JOIN ad_user cashier
 			ON o.updatedby = cashier.ad_user_id
 		JOIN c_bpartner bp
@@ -106,7 +108,7 @@ ORDER BY
 	</subDataset>
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select 1]]>
 	</queryString>

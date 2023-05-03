@@ -31,5 +31,6 @@ export * from './services';
 export * from './storageOnHand';
 export * from './vendors';
 export * from './visits';
+export * from './voidedReasons';
 export * from './warehouses';
 

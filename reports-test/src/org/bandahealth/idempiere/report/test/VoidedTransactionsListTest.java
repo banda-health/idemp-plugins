@@ -93,6 +93,7 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
 				valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
 //		PO.clearCrossTenantSafe();
+		assertTrue(!voidedReason.getName().isEmpty() && !voidedReason.getName().isBlank(), "Voiding reason has a name");
 
 		valueObject.setStepName("Void order");
 		valueObject.refresh();

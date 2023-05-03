@@ -1028,5 +1028,3 @@ test(`clinic user role has correct access`, async () => {
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
 });
-
-test('voiding visits shows data on the report correctly', async () => {});

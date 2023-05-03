@@ -86,7 +86,7 @@ export class ValueObject {
 
 	processUuid?: string;
 	processInformationParameters?: ProcessInfoParameter[];
-	reportType: string = 'pdf';
+	reportType: 'pdf' | 'xlsx' | 'html' | 'csv' = 'pdf';
 	report?: Buffer;
 
 	sessionToken?: string;
@@ -97,7 +97,9 @@ export class ValueObject {
 
 	private prepareIt(loginInfo: AuthResponse & { client?: Client }) {
 		this.client = loginInfo.client;
-		this.organization = this.client?.organizations.find((organization) => organization.uuid === loginInfo.organizationUuid);
+		this.organization = this.client?.organizations.find(
+			(organization) => organization.uuid === loginInfo.organizationUuid,
+		);
 		this.role = this.organization?.roles.find((role) => role.uuid === loginInfo.roleUuid);
 		this.warehouse = this.organization?.warehouses.find((warehouse) => warehouse.uuid === loginInfo.warehouseUuid);
 		this.sessionToken = loginInfo.token;
