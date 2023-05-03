@@ -21,6 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path(IRestConfigs.PROCESS_PATH)
@@ -32,12 +33,6 @@ public class ProcessRestService extends BaseRestService<Process, MProcess_BH, Pr
 	private ProcessDBService dbService;
 
 	@POST
-	@Path("/run")
-	public BHProcessInfo runProcess(BHProcessInfo request) {
-		return ProcessDBService.runProcess(request);
-	}
-
-	@POST
 	@Path(IRestConfigs.RUN_AND_EXPORT_PATH + "/{processUuid}/{reportType}")
 	@Produces(IRestConfigs.APPLICATION_PDF)
 	public Response runAndExport(@PathParam("processUuid") String processUuid,
@@ -45,6 +40,9 @@ public class ProcessRestService extends BaseRestService<Process, MProcess_BH, Pr
 		if (StringUtil.isNullOrEmpty(processUuid)) {
 			log.severe("Report not specified");
 			return null;
+		}
+		if (processInfoParameters == null) {
+			processInfoParameters = new ArrayList<>();
 		}
 		MProcess process = dbService.getEntityByUuidFromDB(processUuid);
 
@@ -57,6 +55,23 @@ public class ProcessRestService extends BaseRestService<Process, MProcess_BH, Pr
 
 		Response.ResponseBuilder response = Response.ok((Object) report);
 		HttpHeaderUtil.setContentDisposition(response, process.getName() + "." + reportType.toString().toLowerCase());
+		return response.build();
+	}
+
+	@POST
+	@Path("run/{processUuid}")
+	public Response runProcess(@PathParam("processUuid") String processUuid,
+			List<ProcessInfoParameter> processInfoParameters) throws Exception {
+		if (StringUtil.isNullOrEmpty(processUuid)) {
+			log.severe("Process not specified");
+			return null;
+		}
+		if (processInfoParameters == null) {
+			processInfoParameters = new ArrayList<>();
+		}
+		MProcess process = dbService.getEntityByUuidFromDB(processUuid);
+		String processResponse = dbService.run(process, processInfoParameters);
+		Response.ResponseBuilder response = Response.ok(processResponse);
 		return response.build();
 	}
 

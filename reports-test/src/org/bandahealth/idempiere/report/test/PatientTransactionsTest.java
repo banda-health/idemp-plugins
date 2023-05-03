@@ -625,7 +625,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
 			int totalsRowIndex = -1;
 			double totalCharged = 0;
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
@@ -735,7 +735,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
 			int totalsRowIndex = -1;
 			double totalCharged = 0;
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);
@@ -839,7 +839,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
 			int totalsRowIndex = -1;
 			double totalCharged = 0;
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell totalPaymentCell = row.getCell(totalPaymentColumnIndex);

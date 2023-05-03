@@ -30,7 +30,7 @@ public class AuthResponse {
 	private List<String> includedRoleUuids;
 	// set default values for users with access to one client/org
 	private String clientUuid;
-	private int orgId;
+	private String organizationUuid;
 	private String warehouseUuid;
 	private String userUuid;
 
@@ -163,12 +163,12 @@ public class AuthResponse {
 		this.clientUuid = clientUuid;
 	}
 
-	public int getOrgId() {
-		return orgId;
+	public String getOrganizationUuid() {
+		return organizationUuid;
 	}
 
-	public void setOrgId(int orgId) {
-		this.orgId = orgId;
+	public void setOrganizationUuid(String orgUuid) {
+		this.organizationUuid = orgUuid;
 	}
 
 	public String getWarehouseUuid() {
