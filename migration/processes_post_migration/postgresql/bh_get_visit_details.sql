@@ -5,7 +5,7 @@ CREATE FUNCTION bh_get_visit_details(ad_client_id numeric,
 	RETURNS TABLE
 	        (
 		        bh_visit_id                   numeric,
-		        bh_visitdate                  timestamp,
+		        bh_visitdate                  timestamptz,
 		        c_order_id                    numeric,
 		        c_order_uu                    character varying,
 		        ad_org_id                     numeric,
