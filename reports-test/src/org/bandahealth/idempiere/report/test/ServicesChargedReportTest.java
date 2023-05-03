@@ -71,12 +71,6 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Complete the order");
-		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Complete);
-		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Complete);
-		valueObject.getOrder().saveEx();
-		commitEx();
-
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
 		valueObject.setProcessRecordId(0);
@@ -130,12 +124,6 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Complete the order");
-		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Complete);
-		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Complete);
-		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");

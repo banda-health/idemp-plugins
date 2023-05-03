@@ -54,22 +54,30 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-       co.updated AS voiddate,
-       cb.name as patientname,
-       cashier.name AS cashiername,
-       p.payamt AS paymentamount,
-       p.bh_tender_amount AS tenderamount,
-       vreason.name AS voidedreason
-FROM c_order co
-INNER JOIN c_payment p ON co.c_order_id = p.bh_c_order_id
-INNER JOIN ad_user cashier ON co.updatedby = cashier.ad_user_id
-INNER JOIN c_bpartner cb ON co.c_bpartner_id = cb.c_bpartner_id
-LEFT JOIN bh_voided_reason vreason on co.bh_voided_reason_id = vreason.bh_voided_reason_id
+	o.updated          AS voiddate,
+	bp.name            AS patientname,
+	cashier.name       AS cashiername,
+	p.payamt           AS paymentamount,
+	p.bh_tender_amount AS tenderamount,
+	vr.name            AS voidedreason
+FROM
+	bh_visit v
+		JOIN c_order o
+			ON v.bh_visit_id = o.bh_visit_id
+		JOIN c_payment p
+			ON v.bh_visit_id = p.bh_visit_id
+		JOIN ad_user cashier
+			ON o.updatedby = cashier.ad_user_id
+		JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN bh_voided_reason vr
+			ON o.bh_voided_reason_id = vr.bh_voided_reason_id
 WHERE
-    co.docstatus = 'VO'
-    AND co.ad_client_id = $P{AD_CLIENT_ID}
-    AND DATE(co.updated) BETWEEN DATE($P{Begin Date}) AND DATE($P{End Date})
-ORDER BY 1;]]>
+	o.docstatus = 'VO'
+	AND o.ad_client_id = $P{AD_CLIENT_ID}
+	AND DATE(o.updated) BETWEEN DATE($P{Begin Date}) AND DATE($P{End Date})
+ORDER BY
+	1;]]>
 		</queryString>
 		<field name="voiddate" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="voiddate"/>
@@ -100,48 +108,8 @@ ORDER BY 1;]]>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT
-       co.updated AS voiddate,
-       cb.name as patientname,
-       cashier.name AS cashiername,
-       p.payamt AS paymentamount,
-       p.bh_tender_amount AS tenderamount,
-       vreason.name AS voidedreason
-FROM c_order co
-INNER JOIN c_payment p ON co.c_order_id = p.bh_c_order_id
-INNER JOIN ad_user cashier ON co.updatedby = cashier.ad_user_id
-INNER JOIN c_bpartner cb ON co.c_bpartner_id = cb.c_bpartner_id
-LEFT JOIN bh_voided_reason vreason on co.bh_voided_reason_id = vreason.bh_voided_reason_id
-WHERE
-    co.docstatus = 'VO'
-    AND co.ad_client_id = $P{AD_CLIENT_ID}
-    AND DATE(co.updated) BETWEEN DATE($P{Begin Date}) AND DATE($P{End Date})
-ORDER BY 1;]]>
+		<![CDATA[select 1]]>
 	</queryString>
-	<field name="voiddate" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="voiddate"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
-	</field>
-	<field name="patientname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="patientname"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="cashiername" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
-	</field>
-	<field name="paymentamount" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="paymentamount"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
-	</field>
-	<field name="tenderamount" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="tenderamount"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_payment"/>
-	</field>
-	<field name="voidedreason" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="voidedreason"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="bh_voided_reason"/>
-	</field>
 	<pageHeader>
 		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>

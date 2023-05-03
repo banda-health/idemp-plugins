@@ -41,6 +41,6 @@ SELECT
 	update_sequences();
 
 SELECT
-	register_migration_script('202304241108_GO-2532.sql')
+	register_migration_script('202304241325_GO-2532.sql')
 FROM
 	dual;

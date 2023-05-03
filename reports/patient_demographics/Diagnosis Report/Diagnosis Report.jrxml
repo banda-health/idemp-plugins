@@ -49,40 +49,45 @@
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[select
-    corder.bh_visitdate as visit_date,
-    cb.name as name,
-    date_part('year',age(cb.bh_birthday)) as age,
-    cb.bh_gender as gender,
-    cb.bh_phone as phonenumber,
-    primary_cd.bh_cielname as primary_coded_diagnosis,
-    corder.bh_primaryuncodeddiagnosis as primary_uncoded_diagnosis,
-    secondary_cd.bh_cielname as secondary_coded_diagnosis,
-    corder.bh_secondaryuncodeddiagnosis as secondary_uncoded_diagnosis
-from c_order corder
-    inner join c_bpartner cb on corder.c_bpartner_id = cb.c_bpartner_id
-    left join bh_coded_diagnosis primary_cd on primary_cd.bh_coded_diagnosis_id = corder.bh_primarycodeddiagnosis_id
-    left join bh_coded_diagnosis secondary_cd on secondary_cd.bh_coded_diagnosis_id = corder.bh_secondarycodeddiagnosis_id
-where
-  corder.ad_client_id = $P{AD_CLIENT_ID}
-  and (
-      corder.bh_primaryuncodeddiagnosis IS NOT NULL OR
-      corder.bh_secondaryuncodeddiagnosis IS NOT NULL OR
-      corder.bh_primarycodeddiagnosis_id IS NOT NULL OR
-      corder.bh_secondarycodeddiagnosis_id IS NOT NULL
-    )
-  and (
-  	  $P{Diagnosis} IS NULL OR
-      lower(corder.bh_primaryuncodeddiagnosis) like lower('%' || COALESCE($P{Diagnosis}, '') || '%') OR
-      lower(corder.bh_secondaryuncodeddiagnosis) like lower('%' || COALESCE($P{Diagnosis}, '') || '%')
-      )
-  and (
-      $P{BH_Coded_Diagnosis_UU} IS NULL OR
-      primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
-      secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
-    )
-  and date(corder.bh_visitdate) BETWEEN $P{Begin Date} AND $P{End Date}
-order by cb.name;]]>
+			<![CDATA[SELECT
+	v.bh_visitdate                         AS visit_date,
+	bp.name                                AS name,
+	DATE_PART('year', AGE(bp.bh_birthday)) AS age,
+	bp.bh_gender                           AS gender,
+	bp.bh_phone                            AS phonenumber,
+	primary_cd.bh_cielname                 AS primary_coded_diagnosis,
+	v.bh_primaryuncodeddiagnosis           AS primary_uncoded_diagnosis,
+	secondary_cd.bh_cielname               AS secondary_coded_diagnosis,
+	v.bh_secondaryuncodeddiagnosis         AS secondary_uncoded_diagnosis
+FROM
+  bh_visit v
+		JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN bh_coded_diagnosis primary_cd
+			ON primary_cd.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id
+		LEFT JOIN bh_coded_diagnosis secondary_cd
+			ON secondary_cd.bh_coded_diagnosis_id = v.bh_secondarycodeddiagnosis_id
+WHERE
+	v.ad_client_id = $P{AD_CLIENT_ID}
+	AND (
+		v.bh_primaryuncodeddiagnosis IS NOT NULL OR
+		v.bh_secondaryuncodeddiagnosis IS NOT NULL OR
+		v.bh_primarycodeddiagnosis_id IS NOT NULL OR
+		v.bh_secondarycodeddiagnosis_id IS NOT NULL
+	)
+	AND (
+		$P{Diagnosis} IS NULL OR
+		LOWER(v.bh_primaryuncodeddiagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%') OR
+		LOWER(v.bh_secondaryuncodeddiagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%')
+	)
+	AND (
+		$P{BH_Coded_Diagnosis_UU} IS NULL OR
+		primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
+		secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
+	)
+	AND date(v.bh_visitdate) BETWEEN $P{Begin Date} AND $P{End Date}
+ORDER BY
+	bp.name;]]>
 		</queryString>
 		<field name="visit_date" class="java.util.Date"/>
 		<field name="name" class="java.lang.String">

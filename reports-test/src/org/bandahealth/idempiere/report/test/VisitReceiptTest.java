@@ -72,6 +72,10 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(50));
@@ -93,7 +97,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -236,7 +240,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -298,7 +302,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
 						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+				valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Order was re-activated");
 		valueObject.getOrder().saveEx();
@@ -320,7 +324,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setPayment(new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
-				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+				valueObject.getTransactionName()).setParameters(valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
 				.first());
 		valueObject.refresh();
 
@@ -350,7 +354,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -444,6 +448,10 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.getCharge().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
 		valueObject.setQuantity(new BigDecimal(50));
@@ -481,7 +489,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -568,6 +576,10 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(50));
@@ -589,7 +601,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -667,6 +679,10 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create first visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(30));
@@ -683,6 +699,10 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create second visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(40));
@@ -697,6 +717,10 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.setPaymentAmount(new BigDecimal(28));
 		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create third visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create third sales order");
@@ -720,7 +744,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getOrder().get_ID()), null, null, null)));
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 

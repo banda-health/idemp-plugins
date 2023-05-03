@@ -54,25 +54,37 @@
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<queryString language="SQL">
-			<![CDATA[select
-  sorder.bh_visitdate as date,
-  patient.name as name,
-  '' as ke_NO,
-  patientID.bh_patientid as opd_NO,
-  invoice.description as diagnoses,
-  sum(payment.payamt) as amount_tendered
-from c_order sorder
-  inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
-  inner join ad_user patient on invoice.ad_user_id = patient.ad_user_id
-  inner join ad_user cashier on sorder.salesrep_id = cashier.ad_user_id
-  inner join c_bpartner patientID on patient.c_bpartner_id = patientID.c_bpartner_id
-  inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
-where
-	invoice.docstatus != 'RE' AND
-  payment.tendertype = 'F' and payment.ad_org_id =  $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.bh_visitdate) BETWEEN  $P{Begin Date} AND  $P{End Date})
-group by sorder.bh_visitdate, patient.name, patientID.bh_patientid, invoice.description
-order by sorder.bh_visitdate asc;]]>
+			<![CDATA[SELECT
+	v.bh_visitdate  AS date,
+	patient.name    AS name,
+	''              AS ke_NO,
+	bp.bh_patientid AS opd_NO,
+	i.description   AS diagnoses,
+	SUM(p.payamt)   AS amount_tendered
+FROM
+	bh_visit v
+		JOIN c_order o
+			ON v.bh_visit_id = o.bh_visit_id
+		JOIN c_invoice i
+			ON o.c_order_id = i.c_order_id
+		JOIN ad_user patient
+			ON i.ad_user_id = patient.ad_user_id
+		JOIN ad_user cashier
+			ON o.salesrep_id = cashier.ad_user_id
+		JOIN c_bpartner bp
+			ON patient.c_bpartner_id = bp.c_bpartner_id
+		JOIN c_payment p
+			ON v.bh_visit_id = p.bh_visit_id
+WHERE
+	i.docstatus != 'RE'
+	AND p.tendertype = 'F'
+	AND p.ad_org_id = $P{AD_CLIENT_ID}
+	AND p.c_invoice_id IS NOT NULL
+	AND date(v.bh_visitdate) BETWEEN $P{Begin Date} AND $P{End Date}
+GROUP BY
+	v.bh_visitdate, patient.name, bp.bh_patientid, i.description
+ORDER BY
+	v.bh_visitdate;]]>
 		</queryString>
 		<field name="date" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="date"/>
@@ -105,17 +117,12 @@ order by sorder.bh_visitdate asc;]]>
 	</parameter>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[select
-  UPPER(clienName.name) as name
-from c_order sorder
-  inner join c_invoice invoice on sorder.c_order_id = invoice.c_order_id
-  inner join c_payment payment on invoice.c_order_id = payment.bh_c_order_id
-  inner join ad_client clienName on payment.ad_client_id = clienName.ad_client_id
-where
-	invoice.docstatus != 'RE' AND
-  payment.tendertype = 'F' and payment.ad_org_id = $P{AD_CLIENT_ID} and payment.c_invoice_id is not null
-  and (date(sorder.bh_visitdate) BETWEEN $P{Begin Date} AND  $P{End Date})
-LIMIT 1;]]>
+		<![CDATA[SELECT
+	UPPER(name) AS name
+FROM
+	ad_client
+WHERE
+	ad_client_id = $P{AD_CLIENT_ID};]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>

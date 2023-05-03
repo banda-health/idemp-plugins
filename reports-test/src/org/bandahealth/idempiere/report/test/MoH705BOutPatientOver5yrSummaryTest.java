@@ -6,7 +6,6 @@ import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
@@ -114,6 +113,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
+		valueObject.getVisit().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
@@ -134,6 +134,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
+		valueObject.getVisit().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create order");

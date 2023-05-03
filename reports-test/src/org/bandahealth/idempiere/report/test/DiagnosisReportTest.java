@@ -68,6 +68,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		String nonCodedDiagnosis = "The Diagnosis of the Century";
 		valueObject.getVisit().setbh_primaryuncodeddiagnosis(nonCodedDiagnosis);
 		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
+		valueObject.getVisit().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create sales order");

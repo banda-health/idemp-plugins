@@ -96,6 +96,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create first visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -110,6 +114,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.setPaymentAmount(new BigDecimal(1300));
 		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create second sales order");
@@ -128,6 +136,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create third visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create third sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -144,6 +156,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create fourth visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create fourth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -157,6 +173,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setPaymentAmount(new BigDecimal(1550));
 		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create fifth visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create fifth sales order");
@@ -178,6 +198,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create waiver charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
 		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+		commitEx();
+
+		valueObject.setStepName("Create sixth visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sixth sales order");
@@ -202,7 +226,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrder().saveEx();
 		commitEx();
 
-		valueObject.setStepName("Create payment for the sixth sales order");
+		valueObject.setStepName("Create cash payment for the sixth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
@@ -210,13 +234,14 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create mobile payment for the sixth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.setPaymentAmount(new BigDecimal(1000));
 		commitEx();
 
-		valueObject.setStepName("Create visit");
+		valueObject.setStepName("Create seventh visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
@@ -240,7 +265,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
 						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+				valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
 		valueObject.getOrder().saveEx();
@@ -262,7 +287,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setPayment(new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
-				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+				valueObject.getTransactionName()).setParameters(valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
 				.first());
 		valueObject.refresh();
 
@@ -439,6 +464,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(50000));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");

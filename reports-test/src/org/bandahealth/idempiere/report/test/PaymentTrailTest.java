@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -222,6 +223,9 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
+		DB.executeUpdate("UPDATE " + MBHVisit.Table_Name + " SET " + MBHVisit.COLUMNNAME_Created + " = " +
+				DB.TO_DATE(valueObject.getDate()) + " WHERE " + MBHVisit.COLUMNNAME_BH_Visit_ID + "=" +
+				valueObject.getVisit().get_ID(), valueObject.getTransactionName());
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
@@ -270,7 +274,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
 						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+				valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
 		valueObject.getOrder().saveEx();
@@ -292,7 +296,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setPayment(new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
-				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+				valueObject.getTransactionName()).setParameters(valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
 				.first());
 		valueObject.refresh();
 
@@ -305,7 +309,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Complete payment that was auto-created after re-opening a visit");
 		List<MPayment_BH> recreatedPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
-				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+				valueObject.getTransactionName()).setParameters(valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
 				.list();
 		assertEquals(1, recreatedPayments.size(), "Assigned payment was re-created when visit re-opened");
 		recreatedPayments.get(0).setDocAction(MPayment_BH.DOCACTION_Complete);
@@ -421,6 +425,10 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");

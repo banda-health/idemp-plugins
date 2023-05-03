@@ -25,7 +25,6 @@ import org.hamcrest.Matchers;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,6 +69,10 @@ public class DailyCashierCollectionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
@@ -139,6 +142,7 @@ public class DailyCashierCollectionsTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.clearBusinessPartner();
 		valueObject.clearProduct();
+		valueObject.setVisit(null);
 
 		valueObject.setStepName("Create second business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -163,6 +167,7 @@ public class DailyCashierCollectionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		valueObject.getVisit().setBH_VisitDate(TimeUtil.addMinutess(TimestampUtils.today(), 60));
+		valueObject.getVisit().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create second sales order");

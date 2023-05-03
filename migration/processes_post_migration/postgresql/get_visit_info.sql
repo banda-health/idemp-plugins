@@ -5,6 +5,7 @@ CREATE OR REPLACE FUNCTION get_visit_info(ad_client_id numeric,
   RETURNS TABLE
           (
             bh_visit_id         numeric,
+            c_order_id          numeric,
             c_bpartner_id       numeric,
             bill_date           timestamp WITHOUT TIME ZONE,
             cashier             character varying,
@@ -37,6 +38,7 @@ $$
 WITH OrderInfo AS (
   SELECT
     v.bh_visit_id,
+    o.c_order_id,
     bp.c_bpartner_id,
     v.bh_visitdate           AS bill_date,
     u.name                   AS Cashier,
@@ -64,7 +66,7 @@ WITH OrderInfo AS (
         AND (o.docstatus <> 'VO' AND o.docstatus <> 'DR')
       )
     AND ol.c_charge_id IS NULL
-  GROUP BY v.bh_visit_id, bp.c_bpartner_id, ol.c_charge_id, v.bh_visitdate, bp.name, u.name, bp.bh_patientid
+  GROUP BY v.bh_visit_id, o.c_order_id, bp.c_bpartner_id, ol.c_charge_id, v.bh_visitdate, bp.name, u.name, bp.bh_patientid
   ORDER BY 1
 ),
   patient_payments AS (
@@ -159,6 +161,7 @@ WITH OrderInfo AS (
   )
 SELECT
   OrderInfo.bh_visit_id,
+  OrderInfo.c_order_id,
   OrderInfo.c_bpartner_id,
   OrderInfo.bill_date,
   OrderInfo.Cashier,
