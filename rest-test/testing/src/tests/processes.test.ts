@@ -29,6 +29,8 @@ const reportUuid = {
 	voidedTransactionsList: '20a623fb-e127-4c26-98d5-3604a6d100b2',
 } as const;
 
+const processUuid = { cleanInventory: 'e79541fb-9b70-4a10-bfef-7401401b8c56' } as const;
+
 const isActiveFilter = JSON.stringify({ isActive: 'Y' });
 
 test('report names are correct', async () => {
@@ -1027,4 +1029,14 @@ test(`clinic user role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
+});
+
+test('processes can be run without any parameters', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Run process';
+	valueObject.processUuid = processUuid.cleanInventory;
+	valueObject.processInformationParameters = undefined;
+	await expect(processApi.run(valueObject)).resolves.toBe('');
 });

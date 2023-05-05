@@ -17,6 +17,16 @@ class ProcessApi extends BaseApi<Process> {
 			)
 		).data;
 	}
+
+	async run(valueObject: ValueObject) {
+		return (
+			await axios.post<String>(
+				`${IDEMPIERE_ENDPOINT}/${this.entityName}/run/${valueObject.processUuid!}`,
+				valueObject.processInformationParameters,
+				{ ...this.getAuthorizationHeaders(valueObject) },
+			)
+		).data;
+	}
 }
 
 export const processApi = new ProcessApi();
