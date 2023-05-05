@@ -88,8 +88,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 							" = " + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 			put(MUser.Table_Name, "LEFT JOIN " + MUser.Table_Name + " ON " + MBHVisit.Table_Name + "." +
 					MBHVisit.COLUMNNAME_BH_Clinician_User_ID + " = " + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID);
-			put(MOrder_BH.Table_Name, "LEFT JOIN " + MOrder_BH.Table_Name + " ON " + MBHVisit.Table_Name + "." +
-					MBHVisit.COLUMNNAME_BH_Visit_ID + " = " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_BH_Visit_ID);
+			put(MOrder_BH.Table_Name,
+					"LEFT JOIN (SELECT bh_visit_id, MIN(dateordered) as dateordered FROM c_order GROUP BY bh_visit_id) " +
+							MOrder_BH.Table_Name + " ON " + MBHVisit.Table_Name + "." + MBHVisit.COLUMNNAME_BH_Visit_ID + " = " +
+							MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_BH_Visit_ID);
 		}
 	};
 
