@@ -88,6 +88,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 							" = " + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 			put(MUser.Table_Name, "LEFT JOIN " + MUser.Table_Name + " ON " + MBHVisit.Table_Name + "." +
 					MBHVisit.COLUMNNAME_BH_Clinician_User_ID + " = " + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID);
+			put(MOrder_BH.Table_Name, "LEFT JOIN " + MOrder_BH.Table_Name + " ON " + MBHVisit.Table_Name + "." +
+					MBHVisit.COLUMNNAME_BH_Visit_ID + " = " + MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_BH_Visit_ID);
 		}
 	};
 
@@ -341,7 +343,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		if (entity.getPatient() != null && entity.getPatient().getUuid() != null &&
 				(businessPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getPatient().getUuid())) != null) {
 			visit.setPatient_ID(businessPartner.get_ID());
-			entity.getOrders().forEach(order -> order.getBusinessPartner().setUuid(businessPartner.getC_BPartner_UU()));
+			entity.getOrders().forEach(order -> {
+				order.setBusinessPartner(new BusinessPartner());
+				order.getBusinessPartner().setUuid(businessPartner.getC_BPartner_UU());
+			});
 		}
 
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), visit::setBH_ReferredFromTo);
@@ -403,7 +408,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				// that the property has been overridden by another save request between when it
 				// was set for this order and now
 				if (entity.getPatient() != null) {
-					payment.setPatient(entity.getPatient());
+					payment.setPatient(new Patient());
+					payment.getPatient().setUuid(entity.getPatient().getUuid());
 				}
 
 				Payment response = paymentDBService.saveEntity(payment);
@@ -712,5 +718,19 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		parameters.add("Y");
 
 		return sqlWhere.toString();
+	}
+
+	@Override
+	public List<Visit> transformData(List<MBHVisit> dbModels) {
+		Set<Integer> visitIds = dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet());
+		Map<Integer, List<Order>> orderIdsByVisitId = orderDBService.transformData(
+						orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, visitIds).values()
+								.stream().flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(Order::getVisitId));
+		return dbModels.stream().map(visit -> {
+			Visit entity = createInstanceWithDefaultFields(visit);
+			entity.setOrders(orderIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
+			return entity;
+		}).collect(Collectors.toList());
 	}
 }

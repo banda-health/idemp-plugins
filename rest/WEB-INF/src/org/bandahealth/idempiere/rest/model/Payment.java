@@ -16,7 +16,9 @@ public class Payment extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
 	private Patient patient;
+	@JsonIgnore
 	private int chargeId;
+	@JsonIgnore
 	private int visitId;
 	private BigDecimal payAmount;
 	@JsonIgnore

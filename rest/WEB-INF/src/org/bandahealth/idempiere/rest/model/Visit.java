@@ -23,7 +23,7 @@ public class Visit extends BaseEntity {
 	private PatientType patientType;
 	private Referral referral;
 	private OrderStatus status;
-	private Patient patient;
+	private BusinessPartner patient;
 	private String chiefComplaint;
 	private String temperature;
 	private String pulse;
@@ -135,7 +135,7 @@ public class Visit extends BaseEntity {
 		this.status = status;
 	}
 
-	public Patient getPatient() {
+	public BusinessPartner getPatient() {
 		return patient;
 	}
 

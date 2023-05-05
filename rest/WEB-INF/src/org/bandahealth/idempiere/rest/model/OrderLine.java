@@ -24,6 +24,7 @@ public class OrderLine extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
 	private ExpenseCategory expenseCategory;
+	@JsonIgnore
 	private Integer orderId;
 	@JsonIgnore
 	private Integer productId;

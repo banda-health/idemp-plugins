@@ -111,7 +111,6 @@ test(`visit saved from scratch is correct`, async () => {
 			{
 				description: valueObject.getStepMessageLong(),
 				dateOrdered: valueObject.date,
-				businessPartner: valueObject.businessPartner,
 				warehouse: valueObject.warehouse,
 				orderLines: [
 					{
@@ -146,6 +145,17 @@ test(`visit saved from scratch is correct`, async () => {
 	expect(valueObject.visit.payments.every((order) => order.docStatus === documentStatus.Completed));
 
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+
+	const fetchedVisit = (
+		await visitApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ bh_visit_uu: valueObject.visit.uuid }),
+		)
+	).results[0];
+	expect(fetchedVisit.orders).toHaveLength(1);
 });
 
 test(`patient open balance updated after visit if complete payment wasn't made`, async () => {

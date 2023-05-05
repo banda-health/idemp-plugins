@@ -3,10 +3,7 @@ package org.bandahealth.idempiere.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
@@ -55,6 +52,7 @@ public class Order extends BaseMetadata {
 		this.docStatus = model.getDocStatus();
 		this.orderLines = new ArrayList<>();
 		this.documentTypeTargetId = model.getC_DocTypeTarget_ID();
+		this.visitId = model.getBH_Visit_ID();
 	}
 
 	public Order(MOrder_BH model, BusinessPartner businessPartner, List<OrderLine> orderLines) {
