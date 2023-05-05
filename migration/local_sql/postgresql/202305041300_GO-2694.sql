@@ -62,3 +62,9 @@ FROM
 	ad_process
 WHERE
 	ad_process_uu = 'ad3da529-459a-4804-8020-5f192360fed0';
+
+-- Finishing Up
+SELECT
+	register_migration_script('202305041300_GO-2694.sql')
+FROM
+	dual;
