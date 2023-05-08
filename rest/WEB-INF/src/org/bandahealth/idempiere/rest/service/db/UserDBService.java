@@ -30,10 +30,14 @@ import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDBService extends BaseDBService<User, MUser_BH> {
+	@Autowired
+	private UserRolesDBService userRolesDBService;
+
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
@@ -175,7 +179,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).addJoinClause(joinClause)
 				.setParameters(parameters);
-		
+
 		if (pagingInfo != null) {
 			pagingInfo.setTotalRecordCount(query.count());
 		}
@@ -188,21 +192,28 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		try {
 			MUser_BH user = getEntityByUuidFromDB(entity.getUuid());
 			user.setIsActive(entity.getIsActive());
-			
-			if (StringUtil.isNotNullAndEmpty(entity.getResetPassword())){
+
+			if (StringUtil.isNotNullAndEmpty(entity.getResetPassword())) {
 				user.setPassword(entity.getResetPassword()); // will be hashed and validated on saveEx
 				user.setIsExpired(true); // Force Change On Next Login
 			}
-			
+
+			user.setIsActive(entity.getIsActive());
+
+			if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
+				userRolesDBService.saveRoles(user, entity.getRoles());
+			}
+
 			user.saveEx();
-			return entity;
+
+			return createInstanceWithAllFields(user);
+
 		} catch (Exception ex) {
 			if (ex.getMessage().contains("Require unique data")) {
 				throw new DuplicateEntitySaveException(ex.getLocalizedMessage());
 			} else {
 				throw new AdempiereException(ex.getLocalizedMessage());
 			}
-
 		}
 	}
 
