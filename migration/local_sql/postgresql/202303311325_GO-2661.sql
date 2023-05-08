@@ -24,10 +24,10 @@ FROM
 				JOIN c_allocationhdr ah
 					ON al.c_allocationhdr_id = ah.c_allocationhdr_id
 		WHERE
-				ah.docstatus NOT IN ('RE', 'RA', 'VO')
+			ah.docstatus NOT IN ('RE', 'RA', 'VO')
 		GROUP BY c_payment_id, amount
 		HAVING
-				COUNT(*) > 1
+			COUNT(*) > 1
 	) AS ap
 		JOIN c_payment p
 			ON p.c_payment_id = ap.c_payment_id AND ap.amount = p.payamt AND payamt != 0;
@@ -70,11 +70,35 @@ WHERE
 					JOIN c_allocationline al
 						ON ah.c_allocationhdr_id = al.c_allocationhdr_id AND al.c_payment_id = tpiwdfa.c_payment_id
 			WHERE
-					ah.docstatus = 'CO'
+				ah.docstatus = 'CO'
 			ORDER BY ah.created
 			LIMIT 1
 		)
 );
+
+-- Now separate out the allocations we're dealing with
+DROP TABLE IF EXISTS tmp_allocation_headers_to_void;
+DROP TABLE IF EXISTS tmp_c_allocationhdrs_to_reverse;
+SELECT
+	ah.c_allocationhdr_id
+INTO TEMP TABLE
+	tmp_allocation_headers_to_void
+FROM
+	c_allocationhdr ah
+		JOIN tmp_allocation_headers_to_remove tahtr
+			ON ah.c_allocationhdr_id = tahtr.c_allocationhdr_id
+WHERE
+	ah.docstatus = 'DR';
+SELECT
+	ah.c_allocationhdr_id
+INTO TEMP TABLE
+	tmp_c_allocationhdrs_to_reverse
+FROM
+	c_allocationhdr ah
+		JOIN tmp_allocation_headers_to_remove tahtr
+			ON ah.c_allocationhdr_id = tahtr.c_allocationhdr_id
+WHERE
+	ah.docstatus = 'CO';
 
 /**********************************************************************************************************/
 -- 3. For the allocations that aren't completed, just void them
@@ -88,10 +112,9 @@ SET
 	docaction   = '--',
 	processedon = EXTRACT(EPOCH FROM NOW()) * 1000
 FROM
-	tmp_allocation_headers_to_remove tahtr
+	tmp_allocation_headers_to_void tahtv
 WHERE
-		tahtr.c_allocationhdr_id = ah.c_allocationhdr_id
-	AND ah.docstatus = 'DR';
+	tahtv.c_allocationhdr_id = ah.c_allocationhdr_id;
 
 UPDATE c_allocationline al
 SET
@@ -99,40 +122,13 @@ SET
 	updatedby = 100,
 	amount    = 0
 FROM
-	c_allocationhdr ah
-		JOIN tmp_allocation_headers_to_remove tahtr
-			ON ah.c_allocationhdr_id = tahtr.c_allocationhdr_id
+	tmp_allocation_headers_to_void tahtv
 WHERE
-		ah.docstatus = 'DR'
-	AND al.c_allocationhdr_id = ah.c_allocationhdr_id;
+	al.c_allocationhdr_id = tahtv.c_allocationhdr_id;
 
 /**********************************************************************************************************/
 -- 4. For the allocations that are completed, we need to reverse accrue them
 /**********************************************************************************************************/
-DROP TABLE IF EXISTS tmp_c_allocationhdrs_to_reverse;
-SELECT
-	ah.c_allocationhdr_id
-INTO TEMP TABLE
-	tmp_c_allocationhdrs_to_reverse
-FROM
-	c_allocationhdr ah
-		JOIN tmp_allocation_headers_to_remove tahtr
-			ON ah.c_allocationhdr_id = tahtr.c_allocationhdr_id
-WHERE
-		ah.docstatus = 'CO';
-
-UPDATE c_allocationhdr ah
-SET
-	updated     = NOW(),
-	updatedby   = 100,
-	description = ah.description || ' | (' || ah.documentno || '^<-)',
-	docstatus   = 'RE',
-	docaction   = '--'
-FROM
-	tmp_c_allocationhdrs_to_reverse tahtr
-WHERE
-		tahtr.c_allocationhdr_id = ah.c_allocationhdr_id;
-
 -- Create the reversal Allocation Headers
 DROP TABLE IF EXISTS tmp_c_allocationhdr;
 CREATE TEMP TABLE tmp_c_allocationhdr
@@ -173,7 +169,7 @@ SELECT
 				FROM
 					ad_sequence
 				WHERE
-						name = 'C_AllocationHdr'
+					name = 'C_AllocationHdr'
 				LIMIT 1
 			)::INT,
 			FALSE
@@ -184,8 +180,8 @@ INSERT INTO
 SELECT
 	ad_client_id,
 	ad_org_id,
-		documentno || '^',
-				description || ' | {->' || documentno || '}',
+	documentno || '^',
+	description || ' | {->' || documentno || '}',
 	c_currency_id,
 	c_allocationhdr_id,
 	c_doctype_id
@@ -279,7 +275,7 @@ SELECT
 				FROM
 					ad_sequence
 				WHERE
-						name = 'C_AllocationLine'
+					name = 'C_AllocationLine'
 				LIMIT 1
 			)::INT,
 			FALSE
@@ -299,7 +295,7 @@ SELECT
 	al.c_order_id,
 	al.c_payment_id,
 	al.c_cashline_id,
-		al.amount * -1,
+	al.amount * -1,
 	tah.c_allocationhdr_id
 FROM
 	tmp_c_allocationhdr tah
@@ -393,7 +389,7 @@ SELECT
 				FROM
 					ad_sequence
 				WHERE
-						name = 'Fact_Acct'
+					name = 'Fact_Acct'
 				LIMIT 1
 			)::INT,
 			FALSE
@@ -417,7 +413,7 @@ SELECT
 	CASE WHEN ev.value = '99999' THEN tal.amount ELSE 0 END,
 	CASE WHEN ev.value = '99999' THEN 0 ELSE tal.amount END,
 	c_bpartner_id,
-			tah.documentno || ' #0 ' || tah.description
+	tah.documentno || ' #0 ' || tah.description
 FROM
 	tmp_c_allocationline tal
 		JOIN tmp_c_allocationhdr tah
@@ -506,7 +502,7 @@ FROM
 				         FROM
 					         C_Invoice_v i
 				         WHERE
-						         i.C_BPartner_ID = bp.C_BPartner_ID
+					         i.C_BPartner_ID = bp.C_BPartner_ID
 					         AND i.IsSOTrx = 'Y'
 					         AND i.IsPaid = 'N'
 					         AND i.DocStatus IN ('CO', 'CL')
@@ -518,7 +514,7 @@ FROM
 					         FROM
 						         C_Invoice_v i
 					         WHERE
-							         i.C_BPartner_ID = bp.C_BPartner_ID
+						         i.C_BPartner_ID = bp.C_BPartner_ID
 						         AND i.IsPaid = 'N'
 						         AND i.DocStatus IN ('CO', 'CL')
 				         ), 0) - COALESCE((
@@ -528,7 +524,7 @@ FROM
 					                          FROM
 						                          C_Payment_v p
 					                          WHERE
-							                          p.C_BPartner_ID = bp.C_BPartner_ID
+						                          p.C_BPartner_ID = bp.C_BPartner_ID
 						                          AND p.IsAllocated = 'N'
 						                          AND p.C_Charge_ID IS NULL
 						                          AND p.DocStatus IN ('CO', 'CL')
@@ -542,11 +538,18 @@ FROM
 					ON tpiwdfa.c_payment_id = p.c_payment_id
 	) calc
 WHERE
-		calc.c_bpartner_id = bp.c_bpartner_id;
+	calc.c_bpartner_id = bp.c_bpartner_id;
 
 /**********************************************************************************************************/
 -- 6. Finish up
 /**********************************************************************************************************/
+UPDATE m_storageonhand
+SET
+	datematerialpolicy = '2020-01-01'
+WHERE
+	m_attributesetinstance_id = 0
+  AND qtyonhand != 0;
+
 SELECT
 	register_migration_script('202303311325_GO-2661.sql')
 FROM
