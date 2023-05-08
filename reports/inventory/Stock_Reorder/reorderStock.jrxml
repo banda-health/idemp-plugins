@@ -15,7 +15,7 @@
 			<rightPen lineWidth="1.0" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -24,7 +24,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_CH" mode="Opaque" backcolor="#EFEFEF">
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -41,6 +41,10 @@
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FBFDFF"/>
+		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="35a3ab9f-97b3-4794-80f8-ef0b67ec187a">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgre UAT"/>
@@ -57,8 +61,7 @@ FROM
 		LEFT JOIN (
 		SELECT
 			soh.m_product_id,
-			soh.m_attributesetinstance_id,
-			SUM(qtyonhand) AS total
+			SUM(soh.qtyonhand) AS total
 		FROM
 			m_storageonhand soh
 				LEFT JOIN m_product p
@@ -70,7 +73,7 @@ FROM
 		WHERE
 			(((attrs.m_attributeset_id IS NULL OR attrs.isguaranteedate = 'N') AND asi.guaranteedate IS NULL) OR
 			 (attrs.isguaranteedate = 'Y' AND asi.guaranteedate >= date(NOW())))
-		GROUP BY soh.m_product_id, soh.m_attributesetinstance_id
+		GROUP BY soh.m_product_id
 	) soh
 			ON soh.m_product_id = p.m_product_id
 WHERE
@@ -108,7 +111,7 @@ ORDER BY
 				<reportElement x="0" y="0" width="710" height="20" uuid="a360da8d-d0b6-471b-bf57-69749bc2baec">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
