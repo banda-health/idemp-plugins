@@ -43,7 +43,7 @@ WITH OrderInfo AS (
 		bp.c_bpartner_id,
 		v.bh_visitdate           AS bill_date,
 		u.name                   AS Cashier,
-		u.ad_user_id            AS cashier_id,
+		u.ad_user_id             AS cashier_id,
 		bp.name                  AS patientname,
 		bp.bh_patientid          AS PatientNo,
 		v.bh_patienttype         AS PatientType,
@@ -69,37 +69,38 @@ WITH OrderInfo AS (
 			)
 		AND ol.c_charge_id IS NULL
 	GROUP BY
-		v.bh_visit_id, o.c_order_id, bp.c_bpartner_id, ol.c_charge_id, v.bh_visitdate, bp.name, u.name, bp.bh_patientid, u.ad_user_id
+		v.bh_visit_id, o.c_order_id, bp.c_bpartner_id, ol.c_charge_id, v.bh_visitdate, bp.name, u.name, bp.bh_patientid,
+		u.ad_user_id
 	ORDER BY 1
 ),
 	patient_payments AS (
 		SELECT
-			p.bh_visit_id,
-			SUM(p.payamt) FILTER ( WHERE tendertype = 'X' )                                AS cash,
-			SUM(p.payamt) FILTER ( WHERE tendertype = 'M' )                                AS mobile,
-			SUM(p.payamt) FILTER ( WHERE tendertype = 'C' )                                AS credit_debit,
-			SUM(p.payamt) FILTER ( WHERE tendertype = 'D' )                                AS bank,
-			SUM(p.payamt) FILTER ( WHERE tendertype = 'K' )                                AS checks,
-			SUM(p.payamt) FILTER ( WHERE tendertype NOT IN ('I', 'D', 'W'))                AS TotalDirectPayments,
-					SUM(p.payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS OtherNewPayments
+			bh_visit_id,
+			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                            AS cash,
+			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                            AS mobile,
+			SUM(payamt) FILTER ( WHERE tendertype = 'C' )                            AS credit_debit,
+			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                            AS bank,
+			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                            AS checks,
+			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('I', 'D', 'W'))            AS TotalDirectPayments,
+			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS OtherNewPayments
 		FROM
-			bh_get_visit_payments($1, $2, $3) p
-		GROUP BY p.bh_visit_id
+			bh_get_visit_payments($1, $2, $3)
+		GROUP BY bh_visit_id
 	),
 	non_patient_payments AS (
 		SELECT
-			ol.bh_visit_id,
-			SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype = 'I' ) * -1                   AS insurance,
-			SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype = 'W' ) * -1                   AS waiver,
-			SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype = 'D' ) * -1                   AS donation,
-						SUM(ol.linenetamt) FILTER ( WHERE ol.bh_subtype IN ('D', 'W', 'I')) * -1 AS TotalNonPayments,
+			bh_visit_id,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1             AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1             AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1             AS donation,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('D', 'W', 'I')) * -1 AS TotalNonPayments,
 			member_id,
 			MemberName,
 			ClaimNo,
 			Relationship
 		FROM
-			bh_get_visit_non_patient_payments($1, $2, $3) ol
-		GROUP BY ol.bh_visit_id, olci.name, bci.name, olc.name, bol.name
+			bh_get_visit_non_patient_payments($1, $2, $3)
+		GROUP BY bh_visit_id, member_id, membername, claimno, relationship
 	)
 SELECT
 	OrderInfo.bh_visit_id,
