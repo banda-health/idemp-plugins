@@ -1093,8 +1093,10 @@ INSERT INTO
 	              ad_element_id)
 VALUES
 	((
-		 SELECT MAX(ad_reference_id) + 1
-		 FROM ad_reference
+		 SELECT
+			 MAX(ad_reference_id) + 1
+		 FROM
+			 ad_reference
 	 ), 0, 0, 'Y', '2023-05-08 16:36:44.380000', 100, '2023-05-08 16:41:35.127000', 100,
 	 'RelType BH_Visit <= C_Order_ID', NULL, NULL, 'T', NULL, 'U', 'N', '5879f245-335a-4604-b1c7-7bcabf729128', NULL);
 INSERT INTO
@@ -2198,7 +2200,8 @@ SET
 FROM
 	ad_window w
 WHERE
-	w.ad_window_uu = '317cb386-251c-4e91-90bd-204f6d4c3931';
+	w.ad_window_uu = '317cb386-251c-4e91-90bd-204f6d4c3931'
+	AND t.ad_table_uu = 'd2c9b934-ef14-483f-ac29-6a68611b0552';
 
 /**********************************************************************************************************/
 -- 3. Migrate data from c_order to bh_visit
