@@ -46,13 +46,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * This is meant to test all reports related to income so numbers can be verified across them
+ * This is meant to test all reports related to income so numbers can be
+ * verified across them
  */
 public class IncomeTest extends ChuBoePopulateFactoryVO {
 	private final String incomeAndExpenseReportUuid = "f777f042-3907-4293-94c4-49fe6eb58780";
 	private final String patientTransactionsReportUuid = "4cf22d3f-1fc8-4bdd-83e1-fc5d79537269";
 	private final String cashierTransactionsReportUuid = "b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1";
 	private final String cashierTransactionsDifferencesReportUuid = "226cdf47-9cde-43e8-b7ef-87b28d7ef2e2";
+	private final String cashierCollectionsReportUuid = "fb90406f-1ba4-43df-9cec-6844e10c13d9";
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
@@ -98,8 +100,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(1300));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -114,8 +116,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(1690));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -130,8 +132,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create third sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(6840));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -146,8 +148,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create fourth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(1550));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -161,8 +163,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create fifth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(1100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -182,8 +184,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sixth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(5300));
 		ChuBoeCreateEntity.createOrder(valueObject);
 
@@ -218,8 +220,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create seventh sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(9500));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -234,9 +236,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Re-open seventh sales order");
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
-				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
-						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND "
+						+ MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL",
+				valueObject.getTransactionName())
+						.setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
 		valueObject.getOrder().saveEx();
@@ -258,8 +261,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setPayment(new Query(valueObject.getContext(), MPayment_BH.Table_Name,
 				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
-				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
-				.first());
+				valueObject.getTransactionName())
+						.setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted).first());
 		valueObject.refresh();
 
 		valueObject.setStepName("Re-complete seventh sales order");
@@ -280,10 +283,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid(patientTransactionsReportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
-				new ProcessInfoParameter("End Date", endDate, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -320,14 +322,14 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
 
 			int totalsRowIndex = -1;
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
-				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
-						patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null &&
-						billTotalTotalsCell.getCellType().equals(CellType.NUMERIC) &&
-						billTotalTotalsCell.getNumericCellValue() > 0) {
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING)
+						&& patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null
+						&& billTotalTotalsCell.getCellType().equals(CellType.NUMERIC)
+						&& billTotalTotalsCell.getNumericCellValue() > 0) {
 					totalsRowIndex = i;
 					totalCharged = billTotalTotalsCell.getNumericCellValue();
 					totalPaid = row.getCell(totalPaymentColumnIndex).getNumericCellValue();
@@ -352,27 +354,28 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			assertNotNull(cashierPivotTableHeaderRow, "Cashier income table exists");
 			int cashierTotalsColumnIndex = TableUtils.getColumnIndex(cashierPivotTableHeaderRow, "Total");
 
-			Row cashierPivotTableFooterRow =
-					TableUtils.getHeaderRow(sheet, "Total", TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1);
+			Row cashierPivotTableFooterRow = TableUtils.getHeaderRow(sheet, "Total",
+					TableUtils.getIndexOfRow(sheet, cashierPivotTableHeaderRow) + 1);
 			assertNotNull(cashierPivotTableFooterRow, "Cashier income table has a footer row");
 			assertEquals(CellType.NUMERIC, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getCellType(),
 					"Cashiers' totals cell is numeric");
 			assertEquals(totalPaid, cashierPivotTableFooterRow.getCell(cashierTotalsColumnIndex).getNumericCellValue(),
 					"Cashier total matches total payment");
 
-			Row outstandingBalanceHeaderRow =
-					TableUtils.getHeaderRow(sheet, "Date Paid", TableUtils.getIndexOfRow(sheet, cashierPivotTableFooterRow));
+			Row outstandingBalanceHeaderRow = TableUtils.getHeaderRow(sheet, "Date Paid",
+					TableUtils.getIndexOfRow(sheet, cashierPivotTableFooterRow));
 			assertNotNull(outstandingBalanceHeaderRow, "Outstanding balance table header row exists");
 			int amountPaidColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Amount Paid");
 			patientNameColumnIndex = TableUtils.getColumnIndex(outstandingBalanceHeaderRow, "Patient Name");
 			headerRowIndex = TableUtils.getIndexOfRow(sheet, outstandingBalanceHeaderRow);
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell amountPaidCell = row.getCell(amountPaidColumnIndex);
-				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
-						patientNameCell.getStringCellValue().isEmpty() && amountPaidCell != null &&
-						amountPaidCell.getCellType().equals(CellType.NUMERIC) && amountPaidCell.getNumericCellValue() > 0) {
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING)
+						&& patientNameCell.getStringCellValue().isEmpty() && amountPaidCell != null
+						&& amountPaidCell.getCellType().equals(CellType.NUMERIC)
+						&& amountPaidCell.getNumericCellValue() > 0) {
 					totalDebtPayments = amountPaidCell.getNumericCellValue();
 					break;
 				}
@@ -383,18 +386,17 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid(incomeAndExpenseReportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
-				new ProcessInfoParameter("End Date", endDate, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("pdf");
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 
 		DecimalFormat decimalFormat = new DecimalFormat("#,###");
-		double totalIncome =
-				totalPaid - totalInsurancePaid - totalWaiverPaid - totalOtherPaid - totalDonationsPaid + totalDebtPayments;
+		double totalIncome = totalPaid - totalInsurancePaid - totalWaiverPaid - totalOtherPaid - totalDonationsPaid
+				+ totalDebtPayments;
 		assertThat("Income total is correct", reportContent, containsString(decimalFormat.format(totalIncome)));
 		assertThat("Payments received from visits is correct", reportContent,
 				containsString(decimalFormat.format(totalIncome - totalDebtPayments)));
@@ -439,8 +441,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(1300));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -457,10 +459,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid(patientTransactionsReportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
-				new ProcessInfoParameter("End Date", endDate, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -477,14 +478,14 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
 			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
 
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
-				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
-						patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null &&
-						billTotalTotalsCell.getCellType().equals(CellType.NUMERIC) &&
-						billTotalTotalsCell.getNumericCellValue() > 0) {
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING)
+						&& patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null
+						&& billTotalTotalsCell.getCellType().equals(CellType.NUMERIC)
+						&& billTotalTotalsCell.getNumericCellValue() > 0) {
 					totalCharged = billTotalTotalsCell.getNumericCellValue();
 					totalPaid = row.getCell(totalPaymentColumnIndex).getNumericCellValue();
 					totalUnpaid = row.getCell(unpaidColumnIndex).getNumericCellValue();
@@ -499,10 +500,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid(cashierTransactionsReportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
-				new ProcessInfoParameter("End Date", endDate, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -516,16 +516,16 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
 			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
 
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell patientNameCell = row.getCell(patientNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
-				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING) &&
-						patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null &&
-						billTotalTotalsCell.getCellType().equals(CellType.NUMERIC) &&
-						billTotalTotalsCell.getNumericCellValue() > 0) {
-					assertEquals(totalCharged, billTotalTotalsCell.getNumericCellValue(), "Bill total matches on cashier " +
-							"report");
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING)
+						&& patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null
+						&& billTotalTotalsCell.getCellType().equals(CellType.NUMERIC)
+						&& billTotalTotalsCell.getNumericCellValue() > 0) {
+					assertEquals(totalCharged, billTotalTotalsCell.getNumericCellValue(),
+							"Bill total matches on cashier " + "report");
 					assertEquals(totalPaid, row.getCell(totalPaymentColumnIndex).getNumericCellValue(),
 							"Total payment matches on cashier report");
 					assertEquals(totalUnpaid, row.getCell(unpaidColumnIndex).getNumericCellValue(),
@@ -539,10 +539,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid(cashierTransactionsDifferencesReportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
-				new ProcessInfoParameter("End Date", endDate, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -556,20 +555,166 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int totalReceivedColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Received");
 			int differenceColumnIndex = TableUtils.getColumnIndex(headerRow, "Difference");
 
-			for (int i = headerRowIndex + 1; i < sheet.getLastRowNum(); i++) {
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
 				Cell cashierNameCell = row.getCell(cashierNameColumnIndex);
 				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
-				if (cashierNameCell != null && cashierNameCell.getCellType().equals(CellType.STRING) &&
-						cashierNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null &&
-						billTotalTotalsCell.getCellType().equals(CellType.NUMERIC) &&
-						billTotalTotalsCell.getNumericCellValue() > 0) {
+				if (cashierNameCell != null && cashierNameCell.getCellType().equals(CellType.STRING)
+						&& cashierNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null
+						&& billTotalTotalsCell.getCellType().equals(CellType.NUMERIC)
+						&& billTotalTotalsCell.getNumericCellValue() > 0) {
 					assertEquals(totalCharged, billTotalTotalsCell.getNumericCellValue(),
 							"Bill total matches on cashier differences report");
 					assertEquals(totalPaid, row.getCell(totalReceivedColumnIndex).getNumericCellValue(),
 							"Total received matches on cashier differences report");
 					assertEquals(totalUnpaid, row.getCell(differenceColumnIndex).getNumericCellValue(),
 							"Difference matches on cashier differences report");
+					break;
+				}
+			}
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void dailyCashierCollectionsReportMatchesTheTransactionDifferenceReportNumbers()
+			throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		Timestamp beginDate = TimestampUtils.startOfYesterday();
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, 2);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(50000));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		valueObject.setQuantity(new BigDecimal(1300));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment for the sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setPaymentAmount(new BigDecimal(1000));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second payment for the sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(300));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the daily cashier collections transaction report");
+		valueObject.setProcessUuid(cashierCollectionsReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		double cashierCollectionsBillTotal = 0;
+		double cashierCollectionsTotalPayment = 0;
+		double cashierCollectionsUnpaid = 0;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Time & Date");
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
+			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
+
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell patientNameCell = row.getCell(patientNameColumnIndex);
+				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
+
+				if (patientNameCell != null && patientNameCell.getCellType().equals(CellType.STRING)
+						&& patientNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null
+						&& billTotalTotalsCell.getCellType().equals(CellType.NUMERIC)
+						&& billTotalTotalsCell.getNumericCellValue() > 0) {
+					cashierCollectionsBillTotal = billTotalTotalsCell.getNumericCellValue();
+					cashierCollectionsTotalPayment = row.getCell(totalPaymentColumnIndex).getNumericCellValue();
+					cashierCollectionsUnpaid = row.getCell(unpaidColumnIndex).getNumericCellValue();
+					break;
+				}
+			}
+
+			assertTrue(cashierCollectionsTotalPayment > 0, "Total charged is greater than zero");
+		}
+
+		valueObject.setStepName("Generate the cashier transactions differences report");
+		valueObject.setProcessUuid(cashierTransactionsDifferencesReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		double cashierDifferencesBillTotal = 0;
+		double cashierDifferencesTotalReceived = 0;
+		double cashierDifferencesDifference = 0;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Cashier Name");
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int cashierNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Cashier Name");
+			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
+			int totalReceivedColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Received");
+			int differenceColumnIndex = TableUtils.getColumnIndex(headerRow, "Difference");
+
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				Cell cashierNameCell = row.getCell(cashierNameColumnIndex);
+				Cell billTotalTotalsCell = row.getCell(billTotalColumnIndex);
+				if (cashierNameCell != null && cashierNameCell.getCellType().equals(CellType.STRING)
+						&& cashierNameCell.getStringCellValue().isEmpty() && billTotalTotalsCell != null
+						&& billTotalTotalsCell.getCellType().equals(CellType.NUMERIC)
+						&& billTotalTotalsCell.getNumericCellValue() > 0) {
+
+					cashierDifferencesBillTotal = billTotalTotalsCell.getNumericCellValue();
+					cashierDifferencesTotalReceived = row.getCell(totalReceivedColumnIndex).getNumericCellValue();
+					cashierDifferencesDifference = row.getCell(differenceColumnIndex).getNumericCellValue();
+
+					assertEquals(cashierCollectionsBillTotal, cashierDifferencesBillTotal,
+							"Bill total matches on cashier collections report");
+					assertEquals(cashierCollectionsTotalPayment, cashierDifferencesTotalReceived,
+							"Total received matches on cashier collections report");
+					assertEquals(cashierCollectionsUnpaid, cashierDifferencesDifference,
+							"Difference matches on cashier collections report");
 					break;
 				}
 			}
