@@ -85,7 +85,7 @@
 	COALESCE(bh_cielname, v.bh_primaryuncodeddiagnosis) AS diagnoses,
 	(SUM(gvnpp.linenetamt)) * -1                        AS amount_tendered
 FROM
-	bh_get_visit_non_patient_payments(1000006, '2023-05-02', '2023-05-02') gvnpp
+	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvnpp
 		JOIN bh_visit v
 			ON gvnpp.bh_visit_id = v.bh_visit_id
 		INNER JOIN c_bpartner bp
