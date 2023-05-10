@@ -126,10 +126,10 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 			int dateOfBirthColumnIndex = TableUtils.getColumnIndex(headerRow, "Date of Birth");
-			TableUtils.getColumnIndex(headerRow, "Patient Donor ID#");
-			int patientClinicIdNumberColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Clinic ID#");
+			TableUtils.getColumnIndex(headerRow, "Patient Donor ");
+			int patientClinicIdNumberColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Clinic ");
 			int diagnosisColumnIndex = TableUtils.getColumnIndex(headerRow, "Diagnosis");
-			int totalBilledToColumnIndex = TableUtils.getColumnIndex(headerRow, "Total billed to Donor");
+			int totalBilledToColumnIndex = TableUtils.getColumnIndex(headerRow, "Total billed to ");
 
 			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex) != null &&
