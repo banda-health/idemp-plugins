@@ -126,7 +126,7 @@ ORDER BY
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-	UPPER(name) AS name
+	UPPER(name) AS clientname
 FROM
 	ad_client
 WHERE
