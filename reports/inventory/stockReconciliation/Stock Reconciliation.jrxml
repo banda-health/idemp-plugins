@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Stock Reconciliation" pageWidth="900" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -83,8 +83,8 @@
 	<subDataset name="tableDataset" uuid="8695c3c6-927d-4505-b341-622839979f47">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
 			<![CDATA[;with updates_during_period as (
@@ -137,7 +137,7 @@
 		on inoutline.m_inout_id = inout.m_inout_id
 	where inoutline.ad_client_id = $P{AD_CLIENT_ID}
 		and inout.movementtype = 'C-'
-		and (date(inout.movementdate) >= $P{Begin Date})
+		and inout.movementdate >= $P{Begin Date}
 ),
 currentQty as (
     select snd.m_product_id,
@@ -145,7 +145,7 @@ currentQty as (
              from m_storageonhand snd
                      join products_updated_during_period pudp
 		on pudp.m_product_id = snd.m_product_id
-                 and date(updated) <= $P{End Date}
+                 and updated <= $P{End Date}
               where isactive = 'Y'
              group by snd.m_product_id
     ),
@@ -158,7 +158,7 @@ FROM ad_ref_list r
 WHERE ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'
   AND Reasontype.ad_client_id = $P{AD_CLIENT_ID}
       AND Reasontype.created between $P{Begin Date} and $P{End Date}
-)    
+)
 -- With all changes calculated, just filter out to the ones we want
 select
     mp.name as product,
@@ -252,9 +252,9 @@ order by changes.updated, mp.name, u.name;]]>
 		</field>
 		<field name="Reason" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
