@@ -95,8 +95,7 @@ FROM
 WHERE
 	gvnpp.bh_subtype = 'D'
 GROUP BY
-	v.bh_visitdate, bp.name, bp.bh_patientid, gvnpp.c_order_id, cd.bh_cielname, bp.bh_birthday,
-	v.bh_primaryuncodeddiagnosis
+	v.bh_visitdate, bp.name, bp.bh_birthday, bp.bh_patientid, COALESCE(bh_cielname, v.bh_primaryuncodeddiagnosis)
 ORDER BY
 	v.bh_visitdate;]]>
 		</queryString>
