@@ -27,14 +27,14 @@
 	</style>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
-	<parameter name="payment_mode" class="java.lang.String"/>
-	<parameter name="insurance_type" class="java.lang.String"/>
+	<parameter name="Mode" class="java.lang.String"/>
+	<parameter name="Insurance Type" class="java.lang.String"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[WITH params AS (
 	SELECT
-		COALESCE($P{insurance_type},'') AS insurance_type,
-		COALESCE($P{payment_mode},'') AS payment_mode
+		COALESCE($P{Insurance Type},'') AS insurance_type,
+		COALESCE($P{Mode},'') AS payment_mode
 ),
 	Visit_info AS (
 		SELECT
@@ -135,7 +135,7 @@ FROM
 			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1              AS insurance,
 			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1              AS waiver,
 			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1              AS donation,
-			SUM(linenetamt) FILTER (WHERE bh_subtype = $P{payment_mode} OR chargetype_name = $P{insurance_type}) *
+			SUM(linenetamt) FILTER (WHERE bh_subtype = $P{Mode} OR chargetype_name = $P{Insurance Type}) *
 						-1                                          AS NonPaySelectedtotal,
 			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1 AS NonPaytotal
 
@@ -278,14 +278,14 @@ ORDER BY
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{payment_mode}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Mode}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="170" y="50" width="96" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{insurance_type}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Insurance Type}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="179" y="31" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
