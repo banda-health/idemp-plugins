@@ -31,7 +31,7 @@ SELECT
 	100
 FROM
 	ad_process p JOIN ad_role r ON r.ismanual = 'N' AND r.ismasterrole = 'N'
-WHERE p.ad_process_uu = '19464274-e2bc-4dbe-ad69-ae48b9f7778c'ON CONFLICT DO NOTHING;
+WHERE p.ad_process_uu = '19464274-e2bc-4dbe-ad69-ae48b9f7778c' ON CONFLICT DO NOTHING;
 
 SELECT
 	update_sequences();
