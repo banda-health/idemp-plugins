@@ -19,6 +19,23 @@ INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_i
 -- Add to Greenlight -> Reports
 INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'ab7ea722-5915-484f-94ea-75c08ef48796'), 0, 0, 'Y', '2023-05-11 10:13:36.706599', 100, '2023-05-11 11:48:46.610154', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 17, 'db135b29-35b8-4d98-9ea1-1366c6c8e801') ON CONFLICT DO NOTHING;
 
+-- Add the process to the correct existing roles
+INSERT INTO
+	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby)
+SELECT
+	p.ad_process_id,
+	r.ad_role_id,
+	r.ad_client_id,
+	0,
+	100,
+	100
+FROM
+	ad_process p JOIN ad_role r ON r.ismanual = 'N' AND r.ismasterrole = 'N'
+WHERE p.ad_process_uu = '19464274-e2bc-4dbe-ad69-ae48b9f7778c'ON CONFLICT DO NOTHING;
+
+SELECT
+	update_sequences();
+
 SELECT
 	register_migration_script('202305111013_GO-2355.sql')
 FROM
