@@ -1,15 +1,17 @@
 /**********************************************************************************************************/
 -- Separate out a visit from an order
---  1. Create new bh_visit table
---  2. Create document sequence for the visits
---  3. Migrate data from c_order to bh_visit
---	4. Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
+--  1. 	Create new bh_visit table
+--  2. 	Create document sequence for the visits
+--	3. 	Create the window & menu for the new visits table
+--	4. 	Update the ad_table entry for bh_visits to use the new window for SO & PO
+--  5. 	Migrate data from c_order to bh_visit
+--	6. 	Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
 --			an existing column)
---  5. Point anything needing visit stuff currently using c_order to bh_visit
---  6. Delete columns from c_order (and anything that used them that we don't currently use)
---	7. Add bh_visit_id to c_payment by altering bh_c_order_id
---  8. Set bh_visit_id column on all tables
---  9. Wrap up
+--  7. 	Point anything needing visit stuff currently using c_order to bh_visit
+--  8.	 Delete columns from c_order (and anything that used them that we don't currently use)
+--	9. 	Add bh_visit_id to c_payment by altering bh_c_order_id
+--  10. Set bh_visit_id column on all tables
+--  11. Wrap up
 /**********************************************************************************************************/
 
 /**********************************************************************************************************/
@@ -2204,7 +2206,7 @@ WHERE
 	AND t.ad_table_uu = 'd2c9b934-ef14-483f-ac29-6a68611b0552';
 
 /**********************************************************************************************************/
--- 3. Migrate data from c_order to bh_visit
+-- 5. Migrate data from c_order to bh_visit
 /**********************************************************************************************************/
 DROP TABLE IF EXISTS tmp_bh_visit;
 CREATE TEMP TABLE IF NOT EXISTS tmp_bh_visit
@@ -2390,7 +2392,7 @@ WHERE
 	AND s.name = 'DocumentNo_BH_Visit';
 
 /**********************************************************************************************************/
--- 4. Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
+-- 6. Add bh_visit_id to c_order, c_invoice, & m_inout (c_payment to come later since we're changing
 -- an existing column)
 /**********************************************************************************************************/
 ALTER TABLE C_Order
@@ -2415,7 +2417,7 @@ ALTER TABLE C_Invoice
 	ADD CONSTRAINT BHVisit_CInvoice FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
 
 /**********************************************************************************************************/
--- 5. Point anything needing visit stuff currently using c_order to bh_visit
+-- 7. Point anything needing visit stuff currently using c_order to bh_visit
 /**********************************************************************************************************/
 DROP VIEW IF EXISTS bh_drug_profit_loss_v;
 CREATE OR REPLACE VIEW bh_drug_profit_loss_v
@@ -2481,7 +2483,7 @@ ORDER BY
 	v.bh_visitdate DESC;
 
 /**********************************************************************************************************/
--- 6. Delete columns from c_order (and anything that used them that we don't currently use)
+-- 8. Delete columns from c_order (and anything that used them that we don't currently use)
 /**********************************************************************************************************/
 DROP VIEW IF EXISTS bh_drug_profit_loss_v;
 ALTER TABLE c_order
@@ -2631,7 +2633,7 @@ WHERE
 	AND columnname != 'bh_voided_reason_ID';
 
 /**********************************************************************************************************/
--- 7. Add bh_visit_id to c_payment by altering bh_c_order_id
+-- 9. Add bh_visit_id to c_payment by altering bh_c_order_id
 /**********************************************************************************************************/
 ALTER TABLE c_payment
 	RENAME COLUMN bh_c_order_id TO bh_visit_id;
@@ -2793,7 +2795,7 @@ WHERE
 	ad_element_uu = '6dcbcd3a-5bee-425d-bc8c-59679e61af5f';
 
 /**********************************************************************************************************/
--- 8. Set bh_visit_id column on all tables
+-- 10. Set bh_visit_id column on all tables
 /**********************************************************************************************************/
 UPDATE c_order o
 SET
@@ -2839,7 +2841,7 @@ ALTER TABLE c_payment
 	ADD CONSTRAINT BHVisit_CPayment FOREIGN KEY (BH_Visit_ID) REFERENCES bh_visit (bh_visit_id) DEFERRABLE INITIALLY DEFERRED;
 
 /**********************************************************************************************************/
--- 9. Wrap up
+-- 11. Wrap up
 /**********************************************************************************************************/
 SELECT
 	update_sequences();
