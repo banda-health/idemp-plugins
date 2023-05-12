@@ -14,11 +14,18 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+<<<<<<< Updated upstream
+=======
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+>>>>>>> Stashed changes
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
+<<<<<<< Updated upstream
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+=======
+>>>>>>> Stashed changes
 	<queryString language="SQL">
 		<![CDATA[SELECT
 	date(v.bh_visitdate) AS calendar,

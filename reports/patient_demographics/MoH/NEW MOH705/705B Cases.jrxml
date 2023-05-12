@@ -206,8 +206,13 @@ ORDER BY dlo."order", dali.calendar]]>
 			<groupExpression><![CDATA[$F{diagnosis}]]></groupExpression>
 		</group>
 	</subDataset>
+<<<<<<< Updated upstream
 	<parameter name="Begin Date" class="java.util.Date"/>
 	<parameter name="End Date" class="java.util.Date"/>
+=======
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+>>>>>>> Stashed changes
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT

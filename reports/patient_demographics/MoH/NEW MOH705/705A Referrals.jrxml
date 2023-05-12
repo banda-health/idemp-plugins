@@ -135,7 +135,11 @@ ORDER BY
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
+<<<<<<< Updated upstream
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+=======
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+>>>>>>> Stashed changes
 	<queryString language="SQL">
 		<![CDATA[SELECT
 	date(v.bh_visitdate) AS calendar,

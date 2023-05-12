@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
 
 public class TimestampUtils {
 	public static Timestamp today() {
@@ -21,7 +20,7 @@ public class TimestampUtils {
 	public static Timestamp endOfTomorrow() {
 		Calendar calendar = getCalendarForNow();
 		calendar.add(Calendar.DAY_OF_YEAR, 1);
-		setTimeToEndofDay(calendar);
+		setTimeToEndOfDay(calendar);
 		return new Timestamp(calendar.getTimeInMillis());
 	}
 
@@ -45,15 +44,31 @@ public class TimestampUtils {
 	}
 
 	/**
-	 * Adds or subtracts the specified amount of time to the today. For example, to subtract 5 days from
+	 * Adds or subtracts the specified amount of time to now. For example, to subtract 5 days from
 	 * today, you can achieve it by calling:
 	 * <p><code>TimestampUtils.addToNow(Calendar.DAY_OF_MONTH, -5)</code>.
 	 *
-	 * @param field the calendar field.
+	 * @param field  the calendar field.
 	 * @param amount the amount of date or time to be added to the field.
 	 */
 	public static Timestamp addToNow(int field, int amount) {
 		Calendar calendar = getCalendarForNow();
+		calendar.add(field, amount);
+		return new Timestamp(calendar.getTimeInMillis());
+	}
+
+	/**
+	 * Adds or subtracts the specified amount of time to the given timestamp. For example, to subtract 5 days from
+	 * today, you can achieve it by calling:
+	 * <p><code>TimestampUtils.addToNow(Calendar.DAY_OF_MONTH, -5)</code>.
+	 *
+	 * @param timestamp the timestamp to adjust.
+	 * @param field     the calendar field.
+	 * @param amount    the amount of date or time to be added to the field.
+	 */
+	public static Timestamp add(Timestamp timestamp, int field, int amount) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(timestamp.getTime());
 		calendar.add(field, amount);
 		return new Timestamp(calendar.getTimeInMillis());
 	}
@@ -68,9 +83,8 @@ public class TimestampUtils {
 
 	public static Timestamp endOfMonth() {
 		Calendar calendar = getCalendarForNow();
-		calendar.set(Calendar.DAY_OF_MONTH,
-				calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		setTimeToEndofDay(calendar);
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		setTimeToEndOfDay(calendar);
 		return new Timestamp(calendar.getTimeInMillis());
 	}
 
@@ -80,6 +94,20 @@ public class TimestampUtils {
 		return calendar;
 	}
 
+	public static Timestamp setTimeToBeginningOfDay(Timestamp timestamp) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(timestamp.getTime());
+		setTimeToBeginningOfDay(calendar);
+		return new Timestamp(calendar.getTimeInMillis());
+	}
+
+	public static Timestamp setTimeToEndOfDay(Timestamp timestamp) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(timestamp.getTime());
+		setTimeToEndOfDay(calendar);
+		return new Timestamp(calendar.getTimeInMillis());
+	}
+
 	private static void setTimeToBeginningOfDay(Calendar calendar) {
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
@@ -87,7 +115,7 @@ public class TimestampUtils {
 		calendar.set(Calendar.MILLISECOND, 0);
 	}
 
-	private static void setTimeToEndofDay(Calendar calendar) {
+	private static void setTimeToEndOfDay(Calendar calendar) {
 		calendar.set(Calendar.HOUR_OF_DAY, 23);
 		calendar.set(Calendar.MINUTE, 59);
 		calendar.set(Calendar.SECOND, 59);

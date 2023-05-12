@@ -51,7 +51,11 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
+<<<<<<< Updated upstream
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+=======
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+>>>>>>> Stashed changes
 		<queryString language="SQL">
 			<![CDATA[SELECT
 	o.updated          AS voiddate,
@@ -77,7 +81,11 @@ FROM
 WHERE
 	o.docstatus = 'VO'
 	AND o.ad_client_id = $P{AD_CLIENT_ID}
+<<<<<<< Updated upstream
 	AND DATE(o.updated) BETWEEN $P{Begin Date} AND $P{End Date}
+=======
+	AND o.updated BETWEEN $P{Begin Date} AND $P{End Date}
+>>>>>>> Stashed changes
 ORDER BY
 	1;]]>
 		</queryString>

@@ -4,7 +4,11 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+<<<<<<< Updated upstream
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+=======
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB"/>
+>>>>>>> Stashed changes
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -58,6 +62,7 @@
 			<![CDATA[WITH inventory_changes AS (
 	SELECT
 		m_product_id,
+		SUM(opening_stock)  AS opening_stock,
 		SUM(ending_stock)   AS ending_stock,
 		SUM(received_stock) AS received_stock,
 		SUM(sold_stock)     AS sold_stock,
@@ -68,6 +73,7 @@
 )
 SELECT
 	p.name            AS item_name,
+	ic.opening_stock  AS opening_stock,
 	ic.ending_stock   AS endingstock,
 	ic.received_stock AS receivedstock,
 	ic.sold_stock     AS soldstock,
@@ -95,6 +101,7 @@ ORDER BY
 		<field name="balancestock" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="balancestock"/>
 		</field>
+		<field name="opening_stock" class="java.math.BigDecimal"/>
 		<variable name="stockchanges" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{receivedstock}.subtract($F{soldstock}).add($F{balancestock})]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
@@ -196,7 +203,7 @@ ORDER BY
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{endstock}.subtract($V{stockchanges})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{opening_stock}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

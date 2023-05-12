@@ -1042,11 +1042,21 @@ public class ChuBoeCreateEntity {
 
 		// Now handle the price list versions, if need be
 		Timestamp datePL = valueObject.getDatePriceList();
-		if (datePL == null)
+		if (datePL == null) {
 			datePL = ChuBoeCreateEntity.getDateOffset(valueObject.getDate(), -365);
+		}
+
+		// Make sure whatever date we use is just the date (i.e. at the start of the day for the timestamp)
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(datePL.getTime());
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		datePL = new Timestamp(calendar.getTimeInMillis());
 
 		//see if price list version already exists
-		String sqlWhere = "M_PriceList_ID = ? and ValidFrom = ?";
+		String sqlWhere = "M_PriceList_ID = ? and ValidFrom <= ?";
 
 		MPriceListVersion salesPriceListVersion =
 				new Query(valueObject.getContext(), MPriceListVersion.Table_Name, sqlWhere, valueObject.getTransactionName())

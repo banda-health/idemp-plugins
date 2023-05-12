@@ -7,7 +7,7 @@ public class NumberUtils {
 	private static final Random random = new Random();
 
 	/**
-	 * Get a random BigDecimal object between the min and max inclusive.
+	 * Get a random BigDecimal integer object between the min and max inclusive.
 	 *
 	 * @param min The minimum boundary for the random number
 	 * @param max The maximum boundary for the random number

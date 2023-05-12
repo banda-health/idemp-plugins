@@ -69,7 +69,11 @@
         ci.ad_client_id = $P{AD_CLIENT_ID}
         AND ci.docstatus = 'CO'
         AND ci.bh_isexpense = 'Y'
+<<<<<<< Updated upstream
         AND ci.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
+=======
+        AND ci.updated BETWEEN $P{Begin Date} AND $P{End Date}
+>>>>>>> Stashed changes
 ) p
 CROSS JOIN (
     SELECT
@@ -84,7 +88,11 @@ CROSS JOIN (
     WHERE o.issotrx = 'N'
         AND o.docstatus = 'CO'
         AND o.ad_client_id = $P{AD_CLIENT_ID}
+<<<<<<< Updated upstream
         AND o.dateordered BETWEEN $P{Begin Date} AND $P{End Date}
+=======
+        AND o.updated BETWEEN $P{Begin Date} AND $P{End Date}
+>>>>>>> Stashed changes
 ) meds_supplies
 ;]]>
 	</queryString>
