@@ -11,8 +11,6 @@ import org.osgi.service.event.Event;
 
 public class InOutModelEvent extends AbstractEventHandler {
 
-	private CLogger log = CLogger.getCLogger(InOutModelEvent.class);
-
 	@Override
 	protected void initialize() {
 		registerTableEvent(IEventTopics.PO_BEFORE_NEW, MInOut_BH.Table_Name);
