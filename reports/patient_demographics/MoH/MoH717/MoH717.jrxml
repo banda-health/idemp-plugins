@@ -20,13 +20,8 @@
 		<![CDATA[WITH params AS (
 	SELECT
 		$P{AD_CLIENT_ID} AS ad_client_id,
-<<<<<<< Updated upstream
-		$P{Begin Date}   AS begin_date,
-		$P{End Date}     AS end_date
-=======
 		$P{Begin Date}::timestamp   AS begin_date,
 		$P{End Date}::timestamp     AS end_date
->>>>>>> Stashed changes
 ),
 	patients AS (
 		SELECT

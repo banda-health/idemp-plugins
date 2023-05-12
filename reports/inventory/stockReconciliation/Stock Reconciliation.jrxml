@@ -92,62 +92,6 @@
 	-- Get the products that were updated during this period
 	SELECT
 		m_product_id
-<<<<<<< Updated upstream
-	from updates_during_period
-), product_qty_now as (
-	-- Now, calculate the product quantities at the end of the period by subtracting the changes from the known total
-	select
-		soh.m_product_id,
-		soh.qtyonhand,
-		CURRENT_DATE + INTERVAL '1 day' as date
-	from (
-		select
-			soh.m_product_id,
-			sum(soh.qtyonhand) as qtyonhand
-		from m_storageonhand soh
-		left join m_attributesetinstance asi
-			on soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
-		left join m_attributeset attrs
-			on asi.m_attributeset_id = attrs.m_attributeset_id
-		group by soh.m_product_id
-	) soh
-	join products_updated_during_period pudp
-		on pudp.m_product_id = soh.m_product_id
-), sales_trx as (
-	select
-		inoutline.m_product_id,
-		inoutline.movementqty,
-		inoutline.updated,
-		inoutline.updatedby,
-		inout.movementdate
-	from m_inoutline inoutline
-	inner join m_inout inout
-		on inoutline.m_inout_id = inout.m_inout_id
-	where inoutline.ad_client_id = $P{AD_CLIENT_ID}
-		and inout.movementtype = 'C-'
-		and inout.movementdate >= $P{Begin Date}
-),
-currentQty as (
-    select snd.m_product_id,
-                    sum(qtyonhand) as closingqty
-             from m_storageonhand snd
-                     join products_updated_during_period pudp
-		on pudp.m_product_id = snd.m_product_id
-                 and updated <= $P{End Date}
-              where isactive = 'Y'
-             group by snd.m_product_id
-    ),
-Reason as (
-    SELECT DISTINCT mi.m_inventoryline_id,Reasontype.movementdate,r.name, r.value as Referral
-FROM ad_ref_list r
-         JOIN ad_reference a ON r.ad_reference_id = a.ad_reference_id
-         LEFT JOIN m_inventory Reasontype ON value = Reasontype.bh_update_reason
-         LEFT JOIN m_inventoryline mi ON Reasontype.m_inventory_id = mi.m_inventory_id
-WHERE ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'
-  AND Reasontype.ad_client_id = $P{AD_CLIENT_ID}
-      AND Reasontype.created between $P{Begin Date} and $P{End Date}
-)
-=======
 	FROM
 		m_transaction
 	WHERE
@@ -204,7 +148,6 @@ WHERE ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'
 					updates_during_period
 			)
 	)
->>>>>>> Stashed changes
 -- With all changes calculated, just filter out to the ones we want
 SELECT
 	p.name                        AS product,

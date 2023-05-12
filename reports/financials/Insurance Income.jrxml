@@ -17,11 +17,7 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="textBackground" mode="Opaque" backcolor="#E6E6FA" pattern=""/>
 	<style name="titleBackground" mode="Opaque" backcolor="#00008B"/>
-<<<<<<< Updated upstream
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-=======
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
->>>>>>> Stashed changes
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<queryString language="SQL">

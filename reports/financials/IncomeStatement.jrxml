@@ -4,13 +4,8 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-<<<<<<< Updated upstream
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
-=======
-	<parameter name="Begin Date" class="java.sql.Timestamp" nestedType="java.sql.Timestamp"/>
-	<parameter name="End Date" class="java.sql.Timestamp" nestedType="java.sql.Timestamp"/>
->>>>>>> Stashed changes
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -91,11 +86,7 @@ FROM
 		WHERE
 			i.docstatus = 'CO'
 			AND i.bh_isexpense = 'Y'
-<<<<<<< Updated upstream
-			AND i.dateinvoiced BETWEEN params.begin_date AND params.end_date
-=======
 			AND i.updated BETWEEN params.begin_date AND params.end_date
->>>>>>> Stashed changes
 	) AS expenses
 		CROSS JOIN (
 		SELECT
@@ -115,11 +106,7 @@ FROM
 		WHERE
 			o.issotrx = 'N'
 			AND o.docstatus = 'CO'
-<<<<<<< Updated upstream
-			AND o.dateordered BETWEEN params.begin_date AND params.end_date
-=======
 			AND o.updated BETWEEN params.begin_date AND params.end_date
->>>>>>> Stashed changes
 	) received_products
 		CROSS JOIN (
 		SELECT
