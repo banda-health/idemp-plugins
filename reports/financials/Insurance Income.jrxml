@@ -37,7 +37,7 @@ FROM
 				JOIN c_orderline ol
 					ON o.c_order_id = ol.c_order_id
 		WHERE
-			o.ad_client_id = 11
+			o.ad_client_id = $P{AD_CLIENT_ID}
 			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 			AND o.docstatus IN ('CO', 'DR')
 			AND ol.c_charge_id IS NOT NULL
