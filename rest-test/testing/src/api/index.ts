@@ -18,6 +18,7 @@ export * from './invoices';
 export * from './languages';
 export * from './menus';
 export * from './movement';
+export * from './order';
 export * from './organizations';
 export * from './patients';
 export * from './payments';
@@ -30,5 +31,6 @@ export * from './services';
 export * from './storageOnHand';
 export * from './vendors';
 export * from './visits';
+export * from './voidedReasons';
 export * from './warehouses';
 

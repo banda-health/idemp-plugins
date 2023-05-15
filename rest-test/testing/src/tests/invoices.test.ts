@@ -9,7 +9,7 @@ import {
 	InvoiceLine,
 	Vendor,
 } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createCharge, createStandaloneInvoice } from '../utils';
+import { createBusinessPartner, createCharge, createStandaloneInvoice, createVendor } from '../utils';
 
 test('creating an invoice with a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -100,7 +100,7 @@ test(`expenses can be deleted when they haven't been completed`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createBusinessPartner(valueObject);
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create charge';
 	let expenseCategory: Partial<ExpenseCategory> = {
@@ -120,22 +120,15 @@ test(`expenses can be deleted when they haven't been completed`, async () => {
 	expenseCategory = await expenseCategoryApi.save(valueObject, expenseCategory as ExpenseCategory);
 
 	valueObject.stepName = 'Create expense';
-	const supplier = {
-		...valueObject.businessPartner,
-		patientNumber: undefined,
-		dateOfBirth: undefined,
-		gender: undefined,
-		nhifRelationship: undefined,
-		totalVisits: undefined,
-		isApproximateDateOfBirth: undefined,
-		phoneNumber: '123-123-123',
-		emailAddress: 'valiantForTruth@celestialKingdom.com',
-	} as Vendor;
 	let expense: Partial<Expense> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
-		supplier,
-		businessPartner: { ...supplier, phoneNumber: undefined, emailAddress: undefined } as BusinessPartner,
+		supplier: valueObject.businessPartner as Vendor,
+		businessPartner: {
+			...valueObject.businessPartner,
+			phoneNumber: undefined,
+			emailAddress: undefined,
+		} as BusinessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
 	};
@@ -161,7 +154,7 @@ test(`expenses are voided when they've been completed and you try to delete them
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createBusinessPartner(valueObject);
+	await createVendor(valueObject);
 
 	valueObject.stepName = 'Create charge';
 	let expenseCategory: Partial<ExpenseCategory> = {
@@ -181,22 +174,15 @@ test(`expenses are voided when they've been completed and you try to delete them
 	expenseCategory = await expenseCategoryApi.save(valueObject, expenseCategory as ExpenseCategory);
 
 	valueObject.stepName = 'Create expense';
-	const supplier = {
-		...valueObject.businessPartner,
-		patientNumber: undefined,
-		dateOfBirth: undefined,
-		gender: undefined,
-		nhifRelationship: undefined,
-		totalVisits: undefined,
-		isApproximateDateOfBirth: undefined,
-		phoneNumber: '123-123-123',
-		emailAddress: 'valiantForTruth@celestialKingdom.com',
-	} as Vendor;
 	let expense: Partial<Expense> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
-		supplier,
-		businessPartner: { ...supplier, phoneNumber: undefined, emailAddress: undefined } as BusinessPartner,
+		supplier: valueObject.businessPartner as Vendor,
+		businessPartner: {
+			...valueObject.businessPartner,
+			phoneNumber: undefined,
+			emailAddress: undefined,
+		} as BusinessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
 	};

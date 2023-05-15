@@ -55,39 +55,38 @@
 	SELECT
 		COALESCE($P{Patient Type}, '') AS patient_type,
 		COALESCE($P{Payment Mode}, '') AS payment_mode,
-		COALESCE($P{AD_User_UU}, '') AS ad_user_uu
+		COALESCE($P{AD_User_UU}, '')   AS ad_user_uu
 ),
 	billdetails AS (
 		SELECT
-			bh_get_visit_details.c_order_id,
-			bh_get_visit_details.c_bpartner_id,
+			gvd.c_order_id,
+			gvd.c_bpartner_id,
 			bh_visitdate       AS bill_date,
 			cashier_name,
 			patient_name,
 			bh_patienttype,
 			SUM(ol.linenetamt) AS lineitemtotals
 		FROM
-			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp) gvd
 				INNER JOIN c_bpartner cb
-					ON bh_get_visit_details.c_bpartner_id = cb.c_bpartner_id
+					ON gvd.c_bpartner_id = cb.c_bpartner_id
 				INNER JOIN ad_user
-					ON bh_get_visit_details.ad_user_id = ad_user.ad_user_id
+					ON gvd.ad_user_id = ad_user.ad_user_id
 				JOIN c_orderline ol
-					ON bh_get_visit_details.c_order_id = ol.c_order_id
+					ON gvd.c_order_id = ol.c_order_id
 				CROSS JOIN params p
 		WHERE
-			((bh_get_visit_details.docstatus <> 'VO' AND bh_get_visit_details.docstatus <> 'DR')
-				AND (p.patient_type = '' OR bh_get_visit_details.bh_patienttype = p.patient_type)
+			((gvd.docstatus <> 'VO' AND gvd.docstatus <> 'DR')
+				AND (p.patient_type = '' OR gvd.bh_patienttype = p.patient_type)
 				AND (p.ad_user_uu = '' OR ad_user.ad_user_uu = p.ad_user_uu)
 				)
 			AND ol.c_charge_id IS NULL
 		GROUP BY
-			bh_get_visit_details.c_order_id, bh_get_visit_details.c_bpartner_id, bh_get_visit_details.bh_visitdate,
-			cashier_name, patient_name, bh_patienttype
+			gvd.c_order_id, gvd.c_bpartner_id, gvd.bh_visitdate, cashier_name, patient_name, bh_patienttype
 	),
 	patient_payments AS (
 		SELECT
-			bh_get_visit_payments.bh_c_order_id AS c_order_id,
+			c_order_id,
 			payamt,
 			tendertype
 		FROM
@@ -190,8 +189,7 @@ WHERE
 			f.c_order_id = billdetails.c_order_id
 	)
 ORDER BY
-	DATE(billdetails.bill_date), billdetails.patient_name;
-]]>
+	DATE(billdetails.bill_date), billdetails.patient_name;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -293,12 +291,14 @@ ORDER BY
 	<parameter name="Patient Type" class="java.lang.String"/>
 	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[select
-  org.ad_client_id,
-  org.ad_org_id,
-  org.name
-from ad_org org
-  where org.ad_client_id in ($P{AD_CLIENT_ID}) and org.ad_org_id in ($P{AD_CLIENT_ID});]]>
+		<![CDATA[SELECT
+	ad_client_id,
+	ad_org_id,
+	name
+FROM
+	ad_client
+WHERE
+	ad_client_id = $P{AD_CLIENT_ID};]]>
 	</queryString>
 	<field name="ad_client_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="ad_client_id"/>
