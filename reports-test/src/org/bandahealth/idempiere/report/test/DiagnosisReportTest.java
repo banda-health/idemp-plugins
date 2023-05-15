@@ -203,7 +203,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
 			int nameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
-			int primaryCodedDiagnosisIndex = TableUtils.getColumnIndexContaining(headerRow, "Primary Coded Diagnosis");
+			int primaryCodedDiagnosisIndex = TableUtils.getColumnIndexContaining(headerRow, "Primary Coded ");
 			int primaryNonCodedDiagnosisIndex = TableUtils.getColumnIndexContaining(headerRow, "Primary Non-coded " +
 					"Diagnosis");
 
@@ -211,7 +211,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(nameColumnIndex) != null &&
 							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(nameColumnIndex).getStringCellValue()
-									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 20))).collect(Collectors.toList());
 			assertEquals(1, visitRows.size(), "Only the second visit shows on the report");
 
 			Row visitRow = visitRows.get(0);

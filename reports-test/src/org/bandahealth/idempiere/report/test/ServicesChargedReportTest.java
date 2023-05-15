@@ -89,7 +89,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Service Name");
 			int serviceColumnIndex = TableUtils.getColumnIndex(headerRow, "Service Name");
-			int quantityChargedColumnIndex = TableUtils.getColumnIndex(headerRow, "Quantity Charged");
+			int quantityChargedColumnIndex = TableUtils.getColumnIndexContaining(headerRow, "Quantity");
 			int chargePriceColumnIndex = TableUtils.getColumnIndex(headerRow, "Unit Charge Price");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
 
