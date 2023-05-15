@@ -48,6 +48,10 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -87,10 +91,10 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 				"Business partner's open balance is zero");
 
 		valueObject.setStepName("Re-open the order");
-		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
-				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
+		List<MPayment_BH> visitsPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
+				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
 						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-						valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed)
+						valueObject.getOrder().getBH_Visit_ID(), MPayment_BH.DOCSTATUS_Completed)
 				.setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID + " ASC").list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate));
@@ -99,7 +103,7 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 		valueObject.setPayment(null);
 
 		valueObject.setStepName("Cancel previous payments");
-		for (MPayment_BH payment : ordersPayments) {
+		for (MPayment_BH payment : visitsPayments) {
 			MPayment_BH newPayment = payment.copy();
 			newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
 			newPayment.saveEx();
@@ -119,22 +123,22 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 		assertEquals(0, BigDecimal.ZERO.compareTo(valueObject.getBusinessPartner().getTotalOpenBalance()),
 				"Business partner no longer has an open balance");
 
-		List<MPayment_BH> visitPayments =
-				new Query(valueObject.getContext(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?",
-						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID())
+		visitsPayments =
+				new Query(valueObject.getContext(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getOrder().getBH_Visit_ID())
 						.setOrderBy(MPayment_BH.COLUMNNAME_C_Payment_ID + " DESC").list();
-		assertEquals(4, visitPayments.stream()
+		assertEquals(4, visitsPayments.stream()
 				.filter(payment -> payment.getDocStatus().equalsIgnoreCase(MPayment_BH.DOCSTATUS_Reversed))
 				.collect(Collectors.toSet()).size(), "Order has the original reversed payments");
-		assertEquals(2, visitPayments.stream()
+		assertEquals(2, visitsPayments.stream()
 				.filter(payment -> payment.getDocStatus().equalsIgnoreCase(MPayment_BH.DOCSTATUS_Drafted))
 				.collect(Collectors.toSet()).size(), "Order has new payments");
 
 		// Filter out the reversed payments
-		visitPayments = visitPayments.stream().filter(payment -> payment.getPayAmt().compareTo(BigDecimal.ZERO) > 0)
+		visitsPayments = visitsPayments.stream().filter(payment -> payment.getPayAmt().compareTo(BigDecimal.ZERO) > 0)
 				.sorted(Comparator.comparingInt(PO::get_ID)).collect(Collectors.toList());
 		// Second re-created payment
-		MPayment_BH paymentToCheck = visitPayments.get(3);
+		MPayment_BH paymentToCheck = visitsPayments.get(3);
 		assertTrue(paymentToCheck.getTenderType().equalsIgnoreCase(MPayment_BH.TENDERTYPE_MPesa),
 				"Second payment tender type is correct");
 		assertEquals(new BigDecimal(5), paymentToCheck.getPayAmt(), "Second payment amount is correct");
@@ -142,7 +146,7 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 						!paymentToCheck.getDocStatus().equalsIgnoreCase(MPayment_BH.DOCSTATUS_Reversed),
 				"Second payment document status isn't completed or reversed");
 		// First re-created payment
-		paymentToCheck = visitPayments.get(2);
+		paymentToCheck = visitsPayments.get(2);
 		assertTrue(paymentToCheck.getTenderType().equalsIgnoreCase(MPayment_BH.TENDERTYPE_Cash),
 				"First payment tender type is correct");
 		assertEquals(new BigDecimal(5), paymentToCheck.getPayAmt(), "First payment amount is correct");
@@ -150,14 +154,14 @@ public class OrderTest extends ChuBoePopulateFactoryVO {
 						!paymentToCheck.getDocStatus().equalsIgnoreCase(MPayment_BH.DOCSTATUS_Reversed),
 				"First payment document status isn't completed or reversed");
 		// Second original payment
-		paymentToCheck = visitPayments.get(1);
+		paymentToCheck = visitsPayments.get(1);
 		assertTrue(paymentToCheck.getTenderType().equalsIgnoreCase(MPayment_BH.TENDERTYPE_MPesa),
 				"Second original payment tender type is correct");
 		assertEquals(new BigDecimal(5), paymentToCheck.getPayAmt(), "Second original payment amount is correct");
 		assertTrue(paymentToCheck.getDocStatus().equalsIgnoreCase(MPayment_BH.DOCSTATUS_Reversed),
 				"Second original payment document status isn't completed or reversed");
 		// First original payment
-		paymentToCheck = visitPayments.get(0);
+		paymentToCheck = visitsPayments.get(0);
 		assertTrue(paymentToCheck.getTenderType().equalsIgnoreCase(MPayment_BH.TENDERTYPE_Cash),
 				"First original payment tender type is correct");
 		assertEquals(new BigDecimal(5), paymentToCheck.getPayAmt(), "First original payment amount is correct");

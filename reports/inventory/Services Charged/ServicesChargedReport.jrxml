@@ -67,35 +67,48 @@
 		<parameter name="Begin Date" class="java.util.Date"/>
 		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
-			<![CDATA[select
-    billitems.item_name as item_name,
-    sum(billdetails.quantity) as quantity,
-    billdetails.saleprice as sellingprice,
-    sum(billdetails.amount) as amount
-from (
-    select
-        item.m_product_id,
-        item.name as item_name
-    from m_product item
-    where item.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y'
-        and item.producttype = 'S'
-) as billitems
-inner join (
-    select
-        coline.m_product_id,
-        coline.qtyordered as quantity,
-        coline.priceentered as saleprice,
-        coline.linenetamt as amount
-    from c_orderline coline
-    inner join c_order sorder on coline.c_order_id = sorder.c_order_id
-        and sorder.issotrx = 'Y'
-    inner join m_product item on coline.m_product_id = item.m_product_id
-        and item.producttype = 'S'
-    where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
-        and (date(sorder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
-) as billdetails on billitems.m_product_id = billdetails.m_product_id
-group by billitems.item_name,billdetails.saleprice
-order by billitems.item_name asc]]>
+			<![CDATA[SELECT
+	p.item_name               AS item_name,
+	SUM(billdetails.quantity) AS quantity,
+	billdetails.saleprice     AS sellingprice,
+	SUM(billdetails.amount)   AS amount
+FROM
+	(
+		SELECT
+			m_product_id,
+			name AS item_name
+		FROM
+			m_product
+		WHERE
+			ad_client_id = $P{AD_CLIENT_ID}
+			AND isactive = 'Y'
+			AND producttype = 'S'
+	) AS p
+		JOIN (
+		SELECT
+			ol.m_product_id,
+			ol.qtyordered   AS quantity,
+			ol.priceentered AS saleprice,
+			ol.linenetamt   AS amount
+		FROM
+			c_orderline ol
+				JOIN c_order o
+					ON ol.c_order_id = o.c_order_id
+				JOIN bh_visit v
+					ON o.bh_visit_id = v.bh_visit_id
+				JOIN m_product p
+					ON ol.m_product_id = p.m_product_id
+				AND p.producttype = 'S'
+		WHERE
+			ol.ad_client_id = $P{AD_CLIENT_ID}
+			AND ol.processed = 'Y'
+			AND date(v.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})
+	) AS billdetails
+			ON p.m_product_id = billdetails.m_product_id
+GROUP BY
+	p.item_name, billdetails.saleprice
+ORDER BY
+	p.item_name]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>

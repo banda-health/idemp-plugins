@@ -6,14 +6,14 @@ import {
 	storageOnHandApi,
 	vendorsApi,
 } from '../api';
-import { documentAction, documentStatus } from '../models';
+import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
 import { AttributeSetInstance, Product, ReceiveProduct, VoidedReason } from '../types/org.bandahealth.idempiere.rest';
 import {
 	createBusinessPartner,
+	createOrder,
 	createProduct,
 	createPurchaseOrder,
 	createVendor,
-	createVisit,
 	getDateOffset,
 } from '../utils';
 
@@ -150,7 +150,14 @@ test(`can't void an order after product has been sold`, async () => {
 
 	valueObject.stepName = 'Create sales order';
 	valueObject.documentAction = documentAction.Complete;
-	await createVisit(valueObject);
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
 
 	// Confirm everything was sold
 	expect(
@@ -166,7 +173,9 @@ test(`can't void an order after product has been sold`, async () => {
 	).toBe(0);
 
 	await expect(receiveProductsApi.process(valueObject, purchaseOrder.uuid, documentAction.Void)).rejects.toBeTruthy();
-	expect((await receiveProductsApi.getByUuid(valueObject, purchaseOrder.uuid)).docStatus).toBe(documentStatus.Completed);
+	expect((await receiveProductsApi.getByUuid(valueObject, purchaseOrder.uuid)).docStatus).toBe(
+		documentStatus.Completed,
+	);
 
 	// Confirm quantity didn't go negative
 	expect(

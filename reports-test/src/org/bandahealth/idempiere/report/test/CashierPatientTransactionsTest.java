@@ -71,6 +71,10 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -107,6 +111,10 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
@@ -167,6 +175,10 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create SO");
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -175,6 +187,7 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create open-balance payment");
+		valueObject.setVisit(null);
 		valueObject.setOrder(null);
 		valueObject.setInvoice(null);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -225,6 +238,10 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
 
 		valueObject.setStepName("Create SO");
 		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
@@ -291,10 +308,10 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		}
 
 		valueObject.setStepName("Re-open SO");
-		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
-				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
+		List<MPayment_BH> visitsPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
+				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
 						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
-				valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+				valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
 		valueObject.getOrder().saveEx();
@@ -302,7 +319,7 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setPayment(null);
 
 		valueObject.setStepName("Cancel previous payments");
-		for (MPayment_BH payment : ordersPayments) {
+		for (MPayment_BH payment : visitsPayments) {
 			MPayment_BH newPayment = payment.copy();
 			newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
 			newPayment.saveEx();
@@ -315,8 +332,8 @@ public class CashierPatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.refresh();
 
 		valueObject.setPayment(new Query(valueObject.getContext(), MPayment_BH.Table_Name,
-				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
-				valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
+				valueObject.getTransactionName()).setParameters(valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
 				.first());
 		valueObject.refresh();
 

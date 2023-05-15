@@ -28,3 +28,15 @@ export function formatDateAndTime(date?: Date): string {
 	] = dateTimeFormat.formatToParts(date || new Date());
 	return `${year}-${month}-${day} ${hour}:${minute} ${dayPeriod}`;
 }
+
+export function yesterday(): Date {
+	const date = new Date();
+	date.setDate(date.getDate() - 1);
+	return date;
+}
+
+export function tomorrow(): Date {
+	const date = new Date();
+	date.setDate(date.getDate() + 1);
+	return date;
+}

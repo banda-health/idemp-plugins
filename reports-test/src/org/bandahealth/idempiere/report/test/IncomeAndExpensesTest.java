@@ -220,7 +220,9 @@ public class IncomeAndExpensesTest extends ChuBoePopulateFactoryVO {
 				"      COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Radiology' ), 0)  AS radiologysales, " +
 				"      COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Other' ), 0)      AS othersales " +
 				"    FROM " +
-				"      c_order o " +
+				"      bh_visit v " +
+				"        JOIN c_order o " +
+				"          ON v.bh_visit_id = o.bh_visit_id " +
 				"        JOIN c_orderline ol " +
 				"          ON o.c_order_id = ol.c_order_id " +
 				"        JOIN m_product p " +
@@ -229,12 +231,10 @@ public class IncomeAndExpensesTest extends ChuBoePopulateFactoryVO {
 				"          ON p.m_product_category_id = pc.m_product_category_id " +
 				"    WHERE " +
 				"      o.docstatus = ? " +
-				"      AND o.issotrx = ? " +
-				"      AND o.bh_visitdate BETWEEN ? AND ? " +
-				"      AND o.ad_client_id = ?";
+				"      AND v.bh_visitdate BETWEEN ? AND ? " +
+				"      AND v.ad_client_id = ?";
 		List<Object> parameters = new ArrayList<>() {{
 			add(MOrder_BH.DOCSTATUS_Completed);
-			add(true);
 			add(beginDate);
 			add(endDate);
 			add(valueObject.getClient().get_ID());

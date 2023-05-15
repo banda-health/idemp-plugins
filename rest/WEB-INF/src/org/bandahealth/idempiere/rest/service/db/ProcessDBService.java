@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -337,10 +338,10 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 			// TODO: Update all reports to use UUIDs instead of IDs
 			if (processParameter.getName().toLowerCase().endsWith(MReference_BH.SUFFIX_ID)) {
 				if (process.getAD_Process_UU().equalsIgnoreCase(THERMAL_RECEIPT_REPORT)) {
-					MOrder_BH order = new Query(Env.getCtx(), MOrder_BH.Table_Name,
-							MOrder_BH.COLUMNNAME_C_Order_UU + "=?", null)
+					MBHVisit visit = new Query(Env.getCtx(), MBHVisit.Table_Name,
+							MBHVisit.COLUMNNAME_BH_Visit_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
-					parameter = BigDecimal.valueOf(order.get_ID());
+					parameter = BigDecimal.valueOf(visit.get_ID());
 				} else if (process.getAD_Process_UU().equalsIgnoreCase(DEBT_PAYMENT_RECEIPT)) {
 					MPayment_BH payment = new Query(Env.getCtx(), MPayment_BH.Table_Name,
 							MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", null)

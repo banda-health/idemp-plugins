@@ -165,6 +165,7 @@ public class CompleteOrdersProcess extends SvrProcess {
 							MOrder_BH.COLUMNNAME_Created + " " +
 									(shouldProcessMostRecentFirst.equalsIgnoreCase("Y") ? "DESC" : "ASC")).list();
 			Set<Integer> erroredOrderIds = erroredOrders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet());
+			Set<Integer> erroredVisitIds = erroredOrders.stream().map(MOrder_BH::getBH_Visit_ID).collect(Collectors.toSet());
 
 			if (!erroredOrderIds.isEmpty()) {
 				// Now get any invoices for these orders that aren't reversed
@@ -182,12 +183,12 @@ public class CompleteOrdersProcess extends SvrProcess {
 
 				// Now get any payments for these orders that aren't reversed
 				List<Object> paymentParameters = new ArrayList<>();
-				String paymentWhereClause = getPaymentWhereClause(erroredOrderIds, paymentParameters);
+				String paymentWhereClause = getPaymentWhereClause(erroredVisitIds, paymentParameters);
 				List<MPayment_BH> paymentsForErroredOrders =
 						new Query(getCtx(), MPayment_BH.Table_Name, paymentWhereClause, get_TrxName()).setParameters(
 								paymentParameters).list();
-				Map<Integer, List<MPayment_BH>> paymentsByErroredOrderId =
-						paymentsForErroredOrders.stream().collect(Collectors.groupingBy(MPayment_BH::getBH_C_Order_ID));
+				Map<Integer, List<MPayment_BH>> paymentsByErroredVisitId =
+						paymentsForErroredOrders.stream().collect(Collectors.groupingBy(MPayment_BH::getBH_Visit_ID));
 
 				log.log(Level.INFO, "ERRORED ORDERs::::: " + erroredOrders.size());
 				Env.setContext(getCtx(), Env.AD_ROLE_ID, 0);
@@ -344,15 +345,15 @@ public class CompleteOrdersProcess extends SvrProcess {
 								tryToReopenAndReCompleteOrder(erroredOrder);
 							}
 						}
-					} else if (!paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+					} else if (!paymentsByErroredVisitId.containsKey(erroredOrder.getBH_Visit_ID())) {
 						// Something isn't wrong with the payments, so no idea what the issue was
 						log.severe("Unsure of how to handle scenario for order ID " + erroredOrder.get_ID() + ", please " +
 								"investigate");
 						count.getAndDecrement();
 					}
-					if (paymentsByErroredOrderId.containsKey(erroredOrder.get_ID())) {
+					if (paymentsByErroredVisitId.containsKey(erroredOrder.getBH_Visit_ID())) {
 						// Sometimes we have some weird payments - update those
-						for (MPayment_BH payment : paymentsByErroredOrderId.get(erroredOrder.get_ID())) {
+						for (MPayment_BH payment : paymentsByErroredVisitId.get(erroredOrder.getBH_Visit_ID())) {
 							if (payment.isAllocated() && payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Drafted)) {
 								payment.setDocStatus(MPayment_BH.DOCSTATUS_Completed);
 								payment.saveEx();
@@ -360,14 +361,14 @@ public class CompleteOrdersProcess extends SvrProcess {
 						}
 						// For any payments that are allocated by have an incomplete doc status, just update the doc status
 						List<MPayment_BH> incorrectDocumentStatusPayments =
-								paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream().filter(MPayment_BH::isAllocated)
+								paymentsByErroredVisitId.get(erroredOrder.getBH_Visit_ID()).stream().filter(MPayment_BH::isAllocated)
 										.filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
 						for (MPayment_BH payment : incorrectDocumentStatusPayments) {
 							payment.setDocStatus(MPayment_BH.DOCSTATUS_Completed);
 							payment.saveEx();
 						}
 						// Complete any payments that haven't been completed yet
-						List<MPayment_BH> incompletePayments = paymentsByErroredOrderId.get(erroredOrder.get_ID()).stream()
+						List<MPayment_BH> incompletePayments = paymentsByErroredVisitId.get(erroredOrder.getBH_Visit_ID()).stream()
 								.filter(Predicate.not(MPayment_BH::isAllocated)).collect(Collectors.toList());
 						for (MPayment_BH payment : incompletePayments) {
 							tryToCompleteAndAllocatePayment(payment);
@@ -612,23 +613,23 @@ public class CompleteOrdersProcess extends SvrProcess {
 	}
 
 	/**
-	 * This gets a where clause that will fetch all payments that could be associated with an order from the payment
+	 * This gets a where clause that will fetch all payments that could be associated with a visit from the payment
 	 * directly or through an allocation line/invoice indirectly.
 	 *
-	 * @param orderIds   The order IDs to filter by
+	 * @param visitIds   The visit IDs to filter by
 	 * @param parameters A list of parameters to add values to
 	 * @return A WHERE clause to pass to the DB
 	 */
-	private String getPaymentWhereClause(Set<Integer> orderIds, List<Object> parameters) {
+	private String getPaymentWhereClause(Set<Integer> visitIds, List<Object> parameters) {
 		String paymentWhereClause = MPayment_BH.COLUMNNAME_DocStatus + " NOT IN (?,?)";
 		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
 		parameters.add(MInvoice_BH.DOCSTATUS_Voided);
-		return paymentWhereClause + " AND (" + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " IN (" +
-				QueryUtil.getWhereClauseAndSetParametersForSet(orderIds, parameters) + ") OR " +
+		return paymentWhereClause + " AND (" + MPayment_BH.COLUMNNAME_BH_Visit_ID + " IN (" +
+				QueryUtil.getWhereClauseAndSetParametersForSet(visitIds, parameters) + ") OR " +
 				MPayment_BH.COLUMNNAME_C_Payment_ID + " IN (SELECT " + MAllocationLine.COLUMNNAME_C_Payment_ID + " FROM " +
 				MAllocationLine.Table_Name + " WHERE " + MAllocationLine.COLUMNNAME_C_Invoice_ID + " IN (SELECT " +
 				MInvoice_BH.COLUMNNAME_C_Invoice_ID + " FROM " + MInvoice_BH.Table_Name + " WHERE " +
 				MInvoice_BH.COLUMNNAME_C_Order_ID + " IN (" +
-				QueryUtil.getWhereClauseAndSetParametersForSet(orderIds, parameters) + "))))";
+				QueryUtil.getWhereClauseAndSetParametersForSet(visitIds, parameters) + "))))";
 	}
 }

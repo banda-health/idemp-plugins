@@ -22,7 +22,7 @@
 FROM
 	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
 WHERE
-	c_order_id = $P{billId}
+	bh_visit_id = $P{billId}
 GROUP BY
 	c_order_id, chargetype_name
 UNION
@@ -33,7 +33,7 @@ SELECT
 FROM
 	bh_get_visit_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
 WHERE
-	c_order_id = $P{billId}
+	bh_visit_id = $P{billId}
 GROUP BY
 	c_order_id, payment_mode_name]]>
 	</queryString>

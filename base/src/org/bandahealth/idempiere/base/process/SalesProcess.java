@@ -43,7 +43,6 @@ public class SalesProcess extends SvrProcess {
 		MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?", get_TrxName())
 				.setParameters(orderId).first();
 		if (!order.isSOTrx()) {
-			order.setBH_IsExpense(true);
 			order.processIt(DocAction.ACTION_Complete);
 			return null;
 		}
@@ -73,9 +72,11 @@ public class SalesProcess extends SvrProcess {
 	}
 
 	private void setPaymentStatus(boolean processing, Properties context, String transactionName) {
-		String where = MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?";
+		MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?", get_TrxName())
+				.setParameters(orderId).first();
+		String where = MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?";
 		List<MPayment_BH> orderPayments = new Query(context == null ? getCtx() : context, MPayment_BH.Table_Name, where,
-				transactionName == null ? get_TrxName() : transactionName).setParameters(orderId).list();
+				transactionName == null ? get_TrxName() : transactionName).setParameters(order.getBH_Visit_ID()).list();
 		for (MPayment_BH orderPayment : orderPayments) {
 			orderPayment.setBH_Processing(processing);
 			orderPayment.saveEx();

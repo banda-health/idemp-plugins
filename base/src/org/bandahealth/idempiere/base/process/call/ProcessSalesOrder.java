@@ -87,8 +87,8 @@ public class ProcessSalesOrder {
 			}
 			// Get the payments associated with this order and complete them
 			List<MPayment_BH> orderPayments = new Query(context, MPayment_BH.Table_Name,
-					MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + " NOT IN (?)",
-					transactionName).setParameters(salesOrder.get_ID(), MPayment_BH.DOCSTATUS_Reversed).list();
+					MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + " NOT IN (?)",
+					transactionName).setParameters(salesOrder.getBH_Visit_ID(), MPayment_BH.DOCSTATUS_Reversed).list();
 			AtomicBoolean successfullyCompletedPayments = new AtomicBoolean(true);
 			AtomicBoolean successfullyAllocatedPayments = new AtomicBoolean(true);
 			orderPayments.forEach(payment -> {

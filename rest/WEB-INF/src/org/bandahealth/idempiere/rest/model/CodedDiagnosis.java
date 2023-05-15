@@ -33,18 +33,18 @@ public class CodedDiagnosis extends BaseMetadata {
 	}
 
 	public CodedDiagnosis(MBHCodedDiagnosis entity) {
-		setUuid(entity.getBH_CodedDiagnosis_UU());
-		setCielName(entity.getBH_CielName());
-		setCielId(entity.getBH_CielId());
-		setConceptClass(entity.getBH_ConceptClass());
-		setIcd10(entity.getBH_ICD10());
-		setSynomedCT(entity.getBH_SynomedCT());
-		setSynomedNP(entity.getBH_SynomedNP());
-		setSynonyms(entity.getBH_Synonyms());
+		setUuid(entity.getBH_Coded_Diagnosis_UU());
+		setCielName(entity.getbh_cielname());
+		setCielId(entity.getBH_CielID());
+		setConceptClass(entity.getbh_concept_class());
+		setIcd10(entity.getbh_icd10who());
+		setSynomedCT(entity.getbh_synomed_ct());
+		setSynomedNP(entity.getbh_synomed_np());
+		setSynonyms(entity.getbh_synonyms());
 		setDescription(entity.getDescription());
-		setMoh705aLessThan5(entity.getBH_MoH705ALessThan5());
-		setMoh705bGreaterThan5(entity.getBH_MoH705BGreaterThan5());
-		setSearchTerms(entity.getBH_SearchTerms());
+		setMoh705aLessThan5(entity.getbh_moh705a_lessthan5());
+		setMoh705bGreaterThan5(entity.getbh_moh705b_greaterthan5());
+		setSearchTerms(entity.getbh_searchterms());
 	}
 
 	public CodedDiagnosis(String uuid, String cielName, String icd10, String synonyms) {

@@ -14,7 +14,7 @@ public class VoidedReasonDBService extends BaseDBService<VoidedReason, MBHVoided
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MWindow.Table_Name, "LEFT JOIN " + MWindow.Table_Name + " ON " + MBHVoidedReason.Table_Name + "."
-					+ MBHVoidedReason.COLUMNNAME_BH_Window_Id + " = " + MWindow.Table_Name + "." + MWindow.COLUMNNAME_AD_Window_ID
+					+ MBHVoidedReason.COLUMNNAME_bh_window_id + " = " + MWindow.Table_Name + "." + MWindow.COLUMNNAME_AD_Window_ID
 			);
 		}
 	};

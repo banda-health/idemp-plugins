@@ -119,28 +119,4 @@ public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 
 		assertTrue(materialReceipt.getDocStatus().equalsIgnoreCase(MInOut.STATUS_Reversed), "Material receipt is voided");
 	}
-	
-	@IPopulateAnnotation.CanRun
-	public void purchaseOrderIsNotAnExpense() throws Exception {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
-
-		valueObject.setStepName("Create business partner");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create product");
-		ChuBoeCreateEntity.createProduct(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create purchase order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
-		ChuBoeCreateEntity.createOrder(valueObject);
-		commitEx();
-
-		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void), "Order was successfully voided");
-		assertNull(valueObject.getOrder().isBH_IsExpense(), "Is Expense is null");
-	}
 }

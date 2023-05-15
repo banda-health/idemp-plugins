@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -209,12 +210,17 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		return new MOrderLine_BH(Env.getCtx(), 0, null);
 	}
 
-	public List<OrderLine> getOrderLinesByOrderId(int orderId) {
+	public Map<Integer, List<OrderLine>> getOrderLinesByOrderIds(Set<Integer> orderIds) {
+		if (orderIds == null || orderIds.isEmpty()) {
+			return new HashMap<>();
+		}
 		List<OrderLine> orderLines = new ArrayList<>();
+		List<Object> parameters = new ArrayList<>();
+		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(orderIds, parameters);
 
 		List<MOrderLine_BH> mOrderLines = new Query(Env.getCtx(), MOrderLine_BH.Table_Name,
-				MOrderLine_BH.COLUMNNAME_C_Order_ID + "=?", null).setParameters(orderId).setOnlyActiveRecords(true)
-				.setClient_ID().list();
+				MOrderLine_BH.COLUMNNAME_C_Order_ID + " IN (" + whereClause + ")", null).setParameters(parameters)
+				.setOnlyActiveRecords(true).setClient_ID().list();
 		for (MOrderLine_BH mOrderLine : mOrderLines) {
 			orderLines.add(createInstanceWithDefaultFields(mOrderLine));
 		}
@@ -243,7 +249,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				orderLines.stream().map(OrderLine::getProductId).filter(productId -> productId > 0).collect(Collectors.toSet());
 		// TODO: Fetch Products Here instead of on a 1-by-1 basis up in the `createInstanceWithAllFields` method
 		// This should duplicate whatever is done in `ProductDBService#searchItems`
-		
+
 		// go-2331 Returning all this data is leading to serious performance issues. 
 		// TODO: Work on an efficient way of returning all the data or just the totalQuantity field 
 		
@@ -266,7 +272,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 										.getBH_Charge_Info_UU()))
 						.collect(Collectors.toList()));
 			}
-			
+
 			// go-2331 - revert
 			/*if (orderLine.getProductId() > 0 && orderLine.getProduct() != null &&
 					storageOnHandListByProductIds.containsKey(orderLine.getProductId())) {
@@ -274,7 +280,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			}*/
 		});
 
-		return orderLines;
+		return orderLines.stream().collect(Collectors.groupingBy(OrderLine::getOrderId));
 	}
 
 	/**
@@ -307,17 +313,6 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		for (MOrderLine_BH mOrderLine : mOrderLines) {
 			mOrderLine.deleteEx(false);
 		}
-	}
-
-	/**
-	 * Check if an orderline exists with the given order id
-	 *
-	 * @param orderId
-	 * @return
-	 */
-	public boolean checkOrderLinesExist(int orderId) {
-		return new Query(Env.getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_Order_ID + " =?", null)
-				.setParameters(orderId).setOnlyActiveRecords(true).setClient_ID().match();
 	}
 
 	@Override
