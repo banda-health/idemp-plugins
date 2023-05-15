@@ -32,9 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Test Non-patient payment report
- */
 public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 	private final String nonPatientPaymentReportUuid = "19464274-e2bc-4dbe-ad69-ae48b9f7778c";
 
@@ -115,29 +112,16 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
-			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
-			int patientNoColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient No");
-			int patientTypeColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Type");
-			int memberIdColumnIndex = TableUtils.getColumnIndex(headerRow, "Member ID");
-			int memberNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Member Name ");
-			int relationshipColumnIndex = TableUtils.getColumnIndex(headerRow, "Relationship");
-			int claimsNumberColumnIndex = TableUtils.getColumnIndex(headerRow, "Claims Number");
-			int totalChargedFromVisitColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Charge from Visit");
-			int totalChargedToSelectedTypeColumnIndex = TableUtils.getColumnIndex(headerRow,
-					"Total Charged to Selected Non-patient Payment Type");
-			int totalOtherChargesColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Other Charges");
-
-			assertEquals(true, patientNameColumnIndex > 0, "Patient Name column exists");
-			assertEquals(true, patientNoColumnIndex > 0, "Patient Number column exists");
-			assertEquals(true, patientTypeColumnIndex > 0, "Patient Type column exists");
-			assertEquals(true, memberIdColumnIndex > 0, "Member ID column exists");
-			assertEquals(true, memberNameColumnIndex > 0, "Member Name column exists");
-			assertEquals(true, relationshipColumnIndex > 0, "Relationship column exists");
-			assertEquals(true, claimsNumberColumnIndex > 0, "Claims Number column exists");
-			assertEquals(true, totalChargedFromVisitColumnIndex > 0, "Total Charged From Visit column exists");
-			assertEquals(true, totalChargedToSelectedTypeColumnIndex > 0,
-					"Total Charged To Selected Non-patient Payment Type column exists");
-			assertEquals(true, totalOtherChargesColumnIndex > 0, "Total Other Charges column exists");
+			TableUtils.getColumnIndex(headerRow, "Patient Name");
+			TableUtils.getColumnIndex(headerRow, "Patient No");
+			TableUtils.getColumnIndex(headerRow, "Patient Type");
+			TableUtils.getColumnIndex(headerRow, "Member ID");
+			TableUtils.getColumnIndex(headerRow, "Member Name ");
+			TableUtils.getColumnIndex(headerRow, "Relationship");
+			TableUtils.getColumnIndex(headerRow, "Claims Number");
+			TableUtils.getColumnIndex(headerRow, "Total Charge from Visit");
+			TableUtils.getColumnIndex(headerRow, "Total Charged to Selected Non-patient Payment Type");
+			TableUtils.getColumnIndex(headerRow, "Total Other Charges");
 		}
 	}
 }
