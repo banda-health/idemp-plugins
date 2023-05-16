@@ -47,7 +47,7 @@
 			gvd.bh_patienttype_name,
 			SUM(ol.linenetamt) AS lineitemtotals
 		FROM
-			bh_get_visit_details(12, date(''), date('')) gvd
+			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date})) gvd
 				JOIN c_order o
 					ON gvd.bh_visit_id = o.bh_visit_id
 				JOIN c_orderline ol
