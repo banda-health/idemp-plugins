@@ -16,8 +16,11 @@ INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_i
 -- Add Accounting Role Access
 INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_process_access_uu) VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'f777f042-3907-4293-94c4-49fe6eb58780'), (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '93365778-a2d9-433b-b962-87fb150db4fa'), 0, 0, 'Y', '2023-05-11 11:12:38.954000', 100, '2023-05-11 11:12:38.954000', 100, 'Y', 'd1cc575d-cab5-4bd0-a8da-a40c95e4f00f') ON CONFLICT DO NOTHING;
 
+-- Add Non Patient Payment Menu
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id)+1 FROM ad_menu), 0, 0, 'Y', '2023-05-11 10:13:36.648000', 100, '2023-05-11 10:13:36.648000', 'Non Patient Payment Report', 100, null, 'N', 'Y', 'N', 'R', null, null, null, (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '19464274-e2bc-4dbe-ad69-ae48b9f7778c'), null, null, 'U', 'Y', 'ab7ea722-5915-484f-94ea-75c08ef48796', null, null) ON CONFLICT DO NOTHING;
+
 -- Add to Greenlight -> Reports
-INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '34e39aff-03e6-48e7-99a8-5028000618b9'), 0, 0, 'Y', '2023-05-11 10:13:36.706599', 100, '2023-05-11 11:48:46.610154', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 17, 'db135b29-35b8-4d98-9ea1-1366c6c8e801') ON CONFLICT DO NOTHING;
+INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, parent_id, seqno, ad_treenodemm_uu) VALUES (10, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'ab7ea722-5915-484f-94ea-75c08ef48796'), 0, 0, 'Y', '2023-05-11 10:13:36.706599', 100, '2023-05-11 11:48:46.610154', 100, (SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'), 17, 'db135b29-35b8-4d98-9ea1-1366c6c8e801') ON CONFLICT DO NOTHING;
 
 -- Add the process to the correct existing roles
 INSERT INTO
