@@ -12,7 +12,7 @@ VALUES
 			 ad_process
 	 ), 0, 0, 'Y', '2023-05-16 09:27:02.051000', 100, '2023-05-16 09:27:02.051000', 100, 'BH Open Balance Invoice',
 	 'Open Balance Invoice', 'Track how open balance changed since the last time it was 0', NULL, '3', 'U', NULL, 'Y',
-	 'N', NULL, NULL, 0, 0, NULL, NULL, NULL, 'N', NULL, 'Y',
+	 'N', NULL, NULL, 0, 0, NULL, NULL, NULL, 'N', 'N', 'Y',
 	 'cashier/Total Open Balance Invoice/OpenBalanceInvoice.jasper', NULL, 'N', '199f56a6-8e1f-47b4-8f22-e2bdb8da7505',
 	 NULL, NULL, 'P')
 ON CONFLICT DO NOTHING;
