@@ -10,11 +10,13 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MInvoice;
+import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -210,5 +212,46 @@ public class InvoiceModelEventTest extends ChuBoePopulateFactoryVO {
 		assertTrue(Arrays.stream(ordersInvoices[0].getLines(true)).noneMatch(
 				invoiceLine -> invoiceLine.getC_Charge_ID() > 0 &&
 						invoiceLine.getC_Charge_ID() == valueObject.getCharge().get_ID()), "Invoice doesn't have charge");
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void invoiceCreatedFromOrderAssignedToVisitIsAlsoAssignedToVisit() throws SQLException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		List<MInvoice_BH> ordersInvoices =
+				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).list();
+		assertEquals(1, ordersInvoices.size(), "Invoice was created for order");
+		MInvoice_BH completedInvoice = ordersInvoices.get(0);
+		assertTrue(completedInvoice.isComplete(), "Invoice was automatically completed");
+		assertEquals(valueObject.getVisit().get_ID(), completedInvoice.getBH_Visit_ID(),
+				"Invoice is assigned to the visit");
 	}
 }

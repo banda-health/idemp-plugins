@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBankAccount;
@@ -103,8 +104,8 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 			}
 		}
 
-		if (entity.getOrderId() > 0) {
-			mPayment.setBH_C_Order_ID(entity.getOrderId());
+		if (entity.getVisitId() > 0) {
+			mPayment.setBH_Visit_ID(entity.getVisitId());
 		} else {
 			mPayment.setBH_IsServiceDebt(true);
 		}
@@ -246,13 +247,13 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	/**
 	 * Get payments associated with an order
 	 *
-	 * @param orderId
+	 * @param visitId
 	 * @return
 	 */
-	public List<Payment> getPaymentsByOrderId(int orderId) {
+	public List<Payment> getPaymentsByVisitId(int visitId) {
 		List<Payment> payments = new ArrayList<>();
 		List<MPayment_BH> mPayments = new Query(Env.getCtx(), MPayment_BH.Table_Name,
-				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?", null).setParameters(orderId).setOnlyActiveRecords(true)
+				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", null).setParameters(visitId).setOnlyActiveRecords(true)
 				.setClient_ID().list();
 		for (MPayment_BH mPayment : mPayments) {
 			payments.add(createInstanceWithDefaultFields(mPayment));
@@ -277,26 +278,26 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	}
 
 	/**
-	 * Delete payment lines for a given order and not in given subset
+	 * Delete payment lines for a given visit and not in given subset
 	 *
-	 * @param orderId
+	 * @param visitId
 	 */
-	public void deletePaymentLinesByOrder(int orderId, String lineUuids) {
-		String whereClause = MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=?";
+	public void deletePaymentLinesByVisit(int visitId, String lineUuids) {
+		String whereClause = MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?";
 
 		if (StringUtil.isNotNullAndEmpty(lineUuids)) {
 			whereClause += " AND " + MPayment_BH.COLUMNNAME_C_Payment_UU + " NOT IN(" + lineUuids + ")";
 		}
 
 		List<MPayment_BH> mPaymentLines = new Query(Env.getCtx(), MPayment_BH.Table_Name, whereClause, null)
-				.setParameters(orderId).setClient_ID().list();
+				.setParameters(visitId).setClient_ID().list();
 		mPaymentLines = mPaymentLines.stream().filter(Predicate.not(MPayment_BH::isComplete)).collect(Collectors.toList());
 		for (MPayment_BH mPayment : mPaymentLines) {
-			// If the payment is completed, just make sure the bh_c_order_id isn't set
-			if (mPayment.isComplete()) {
-				mPayment.setBH_C_Order_ID(0);
+			// If the payment is completed, reverse accrue it
+			if (MPayment_BH.DOCSTATUS_Completed.equals(mPayment.getDocStatus())) {
+				ModelUtil.processDocumentOrError(getDocumentProcessId(), mPayment, MPayment_BH.ACTION_Reverse_Accrual);
 				mPayment.saveEx();
-			} else {
+			} else if (!mPayment.isComplete()) {
 				mPayment.deleteEx(false);
 			}
 		}
@@ -305,12 +306,12 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	/**
 	 * Check if an order has any payments
 	 *
-	 * @param orderId
+	 * @param visitId
 	 * @return
 	 */
-	public boolean checkPaymentExists(int orderId) {
-		return new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_C_Order_ID + " =?", null)
-				.setOnlyActiveRecords(true).setClient_ID().setParameters(orderId).match();
+	public boolean checkPaymentExists(int visitId) {
+		return new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_Visit_ID + " =?", null)
+				.setOnlyActiveRecords(true).setClient_ID().setParameters(visitId).match();
 	}
 
 	@Override
