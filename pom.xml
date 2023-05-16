@@ -237,6 +237,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
+							<overwrite>true</overwrite>
 							<outputDirectory>${project.basedir}/testing/migration</outputDirectory>
 							<resources>
 								<resource>
@@ -252,6 +253,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
+							<overwrite>true</overwrite>
 							<outputDirectory>${idempiere.home.dir}/migration</outputDirectory>
 							<resources>
 								<resource>
