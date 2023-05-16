@@ -1,8 +1,9 @@
 DROP FUNCTION IF EXISTS bh_get_debt_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE OR REPLACE FUNCTION bh_get_debt_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
+CREATE FUNCTION bh_get_debt_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
                                                 end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
+		        bh_visit_id         numeric,
 		        c_payment_id        numeric,
 		        cashier_id          numeric,
 		        cashier_uu          character varying,
@@ -22,6 +23,7 @@ CREATE OR REPLACE FUNCTION bh_get_debt_payments(ad_client_id numeric, begin_date
 AS
 $$
 SELECT
+	p.bh_visit_id,
 	p.c_payment_id,
 	cashier.ad_user_id    AS cashier_id,
 	cashier.ad_user_uu    AS cashier_uu,
@@ -48,7 +50,7 @@ FROM
 			ON p.c_payment_id = p2.reversal_id
 WHERE
 	p.ad_client_id = $1
-	AND (p.bh_c_order_id = 0 OR p.bh_c_order_id IS NULL)
+	AND p.bh_visit_id IS NULL
 	AND date(p.datetrx) BETWEEN date($2) AND date($3)
 	AND p.c_payment_id IN (
 	SELECT

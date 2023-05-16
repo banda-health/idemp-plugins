@@ -1,7 +1,7 @@
-import { patientApi } from '../api';
-import { documentAction } from '../models';
+import { patientApi, visitApi } from '../api';
+import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
 import { BusinessPartner, Patient } from '../types/org.bandahealth.idempiere.rest';
-import { createProduct, createPurchaseOrder, createVendor, createVisit, formatDate } from '../utils';
+import { createOrder, createProduct, createPurchaseOrder, createVendor, createVisit, formatDate } from '../utils';
 
 test(`information saved correctly`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -13,7 +13,7 @@ test(`information saved correctly`, async () => {
 		description: valueObject.getStepMessageLong(),
 		dateOfBirth: valueObject.date?.toISOString(),
 		gender: 'male',
-		address: '505 W 5th St'
+		address: '505 W 5th St',
 	};
 	const savedPatient = await patientApi.save(valueObject, patient as Patient);
 
@@ -48,18 +48,30 @@ test(`get method returns the correct data`, async () => {
 		occupation: 'Programmer',
 		nextOfKinName: 'Wifey',
 		nextOfKinContact: '155155',
-		address: '514 E North Ave'
+		address: '514 E North Ave',
 	};
 	const savedPatient = await patientApi.save(valueObject, patient as Patient);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
 
 	valueObject.stepName = 'Create visit';
-	valueObject.documentAction = documentAction.Complete;
 	const twoDaysAgo = new Date();
 	twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
 	twoDaysAgo.setUTCHours(12);
 	valueObject.date = twoDaysAgo;
 	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create sales order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
 	const searchedPatients = (
 		await patientApi.get(valueObject, 0, 10, undefined, JSON.stringify({ name: savedPatient.name }))

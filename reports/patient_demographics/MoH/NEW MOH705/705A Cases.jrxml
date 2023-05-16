@@ -129,50 +129,69 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-     SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
-), diagnosis_list AS (
-    SELECT DISTINCT
-        bh_moh705a_lessthan5 as diagnosis
-    FROM bh_coded_diagnosis
-    WHERE bh_moh705a_lessthan5 NOT IN ('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Overweight (BMI>25)',
-                                       'Other Diseases Of Respiratory System','Tuberculosis','Sexually Transmitted Infections', 'Fevers',
-                                      'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)', 'Upper Respiratory Infection',
-                                      'Other Eye Conditions', 'Plague','Arthritis; Joint pains; etc','Diarrhea','Kalaazar','Congenital Anomalies',
-                                      'Ear infections / conditions','Newly Diagnosed HIV','Tetanus (not neonatal)','Sexual Assault','Dracunculiasis (Guinea Worm)',
-                                      'Neoplasms', 'Physical Disability','Cardiovascular Conditions','Musculoskeletal Conditions','Other Central Nervous System Conditions')
+	SELECT
+		GENERATE_SERIES(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
+),
+	diagnosis_list AS (
+		SELECT DISTINCT
+			bh_moh705a_lessthan5 AS diagnosis
+		FROM
+			bh_coded_diagnosis
+		WHERE
+				bh_moh705a_lessthan5 NOT IN ('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Overweight (BMI>25)',
+				                             'Other Diseases Of Respiratory System', 'Tuberculosis',
+				                             'Sexually Transmitted Infections', 'Fevers',
+				                             'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
+				                             'Upper Respiratory Infection',
+				                             'Other Eye Conditions', 'Plague', 'Arthritis; Joint pains; etc', 'Diarrhea',
+				                             'Kalaazar', 'Congenital Anomalies',
+				                             'Ear infections / conditions', 'Newly Diagnosed HIV', 'Tetanus (not neonatal)',
+				                             'Sexual Assault', 'Dracunculiasis (Guinea Worm)',
+				                             'Neoplasms', 'Physical Disability', 'Cardiovascular Conditions',
+				                             'Musculoskeletal Conditions', 'Other Central Nervous System Conditions')
 
-), diagnosis_count AS (
-    SELECT DISTINCT
-        b.bh_moh705a_lessthan5 as diagnosis,
-        c.calendar,
-        coalesce(c.noofdiagnosis, 0) as noofdiagnosis
-    FROM bh_coded_diagnosis b
-        LEFT JOIN (
-            SELECT
-                bh_moh705a_lessthan5,
-                cast(bh_visitdate as date) as calendar,
-                COUNT(bh_primarycodeddiagnosis_id) AS noofdiagnosis
-            FROM c_order c
-                JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
-                JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
-                JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
-           WHERE c.ad_client_id = $P{AD_CLIENT_ID}
-                  AND bh_primarycodeddiagnosis_id IS NOT NULL
-                  AND bp.bh_birthday IS NOT NULL AND date_part('year', age(bp.bh_birthday)) < 5
-            GROUP BY bh_moh705a_lessthan5, cast(bh_visitdate as date)
-        ) c ON b.bh_moh705a_lessthan5 = c.bh_moh705a_lessthan5
-)
+	),
+	diagnosis_count AS (
+		SELECT DISTINCT
+			b.bh_moh705a_lessthan5       AS diagnosis,
+			c.calendar,
+			COALESCE(c.noofdiagnosis, 0) AS noofdiagnosis
+		FROM
+			bh_coded_diagnosis b
+				LEFT JOIN (
+				SELECT
+					bh_moh705a_lessthan5,
+					CAST(bh_visitdate AS date)         AS calendar,
+					COUNT(bh_primarycodeddiagnosis_id) AS noofdiagnosis
+				FROM
+					bh_visit v
+						JOIN bh_coded_diagnosis cd
+							ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
+						JOIN date_limitter dl
+							ON dl.calendar = CAST(bh_visitdate AS date)
+						JOIN c_bpartner bp
+							ON v.patient_id = bp.c_bpartner_id
+				WHERE
+					v.ad_client_id = $P{AD_CLIENT_ID}
+					AND bh_primarycodeddiagnosis_id IS NOT NULL
+					AND bp.bh_birthday IS NOT NULL
+					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
+				GROUP BY bh_moh705a_lessthan5, CAST(bh_visitdate AS date)
+			) c
+					ON b.bh_moh705a_lessthan5 = c.bh_moh705a_lessthan5
+	)
 SELECT
-    dl.diagnosis,
-    dali.calendar,
-    COALESCE(dc.noofdiagnosis, 0) as noofdiagnosis
-    -- c.calendar
-FROM diagnosis_list dl
-    CROSS JOIN date_limitter dali
-    LEFT JOIN diagnosis_count dc
-        ON dc.calendar = dali.calendar
-            AND dl.diagnosis = dc.diagnosis
-   JOIN (
+	dl.diagnosis,
+	dali.calendar,
+	COALESCE(dc.noofdiagnosis, 0) AS noofdiagnosis
+	-- c.calendar
+FROM
+	diagnosis_list dl
+		CROSS JOIN date_limitter dali
+		LEFT JOIN diagnosis_count dc
+			ON dc.calendar = dali.calendar
+		AND dl.diagnosis = dc.diagnosis
+		JOIN (
     SELECT 'Diarrhea with no dehydration' diagnosis, 10 as "order" UNION
     SELECT 'Diarrhea with some dehydration', 20 UNION
     SELECT 'Diarrhea with severe dehydration', 30 UNION
@@ -242,9 +261,10 @@ FROM diagnosis_list dl
     SELECT 'Suspected Childhood Cancer', 670 UNION
     SELECT 'Hypoxemia (Sat <90%)', 680 UNION 
     SELECT 'All Other Diseases', 690
- ) dlo ON dl.diagnosis = dlo.diagnosis
--- GROUP BY dl.diagnosis,noofdiagnosis,dali.calendar
-ORDER BY dlo."order", dali.calendar]]>
+	) dlo
+			ON dl.diagnosis = dlo.diagnosis
+ORDER BY
+	dlo."order", dali.calendar]]>
 		</queryString>
 		<field name="calendar" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="calendar"/>
@@ -264,15 +284,20 @@ ORDER BY dlo."order", dali.calendar]]>
 	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString language="SQL">
-		<![CDATA[select
-    date(c.bh_visitdate) as calendar,
-    client.name AS name
-from c_order c
-    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id::numeric
-    right join ad_org client on c.ad_client_id = client.ad_client_id
-     and client.isactive = 'Y'
-    where  c.ad_client_id  = $P{AD_CLIENT_ID}
- GROUP BY c.bh_visitdate, client.name, b.bh_moh705a_lessthan5]]>
+		<![CDATA[SELECT
+	date(v.bh_visitdate) AS calendar,
+	o.name               AS name
+FROM
+	bh_visit v
+		LEFT JOIN bh_coded_diagnosis cd
+			ON cd.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id::numeric
+		RIGHT JOIN ad_org o
+			ON v.ad_client_id = o.ad_client_id
+		AND o.isactive = 'Y'
+WHERE
+	v.ad_client_id = $P{AD_CLIENT_ID}
+GROUP BY
+	v.bh_visitdate, o.name, cd.bh_moh705a_lessthan5]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>

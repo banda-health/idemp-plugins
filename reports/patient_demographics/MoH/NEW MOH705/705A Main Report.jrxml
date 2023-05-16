@@ -20,15 +20,20 @@
 	</parameter>
 	<parameter name="End Date" class="java.util.Date"/>
 	<queryString language="SQL">
-		<![CDATA[select
-    date(c.bh_visitdate) as calendar,
-    client.name AS name
-from c_order c
-    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
-    right join ad_org client on c.ad_client_id = client.ad_client_id
-     and client.isactive = 'Y'
-    where  c.ad_client_id  = $P{AD_CLIENT_ID}
- GROUP BY c.bh_visitdate, client.name, b.bh_moh705a_lessthan5]]>
+		<![CDATA[SELECT
+	date(v.bh_visitdate) AS calendar,
+	o.name               AS name
+FROM
+	bh_visit v
+		LEFT JOIN bh_coded_diagnosis cd
+			ON cd.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id
+		RIGHT JOIN ad_org o
+			ON v.ad_client_id = o.ad_client_id
+		AND o.isactive = 'Y'
+WHERE
+	v.ad_client_id = $P{AD_CLIENT_ID}
+GROUP BY
+	v.bh_visitdate, o.name, cd.bh_moh705a_lessthan5]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>

@@ -21,7 +21,6 @@ import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -68,18 +67,15 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		valueObject.getOrder().saveEx();
-		commitEx();
-
-		valueObject.setStepName("Complete the order");
-		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Complete);
-		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Complete);
-		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create payment");
@@ -97,10 +93,11 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 		MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
 				valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
 //		PO.clearCrossTenantSafe();
+		assertTrue(!voidedReason.getName().isEmpty() && !voidedReason.getName().isBlank(), "Voiding reason has a name");
 
 		valueObject.setStepName("Void order");
 		valueObject.refresh();
-		valueObject.getOrder().setBH_VoidedReasonID(voidedReason.get_ID());
+		valueObject.getOrder().setBH_Voided_Reason_ID(voidedReason.get_ID());
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
 		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void);
 		valueObject.getOrder().saveEx();
@@ -128,7 +125,8 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Optional<Row> patientRow =
 					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(1) != null &&
-							row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName())).findFirst();
+									row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
+							.findFirst();
 
 			assertTrue(patientRow.isPresent(), "Voided record exists");
 			assertThat("Voided reason is present", patientRow.get().getCell(4).getStringCellValue(),

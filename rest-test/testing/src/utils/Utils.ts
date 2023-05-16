@@ -2,6 +2,7 @@ import {
 	chargeApi,
 	inventoryApi,
 	invoiceApi,
+	orderApi,
 	patientApi,
 	paymentApi,
 	processApi,
@@ -15,12 +16,12 @@ import {
 } from '../api';
 import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
-	BusinessPartner,
 	Charge,
 	Inventory,
 	InventoryLine,
 	Invoice,
 	InvoiceLine,
+	Order,
 	OrderLine,
 	Patient,
 	Payment,
@@ -130,8 +131,7 @@ export async function createCharge(valueObject: ValueObject) {
 }
 
 /**
- * Create an order (don't really have an ideal method for this at the moment - have to go through visits).
- * This requires a document type, a business partner, and a warehouse be selected on the value object.
+ * Create a visit. This requires a document type and a business partner be selected on the value object.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing
  */
@@ -141,36 +141,16 @@ export async function createVisit(valueObject: ValueObject) {
 	//perform further validation if needed based on business logic
 	if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
-	} else if (!valueObject.warehouse) {
-		throw new Error('Warehouse is Null');
 	}
 
 	const visit: Partial<Visit> = {
 		description: valueObject.getStepMessageLong(),
-		dateOrdered: valueObject.date?.toISOString(),
 		patient: valueObject.businessPartner as Patient | undefined,
-		warehouse: valueObject.warehouse,
-		orderLines: [],
 		visitDate: valueObject.date,
 	};
-	const line: Partial<OrderLine> = {
-		description: valueObject.getStepMessageLong(),
-		product: valueObject.product,
-		quantity: valueObject.quantity || 1,
-	};
-	line.price = (line.quantity || 0) * (line.product?.sellPrice || 0);
-	visit.orderLines?.push(line as OrderLine);
-	valueObject.order = await visitApi.save(valueObject, visit as Visit);
-	if (!valueObject.order) {
-		throw new Error('Order not created');
-	}
-	valueObject.orderLine = valueObject.order!.orderLines[0];
-
-	if (valueObject.documentAction) {
-		valueObject.order = await visitApi.process(valueObject, valueObject.order!.uuid, valueObject.documentAction!);
-		if (!valueObject.order) {
-			throw new Error('Order not processed');
-		}
+	valueObject.visit = await visitApi.save(valueObject, visit as Visit);
+	if (!valueObject.visit) {
+		throw new Error('Visit not created');
 	}
 }
 
@@ -192,7 +172,7 @@ export async function createPurchaseOrder(valueObject: ValueObject) {
 
 	const order: Partial<ReceiveProduct> = {
 		description: valueObject.getStepMessageLong(),
-		dateOrdered: valueObject.date?.toISOString(),
+		dateOrdered: valueObject.date,
 		vendor: valueObject!.businessPartner as Vendor,
 		warehouse: valueObject!.warehouse,
 		orderLines: [],
@@ -201,8 +181,8 @@ export async function createPurchaseOrder(valueObject: ValueObject) {
 		description: valueObject.getStepMessageLong(),
 		product: valueObject.product,
 		quantity: valueObject.quantity || 1,
+		price: (valueObject.quantity || 1) * (valueObject.product?.sellPrice || 0),
 	};
-	line.price = (line.quantity || 0) * (line.product?.sellPrice || 0);
 	order.orderLines?.push(line as OrderLine);
 	valueObject.order = await receiveProductsApi.save(valueObject, order as ReceiveProduct);
 	if (!valueObject.order) {
@@ -223,13 +203,51 @@ export async function createPurchaseOrder(valueObject: ValueObject) {
 }
 
 /**
- * Create an order (don't really have an ideal method for this at the moment - have to go through visits).
- * This requires a document type, a business partner, and a warehouse be selected on the value object.
+ * Create an order. This requires a document type, a business partner, and a warehouse be selected on the value object.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing
  */
 export async function createOrder(valueObject: ValueObject) {
-	await createVisit(valueObject);
+	valueObject.validate();
+
+	//perform further validation if needed based on business logic
+	if (!valueObject.documentType) {
+		throw new Error('Document Type is Null');
+	} else if (!valueObject.businessPartner) {
+		throw new Error('Business Partner is Null');
+	} else if (!valueObject.warehouse) {
+		throw new Error('Warehouse is Null');
+	}
+
+	const order: Partial<Order> = {
+		description: valueObject.getStepMessageLong(),
+		dateOrdered: valueObject.date,
+		businessPartner: valueObject.businessPartner,
+		warehouse: valueObject.warehouse,
+		orderLines: [
+			{
+				description: valueObject.getStepMessageLong(),
+				product: valueObject.product,
+				quantity: valueObject.quantity || 1,
+				price: (valueObject.quantity || 1) * (valueObject.product?.sellPrice || 0),
+			} as OrderLine,
+		],
+		isSalesOrderTransaction: valueObject.documentType.isSalesTransaction,
+		documentTypeTarget: valueObject.documentType,
+	};
+	valueObject.order = await orderApi.save(valueObject, order as Order);
+	if (!valueObject.order) {
+		throw new Error('Order not created');
+	}
+	valueObject.orderLine = valueObject.order!.orderLines[0];
+
+	if (valueObject.documentAction) {
+		valueObject.order = await orderApi.process(valueObject, valueObject.order!.uuid, valueObject.documentAction!);
+		if (!valueObject.order) {
+			throw new Error('Order not processed');
+		}
+	}
+	valueObject.visit?.orders?.push(valueObject.order!);
 }
 
 /**
@@ -295,15 +313,7 @@ export async function createStandaloneInvoice(valueObject: ValueObject) {
 	const invoice: Partial<Invoice> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
-		businessPartner: {
-			...valueObject.businessPartner,
-			patientNumber: undefined,
-			dateOfBirth: undefined,
-			gender: undefined,
-			nhifRelationship: undefined,
-			totalVisits: undefined,
-			isApproximateDateOfBirth: undefined,
-		} as BusinessPartner,
+		businessPartner: valueObject.businessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
 		isSalesOrderTransaction: valueObject.documentType!.isSalesTransaction,
@@ -350,10 +360,12 @@ export async function createPayment(valueObject: ValueObject) {
 		orgId: 0,
 		patient: valueObject.businessPartner as unknown as Patient,
 		description: valueObject.getStepMessageLong(),
-		payAmount: valueObject.invoice?.grandTotal || valueObject.order?.grandTotal || 1,
-		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
-			(tenderType) => tenderType.name === tenderTypeName.CASH,
-		) as PaymentType,
+		payAmount: valueObject.invoice?.grandTotal || valueObject.paymentAmount || valueObject.order?.grandTotal || 1,
+		paymentType:
+			valueObject.tenderType ||
+			((await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
+				(tenderType) => tenderType.name === tenderTypeName.CASH,
+			) as PaymentType),
 	};
 	valueObject.payment = await paymentApi.save(valueObject, payment as Payment);
 	if (!valueObject.payment) {
@@ -366,6 +378,7 @@ export async function createPayment(valueObject: ValueObject) {
 			throw new Error('Payment not processed');
 		}
 	}
+	valueObject.visit?.payments?.push(valueObject.payment!);
 }
 
 /**
