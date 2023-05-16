@@ -24,6 +24,7 @@ public class Visit extends BaseEntity {
 	private Referral referral;
 	private OrderStatus status;
 	private BusinessPartner patient;
+	private String documentNumber;
 	private String chiefComplaint;
 	private String temperature;
 	private String pulse;
@@ -70,6 +71,7 @@ public class Visit extends BaseEntity {
 		this.systolicBloodPressure = model.getbh_systolic_blood_pressure();
 		this.diastolicBloodPressure = model.getbh_diastolic_blood_pressure();
 		setOxygenSaturation(model.getBH_OxygenSaturation());
+		this.documentNumber = model.getDocumentNo();
 	}
 
 	public Visit getVisitQueue(String created, String uuid, Patient patient, OrderStatus status) {
@@ -311,5 +313,13 @@ public class Visit extends BaseEntity {
 
 	public void setVoidedReason(VoidedReason voidedReason) {
 		this.voidedReason = voidedReason;
+	}
+
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
 	}
 }
