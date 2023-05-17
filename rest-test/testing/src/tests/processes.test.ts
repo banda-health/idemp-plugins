@@ -1,4 +1,7 @@
+import { PdfData } from 'pdfdataextract';
 import { menuApi, processApi } from '../api';
+import { ProcessInfoParameter } from '../types/org.bandahealth.idempiere.rest';
+import { runReport, tomorrow, yesterday } from '../utils';
 
 const reportsMenuRootUuid = '35ce7d6a-cf7d-4962-a748-75e27d0121bf';
 
@@ -1052,4 +1055,34 @@ test('processes can be run without any parameters', async () => {
 	valueObject.processUuid = processUuid.cleanInventory;
 	valueObject.processInformationParameters = undefined;
 	await expect(processApi.run(valueObject)).resolves.toBe('');
+});
+
+test('donor fund report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.donorFundReport }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = reportUuid.donorFundReport;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
 });

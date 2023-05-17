@@ -73,8 +73,8 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.sql.Timestamp"/>
-		<parameter name="End Date" class="java.sql.Timestamp"/>
+		<parameter name="Begin Date" class="java.util.Date"/>
+		<parameter name="End Date" class="java.util.Date"/>
 		<queryString>
 			<![CDATA[SELECT
 	v.bh_visitdate                                      AS date,
@@ -121,8 +121,8 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
 		</field>
 	</subDataset>
-	<parameter name="Begin Date" class="java.sql.Timestamp"/>
-	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="Begin Date" class="java.util.Date"/>
+	<parameter name="End Date" class="java.util.Date"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
