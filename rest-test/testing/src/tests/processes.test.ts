@@ -257,7 +257,11 @@ test(`clinic admin role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.nonPatientPaymentReportUuid),
+	).not.toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).not.toBeUndefined();
 });
 
 test(`cashier/registration basic role has correct access`, async () => {
@@ -951,6 +955,10 @@ test(`accounting role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
+	
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.nonPatientPaymentReportUuid),
+	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).not.toBeUndefined();
 });
 
