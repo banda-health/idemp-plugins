@@ -18,6 +18,7 @@ const reportUuid = {
 	moh705AOutpatientUnder5YearsSummary: 'c9f91d23-48ea-4990-af5d-f3e7f0db77de',
 	moh705BOutpatientOver5YearsSummary: '432eeb61-1a87-4880-bded-91927139341c',
 	moh717NewAndRevisitPatientCount: '742f515a-81c7-4690-8d35-2c6f1252ad5b',
+	nonPatientPayment: '19464274-e2bc-4dbe-ad69-ae48b9f7778c',
 	openBalanceList: 'b4f11e14-b9d8-4f6c-aa46-adfd77c4f773',
 	patientTransactions: '4cf22d3f-1fc8-4bdd-83e1-fc5d79537269',
 	patientVisitsAndReferrals: '061ed4a0-5670-4764-909e-fb4592f51aaa',
@@ -30,7 +31,6 @@ const reportUuid = {
 	valueOfOpeningAndClosingStock: '630fc1ab-0b64-459b-b10f-68549d21f507',
 	visitReceipt: '30dd7243-11c1-4584-af26-5d977d117c84',
 	voidedTransactionsList: '20a623fb-e127-4c26-98d5-3604a6d100b2',
-	nonPatientPaymentReportUuid:  '19464274-e2bc-4dbe-ad69-ae48b9f7778c',
 } as const;
 
 const processUuid = { cleanInventory: 'e79541fb-9b70-4a10-bfef-7401401b8c56' } as const;
@@ -166,7 +166,7 @@ test(`admin role has correct access`, async () => {
 		reportMenuLists.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).not.toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).not.toBeUndefined();
 });
 
 test(`clinic admin role has correct access`, async () => {
@@ -260,7 +260,7 @@ test(`clinic admin role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).not.toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).not.toBeUndefined();
 });
 
 test(`cashier/registration basic role has correct access`, async () => {
@@ -346,7 +346,7 @@ test(`cashier/registration basic role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test(`cashier/registration advanced role has correct access`, async () => {
@@ -432,7 +432,7 @@ test(`cashier/registration advanced role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test(`inventory/pharmacy role has correct access`, async () => {
@@ -518,7 +518,7 @@ test(`inventory/pharmacy role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test(`clinician/nurse basic role has correct access`, async () => {
@@ -604,7 +604,7 @@ test(`clinician/nurse basic role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test(`clinician/nurse advanced role has correct access`, async () => {
@@ -692,7 +692,7 @@ test(`clinician/nurse advanced role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test(`triage role has correct access`, async () => {
@@ -776,7 +776,7 @@ test(`triage role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test(`lab/radiology role has correct access`, async () => {
@@ -862,7 +862,7 @@ test(`lab/radiology role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test(`accounting role has correct access`, async () => {
@@ -954,7 +954,7 @@ test(`accounting role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).not.toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).not.toBeUndefined();
 });
 
 test(`clinic user role has correct access`, async () => {
@@ -1044,7 +1044,7 @@ test(`clinic user role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === reportUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(reports.find((report) => report.uuid === reportUuid.cashierPatientTransactions)).not.toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPayment)).toBeUndefined();
 });
 
 test('processes can be run without any parameters', async () => {
@@ -1077,7 +1077,475 @@ test('donor fund report is runnable', async () => {
 	expect(endDateParameter).toBeTruthy();
 
 	valueObject.stepName = 'Run report';
-	valueObject.processUuid = reportUuid.donorFundReport;
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('cashier differences report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.cashierTransactionDifferences }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+	const patientTypeParameter = process.parameters.find((parameter) => parameter.name === 'Patient Type');
+	const paymentModeParameter = process.parameters.find((parameter) => parameter.name === 'Payment Mode');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+	expect(patientTypeParameter).toBeTruthy();
+	expect(paymentModeParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('daily cashier collections report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.dailyCashierCollections }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('patient transactions report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.patientTransactions }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+	const paymentModeParameter = process.parameters.find((parameter) => parameter.name === 'Payment Mode');
+	const patientTypeParameter = process.parameters.find((parameter) => parameter.name === 'Patient Type');
+	const completedByParameter = process.parameters.find((parameter) => parameter.name === 'Completed By');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+	expect(paymentModeParameter).toBeTruthy();
+	expect(patientTypeParameter).toBeTruthy();
+	expect(completedByParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('non-patient payments report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.nonPatientPayment }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+	const modeParameter = process.parameters.find((parameter) => parameter.name === 'Mode');
+	const insuranceTypeParameter = process.parameters.find((parameter) => parameter.name === 'Insurance Type');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+	expect(modeParameter).toBeTruthy();
+	expect(insuranceTypeParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('voided transactions report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.voidedTransactionsList }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('income and expense report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.incomeAndExpense }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('inventory sold report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.inventorySoldReport }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('inventory quantity report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.inventoryQuantityReport }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('opening and closing stock report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.valueOfOpeningAndClosingStock }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('services charged report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.servicesChargedReport }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('stock reconciliation report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.stockDiscrepancyReport }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('diagnosis report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.diagnosisReport }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+	const codedDiagnosisParameter = process.parameters.find((parameter) => parameter.name === 'Coded Diagnosis');
+	const uncodedDiagnosisParameter = process.parameters.find((parameter) => parameter.name === 'Uncoded Diagnosis');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+	expect(codedDiagnosisParameter).toBeTruthy();
+	expect(uncodedDiagnosisParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('MoH 717 report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.moh717NewAndRevisitPatientCount }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('MoH 705A report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.moh705AOutpatientUnder5YearsSummary }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
+	valueObject.processInformationParameters = [
+		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
+		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
+	];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('MoH 705B report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const process = (
+		await processApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_process_uu: reportUuid.moh705BOutpatientOver5YearsSummary }),
+		)
+	).results[0];
+	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
+	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.uuid;
 	valueObject.processInformationParameters = [
 		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
 		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,

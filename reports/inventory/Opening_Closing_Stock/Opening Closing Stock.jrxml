@@ -116,7 +116,7 @@ ORDER BY
 		</field>
 		<variable name="closingStockValue" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{endingstock}.multiply($F{purchaseprice})]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>

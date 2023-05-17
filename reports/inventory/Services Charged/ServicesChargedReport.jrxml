@@ -127,7 +127,7 @@ ORDER BY
 		</field>
 		<variable name="sumAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>

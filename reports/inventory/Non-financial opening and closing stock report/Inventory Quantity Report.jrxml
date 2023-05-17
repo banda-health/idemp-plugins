@@ -100,7 +100,7 @@ ORDER BY
 		<field name="opening_stock" class="java.math.BigDecimal"/>
 		<variable name="stockchanges" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{receivedstock}.subtract($F{soldstock}).add($F{balancestock})]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="endstock" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{endingstock}]]></variableExpression>

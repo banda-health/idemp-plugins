@@ -91,11 +91,11 @@ ORDER BY
 		</field>
 		<variable name="SumAmountPaid" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amountpaid}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumTotalDebt" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{totaldebt}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
