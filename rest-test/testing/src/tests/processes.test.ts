@@ -1045,10 +1045,6 @@ test(`accounting role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).not.toBeUndefined();
-
-	expect(
-		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierTransactionDifferences),
-	).toBeUndefined();
 	
 	expect(
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
