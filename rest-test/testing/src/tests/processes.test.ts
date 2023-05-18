@@ -16,6 +16,7 @@ const processUuid = {
 	moh705AOutpatientUnder5YearsSummary: 'c9f91d23-48ea-4990-af5d-f3e7f0db77de',
 	moh705BOutpatientOver5YearsSummary: '432eeb61-1a87-4880-bded-91927139341c',
 	moh717NewAndRevisitPatientCount: '742f515a-81c7-4690-8d35-2c6f1252ad5b',
+	nonPatientPayments:  '19464274-e2bc-4dbe-ad69-ae48b9f7778c',
 	openBalanceList: 'b4f11e14-b9d8-4f6c-aa46-adfd77c4f773',
 	openBalanceInvoice: '199f56a6-8e1f-47b4-8f22-e2bdb8da7505',
 	patientTransactions: '4cf22d3f-1fc8-4bdd-83e1-fc5d79537269',
@@ -59,6 +60,7 @@ test('report names are correct', async () => {
 	expect(reportMenuList.find((menu) => menu.name === 'Products and Prices')).toBeTruthy();
 	expect(reportMenuList.find((menu) => menu.name === 'Income & Expenses')).toBeTruthy();
 	expect(reportMenuList.find((menu) => menu.name === 'Stock to be Ordered')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Non Patient Payment Report')).toBeTruthy();
 });
 
 test('certain reports are not returned as part of the menus', async () => {
@@ -167,6 +169,11 @@ test(`admin role has correct access`, async () => {
 		reportMenuLists.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).not.toBeUndefined();
+	
+	expect(
+		reportMenuLists.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).not.toBeUndefined();
 });
 
 test(`clinic admin role has correct access`, async () => {
@@ -266,6 +273,11 @@ test(`clinic admin role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).not.toBeUndefined();
+	
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).not.toBeUndefined();
 });
 
 test(`cashier/registration basic role has correct access`, async () => {
@@ -357,6 +369,11 @@ test(`cashier/registration basic role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`cashier/registration advanced role has correct access`, async () => {
@@ -448,6 +465,11 @@ test(`cashier/registration advanced role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`inventory/pharmacy role has correct access`, async () => {
@@ -537,6 +559,11 @@ test(`inventory/pharmacy role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`clinician/nurse basic role has correct access`, async () => {
@@ -632,6 +659,11 @@ test(`clinician/nurse basic role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`clinician/nurse advanced role has correct access`, async () => {
@@ -727,6 +759,11 @@ test(`clinician/nurse advanced role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`triage role has correct access`, async () => {
@@ -816,6 +853,11 @@ test(`triage role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`lab/radiology role has correct access`, async () => {
@@ -905,6 +947,11 @@ test(`lab/radiology role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`accounting role has correct access`, async () => {
@@ -998,6 +1045,15 @@ test(`accounting role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierTransactionDifferences),
+	).toBeUndefined();
+	
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).not.toBeUndefined();
 });
 
 test(`clinic user role has correct access`, async () => {
@@ -1095,6 +1151,11 @@ test(`clinic user role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test('processes can be run without any parameters', async () => {
