@@ -766,7 +766,7 @@ test(`clinician/nurse advanced role has correct access`, async () => {
 	expect(
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
 	).toBeUndefined();
-	expect(reports.find((report) => report.uuid === reportUuid.nonPatientPaymentReportUuid)).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
 test(`triage role has correct access`, async () => {
@@ -1177,7 +1177,7 @@ test('donor fund report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.donorFundReport }),
+			JSON.stringify({ ad_process_uu: processUuid.donorFundReport }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1207,7 +1207,7 @@ test('cashier differences report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.cashierTransactionDifferences }),
+			JSON.stringify({ ad_process_uu: processUuid.cashierTransactionDifferences }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1241,7 +1241,7 @@ test('daily cashier collections report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.dailyCashierCollections }),
+			JSON.stringify({ ad_process_uu: processUuid.dailyCashierCollections }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1271,7 +1271,7 @@ test('patient transactions report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.patientTransactions }),
+			JSON.stringify({ ad_process_uu: processUuid.patientTransactions }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1307,7 +1307,7 @@ test('non-patient payments report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.nonPatientPayments }),
+			JSON.stringify({ ad_process_uu: processUuid.nonPatientPayments }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1341,7 +1341,7 @@ test('voided transactions report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.voidedTransactionsList }),
+			JSON.stringify({ ad_process_uu: processUuid.voidedTransactionsList }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1371,7 +1371,7 @@ test('income and expense report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.incomeAndExpense }),
+			JSON.stringify({ ad_process_uu: processUuid.incomeAndExpense }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1401,7 +1401,7 @@ test('inventory sold report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.inventorySoldReport }),
+			JSON.stringify({ ad_process_uu: processUuid.inventorySoldReport }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1431,7 +1431,7 @@ test('inventory quantity report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.inventoryQuantityReport }),
+			JSON.stringify({ ad_process_uu: processUuid.inventoryQuantityReport }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1461,7 +1461,7 @@ test('opening and closing stock report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.valueOfOpeningAndClosingStock }),
+			JSON.stringify({ ad_process_uu: processUuid.valueOfOpeningAndClosingStock }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1491,7 +1491,7 @@ test('services charged report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.servicesChargedReport }),
+			JSON.stringify({ ad_process_uu: processUuid.servicesChargedReport }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1521,7 +1521,7 @@ test('stock reconciliation report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.stockDiscrepancyReport }),
+			JSON.stringify({ ad_process_uu: processUuid.stockDiscrepancyReport }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1551,7 +1551,7 @@ test('diagnosis report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.diagnosisReport }),
+			JSON.stringify({ ad_process_uu: processUuid.diagnosisReport }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1585,7 +1585,7 @@ test('MoH 717 report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.moh717NewAndRevisitPatientCount }),
+			JSON.stringify({ ad_process_uu: processUuid.moh717NewAndRevisitPatientCount }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1615,7 +1615,7 @@ test('MoH 705A report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.moh705AOutpatientUnder5YearsSummary }),
+			JSON.stringify({ ad_process_uu: processUuid.moh705AOutpatientUnder5YearsSummary }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
@@ -1645,7 +1645,7 @@ test('MoH 705B report is runnable', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ ad_process_uu: reportUuid.moh705BOutpatientOver5YearsSummary }),
+			JSON.stringify({ ad_process_uu: processUuid.moh705BOutpatientOver5YearsSummary }),
 		)
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
