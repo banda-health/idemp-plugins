@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -61,11 +61,11 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="inventory sold" uuid="4ddff745-c801-490f-9e16-520912866ea0">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
 			<![CDATA[SELECT
 	p.item_name               AS item_name,
@@ -102,7 +102,7 @@ FROM
 		WHERE
 			ol.ad_client_id = $P{AD_CLIENT_ID}
 			AND ol.processed = 'Y'
-			AND date(v.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})
+			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 	) AS billdetails
 			ON p.m_product_id = billdetails.m_product_id
 GROUP BY
@@ -127,11 +127,11 @@ ORDER BY
 		</field>
 		<variable name="sumAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select 1;]]>
@@ -170,7 +170,7 @@ ORDER BY
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="inventory sold" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
+					<datasetRun subDataset="inventory sold" uuid="a8f113cb-78f9-4ca3-a5cb-365b5942892c">
 						<datasetParameter name="Begin Date">
 							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 						</datasetParameter>

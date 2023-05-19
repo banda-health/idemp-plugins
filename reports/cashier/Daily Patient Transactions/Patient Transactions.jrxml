@@ -235,50 +235,51 @@ ORDER BY
 		</variable>
 		<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{billtotal}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumTotalPayment" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$V{totalPaymentsV}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumCash" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{cash}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumMobile" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{mobile}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumCreditDebit" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{credit_debit}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumBank" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{bank}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumCheck" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{check}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumOther" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{other}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumInsurance" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{insurance}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumWaiver" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{waiver}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumDonation" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{donation}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumUnpaidAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>

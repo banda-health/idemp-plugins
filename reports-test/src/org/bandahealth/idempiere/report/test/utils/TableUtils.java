@@ -66,6 +66,26 @@ public class TableUtils {
 	}
 
 	/**
+	 * Provided the header row of a table, get the column index for the column containing the specified header text
+	 *
+	 * @param headerRow        The header row of the table
+	 * @param columnHeaderText The header text of the desired column
+	 * @return The column index
+	 */
+	public static int getColumnIndexContaining(Row headerRow, String columnHeaderText) {
+		int columnIndex = -1;
+		for (int i = headerRow.getFirstCellNum(); i < headerRow.getLastCellNum(); i++) {
+			if (headerRow.getCell(i) != null && headerRow.getCell(i).getCellType().equals(CellType.STRING) &&
+					headerRow.getCell(i).getStringCellValue().toLowerCase().contains(columnHeaderText.toLowerCase())) {
+				columnIndex = i;
+				break;
+			}
+		}
+		assertTrue(columnIndex > -1, "Column with text " + columnHeaderText + " exists");
+		return columnIndex;
+	}
+
+	/**
 	 * Get the index of the provided row in the sheet
 	 *
 	 * @param sheet The spreadsheet to search through

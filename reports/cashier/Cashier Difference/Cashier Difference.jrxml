@@ -60,12 +60,12 @@
 		SELECT
 			c_order_id,
 			lineitemtotals,
-			cashier_id
+			cashier
 		FROM
 			get_visit_info($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
-		CROSS JOIN params p
+				CROSS JOIN params p
 		WHERE
-		    (p.patient_type = '' OR get_visit_info.PatientType = p.patient_type)
+			(p.patient_type = '' OR get_visit_info.PatientType = p.patient_type)
 	),
 	patient_payments AS (
 		SELECT
@@ -86,7 +86,7 @@
 		GROUP BY c_order_id, bh_subtype
 	)
 SELECT
-	u.name                                                       AS cashier,
+	cashier                                                      AS cashier,
 	SUM(COALESCE(billdetails.lineitemtotals, 0))                 AS bill_total,
 	SUM(COALESCE(pp.total_payments, 0) + COALESCE(npp.total, 0)) AS total_payment
 FROM
@@ -99,8 +99,6 @@ FROM
 		SELECT c_order_id, SUM(total) AS total FROM non_patient_payments GROUP BY c_order_id
 	) npp
 			ON billdetails.c_order_id = npp.c_order_id
-		JOIN ad_user u
-			ON u.ad_user_id = billdetails.cashier_id
 		CROSS JOIN params p
 WHERE
 	EXISTS (
@@ -132,9 +130,9 @@ WHERE
 			f.c_order_id = billdetails.c_order_id
 	)
 GROUP BY
-	u.name
+	cashier
 ORDER BY
-	u.name;]]>
+	cashier;]]>
 	</queryString>
 	<field name="cashier" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="ad_client_id"/>
