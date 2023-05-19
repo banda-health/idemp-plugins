@@ -2,8 +2,9 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Stock Reconciliation" pageWidth="900" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -83,153 +84,101 @@
 	<subDataset name="tableDataset" uuid="8695c3c6-927d-4505-b341-622839979f47">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<queryString language="SQL">
-			<![CDATA[;with updates_during_period as (
-	-- Get the updates that were made during this period
-		select
-		m_product_id,
-	    m_inventoryline_id,
-		updatedby,
-		movementdate,
-		updated,
-		sum(movementqty) as movementqty
-	from m_transaction
-	where ad_client_id = $P{AD_CLIENT_ID}  -- UPDATE - this is the CLIENT ID parameter
-		and movementdate between $P{Begin Date} and $P{End Date} -- UPDATE - these are the date range parameters
-		and movementtype in ('I+','I-')
-	group by m_product_id, updatedby, movementdate, updated, m_inventoryline_id
-), products_updated_during_period as (
-	-- Get a list of products that were updated (a product is unique to client & org)
-	select distinct
+			<![CDATA[WITH updates_during_period AS (
+	-- Get the products that were updated during this period
+	SELECT
 		m_product_id
-	from updates_during_period
-), product_qty_now as (
-	-- Now, calculate the product quantities at the end of the period by subtracting the changes from the known total
-	select
-		soh.m_product_id,
-		soh.qtyonhand,
-		CURRENT_DATE + INTERVAL '1 day' as date
-	from (
-		select
-			soh.m_product_id,
-			sum(soh.qtyonhand) as qtyonhand
-		from m_storageonhand soh
-		left join m_attributesetinstance asi
-			on soh.m_attributesetinstance_id = asi.m_attributesetinstance_id
-		left join m_attributeset attrs
-			on asi.m_attributeset_id = attrs.m_attributeset_id
-		group by soh.m_product_id
-	) soh
-	join products_updated_during_period pudp
-		on pudp.m_product_id = soh.m_product_id
-), sales_trx as (
-	select
-		inoutline.m_product_id,
-		inoutline.movementqty,
-		inoutline.updated,
-		inoutline.updatedby,
-		inout.movementdate
-	from m_inoutline inoutline
-	inner join m_inout inout
-		on inoutline.m_inout_id = inout.m_inout_id
-	where inoutline.ad_client_id = $P{AD_CLIENT_ID}
-		and inout.movementtype = 'C-'
-		and (date(inout.movementdate) >= $P{Begin Date})
+	FROM
+		m_transaction
+	WHERE
+		ad_client_id = $P{AD_CLIENT_ID}
+		AND updated BETWEEN $P{Begin Date} AND $P{End Date}
+		AND movementtype IN ('I+', 'I-')
 ),
-currentQty as (
-    select snd.m_product_id,
-                    sum(qtyonhand) as closingqty
-             from m_storageonhand snd
-                     join products_updated_during_period pudp
-		on pudp.m_product_id = snd.m_product_id
-                 and date(updated) <= $P{End Date}
-              where isactive = 'Y'
-             group by snd.m_product_id
-    ),
-Reason as (
-    SELECT DISTINCT mi.m_inventoryline_id,Reasontype.movementdate,r.name, r.value as Referral
-FROM ad_ref_list r
-         JOIN ad_reference a ON r.ad_reference_id = a.ad_reference_id
-         LEFT JOIN m_inventory Reasontype ON value = Reasontype.bh_update_reason
-         LEFT JOIN m_inventoryline mi ON Reasontype.m_inventory_id = mi.m_inventory_id
-WHERE ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'
-  AND Reasontype.ad_client_id = $P{AD_CLIENT_ID}
-      AND Reasontype.created between $P{Begin Date} and $P{End Date}
-)    
+	product_history AS (
+		SELECT
+			t.m_product_id,
+			t.updatedby,
+			t.m_inventoryline_id,
+			t.movementtype,
+			COALESCE(v.bh_visitdate, t.updated)                                                                                                   AS date,
+			t.movementqty,
+					SUM(t.movementqty)
+					OVER (PARTITION BY t.m_product_id ORDER BY COALESCE(v.bh_visitdate, t.updated) ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS endingqty
+		FROM
+			m_transaction t
+				LEFT JOIN m_inoutline iol
+					ON t.m_inoutline_id = iol.m_inoutline_id
+				LEFT JOIN m_inout io
+					ON iol.m_inout_id = io.m_inout_id
+				LEFT JOIN bh_visit v
+					ON io.bh_visit_id = v.bh_visit_id
+		WHERE
+				t.m_product_id IN (
+				SELECT
+					m_product_id
+				FROM
+					updates_during_period
+			)
+	),
+	product_qty_now AS (
+		-- Now, calculate the product quantities at the end of the period by subtracting the changes from the known total
+		SELECT
+			soh.m_product_id,
+			soh.qtyonhand,
+			CURRENT_DATE + INTERVAL '1 day' AS DATE
+		FROM
+			(
+				SELECT
+					soh.m_product_id,
+					SUM(soh.qtyonhand) AS qtyonhand
+				FROM
+					m_storageonhand soh
+				GROUP BY soh.m_product_id
+			) soh
+		WHERE
+				soh.m_product_id IN (
+				SELECT
+					m_product_id
+				FROM
+					updates_during_period
+			)
+	)
 -- With all changes calculated, just filter out to the ones we want
-select
-    mp.name as product,
-	changes.movementqty * -1 as quantitychange,
-	startingqty - changes.movementqty as newlevel,
-	closingqty + changes.movementqty as change_from,
-    closingqty as change_to,
-	changes.updated as datechanged,
-	u.name as changer,
-    r.name as Reason
-from (
-	-- Now, with changes negated, sum up all the changes
-	select
-		m_product_id,
-	    m_inventoryline_id,
-		movementqty,
-		updated,
-		updatedby,
-		movementtype,
-		movementdate,
-		sum(movementqty) over (partition by m_product_id order by updated desc) as startingqty
-	from (
-		-- Get all transactions (except sales ones) from the start of the period until now (when we know the current quantity)
-		select
-			trns.m_product_id,
-		    trns.m_inventoryline_id,
-			trns.movementqty * -1 as movementqty,
-			trns.updated,
-			trns.updatedby,
-			trns.movementtype,
-			trns.movementdate
-		from m_transaction trns
-		join products_updated_during_period pudp
-			on pudp.m_product_id = trns.m_product_id
-		where movementdate >= $P{Begin Date} -- UPDATE - this the start date parameter
-			AND trns.movementtype != 'C-'
-		union
-		-- Select the current quantity
-		select
-			m_product_id,
-		       null,
-			qtyonhand,
-			date,
-			null,
-	        null,
-			null
-		from product_qty_now
-		union
-		-- Get the sales transactions
-		select
-			st.m_product_id,
-		        null,
-			st.movementqty * -1 as movementqty,
-			st.updated,
-			st.updatedby,
-			null,
-			st.movementdate
-		from sales_trx st
-		join products_updated_during_period pudp
-			on pudp.m_product_id = st.m_product_id
-	) as changes
-) as changes
-join m_product mp
-	on mp.m_product_id = changes.m_product_id
-left join Reason r on r.m_inventoryline_id = changes.m_inventoryline_id
-join ad_user u
-	on u.ad_user_id = changes.updatedby
-join currentQty c on c.m_product_id = changes.m_product_id
-where changes.movementtype IN ('I+','I-')
-	and changes.movementdate between $P{Begin Date} and $P{End Date} -- UPDATE - these are the date range parameters
-order by changes.updated, mp.name, u.name;]]>
+SELECT
+	p.name                        AS product,
+	ph.movementqty                AS quantitychange,
+	pqn.qtyonhand                 AS newlevel,
+	ph.endingqty - ph.movementqty AS change_from,
+	ph.endingqty                  AS change_to,
+	ph.date                       AS datechanged,
+	u.name                        AS changer,
+	rl.name                       AS Reason
+FROM
+	product_history ph
+		JOIN m_product p
+			ON p.m_product_id = ph.m_product_id
+		LEFT JOIN m_inventoryline il
+			ON ph.m_inventoryline_id = il.m_inventoryline_id
+		LEFT JOIN m_inventory i
+			ON il.m_inventory_id = i.m_inventory_id
+		LEFT JOIN ad_ref_list rl
+			ON i.bh_update_reason = rl.value
+		LEFT JOIN ad_reference r
+			ON rl.ad_reference_id = r.ad_reference_id AND r.ad_reference_uu = 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f'
+		JOIN ad_user u
+			ON u.ad_user_id = ph.updatedby
+		JOIN product_qty_now pqn
+			ON pqn.m_product_id = ph.m_product_id
+WHERE
+	ph.movementtype IN ('I+', 'I-')
+	AND ph.date BETWEEN $P{Begin Date} AND $P{End Date}
+ORDER BY
+	ph.date, p.name, u.name;]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -252,9 +201,9 @@ order by changes.updated, mp.name, u.name;]]>
 		</field>
 		<field name="Reason" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
@@ -364,7 +313,7 @@ order by changes.updated, mp.name, u.name;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField isStretchWithOverflow="true" pattern="#,##0.###" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="70" height="15" uuid="9dafd07d-3963-4362-88c8-c28ec06af641"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -389,7 +338,7 @@ order by changes.updated, mp.name, u.name;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField isStretchWithOverflow="true" pattern="#,##0.###" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="15" uuid="5a5c25c0-50ef-4cfd-a417-14eaff4e579e"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -414,7 +363,7 @@ order by changes.updated, mp.name, u.name;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField pattern="#,##0.###">
+							<textField pattern="#,##0.00">
 								<reportElement x="0" y="0" width="70" height="15" uuid="3abe2254-4a45-4725-a774-41b14d6f0429"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>
@@ -437,7 +386,7 @@ order by changes.updated, mp.name, u.name;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField pattern="#,##0.###">
+							<textField pattern="#,##0.00">
 								<reportElement x="0" y="0" width="70" height="15" uuid="069b96ca-e6a5-4d79-a723-6595cbb8a5a7"/>
 								<textElement textAlignment="Right">
 									<font fontName="DejaVu Sans" size="12"/>

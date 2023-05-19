@@ -33,8 +33,6 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -73,15 +71,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		Timestamp beginDate = TimestampUtils.startOfYesterday();
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.DAY_OF_YEAR, 2);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+		Timestamp earlyDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -1);
+		Timestamp beginDate = TimestampUtils.add(earlyDate, Calendar.HOUR, 2);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -99,6 +91,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create first visit");
+		Timestamp valueObjectDate = valueObject.getDate();
+		valueObject.setDate(earlyDate);
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
@@ -119,6 +113,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create second visit");
+		valueObject.setDate(valueObjectDate);
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
@@ -442,15 +437,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		Timestamp beginDate = TimestampUtils.startOfYesterday();
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.DAY_OF_YEAR, 2);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+		Timestamp beginDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -1);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -614,15 +602,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		Timestamp beginDate = TimestampUtils.startOfYesterday();
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.DAY_OF_YEAR, 2);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+		Timestamp beginDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -1);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);

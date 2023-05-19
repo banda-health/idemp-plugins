@@ -2,8 +2,9 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MoH717" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="e6f5415f-18b1-40a8-862e-af41d81a921f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -12,15 +13,15 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[WITH params AS (
 	SELECT
-		$P{AD_CLIENT_ID}     AS ad_client_id,
-		date($P{Begin Date}) AS begin_date,
-		date($P{End Date})   AS end_date
+		$P{AD_CLIENT_ID} AS ad_client_id,
+		$P{Begin Date}::timestamp   AS begin_date,
+		$P{End Date}::timestamp     AS end_date
 ),
 	patients AS (
 		SELECT
@@ -68,7 +69,7 @@ FROM
 		JOIN patients patient
 			ON patient.c_bpartner_id = v.patient_id
 		JOIN params p
-			ON v.ad_client_id = p.ad_client_id AND date(v.bh_visitdate) BETWEEN date(p.begin_date) AND date(p.end_date);]]>
+			ON v.ad_client_id = p.ad_client_id AND v.bh_visitdate BETWEEN p.begin_date AND p.end_date;]]>
 	</queryString>
 	<field name="maleover5newvisit" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="maleover5newvisit"/>

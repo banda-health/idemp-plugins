@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Daily Cashier Collections" pageWidth="1480" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1480" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -49,9 +49,9 @@
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="lnUAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.lang.String"/>
-		<parameter name="End Date" class="java.lang.String"/>
-		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
 	c_order_id,
@@ -71,9 +71,9 @@
 	COALESCE(waiver, 0)           AS waiver,
 	COALESCE(donation, 0)         AS donation
 FROM
-	get_visit_info($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+	get_visit_info($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 ORDER BY
-	date(bill_date) ASC;]]>
+	bill_date ASC;]]>
 		</queryString>
 		<field name="c_order_id" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
@@ -138,50 +138,51 @@ ORDER BY
 		</variable>
 		<variable name="sumBillTotal" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{billtotal}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumTotalPayment" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$V{totalPaymentsV}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumCash" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{cash}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumMobile" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{mobile}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumCreditDebit" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{credit_debit}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumBank" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{bank}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumCheck" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{check}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumOther" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{othrenewpayments}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumInsurance" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{insurance}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumWaiver" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{waiver}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumDonation" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{donation}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumUnpaidAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$V{totalOutstanding}]]></variableExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
