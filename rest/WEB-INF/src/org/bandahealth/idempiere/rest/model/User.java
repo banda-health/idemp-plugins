@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "user")
@@ -14,7 +15,7 @@ public class User extends BaseMetadata {
 
 	private String name;
 	private Timestamp dateLastLogin;
-	private List<Role> roles;
+	private List<Role> roles = new ArrayList<>();
 	private String resetPassword;
 
 	public User() {
@@ -24,6 +25,7 @@ public class User extends BaseMetadata {
 		super(model);
 
 		this.setName(model.getName());
+		this.setDateLastLogin(model.getDateLastLogin());
 	}
 
 	public User(String uuid) {

@@ -8,48 +8,58 @@ import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
 public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 
+	@Autowired
+	private RoleDBService roleDBService;
+
 	public void saveRoles(MUser_BH user, List<Role> roles) {
-		// check if user has existing user roles..
-		List<MUserRoles> existingUserRoles = Arrays.asList(MUserRoles.getOfUser(Env.getCtx(), user.get_ID()));
+		if (roles.isEmpty()) {
+			return;
+		}
 
 		Set<String> rolesUuids = roles.stream().map(Role::getUuid).collect(Collectors.toSet());
-		List<Object> parameters = new ArrayList<>();
 
-		String whereClause = MUserRoles.COLUMNNAME_AD_Role_ID + " IN (SELECT " + MRole.COLUMNNAME_AD_Role_ID + " FROM "
-				+ MRole.Table_Name + " WHERE " + MRole.COLUMNNAME_AD_Role_UU + " IN("
-				+ QueryUtil.getWhereClauseAndSetParametersForSet(rolesUuids, parameters) + "))";
+		// get roles
+		Map<String, MRole> mRoles = roleDBService.getByUuids(rolesUuids);
+		if (mRoles.isEmpty()) {
+			// we don't yet support creating new roles from the UI
+			return;
+		}
 
-		// check request user roles..
-		List<MUserRoles> newUserRoles = new Query(Env.getCtx(), MUserRoles.Table_Name, whereClause, null).list();
+		// check existing user roles
+		List<MUserRoles> existingUserRoles = new Query(Env.getCtx(), MUserRoles.Table_Name,
+				MUserRoles.COLUMNNAME_AD_User_ID + " =?", null).setParameters(user.get_ID()).list();
 
-		// save user roles
-		newUserRoles.stream()
-				.filter(userRole -> existingUserRoles.stream()
-						.noneMatch(existingUserRole -> existingUserRole.get_ID() == userRole.get_ID()))
-				.forEach(userRole -> {
-					MUserRoles mUserRoles = new MUserRoles(Env.getCtx(), 0, null);
-					mUserRoles.setAD_User_ID(user.get_ID());
-					mUserRoles.setAD_Role_ID(userRole.get_ID());
-					mUserRoles.saveEx();
-				});
+		if (!existingUserRoles.isEmpty()) {
+			// remove existing user roles in order to save new ones
+			existingUserRoles.stream().forEach(userRole -> {
+				userRole.delete(true);
+			});
+		}
 
-		// remove user roles which are not in the request
-		existingUserRoles.stream().filter(
-				userRole -> newUserRoles.stream().noneMatch(newUserRole -> newUserRole.get_ID() == userRole.get_ID()))
-				.forEach(userRole -> {
-					userRole.delete(true);
-				});
+		// save new roles
+		roles.stream().forEach(role -> {
+			try {
+				MUserRoles mUserRoles = new MUserRoles(Env.getCtx(), 0, null);
+				mUserRoles.setAD_User_ID(user.get_ID());
+				mUserRoles.setAD_Role_ID(mRoles.get(role.getUuid()).get_ID());
+				mUserRoles.saveEx();
+			} catch (Exception ex) {
+				log.severe(ex.getMessage());
+			}
+		});
 	}
 
 	@Override

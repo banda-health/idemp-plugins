@@ -28,6 +28,7 @@ export * from './receiveProducts';
 export * from './referenceLists';
 export * from './services';
 export * from './storageOnHand';
+export * from './users';
 export * from './vendors';
 export * from './visits';
 export * from './warehouses';

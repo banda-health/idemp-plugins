@@ -5,12 +5,15 @@ import java.sql.Timestamp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
@@ -29,6 +32,7 @@ import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +41,9 @@ import org.springframework.stereotype.Component;
 public class UserDBService extends BaseDBService<User, MUser_BH> {
 	@Autowired
 	private UserRolesDBService userRolesDBService;
+
+	@Autowired
+	private RoleDBService roleDBService;
 
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 
@@ -108,11 +115,17 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 			sqlQuery.append(sqlOrderBy);
 		}
 
-		String sqlSelect = sqlQuery.toString(); // has to appear as final or effectively final
+		String sqlSelectWithoutPagination = sqlQuery.toString(); // has to appear as final or effectively final
+		// copied from Query->appendPagination()
+		String sqlSelectWithPagination = DB.getDatabase().addPagingSQL(sqlQuery.toString(),
+				(pagingInfo.getPage() * pagingInfo.getPageSize()) + 1,
+				pagingInfo.getPageSize() * (pagingInfo.getPage() + 1));
+		
+		// (pageSize*pagesToSkip) + 1, pageSize * (pagesToSkip+1)
 
 		Map<String, User> usersRolesMap = new LinkedHashMap<>();
 
-		SqlUtil.executeQuery(sqlSelect, null, null, rs -> {
+		SqlUtil.executeQuery(sqlSelectWithPagination, null, null, rs -> {
 			try {
 				String uuid = rs.getString(1);
 				Timestamp created = rs.getTimestamp(2);
@@ -136,12 +149,12 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 					usersRolesMap.put(uuid, user);
 				}
 			} catch (SQLException e) {
-				log.log(Level.SEVERE, sqlSelect, e);
+				log.log(Level.SEVERE, sqlSelectWithPagination, e);
 			}
 		});
 
 		if (pagingInfo != null) {
-			pagingInfo.setTotalRecordCount(usersRolesMap.size());
+			pagingInfo.setTotalRecordCount(SqlUtil.getCount("(" + sqlSelectWithoutPagination + ")", "AS COUNT", null));
 		}
 
 		return new BaseListResponse<User>(new ArrayList<User>(usersRolesMap.values()), pagingInfo);
@@ -224,33 +237,58 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 	@Override
 	protected User createInstanceWithDefaultFields(MUser_BH instance) {
-		try {
-			return new User(instance.getName(), instance.getAD_User_UU());
-		} catch (Exception ex) {
-			log.severe("Error creating product instance: " + ex);
-			throw new RuntimeException(ex.getLocalizedMessage(), ex);
-		}
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
 	protected User createInstanceWithAllFields(MUser_BH instance) {
-		try {
-			return new User(instance.getName(), instance.getAD_User_UU(), instance.getCreated(),
-					instance.getDateLastLogin());
-		} catch (Exception ex) {
-			log.severe("Error creating user instance: " + ex);
-			throw new RuntimeException(ex.getLocalizedMessage(), ex);
-		}
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
 	protected User createInstanceWithSearchFields(MUser_BH instance) {
-		return createInstanceWithDefaultFields(instance);
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
 	protected MUser_BH getModelInstance() {
 		return new MUser_BH(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public List<User> transformData(List<MUser_BH> dbModels) {
+		// Batch call to get user roles
+		Set<Integer> userIds = dbModels.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
+
+		Map<Integer, List<MUserRoles>> rolesByUserId = userRolesDBService.getGroupsByIds(MUserRoles::getAD_User_ID,
+				MUserRoles.COLUMNNAME_AD_User_ID, userIds);
+
+		// batch call to get roles
+		Set<Integer> roleIds = rolesByUserId.values().stream()
+				.flatMap(roleByUserId -> roleByUserId.stream().map(MUserRoles::getAD_Role_ID))
+				.collect(Collectors.toSet());
+		Map<Integer, MRole> roles = roleDBService.getByIds(roleIds);
+
+		return dbModels.stream().map(mUser -> {
+			User user = new User(mUser);
+			if (rolesByUserId.containsKey(mUser.getAD_User_ID())) {
+				// get user roles
+				List<MUserRoles> userRoles = rolesByUserId.get(mUser.getAD_User_ID());
+				// get roles
+				userRoles.stream().forEach(userRole -> {
+					// get role
+					roles.values().stream()
+							.filter(role -> userRole.getAD_Role_ID() == role.get_ID())
+							.forEach(role -> {
+								Role r = new Role(role);
+								user.getRoles().add(r);
+							});
+				});
+			}
+
+			return user;
+
+		}).collect(Collectors.toList());
 	}
 
 	@Override
