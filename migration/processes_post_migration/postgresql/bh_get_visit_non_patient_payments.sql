@@ -1,9 +1,10 @@
 DROP FUNCTION IF EXISTS bh_get_visit_non_patient_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE OR REPLACE FUNCTION bh_get_visit_non_patient_payments(ad_client_id numeric,
+CREATE FUNCTION bh_get_visit_non_patient_payments(ad_client_id numeric,
                                                              begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
                                                              end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
+		        bh_visit_id         numeric,
 		        c_order_id          numeric,
 		        c_charge_id         numeric,
 		        chargetype_name     character varying,
@@ -21,6 +22,7 @@ CREATE OR REPLACE FUNCTION bh_get_visit_non_patient_payments(ad_client_id numeri
 AS
 $$
 SELECT
+	v.bh_visit_id,
 	ol.c_order_id,
 	c.c_charge_id,
 	c.name    AS ChargeType_name,
@@ -34,10 +36,12 @@ SELECT
 	bci.name  AS Relationship
 FROM
 	c_charge c
-		LEFT JOIN c_orderline ol
+		JOIN c_orderline ol
 			ON c.c_charge_id = ol.c_charge_id
-		LEFT JOIN c_order co
-			ON ol.c_order_id = co.c_order_id
+		JOIN c_order o
+			ON ol.c_order_id = o.c_order_id
+		JOIN bh_visit v
+			ON o.bh_visit_id = v.bh_visit_id
 		JOIN ad_ref_list r
 			ON r.value = c.bh_subtype
 		JOIN ad_reference a
@@ -96,6 +100,5 @@ WHERE
 	ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 	AND ol.c_charge_id IS NOT NULL
 	AND c.ad_client_id = $1
-	AND co.bh_visitdate BETWEEN $2 AND $3
-	AND co.issotrx = 'Y';
+	AND v.bh_visitdate BETWEEN $2 AND $3;
 $$;

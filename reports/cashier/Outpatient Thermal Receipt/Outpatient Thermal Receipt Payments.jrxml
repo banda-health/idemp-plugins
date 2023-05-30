@@ -22,7 +22,7 @@
 FROM
 	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
 WHERE
-	c_order_id = $P{billId}
+	bh_visit_id = $P{billId}
 GROUP BY
 	c_order_id, chargetype_name
 UNION
@@ -33,7 +33,7 @@ SELECT
 FROM
 	bh_get_visit_payments($P{AD_CLIENT_ID}, '-infinity'::timestamp, 'infinity'::timestamp)
 WHERE
-	c_order_id = $P{billId}
+	bh_visit_id = $P{billId}
 GROUP BY
 	c_order_id, payment_mode_name]]>
 	</queryString>
@@ -50,7 +50,7 @@ GROUP BY
 	</field>
 	<variable name="totalPayments" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<variable name="Outstanding" class="java.math.BigDecimal">
 		<variableExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}).abs()]]></variableExpression>

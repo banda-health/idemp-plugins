@@ -26,69 +26,85 @@
 		<parameterDescription><![CDATA[0]]></parameterDescription>
 	</parameter>
 	<queryString>
-		<![CDATA[select
-  billHeader.orgID as orgID,
-  billHeader.org_name as org_name,
-  billHeader.phone as phone,
-  billHeader.email as email,
-  billHeader.address as address,
-  billHeader.address1 as address1,
-  billHeader.city as city,
-  billHeader.extrainfo as extrainfo,
-  billHeader.clientuuid as clientuuid,
-  billHeader.binarydata as logoimage,
-  billHeader.receiptfootermsg as receiptfooter,
-  billDetails.bill_date as bill_date,
-  billDetails.receipt_number as receipt_number,
-  billDetails.cashierName as cashierName,
-  billDetails.patientName as patientName,
-  date_part('year', age(bill_date, billDetails.age))  as age,
-  billDetails.fileNumber as fileNumber,
-  billDetails.bill_id as bill_id,
-  billDetails.clinicianname,
-  billDetails.totalopenbalance
-from
-(
-select
-  org.ad_org_id as orgID,
-  org.name as org_name,
-  concat_ws(' / ', orgInfo.phone, orgInfo.phone2) as phone,
-  orgInfo.email as email,
-  coalesce(orgLocation.address1,orgLocation.address3) as address,
-  coalesce(orgLocation.address2,orgLocation.address4) as address1,
-  orgLocation.city as city,
-  orgInfo.bh_extrainfo as extrainfo,
-  client.ad_client_uu as clientuuid,
-  logo.binarydata,
-  orgInfo.receiptfootermsg
-from ad_org org
-  inner join ad_orginfo orgInfo on org.ad_org_id = orgInfo.ad_org_id
-  inner join ad_client client on org.ad_client_id = client.ad_client_id
-  inner join ad_clientinfo clientInfo on client.ad_client_id = clientInfo.ad_client_id
-  left join c_location orgLocation on orgInfo.c_location_id = orgLocation.c_location_id
-  left join ad_image logo on orgInfo.logo_id = logo.ad_image_id
-where org.ad_org_id =  $P{AD_CLIENT_ID}
-) as billHeader
-inner join
-(
-select
-  sorder.c_order_id as bill_id,
-  sorder.ad_org_id as orgID,
-  sorder.bh_visitdate as bill_date,
-  sorder.c_order_id as receipt_number,
-  cashier.name as cashierName,
-  patient.name as patientName,
-  patient.birthday as age,
-  patientid.bh_patientid as fileNumber,
-  clinician.name as clinicianname,
-  totalopenbalance as totalopenbalance
-from c_order sorder
-  inner join ad_user patient on sorder.ad_user_id = patient.ad_user_id
-  inner join c_bpartner patientid on patient.c_bpartner_id = patientid.c_bpartner_id
-  inner join ad_user cashier on sorder.createdby = cashier.ad_user_id
-left join ad_user clinician on sorder.bh_clinician_user_id = clinician.ad_user_id
-where sorder.c_order_id = $P{billId}
-) as billDetails on billheader.orgID = billDetails.orgID]]>
+		<![CDATA[SELECT
+	billHeader.orgID                                   AS orgID,
+	billHeader.org_name                                AS org_name,
+	billHeader.phone                                   AS phone,
+	billHeader.email                                   AS email,
+	billHeader.address                                 AS address,
+	billHeader.address1                                AS address1,
+	billHeader.city                                    AS city,
+	billHeader.extrainfo                               AS extrainfo,
+	billHeader.clientuuid                              AS clientuuid,
+	billHeader.binarydata                              AS logoimage,
+	billHeader.receiptfootermsg                        AS receiptfooter,
+	billDetails.bill_date                              AS bill_date,
+	billDetails.receipt_number                         AS receipt_number,
+	billDetails.cashierName                            AS cashierName,
+	billDetails.patientName                            AS patientName,
+	DATE_PART('year', AGE(bill_date, billDetails.age)) AS age,
+	billDetails.fileNumber                             AS fileNumber,
+	billDetails.bill_id                                AS bill_id,
+	billDetails.clinicianname,
+	billDetails.totalopenbalance
+FROM
+	(
+		SELECT
+			o.ad_org_id                           AS orgID,
+			o.name                                AS org_name,
+			CONCAT_WS(' / ', oi.phone, oi.phone2) AS phone,
+			oi.email                              AS email,
+			COALESCE(l.address1, l.address3)      AS address,
+			COALESCE(l.address2, l.address4)      AS address1,
+			l.city                                AS city,
+			oi.bh_extrainfo                       AS extrainfo,
+			c.ad_client_uu                        AS clientuuid,
+			i.binarydata,
+			oi.receiptfootermsg
+		FROM
+			ad_org o
+				INNER JOIN ad_orginfo oi
+					ON o.ad_org_id = oi.ad_org_id
+				INNER JOIN ad_client c
+					ON o.ad_client_id = c.ad_client_id
+				INNER JOIN ad_clientinfo ci
+					ON c.ad_client_id = ci.ad_client_id
+				LEFT JOIN c_location l
+					ON oi.c_location_id = l.c_location_id
+				LEFT JOIN ad_image i
+					ON oi.logo_id = i.ad_image_id
+		WHERE
+			o.ad_client_id = $P{AD_CLIENT_ID}
+	) AS billHeader
+		JOIN
+		(
+			SELECT
+				o.c_order_id       AS bill_id,
+				o.ad_org_id        AS orgID,
+				v.bh_visitdate     AS bill_date,
+				o.c_order_id       AS receipt_number,
+				u_cashier.name     AS cashierName,
+				u_patient.name     AS patientName,
+				u_patient.birthday AS age,
+				bp.bh_patientid    AS fileNumber,
+				u_clinician.name   AS clinicianname,
+				totalopenbalance   AS totalopenbalance
+			FROM
+				bh_visit v
+					JOIN c_order o
+						ON v.bh_visit_id = o.bh_visit_id
+					JOIN c_bpartner bp
+						ON v.patient_id = bp.c_bpartner_id
+					JOIN ad_user u_patient
+						ON bp.c_bpartner_id = u_patient.c_bpartner_id
+					JOIN ad_user u_cashier
+						ON v.createdby = u_cashier.ad_user_id
+					LEFT JOIN ad_user u_clinician
+						ON v.bh_clinician_user_id = u_clinician.ad_user_id
+			WHERE
+				v.bh_visit_id = $P{billId}
+		) AS billDetails
+				ON billheader.orgID = billDetails.orgID]]>
 	</queryString>
 	<field name="orgid" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="orgid"/>
@@ -163,7 +179,7 @@ where sorder.c_order_id = $P{billId}
 	</field>
 	<field name="totalopenbalance" class="java.math.BigDecimal"/>
 	<variable name="totalCost" class="java.math.BigDecimal">
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<variable name="totalPayment" class="java.math.BigDecimal"/>
 	<background>
