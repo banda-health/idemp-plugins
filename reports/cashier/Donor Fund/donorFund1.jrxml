@@ -73,36 +73,31 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
 			<![CDATA[SELECT
-	b.c_order_id,
-	co.bh_visitdate                                      AS date,
-	cb.name                                              AS name,
-	cb.bh_birthday                                       AS DOB,
-	''                                                   AS ke_NO,
-	cb.bh_patientid                                      AS patient_NO,
-	COALESCE(bh_cielname, co.bh_primaryuncodeddiagnosis) AS diagnoses,
-	(SUM(b.linenetamt)) * -1                             AS amount_tendered
+	v.bh_visitdate                                      AS date,
+	bp.name                                             AS name,
+	bp.bh_birthday                                      AS DOB,
+	''                                                  AS ke_NO,
+	bp.bh_patientid                                     AS patient_NO,
+	COALESCE(bh_cielname, v.bh_primaryuncodeddiagnosis) AS diagnoses,
+	(SUM(gvnpp.linenetamt)) * -1                        AS amount_tendered
 FROM
-	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) b
-		INNER JOIN c_order co
-			ON b.c_order_id = co.c_order_id
-		INNER JOIN c_invoice ci
-			ON co.c_order_id = ci.c_order_id
-		INNER JOIN c_bpartner cb
-			ON co.c_bpartner_id = cb.c_bpartner_id
-		LEFT JOIN bh_coded_diagnosis diagnosis
-			ON co.bh_primarycodeddiagnosis_id = diagnosis.bh_coded_diagnosis_id
+	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvnpp
+		JOIN bh_visit v
+			ON gvnpp.bh_visit_id = v.bh_visit_id
+		INNER JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN bh_coded_diagnosis cd
+			ON v.bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
 WHERE
-	ci.docstatus != 'RE'
-	AND b.bh_subtype = 'D'
+	gvnpp.bh_subtype = 'D'
 GROUP BY
-	co.bh_visitdate, cb.name, cb.bh_patientid, b.c_order_id, ci.description, diagnosis.bh_cielname,
-	cb.bh_birthday, co.bh_primaryuncodeddiagnosis
+	v.bh_visitdate, bp.name, bp.bh_birthday, bp.bh_patientid, COALESCE(bh_cielname, v.bh_primaryuncodeddiagnosis)
 ORDER BY
-	co.bh_visitdate ASC;]]>
+	v.bh_visitdate;]]>
 		</queryString>
 		<field name="date" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="date"/>
@@ -126,16 +121,16 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.label" value="amount_tendered"/>
 		</field>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-	UPPER(ad.name) AS clientname
+	UPPER(name) AS clientname
 FROM
-	ad_client ad
+	ad_client
 WHERE
-	ad.ad_client_id = $P{AD_CLIENT_ID};]]>
+	ad_client_id = $P{AD_CLIENT_ID};]]>
 	</queryString>
 	<field name="clientname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="clientname"/>

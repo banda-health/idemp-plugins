@@ -33,8 +33,6 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -73,15 +71,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		Timestamp beginDate = TimestampUtils.startOfYesterday();
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.DAY_OF_YEAR, 2);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+		Timestamp earlyDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -1);
+		Timestamp beginDate = TimestampUtils.add(earlyDate, Calendar.HOUR, 2);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -96,6 +88,12 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(50000));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first visit");
+		Timestamp valueObjectDate = valueObject.getDate();
+		valueObject.setDate(earlyDate);
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create first sales order");
@@ -114,6 +112,11 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create second visit");
+		valueObject.setDate(valueObjectDate);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
@@ -128,6 +131,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.setPaymentAmount(new BigDecimal(1690));
 		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create third visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create third sales order");
@@ -146,6 +153,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create fourth visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create fourth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
@@ -159,6 +170,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setPaymentAmount(new BigDecimal(1550));
 		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create fifth visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create fifth sales order");
@@ -180,6 +195,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create waiver charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
 		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+		commitEx();
+
+		valueObject.setStepName("Create sixth visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sixth sales order");
@@ -204,7 +223,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrder().saveEx();
 		commitEx();
 
-		valueObject.setStepName("Create payment for the sixth sales order");
+		valueObject.setStepName("Create cash payment for the sixth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
@@ -212,10 +231,15 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create mobile payment for the sixth sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.setPaymentAmount(new BigDecimal(1000));
+		commitEx();
+
+		valueObject.setStepName("Create seventh visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create seventh sales order");
@@ -236,10 +260,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Re-open seventh sales order");
 		List<MPayment_BH> ordersPayments = new Query(valueObject.getContext(), MPayment_BH.Table_Name,
-				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND "
-						+ MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL",
-				valueObject.getTransactionName())
-						.setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
+				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=? AND " +
+						MPayment_BH.COLUMNNAME_Reversal_ID + " IS NULL", valueObject.getTransactionName()).setParameters(
+				valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Completed).list();
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Sales order was re-activated");
 		valueObject.getOrder().saveEx();
@@ -260,9 +283,9 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.refresh();
 
 		valueObject.setPayment(new Query(valueObject.getContext(), MPayment_BH.Table_Name,
-				MPayment_BH.COLUMNNAME_BH_C_Order_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
-				valueObject.getTransactionName())
-						.setParameters(valueObject.getOrder().get_ID(), MPayment_BH.DOCSTATUS_Drafted).first());
+				MPayment_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MPayment_BH.COLUMNNAME_DocStatus + "=?",
+				valueObject.getTransactionName()).setParameters(valueObject.getVisit().get_ID(), MPayment_BH.DOCSTATUS_Drafted)
+				.first());
 		valueObject.refresh();
 
 		valueObject.setStepName("Re-complete seventh sales order");
@@ -414,15 +437,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		Timestamp beginDate = TimestampUtils.startOfYesterday();
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.DAY_OF_YEAR, 2);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+		Timestamp beginDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -1);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -437,6 +453,10 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(50000));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
@@ -582,15 +602,8 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		Timestamp beginDate = TimestampUtils.startOfYesterday();
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.DAY_OF_YEAR, 2);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
+		Timestamp beginDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -1);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);

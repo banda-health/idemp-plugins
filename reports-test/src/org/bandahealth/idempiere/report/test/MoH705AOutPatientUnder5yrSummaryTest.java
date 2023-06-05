@@ -6,7 +6,6 @@ import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
@@ -57,14 +56,14 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 			codedDiagnosis =
-					new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name, MBHCodedDiagnosis.COLUMNNAME_BH_CielName +
+					new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name, MBHCodedDiagnosis.COLUMNNAME_bh_cielname +
 							"=?", valueObject.getTransactionName()).setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-				codedDiagnosis.setBH_CielName(diagnosisToSearchFor);
+				codedDiagnosis.setbh_cielname(diagnosisToSearchFor);
 			}
-			codedDiagnosis.setBH_MoH705ALessThan5("Burns");
+			codedDiagnosis.setbh_moh705a_lessthan5("Burns");
 			codedDiagnosis.saveEx();
 			commitEx();
 		} finally {
@@ -111,16 +110,18 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setQuantity(null);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
+		valueObject.getVisit().saveEx();
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
 		valueObject.setRandom();
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
 				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		MOrder_BH order = valueObject.getOrder();
-		order.setBH_PrimaryCodedDiagnosisID(codedDiagnosis.get_ID());
-		order.setDocAction(MOrder_BH.ACTION_Complete);
-		order.processIt(MOrder_BH.ACTION_Complete);
 		commitEx();
 
 		valueObject.setStepName("Create an older patient");
@@ -130,16 +131,18 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
+		valueObject.getVisit().saveEx();
+		commitEx();
+
 		valueObject.setStepName("Create order");
 		valueObject.setRandom();
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
 				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		order = valueObject.getOrder();
-		order.setBH_PrimaryCodedDiagnosisID(codedDiagnosis.get_ID());
-		order.setDocAction(MOrder_BH.ACTION_Complete);
-		order.processIt(MOrder_BH.ACTION_Complete);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");

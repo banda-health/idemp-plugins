@@ -15,10 +15,12 @@ import {
 	OrderLine,
 	Organization,
 	Payment,
+	PaymentType,
 	ProcessInfoParameter,
 	Product,
 	Role,
 	User,
+	Visit,
 	Warehouse,
 } from '../types/org.bandahealth.idempiere.rest';
 import { getDateOffset } from '../utils';
@@ -58,6 +60,7 @@ export class ValueObject {
 	documentType?: DocumentType;
 	documentAction?: string;
 	attributeSetInstance?: AttributeSetInstance;
+	visit?: Visit;
 	order?: Order;
 	orderLine?: OrderLine;
 	// MInOut m_inOut = null;
@@ -67,6 +70,8 @@ export class ValueObject {
 	inventory?: Inventory;
 	inventoryLine?: InventoryLine;
 	payment?: Payment;
+	tenderType?: PaymentType;
+	paymentAmount?: number;
 	// private MBankAccount m_bankAcct = null;
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
@@ -81,7 +86,7 @@ export class ValueObject {
 
 	processUuid?: string;
 	processInformationParameters?: ProcessInfoParameter[];
-	reportType: string = 'pdf';
+	reportType: 'pdf' | 'xlsx' | 'html' | 'csv' = 'pdf';
 	report?: Buffer;
 
 	sessionToken?: string;
@@ -92,7 +97,9 @@ export class ValueObject {
 
 	private prepareIt(loginInfo: AuthResponse & { client?: Client }) {
 		this.client = loginInfo.client;
-		this.organization = this.client?.organizations.find((organization) => organization.uuid === loginInfo.organizationUuid);
+		this.organization = this.client?.organizations.find(
+			(organization) => organization.uuid === loginInfo.organizationUuid,
+		);
 		this.role = this.organization?.roles.find((role) => role.uuid === loginInfo.roleUuid);
 		this.warehouse = this.organization?.warehouses.find((warehouse) => warehouse.uuid === loginInfo.warehouseUuid);
 		this.sessionToken = loginInfo.token;

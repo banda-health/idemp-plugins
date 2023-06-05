@@ -4,7 +4,6 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
-
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,7 +23,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -43,9 +45,14 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
-		
+
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		Timestamp birthday = TimestampUtils.addToNow(Calendar.YEAR, -1);
+		valueObject.getBusinessPartner().setBH_Birthday(birthday);
+		String patientId = String.valueOf(valueObject.getRandomNumber());
+		valueObject.getBusinessPartner().setBH_PatientID(patientId);
+		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -64,6 +71,12 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setbh_primaryuncodeddiagnosis("pain");
+		valueObject.getVisit().saveEx();
+		commitEx();
+
 		valueObject.setStepName("Create SO");
 		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -81,10 +94,16 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		orderLine.setHeaderInfo(order);
 		orderLine.setPrice(new BigDecimal(-2));
 		orderLine.saveEx();
-		
+
 		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order completed");
 		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
@@ -100,17 +119,17 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		assertNotNull(valueObject.getReport(), "Report was generated successfully");
-		
+
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 			int dateOfBirthColumnIndex = TableUtils.getColumnIndex(headerRow, "Date of Birth");
-			int patientDonorColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Donor ");
-			int patientClinicColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Clinic ");
+			TableUtils.getColumnIndexContaining(headerRow, "Patient Donor ");
+			int patientClinicIdNumberColumnIndex = TableUtils.getColumnIndexContaining(headerRow, "Patient Clinic ");
 			int diagnosisColumnIndex = TableUtils.getColumnIndex(headerRow, "Diagnosis");
-			int totalBilledToColumnIndex = TableUtils.getColumnIndex(headerRow, "Total billed to ");
+			int totalBilledToColumnIndex = TableUtils.getColumnIndexContaining(headerRow, "Total billed to ");
 
 			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> row.getCell(patientNameColumnIndex) != null &&
@@ -120,13 +139,153 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 
 			assertEquals(1, patientRows.size(), "Patient's visit appears");
 			Row visit = patientRows.get(0);
-			
-			assertEquals(true, patientNameColumnIndex > 0, "Patient Name column exists");
-			assertEquals(true, dateOfBirthColumnIndex > 0, "Date of Birth column exists");
-			assertEquals(true, patientDonorColumnIndex > 0, "Patient Donor column exists");
-			assertEquals(true, patientClinicColumnIndex > 0, "Patient Clinic column exists");
-			assertEquals(true, diagnosisColumnIndex > 0, "Diagnosis column exists");
+
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			assertTrue(visit.getCell(patientNameColumnIndex).getStringCellValue()
+					.contains(valueObject.getBusinessPartner().getName().substring(0, 30)), "Patient Name is displayed");
+			assertEquals(dateFormat.format(birthday),
+					dateFormat.format(visit.getCell(dateOfBirthColumnIndex).getDateCellValue()), "Date of Birth is displayed");
+			assertEquals(patientId, visit.getCell(patientClinicIdNumberColumnIndex).getStringCellValue(),
+					"Patient Clinic column exists");
+			assertEquals("pain", visit.getCell(diagnosisColumnIndex).getStringCellValue(), "Diagnosis is displayed");
 			assertEquals(2D, visit.getCell(totalBilledToColumnIndex).getNumericCellValue(), "Bill total is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void dateTimeFiltersWork() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		Timestamp birthday = TimestampUtils.addToNow(Calendar.YEAR, -1);
+		valueObject.getBusinessPartner().setBH_Birthday(birthday);
+		String patientId = String.valueOf(valueObject.getRandomNumber());
+		valueObject.getBusinessPartner().setBH_PatientID(patientId);
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+
+		valueObject.setStepName("Create donor charge");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		Timestamp earlyDate = TimestampUtils.startOfYesterday();
+		Timestamp beginDate = TimestampUtils.add(earlyDate, Calendar.HOUR, 2);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
+
+		valueObject.setStepName("Create visit");
+		valueObject.setDate(earlyDate);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setbh_primaryuncodeddiagnosis("pain");
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create SO");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		MOrder_BH order = valueObject.getOrder();
+
+		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		orderLine.setDescription(valueObject.getStepMessageLong());
+		orderLine.setC_Order_ID(order.get_ID());
+		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		orderLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		orderLine.setQty(Env.ONE);
+		orderLine.setHeaderInfo(order);
+		orderLine.setPrice(new BigDecimal(-2));
+		orderLine.saveEx();
+
+		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order completed");
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		valueObject.setDateOffset(1);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setbh_primaryuncodeddiagnosis("pain");
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		order = valueObject.getOrder();
+
+		orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		orderLine.setDescription(valueObject.getStepMessageLong());
+		orderLine.setC_Order_ID(order.get_ID());
+		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		orderLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		orderLine.setQty(Env.ONE);
+		orderLine.setHeaderInfo(order);
+		orderLine.setPrice(new BigDecimal(-2));
+		orderLine.saveEx();
+
+		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order completed");
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("3478d341-c6d9-4f52-a865-5bf0ba8a7607");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+				new ProcessInfoParameter("End Date", endDate, null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		commitEx();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient's visit appears only once");
 		}
 	}
 }

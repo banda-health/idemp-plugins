@@ -1,16 +1,21 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
+import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Visit;
-import org.bandahealth.idempiere.rest.service.DocumentRestService;
+import org.bandahealth.idempiere.rest.model.VoidedReason;
+import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.VisitDBService;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,7 +30,7 @@ import javax.ws.rs.core.MediaType;
 @Path(IRestConfigs.VISITS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class VisitRestService extends DocumentRestService<Visit, MOrder_BH, VisitDBService> {
+public class VisitRestService extends BaseRestService<Visit, MBHVisit, VisitDBService> {
 
 	@Autowired
 	private VisitDBService dbService;
@@ -58,5 +63,40 @@ public class VisitRestService extends DocumentRestService<Visit, MOrder_BH, Visi
 	@Path(IRestConfigs.VISIT_OPEN_DRAFTS_COUNT)
 	public Integer getOpenDraftsCount() {
 		return dbService.getOpenVisitDraftsCount();
+	}
+
+	// TODO: Remove these endpoints when order processing is separate from a visit
+
+	/**
+	 * A process method to allow visits to handle everything
+	 *
+	 * @param uuid           The UUID of the visit to process
+	 * @param documentAction The process action to be executed
+	 * @return The visit after it's been processed
+	 * @throws Exception An error that occurred in processing
+	 */
+	@POST
+	@Path("/{uuid}/process/{processType}")
+	public Visit process(@PathParam("uuid") String uuid, @PathParam("processType") String documentAction)
+			throws Exception {
+		return getDBService().processDependentEntities(uuid, documentAction);
+	}
+
+	/**
+	 * A sugar method to first save the entity to process, then process the entity
+	 *
+	 * @param entity         The visit to save and process
+	 * @param documentAction The process action to be executed
+	 * @return The saved and processed visit
+	 * @throws Exception An error that occurred in processing
+	 */
+	@POST
+	@Path("/process/{processType}")
+	public Visit saveAndProcess(Visit entity, @PathParam("processType") String documentAction) throws Exception {
+		if (!documentAction.equals(MOrder_BH.DOCACTION_Void)) {
+			entity.setVoidedReason(null);
+		}
+		Visit savedEntity = getDBService().saveEntity(entity);
+		return getDBService().processDependentEntities(savedEntity.getUuid(), documentAction);
 	}
 }
