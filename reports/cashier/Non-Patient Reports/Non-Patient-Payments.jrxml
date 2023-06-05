@@ -47,7 +47,7 @@
 			gvd.bh_patienttype_name,
 			SUM(ol.linenetamt) AS lineitemtotals
 		FROM
-			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date})) gvd
+			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvd
 				JOIN c_order o
 					ON gvd.bh_visit_id = o.bh_visit_id
 				JOIN c_orderline ol
@@ -66,7 +66,7 @@
 			payamt,
 			tendertype
 		FROM
-			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date})) bp
+			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	),
 	non_patient_payments AS (
 		SELECT
@@ -79,14 +79,14 @@
 			ClaimNo,
 			Relationship
 		FROM
-			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	),
 	BillTotal AS (
 		SELECT
 			c_order_id,
 			SUM(linenetamt) AS total
 		FROM
-			bh_get_visit_products($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_products($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 		GROUP BY c_order_id
 	)
 SELECT
@@ -178,8 +178,7 @@ WHERE
 	)
 	AND (p.insurance_type = '' OR ChargeType_name = p.insurance_type)
 ORDER BY
-	DATE(
-			Visit_info.bill_date), Visit_info.patient_name;]]>
+	date(Visit_info.bill_date), Visit_info.patient_name;]]>
 	</queryString>
 	<field name="bh_visit_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>

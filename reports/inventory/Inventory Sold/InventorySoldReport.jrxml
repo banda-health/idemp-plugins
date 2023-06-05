@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -73,8 +73,8 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
 			<![CDATA[WITH inventory_changes AS (
 	SELECT
@@ -85,7 +85,7 @@
 		SUM(cost_of_goods_sold) AS cost_of_goods_sold,
 		SUM(gross_profit) AS gross_profit
 	FROM
-		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	GROUP BY m_product_id, sell_price, purchase_price
 )
 SELECT
@@ -132,19 +132,19 @@ ORDER BY
 		</field>
 		<variable name="sumAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumCostGoodsSold" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{costgoodssold}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumGrossProfit" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{gross_profit}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select 1;]]>

@@ -15,6 +15,7 @@ public class DateUtil {
 
 	private final static String DEFAULT_FORMAT = "yyyy-MM-dd hh:mm:ss";
 	private final static String REPORT_FORMAT = "yyyy-MM-dd hh:mm a";
+	private final static String REPORT_FORMAT_2 = "yyyy-MM-dd'T'hh:mm:ss.SSSX";
 	private final static String DATE_FORMAT = "yyyy-MM-dd";
 	private final static String QUEUE_DATE_FORMAT = "E, dd MMMM - HH:mm";
 
@@ -64,7 +65,11 @@ public class DateUtil {
 	}
 
 	public static Timestamp getTimestampReportParameter(String date) {
-		return getTimestamp(date, REPORT_FORMAT);
+		Timestamp parsedDate = getTimestamp(date, REPORT_FORMAT);
+		if (parsedDate == null) {
+			return getTimestamp(date, REPORT_FORMAT_2);
+		}
+		return parsedDate;
 	}
 
 	public static Timestamp getTimestamp(String date, String dateFormat) {

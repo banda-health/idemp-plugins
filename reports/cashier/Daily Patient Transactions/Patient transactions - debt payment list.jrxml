@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Debt Payments" pageWidth="610" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="610" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -49,28 +49,28 @@
 	<subDataset name="tableDataset" uuid="37998b4e-fa17-4a76-9021-e375907a1798">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
-		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-	date(payment_date)    AS bill_date,
+	payment_date    AS bill_date,
 	patient_name             AS patientname,
 	payment_mode_name     AS paymentmode,
 	totalopenbalance AS totaldebt,
 	payment_amount           AS amountpaid
 FROM
-	bh_get_debt_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+	bh_get_debt_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 		CROSS JOIN (
 		SELECT COALESCE($P{AD_User_UU}, '') AS ad_user_uu
 	) params
 WHERE
 	cashier_uu = params.ad_user_uu OR params.ad_user_uu = ''
 ORDER BY
-	date(payment_date) DESC;]]>
+	payment_date DESC;]]>
 		</queryString>
-		<field name="bill_date" class="java.sql.Date">
+		<field name="bill_date" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="bill_date"/>
 		</field>
 		<field name="patientname" class="java.lang.String">
@@ -91,15 +91,15 @@ ORDER BY
 		</field>
 		<variable name="SumAmountPaid" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amountpaid}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="sumTotalDebt" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{totaldebt}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>

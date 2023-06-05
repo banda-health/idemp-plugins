@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Cases" pageWidth="900" pageHeight="615" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="7317436c-2db2-4a0b-9652-bea518e43b91">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value="Diagnoses Count under 5yrs"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -124,8 +124,8 @@
 	<subDataset name="MOH_A Dataset" uuid="3b0d1345-0360-41e5-97ee-180a3cc3fe01">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="Begin Date" class="java.sql.Date"/>
-		<parameter name="End Date" class="java.sql.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
@@ -259,7 +259,7 @@ FROM
     SELECT 'Cutaneous leishmaniasis', 650 UNION
     SELECT 'Suspected Anthrax', 660 UNION
     SELECT 'Suspected Childhood Cancer', 670 UNION
-    SELECT 'Hypoxemia (Sat <90%)', 680 UNION 
+    SELECT 'Hypoxemia (Sat <90%)', 680 UNION
     SELECT 'All Other Diseases', 690
 	) dlo
 			ON dl.diagnosis = dlo.diagnosis
@@ -280,9 +280,9 @@ ORDER BY
 			<groupExpression><![CDATA[$F{calendar}]]></groupExpression>
 		</group>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
 	date(v.bh_visitdate) AS calendar,

@@ -179,7 +179,7 @@ FROM
 	</field>
 	<field name="totalopenbalance" class="java.math.BigDecimal"/>
 	<variable name="totalCost" class="java.math.BigDecimal">
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<variable name="totalPayment" class="java.math.BigDecimal"/>
 	<background>

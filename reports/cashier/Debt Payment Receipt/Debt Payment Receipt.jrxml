@@ -41,11 +41,11 @@ group by payment.c_payment_id, tendertype.name;]]>
 	</field>
 	<variable name="totalPayments" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{amount_tendered}]]></variableExpression>
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<variable name="totalAmounts" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{pamount}]]></variableExpression>
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>

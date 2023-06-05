@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -52,22 +52,24 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
 			<![CDATA[WITH inventory_changes AS (
 	SELECT
 		m_product_id,
+		SUM(opening_stock)  AS opening_stock,
 		SUM(ending_stock)   AS ending_stock,
 		SUM(received_stock) AS received_stock,
 		SUM(sold_stock)     AS sold_stock,
 		SUM(balanced_stock) AS balanced_stock
 	FROM
-		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
   GROUP BY m_product_id
 )
 SELECT
 	p.name            AS item_name,
+	ic.opening_stock  AS opening_stock,
 	ic.ending_stock   AS endingstock,
 	ic.received_stock AS receivedstock,
 	ic.sold_stock     AS soldstock,
@@ -95,16 +97,17 @@ ORDER BY
 		<field name="balancestock" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="balancestock"/>
 		</field>
+		<field name="opening_stock" class="java.math.BigDecimal"/>
 		<variable name="stockchanges" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{receivedstock}.subtract($F{soldstock}).add($F{balancestock})]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 		<variable name="endstock" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{endingstock}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select 1;]]>
@@ -140,7 +143,7 @@ ORDER BY
 					<property name="com.jaspersoft.studio.table.style.detail" value="table 1_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="End stock value" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
+					<datasetRun subDataset="End stock value" uuid="46c33f3e-f4c6-41f3-b746-1ac135a9e035">
 						<datasetParameter name="Begin Date">
 							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -196,7 +199,7 @@ ORDER BY
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph rightIndent="2"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{endstock}.subtract($V{stockchanges})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{opening_stock}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

@@ -53,7 +53,7 @@ WHERE
 	</field>
 	<variable name="totalCost" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{price}.multiply($F{quantity})]]></variableExpression>
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>

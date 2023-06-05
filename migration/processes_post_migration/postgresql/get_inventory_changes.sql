@@ -17,184 +17,177 @@ CREATE FUNCTION get_inventory_changes(ad_client_id numeric,
 		        sold_stock                numeric,
 		        balanced_stock            numeric
 	        )
-	LANGUAGE plpgsql
+	LANGUAGE sql
 	STABLE
 AS
 $$
-BEGIN
-	RETURN QUERY
-		WITH product_costs AS (
-			SELECT
-				pc.m_product_id,
-				pc.m_attributesetinstance_id,
-				pc.purchase_price,
-				pc.purchase_date
-			FROM
-				get_product_costs($1) pc
-		),
-			non_reversed_inoutlines AS (
-				SELECT
-					iol.m_inoutline_id
-				FROM
-					m_inoutline iol
-						LEFT JOIN m_inoutline riol
-							ON iol.m_inoutline_id = riol.reversalline_id
-				WHERE
-					iol.ad_client_id = $1
-					AND riol.m_inoutline_id IS NULL
-					AND iol.reversalline_id IS NULL
-			)
+WITH product_costs AS (
+	SELECT
+		pc.m_product_id,
+		pc.m_attributesetinstance_id,
+		pc.purchase_price,
+		pc.purchase_date
+	FROM
+		get_product_costs($1) pc
+),
+	product_history AS (
 		SELECT
-			p.m_product_id,
-			p.m_attributesetinstance_id,
-			p.PurchasePrice                                AS purchase_price,
-			p.PurchaseDate                                 AS purchase_date,
-			p.sell_price,
-			p.soldstock * p.PurchasePrice                  AS cost_of_goods_sold,
-			p.soldstock * (p.sell_price - p.PurchasePrice) AS gross_profit,
-			p.openingstock                                 AS opening_stock,
-			p.endingstock                                  AS ending_stock,
-			p.receivedstock                                AS received_stock,
-			p.soldstock                                    AS sold_stock,
-			p.balancestock                                 AS balanced_stock
+			t.m_product_id,
+			t.updatedby,
+			t.m_inventoryline_id,
+			t.m_inoutline_id,
+			t.movementtype,
+			t.m_attributesetinstance_id,
+			COALESCE(v.bh_visitdate, t.updated)                                                                                                   AS date,
+			t.movementqty,
+					SUM(t.movementqty)
+					OVER (PARTITION BY t.m_product_id ORDER BY COALESCE(v.bh_visitdate, t.updated) ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS endingqty
+		FROM
+			m_transaction t
+				LEFT JOIN m_inoutline iol
+					ON t.m_inoutline_id = iol.m_inoutline_id
+				LEFT JOIN m_inout io
+					ON iol.m_inout_id = io.m_inout_id
+				LEFT JOIN bh_visit v
+					ON io.bh_visit_id = v.bh_visit_id
+		WHERE
+			t.ad_client_id = $1
+	)
+SELECT
+	p.m_product_id,
+	p.m_attributesetinstance_id,
+	p.PurchasePrice                                AS purchase_price,
+	p.PurchaseDate                                 AS purchase_date,
+	p.sell_price,
+	p.soldstock * p.PurchasePrice                  AS cost_of_goods_sold,
+	p.soldstock * (p.sell_price - p.PurchasePrice) AS gross_profit,
+	p.openingstock                                 AS opening_stock,
+	p.endingstock                                  AS ending_stock,
+	p.receivedstock                                AS received_stock,
+	p.soldstock                                    AS sold_stock,
+	p.balancestock                                 AS balanced_stock
+FROM
+	(
+		SELECT
+			productname.m_product_id,
+			productname.m_attributesetinstance_id,
+			COALESCE(openqty.openqty, 0)             AS openingstock,
+			COALESCE(endingqty.closingqty, 0)        AS endingstock,
+			COALESCE(stockreceived.qtyreceived, 0)   AS receivedstock,
+			COALESCE(stocksold.qtysold, 0)           AS soldstock,
+			COALESCE(stocktakechange.qtybalanced, 0) AS balancestock,
+			product_costs.purchase_price             AS PurchasePrice,
+			product_costs.purchase_date              AS PurchaseDate,
+			stocksold.price                          AS sell_price
 		FROM
 			(
 				SELECT
-					productname.m_product_id,
-					productname.m_attributesetinstance_id,
-					COALESCE(openqty.openqty, 0)             AS openingstock,
-					COALESCE(currentqty.closingqty, 0)       AS endingstock,
-					COALESCE(stockreceived.qtyreceived, 0)   AS receivedstock,
-					COALESCE(stocksold.qtysold, 0)           AS soldstock,
-					COALESCE(stocktakechange.qtybalanced, 0) AS balancestock,
-					product_costs.purchase_price             AS PurchasePrice,
-					product_costs.purchase_date              AS PurchaseDate,
-					stocksold.price                          AS sell_price
+					p.m_product_id,
+					pc.m_attributesetinstance_id,
+					p.name
 				FROM
-					(
-						SELECT
-							p.m_product_id,
-							pc.m_attributesetinstance_id,
-							p.name
-						FROM
-							m_product p
-								LEFT JOIN product_costs pc
-									ON pc.m_product_id = p.m_product_id
-						WHERE
-							p.ad_client_id = $1
-						GROUP BY
-							p.m_product_id,
-							p.name,
-							pc.m_attributesetinstance_id
-					) productname
-						LEFT JOIN (
-						SELECT
-							t.m_product_id,
-							t.m_attributesetinstance_id,
-							SUM(t.movementqty) AS openqty
-						FROM
-							m_transaction t
-						WHERE
-							t.ad_client_id = $1
-							AND DATE(movementdate) < start_date
-							AND t.isactive = 'Y'
-						GROUP BY
-							t.m_product_id,
-							t.m_attributesetinstance_id
-					) openqty
-							ON openqty.m_product_id = productname.m_product_id
-						AND openqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
-						LEFT JOIN (
-						SELECT
-							t.m_product_id,
-							t.m_attributesetinstance_id,
-							SUM(t.movementqty) AS closingqty
-						FROM
-							m_transaction t
-						WHERE
-							t.ad_client_id = $1
-							AND DATE(movementdate) <= end_date
-							AND t.isactive = 'Y'
-						GROUP BY
-							t.m_product_id,
-							t.m_attributesetinstance_id
-					) currentqty
-							ON currentqty.m_product_id = productname.m_product_id
-						AND currentqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
-						LEFT JOIN (
-						SELECT
-							ol.m_product_id,
-							ol.m_attributesetinstance_id,
-							SUM(ol.qtyentered) AS qtyreceived
-						FROM
-							c_orderline ol
-								JOIN c_order o
-									ON ol.c_order_id = o.c_order_id
-						WHERE
-							o.ad_client_id = $1
-							AND DATE(ol.dateordered) BETWEEN $2 AND $3
-							AND o.issotrx = 'N'
-							AND o.docstatus IN ('CL', 'CO')
-							AND ol.m_product_id IS NOT NULL
-						GROUP BY
-							ol.m_product_id,
-							ol.m_attributesetinstance_id
-					) stockreceived
-							ON productname.m_product_id = stockreceived.m_product_id
-						AND productname.m_attributesetinstance_id = stockreceived.m_attributesetinstance_id
-						LEFT JOIN (
-						SELECT
-							t.m_product_id,
-							t.m_attributesetinstance_id,
-							SUM(t.movementqty) AS qtybalanced
-						FROM
-							m_transaction t
-						WHERE
-							t.ad_client_id = $1
-							AND date(t.movementdate) BETWEEN $2 AND $3
-							AND movementtype IN ('I+', 'I-')
-						GROUP BY
-							t.m_product_id,
-							t.m_attributesetinstance_id
-					) stocktakechange
-							ON productname.m_product_id = stocktakechange.m_product_id
-						AND productname.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
-						LEFT JOIN (
-						SELECT
-							iol.m_product_id,
-							COALESCE(iolma.m_attributesetinstance_id, iol.m_attributesetinstance_id) AS m_attributesetinstance_id,
-							ol.priceactual                                                           AS price,
-							SUM(COALESCE(iolma.movementqty, iol.movementqty))                        AS qtysold
-						FROM
-							m_inoutline iol
-								JOIN non_reversed_inoutlines nriol
-									ON nriol.m_inoutline_id = iol.m_inoutline_id
-								JOIN m_inout io
-									ON iol.m_inout_id = io.m_inout_id
-								LEFT JOIN m_inoutlinema iolma
-									ON iol.m_inoutline_id = iolma.m_inoutline_id
-								JOIN c_orderline ol
-									ON iol.c_orderline_id = ol.c_orderline_id
-						WHERE
-							iol.ad_client_id = $1
-							AND date(io.movementdate) BETWEEN $2 AND $3
-							AND io.movementtype = 'C-'
-						GROUP BY
-							iol.m_product_id,
-							COALESCE(iolma.m_attributesetinstance_id, iol.m_attributesetinstance_id),
-							ol.priceactual
-					) stocksold
-							ON productname.m_product_id = stocksold.m_product_id
-						AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
-						LEFT JOIN product_costs
-							ON product_costs.m_product_id = productname.m_product_id
-						AND product_costs.m_attributesetinstance_id = productname.m_attributesetinstance_id
-			) p
-		WHERE
-			endingstock > 0
-			OR openingstock > 0
-			OR receivedstock > 0
-			OR soldstock > 0
-			OR balancestock > 0;
-END
+					m_product p
+						LEFT JOIN product_costs pc
+							ON pc.m_product_id = p.m_product_id
+				WHERE
+					p.ad_client_id = $1
+				GROUP BY
+					p.m_product_id,
+					p.name,
+					pc.m_attributesetinstance_id
+			) productname
+				LEFT JOIN (
+				SELECT
+					ph.m_product_id,
+					ph.m_attributesetinstance_id,
+					SUM(ph.movementqty) AS openqty
+				FROM
+					product_history ph
+				WHERE
+					ph.date < $2
+				GROUP BY
+					ph.m_product_id,
+					ph.m_attributesetinstance_id
+			) openqty
+					ON openqty.m_product_id = productname.m_product_id
+				AND openqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
+				LEFT JOIN (
+				SELECT
+					ph.m_product_id,
+					ph.m_attributesetinstance_id,
+					SUM(ph.movementqty) AS closingqty
+				FROM
+					product_history ph
+				WHERE
+					ph.date <= $3
+				GROUP BY
+					ph.m_product_id,
+					ph.m_attributesetinstance_id
+			) endingqty
+					ON endingqty.m_product_id = productname.m_product_id
+				AND endingqty.m_attributesetinstance_id = productname.m_attributesetinstance_id
+				LEFT JOIN (
+				SELECT
+					ph.m_product_id,
+					ph.m_attributesetinstance_id,
+					SUM(ph.movementqty) AS qtyreceived
+				FROM
+					product_history ph
+				WHERE
+					ph.date BETWEEN $2 AND $3
+					AND ph.movementtype IN ('V+', 'V-')
+				GROUP BY
+					ph.m_product_id,
+					ph.m_attributesetinstance_id
+			) stockreceived
+					ON productname.m_product_id = stockreceived.m_product_id
+				AND productname.m_attributesetinstance_id = stockreceived.m_attributesetinstance_id
+				LEFT JOIN (
+				SELECT
+					ph.m_product_id,
+					ph.m_attributesetinstance_id,
+					SUM(ph.movementqty) AS qtybalanced
+				FROM
+					product_history ph
+				WHERE
+					ph.date BETWEEN $2 AND $3
+					AND ph.movementtype IN ('I+', 'I-')
+				GROUP BY
+					ph.m_product_id,
+					ph.m_attributesetinstance_id
+			) stocktakechange
+					ON productname.m_product_id = stocktakechange.m_product_id
+				AND productname.m_attributesetinstance_id = stocktakechange.m_attributesetinstance_id
+				LEFT JOIN (
+				SELECT
+					ph.m_product_id,
+					ph.m_attributesetinstance_id,
+					ol.priceactual           AS price,
+					SUM(ph.movementqty) * -1 AS qtysold
+				FROM
+					product_history ph
+						JOIN m_inoutline iol
+							ON iol.m_inoutline_id = ph.m_inoutline_id
+						JOIN c_orderline ol
+							ON iol.c_orderline_id = ol.c_orderline_id
+				WHERE
+					ph.date BETWEEN $2 AND $3
+					AND ph.movementtype IN ('C+', 'C-')
+				GROUP BY
+					ph.m_product_id,
+					ph.m_attributesetinstance_id,
+					ol.priceactual
+			) stocksold
+					ON productname.m_product_id = stocksold.m_product_id
+				AND productname.m_attributesetinstance_id = stocksold.m_attributesetinstance_id
+				LEFT JOIN product_costs
+					ON product_costs.m_product_id = productname.m_product_id
+				AND product_costs.m_attributesetinstance_id = productname.m_attributesetinstance_id
+	) p
+WHERE
+	endingstock > 0
+	OR openingstock > 0
+	OR receivedstock > 0
+	OR soldstock > 0
+	OR balancestock > 0
 $$;

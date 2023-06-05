@@ -1087,7 +1087,7 @@ test('voiding visits shows data on the report correctly', async () => {
 
 	const excelFile = xlsx.parse(valueObject.report!);
 	const voidedVisitRow = excelFile[0].data.filter((row) =>
-		(row[1]?.toString() as string).includes(valueObject.businessPartner!.name.substring(0, 30)),
+		(row[1]?.toString() as string | undefined)?.includes(valueObject.businessPartner!.name.substring(0, 30)),
 	)?.[0];
 	expect(voidedVisitRow).toBeTruthy();
 	expect(voidedVisitRow[4]).toBe(voidingReason.name);

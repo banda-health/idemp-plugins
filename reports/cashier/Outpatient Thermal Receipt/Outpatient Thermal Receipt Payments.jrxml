@@ -50,7 +50,7 @@ GROUP BY
 	</field>
 	<variable name="totalPayments" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<variable name="Outstanding" class="java.math.BigDecimal">
 		<variableExpression><![CDATA[$V{totalPayments}.subtract($P{totalCost}).abs()]]></variableExpression>

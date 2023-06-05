@@ -154,7 +154,7 @@ where cp.c_payment_id = $P{debtPaymentID}
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<variable name="totalCost" class="java.math.BigDecimal">
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>

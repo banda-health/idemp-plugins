@@ -33,6 +33,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -331,7 +332,11 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 			}
 
 			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATETIME_AD_REFERENCE_ID) {
-				parameter = DateUtil.getTimestampReportParameter(processInfoParameter.getParameter().toString());
+				if (processInfoParameter.getParameter() instanceof Integer) {
+					parameter = new Timestamp((Integer) processInfoParameter.getParameter());
+				} else {
+					parameter = DateUtil.getTimestampReportParameter(processInfoParameter.getParameter().toString());
+				}
 			}
 
 			// Since some reports want IDs, we need to convert UUIDs to IDs

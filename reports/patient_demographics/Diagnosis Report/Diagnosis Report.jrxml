@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Diagnosis Report" pageWidth="1365" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1365" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -13,7 +13,7 @@
 			<rightPen lineWidth="1.0" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -22,7 +22,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_CH" mode="Opaque" backcolor="#EFEFEF">
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -39,12 +39,16 @@
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FBFDFF"/>
+		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="893302d0-3399-4789-9b40-faf0bf7f6d9a">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
@@ -85,7 +89,7 @@ WHERE
 		primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
 		secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
 	)
-	AND date(v.bh_visitdate) BETWEEN $P{Begin Date} AND $P{End Date}
+	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY
 	bp.name;]]>
 		</queryString>
@@ -107,9 +111,9 @@ ORDER BY
 		<field name="secondary_coded_diagnosis" class="java.lang.String"/>
 		<field name="secondary_uncoded_diagnosis" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Diagnosis" class="java.lang.String"/>
 	<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
 	<queryString>
@@ -178,7 +182,7 @@ ORDER BY
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Visit Date]]></text>
@@ -205,7 +209,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="140" height="20" uuid="965f0fa0-0f6e-4a1d-9d21-5c3657f577e1"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Name]]></text>
@@ -231,7 +235,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="50" height="20" uuid="92775786-b8ce-4c48-ad6d-777dfd82d7e5"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Age]]></text>
@@ -257,7 +261,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="60" height="20" uuid="8ad479db-0966-45a6-8306-29e04f9f10ee"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Gender]]></text>
@@ -283,7 +287,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="115" height="20" uuid="e8351460-0c09-4ac0-a1b3-5c5142beb8b4"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Phone Number]]></text>
@@ -310,7 +314,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="220" height="20" uuid="b10f7f9a-6ab7-4746-88ed-f41ee1baa12b"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Primary Coded Diagnosis]]></text>
@@ -337,7 +341,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="220" height="20" uuid="64a6b29c-ba80-45ba-8672-ff59fcdb2f95"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Primary Non-coded Diagnosis]]></text>
@@ -364,7 +368,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="220" height="20" uuid="be685e80-a8ea-4583-911d-c8ca19ce1789"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Secondary Coded Diagnosis]]></text>
@@ -392,7 +396,7 @@ ORDER BY
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Secondary Non-coded Diagnosis]]></text>

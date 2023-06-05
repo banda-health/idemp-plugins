@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -61,8 +61,8 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
 			<![CDATA[WITH inventory_changes AS (
 	SELECT
@@ -74,7 +74,7 @@
 		SUM(balanced_stock) AS balanced_stock,
 		purchase_price
 	FROM
-		get_inventory_changes($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	WHERE opening_stock >= 0
 	GROUP BY m_product_id, purchase_price
 )
@@ -116,12 +116,12 @@ ORDER BY
 		</field>
 		<variable name="closingStockValue" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{endingstock}.multiply($F{purchaseprice})]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select 1;]]>
 	</queryString>
@@ -156,7 +156,7 @@ ORDER BY
 					<property name="com.jaspersoft.studio.table.style.detail" value="table 1_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="End stock value" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
+					<datasetRun subDataset="End stock value" uuid="f8e4789c-2c0e-4d12-8d1b-45852283e6a9">
 						<datasetParameter name="Begin Date">
 							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 						</datasetParameter>
