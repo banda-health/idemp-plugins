@@ -1,5 +1,6 @@
 import { referenceListApi } from '../api';
 import { documentAction, referenceUuid, tenderTypeName, ValueObject } from '../models';
+import { RoleName } from '../types/roleName';
 
 test('tender type names to be correct', async () => {
 	globalThis.__VALUE_OBJECT__.login();
@@ -61,7 +62,7 @@ test('document action access is correct for admins', async () => {
 });
 
 test('clinic admin role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinic Admin');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicAdmin);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -85,7 +86,7 @@ test('clinic admin role has correct access', async () => {
 });
 
 test('cashier/registration basic role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Cashier/Registration Basic');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.CashierRegistrationBasic);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -109,7 +110,7 @@ test('cashier/registration basic role has correct access', async () => {
 });
 
 test('cashier/registration advanced role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Cashier/Registration Advanced');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.CashierRegistrationAdvanced);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -133,7 +134,7 @@ test('cashier/registration advanced role has correct access', async () => {
 });
 
 test('inventory/pharmacy role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Inventory/Pharmacy');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacy);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -157,7 +158,7 @@ test('inventory/pharmacy role has correct access', async () => {
 });
 
 test('clinician/nurse basic role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinician/Nurse Basic');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicianNurseBasic);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -181,7 +182,7 @@ test('clinician/nurse basic role has correct access', async () => {
 });
 
 test('clinician/nurse advanced role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinician/Nurse Advanced');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicianNurseAdvanced);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -205,7 +206,7 @@ test('clinician/nurse advanced role has correct access', async () => {
 });
 
 test('triage role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Triage');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.Triage);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -229,7 +230,7 @@ test('triage role has correct access', async () => {
 });
 
 test('lab/radiology role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Lab/Radiology');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.LabRadiology);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -253,7 +254,7 @@ test('lab/radiology role has correct access', async () => {
 });
 
 test('accounting role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Accounting');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.Accounting);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
@@ -277,7 +278,7 @@ test('accounting role has correct access', async () => {
 });
 
 test('clinic user role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinic User');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicUser);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
