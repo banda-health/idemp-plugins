@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Open Balance Invoice" pageWidth="620" pageHeight="842" columnWidth="580" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="5" isIgnorePagination="true" uuid="6e49e449-f464-4e17-beae-8db588ba1614">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -109,10 +109,10 @@ WHERE
 	cb.bh_patientid                                              AS Patient_File,
 	EXTRACT(YEAR FROM AGE(CAST(bh_birthday AS date)))            AS Age,
 	bh_gender                                                    AS Gender,
-	bh_phone                                                     AS Phone,
+	bh_phone                                                     AS Patient_phone,
 	a.name                                                       AS Client_Name,
 	COALESCE(cl.address1, cl.address2, cl.address3, cl.address4) AS address,
-	COALESCE(i.phone, i.phone2)                                  AS phone,
+	COALESCE(i.phone, i.phone2)                                  AS Clinic_phone,
 	i.email                                                      AS email
 FROM
 	c_bpartner cb
@@ -129,10 +129,10 @@ WHERE
 	<field name="Patient_File" class="java.lang.String"/>
 	<field name="Age" class="java.math.BigDecimal"/>
 	<field name="Gender" class="java.lang.String"/>
-	<field name="Phone" class="java.math.BigDecimal"/>
+	<field name="Patient_phone" class="java.math.BigDecimal"/>
 	<field name="Client_Name" class="java.lang.String"/>
 	<field name="address" class="java.lang.String"/>
-	<field name="phone" class="java.math.BigDecimal"/>
+	<field name="Clinic_phone" class="java.math.BigDecimal"/>
 	<field name="email" class="java.lang.String"/>
 	<title>
 		<band height="77" splitType="Stretch">
@@ -152,7 +152,7 @@ WHERE
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["TEL:  " + $F{phone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["TEL:  " + '0' + $F{Clinic_phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="45" width="280" height="15" isRemoveLineWhenBlank="true" uuid="11470362-7199-467a-a85e-012ec35eaeda">
@@ -234,7 +234,7 @@ WHERE
 				</reportElement>
 				<box leftPadding="3"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Phone:  " + $F{Phone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Phone:  " + '0' + $F{Patient_phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="35" width="230" height="15" uuid="a461a527-4ae6-4c84-b619-19b5467da450">
