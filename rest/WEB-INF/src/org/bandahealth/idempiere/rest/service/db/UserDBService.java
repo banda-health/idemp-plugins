@@ -71,93 +71,19 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortColumn, String sortOrder,
 			String filterJson) {
-		MRole[] clientRoles = MRole.getOfClient(Env.getCtx());
-		int clientId = Env.getAD_Client_ID(Env.getCtx());
+		StringBuilder whereClause = new StringBuilder().append(MUser_BH.Table_Name).append(".")
+				.append(MUser_BH.COLUMNNAME_AD_Org_ID).append("!=").append(SYSTEM_ADMIN_ORG_ID).append(" AND ")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID).append(" = ?");
 
-		Map<Integer, MRole> clientRoleIdMap = new HashMap<>();
-
-		for (MRole role : clientRoles) {
-			clientRoleIdMap.put(role.getAD_Role_ID(), role);
-		}
-
-		StringBuilder sqlQuery = new StringBuilder().append(" SELECT ").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_AD_User_UU).append(",").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_Created).append(",").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_Name).append(",")
-
-				.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_Role_ID).append(",")
-
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_DateLastLogin).append(",")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_IsActive).append(",")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append(",")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID)
-
-				.append(" FROM ").append(MUser_BH.Table_Name).append(" JOIN ").append(MUserRoles.Table_Name)
-				.append(" ON ").append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_ID)
-				.append("=").append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_User_ID)
-
-				.append(" WHERE ").append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID)
-				.append("!=").append(SYSTEM_ADMIN_ORG_ID).append(" AND ").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_AD_Client_ID).append("=").append(clientId);
+		StringBuilder joinClause = new StringBuilder(" JOIN ").append(MUserRoles.Table_Name).append(" ON ")
+				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_ID).append("=")
+				.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_User_ID);
 
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
-		String filter = " AND "
-				+ FilterUtil.getWhereClauseFromFilter(MUser_BH.Table_Name, filterJson, parameters, true);
-
-		sqlQuery.append(filter);
-
-		StringBuilder sqlOrderBy = new StringBuilder().append(" ORDER BY ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()) {
-			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder);
-			sqlQuery.append(sqlOrderBy);
-		}
-
-		String sqlSelectWithoutPagination = sqlQuery.toString(); // has to appear as final or effectively final
-		// copied from Query->appendPagination()
-		String sqlSelectWithPagination = DB.getDatabase().addPagingSQL(sqlQuery.toString(),
-				(pagingInfo.getPage() * pagingInfo.getPageSize()) + 1,
-				pagingInfo.getPageSize() * (pagingInfo.getPage() + 1));
-		
-		// (pageSize*pagesToSkip) + 1, pageSize * (pagesToSkip+1)
-
-		Map<String, User> usersRolesMap = new LinkedHashMap<>();
-
-		SqlUtil.executeQuery(sqlSelectWithPagination, null, null, rs -> {
-			try {
-				String uuid = rs.getString(1);
-				Timestamp created = rs.getTimestamp(2);
-				String name = rs.getString(3);
-				int roleId = rs.getInt(4);
-				Timestamp lastLogin = rs.getTimestamp(5);
-				boolean isActive = rs.getBoolean(6);
-
-				List<Role> roleList = new ArrayList<Role>();
-				Role userRole = new Role(clientRoleIdMap.get(roleId));
-
-				// The result set contains repeated user details if user has more than one role
-				// i.e Transforms [User_a : Cashier, User_a: Lab] -> [User_a : [Cashier, Lab]]
-				if (usersRolesMap.containsKey(uuid)) {
-					User existingUser = usersRolesMap.get(uuid);
-					existingUser.getRoles().add(userRole);
-					usersRolesMap.put(uuid, existingUser);
-				} else {
-					roleList.add(userRole);
-					User user = new User(name, uuid, created, lastLogin, isActive, roleList);
-					usersRolesMap.put(uuid, user);
-				}
-			} catch (SQLException e) {
-				log.log(Level.SEVERE, sqlSelectWithPagination, e);
-			}
-		});
-
-		if (pagingInfo != null) {
-			pagingInfo.setTotalRecordCount(SqlUtil.getCount("(" + sqlSelectWithoutPagination + ")", "AS COUNT", null));
-		}
-
-		return new BaseListResponse<User>(new ArrayList<User>(usersRolesMap.values()), pagingInfo);
+		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortOrder, filterJson,
+				joinClause.toString());
 	}
 
 	/**
@@ -242,7 +168,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 	@Override
 	protected User createInstanceWithAllFields(MUser_BH instance) {
-		return transformData(Collections.singletonList(instance)).get(0);
+		return new User(instance);
 	}
 
 	@Override
@@ -277,12 +203,10 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 				// get roles
 				userRoles.stream().forEach(userRole -> {
 					// get role
-					roles.values().stream()
-							.filter(role -> userRole.getAD_Role_ID() == role.get_ID())
-							.forEach(role -> {
-								Role r = new Role(role);
-								user.getRoles().add(r);
-							});
+					roles.values().stream().filter(role -> userRole.getAD_Role_ID() == role.get_ID()).forEach(role -> {
+						Role r = new Role(role);
+						user.getRoles().add(r);
+					});
 				});
 			}
 

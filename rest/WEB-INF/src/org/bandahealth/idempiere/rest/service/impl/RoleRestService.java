@@ -36,6 +36,7 @@ public class RoleRestService extends BaseRestService<Role, MRole, RoleDBService>
 	}
 
 	@POST
+	@Override
 	public Role save(Role entity) {
 		throw new NotImplementedException();
 	}
