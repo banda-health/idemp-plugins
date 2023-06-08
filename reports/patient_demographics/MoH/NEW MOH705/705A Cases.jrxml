@@ -176,6 +176,7 @@
 					AND bh_primarycodeddiagnosis_id IS NOT NULL
 					AND bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
+					AND v.bh_patienttype != 'Im'
 				GROUP BY bh_moh705a_lessthan5, CAST(bh_visitdate AS date)
 			) c
 					ON b.bh_moh705a_lessthan5 = c.bh_moh705a_lessthan5
