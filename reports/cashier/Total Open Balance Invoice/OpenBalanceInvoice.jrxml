@@ -129,10 +129,10 @@ WHERE
 	<field name="Patient_File" class="java.lang.String"/>
 	<field name="Age" class="java.math.BigDecimal"/>
 	<field name="Gender" class="java.lang.String"/>
-	<field name="Patient_phone" class="java.math.BigDecimal"/>
+	<field name="Patient_phone" class="java.lang.String"/>
 	<field name="Client_Name" class="java.lang.String"/>
 	<field name="address" class="java.lang.String"/>
-	<field name="Clinic_phone" class="java.math.BigDecimal"/>
+	<field name="Clinic_phone" class="java.lang.String"/>
 	<field name="email" class="java.lang.String"/>
 	<title>
 		<band height="77" splitType="Stretch">
@@ -152,7 +152,7 @@ WHERE
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["TEL:  " + '0' + $F{Clinic_phone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["TEL:  " + $F{Clinic_phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="45" width="280" height="15" isRemoveLineWhenBlank="true" uuid="11470362-7199-467a-a85e-012ec35eaeda">
@@ -234,7 +234,7 @@ WHERE
 				</reportElement>
 				<box leftPadding="3"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Phone:  " + '0' + $F{Patient_phone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Phone:  " + $F{Patient_phone}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="35" width="230" height="15" uuid="a461a527-4ae6-4c84-b619-19b5467da450">
