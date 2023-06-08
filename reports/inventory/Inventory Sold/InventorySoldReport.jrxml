@@ -102,7 +102,6 @@ FROM
 			ON p.m_product_id = ic.m_product_id
 WHERE
 	ic.sold_stock > 0
-	AND p.producttype = 'I'
 ORDER BY
 	item_name;]]>
 		</queryString>
