@@ -608,6 +608,8 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false, false);
 		BigDecimal quantitySold = new BigDecimal(20);
 		valueObject.setQuantity(quantitySold);
 		ChuBoeCreateEntity.createOrder(valueObject);
@@ -621,18 +623,11 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getProduct().saveEx();
 		commitEx();
 		
-		valueObject.setStepName("Add second order line");
-		MOrder_BH order = valueObject.getOrder();
-		ChuBoeCreateEntity.createOrder(valueObject);
-		valueObject.setOrder(order);
-		valueObject.setQuantity(new BigDecimal(15));
-		valueObject.getOrderLine().setC_Order_ID(order.get_ID());
-		valueObject.getOrderLine().saveEx();
-		commitEx();
-
+		valueObject.setStepName("Add second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false, false);
+		valueObject.setQuantity(new BigDecimal(15));
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 		
 		valueObject.setStepName("Generate the report");
