@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="261"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="739"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -17,9 +17,9 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="textBackground" mode="Opaque" backcolor="#E6E6FA" pattern=""/>
 	<style name="titleBackground" mode="Opaque" backcolor="#00008B"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM (
     SELECT
@@ -69,7 +69,7 @@
         ci.ad_client_id = $P{AD_CLIENT_ID}
         AND ci.docstatus = 'CO'
         AND ci.bh_isexpense = 'Y'
-        AND (date(ci.dateinvoiced) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+        AND ci.updated BETWEEN $P{Begin Date} AND $P{End Date}
 ) p
 CROSS JOIN (
     SELECT
@@ -82,10 +82,9 @@ CROSS JOIN (
     JOIN m_product p ON ol.m_product_id = p.m_product_id
     JOIN m_product_category pc ON p.m_product_category_id = pc.m_product_category_id
     WHERE o.issotrx = 'N'
-        AND o.bh_isexpense IS NULL
         AND o.docstatus = 'CO'
         AND o.ad_client_id = $P{AD_CLIENT_ID}
-        AND (date(o.dateordered) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
+        AND o.updated BETWEEN $P{Begin Date} AND $P{End Date}
 ) meds_supplies
 ;]]>
 	</queryString>

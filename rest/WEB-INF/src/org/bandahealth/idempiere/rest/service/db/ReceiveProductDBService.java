@@ -44,8 +44,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 				+ MBPartner_BH.COLUMNNAME_C_BPartner_ID + "=" + MOrder_BH.Table_Name + "."
 				+ MOrder_BH.COLUMNNAME_C_BPartner_ID;
 
-		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_BH_IsExpense + " IS NULL",
-				parameters, pagingInfo, sortJson, filterJson, join);
+		return super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortJson, filterJson, join);
 	}
 
 	@Override
@@ -53,11 +52,10 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 			String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 
-		StringBuilder whereClause = new StringBuilder().append(MOrder_BH.COLUMNNAME_IsSOTrx).append("=?")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_BH_IsExpense).append(" IS NULL");
+		String whereClause = MOrder_BH.COLUMNNAME_IsSOTrx + "=?";
 		parameters.add("N");
 
-		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause.toString(), parameters);
+		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause, parameters);
 	}
 
 	@Override
@@ -107,7 +105,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 			}
 
 			ReceiveProduct result = new ReceiveProduct(instance, vendor,
-					orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
+					orderLineDBService.getOrderLinesByOrderIds(Collections.singleton(instance.get_ID())).get(instance.get_ID()));
 			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
 
 			// Get any ASIs that need to be added

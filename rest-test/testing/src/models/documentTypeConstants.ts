@@ -1,4 +1,5 @@
 export const documentBaseType = {
+	AdReferenceId: 183,
 	GLJournal: 'GLJ',
 	GLDocument: 'GLD',
 	APInvoice: 'API',
@@ -33,4 +34,27 @@ export const documentBaseType = {
 	FixedAssetsDepreciation: 'FDP',
 } as const;
 
-export type DocumentBaseType = typeof documentBaseType[keyof typeof documentBaseType];
+export type DocumentBaseType = (typeof documentBaseType)[keyof typeof documentBaseType];
+
+export const documentSubTypeInventory = {
+	AdReferenceId: 200068,
+	PhysicalInventory: 'PI',
+	InternalUseInventory: 'IU',
+	CostAdjustment: 'CA',
+};
+
+export type DocumentSubTypeInventory = (typeof documentSubTypeInventory)[keyof typeof documentSubTypeInventory];
+
+export const documentSubTypeSalesOrder = {
+	AdReferenceId: 148,
+	OnCreditOrder: 'WI',
+	POSOrder: 'WR',
+	WarehouseOrder: 'WP',
+	StandardOrder: 'SO',
+	Proposal: 'ON',
+	Quotation: 'OB',
+	ReturnMaterial: 'RM',
+	PrepayOrder: 'PR',
+};
+
+export type DocumentSubTypeSalesOrder = (typeof documentSubTypeSalesOrder)[keyof typeof documentSubTypeSalesOrder];

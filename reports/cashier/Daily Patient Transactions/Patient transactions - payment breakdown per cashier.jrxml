@@ -81,13 +81,13 @@
 	),
 	patient_payments AS (
 		SELECT
-			bh_c_order_id     AS c_order_id,
+			c_order_id,
 			SUM(payamt)       AS amount,
 			payment_mode_name AS payment_type,
 			tendertype
 		FROM
 			bh_get_visit_payments($P{AD_CLIENT_ID}, TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI')::timestamp, TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI')::timestamp)
-		GROUP BY bh_c_order_id, tendertype, payment_mode_name
+		GROUP BY c_order_id, tendertype, payment_mode_name
 	),
 	non_patient_payments AS (
 		SELECT

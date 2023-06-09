@@ -18,14 +18,19 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select
-  corderline.c_order_id as bill_id,
-  item.name as item_name,
-  corderline.qtyordered as quantity,
-  corderline.priceactual as price
-from c_orderline as corderline
-  inner join m_product item on corderline.m_product_id = item.m_product_id
-where corderline.c_order_id =  $P{billId};]]>
+		<![CDATA[SELECT
+	ol.c_order_id  AS bill_id,
+	p.name         AS item_name,
+	ol.qtyordered  AS quantity,
+	ol.priceactual AS price
+FROM
+	c_orderline AS ol
+		JOIN m_product p
+			ON ol.m_product_id = p.m_product_id
+		JOIN c_order o
+			ON ol.c_order_id = o.c_order_id
+WHERE
+	o.bh_visit_id = $P{billId};]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
@@ -48,7 +53,7 @@ where corderline.c_order_id =  $P{billId};]]>
 	</field>
 	<variable name="totalCost" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{price}.multiply($F{quantity})]]></variableExpression>
-		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>

@@ -4,17 +4,17 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[WITH params AS (
 	SELECT
-		$P{AD_CLIENT_ID}     AS ad_client_id,
-		DATE($P{Begin Date}) AS begin_date,
-		DATE($P{End Date})   AS end_date
+		$P{AD_CLIENT_ID} AS ad_client_id,
+		$P{Begin Date}::timestamp  AS begin_date,
+		$P{End Date}::timestamp     AS end_date
 )
 SELECT
 	c.name                                                                       AS name,
@@ -86,7 +86,7 @@ FROM
 		WHERE
 			i.docstatus = 'CO'
 			AND i.bh_isexpense = 'Y'
-			AND (date(i.dateinvoiced) BETWEEN params.begin_date AND params.end_date)
+			AND i.updated BETWEEN params.begin_date AND params.end_date
 	) AS expenses
 		CROSS JOIN (
 		SELECT
@@ -105,9 +105,8 @@ FROM
 					ON o.ad_client_id = params.ad_client_id
 		WHERE
 			o.issotrx = 'N'
-			AND o.bh_isexpense IS NULL
 			AND o.docstatus = 'CO'
-			AND (date(o.dateordered) BETWEEN params.begin_date AND params.end_date)
+			AND o.updated BETWEEN params.begin_date AND params.end_date
 	) received_products
 		CROSS JOIN (
 		SELECT
@@ -117,7 +116,9 @@ FROM
 			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Radiology' ), 0)  AS radiologysales,
 			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Other' ), 0)      AS othersales
 		FROM
-			c_order o
+			bh_visit v
+				JOIN c_order o
+					ON v.bh_visit_id = o.bh_visit_id
 				INNER JOIN c_orderline ol
 					ON o.c_order_id = ol.c_order_id
 				INNER JOIN m_product p
@@ -129,7 +130,7 @@ FROM
 		WHERE
 			o.docstatus = 'CO'
 			AND o.issotrx = 'Y'
-			AND (DATE(o.bh_visitdate) BETWEEN params.begin_date AND params.end_date)
+			AND v.bh_visitdate BETWEEN params.begin_date AND params.end_date
 	) AS charges;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">

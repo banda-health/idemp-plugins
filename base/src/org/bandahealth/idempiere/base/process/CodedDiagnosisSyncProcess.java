@@ -112,7 +112,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 					// search for coded diagnosis in db list
 					MBHCodedDiagnosis foundCodedDiagnosis = mCodedDiagnoses.stream()
 							.filter(filterCodedDiagnosis -> codedDiagnosis.getExternalId()
-									.equals(filterCodedDiagnosis.getBH_CodedDiagnosis_UU()))
+									.equals(filterCodedDiagnosis.getBH_Coded_Diagnosis_UU()))
 							.findFirst().orElse(null);
 					if (foundCodedDiagnosis == null) {
 						// new record
@@ -121,14 +121,14 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 						// duplicates
 						if (codedDiagnosis.getExternalId() == null || codedDiagnosis.getExternalId().isEmpty()) {
 							foundCodedDiagnosis = new Query(getCtx(), MBHCodedDiagnosis.Table_Name,
-									MBHCodedDiagnosis.COLUMNNAME_BH_CielName + " = ?", null)
+									MBHCodedDiagnosis.COLUMNNAME_bh_cielname + " = ?", null)
 											.setParameters(codedDiagnosis.getDisplayName()).first();
 						}
 
 						if (foundCodedDiagnosis == null) {
 							foundCodedDiagnosis = new MBHCodedDiagnosis(getCtx(), 0, null);
 							if (codedDiagnosis.getExternalId() != null && !codedDiagnosis.getExternalId().isEmpty()) {
-								foundCodedDiagnosis.setBH_CodedDiagnosis_UU(codedDiagnosis.getExternalId());
+								foundCodedDiagnosis.setBH_Coded_Diagnosis_UU(codedDiagnosis.getExternalId());
 							}
 
 							newRecords.incrementAndGet();
@@ -149,21 +149,21 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 							.filter(mapping -> ICD_10_WHO.equals(mapping.getToSourceName())).findFirst().orElse(null);
 					Map<String, String> extras = codedDiagnosis.getExtras();
 
-					foundCodedDiagnosis.setBH_CielName(codedDiagnosis.getDisplayName());
+					foundCodedDiagnosis.setbh_cielname(codedDiagnosis.getDisplayName());
 
 					if (cielMapping != null && cielMapping.getToConceptCode() != null) {
-						foundCodedDiagnosis.setBH_CielId(Integer.valueOf(cielMapping.getToConceptCode()));
+						foundCodedDiagnosis.setBH_CielID(Integer.parseInt(cielMapping.getToConceptCode()));
 					}
 
-					foundCodedDiagnosis.setBH_ConceptClass(codedDiagnosis.getConceptClass());
+					foundCodedDiagnosis.setbh_concept_class(codedDiagnosis.getConceptClass());
 
 					if (icd10wHOMapping != null && icd10wHOMapping.getToConceptCode() != null) {
-						foundCodedDiagnosis.setBH_ICD10(icd10wHOMapping.getToConceptCode());
+						foundCodedDiagnosis.setbh_icd10who(icd10wHOMapping.getToConceptCode());
 					}
 
-					foundCodedDiagnosis.setBH_MoH705ALessThan5(extras.get(MOH_705A_LESSTHAN5));
-					foundCodedDiagnosis.setBH_MoH705BGreaterThan5(extras.get(MOH_705B_GREATERTHAN5));
-					foundCodedDiagnosis.setBH_SearchTerms(extras.get(INDEX_TERMS));
+					foundCodedDiagnosis.setbh_moh705a_lessthan5(extras.get(MOH_705A_LESSTHAN5));
+					foundCodedDiagnosis.setbh_moh705b_greaterthan5(extras.get(MOH_705B_GREATERTHAN5));
+					foundCodedDiagnosis.setbh_searchterms(extras.get(INDEX_TERMS));
 
 					foundCodedDiagnosis.saveEx();
 
@@ -303,7 +303,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 			// save ICD-10 code in bh_coded_diagnosis
 			if (ICD_10_WHO.equals(mapping.getToSourceName())) {
-				parentConcept.setBH_ICD10(mapping.getToConceptCode());
+				parentConcept.setbh_icd10who(mapping.getToConceptCode());
 				parentConcept.saveEx();
 			}
 

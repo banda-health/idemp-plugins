@@ -2,14 +2,20 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
-import org.bandahealth.idempiere.rest.model.OrderStatus;
+import org.bandahealth.idempiere.rest.model.Order;
+import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
@@ -22,10 +28,11 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
-import org.compiere.model.MOrder;
 import org.compiere.model.MUser;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
+import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +51,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -52,10 +60,8 @@ import java.util.stream.Collectors;
  * @author andrew
  */
 @Component
-public class VisitDBService extends BaseOrderDBService<Visit> {
+public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
-	private final String COLUMNNAME_PATIENT_TYPE = "bh_patienttype";
-	private final String COLUMNNAME_REFERRAL = "bh_referral";
 	@Autowired
 	private CodedDiagnosisDBService codedDiagnosisDBService;
 	@Autowired
@@ -63,40 +69,47 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	@Autowired
 	private PaymentDBService paymentDBService;
 	@Autowired
+	private OrderDBService orderDBService;
+	@Autowired
+	private OrderLineDBService orderLineDBService;
+	@Autowired
 	private UserDBService userDBService;
+	@Autowired
+	private EntityMetadataDBService entityMetadataDBService;
+	@Autowired
+	private VoidedReasonDBService voidedReasonDBService;
+	@Autowired
+	private BusinessPartnerDBService businessPartnerDBService;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MBPartner_BH.Table_Name,
-					"LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MOrder_BH.Table_Name + "."
-							+ MOrder_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "."
-							+ MBPartner_BH.COLUMNNAME_C_BPartner_ID);
-			put(MUser.Table_Name,
-					"LEFT JOIN " + MUser.Table_Name + " ON " + MOrder_BH.Table_Name + "."
-							+ MOrder_BH.COLUMNNAME_BH_Clinician_User_ID + " = " + MUser.Table_Name + "."
-							+ MUser.COLUMNNAME_AD_User_ID);
+					"LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MBHVisit.Table_Name + "." + MBHVisit.COLUMNNAME_Patient_ID +
+							" = " + MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
+			put(MUser.Table_Name, "LEFT JOIN " + MUser.Table_Name + " ON " + MBHVisit.Table_Name + "." +
+					MBHVisit.COLUMNNAME_BH_Clinician_User_ID + " = " + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID);
+			put(MOrder_BH.Table_Name,
+					"LEFT JOIN (SELECT bh_visit_id, MIN(dateordered) as dateordered FROM c_order GROUP BY bh_visit_id) " +
+							MOrder_BH.Table_Name + " ON " + MBHVisit.Table_Name + "." + MBHVisit.COLUMNNAME_BH_Visit_ID + " = " +
+							MOrder_BH.Table_Name + "." + MOrder_BH.COLUMNNAME_BH_Visit_ID);
 		}
 	};
 
-	public static int getVisitsCount(Integer patientId) {
-		return getVisitCountsByPatients(Collections.singleton(patientId)).getOrDefault(patientId, 0);
-	}
-
 	public static Map<Integer, Integer> getVisitCountsByPatients(Set<Integer> patientIds) {
-		StringBuilder sqlWhere = new StringBuilder("WHERE ").append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ? AND ")
-				.append(MOrder_BH.COLUMNNAME_IsActive).append(" = ? AND ").append(MOrder_BH.COLUMNNAME_DocStatus)
-				.append("!=? AND ").append(MOrder_BH.COLUMNNAME_C_BPartner_ID).append(" IN (");
-
 		List<Object> parameters = new ArrayList<>();
+		String sqlWhere =
+				"WHERE " + MBHVisit.COLUMNNAME_BH_Visit_ID + " IN (SELECT " + MOrder_BH.COLUMNNAME_BH_Visit_ID + " FROM " +
+						MOrder_BH.Table_Name + " WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " +
+						MOrder_BH.COLUMNNAME_DocStatus + "!=? AND " + MOrder_BH.COLUMNNAME_AD_Client_ID + "=?) AND " +
+						MBHVisit.COLUMNNAME_Patient_ID + " IN (";
 
 		parameters.add("Y");
-		parameters.add("Y");
-		parameters.add(MOrder_BH.DOCSTATUS_Voided);
-
+		parameters.add("VO");
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		String patientIdInWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters);
-		sqlWhere.append(patientIdInWhereClause).append(")");
 
-		return SqlUtil.getGroupCount(MOrder_BH.Table_Name, sqlWhere.toString(), MOrder_BH.COLUMNNAME_C_BPartner_ID,
+		return SqlUtil.getGroupCount(MBHVisit.Table_Name, sqlWhere + patientIdInWhereClause + ")",
+				MBHVisit.COLUMNNAME_Patient_ID,
 				parameters, (resultSet -> {
 					try {
 						return resultSet.getInt(1);
@@ -107,25 +120,18 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				}));
 	}
 
-	public static String getLastVisitDate(MBPartner_BH patient) {
-		return getLastVisitDateByPatients(Collections.singleton(patient.get_ID())).get(patient.get_ID());
-	}
-
 	public static Map<Integer, String> getLastVisitDateByPatients(Set<Integer> patientIds) {
 		if (patientIds.isEmpty()) {
 			return new HashMap<>();
 		}
 		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-		String whereClause =
-				"WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_C_BPartner_ID + " IN (" +
-						QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND " +
-						MOrder_BH.COLUMNNAME_AD_Client_ID + "=?";
+		String whereClause = "WHERE " + MBHVisit.COLUMNNAME_Patient_ID + " IN (" +
+				QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND " +
+				MBHVisit.COLUMNNAME_AD_Client_ID + "=?";
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 
-		String sql =
-				"SELECT " + MOrder_BH.COLUMNNAME_C_BPartner_ID + ", MAX(" + MOrder_BH.COLUMNNAME_BH_VisitDate + ") FROM " +
-						MOrder_BH.Table_Name + " " + whereClause + " GROUP BY " + MOrder_BH.COLUMNNAME_C_BPartner_ID;
+		String sql = "SELECT " + MBHVisit.COLUMNNAME_Patient_ID + ", MAX(" + MBHVisit.COLUMNNAME_BH_VisitDate + ") FROM " +
+				MBHVisit.Table_Name + " " + whereClause + " GROUP BY " + MBHVisit.COLUMNNAME_Patient_ID;
 
 		Map<Integer, String> lastVisitDatesByPatientId = new HashMap<>();
 		patientIds.forEach(patientId -> {
@@ -143,54 +149,64 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		return lastVisitDatesByPatientId;
 	}
 
-	@Override
-	public Visit processEntity(String uuid, String docAction) throws Exception {
-		if (!isDocActionValidForUser(docAction)) {
+	public Visit processDependentEntities(String uuid, String docAction) throws Exception {
+		if (!orderDBService.isDocActionValidForUser(docAction)) {
 			return null;
 		}
 
 		// Create a transaction so all parts of the visit can pass or fail together
 		Trx processVisitTransaction = Trx.get(Trx.createTrxName("ProcessVisit"), true);
 		try {
-			MOrder_BH order = getEntityByUuidFromDB(uuid);
-			order.set_TrxName(processVisitTransaction.getTrxName());
-			order.setDocAction(docAction);
-			ModelUtil.processDocumentOrError(getDocumentProcessId(), order, docAction);
+			MBHVisit visit = getEntityByUuidFromDB(uuid);
+			List<MOrder_BH> visitsOrders =
+					orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
+							Collections.singleton(visit.get_ID())).get(visit.get_ID());
+			// TODO: Update this when we have mulitple orders, since we may not want to process all at the same time
+			for (MOrder_BH order : visitsOrders) {
+				order.set_TrxName(processVisitTransaction.getTrxName());
+				ModelUtil.processDocumentOrError(orderDBService.getDocumentProcessId(), order, docAction);
 
-			List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
-							paymentDBService.getPaymentsByOrderId(order.get_ID()).stream().map(Payment::getUuid)
-									.collect(Collectors.toSet())).values().stream()
-					.peek(payment -> payment.set_TrxName(processVisitTransaction.getTrxName())).collect(Collectors.toList());
-			Collection<MPayment_BH> existingUnfinalizedPayments = existingPayments.stream()
-					.filter(payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
-					.collect(Collectors.toList());
-			// If this is a reversal, we also need to take care of the payments
-			if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
-					docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
-					docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
+				List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+								paymentDBService.getPaymentsByVisitId(visit.get_ID()).stream().map(Payment::getUuid)
+										.collect(Collectors.toSet())).values().stream()
+						.peek(payment -> payment.set_TrxName(processVisitTransaction.getTrxName())).collect(Collectors.toList());
+				Collection<MPayment_BH> existingUnfinalizedPayments = existingPayments.stream()
+						.filter(payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
+						.collect(Collectors.toList());
+				// If this is a reversal, we also need to take care of the payments
+				if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
+						docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
+						docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
 
-				for (MPayment_BH payment : existingUnfinalizedPayments) {
-					MPayment_BH newPayment = payment.copy();
-					payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
-					ModelUtil.processDocumentOrError(paymentDBService.getDocumentProcessId(), payment,
-							MPayment_BH.DOCACTION_Reverse_Accrual);
+					for (MPayment_BH payment : existingUnfinalizedPayments) {
+						MPayment_BH newPayment = payment.copy();
+						payment.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+						ModelUtil.processDocumentOrError(paymentDBService.getDocumentProcessId(), payment,
+								MPayment_BH.DOCACTION_Reverse_Accrual);
 
-					newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
-					newPayment.setBH_C_Order_ID(order.get_ID());
-					newPayment.saveEx();
+						newPayment.setDocStatus(MPayment_BH.DOCSTATUS_Drafted);
+						newPayment.setBH_Visit_ID(visit.get_ID());
+						newPayment.saveEx();
+					}
+				} else {
+					for (MPayment_BH payment : existingUnfinalizedPayments) {
+						payment.setDocAction(docAction);
+						ModelUtil.processDocumentOrError(paymentDBService.getDocumentProcessId(), payment, docAction);
+					}
 				}
-			} else {
-				for (MPayment_BH payment : existingUnfinalizedPayments) {
-					payment.setDocAction(docAction);
-					ModelUtil.processDocumentOrError(paymentDBService.getDocumentProcessId(), payment, docAction);
+				if (!processVisitTransaction.commit(true)) {
+					logger.severe("Could not commit visit transaction");
 				}
 			}
-			if (!processVisitTransaction.commit(true)) {
-				logger.severe("Could not commit visit transaction");
-			}
-			Visit visit = createInstanceWithAllFields(order);
-			visit.setPayments(paymentDBService.getPaymentsByOrderId(visit.getId()));
-			return visit;
+			visit.setBH_Process_Stage(null);
+			visit.saveEx();
+
+			Visit model = createInstanceWithAllFields(visit);
+			model.setOrders(orderDBService.transformData(
+					orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
+							Collections.singleton(visit.get_ID())).get(visit.get_ID())));
+			model.setPayments(paymentDBService.getPaymentsByVisitId(model.getId()));
+			return model;
 		} catch (Exception exception) {
 			if (!processVisitTransaction.rollback(true)) {
 				logger.severe("Could not roll back visit transaction");
@@ -209,83 +225,65 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
-	protected void beforeSave(Visit entity, MOrder_BH mOrder) {
-		if (mOrder.getC_DocType_ID() == 0) {
-			Optional<MDocType> onCreditOrderDocumentType =
-					Arrays.stream(MDocType_BH.getOfDocBaseType(mOrder.getCtx(), MDocType_BH.DOCBASETYPE_SalesOrder)).filter(
-							documentType -> documentType.getDocSubTypeSO() != null &&
-									documentType.getDocSubTypeSO().equalsIgnoreCase(MDocType_BH.DOCSUBTYPESO_OnCreditOrder)).findFirst();
-			if (onCreditOrderDocumentType.isEmpty()) {
-				throw new AdempiereException("No on-credit document type found");
+	public Visit saveEntity(Visit entity) {
+		MBHVisit visit = getEntityByUuidFromDB(entity.getUuid());
+		if (visit == null) {
+			visit = new MBHVisit(Env.getCtx(), 0, null);
+			if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+				visit.setBH_Visit_UU(entity.getUuid());
 			}
-			mOrder.setC_DocTypeTarget_ID(onCreditOrderDocumentType.get().get_ID());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getClinicalNotes())) {
-			mOrder.setBH_ClinicalNotes(entity.getClinicalNotes());
+			visit.setBH_ClinicalNotes(entity.getClinicalNotes());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getLabNotes())) {
-			mOrder.setBH_LabNotes(entity.getLabNotes());
-		}
-
-		if (StringUtil.isNotNullAndEmpty(entity.getDiagnosis())) {
-			mOrder.setDescription(entity.getDiagnosis());
+			visit.setBH_LabNotes(entity.getLabNotes());
 		}
 
 		if (entity.getPatientType() != null && entity.getPatientType().getValue() != null) {
-			mOrder.set_ValueOfColumn(COLUMNNAME_PATIENT_TYPE, entity.getPatientType().getValue());
+			visit.setBH_PatientType(entity.getPatientType().getValue());
 		}
 
 		if (entity.getReferral() != null && entity.getReferral().getValue() != null) {
-			mOrder.set_ValueOfColumn(COLUMNNAME_REFERRAL, entity.getReferral().getValue());
-		}
-
-		// set patient
-		if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
-			MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
-			if (patient != null) {
-				// Reset the patient info in the entity so it can be passed for saving (used for
-				// payments below)
-				entity.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
-				mOrder.setBPartner(patient);
-			}
+			visit.setbh_referral(entity.getReferral().getValue());
 		}
 
 		if (entity.isNewVisit() != null) {
-			mOrder.setBH_NewVisit(entity.isNewVisit());
+			visit.setBH_NewVisit(entity.isNewVisit());
 		}
 
 		if (entity.getChiefComplaint() != null) {
-			mOrder.setBH_Chief_Complaint(entity.getChiefComplaint());
+			visit.setBH_ChiefComplaint(entity.getChiefComplaint());
 		}
 
 		if (entity.getTemperature() != null) {
-			mOrder.setBH_Temperature(entity.getTemperature());
+			visit.setBH_Temperature(entity.getTemperature());
 		}
 
 		if (entity.getPulse() != null) {
-			mOrder.setBH_Pulse(entity.getPulse());
+			visit.setBH_Pulse(entity.getPulse());
 		}
 
 		if (entity.getRespiratoryRate() != null) {
-			mOrder.setBH_Respiratory_Rate(entity.getRespiratoryRate());
+			visit.setBH_RespiratoryRate(entity.getRespiratoryRate());
 		}
 
 		if (entity.getSystolicBloodPressure() != null) {
-			mOrder.setbh_systolic_blood_pressure(entity.getSystolicBloodPressure());
+			visit.setbh_systolic_blood_pressure(entity.getSystolicBloodPressure());
 		}
 
 		if (entity.getDiastolicBloodPressure() != null) {
-			mOrder.setbh_diastolic_blood_pressure(entity.getDiastolicBloodPressure());
+			visit.setbh_diastolic_blood_pressure(entity.getDiastolicBloodPressure());
 		}
 
 		if (entity.getHeight() != null) {
-			mOrder.setBH_Height(entity.getHeight());
+			visit.setBH_Height(entity.getHeight());
 		}
 
 		if (entity.getWeight() != null) {
-			mOrder.setBH_Weight(entity.getWeight());
+			visit.setBH_Weight(entity.getWeight());
 		}
 
 		if (entity.getPrimaryCodedDiagnosis() != null || entity.getSecondaryCodedDiagnosis() != null) {
@@ -302,23 +300,23 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 			if (entity.getPrimaryCodedDiagnosis() != null &&
 					codedDiagnosesByUuid.containsKey(entity.getPrimaryCodedDiagnosis().getUuid())) {
-				mOrder.setBH_PrimaryCodedDiagnosisID(
+				visit.setBH_PrimaryCodedDiagnosis_ID(
 						codedDiagnosesByUuid.get(entity.getPrimaryCodedDiagnosis().getUuid()).get_ID());
 			}
 
 			if (entity.getSecondaryCodedDiagnosis() != null &&
 					codedDiagnosesByUuid.containsKey(entity.getSecondaryCodedDiagnosis().getUuid())) {
-				mOrder.setBH_SecondaryCodedDiagnosisID(
+				visit.setbh_secondarycodeddiagnosis_ID(
 						codedDiagnosesByUuid.get(entity.getSecondaryCodedDiagnosis().getUuid()).get_ID());
 			}
 		}
 
 		if (entity.getPrimaryUnCodedDiagnosis() != null) {
-			mOrder.setBH_PrimaryUnCodedDiagnosis(entity.getPrimaryUnCodedDiagnosis());
+			visit.setbh_primaryuncodeddiagnosis(entity.getPrimaryUnCodedDiagnosis());
 		}
 
 		if (entity.getSecondaryUnCodedDiagnosis() != null) {
-			mOrder.setBH_SecondaryUnCodedDiagnosis(entity.getSecondaryUnCodedDiagnosis());
+			visit.setbh_secondaryuncodeddiagnosis(entity.getSecondaryUnCodedDiagnosis());
 		}
 
 		if (entity.getClinician() != null && entity.getClinician().getUuid() != null) {
@@ -326,29 +324,76 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_UU + " =?", null)
 					.setParameters(entity.getClinician().getUuid()).first();
 			if (user != null) {
-				mOrder.setBH_Clinician_User_ID(user.get_ID());
+				visit.setBH_Clinician_User_ID(user.get_ID());
 			}
 		}
 
 		if (entity.getProcessStage() != null && entity.getProcessStage().getValue() != null) {
-			mOrder.setBH_ProcessStage(entity.getProcessStage().getValue());
+			visit.setBH_Process_Stage(entity.getProcessStage().getValue());
 		}
 
-		mOrder.setIsSOTrx(true);
+		if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
+			MBHVoidedReason voidingReason = voidedReasonDBService.getEntityByUuidFromDB(entity.getVoidedReason().getUuid());
+			if (voidingReason != null) {
+				visit.setBH_Voided_Reason_ID(voidingReason.get_ID());
+				// Set for all orders as well
+				entity.getOrders().forEach(order -> order.setVoidedReason(entity.getVoidedReason()));
+			}
+		}
 
-		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), mOrder::setBH_ReferredFromTo);
-		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateOrdered);
-		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setBH_VisitDate);
-		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), mOrder::setDateAcct);
-		mOrder.setBH_OxygenSaturation(entity.getOxygenSaturation());
-	}
+		MBPartner_BH businessPartner;
+		if (entity.getPatient() != null && entity.getPatient().getUuid() != null &&
+				(businessPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getPatient().getUuid())) != null) {
+			visit.setPatient_ID(businessPartner.get_ID());
+			entity.getOrders().forEach(order -> {
+				order.setBusinessPartner(new BusinessPartner());
+				order.getBusinessPartner().setUuid(businessPartner.getC_BPartner_UU());
+			});
+		}
 
-	@Override
-	protected void afterSave(Visit entity, MOrder_BH mOrder) {
+		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), visit::setBH_ReferredFromTo);
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), visit::setBH_VisitDate);
+		visit.setBH_OxygenSaturation(entity.getOxygenSaturation());
+
+		visit.saveEx();
+		entity.setId(visit.get_ID());
+
+		// TODO: Eventually handle when orders are removed/added...
+		// Now take care of the orders
+		Optional<MDocType> onCreditOrderDocumentType =
+				Arrays.stream(MDocType_BH.getOfDocBaseType(Env.getCtx(), MDocType_BH.DOCBASETYPE_SalesOrder)).filter(
+								documentType -> documentType.getDocSubTypeSO() != null &&
+										documentType.getDocSubTypeSO().equalsIgnoreCase(MDocType_BH.DOCSUBTYPESO_OnCreditOrder))
+						.findFirst();
+		if (onCreditOrderDocumentType.isEmpty()) {
+			throw new AdempiereException("No on-credit document type found");
+		}
+		if (entity.getOrders() == null) {
+			entity.setOrders(new ArrayList<>());
+		}
+		for (Order order : entity.getOrders()) {
+			order.setVisitId(visit.get_ID());
+			order.setDocumentTypeTargetId(onCreditOrderDocumentType.get().get_ID());
+
+			// set patient
+			if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
+				MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
+				if (patient != null) {
+					order.setBusinessPartner(new BusinessPartner(patient));
+				}
+			}
+
+			order.setIsSalesOrderTransaction(true);
+			order.setDateOrdered(entity.getVisitDate());
+			order.setDateAccount(entity.getVisitDate());
+
+			orderDBService.saveEntity(order);
+		}
+
 		// list of persisted payment line ids
 		StringBuilder lineIds = new StringBuilder();
 		List<Payment> payments = entity.getPayments();
-		if (payments != null && !payments.isEmpty() && entity.isIsSalesOrderTransaction()) {
+		if (payments != null && !payments.isEmpty()) {
 			int count = 0;
 			// We only update incomplete payments
 			Set<String> completePaymentUuids =
@@ -357,7 +402,7 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 			payments = payments.stream().filter(payment -> !completePaymentUuids.contains(payment.getUuid()))
 					.collect(Collectors.toList());
 			for (Payment payment : payments) {
-				payment.setOrderId(mOrder.get_ID());
+				payment.setVisitId(visit.get_ID());
 				payment.setTransactionDate(DateUtil.parse(entity.getVisitDate()));
 				// Read the patient assigned to the entity
 				// NOTE: DO NOT use the mPatient property because this class is a singleton and
@@ -365,7 +410,8 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 				// that the property has been overridden by another save request between when it
 				// was set for this order and now
 				if (entity.getPatient() != null) {
-					payment.setPatient(entity.getPatient());
+					payment.setPatient(new Patient());
+					payment.getPatient().setUuid(entity.getPatient().getUuid());
 				}
 
 				Payment response = paymentDBService.saveEntity(payment);
@@ -377,57 +423,100 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		// delete payment lines not in request
-		paymentDBService.deletePaymentLinesByOrder(mOrder.get_ID(), lineIds.toString());
-	}
+		paymentDBService.deletePaymentLinesByVisit(visit.get_ID(), lineIds.toString());
 
-	@Override
-	protected String getDocumentTypeName() {
-		return DOCUMENTNAME_BILLS;
+		Visit model = createInstanceWithAllFields(visit);
+		model.setOrders(orderDBService.transformData(
+				orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
+						Collections.singleton(visit.get_ID())).get(visit.get_ID())));
+		model.setPayments(paymentDBService.getPaymentsByVisitId(model.getId()));
+		return model;
 	}
 
 	@Override
 	public Boolean deleteEntity(String uuid) {
+		Trx deleteVisitTransaction = Trx.get(Trx.createTrxName("DeleteVisit"), true);
 		try {
-			MOrder order = new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder.COLUMNNAME_C_Order_UU + "=?", null)
-					.setParameters(uuid).first();
-			if (!order.isSOTrx()) {
-				throw new AdempiereException("Document id not a Visit");
-//				return order.delete(false);
+			MBHVisit visit = getEntityByUuidFromDB(uuid);
+			if (visit == null) {
+				return true;
 			}
-			// We also want to ensure that a visit that has been re-opened (doc status = In Progress) doesn't get deleted
-			if (order.isComplete() || MOrder_BH.DOCSTATUS_InProgress.equalsIgnoreCase(order.getDocStatus())) {
+			visit.set_TrxName(deleteVisitTransaction.getTrxName());
+
+			// If this visit has any completed orders, shipments, invoices, or payments, we can't delete it
+			List<MOrder_BH> visitsOrders =
+					new Query(Env.getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_BH_Visit_ID + "=?",
+							deleteVisitTransaction.getTrxName()).setParameters(visit.get_ID()).list();
+			List<MInOut_BH> visitsInOuts =
+					new Query(Env.getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_BH_Visit_ID + "=?",
+							deleteVisitTransaction.getTrxName()).setParameters(visit.get_ID()).list();
+			List<MInvoice_BH> visitsInvoices =
+					new Query(Env.getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_BH_Visit_ID + "=?",
+							deleteVisitTransaction.getTrxName()).setParameters(visit.get_ID()).list();
+			List<MPayment_BH> visitsPayments =
+					new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?",
+							deleteVisitTransaction.getTrxName()).setParameters(visit.get_ID()).list();
+
+			Predicate<DocAction> isNotDrafted =
+					(DocAction entity) -> !DocumentEngine.STATUS_Drafted.equals(entity.getDocStatus());
+			if (visitsOrders.stream().anyMatch(isNotDrafted) || visitsInOuts.stream().anyMatch(isNotDrafted) ||
+					visitsInvoices.stream().anyMatch(isNotDrafted) || visitsPayments.stream().anyMatch(isNotDrafted)) {
 				throw new AdempiereException("Visit is already completed");
-			} else {
-				// Make sure to delete any payments that might've been saved
-				paymentDBService.deletePaymentLinesByOrder(order.get_ID(), null);
-				// Delete the order
-				return order.delete(false);
 			}
+
+			Predicate<PO> deleteEntity = (PO entity) -> entity.delete(true);
+			if (!(visitsPayments.stream().allMatch(deleteEntity) && visitsInvoices.stream().allMatch(deleteEntity) &&
+					visitsInOuts.stream().allMatch(deleteEntity) && visitsOrders.stream().allMatch(deleteEntity))) {
+				throw new AdempiereException("Could not delete dependent entities");
+			}
+
+			boolean didDelete = visit.delete(true);
+			if (!deleteVisitTransaction.commit(true)) {
+				logger.severe("Could not commit visit transaction");
+				return false;
+			}
+			return didDelete;
 		} catch (Exception ex) {
+			try {
+				if (!deleteVisitTransaction.rollback(true)) {
+					logger.severe("Could not roll back visit transaction");
+				}
+			} catch (SQLException e) {
+				logger.severe("Could not roll back visit transaction: " + e.getLocalizedMessage());
+			}
 			throw new AdempiereException(ex.getLocalizedMessage());
+		} finally {
+			if (!deleteVisitTransaction.close()) {
+				logger.severe("Could not close visit transaction");
+			}
 		}
 	}
 
 	@Override
-	protected Visit createInstanceWithDefaultFields(MOrder_BH instance) {
+	protected Visit createInstanceWithDefaultFields(MBHVisit instance) {
 		try {
-			MBPartner_BH patient = patientDBService.getPatientById(instance.getC_BPartner_ID());
+			MBPartner_BH patient = patientDBService.getPatientById(instance.getPatient_ID());
 			if (patient == null) {
 				log.severe("Missing patient");
 				return null;
 			}
 
-			String patientType = instance.get_Value(COLUMNNAME_PATIENT_TYPE) != null
-					? (String) instance.get_Value(COLUMNNAME_PATIENT_TYPE)
-					: null;
+			String patientType = instance.getBH_PatientType();
 
-			return new Visit(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Order_UU(),
-					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Patient(patient.getName(), patient.getC_BPartner_UU()),
-					new PatientType(entityMetadataDBService
-							.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)),
-					DateUtil.parseDateOnly(instance.getDateOrdered()), instance.getGrandTotal(),
-					instance.getDocStatus(), instance);
+			Visit visit = new Visit();
+			visit.setId(instance.get_ID());
+			visit.setClientId(instance.getAD_Client_ID());
+			visit.setOrgId(instance.getAD_Org_ID());
+			visit.setUuid(instance.getBH_Visit_UU());
+			visit.setIsActive(instance.isActive());
+			visit.setCreated(DateUtil.parse(instance.getCreated()));
+			visit.setCreatedTimestamp(instance.getCreated());
+			visit.setCreatedBy(instance.getCreatedBy());
+			visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
+			visit.setPatientType(new PatientType(
+					entityMetadataDBService.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)));
+			visit.setVisitDate(instance.getBH_VisitDate());
+			return visit;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -436,18 +525,24 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
-	protected Visit createInstanceWithAllFields(MOrder_BH instance) {
+	protected Visit createInstanceWithAllFields(MBHVisit instance) {
 		Visit visit = new Visit(instance);
-		visit.setStatus(getOrderStatus(instance));
+//		visit.setStatus(getOrderStatus(instance));
 
 		// get patient
-		MBPartner_BH businessPartner = patientDBService.getPatientById(instance.getC_BPartner_ID());
+		MBPartner_BH businessPartner = patientDBService.getPatientById(instance.getPatient_ID());
 		if (businessPartner == null) {
 			throw new AdempiereException("Missing patient");
 		}
 		visit.setPatient(patientDBService.transformData(Collections.singletonList(businessPartner)).get(0));
-		visit.setPayments(paymentDBService.getPaymentsByOrderId(instance.get_ID()));
-		visit.setOrderLines(orderLineDBService.getOrderLinesByOrderId(instance.get_ID()));
+		visit.setPayments(paymentDBService.getPaymentsByVisitId(instance.get_ID()));
+		visit.setOrders(orderDBService.transformData(
+				orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
+						Collections.singleton(visit.getId())).get(visit.getId())));
+		Map<Integer, List<OrderLine>> orderLinesByOrderId = orderLineDBService.getOrderLinesByOrderIds(
+				visit.getOrders().stream().map(Order::getId).collect(Collectors.toSet()));
+		visit.getOrders()
+				.forEach(order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
 
 		// THIS NEEDS TO BE REVISED! The `createInstanceWithAllFields` call does not
 		// happen in a loop, hence it makes no sense pre-fetching a list of all users
@@ -462,24 +557,24 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 
 		Set<Integer> codedDiagnosisIds = new HashSet<>();
 
-		if (instance.getBH_PrimaryCodedDiagnosisID() > 0) {
-			codedDiagnosisIds.add(instance.getBH_PrimaryCodedDiagnosisID());
+		if (instance.getBH_PrimaryCodedDiagnosis_ID() > 0) {
+			codedDiagnosisIds.add(instance.getBH_PrimaryCodedDiagnosis_ID());
 		}
 
-		if (instance.getBH_SecondaryCodedDiagnosisID() > 0) {
-			codedDiagnosisIds.add(instance.getBH_SecondaryCodedDiagnosisID());
+		if (instance.getbh_secondarycodeddiagnosis_ID() > 0) {
+			codedDiagnosisIds.add(instance.getbh_secondarycodeddiagnosis_ID());
 		}
 
 		if (!codedDiagnosisIds.isEmpty()) {
 			Map<Integer, MBHCodedDiagnosis> codedDiagnosesById = codedDiagnosisDBService.getByIds(codedDiagnosisIds);
 
-			if (codedDiagnosesById.containsKey(instance.getBH_PrimaryCodedDiagnosisID())) {
+			if (codedDiagnosesById.containsKey(instance.getBH_PrimaryCodedDiagnosis_ID())) {
 				visit.setPrimaryCodedDiagnosis(
-						new CodedDiagnosis(codedDiagnosesById.get(instance.getBH_PrimaryCodedDiagnosisID())));
+						new CodedDiagnosis(codedDiagnosesById.get(instance.getBH_PrimaryCodedDiagnosis_ID())));
 			}
-			if (codedDiagnosesById.containsKey(instance.getBH_SecondaryCodedDiagnosisID())) {
+			if (codedDiagnosesById.containsKey(instance.getbh_secondarycodeddiagnosis_ID())) {
 				visit.setSecondaryCodedDiagnosis(
-						new CodedDiagnosis(codedDiagnosesById.get(instance.getBH_SecondaryCodedDiagnosisID())));
+						new CodedDiagnosis(codedDiagnosesById.get(instance.getbh_secondarycodeddiagnosis_ID())));
 			}
 		}
 
@@ -487,36 +582,32 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 	}
 
 	@Override
-	protected Visit createInstanceWithSearchFields(MOrder_BH instance) {
+	protected Visit createInstanceWithSearchFields(MBHVisit instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
 
-	public BaseListResponse<Visit> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-
-		return super.search(value, pagingInfo, sortColumn, sortOrder, MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters);
+	@Override
+	protected MBHVisit getModelInstance() {
+		return new MBHVisit(Env.getCtx(), 0, null);
 	}
 
 	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortJson, String filterJson) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-
-		BaseListResponse<Visit> visits = super.getAll(MOrder_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo,
-				sortJson, filterJson, null);
+		BaseListResponse<Visit> visits = super.getAll(pagingInfo, sortJson, filterJson);
 
 		// Since non-patient payments are negative, they'll change order totals
 		// Get updated order totals for these visits
 		if (visits != null) {
-			Map<Integer, List<MOrderLine_BH>> orderLinesByOrder = orderLineDBService.getGroupsByIds(
-					MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
-					visits.getResults().stream().map(Visit::getId).collect(Collectors.toSet()));
+			Map<Integer, List<MOrderLine_BH>> orderLinesByOrder =
+					orderLineDBService.getGroupsByIds(MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
+							visits.getResults().stream().flatMap(visit -> visit.getOrders().stream()).map(Order::getId)
+									.collect(Collectors.toSet()));
 
 			// Update the totals to exclude negative values in the lines
 			visits.getResults().forEach(visit -> {
-				visit.setGrandTotal(orderLinesByOrder.get(visit.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
-						.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
-						.reduce(new BigDecimal(0), BigDecimal::add));
+				visit.getOrders().forEach(
+						order -> order.setGrandTotal(orderLinesByOrder.get(order.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
+								.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
+								.reduce(new BigDecimal(0), BigDecimal::add)));
 			});
 		}
 
@@ -564,10 +655,12 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 						if (patient == null) {
 							continue;
 						}
-
-						results.add(new Visit().getVisitQueue(DateUtil.parseQueueTime(entity.getCreated()),
-								entity.getC_Order_UU(), new Patient(patient.getName(), patient.getC_BPartner_UU()),
-								getOrderStatus(entity)));
+						Visit visit = new Visit();
+						visit.setCreated(DateUtil.parseQueueTime(entity.getCreated()));
+						visit.setCreatedTimestamp(entity.getCreated());
+						visit.setUuid(entity.getC_Order_UU());
+						visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
+						results.add(visit);
 					}
 				}
 			}
@@ -579,40 +672,6 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		}
 
 		return null;
-	}
-
-	/**
-	 * WAITING - visit with no clinical, no line items, no payments DISPENSING -
-	 * visit with clinical information, no line items, no payments PENDING - visit
-	 * with clinical information, line items, no payments, PENDING_COMPLETION -
-	 * visit yet to be processed, COMPLETED - completed visit
-	 *
-	 * @param entity
-	 */
-	private OrderStatus getOrderStatus(MOrder_BH entity) {
-		// check payments
-		boolean paymentsExist = paymentDBService.checkPaymentExists(entity.get_ID());
-
-		// check orderlines
-		boolean orderlinesExist = orderLineDBService.checkOrderLinesExist(entity.get_ID());
-
-		if (!orderlinesExist && !paymentsExist) {
-			// check visit information
-			if (entity.get_Value(COLUMNNAME_REFERRAL) == null && entity.getDescription() == null
-					&& entity.getBH_ClinicalNotes() == null) {
-				return OrderStatus.WAITING;
-			} else {
-				return OrderStatus.DISPENSING;
-			}
-		} else if (orderlinesExist && !paymentsExist) {
-			return OrderStatus.PENDING;
-		} else {
-			if (MOrder_BH.DOCSTATUS_Completed.equalsIgnoreCase(entity.getDocStatus())) {
-				return OrderStatus.COMPLETED;
-			} else {
-				return OrderStatus.PENDING_COMPLETION;
-			}
-		}
 	}
 
 	/**
@@ -662,5 +721,19 @@ public class VisitDBService extends BaseOrderDBService<Visit> {
 		parameters.add("Y");
 
 		return sqlWhere.toString();
+	}
+
+	@Override
+	public List<Visit> transformData(List<MBHVisit> dbModels) {
+		Set<Integer> visitIds = dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet());
+		Map<Integer, List<Order>> orderIdsByVisitId = orderDBService.transformData(
+						orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, visitIds).values()
+								.stream().flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(Order::getVisitId));
+		return dbModels.stream().map(visit -> {
+			Visit entity = createInstanceWithDefaultFields(visit);
+			entity.setOrders(orderIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
+			return entity;
+		}).collect(Collectors.toList());
 	}
 }

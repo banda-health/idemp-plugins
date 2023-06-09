@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.base.utils;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -101,21 +100,6 @@ public class QueryUtil {
 		attributeSetInstance.saveEx();
 
 		return attributeSetInstance.get_ID();
-	}
-
-	public static boolean checkBHNewVisit(int bpartnerId) {
-		StringBuilder whereClause = new StringBuilder(MOrder_BH.COLUMNNAME_BH_NEWVISIT);
-		whereClause.append(" = 'Y' AND ");
-		whereClause.append(MOrder_BH.COLUMNNAME_C_BPartner_ID);
-		whereClause.append(" = ");
-		whereClause.append(bpartnerId);
-
-		int count = new Query(Env.getCtx(), MOrder_BH.Table_Name, whereClause.toString(), null).setClient_ID().count();
-		if (count > 0) {
-			return false;
-		}
-
-		return true;
 	}
 
 	/**

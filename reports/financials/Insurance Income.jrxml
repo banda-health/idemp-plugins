@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="261"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="739"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -17,35 +17,44 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="textBackground" mode="Opaque" backcolor="#E6E6FA" pattern=""/>
 	<style name="titleBackground" mode="Opaque" backcolor="#00008B"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
-    c.name,
-    coalesce(SUM(ol.linenetamt), 0) * -1 as insurance_amount
-FROM c_charge c
-    LEFT JOIN (
-        SELECT ol.c_charge_id, ol.linenetamt
-        FROM c_order o
-        JOIN c_orderline ol ON o.c_order_id = ol.c_order_id
-        WHERE
-            o.ad_client_id = $P{AD_CLIENT_ID}
-            AND (date(o.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date}))
-            AND o.docstatus IN ('CO','DR')
-            AND ol.c_charge_id IS NOT NULL
-    ) ol ON c.c_charge_id = ol.c_charge_id
-    JOIN c_chargetype ct ON ct.c_chargetype_id = c.c_chargetype_id
+	c.name,
+	COALESCE(SUM(ol.linenetamt), 0) * -1 AS insurance_amount
+FROM
+	c_charge c
+		LEFT JOIN (
+		SELECT
+			ol.c_charge_id,
+			ol.linenetamt
+		FROM
+			bh_visit v
+				JOIN c_order o
+					ON v.bh_visit_id = o.bh_visit_id
+				JOIN c_orderline ol
+					ON o.c_order_id = ol.c_order_id
+		WHERE
+			o.ad_client_id = $P{AD_CLIENT_ID}
+			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+			AND o.docstatus IN ('CO', 'DR')
+			AND ol.c_charge_id IS NOT NULL
+	) ol
+			ON c.c_charge_id = ol.c_charge_id
+		JOIN c_chargetype ct
+			ON ct.c_chargetype_id = c.c_chargetype_id
 WHERE
-    c.ad_client_id = $P{AD_CLIENT_ID}
-    AND ct.name = 'Non-Patient Payment - DO NOT CHANGE'
-    AND c.bh_subtype != 'W'
-    AND (ol.linenetamt * -1) > 0
-    AND c.isactive = 'Y'
+	c.ad_client_id = $P{AD_CLIENT_ID}
+	AND ct.name = 'Non-Patient Payment - DO NOT CHANGE'
+	AND c.bh_subtype != 'W'
+	AND (ol.linenetamt * -1) > 0
+	AND c.isactive = 'Y'
 GROUP BY
-    c.name
-ORDER BY c.name
-;]]>
+	c.name
+ORDER BY
+	c.name;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>

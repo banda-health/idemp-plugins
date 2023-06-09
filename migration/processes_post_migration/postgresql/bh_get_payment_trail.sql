@@ -23,7 +23,7 @@ WITH visit_payments AS (
 			JOIN bh_get_visit_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gvp
 				ON gvp.patient_id = bp.c_bpartner_id
 	WHERE
-			bp.c_bpartner_uu = _c_bpartner_uu
+		bp.c_bpartner_uu = _c_bpartner_uu
 	GROUP BY c_order_id
 ),
 	transactions AS (
@@ -41,24 +41,26 @@ WITH visit_payments AS (
 				-- Bills
 				SELECT
 					o.c_bpartner_id,
-					date(o.bh_visitdate)                                 AS date,
+					date(v.bh_visitdate)                                 AS date,
 					CASE
 						WHEN COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) = 0 THEN 'Visit'
 						ELSE 'Visit charges and payments' END              AS "type",
 					i.non_charges                                        AS debits,
-						COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) AS credits,
+					COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) AS credits,
 					10                                                   AS sort
 				FROM
-					c_order o
+					bh_visit v
+						JOIN c_order o
+							ON v.bh_visit_id = o.bh_visit_id
 						JOIN c_bpartner bp
-							ON o.c_bpartner_id = bp.c_bpartner_id
+							ON v.patient_id = bp.c_bpartner_id
 						LEFT JOIN visit_payments vp
 							ON o.c_order_id = vp.c_order_id
 						JOIN (
 						SELECT
 							i.c_order_id,
-									SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NULL )     AS non_charges,
-									SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NOT NULL ) AS charges
+							SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NULL )     AS non_charges,
+							SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NOT NULL ) AS charges
 						FROM
 							c_invoice i
 								JOIN c_invoiceline il
@@ -66,14 +68,13 @@ WITH visit_payments AS (
 								JOIN c_bpartner bp
 									ON i.c_bpartner_id = bp.c_bpartner_id
 						WHERE
-								bp.c_bpartner_uu = _c_bpartner_uu
+							bp.c_bpartner_uu = _c_bpartner_uu
 							AND i.docstatus = 'CO'
 						GROUP BY i.c_order_id
 					) i
 							ON i.c_order_id = o.c_order_id
 				WHERE
-						o.issotrx = 'Y'
-					AND o.docstatus = 'CO'
+					o.docstatus = 'CO'
 					AND bp.c_bpartner_uu = _c_bpartner_uu
 				GROUP BY o.c_order_id, o.c_bpartner_id, date, non_charges, charges
 				UNION ALL
@@ -90,7 +91,7 @@ WITH visit_payments AS (
 						JOIN bh_get_debt_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gdp
 							ON gdp.patient_id = bp.c_bpartner_id
 				WHERE
-						bp.c_bpartner_uu = _c_bpartner_uu
+					bp.c_bpartner_uu = _c_bpartner_uu
 				GROUP BY
 					bp.c_bpartner_id,
 					date
@@ -101,7 +102,7 @@ WITH visit_payments AS (
 					date(i.dateinvoiced)    AS date,
 					'Waived Open Balance'   AS "type",
 					NULL                    AS debits,
-						SUM(il.linenetamt) * -1 AS credits,
+					SUM(il.linenetamt) * -1 AS credits,
 					30                      AS sort
 				FROM
 					c_invoice i
@@ -114,7 +115,7 @@ WITH visit_payments AS (
 						JOIN c_chargetype ct
 							ON c.c_chargetype_id = ct.c_chargetype_id
 				WHERE
-						bp.c_bpartner_uu = _c_bpartner_uu
+					bp.c_bpartner_uu = _c_bpartner_uu
 					AND c.name = 'Bad debt write-off - DO NOT CHANGE'
 					AND ct.name = 'One-offs - DO NOT CHANGE'
 				GROUP BY
@@ -131,7 +132,7 @@ WITH visit_payments AS (
 -- This categorizes the payments
 		SELECT
 			orderings.*,
-					ROW_NUMBER() OVER (ORDER BY secondary_sort, date, sort) AS row
+			ROW_NUMBER() OVER (ORDER BY secondary_sort, date, sort) AS row
 		FROM
 			(
 				SELECT
