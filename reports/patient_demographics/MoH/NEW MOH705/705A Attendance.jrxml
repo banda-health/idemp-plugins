@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Attendance" pageWidth="900" pageHeight="595" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6326f7bc-1e52-4fdf-b435-ec88b34b814e">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -42,55 +42,74 @@
 	<subDataset name="705A Attendance" uuid="b400fc7b-e610-4255-a60d-0acfc0edbea7">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-   SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
+	SELECT
+		GENERATE_SERIES(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
-     new_list AS (
-         SELECT DISTINCT value as  Attendance
-         FROM ad_ref_list
-                  JOIN c_order attendancetype ON value = attendancetype.bh_newvisit
-                  RIGHT JOIN ad_reference a ON ad_ref_list.ad_reference_id = a.ad_reference_id
-         WHERE  attendancetype.ad_client_id =  $P{AD_CLIENT_ID}
-         AND value is not null
-     ),
-     attendance_count AS (
-         SELECT DISTINCT bh_moh705a_lessthan5,
-                         b.value                       as attendance,
-                         c.calendar,
-                         coalesce(c.noofattendance, 0) as noofattendance
-         FROM ad_ref_list b
-                  LEFT JOIN (
-             SELECT bh_moh705a_lessthan5,
-                    bh_newvisit,
-                    cast(bh_visitdate as date)         as calendar,
-                    COUNT(bh_primarycodeddiagnosis_id) AS noofattendance
-             from c_order c
-                      JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
-                      JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
-                      JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
---                       JOIN ad_org org ON c.ad_org_id = org.ad_org_id
-             WHERE c.ad_client_id =  $P{AD_CLIENT_ID}
-                AND bp.bh_birthday IS NOT NULL AND date_part('year', age(bp.bh_birthday)) < 5
-             GROUP BY bh_newvisit,bh_moh705a_lessthan5, cast(bh_visitdate as date)
-         ) c ON b.value = bh_newvisit
-         ORDER BY b.value
-     )
-SELECT dali.calendar,
-      bh_moh705a_lessthan5,
-       CASE WHEN dl.Attendance = 'Y' THEN 'NO. OF FIRST ATTENDANCES'
-       ELSE 'RE-ATTENDANCES'
-       END AS Attendance,
-       COALESCE(dc.noofattendance, 0) as noofreferral
-FROM new_list dl
-         CROSS JOIN date_limitter dali
-         LEFT JOIN attendance_count dc
-                   ON dc.calendar = dali.calendar
-                       AND dl.Attendance = dc.attendance
-ORDER BY dl.Attendance ASC;]]>
+	new_list AS (
+		SELECT DISTINCT
+			value AS Attendance
+		FROM
+			ad_ref_list rl
+				JOIN bh_visit v
+					ON rl.value = v.bh_newvisit
+				RIGHT JOIN ad_reference r
+					ON rl.ad_reference_id = r.ad_reference_id
+		WHERE
+			v.ad_client_id = $P{AD_CLIENT_ID}
+			AND value IS NOT NULL
+	),
+	attendance_count AS (
+		SELECT DISTINCT
+			bh_moh705a_lessthan5,
+			b.value                       AS attendance,
+			c.calendar,
+			COALESCE(c.noofattendance, 0) AS noofattendance
+		FROM
+			ad_ref_list b
+				LEFT JOIN (
+				SELECT
+					bh_moh705a_lessthan5,
+					bh_newvisit,
+					CAST(bh_visitdate AS date)         AS calendar,
+					COUNT(bh_primarycodeddiagnosis_id) AS noofattendance
+				FROM
+					bh_visit v
+						JOIN bh_coded_diagnosis cd
+							ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
+						JOIN date_limitter dl
+							ON dl.calendar = CAST(bh_visitdate AS date)
+						JOIN c_bpartner bp
+							ON v.patient_id = bp.c_bpartner_id
+				WHERE
+					v.ad_client_id = $P{AD_CLIENT_ID}
+					AND bp.bh_birthday IS NOT NULL
+					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
+				GROUP BY bh_newvisit, bh_moh705a_lessthan5, CAST(bh_visitdate AS date)
+			) c
+					ON b.value = bh_newvisit
+		ORDER BY b.value
+	)
+SELECT
+	dali.calendar,
+	bh_moh705a_lessthan5,
+	CASE
+		WHEN dl.Attendance = 'Y' THEN 'NO. OF FIRST ATTENDANCES'
+		ELSE 'RE-ATTENDANCES'
+		END                          AS Attendance,
+	COALESCE(dc.noofattendance, 0) AS noofreferral
+FROM
+	new_list dl
+		CROSS JOIN date_limitter dali
+		LEFT JOIN attendance_count dc
+			ON dc.calendar = dali.calendar
+		AND dl.Attendance = dc.attendance
+ORDER BY
+	dl.Attendance;]]>
 		</queryString>
 		<field name="calendar" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="calendar"/>
@@ -106,20 +125,25 @@ ORDER BY dl.Attendance ASC;]]>
 			<groupExpression><![CDATA[$F{attendance}]]></groupExpression>
 		</group>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select
-    date(c.bh_visitdate) as calendar,
-    client.name AS name
-from c_order c
-    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
-    right join ad_org client on c.ad_client_id = client.ad_client_id
-     and client.isactive = 'Y'
-     where  c.ad_client_id  = $P{AD_CLIENT_ID}
-    and b.bh_moh705a_lessthan5 is not null
- GROUP BY c.bh_visitdate, client.name, b.bh_moh705a_lessthan5]]>
+		<![CDATA[SELECT
+	date(v.bh_visitdate) AS calendar,
+	o.name               AS name
+FROM
+	bh_visit v
+		LEFT JOIN bh_coded_diagnosis cd
+			ON cd.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id
+		RIGHT JOIN ad_org o
+			ON v.ad_client_id = o.ad_client_id
+		AND o.isactive = 'Y'
+WHERE
+	v.ad_client_id = $P{AD_CLIENT_ID}
+	AND cd.bh_moh705a_lessthan5 IS NOT NULL
+GROUP BY
+	v.bh_visitdate, o.name, cd.bh_moh705a_lessthan5]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>

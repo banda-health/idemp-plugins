@@ -32,7 +32,7 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 
 		// get drafted payments with complete orders
 		String whereClause = MPayment_BH.COLUMNNAME_DocStatus
-				+ " = ? AND " + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " IN(SELECT " + MOrder_BH.COLUMNNAME_C_Order_ID
+				+ " = ? AND " + MPayment_BH.COLUMNNAME_BH_Visit_ID + " IN(SELECT " + MOrder_BH.COLUMNNAME_BH_Visit_ID
 				+ " FROM " + MOrder_BH.Table_Name + " WHERE " + MOrder_BH.COLUMNNAME_DocStatus + " = ?)";
 		
 		List<MPayment_BH> payments = new Query(getCtx(), MPayment_BH.Table_Name, whereClause, get_TrxName())
@@ -50,7 +50,7 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 		
 		// get orders
 		whereClause = MOrder_BH.COLUMNNAME_DocStatus + " = ? AND " + MOrder_BH.COLUMNNAME_C_Order_ID + " IN ("
-				+ "SELECT " + MPayment_BH.COLUMNNAME_BH_C_Order_ID + " FROM " + MPayment_BH.Table_Name + " WHERE " 
+				+ "SELECT " + MPayment_BH.COLUMNNAME_BH_Visit_ID + " FROM " + MPayment_BH.Table_Name + " WHERE "
 				+ MPayment_BH.COLUMNNAME_DocStatus + " =? )";
 		List<MOrder_BH> orders = new Query(getCtx(), MOrder_BH.Table_Name, whereClause, get_TrxName())
 				.setParameters(MOrder_BH.DOCSTATUS_Completed, MPayment_BH.DOCSTATUS_Drafted)
@@ -66,7 +66,7 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 			}
 			
 			MOrder_BH order = orders.stream()
-					.filter(o -> o.getC_Order_ID() == payment.getBH_C_Order_ID())
+					.filter(o -> o.getBH_Visit_ID() == payment.getBH_Visit_ID())
 					.findFirst()
 					.orElse(null);
 			if (order == null) {
@@ -92,7 +92,7 @@ public class CheckUnprocessedPaymentsProcess extends SvrProcess {
 				+ " | Client = " + client.getName()
 				+ " | Patient = " + bpartner.getName() 
 				+ " | Total Open Balance = " + bpartner.getTotalOpenBalance()
-				+ " | Order ID = " + payment.getBH_C_Order_ID()
+				+ " | Order ID = " + order.get_ID()
 				+ " | Payment ID = " + payment.get_ID()
 				+ " | Payment Amount = " + payment.getPayAmt()
 				+ " | DocStatus = " + payment.getDocStatus()

@@ -1,9 +1,10 @@
-DROP FUNCTION IF EXISTS  bh_get_visit_products(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
+DROP FUNCTION IF EXISTS bh_get_visit_products(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE FUNCTION bh_get_visit_products(ad_client_id numeric,
                                       begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
                                       end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
+		        bh_visit_id           numeric,
 		        c_order_id            numeric,
 		        m_product_id          numeric,
 		        product_name          character varying,
@@ -23,6 +24,7 @@ CREATE FUNCTION bh_get_visit_products(ad_client_id numeric,
 AS
 $$
 SELECT
+	v.bh_visit_id,
 	ol.c_order_id,
 	p.m_product_id,
 	p.name          AS product_name,
@@ -40,6 +42,8 @@ FROM
 	c_orderline ol
 		JOIN c_order o
 			ON ol.c_order_id = o.c_order_id
+		JOIN bh_visit v
+			ON o.bh_visit_id = v.bh_visit_id
 		JOIN m_product p
 			ON ol.m_product_id = p.m_product_id
 		JOIN m_product_category pc
@@ -55,7 +59,6 @@ FROM
 		LEFT JOIN m_warehouse w
 			ON l.m_warehouse_id = w.m_warehouse_id
 WHERE
-	o.bh_visitdate BETWEEN $2 AND $3
-	AND o.issotrx = 'Y'
+	v.bh_visitdate BETWEEN $2 AND $3
 	AND ol.ad_client_id = $1;
 $$;

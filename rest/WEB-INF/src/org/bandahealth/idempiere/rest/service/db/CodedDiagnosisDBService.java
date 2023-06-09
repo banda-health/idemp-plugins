@@ -29,54 +29,54 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 		if (mCodedDiagnosis == null) {
 			mCodedDiagnosis = new MBHCodedDiagnosis(Env.getCtx(), 0, null);
 			mCodedDiagnosis.setAD_Org_ID(Env.getAD_Org_ID(Env.getCtx()));
-			mCodedDiagnosis.setBH_CodedDiagnosis_UU(entity.getUuid());
+			mCodedDiagnosis.setBH_Coded_Diagnosis_UU(entity.getUuid());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getCielName())) {
-			mCodedDiagnosis.setBH_CielName(entity.getCielName());
+			mCodedDiagnosis.setbh_cielname(entity.getCielName());
 		}
 
 		if (entity.getCielId() > 0) {
-			mCodedDiagnosis.setBH_CielId(entity.getCielId());
+			mCodedDiagnosis.setBH_CielID(entity.getCielId());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getConceptClass())) {
-			mCodedDiagnosis.setBH_ConceptClass(entity.getConceptClass());
+			mCodedDiagnosis.setbh_concept_class(entity.getConceptClass());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getIcd10())) {
-			mCodedDiagnosis.setBH_ICD10(entity.getIcd10());
+			mCodedDiagnosis.setbh_icd10who(entity.getIcd10());
 		}
 
 		if (entity.getSynomedCT() > 0) {
-			mCodedDiagnosis.setBH_SynomedCT(entity.getSynomedCT());
+			mCodedDiagnosis.setbh_synomed_ct(entity.getSynomedCT());
 		}
 
 		if (entity.getSynomedNP() > 0) {
-			mCodedDiagnosis.setBH_SynomedNP(entity.getSynomedNP());
+			mCodedDiagnosis.setbh_synomed_np(entity.getSynomedNP());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getSynonyms())) {
-			mCodedDiagnosis.setBH_Synonyms(entity.getSynonyms());
+			mCodedDiagnosis.setbh_synonyms(entity.getSynonyms());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getMoh705aLessthan5())) {
-			mCodedDiagnosis.setBH_MoH705ALessThan5(entity.getMoh705aLessthan5());
+			mCodedDiagnosis.setbh_moh705a_lessthan5(entity.getMoh705aLessthan5());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getMoh705bGreaterThan5())) {
-			mCodedDiagnosis.setBH_MoH705BGreaterThan5(entity.getMoh705bGreaterThan5());
+			mCodedDiagnosis.setbh_moh705b_greaterthan5(entity.getMoh705bGreaterThan5());
 		}
 
 		if (StringUtil.isNotNullAndEmpty(entity.getSearchTerms())) {
-			mCodedDiagnosis.setBH_SearchTerms(entity.getSearchTerms());
+			mCodedDiagnosis.setbh_searchterms(entity.getSearchTerms());
 		}
 
 		mCodedDiagnosis.setIsActive(entity.getIsActive());
 
 		mCodedDiagnosis.saveEx();
 
-		return createInstanceWithAllFields(getEntityByUuidFromDB(mCodedDiagnosis.getBH_CodedDiagnosis_UU()));
+		return createInstanceWithAllFields(getEntityByUuidFromDB(mCodedDiagnosis.getBH_Coded_Diagnosis_UU()));
 	}
 
 	@Override
@@ -98,14 +98,14 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 				+ MBHCodedDiagnosisMapping.COLUMNNAME_BH_Coded_Diagnosis_ID + " FROM "
 				+ MBHCodedDiagnosisMapping.Table_Name + " WHERE " + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptCode
 				+ " = ? OR LOWER(" + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptNameResolved + ") LIKE ? ) OR "
-				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_BH_CielName + ") " + LIKE_COMPARATOR + " ? OR " + "LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_BH_ICD10 + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_BH_Synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_BH_SEARCHTERMS + ") LIKE ? ";
+				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_bh_cielname + ") " + LIKE_COMPARATOR + " ? OR " + "LOWER("
+				+ MBHCodedDiagnosis.COLUMNNAME_bh_icd10who + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
+				+ MBHCodedDiagnosis.COLUMNNAME_bh_synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER("
+				+ MBHCodedDiagnosis.COLUMNNAME_bh_searchterms + ") LIKE ? ";
 
 		try {
 			int cielId = Integer.valueOf(valueToSearch);
-			searchClause += " OR " + MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_CielId
+			searchClause += " OR " + MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_CielID
 					+ " = ?";
 			parameters.add(cielId);
 		} catch (NumberFormatException ex) {

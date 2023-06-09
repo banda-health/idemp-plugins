@@ -4,16 +4,17 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.bandahealth.idempiere.rest.model.Warehouse;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MWarehouse;
@@ -22,6 +23,8 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -47,6 +50,10 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	protected AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
 	protected ProductDBService productDBService;
+	@Autowired
+	protected BusinessPartnerDBService businessPartnerDBService;
+	@Autowired
+	protected DocumentTypeDBService documentTypeDBService;
 
 	protected abstract void beforeSave(T entity, MOrder_BH mOrder);
 
@@ -108,10 +115,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 		if (orderBy != null) {
 			query = query.setOrderBy(orderBy);
 		}
-
-		if (parameters != null) {
-			query = query.setParameters(parameters);
-		}
+		query = query.setParameters(parameters);
 
 		// get total count without pagination parameters
 		pagingInfo.setTotalRecordCount(query.count());
@@ -145,13 +149,14 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			}
 
 			if (entity.getDateOrdered() != null) {
-				mOrder.setDateOrdered(DateUtil.getTimestamp(entity.getDateOrdered()));
+				mOrder.setDateOrdered(entity.getDateOrdered());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getDescription())) {
 				mOrder.setDescription(entity.getDescription());
 			}
 
+			mOrder.setBH_Visit_ID(entity.getVisitId());
 			mOrder.setIsActive(entity.getIsActive());
 
 			mOrder.setIsApproved(true);
@@ -168,10 +173,31 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 				}
 			}
 
+			if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
+				MBHVoidedReason voidingReason =
+						voidedReasonDBService.getEntityByUuidFromDB(entity.getVoidedReason().getUuid());
+				if (voidingReason != null) {
+					mOrder.setBH_Voided_Reason_ID(voidingReason.get_ID());
+				}
+			}
+
+			MBPartner_BH businessPartner;
+			if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getUuid() != null &&
+					(businessPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid())) !=
+							null) {
+				mOrder.setBPartner(businessPartner);
+			}
+
 			beforeSave(entity, mOrder);
 
 			// set target document type
-			if (!mOrder.isSOTrx()) {
+			MDocType_BH documentTypeTarget;
+			if (entity.getDocumentTypeTargetId() > 0) {
+				mOrder.setC_DocTypeTarget_ID(entity.getDocumentTypeTargetId());
+			} else if ((entity.getDocumentTypeTarget() != null && (documentTypeTarget =
+					documentTypeDBService.getEntityByUuidFromDB(entity.getDocumentTypeTarget().getUuid())) != null)) {
+				mOrder.setC_DocTypeTarget_ID(documentTypeTarget.get_ID());
+			} else if (!mOrder.isSOTrx()) {
 				mOrder.setC_DocTypeTarget_ID(getPurchaseOrderDocumentTypeId());
 			}
 
@@ -216,7 +242,7 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 			// any post save operation
 			afterSave(entity, mOrder);
 
-			return createInstanceWithAllFields(getEntityByUuidFromDB(mOrder.getC_Order_UU()));
+			return transformData(Collections.singletonList(getEntityByUuidFromDB(mOrder.getC_Order_UU()))).get(0);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -249,34 +275,27 @@ public abstract class BaseOrderDBService<T extends Order> extends DocumentDBServ
 	}
 
 	@Override
-	public T saveAndProcessEntity(T entity, String docAction) throws Exception {
-		// Orders that have already been processed can't be saved again
-		MOrder_BH order = getEntityByUuidFromDB(entity.getUuid());
-
-		if (order != null) {
-			if (docAction.equals(MOrder_BH.DOCACTION_Void)) {
-				// set voided reason
-				VoidedReason voidedReason = entity.getVoidedReason();
-				if (voidedReason != null && StringUtil.isNotNullAndEmpty(voidedReason.getUuid())) {
-					MBHVoidedReason mVoidedReason = voidedReasonDBService.getEntityByUuidFromDB(voidedReason.getUuid());
-					if (mVoidedReason != null) {
-						order.setBH_VoidedReasonID(mVoidedReason.get_ID());
-						order.saveEx();
-					}
-				}
-			}
-
-			// If this order is complete already (i.e. we're voiding/re-activating), we shouldn't save it
-			if (order.isComplete()) {
-				return processEntity(entity.getUuid(), docAction);
-			}
-		}
-
-		return super.saveAndProcessEntity(entity, docAction);
+	int getDocumentProcessId() {
+		return MProcess_BH.PROCESSID_PROCESS_ORDERS;
 	}
 
 	@Override
-	int getDocumentProcessId() {
-		return MProcess_BH.PROCESSID_PROCESS_ORDERS;
+	public List<T> transformData(List<MOrder_BH> dbModels) {
+		Map<Integer, List<OrderLine>> orderLinesByOrderId = orderLineDBService.transformData(
+						orderLineDBService.getGroupsByIds(MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
+										dbModels.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet())).values().stream()
+								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(OrderLine::getOrderId));
+		Map<Integer, BusinessPartner> businessPartnersById = businessPartnerDBService.transformData(
+						new ArrayList<>(businessPartnerDBService.getByIds(
+								dbModels.stream().map(MOrder_BH::getC_BPartner_ID).collect(Collectors.toSet())).values())).stream()
+				.collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
+
+		return dbModels.stream().map(order -> {
+			T entity = createInstanceWithDefaultFields(order);
+			entity.setOrderLines(orderLinesByOrderId.getOrDefault(entity.getId(), new ArrayList<>()));
+			entity.setBusinessPartner(businessPartnersById.get(order.getC_BPartner_ID()));
+			return entity;
+		}).collect(Collectors.toList());
 	}
 }

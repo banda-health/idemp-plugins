@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cashier Difference" pageWidth="510" pageHeight="744" orientation="Landscape" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="cc04d203-d034-4a9b-95b5-22b226c482fc">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UGUAT"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -59,13 +59,13 @@
 	billdetails AS (
 		SELECT
 			c_order_id,
-			saleslineitemtotals AS lineitemtotals,
-			ad_user_id          AS cashier_id
+			lineitemtotals,
+			cashier
 		FROM
-			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+			get_visit_info($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+				CROSS JOIN params p
 		WHERE
-			docstatus != 'VO'
-			AND docstatus != 'DR'
+			(p.patient_type = '' OR get_visit_info.PatientType = p.patient_type)
 	),
 	patient_payments AS (
 		SELECT
@@ -86,7 +86,7 @@
 		GROUP BY c_order_id, bh_subtype
 	)
 SELECT
-	u.name                                                       AS cashier,
+	cashier                                                      AS cashier,
 	SUM(COALESCE(billdetails.lineitemtotals, 0))                 AS bill_total,
 	SUM(COALESCE(pp.total_payments, 0) + COALESCE(npp.total, 0)) AS total_payment
 FROM
@@ -99,36 +99,40 @@ FROM
 		SELECT c_order_id, SUM(total) AS total FROM non_patient_payments GROUP BY c_order_id
 	) npp
 			ON billdetails.c_order_id = npp.c_order_id
-		JOIN ad_user u
-			ON u.ad_user_id = billdetails.cashier_id
 		CROSS JOIN params p
 WHERE
-		billdetails.c_order_id IN (
-		SELECT
-			billdetails.c_order_id
+	EXISTS (
+		SELECT *
 		FROM
-			billdetails
-				LEFT JOIN patient_payments
-					ON billdetails.c_order_id = patient_payments.c_order_id
+			(
+				SELECT
+					billdetails.c_order_id
+				FROM
+					billdetails
+						LEFT JOIN patient_payments
+							ON billdetails.c_order_id = patient_payments.c_order_id
+				WHERE
+					(p.payment_mode = ''
+						OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+				UNION ALL
+				SELECT
+					billdetails.c_order_id
+				FROM
+					billdetails
+						LEFT JOIN non_patient_payments
+							ON billdetails.c_order_id = non_patient_payments.c_order_id
+				WHERE
+					(p.payment_mode = ''
+						OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+							AND p.payment_mode IN ('I', 'W', 'T')))
+			) f
 		WHERE
-			(p.payment_mode = ''
-				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-		UNION
-		SELECT
-			billdetails.c_order_id
-		FROM
-			billdetails
-				LEFT JOIN non_patient_payments
-					ON billdetails.c_order_id = non_patient_payments.c_order_id
-		WHERE
-			(p.payment_mode = ''
-				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-					AND p.payment_mode IN ('I', 'W', 'T')))
+			f.c_order_id = billdetails.c_order_id
 	)
 GROUP BY
-	u.name
+	cashier
 ORDER BY
-	u.name;]]>
+	cashier;]]>
 	</queryString>
 	<field name="cashier" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="ad_client_id"/>

@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -61,41 +61,54 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="inventory sold" uuid="4ddff745-c801-490f-9e16-520912866ea0">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres UAT Rep"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
-			<![CDATA[select
-    billitems.item_name as item_name,
-    sum(billdetails.quantity) as quantity,
-    billdetails.saleprice as sellingprice,
-    sum(billdetails.amount) as amount
-from (
-    select
-        item.m_product_id,
-        item.name as item_name
-    from m_product item
-    where item.ad_client_id = $P{AD_CLIENT_ID} and item.isactive = 'Y'
-        and item.producttype = 'S'
-) as billitems
-inner join (
-    select
-        coline.m_product_id,
-        coline.qtyordered as quantity,
-        coline.priceentered as saleprice,
-        coline.linenetamt as amount
-    from c_orderline coline
-    inner join c_order sorder on coline.c_order_id = sorder.c_order_id
-        and sorder.issotrx = 'Y'
-    inner join m_product item on coline.m_product_id = item.m_product_id
-        and item.producttype = 'S'
-    where ((coline.ad_client_id = $P{AD_CLIENT_ID}) AND (coline.processed = 'Y')
-        and (date(sorder.bh_visitdate) BETWEEN date($P{Begin Date}) AND date($P{End Date})))
-) as billdetails on billitems.m_product_id = billdetails.m_product_id
-group by billitems.item_name,billdetails.saleprice
-order by billitems.item_name asc]]>
+			<![CDATA[SELECT
+	p.item_name               AS item_name,
+	SUM(billdetails.quantity) AS quantity,
+	billdetails.saleprice     AS sellingprice,
+	SUM(billdetails.amount)   AS amount
+FROM
+	(
+		SELECT
+			m_product_id,
+			name AS item_name
+		FROM
+			m_product
+		WHERE
+			ad_client_id = $P{AD_CLIENT_ID}
+			AND isactive = 'Y'
+			AND producttype = 'S'
+	) AS p
+		JOIN (
+		SELECT
+			ol.m_product_id,
+			ol.qtyordered   AS quantity,
+			ol.priceentered AS saleprice,
+			ol.linenetamt   AS amount
+		FROM
+			c_orderline ol
+				JOIN c_order o
+					ON ol.c_order_id = o.c_order_id
+				JOIN bh_visit v
+					ON o.bh_visit_id = v.bh_visit_id
+				JOIN m_product p
+					ON ol.m_product_id = p.m_product_id
+				AND p.producttype = 'S'
+		WHERE
+			ol.ad_client_id = $P{AD_CLIENT_ID}
+			AND ol.processed = 'Y'
+			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+	) AS billdetails
+			ON p.m_product_id = billdetails.m_product_id
+GROUP BY
+	p.item_name, billdetails.saleprice
+ORDER BY
+	p.item_name]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -114,11 +127,11 @@ order by billitems.item_name asc]]>
 		</field>
 		<variable name="sumAmount" class="java.math.BigDecimal" calculation="Sum">
 			<variableExpression><![CDATA[$F{amount}]]></variableExpression>
-			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+			<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 		</variable>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select 1;]]>
@@ -157,7 +170,7 @@ order by billitems.item_name asc]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="inventory sold" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
+					<datasetRun subDataset="inventory sold" uuid="a8f113cb-78f9-4ca3-a5cb-365b5942892c">
 						<datasetParameter name="Begin Date">
 							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 						</datasetParameter>

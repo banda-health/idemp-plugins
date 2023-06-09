@@ -3,15 +3,15 @@ CREATE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp
                                       end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
-		        c_order_id        numeric,
-		        bh_c_order_id     numeric,
+		        bh_visit_id       numeric,
+		        patient_id        numeric,
 		        ad_org_id         numeric,
 		        c_payment_id      numeric,
+		        c_order_id        numeric,
 		        payamt            numeric,
 		        tendertype        character,
 		        payment_mode_name character varying,
 		        datetrx           timestamp WITHOUT TIME ZONE,
-		        patient_id        numeric,
 		        patient_name      character varying,
 		        isallocated       character,
 		        invoice_id        numeric,
@@ -28,45 +28,52 @@ CREATE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp
 AS
 $$
 SELECT
-	c.c_order_id,
-	p.bh_c_order_id,
-	c.ad_org_id,
+	p.bh_visit_id,
+	v.patient_id,
+	v.ad_org_id,
 	p.c_payment_id,
-	p.payamt        AS payment_amount,
-	p.tendertype    AS payment_mode_letter,
-	r.name          AS payment_mode_name,
-	p.datetrx       AS payment_date,
-	p.c_bpartner_id AS patient_id,
-	cb.name         AS patient_name,
+	i.c_order_id,
+	p.payamt       AS payment_amount,
+	p.tendertype   AS payment_mode_letter,
+	r.name         AS payment_mode_name,
+	p.datetrx      AS payment_date,
+	cb.name        AS patient_name,
 	p.isallocated,
-	p.c_invoice_id  AS invoice_id,
-	c.createdby     AS cashier_id,
-	ad.name         AS cashier,
-	ad.ad_user_uu   AS cashier_uu,
-	c.docstatus     AS docstatus,
-	c.processing    AS processing,
-	ol.linenetamt   AS lineitemtotals,
+	p.c_invoice_id AS invoice_id,
+	v.createdby    AS cashier_id,
+	ad.name        AS cashier,
+	ad.ad_user_uu  AS cashier_uu,
+	p.docstatus    AS docstatus,
+	p.processing   AS processing,
+	i.linenetamt   AS lineitemtotals,
 	p.bh_tender_amount
 FROM
 	c_payment p
-		JOIN c_order c
-			ON p.bh_c_order_id = c.c_order_id AND c.issotrx = 'Y' AND c.bh_visitdate BETWEEN begin_date AND end_date
+		JOIN bh_visit v
+			ON p.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN begin_date AND end_date
 		JOIN (
 		SELECT
-			c_order_id,
-			SUM(linenetamt) AS linenetamt
+			i.c_order_id,
+			al.c_payment_id,
+			SUM(il.linenetamt) AS linenetamt
 		FROM
-			c_orderline
+			c_invoiceline il
+				JOIN c_invoice i
+					ON il.c_invoice_id = i.c_invoice_id AND i.docstatus NOT IN ('RE', 'RA', 'VO', 'DR')
+				JOIN c_allocationline al
+					ON i.c_invoice_id = al.c_invoice_id
+				JOIN c_allocationhdr ah
+					ON al.c_allocationhdr_id = ah.c_allocationhdr_id AND ah.docstatus NOT IN ('RE', 'RA', 'VO')
 		WHERE
-			c_charge_id IS NULL
-			AND c_orderline.ad_client_id = $1
-		GROUP BY c_order_id
-	) ol
-			ON c.c_order_id = ol.c_order_id
+			il.c_charge_id IS NULL
+			AND il.ad_client_id = $1
+		GROUP BY i.c_order_id, al.c_payment_id
+	) i
+			ON p.c_payment_id = i.c_payment_id
 		JOIN c_bpartner cb
-			ON c.c_bpartner_id = cb.c_bpartner_id
+			ON v.patient_id = cb.c_bpartner_id
 		JOIN ad_user ad
-			ON c.createdby = ad.ad_user_id
+			ON v.createdby = ad.ad_user_id
 		JOIN ad_ref_list r
 			ON r.value = p.tendertype
 		JOIN ad_reference a
