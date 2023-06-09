@@ -1,8 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.sql.SQLException;
-import java.sql.Timestamp;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,17 +8,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
-import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
@@ -32,7 +25,6 @@ import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -145,7 +137,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 			user.saveEx();
 
-			return createInstanceWithAllFields(user);
+			return transformData(Collections.singletonList(user)).get(0);
 
 		} catch (Exception ex) {
 			if (ex.getMessage().contains("Require unique data")) {
@@ -179,6 +171,11 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	@Override
 	protected MUser_BH getModelInstance() {
 		return new MUser_BH(Env.getCtx(), 0, null);
+	}
+	
+	@Override
+	public User getEntity(String uuid) {
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 	}
 
 	@Override
