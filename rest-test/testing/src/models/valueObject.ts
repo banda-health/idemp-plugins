@@ -23,6 +23,7 @@ import {
 	Visit,
 	Warehouse,
 } from '../types/org.bandahealth.idempiere.rest';
+import { RoleName } from '../types/roleName';
 import { getDateOffset } from '../utils';
 import { documentAction } from './documentEngine';
 
@@ -117,8 +118,8 @@ export class ValueObject {
 		this.loginInfo = { ...loginInfo, client: this.client! };
 	}
 
-	async login(roleName?: string) {
-		roleName ||= 'Admin';
+	async login(roleName?: RoleName) {
+		roleName ||= RoleName.Admin;
 
 		// Find the role ending with that role name
 		const roleToUse = this.client?.organizations

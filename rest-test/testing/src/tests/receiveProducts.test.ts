@@ -8,6 +8,7 @@ import {
 } from '../api';
 import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
 import { AttributeSetInstance, Product, ReceiveProduct, VoidedReason } from '../types/org.bandahealth.idempiere.rest';
+import { RoleName } from '../types/roleName';
 import {
 	createBusinessPartner,
 	createOrder,
@@ -93,7 +94,7 @@ test(`invalid orders can be completed`, async () => {
 
 test(`completed order can't be closed`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login('Clinic Admin');
+	await valueObject.login(RoleName.ClinicAdmin);
 
 	valueObject.stepName = 'Create vendor';
 	await createVendor(valueObject);
