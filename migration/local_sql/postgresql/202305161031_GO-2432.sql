@@ -44,7 +44,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e1a9a87d-dc61-4d9e-a6c9-f91d5f42e33e'
-	 ), 0, 0, 'Y', '2023-05-16 10:05:25.517000', 100, '2023-05-16 10:05:25.517000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:05:25.517000', 100, '2023-05-16 10:05:25.517000', 100, 'Y',
 	 '754e0a91-6c19-46db-990d-50d9ed2f5e35')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -55,7 +55,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '93365778-a2d9-433b-b962-87fb150db4fa'
-	 ), 0, 0, 'Y', '2023-05-16 10:05:21.258000', 100, '2023-05-16 10:05:21.258000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:05:21.258000', 100, '2023-05-16 10:05:21.258000', 100, 'Y',
 	 '76d6a47a-d76e-4303-92b6-a08abe068279')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -66,7 +66,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '097feff0-3aa6-41fe-bf76-936b03859846'
-	 ), 0, 0, 'Y', '2023-05-16 10:05:17.664000', 100, '2023-05-16 10:05:17.664000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:05:17.664000', 100, '2023-05-16 10:05:17.664000', 100, 'Y',
 	 '08e02bee-808b-4ad7-8851-1c05380c5f86')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -77,7 +77,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'c54253cf-c86b-4aaa-b472-ed8880635c62'
-	 ), 0, 0, 'Y', '2023-05-16 10:05:02.904000', 100, '2023-05-16 10:05:02.904000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:05:02.904000', 100, '2023-05-16 10:05:02.904000', 100, 'Y',
 	 '703bbc9c-2783-43f6-b482-477eef371183')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -88,7 +88,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
-	 ), 0, 0, 'Y', '2023-05-16 10:04:58.399000', 100, '2023-05-16 10:04:58.399000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:04:58.399000', 100, '2023-05-16 10:04:58.399000', 100, 'Y',
 	 'ca358548-3620-491d-911f-c080eeb8022e')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -99,7 +99,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ec17fee0-a53a-4dbb-b946-423ce14880eb'
-	 ), 0, 0, 'Y', '2023-05-16 10:04:50.178000', 100, '2023-05-16 10:04:50.178000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:04:50.178000', 100, '2023-05-16 10:04:50.178000', 100, 'Y',
 	 '764d66de-aff2-43af-8b96-17a6a9ebb82a')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -110,7 +110,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ee008abc-2c16-4230-b48c-b1f5577ea270'
-	 ), 0, 0, 'Y', '2023-05-16 10:04:44.040000', 100, '2023-05-16 10:04:44.040000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:04:44.040000', 100, '2023-05-16 10:04:44.040000', 100, 'Y',
 	 '41e15aaf-47a9-46db-beef-8be2f049a3be')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -121,7 +121,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
-	 ), 0, 0, 'Y', '2023-05-16 10:04:38.996000', 100, '2023-05-16 10:04:38.996000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:04:38.996000', 100, '2023-05-16 10:04:38.996000', 100, 'Y',
 	 'bede4ca5-3eb4-459e-8ea2-2d18234b7110')
 ON CONFLICT DO NOTHING;
 INSERT INTO
@@ -132,7 +132,7 @@ VALUES
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505'
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'
-	 ), 0, 0, 'Y', '2023-05-16 10:04:29.108000', 100, '2023-05-16 10:04:29.108000', 100, 'N',
+	 ), 0, 0, 'Y', '2023-05-16 10:04:29.108000', 100, '2023-05-16 10:04:29.108000', 100, 'Y',
 	 'cf4c5e99-d042-4a3e-8f85-8698beb515cc')
 ON CONFLICT DO NOTHING;
 

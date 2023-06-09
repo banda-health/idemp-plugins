@@ -1,5 +1,6 @@
 import { menuApi, referenceListApi } from '../api';
 import { documentAction, documentBaseType, documentStatus } from '../models';
+import { RoleName } from '../types/roleName';
 
 const windowUuid = {
 	clinicalDetails: '2e37e97b-aeb5-47d7-add3-0d602233c2aa',
@@ -135,7 +136,7 @@ test('admin role has correct access', async () => {
 });
 
 test('clinic admin role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinic Admin');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicAdmin);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -244,7 +245,7 @@ test('clinic admin role has correct access', async () => {
 });
 
 test('cashier/registration basic role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Cashier/Registration Basic');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.CashierRegistrationBasic);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -353,7 +354,7 @@ test('cashier/registration basic role has correct access', async () => {
 });
 
 test('cashier/registration advanced role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Cashier/Registration Advanced');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.CashierRegistrationAdvanced);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -462,7 +463,7 @@ test('cashier/registration advanced role has correct access', async () => {
 });
 
 test('inventory/pharmacy role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Inventory/Pharmacy');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacy);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -571,7 +572,7 @@ test('inventory/pharmacy role has correct access', async () => {
 });
 
 test('clinician/nurse basic role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinician/Nurse Basic');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicianNurseBasic);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -680,7 +681,7 @@ test('clinician/nurse basic role has correct access', async () => {
 });
 
 test('clinician/nurse advanced role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinician/Nurse Advanced');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicianNurseAdvanced);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -789,7 +790,7 @@ test('clinician/nurse advanced role has correct access', async () => {
 });
 
 test('triage role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Triage');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.Triage);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -898,7 +899,7 @@ test('triage role has correct access', async () => {
 });
 
 test('lab/radiology role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Lab/Radiology');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.LabRadiology);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -1007,7 +1008,7 @@ test('lab/radiology role has correct access', async () => {
 });
 
 test('accounting role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Accounting');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.Accounting);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
@@ -1116,7 +1117,7 @@ test('accounting role has correct access', async () => {
 });
 
 test('clinic user role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login('Clinic User');
+	await globalThis.__VALUE_OBJECT__.login(RoleName.ClinicUser);
 	const windowAccess = globalThis.__VALUE_OBJECT__.windowAccess;
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results.flatMap((menu) => [menu, ...menu.subMenus]);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
