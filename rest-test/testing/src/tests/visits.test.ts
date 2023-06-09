@@ -1092,3 +1092,20 @@ test('voiding visits shows data on the report correctly', async () => {
 	expect(voidedVisitRow).toBeTruthy();
 	expect(voidedVisitRow[4]).toBe(voidingReason.name);
 });
+
+test('visit can be saved with really long chief complaint', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+	const longChiefComplaint = 'this hurts '.repeat(20);
+	valueObject.visit!.chiefComplaint = longChiefComplaint;
+	
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.chiefComplaint).toBe(longChiefComplaint);
+});
