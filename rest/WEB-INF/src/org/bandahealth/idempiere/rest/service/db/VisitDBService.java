@@ -597,14 +597,15 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// Since non-patient payments are negative, they'll change order totals
 		// Get updated order totals for these visits
 		if (visits != null) {
-			Map<Integer, List<MOrderLine_BH>> orderLinesByOrder = orderLineDBService.getGroupsByIds(
-					MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
-					visits.getResults().stream().map(Visit::getId).collect(Collectors.toSet()));
+			Map<Integer, List<MOrderLine_BH>> orderLinesByOrder =
+					orderLineDBService.getGroupsByIds(MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
+							visits.getResults().stream().flatMap(visit -> visit.getOrders().stream()).map(Order::getId)
+									.collect(Collectors.toSet()));
 
 			// Update the totals to exclude negative values in the lines
 			visits.getResults().forEach(visit -> {
 				visit.getOrders().forEach(
-						order -> order.setGrandTotal(orderLinesByOrder.get(visit.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
+						order -> order.setGrandTotal(orderLinesByOrder.get(order.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
 								.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
 								.reduce(new BigDecimal(0), BigDecimal::add)));
 			});
