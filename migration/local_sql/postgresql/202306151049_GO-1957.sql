@@ -335,6 +335,20 @@ ON CONFLICT DO NOTHING;
 /******************************************************************************************/
 -- 6. Map old roles to the new
 /******************************************************************************************/
+-- For the duplicate roles, map any users assigned to the ones we're keeping
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.ad_role_id
+FROM
+	ad_role r_dup
+		JOIN tmp_default_roles tdr
+		ON r_dup.name = tdr.name AND r_dup.ad_role_id != tdr.ad_role_id
+WHERE
+	r_dup.ad_role_id = ur.ad_role_id
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.ad_role_id
+	);
+
 -- Some roles will need their users to be manually mapped - so update those users (other's will just have their roles
 -- removed)
 UPDATE ad_user_roles ur
