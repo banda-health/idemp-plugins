@@ -168,7 +168,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		String diagnosisToSearchFor = "Asthma";
-		String diagnosisAfterDiagnosisToSearchForOnReport = "Snakebites";
+		String diagnosisAfterDiagnosisToSearchForOnReport = "Suspected Malaria";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
 		MBHCodedDiagnosis codedDiagnosis = null;
@@ -188,10 +188,26 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
-
+		
+		valueObject.setStepName("Generate the report to get initial data");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.add(Calendar.YEAR, -3);
 		Timestamp threeYearsAgo = new Timestamp(calendar.getTimeInMillis());
+		calendar.add(Calendar.YEAR, -3);
+		Timestamp startOfMonth = TimestampUtils.startOfMonth();
+		Timestamp endOfMonth = TimestampUtils.endOfMonth();
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		ChuBoeCreateEntity.runReport(valueObject);
+		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+				diagnosisAfterDiagnosisToSearchForOnReport);
+		int numberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
 
 		valueObject.setStepName("Create a minor patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -252,20 +268,18 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setProcessUuid(reportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 
-		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+		diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
 				diagnosisAfterDiagnosisToSearchForOnReport);
-		int numberOfDiagnoses = getDiagnosesCountForDate(TimestampUtils.startOfYesterday(),
-				TimestampUtils.endOfTomorrow(), diagnosisData);
+		int newNumberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
 
-		assertThat("Should only pick 1 diagnosis", numberOfDiagnoses, is(1));
-
+		assertThat("Should only pick 1 diagnosis", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
 	}
 
 	private int getDiagnosesCountForDate(Timestamp reportDataBeginDate, Timestamp dateWantingDataFor,
