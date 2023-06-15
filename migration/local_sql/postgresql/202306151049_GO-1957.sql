@@ -750,16 +750,6 @@ WHERE
 		FROM
 			tmp_roles_to_delete
 	);
-DELETE
-FROM
-	AD_UserDef_Info
-WHERE
-		ad_role_id IN (
-		SELECT
-			ad_role_id
-		FROM
-			tmp_roles_to_delete
-	);
 
 -- Delete the appropriate roles
 DELETE
