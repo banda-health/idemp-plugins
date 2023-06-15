@@ -750,7 +750,7 @@ test('create and complete pharmacy sales visit', async () => {
 	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
-test(`get method returns the correct data`, async () => {
+test(`getByUuid method returns the correct data`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -800,6 +800,60 @@ test(`get method returns the correct data`, async () => {
 	expect(fetchedVisit.patient.occupation).toBe(patient.occupation);
 	expect(fetchedVisit.patient.nextOfKinName).toBe(patient.nextOfKinName);
 	expect(fetchedVisit.patient.nextOfKinContact).toBe(patient.nextOfKinContact);
+});
+
+test(`get method returns the correct data`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	const patient: Partial<Patient> = {
+		name: valueObject.getDynamicStepMessage(),
+		description: valueObject.getStepMessageLong(),
+		dateOfBirth: valueObject.date?.toISOString(),
+		gender: 'male',
+		nationalId: '156156',
+		occupation: 'Programmer',
+		nextOfKinName: 'Wifey',
+		nextOfKinContact: '155155',
+	};
+	const savedPatient = await patientApi.save(valueObject, patient as Patient);
+	valueObject.businessPartner = savedPatient as BusinessPartner;
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	const twoDaysAgo = new Date();
+	twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+	twoDaysAgo.setUTCHours(12);
+	valueObject.date = twoDaysAgo;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+
+	const paginatedVisits = await visitApi.get(
+		valueObject,
+		undefined,
+		undefined,
+		undefined,
+		JSON.stringify({ bh_visit_uu: valueObject.visit!.uuid }),
+	);
+	expect(paginatedVisits.results.length).toBe(1);
+	expect(paginatedVisits.results[0].orders[0].grandTotal).toBeGreaterThan(0);
+	expect(paginatedVisits.results[0].orders[0].grandTotal).toBe(valueObject.visit.orders[0].grandTotal);
 });
 
 test('can remove a payment from a re-opened visit', async () => {
@@ -1091,4 +1145,21 @@ test('voiding visits shows data on the report correctly', async () => {
 	)?.[0];
 	expect(voidedVisitRow).toBeTruthy();
 	expect(voidedVisitRow[4]).toBe(voidingReason.name);
+});
+
+test('visit can be saved with really long chief complaint', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+	const longChiefComplaint = 'this hurts '.repeat(20);
+	valueObject.visit!.chiefComplaint = longChiefComplaint;
+	
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.chiefComplaint).toBe(longChiefComplaint);
 });
