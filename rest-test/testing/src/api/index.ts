@@ -27,6 +27,7 @@ export * from './productCategories';
 export * from './products';
 export * from './receiveProducts';
 export * from './referenceLists';
+export * from './roles';
 export * from './services';
 export * from './storageOnHand';
 export * from './users';

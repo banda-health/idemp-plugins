@@ -61,26 +61,26 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		return new BaseListResponse<>(results, pagingInfo);
 	}
 
-	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortColumn, String sortOrder,
+	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortJson,
 			String filterJson) {
-		StringBuilder whereClause = new StringBuilder().append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_AD_Org_ID).append("!=").append(SYSTEM_ADMIN_ORG_ID).append(" AND ")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID).append(" = ?");
+		String whereClause =
+				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_Org_ID + "!=" + SYSTEM_ADMIN_ORG_ID + " AND " +
+						MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_Client_ID + " = ?";
 
-		StringBuilder joinClause = new StringBuilder(" JOIN ").append(MUserRoles.Table_Name).append(" ON ")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_ID).append("=")
-				.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_User_ID);
+		String joinClause =
+				" JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + "=" +
+						MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID;
 
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 
-		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortOrder, filterJson,
-				joinClause.toString());
+		return super.getAll(whereClause, parameters, pagingInfo, sortJson, filterJson,
+				joinClause);
 	}
 
 	/**
 	 * Get users assigned roles with clinician basic & advanced included roles
-	 * 
+	 *
 	 * @param pagingInfo
 	 * @return
 	 */
@@ -172,7 +172,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	protected MUser_BH getModelInstance() {
 		return new MUser_BH(Env.getCtx(), 0, null);
 	}
-	
+
 	@Override
 	public User getEntity(String uuid) {
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
