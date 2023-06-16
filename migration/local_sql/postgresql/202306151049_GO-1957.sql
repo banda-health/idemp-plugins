@@ -10,7 +10,8 @@
 -- 6. Map old roles to the new
 -- 7. Delete old roles
 -- 8. Ensure system admins have access to all default roles
--- 9. Wrap up
+-- 9. Rename some roles that didn't get renamed before
+-- 10. Wrap up
 /******************************************************************************************/
 
 /******************************************************************************************/
@@ -296,36 +297,36 @@ INSERT INTO
 	ad_role_included (ad_client_id, ad_org_id, ad_role_id, created, createdby, included_role_id, isactive, seqno, updated,
 	                  updatedby, ad_role_included_uu)
 SELECT
-	tr.ad_client_id,
-	tr.ad_org_id,
-	tr.ad_role_id,
+	tdr.ad_client_id,
+	0,
+	tdr.ad_role_id,
 	NOW(),
-	tr.createdby,
+	100,
 	r.ad_role_id,
 	'Y',
 	10,
 	NOW(),
-	tr.updatedby,
+	100,
 	uuid_generate_v4()
 FROM
-	tmp_ad_role tr
+	tmp_default_roles tdr
 		JOIN ad_role r
 		ON r.ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'
 UNION
 SELECT
 	ad_client_id,
-	ad_org_id,
+	0,
 	ad_role_id,
 	NOW(),
-	createdby,
+	100,
 	master_role_id,
 	'Y',
 	20,
 	NOW(),
-	updatedby,
+	100,
 	uuid_generate_v4()
 FROM
-	tmp_ad_role
+	tmp_default_roles
 ON CONFLICT DO NOTHING;
 
 /******************************************************************************************/
@@ -1099,6 +1100,15 @@ WHERE
 		FROM
 			tmp_roles_to_delete
 	);
+
+-- Remove constraints from these two tables since they take a while
+ALTER TABLE ad_changelog
+	DROP CONSTRAINT ad_changelog_ad_session_id_fkey;
+ALTER TABLE k_comment
+	DROP CONSTRAINT adsession_kcomment;
+ALTER TABLE k_entry
+	DROP CONSTRAINT adsession_kentry;
+
 DELETE
 FROM
 	ad_changelog
@@ -1110,8 +1120,10 @@ WHERE
 			ad_session
 		WHERE
 				ad_role_id IN (
-				SELECT ad_role_id
-				FROM tmp_roles_to_delete
+				SELECT
+					ad_role_id
+				FROM
+					tmp_roles_to_delete
 			)
 	);
 DELETE
@@ -1124,6 +1136,16 @@ WHERE
 		FROM
 			tmp_roles_to_delete
 	);
+
+-- Re-add the constraints
+ALTER TABLE k_entry
+	ADD CONSTRAINT adsession_kentry FOREIGN KEY (ad_session_id) REFERENCES ad_session (ad_session_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE k_comment
+	ADD CONSTRAINT adsession_kcomment FOREIGN KEY (ad_session_id) REFERENCES ad_session (ad_session_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE ad_changelog
+	ADD CONSTRAINT ad_changelog_ad_session_id_fkey FOREIGN KEY (ad_session_id) REFERENCES ad_session (ad_session_id) DEFERRABLE INITIALLY DEFERRED;
+
+-- Continue with the deletes
 DELETE
 FROM
 	AD_Form_Access
@@ -1440,7 +1462,47 @@ WHERE
 ON CONFLICT DO NOTHING;
 
 /******************************************************************************************/
--- 9. Wrap up
+-- 9. Rename some roles that didn't get renamed before
+/******************************************************************************************/
+UPDATE ad_role r
+SET
+	name = tdr.name
+FROM
+	ad_client c
+		CROSS JOIN (
+		SELECT
+			ad_role_id
+		FROM
+			ad_role_included
+		WHERE
+				included_role_id != (
+				SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'
+			)
+		GROUP BY ad_role_id
+		HAVING
+			COUNT(*) = 1
+	) updatable_role
+		JOIN (
+		SELECT
+			ad_role_id,
+			included_role_id
+		FROM
+			ad_role_included
+		WHERE
+				included_role_id != (
+				SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'
+			)
+	) master_role
+		ON updatable_role.ad_role_id = master_role.ad_role_id
+		JOIN tmp_default_roles tdr
+		ON c.ad_client_id = tdr.ad_client_id AND tdr.master_role_id = master_role.included_role_id
+WHERE
+	r.ad_client_id = c.ad_client_id
+	AND r.name IN (c.name || ' Clinician/Nurse', c.name || ' Cashier/Registration')
+	AND r.ad_role_id = updatable_role.ad_role_id;
+
+/******************************************************************************************/
+-- 10. Wrap up
 /******************************************************************************************/
 SELECT
 	register_migration_script('202306151049_GO-1957.sql')
