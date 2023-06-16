@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,13 +51,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public static final String ORDERBY_NULLS_LAST = " NULLS LAST";
 
 	public static final String DEFAULT_SEARCH_COLUMN = MUser.COLUMNNAME_Name;
-	public static final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
+	public static final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR
+			+ " ? ";
 	protected static CLogger log = CLogger.getCLogger(BaseDBService.class);
 	protected final CLogger logger;
 
 	public BaseDBService() {
-		Class<?> childClass =
-				((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+		Class<?> childClass = ((Class) ((ParameterizedType) getClass().getGenericSuperclass())
+				.getActualTypeArguments()[0]);
 		logger = CLogger.getCLogger(childClass);
 	}
 
@@ -65,8 +67,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public abstract Boolean deleteEntity(String entityUuid);
 
 	/**
-	 * This should be overridden in inheriting classes.
-	 * Structure: Map<TableName, JOIN clause>
+	 * This should be overridden in inheriting classes. Structure: Map<TableName,
+	 * JOIN clause>
 	 *
 	 * @return A map of table names and their appropriate JOIN clauses
 	 */
@@ -95,8 +97,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		// Get columns to translate and their associated setter functions
 		Map<String, Function<S, VoidFunction<String>>> columnsToTranslate = getColumnsToTranslate();
 		// Only translate if we need to translate and there are columns to translate
-		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx())) && columnsToTranslate.size() > 0 &&
-				!models.isEmpty()) {
+		if (!Language.isBaseLanguage(Env.getAD_Language(Env.getCtx())) && columnsToTranslate.size() > 0
+				&& !models.isEmpty()) {
 			S modelInstance = getModelInstance();
 			// If anything errors, just skip translations
 			try {
@@ -106,65 +108,71 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 				// Setup translation fetching SQL
 				List<Object> translationParameters = new ArrayList<>();
-				String translationWhereClause =
-						QueryUtil.getWhereClauseAndSetParametersForSet(modelsById.keySet(), translationParameters);
+				String translationWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(modelsById.keySet(),
+						translationParameters);
 
 				// Ensure that the columns are ordered appropriately for the fetch and set
 				AtomicInteger index = new AtomicInteger(2);
-				Map<Integer, String> indexedColumnNames = columnsToTranslate.keySet().stream().collect(
-						Collectors.toMap(columnToTranslate -> index.getAndIncrement(), columnToTranslate -> columnToTranslate));
+				Map<Integer, String> indexedColumnNames = columnsToTranslate.keySet().stream().collect(Collectors
+						.toMap(columnToTranslate -> index.getAndIncrement(), columnToTranslate -> columnToTranslate));
 
 				// Construct the SQL
 				StringBuilder sql = new StringBuilder("SELECT ").append(idColumnName);
-				// To ensure proper ordering of columns, increment up them (we start at 1 since result set fetching is
+				// To ensure proper ordering of columns, increment up them (we start at 1 since
+				// result set fetching is
 				// 1-indexed, not 0-indexed)
 				for (int i = 1; i <= columnsToTranslate.size(); i++) {
 					sql.append(",");
 					sql.append(indexedColumnNames.get(i + 1)); // Since the first column is the ID column
 				}
 				sql.append(" FROM ").append(translationTableName).append(" WHERE ").append(idColumnName).append(" IN(")
-						.append(translationWhereClause).append(") AND ").append(MLanguage.COLUMNNAME_AD_Language).append("=?");
+						.append(translationWhereClause).append(") AND ").append(MLanguage.COLUMNNAME_AD_Language)
+						.append("=?");
 				translationParameters.add(Env.getLanguage(Env.getCtx()).getAD_Language());
 
 				// Fetch translations
 				SqlUtil.executeQuery(sql.toString(), translationParameters, null, resultSet -> {
 					try {
-						// The first property passed in above was the entity ID, so use it to get the entity we're updating
+						// The first property passed in above was the entity ID, so use it to get the
+						// entity we're updating
 						S modelToTranslate = modelsById.get(resultSet.getInt(1));
 						indexedColumnNames.forEach((columnIndex, columnName) -> {
 							try {
 								ModelUtil.setPropertyIfPresent(resultSet.getString(columnIndex),
 										columnsToTranslate.get(columnName).apply(modelToTranslate));
 							} catch (Exception ex) {
-								log.severe("Error processing record translations for table " + modelInstance.get_TableName() + ":" +
-										ex.getMessage());
+								log.severe("Error processing record translations for table "
+										+ modelInstance.get_TableName() + ":" + ex.getMessage());
 							}
 						});
 					} catch (Exception ex) {
-						log.severe("Error processing record translations for table " + modelInstance.get_TableName() + ":" +
-								ex.getMessage());
+						log.severe("Error processing record translations for table " + modelInstance.get_TableName()
+								+ ":" + ex.getMessage());
 					}
 				});
 			} catch (Exception ex) {
-				log.severe("Error processing translations for table " + modelInstance.get_TableName() + ":" + ex.getMessage());
+				log.severe("Error processing translations for table " + modelInstance.get_TableName() + ":"
+						+ ex.getMessage());
 			}
 		}
 		return models;
 	}
 
 	/**
-	 * Get a list of columns that need translation, along with setter functions for values in each column
+	 * Get a list of columns that need translation, along with setter functions for
+	 * values in each column
 	 *
-	 * @return A map of column names and an appropriate function to call to pass in a model to translate and to get a
-	 * setter function
+	 * @return A map of column names and an appropriate function to call to pass in
+	 *         a model to translate and to get a setter function
 	 */
 	protected Map<String, Function<S, VoidFunction<String>>> getColumnsToTranslate() {
 		return new HashMap<>();
 	}
 
 	/**
-	 * Whether the client ID from the context should be automatically used by default in DB queries. WARNING: If this is
-	 * overridden, data from one client may be visible to another client
+	 * Whether the client ID from the context should be automatically used by
+	 * default in DB queries. WARNING: If this is overridden, data from one client
+	 * may be visible to another client
 	 *
 	 * @return Whether the client ID from the iDempiere context will be used
 	 */
@@ -173,18 +181,30 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	/**
+	 * Allows the query to return data from the system client
+	 * 
+	 * @return
+	 */
+	protected boolean fetchFromTheSystemClient() {
+		return false;
+	}
+
+	/**
 	 * The default method to create a Query for this entity type.
 	 *
-	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
+	 * @param shouldUseContextClientId Whether the client ID from the context should
+	 *                                 be automatically used in the query
 	 * @param whereClause              The WHERE clause to add to the query
 	 * @param parameters               Any parameters needed for the WHERE clause
 	 * @return A query that can be used to fetch data
 	 */
 	public Query getBaseQuery(boolean shouldUseContextClientId, String whereClause, Object... parameters) {
-		// Set up the query. Also, we don't want virtual columns because those were used in GO and greatly slow down
-		// queries. If they're needed, the query should be written in the repositories as a column/JOIN
-		Query query =
-				new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setNoVirtualColumn(true);
+		// Set up the query. Also, we don't want virtual columns because those were used
+		// in GO and greatly slow down
+		// queries. If they're needed, the query should be written in the repositories
+		// as a column/JOIN
+		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
+				.setNoVirtualColumn(true);
 		// If we should use the client ID in the context, add it
 		if (shouldUseContextClientId) {
 			query.setClient_ID();
@@ -224,22 +244,22 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			}
 		} else {
 			// every table has the 'created' column
-			return checkColumnExists(MUser.COLUMNNAME_Created) ? MUser.COLUMNNAME_Created + " " + DESCENDING_ORDER
-					+ ORDERBY_NULLS_LAST : null;
+			return checkColumnExists(MUser.COLUMNNAME_Created)
+					? MUser.COLUMNNAME_Created + " " + DESCENDING_ORDER + ORDERBY_NULLS_LAST
+					: null;
 		}
 
 		return null;
 	}
 
-	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo,
-			String sortColumn, String sortOrder) {
+	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(valueToSearch));
 		return this.search(DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-			String sortColumn, String sortOrder) {
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder) {
 		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
@@ -254,8 +274,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return
 	 */
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-			String sortColumn, String sortOrder, String joinClause) {
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
@@ -303,7 +323,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
-
 	/**
 	 * A base method to get all entities from the DB
 	 *
@@ -315,7 +334,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public BaseListResponse<T> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		return this.getAll(null, null, pagingInfo, sortJson, filterJson, null);
 	}
-
 
 	/**
 	 * A base method to get all entities from the DB
@@ -333,7 +351,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	/**
-	 * A base method to get all entities from the DB, with the addition of a JOIN clause.
+	 * A base method to get all entities from the DB, with the addition of a JOIN
+	 * clause.
 	 *
 	 * @param whereClause The WHERE clause to use in searching the DB
 	 * @param parameters  Any parameters that the query needs.
@@ -350,17 +369,20 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	/**
-	 * A base method to get all entities from the DB, with the addition of a JOIN clause and ability to specify whether
-	 * the Client ID should be used.
+	 * A base method to get all entities from the DB, with the addition of a JOIN
+	 * clause and ability to specify whether the Client ID should be used.
 	 *
 	 * @param whereClause              The WHERE clause to use in searching the DB
 	 * @param parameters               Any parameters that the query needs.
 	 * @param pagingInfo               Paging information to use to limit the query.
 	 * @param sortJson                 Any sorting specifications
-	 * @param filterJson               Any filter criteria to use to limit the results
+	 * @param filterJson               Any filter criteria to use to limit the
+	 *                                 results
 	 * @param sortJson                 Any combination of
-	 * @param joinClause               Use to specify a linked table so joining can occur
-	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
+	 * @param joinClause               Use to specify a linked table so joining can
+	 *                                 occur
+	 * @param shouldUseContextClientId Whether the client ID from the context should
+	 *                                 be automatically used in the query
 	 * @return A list of the data, plus pagination information
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
@@ -370,9 +392,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				parameters = new ArrayList<>();
 			}
 
-			String filterWhereClause =
-					FilterUtil.getWhereClauseFromFilter(getModelInstance().get_TableName(), filterJson, parameters,
-							shouldUseContextClientId);
+			String filterWhereClause = FilterUtil.getWhereClauseFromFilter(getModelInstance().get_TableName(),
+					filterJson, parameters, shouldUseContextClientId);
 			if (StringUtil.isNullOrEmpty(whereClause)) {
 				whereClause = filterWhereClause;
 			} else {
@@ -384,6 +405,10 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			// If we should use the client ID in the context, add it
 			if (shouldUseContextClientId) {
 				query.setClient_ID();
+			} else if (fetchFromTheSystemClient()) {
+				whereClause += " AND AD_Client_ID IN( "
+							+ QueryUtil.getWhereClauseAndSetParametersForSet(new HashSet<>(Arrays.asList(Env.getAD_Client_ID(Env.getCtx()), 0)), parameters) 
+							+ ")";
 			}
 
 			if (joinClause != null) {
@@ -394,10 +419,11 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 				Set<String> tablesNeedingJoins = SortUtil.getTablesNeedingJoins(sortJson);
 				StringBuilder dynamicJoinBuilder = new StringBuilder();
 				tablesNeedingJoins.forEach(tableNeedingJoin -> {
-					// If this isn't the current table, it's not empty, and it's not in the current JOIN clause (the table
+					// If this isn't the current table, it's not empty, and it's not in the current
+					// JOIN clause (the table
 					// will need spaces around its name for SQL to differentiate, so check that)
-					if (!tableNeedingJoin.equalsIgnoreCase(tableName) &&
-							(StringUtil.isNullOrEmpty(joinClause) || !joinClause.contains(" " + tableNeedingJoin + " "))) {
+					if (!tableNeedingJoin.equalsIgnoreCase(tableName) && (StringUtil.isNullOrEmpty(joinClause)
+							|| !joinClause.contains(" " + tableNeedingJoin + " "))) {
 						dynamicJoinBuilder.append(getDynamicJoins().get(tableNeedingJoin)).append(" ");
 					}
 				});
@@ -537,8 +563,10 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	/**
 	 * Get a list of this entity grouped by IDs
 	 *
-	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
-	 * @param groupingFunction         The grouping function to apply for these entities
+	 * @param shouldUseContextClientId Whether the client ID in the context should
+	 *                                 be set for this query
+	 * @param groupingFunction         The grouping function to apply for these
+	 *                                 entities
 	 * @param columnToSearch           The search column to check in
 	 * @param ids                      The IDs to search by
 	 * @return Entities grouped by their ID
@@ -553,11 +581,12 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = getModelInstance().get_TableName() + "." + columnToSearch;
 		}
-		List<S> models =
-				getBaseQuery(shouldUseContextClientId, columnToSearch + " IN (" + whereCondition + ")", parameters).list();
-		Map<Integer, List<S>> groupedValues =
-				getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
-		return ids.stream().collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
+		List<S> models = getBaseQuery(shouldUseContextClientId, columnToSearch + " IN (" + whereCondition + ")",
+				parameters).list();
+		Map<Integer, List<S>> groupedValues = getTranslations(models).stream()
+				.collect(Collectors.groupingBy(groupingFunction));
+		return ids.stream()
+				.collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
 	}
 
 	/**
@@ -573,7 +602,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	/**
 	 * Get a list of entities by their IDs
 	 *
-	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
+	 * @param shouldUseContextClientId Whether the client ID in the context should
+	 *                                 be set for this query
 	 * @param ids                      The IDs to search by
 	 * @return A map of entities by the ID searched
 	 */
@@ -584,9 +614,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		String tableName = getModelInstance().get_TableName();
-		List<S> models =
-				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
-						parameters).list();
+		List<S> models = getBaseQuery(shouldUseContextClientId,
+				tableName + "." + tableName + "_ID IN (" + whereCondition + ")", parameters).list();
 		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, model -> model));
 	}
 
@@ -603,7 +632,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	/**
 	 * Get a list of entities by their UUIDs
 	 *
-	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
+	 * @param shouldUseContextClientId Whether the client ID in the context should
+	 *                                 be set for this query
 	 * @param uuids                    The UUIDs to search by
 	 * @return A map of entities by the UUID searched
 	 */
@@ -614,12 +644,10 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(uuids, parameters);
 		String tableName = getModelInstance().get_TableName();
-		List<S> models =
-				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_UU IN (" + whereCondition + ")",
-						parameters).list();
-		return getTranslations(models).stream().collect(Collectors
-				.toMap(model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
-						model -> model));
+		List<S> models = getBaseQuery(shouldUseContextClientId,
+				tableName + "." + tableName + "_UU IN (" + whereCondition + ")", parameters).list();
+		return getTranslations(models).stream().collect(Collectors.toMap(
+				model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(), model -> model));
 	}
 
 	/**

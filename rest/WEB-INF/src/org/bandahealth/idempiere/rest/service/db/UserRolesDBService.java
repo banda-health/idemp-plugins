@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.UserRoles;
-import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
@@ -11,11 +10,8 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,14 +25,13 @@ public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 			return;
 		}
 
-		Set<String> rolesUuids = roles.stream().map(Role::getUuid).collect(Collectors.toSet());
+		roles.stream().forEach(role -> {
+			roleDBService.saveEntity(role);
+		});
 
 		// get roles
-		Map<String, MRole> mRoles = roleDBService.getByUuids(rolesUuids);
-		if (mRoles.isEmpty()) {
-			// we don't yet support creating new roles from the UI
-			return;
-		}
+		Map<String, MRole> mRoles = roleDBService
+				.getByUuids(roles.stream().map(Role::getUuid).collect(Collectors.toSet()));
 
 		// check existing user roles
 		List<MUserRoles> existingUserRoles = new Query(Env.getCtx(), MUserRoles.Table_Name,
