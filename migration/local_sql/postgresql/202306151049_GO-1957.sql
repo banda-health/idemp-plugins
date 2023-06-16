@@ -9,7 +9,8 @@
 -- 5. Update role inclusions to be correct
 -- 6. Map old roles to the new
 -- 7. Delete old roles
--- 8. Wrap up
+-- 8. Ensure system admins have access to all default roles
+-- 9. Wrap up
 /******************************************************************************************/
 
 /******************************************************************************************/
@@ -118,14 +119,15 @@ WHERE
 -- the creator was intentionally not following our naming convention), and aren't the defaults created by iDempiere
 DROP TABLE IF EXISTS tmp_roles_to_delete;
 SELECT
-	ad_role_id
+	r.ad_role_id
 INTO TEMP TABLE
 	tmp_roles_to_delete
 FROM
 	ad_role r
-		JOIN
-		ad_client c
-			ON r.ad_client_id = c.ad_client_id
+		JOIN ad_client c
+		ON r.ad_client_id = c.ad_client_id
+		LEFT JOIN tmp_default_roles tdr
+		ON tdr.ad_role_id = r.ad_role_id
 WHERE
 	r.name NOT IN (c.name || ' Admin', c.name || ' User')
 	AND r.ad_client_id NOT IN (0, 11)
@@ -139,12 +141,7 @@ WHERE
 				SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'
 			)
 	)
-	AND r.ad_role_id NOT IN (
-		SELECT
-			ad_role_id
-		FROM
-			tmp_default_roles
-	);
+	AND tdr.ad_role_id IS NULL;
 
 -- There are some duplicate roles we need to remove, so add those
 INSERT INTO
@@ -280,7 +277,6 @@ WHERE
 	AND tdr.ad_role_id IS NULL
 	AND tdr.name = r.name;
 
-
 /******************************************************************************************/
 -- 5. Update role inclusions to be correct
 /******************************************************************************************/
@@ -338,42 +334,675 @@ ON CONFLICT DO NOTHING;
 -- For the duplicate roles, map any users assigned to the ones we're keeping
 UPDATE ad_user_roles ur
 SET
-	ad_role_id = tdr.ad_role_id
+	ad_role_id = tdr.master_role_id
 FROM
-	ad_role r_dup
-		JOIN tmp_default_roles tdr
-		ON r_dup.name = tdr.name AND r_dup.ad_role_id != tdr.ad_role_id
+	tmp_default_roles tdr
 WHERE
-	r_dup.ad_role_id = ur.ad_role_id
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e4d0c2cc-134c-40d6-b119-b46ad223abee'
+	)
 	AND NOT EXISTS (
-		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.ad_role_id
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
 	);
-
--- Some roles will need their users to be manually mapped - so update those users (other's will just have their roles
--- removed)
 UPDATE ad_user_roles ur
 SET
-	ad_role_id = (
-		SELECT
-			ad_role_id
-		FROM
-			ad_role
-		WHERE
-			ad_client_id = ur.ad_client_id
-			AND ad_role_id = (
-				SELECT
-					ad_role_id
-				FROM
-					ad_role_included
-				WHERE
-						included_role_id = (
-						SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
-					)
-			)
-	)
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
 WHERE
-		ad_role_id = (
-		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e4d0c2cc-134c-40d6-b119-b46ad223abee'
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ec17fee0-a53a-4dbb-b946-423ce14880eb'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'bdbfa095-d795-4df7-9280-f2cc874b10ce'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'd1a8b41f-f5f0-4f88-97d5-d357013c6ddd'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'bdcefe33-4b1c-4f2a-a51f-d62639679b51'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'c455906c-09ca-4b88-9436-ea5281e90167'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '097feff0-3aa6-41fe-bf76-936b03859846'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'b517c87e-18f5-4c32-b0df-bd5f071c7a2c'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ec17fee0-a53a-4dbb-b946-423ce14880eb'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '846e6956-5ede-4d48-a92a-224e55a34b42'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '9c6d6ad3-8f16-4a76-a355-f999e2044edc'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '1d21df24-9a48-4865-91fe-3f2ec3fa985f'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '6f027364-2ff1-4001-86b6-6ccca0bdafa1'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '983b932d-a41d-4f65-883f-06e0678f1d24'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ec17fee0-a53a-4dbb-b946-423ce14880eb'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '1196e6bb-77f6-470c-bd18-6dbacc7c4064'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '93365778-a2d9-433b-b962-87fb150db4fa'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '718c1878-b7c3-40f6-a0a7-7ca48d4b3a73'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e06cf923-cd32-4866-b4da-10f169428bf4'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'b5c6e977-e76d-456f-994a-ba577fbcbffa'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'fd5e1efb-ccc5-4ca6-b811-3a0800591084'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'd796be28-d40d-4e19-b176-56e2fdd96378'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '1a6ef816-1f87-4088-9ef7-d3d0695987d1'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '21fa5a29-7505-491e-93e7-6fb90b17f133'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'f79f78c0-6f5f-4442-9c10-05a8ee107360'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '07e47a75-fc4c-47cb-be86-d568781879cf'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ee008abc-2c16-4230-b48c-b1f5577ea270'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '6f00eb97-aa12-4999-9b9d-41dda106d1ef'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'a0b07590-0ec1-4bc9-a076-3beb614c2509'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '6dadc658-bd43-428e-85f2-96de9dfe23fd'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'f0d939d4-043b-4150-a9f1-1123129088f3'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ecb0248a-cd35-4395-a85a-8b334957487f'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '609e2d17-a6a0-4b11-aae2-67cdef01ad68'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '7e4b06be-06cd-452b-9985-b0b2f509e2f2'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '02c4c3df-dfac-4925-9ecf-f6245e0b355c'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'ee008abc-2c16-4230-b48c-b1f5577ea270'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '797797c0-c48b-4f43-b583-a9e10a39de8e'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '34916db6-667f-49fb-83f4-41de85ff4f06'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'dbc41236-b088-4637-8ddc-e3194d7d909e'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '4666039c-4d7b-4018-b634-b7b0073d19fd'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '8105c4fe-57dd-4261-95a1-dbd77387f6a1'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '836e50b5-f1a5-4cf6-b648-a4a69053d1c6'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e392127c-41fd-4698-8947-ad715bebb61f'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '8642ebb0-7665-4860-a2ed-a74a474b6d10'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '88ef7532-e166-4ed5-8633-ed1aa3e5bb24'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'c2d61b91-4579-4ba0-8f9f-29cc447a25be'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '690191f0-0fc9-4cb8-8213-a9db34068a63'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '2ba3d6bb-277d-4a7c-ae91-02f258e175a0'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
+	);
+UPDATE ad_user_roles ur
+SET
+	ad_role_id = tdr.master_role_id
+FROM
+	tmp_default_roles tdr
+WHERE
+	tdr.ad_client_id = ur.ad_client_id
+	AND tdr.master_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ur.ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e3e562ca-ea23-4c00-84fe-1571d25868d0'
+	)
+	AND NOT EXISTS (
+		SELECT 1 FROM ad_user_roles WHERE ad_user_id = ur.ad_user_id AND ad_role_id = tdr.master_role_id
 	);
 
 /******************************************************************************************/
@@ -469,6 +1098,21 @@ WHERE
 			ad_role_id
 		FROM
 			tmp_roles_to_delete
+	);
+DELETE
+FROM
+	ad_changelog
+WHERE
+		ad_session_id IN (
+		SELECT
+			ad_session_id
+		FROM
+			ad_session
+		WHERE
+				ad_role_id IN (
+				SELECT ad_role_id
+				FROM tmp_roles_to_delete
+			)
 	);
 DELETE
 FROM
@@ -764,7 +1408,39 @@ WHERE
 	);
 
 /******************************************************************************************/
--- 8. Wrap up
+-- 8. Ensure system admins have access to all default roles
+/******************************************************************************************/
+INSERT INTO
+	ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+	               ad_user_roles_uu)
+SELECT
+	u.ad_user_id,
+	tdr.ad_role_id,
+	tdr.ad_client_id,
+	0,
+	'Y',
+	NOW(),
+	100,
+	NOW(),
+	100,
+	uuid_generate_v4()
+FROM
+	ad_user u
+		CROSS JOIN tmp_default_roles tdr
+WHERE
+		u.ad_user_id IN (
+		SELECT
+			ad_user_id
+		FROM
+			ad_user_roles
+		WHERE
+			ad_role_id = 0
+	)
+	AND ad_user_id != 0
+ON CONFLICT DO NOTHING;
+
+/******************************************************************************************/
+-- 9. Wrap up
 /******************************************************************************************/
 SELECT
 	register_migration_script('202306151049_GO-1957.sql')
