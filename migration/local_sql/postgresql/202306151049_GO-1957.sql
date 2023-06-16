@@ -1103,11 +1103,11 @@ WHERE
 
 -- Remove constraints from these two tables since they take a while
 ALTER TABLE ad_changelog
-	DROP CONSTRAINT ad_changelog_ad_session_id_fkey;
+	DROP CONSTRAINT IF EXISTS ad_changelog_ad_session_id_fkey;
 ALTER TABLE k_comment
-	DROP CONSTRAINT adsession_kcomment;
+	DROP CONSTRAINT IF EXISTS adsession_kcomment;
 ALTER TABLE k_entry
-	DROP CONSTRAINT adsession_kentry;
+	DROP CONSTRAINT IF EXISTS adsession_kentry;
 
 DELETE
 FROM
