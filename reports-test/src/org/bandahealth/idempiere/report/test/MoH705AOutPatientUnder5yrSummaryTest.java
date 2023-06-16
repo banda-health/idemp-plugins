@@ -5,6 +5,7 @@ import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
@@ -194,10 +195,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.add(Calendar.YEAR, -3);
-		Timestamp threeYearsAgo = new Timestamp(calendar.getTimeInMillis());
-		calendar.add(Calendar.YEAR, -3);
+		Timestamp threeYearsAgo = TimestampUtils.addToNow(Calendar.YEAR, -3);
 		Timestamp startOfMonth = TimestampUtils.startOfMonth();
 		Timestamp endOfMonth = TimestampUtils.endOfMonth();
 		valueObject.setProcessInformationParameters(
@@ -229,7 +227,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType("Im");
+		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_Immunizations);
 		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
 		valueObject.getVisit().saveEx();
 		commitEx();
@@ -251,7 +249,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType("I");
+		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
 		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
 		valueObject.getVisit().saveEx();
 		commitEx();
