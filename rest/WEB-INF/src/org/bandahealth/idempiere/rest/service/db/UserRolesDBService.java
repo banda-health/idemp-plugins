@@ -25,13 +25,14 @@ public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 			return;
 		}
 
-		roles.stream().forEach(role -> {
-			roleDBService.saveEntity(role);
-		});
-
 		// get roles
 		Map<String, MRole> mRoles = roleDBService
 				.getByUuids(roles.stream().map(Role::getUuid).collect(Collectors.toSet()));
+
+		if (mRoles.isEmpty()) {
+			// we don't yet support creating new roles from the UI
+			return;
+		}
 
 		// check existing user roles
 		List<MUserRoles> existingUserRoles = new Query(Env.getCtx(), MUserRoles.Table_Name,

@@ -6,12 +6,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.compiere.model.MRole;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @XmlRootElement(name = "role")
 public class Role extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	private List<Role> includedRoles;
+	
+	@JsonProperty("isMasterRole")
 	private boolean masterRole;
 
 	public Role() {
@@ -36,6 +41,7 @@ public class Role extends BaseEntity {
 		this.includedRoles = includedRoles;
 	}
 
+	@JsonIgnore
 	public boolean isMasterRole() {
 		return masterRole;
 	}
