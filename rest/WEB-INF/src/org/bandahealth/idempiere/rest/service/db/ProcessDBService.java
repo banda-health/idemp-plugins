@@ -123,9 +123,12 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(false);
+            setShouldFetchFromSystemClient(false);
+        }};
+    }
 
 	/**
 	 * Return all active processes for the logged in client

@@ -277,9 +277,12 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(false);
+            setShouldFetchFromSystemClient(false);
+        }};
+    }
 
 	/**
 	 * Get Reference List from MRefList.Table_Name

@@ -114,7 +114,7 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 
 		searchClause += ")";
 
-		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder, null);
+		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder, null, this.getDefaultEntityConfiguration());
 	}
 
 	@Override
@@ -143,7 +143,10 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(false);
+            setShouldFetchFromSystemClient(false);
+        }};
+    }
 }

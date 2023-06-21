@@ -60,9 +60,12 @@ public class ChargeInformationSuggestionDBService
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(false);
+            setShouldFetchFromSystemClient(false);
+        }};
+    }
 
 	@Override
 	public List<ChargeInformationSuggestion> transformData(List<MBHChargeInfoSuggestion> dbModels) {

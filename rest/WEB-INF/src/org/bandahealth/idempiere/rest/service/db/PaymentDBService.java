@@ -91,7 +91,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 				.append(".").append(MPayment_BH.COLUMNNAME_C_BPartner_ID);
 
 		return super.search(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
-				joinClause.toString());
+				joinClause.toString(), this.getDefaultEntityConfiguration());
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.utils;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.rest.service.db.EntityConfiguration;
 
 import java.io.IOException;
@@ -441,7 +442,7 @@ public class FilterUtil {
 		String foreignTableName = dbColumnName;
 		String remainingDBColumnName = null;
 		String specificColumnToMapOn = null;
-		boolean shouldUseContextClientId = entityConfiguration != null ? entityConfiguration.isShouldUseContextClientId() : false;
+		boolean shouldUseContextClientId = entityConfiguration != null ? entityConfiguration.isShouldUseContextClientId() : true;
 		boolean shouldFetchFromSystemClient = entityConfiguration != null ? entityConfiguration.isShouldFetchFromSystemClient() : false;
 
 		// If this is an aliased value, get the alias
@@ -508,9 +509,9 @@ public class FilterUtil {
 						whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
 								.append(" as ").append(aggregateColumnName);
 						// Add the client id to be returned, if it's required
-						if (shouldUseContextClientId) {
-							whereClause.append(",ad_client_id");
-						}
+						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+                            whereClause.append(",ad_client_id");
+                        }
 						whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
 						if (comparisonQuerySelectors.get(aggregateFunction) == null ||
 								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
@@ -526,14 +527,25 @@ public class FilterUtil {
 							}
 						}
 						// Add the client check, if it's required
-						if (shouldUseContextClientId) {
-							whereClause.append(") AND (ad_client_id=?");
-							parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-						}
+		                if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+		                    whereClause.append(") AND (ad_client_id");
+		                    if (shouldUseContextClientId && shouldFetchFromSystemClient) {
+		                        whereClause.append(" IN (?,?)");
+		                        parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		                        parameters.add(MClient_BH.CLIENTID_SYSTEM);
+		                    } else {
+		                        whereClause.append("=?");
+		                        if (shouldUseContextClientId) {
+		                            parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		                        } else {
+		                            parameters.add(MClient_BH.CLIENTID_SYSTEM);
+		                        }
+		                    }
+		                }
 						// Append the group by clause, since it's an aggregate
 						whereClause.append(") GROUP BY ").append(idColumn);
 						// Add the client to the group by, if it's required
-						if (shouldUseContextClientId) {
+						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
 							whereClause.append(",ad_client_id");
 						}
 					}
@@ -559,13 +571,24 @@ public class FilterUtil {
 					whereClause.append(subWhereClause);
 				}
 				// Add the client check, if it's required
-				if (shouldUseContextClientId) {
-					whereClause.append(") AND (ad_client_id=?");
-					parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-				}
+                if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+                    whereClause.append(") AND (ad_client_id");
+                    if (shouldUseContextClientId && shouldFetchFromSystemClient) {
+                        whereClause.append(" IN (?,?)");
+                        parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+                        parameters.add(MClient_BH.CLIENTID_SYSTEM);
+                    } else {
+                        whereClause.append("=?");
+                        if (shouldUseContextClientId) {
+                            parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+                        } else {
+                            parameters.add(MClient_BH.CLIENTID_SYSTEM);
+                        }
+                    }   
+                }
 				whereClause.append(")");
 				// Add the system client check
-				if (shouldFetchFromSystemClient) {
+				if (shouldUseContextClientId || shouldFetchFromSystemClient) {
 					whereClause.append(") AND (ad_client_id=?");
 					parameters.add(0);
 				}

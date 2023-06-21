@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,6 +64,24 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public abstract T saveEntity(T entity);
 
 	public abstract Boolean deleteEntity(String entityUuid);
+	
+	/**
+     * What the default query configuration should be, from
+     * whether the client ID from the context should be
+     * automatically used by default in DB queries or whether
+     * SYSTEM client values should also be querable. WARNING:
+     * If this is overridden, data from one client may be
+     * visible to another client
+     *
+     * @return Whether the client ID from the iDempiere context
+         * will be used
+     */
+    protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(false);
+        }};
+    }
 
 	/**
 	 * This should be overridden in inheriting classes. Structure: Map<TableName,
@@ -382,18 +399,12 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			String tableName = getModelInstance().get_TableName();
 			Query query = new Query(Env.getCtx(), tableName, whereClause, null);
-			boolean shouldUseContextClientId = entityConfiguration != null ? entityConfiguration.isShouldUseContextClientId() : false;
-			boolean shouldFetchFromSystemClient = entityConfiguration != null ? entityConfiguration.isShouldFetchFromSystemClient() : false;
+			boolean shouldUseContextClientId = entityConfiguration != null ? entityConfiguration.isShouldUseContextClientId() : true;
 			// If we should use the client ID in the context, add it
 			if (shouldUseContextClientId) {
 				query.setClient_ID();
 			} 
 			
-			if (shouldFetchFromSystemClient) {
-				whereClause += " AND AD_Client_ID =? ";
-				parameters.add(0);
-			}
-
 			if (joinClause != null) {
 				query.addJoinClause(joinClause.trim());
 			}

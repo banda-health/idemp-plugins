@@ -79,7 +79,10 @@ public class RoleDBService extends BaseDBService<Role, MRole> {
 	}
 
 	@Override
-	protected boolean fetchFromTheSystemClient() {
-		return true;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
+        }};
+    }
 }
