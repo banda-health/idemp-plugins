@@ -41,11 +41,14 @@ public class RoleDBService extends BaseDBService<Role, MRole> {
 		List<MRoleIncluded> roleIncludedList = new Query(Env.getCtx(), MRole.Table_Name,
 				MRoleIncluded.COLUMNNAME_AD_Role_ID + " = ?", null).list();
 
+		// remove existing ones
+		roleIncludedList.stream().forEach(roleIncluded -> {
+			roleIncluded.delete(true);
+		});
+
 		final MRole finalMRole = mRole;
 		// add to add included roles
 		entity.getIncludedRoles().stream()
-				.filter(includedRole -> roleIncludedList.stream().anyMatch(roleIncluded -> roleIncluded
-						.getIncluded_Role_ID() == mIncludedRoles.get(includedRole.getUuid()).get_ID()))
 				.forEach(includedRole -> {
 					MRoleIncluded mRoleIncluded = new MRoleIncluded(Env.getCtx(), 0, null);
 					mRoleIncluded.setAD_Role_ID(finalMRole.get_ID());

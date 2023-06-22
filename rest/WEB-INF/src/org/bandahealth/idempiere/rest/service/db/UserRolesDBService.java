@@ -21,15 +21,11 @@ public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 	private RoleDBService roleDBService;
 
 	public void saveRoles(MUser_BH user, List<Role> roles) {
-		if (roles.isEmpty()) {
-			return;
-		}
-
 		// get roles
 		Map<String, MRole> mRoles = roleDBService
 				.getByUuids(roles.stream().map(Role::getUuid).collect(Collectors.toSet()));
 
-		if (mRoles.isEmpty()) {
+		if (mRoles.isEmpty() && roles.isEmpty()) {
 			// we don't yet support creating new roles from the UI
 			return;
 		}
