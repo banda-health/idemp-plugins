@@ -589,7 +589,6 @@ public class FilterUtil {
                         }
                     }   
                 }
-				whereClause.append(")");
 				
 				whereClause.append("))");
 			}
