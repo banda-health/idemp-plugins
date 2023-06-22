@@ -103,7 +103,7 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 				MChargeType_BH.COLUMNNAME_C_ChargeType_ID + "=" + MCharge_BH.Table_Name + "." +
 				MCharge_BH.COLUMNNAME_C_ChargeType_ID;
 
-		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, joinClause, this.getDefaultEntityConfiguration());
+		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, joinClause);
 	}
 
 	@Override

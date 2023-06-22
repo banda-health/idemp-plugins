@@ -1,15 +1,15 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.rest.model.Role;
-import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRole;
+import org.compiere.model.MRoleIncluded;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Component;
@@ -35,19 +35,22 @@ public class RoleDBService extends BaseDBService<Role, MRole> {
 		// check included roles
 		Set<String> includedRolesUuids = entity.getIncludedRoles().stream().map(Role::getUuid)
 				.collect(Collectors.toSet());
-		List<Object> parameters = new ArrayList<>();
 
-		List<MRole> mIncludedRoles = new Query(Env.getCtx(), MRole.Table_Name,
-				MRole.COLUMNNAME_AD_Role_UU + "("
-						+ QueryUtil.getWhereClauseAndSetParametersForSet(includedRolesUuids, parameters) + ")",
-				null).list();
+		Map<String, MRole> mIncludedRoles = getByUuids(includedRolesUuids);
 
-		// save unsaved included roles
+		List<MRoleIncluded> roleIncludedList = new Query(Env.getCtx(), MRole.Table_Name,
+				MRoleIncluded.COLUMNNAME_AD_Role_ID + " = ?", null).list();
+
+		final MRole finalMRole = mRole;
+		// add to add included roles
 		entity.getIncludedRoles().stream()
-				.filter(role -> mIncludedRoles.stream()
-						.noneMatch(includedRole -> includedRole.getAD_Role_UU().equals(role.getUuid())))
-				.forEach(role -> {
-					saveEntity(role);
+				.filter(includedRole -> roleIncludedList.stream().anyMatch(roleIncluded -> roleIncluded
+						.getIncluded_Role_ID() == mIncludedRoles.get(includedRole.getUuid()).get_ID()))
+				.forEach(includedRole -> {
+					MRoleIncluded mRoleIncluded = new MRoleIncluded(Env.getCtx(), 0, null);
+					mRoleIncluded.setAD_Role_ID(finalMRole.get_ID());
+					mRoleIncluded.setIncluded_Role_ID(mIncludedRoles.get(includedRole.getUuid()).get_ID());
+					mRoleIncluded.saveEx();
 				});
 
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(entity.getUuid()))).get(0);
@@ -80,9 +83,11 @@ public class RoleDBService extends BaseDBService<Role, MRole> {
 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
-        return new EntityConfiguration() {{
-            setShouldUseContextClientId(true);
-            setShouldFetchFromSystemClient(true);
-        }};
-    }
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(true);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
+	}
 }

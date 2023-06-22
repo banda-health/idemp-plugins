@@ -62,8 +62,8 @@ public class ChargeInformationSuggestionDBService
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
         return new EntityConfiguration() {{
-            setShouldUseContextClientId(false);
-            setShouldFetchFromSystemClient(false);
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
         }};
     }
 

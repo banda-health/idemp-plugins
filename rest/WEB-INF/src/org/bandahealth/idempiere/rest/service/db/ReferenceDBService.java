@@ -40,8 +40,8 @@ public class ReferenceDBService extends BaseDBService<Reference, MReference_BH> 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
         return new EntityConfiguration() {{
-            setShouldUseContextClientId(false);
-            setShouldFetchFromSystemClient(false);
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
         }};
     }
 }

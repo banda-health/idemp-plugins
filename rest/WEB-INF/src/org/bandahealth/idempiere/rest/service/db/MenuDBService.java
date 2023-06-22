@@ -197,8 +197,8 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
         return new EntityConfiguration() {{
-            setShouldUseContextClientId(false);
-            setShouldFetchFromSystemClient(false);
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
         }};
     }
 

@@ -101,6 +101,9 @@ public class FilterUtil {
 	 */
 	public static String getWhereClauseFromFilter(String tableName, String filterJson, List<Object> parameters,
 			EntityConfiguration entityConfiguration) {
+		if (entityConfiguration == null) {
+			throw new AdempiereException("No entity configuration was passed");
+		}
 		if (StringUtil.isNullOrEmpty(filterJson)) {
 			return DEFAULT_WHERE_CLAUSE;
 		}
@@ -442,8 +445,8 @@ public class FilterUtil {
 		String foreignTableName = dbColumnName;
 		String remainingDBColumnName = null;
 		String specificColumnToMapOn = null;
-		boolean shouldUseContextClientId = entityConfiguration != null ? entityConfiguration.isShouldUseContextClientId() : true;
-		boolean shouldFetchFromSystemClient = entityConfiguration != null ? entityConfiguration.isShouldFetchFromSystemClient() : false;
+		boolean shouldUseContextClientId = entityConfiguration.isShouldUseContextClientId();
+		boolean shouldFetchFromSystemClient = entityConfiguration.isShouldFetchFromSystemClient();
 
 		// If this is an aliased value, get the alias
 		if (doesTableAliasExistOnColumn(dbColumnName)) {
@@ -587,11 +590,7 @@ public class FilterUtil {
                     }   
                 }
 				whereClause.append(")");
-				// Add the system client check
-				if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-					whereClause.append(") AND (ad_client_id=?");
-					parameters.add(0);
-				}
+				
 				whereClause.append("))");
 			}
 		}

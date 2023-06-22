@@ -196,6 +196,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A query that can be used to fetch data
 	 */
 	public Query getBaseQuery(EntityConfiguration entityConfiguration, String whereClause, Object... parameters) {
+		entityConfiguration = entityConfiguration == null ? getDefaultEntityConfiguration() : entityConfiguration;
 		// Set up the query. Also, we don't want virtual columns because those were used
 		// in GO and greatly slow down
 		// queries. If they're needed, the query should be written in the repositories
@@ -203,7 +204,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null)
 				.setNoVirtualColumn(true);
 		// If we should use the client ID in the context, add it
-		if (entityConfiguration != null && entityConfiguration.isShouldUseContextClientId()) {
+		if (entityConfiguration.isShouldUseContextClientId()) {
 			query.setClient_ID();
 		}
 		List<Object> parametersToUse = new ArrayList<>();
@@ -257,7 +258,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
 			String sortOrder) {
-		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null, null);
+		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
 	/**
@@ -269,17 +270,16 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param sortColumn
 	 * @param sortOrder
 	 * @param joinClause  Use to specify a linked table so joining can occur
-	 * @param entityConfiguration 
 	 * @return
 	 */
 	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String joinClause, EntityConfiguration entityConfiguration) {
+			String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null);
 
-			if (entityConfiguration != null && entityConfiguration.isShouldUseContextClientId()) {
+			if (getDefaultEntityConfiguration().isShouldUseContextClientId()) {
 				query = query.setClient_ID();
 			}
 
@@ -362,7 +362,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
 			String filterJson, String joinClause) {
-		return getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, joinClause, null);
+		return getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, joinClause, getDefaultEntityConfiguration());
 	}
 
 	/**
@@ -385,6 +385,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
 			String filterJson, String joinClause, EntityConfiguration entityConfiguration) {
 		try {
+			entityConfiguration = entityConfiguration == null ? getDefaultEntityConfiguration() : entityConfiguration;
+			
 			if (parameters == null) {
 				parameters = new ArrayList<>();
 			}
@@ -399,9 +401,8 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			String tableName = getModelInstance().get_TableName();
 			Query query = new Query(Env.getCtx(), tableName, whereClause, null);
-			boolean shouldUseContextClientId = entityConfiguration != null ? entityConfiguration.isShouldUseContextClientId() : true;
 			// If we should use the client ID in the context, add it
-			if (shouldUseContextClientId) {
+			if (entityConfiguration.isShouldUseContextClientId()) {
 				query.setClient_ID();
 			} 
 			
@@ -550,7 +551,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 */
 	public Map<Integer, List<S>> getGroupsByIds(Function<S, Integer> groupingFunction, String columnToSearch,
 			Set<Integer> ids) {
-		return getGroupsByIds(null, groupingFunction, columnToSearch,
+		return getGroupsByIds(getDefaultEntityConfiguration(), groupingFunction, columnToSearch,
 				ids);
 	}
 
@@ -590,7 +591,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A map of entities by the ID searched
 	 */
 	public Map<Integer, S> getByIds(Set<Integer> ids) {
-		return getByIds(null, ids);
+		return getByIds(getDefaultEntityConfiguration(), ids);
 	}
 
 	/**
@@ -620,7 +621,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A map of entities by the UUID searched
 	 */
 	public Map<String, S> getByUuids(Set<String> uuids) {
-		return getByUuids(null, uuids);
+		return getByUuids(getDefaultEntityConfiguration(), uuids);
 	}
 
 	/**
