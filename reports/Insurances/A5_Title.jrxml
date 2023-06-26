@@ -12,20 +12,27 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BH_Visit_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[select o.ad_org_id,
-       logo.binarydata as image,
-       o.name                                                       as Client_name,
-       coalesce(cl.address1, cl.address2, cl.address3, cl.address4) as address,
-       coalesce(i.phone, i.phone2)                                  as phone,
-       city
-from ad_org o
-         inner join ad_orginfo i on o.ad_org_id = i.ad_org_id
-         left join c_location cl on i.c_location_id = cl.c_location_id
-         left join c_order c ON c.ad_client_id = o.ad_client_id
-         left join ad_image logo on i.logo_id = logo.ad_image_id
-where c.c_order_uu = $P{C_Order_UU};]]>
+		<![CDATA[SELECT
+	o.ad_org_id,
+	logo.binarydata                                              AS image,
+	o.name                                                       AS Client_name,
+	COALESCE(cl.address1, cl.address2, cl.address3, cl.address4) AS address,
+	COALESCE(i.phone, i.phone2)                                  AS phone,
+	city
+FROM
+	bh_visit v
+		JOIN ad_org o
+		ON v.ad_client_id = o.ad_client_id
+		INNER JOIN ad_orginfo i
+		ON o.ad_org_id = i.ad_org_id
+		LEFT JOIN c_location cl
+		ON i.c_location_id = cl.c_location_id
+		LEFT JOIN ad_image logo
+		ON i.logo_id = logo.ad_image_id
+WHERE
+	v.bh_visit_uu = $P{BH_Visit_UU};]]>
 	</queryString>
 	<field name="Client_name" class="java.lang.String"/>
 	<field name="image" class="java.lang.Object"/>
