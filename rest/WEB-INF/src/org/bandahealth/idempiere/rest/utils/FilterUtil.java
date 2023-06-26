@@ -1,8 +1,15 @@
 package org.bandahealth.idempiere.rest.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.rest.service.db.EntityConfiguration;
+import org.compiere.model.MTable;
+import org.compiere.model.POInfo;
+import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -12,14 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.compiere.model.MTable;
-import org.compiere.model.POInfo;
-import org.compiere.util.CLogger;
-import org.compiere.util.Env;
 
 enum FilterArrayJoin {
 	AND,
@@ -92,11 +91,11 @@ public class FilterUtil {
 	 * </pre>
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
 	 *
-	 * @param tableName                The name of the table to query
-	 * @param filterJson               The JSON string received for filtering
-	 * @param parameters               An array of parameters to add values to
-	 * @param entityConfiguration      Entity configuration properties 
-	 *                                 (can boost performance)
+	 * @param tableName           The name of the table to query
+	 * @param filterJson          The JSON string received for filtering
+	 * @param parameters          An array of parameters to add values to
+	 * @param entityConfiguration Entity configuration properties
+	 *                            (can boost performance)
 	 * @return A where clause based off the filter criteria to use in a DB query
 	 */
 	public static String getWhereClauseFromFilter(String tableName, String filterJson, List<Object> parameters,
@@ -141,12 +140,12 @@ public class FilterUtil {
 	 * This can be called recursively. It handles an expression with logical and comparison query selectors
 	 * and calls the appropriate methods to handle these expressions.
 	 *
-	 * @param tableName                The name of the table to query
-	 * @param expression               The JSON string received for filtering
-	 * @param parameters               An array of parameters to add values to
-	 * @param negate                   Whether the logic should be negated
-	 * @param entityConfiguration      Entity configuration properties
-	 *                                 (can boost performance)
+	 * @param tableName           The name of the table to query
+	 * @param expression          The JSON string received for filtering
+	 * @param parameters          An array of parameters to add values to
+	 * @param negate              Whether the logic should be negated
+	 * @param entityConfiguration Entity configuration properties
+	 *                            (can boost performance)
 	 * @return A where clause based off the filter criteria to use in a DB query
 	 */
 	private static String getWhereClauseFromExpression(String tableName, Map<String, Object> expression,
@@ -456,10 +455,17 @@ public class FilterUtil {
 		}
 
 		// If a specific column was passed in, get it
-		if (dbColumnName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
+		if (foreignTableName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
 			foreignTableName = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[0];
 			// There "should" only be one column specification, so we'll use it
 			specificColumnToMapOn = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[1];
+			// If there's still an "alias", we need to set that as the remaining DB column name
+			if (doesTableAliasExistOnColumn(specificColumnToMapOn)) {
+				String unchangedSpecificColumnToMapOn = String.valueOf(specificColumnToMapOn);
+				specificColumnToMapOn = unchangedSpecificColumnToMapOn.split("\\.")[0];
+				// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
+				remainingDBColumnName = unchangedSpecificColumnToMapOn.replaceFirst(specificColumnToMapOn + "\\.", "");
+			}
 		}
 
 		// Ensure foreign table is lower case
@@ -499,6 +505,9 @@ public class FilterUtil {
 				// We have a match! Begin constructing the sub-query
 				whereClause.append(tableName).append(".").append(idColumn).append(negate ? " NOT" : "").append(" IN " +
 						"(SELECT ").append(foreignIdColumn).append(" FROM ");
+				// Sub-clauses should never be negated (i.e. so we don't have not in (... not in (... not in (...))) but
+				// instead of not in (... in (... in (...))))
+				negate = false;
 				// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
 				Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
 								comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
@@ -513,15 +522,15 @@ public class FilterUtil {
 								.append(" as ").append(aggregateColumnName);
 						// Add the client id to be returned, if it's required
 						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-                            whereClause.append(",ad_client_id");
-                        }
+							whereClause.append(",ad_client_id");
+						}
 						whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
 						if (comparisonQuerySelectors.get(aggregateFunction) == null ||
 								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
 							whereClause.append(DEFAULT_WHERE_CLAUSE);
 						} else {
 							String subWhereClause = getWhereClauseFromExpression(foreignTableName,
-									(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, negate,
+									(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, false,
 									entityConfiguration);
 							if (subWhereClause.isEmpty()) {
 								whereClause.append(DEFAULT_WHERE_CLAUSE);
@@ -530,21 +539,21 @@ public class FilterUtil {
 							}
 						}
 						// Add the client check, if it's required
-		                if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-		                    whereClause.append(") AND (ad_client_id");
-		                    if (shouldUseContextClientId && shouldFetchFromSystemClient) {
-		                        whereClause.append(" IN (?,?)");
-		                        parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		                        parameters.add(MClient_BH.CLIENTID_SYSTEM);
-		                    } else {
-		                        whereClause.append("=?");
-		                        if (shouldUseContextClientId) {
-		                            parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		                        } else {
-		                            parameters.add(MClient_BH.CLIENTID_SYSTEM);
-		                        }
-		                    }
-		                }
+						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+							whereClause.append(") AND (ad_client_id");
+							if (shouldUseContextClientId && shouldFetchFromSystemClient) {
+								whereClause.append(" IN (?,?)");
+								parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+								parameters.add(MClient_BH.CLIENTID_SYSTEM);
+							} else {
+								whereClause.append("=?");
+								if (shouldUseContextClientId) {
+									parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+								} else {
+									parameters.add(MClient_BH.CLIENTID_SYSTEM);
+								}
+							}
+						}
 						// Append the group by clause, since it's an aggregate
 						whereClause.append(") GROUP BY ").append(idColumn);
 						// Add the client to the group by, if it's required
@@ -574,22 +583,22 @@ public class FilterUtil {
 					whereClause.append(subWhereClause);
 				}
 				// Add the client check, if it's required
-                if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-                    whereClause.append(") AND (ad_client_id");
-                    if (shouldUseContextClientId && shouldFetchFromSystemClient) {
-                        whereClause.append(" IN (?,?)");
-                        parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-                        parameters.add(MClient_BH.CLIENTID_SYSTEM);
-                    } else {
-                        whereClause.append("=?");
-                        if (shouldUseContextClientId) {
-                            parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-                        } else {
-                            parameters.add(MClient_BH.CLIENTID_SYSTEM);
-                        }
-                    }   
-                }
-				
+				if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+					whereClause.append(") AND (ad_client_id");
+					if (shouldUseContextClientId && shouldFetchFromSystemClient) {
+						whereClause.append(" IN (?,?)");
+						parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+						parameters.add(MClient_BH.CLIENTID_SYSTEM);
+					} else {
+						whereClause.append("=?");
+						if (shouldUseContextClientId) {
+							parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+						} else {
+							parameters.add(MClient_BH.CLIENTID_SYSTEM);
+						}
+					}
+				}
+
 				whereClause.append("))");
 			}
 		}

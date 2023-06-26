@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,31 +22,26 @@ public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 
 	public void saveRoles(MUser_BH user, List<Role> roles) {
 		// get roles
-		Map<String, MRole> mRoles = roleDBService
-				.getByUuids(roles.stream().map(Role::getUuid).collect(Collectors.toSet()));
-
-		if (mRoles.isEmpty() && roles.isEmpty()) {
-			// we don't yet support creating new roles from the UI
-			return;
-		}
+		Set<Integer> roleIdsToSave =
+				roleDBService.getByUuids(roles.stream().map(Role::getUuid).collect(Collectors.toSet())).values().stream()
+						.map(MRole::getAD_Role_ID).collect(Collectors.toSet());
 
 		// check existing user roles
-		List<MUserRoles> existingUserRoles = new Query(Env.getCtx(), MUserRoles.Table_Name,
-				MUserRoles.COLUMNNAME_AD_User_ID + " =?", null).setParameters(user.get_ID()).list();
+		List<MUserRoles> existingUserRoles =
+				new Query(Env.getCtx(), MUserRoles.Table_Name, MUserRoles.COLUMNNAME_AD_User_ID + " =?", null).setParameters(
+						user.get_ID()).list();
+		Set<Integer> existingRoleIds =
+				existingUserRoles.stream().map(MUserRoles::getAD_Role_ID).collect(Collectors.toSet());
 
-		if (!existingUserRoles.isEmpty()) {
-			// remove existing user roles in order to save new ones
-			existingUserRoles.stream().forEach(userRole -> {
-				userRole.delete(true);
-			});
-		}
+		existingUserRoles.stream().filter(userRole -> !roleIdsToSave.contains(userRole.getAD_Role_ID()))
+				.forEach(userRole -> userRole.deleteEx(true));
 
 		// save new roles
-		roles.stream().forEach(role -> {
+		roleIdsToSave.stream().filter(roleIdToSave -> !existingRoleIds.contains(roleIdToSave)).forEach(roleIdToSave -> {
 			try {
 				MUserRoles mUserRoles = new MUserRoles(Env.getCtx(), 0, null);
 				mUserRoles.setAD_User_ID(user.get_ID());
-				mUserRoles.setAD_Role_ID(mRoles.get(role.getUuid()).get_ID());
+				mUserRoles.setAD_Role_ID(roleIdToSave);
 				mUserRoles.saveEx();
 			} catch (Exception ex) {
 				log.severe(ex.getMessage());
