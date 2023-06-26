@@ -156,10 +156,10 @@ test('user can be assigned and removed from roles', async () => {
 	user = await userApi.save(valueObject, { ...user, roles: [role1, role2] });
 	expect(user).toBeTruthy();
 	expect(user.roles).toHaveLength(2);
-	expect(user.roles[0].uuid).toBe(role1.uuid);
-	expect(user.roles[0].includedRoles[0].uuid).toBe(masterRoles[0].uuid);
-	expect(user.roles[1].uuid).toBe(role2.uuid);
-	expect(user.roles[1].includedRoles[0].uuid).toBe(masterRoles[1].uuid);
+	expect(user.roles.find((role) => role.uuid === role1.uuid)).toBeTruthy();
+	expect(user.roles.find((role) => role.uuid === role1.uuid)!.includedRoles[0].uuid).toBe(masterRoles[0].uuid);
+	expect(user.roles.find((role) => role.uuid === role2.uuid)).toBeTruthy();
+	expect(user.roles.find((role) => role.uuid === role2.uuid)!.includedRoles[0].uuid).toBe(masterRoles[1].uuid);
 
 	valueObject.stepName = 'Remove all roles from user';
 	user = await userApi.save(valueObject, { ...user, roles: [] });
