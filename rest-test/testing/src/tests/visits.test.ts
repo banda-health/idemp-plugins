@@ -1244,3 +1244,78 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 	fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.visit.uuid);
 	expect(isEqual(valueObject.visit, fetchedVisit)).toBeTruthy();
 });
+
+test(`visit with non-patient payment information can be deleted`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await createPurchaseOrder(valueObject);
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
+	const chargeToUse = (await chargeApi.getNonPatientPayments(valueObject)).results.filter(
+		(charge) => charge.chargeInformationList.length,
+	)[0];
+	const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
+		(chargeInformation) => chargeInformation.dataType.value === 'T',
+	)[0];
+	const visitToSave = {
+		description: valueObject.getStepMessageLong(),
+		patient: valueObject.businessPartner as Patient | undefined,
+		visitDate: valueObject.date,
+		orders: [
+			{
+				description: valueObject.getStepMessageLong(),
+				dateOrdered: valueObject.date,
+				warehouse: valueObject.warehouse,
+				orderLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+					} as OrderLine,
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: chargeToUse,
+						quantity: 1,
+						price: 50,
+						chargeInformationList: [{ chargeInformationUuid: chargeInformationToUse.uuid, value: 'Test' }],
+					} as OrderLine,
+				],
+			} as Partial<Order>,
+		],
+		payments: [
+			{
+				orgId: 0,
+				patient: valueObject.businessPartner as unknown as Patient,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 60,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+			},
+			{
+				orgId: 0,
+				patient: valueObject.businessPartner as unknown as Patient,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 40,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+			},
+		],
+	} as Visit;
+	valueObject.visit = await visitApi.save(valueObject, visitToSave);
+	
+	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
+});

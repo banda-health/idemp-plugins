@@ -454,6 +454,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				throw new AdempiereException("Visit is already completed");
 			}
 
+			// Handle order lines separately
+			if (!visitsOrders.isEmpty()) {
+				visitsOrders.forEach(order -> orderLineDBService.deleteOrderLinesByOrder(order.get_ID(), ""));
+			}
+
 			Predicate<PO> deleteEntity = (PO entity) -> entity.delete(true);
 			if (!(visitsPayments.stream().allMatch(deleteEntity) && visitsInvoices.stream().allMatch(deleteEntity) &&
 					visitsInOuts.stream().allMatch(deleteEntity) && visitsOrders.stream().allMatch(deleteEntity))) {
