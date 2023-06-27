@@ -38,7 +38,10 @@ public class ClientDBService extends BaseDBService<Client, MClient_BH> {
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(false);
+            setShouldFetchFromSystemClient(false);
+        }};
+    }
 }

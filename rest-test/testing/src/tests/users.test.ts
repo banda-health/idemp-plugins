@@ -1,5 +1,5 @@
 import { roleApi, userApi } from '../api';
-import { User } from '../types/org.bandahealth.idempiere.rest';
+import { Role, User } from '../types/org.bandahealth.idempiere.rest';
 import { createBusinessPartner } from '../utils';
 
 test('save user', async () => {
@@ -97,4 +97,72 @@ test('getting non-admin users sorting and filtering works', async () => {
 	).results;
 	expect(sortedResults[0].uuid).not.toBe(ascendingNameUser.uuid);
 	expect(sortedResults[1].uuid).toBe(ascendingNameUser.uuid);
+});
+
+test('user can be assigned and removed from roles', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create user indirectly';
+	await createBusinessPartner(valueObject);
+	let user = (
+		await userApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.uuid } }),
+		)
+	).results[0];
+	expect(user).toBeTruthy();
+
+	valueObject.stepName = 'Create role 1';
+	const masterRoles = (
+		await roleApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ ismasterrole: true }))
+	).results;
+	const role1 = await roleApi.save(valueObject, {
+		includedRoles: [masterRoles[0]],
+		isMasterRole: false,
+		name: valueObject.getDynamicStepMessage(),
+		description: valueObject.getStepMessageLong(),
+		isActive: true,
+	} as Partial<Role> as Role);
+	expect(role1.uuid).toBeTruthy();
+
+	valueObject.stepName = 'Create role 2';
+	const role2 = await roleApi.save(valueObject, {
+		includedRoles: [masterRoles[1]],
+		isMasterRole: false,
+		name: valueObject.getDynamicStepMessage(),
+		description: valueObject.getStepMessageLong(),
+		isActive: true,
+	} as Partial<Role> as Role);
+
+	valueObject.stepName = 'Assign role 1 to user';
+	user = await userApi.save(valueObject, { ...user, roles: [role1] });
+	expect(user).toBeTruthy();
+	expect(user.roles).toHaveLength(1);
+	expect(user.roles[0].uuid).toBe(role1.uuid);
+	expect(user.roles[0].includedRoles[0].uuid).toBe(masterRoles[0].uuid);
+
+	valueObject.stepName = 'Assign role 2 to user';
+	user = await userApi.save(valueObject, { ...user, roles: [role2] });
+	expect(user).toBeTruthy();
+	expect(user.roles).toHaveLength(1);
+	expect(user.roles[0].uuid).toBe(role2.uuid);
+	expect(user.roles[0].includedRoles[0].uuid).toBe(masterRoles[1].uuid);
+
+	valueObject.stepName = 'Assign both roles to user';
+	user = await userApi.save(valueObject, { ...user, roles: [role1, role2] });
+	expect(user).toBeTruthy();
+	expect(user.roles).toHaveLength(2);
+	expect(user.roles.find((role) => role.uuid === role1.uuid)).toBeTruthy();
+	expect(user.roles.find((role) => role.uuid === role1.uuid)!.includedRoles[0].uuid).toBe(masterRoles[0].uuid);
+	expect(user.roles.find((role) => role.uuid === role2.uuid)).toBeTruthy();
+	expect(user.roles.find((role) => role.uuid === role2.uuid)!.includedRoles[0].uuid).toBe(masterRoles[1].uuid);
+
+	valueObject.stepName = 'Remove all roles from user';
+	user = await userApi.save(valueObject, { ...user, roles: [] });
+	expect(user).toBeTruthy();
+	expect(user.roles).toHaveLength(0);
 });
