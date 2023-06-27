@@ -3,20 +3,28 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaymentType" pageWidth="595" pageHeight="595" whenNoDataType="NoPages" columnWidth="575" leftMargin="0" rightMargin="20" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="6743d9c0-5001-4d7d-898e-ac27cd79ff21">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BH_Visit_UU" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT coalesce(p.payamt, 0)                                                   as paid,
-       sum(ol.linenetamt)                                                      as Total_Pay,
-       REPLACE(cash_words(coalesce(payamt, 0)::money), 'dollar', currencyname) as Total_Payment,
-       iso_code                                                                as symbol
-FROM c_order o
-         LEFT JOIN c_orderline ol on o.c_order_id = ol.c_order_id
-         LEFT JOIN c_payment p on o.c_order_id = p.bh_c_order_id
-         LEFT JOIN c_currency c on p.c_currency_id = c.c_currency_id OR c.c_currency_id = o.c_currency_id
-WHERE issotrx = 'Y'
-  and ol.c_charge_id is null
-  and o.c_order_uu = $P{C_Order_UU}
-GROUP BY p.payamt, currencyname, iso_code]]>
+		<![CDATA[SELECT
+	COALESCE(p.payamt, 0)                                                   AS paid,
+	SUM(ol.linenetamt)                                                      AS Total_Pay,
+	REPLACE(cash_words(COALESCE(payamt, 0)::money), 'dollar', currencyname) AS Total_Payment,
+	iso_code                                                                AS symbol
+FROM
+	bh_visit v
+	  JOIN c_order o on o.bh_visit_id = v.bh_visit_id
+		LEFT JOIN c_orderline ol
+		ON o.c_order_id = ol.c_order_id
+		LEFT JOIN c_payment p
+		ON v.bh_visit_id = p.bh_visit_id
+		LEFT JOIN c_currency c
+		ON p.c_currency_id = c.c_currency_id OR c.c_currency_id = o.c_currency_id
+WHERE
+	issotrx = 'Y'
+	AND ol.c_charge_id IS NULL
+	AND v.bh_visit_uu = $P{BH_Visit_UU}
+GROUP BY
+	p.payamt, currencyname, iso_code]]>
 	</queryString>
 	<field name="paid" class="java.lang.Integer"/>
 	<field name="Total_Pay" class="java.lang.Integer"/>
