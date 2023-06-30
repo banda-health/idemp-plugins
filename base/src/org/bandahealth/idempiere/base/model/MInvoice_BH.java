@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.base.model;
 
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
+import org.compiere.model.MTable;
 import org.compiere.model.PO;
 
 import java.sql.ResultSet;
@@ -37,6 +38,10 @@ public class MInvoice_BH extends MInvoice {
 	 * Column name BH_InvoiceType
 	 */
 	public static final String COLUMNNAME_BH_InvoiceType = "BH_InvoiceType";
+	/**
+	 * Column name BH_Visit_ID
+	 */
+	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
 	private static final long serialVersionUID = 1L;
 
 	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
@@ -150,5 +155,30 @@ public class MInvoice_BH extends MInvoice {
 		} else {
 			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, Integer.valueOf(BH_VoidedReason_ID));
 		}
+	}
+
+	public I_BH_Visit getBH_Visit() throws RuntimeException
+	{
+		return (I_BH_Visit) MTable.get(getCtx(), I_BH_Visit.Table_Name)
+				.getPO(getBH_Visit_ID(), get_TrxName());	}
+
+	/** Set Visit.
+	 @param BH_Visit_ID Visit	  */
+	public void setBH_Visit_ID (int BH_Visit_ID)
+	{
+		if (BH_Visit_ID < 1)
+			set_Value (COLUMNNAME_BH_Visit_ID, null);
+		else
+			set_Value (COLUMNNAME_BH_Visit_ID, Integer.valueOf(BH_Visit_ID));
+	}
+
+	/** Get Visit.
+	 @return Visit	  */
+	public int getBH_Visit_ID ()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Visit_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 }

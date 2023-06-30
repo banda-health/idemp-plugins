@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Referrals" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="fbf82885-3c3c-421b-983c-d6bc70465fda">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -42,55 +42,75 @@
 	<subDataset name="ReferralsDataSet" uuid="26d83717-8cb6-449c-870b-128aa01dafe1">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[WITH date_limitter AS (
-	SELECT generate_series(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
+	SELECT
+		GENERATE_SERIES(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
-     referral_list AS (
-         SELECT DISTINCT r.name, r.value as Referral
-         FROM ad_ref_list r
-            JOIN ad_reference a ON r.ad_reference_id = a.ad_reference_id
-            JOIN c_order Referraltype ON value = Referraltype.bh_referral
-         WHERE ad_reference_uu = '090f3a94-25a4-4f65-a270-96732df35407'
-         AND Referraltype.ad_client_id =  $P{AD_CLIENT_ID}
+	referral_list AS (
+		SELECT DISTINCT
+			rl.name,
+			rl.value AS Referral
+		FROM
+			ad_ref_list rl
+				JOIN ad_reference r
+					ON rl.ad_reference_id = r.ad_reference_id
+				JOIN bh_visit v
+					ON rl.value = v.bh_referral
+		WHERE
+			ad_reference_uu = '090f3a94-25a4-4f65-a270-96732df35407'
+			AND v.ad_client_id = $P{AD_CLIENT_ID}
 
-     ),
-     referral_count AS (
-         SELECT DISTINCT bh_moh705a_lessthan5,
-                         b.value                       as referral,
-                         c.calendar,
-                         coalesce(c.noofreferral, 0) as noofreferral
-         FROM ad_ref_list b
-                  LEFT JOIN (
-             SELECT bh_moh705a_lessthan5,
-                    bh_referral,
-                    cast(bh_visitdate as date)         as calendar,
-                    COUNT(bh_primarycodeddiagnosis_id) AS noofreferral
-             from c_order c
-                      JOIN bh_coded_diagnosis cd ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
-                      JOIN date_limitter dl ON dl.calendar = cast(bh_visitdate as date)
-                      JOIN c_bpartner bp ON c.c_bpartner_id = bp.c_bpartner_id
---                       JOIN ad_org org ON c.ad_org_id = org.ad_org_id
-             WHERE c.ad_client_id =  $P{AD_CLIENT_ID}
-                AND bp.bh_birthday IS NOT NULL AND date_part('year', age(bp.bh_birthday)) < 5
-             GROUP BY bh_referral,bh_moh705a_lessthan5, cast(bh_visitdate as date)
-         ) c ON b.value = c.bh_referral
-         ORDER BY b.value
-     )
-SELECT dali.calendar,
-       bh_moh705a_lessthan5,
-       dl.Referral,
-       dl.name,
-       COALESCE(dc.noofreferral, 0) as noofreferral
-FROM referral_list dl
-         CROSS JOIN date_limitter dali
-         LEFT JOIN referral_count dc
-                   ON dc.calendar = dali.calendar
-                       AND dl.referral = dc.referral
-ORDER BY dl.Referral ASC;]]>
+	),
+	referral_count AS (
+		SELECT DISTINCT
+			bh_moh705a_lessthan5,
+			rl.value                    AS referral,
+			c.calendar,
+			COALESCE(c.noofreferral, 0) AS noofreferral
+		FROM
+			ad_ref_list rl
+				LEFT JOIN (
+				SELECT
+					bh_moh705a_lessthan5,
+					bh_referral,
+					CAST(bh_visitdate AS date)         AS calendar,
+					COUNT(bh_primarycodeddiagnosis_id) AS noofreferral
+				FROM
+					bh_visit v
+						JOIN bh_coded_diagnosis cd
+							ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
+						JOIN date_limitter dl
+							ON dl.calendar = CAST(bh_visitdate AS date)
+						JOIN c_bpartner bp
+							ON v.patient_id = bp.c_bpartner_id
+				WHERE
+					v.ad_client_id = $P{AD_CLIENT_ID}
+					AND bp.bh_birthday IS NOT NULL
+					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
+					AND v.bh_patienttype != 'Im'
+				GROUP BY bh_referral, bh_moh705a_lessthan5, CAST(bh_visitdate AS date)
+			) c
+					ON rl.value = c.bh_referral
+		ORDER BY rl.value
+	)
+SELECT
+	dali.calendar,
+	bh_moh705a_lessthan5,
+	dl.Referral,
+	dl.name,
+	COALESCE(dc.noofreferral, 0) AS noofreferral
+FROM
+	referral_list dl
+		CROSS JOIN date_limitter dali
+		LEFT JOIN referral_count dc
+			ON dc.calendar = dali.calendar
+		AND dl.referral = dc.referral
+ORDER BY
+	dl.Referral;]]>
 		</queryString>
 		<field name="calendar" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="calendar"/>
@@ -114,20 +134,25 @@ ORDER BY dl.Referral ASC;]]>
 			<groupExpression><![CDATA[$F{name}]]></groupExpression>
 		</group>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[select
-    date(c.bh_visitdate) as calendar,
-    client.name AS name
-from c_order c
-    left join bh_coded_diagnosis b ON b.bh_coded_diagnosis_id = c.bh_primarycodeddiagnosis_id
-    right join ad_org client on c.ad_client_id = client.ad_client_id
-     and client.isactive = 'Y'
-     where  c.ad_client_id  = $P{AD_CLIENT_ID}
-    and b.bh_moh705b_greaterthan5 is not null
- GROUP BY c.bh_visitdate, client.name, b.bh_moh705b_greaterthan5]]>
+		<![CDATA[SELECT
+	date(v.bh_visitdate) AS calendar,
+	client.name          AS name
+FROM
+	bh_visit v
+		LEFT JOIN bh_coded_diagnosis b
+			ON b.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id
+		RIGHT JOIN ad_org client
+			ON v.ad_client_id = client.ad_client_id
+		AND client.isactive = 'Y'
+WHERE
+	v.ad_client_id = $P{AD_CLIENT_ID}
+	AND b.bh_moh705b_greaterthan5 IS NOT NULL
+GROUP BY
+	v.bh_visitdate, client.name, b.bh_moh705b_greaterthan5]]>
 	</queryString>
 	<field name="name" class="java.lang.String"/>
 	<field name="calendar" class="java.sql.Date"/>

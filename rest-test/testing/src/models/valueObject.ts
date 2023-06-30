@@ -13,20 +13,23 @@ import {
 	InvoiceLine,
 	Order,
 	OrderLine,
-	Org,
+	Organization,
 	Payment,
+	PaymentType,
 	ProcessInfoParameter,
 	Product,
 	Role,
 	User,
+	Visit,
 	Warehouse,
 } from '../types/org.bandahealth.idempiere.rest';
+import { RoleName } from '../types/roleName';
 import { getDateOffset } from '../utils';
 import { documentAction } from './documentEngine';
 
 export class ValueObject {
 	client?: Client;
-	organization?: Org;
+	organization?: Organization;
 	user?: User;
 	warehouse?: Warehouse;
 	role?: Role;
@@ -58,6 +61,7 @@ export class ValueObject {
 	documentType?: DocumentType;
 	documentAction?: string;
 	attributeSetInstance?: AttributeSetInstance;
+	visit?: Visit;
 	order?: Order;
 	orderLine?: OrderLine;
 	// MInOut m_inOut = null;
@@ -67,6 +71,8 @@ export class ValueObject {
 	inventory?: Inventory;
 	inventoryLine?: InventoryLine;
 	payment?: Payment;
+	tenderType?: PaymentType;
+	paymentAmount?: number;
 	// private MBankAccount m_bankAcct = null;
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
@@ -81,7 +87,7 @@ export class ValueObject {
 
 	processUuid?: string;
 	processInformationParameters?: ProcessInfoParameter[];
-	reportType: string = 'pdf';
+	reportType: 'pdf' | 'xlsx' | 'html' | 'csv' = 'pdf';
 	report?: Buffer;
 
 	sessionToken?: string;
@@ -92,7 +98,9 @@ export class ValueObject {
 
 	private prepareIt(loginInfo: AuthResponse & { client?: Client }) {
 		this.client = loginInfo.client;
-		this.organization = this.client?.orgs.find((organization) => organization.id === loginInfo.orgId);
+		this.organization = this.client?.organizations.find(
+			(organization) => organization.uuid === loginInfo.organizationUuid,
+		);
 		this.role = this.organization?.roles.find((role) => role.uuid === loginInfo.roleUuid);
 		this.warehouse = this.organization?.warehouses.find((warehouse) => warehouse.uuid === loginInfo.warehouseUuid);
 		this.sessionToken = loginInfo.token;
@@ -110,18 +118,18 @@ export class ValueObject {
 		this.loginInfo = { ...loginInfo, client: this.client! };
 	}
 
-	async login(roleName?: string) {
-		roleName ||= 'Admin';
+	async login(roleName?: RoleName) {
+		roleName ||= RoleName.Admin;
 
 		// Find the role ending with that role name
-		const roleToUse = this.client?.orgs
+		const roleToUse = this.client?.organizations
 			.flatMap((organization) => organization.roles)
 			.find((role) => role.name.endsWith(roleName!));
 
 		const baseLoginData: Partial<Authentication> = {
 			...initialLoginData,
 			clientUuid: this.client?.uuid,
-			organizationId: this.organization?.id,
+			organizationUuid: this.organization?.uuid,
 			roleUuid: roleToUse?.uuid,
 			warehouseUuid: this.warehouse?.uuid,
 		};

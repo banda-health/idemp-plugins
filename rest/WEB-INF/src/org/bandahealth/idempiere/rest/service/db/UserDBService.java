@@ -1,24 +1,20 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.sql.SQLException;
-import java.sql.Timestamp;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.rest.utils.FilterUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
-import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
@@ -30,10 +26,17 @@ import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDBService extends BaseDBService<User, MUser_BH> {
+	@Autowired
+	private UserRolesDBService userRolesDBService;
+
+	@Autowired
+	private RoleDBService roleDBService;
+
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
@@ -58,94 +61,26 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		return new BaseListResponse<>(results, pagingInfo);
 	}
 
-	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortColumn, String sortOrder,
+	public BaseListResponse<User> getNonAdmins(Paging pagingInfo, String sortJson,
 			String filterJson) {
-		MRole[] clientRoles = MRole.getOfClient(Env.getCtx());
-		int clientId = Env.getAD_Client_ID(Env.getCtx());
+		String whereClause =
+				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_Org_ID + "!=" + SYSTEM_ADMIN_ORG_ID + " AND " +
+						MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_Client_ID + " = ?";
 
-		Map<Integer, MRole> clientRoleIdMap = new HashMap<>();
-
-		for (MRole role : clientRoles) {
-			clientRoleIdMap.put(role.getAD_Role_ID(), role);
-		}
-
-		StringBuilder sqlQuery = new StringBuilder().append(" SELECT ").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_AD_User_UU).append(",").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_Created).append(",").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_Name).append(",")
-
-				.append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_Role_ID).append(",")
-
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_DateLastLogin).append(",")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_IsActive).append(",")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID).append(",")
-				.append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Client_ID)
-
-				.append(" FROM ").append(MUser_BH.Table_Name).append(" JOIN ").append(MUserRoles.Table_Name)
-				.append(" ON ").append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_User_ID)
-				.append("=").append(MUserRoles.Table_Name).append(".").append(MUserRoles.COLUMNNAME_AD_User_ID)
-
-				.append(" WHERE ").append(MUser_BH.Table_Name).append(".").append(MUser_BH.COLUMNNAME_AD_Org_ID)
-				.append("!=").append(SYSTEM_ADMIN_ORG_ID).append(" AND ").append(MUser_BH.Table_Name).append(".")
-				.append(MUser_BH.COLUMNNAME_AD_Client_ID).append("=").append(clientId);
+		String joinClause =
+				" JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + "=" +
+						MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID;
 
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 
-		String filter = " AND "
-				+ FilterUtil.getWhereClauseFromFilter(MUser_BH.Table_Name, filterJson, parameters, true);
-
-		sqlQuery.append(filter);
-
-		StringBuilder sqlOrderBy = new StringBuilder().append(" ORDER BY ");
-		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null && !sortOrder.isEmpty()) {
-			sqlOrderBy.append(sortColumn).append(" ").append(sortOrder);
-			sqlQuery.append(sqlOrderBy);
-		}
-
-		String sqlSelect = sqlQuery.toString(); // has to appear as final or effectively final
-
-		Map<String, User> usersRolesMap = new LinkedHashMap<>();
-
-		SqlUtil.executeQuery(sqlSelect, null, null, rs -> {
-			try {
-				String uuid = rs.getString(1);
-				Timestamp created = rs.getTimestamp(2);
-				String name = rs.getString(3);
-				int roleId = rs.getInt(4);
-				Timestamp lastLogin = rs.getTimestamp(5);
-				boolean isActive = rs.getBoolean(6);
-
-				List<Role> roleList = new ArrayList<Role>();
-				Role userRole = new Role(clientRoleIdMap.get(roleId));
-
-				// The result set contains repeated user details if user has more than one role
-				// i.e Transforms [User_a : Cashier, User_a: Lab] -> [User_a : [Cashier, Lab]]
-				if (usersRolesMap.containsKey(uuid)) {
-					User existingUser = usersRolesMap.get(uuid);
-					existingUser.getRoles().add(userRole);
-					usersRolesMap.put(uuid, existingUser);
-				} else {
-					roleList.add(userRole);
-					User user = new User(name, uuid, created, lastLogin, isActive, roleList);
-					usersRolesMap.put(uuid, user);
-				}
-			} catch (SQLException e) {
-				log.log(Level.SEVERE, sqlSelect, e);
-			}
-		});
-
-		if (pagingInfo != null) {
-			pagingInfo.setTotalRecordCount(usersRolesMap.size());
-		}
-
-		return new BaseListResponse<User>(new ArrayList<User>(usersRolesMap.values()), pagingInfo);
+		return super.getAll(whereClause, parameters, pagingInfo, sortJson, filterJson,
+				joinClause);
 	}
 
 	/**
 	 * Get users assigned roles with clinician basic & advanced included roles
-	 * 
+	 *
 	 * @param pagingInfo
 	 * @return
 	 */
@@ -175,7 +110,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 		Query query = new Query(Env.getCtx(), MUser_BH.Table_Name, whereClause, null).addJoinClause(joinClause)
 				.setParameters(parameters);
-		
+
 		if (pagingInfo != null) {
 			pagingInfo.setTotalRecordCount(query.count());
 		}
@@ -188,21 +123,28 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		try {
 			MUser_BH user = getEntityByUuidFromDB(entity.getUuid());
 			user.setIsActive(entity.getIsActive());
-			
-			if (StringUtil.isNotNullAndEmpty(entity.getResetPassword())){
+
+			if (StringUtil.isNotNullAndEmpty(entity.getResetPassword())) {
 				user.setPassword(entity.getResetPassword()); // will be hashed and validated on saveEx
 				user.setIsExpired(true); // Force Change On Next Login
 			}
-			
+
+			user.setIsActive(entity.getIsActive());
+
+			if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
+				userRolesDBService.saveRoles(user, entity.getRoles());
+			}
+
 			user.saveEx();
-			return entity;
+
+			return transformData(Collections.singletonList(user)).get(0);
+
 		} catch (Exception ex) {
 			if (ex.getMessage().contains("Require unique data")) {
 				throw new DuplicateEntitySaveException(ex.getLocalizedMessage());
 			} else {
 				throw new AdempiereException(ex.getLocalizedMessage());
 			}
-
 		}
 	}
 
@@ -213,33 +155,61 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 	@Override
 	protected User createInstanceWithDefaultFields(MUser_BH instance) {
-		try {
-			return new User(instance.getName(), instance.getAD_User_UU());
-		} catch (Exception ex) {
-			log.severe("Error creating product instance: " + ex);
-			throw new RuntimeException(ex.getLocalizedMessage(), ex);
-		}
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
 	protected User createInstanceWithAllFields(MUser_BH instance) {
-		try {
-			return new User(instance.getName(), instance.getAD_User_UU(), instance.getCreated(),
-					instance.getDateLastLogin());
-		} catch (Exception ex) {
-			log.severe("Error creating user instance: " + ex);
-			throw new RuntimeException(ex.getLocalizedMessage(), ex);
-		}
+		return new User(instance);
 	}
 
 	@Override
 	protected User createInstanceWithSearchFields(MUser_BH instance) {
-		return createInstanceWithDefaultFields(instance);
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
 	protected MUser_BH getModelInstance() {
 		return new MUser_BH(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public User getEntity(String uuid) {
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
+	}
+
+	@Override
+	public List<User> transformData(List<MUser_BH> dbModels) {
+		// Batch call to get user roles
+		Set<Integer> userIds = dbModels.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
+
+		Map<Integer, List<MUserRoles>> rolesByUserId = userRolesDBService.getGroupsByIds(MUserRoles::getAD_User_ID,
+				MUserRoles.COLUMNNAME_AD_User_ID, userIds);
+
+		// batch call to get roles
+		Set<Integer> roleIds = rolesByUserId.values().stream()
+				.flatMap(roleByUserId -> roleByUserId.stream().map(MUserRoles::getAD_Role_ID))
+				.collect(Collectors.toSet());
+		Map<Integer, MRole> roles = roleDBService.getByIds(roleIds);
+
+		return dbModels.stream().map(mUser -> {
+			User user = new User(mUser);
+			if (rolesByUserId.containsKey(mUser.getAD_User_ID())) {
+				// get user roles
+				List<MUserRoles> userRoles = rolesByUserId.get(mUser.getAD_User_ID());
+				// get roles
+				userRoles.stream().forEach(userRole -> {
+					// get role
+					roles.values().stream().filter(role -> userRole.getAD_Role_ID() == role.get_ID()).forEach(role -> {
+						Role r = new Role(role);
+						user.getRoles().add(r);
+					});
+				});
+			}
+
+			return user;
+
+		}).collect(Collectors.toList());
 	}
 
 	@Override

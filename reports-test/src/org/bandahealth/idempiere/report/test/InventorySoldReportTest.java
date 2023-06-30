@@ -4,6 +4,7 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -11,9 +12,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.util.DB;
 import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
@@ -21,7 +27,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -437,6 +445,217 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 			assertThat("Gross profit for this product is correct", productRows.get(0).getCell(6).getNumericCellValue(),
 					is((valueObject.getSalesStandardPrice().doubleValue() -
 							valueObject.getPurchaseStandardPrice().doubleValue()) * totalQuantitySold));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void dateTimeFiltersWork() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create attribute set");
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSet.setName(valueObject.getScenarioName());
+		attributeSet.setDescription(valueObject.getScenarioName());
+		attributeSet.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		MProduct_BH product = valueObject.getProduct();
+		product.setName(String.valueOf(valueObject.getRandomNumber()));
+		product.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create attribute set instance");
+		MAttributeSetInstance_BH attributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		attributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
+		attributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSetInstance.setDescription(valueObject.getScenarioName());
+		attributeSetInstance.saveEx();
+		valueObject.setAttributeSetInstance(attributeSetInstance);
+		commitEx();
+
+		Timestamp earlyDate = TimestampUtils.startOfYesterday();
+		Timestamp beginDate = TimestampUtils.add(earlyDate, Calendar.HOUR, 2);
+		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
+		Timestamp lateDate = TimestampUtils.add(endDate, Calendar.DAY_OF_YEAR, 2);
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		valueObject.setDate(earlyDate);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+		valueObject.setStepName("Create visit");
+		valueObject.setDate(earlyDate);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDate(TimestampUtils.today());
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(15));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Update the updated & created dates of the transaction from the last sales order");
+		DB.executeUpdate("UPDATE m_transaction SET created = '" + dbDateFormat.format(earlyDate) + "', updated = '" +
+				dbDateFormat.format(earlyDate) +
+				"' WHERE m_inoutline_id IN (SELECT m_inoutline_id FROM m_inoutline WHERE c_orderline_id IN (SELECT " +
+				"c_orderline_id FROM c_orderline WHERE c_order_id = " +
+				valueObject.getOrder().get_ID() + "))", valueObject.getTransactionName());
+		commitEx();
+
+		valueObject.setStepName("Create second visit");
+		valueObject.setDate(TimestampUtils.today());
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(16));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create third visit");
+		valueObject.setDate(lateDate);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDate(lateDate);
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(17));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Update the updated & created dates of the inventory from the last sales order");
+		DB.executeUpdate("UPDATE m_transaction SET created = '" + dbDateFormat.format(lateDate) + "', updated = '" +
+				dbDateFormat.format(lateDate) +
+				"' WHERE m_inoutline_id IN (SELECT m_inoutline_id FROM m_inoutline WHERE c_orderline_id IN (SELECT " +
+				"c_orderline_id FROM c_orderline WHERE c_order_id = " +
+				valueObject.getOrder().get_ID() + "))", valueObject.getTransactionName());
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Product Name");
+			int productColumnIndex = TableUtils.getColumnIndex(headerRow, "Product Name");
+			int quantitySoldColumnIndex = TableUtils.getColumnIndex(headerRow, "Quantity Sold");
+
+			List<Row> productRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(productColumnIndex) != null &&
+									row.getCell(productColumnIndex).getCellType().equals(CellType.STRING) &&
+									row.getCell(productColumnIndex).getStringCellValue().contains(product.getName()))
+					.collect(Collectors.toList());
+			assertEquals(1, productRows.size(), "The product is on the report");
+
+			Row productRow = productRows.get(0);
+			assertEquals(16, productRow.getCell(quantitySoldColumnIndex).getNumericCellValue(),
+					"Opening inventory amount is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportDoesNotIncludeServices() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(30));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		BigDecimal quantitySold = new BigDecimal(20);
+		valueObject.setQuantity(quantitySold);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create service");
+		valueObject.clearProduct();
+		valueObject.setSalesStandardPrice(new BigDecimal(50));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Add second sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(15));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Product Name");
+			int productColumnIndex = TableUtils.getColumnIndex(headerRow, "Product Name");
+
+			Optional<Row> serviceRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(productColumnIndex) != null && row.getCell(productColumnIndex).getStringCellValue()
+							.contains(valueObject.getProduct().getName().substring(0, 20))).findFirst();
+			assertTrue(serviceRow.isEmpty(), "Report does not contain service");
 		}
 	}
 }

@@ -2,8 +2,9 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MoH717" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="e6f5415f-18b1-40a8-862e-af41d81a921f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LatestUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -12,34 +13,63 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[with params as (
-    select $P{AD_CLIENT_ID} as ad_client_id,
-           date($P{Begin Date}) as begin_date,
-           date($P{End Date}) as end_date
-), patients as (
-    select c_bpartner_id, bh_gender, bh_birthday
-    from c_bpartner bp
-        join params p on p.ad_client_id = bp.ad_client_id
-            and bp.iscustomer = 'Y'
-)
-select coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'Y' ), 0) as maleover5newvisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'Y' ), 0)     as maleunder5newvisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'Y' ), 0)   as femaleover5newvisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'Y' ), 0) as femaleunder5newvisit,
-       coalesce(count(1) filter ( where EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 60 and bh_newvisit = 'Y' ), 0) as OverSixtynewvisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'N' ), 0) as maleover5revisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'male' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'N' ), 0)     as maleunder5revisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) between 5 and 59 and bh_newvisit = 'N' ), 0)   as femaleover5revisit,
-       coalesce(count(1) filter ( where patient.bh_gender = 'female' and EXTRACT(YEAR from AGE(patient.bh_birthday)) < 5 and bh_newvisit = 'N' ), 0) as femaleunder5revisit,
-       coalesce(count(1) filter ( where EXTRACT(YEAR from AGE(patient.bh_birthday)) >= 60 and bh_newvisit = 'N' ), 0) as OverSixtyrevisit,
-       coalesce(count(c_order_id), 0)             as countofpatientbills
-from c_order o
-    join patients patient on patient.c_bpartner_id = o.c_bpartner_id
-    join params p on o.ad_client_id = p.ad_client_id and date(o.bh_visitdate) BETWEEN date(p.begin_date) AND date(p.end_date);]]>
+		<![CDATA[WITH params AS (
+	SELECT
+		$P{AD_CLIENT_ID} AS ad_client_id,
+		$P{Begin Date}::timestamp   AS begin_date,
+		$P{End Date}::timestamp     AS end_date
+),
+	patients AS (
+		SELECT
+			c_bpartner_id,
+			bh_gender,
+			bh_birthday
+		FROM
+			c_bpartner bp
+				JOIN params p
+					ON p.ad_client_id = bp.ad_client_id
+				AND bp.iscustomer = 'Y'
+	)
+SELECT
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'male' AND
+	                                 EXTRACT(YEAR FROM AGE(patient.bh_birthday)) BETWEEN 5 AND 59 AND bh_newvisit = 'Y' ),
+	         0)                     AS maleover5newvisit,
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'male' AND EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND
+	                                 bh_newvisit = 'Y' ),
+	         0)                     AS maleunder5newvisit,
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'female' AND
+	                                 EXTRACT(YEAR FROM AGE(patient.bh_birthday)) BETWEEN 5 AND 59 AND bh_newvisit = 'Y' ),
+	         0)                     AS femaleover5newvisit,
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'female' AND EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND
+	                                 bh_newvisit = 'Y' ),
+	         0)                     AS femaleunder5newvisit,
+	COALESCE(COUNT(1) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 60 AND bh_newvisit = 'Y' ),
+	         0)                     AS OverSixtynewvisit,
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'male' AND
+	                                 EXTRACT(YEAR FROM AGE(patient.bh_birthday)) BETWEEN 5 AND 59 AND bh_newvisit = 'N' ),
+	         0)                     AS maleover5revisit,
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'male' AND EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND
+	                                 bh_newvisit = 'N' ),
+	         0)                     AS maleunder5revisit,
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'female' AND
+	                                 EXTRACT(YEAR FROM AGE(patient.bh_birthday)) BETWEEN 5 AND 59 AND bh_newvisit = 'N' ),
+	         0)                     AS femaleover5revisit,
+	COALESCE(COUNT(1) FILTER ( WHERE patient.bh_gender = 'female' AND EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND
+	                                 bh_newvisit = 'N' ),
+	         0)                     AS femaleunder5revisit,
+	COALESCE(COUNT(1) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 60 AND bh_newvisit = 'N' ),
+	         0)                     AS OverSixtyrevisit,
+	COALESCE(COUNT(bh_visit_id), 0) AS countofpatientbills
+FROM
+	bh_visit v
+		JOIN patients patient
+			ON patient.c_bpartner_id = v.patient_id
+		JOIN params p
+			ON v.ad_client_id = p.ad_client_id AND v.bh_visitdate BETWEEN p.begin_date AND p.end_date;]]>
 	</queryString>
 	<field name="maleover5newvisit" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="maleover5newvisit"/>

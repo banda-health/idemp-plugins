@@ -33,7 +33,7 @@ public class TableUtils {
 	 * @return The header row
 	 */
 	public static Row getHeaderRow(Sheet sheet, String headerRowStartingColumnText, int startingRowIndex) {
-		for (int i = startingRowIndex; i < sheet.getLastRowNum(); i++) {
+		for (int i = startingRowIndex; i <= sheet.getLastRowNum(); i++) {
 			Row row = sheet.getRow(i);
 			if (StreamSupport.stream(row.spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
@@ -66,6 +66,26 @@ public class TableUtils {
 	}
 
 	/**
+	 * Provided the header row of a table, get the column index for the column containing the specified header text
+	 *
+	 * @param headerRow        The header row of the table
+	 * @param columnHeaderText The header text of the desired column
+	 * @return The column index
+	 */
+	public static int getColumnIndexContaining(Row headerRow, String columnHeaderText) {
+		int columnIndex = -1;
+		for (int i = headerRow.getFirstCellNum(); i < headerRow.getLastCellNum(); i++) {
+			if (headerRow.getCell(i) != null && headerRow.getCell(i).getCellType().equals(CellType.STRING) &&
+					headerRow.getCell(i).getStringCellValue().toLowerCase().contains(columnHeaderText.toLowerCase())) {
+				columnIndex = i;
+				break;
+			}
+		}
+		assertTrue(columnIndex > -1, "Column with text " + columnHeaderText + " exists");
+		return columnIndex;
+	}
+
+	/**
 	 * Get the index of the provided row in the sheet
 	 *
 	 * @param sheet The spreadsheet to search through
@@ -74,7 +94,7 @@ public class TableUtils {
 	 */
 	public static int getIndexOfRow(Sheet sheet, Row row) {
 		int rowIndex = -1;
-		for (int i = sheet.getFirstRowNum(); i < sheet.getLastRowNum(); i++) {
+		for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
 			if (sheet.getRow(i) == row) {
 				rowIndex = i;
 				break;

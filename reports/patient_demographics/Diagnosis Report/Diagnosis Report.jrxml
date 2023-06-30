@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Diagnosis Report" pageWidth="1365" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1365" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -13,7 +13,7 @@
 			<rightPen lineWidth="1.0" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -22,7 +22,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_CH" mode="Opaque" backcolor="#EFEFEF">
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -39,50 +39,59 @@
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FBFDFF"/>
+		</conditionalStyle>
 	</style>
 	<subDataset name="tableDataset" uuid="893302d0-3399-4789-9b40-faf0bf7f6d9a">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<parameter name="Begin Date" class="java.util.Date"/>
-		<parameter name="End Date" class="java.util.Date"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[select
-    corder.bh_visitdate as visit_date,
-    cb.name as name,
-    date_part('year',age(cb.bh_birthday)) as age,
-    cb.bh_gender as gender,
-    cb.bh_phone as phonenumber,
-    primary_cd.bh_cielname as primary_coded_diagnosis,
-    corder.bh_primaryuncodeddiagnosis as primary_uncoded_diagnosis,
-    secondary_cd.bh_cielname as secondary_coded_diagnosis,
-    corder.bh_secondaryuncodeddiagnosis as secondary_uncoded_diagnosis
-from c_order corder
-    inner join c_bpartner cb on corder.c_bpartner_id = cb.c_bpartner_id
-    left join bh_coded_diagnosis primary_cd on primary_cd.bh_coded_diagnosis_id = corder.bh_primarycodeddiagnosis_id
-    left join bh_coded_diagnosis secondary_cd on secondary_cd.bh_coded_diagnosis_id = corder.bh_secondarycodeddiagnosis_id
-where
-  corder.ad_client_id = $P{AD_CLIENT_ID}
-  and (
-      corder.bh_primaryuncodeddiagnosis IS NOT NULL OR
-      corder.bh_secondaryuncodeddiagnosis IS NOT NULL OR
-      corder.bh_primarycodeddiagnosis_id IS NOT NULL OR
-      corder.bh_secondarycodeddiagnosis_id IS NOT NULL
-    )
-  and (
-  	  $P{Diagnosis} IS NULL OR
-      lower(corder.bh_primaryuncodeddiagnosis) like lower('%' || COALESCE($P{Diagnosis}, '') || '%') OR
-      lower(corder.bh_secondaryuncodeddiagnosis) like lower('%' || COALESCE($P{Diagnosis}, '') || '%')
-      )
-  and (
-      $P{BH_Coded_Diagnosis_UU} IS NULL OR
-      primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
-      secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
-    )
-  and date(corder.bh_visitdate) BETWEEN $P{Begin Date} AND $P{End Date}
-order by cb.name;]]>
+			<![CDATA[SELECT
+	v.bh_visitdate                         AS visit_date,
+	bp.name                                AS name,
+	DATE_PART('year', AGE(bp.bh_birthday)) AS age,
+	bp.bh_gender                           AS gender,
+	bp.bh_phone                            AS phonenumber,
+	primary_cd.bh_cielname                 AS primary_coded_diagnosis,
+	v.bh_primaryuncodeddiagnosis           AS primary_uncoded_diagnosis,
+	secondary_cd.bh_cielname               AS secondary_coded_diagnosis,
+	v.bh_secondaryuncodeddiagnosis         AS secondary_uncoded_diagnosis
+FROM
+  bh_visit v
+		JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN bh_coded_diagnosis primary_cd
+			ON primary_cd.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id
+		LEFT JOIN bh_coded_diagnosis secondary_cd
+			ON secondary_cd.bh_coded_diagnosis_id = v.bh_secondarycodeddiagnosis_id
+WHERE
+	v.ad_client_id = $P{AD_CLIENT_ID}
+	AND (
+		v.bh_primaryuncodeddiagnosis IS NOT NULL OR
+		v.bh_secondaryuncodeddiagnosis IS NOT NULL OR
+		v.bh_primarycodeddiagnosis_id IS NOT NULL OR
+		v.bh_secondarycodeddiagnosis_id IS NOT NULL
+	)
+	AND (
+		$P{Diagnosis} IS NULL OR
+		LOWER(v.bh_primaryuncodeddiagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%') OR
+		LOWER(v.bh_secondaryuncodeddiagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%')
+	)
+	AND (
+		$P{BH_Coded_Diagnosis_UU} IS NULL OR
+		primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
+		secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
+	)
+	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+ORDER BY
+	bp.name;]]>
 		</queryString>
 		<field name="visit_date" class="java.util.Date"/>
 		<field name="name" class="java.lang.String">
@@ -102,9 +111,9 @@ order by cb.name;]]>
 		<field name="secondary_coded_diagnosis" class="java.lang.String"/>
 		<field name="secondary_uncoded_diagnosis" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="Begin Date" class="java.util.Date"/>
-	<parameter name="End Date" class="java.util.Date"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Diagnosis" class="java.lang.String"/>
 	<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
 	<queryString>
@@ -173,7 +182,7 @@ order by cb.name;]]>
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Visit Date]]></text>
@@ -200,7 +209,7 @@ order by cb.name;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="140" height="20" uuid="965f0fa0-0f6e-4a1d-9d21-5c3657f577e1"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Name]]></text>
@@ -226,7 +235,7 @@ order by cb.name;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="50" height="20" uuid="92775786-b8ce-4c48-ad6d-777dfd82d7e5"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Age]]></text>
@@ -252,7 +261,7 @@ order by cb.name;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="60" height="20" uuid="8ad479db-0966-45a6-8306-29e04f9f10ee"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Gender]]></text>
@@ -278,7 +287,7 @@ order by cb.name;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="115" height="20" uuid="e8351460-0c09-4ac0-a1b3-5c5142beb8b4"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Phone Number]]></text>
@@ -305,7 +314,7 @@ order by cb.name;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="220" height="20" uuid="b10f7f9a-6ab7-4746-88ed-f41ee1baa12b"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Primary Coded Diagnosis]]></text>
@@ -332,7 +341,7 @@ order by cb.name;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="220" height="20" uuid="64a6b29c-ba80-45ba-8672-ff59fcdb2f95"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Primary Non-coded Diagnosis]]></text>
@@ -359,7 +368,7 @@ order by cb.name;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="220" height="20" uuid="be685e80-a8ea-4583-911d-c8ca19ce1789"/>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Secondary Coded Diagnosis]]></text>
@@ -387,7 +396,7 @@ order by cb.name;]]>
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Secondary Non-coded Diagnosis]]></text>

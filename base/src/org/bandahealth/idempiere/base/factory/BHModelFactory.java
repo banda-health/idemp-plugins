@@ -22,12 +22,14 @@ import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
 import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
+import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
@@ -36,6 +38,7 @@ import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
@@ -137,6 +140,10 @@ public class BHModelFactory implements IModelFactory {
 			return MAttributeSetInstance_BH.class;
 		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {
 			return MMenu_BH.class;
+		} else if (tableName.equalsIgnoreCase(MInOut_BH.Table_Name)) {
+			return MInOut_BH.class;
+		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
+			return MBHVisit.class;
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return MAttributeSet_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
@@ -151,6 +158,8 @@ public class BHModelFactory implements IModelFactory {
 			return MDocType_BH.class;
 		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
 			return MSequence_BH.class;
+		} else if (tableName.equalsIgnoreCase(MOrgInfo_BH.Table_Name)) {
+			return MOrgInfo_BH.class;
 		}
 
 		return null;
@@ -238,6 +247,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MAttributeSetInstance_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {
 			return new MMenu_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MInOut_BH.Table_Name)) {
+			return new MInOut_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
+			return new MBHVisit(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
@@ -253,7 +266,7 @@ public class BHModelFactory implements IModelFactory {
 		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
 			return new MSequence_BH(Env.getCtx(), Record_ID, trxName);
 		}
-
+		
 		return null;
 	}
 
@@ -339,6 +352,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MAttributeSetInstance_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {
 			return new MMenu_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MInOut_BH.Table_Name)) {
+			return new MInOut_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
+			return new MBHVisit(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
@@ -353,6 +370,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MDocType_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
 			return new MSequence_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MOrgInfo_BH.Table_Name)) {
+			return new MOrgInfo_BH(Env.getCtx(), rs, trxName);
 		}
 
 		return null;

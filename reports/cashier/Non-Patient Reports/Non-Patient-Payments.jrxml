@@ -27,53 +27,50 @@
 	</style>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
-	<parameter name="payment_mode" class="java.lang.String"/>
-	<parameter name="insurance_type" class="java.lang.String"/>
+	<parameter name="Mode" class="java.lang.String"/>
+	<parameter name="Insurance Type" class="java.lang.String"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[WITH params AS (
 	SELECT
-		COALESCE($P{insurance_type},'') AS insurance_type,
-		COALESCE($P{payment_mode},'') AS payment_mode
+		COALESCE($P{Insurance Type},'') AS insurance_type,
+		COALESCE($P{Mode},'')           AS payment_mode
 ),
 	Visit_info AS (
 		SELECT
-			bv.c_order_id,
-			bv.c_bpartner_id,
-			bh_visitdate       AS bill_date,
-			patient_name,
-			bv.bh_patientid,
-			bh_patienttype,
-			bh_patienttype_name,
+			gvd.bh_visit_id,
+			gvd.c_bpartner_id,
+			gvd.bh_visitdate   AS bill_date,
+			gvd.patient_name,
+			gvd.bh_patientid,
+			gvd.bh_patienttype,
+			gvd.bh_patienttype_name,
 			SUM(ol.linenetamt) AS lineitemtotals
 		FROM
-			bh_get_visit_details($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date})) bv
-				INNER JOIN c_bpartner cb
-					ON bv.c_bpartner_id = cb.c_bpartner_id
-				INNER JOIN ad_user
-					ON bv.ad_user_id = ad_user.ad_user_id
+			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvd
+				JOIN c_order o
+					ON gvd.bh_visit_id = o.bh_visit_id
 				JOIN c_orderline ol
-					ON bv.c_order_id = ol.c_order_id
-				CROSS JOIN params p
+					ON o.c_order_id = ol.c_order_id
 		WHERE
-			((bv.docstatus <> 'VO' AND bv.docstatus <> 'DR')
-				)
+			gvd.docstatus <> 'VO'
+			AND gvd.docstatus <> 'DR'
 			AND ol.c_charge_id IS NULL
 		GROUP BY
-			bv.c_order_id, bv.c_bpartner_id, bv.bh_visitdate,
-			patient_name, bh_patienttype, bv.bh_patientid,bh_patienttype_name
+			gvd.bh_visit_id, gvd.c_bpartner_id, gvd.bh_visitdate, gvd.patient_name, gvd.bh_patientid, gvd.bh_patienttype,
+			gvd.bh_patienttype_name
 	),
 	DirectPayments AS (
 		SELECT
-			bp.bh_c_order_id AS c_order_id,
+			bh_visit_id,
 			payamt,
 			tendertype
 		FROM
-			bh_get_visit_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date})) bp
+			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	),
 	non_patient_payments AS (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			ChargeType_name,
 			bh_subtype,
 			linenetamt,
@@ -82,21 +79,21 @@
 			ClaimNo,
 			Relationship
 		FROM
-			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	),
 	BillTotal AS (
 		SELECT
 			c_order_id,
 			SUM(linenetamt) AS total
 		FROM
-			bh_get_visit_products($P{AD_CLIENT_ID}, DATE($P{Begin Date}), DATE($P{End Date}))
+			bh_get_visit_products($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 		GROUP BY c_order_id
 	)
 SELECT
-	Visit_info.c_order_id,
+	Visit_info.bh_visit_id,
 	Visit_info.bill_date                                                                                AS billdate,
 	patient_name,
-	bh_patienttype_name                                 											AS PatientType,
+	bh_patienttype_name                                                                                 AS PatientType,
 	bh_patientid                                                                                        AS PatientNo,
 	insurance_info.member_id,
 	membername,
@@ -117,7 +114,7 @@ FROM
 	Visit_info
 		LEFT JOIN (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                        AS cash,
 			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                        AS mobile,
 			SUM(payamt) FILTER ( WHERE tendertype = 'C' )                        AS credit_debit,
@@ -126,31 +123,28 @@ FROM
 			SUM(payamt) FILTER ( WHERE tendertype IN ('X', 'M', 'C', 'D', 'K') ) AS other
 		FROM
 			DirectPayments
-		GROUP BY c_order_id
+		GROUP BY bh_visit_id
 	) patient_payment_sums
-			ON Visit_info.c_order_id = patient_payment_sums.c_order_id
+			ON Visit_info.bh_visit_id = patient_payment_sums.bh_visit_id
 		LEFT JOIN (
 		SELECT
-			c_order_id,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1              AS insurance,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1              AS waiver,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1              AS donation,
-			SUM(linenetamt) FILTER (WHERE bh_subtype = $P{payment_mode} OR chargetype_name = $P{insurance_type}) *
-						-1                                          AS NonPaySelectedtotal,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1 AS NonPaytotal
-
-						
+			bh_visit_id,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1                            AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1                            AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1                            AS donation,
+						SUM(linenetamt) FILTER (WHERE bh_subtype = $P{Mode} OR chargetype_name = $P{Insurance Type}) * -1 AS NonPaySelectedtotal,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1               AS NonPaytotal
 		FROM
 			non_patient_payments
-				CROSS JOIN params p
-		GROUP BY c_order_id
+		GROUP BY
+			bh_visit_id
 	) non_patient_payment_totals
-			ON Visit_info.c_order_id = non_patient_payment_totals.c_order_id
+			ON Visit_info.bh_visit_id = non_patient_payment_totals.bh_visit_id
 		LEFT JOIN BillTotal
-			ON Visit_info.c_order_id = BillTotal.c_order_id
+			ON Visit_info.bh_visit_id = BillTotal.c_order_id
 		LEFT JOIN (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			chargetype_name,
 			member_id,
 			MemberName,
@@ -160,37 +154,33 @@ FROM
 			non_patient_payments
 		WHERE
 			bh_subtype = 'I'
-		GROUP BY c_order_id, chargetype_name, member_id, MemberName, ClaimNo, Relationship
+		GROUP BY bh_visit_id, chargetype_name, member_id, MemberName, ClaimNo, Relationship
 	) insurance_info
-			ON insurance_info.c_order_id = Visit_info.c_order_id
+			ON insurance_info.bh_visit_id = Visit_info.bh_visit_id
 		CROSS JOIN params p
 WHERE
-		Visit_info.c_order_id IN (
+		Visit_info.bh_visit_id IN (
 		SELECT
-			c_order_id
+			bh_visit_id
 		FROM
 			DirectPayments
 		WHERE
-			(p.payment_mode = ''
-				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+			(p.payment_mode = '' OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
 		UNION
 		SELECT
-			c_order_id
+			bh_visit_id
 		FROM
 			non_patient_payments
 		WHERE
-			(p.payment_mode = ''
-				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-					AND p.payment_mode IN ('I', 'W', 'T')))
-			AND (p.insurance_type = ''
-			OR ChargeType_name = p.insurance_type)
+			(p.payment_mode = '' OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END AND
+			                         p.payment_mode IN ('I', 'W', 'T')))
+			AND (p.insurance_type = '' OR ChargeType_name = p.insurance_type)
 	)
-	AND (p.insurance_type = ''
-	OR ChargeType_name = p.insurance_type)
+	AND (p.insurance_type = '' OR ChargeType_name = p.insurance_type)
 ORDER BY
-	DATE(Visit_info.bill_date), Visit_info.patient_name;]]>
+	date(Visit_info.bill_date), Visit_info.patient_name;]]>
 	</queryString>
-	<field name="c_order_id" class="java.math.BigDecimal">
+	<field name="bh_visit_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
@@ -278,14 +268,14 @@ ORDER BY
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{payment_mode}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Mode}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="170" y="50" width="96" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{insurance_type}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Insurance Type}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="179" y="31" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">

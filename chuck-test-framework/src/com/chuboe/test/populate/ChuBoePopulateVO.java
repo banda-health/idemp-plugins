@@ -37,9 +37,11 @@ import java.util.Properties;
 import java.util.Random;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
@@ -102,9 +104,11 @@ public class ChuBoePopulateVO {
 	private MDocType documentType = null;
 	private String documentAction = null;
 	private MAttributeSetInstance_BH attributeSetInstance = null;
+
+	private MBHVisit visit = null;
 	private MOrder_BH order = null;
 	private MOrderLine_BH orderLine = null;
-	private MInOut inOut = null;
+	private MInOut_BH inOut = null;
 	private MInOutLine inOutLine = null;
 	private MInvoice_BH invoice = null;
 	private MInvoiceLine invoiceLine = null;
@@ -296,11 +300,11 @@ public class ChuBoePopulateVO {
 		this.orderLine = orderLine;
 	}
 
-	public MInOut getInOut() {
+	public MInOut_BH getInOut() {
 		return inOut;
 	}
 
-	public void setInOut(MInOut inOut) {
+	public void setInOut(MInOut_BH inOut) {
 		this.inOut = inOut;
 	}
 
@@ -819,5 +823,13 @@ public class ChuBoePopulateVO {
 
 	public void setPaymentAmount(BigDecimal paymentAmount) {
 		this.paymentAmount = paymentAmount;
+	}
+
+	public MBHVisit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(MBHVisit visit) {
+		this.visit = visit;
 	}
 }
