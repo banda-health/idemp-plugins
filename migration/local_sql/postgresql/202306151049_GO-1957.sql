@@ -1461,6 +1461,47 @@ WHERE
 	AND ad_user_id != 0
 ON CONFLICT DO NOTHING;
 
+-- Add in the "[CLient Name] Admin" and "[Client Name] User" roles to the system admins, too
+INSERT INTO
+	ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+	               ad_user_roles_uu)
+SELECT
+	u.ad_user_id,
+	aur.ad_role_id,
+	aur.ad_client_id,
+	0,
+	'Y',
+	NOW(),
+	100,
+	NOW(),
+	100,
+	uuid_generate_v4()
+FROM
+	ad_user u
+		CROSS JOIN (
+		SELECT
+			c.ad_client_id,
+			r.ad_role_id
+		FROM
+			ad_client c
+				JOIN ad_role r
+				ON r.ad_client_id = c.ad_client_id
+		WHERE
+			c.isactive = 'Y'
+			AND r.name IN (c.name || ' Admin', c.name || ' User')
+	) aur
+WHERE
+		u.ad_user_id IN (
+		SELECT
+			ad_user_id
+		FROM
+			ad_user_roles
+		WHERE
+			ad_role_id = 0
+	)
+	AND ad_user_id != 0
+ON CONFLICT DO NOTHING;
+
 /******************************************************************************************/
 -- 9. Rename some roles that didn't get renamed before
 /******************************************************************************************/
