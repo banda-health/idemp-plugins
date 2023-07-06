@@ -19,3 +19,4 @@ SELECT
     register_migration_script('202307061620_GO-XXXX.sql')
 FROM
     dual;
+    
