@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Insurance" pageWidth="595" pageHeight="842" columnWidth="560" leftMargin="20" rightMargin="15" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -42,19 +42,33 @@
 	<subDataset name="NewData" uuid="6d05f800-2db4-4778-b078-3f85c7208aab">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="C_Order_UU" class="java.lang.String"/>
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT product.name as Product, line.priceactual as Charge, line.qtyordered as Qty, line.linenetamt as Total,
-       date(c.created) as Date, c.grandtotal as Total_Payment ,b.name as Patient,
-       b.bh_local_patientid as FileNo,
-       a.name as ServedBy
-FROM c_orderline line
-    INNER JOIN m_product product ON line.m_product_id = product.m_product_id
-    INNER JOIN c_order c ON line.c_order_id = c.c_order_id
-    INNER JOIN c_bpartner b ON c.c_bpartner_id = b.c_bpartner_id
-    LEFT JOIN ad_user a ON c.salesrep_id = a.ad_user_id
-    WHERE issotrx='Y'
-     and c.c_order_uu = $P{C_Order_UU}]]>
+			<![CDATA[SELECT
+	product.name          AS Product,
+	ol.priceactual        AS Charge,
+	ol.qtyordered         AS Qty,
+	ol.linenetamt         AS Total,
+	date(v.bh_visitdate)  AS Date,
+	o.grandtotal          AS Total_Payment,
+	bp.name               AS Patient,
+	bp.bh_local_patientid AS FileNo,
+	u.name                AS ServedBy
+FROM
+	bh_visit v
+		JOIN c_order o
+		ON v.bh_visit_id = o.bh_visit_id
+		JOIN c_orderline ol
+		ON o.c_order_id = ol.c_order_id
+		JOIN m_product product
+		ON ol.m_product_id = product.m_product_id
+		JOIN c_bpartner bp
+		ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN ad_user u
+		ON o.salesrep_id = u.ad_user_id
+WHERE
+	issotrx = 'Y'
+	AND v.bh_visit_uu = $P{BH_Visit_UU}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -79,18 +93,25 @@ FROM c_orderline line
 	<subDataset name="ProductsDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="C_Order_UU" class="java.lang.String"/>
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT product.name         as Product,
-       line.priceactual     as Charge,
-       line.qtyordered      as Qty,
-       line.linenetamt      as Total
+			<![CDATA[SELECT
+	p.name         AS Product,
+	ol.priceactual AS Charge,
+	ol.qtyordered  AS Qty,
+	ol.linenetamt  AS Total
 --        c.grandtotal         as Total_Payment
-FROM c_orderline line
-         INNER JOIN m_product product ON line.m_product_id = product.m_product_id
-         INNER JOIN c_order c ON line.c_order_id = c.c_order_id
-WHERE issotrx = 'Y'
-  and c.c_order_uu = $P{C_Order_UU}]]>
+FROM
+	bh_visit v
+		JOIN c_order o
+		ON v.bh_visit_id = o.bh_visit_id
+		JOIN c_orderline ol
+		ON o.c_order_id = ol.c_order_id
+		JOIN m_product p
+		ON ol.m_product_id = p.m_product_id
+WHERE
+	issotrx = 'Y'
+	AND v.bh_visit_uu = $P{BH_Visit_UU}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="product"/>
@@ -115,50 +136,96 @@ WHERE issotrx = 'Y'
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="C_Order_UU" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BH_Visit_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[WITH payment AS (
-    select rl.name as PaymentType,
-           p.c_order_id
-    from ad_ref_list rl
-             join c_payment p on p.tendertype = rl.value and rl.ad_reference_id = 214
-             left join c_order co ON p.bh_c_order_id = co.c_order_id
-    where co.c_order_uu =  $P{C_Order_UU}
-    union
-    select c.name, co.c_order_id
-    from c_charge c
-             join c_orderline ol on c.c_charge_id = ol.c_charge_id
-             JOIN c_order co ON ol.c_order_id = co.c_order_id
-    where co.c_order_uu =  $P{C_Order_UU}
-), patient_detail AS (
-    SELECT date(c.created)      as Date,
-       b.name               as Patient,
-       b.bh_patientid as FileNo,
-       a.name               as ServedBy,
-       o.name               as Client_name,
-       c.c_order_id         as Order_id
-    FROM c_order c
-    INNER JOIN c_bpartner b ON c.c_bpartner_id = b.c_bpartner_id
-    LEFT JOIN ad_user a ON c.salesrep_id = a.ad_user_id
-    LEFT JOIN ad_org o ON o.ad_client_id = c.ad_client_id
-    WHERE issotrx = 'Y'
-    and c.c_order_uu =  $P{C_Order_UU}
-)
-SELECT pd.Date,
-	   pd.Order_id,
-       pd.FileNo,
-       pd.Patient,
-       pd.ServedBy,
-       coalesce(p.PaymentType, 'None') as PaymentType
-FROM patient_detail pd
-    LEFT JOIN payment p ON 1=1;]]>
+	SELECT
+		rl.name AS PaymentType,
+		p.c_order_id
+	FROM
+		ad_ref_list rl
+			JOIN c_payment p
+			ON p.tendertype = rl.value AND rl.ad_reference_id = 214
+			JOIN bh_visit v
+			ON p.bh_visit_id = v.bh_visit_id
+	WHERE
+		v.bh_visit_uu = $P{BH_Visit_UU}
+	UNION
+	SELECT
+		c.name,
+		o.c_order_id
+	FROM
+		bh_visit v
+			JOIN c_order o
+			ON v.bh_visit_id = o.bh_visit_id
+			JOIN c_orderline ol
+			ON o.c_order_id = ol.c_order_id
+			JOIN c_charge c
+			ON c.c_charge_id = ol.c_charge_id
+	WHERE
+		v.bh_visit_uu = $P{BH_Visit_UU}
+),
+	patient_detail AS (
+		SELECT
+			date(v.bh_visitdate) AS Date,
+			bp.name              AS Patient,
+			bp.bh_patientid      AS FileNo,
+			u.name               AS ServedBy,
+			org.name             AS Client_name,
+			o.c_order_id         AS Order_id
+		FROM
+			bh_visit v
+				JOIN c_order o
+				ON v.bh_visit_id = o.bh_visit_id
+				JOIN c_bpartner bp
+				ON v.patient_id = bp.c_bpartner_id
+				LEFT JOIN ad_user u
+				ON o.salesrep_id = u.ad_user_id
+				JOIN ad_org org
+				ON org.ad_client_id = v.ad_client_id
+		WHERE
+			v.bh_visit_uu = $P{BH_Visit_UU}
+	)
+SELECT
+	pd.Date,
+	pd.Order_id,
+	pd.FileNo,
+	pd.Patient,
+	pd.ServedBy,
+	v.documentno as invoice_id,
+	COALESCE(p.PaymentType, 'None') AS PaymentType
+FROM
+	patient_detail pd
+		CROSS JOIN payment p
+		CROSS JOIN bh_visit v
+WHERE v.bh_visit_uu = $P{BH_Visit_UU};]]>
 	</queryString>
-	<field name="Date" class="java.sql.Date"/>
-	<field name="FileNo" class="java.lang.String"/>
-	<field name="Patient" class="java.lang.String"/>
-	<field name="ServedBy" class="java.lang.String"/>
-	<field name="PaymentType" class="java.lang.String"/>
-	<field name="Order_id" class="java.math.BigDecimal"/>
+	<field name="date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+	</field>
+	<field name="order_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="order_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	</field>
+	<field name="fileno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fileno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patient"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="servedby" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="servedby"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="invoice_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="invoice_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
+	</field>
+	<field name="paymenttype" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="paymenttype"/>
+	</field>
 	<variable name="Total" class="java.math.BigDecimal" calculation="Sum"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -167,8 +234,8 @@ FROM patient_detail pd
 		<band height="52" splitType="Stretch">
 			<subreport>
 				<reportElement isPrintRepeatedValues="false" x="91" y="-21" width="376" height="51" uuid="4e1c7929-9a3b-4a62-b844-1a5b6d9f5670"/>
-				<subreportParameter name="C_Order_UU">
-					<subreportParameterExpression><![CDATA[$P{C_Order_UU}]]></subreportParameterExpression>
+				<subreportParameter name="BH_Visit_UU">
+					<subreportParameterExpression><![CDATA[$P{BH_Visit_UU}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "A5_Title.jasper"]]></subreportExpression>
@@ -204,14 +271,14 @@ FROM patient_detail pd
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{Date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{date})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="51" width="141" height="17" uuid="6bb9a355-3494-46d6-92fb-55a5dee11cc7"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{FileNo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fileno}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="90" y="51" width="60" height="17" uuid="c2268eb9-d71b-4679-ab1f-93d61a0c1328"/>
@@ -234,14 +301,14 @@ FROM patient_detail pd
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Patient}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{patient}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="85" width="141" height="16" uuid="2ecbd556-7a2d-4fda-9cbb-313c2d923e41"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ServedBy}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{servedby}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="90" y="85" width="60" height="16" uuid="451b3683-b658-4991-84af-325ab402021a"/>
@@ -256,7 +323,7 @@ FROM patient_detail pd
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PaymentType}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{paymenttype}]]></textFieldExpression>
 			</textField>
 			<componentElement>
 				<reportElement x="91" y="122" width="380" height="30" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
@@ -268,8 +335,8 @@ FROM patient_detail pd
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="ProductsDataSet" uuid="77f05f28-fa97-43f1-88b9-ebd17b6e4fdd">
-						<datasetParameter name="C_Order_UU">
-							<datasetParameterExpression><![CDATA[$P{C_Order_UU}]]></datasetParameterExpression>
+						<datasetParameter name="BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -389,7 +456,7 @@ FROM patient_detail pd
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Order_id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoice_id}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="90" y="101" width="60" height="16" uuid="43363581-2196-4653-baf0-c9703b69d3b3"/>
@@ -427,8 +494,8 @@ FROM patient_detail pd
 		<band height="83">
 			<subreport>
 				<reportElement x="90" y="0" width="382" height="80" uuid="0aaa4000-0e13-4713-8664-56497eb636e9"/>
-				<subreportParameter name="C_Order_UU">
-					<subreportParameterExpression><![CDATA[$P{C_Order_UU}]]></subreportParameterExpression>
+				<subreportParameter name="BH_Visit_UU">
+					<subreportParameterExpression><![CDATA[$P{BH_Visit_UU}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PaymentType.jasper"]]></subreportExpression>
