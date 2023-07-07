@@ -5,6 +5,8 @@ import org.compiere.model.MImage;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import java.util.Base64;
+
 @JsonInclude(value = Include.NON_NULL)
 public class Image extends BaseEntity {
 
@@ -22,6 +24,7 @@ public class Image extends BaseEntity {
 
 		this.entityType = instance.getEntityType();
 		this.imageUrl = instance.getImageURL();
+		this.binaryData = Base64.getEncoder().encodeToString(instance.getBinaryData());
 	}
 
 	public String getEntityType() {

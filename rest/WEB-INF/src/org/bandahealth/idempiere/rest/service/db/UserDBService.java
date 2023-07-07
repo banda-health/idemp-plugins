@@ -131,7 +131,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 			user.setIsActive(entity.getIsActive());
 
-			if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
+			if (entity.getRoles() != null) {
 				userRolesDBService.saveRoles(user, entity.getRoles());
 			}
 
@@ -178,32 +178,27 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 		// Batch call to get user roles
 		Set<Integer> userIds = dbModels.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
 
-		Map<Integer, List<MUserRoles>> rolesByUserId = userRolesDBService.getGroupsByIds(MUserRoles::getAD_User_ID,
-				MUserRoles.COLUMNNAME_AD_User_ID, userIds);
+		Map<Integer, List<MUserRoles>> userRoleAssignmentsByUserId =
+				userRolesDBService.getGroupsByIds(MUserRoles::getAD_User_ID, MUserRoles.COLUMNNAME_AD_User_ID, userIds);
 
 		// batch call to get roles
-		Set<Integer> roleIds = rolesByUserId.values().stream()
+		Set<Integer> roleIds = userRoleAssignmentsByUserId.values().stream()
 				.flatMap(roleByUserId -> roleByUserId.stream().map(MUserRoles::getAD_Role_ID))
 				.collect(Collectors.toSet());
-		Map<Integer, MRole> roles = roleDBService.getByIds(roleIds);
+		Map<Integer, Role> rolesById =
+				roleDBService.transformData(new ArrayList<>(roleDBService.getByIds(roleIds).values())).stream()
+						.collect(Collectors.toMap(Role::getId, role -> role));
 
-		return dbModels.stream().map(mUser -> {
-			User user = new User(mUser);
-			if (rolesByUserId.containsKey(mUser.getAD_User_ID())) {
-				// get user roles
-				List<MUserRoles> userRoles = rolesByUserId.get(mUser.getAD_User_ID());
-				// get roles
-				userRoles.stream().forEach(userRole -> {
-					// get role
-					roles.values().stream().filter(role -> userRole.getAD_Role_ID() == role.get_ID()).forEach(role -> {
-						Role r = new Role(role);
-						user.getRoles().add(r);
-					});
-				});
+		return dbModels.stream().map(dbUser -> {
+			User user = createInstanceWithAllFields(dbUser);
+
+			if (userRoleAssignmentsByUserId.containsKey(dbUser.getAD_User_ID())) {
+				user.setRoles(userRoleAssignmentsByUserId.get(dbUser.getAD_User_ID()).stream()
+						.map(userRole -> rolesById.getOrDefault(userRole.getAD_Role_ID(), new Role()))
+						.collect(Collectors.toList()));
 			}
 
 			return user;
-
 		}).collect(Collectors.toList());
 	}
 

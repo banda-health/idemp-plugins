@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.UserRoles;
-import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
@@ -11,10 +10,7 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,36 +21,27 @@ public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 	private RoleDBService roleDBService;
 
 	public void saveRoles(MUser_BH user, List<Role> roles) {
-		if (roles.isEmpty()) {
-			return;
-		}
-
-		Set<String> rolesUuids = roles.stream().map(Role::getUuid).collect(Collectors.toSet());
-
 		// get roles
-		Map<String, MRole> mRoles = roleDBService.getByUuids(rolesUuids);
-		if (mRoles.isEmpty()) {
-			// we don't yet support creating new roles from the UI
-			return;
-		}
+		Set<Integer> roleIdsToSave =
+				roleDBService.getByUuids(roles.stream().map(Role::getUuid).collect(Collectors.toSet())).values().stream()
+						.map(MRole::getAD_Role_ID).collect(Collectors.toSet());
 
 		// check existing user roles
-		List<MUserRoles> existingUserRoles = new Query(Env.getCtx(), MUserRoles.Table_Name,
-				MUserRoles.COLUMNNAME_AD_User_ID + " =?", null).setParameters(user.get_ID()).list();
+		List<MUserRoles> existingUserRoles =
+				new Query(Env.getCtx(), MUserRoles.Table_Name, MUserRoles.COLUMNNAME_AD_User_ID + " =?", null).setParameters(
+						user.get_ID()).list();
+		Set<Integer> existingRoleIds =
+				existingUserRoles.stream().map(MUserRoles::getAD_Role_ID).collect(Collectors.toSet());
 
-		if (!existingUserRoles.isEmpty()) {
-			// remove existing user roles in order to save new ones
-			existingUserRoles.stream().forEach(userRole -> {
-				userRole.delete(true);
-			});
-		}
+		existingUserRoles.stream().filter(userRole -> !roleIdsToSave.contains(userRole.getAD_Role_ID()))
+				.forEach(userRole -> userRole.deleteEx(true));
 
 		// save new roles
-		roles.stream().forEach(role -> {
+		roleIdsToSave.stream().filter(roleIdToSave -> !existingRoleIds.contains(roleIdToSave)).forEach(roleIdToSave -> {
 			try {
 				MUserRoles mUserRoles = new MUserRoles(Env.getCtx(), 0, null);
 				mUserRoles.setAD_User_ID(user.get_ID());
-				mUserRoles.setAD_Role_ID(mRoles.get(role.getUuid()).get_ID());
+				mUserRoles.setAD_Role_ID(roleIdToSave);
 				mUserRoles.saveEx();
 			} catch (Exception ex) {
 				log.severe(ex.getMessage());
