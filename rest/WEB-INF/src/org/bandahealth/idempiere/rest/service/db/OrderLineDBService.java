@@ -135,10 +135,10 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 		// If there is any information to save with this line, save it
 		if (entity.getChargeInformationList() != null) {
-			entity.getChargeInformationList().forEach(orderLineChargeInformation -> {
+			entity.setChargeInformationList(entity.getChargeInformationList().stream().map(orderLineChargeInformation -> {
 				orderLineChargeInformation.setOrderLineId(entity.getId());
-				orderLineChargeInformationDBService.saveEntity(orderLineChargeInformation);
-			});
+				return orderLineChargeInformationDBService.saveEntity(orderLineChargeInformation);
+			}).collect(Collectors.toList()));
 		} else {
 			entity.setChargeInformationList(new ArrayList<>());
 		}

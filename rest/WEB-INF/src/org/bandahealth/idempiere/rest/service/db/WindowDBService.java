@@ -1,8 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.bandahealth.idempiere.rest.model.Window;
 import org.compiere.model.MWindow;
 import org.compiere.util.Env;
@@ -40,7 +37,11 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 		return new MWindow(Env.getCtx(), 0, null);
 	}
 
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(false);
+			setShouldFetchFromSystemClient(true);
+		}};
 	}
 }

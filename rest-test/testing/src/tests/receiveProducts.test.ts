@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import {
 	attributeSetApi,
 	attributeSetInstanceApi,
@@ -190,4 +191,40 @@ test(`can't void an order after product has been sold`, async () => {
 			)
 		).results.reduce((totalQuantity, storageOnHand) => storageOnHand.quantityOnHand + totalQuantity, 0),
 	).toBe(0);
+});
+
+test(`save returns the same thing as getByUuid`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create vendor';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create product';
+	const expiringAttributeSet = (
+		await attributeSetApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ isguaranteedate: true }))
+	).results[0];
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+	valueObject.product!.attributeSet = expiringAttributeSet;
+	valueObject.product = await productApi.save(valueObject, valueObject.product as Product);
+
+	valueObject.stepName = 'Create expiring attribute set instance';
+	let expiringAttributeSetInstance: Partial<AttributeSetInstance> = {
+		guaranteeDate: getDateOffset(new Date(), 365),
+		updateReason: {} as VoidedReason,
+		attributeSet: expiringAttributeSet,
+	};
+	expiringAttributeSetInstance = await attributeSetInstanceApi.save(
+		valueObject,
+		expiringAttributeSetInstance as AttributeSetInstance,
+	);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = undefined;
+	await createPurchaseOrder(valueObject);
+	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
+	const savedOrder = await receiveProductsApi.save(valueObject, valueObject.order as ReceiveProduct);
+	const fetchedOrder = await receiveProductsApi.getByUuid(valueObject, valueObject.order!.uuid);
+	expect(isEqual(savedOrder, fetchedOrder)).toBeTruthy();
 });
