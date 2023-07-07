@@ -59,11 +59,6 @@ public class ImageDBService extends BaseDBService<Image, MImage> {
 	}
 
 	@Override
-	protected Image createInstanceWithSearchFields(MImage instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	public List<Image> transformData(List<MImage> dbModels) {
 		return dbModels.stream().map(mImage -> {
 			Image image = new Image(mImage);

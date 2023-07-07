@@ -112,11 +112,6 @@ public class BusinessPartnerChargeDBService extends BaseDBService<BusinessPartne
 	}
 
 	@Override
-	protected BusinessPartnerCharge createInstanceWithSearchFields(MBHBPartnerCharge instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHBPartnerCharge getModelInstance() {
 		return new MBHBPartnerCharge(Env.getCtx(), 0, null);
 	}

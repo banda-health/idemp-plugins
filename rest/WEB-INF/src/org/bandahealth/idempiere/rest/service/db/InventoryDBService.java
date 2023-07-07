@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 @Component
 public class InventoryDBService extends DocumentDBService<Inventory, MInventory_BH> {
 	private final String NO_PRODUCTS_ADDED = "No products were passed to initialize stock.";
-	private final String NO_DEFAULT_WAREHOUSE = "No warehouses defined for organization";
 
 	@Autowired
 	private WarehouseDBService warehouseDBService;
@@ -101,11 +100,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 	@Override
 	protected Inventory createInstanceWithAllFields(MInventory_BH instance) {
 		return new Inventory(instance);
-	}
-
-	@Override
-	protected Inventory createInstanceWithSearchFields(MInventory_BH instance) {
-		return createInstanceWithAllFields(instance);
 	}
 
 	@Override

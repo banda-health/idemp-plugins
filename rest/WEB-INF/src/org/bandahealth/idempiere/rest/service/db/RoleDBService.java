@@ -33,11 +33,6 @@ public class RoleDBService extends BaseDBService<Role, MRole> {
 	}
 
 	@Override
-	protected Role createInstanceWithSearchFields(MRole instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MRole getModelInstance() {
 		return new MRole(Env.getCtx(), 0, null);
 	}

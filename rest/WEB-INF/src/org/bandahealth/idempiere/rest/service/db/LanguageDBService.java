@@ -62,11 +62,6 @@ public class LanguageDBService extends BaseDBService<Language, MLanguage> {
 	}
 
 	@Override
-	protected Language createInstanceWithSearchFields(MLanguage instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MLanguage getModelInstance() {
 		return new MLanguage(Env.getCtx(), 0, null);
 	}

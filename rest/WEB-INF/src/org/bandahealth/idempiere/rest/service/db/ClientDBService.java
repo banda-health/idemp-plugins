@@ -28,11 +28,6 @@ public class ClientDBService extends BaseDBService<Client, MClient_BH> {
 	}
 
 	@Override
-	protected Client createInstanceWithSearchFields(MClient_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MClient_BH getModelInstance() {
 		return new MClient_BH(Env.getCtx(), 0, null);
 	}

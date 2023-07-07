@@ -34,11 +34,6 @@ public class ProcessParameterDBService extends BaseDBService<ProcessParameter, M
 	}
 
 	@Override
-	protected ProcessParameter createInstanceWithSearchFields(MProcessPara instance) {
-		return this.createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MProcessPara getModelInstance() {
 		return new MProcessPara(Env.getCtx(), 0, null);
 	}

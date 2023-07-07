@@ -92,20 +92,6 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 		return super.getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, joinClause);
 	}
 
-	public BaseListResponse<ExpenseCategory> search(String value, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(value));
-		parameters.add(MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY);
-		String whereClause =
-				DEFAULT_SEARCH_CLAUSE + " " + MChargeType_BH.Table_Name + "." + MChargeType_BH.COLUMNNAME_Name + "=?";
-		String joinClause = "JOIN " + MChargeType_BH.Table_Name + " ON " + MChargeType_BH.Table_Name + "." +
-				MChargeType_BH.COLUMNNAME_C_ChargeType_ID + "=" + MCharge_BH.Table_Name + "." +
-				MCharge_BH.COLUMNNAME_C_ChargeType_ID;
-
-		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, joinClause);
-	}
-
 	@Override
 	protected ExpenseCategory createInstanceWithDefaultFields(MCharge_BH expense) {
 		try {
@@ -123,20 +109,6 @@ public class ExpenseCategoryDBService extends BaseDBService<ExpenseCategory, MCh
 	@Override
 	protected ExpenseCategory createInstanceWithAllFields(MCharge_BH expense) {
 		return createInstanceWithDefaultFields(expense);
-	}
-
-	@Override
-	protected ExpenseCategory createInstanceWithSearchFields(MCharge_BH expense) {
-		try {
-			MElementValue account = accountDBService.getEntityByIdFromDB(expense.getC_ElementValue_ID());
-			return new ExpenseCategory(expense.getC_Charge_UU(), expense.getName(), expense.isBH_Locked(),
-					DateUtil.parseDateOnly(expense.getCreated()), expense.getDescription(), expense.isActive(),
-					account.getC_ElementValue_UU());
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-
-		return null;
 	}
 
 	@Override

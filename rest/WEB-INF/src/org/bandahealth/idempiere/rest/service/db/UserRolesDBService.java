@@ -83,11 +83,6 @@ public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 	}
 
 	@Override
-	protected UserRoles createInstanceWithSearchFields(MUserRoles instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MUserRoles getModelInstance() {
 		return new MUserRoles(Env.getCtx(), 0, null);
 	}

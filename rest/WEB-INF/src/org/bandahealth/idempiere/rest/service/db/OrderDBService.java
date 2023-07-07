@@ -36,9 +36,4 @@ public class OrderDBService extends BaseOrderDBService<Order> {
 	protected Order createInstanceWithAllFields(MOrder_BH instance) {
 		return new Order(instance);
 	}
-
-	@Override
-	protected Order createInstanceWithSearchFields(MOrder_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
 }

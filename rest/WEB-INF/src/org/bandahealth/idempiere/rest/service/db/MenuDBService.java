@@ -33,7 +33,6 @@ import org.springframework.stereotype.Component;
 public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 	private final String ERROR_NO_MENU = "Greenlight Menu Tree not found.";
-	private final String REPORTS_MENU_UUID = "Reports"; // does this change with translations?
 	private final String ERROR_NO_REPORTS = "No reports found..";
 	@Autowired
 	private WindowDBService windowDBService;
@@ -185,11 +184,6 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 	@Override
 	protected Menu createInstanceWithAllFields(MMenu_BH instance) {
 		return new Menu(instance);
-	}
-
-	@Override
-	protected Menu createInstanceWithSearchFields(MMenu_BH instance) {
-		return createInstanceWithAllFields(instance);
 	}
 
 	@Override

@@ -201,11 +201,6 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	}
 
 	@Override
-	protected OrderLine createInstanceWithSearchFields(MOrderLine_BH instance) {
-		return createInstanceWithDefaultFields(instance);
-	}
-
-	@Override
 	protected MOrderLine_BH getModelInstance() {
 		return new MOrderLine_BH(Env.getCtx(), 0, null);
 	}

@@ -29,11 +29,6 @@ public class ChargeInformationValueSuggestionDBService
 	}
 
 	@Override
-	protected ChargeInformationValueSuggestion createInstanceWithSearchFields(MBHChargeInfoValueSuggestion instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHChargeInfoValueSuggestion getModelInstance() {
 		return new MBHChargeInfoValueSuggestion(Env.getCtx(), 0, null);
 	}

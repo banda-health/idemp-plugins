@@ -211,11 +211,6 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	}
 
 	@Override
-	protected Movement createInstanceWithSearchFields(MMovement_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MMovement_BH getModelInstance() {
 		return new MMovement_BH(Env.getCtx(), 0, null);
 	}
