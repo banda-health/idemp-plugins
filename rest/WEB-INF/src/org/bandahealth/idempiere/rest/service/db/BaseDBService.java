@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
@@ -65,8 +66,21 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public abstract Boolean deleteEntity(String entityUuid);
 
 	/**
-	 * This should be overridden in inheriting classes.
-	 * Structure: Map<TableName, JOIN clause>
+	 * What the default query configuration should be, from whether the client ID from the context should be
+	 * automatically used by default in DB queries or whether SYSTEM client values should also be queryable.
+	 * WARNING: If this is overridden, data from one client may be visible to another client
+	 *
+	 * @return Whether the client ID from the iDempiere context will be used
+	 */
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(true);
+			setShouldFetchFromSystemClient(false);
+		}};
+	}
+
+	/**
+	 * This should be overridden in inheriting classes. Structure: Map<TableName, JOIN clause>
 	 *
 	 * @return A map of table names and their appropriate JOIN clauses
 	 */
@@ -163,32 +177,15 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 
 	/**
-	 * Whether the client ID from the context should be automatically used by default in DB queries. WARNING: If this is
-	 * overridden, data from one client may be visible to another client
-	 *
-	 * @return Whether the client ID from the iDempiere context will be used
-	 */
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return true;
-	}
-
-	/**
 	 * The default method to create a Query for this entity type.
 	 *
-	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
-	 * @param whereClause              The WHERE clause to add to the query
-	 * @param parameters               Any parameters needed for the WHERE clause
+	 * @param entityConfiguration Entity configuration properties to be automatically used in the query
+	 * @param whereClause         The WHERE clause to add to the query
+	 * @param parameters          Any parameters needed for the WHERE clause
 	 * @return A query that can be used to fetch data
 	 */
-	public Query getBaseQuery(boolean shouldUseContextClientId, String whereClause, Object... parameters) {
-		// Set up the query. Also, we don't want virtual columns because those were used in GO and greatly slow down
-		// queries. If they're needed, the query should be written in the repositories as a column/JOIN
-		Query query =
-				new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null).setNoVirtualColumn(true);
-		// If we should use the client ID in the context, add it
-		if (shouldUseContextClientId) {
-			query.setClient_ID();
-		}
+	public Query getBaseQuery(EntityConfiguration entityConfiguration, String whereClause, Object... parameters) {
+		entityConfiguration = entityConfiguration == null ? getDefaultEntityConfiguration() : entityConfiguration;
 		List<Object> parametersToUse = new ArrayList<>();
 		// Handle any that were passed in
 		if (parameters != null) {
@@ -199,6 +196,32 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 					parametersToUse.add(parameter);
 				}
 			});
+		}
+		String tableName = getModelInstance().get_TableName();
+		// If we need something from the system client, we'll have to do it through the WHERE clause
+		if (entityConfiguration.isShouldFetchFromSystemClient()) {
+			if (!StringUtil.isNullOrEmpty(whereClause)) {
+				whereClause += " AND ";
+			} else {
+				whereClause = "";
+			}
+			whereClause += tableName + ".ad_client_id";
+			if (entityConfiguration.isShouldUseContextClientId()) {
+				whereClause += " IN (?,?)";
+				parametersToUse.add(Env.getAD_Client_ID(Env.getCtx()));
+				parametersToUse.add(MClient_BH.CLIENTID_SYSTEM);
+			} else {
+				whereClause += "=?";
+				parametersToUse.add(MClient_BH.CLIENTID_SYSTEM);
+			}
+		}
+		// Set up the query. Also, we don't want virtual columns because those were used in GO and greatly slow down
+		// queries. If they're needed, the query should be written in the repositories as a column/JOIN
+		Query query = new Query(Env.getCtx(), tableName, whereClause, null)
+				.setNoVirtualColumn(true);
+		// If we should use the client ID in the context (and it wasn't handled in the WHERE clause), add it
+		if (!entityConfiguration.isShouldFetchFromSystemClient() && entityConfiguration.isShouldUseContextClientId()) {
+			query.setClient_ID();
 		}
 		if (!parametersToUse.isEmpty()) {
 			query.setParameters(parametersToUse);
@@ -218,28 +241,26 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		if (sortColumn != null && !sortColumn.isEmpty() && sortOrder != null) {
 			// check if column exists
 			if (checkColumnExists(sortColumn)) {
-				return sortColumn + " "
-						+ (sortOrder.equalsIgnoreCase(DESCENDING_ORDER) ? DESCENDING_ORDER : ASCENDING_ORDER)
-						+ ORDERBY_NULLS_LAST;
+				return sortColumn + " " + (sortOrder.equalsIgnoreCase(DESCENDING_ORDER) ? DESCENDING_ORDER : ASCENDING_ORDER) +
+						ORDERBY_NULLS_LAST;
 			}
 		} else {
 			// every table has the 'created' column
-			return checkColumnExists(MUser.COLUMNNAME_Created) ? MUser.COLUMNNAME_Created + " " + DESCENDING_ORDER
-					+ ORDERBY_NULLS_LAST : null;
+			return checkColumnExists(MUser.COLUMNNAME_Created) ?
+					MUser.COLUMNNAME_Created + " " + DESCENDING_ORDER + ORDERBY_NULLS_LAST : null;
 		}
 
 		return null;
 	}
 
-	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo,
-			String sortColumn, String sortOrder) {
+	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo, String sortColumn, String sortOrder) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(valueToSearch));
 		return this.search(DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-			String sortColumn, String sortOrder) {
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder) {
 		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
 	}
 
@@ -254,15 +275,34 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @param joinClause  Use to specify a linked table so joining can occur
 	 * @return
 	 */
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo,
-			String sortColumn, String sortOrder, String joinClause) {
+	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
+			String sortOrder, String joinClause) {
 		try {
 			List<T> results = new ArrayList<>();
+			EntityConfiguration entityConfiguration = getDefaultEntityConfiguration();
 
-			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(), whereClause, null);
+			String tableName = getModelInstance().get_TableName();
+			// If we need something from the system client, we'll have to do it through the WHERE clause
+			if (entityConfiguration.isShouldFetchFromSystemClient()) {
+				if (!StringUtil.isNullOrEmpty(whereClause)) {
+					whereClause += " AND ";
+				} else {
+					whereClause = "";
+				}
+				whereClause += tableName + ".ad_client_id";
+				if (entityConfiguration.isShouldUseContextClientId()) {
+					whereClause += " IN (?,?)";
+					parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+				} else {
+					whereClause += "=?";
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+				}
+			}
+			Query query = new Query(Env.getCtx(), tableName, whereClause, null);
 
-			if (isClientIdFromTheContextNeededByDefaultForThisEntity()) {
-				query = query.setClient_ID();
+			if (!entityConfiguration.isShouldFetchFromSystemClient() && entityConfiguration.isShouldUseContextClientId()) {
+				query.setClient_ID();
 			}
 
 			if (joinClause != null) {
@@ -303,7 +343,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
-
 	/**
 	 * A base method to get all entities from the DB
 	 *
@@ -315,7 +354,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public BaseListResponse<T> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		return this.getAll(null, null, pagingInfo, sortJson, filterJson, null);
 	}
-
 
 	/**
 	 * A base method to get all entities from the DB
@@ -346,33 +384,34 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
 			String filterJson, String joinClause) {
 		return getAll(whereClause, parameters, pagingInfo, sortJson, filterJson, joinClause,
-				isClientIdFromTheContextNeededByDefaultForThisEntity());
+				getDefaultEntityConfiguration());
 	}
 
 	/**
-	 * A base method to get all entities from the DB, with the addition of a JOIN clause and ability to specify whether
-	 * the Client ID should be used.
+	 * A base method to get all entities from the DB, with the addition of a JOIN
+	 * clause and ability to specify whether the Client ID should be used.
 	 *
-	 * @param whereClause              The WHERE clause to use in searching the DB
-	 * @param parameters               Any parameters that the query needs.
-	 * @param pagingInfo               Paging information to use to limit the query.
-	 * @param sortJson                 Any sorting specifications
-	 * @param filterJson               Any filter criteria to use to limit the results
-	 * @param sortJson                 Any combination of
-	 * @param joinClause               Use to specify a linked table so joining can occur
-	 * @param shouldUseContextClientId Whether the client ID from the context should be automatically used in the query
+	 * @param whereClause         The WHERE clause to use in searching the DB
+	 * @param parameters          Any parameters that the query needs.
+	 * @param pagingInfo          Paging information to use to limit the query.
+	 * @param sortJson            Any sorting specifications
+	 * @param filterJson          Any filter criteria to use to limit the results
+	 * @param joinClause          Use to specify a linked table so joining can occur
+	 * @param entityConfiguration Entity configuration properties to be automatically used in the query
 	 * @return A list of the data, plus pagination information
 	 */
 	public BaseListResponse<T> getAll(String whereClause, List<Object> parameters, Paging pagingInfo, String sortJson,
-			String filterJson, String joinClause, boolean shouldUseContextClientId) {
+			String filterJson, String joinClause, EntityConfiguration entityConfiguration) {
 		try {
+			entityConfiguration = entityConfiguration == null ? getDefaultEntityConfiguration() : entityConfiguration;
+
 			if (parameters == null) {
 				parameters = new ArrayList<>();
 			}
 
 			String filterWhereClause =
 					FilterUtil.getWhereClauseFromFilter(getModelInstance().get_TableName(), filterJson, parameters,
-							shouldUseContextClientId);
+							entityConfiguration);
 			if (StringUtil.isNullOrEmpty(whereClause)) {
 				whereClause = filterWhereClause;
 			} else {
@@ -380,9 +419,26 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			}
 
 			String tableName = getModelInstance().get_TableName();
+			// If we need something from the system client, we'll have to do it through the WHERE clause
+			if (entityConfiguration.isShouldFetchFromSystemClient()) {
+				if (!StringUtil.isNullOrEmpty(whereClause)) {
+					whereClause += " AND ";
+				} else {
+					whereClause = "";
+				}
+				whereClause += tableName + ".ad_client_id";
+				if (entityConfiguration.isShouldUseContextClientId()) {
+					whereClause += " IN (?,?)";
+					parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+				} else {
+					whereClause += "=?";
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+				}
+			}
 			Query query = new Query(Env.getCtx(), tableName, whereClause, null);
-			// If we should use the client ID in the context, add it
-			if (shouldUseContextClientId) {
+			// If we should use the client ID in the context (and it wasn't handled in the WHERE clause), add it
+			if (!entityConfiguration.isShouldFetchFromSystemClient() && entityConfiguration.isShouldUseContextClientId()) {
 				query.setClient_ID();
 			}
 
@@ -530,21 +586,20 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 */
 	public Map<Integer, List<S>> getGroupsByIds(Function<S, Integer> groupingFunction, String columnToSearch,
 			Set<Integer> ids) {
-		return getGroupsByIds(isClientIdFromTheContextNeededByDefaultForThisEntity(), groupingFunction, columnToSearch,
-				ids);
+		return getGroupsByIds(getDefaultEntityConfiguration(), groupingFunction, columnToSearch, ids);
 	}
 
 	/**
 	 * Get a list of this entity grouped by IDs
 	 *
-	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
-	 * @param groupingFunction         The grouping function to apply for these entities
-	 * @param columnToSearch           The search column to check in
-	 * @param ids                      The IDs to search by
+	 * @param entityConfiguration Contains query specific properties to be set for this query
+	 * @param groupingFunction    The grouping function to apply for these entities
+	 * @param columnToSearch      The search column to check in
+	 * @param ids                 The IDs to search by
 	 * @return Entities grouped by their ID
 	 */
-	public Map<Integer, List<S>> getGroupsByIds(boolean shouldUseContextClientId, Function<S, Integer> groupingFunction,
-			String columnToSearch, Set<Integer> ids) {
+	public Map<Integer, List<S>> getGroupsByIds(EntityConfiguration entityConfiguration,
+			Function<S, Integer> groupingFunction, String columnToSearch, Set<Integer> ids) {
 		if (ids.isEmpty()) {
 			return new HashMap<>();
 		}
@@ -554,7 +609,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			columnToSearch = getModelInstance().get_TableName() + "." + columnToSearch;
 		}
 		List<S> models =
-				getBaseQuery(shouldUseContextClientId, columnToSearch + " IN (" + whereCondition + ")", parameters).list();
+				getBaseQuery(entityConfiguration, columnToSearch + " IN (" + whereCondition + ")", parameters).list();
 		Map<Integer, List<S>> groupedValues =
 				getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
 		return ids.stream().collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
@@ -567,26 +622,25 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A map of entities by the ID searched
 	 */
 	public Map<Integer, S> getByIds(Set<Integer> ids) {
-		return getByIds(isClientIdFromTheContextNeededByDefaultForThisEntity(), ids);
+		return getByIds(getDefaultEntityConfiguration(), ids);
 	}
 
 	/**
 	 * Get a list of entities by their IDs
 	 *
-	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
-	 * @param ids                      The IDs to search by
+	 * @param entityConfiguration Entity specific properties to be set for this query
+	 * @param ids                 The IDs to search by
 	 * @return A map of entities by the ID searched
 	 */
-	public Map<Integer, S> getByIds(boolean shouldUseContextClientId, Set<Integer> ids) {
+	public Map<Integer, S> getByIds(EntityConfiguration entityConfiguration, Set<Integer> ids) {
 		if (ids.isEmpty()) {
 			return new HashMap<>();
 		}
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		String tableName = getModelInstance().get_TableName();
-		List<S> models =
-				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
-						parameters).list();
+		List<S> models = getBaseQuery(entityConfiguration, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
+				parameters).list();
 		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, model -> model));
 	}
 
@@ -597,28 +651,27 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	 * @return A map of entities by the UUID searched
 	 */
 	public Map<String, S> getByUuids(Set<String> uuids) {
-		return getByUuids(isClientIdFromTheContextNeededByDefaultForThisEntity(), uuids);
+		return getByUuids(getDefaultEntityConfiguration(), uuids);
 	}
 
 	/**
 	 * Get a list of entities by their UUIDs
 	 *
-	 * @param shouldUseContextClientId Whether the client ID in the context should be set for this query
-	 * @param uuids                    The UUIDs to search by
+	 * @param entityConfiguration Entity specific properties to be set for this query
+	 * @param uuids               The UUIDs to search by
 	 * @return A map of entities by the UUID searched
 	 */
-	public Map<String, S> getByUuids(boolean shouldUseContextClientId, Set<String> uuids) {
+	public Map<String, S> getByUuids(EntityConfiguration entityConfiguration, Set<String> uuids) {
 		if (uuids.isEmpty()) {
 			return new HashMap<>();
 		}
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(uuids, parameters);
 		String tableName = getModelInstance().get_TableName();
-		List<S> models =
-				getBaseQuery(shouldUseContextClientId, tableName + "." + tableName + "_UU IN (" + whereCondition + ")",
-						parameters).list();
-		return getTranslations(models).stream().collect(Collectors
-				.toMap(model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
+		List<S> models = getBaseQuery(entityConfiguration, tableName + "." + tableName + "_UU IN (" + whereCondition + ")",
+				parameters).list();
+		return getTranslations(models).stream().collect(
+				Collectors.toMap(model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
 						model -> model));
 	}
 
