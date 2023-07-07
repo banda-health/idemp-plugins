@@ -201,12 +201,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setBH_Process_Stage(null);
 			visit.saveEx();
 
-			Visit model = createInstanceWithAllFields(visit);
-			model.setOrders(orderDBService.transformData(
-					orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
-							Collections.singleton(visit.get_ID())).get(visit.get_ID())));
-			model.setPayments(paymentDBService.getPaymentsByVisitId(model.getId()));
-			return model;
+			return createInstanceWithAllFields(getEntityByUuidFromDB(visit.getBH_Visit_UU()));
 		} catch (Exception exception) {
 			if (!processVisitTransaction.rollback(true)) {
 				logger.severe("Could not roll back visit transaction");
@@ -425,12 +420,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// delete payment lines not in request
 		paymentDBService.deletePaymentLinesByVisit(visit.get_ID(), lineIds.toString());
 
-		Visit model = createInstanceWithAllFields(visit);
-		model.setOrders(orderDBService.transformData(
-				orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
-						Collections.singleton(visit.get_ID())).get(visit.get_ID())));
-		model.setPayments(paymentDBService.getPaymentsByVisitId(model.getId()));
-		return model;
+		return createInstanceWithAllFields(visit);
 	}
 
 	@Override
@@ -462,6 +452,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			if (visitsOrders.stream().anyMatch(isNotDrafted) || visitsInOuts.stream().anyMatch(isNotDrafted) ||
 					visitsInvoices.stream().anyMatch(isNotDrafted) || visitsPayments.stream().anyMatch(isNotDrafted)) {
 				throw new AdempiereException("Visit is already completed");
+			}
+
+			// Handle order lines separately
+			if (!visitsOrders.isEmpty()) {
+				visitsOrders.forEach(order -> orderLineDBService.deleteOrderLinesByOrder(order.get_ID(), ""));
 			}
 
 			Predicate<PO> deleteEntity = (PO entity) -> entity.delete(true);

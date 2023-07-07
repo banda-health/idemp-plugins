@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +18,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.Window;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
-import org.compiere.model.MProcess;
 import org.compiere.model.MRole;
-import org.compiere.model.MTree_NodeMM;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_TreeNodeMM;
@@ -198,9 +195,12 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 	}
 
 	@Override
-	public boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
+        }};
+    }
 
 	@Override
 	protected Map<String, Function<MMenu_BH, VoidFunction<String>>> getColumnsToTranslate() {

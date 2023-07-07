@@ -33,9 +33,8 @@ public class UserRestService extends BaseRestService<User, MUser_BH, UserDBServi
 	@GET
 	@Path(IRestConfigs.NON_ADMINS_PATH)
 	public BaseListResponse<User> getNonAdmins(@QueryParam("page") int page, @QueryParam("size") int size,
-			@QueryParam("sortColumn") String sortColumn, @QueryParam("sortOrder") String sortOrder,
-			@QueryParam("filter") String filterJson) {
-		return dbService.getNonAdmins(getPagingInfo(page, size), sortColumn, sortOrder, filterJson);
+			@QueryParam("sorting") String sortJson, @QueryParam("filter") String filterJson) {
+		return dbService.getNonAdmins(getPagingInfo(page, size), sortJson, filterJson);
 	}
 
 	@Override

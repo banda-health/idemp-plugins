@@ -1,3 +1,4 @@
+DROP FUNCTION IF EXISTS get_product_costs(numeric, character varying);
 DROP FUNCTION IF EXISTS get_product_costs(numeric);
 CREATE FUNCTION get_product_costs(ad_client_id numeric)
 	RETURNS TABLE
@@ -139,3 +140,8 @@ FROM
 GROUP BY
 	t.m_product_id, t.m_attributesetinstance_id, t.purchase_price, t.purchase_date;
 $$;
+
+SELECT
+	register_migration_script('202306071229_GO-2731.sql')
+FROM
+	dual;

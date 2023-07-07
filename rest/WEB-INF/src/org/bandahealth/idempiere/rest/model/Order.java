@@ -20,6 +20,8 @@ import java.util.List;
 public class Order extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
+	@JsonIgnore
+	private int businessPartnerId;
 	private BusinessPartner businessPartner;
 	private Timestamp dateOrdered;
 	private Timestamp dateAccount;
@@ -31,6 +33,8 @@ public class Order extends BaseMetadata {
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
+	@JsonIgnore
+	private int warehouseId;
 	private Warehouse warehouse;
 	@JsonIgnore
 	private int documentTypeTargetId;
@@ -53,6 +57,8 @@ public class Order extends BaseMetadata {
 		this.orderLines = new ArrayList<>();
 		this.documentTypeTargetId = model.getC_DocTypeTarget_ID();
 		this.visitId = model.getBH_Visit_ID();
+		this.businessPartnerId = model.getC_BPartner_ID();
+		this.warehouseId = model.getM_Warehouse_ID();
 	}
 
 	public Order(MOrder_BH model, BusinessPartner businessPartner, List<OrderLine> orderLines) {
@@ -202,5 +208,21 @@ public class Order extends BaseMetadata {
 
 	public void setDocumentTypeTarget(DocumentType documentTypeTarget) {
 		this.documentTypeTarget = documentTypeTarget;
+	}
+
+	public int getBusinessPartnerId() {
+		return businessPartnerId;
+	}
+
+	public void setBusinessPartnerId(int businessPartnerId) {
+		this.businessPartnerId = businessPartnerId;
+	}
+
+	public int getWarehouseId() {
+		return warehouseId;
+	}
+
+	public void setWarehouseId(int warehouseId) {
+		this.warehouseId = warehouseId;
 	}
 }
