@@ -39,7 +39,10 @@ public class ChargeInformationValueSuggestionDBService
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
+        }};
+    }
 }

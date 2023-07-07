@@ -55,9 +55,12 @@ public class VoidedReasonDBService extends BaseDBService<VoidedReason, MBHVoided
 	protected MBHVoidedReason getModelInstance() {
 		return new MBHVoidedReason(Env.getCtx(), 0, null);
 	}
-
+	
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
+        }};
+    }
 }

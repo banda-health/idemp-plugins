@@ -129,13 +129,14 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		Set<Integer> productIdsWithStorage =
 				response.getResults().stream().filter(Product::getIsStocked).map(Product::getId).collect(Collectors.toSet());
 
-		Map<Integer, List<StorageOnHand>> storageOnHandByProductId = storageOnHandDBService.transformData(
-						storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
-										MStorageOnHand.COLUMNNAME_M_Product_ID, productIdsWithStorage).values().stream().flatMap(Collection::stream)
-								.collect(Collectors.toList())).stream()
-				// Go ahead and remove quantities that are zero - we don't need them
-				.filter(storageOnHand -> storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) != 0)
-				.collect(Collectors.groupingBy(StorageOnHand::getProductId));
+		Map<Integer, List<StorageOnHand>> storageOnHandByProductId = productIdsWithStorage.isEmpty() ? new HashMap<>() :
+				storageOnHandDBService.transformData(
+								storageOnHandDBService.getNonExpiredGroupsByIds(MStorageOnHand::getM_Product_ID,
+												MStorageOnHand.COLUMNNAME_M_Product_ID, productIdsWithStorage).values().stream()
+										.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+						// Go ahead and remove quantities that are zero - we don't need them
+						.filter(storageOnHand -> storageOnHand.getQuantityOnHand().compareTo(BigDecimal.ZERO) != 0)
+						.collect(Collectors.groupingBy(StorageOnHand::getProductId));
 
 		List<Product> entities = new ArrayList<>();
 
@@ -428,23 +429,23 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 		}
 		List<Object> parameters = new ArrayList<>();
 		StringBuilder costSql = new StringBuilder(
-				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?");
+				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?)");
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		if (!productIds.isEmpty() || !attributeSetInstanceIds.isEmpty()) {
+			costSql.append(" WHERE ");
 			if (!productIds.isEmpty()) {
-				String joinedProductIds =
-						String.join(",", productIds.stream().map(String::valueOf).collect(Collectors.toSet()));
-				costSql.append(",?)");
-				parameters.add(joinedProductIds);
+				String productWhereClause =
+						QueryUtil.getWhereClauseAndSetParametersForSet(productIds, parameters);
+				costSql.append("m_product_id IN (").append(productWhereClause).append(")");
+				if (!attributeSetInstanceIds.isEmpty()) {
+					costSql.append(" AND ");
+				}
 			}
 			if (!attributeSetInstanceIds.isEmpty()) {
-				costSql.append(" WHERE ");
 				String attributeSetInstanceWhereClause =
 						QueryUtil.getWhereClauseAndSetParametersForSet(attributeSetInstanceIds, parameters);
 				costSql.append("m_attributesetinstance_id IN (").append(attributeSetInstanceWhereClause).append(")");
 			}
-		} else {
-			costSql.append(")");
 		}
 		List<ProductCostCalculation> productCostCalculations = new ArrayList<>();
 		SqlUtil.executeQuery(costSql.toString(), parameters, null, data -> {
