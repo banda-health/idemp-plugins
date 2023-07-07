@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 public class RoleDBService extends BaseDBService<Role, MRole> {
 	@Autowired
 	private IncludedRoleDBService includedRoleDBService;
+	@Autowired
+	private RoleOrganizationAccessDBService roleOrganizationAccessDBService;
 
 	@Override
 	public Role saveEntity(Role entity) {
@@ -38,7 +40,10 @@ public class RoleDBService extends BaseDBService<Role, MRole> {
 		role.setIsManual(true);
 		role.setName(entity.getName());
 		role.setIsMasterRole(entity.isMasterRole());
+		role.setUserLevel(MRole.USERLEVEL_Organization);
 		role.saveEx();
+
+		roleOrganizationAccessDBService.giveRoleAccessToOrganizationOfLoggedInClient(role);
 
 		// check included roles
 		Map<String, MRole> rolesToInclude =

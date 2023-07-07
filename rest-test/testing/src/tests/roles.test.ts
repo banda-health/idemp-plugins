@@ -1,7 +1,7 @@
 import { roleApi } from '../api';
 import { Role } from '../types/org.bandahealth.idempiere.rest';
 
-const roleUuid = { MUST_HAVES: 'baec9412-d994-4313-815c-31332357863a' } as const;
+export const roleUuid = { MUST_HAVES: 'baec9412-d994-4313-815c-31332357863a' } as const;
 
 test('role can be created and adjusted', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
