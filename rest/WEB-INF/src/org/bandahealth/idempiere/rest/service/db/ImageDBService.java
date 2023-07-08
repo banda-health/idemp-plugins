@@ -46,9 +46,6 @@ public class ImageDBService extends BaseDBService<Image, MImage> {
 	}
 
 	@Override
-	}
-
-	@Override
 	protected MImage getModelInstance() {
 		return new MImage(Env.getCtx(), 0, null);
 	}
