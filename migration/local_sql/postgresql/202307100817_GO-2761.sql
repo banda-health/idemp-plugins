@@ -53,15 +53,20 @@ SELECT
 	100
 FROM
 	ad_org o
+		JOIN ad_client c
+		ON o.ad_client_id = c.ad_client_id
 		JOIN ad_role r
-		ON o.ad_org_id = r.ad_org_id
+		ON c.ad_client_id = r.ad_client_id
 		JOIN tmp_duplicate_roles tdr
 		ON tdr.role_to_keep = r.ad_role_id
 WHERE
 		ad_role_id NOT IN (
-		SELECT ad_role_id
-		FROM ad_role_orgaccess
-		WHERE o.ad_org_id = ad_org_id
+		SELECT
+			ad_role_id
+		FROM
+			ad_role_orgaccess
+		WHERE
+			o.ad_org_id = ad_org_id
 	);
 
 -- Delete the duplicate roles' org access, user assignment, & included roles
@@ -126,6 +131,31 @@ WHERE
 	AND r_bad.ad_role_id = ur.ad_role_id
 	AND u.ad_org_id != 0
 	AND (r_bad.name = c.name || ' User' OR r_bad.ismasterrole = 'Y');
+
+-- Make sure all default roles have the correct organization access
+INSERT INTO
+	ad_role_orgaccess (ad_role_id, ad_org_id, ad_client_id, createdby, updatedby)
+SELECT
+	r.ad_role_id,
+	o.ad_org_id,
+	o.ad_client_id,
+	100,
+	100
+FROM
+	ad_org o
+		JOIN ad_client c
+		ON o.ad_client_id = c.ad_client_id
+		JOIN ad_role r
+		ON c.ad_client_id = r.ad_client_id
+WHERE
+		ad_role_id NOT IN (
+		SELECT
+			ad_role_id
+		FROM
+			ad_role_orgaccess
+	)
+	AND r.name != c.name || ' User'
+	AND r.ismasterrole = 'N';
 
 SELECT
 	register_migration_script('202307100817_GO-2761.sql')
