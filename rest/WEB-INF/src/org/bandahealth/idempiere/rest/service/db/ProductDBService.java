@@ -121,9 +121,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public BaseListResponse<Product> searchItems(String searchValue) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(constructSearchValue(searchValue));
+		parameters.add(true); // isactive
 
-		BaseListResponse<Product> response = super.getAll(DEFAULT_SEARCH_CLAUSE, parameters, new Paging(0, 100), null,
-				null);
+		BaseListResponse<Product> response =
+				super.getAll(DEFAULT_SEARCH_CLAUSE + " AND " + MProduct_BH.COLUMNNAME_IsActive + "=?", parameters,
+						new Paging(0, 100), null, null);
 
 		// Get products that will have storage
 		Set<Integer> productIdsWithStorage =
