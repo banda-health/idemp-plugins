@@ -47,11 +47,6 @@ public class VoidedReasonDBService extends BaseDBService<VoidedReason, MBHVoided
 	}
 
 	@Override
-	protected VoidedReason createInstanceWithSearchFields(MBHVoidedReason instance) {
-		return new VoidedReason(instance);
-	}
-
-	@Override
 	protected MBHVoidedReason getModelInstance() {
 		return new MBHVoidedReason(Env.getCtx(), 0, null);
 	}

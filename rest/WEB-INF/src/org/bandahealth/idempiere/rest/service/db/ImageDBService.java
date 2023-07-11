@@ -46,11 +46,6 @@ public class ImageDBService extends BaseDBService<Image, MImage> {
 	}
 
 	@Override
-	protected Image createInstanceWithSearchFields(MImage instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MImage getModelInstance() {
 		return new MImage(Env.getCtx(), 0, null);
 	}

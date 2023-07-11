@@ -48,11 +48,6 @@ public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse_BH> 
 	}
 
 	@Override
-	protected Warehouse createInstanceWithSearchFields(MWarehouse_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MWarehouse_BH getModelInstance() {
 		return new MWarehouse_BH(Env.getCtx(), 0, null);
 	}

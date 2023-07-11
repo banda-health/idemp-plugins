@@ -62,11 +62,6 @@ public class BusinessPartnerChargeInformationDBService
 	}
 
 	@Override
-	protected BusinessPartnerChargeInformation createInstanceWithSearchFields(MBHBPartnerChargeInfo instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHBPartnerChargeInfo getModelInstance() {
 		return new MBHBPartnerChargeInfo(Env.getCtx(), 0, null);
 	}

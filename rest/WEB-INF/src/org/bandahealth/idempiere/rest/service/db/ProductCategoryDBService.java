@@ -17,19 +17,6 @@ import java.util.stream.Collectors;
 @Component
 public class ProductCategoryDBService extends BaseDBService<ProductCategory, MProductCategory_BH> {
 
-	public List<ProductCategory> get() {
-		List<MProductCategory_BH> productCategories = new Query(
-				Env.getCtx(),
-				MProductCategory_BH.Table_Name,
-				MProductCategory_BH.COLUMNNAME_BH_Product_Category_Type + " IS NOT NULL",
-				null
-		)
-				.setOnlyActiveRecords(true)
-				.setClient_ID()
-				.list();
-		return productCategories.stream().map(ProductCategory::new).collect(Collectors.toList());
-	}
-
 	@Override
 	public ProductCategory saveEntity(ProductCategory entity) {
 		return null;
@@ -47,11 +34,6 @@ public class ProductCategoryDBService extends BaseDBService<ProductCategory, MPr
 
 	@Override
 	protected ProductCategory createInstanceWithAllFields(MProductCategory_BH instance) {
-		return createInstanceWithDefaultFields(instance);
-	}
-
-	@Override
-	protected ProductCategory createInstanceWithSearchFields(MProductCategory_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
 
