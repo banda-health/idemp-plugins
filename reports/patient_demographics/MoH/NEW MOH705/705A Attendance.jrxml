@@ -89,6 +89,7 @@
 					v.ad_client_id = $P{AD_CLIENT_ID}
 					AND bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
+					AND v.bh_patienttype != 'Im'
 				GROUP BY bh_newvisit, bh_moh705a_lessthan5, CAST(bh_visitdate AS date)
 			) c
 					ON b.value = bh_newvisit
