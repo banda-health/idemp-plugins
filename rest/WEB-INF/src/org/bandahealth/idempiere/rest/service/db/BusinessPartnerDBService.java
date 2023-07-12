@@ -28,11 +28,6 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 	}
 
 	@Override
-	protected BusinessPartner createInstanceWithSearchFields(MBPartner_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBPartner_BH getModelInstance() {
 		return new MBPartner_BH(Env.getCtx(), 0, null);
 	}

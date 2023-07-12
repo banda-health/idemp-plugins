@@ -164,11 +164,6 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	}
 
 	@Override
-	protected User createInstanceWithSearchFields(MUser_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MUser_BH getModelInstance() {
 		return new MUser_BH(Env.getCtx(), 0, null);
 	}

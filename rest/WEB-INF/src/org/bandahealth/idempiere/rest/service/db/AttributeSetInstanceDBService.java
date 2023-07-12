@@ -28,7 +28,8 @@ public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetIns
 
 			// Set the correction attribute set, if one was provided
 			if (entity.getAttributeSet() != null) {
-				MAttributeSet_BH attributeSet = attributeSetDBService.getEntityByUuidFromDB(entity.getAttributeSet().getUuid());
+				MAttributeSet_BH attributeSet =
+						attributeSetDBService.getEntityByUuidFromDB(entity.getAttributeSet().getUuid());
 				if (attributeSet != null) {
 					attributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
 				}
@@ -68,11 +69,6 @@ public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetIns
 	@Override
 	protected AttributeSetInstance createInstanceWithAllFields(MAttributeSetInstance_BH instance) {
 		return new AttributeSetInstance(instance);
-	}
-
-	@Override
-	protected AttributeSetInstance createInstanceWithSearchFields(MAttributeSetInstance_BH instance) {
-		return createInstanceWithAllFields(instance);
 	}
 
 	@Override

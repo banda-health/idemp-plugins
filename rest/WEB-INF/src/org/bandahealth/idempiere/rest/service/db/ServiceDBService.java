@@ -29,20 +29,12 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 	private ProductCategoryDBService productCategoryDBService;
 
 	// retrieve a list of paginated services.
+	@Override
 	public BaseListResponse<Service> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(MProduct_BH.PRODUCTTYPE_Service);
 
 		return super.getAll(MProduct_BH.COLUMNNAME_ProductType + " = ?", parameters, pagingInfo, sortJson, filterJson);
-	}
-
-	public BaseListResponse<Service> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(value));
-		parameters.add(MProduct_BH.PRODUCTTYPE_Service);
-
-		return this.search(this.DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
-				parameters, pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
@@ -138,11 +130,6 @@ public class ServiceDBService extends BaseDBService<Service, MProduct_BH> {
 		}
 
 		return null;
-	}
-
-	@Override
-	protected Service createInstanceWithSearchFields(MProduct_BH instance) {
-		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override
