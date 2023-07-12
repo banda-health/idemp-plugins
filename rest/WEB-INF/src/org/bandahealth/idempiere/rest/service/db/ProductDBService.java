@@ -110,9 +110,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public BaseListResponse<Product> searchItems(String searchValue) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add(searchValue == null ? "" : "%" + searchValue.toLowerCase() + "%");
+		parameters.add(true); // isactive
 
 		BaseListResponse<Product> response =
-				super.getAll("lower(" + MProduct_BH.COLUMNNAME_Name + ") LIKE ?", parameters, new Paging(0, 100), null, null);
+				super.getAll("lower(" + MProduct_BH.COLUMNNAME_Name + ") LIKE ? AND " + MProduct_BH.COLUMNNAME_IsActive + "=?",
+						parameters, new Paging(0, 100), null, null);
 
 		// Get products that will have storage
 		Set<Integer> productIdsWithStorage =
