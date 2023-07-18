@@ -21,10 +21,10 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
 
-/** Generated Model for BH_Encounter
+/** Generated Model for BH_Encounter_Type_Window_Mapping
  *  @author iDempiere (generated) 
  *  @version Release 7.1 - $Id$ */
-public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent 
+public class X_BH_Encounter_Type_Window_Mapping extends PO implements I_BH_Encounter_Type_Window_Mapping, I_Persistent 
 {
 
 	/**
@@ -33,23 +33,23 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	private static final long serialVersionUID = 20230718L;
 
     /** Standard Constructor */
-    public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)
+    public X_BH_Encounter_Type_Window_Mapping (Properties ctx, int BH_Encounter_Type_Window_Mapping_ID, String trxName)
     {
-      super (ctx, BH_Encounter_ID, trxName);
-      /** if (BH_Encounter_ID == 0)
+      super (ctx, BH_Encounter_Type_Window_Mapping_ID, trxName);
+      /** if (BH_Encounter_Type_Window_Mapping_ID == 0)
         {
-			setBH_Encounter_ID (0);
+			setBH_Encounter_Type_Window_Mapping_ID (0);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_Encounter (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Encounter_Type_Window_Mapping (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 4 - System 
       */
     protected int get_AccessLevel()
     {
@@ -65,26 +65,34 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Encounter[")
+      StringBuilder sb = new StringBuilder ("X_BH_Encounter_Type_Window_Mapping[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
 
-	/** Set Encounter.
-		@param BH_Encounter_ID Encounter	  */
-	public void setBH_Encounter_ID (int BH_Encounter_ID)
+	public org.compiere.model.I_AD_Window getAD_Window() throws RuntimeException
+    {
+		return (org.compiere.model.I_AD_Window)MTable.get(getCtx(), org.compiere.model.I_AD_Window.Table_Name)
+			.getPO(getAD_Window_ID(), get_TrxName());	}
+
+	/** Set Window.
+		@param AD_Window_ID 
+		Data entry or display window
+	  */
+	public void setAD_Window_ID (int AD_Window_ID)
 	{
-		if (BH_Encounter_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, null);
+		if (AD_Window_ID < 1) 
+			set_Value (COLUMNNAME_AD_Window_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, Integer.valueOf(BH_Encounter_ID));
+			set_Value (COLUMNNAME_AD_Window_ID, Integer.valueOf(AD_Window_ID));
 	}
 
-	/** Get Encounter.
-		@return Encounter	  */
-	public int getBH_Encounter_ID () 
+	/** Get Window.
+		@return Data entry or display window
+	  */
+	public int getAD_Window_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Encounter_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Window_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -111,37 +119,37 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 		return (String)get_Value(COLUMNNAME_BH_EncounterType);
 	}
 
-	/** Set BH_Encounter_UU.
-		@param BH_Encounter_UU BH_Encounter_UU	  */
-	public void setBH_Encounter_UU (String BH_Encounter_UU)
+	/** Set Encounter Type Window Mapping.
+		@param BH_Encounter_Type_Window_Mapping_ID Encounter Type Window Mapping	  */
+	public void setBH_Encounter_Type_Window_Mapping_ID (int BH_Encounter_Type_Window_Mapping_ID)
 	{
-		set_Value (COLUMNNAME_BH_Encounter_UU, BH_Encounter_UU);
-	}
-
-	/** Get BH_Encounter_UU.
-		@return BH_Encounter_UU	  */
-	public String getBH_Encounter_UU () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_Encounter_UU);
-	}
-
-	/** Set Visit.
-		@param BH_Visit_ID Visit	  */
-	public void setBH_Visit_ID (int BH_Visit_ID)
-	{
-		if (BH_Visit_ID < 1) 
-			set_Value (COLUMNNAME_BH_Visit_ID, null);
+		if (BH_Encounter_Type_Window_Mapping_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_Mapping_ID, null);
 		else 
-			set_Value (COLUMNNAME_BH_Visit_ID, Integer.valueOf(BH_Visit_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_Mapping_ID, Integer.valueOf(BH_Encounter_Type_Window_Mapping_ID));
 	}
 
-	/** Get Visit.
-		@return Visit	  */
-	public int getBH_Visit_ID () 
+	/** Get Encounter Type Window Mapping.
+		@return Encounter Type Window Mapping	  */
+	public int getBH_Encounter_Type_Window_Mapping_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Visit_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Encounter_Type_Window_Mapping_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set BH_Encounter_Type_Window_Mapping_UU.
+		@param BH_Encounter_Type_Window_Mapping_UU BH_Encounter_Type_Window_Mapping_UU	  */
+	public void setBH_Encounter_Type_Window_Mapping_UU (String BH_Encounter_Type_Window_Mapping_UU)
+	{
+		set_Value (COLUMNNAME_BH_Encounter_Type_Window_Mapping_UU, BH_Encounter_Type_Window_Mapping_UU);
+	}
+
+	/** Get BH_Encounter_Type_Window_Mapping_UU.
+		@return BH_Encounter_Type_Window_Mapping_UU	  */
+	public String getBH_Encounter_Type_Window_Mapping_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_Encounter_Type_Window_Mapping_UU);
 	}
 }

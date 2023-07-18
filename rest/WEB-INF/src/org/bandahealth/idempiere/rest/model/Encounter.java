@@ -3,13 +3,17 @@ package org.bandahealth.idempiere.rest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(value = Include.NON_NULL)
 public class Encounter extends BaseMetadata {
 
-	private Visit visit;
+	@JsonIgnore
+	private int visitId;
+
+	private String encounterType;
 
 	private List<Observation> observations = new ArrayList<>();
 
@@ -18,12 +22,20 @@ public class Encounter extends BaseMetadata {
 	public Encounter() {
 	}
 
-	public Visit getVisit() {
-		return visit;
+	public int getVisitId() {
+		return visitId;
 	}
 
-	public void setVisit(Visit visit) {
-		this.visit = visit;
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
+	}
+
+	public String getEncounterType() {
+		return encounterType;
+	}
+
+	public void setEncounterType(String encounterType) {
+		this.encounterType = encounterType;
 	}
 
 	public List<Observation> getObservations() {

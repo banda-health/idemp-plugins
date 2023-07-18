@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,7 +12,8 @@ public class EncounterDiagnosis extends BaseMetadata {
 	private CodedDiagnosis codedDiagnosis;
 	private String uncodedDiagnosis;
 	private int lineNo;
-	private Visit visit;
+	@JsonIgnore
+	private int visitId;
 
 	public EncounterDiagnosis() {
 	}
@@ -40,11 +42,11 @@ public class EncounterDiagnosis extends BaseMetadata {
 		this.lineNo = lineNo;
 	}
 
-	public Visit getVisit() {
-		return visit;
+	public int getVisitId() {
+		return visitId;
 	}
 
-	public void setVisit(Visit visit) {
-		this.visit = visit;
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
 	}
 }

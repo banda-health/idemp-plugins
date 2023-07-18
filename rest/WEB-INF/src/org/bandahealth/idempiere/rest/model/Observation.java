@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -9,9 +10,11 @@ public class Observation extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 
 	private Field field;
-	private Encounter encounter;
+	@JsonIgnore
+	private int encounterId;
 	private int lineNo;
 	private Reference reference;
+	private String value;
 
 	public Observation() {
 	}
@@ -24,12 +27,12 @@ public class Observation extends BaseMetadata {
 		this.field = field;
 	}
 
-	public Encounter getEncounter() {
-		return encounter;
+	public int getEncounterId() {
+		return encounterId;
 	}
 
-	public void setEncounter(Encounter encounter) {
-		this.encounter = encounter;
+	public void setEncounterId(int encounterId) {
+		this.encounterId = encounterId;
 	}
 
 	public int getLineNo() {
@@ -46,5 +49,13 @@ public class Observation extends BaseMetadata {
 
 	public void setReference(Reference reference) {
 		this.reference = reference;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 }
