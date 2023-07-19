@@ -38,6 +38,8 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 		if (entity.getUncodedDiagnosis() != null) {
 			encounterDiagnosis.setBH_Uncoded_Diagnosis(entity.getUncodedDiagnosis());
 		}
+		
+		encounterDiagnosis.setBH_Diagnosis_Type(entity.getDiagnosisType());
 
 		encounterDiagnosis.setLineNo(entity.getLineNo());
 

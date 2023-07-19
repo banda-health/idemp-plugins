@@ -15,15 +15,18 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Visit extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
+	private Boolean newVisit;
+	private PatientType patientType;
+	private Referral referral;
 	private OrderStatus status;
 	private BusinessPartner patient;
+	private User clinician;
 	private String documentNumber;
 	private ProcessStage processStage;
+	private String referredFromTo;
 	private Timestamp visitDate;
-
 	private List<Encounter> encounters = new ArrayList<>();
 	private List<EncounterDiagnosis> encounterDiagnosis = new ArrayList<>();
-
 	private List<Payment> payments = new ArrayList<>();
 	private List<Order> orders = new ArrayList<>();
 	private VoidedReason voidedReason;
@@ -134,4 +137,43 @@ public class Visit extends BaseEntity {
 		this.patient = patient;
 	}
 
+	public Boolean isNewVisit() {
+		return newVisit;
+	}
+
+	public void setNewVisit(Boolean newVisit) {
+		this.newVisit = newVisit;
+	}
+
+	public PatientType getPatientType() {
+		return patientType;
+	}
+
+	public void setPatientType(PatientType patientType) {
+		this.patientType = patientType;
+	}
+
+	public Referral getReferral() {
+		return referral;
+	}
+
+	public void setReferral(Referral referral) {
+		this.referral = referral;
+	}
+
+	public User getClinician() {
+		return clinician;
+	}
+
+	public void setClinician(User clinician) {
+		this.clinician = clinician;
+	}
+
+	public String getReferredFromTo() {
+		return referredFromTo;
+	}
+
+	public void setReferredFromTo(String referredFromTo) {
+		this.referredFromTo = referredFromTo;
+	}
 }

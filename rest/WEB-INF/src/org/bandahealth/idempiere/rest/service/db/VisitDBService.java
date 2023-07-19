@@ -240,6 +240,34 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				visit.setBH_Visit_UU(entity.getUuid());
 			}
 		}
+		
+		if (entity.getPatientType() != null && entity.getPatientType().getValue() != null) {
+			visit.setBH_PatientType(entity.getPatientType().getValue());
+		}
+
+		if (entity.getReferral() != null && entity.getReferral().getValue() != null) {
+			visit.setbh_referral(entity.getReferral().getValue());
+		}
+
+		if (entity.isNewVisit() != null) {
+			visit.setBH_NewVisit(entity.isNewVisit());
+		}
+
+		if (entity.getClinician() != null && entity.getClinician().getUuid() != null) {
+			// get user id
+			MUser user = new Query(Env.getCtx(), MUser.Table_Name, MUser.COLUMNNAME_AD_User_UU + " =?", null)
+					.setParameters(entity.getClinician().getUuid()).first();
+			if (user != null) {
+				visit.setBH_Clinician_User_ID(user.get_ID());
+			}
+		}
+		
+		if (entity.getProcessStage() != null && entity.getProcessStage().getValue() != null) {
+			visit.setBH_Process_Stage(entity.getProcessStage().getValue());
+		}
+		
+		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), visit::setBH_VisitDate);
+		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), visit::setBH_ReferredFromTo);
 
 		// save encounter
 		int visitId = visit.get_ID();
@@ -253,11 +281,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			encounterDiagnosis.setVisitId(visitId);
 			encounterDiagnosisDBService.saveEntity(encounterDiagnosis);
 		});
-
-		
-		if (entity.getProcessStage() != null && entity.getProcessStage().getValue() != null) {
-			visit.setBH_Process_Stage(entity.getProcessStage().getValue());
-		}
 
 		if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
 			MBHVoidedReason voidingReason = voidedReasonDBService
@@ -279,8 +302,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				order.getBusinessPartner().setUuid(businessPartner.getC_BPartner_UU());
 			});
 		}
-
-		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), visit::setBH_VisitDate);
 
 		visit.saveEx();
 		entity.setId(visit.get_ID());
