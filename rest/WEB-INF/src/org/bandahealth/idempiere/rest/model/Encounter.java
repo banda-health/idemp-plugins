@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.rest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bandahealth.idempiere.base.model.MBHEncounter;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,6 +22,12 @@ public class Encounter extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 
 	public Encounter() {
+	}
+
+	public Encounter(MBHEncounter entity) {
+		super(entity);
+		
+		this.encounterType = entity.getBH_EncounterType();
 	}
 
 	public int getVisitId() {

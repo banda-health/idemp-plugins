@@ -1,5 +1,11 @@
 package org.bandahealth.idempiere.rest.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.compiere.model.MTab;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -8,16 +14,31 @@ public class Tab extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
 
-	private Window window;
+	@JsonIgnore
+	private int windowId;
+
+	private List<Field> fields = new ArrayList<>();
 
 	public Tab() {
 	}
 
-	public Window getWindow() {
-		return window;
+	public Tab(MTab tab) {
+		super(tab);
 	}
 
-	public void setWindow(Window window) {
-		this.window = window;
+	public int getWindowId() {
+		return windowId;
+	}
+
+	public void setWindowId(int windowId) {
+		this.windowId = windowId;
+	}
+
+	public List<Field> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
 	}
 }

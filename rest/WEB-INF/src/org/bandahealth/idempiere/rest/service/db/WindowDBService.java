@@ -1,15 +1,24 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Window;
+import org.compiere.model.MTab;
 import org.compiere.model.MWindow;
 import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WindowDBService extends BaseDBService<Window, MWindow> {
+
+	@Autowired
+	private TabDBService tabDBService;
+
 	@Override
 	public Window saveEntity(Window entity) {
 		return null;
@@ -17,7 +26,7 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -43,4 +52,24 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
 		return false;
 	}
+
+	@Override
+	public List<Window> transformData(List<MWindow> dbModels) {
+		Set<Integer> windowIds = dbModels.stream().map(MWindow::getAD_Window_ID).collect(Collectors.toSet());
+
+		// get tabs
+		Map<Integer, List<MTab>> tabsByWindow = tabDBService.getGroupsByIds(MTab::getAD_Window_ID,
+				MTab.COLUMNNAME_AD_Window_ID, windowIds);
+
+		return dbModels.stream().map(window -> {
+			Window result = new Window(window);
+
+			if (tabsByWindow.containsKey(window.getAD_Window_ID())) {
+				result.setTabs(tabDBService.transformData(tabsByWindow.get(window.getAD_Window_ID())));
+			}
+
+			return result;
+		}).collect(Collectors.toList());
+	}
+
 }

@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBHObservation;
-import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Observation;
 import org.compiere.model.MField;
 import org.compiere.model.Query;
@@ -48,7 +50,12 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		throw new NotImplementedException();
+		MBHObservation entity = getEntityByUuidFromDB(entityUuid);
+		if (entity != null) {
+			return entity.delete(true);
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -69,5 +76,23 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 	@Override
 	protected MBHObservation getModelInstance() {
 		return new MBHObservation(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public List<Observation> transformData(List<MBHObservation> dbModels) {
+		// get fields
+		Map<Integer, MField> fieldById = fieldDBService
+				.getByIds(dbModels.stream().map(MBHObservation::getAD_Field_ID).collect(Collectors.toSet()));
+
+		return dbModels.stream().map(observation -> {
+			Observation result = new Observation(observation);
+			if (fieldById.containsKey(observation.getAD_Field_ID())) {
+				result.setField(fieldDBService
+						.transformData(Collections.singletonList(fieldById.get(observation.getAD_Field_ID()))).get(0));
+			}
+
+			return result;
+
+		}).collect(Collectors.toList());
 	}
 }

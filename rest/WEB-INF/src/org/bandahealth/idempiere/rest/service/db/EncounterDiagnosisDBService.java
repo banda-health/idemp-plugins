@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
-import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -38,7 +40,7 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 		if (entity.getUncodedDiagnosis() != null) {
 			encounterDiagnosis.setBH_Uncoded_Diagnosis(entity.getUncodedDiagnosis());
 		}
-		
+
 		encounterDiagnosis.setBH_Diagnosis_Type(entity.getDiagnosisType());
 
 		encounterDiagnosis.setLineNo(entity.getLineNo());
@@ -46,11 +48,6 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 		encounterDiagnosis.saveEx();
 
 		return createInstanceWithAllFields(encounterDiagnosis);
-	}
-
-	@Override
-	public Boolean deleteEntity(String entityUuid) {
-		throw new NotImplementedException();
 	}
 
 	@Override
@@ -71,5 +68,34 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 	@Override
 	protected MBHEncounterDiagnosis getModelInstance() {
 		return new MBHEncounterDiagnosis(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		MBHEncounterDiagnosis entity = getEntityByUuidFromDB(entityUuid);
+		if (entity != null) {
+			return entity.delete(true);
+		}
+
+		return false;
+	}
+
+	@Override
+	public List<EncounterDiagnosis> transformData(List<MBHEncounterDiagnosis> dbModels) {
+		// get coded diagnosis
+		Map<Integer, MBHCodedDiagnosis> codedDiagnosisById = codedDiagnosisDBService.getByIds(
+				dbModels.stream().map(MBHEncounterDiagnosis::getBH_Coded_Diagnosis_ID).collect(Collectors.toSet()));
+
+		return dbModels.stream().map(entity -> {
+			EncounterDiagnosis result = new EncounterDiagnosis(entity);
+			if (codedDiagnosisById.containsKey(entity.getBH_Coded_Diagnosis_ID())) {
+				result.setCodedDiagnosis(codedDiagnosisDBService
+						.transformData(
+								Collections.singletonList(codedDiagnosisById.get(entity.getBH_Coded_Diagnosis_ID())))
+						.get(0));
+			}
+
+			return result;
+		}).collect(Collectors.toList());
 	}
 }

@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
+import org.bandahealth.idempiere.base.model.MBHObservation;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -17,6 +19,13 @@ public class Observation extends BaseMetadata {
 	private String value;
 
 	public Observation() {
+	}
+	
+	public Observation(MBHObservation entity) {
+		super(entity);
+		
+		this.lineNo = entity.getLineNo();
+		this.value = entity.getValue();
 	}
 
 	public Field getField() {

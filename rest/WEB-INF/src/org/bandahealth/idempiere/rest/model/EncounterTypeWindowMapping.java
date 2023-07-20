@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
+import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindowMapping;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -13,6 +15,12 @@ public class EncounterTypeWindowMapping extends BaseMetadata {
 	private static final long serialVersionUID = 1L;
 
 	public EncounterTypeWindowMapping() {
+	}
+
+	public EncounterTypeWindowMapping(MBHEncounterTypeWindowMapping entity) {
+		super(entity);
+		
+		this.encounterType = entity.getBH_EncounterType();
 	}
 
 	public String getEncounterType() {

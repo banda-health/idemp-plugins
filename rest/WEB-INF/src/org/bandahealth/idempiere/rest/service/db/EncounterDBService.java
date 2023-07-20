@@ -1,9 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBHEncounter;
-import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.rest.model.Encounter;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -41,7 +45,12 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		throw new NotImplementedException();
+		MBHEncounter entity = getEntityByUuidFromDB(entityUuid);
+		if (entity != null) {
+			return entity.delete(true);
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -62,5 +71,25 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	@Override
 	protected MBHEncounter getModelInstance() {
 		return new MBHEncounter(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public List<Encounter> transformData(List<MBHEncounter> dbModels) {
+		Set<Integer> encounterIds = dbModels.stream().map(MBHEncounter::getBH_Encounter_ID).collect(Collectors.toSet());
+
+		// get obs
+		Map<Integer, List<MBHObservation>> obsByEncounter = observationDBService.getGroupsByIds(
+				MBHObservation::getBH_Encounter_ID, MBHObservation.COLUMNNAME_BH_Encounter_ID, encounterIds);
+
+		return dbModels.stream().map(encounter -> {
+			Encounter result = new Encounter(encounter);
+
+			if (obsByEncounter.containsKey(encounter.getBH_Encounter_ID())) {
+				result.setObservations(
+						observationDBService.transformData(obsByEncounter.get(encounter.getBH_Encounter_ID())));
+			}
+
+			return result;
+		}).collect(Collectors.toList());
 	}
 }

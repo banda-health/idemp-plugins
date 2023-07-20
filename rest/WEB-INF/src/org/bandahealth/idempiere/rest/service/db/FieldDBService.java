@@ -1,6 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Field;
@@ -39,5 +41,13 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 	@Override
 	protected MField getModelInstance() {
 		return new MField(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public List<Field> transformData(List<MField> dbModels) {
+		return dbModels.stream().map(field -> {
+			Field result = new Field(field);
+			return result;
+		}).collect(Collectors.toList());
 	}
 }

@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -17,6 +19,14 @@ public class EncounterDiagnosis extends BaseMetadata {
 	private String diagnosisType;
 
 	public EncounterDiagnosis() {
+	}
+
+	public EncounterDiagnosis(MBHEncounterDiagnosis entity) {
+		super(entity);
+
+		this.uncodedDiagnosis = entity.getBH_Uncoded_Diagnosis();
+		this.lineNo = entity.getLineNo();
+		this.diagnosisType = entity.getBH_Diagnosis_Type();
 	}
 
 	public CodedDiagnosis getCodedDiagnosis() {
