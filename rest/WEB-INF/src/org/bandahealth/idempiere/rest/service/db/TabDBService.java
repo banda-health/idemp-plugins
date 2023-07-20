@@ -55,11 +55,11 @@ public class TabDBService extends BaseDBService<Tab, MTab> {
 
 	@Override
 	public List<Tab> transformData(List<MTab> dbModels) {
-		Set<Integer> fieldsId = dbModels.stream().map(MTab::getAD_Tab_ID).collect(Collectors.toSet());
+		Set<Integer> tabsId = dbModels.stream().map(MTab::getAD_Tab_ID).collect(Collectors.toSet());
 
 		// get fields
 		Map<Integer, List<MField>> fieldsByTab = fieldDBService.getGroupsByIds(MField::getAD_Tab_ID,
-				MField.COLUMNNAME_AD_Column_ID, fieldsId);
+				MField.COLUMNNAME_AD_Tab_ID, tabsId);
 
 		return dbModels.stream().map(tab -> {
 			Tab result = new Tab(tab);

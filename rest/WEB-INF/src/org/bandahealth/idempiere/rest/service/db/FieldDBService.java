@@ -50,4 +50,8 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 			return result;
 		}).collect(Collectors.toList());
 	}
+	
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
+	}
 }

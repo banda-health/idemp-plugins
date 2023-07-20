@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindowMapping;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -18,7 +19,15 @@ public class EncounterTypeWindowMapping extends BaseMetadata {
 	}
 
 	public EncounterTypeWindowMapping(MBHEncounterTypeWindowMapping entity) {
-		super(entity);
+		// super(entity); fails fetching the uuid
+		
+		setClientId(entity.getAD_Client_ID());
+		setOrgId(entity.getAD_Org_ID());
+		setUuid(entity.getBH_Encounter_Type_Window_Mapping_UU());
+		setIsActive(entity.isActive());
+		setCreated(DateUtil.parse(entity.getCreated()));
+		setCreatedTimestamp(entity.getCreated());
+		setCreatedBy(entity.getCreatedBy());
 		
 		this.encounterType = entity.getBH_EncounterType();
 	}

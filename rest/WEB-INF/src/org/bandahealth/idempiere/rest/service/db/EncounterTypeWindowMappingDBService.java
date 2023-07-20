@@ -80,4 +80,9 @@ public class EncounterTypeWindowMappingDBService
 			return result;
 		}).collect(Collectors.toList());
 	}
+
+	@Override
+	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
+		return false;
+	}
 }
