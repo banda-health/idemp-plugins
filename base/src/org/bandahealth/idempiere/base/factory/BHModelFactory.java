@@ -19,7 +19,7 @@ import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
-import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindowMapping;
+import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
 import org.bandahealth.idempiere.base.model.MBHPaymentRef;
@@ -170,8 +170,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHObservation.class;
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnosis.Table_Name)) {
 			return MBHEncounterDiagnosis.class;
-		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindowMapping.Table_Name)) {
-			return MBHEncounterTypeWindowMapping.class;
+		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindow.Table_Name)) {
+			return MBHEncounterTypeWindow.class;
 		}
 
 		return null;
@@ -283,8 +283,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHObservation(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnosis.Table_Name)) {
 			return new MBHEncounterDiagnosis(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindowMapping.Table_Name)) {
-			return new MBHEncounterTypeWindowMapping(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindow.Table_Name)) {
+			return new MBHEncounterTypeWindow(Env.getCtx(), Record_ID, trxName);
 		}
 		
 		return null;
@@ -398,8 +398,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHObservation(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnosis.Table_Name)) {
 			return new MBHEncounterDiagnosis(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindowMapping.Table_Name)) {
-			return new MBHEncounterTypeWindowMapping(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindow.Table_Name)) {
+			return new MBHEncounterTypeWindow(Env.getCtx(), rs, trxName);
 		}
 
 		return null;

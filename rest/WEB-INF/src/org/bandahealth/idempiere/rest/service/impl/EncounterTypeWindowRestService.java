@@ -7,24 +7,24 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindowMapping;
+import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
-import org.bandahealth.idempiere.rest.model.EncounterTypeWindowMapping;
+import org.bandahealth.idempiere.rest.model.EncounterTypeWindow;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
-import org.bandahealth.idempiere.rest.service.db.EncounterTypeWindowMappingDBService;
+import org.bandahealth.idempiere.rest.service.db.EncounterTypeWindowDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Path(IRestConfigs.ENCOUNTER_TYPE_WINDOW_MAPPING_PATH)
+@Path(IRestConfigs.ENCOUNTER_TYPE_WINDOW_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class EncounterTypeWindowMappingRestService extends
-		BaseRestService<EncounterTypeWindowMapping, MBHEncounterTypeWindowMapping, EncounterTypeWindowMappingDBService> {
+public class EncounterTypeWindowRestService extends
+		BaseRestService<EncounterTypeWindow, MBHEncounterTypeWindow, EncounterTypeWindowDBService> {
 	@Autowired
-	private EncounterTypeWindowMappingDBService dbService;
+	private EncounterTypeWindowDBService dbService;
 
 	@Override
-	protected EncounterTypeWindowMappingDBService getDBService() {
+	protected EncounterTypeWindowDBService getDBService() {
 		return dbService;
 	}
 

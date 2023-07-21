@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindowMapping;
+import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
-import org.bandahealth.idempiere.rest.model.EncounterTypeWindowMapping;
+import org.bandahealth.idempiere.rest.model.EncounterTypeWindow;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -16,17 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EncounterTypeWindowMappingDBService
-		extends BaseDBService<EncounterTypeWindowMapping, MBHEncounterTypeWindowMapping> {
+public class EncounterTypeWindowDBService
+		extends BaseDBService<EncounterTypeWindow, MBHEncounterTypeWindow> {
 
 	@Autowired
 	private WindowDBService windowDBService;
 
 	@Override
-	public EncounterTypeWindowMapping saveEntity(EncounterTypeWindowMapping entity) {
-		MBHEncounterTypeWindowMapping encounterTypeWindowMapping = new Query(Env.getCtx(),
-				MBHEncounterTypeWindowMapping.Table_Name,
-				MBHEncounterTypeWindowMapping.COLUMNNAME_BH_Encounter_Type_Window_Mapping_UU + " =?", null)
+	public EncounterTypeWindow saveEntity(EncounterTypeWindow entity) {
+		MBHEncounterTypeWindow encounterTypeWindowMapping = new Query(Env.getCtx(),
+				MBHEncounterTypeWindow.Table_Name,
+				MBHEncounterTypeWindow.COLUMNNAME_BH_Encounter_Type_Window_UU + " =?", null)
 						.setParameters(entity.getUuid()).first();
 		if (encounterTypeWindowMapping == null) {
 			throw new AdempiereException("Encounter type window mapping not found.");
@@ -41,33 +41,33 @@ public class EncounterTypeWindowMappingDBService
 	}
 
 	@Override
-	protected EncounterTypeWindowMapping createInstanceWithDefaultFields(MBHEncounterTypeWindowMapping instance) {
+	protected EncounterTypeWindow createInstanceWithDefaultFields(MBHEncounterTypeWindow instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected EncounterTypeWindowMapping createInstanceWithAllFields(MBHEncounterTypeWindowMapping instance) {
+	protected EncounterTypeWindow createInstanceWithAllFields(MBHEncounterTypeWindow instance) {
 		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
-	protected EncounterTypeWindowMapping createInstanceWithSearchFields(MBHEncounterTypeWindowMapping instance) {
+	protected EncounterTypeWindow createInstanceWithSearchFields(MBHEncounterTypeWindow instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected MBHEncounterTypeWindowMapping getModelInstance() {
-		return new MBHEncounterTypeWindowMapping(Env.getCtx(), 0, null);
+	protected MBHEncounterTypeWindow getModelInstance() {
+		return new MBHEncounterTypeWindow(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	public List<EncounterTypeWindowMapping> transformData(List<MBHEncounterTypeWindowMapping> dbModels) {
+	public List<EncounterTypeWindow> transformData(List<MBHEncounterTypeWindow> dbModels) {
 		// get windows
 		Map<Integer, MWindow> windowsById = windowDBService.getByIds(
-				dbModels.stream().map(MBHEncounterTypeWindowMapping::getAD_Window_ID).collect(Collectors.toSet()));
+				dbModels.stream().map(MBHEncounterTypeWindow::getAD_Window_ID).collect(Collectors.toSet()));
 
 		return dbModels.stream().map(encounterTypeWindowMapping -> {
-			EncounterTypeWindowMapping result = new EncounterTypeWindowMapping(encounterTypeWindowMapping);
+			EncounterTypeWindow result = new EncounterTypeWindow(encounterTypeWindowMapping);
 
 			if (windowsById.containsKey(encounterTypeWindowMapping.getAD_Window_ID())) {
 				result.setWindow(

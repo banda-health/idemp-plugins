@@ -21,29 +21,29 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
 
-/** Generated Model for BH_Encounter_Type_Window_Mapping
+/** Generated Model for BH_Encounter_Type_Window
  *  @author iDempiere (generated) 
  *  @version Release 7.1 - $Id$ */
-public class X_BH_Encounter_Type_Window_Mapping extends PO implements I_BH_Encounter_Type_Window_Mapping, I_Persistent 
+public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Type_Window, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230718L;
+	private static final long serialVersionUID = 20230721L;
 
     /** Standard Constructor */
-    public X_BH_Encounter_Type_Window_Mapping (Properties ctx, int BH_Encounter_Type_Window_Mapping_ID, String trxName)
+    public X_BH_Encounter_Type_Window (Properties ctx, int BH_Encounter_Type_Window_ID, String trxName)
     {
-      super (ctx, BH_Encounter_Type_Window_Mapping_ID, trxName);
-      /** if (BH_Encounter_Type_Window_Mapping_ID == 0)
+      super (ctx, BH_Encounter_Type_Window_ID, trxName);
+      /** if (BH_Encounter_Type_Window_ID == 0)
         {
-			setBH_Encounter_Type_Window_Mapping_ID (0);
+			setBH_Encounter_Type_Window_ID (0);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_Encounter_Type_Window_Mapping (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Encounter_Type_Window (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -65,7 +65,7 @@ public class X_BH_Encounter_Type_Window_Mapping extends PO implements I_BH_Encou
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Encounter_Type_Window_Mapping[")
+      StringBuilder sb = new StringBuilder ("X_BH_Encounter_Type_Window[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -119,37 +119,37 @@ public class X_BH_Encounter_Type_Window_Mapping extends PO implements I_BH_Encou
 		return (String)get_Value(COLUMNNAME_BH_EncounterType);
 	}
 
-	/** Set Encounter Type Window Mapping.
-		@param BH_Encounter_Type_Window_Mapping_ID Encounter Type Window Mapping	  */
-	public void setBH_Encounter_Type_Window_Mapping_ID (int BH_Encounter_Type_Window_Mapping_ID)
+	/** Set Encounter Type Window.
+		@param BH_Encounter_Type_Window_ID Encounter Type Window	  */
+	public void setBH_Encounter_Type_Window_ID (int BH_Encounter_Type_Window_ID)
 	{
-		if (BH_Encounter_Type_Window_Mapping_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_Mapping_ID, null);
+		if (BH_Encounter_Type_Window_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_Mapping_ID, Integer.valueOf(BH_Encounter_Type_Window_Mapping_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_ID, Integer.valueOf(BH_Encounter_Type_Window_ID));
 	}
 
-	/** Get Encounter Type Window Mapping.
-		@return Encounter Type Window Mapping	  */
-	public int getBH_Encounter_Type_Window_Mapping_ID () 
+	/** Get Encounter Type Window.
+		@return Encounter Type Window	  */
+	public int getBH_Encounter_Type_Window_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Encounter_Type_Window_Mapping_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Encounter_Type_Window_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_Encounter_Type_Window_Mapping_UU.
-		@param BH_Encounter_Type_Window_Mapping_UU BH_Encounter_Type_Window_Mapping_UU	  */
-	public void setBH_Encounter_Type_Window_Mapping_UU (String BH_Encounter_Type_Window_Mapping_UU)
+	/** Set BH_Encounter_Type_Window_UU.
+		@param BH_Encounter_Type_Window_UU BH_Encounter_Type_Window_UU	  */
+	public void setBH_Encounter_Type_Window_UU (String BH_Encounter_Type_Window_UU)
 	{
-		set_Value (COLUMNNAME_BH_Encounter_Type_Window_Mapping_UU, BH_Encounter_Type_Window_Mapping_UU);
+		set_Value (COLUMNNAME_BH_Encounter_Type_Window_UU, BH_Encounter_Type_Window_UU);
 	}
 
-	/** Get BH_Encounter_Type_Window_Mapping_UU.
-		@return BH_Encounter_Type_Window_Mapping_UU	  */
-	public String getBH_Encounter_Type_Window_Mapping_UU () 
+	/** Get BH_Encounter_Type_Window_UU.
+		@return BH_Encounter_Type_Window_UU	  */
+	public String getBH_Encounter_Type_Window_UU () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_Encounter_Type_Window_Mapping_UU);
+		return (String)get_Value(COLUMNNAME_BH_Encounter_Type_Window_UU);
 	}
 }

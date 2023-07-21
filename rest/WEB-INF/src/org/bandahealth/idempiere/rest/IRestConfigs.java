@@ -84,7 +84,7 @@ public interface IRestConfigs {
 	
 	String ORGANIZATIONS_PATH = AUTHENTICATION_PATH + "/organizations";
 	
-	String ENCOUNTER_TYPE_WINDOW_MAPPING_PATH = AUTHENTICATION_PATH + "/encounter-type-window-mapping";
+	String ENCOUNTER_TYPE_WINDOW_PATH = AUTHENTICATION_PATH + "/encounter-type-window";
 	
 	String ROLES_PATH = AUTHENTICATION_PATH + "/roles";
 }

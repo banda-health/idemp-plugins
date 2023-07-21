@@ -21,16 +21,16 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Encounter_Type_Window_Mapping
+/** Generated Interface for BH_Encounter_Type_Window
  *  @author iDempiere (generated) 
  *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_Encounter_Type_Window_Mapping 
+public interface I_BH_Encounter_Type_Window 
 {
 
-    /** TableName=BH_Encounter_Type_Window_Mapping */
-    public static final String Table_Name = "BH_Encounter_Type_Window_Mapping";
+    /** TableName=BH_Encounter_Type_Window */
+    public static final String Table_Name = "BH_Encounter_Type_Window";
 
     /** AD_Table_ID=1000043 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
@@ -88,23 +88,23 @@ public interface I_BH_Encounter_Type_Window_Mapping
 	/** Get Encounter Type	  */
 	public String getBH_EncounterType();
 
-    /** Column name BH_Encounter_Type_Window_Mapping_ID */
-    public static final String COLUMNNAME_BH_Encounter_Type_Window_Mapping_ID = "BH_Encounter_Type_Window_Mapping_ID";
+    /** Column name BH_Encounter_Type_Window_ID */
+    public static final String COLUMNNAME_BH_Encounter_Type_Window_ID = "BH_Encounter_Type_Window_ID";
 
-	/** Set Encounter Type Window Mapping	  */
-	public void setBH_Encounter_Type_Window_Mapping_ID (int BH_Encounter_Type_Window_Mapping_ID);
+	/** Set Encounter Type Window	  */
+	public void setBH_Encounter_Type_Window_ID (int BH_Encounter_Type_Window_ID);
 
-	/** Get Encounter Type Window Mapping	  */
-	public int getBH_Encounter_Type_Window_Mapping_ID();
+	/** Get Encounter Type Window	  */
+	public int getBH_Encounter_Type_Window_ID();
 
-    /** Column name BH_Encounter_Type_Window_Mapping_UU */
-    public static final String COLUMNNAME_BH_Encounter_Type_Window_Mapping_UU = "BH_Encounter_Type_Window_Mapping_UU";
+    /** Column name BH_Encounter_Type_Window_UU */
+    public static final String COLUMNNAME_BH_Encounter_Type_Window_UU = "BH_Encounter_Type_Window_UU";
 
-	/** Set BH_Encounter_Type_Window_Mapping_UU	  */
-	public void setBH_Encounter_Type_Window_Mapping_UU (String BH_Encounter_Type_Window_Mapping_UU);
+	/** Set BH_Encounter_Type_Window_UU	  */
+	public void setBH_Encounter_Type_Window_UU (String BH_Encounter_Type_Window_UU);
 
-	/** Get BH_Encounter_Type_Window_Mapping_UU	  */
-	public String getBH_Encounter_Type_Window_Mapping_UU();
+	/** Get BH_Encounter_Type_Window_UU	  */
+	public String getBH_Encounter_Type_Window_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
