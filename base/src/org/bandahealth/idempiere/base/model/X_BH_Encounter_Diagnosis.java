@@ -30,7 +30,7 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230713L;
+	private static final long serialVersionUID = 20230721L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnosis (Properties ctx, int BH_Encounter_Diagnosis_ID, String trxName)
@@ -148,6 +148,31 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
 		return (String)get_Value(COLUMNNAME_BH_Encounter_Diagnosis_UU);
 	}
 
+	public I_BH_Encounter getBH_Encounter() throws RuntimeException
+    {
+		return (I_BH_Encounter)MTable.get(getCtx(), I_BH_Encounter.Table_Name)
+			.getPO(getBH_Encounter_ID(), get_TrxName());	}
+
+	/** Set Encounter.
+		@param BH_Encounter_ID Encounter	  */
+	public void setBH_Encounter_ID (int BH_Encounter_ID)
+	{
+		if (BH_Encounter_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, Integer.valueOf(BH_Encounter_ID));
+	}
+
+	/** Get Encounter.
+		@return Encounter	  */
+	public int getBH_Encounter_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Encounter_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Uncoded Diagnosis.
 		@param BH_Uncoded_Diagnosis 
 		uncoded diagnosis
@@ -163,31 +188,6 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
 	public String getBH_Uncoded_Diagnosis () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_Uncoded_Diagnosis);
-	}
-
-	public I_BH_Visit getBH_Visit() throws RuntimeException
-    {
-		return (I_BH_Visit)MTable.get(getCtx(), I_BH_Visit.Table_Name)
-			.getPO(getBH_Visit_ID(), get_TrxName());	}
-
-	/** Set Visit.
-		@param BH_Visit_ID Visit	  */
-	public void setBH_Visit_ID (int BH_Visit_ID)
-	{
-		if (BH_Visit_ID < 1) 
-			set_Value (COLUMNNAME_BH_Visit_ID, null);
-		else 
-			set_Value (COLUMNNAME_BH_Visit_ID, Integer.valueOf(BH_Visit_ID));
-	}
-
-	/** Get Visit.
-		@return Visit	  */
-	public int getBH_Visit_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Visit_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
 	}
 
 	/** Set Line.

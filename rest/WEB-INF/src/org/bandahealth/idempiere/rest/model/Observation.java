@@ -15,7 +15,6 @@ public class Observation extends BaseMetadata {
 	@JsonIgnore
 	private int encounterId;
 	private int lineNo;
-	private Reference reference;
 	private String value;
 
 	public Observation() {
@@ -50,14 +49,6 @@ public class Observation extends BaseMetadata {
 
 	public void setLineNo(int lineNo) {
 		this.lineNo = lineNo;
-	}
-
-	public Reference getReference() {
-		return reference;
-	}
-
-	public void setReference(Reference reference) {
-		this.reference = reference;
 	}
 
 	public String getValue() {

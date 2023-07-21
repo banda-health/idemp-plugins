@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.rest.model.Encounter;
 import org.compiere.model.Query;
@@ -20,6 +21,9 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	@Autowired
 	private ObservationDBService observationDBService;
 
+	@Autowired
+	private EncounterDiagnosisDBService encounterDiagnosisDBService;
+
 	@Override
 	public Encounter saveEntity(Encounter entity) {
 		MBHEncounter encounter = new Query(Env.getCtx(), MBHEncounter.Table_Name,
@@ -30,6 +34,8 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		}
 
 		encounter.setBH_EncounterType(entity.getEncounterType());
+		encounter.setBH_Visit_ID(entity.getVisitId());
+		encounter.saveEx();
 
 		// save observations
 		int encounterId = encounter.get_ID();
@@ -38,7 +44,11 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 			observationDBService.saveEntity(observation);
 		});
 
-		encounter.saveEx();
+		// save encounter diagnosis
+		entity.getEncounterDiagnosis().stream().forEach(encounterDiagnosis -> {
+			encounterDiagnosis.setEncounterId(encounterId);
+			encounterDiagnosisDBService.saveEntity(encounterDiagnosis);
+		});
 
 		return createInstanceWithAllFields(encounter);
 	}
@@ -49,7 +59,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		if (entity != null) {
 			return entity.delete(true);
 		}
-		
+
 		return false;
 	}
 
@@ -81,12 +91,22 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		Map<Integer, List<MBHObservation>> obsByEncounter = observationDBService.getGroupsByIds(
 				MBHObservation::getBH_Encounter_ID, MBHObservation.COLUMNNAME_BH_Encounter_ID, encounterIds);
 
+		// get encounter diagnosis
+		Map<Integer, List<MBHEncounterDiagnosis>> encounterDiagnosisByEncounter = encounterDiagnosisDBService
+				.getGroupsByIds(MBHEncounterDiagnosis::getBH_Encounter_ID,
+						MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID, encounterIds);
+
 		return dbModels.stream().map(encounter -> {
 			Encounter result = new Encounter(encounter);
 
 			if (obsByEncounter.containsKey(encounter.getBH_Encounter_ID())) {
 				result.setObservations(
 						observationDBService.transformData(obsByEncounter.get(encounter.getBH_Encounter_ID())));
+			}
+
+			if (encounterDiagnosisByEncounter.containsKey(encounter.getBH_Encounter_ID())) {
+				result.setEncounterDiagnosis(encounterDiagnosisDBService
+						.transformData(encounterDiagnosisByEncounter.get(encounter.getBH_Encounter_ID())));
 			}
 
 			return result;

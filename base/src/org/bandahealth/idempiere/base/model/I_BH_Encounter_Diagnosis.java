@@ -102,6 +102,17 @@ public interface I_BH_Encounter_Diagnosis
 	/** Get BH_Encounter_Diagnosis_UU	  */
 	public String getBH_Encounter_Diagnosis_UU();
 
+    /** Column name BH_Encounter_ID */
+    public static final String COLUMNNAME_BH_Encounter_ID = "BH_Encounter_ID";
+
+	/** Set Encounter	  */
+	public void setBH_Encounter_ID (int BH_Encounter_ID);
+
+	/** Get Encounter	  */
+	public int getBH_Encounter_ID();
+
+	public I_BH_Encounter getBH_Encounter() throws RuntimeException;
+
     /** Column name BH_Uncoded_Diagnosis */
     public static final String COLUMNNAME_BH_Uncoded_Diagnosis = "BH_Uncoded_Diagnosis";
 
@@ -114,17 +125,6 @@ public interface I_BH_Encounter_Diagnosis
 	  * uncoded diagnosis
 	  */
 	public String getBH_Uncoded_Diagnosis();
-
-    /** Column name BH_Visit_ID */
-    public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
-
-	/** Set Visit	  */
-	public void setBH_Visit_ID (int BH_Visit_ID);
-
-	/** Get Visit	  */
-	public int getBH_Visit_ID();
-
-	public I_BH_Visit getBH_Visit() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

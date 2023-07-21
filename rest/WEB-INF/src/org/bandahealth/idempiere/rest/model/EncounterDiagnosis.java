@@ -15,7 +15,7 @@ public class EncounterDiagnosis extends BaseMetadata {
 	private String uncodedDiagnosis;
 	private int lineNo;
 	@JsonIgnore
-	private int visitId;
+	private int encounterId;
 	private String diagnosisType;
 
 	public EncounterDiagnosis() {
@@ -53,12 +53,12 @@ public class EncounterDiagnosis extends BaseMetadata {
 		this.lineNo = lineNo;
 	}
 
-	public int getVisitId() {
-		return visitId;
+	public int getEncounterId() {
+		return encounterId;
 	}
 
-	public void setVisitId(int visitId) {
-		this.visitId = visitId;
+	public void setEncounterId(int encounterId) {
+		this.encounterId = encounterId;
 	}
 
 	public String getDiagnosisType() {

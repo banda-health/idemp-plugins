@@ -42,6 +42,8 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 
 		// get value
 		observation.setValue(entity.getValue());
+		
+		observation.setBH_Encounter_ID(entity.getEncounterId());
 
 		observation.saveEx();
 

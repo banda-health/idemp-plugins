@@ -240,7 +240,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				visit.setBH_Visit_UU(entity.getUuid());
 			}
 		}
-		
+
 		if (entity.getPatientType() != null && entity.getPatientType().getValue() != null) {
 			visit.setBH_PatientType(entity.getPatientType().getValue());
 		}
@@ -261,26 +261,13 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				visit.setBH_Clinician_User_ID(user.get_ID());
 			}
 		}
-		
+
 		if (entity.getProcessStage() != null && entity.getProcessStage().getValue() != null) {
 			visit.setBH_Process_Stage(entity.getProcessStage().getValue());
 		}
-		
+
 		ModelUtil.setPropertyIfPresent(entity.getVisitDate(), visit::setBH_VisitDate);
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), visit::setBH_ReferredFromTo);
-
-		// save encounter
-		int visitId = visit.get_ID();
-		entity.getEncounters().stream().forEach(encounter -> {
-			encounter.setVisitId(visitId);
-			encounterDBService.saveEntity(encounter);
-		});
-
-		// save encounter diagnosis
-		entity.getEncounterDiagnosis().stream().forEach(encounterDiagnosis -> {
-			encounterDiagnosis.setVisitId(visitId);
-			encounterDiagnosisDBService.saveEntity(encounterDiagnosis);
-		});
 
 		if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
 			MBHVoidedReason voidingReason = voidedReasonDBService
@@ -304,7 +291,14 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		}
 
 		visit.saveEx();
-		entity.setId(visit.get_ID());
+		int visitId = visit.get_ID();
+		entity.setId(visitId);
+
+		// save encounter
+		entity.getEncounters().stream().forEach(encounter -> {
+			encounter.setVisitId(visitId);
+			encounterDBService.saveEntity(encounter);
+		});
 
 		// TODO: Eventually handle when orders are removed/added...
 		// Now take care of the orders
@@ -373,11 +367,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// delete payment lines not in request
 		paymentDBService.deletePaymentLinesByVisit(visit.get_ID(), lineIds.toString());
 
-		Visit model = createInstanceWithAllFields(visit);
-		model.setOrders(orderDBService.transformData(orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID,
-				MOrder_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID())).get(visit.get_ID())));
-		model.setPayments(paymentDBService.getPaymentsByVisitId(model.getId()));
-		return model;
+		return transformData(Collections.singletonList(visit)).get(0);
 	}
 
 	@Override
@@ -652,24 +642,24 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 						.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, visitIds).values()
 						.stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(Order::getVisitId));
-		
+
 		Map<Integer, List<Encounter>> encountersByVisitId = encounterDBService
 				.transformData(encounterDBService
-						.getGroupsByIds(MBHEncounter::getBH_Visit_ID, MBHEncounter.COLUMNNAME_BH_Visit_ID, visitIds).values()
-						.stream().flatMap(Collection::stream).collect(Collectors.toList()))
+						.getGroupsByIds(MBHEncounter::getBH_Visit_ID, MBHEncounter.COLUMNNAME_BH_Visit_ID, visitIds)
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(Encounter::getVisitId));
-		
-		Map<Integer, List<EncounterDiagnosis>> encounterDiagnosisByVisitId = encounterDiagnosisDBService
-				.transformData(encounterDiagnosisDBService
-						.getGroupsByIds(MBHEncounterDiagnosis::getBH_Visit_ID, MBHEncounterDiagnosis.COLUMNNAME_BH_Visit_ID, visitIds).values()
-						.stream().flatMap(Collection::stream).collect(Collectors.toList()))
-				.stream().collect(Collectors.groupingBy(EncounterDiagnosis::getVisitId));
-		
+
+		Map<Integer, List<Payment>> paymentIdsByVisitId = paymentDBService
+				.transformData(paymentDBService
+						.getGroupsByIds(MPayment_BH::getBH_Visit_ID, MPayment_BH.COLUMNNAME_BH_Visit_ID, visitIds)
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
+				.stream().collect(Collectors.groupingBy(Payment::getVisitId));
+
 		return dbModels.stream().map(visit -> {
 			Visit entity = createInstanceWithDefaultFields(visit);
 			entity.setOrders(orderIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
+			entity.setPayments(paymentIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
 			entity.setEncounters(encountersByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
-			entity.setEncounterDiagnosis(encounterDiagnosisByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
 			return entity;
 		}).collect(Collectors.toList());
 	}

@@ -79,21 +79,6 @@ public interface I_BH_Observation
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name AD_Reference_ID */
-    public static final String COLUMNNAME_AD_Reference_ID = "AD_Reference_ID";
-
-	/** Set Reference.
-	  * System Reference and Validation
-	  */
-	public void setAD_Reference_ID (int AD_Reference_ID);
-
-	/** Get Reference.
-	  * System Reference and Validation
-	  */
-	public int getAD_Reference_ID();
-
-	public org.compiere.model.I_AD_Reference getAD_Reference() throws RuntimeException;
-
     /** Column name AD_Table_ID */
     public static final String COLUMNNAME_AD_Table_ID = "AD_Table_ID";
 

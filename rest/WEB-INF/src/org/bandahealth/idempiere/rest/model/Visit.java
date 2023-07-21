@@ -26,7 +26,6 @@ public class Visit extends BaseEntity {
 	private String referredFromTo;
 	private Timestamp visitDate;
 	private List<Encounter> encounters = new ArrayList<>();
-	private List<EncounterDiagnosis> encounterDiagnosis = new ArrayList<>();
 	private List<Payment> payments = new ArrayList<>();
 	private List<Order> orders = new ArrayList<>();
 	private VoidedReason voidedReason;
@@ -123,18 +122,6 @@ public class Visit extends BaseEntity {
 
 	public void setEncounters(List<Encounter> encounters) {
 		this.encounters = encounters;
-	}
-
-	public List<EncounterDiagnosis> getEncounterDiagnosis() {
-		return encounterDiagnosis;
-	}
-
-	public void setEncounterDiagnosis(List<EncounterDiagnosis> encounterDiagnosis) {
-		this.encounterDiagnosis = encounterDiagnosis;
-	}
-
-	public void setPatient(BusinessPartner patient) {
-		this.patient = patient;
 	}
 
 	public Boolean isNewVisit() {

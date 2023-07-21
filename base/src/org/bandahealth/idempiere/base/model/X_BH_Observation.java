@@ -30,7 +30,7 @@ public class X_BH_Observation extends PO implements I_BH_Observation, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230713L;
+	private static final long serialVersionUID = 20230721L;
 
     /** Standard Constructor */
     public X_BH_Observation (Properties ctx, int BH_Observation_ID, String trxName)
@@ -93,34 +93,6 @@ public class X_BH_Observation extends PO implements I_BH_Observation, I_Persiste
 	public int getAD_Field_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Field_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	public org.compiere.model.I_AD_Reference getAD_Reference() throws RuntimeException
-    {
-		return (org.compiere.model.I_AD_Reference)MTable.get(getCtx(), org.compiere.model.I_AD_Reference.Table_Name)
-			.getPO(getAD_Reference_ID(), get_TrxName());	}
-
-	/** Set Reference.
-		@param AD_Reference_ID 
-		System Reference and Validation
-	  */
-	public void setAD_Reference_ID (int AD_Reference_ID)
-	{
-		if (AD_Reference_ID < 1) 
-			set_Value (COLUMNNAME_AD_Reference_ID, null);
-		else 
-			set_Value (COLUMNNAME_AD_Reference_ID, Integer.valueOf(AD_Reference_ID));
-	}
-
-	/** Get Reference.
-		@return System Reference and Validation
-	  */
-	public int getAD_Reference_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Reference_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
