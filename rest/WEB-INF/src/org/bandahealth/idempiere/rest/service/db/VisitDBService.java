@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
-import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -31,7 +30,6 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Encounter;
-import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -82,8 +80,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	private BusinessPartnerDBService businessPartnerDBService;
 	@Autowired
 	private EncounterDBService encounterDBService;
-	@Autowired
-	private EncounterDiagnosisDBService encounterDiagnosisDBService;
 
 	private Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -461,34 +457,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 	@Override
 	protected Visit createInstanceWithAllFields(MBHVisit instance) {
-		Visit visit = new Visit(instance);
-//		visit.setStatus(getOrderStatus(instance));
-
-		// get patient
-		MBPartner_BH businessPartner = patientDBService.getPatientById(instance.getPatient_ID());
-		if (businessPartner == null) {
-			throw new AdempiereException("Missing patient");
-		}
-		visit.setPatient(patientDBService.transformData(Collections.singletonList(businessPartner)).get(0));
-		visit.setPayments(paymentDBService.getPaymentsByVisitId(instance.get_ID()));
-		visit.setOrders(orderDBService.transformData(orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID,
-				MOrder_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.getId())).get(visit.getId())));
-		Map<Integer, List<OrderLine>> orderLinesByOrderId = orderLineDBService
-				.getOrderLinesByOrderIds(visit.getOrders().stream().map(Order::getId).collect(Collectors.toSet()));
-		visit.getOrders().forEach(
-				order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
-
-		Set<Integer> codedDiagnosisIds = new HashSet<>();
-
-		if (instance.getBH_PrimaryCodedDiagnosis_ID() > 0) {
-			codedDiagnosisIds.add(instance.getBH_PrimaryCodedDiagnosis_ID());
-		}
-
-		if (instance.getbh_secondarycodeddiagnosis_ID() > 0) {
-			codedDiagnosisIds.add(instance.getbh_secondarycodeddiagnosis_ID());
-		}
-
-		return visit;
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
@@ -637,17 +606,21 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	@Override
 	public List<Visit> transformData(List<MBHVisit> dbModels) {
 		Set<Integer> visitIds = dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet());
-		Map<Integer, List<Order>> orderIdsByVisitId = orderDBService
-				.transformData(orderDBService
-						.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, visitIds).values()
-						.stream().flatMap(Collection::stream).collect(Collectors.toList()))
-				.stream().collect(Collectors.groupingBy(Order::getVisitId));
 
-		Map<Integer, List<Encounter>> encountersByVisitId = encounterDBService
-				.transformData(encounterDBService
-						.getGroupsByIds(MBHEncounter::getBH_Visit_ID, MBHEncounter.COLUMNNAME_BH_Visit_ID, visitIds)
-						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
-				.stream().collect(Collectors.groupingBy(Encounter::getVisitId));
+		List<MOrder_BH> orders = orderDBService
+				.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, visitIds).values().stream()
+				.flatMap(Collection::stream).collect(Collectors.toList());
+
+		Map<Integer, List<Order>> orderIdsByVisitId = orderDBService.transformData(orders).stream()
+				.collect(Collectors.groupingBy(Order::getVisitId));
+
+		Map<Integer, List<OrderLine>> orderLinesByOrderId = orderLineDBService
+				.getOrderLinesByOrderIds(orders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet()));
+
+		Map<Integer, List<Encounter>> encountersByVisitId = encounterDBService.transformData(encounterDBService
+				.getGroupsByIds(MBHEncounter::getBH_Visit_ID, MBHEncounter.COLUMNNAME_BH_Visit_ID, visitIds).values()
+				.stream().flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(Encounter::getVisitId));
 
 		Map<Integer, List<Payment>> paymentIdsByVisitId = paymentDBService
 				.transformData(paymentDBService
@@ -658,6 +631,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		return dbModels.stream().map(visit -> {
 			Visit entity = createInstanceWithDefaultFields(visit);
 			entity.setOrders(orderIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
+
+			entity.getOrders().forEach(
+					order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
+
 			entity.setPayments(paymentIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
 			entity.setEncounters(encountersByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
 			return entity;

@@ -27,6 +27,7 @@ public class EncounterDiagnosis extends BaseMetadata {
 		this.uncodedDiagnosis = entity.getBH_Uncoded_Diagnosis();
 		this.lineNo = entity.getLineNo();
 		this.diagnosisType = entity.getBH_Diagnosis_Type();
+		this.encounterId = entity.getBH_Encounter_ID();
 	}
 
 	public CodedDiagnosis getCodedDiagnosis() {
