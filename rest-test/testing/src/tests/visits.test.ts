@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
-import { languageApi, patientApi, referenceListApi, visitApi, voidedReasonApi } from '../api';
+import { languageApi, patientApi, referenceListApi, visitApi, voidedReasonApi, encounterTypeWindowApi } from '../api';
 import {
 	documentAction,
 	documentBaseType,
@@ -12,6 +12,10 @@ import {
 } from '../models';
 import {
 	BusinessPartner,
+	Encounter,
+    EncounterDiagnosis,
+	Field,
+	Observation,
 	Order,
 	OrderLine,
 	Patient,
@@ -1158,8 +1162,78 @@ test('visit can be saved with really long chief complaint', async () => {
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
 	const longChiefComplaint = 'this hurts '.repeat(20);
-	valueObject.visit!.chiefComplaint = longChiefComplaint;
+	
+	const chiefComplaintField = (
+		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
+	).results.filter(
+		result => result.window.name = 'Clinical Vitals')[0].window.tabs[0].fields.filter(
+			field => field.name == 'Chief Complaint')[0] as Field;
+			
+	const observation : Partial<Observation> = {
+		value: longChiefComplaint,
+		field: chiefComplaintField,
+	};		
+	
+	const encounter : Partial<Encounter> = {};
+	encounter.observations!.push(observation as Observation);
+	
+	valueObject.visit!.encounters!.push(encounter as Encounter);
 	
 	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
-	expect(valueObject.visit.chiefComplaint).toBe(longChiefComplaint);
+	expect(valueObject.visit.encounters[0].observations[0].value).toBe(longChiefComplaint);
+});
+
+test('clinical vitals and clinical details fields ', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createPatient(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+	
+	const clinicalVitalFields = (
+		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
+	).results.filter(
+		result => result.window.name = 'Clinical Vitals')[0].window.tabs[0].fields;
+	
+	const clinicalDetailFields = (
+		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
+	).results.filter(
+		result => result.window.name = 'Clinical Details')[0].window.tabs[0].fields;
+		
+	const heightValue = '200';
+	const labNotesValue = 'something here';
+		
+	const heightObs : Partial<Observation> = {
+		value: heightValue,
+		field: clinicalVitalFields.filter(field => field.name == 'Height (cm)')[0],
+	};
+	
+	const labNotesObs : Partial<Observation> = {
+		value: labNotesValue,
+		field: clinicalVitalFields.filter(field => field.name == 'Lab / Imaging Notes')[0],
+	};
+	
+	const encounter : Partial<Encounter> = {};
+	encounter.observations!.push(heightObs as Observation);
+	encounter.observations!.push(labNotesObs as Observation);
+	
+	// test uncoded diagnosis
+	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
+	const uncodedDiagnosis : Partial<EncounterDiagnosis> = {
+		diagnosisType: 'P',
+		uncodedDiagnosis: uncodedDiagnosisValue
+	};
+	
+	encounter.encounterDiagnosis!.push(uncodedDiagnosis as EncounterDiagnosis);
+	
+	valueObject.visit!.encounters!.push(encounter as Encounter);
+	
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters[0].observations[0].value).toBe(heightValue);
+	expect(valueObject.visit.encounters[0].observations[1].value).toBe(labNotesObs);
+	expect(valueObject.visit.encounters[0].encounterDiagnosis[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
 });

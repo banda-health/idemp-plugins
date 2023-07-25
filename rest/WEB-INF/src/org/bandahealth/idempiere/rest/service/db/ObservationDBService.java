@@ -91,6 +91,7 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 			if (fieldById.containsKey(observation.getAD_Field_ID())) {
 				result.setField(fieldDBService
 						.transformData(Collections.singletonList(fieldById.get(observation.getAD_Field_ID()))).get(0));
+				result.setValue(observation.getValue());
 			}
 
 			return result;
