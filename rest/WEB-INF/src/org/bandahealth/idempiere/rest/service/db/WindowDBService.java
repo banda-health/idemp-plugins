@@ -45,14 +45,6 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 	}
 
 	@Override
-	protected EntityConfiguration getDefaultEntityConfiguration() {
-		return new EntityConfiguration() {{
-			setShouldUseContextClientId(false);
-			setShouldFetchFromSystemClient(true);
-		}};
-	}
-
-	@Override
 	public List<Window> transformData(List<MWindow> dbModels) {
 		Set<Integer> windowIds = dbModels.stream().map(MWindow::getAD_Window_ID).collect(Collectors.toSet());
 
@@ -69,6 +61,16 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 
 			return result;
 		}).collect(Collectors.toList());
+	}
+	
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(true);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
 	}
 
 }

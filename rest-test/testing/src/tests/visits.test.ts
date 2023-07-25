@@ -1174,8 +1174,9 @@ test('visit can be saved with really long chief complaint', async () => {
 		field: chiefComplaintField,
 	};		
 	
-	const encounter : Partial<Encounter> = {};
-	encounter.observations!.push(observation as Observation);
+	const encounter : Partial<Encounter> = {
+	};
+	encounter!.observations!.push(observation as Observation);
 	
 	valueObject.visit!.encounters!.push(encounter as Encounter);
 	
@@ -1217,9 +1218,10 @@ test('clinical vitals and clinical details fields ', async () => {
 		field: clinicalVitalFields.filter(field => field.name == 'Lab / Imaging Notes')[0],
 	};
 	
-	const encounter : Partial<Encounter> = {};
-	encounter.observations!.push(heightObs as Observation);
-	encounter.observations!.push(labNotesObs as Observation);
+	const encounter : Partial<Encounter> = {
+	};
+	encounter!.observations!.push(heightObs as Observation);
+	encounter!.observations!.push(labNotesObs as Observation);
 	
 	// test uncoded diagnosis
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
@@ -1228,7 +1230,7 @@ test('clinical vitals and clinical details fields ', async () => {
 		uncodedDiagnosis: uncodedDiagnosisValue
 	};
 	
-	encounter.encounterDiagnosis!.push(uncodedDiagnosis as EncounterDiagnosis);
+	encounter!.encounterDiagnosis!.push(uncodedDiagnosis as EncounterDiagnosis);
 	
 	valueObject.visit!.encounters!.push(encounter as Encounter);
 	

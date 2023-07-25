@@ -66,4 +66,14 @@ public class TabDBService extends BaseDBService<Tab, MTab> {
 			return result;
 		}).collect(Collectors.toList());
 	}
+
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(true);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
+	}
 }
