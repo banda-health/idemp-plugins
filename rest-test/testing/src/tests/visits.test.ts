@@ -1175,8 +1175,9 @@ test('visit can be saved with really long chief complaint', async () => {
 	};		
 	
 	const encounter : Partial<Encounter> = {
+		observations: [],
 	};
-	encounter!.observations!.push(observation as Observation);
+	encounter.observations!.push(observation as Observation);
 	
 	valueObject.visit!.encounters!.push(encounter as Encounter);
 	
@@ -1219,6 +1220,8 @@ test('clinical vitals and clinical details fields ', async () => {
 	};
 	
 	const encounter : Partial<Encounter> = {
+		observations: [],
+		encounterDiagnosis: [],
 	};
 	encounter!.observations!.push(heightObs as Observation);
 	encounter!.observations!.push(labNotesObs as Observation);
