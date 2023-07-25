@@ -28,7 +28,7 @@ public class Encounter extends BaseMetadata {
 	public Encounter(MBHEncounter entity) {
 		super(entity);
 
-		this.encounterType = entity.getBH_EncounterType();
+		this.encounterType = entity.getBH_Encounter_Type();
 		this.visitId = entity.getBH_Visit_ID();
 	}
 

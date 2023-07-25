@@ -33,7 +33,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 			encounter.setBH_Encounter_UU(entity.getUuid());
 		}
 
-		encounter.setBH_EncounterType(entity.getEncounterType());
+		encounter.setBH_Encounter_Type(entity.getEncounterType());
 		encounter.setBH_Visit_ID(entity.getVisitId());
 		encounter.saveEx();
 

@@ -73,14 +73,14 @@ public interface I_BH_Encounter
 	/** Get Encounter	  */
 	public int getBH_Encounter_ID();
 
-    /** Column name BH_EncounterType */
-    public static final String COLUMNNAME_BH_EncounterType = "BH_EncounterType";
+    /** Column name BH_Encounter_Type */
+    public static final String COLUMNNAME_BH_Encounter_Type = "BH_Encounter_Type";
 
 	/** Set Encounter Type	  */
-	public void setBH_EncounterType (String BH_EncounterType);
+	public void setBH_Encounter_Type (String BH_Encounter_Type);
 
 	/** Get Encounter Type	  */
-	public String getBH_EncounterType();
+	public String getBH_Encounter_Type();
 
     /** Column name BH_Encounter_UU */
     public static final String COLUMNNAME_BH_Encounter_UU = "BH_Encounter_UU";

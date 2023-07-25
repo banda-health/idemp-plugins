@@ -30,7 +30,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230718L;
+	private static final long serialVersionUID = 20230725L;
 
     /** Standard Constructor */
     public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)
@@ -91,24 +91,26 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	}
 
 	/** Immunizations = i */
-	public static final String BH_ENCOUNTERTYPE_Immunizations = "i";
+	public static final String BH_ENCOUNTER_TYPE_Immunizations = "i";
 	/** Capture Vitals = l */
-	public static final String BH_ENCOUNTERTYPE_CaptureVitals = "l";
+	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "l";
 	/** Diagnosis = m */
-	public static final String BH_ENCOUNTERTYPE_Diagnosis = "m";
+	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
+	/** Clinical Details = n */
+	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "n";
 	/** Set Encounter Type.
-		@param BH_EncounterType Encounter Type	  */
-	public void setBH_EncounterType (String BH_EncounterType)
+		@param BH_Encounter_Type Encounter Type	  */
+	public void setBH_Encounter_Type (String BH_Encounter_Type)
 	{
 
-		set_ValueNoCheck (COLUMNNAME_BH_EncounterType, BH_EncounterType);
+		set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type, BH_Encounter_Type);
 	}
 
 	/** Get Encounter Type.
 		@return Encounter Type	  */
-	public String getBH_EncounterType () 
+	public String getBH_Encounter_Type () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_EncounterType);
+		return (String)get_Value(COLUMNNAME_BH_Encounter_Type);
 	}
 
 	/** Set BH_Encounter_UU.

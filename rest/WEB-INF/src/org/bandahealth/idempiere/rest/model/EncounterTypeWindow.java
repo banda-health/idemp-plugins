@@ -20,7 +20,7 @@ public class EncounterTypeWindow extends BaseMetadata {
 	public EncounterTypeWindow(MBHEncounterTypeWindow entity) {
 		super(entity);
 		
-		this.encounterType = entity.getBH_EncounterType();
+		this.encounterType = entity.getBH_Encounter_Type();
 	}
 
 	public String getEncounterType() {
