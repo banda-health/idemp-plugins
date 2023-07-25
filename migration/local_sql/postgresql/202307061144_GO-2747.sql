@@ -8,17 +8,17 @@ INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, crea
 
 -- Create encounter table and related data
 CREATE TABLE BH_Encounter (
-	AD_Client_ID NUMBER(10) NOT NULL, 
-	AD_Org_ID NUMBER(10) NOT NULL, 
-	BH_Encounter_ID NUMBER(10) NOT NULL, 
+	AD_Client_ID NUMERIC(10) NOT NULL, 
+	AD_Org_ID NUMERIC(10) NOT NULL, 
+	BH_Encounter_ID NUMERIC(10) NOT NULL, 
 	BH_EncounterType VARCHAR2(22) DEFAULT NULL, 
 	BH_Encounter_UU VARCHAR2(36) DEFAULT NULL, 
-	BH_Visit_ID NUMBER(10) DEFAULT NULL, 
+	BH_Visit_ID NUMERIC(10) DEFAULT NULL, 
 	Created DATE DEFAULT SYSDATE NOT NULL, 
-	CreatedBy NUMBER(10) NOT NULL, 
+	CreatedBy NUMERIC(10) NOT NULL, 
 	IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL, 
 	Updated DATE DEFAULT SYSDATE NOT NULL, 
-	UpdatedBy NUMBER(10) NOT NULL, 
+	UpdatedBy NUMERIC(10) NOT NULL, 
 	CONSTRAINT BH_Encounter_Key PRIMARY KEY (BH_Encounter_ID), 
 	CONSTRAINT BH_Encounter_UU_idx UNIQUE (BH_Encounter_UU)
 ); 
@@ -62,19 +62,19 @@ INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, crea
 
 -- Create encounter diagnosis
 CREATE TABLE BH_Encounter_Diagnosis (
-	AD_Client_ID NUMBER(10) NOT NULL, 
-	AD_Org_ID NUMBER(10) NOT NULL, 
-	BH_Coded_Diagnosis_ID NUMBER(10) DEFAULT NULL, 
-	BH_Encounter_Diagnosis_ID NUMBER(10) NOT NULL, 
+	AD_Client_ID NUMERIC(10) NOT NULL, 
+	AD_Org_ID NUMERIC(10) NOT NULL, 
+	BH_Coded_Diagnosis_ID NUMERIC(10) DEFAULT NULL, 
+	BH_Encounter_Diagnosis_ID NUMERIC(10) NOT NULL, 
 	BH_Encounter_Diagnosis_UU VARCHAR2(36) DEFAULT NULL, 
 	BH_Uncoded_Diagnosis VARCHAR2(22) DEFAULT NULL, 
 	Created DATE DEFAULT SYSDATE NOT NULL, 
-	CreatedBy NUMBER(10) NOT NULL, 
+	CreatedBy NUMERIC(10) NOT NULL, 
 	IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL, 
-	LineNo NUMBER(10) DEFAULT NULL, 
+	LineNo NUMERIC(10) DEFAULT NULL, 
 	Updated DATE DEFAULT SYSDATE NOT NULL, 
-	UpdatedBy NUMBER(10) NOT NULL, 
-	BH_Encounter_ID NUMBER(10) DEFAULT NULL,
+	UpdatedBy NUMERIC(10) NOT NULL, 
+	BH_Encounter_ID NUMERIC(10) DEFAULT NULL,
 	BH_Diagnosis_Type VARCHAR2(10) DEFAULT NULL,
 	CONSTRAINT BH_Encounter_Diagnosis_Key PRIMARY KEY (BH_Encounter_Diagnosis_ID), 
 	CONSTRAINT BH_Encounter_Diagnosis_UU_idx UNIQUE (BH_Encounter_Diagnosis_UU)
@@ -110,20 +110,20 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 -- create observation table.
 CREATE TABLE BH_Observation (
-	AD_Client_ID NUMBER(10) NOT NULL, 
-	AD_Field_ID NUMBER(10) DEFAULT NULL, 
-	AD_Org_ID NUMBER(10) NOT NULL, 
-	AD_Table_ID NUMBER(10) DEFAULT NULL, 
-	BH_Encounter_ID NUMBER(10) DEFAULT NULL, 
-	BH_Observation_ID NUMBER(10) NOT NULL, 
+	AD_Client_ID NUMERIC(10) NOT NULL, 
+	AD_Field_ID NUMERIC(10) DEFAULT NULL, 
+	AD_Org_ID NUMERIC(10) NOT NULL, 
+	AD_Table_ID NUMERIC(10) DEFAULT NULL, 
+	BH_Encounter_ID NUMERIC(10) DEFAULT NULL, 
+	BH_Observation_ID NUMERIC(10) NOT NULL, 
 	BH_Observation_UU VARCHAR2(36) DEFAULT NULL, 
 	Created DATE DEFAULT SYSDATE NOT NULL, 
-	CreatedBy NUMBER(10) NOT NULL, 
+	CreatedBy NUMERIC(10) NOT NULL, 
 	IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL, 
-	LineNo NUMBER(10) DEFAULT NULL, 
-	Record_ID NUMBER(10) DEFAULT NULL, 
+	LineNo NUMERIC(10) DEFAULT NULL, 
+	Record_ID NUMERIC(10) DEFAULT NULL, 
 	Updated DATE DEFAULT SYSDATE NOT NULL, 
-	UpdatedBy NUMBER(10) NOT NULL, 
+	UpdatedBy NUMERIC(10) NOT NULL, 
 	Value VARCHAR2(255) DEFAULT NULL, 
 	CONSTRAINT BH_Observation_Key PRIMARY KEY (BH_Observation_ID), 
 	CONSTRAINT BH_Observation_UU_idx UNIQUE (BH_Observation_UU)
@@ -159,22 +159,22 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(ad_column_id) + 1 FROM ad_column), 0, 0, 'Y', '2023-07-06 12:16:49.441000', '2023-07-11 10:24:51.005000', 100, 100, 'Encounter', null, null, 0, 'U', 'BH_Encounter_ID', (select ad_table_id from AD_Table where AD_Table_UU='a9673172-25a0-496f-a40f-e53550e2de24'), 19, null, null, 22, null, 'N', 'N', 'N', 'N', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', (select ad_element_id from ad_element where ad_element_uu='1471c9f4-6679-4063-b5c6-7aa15553891b'), null, 'N', 'N', null, null, null, 'N', 'Y', null, 'c4c984e2-47d8-4a24-afcb-48f4539c6e47', 'Y', 0, 'N', 'N', null, 'BHEncounter_BHObservation', 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(ad_column_id) + 1 FROM ad_column), 0, 0, 'Y', '2023-07-06 12:17:53.993000', '2023-07-11 10:24:50.872000', 100, 100, 'Field', 'Field on a database table', 'The Field identifies a field on a database table.', 0, 'U', 'AD_Field_ID', (select ad_table_id from AD_Table where AD_Table_UU='a9673172-25a0-496f-a40f-e53550e2de24'), 19, null, 52005, 22, null, 'N', 'N', 'N', 'N', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', 107, null, 'N', 'N', null, null, null, 'N', 'Y', null, '32af31b7-dfe1-42f8-b346-c8720d87853a', 'Y', 0, 'N', 'N', null, 'ADField_BHObservation', 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(ad_column_id) + 1 FROM ad_column), 0, 0, 'Y', '2023-07-06 12:26:09.267000', '2023-07-06 12:26:09.267000', 100, 100, 'Search Key', 'Search key for the record in the format required - must be unique', 'A search key allows you a fast method of finding a particular record.
-If you leave the search key empty, the system automatically creates a numeric number.  The document sequence used for this fallback number is defined in the "Maintain Sequence" window with the name "DocumentNo_<TableName>", where TableName is the actual name of the table (e.g. C_Order).', 0, 'U', 'Value', (select ad_table_id from AD_Table where AD_Table_UU='a9673172-25a0-496f-a40f-e53550e2de24'), 10, null, null, 255, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'Y', 620, null, 'N', 'N', null, null, null, 'N', 'Y', null, '8ebdaf96-dd00-454c-b5d0-37b58280ca76', 'Y', 10, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
+If you leave the search key empty, the system automatically creates a numeric NUMERIC.  The document sequence used for this fallback NUMERIC is defined in the "Maintain Sequence" window with the name "DocumentNo_<TableName>", where TableName is the actual name of the table (e.g. C_Order).', 0, 'U', 'Value', (select ad_table_id from AD_Table where AD_Table_UU='a9673172-25a0-496f-a40f-e53550e2de24'), 10, null, null, 255, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'Y', 620, null, 'N', 'N', null, null, null, 'N', 'Y', null, '8ebdaf96-dd00-454c-b5d0-37b58280ca76', 'Y', 10, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(ad_column_id) + 1 FROM ad_column), 0, 0, 'Y', '2023-07-07 10:27:54.201000', '2023-07-07 10:27:54.201000', 100, 100, 'Line', 'Line No', null, 0, 'U', 'LineNo', (select ad_table_id from AD_Table where AD_Table_UU='a9673172-25a0-496f-a40f-e53550e2de24'), 11, null, null, 10, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', 2945, null, 'N', 'N', null, null, null, 'N', 'Y', null, '1cfd73e5-f743-4a16-a964-d8979e58345d', 'Y', 0, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 
 -- Create Encounter Type and Window Mapping Table
 CREATE TABLE BH_Encounter_Type_Window (
-	AD_Client_ID NUMBER(10) NOT NULL, 
-	AD_Org_ID NUMBER(10) NOT NULL, 
-	AD_Window_ID NUMBER(10) DEFAULT NULL, 
+	AD_Client_ID NUMERIC(10) NOT NULL, 
+	AD_Org_ID NUMERIC(10) NOT NULL, 
+	AD_Window_ID NUMERIC(10) DEFAULT NULL, 
 	BH_Encounter_Type VARCHAR(22) DEFAULT NULL, 
-	BH_Encounter_Type_Window_ID NUMBER(10) NOT NULL, 
+	BH_Encounter_Type_Window_ID NUMERIC(10) NOT NULL, 
 	BH_Encounter_Type_Window_UU VARCHAR2(36) DEFAULT NULL, 
 	Created DATE DEFAULT SYSDATE NOT NULL, 
-	CreatedBy NUMBER(10) NOT NULL, 
+	CreatedBy NUMERIC(10) NOT NULL, 
 	IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL, 
 	Updated DATE DEFAULT SYSDATE NOT NULL, 
-	UpdatedBy NUMBER(10) NOT NULL, 
+	UpdatedBy NUMERIC(10) NOT NULL, 
 	CONSTRAINT BH_Encounter_Type_Window_M_Key PRIMARY KEY (BH_Encounter_Type_Window_ID)
 ); 
 
