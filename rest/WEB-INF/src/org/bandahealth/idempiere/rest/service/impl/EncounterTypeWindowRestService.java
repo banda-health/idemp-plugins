@@ -15,7 +15,7 @@ import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.EncounterTypeWindowDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Path(IRestConfigs.ENCOUNTER_TYPE_WINDOW_PATH)
+@Path(IRestConfigs.ENCOUNTER_TYPE_WINDOWS_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class EncounterTypeWindowRestService extends
