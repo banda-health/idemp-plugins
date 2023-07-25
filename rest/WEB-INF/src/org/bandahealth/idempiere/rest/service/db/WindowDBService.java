@@ -40,17 +40,16 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 	}
 
 	@Override
-	protected Window createInstanceWithSearchFields(MWindow instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MWindow getModelInstance() {
 		return new MWindow(Env.getCtx(), 0, null);
 	}
 
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(false);
+			setShouldFetchFromSystemClient(true);
+		}};
 	}
 
 	@Override

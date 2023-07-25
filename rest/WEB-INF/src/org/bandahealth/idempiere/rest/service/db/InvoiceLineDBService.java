@@ -170,11 +170,6 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 	}
 
 	@Override
-	protected InvoiceLine createInstanceWithSearchFields(MInvoiceLine instance) {
-		return createInstanceWithDefaultFields(instance);
-	}
-
-	@Override
 	protected MInvoiceLine getModelInstance() {
 		return new MInvoiceLine(Env.getCtx(), 0, null);
 	}
@@ -202,17 +197,6 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 		for (MInvoiceLine invoiceLine : invoiceLines) {
 			invoiceLine.deleteEx(false);
 		}
-	}
-
-	/**
-	 * Check if an invoiceLine exists with the given invoice id
-	 *
-	 * @param invoiceId
-	 * @return
-	 */
-	public boolean checkInvoiceLinesExist(int invoiceId) {
-		return new Query(Env.getCtx(), MInvoiceLine.Table_Name, MInvoiceLine.COLUMNNAME_C_Invoice_ID + " =?", null)
-				.setParameters(invoiceId).setOnlyActiveRecords(true).setClient_ID().match();
 	}
 
 	@Override

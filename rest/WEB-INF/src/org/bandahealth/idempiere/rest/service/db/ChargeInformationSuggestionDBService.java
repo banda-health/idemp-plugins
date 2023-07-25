@@ -50,19 +50,17 @@ public class ChargeInformationSuggestionDBService
 	}
 
 	@Override
-	protected ChargeInformationSuggestion createInstanceWithSearchFields(MBHChargeInfoSuggestion instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHChargeInfoSuggestion getModelInstance() {
 		return new MBHChargeInfoSuggestion(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
+        }};
+    }
 
 	@Override
 	public List<ChargeInformationSuggestion> transformData(List<MBHChargeInfoSuggestion> dbModels) {

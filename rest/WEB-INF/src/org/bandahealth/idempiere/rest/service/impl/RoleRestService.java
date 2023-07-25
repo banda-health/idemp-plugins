@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,12 +31,6 @@ public class RoleRestService extends BaseRestService<Role, MRole, RoleDBService>
 	@Path("/{uuid}")
 	@Override
 	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
-		throw new NotImplementedException();
-	}
-
-	@POST
-	@Override
-	public Role save(Role entity) {
 		throw new NotImplementedException();
 	}
 }

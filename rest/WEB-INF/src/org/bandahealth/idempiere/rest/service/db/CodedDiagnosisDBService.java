@@ -19,10 +19,6 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 	public CodedDiagnosisDBService() {
 	}
 
-	public BaseListResponse<CodedDiagnosis> getAll(Paging pagingInfo, String sortJson, String filterJson) {
-		return super.getAll(null, null, pagingInfo, sortJson, filterJson);
-	}
-
 	@Override
 	public CodedDiagnosis saveEntity(CodedDiagnosis entity) {
 		MBHCodedDiagnosis mCodedDiagnosis = getEntityByUuidFromDB(entity.getUuid());
@@ -80,44 +76,6 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 	}
 
 	@Override
-	public BaseListResponse<CodedDiagnosis> search(String valueToSearch, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
-		String searchValueParameter = constructSearchValue(valueToSearch);
-
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-		parameters.add(searchValueParameter);
-		parameters.add(searchValueParameter);
-		parameters.add(searchValueParameter);
-		parameters.add(searchValueParameter);
-		parameters.add(searchValueParameter);
-		parameters.add(searchValueParameter);
-
-		String searchClause = MBHCodedDiagnosis.COLUMNNAME_IsActive + " = ? AND ("
-				+ MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_ID + " IN (SELECT "
-				+ MBHCodedDiagnosisMapping.COLUMNNAME_BH_Coded_Diagnosis_ID + " FROM "
-				+ MBHCodedDiagnosisMapping.Table_Name + " WHERE " + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptCode
-				+ " = ? OR LOWER(" + MBHCodedDiagnosisMapping.COLUMNNAME_BH_ConceptNameResolved + ") LIKE ? ) OR "
-				+ "LOWER(" + MBHCodedDiagnosis.COLUMNNAME_bh_cielname + ") " + LIKE_COMPARATOR + " ? OR " + "LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_bh_icd10who + ") " + LIKE_COMPARATOR + " ?  OR LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_bh_synonyms + ") " + LIKE_COMPARATOR + " ? OR LOWER("
-				+ MBHCodedDiagnosis.COLUMNNAME_bh_searchterms + ") LIKE ? ";
-
-		try {
-			int cielId = Integer.valueOf(valueToSearch);
-			searchClause += " OR " + MBHCodedDiagnosis.Table_Name + "." + MBHCodedDiagnosis.COLUMNNAME_BH_CielID
-					+ " = ?";
-			parameters.add(cielId);
-		} catch (NumberFormatException ex) {
-			// do nothing
-		}
-
-		searchClause += ")";
-
-		return this.search(searchClause, parameters, pagingInfo, sortColumn, sortOrder, null);
-	}
-
-	@Override
 	public Boolean deleteEntity(String entityUuid) {
 		return null;
 	}
@@ -133,17 +91,15 @@ public class CodedDiagnosisDBService extends BaseDBService<CodedDiagnosis, MBHCo
 	}
 
 	@Override
-	protected CodedDiagnosis createInstanceWithSearchFields(MBHCodedDiagnosis instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHCodedDiagnosis getModelInstance() {
 		return new MBHCodedDiagnosis(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
+        }};
+    }
 }

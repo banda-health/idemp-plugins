@@ -34,11 +34,6 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 	}
 
 	@Override
-	protected Field createInstanceWithSearchFields(MField instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MField getModelInstance() {
 		return new MField(Env.getCtx(), 0, null);
 	}

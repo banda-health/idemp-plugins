@@ -40,11 +40,6 @@ public class TabDBService extends BaseDBService<Tab, MTab> {
 	}
 
 	@Override
-	protected Tab createInstanceWithSearchFields(MTab instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MTab getModelInstance() {
 		return new MTab(Env.getCtx(), 0, null);
 	}

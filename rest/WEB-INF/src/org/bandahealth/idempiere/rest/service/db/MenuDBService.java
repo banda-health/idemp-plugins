@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +18,7 @@ import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.Window;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
-import org.compiere.model.MProcess;
 import org.compiere.model.MRole;
-import org.compiere.model.MTree_NodeMM;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_TreeNodeMM;
@@ -33,7 +30,6 @@ import org.springframework.stereotype.Component;
 public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 	private final String ERROR_NO_MENU = "Greenlight Menu Tree not found.";
-	private final String REPORTS_MENU_UUID = "Reports"; // does this change with translations?
 	private final String ERROR_NO_REPORTS = "No reports found..";
 	@Autowired
 	private WindowDBService windowDBService;
@@ -188,19 +184,17 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 	}
 
 	@Override
-	protected Menu createInstanceWithSearchFields(MMenu_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MMenu_BH getModelInstance() {
 		return new MMenu_BH(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	public boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
-	}
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+        return new EntityConfiguration() {{
+            setShouldUseContextClientId(true);
+            setShouldFetchFromSystemClient(true);
+        }};
+    }
 
 	@Override
 	protected Map<String, Function<MMenu_BH, VoidFunction<String>>> getColumnsToTranslate() {

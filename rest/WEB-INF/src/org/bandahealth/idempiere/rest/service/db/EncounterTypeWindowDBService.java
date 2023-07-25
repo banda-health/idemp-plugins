@@ -16,16 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EncounterTypeWindowDBService
-		extends BaseDBService<EncounterTypeWindow, MBHEncounterTypeWindow> {
+public class EncounterTypeWindowDBService extends BaseDBService<EncounterTypeWindow, MBHEncounterTypeWindow> {
 
 	@Autowired
 	private WindowDBService windowDBService;
 
 	@Override
 	public EncounterTypeWindow saveEntity(EncounterTypeWindow entity) {
-		MBHEncounterTypeWindow encounterTypeWindowMapping = new Query(Env.getCtx(),
-				MBHEncounterTypeWindow.Table_Name,
+		MBHEncounterTypeWindow encounterTypeWindowMapping = new Query(Env.getCtx(), MBHEncounterTypeWindow.Table_Name,
 				MBHEncounterTypeWindow.COLUMNNAME_BH_Encounter_Type_Window_UU + " =?", null)
 						.setParameters(entity.getUuid()).first();
 		if (encounterTypeWindowMapping == null) {
@@ -51,11 +49,6 @@ public class EncounterTypeWindowDBService
 	}
 
 	@Override
-	protected EncounterTypeWindow createInstanceWithSearchFields(MBHEncounterTypeWindow instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHEncounterTypeWindow getModelInstance() {
 		return new MBHEncounterTypeWindow(Env.getCtx(), 0, null);
 	}
@@ -63,8 +56,8 @@ public class EncounterTypeWindowDBService
 	@Override
 	public List<EncounterTypeWindow> transformData(List<MBHEncounterTypeWindow> dbModels) {
 		// get windows
-		Map<Integer, MWindow> windowsById = windowDBService.getByIds(
-				dbModels.stream().map(MBHEncounterTypeWindow::getAD_Window_ID).collect(Collectors.toSet()));
+		Map<Integer, MWindow> windowsById = windowDBService
+				.getByIds(dbModels.stream().map(MBHEncounterTypeWindow::getAD_Window_ID).collect(Collectors.toSet()));
 
 		return dbModels.stream().map(encounterTypeWindowMapping -> {
 			EncounterTypeWindow result = new EncounterTypeWindow(encounterTypeWindowMapping);
@@ -82,7 +75,12 @@ public class EncounterTypeWindowDBService
 	}
 
 	@Override
-	protected boolean isClientIdFromTheContextNeededByDefaultForThisEntity() {
-		return false;
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(true);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
 	}
 }

@@ -202,11 +202,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setBH_Process_Stage(null);
 			visit.saveEx();
 
-			Visit model = createInstanceWithAllFields(visit);
-			model.setOrders(orderDBService.transformData(orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID,
-					MOrder_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID())).get(visit.get_ID())));
-			model.setPayments(paymentDBService.getPaymentsByVisitId(model.getId()));
-			return model;
+			return createInstanceWithAllFields(getEntityByUuidFromDB(visit.getBH_Visit_UU()));
 		} catch (Exception exception) {
 			if (!processVisitTransaction.rollback(true)) {
 				logger.severe("Could not roll back visit transaction");
@@ -360,7 +356,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// delete payment lines not in request
 		paymentDBService.deletePaymentLinesByVisit(visit.get_ID(), lineIds.toString());
 
-		return transformData(Collections.singletonList(visit)).get(0);
+		return createInstanceWithAllFields(visit);
 	}
 
 	@Override
@@ -394,6 +390,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 					|| visitsInvoices.stream().anyMatch(isNotDrafted)
 					|| visitsPayments.stream().anyMatch(isNotDrafted)) {
 				throw new AdempiereException("Visit is already completed");
+			}
+
+			// Handle order lines separately
+			if (!visitsOrders.isEmpty()) {
+				visitsOrders.forEach(order -> orderLineDBService.deleteOrderLinesByOrder(order.get_ID(), ""));
 			}
 
 			Predicate<PO> deleteEntity = (PO entity) -> entity.delete(true);
@@ -458,15 +459,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	}
 
 	@Override
-	protected Visit createInstanceWithSearchFields(MBHVisit instance) {
-		return createInstanceWithDefaultFields(instance);
-	}
-
-	@Override
 	protected MBHVisit getModelInstance() {
 		return new MBHVisit(Env.getCtx(), 0, null);
 	}
 
+	@Override
 	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		BaseListResponse<Visit> visits = super.getAll(pagingInfo, sortJson, filterJson);
 

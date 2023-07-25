@@ -74,11 +74,6 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	}
 
 	@Override
-	protected Encounter createInstanceWithSearchFields(MBHEncounter instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHEncounter getModelInstance() {
 		return new MBHEncounter(Env.getCtx(), 0, null);
 	}

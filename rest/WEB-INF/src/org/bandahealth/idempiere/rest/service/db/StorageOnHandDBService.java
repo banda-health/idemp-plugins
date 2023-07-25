@@ -145,11 +145,6 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 	}
 
 	@Override
-	protected StorageOnHand createInstanceWithSearchFields(MStorageOnHand instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MStorageOnHand getModelInstance() {
 		return new MStorageOnHand(Env.getCtx(), 0, null);
 	}
@@ -209,7 +204,7 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 				+ MAttributeSet_BH.Table_Name + "." + MAttributeSet_BH.COLUMNNAME_IsGuaranteeDate + "=? THEN "
 				+ EXPIRE_WHERE_CLAUSE + " ELSE 1=1 END";
 		parameters.add(true);
-		List<MStorageOnHand> models = getBaseQuery(this.isClientIdFromTheContextNeededByDefaultForThisEntity(),
+		List<MStorageOnHand> models = getBaseQuery(this.getDefaultEntityConfiguration(),
 				whereClause, parameters).addJoinClause(getDynamicJoins().get(MAttributeSetInstance_BH.Table_Name))
 				.addJoinClause(getDynamicJoins().get(MAttributeSet_BH.Table_Name)).list();
 		Map<Integer, List<MStorageOnHand>> groupedValues = getTranslations(models).stream()

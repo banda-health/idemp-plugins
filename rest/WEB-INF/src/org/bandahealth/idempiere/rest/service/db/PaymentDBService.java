@@ -76,24 +76,6 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortJson, filterJson);
 	}
 
-	public BaseListResponse<Payment> search(String searchValue, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-
-		StringBuilder whereClause = new StringBuilder()
-				.append("LOWER(").append(MBPartner_BH.Table_Name).append(".").append(MBPartner_BH.COLUMNNAME_Name)
-				.append(") ").append(LIKE_COMPARATOR).append(" ?");
-		parameters.add(constructSearchValue(searchValue));
-
-		StringBuilder joinClause = new StringBuilder()
-				.append("JOIN ").append(MBPartner_BH.Table_Name).append(" ON ").append(MBPartner_BH.Table_Name)
-				.append(".").append(MBPartner_BH.COLUMNNAME_C_BPartner_ID).append("=").append(MPayment_BH.Table_Name)
-				.append(".").append(MPayment_BH.COLUMNNAME_C_BPartner_ID);
-
-		return super.search(whereClause.toString(), parameters, pagingInfo, sortColumn, sortOrder,
-				joinClause.toString());
-	}
-
 	@Override
 	public Payment saveEntity(Payment entity) {
 		MPayment_BH mPayment = getEntityByUuidFromDB(entity.getUuid());
@@ -188,11 +170,6 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	@Override
 	protected Payment createInstanceWithAllFields(MPayment_BH instance) {
-		return createInstanceWithDefaultFields(instance);
-	}
-
-	@Override
-	protected Payment createInstanceWithSearchFields(MPayment_BH instance) {
 		return createInstanceWithDefaultFields(instance);
 	}
 
@@ -301,17 +278,6 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 				mPayment.deleteEx(false);
 			}
 		}
-	}
-
-	/**
-	 * Check if an order has any payments
-	 *
-	 * @param visitId
-	 * @return
-	 */
-	public boolean checkPaymentExists(int visitId) {
-		return new Query(Env.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_Visit_ID + " =?", null)
-				.setOnlyActiveRecords(true).setClient_ID().setParameters(visitId).match();
 	}
 
 	@Override

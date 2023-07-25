@@ -71,11 +71,6 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 	}
 
 	@Override
-	protected Observation createInstanceWithSearchFields(MBHObservation instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHObservation getModelInstance() {
 		return new MBHObservation(Env.getCtx(), 0, null);
 	}

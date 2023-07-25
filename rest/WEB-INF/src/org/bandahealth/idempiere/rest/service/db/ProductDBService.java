@@ -52,7 +52,6 @@ import java.util.stream.Collectors;
 @Component
 public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
-	private static final String ERROR_WAREHOUSE_NOT_FOUND = "Warehouse not found";
 	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
 	@Autowired
@@ -100,16 +99,6 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				filterJson, joinClause);
 	}
 
-	@Override
-	public BaseListResponse<Product> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(value));
-		parameters.add(MProduct_BH.PRODUCTTYPE_Item);
-
-		return this.search(DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MProduct_BH.COLUMNNAME_ProductType + " = ?",
-				parameters, pagingInfo, sortColumn, sortOrder);
-	}
-
 	/**
 	 * Auto-complete search.
 	 * <p>
@@ -120,10 +109,12 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	 */
 	public BaseListResponse<Product> searchItems(String searchValue) {
 		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(searchValue));
+		parameters.add(searchValue == null ? "" : "%" + searchValue.toLowerCase() + "%");
+		parameters.add(true); // isactive
 
-		BaseListResponse<Product> response = super.getAll(DEFAULT_SEARCH_CLAUSE, parameters, new Paging(0, 100), null,
-				null);
+		BaseListResponse<Product> response =
+				super.getAll("lower(" + MProduct_BH.COLUMNNAME_Name + ") LIKE ? AND " + MProduct_BH.COLUMNNAME_IsActive + "=?",
+						parameters, new Paging(0, 100), null, null);
 
 		// Get products that will have storage
 		Set<Integer> productIdsWithStorage =
@@ -343,23 +334,8 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	}
 
 	@Override
-	protected Product createInstanceWithSearchFields(MProduct_BH product) {
-		try {
-			return new Product(product.getM_Product_UU(), product.getName(), DateUtil.parseDateOnly(product.getCreated()),
-					product.getBH_SellPrice(), product.isActive(), product);
-		} catch (Exception ex) {
-			log.severe("Error creating product instance: " + ex);
-			throw new RuntimeException(ex.getLocalizedMessage(), ex);
-		}
-	}
-
-	@Override
 	protected MProduct_BH getModelInstance() {
 		return new MProduct_BH(Env.getCtx(), 0, null);
-	}
-
-	public MProduct getProductByID(int id) {
-		return MProduct_BH.get(Env.getCtx(), id);
 	}
 
 	@Override

@@ -62,11 +62,6 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 	}
 
 	@Override
-	protected EncounterDiagnosis createInstanceWithSearchFields(MBHEncounterDiagnosis instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHEncounterDiagnosis getModelInstance() {
 		return new MBHEncounterDiagnosis(Env.getCtx(), 0, null);
 	}

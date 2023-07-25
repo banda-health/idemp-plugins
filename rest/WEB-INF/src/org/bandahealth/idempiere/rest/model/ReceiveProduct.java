@@ -21,10 +21,8 @@ public class ReceiveProduct extends Order {
 		setIsSalesOrderTransaction(false);
 	}
 
-	public ReceiveProduct(MOrder_BH model, MBPartner_BH businessPartner, List<OrderLine> orderLines) {
-		super(model, null, orderLines);
-
-		this.vendor = new Vendor(businessPartner);
+	public ReceiveProduct(MOrder_BH model) {
+		super(model);
 	}
 
 	@XmlElement

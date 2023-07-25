@@ -1,23 +1,30 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
+import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MOrder;
 import org.compiere.model.Query;
@@ -35,6 +42,8 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 
 	@Autowired
 	private VendorDBService vendorDBService;
+	@Autowired
+	private WarehouseDBService warehouseDBService;
 
 	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
@@ -48,23 +57,16 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 	}
 
 	@Override
-	public BaseListResponse<ReceiveProduct> search(String searchValue, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-
-		String whereClause = MOrder_BH.COLUMNNAME_IsSOTrx + "=?";
-		parameters.add("N");
-
-		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause, parameters);
-	}
-
-	@Override
 	protected void beforeSave(ReceiveProduct entity, MOrder_BH mOrder) {
 		if (entity.getVendor() != null && entity.getVendor().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getVendor().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
 		}
 
+		mOrder.setC_DocTypeTarget_ID(
+				Arrays.stream(MDocType_BH.getOfDocBaseType(Env.getCtx(), MDocType_BH.DOCBASETYPE_PurchaseOrder))
+						.filter(documentType -> documentType.getDocSubTypeSO() == null).findFirst().orElseThrow()
+						.getC_DocType_ID());
 		mOrder.setIsSOTrx(false);
 	}
 
@@ -79,65 +81,12 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 
 	@Override
 	protected ReceiveProduct createInstanceWithDefaultFields(MOrder_BH instance) {
-		try {
-			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
-			if (vendor == null) {
-				log.severe("Missing vendor");
-				return null;
-			}
-
-			ReceiveProduct result = new ReceiveProduct(instance, vendor, null);
-			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
-			return result;
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-		return null;
+		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
 	protected ReceiveProduct createInstanceWithAllFields(MOrder_BH instance) {
-		try {
-			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
-			if (vendor == null) {
-				log.severe("Missing vendor");
-				return null;
-			}
-
-			ReceiveProduct result = new ReceiveProduct(instance, vendor,
-					orderLineDBService.getOrderLinesByOrderIds(Collections.singleton(instance.get_ID())).get(instance.get_ID()));
-			result.setWarehouse(new Warehouse((MWarehouse_BH) instance.getM_Warehouse()));
-
-			// Get any ASIs that need to be added
-			Set<Integer> attributeSetInstanceIds =
-					result.getOrderLines().stream().map(OrderLine::getAttributeSetInstanceId)
-							.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet());
-			Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
-					attributeSetInstanceIds.isEmpty() ? new HashMap<>() :
-							attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
-
-			result.getOrderLines().forEach(orderLine -> {
-				if (attributeSetInstancesById.containsKey(orderLine.getAttributeSetInstanceId())) {
-					orderLine.setAttributeSetInstance(
-							new AttributeSetInstance(attributeSetInstancesById.get(orderLine.getAttributeSetInstanceId())));
-				}
-				if (orderLine.getProduct() != null) {
-					orderLine.setProduct(
-							productDBService.batchChildDataCalls(Collections.singletonList(orderLine.getProduct())).get(0));
-				}
-			});
-
-			return result;
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-
-		return null;
-	}
-
-	@Override
-	protected ReceiveProduct createInstanceWithSearchFields(MOrder_BH instance) {
-		return createInstanceWithDefaultFields(instance);
+		return new ReceiveProduct(instance);
 	}
 
 	@Override
@@ -156,5 +105,44 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
+	}
+
+	@Override
+	public List<ReceiveProduct> transformData(List<MOrder_BH> dbModels) {
+		List<ReceiveProduct> purchaseOrders = super.transformData(dbModels);
+
+		Map<Integer, MBPartner_BH> businessPartnersById = businessPartnerDBService.getByIds(
+				purchaseOrders.stream().map(ReceiveProduct::getBusinessPartnerId).collect(Collectors.toSet()));
+		Map<Integer, MWarehouse_BH> warehousesById = warehouseDBService.getByIds(
+				purchaseOrders.stream().map(ReceiveProduct::getWarehouseId).collect(Collectors.toSet()));
+		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById = attributeSetInstanceDBService.getByIds(
+				purchaseOrders.stream().map(ReceiveProduct::getOrderLines).flatMap(Collection::stream)
+						.map(OrderLine::getAttributeSetInstanceId).filter(attributeSetInstanceId -> attributeSetInstanceId > 0)
+						.collect(Collectors.toSet()));
+		Map<Integer, Product> productsByIds = productDBService.transformData(new ArrayList<>(productDBService.getByIds(
+						purchaseOrders.stream().map(ReceiveProduct::getOrderLines).flatMap(Collection::stream)
+								.map(OrderLine::getProductId).collect(Collectors.toSet())).values())).stream()
+				.collect(Collectors.toMap(Product::getId, product -> product));
+
+		return purchaseOrders.stream().peek(purchaseOrder -> {
+			if (warehousesById.containsKey(purchaseOrder.getWarehouseId())) {
+				purchaseOrder.setWarehouse(new Warehouse((warehousesById.get(purchaseOrder.getWarehouseId()))));
+			}
+			purchaseOrder.getOrderLines().forEach(orderLine -> {
+				if (attributeSetInstancesById.containsKey(orderLine.getAttributeSetInstanceId())) {
+					orderLine.setAttributeSetInstance(
+							new AttributeSetInstance(attributeSetInstancesById.get(orderLine.getAttributeSetInstanceId())));
+				}
+				if (productsByIds.containsKey(orderLine.getProductId())) {
+					orderLine.setProduct(productsByIds.get(orderLine.getProductId()));
+				}
+			});
+			purchaseOrder.setVendor(new Vendor(businessPartnersById.get(purchaseOrder.getBusinessPartnerId())));
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public ReceiveProduct getEntity(String uuid) {
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 	}
 }
