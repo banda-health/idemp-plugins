@@ -441,7 +441,6 @@ public class AuthenticationRestService {
 		// the context, so store what's there
 		// now
 		int clientId = Env.getAD_Client_ID(Env.getCtx());
-		// PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		try {
 			// parse all clients that the user has access to.
 			// Batch call the client data
@@ -457,6 +456,7 @@ public class AuthenticationRestService {
 					response.setClientUuid(client.getUuid());
 				}
 
+				// PO.setCrossTenantSafe();
 				// check orgs.
 				MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), client.getId(), null));
 
