@@ -4,6 +4,11 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
@@ -15,6 +20,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.DB;
 import org.hamcrest.Matchers;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -25,13 +31,32 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IncomeAndExpensesTest extends ChuBoePopulateFactoryVO {
+	private MProductCategory_BH getProductCategory(ChuBoePopulateVO valueObject, String productCategoryName)
+			throws SQLException {
+		MProductCategory_BH productCategory =
+				new Query(valueObject.getContext(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_Name + "=?",
+						valueObject.getTransactionName()).setParameters(productCategoryName).setClient_ID().first();
+		if (productCategory == null) {
+			productCategory = new MProductCategory_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			productCategory.setName(productCategoryName);
+			productCategory.setBH_Product_Category_Type(MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Product);
+			productCategory.saveEx();
+		}
+		commitEx();
+		return productCategory;
+	}
+
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -75,51 +100,16 @@ public class IncomeAndExpensesTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create Pharmacy product category");
-		MProductCategory_BH pharmacyProductCategory =
-				new Query(valueObject.getContext(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_Name + "=?",
-						valueObject.getTransactionName()).setParameters("Pharmacy").setClient_ID().first();
-		if (pharmacyProductCategory == null) {
-			pharmacyProductCategory = new MProductCategory_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
-			pharmacyProductCategory.setName("Pharmacy");
-			pharmacyProductCategory.setBH_Product_Category_Type(MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Product);
-			pharmacyProductCategory.saveEx();
-		}
+		MProductCategory_BH pharmacyProductCategory = getProductCategory(valueObject, "Pharmacy");
 
 		valueObject.setStepName("Create Other product category");
-		MProductCategory_BH otherProductCategory =
-				new Query(valueObject.getContext(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_Name + "=?",
-						valueObject.getTransactionName()).setParameters("Other").setClient_ID().first();
-		if (otherProductCategory == null) {
-			otherProductCategory = new MProductCategory_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
-			otherProductCategory.setName("Other");
-			otherProductCategory.setBH_Product_Category_Type(MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Product);
-			otherProductCategory.saveEx();
-		}
+		MProductCategory_BH otherProductCategory = getProductCategory(valueObject, "Other");
 
 		valueObject.setStepName("Create Laboratory product category");
-		MProductCategory_BH laboratoryProductCategory =
-				new Query(valueObject.getContext(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_Name + "=?",
-						valueObject.getTransactionName()).setParameters("Laboratory").setClient_ID().first();
-		if (laboratoryProductCategory == null) {
-			laboratoryProductCategory =
-					new MProductCategory_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
-			laboratoryProductCategory.setName("Laboratory");
-			laboratoryProductCategory.setBH_Product_Category_Type(MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Product);
-			laboratoryProductCategory.saveEx();
-		}
+		MProductCategory_BH laboratoryProductCategory = getProductCategory(valueObject, "Laboratory");
 
 		valueObject.setStepName("Create Radiology product category");
-		MProductCategory_BH radiologyProductCategory =
-				new Query(valueObject.getContext(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_Name + "=?",
-						valueObject.getTransactionName()).setParameters("Radiology").setClient_ID().first();
-		if (radiologyProductCategory == null) {
-			radiologyProductCategory = new MProductCategory_BH(valueObject.getContext(), 0,
-					valueObject.getTransactionName());
-			radiologyProductCategory.setName("Radiology");
-			radiologyProductCategory.setBH_Product_Category_Type(MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Product);
-			radiologyProductCategory.saveEx();
-		}
-		commitEx();
+		MProductCategory_BH radiologyProductCategory = getProductCategory(valueObject, "Radiology");
 
 		valueObject.setStepName("Create Pharmacy product");
 		valueObject.setSalesPrice(new BigDecimal(12));
@@ -279,5 +269,116 @@ public class IncomeAndExpensesTest extends ChuBoePopulateFactoryVO {
 				containsString(decimalFormat.format(laboratoryTotals.intValue())));
 		assertThat("Radiology charges are on the report", reportContent,
 				containsString(decimalFormat.format(radiologyTotals.intValue())));
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void expensesShowUpForTheCorrectDatesAndNotWhenTheyWereUpdated() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		double initialTotalExpenses;
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Optional<Row> expenseTotalsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+									cell -> cell.getCellType().equals(CellType.STRING) && cell.getStringCellValue().equals("Total " +
+											"expenses")))
+					.findFirst();
+			assertTrue(expenseTotalsRow.isPresent(), "Expense totals row exists");
+
+			initialTotalExpenses = StreamSupport.stream(expenseTotalsRow.get().spliterator(), false)
+					.filter(cell -> cell.getCellType().equals(CellType.NUMERIC)).findFirst().orElseThrow().getNumericCellValue();
+		}
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Optional<Row> expenseTotalsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+									cell -> cell.getCellType().equals(CellType.STRING) && cell.getStringCellValue().equals("Total " +
+											"expenses")))
+					.findFirst();
+			assertTrue(expenseTotalsRow.isPresent(), "Expense totals row exists");
+
+			double newExpenseTotals = StreamSupport.stream(expenseTotalsRow.get().spliterator(), false)
+					.filter(cell -> cell.getCellType().equals(CellType.NUMERIC)).findFirst().orElseThrow().getNumericCellValue();
+			assertEquals(100d, newExpenseTotals - initialTotalExpenses, "PO was included in expenses");
+		}
+
+		valueObject.setStepName("Create an old PO");
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(100));
+		valueObject.setDateOffset(-5);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Optional<Row> expenseTotalsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+									cell -> cell.getCellType().equals(CellType.STRING) && cell.getStringCellValue().equals("Total " +
+											"expenses")))
+					.findFirst();
+			assertTrue(expenseTotalsRow.isPresent(), "Expense totals row exists");
+
+			double newExpenseTotals = StreamSupport.stream(expenseTotalsRow.get().spliterator(), false)
+					.filter(cell -> cell.getCellType().equals(CellType.NUMERIC)).findFirst().orElseThrow().getNumericCellValue();
+			assertEquals(100d, newExpenseTotals - initialTotalExpenses, "Old PO was not included in expenses");
+		}
 	}
 }

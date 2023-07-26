@@ -1,15 +1,14 @@
-import { accountApi, chargeApi, expenseCategoryApi, invoiceApi } from '../api';
+import { accountApi, expenseCategoryApi, invoiceApi } from '../api';
 import { expenseApi } from '../api/expenses';
 import { documentAction, documentBaseType, documentStatus } from '../models';
 import {
 	BusinessPartner,
 	Expense,
 	ExpenseCategory,
-	Invoice,
 	InvoiceLine,
 	Vendor,
 } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createCharge, createStandaloneInvoice, createVendor } from '../utils';
+import { createBusinessPartner, createCharge, createInvoice, createProduct, createVendor } from '../utils';
 
 test('creating an invoice with a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -23,7 +22,7 @@ test('creating an invoice with a charge', async () => {
 
 	valueObject.stepName = 'Create Invoice';
 	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
-	await createStandaloneInvoice(valueObject);
+	await createInvoice(valueObject);
 
 	expect((await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid)).uuid).toBe(valueObject.invoice!.uuid);
 });
@@ -42,7 +41,7 @@ test('invoice searching', async () => {
 
 	valueObject.stepName = 'Create first invoice';
 	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
-	await createStandaloneInvoice(valueObject);
+	await createInvoice(valueObject);
 
 	valueObject.stepName = 'Create second charge';
 	valueObject.clearCharge();
@@ -51,7 +50,7 @@ test('invoice searching', async () => {
 
 	valueObject.stepName = 'Create second invoice';
 	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
-	await createStandaloneInvoice(valueObject);
+	await createInvoice(valueObject);
 
 	valueObject.stepName = 'Create third charge';
 	valueObject.clearCharge();
@@ -64,7 +63,7 @@ test('invoice searching', async () => {
 
 	valueObject.stepName = 'Create third invoice';
 	await valueObject.setDocumentBaseType(documentBaseType.APInvoice, null, false, false, false);
-	await createStandaloneInvoice(valueObject);
+	await createInvoice(valueObject);
 
 	let invoices = (
 		await invoiceApi.get(
@@ -203,4 +202,23 @@ test(`expenses are voided when they've been completed and you try to delete them
 	expense = await expenseApi.getByUuid(valueObject, expense.uuid!);
 	expect(expense).toBeTruthy();
 	expect(expense.docStatus).toBe(documentStatus.Reversed);
+});
+
+test('can complete an invoice', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create vendor';
+	await createVendor(valueObject);
+
+	valueObject.stepName = 'Create charge';
+	await createCharge(valueObject);
+
+	valueObject.stepName = 'Complete invoice';
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	valueObject.documentAction = documentAction.Complete;
+	await createInvoice(valueObject);
+
+	expect(valueObject.invoice).toBeTruthy();
+	expect(valueObject.invoice?.docStatus).toBe(documentStatus.Completed);
 });
