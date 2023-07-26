@@ -1167,7 +1167,7 @@ test('visit can be saved with really long chief complaint', async () => {
 		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
 	).results.filter(
 		result => result.window.name = 'Clinical Vitals')[0].window.tabs[0].fields.filter(
-			field => field.name == 'Chief Complaint')[0] as Field;
+			field => field.name == 'BH_ChiefComplaint')[0] as Field;
 			
 	const observation : Partial<Observation> = {
 		value: longChiefComplaint,
@@ -1185,7 +1185,7 @@ test('visit can be saved with really long chief complaint', async () => {
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(longChiefComplaint);
 });
 
-test('clinical vitals and clinical details fields ', async () => {
+test('clinical vitals fields ', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -1196,27 +1196,22 @@ test('clinical vitals and clinical details fields ', async () => {
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
 	
-	const clinicalVitalFields = (
-		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
+	const fields = (
+		await encounterTypeWindowApi.get(valueObject, 0, 10, undefined, undefined)
 	).results.filter(
 		result => result.window.name = 'Clinical Vitals')[0].window.tabs[0].fields;
-	
-	const clinicalDetailFields = (
-		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
-	).results.filter(
-		result => result.window.name = 'Clinical Details')[0].window.tabs[0].fields;
 		
 	const heightValue = '200';
-	const labNotesValue = 'something here';
+	const weightValue = '100';
 		
 	const heightObs : Partial<Observation> = {
 		value: heightValue,
-		field: clinicalVitalFields.filter(field => field.name == 'Height (cm)')[0],
+		field: fields.filter(field => field.name == 'BH_Height')[0],
 	};
 	
 	const labNotesObs : Partial<Observation> = {
-		value: labNotesValue,
-		field: clinicalVitalFields.filter(field => field.name == 'Lab / Imaging Notes')[0],
+		value: weightValue,
+		field: fields.filter(field => field.name == 'BH_Weight')[0],
 	};
 	
 	const encounter : Partial<Encounter> = {
@@ -1239,7 +1234,7 @@ test('clinical vitals and clinical details fields ', async () => {
 	
 	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(heightValue);
-	expect(valueObject.visit.encounters[0].observations[1].value).toBe(labNotesObs);
+	expect(valueObject.visit.encounters[0].observations[1].value).toBe(weightValue);
 	expect(valueObject.visit.encounters[0].encounterDiagnosis[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
 });
 

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -41,6 +42,7 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
+import org.compiere.model.MField;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -611,10 +613,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		Map<Integer, List<OrderLine>> orderLinesByOrderId = orderLineDBService
 				.getOrderLinesByOrderIds(orders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet()));
 
-		Map<Integer, List<Encounter>> encountersByVisitId = encounterDBService.transformData(encounterDBService
-				.getGroupsByIds(MBHEncounter::getBH_Visit_ID, MBHEncounter.COLUMNNAME_BH_Visit_ID, visitIds).values()
-				.stream().flatMap(Collection::stream).collect(Collectors.toList())).stream()
-				.collect(Collectors.groupingBy(Encounter::getVisitId));
+		Map<Integer, List<Encounter>> encountersByVisitId = encounterDBService
+				.transformData(encounterDBService
+						.getGroupsByIds(MBHEncounter::getBH_Visit_ID, MBHEncounter.COLUMNNAME_BH_Visit_ID, visitIds)
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
+				.stream().collect(Collectors.groupingBy(Encounter::getVisitId));
 
 		Map<Integer, List<Payment>> paymentIdsByVisitId = paymentDBService
 				.transformData(paymentDBService
@@ -622,13 +625,17 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(Payment::getVisitId));
 
+		Map<Integer, MBPartner_BH> businessPartnerByVisitId = businessPartnerDBService
+				.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()));
+
 		return dbModels.stream().map(visit -> {
 			Visit entity = createInstanceWithDefaultFields(visit);
+			entity.setPatient(patientDBService
+					.transformData(Collections.singletonList(businessPartnerByVisitId.get(visit.getPatient_ID())))
+					.get(0));
 			entity.setOrders(orderIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
-
 			entity.getOrders().forEach(
 					order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
-
 			entity.setPayments(paymentIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
 			entity.setEncounters(encountersByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
 			return entity;
