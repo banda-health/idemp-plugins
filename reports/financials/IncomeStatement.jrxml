@@ -3,6 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
@@ -86,7 +87,7 @@ FROM
 		WHERE
 			i.docstatus = 'CO'
 			AND i.bh_isexpense = 'Y'
-			AND i.updated BETWEEN params.begin_date AND params.end_date
+			AND i.dateinvoiced BETWEEN date(params.begin_date) AND date(params.end_date)
 	) AS expenses
 		CROSS JOIN (
 		SELECT
@@ -106,7 +107,7 @@ FROM
 		WHERE
 			o.issotrx = 'N'
 			AND o.docstatus = 'CO'
-			AND o.updated BETWEEN params.begin_date AND params.end_date
+			AND o.dateordered BETWEEN date(params.begin_date) AND date(params.end_date)
 	) received_products
 		CROSS JOIN (
 		SELECT
