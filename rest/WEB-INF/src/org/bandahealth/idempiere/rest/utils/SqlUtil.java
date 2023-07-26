@@ -164,11 +164,11 @@ public class SqlUtil {
 	 * @throws JsonProcessingException The typical error that Jackson could throw when processing Java to JSON
 	 */
 	public static ArrayNode executeDashboardQueryForClient(String sql, String clientUuid) throws JsonProcessingException {
-		PO.setCrossTenantSafe();
+//		PO.setCrossTenantSafe();
 		MClient clientToGetDataFor =
 				new Query(Env.getCtx(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_AD_Client_UU + "=?", null).setParameters(
 						clientUuid).first();
-		PO.clearCrossTenantSafe();
+//		PO.clearCrossTenantSafe();
 		// We don't allow querying for the system client
 		if (clientToGetDataFor == null || clientToGetDataFor.get_ID() == 0) {
 			return null;

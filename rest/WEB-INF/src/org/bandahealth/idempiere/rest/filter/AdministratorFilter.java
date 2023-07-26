@@ -30,7 +30,7 @@ public class AdministratorFilter implements ContainerRequestFilter {
 		// If either the method or the class are only meant for admins, make sure the user is one before proceeding
 		if (resourceInfo.getResourceClass().isAnnotationPresent(AdministratorOnly.class) ||
 				resourceInfo.getResourceMethod().isAnnotationPresent(AdministratorOnly.class)) {
-			if (!MUser.get(Env.getAD_User_ID(Env.getCtx())).isAdministrator()) {
+			if (!MUser.get(Env.getCtx()).isAdministrator()) {
 				requestContext.abortWith(Response.status(Response.Status.NOT_FOUND).build());
 			}
 		}
