@@ -57,17 +57,6 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 	}
 
 	@Override
-	public BaseListResponse<ReceiveProduct> search(String searchValue, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-
-		String whereClause = MOrder_BH.COLUMNNAME_IsSOTrx + "=?";
-		parameters.add("N");
-
-		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause, parameters);
-	}
-
-	@Override
 	protected void beforeSave(ReceiveProduct entity, MOrder_BH mOrder) {
 		if (entity.getVendor() != null && entity.getVendor().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getVendor().getUuid());
@@ -98,11 +87,6 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 	@Override
 	protected ReceiveProduct createInstanceWithAllFields(MOrder_BH instance) {
 		return new ReceiveProduct(instance);
-	}
-
-	@Override
-	protected ReceiveProduct createInstanceWithSearchFields(MOrder_BH instance) {
-		return createInstanceWithAllFields(instance);
 	}
 
 	@Override

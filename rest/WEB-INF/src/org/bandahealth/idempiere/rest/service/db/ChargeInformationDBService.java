@@ -69,11 +69,6 @@ public class ChargeInformationDBService extends BaseDBService<ChargeInformation,
 	}
 
 	@Override
-	protected ChargeInformation createInstanceWithSearchFields(MBHChargeInfo instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHChargeInfo getModelInstance() {
 		return new MBHChargeInfo(Env.getCtx(), 0, null);
 	}

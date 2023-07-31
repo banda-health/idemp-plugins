@@ -577,15 +577,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	}
 
 	@Override
-	protected Visit createInstanceWithSearchFields(MBHVisit instance) {
-		return createInstanceWithDefaultFields(instance);
-	}
-
-	@Override
 	protected MBHVisit getModelInstance() {
 		return new MBHVisit(Env.getCtx(), 0, null);
 	}
 
+	@Override
 	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		BaseListResponse<Visit> visits = super.getAll(pagingInfo, sortJson, filterJson);
 

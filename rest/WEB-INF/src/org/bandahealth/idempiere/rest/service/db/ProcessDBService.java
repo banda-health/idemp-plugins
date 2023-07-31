@@ -57,13 +57,6 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 	public static final String THERMAL_RECEIPT_REPORT = "30dd7243-11c1-4584-af26-5d977d117c84";
 	public static final String DEBT_PAYMENT_RECEIPT = "173a691b-ba89-4987-9216-9b3f0a60c864";
 
-	private final Map<ReportType, String> contentTypes = new HashMap<>() {{
-		put(ReportType.CSV, "text/csv");
-		put(ReportType.HTML, "text/html");
-		put(ReportType.PDF, "application/pdf");
-		put(ReportType.XLS, "application/vnd.ms-excel");
-		put(ReportType.XLSX, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-	}};
 	@Autowired
 	private ProcessParameterDBService processParameterDBService;
 	@Autowired
@@ -109,17 +102,6 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 				param.getAD_Reference_Value_ID(), param.getAD_Val_Rule_ID(), param.getDefaultValue(),
 				param.getDefaultValue2(), param.getDisplayLogic(), param.getEntityType(), param.getFieldLength(),
 				param.isEncrypted(), param.isMandatory(), param.isRange(), param.getMandatoryLogic(), param);
-	}
-
-	private static ProcessInfoParameter[] getInfoParameters(List<BHProcessInfoParameter> params) {
-		ProcessInfoParameter[] results = new ProcessInfoParameter[params.size()];
-		for (int index = 0; index < params.size(); index++) {
-			BHProcessInfoParameter param = params.get(index);
-			results[index] = new ProcessInfoParameter(param.getParameterName(), param.getParameter(),
-					param.getParameterTo(), param.getInfo(), param.getInfoTo());
-		}
-
-		return results;
 	}
 
 	@Override
@@ -398,11 +380,6 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 	@Override
 	protected Process createInstanceWithAllFields(MProcess_BH instance) {
 		return new Process(instance, null);
-	}
-
-	@Override
-	protected Process createInstanceWithSearchFields(MProcess_BH instance) {
-		return createInstanceWithAllFields(instance);
 	}
 
 	@Override

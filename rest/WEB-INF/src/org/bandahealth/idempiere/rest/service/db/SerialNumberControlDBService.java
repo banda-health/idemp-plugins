@@ -29,11 +29,6 @@ public class SerialNumberControlDBService extends BaseDBService<SerialNumberCont
 	}
 
 	@Override
-	protected SerialNumberControl createInstanceWithSearchFields(MSerNoCtl_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MSerNoCtl_BH getModelInstance() {
 		return new MSerNoCtl_BH(Env.getCtx(), 0, null);
 	}

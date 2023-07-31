@@ -61,11 +61,6 @@ public class OrderLineChargeInformationDBService extends BaseDBService<OrderLine
 	}
 
 	@Override
-	protected OrderLineChargeInformation createInstanceWithSearchFields(MBHOrderLineChargeInfo instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MBHOrderLineChargeInfo getModelInstance() {
 		return new MBHOrderLineChargeInfo(Env.getCtx(), 0, null);
 	}

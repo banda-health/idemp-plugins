@@ -104,11 +104,6 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 	}
 
 	@Override
-	protected OrganizationInformation createInstanceWithSearchFields(MOrgInfo_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	public List<OrganizationInformation> transformData(List<MOrgInfo_BH> dbModels) {
 		// Batch call to get images
 		Map<Integer, MImage> imagesById = imageDBService

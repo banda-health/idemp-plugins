@@ -40,11 +40,6 @@ public class InvoiceDBService extends BaseInvoiceDBService<Invoice> {
 	}
 
 	@Override
-	protected Invoice createInstanceWithSearchFields(MInvoice_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	public List<Invoice> transformData(List<MInvoice_BH> dbModels) {
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MInvoice_BH::getC_BPartner_ID)
 				.collect(Collectors.toSet());

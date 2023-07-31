@@ -61,11 +61,6 @@ public class AccountDBService extends BaseDBService<Account, MElementValue> {
 	}
 
 	@Override
-	protected Account createInstanceWithSearchFields(MElementValue instance) {
-		return createInstanceWithDefaultFields(instance);
-	}
-
-	@Override
 	protected MElementValue getModelInstance() {
 		return new MElementValue(Env.getCtx(), 0, null);
 	}

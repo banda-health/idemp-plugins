@@ -97,11 +97,6 @@ public class InventoryLineDBService extends BaseDBService<InventoryLine, MInvent
 	}
 
 	@Override
-	protected InventoryLine createInstanceWithSearchFields(MInventoryLine_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MInventoryLine_BH getModelInstance() {
 		return new MInventoryLine_BH(Env.getCtx(), 0, null);
 	}

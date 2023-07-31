@@ -9,7 +9,6 @@ import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +38,6 @@ public class AttributeSetDBService extends BaseDBService<AttributeSet, MAttribut
 	@Override
 	protected AttributeSet createInstanceWithAllFields(MAttributeSet_BH instance) {
 		return new AttributeSet(instance);
-	}
-
-	@Override
-	protected AttributeSet createInstanceWithSearchFields(MAttributeSet_BH instance) {
-		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
