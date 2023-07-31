@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Properties;
+import javax.annotation.Priority;
 import javax.ws.rs.HttpMethod;
+import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
@@ -35,6 +37,7 @@ import org.bandahealth.idempiere.rest.utils.TokenUtils;
  * @author andrew
  */
 @Provider
+@Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
 
 	public static final String LOGIN_NAME = "#LoginName";
