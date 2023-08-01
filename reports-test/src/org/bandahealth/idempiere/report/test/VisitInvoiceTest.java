@@ -78,7 +78,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(50));
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -153,7 +153,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(50));
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
