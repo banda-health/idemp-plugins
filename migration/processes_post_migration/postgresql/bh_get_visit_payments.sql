@@ -33,43 +33,32 @@ SELECT
 	v.ad_org_id,
 	p.c_payment_id,
 	i.c_order_id,
-	p.payamt       AS payment_amount,
-	p.tendertype   AS payment_mode_letter,
-	r.name         AS payment_mode_name,
-	p.datetrx      AS payment_date,
-	cb.name        AS patient_name,
+	p.payamt           AS payment_amount,
+	p.tendertype       AS payment_mode_letter,
+	r.name             AS payment_mode_name,
+	p.datetrx          AS payment_date,
+	cb.name            AS patient_name,
 	p.isallocated,
-	p.c_invoice_id AS invoice_id,
-	v.createdby    AS cashier_id,
-	ad.name        AS cashier,
-	ad.ad_user_uu  AS cashier_uu,
-	p.docstatus    AS docstatus,
-	p.processing   AS processing,
-	i.linenetamt   AS lineitemtotals,
+	p.c_invoice_id     AS invoice_id,
+	v.createdby        AS cashier_id,
+	ad.name            AS cashier,
+	ad.ad_user_uu      AS cashier_uu,
+	p.docstatus        AS docstatus,
+	p.processing       AS processing,
+	SUM(il.linenetamt) AS lineitemtotals,
 	p.bh_tender_amount
 FROM
 	c_payment p
 		JOIN bh_visit v
 			ON p.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN begin_date AND end_date
-		JOIN (
-		SELECT
-			i.c_order_id,
-			al.c_payment_id,
-			SUM(il.linenetamt) AS linenetamt
-		FROM
-			c_invoiceline il
-				JOIN c_invoice i
-					ON il.c_invoice_id = i.c_invoice_id AND i.docstatus NOT IN ('RE', 'RA', 'VO', 'DR')
-				JOIN c_allocationline al
-					ON i.c_invoice_id = al.c_invoice_id
-				JOIN c_allocationhdr ah
-					ON al.c_allocationhdr_id = ah.c_allocationhdr_id AND ah.docstatus NOT IN ('RE', 'RA', 'VO')
-		WHERE
-			il.c_charge_id IS NULL
-			AND il.ad_client_id = $1
-		GROUP BY i.c_order_id, al.c_payment_id
-	) i
-			ON p.c_payment_id = i.c_payment_id
+		JOIN c_allocationline al
+			ON p.c_payment_id = al.c_payment_id
+		JOIN c_allocationhdr ah
+			ON al.c_allocationhdr_id = ah.c_allocationhdr_id AND ah.docstatus NOT IN ('RE', 'RA', 'VO')
+		JOIN c_invoice i
+			ON al.c_invoice_id = i.c_invoice_id AND i.docstatus NOT IN ('RE', 'RA', 'VO', 'DR')
+		JOIN c_invoiceline il
+			ON i.c_invoice_id = il.c_invoice_id
 		JOIN c_bpartner cb
 			ON v.patient_id = cb.c_bpartner_id
 		JOIN ad_user ad
@@ -83,12 +72,16 @@ WHERE
 	AND ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 	AND p.docstatus NOT IN ('RE', 'VO')
 	AND p.c_payment_id NOT IN (
-	SELECT
-		reversal_id
-	FROM
-		c_payment
-	WHERE
-		c_payment.ad_client_id = $1
-		AND reversal_id IS NOT NULL
-);
+		SELECT
+			reversal_id
+		FROM
+			c_payment
+		WHERE
+			c_payment.ad_client_id = $1
+			AND reversal_id IS NOT NULL
+	)
+GROUP BY
+	p.bh_visit_id, v.patient_id, v.ad_org_id, p.c_payment_id, i.c_order_id, p.payamt, p.tendertype, r.name, p.datetrx,
+	cb.name, p.isallocated, p.c_invoice_id, v.createdby, ad.name, ad.ad_user_uu, p.docstatus, p.processing,
+	p.bh_tender_amount;
 $$;
