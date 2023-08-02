@@ -143,7 +143,7 @@ WHERE
 					ON billdetails.c_order_id = patient_payments.c_order_id
 		WHERE
 			(p.payment_mode = ''
-				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')))
 		UNION
 		SELECT
 			billdetails.c_order_id

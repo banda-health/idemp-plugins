@@ -78,7 +78,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(new BigDecimal(50));
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -119,6 +119,71 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 											cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0, 15))))
 					.findFirst();
 			assertTrue(patientNameRow.isPresent(), "Patient name is on the invoice");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportWorksWhenNoPaymentPresent() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setName(valueObject.getBusinessPartner().getName().substring(0, 19));
+		valueObject.getBusinessPartner().saveEx();
+		valueObject.setRandom();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(50));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the receipt");
+		valueObject.setProcessUuid("477cdda4-82ff-4bac-834f-08de384df412");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("C_Order_UU", new BigDecimal(valueObject.getVisit().getBH_Visit_UU()), null, null,
+						null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Optional<Row> patientNameRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+									cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+											cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0, 15))))
+					.findFirst();
+			assertTrue(patientNameRow.isPresent(), "Patient name is on the invoice");
+
+			Optional<Row> paymentLabelRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains("Payment:"))).findFirst();
+			assertTrue(paymentLabelRow.isPresent(), "Payment label is on the invoice");
 		}
 	}
 }

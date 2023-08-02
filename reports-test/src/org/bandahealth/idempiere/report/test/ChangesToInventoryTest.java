@@ -178,7 +178,7 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(productColumnIndex) != null &&
 							row.getCell(productColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(productColumnIndex).getStringCellValue().contains(product2Name)).collect(Collectors.toList());
-			assertEquals(1, product2Rows.size(), "Product 2 is not on the report");
+			assertEquals(1, product2Rows.size(), "Product 2 is on the report");
 
 			Row product2Row = product2Rows.get(0);
 			assertEquals(endingProduct2Inventory.subtract(startingProduct2Inventory).intValue(),

@@ -138,74 +138,72 @@ WHERE
 	</parameter>
 	<parameter name="BH_Visit_UU" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[WITH payment AS (
+		<![CDATA[WITH patient_detail AS (
 	SELECT
-		rl.name AS PaymentType,
-		p.c_order_id
-	FROM
-		ad_ref_list rl
-			JOIN c_payment p
-			ON p.tendertype = rl.value AND rl.ad_reference_id = 214
-			JOIN bh_visit v
-			ON p.bh_visit_id = v.bh_visit_id
-	WHERE
-		v.bh_visit_uu = $P{BH_Visit_UU}
-	UNION
-	SELECT
-		c.name,
-		o.c_order_id
+		date(v.bh_visitdate) AS Date,
+		bp.name              AS Patient,
+		bp.bh_patientid      AS FileNo,
+		u.name               AS ServedBy,
+		c.name               AS Client_name,
+		v.bh_visit_id
 	FROM
 		bh_visit v
 			JOIN c_order o
 			ON v.bh_visit_id = o.bh_visit_id
-			JOIN c_orderline ol
-			ON o.c_order_id = ol.c_order_id
-			JOIN c_charge c
-			ON c.c_charge_id = ol.c_charge_id
+			JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+			LEFT JOIN ad_user u
+			ON o.salesrep_id = u.ad_user_id
+			JOIN ad_client c
+			ON c.ad_client_id = v.ad_client_id
 	WHERE
 		v.bh_visit_uu = $P{BH_Visit_UU}
 ),
-	patient_detail AS (
+	payment AS (
 		SELECT
-			date(v.bh_visitdate) AS Date,
-			bp.name              AS Patient,
-			bp.bh_patientid      AS FileNo,
-			u.name               AS ServedBy,
-			org.name             AS Client_name,
-			o.c_order_id         AS Order_id
+			rl.name AS PaymentType,
+			v.bh_visit_id
+		FROM
+			ad_ref_list rl
+				JOIN c_payment p
+				ON p.tendertype = rl.value AND rl.ad_reference_id = 214
+				JOIN bh_visit v
+				ON p.bh_visit_id = v.bh_visit_id
+		WHERE
+			v.bh_visit_uu = $P{BH_Visit_UU}
+		UNION
+		SELECT
+			c.name,
+			v.bh_visit_id
 		FROM
 			bh_visit v
 				JOIN c_order o
 				ON v.bh_visit_id = o.bh_visit_id
-				JOIN c_bpartner bp
-				ON v.patient_id = bp.c_bpartner_id
-				LEFT JOIN ad_user u
-				ON o.salesrep_id = u.ad_user_id
-				JOIN ad_org org
-				ON org.ad_client_id = v.ad_client_id
+				JOIN c_orderline ol
+				ON o.c_order_id = ol.c_order_id
+				JOIN c_charge c
+				ON c.c_charge_id = ol.c_charge_id
 		WHERE
 			v.bh_visit_uu = $P{BH_Visit_UU}
 	)
 SELECT
 	pd.Date,
-	pd.Order_id,
 	pd.FileNo,
 	pd.Patient,
 	pd.ServedBy,
-	v.documentno as invoice_id,
+	v.documentno                    AS invoice_id,
 	COALESCE(p.PaymentType, 'None') AS PaymentType
 FROM
 	patient_detail pd
-		CROSS JOIN payment p
-		CROSS JOIN bh_visit v
-WHERE v.bh_visit_uu = $P{BH_Visit_UU};]]>
+		LEFT JOIN payment p
+		ON p.bh_visit_id = pd.bh_visit_id
+		JOIN bh_visit v
+		ON v.bh_visit_id = pd.bh_visit_id
+WHERE
+	v.bh_visit_uu = $P{BH_Visit_UU};]]>
 	</queryString>
 	<field name="date" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="date"/>
-	</field>
-	<field name="order_id" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="order_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 	</field>
 	<field name="fileno" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="fileno"/>

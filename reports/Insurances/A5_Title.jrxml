@@ -49,21 +49,21 @@ WHERE
 				<textFieldExpression><![CDATA[UPPER($F{Client_name})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="230" y="21" width="190" height="13" isRemoveLineWhenBlank="true" uuid="5e9a818a-e639-41c5-a139-12ef955f94ad"/>
+				<reportElement positionType="Float" x="230" y="21" width="190" height="13" isRemoveLineWhenBlank="true" uuid="5e9a818a-e639-41c5-a139-12ef955f94ad"/>
 				<textElement textAlignment="Left">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="230" y="34" width="190" height="13" uuid="7c3a25de-2cf9-40fe-832c-eafa53ec5ee8"/>
+				<reportElement positionType="Float" x="230" y="34" width="190" height="13" uuid="7c3a25de-2cf9-40fe-832c-eafa53ec5ee8"/>
 				<textElement textAlignment="Left">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="230" y="48" width="190" height="13" isRemoveLineWhenBlank="true" uuid="c531461b-738b-4601-a21e-199002f194b1"/>
+				<reportElement positionType="Float" x="230" y="48" width="190" height="13" isRemoveLineWhenBlank="true" uuid="c531461b-738b-4601-a21e-199002f194b1"/>
 				<textElement textAlignment="Left">
 					<font isBold="true"/>
 				</textElement>
