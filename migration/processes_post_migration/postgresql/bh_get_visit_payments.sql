@@ -35,14 +35,14 @@ SELECT
 	i.c_order_id,
 	p.payamt           AS payment_amount,
 	p.tendertype       AS payment_mode_letter,
-	r.name             AS payment_mode_name,
+	rl.name             AS payment_mode_name,
 	p.datetrx          AS payment_date,
-	cb.name            AS patient_name,
+	bp.name            AS patient_name,
 	p.isallocated,
 	p.c_invoice_id     AS invoice_id,
 	v.createdby        AS cashier_id,
-	ad.name            AS cashier,
-	ad.ad_user_uu      AS cashier_uu,
+	u.name            AS cashier,
+	u.ad_user_uu      AS cashier_uu,
 	p.docstatus        AS docstatus,
 	p.processing       AS processing,
 	SUM(il.linenetamt) AS lineitemtotals,
@@ -59,17 +59,14 @@ FROM
 			ON al.c_invoice_id = i.c_invoice_id AND i.docstatus NOT IN ('RE', 'RA', 'VO', 'DR')
 		JOIN c_invoiceline il
 			ON i.c_invoice_id = il.c_invoice_id
-		JOIN c_bpartner cb
-			ON v.patient_id = cb.c_bpartner_id
-		JOIN ad_user ad
-			ON v.createdby = ad.ad_user_id
-		JOIN ad_ref_list r
-			ON r.value = p.tendertype
-		JOIN ad_reference a
-			ON r.ad_reference_id = a.ad_reference_id
+		JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+		JOIN ad_user u
+			ON v.createdby = u.ad_user_id
+		JOIN ad_ref_list rl
+			ON rl.value = p.tendertype and rl.ad_reference_id = 214
 WHERE
 	p.ad_client_id = $1
-	AND ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
 	AND p.docstatus NOT IN ('RE', 'VO')
 	AND p.c_payment_id NOT IN (
 		SELECT
@@ -81,7 +78,7 @@ WHERE
 			AND reversal_id IS NOT NULL
 	)
 GROUP BY
-	p.bh_visit_id, v.patient_id, v.ad_org_id, p.c_payment_id, i.c_order_id, p.payamt, p.tendertype, r.name, p.datetrx,
-	cb.name, p.isallocated, p.c_invoice_id, v.createdby, ad.name, ad.ad_user_uu, p.docstatus, p.processing,
+	p.bh_visit_id, v.patient_id, v.ad_org_id, p.c_payment_id, i.c_order_id, p.payamt, p.tendertype, rl.name, p.datetrx,
+	bp.name, p.isallocated, p.c_invoice_id, v.createdby, u.name, u.ad_user_uu, p.docstatus, p.processing,
 	p.bh_tender_amount;
 $$;
