@@ -54,14 +54,6 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 		return createInstanceWithAllFields(mMovementLine);
 	}
 
-	public List<MovementLine> getLinesByMovement(MMovement_BH movement) {
-		List<MMovementLine_BH> lines = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
-				MMovementLine_BH.COLUMNNAME_M_Movement_ID + "=?", null).setParameters(movement.get_ID())
-				.setOnlyActiveRecords(true).setClient_ID().list();
-
-		return transformData(lines);
-	}
-
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
 		MMovementLine_BH movementLine = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
@@ -76,15 +68,6 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 		return false;
 	}
 
-	public void deleteMovementLinesByMovement(MMovement_BH movement) {
-		List<MMovementLine_BH> mMovementLines = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
-				MMovementLine_BH.COLUMNNAME_M_Movement_ID + "=?", null).setParameters(movement.get_ID()).setClient_ID()
-				.list();
-		for (MMovementLine_BH mMovementLine : mMovementLines) {
-			mMovementLine.deleteEx(false);
-		}
-	}
-
 	@Override
 	protected MovementLine createInstanceWithDefaultFields(MMovementLine_BH instance) {
 		return createInstanceWithAllFields(instance);
@@ -93,11 +76,6 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 	@Override
 	protected MovementLine createInstanceWithAllFields(MMovementLine_BH instance) {
 		return new MovementLine(instance);
-	}
-
-	@Override
-	protected MovementLine createInstanceWithSearchFields(MMovementLine_BH instance) {
-		return createInstanceWithAllFields(instance);
 	}
 
 	@Override

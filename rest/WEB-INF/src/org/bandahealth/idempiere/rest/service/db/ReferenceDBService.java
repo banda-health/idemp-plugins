@@ -28,11 +28,6 @@ public class ReferenceDBService extends BaseDBService<Reference, MReference_BH> 
 	}
 
 	@Override
-	protected Reference createInstanceWithSearchFields(MReference_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MReference_BH getModelInstance() {
 		return new MReference_BH(Env.getCtx(), 0, null);
 	}

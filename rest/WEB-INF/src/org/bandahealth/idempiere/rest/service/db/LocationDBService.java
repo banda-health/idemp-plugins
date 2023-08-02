@@ -52,11 +52,6 @@ public class LocationDBService extends BaseDBService<Location, MLocation> {
 	}
 
 	@Override
-	protected Location createInstanceWithSearchFields(MLocation instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MLocation getModelInstance() {
 		return new MLocation(Env.getCtx(), 0, null);
 	}

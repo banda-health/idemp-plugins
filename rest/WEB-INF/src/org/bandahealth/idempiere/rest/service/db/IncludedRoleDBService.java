@@ -28,11 +28,6 @@ public class IncludedRoleDBService extends BaseDBService<BaseMetadata, MRoleIncl
 	}
 
 	@Override
-	protected BaseMetadata createInstanceWithSearchFields(MRoleIncluded instance) {
-		return null;
-	}
-
-	@Override
 	protected MRoleIncluded getModelInstance() {
 		return new MRoleIncluded(Env.getCtx(), 0, null);
 	}

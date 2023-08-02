@@ -29,11 +29,6 @@ public class DocumentTypeDBService extends BaseDBService<DocumentType, MDocType_
 	}
 
 	@Override
-	protected DocumentType createInstanceWithSearchFields(MDocType_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MDocType_BH getModelInstance() {
 		return new MDocType_BH(Env.getCtx(), 0, null);
 	}

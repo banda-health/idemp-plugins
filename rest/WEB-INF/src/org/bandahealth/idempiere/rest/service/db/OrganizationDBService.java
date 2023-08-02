@@ -70,11 +70,6 @@ public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 	}
 
 	@Override
-	protected Organization createInstanceWithSearchFields(MOrg instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MOrg getModelInstance() {
 		return new MOrg(Env.getCtx(), 0, null);
 	}

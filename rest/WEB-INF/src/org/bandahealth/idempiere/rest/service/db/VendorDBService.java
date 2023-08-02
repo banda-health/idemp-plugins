@@ -15,27 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 
+	@Override
 	public BaseListResponse<Vendor> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
 		parameters.add("Y");
 
 		return super.getAll(MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters, pagingInfo, sortJson, filterJson);
-	}
-
-	/**
-	 * Vendor search implementation.
-	 *
-	 * @param value
-	 * @param pagingInfo
-	 * @return
-	 */
-	public BaseListResponse<Vendor> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(value));
-		parameters.add("Y");
-
-		return search(DEFAULT_SEARCH_CLAUSE + AND_OPERATOR + MBPartner_BH.COLUMNNAME_IsVendor + "=?", parameters,
-				pagingInfo, sortColumn, sortOrder);
 	}
 
 	@Override
@@ -97,11 +82,6 @@ public class VendorDBService extends BaseDBService<Vendor, MBPartner_BH> {
 		}
 
 		return null;
-	}
-
-	@Override
-	protected Vendor createInstanceWithSearchFields(MBPartner_BH instance) {
-		return createInstanceWithDefaultFields(instance);
 	}
 
 	@Override

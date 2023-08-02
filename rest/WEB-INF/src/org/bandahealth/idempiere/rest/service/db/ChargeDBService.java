@@ -142,11 +142,6 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 	}
 
 	@Override
-	protected Charge createInstanceWithSearchFields(MCharge_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MCharge_BH getModelInstance() {
 		return new MCharge_BH(Env.getCtx(), 0, null);
 	}

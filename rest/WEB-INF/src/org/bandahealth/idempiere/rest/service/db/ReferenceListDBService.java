@@ -82,11 +82,6 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 		return new ReferenceList(instance);
 	}
 
-	@Override
-	protected ReferenceList createInstanceWithSearchFields(MRefList instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
 	/**
 	 * Get a model instance. If one does not exist, it is created. This should NOT be used to get something to save to
 	 * the DB.
