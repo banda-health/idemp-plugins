@@ -56,10 +56,10 @@ FROM
 			COALESCE(SUM(payamt), 0)                                                              AS revenuesales,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'X' ), 0)                            AS cash,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'M' ), 0)                            AS mobile,
-			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'C' ), 0)                            AS credit_debit,
+			COALESCE(SUM(payamt) FILTER ( WHERE tendertype IN ('C', 'A') ), 0)                            AS credit_debit,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'D' ), 0)                            AS bank_transfer,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'K' ), 0)                            AS "check",
-			COALESCE(SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ), 0) AS other
+			COALESCE(SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K', 'A') ), 0) AS other
 		FROM
 			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 	) AS payments
