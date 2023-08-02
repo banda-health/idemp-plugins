@@ -145,11 +145,6 @@ public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorag
 	}
 
 	@Override
-	protected StorageOnHand createInstanceWithSearchFields(MStorageOnHand instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MStorageOnHand getModelInstance() {
 		return new MStorageOnHand(Env.getCtx(), 0, null);
 	}

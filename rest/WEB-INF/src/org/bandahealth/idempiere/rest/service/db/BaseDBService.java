@@ -42,16 +42,10 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	public static final String ASCENDING_ORDER = "ASC";
 	public static final String DESCENDING_ORDER = "DESC";
-	public static final String LIKE_COMPARATOR = "LIKE";
 	public static final String AND_OPERATOR = " AND ";
-	public static final String OR_OPERATOR = " OR ";
-	public static final String EQUAL_OPERATOR = " = ";
-	public static final String NOT_EQUAL_OPERATOR = " != ";
 
 	public static final String ORDERBY_NULLS_LAST = " NULLS LAST";
 
-	public static final String DEFAULT_SEARCH_COLUMN = MUser.COLUMNNAME_Name;
-	public static final String DEFAULT_SEARCH_CLAUSE = "LOWER(" + DEFAULT_SEARCH_COLUMN + ") " + LIKE_COMPARATOR + " ? ";
 	protected static CLogger log = CLogger.getCLogger(BaseDBService.class);
 	protected final CLogger logger;
 
@@ -93,9 +87,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 	// All fields
 	protected abstract T createInstanceWithAllFields(S instance);
-
-	// Search fields
-	protected abstract T createInstanceWithSearchFields(S instance);
 
 	protected abstract S getModelInstance();
 
@@ -253,95 +244,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
-	public BaseListResponse<T> search(String valueToSearch, Paging pagingInfo, String sortColumn, String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add(constructSearchValue(valueToSearch));
-		return this.search(DEFAULT_SEARCH_CLAUSE, parameters, pagingInfo, sortColumn, sortOrder);
-	}
-
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder) {
-		return this.search(whereClause, parameters, pagingInfo, sortColumn, sortOrder, null);
-	}
-
-	/**
-	 * Search all with the inclusion of a join clause for joined cases of sorting
-	 *
-	 * @param whereClause
-	 * @param parameters
-	 * @param pagingInfo
-	 * @param sortColumn
-	 * @param sortOrder
-	 * @param joinClause  Use to specify a linked table so joining can occur
-	 * @return
-	 */
-	public BaseListResponse<T> search(String whereClause, List<Object> parameters, Paging pagingInfo, String sortColumn,
-			String sortOrder, String joinClause) {
-		try {
-			List<T> results = new ArrayList<>();
-			EntityConfiguration entityConfiguration = getDefaultEntityConfiguration();
-
-			String tableName = getModelInstance().get_TableName();
-			// If we need something from the system client, we'll have to do it through the WHERE clause
-			if (entityConfiguration.isShouldFetchFromSystemClient()) {
-				if (!StringUtil.isNullOrEmpty(whereClause)) {
-					whereClause += " AND ";
-				} else {
-					whereClause = "";
-				}
-				whereClause += tableName + ".ad_client_id";
-				if (entityConfiguration.isShouldUseContextClientId()) {
-					whereClause += " IN (?,?)";
-					parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-					parameters.add(MClient_BH.CLIENTID_SYSTEM);
-				} else {
-					whereClause += "=?";
-					parameters.add(MClient_BH.CLIENTID_SYSTEM);
-				}
-			}
-			Query query = new Query(Env.getCtx(), tableName, whereClause, null);
-
-			if (!entityConfiguration.isShouldFetchFromSystemClient() && entityConfiguration.isShouldUseContextClientId()) {
-				query.setClient_ID();
-			}
-
-			if (joinClause != null) {
-				query.addJoinClause(joinClause);
-			}
-
-			String orderBy = getOrderBy(sortColumn, sortOrder);
-			if (orderBy != null) {
-				query = query.setOrderBy(orderBy);
-			}
-
-			if (parameters != null) {
-				query = query.setParameters(parameters);
-			}
-
-			// get total count without pagination parameters
-			pagingInfo.setTotalRecordCount(query.count());
-
-			// set pagination params
-			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
-
-			List<S> entities = query.list();
-
-			if (!entities.isEmpty()) {
-				for (S entity : entities) {
-					if (entity != null) {
-						results.add(createInstanceWithSearchFields(entity));
-					}
-				}
-			}
-
-			return new BaseListResponse<T>(results, pagingInfo);
-
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-
-		return null;
-	}
 
 	/**
 	 * A base method to get all entities from the DB
@@ -473,7 +375,13 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
+			//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			//	PO.setCrossTenantSafe();
+			//}
 			List<S> entities = getTranslations(query.list());
+			//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			//	PO.clearCrossTenantSafe();
+			//}
 
 			List<T> results = new ArrayList<>();
 			if (entities != null) {
@@ -565,17 +473,6 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return null;
 	}
 
-	public String constructSearchValue(String value) {
-		String searchValue;
-		if (value == null) {
-			searchValue = "";
-		} else {
-			searchValue = "%" + value.toLowerCase() + "%";
-		}
-
-		return searchValue;
-	}
-
 	/**
 	 * Get a list of this entity grouped by IDs
 	 *
@@ -608,8 +505,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = getModelInstance().get_TableName() + "." + columnToSearch;
 		}
+		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+		//	PO.setCrossTenantSafe();
+		//}
 		List<S> models =
 				getBaseQuery(entityConfiguration, columnToSearch + " IN (" + whereCondition + ")", parameters).list();
+		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+		//	PO.clearCrossTenantSafe();
+		//}
 		Map<Integer, List<S>> groupedValues =
 				getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
 		return ids.stream().collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
@@ -639,8 +542,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		String tableName = getModelInstance().get_TableName();
+		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+		//	PO.setCrossTenantSafe();
+		//}
 		List<S> models = getBaseQuery(entityConfiguration, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
 				parameters).list();
+		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+		//	PO.clearCrossTenantSafe();
+		//}
 		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, model -> model));
 	}
 
@@ -668,8 +577,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(uuids, parameters);
 		String tableName = getModelInstance().get_TableName();
+		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+		//	PO.setCrossTenantSafe();
+		//}
 		List<S> models = getBaseQuery(entityConfiguration, tableName + "." + tableName + "_UU IN (" + whereCondition + ")",
 				parameters).list();
+		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+		//	PO.clearCrossTenantSafe();
+		//}
 		return getTranslations(models).stream().collect(
 				Collectors.toMap(model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
 						model -> model));

@@ -32,11 +32,6 @@ public class RoleOrganizationAccessDBService extends BaseDBService<BaseMetadata,
 	}
 
 	@Override
-	protected BaseMetadata createInstanceWithSearchFields(MRoleOrgAccess instance) {
-		throw new NotImplementedException();
-	}
-
-	@Override
 	protected MRoleOrgAccess getModelInstance() {
 		throw new NotImplementedException();
 	}

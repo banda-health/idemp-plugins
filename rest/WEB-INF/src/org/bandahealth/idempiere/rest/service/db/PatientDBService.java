@@ -58,24 +58,6 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 		return super.getAll(MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?", parameters, pagingInfo, sortJson, filterJson);
 	}
 
-	public BaseListResponse<Patient> search(String value, Paging pagingInfo, String sortColumn, String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-		String patientId = constructSearchValue(value);
-		parameters.add(patientId);
-		parameters.add(value + "%");
-		parameters.add(value + "%");
-		parameters.add(patientId);
-		parameters.add("Y");
-
-		String whereClause = "(" + DEFAULT_SEARCH_CLAUSE + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_PatientID + " "
-				+ LIKE_COMPARATOR + " ?" + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Phone + " " + LIKE_COMPARATOR
-				+ " ? " + OR_OPERATOR + MBPartner_BH.COLUMNNAME_BH_Local_PatientID + " " + LIKE_COMPARATOR + " ?" + ")" +
-				AND_OPERATOR
-				+ MBPartner_BH.COLUMNNAME_BH_IsPatient + "=?";
-
-		return search(whereClause, parameters, pagingInfo, sortColumn, sortOrder);
-	}
-
 	/*
 	 * Save or Update Patient
 	 */
@@ -180,11 +162,6 @@ public class PatientDBService extends BaseDBService<Patient, MBPartner_BH> {
 
 	@Override
 	protected Patient createInstanceWithDefaultFields(MBPartner_BH instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
-	protected Patient createInstanceWithSearchFields(MBPartner_BH instance) {
 		return createInstanceWithAllFields(instance);
 	}
 

@@ -82,3 +82,8 @@ GROUP BY
 	bp.name, p.isallocated, p.c_invoice_id, v.createdby, u.name, u.ad_user_uu, p.docstatus, p.processing,
 	p.bh_tender_amount;
 $$;
+
+SELECT
+	register_migration_script('202308020518_GO-2773.sql')
+FROM
+	dual;

@@ -38,11 +38,6 @@ public class LocatorDBService extends BaseDBService<Locator, MLocator> {
 	}
 
 	@Override
-	protected Locator createInstanceWithSearchFields(MLocator instance) {
-		return createInstanceWithAllFields(instance);
-	}
-
-	@Override
 	protected MLocator getModelInstance() {
 		return new MLocator(Env.getCtx(), 0, null);
 	}

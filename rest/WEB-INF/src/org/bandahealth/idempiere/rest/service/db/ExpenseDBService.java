@@ -55,21 +55,6 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	}
 
 	@Override
-	public BaseListResponse<Expense> search(String searchValue, Paging pagingInfo, String sortColumn, String sortOrder) {
-		List<Object> parameters = new ArrayList<>();
-
-		StringBuilder whereClause = new StringBuilder()
-				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_DocStatus).append("!=?");
-		parameters.add("N");
-		parameters.add("Y");
-		parameters.add(MInvoice_BH.DOCSTATUS_Reversed);
-
-		return super.search(searchValue, pagingInfo, sortColumn, sortOrder, whereClause.toString(), parameters);
-	}
-
-	@Override
 	protected void beforeSave(Expense entity, MInvoice_BH invoice) {
 		if (entity.getSupplier() != null && entity.getSupplier().getUuid() != null) {
 			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getSupplier().getUuid());
@@ -126,10 +111,5 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 		}
 
 		return null;
-	}
-
-	@Override
-	protected Expense createInstanceWithSearchFields(MInvoice_BH instance) {
-		return createInstanceWithDefaultFields(instance);
 	}
 }
