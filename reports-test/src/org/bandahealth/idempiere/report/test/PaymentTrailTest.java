@@ -948,7 +948,7 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(patientNameColumnIndex).getStringCellValue()
 							.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
-			assertThat("Only three rows exist for patient on report", tableRows.size(), is(3));
+			assertThat("Only two rows exist for patient on report", tableRows.size(), is(2));
 
 			assertThat("Starting balance appears", tableRows.get(0).getCell(itemColumnIndex).getStringCellValue(),
 					containsStringIgnoringCase("Starting Balance"));
