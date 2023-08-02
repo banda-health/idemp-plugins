@@ -897,7 +897,6 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create payment");
 		List<String> availableTenderTypes =
 				Arrays.asList(MPayment_BH.TENDERTYPE_Cash, MPayment_BH.TENDERTYPE_CreditCard, MPayment_BH.TENDERTYPE_Check,
 						MPayment_BH.TENDERTYPE_DirectDeposit, MPayment_BH.TENDERTYPE_DirectDebit, MPayment_BH.TENDERTYPE_Account,
@@ -908,6 +907,8 @@ public class PaymentTrailTest extends ChuBoePopulateFactoryVO {
 		List<MRefList> reportTenderTypes =
 				new Query(valueObject.getContext(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Reference_ID + "=?",
 						valueObject.getTransactionName()).setParameters(reportTenderTypeReference.get_ID()).list();
+
+		valueObject.setStepName("Create payment");
 		MInvoice_BH invoice =
 				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
 						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
