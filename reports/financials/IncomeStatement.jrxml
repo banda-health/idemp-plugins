@@ -3,6 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
@@ -55,10 +56,10 @@ FROM
 			COALESCE(SUM(payamt), 0)                                                              AS revenuesales,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'X' ), 0)                            AS cash,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'M' ), 0)                            AS mobile,
-			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'C' ), 0)                            AS credit_debit,
+			COALESCE(SUM(payamt) FILTER ( WHERE tendertype IN ('C', 'A') ), 0)                            AS credit_debit,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'D' ), 0)                            AS bank_transfer,
 			COALESCE(SUM(payamt) FILTER ( WHERE tendertype = 'K' ), 0)                            AS "check",
-			COALESCE(SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ), 0) AS other
+			COALESCE(SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K', 'A') ), 0) AS other
 		FROM
 			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 	) AS payments
@@ -86,7 +87,7 @@ FROM
 		WHERE
 			i.docstatus = 'CO'
 			AND i.bh_isexpense = 'Y'
-			AND i.updated BETWEEN params.begin_date AND params.end_date
+			AND i.dateinvoiced BETWEEN date(params.begin_date) AND date(params.end_date)
 	) AS expenses
 		CROSS JOIN (
 		SELECT
@@ -106,7 +107,7 @@ FROM
 		WHERE
 			o.issotrx = 'N'
 			AND o.docstatus = 'CO'
-			AND o.updated BETWEEN params.begin_date AND params.end_date
+			AND o.dateordered BETWEEN date(params.begin_date) AND date(params.end_date)
 	) received_products
 		CROSS JOIN (
 		SELECT
