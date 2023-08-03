@@ -2,26 +2,19 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Column;
-import org.bandahealth.idempiere.rest.model.Field;
 import org.compiere.model.MColumn;
-import org.compiere.model.MField;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FieldDBService extends BaseDBService<Field, MField> {
-
-	@Autowired
-	private ColumnDBService columnDBService;
+public class ColumnDBService extends BaseDBService<Column, MColumn> {
 
 	@Override
-	public Field saveEntity(Field entity) {
+	public Column saveEntity(Column entity) {
 		return null;
 	}
 
@@ -31,28 +24,24 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 	}
 
 	@Override
-	protected Field createInstanceWithDefaultFields(MField instance) {
+	protected Column createInstanceWithDefaultFields(MColumn instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected Field createInstanceWithAllFields(MField instance) {
+	protected Column createInstanceWithAllFields(MColumn instance) {
 		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
-	protected MField getModelInstance() {
-		return new MField(Env.getCtx(), 0, null);
+	protected MColumn getModelInstance() {
+		return new MColumn(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	public List<Field> transformData(List<MField> dbModels) {
-		Map<Integer, MColumn> columnByFieldId = columnDBService
-				.getByIds(dbModels.stream().map(MField::getAD_Column_ID).collect(Collectors.toSet()));
-
-		return dbModels.stream().map(field -> {
-			Field result = new Field(field);
-			result.setColumn(new Column(columnByFieldId.get(field.getAD_Column_ID())));
+	public List<Column> transformData(List<MColumn> dbModels) {
+		return dbModels.stream().map(column -> {
+			Column result = new Column(column);
 			return result;
 		}).collect(Collectors.toList());
 	}

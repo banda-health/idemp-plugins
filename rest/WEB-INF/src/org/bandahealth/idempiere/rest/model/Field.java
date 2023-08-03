@@ -19,6 +19,7 @@ public class Field extends BaseEntity {
 	private int tabId;
 	private FieldGroup fieldGroup;
 	private int sequenceNumber;
+	private Column column;
 
 	public Field() {
 	}
@@ -30,6 +31,7 @@ public class Field extends BaseEntity {
 		this.mandatory = entity.getIsMandatory();
 		this.placeholder = entity.getPlaceholder();
 		this.sequenceNumber = entity.getSeqNo();
+		this.tabId = entity.get_Table_ID();
 	}
 
 	public Reference getReference() {
@@ -86,5 +88,13 @@ public class Field extends BaseEntity {
 
 	public void setSequenceNumber(int sequenceNumber) {
 		this.sequenceNumber = sequenceNumber;
+	}
+
+	public Column getColumn() {
+		return column;
+	}
+
+	public void setColumn(Column column) {
+		this.column = column;
 	}
 }
