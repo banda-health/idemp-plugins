@@ -251,7 +251,8 @@ export async function createOrder(valueObject: ValueObject) {
 }
 
 /**
- * Create an invoice. This requires a document type, a business partner, and a completed order be selected on the value object.
+ * Create an invoice. This requires a document type, a business partner, and either no order or a completed order
+ * be selected on the value object.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing
  */
@@ -262,52 +263,8 @@ export async function createInvoice(valueObject: ValueObject) {
 		throw new Error('Document Type is Null');
 	} else if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
-	} else if (valueObject.order?.docStatus !== documentStatus.Completed) {
+	} else if (valueObject.order && valueObject.order.docStatus !== documentStatus.Completed) {
 		throw new Error('Order Not Completed');
-	}
-
-	const invoice: Partial<Invoice> = {
-		orgId: 0,
-		description: valueObject.getStepMessageLong(),
-		businessPartner: valueObject.businessPartner,
-		dateInvoiced: valueObject.date?.toISOString(),
-		invoiceLines: [],
-		isSalesOrderTransaction: valueObject.documentType!.isSalesTransaction,
-	};
-	const invoiceLine: Partial<InvoiceLine> = {
-		description: valueObject.getStepMessageLong(),
-		product: valueObject.product,
-		quantity: valueObject.quantity || 1,
-	};
-	invoiceLine.price = (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
-	invoice.invoiceLines?.push(invoiceLine as unknown as InvoiceLine);
-
-	valueObject.invoice = await invoiceApi.save(valueObject, invoice as Invoice);
-	if (!valueObject.invoice) {
-		throw new Error('Invoice not created');
-	}
-	valueObject.invoiceLine = valueObject.invoice!.invoiceLines[0];
-
-	if (valueObject.documentAction) {
-		valueObject.invoice = await invoiceApi.process(valueObject, valueObject.invoice!.uuid, valueObject.documentAction);
-		if (!valueObject.invoice) {
-			throw new Error('Invoice not processed');
-		}
-	}
-}
-
-/**
- * Create an invoice. This requires a document type and a business partner, but no order to be selected on the value object.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createStandaloneInvoice(valueObject: ValueObject) {
-	valueObject.validate();
-
-	if (!valueObject.documentType) {
-		throw new Error('Document Type is Null');
-	} else if (!valueObject.businessPartner) {
-		throw new Error('Business Partner is Null');
 	}
 
 	const invoice: Partial<Invoice> = {

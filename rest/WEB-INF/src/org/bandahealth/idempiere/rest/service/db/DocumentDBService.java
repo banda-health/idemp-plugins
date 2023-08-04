@@ -9,6 +9,7 @@ import org.compiere.model.PO;
 import org.compiere.process.DocAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -50,7 +51,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 		try {
 			ModelUtil.processDocumentOrError(getDocumentProcessId(), documentEntity, docAction);
 			documentEntity.saveEx();
-			return createInstanceWithAllFields(getEntityByUuidFromDB(uuid));
+			return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 		} catch (Exception exception) {
 			documentEntity.saveEx();
 			throw exception;

@@ -126,10 +126,10 @@ FROM
 			c_order_id,
 			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                            AS cash,
 			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                            AS mobile,
-			SUM(payamt) FILTER ( WHERE tendertype = 'C' )                            AS credit_debit,
+			SUM(payamt) FILTER ( WHERE tendertype IN ('C', 'A') )                            AS credit_debit,
 			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                            AS bank,
 			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                            AS "check",
-			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K') ) AS other
+			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K' ,'A') ) AS other
 		FROM
 			patient_payments
 		GROUP BY c_order_id
@@ -172,7 +172,7 @@ WHERE
 							ON billdetails.c_order_id = patient_payments.c_order_id
 				WHERE
 					(p.payment_mode = ''
-						OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
+						OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')))
 				UNION ALL
 				SELECT
 					billdetails.c_order_id
