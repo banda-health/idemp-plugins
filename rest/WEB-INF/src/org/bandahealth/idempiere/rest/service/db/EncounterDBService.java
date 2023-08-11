@@ -1,17 +1,29 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHObservation;
+import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.Encounter;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
+import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,8 +38,8 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 	@Override
 	public Encounter saveEntity(Encounter entity) {
-		MBHEncounter encounter = new Query(Env.getCtx(), MBHEncounter.Table_Name,
-				MBHEncounter.COLUMNNAME_BH_Encounter_UU + " =?", null).setParameters(entity.getUuid()).first();
+		MBHEncounter encounter = getEntityByUuidFromDB(entity.getUuid());
+
 		if (encounter == null) {
 			encounter = new MBHEncounter(Env.getCtx(), 0, null);
 			encounter.setBH_Encounter_UU(entity.getUuid());
@@ -57,10 +69,37 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	public Boolean deleteEntity(String entityUuid) {
 		MBHEncounter entity = getEntityByUuidFromDB(entityUuid);
 		if (entity != null) {
-			return entity.delete(true);
+			Trx deleteEncounter = Trx.get(Trx.createTrxName("DeleteEncounter"), true);
+			try {
+				entity.set_TrxName(deleteEncounter.getTrxName());
+
+				encounterDiagnosisDBService.deleteEncounterDiagnosisByEncounter(entity.get_ID(),
+						deleteEncounter.getTrxName());
+
+				boolean didDelete = entity.delete(true);
+				if (!deleteEncounter.commit(true)) {
+					logger.severe("Could not commit encounter transaction");
+					return false;
+				}
+				return didDelete;
+			} catch (Exception ex) {
+				try {
+					if (!deleteEncounter.rollback(true)) {
+						logger.severe("Could not roll back encounter transaction");
+					}
+				} catch (SQLException e) {
+					logger.severe("Could not roll back encounter transaction: " + e.getLocalizedMessage());
+				}
+				throw new AdempiereException(ex.getLocalizedMessage());
+			} finally {
+				if (!deleteEncounter.close()) {
+					logger.severe("Could not close encounter transaction");
+					return false;
+				}
+			}
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override

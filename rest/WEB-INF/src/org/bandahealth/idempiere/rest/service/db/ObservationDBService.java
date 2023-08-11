@@ -1,12 +1,18 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHObservation;
+import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.rest.model.Observation;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MField;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -21,8 +27,7 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 
 	@Override
 	public Observation saveEntity(Observation entity) {
-		MBHObservation observation = new Query(Env.getCtx(), MBHObservation.Table_Name,
-				MBHObservation.COLUMNNAME_BH_Observation_UU + " =?", null).setParameters(entity.getUuid()).first();
+		MBHObservation observation = getEntityByUuidFromDB(entity.getUuid());
 		if (observation == null) {
 			observation = new MBHObservation(Env.getCtx(), 0, null);
 			observation.setBH_Observation_UU(entity.getUuid());
@@ -42,7 +47,7 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 
 		// get value
 		observation.setValue(entity.getValue());
-		
+
 		observation.setBH_Encounter_ID(entity.getEncounterId());
 
 		observation.saveEx();
@@ -56,8 +61,17 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 		if (entity != null) {
 			return entity.delete(true);
 		}
-		
+
 		return false;
+	}
+
+	public void deleteObservationsByEncounter(int encounterId, String transactionName) {
+		List<MBHObservation> mObservations = new Query(Env.getCtx(), MBHObservation.Table_Name, MBHObservation.COLUMNNAME_BH_Encounter_ID + " =?", transactionName)
+				.setParameters(encounterId).setClient_ID().list();
+
+		for (MBHObservation mObservation : mObservations) {
+			mObservation.deleteEx(false);
+		}
 	}
 
 	@Override

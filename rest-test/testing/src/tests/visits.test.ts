@@ -40,6 +40,9 @@ import {
 } from '../utils';
 
 const CLINICAL_VITALS_WINDOW_UUID = '53b4d743-c311-40e5-aa8e-c0880c42c1b1';
+const CHIEF_COMPLAINT_FIELD_UUID = 'e1d01fe4-16b6-4125-a385-34cf4531c06f';
+const HEIGHT_FIELD_UUID = '2842fb94-b841-4973-903e-89c7f24455b2';
+const WEIGHT_FIELD_UUID = 'e0f68d60-0610-4caa-9dc3-b0143101ccd3';
 
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -1169,7 +1172,7 @@ test('visit can be saved with really long chief complaint', async () => {
 		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
 	).results.filter(
 		result => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID)[0].window.tabs[0].fields.filter(
-			field => field.name == 'BH_ChiefComplaint')[0] as Field;
+			field => field.uuid == CHIEF_COMPLAINT_FIELD_UUID)[0] as Field;
 			
 	const observation : Partial<Observation> = {
 		value: longChiefComplaint,
@@ -1208,12 +1211,12 @@ test('clinical vitals fields ', async () => {
 		
 	const heightObs : Partial<Observation> = {
 		value: heightValue,
-		field: fields.filter(field => field.name == 'BH_Height')[0],
+		field: fields.filter(field => field.uuid == HEIGHT_FIELD_UUID)[0],
 	};
 	
 	const labNotesObs : Partial<Observation> = {
 		value: weightValue,
-		field: fields.filter(field => field.name == 'BH_Weight')[0],
+		field: fields.filter(field => field.uuid == WEIGHT_FIELD_UUID)[0],
 	};
 	
 	const encounter : Partial<Encounter> = {

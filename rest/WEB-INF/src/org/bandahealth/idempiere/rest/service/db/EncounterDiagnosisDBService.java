@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -21,9 +22,7 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 
 	@Override
 	public EncounterDiagnosis saveEntity(EncounterDiagnosis entity) {
-		MBHEncounterDiagnosis encounterDiagnosis = new Query(Env.getCtx(), MBHEncounterDiagnosis.Table_Name,
-				MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_Diagnosis_UU + " =?", null)
-						.setParameters(entity.getUuid()).first();
+		MBHEncounterDiagnosis encounterDiagnosis = getEntityByUuidFromDB(entity.getUuid());
 		if (encounterDiagnosis == null) {
 			encounterDiagnosis = new MBHEncounterDiagnosis(Env.getCtx(), 0, null);
 			encounterDiagnosis.setBH_Encounter_Diagnosis_UU(entity.getUuid());
@@ -64,6 +63,15 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 	@Override
 	protected MBHEncounterDiagnosis getModelInstance() {
 		return new MBHEncounterDiagnosis(Env.getCtx(), 0, null);
+	}
+	
+	public void deleteEncounterDiagnosisByEncounter(int encounterId, String transactionName) {
+		List<MBHEncounterDiagnosis> mEncounterDiagnoses = new Query(Env.getCtx(), MBHEncounterDiagnosis.Table_Name, MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID + " =?", transactionName)
+				.setParameters(encounterId).setClient_ID().list();
+
+		for (MBHEncounterDiagnosis mEncounterDiagnosis : mEncounterDiagnoses) {
+			mEncounterDiagnosis.deleteEx(false);
+		}
 	}
 
 	@Override
