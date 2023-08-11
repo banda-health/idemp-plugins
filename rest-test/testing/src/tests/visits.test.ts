@@ -39,6 +39,8 @@ import {
 	yesterday,
 } from '../utils';
 
+const CLINICAL_VITALS_WINDOW_UUID = '53b4d743-c311-40e5-aa8e-c0880c42c1b1';
+
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
 });
@@ -1166,7 +1168,7 @@ test('visit can be saved with really long chief complaint', async () => {
 	const chiefComplaintField = (
 		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
 	).results.filter(
-		result => result.window.name = 'Clinical Vitals')[0].window.tabs[0].fields.filter(
+		result => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID)[0].window.tabs[0].fields.filter(
 			field => field.name == 'BH_ChiefComplaint')[0] as Field;
 			
 	const observation : Partial<Observation> = {
@@ -1199,7 +1201,7 @@ test('clinical vitals fields ', async () => {
 	const fields = (
 		await encounterTypeWindowApi.get(valueObject, 0, 10, undefined, undefined)
 	).results.filter(
-		result => result.window.name = 'Clinical Vitals')[0].window.tabs[0].fields;
+		result => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID)[0].window.tabs[0].fields;
 		
 	const heightValue = '200';
 	const weightValue = '100';
