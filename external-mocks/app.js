@@ -4,11 +4,6 @@ import { readFileSync } from 'fs';
 const app = express();
 const port = process.env.PORT;
 
-const addOclHeaders = (response) => {
-	response.append('num_found', '2');
-	return response;
-};
-
 app.get(
 	'/ocl/orgs/:org/sources/:source/concepts/:concept?',
 	(request, response) => {
