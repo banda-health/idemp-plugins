@@ -1,0 +1,50 @@
+package org.bandahealth.idempiere.rest.service.db;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.bandahealth.idempiere.base.model.MFieldGroup;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.rest.model.FieldGroup;
+import org.compiere.util.Env;
+
+@Component
+public class FieldGroupDBService extends BaseDBService<FieldGroup, MFieldGroup> {
+
+	@Override
+	public FieldGroup saveEntity(FieldGroup entity) {
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	protected FieldGroup createInstanceWithDefaultFields(MFieldGroup instance) {
+		return createInstanceWithAllFields(instance);
+	}
+
+	@Override
+	protected FieldGroup createInstanceWithAllFields(MFieldGroup instance) {
+		return transformData(Collections.singletonList(instance)).get(0);
+	}
+
+	@Override
+	protected MFieldGroup getModelInstance() {
+		return new MFieldGroup(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(true);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
+	}
+}

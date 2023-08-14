@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bandahealth.idempiere.base.model.MFieldGroup;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Column;
 import org.bandahealth.idempiere.rest.model.Field;
+import org.bandahealth.idempiere.rest.model.FieldGroup;
 import org.compiere.model.MColumn;
 import org.compiere.model.MField;
 import org.compiere.util.Env;
@@ -19,6 +21,9 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 
 	@Autowired
 	private ColumnDBService columnDBService;
+	
+	@Autowired
+	private FieldGroupDBService fieldGroupDBService;
 
 	@Override
 	public Field saveEntity(Field entity) {
@@ -50,9 +55,13 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 		Map<Integer, MColumn> columnByFieldId = columnDBService
 				.getByIds(dbModels.stream().map(MField::getAD_Column_ID).collect(Collectors.toSet()));
 
+		Map<Integer, MFieldGroup> fieldGroupByFieldId = fieldGroupDBService
+				.getByIds(dbModels.stream().map(MField::getAD_FieldGroup_ID).collect(Collectors.toSet()));
+		
 		return dbModels.stream().map(field -> {
 			Field result = new Field(field);
 			result.setColumn(new Column(columnByFieldId.get(field.getAD_Column_ID())));
+			result.setFieldGroup(new FieldGroup(fieldGroupByFieldId.get(field.getAD_FieldGroup_ID())));
 			return result;
 		}).collect(Collectors.toList());
 	}
