@@ -38,7 +38,7 @@ services:
       idempiere:
         condition: service_healthy
       external-mocks:
-        condition: service_healthy
+        condition: service_started
     environment:
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
