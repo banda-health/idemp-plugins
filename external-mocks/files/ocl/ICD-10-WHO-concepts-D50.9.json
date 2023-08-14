@@ -1,0 +1,47 @@
+{
+	"uuid": "573151",
+	"mappings": [],
+	"extras": {
+		"Terminal_Node": "X",
+		"chapter_number": "3",
+		"hierarchy_level": "4",
+		"Classification_Place": "T"
+	},
+	"id": "D50.9",
+	"external_id": null,
+	"concept_class": "Code",
+	"datatype": "None",
+	"url": "/orgs/WHO/sources/ICD-10-WHO/concepts/D50.9/",
+	"retired": false,
+	"source": "ICD-10-WHO",
+	"owner": "WHO",
+	"owner_type": "Organization",
+	"owner_url": "/orgs/WHO/",
+	"display_name": "Iron deficiency anaemia, unspecified",
+	"display_locale": "en",
+	"names": [
+		{
+			"uuid": "1045440",
+			"name": "Iron deficiency anaemia, unspecified",
+			"external_id": null,
+			"type": "ConceptName",
+			"locale": "en",
+			"locale_preferred": true,
+			"name_type": "Fully Specified",
+			"checksum": null
+		}
+	],
+	"descriptions": [],
+	"created_on": "2021-11-10T20:27:44.488207Z",
+	"updated_on": "2021-11-10T20:27:44.565511Z",
+	"versions_url": "/orgs/WHO/sources/ICD-10-WHO/concepts/D50.9/versions/",
+	"version": "573151",
+	"type": "Concept",
+	"update_comment": null,
+	"version_url": "/orgs/WHO/sources/ICD-10-WHO/concepts/D50.9/573152/",
+	"updated_by": "ocladmin",
+	"created_by": "ocladmin",
+	"public_can_view": true,
+	"versioned_object_id": 573151,
+	"checksums": null
+}
