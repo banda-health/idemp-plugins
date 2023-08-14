@@ -35,9 +35,10 @@ services:
   tests:
     build: .
     depends_on:
-      - idempiere:
+      idempiere:
         condition: service_healthy
-      - external-mocks
+      external-mocks:
+        condition: service_healthy
     environment:
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
