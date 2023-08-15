@@ -3961,6 +3961,19 @@ SELECT
 FROM
 	tmp_c_charge_acct;
 
+-- Make sure the element values on charges accurately matches the charge account
+UPDATE c_charge c
+SET
+	c_elementvalue_id = ev.c_elementvalue_id
+FROM
+	c_charge_acct ca
+		JOIN c_validcombination vc
+		ON ca.ch_expense_acct = vc.c_validcombination_id
+		JOIN c_elementvalue ev
+		ON vc.account_id = ev.c_elementvalue_id
+WHERE
+	ca.c_charge_id = c.c_charge_id;
+
 -- Since our new structure is a lot more complicated, we'll just update all existing A/R insurance accounts
 -- (previously we also had 12320 and 12330) to point to 12310 and delete the others
 TRUNCATE tmp_c_validcombination;
@@ -3978,7 +3991,7 @@ FROM
 		JOIN c_validcombination vc
 		ON ca.ch_expense_acct = vc.c_validcombination_id
 		JOIN c_elementvalue ev
-		ON c.c_elementvalue_id = ev.c_elementvalue_id
+		ON vc.account_id = ev.c_elementvalue_id
 WHERE
 	ev.value IN ('12320', '12330');
 
@@ -3996,6 +4009,15 @@ FROM
 WHERE
 	toic.c_charge_id = c.c_charge_id
 	AND ev_99999.ad_client_id = c.ad_client_id;
+
+-- If a charge still has a connection, just eliminate the account id
+UPDATE c_charge
+SET
+	c_elementvalue_id = NULL
+WHERE
+		c_elementvalue_id IN (
+		SELECT c_elementvalue_id FROM c_elementvalue WHERE value IN ('12320', '12330')
+	);
 
 -- Create new valid combinations for each of these updates
 INSERT INTO
@@ -5196,6 +5218,38 @@ FROM
 /******************************************************************************************/
 --	6. Update tables to match our new direction
 /******************************************************************************************/
+-- Delete from the tables where the clients are inactive
+DELETE
+FROM
+	bh_charge_info_values
+WHERE
+		ad_client_id NOT IN (
+		SELECT
+			ad_client_id
+		FROM
+			tmp_clients_to_work_with
+	);
+DELETE
+FROM
+	bh_orderline_charge_info
+WHERE
+		ad_client_id NOT IN (
+		SELECT
+			ad_client_id
+		FROM
+			tmp_clients_to_work_with
+	);
+DELETE
+FROM
+	bh_charge_info
+WHERE
+		ad_client_id NOT IN (
+		SELECT
+			ad_client_id
+		FROM
+			tmp_clients_to_work_with
+	);
+
 -- Migrate bh_charge_info to bh_payer_info_field
 INSERT INTO
 	bh_payer_info_field (AD_Client_ID, AD_Org_ID, BH_ChargeInfoDataType, BH_FillFromPatient, BH_Payer_ID,
@@ -5380,6 +5434,41 @@ FROM
 	tmp_c_bpartner tbp
 WHERE
 	iol.c_charge_id = tbp.c_charge_id;
+
+-- Now clear out the charges we're going to delete for our inactive clients
+UPDATE c_orderline ol
+SET
+	c_charge_id = NULL
+FROM
+	ad_client c
+		JOIN c_charge ch
+		ON c.ad_client_id = ch.ad_client_id AND ch.bh_subtype IN ('I', 'D')
+WHERE
+	ol.ad_client_id = c.ad_client_id
+	AND c.isactive = 'N'
+	AND ol.c_charge_id = ch.c_charge_id;
+UPDATE c_invoiceline il
+SET
+	c_charge_id = NULL
+FROM
+	ad_client c
+		JOIN c_charge ch
+		ON c.ad_client_id = ch.ad_client_id AND ch.bh_subtype IN ('I', 'D')
+WHERE
+	il.ad_client_id = c.ad_client_id
+	AND c.isactive = 'N'
+	AND il.c_charge_id = ch.c_charge_id;
+UPDATE m_inoutline iol
+SET
+	c_charge_id = NULL
+FROM
+	ad_client c
+		JOIN c_charge ch
+		ON c.ad_client_id = ch.ad_client_id AND ch.bh_subtype IN ('I', 'D')
+WHERE
+	iol.ad_client_id = c.ad_client_id
+	AND c.isactive = 'N'
+	AND iol.c_charge_id = ch.c_charge_id;
 
 /******************************************************************************************/
 --	7. Remove tables & columns no longer needed
