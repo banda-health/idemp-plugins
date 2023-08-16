@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,9 +13,8 @@ import java.util.List;
 
 /**
  * Representation of iDempiere's MOrder (C_Order).
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @JsonInclude(value = Include.NON_NULL)
 public class Invoice extends BaseMetadata {
@@ -28,14 +26,12 @@ public class Invoice extends BaseMetadata {
 	private BigDecimal grandTotal;
 	@JsonProperty("isSalesOrderTransaction")
 	private boolean isSalesOrderTransaction;
-	private Boolean isExpense;
 	private String description;
 	private List<InvoiceLine> invoiceLines;
 	private String paymentRule;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
-	private String invoiceType;
 
 	public Invoice() {
 	}
@@ -46,11 +42,9 @@ public class Invoice extends BaseMetadata {
 		dateInvoicedCreated = entity.getDateInvoiced();
 		grandTotal = entity.getGrandTotal();
 		isSalesOrderTransaction = entity.isSOTrx();
-		isExpense = entity.getBH_IsExpense();
 		description = entity.getDescription();
 		paymentRule = entity.getPaymentRule();
 		docStatus = entity.getDocStatus();
-		invoiceType = entity.getBH_InvoiceType();
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -113,19 +107,6 @@ public class Invoice extends BaseMetadata {
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 	}
 
-	@JsonIgnore
-	public Boolean isExpense() {
-		return isExpense;
-	}
-
-	public void setIsExpense(Boolean isExpense) {
-		this.isExpense = isExpense;
-		
-		if (isExpense) {
-			setInvoiceType(MInvoice_BH.EXPENSE_InvoiceType);
-		}
-	}
-
 	@XmlElement
 	public String getDescription() {
 		return description;
@@ -176,13 +157,5 @@ public class Invoice extends BaseMetadata {
 
 	public void setDateInvoicedCreated(Timestamp dateInvoicedCreated) {
 		this.dateInvoicedCreated = dateInvoicedCreated;
-	}
-
-	public String getInvoiceType() {
-		return invoiceType;
-	}
-
-	public void setInvoiceType(String invoiceType) {
-		this.invoiceType = invoiceType;
 	}
 }

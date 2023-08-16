@@ -1,14 +1,14 @@
 import { movementApi, storageOnHandApi, warehouseApi } from '../api';
 import { documentAction, documentStatus } from '../models';
 import { Movement, MovementLine } from '../types/org.bandahealth.idempiere.rest';
-import { createProduct, createPurchaseOrder, createVendor } from '../utils';
+import { createBusinessPartner, createProduct, createPurchaseOrder } from '../utils';
 
 test('can move inventory between warehouses', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.quantity = 100;

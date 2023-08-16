@@ -4,16 +4,16 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
-import org.bandahealth.idempiere.rest.model.*;
+import org.bandahealth.idempiere.rest.model.Invoice;
+import org.bandahealth.idempiere.rest.model.InvoiceLine;
+import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
-import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +67,6 @@ public abstract class BaseInvoiceDBService<T extends Invoice> extends DocumentDB
 			if (!StringUtil.isNullOrEmpty(entity.getPaymentRule())) {
 				invoice.setPaymentRule(entity.getPaymentRule());
 			}
-			invoice.setBH_InvoiceType(entity.getInvoiceType());
 
 			beforeSave(entity, invoice);
 

@@ -15,38 +15,26 @@ public class Expense extends Invoice {
 
 	private static final long serialVersionUID = 1L;
 
-	private Vendor supplier;
-
 	public Expense() {
 		setIsSalesOrderTransaction(false);
-		setIsExpense(true);
 	}
 
 	public Expense(Integer clientId, Integer orgId, String uuid, boolean isActive, String created, Integer createdBy,
-								 Vendor supplier, String dateInvoiced, List<InvoiceLine> invoiceLines, String docStatus,
-								 BigDecimal grandTotal, String paymentType) {
+			BusinessPartner businessPartner, String dateInvoiced, List<InvoiceLine> invoiceLines, String docStatus,
+			BigDecimal grandTotal, String paymentType) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
 				invoiceLines, docStatus, paymentType);
 
-		setIsExpense(true);
-		this.supplier = supplier;
+		this.setBusinessPartner(businessPartner);
 		setGrandTotal(grandTotal);
 	}
 
 	public Expense(Integer clientId, Integer orgId, String uuid, boolean isActive, String created, Integer createdBy,
-								 Vendor supplier, String dateInvoiced, String docStatus, BigDecimal grandTotal, String paymentType) {
+			BusinessPartner businessPartner, String dateInvoiced, String docStatus, BigDecimal grandTotal,
+			String paymentType) {
 		super(clientId, orgId, uuid, isActive, created, createdBy, null, dateInvoiced, false,
 				docStatus, grandTotal, paymentType);
 
-		setIsExpense(true);
-		this.supplier = supplier;
-	}
-
-	public Vendor getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(Vendor supplier) {
-		this.supplier = supplier;
+		this.setBusinessPartner(businessPartner);
 	}
 }

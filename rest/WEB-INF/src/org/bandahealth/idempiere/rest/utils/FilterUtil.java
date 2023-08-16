@@ -461,7 +461,7 @@ public class FilterUtil {
 			specificColumnToMapOn = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[1];
 			// If there's still an "alias", we need to set that as the remaining DB column name
 			if (doesTableAliasExistOnColumn(specificColumnToMapOn)) {
-				String unchangedSpecificColumnToMapOn = String.valueOf(specificColumnToMapOn);
+				String unchangedSpecificColumnToMapOn = specificColumnToMapOn;
 				specificColumnToMapOn = unchangedSpecificColumnToMapOn.split("\\.")[0];
 				// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
 				remainingDBColumnName = unchangedSpecificColumnToMapOn.replaceFirst(specificColumnToMapOn + "\\.", "");

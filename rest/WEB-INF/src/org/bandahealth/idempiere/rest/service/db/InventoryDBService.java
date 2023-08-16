@@ -112,8 +112,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 		// Get ids to batch
 		Set<Integer> inventoryIds = dbModels.stream().map(MInventory_BH::get_ID).collect(Collectors.toSet());
 		Set<Integer> warehouseIds = dbModels.stream().map(MInventory_BH::getM_Warehouse_ID).collect(Collectors.toSet());
-		Set<String> updateReasonValues =
-				dbModels.stream().map(MInventory_BH::getbh_update_reason).collect(Collectors.toSet());
 
 		Map<Integer, MWarehouse_BH> warehousesByIds = warehouseDBService.getByIds(warehouseIds);
 		Map<String, MRefList> updateReasonsByValues =

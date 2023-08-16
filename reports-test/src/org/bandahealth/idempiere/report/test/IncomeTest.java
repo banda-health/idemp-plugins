@@ -194,7 +194,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create waiver charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
-		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
 		commitEx();
 
 		valueObject.setStepName("Create sixth visit");

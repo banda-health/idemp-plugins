@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import org.bandahealth.idempiere.base.model.MBHChargeInfoSuggestion;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldSuggestion;
 import org.bandahealth.idempiere.rest.IRestConfigs;
-import org.bandahealth.idempiere.rest.model.ChargeInformationSuggestion;
+import org.bandahealth.idempiere.rest.model.PayerInformationFieldSuggestion;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
-import org.bandahealth.idempiere.rest.service.db.ChargeInformationSuggestionDBService;
+import org.bandahealth.idempiere.rest.service.db.PayerInformationFieldSuggestionDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
@@ -12,16 +12,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path(IRestConfigs.CHARGE_INFORMATION_SUGGESTION_PATH)
+@Path(IRestConfigs.PAYER_INFORMATION_FIELD_SUGGESTION_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ChargeInformationSuggestionRestService extends
-		BaseRestService<ChargeInformationSuggestion, MBHChargeInfoSuggestion, ChargeInformationSuggestionDBService> {
+		BaseRestService<PayerInformationFieldSuggestion, MBHPayerInfoFieldSuggestion, PayerInformationFieldSuggestionDBService> {
 	@Autowired
-	private ChargeInformationSuggestionDBService dbService;
+	private PayerInformationFieldSuggestionDBService dbService;
 
 	@Override
-	protected ChargeInformationSuggestionDBService getDBService() {
+	protected PayerInformationFieldSuggestionDBService getDBService() {
 		return dbService;
 	}
 }

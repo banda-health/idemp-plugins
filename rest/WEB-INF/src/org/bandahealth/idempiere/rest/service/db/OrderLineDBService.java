@@ -10,26 +10,23 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBHChargeInfo;
-import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoField;
+import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Charge;
-import org.bandahealth.idempiere.rest.model.ExpenseCategory;
 import org.bandahealth.idempiere.rest.model.OrderLine;
-import org.bandahealth.idempiere.rest.model.OrderLineChargeInformation;
+import org.bandahealth.idempiere.rest.model.BusinessPartnerSpecificPayerInformation;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
-import org.bandahealth.idempiere.rest.model.StorageOnHand;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MCharge;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MRefList;
-import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Ref_List;
 import org.compiere.util.Env;
@@ -45,19 +42,13 @@ import org.springframework.stereotype.Component;
 public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> {
 
 	@Autowired
-	private OrderLineChargeInformationDBService orderLineChargeInformationDBService;
+	private BusinessPartnerSpecificPayerInformationDBService businessPartnerSpecificPayerInformationDBService;
 	@Autowired
 	private ChargeDBService chargeDBService;
 	@Autowired
-	private ChargeInformationDBService chargeInformationDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
+	private PayerInformationFieldDBService payerInformationFieldDBService;
 	@Autowired
 	private ProductDBService productDBService;
-	@Autowired
-	private ExpenseCategoryDBService expenseCategoryDBService;
-	@Autowired
-	private AccountDBService accountDBService;
 	@Autowired
 	private StorageOnHandDBService storageOnHandDBService;
 
@@ -77,14 +68,6 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			// Take care that price lists and other things are set on the order line from
 			// the header
 			mOrderLine.setHeaderInfo(entity.getOrder());
-		}
-
-		if (entity.getExpenseCategory() != null) {
-			MCharge charge = expenseCategoryDBService.getEntityByUuidFromDB(entity.getExpenseCategory().getUuid());
-
-			if (charge != null) {
-				mOrderLine.setC_Charge_ID(charge.get_ID());
-			}
 		}
 
 		if (entity.getProduct() != null) {
@@ -134,26 +117,33 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		entity.setId(mOrderLine.get_ID());
 
 		// If there is any information to save with this line, save it
-		if (entity.getChargeInformationList() != null) {
-			entity.setChargeInformationList(entity.getChargeInformationList().stream().map(orderLineChargeInformation -> {
-				orderLineChargeInformation.setOrderLineId(entity.getId());
-				return orderLineChargeInformationDBService.saveEntity(orderLineChargeInformation);
-			}).collect(Collectors.toList()));
+		if (entity.getBusinessPartnerSpecificPayerInformationList() != null) {
+			entity.setBusinessPartnerSpecificPayerInformationList(
+					entity.getBusinessPartnerSpecificPayerInformationList().stream().map(
+							businessPartnerSpecificPayerInformation -> {
+								businessPartnerSpecificPayerInformation.setOrderLineId(entity.getId());
+								return businessPartnerSpecificPayerInformationDBService.saveEntity(
+										businessPartnerSpecificPayerInformation);
+							}).collect(Collectors.toList()));
 		} else {
-			entity.setChargeInformationList(new ArrayList<>());
+			entity.setBusinessPartnerSpecificPayerInformationList(new ArrayList<>());
 		}
 		// Delete what is no longer there
-		List<MBHOrderLineChargeInfo> orderLineChargeInformationList = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
-						MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, Collections.singleton(entity.getId()))
-				.get(entity.getId());
-		if (orderLineChargeInformationList != null) {
-			orderLineChargeInformationList.stream()
-					.filter(existingOrderLineChargeInformation -> entity.getChargeInformationList().stream()
-							.noneMatch(newOrderLineChargeInformation -> newOrderLineChargeInformation.getUuid()
-									.equals(existingOrderLineChargeInformation.getBH_OrderLine_Charge_Info_UU())))
-					.forEach(orderLineChargeInformation -> orderLineChargeInformationDBService
-							.deleteEntity(orderLineChargeInformation.getBH_OrderLine_Charge_Info_UU()));
+		List<MBHBPSpecificPayerInfo> businessPartnerSpecificPayerInformationList =
+				businessPartnerSpecificPayerInformationDBService
+						.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
+								MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, Collections.singleton(entity.getId()))
+						.get(entity.getId());
+		if (businessPartnerSpecificPayerInformationList != null) {
+			businessPartnerSpecificPayerInformationList.stream()
+					.filter(
+							existingBusinessPartnerSpecificPayerInformation -> entity.getBusinessPartnerSpecificPayerInformationList()
+									.stream()
+									.noneMatch(
+											newBusinessPartnerSpecificPayerInformation -> newBusinessPartnerSpecificPayerInformation.getUuid()
+													.equals(existingBusinessPartnerSpecificPayerInformation.getBH_BP_Specific_Payer_Info_UU())))
+					.forEach(orderLineChargeInformation -> businessPartnerSpecificPayerInformationDBService
+							.deleteEntity(orderLineChargeInformation.getBH_BP_Specific_Payer_Info_UU()));
 		}
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(mOrderLine.getC_OrderLine_UU()));
@@ -178,21 +168,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				orderLine.getProduct()
 						.setTotalQuantity(storageOnHandDBService.getQuantityOnHand(instance.getM_Product_ID(), false));
 				return orderLine;
-			} else {
-				// check charge
-				MCharge_BH charge = expenseCategoryDBService.getEntityByIdFromDB(instance.getC_Charge_ID());
-				if (charge != null) {
-					MElementValue account = accountDBService.getEntityByIdFromDB(charge.getC_ElementValue_ID());
-					if (account != null) {
-						ExpenseCategory expenseCategory = new ExpenseCategory(charge.getC_Charge_UU(), charge.getName(),
-								charge.isBH_Locked(), account.getC_ElementValue_UU());
-						return new OrderLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
-								instance.getC_OrderLine_UU(), instance.isActive(),
-								DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), expenseCategory,
-								instance.getC_Order_ID(), instance.getPriceActual(), instance.getQtyOrdered(),
-								instance.getLineNetAmt(), instance);
-					}
-				}
+			} else if (instance.getC_Charge_ID() > 0) {
+				return new OrderLine(instance);
 			}
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -225,19 +202,14 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::get_ID).collect(Collectors.toSet());
 
 		Map<Integer, MCharge_BH> chargesById = chargeDBService.getByIds(chargeIds);
-		Map<Integer, List<MBHOrderLineChargeInfo>> orderLineChargeInformationByOrderLine =
-				orderLineChargeInformationDBService
-						.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
-								MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
-		Map<String, MRefList> chargeSubTypeByValue = referenceListDBService
-				.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU,
-						chargesById.values().stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet()))
-				.stream().collect(Collectors.toMap(X_AD_Ref_List::getValue, referenceList -> referenceList));
-		Map<Integer, MBHChargeInfo> chargeInformationById = chargeInformationDBService
-				.getByIds(orderLineChargeInformationByOrderLine
-						.values().stream().flatMap(orderLineChargeInformationList -> orderLineChargeInformationList
-								.stream().map(MBHOrderLineChargeInfo::getBH_Charge_Info_ID))
-						.collect(Collectors.toSet()));
+		Map<Integer, List<MBHBPSpecificPayerInfo>> businessPartnerSpecificPayerInformationByOrderLineId =
+				businessPartnerSpecificPayerInformationDBService
+						.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
+								MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
+		Map<Integer, MBHPayerInfoField> payerInformationFieldsById = payerInformationFieldDBService.getByIds(
+				businessPartnerSpecificPayerInformationByOrderLineId.values().stream().flatMap(
+						businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.stream()
+								.map(MBHBPSpecificPayerInfo::getBH_Payer_Info_Field_ID)).collect(Collectors.toSet()));
 
 		// Get the product IDs so we can fetch storage on hand
 		Set<Integer> productIds =
@@ -256,16 +228,14 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		orderLines.forEach(orderLine -> {
 			if (orderLine.getChargeId() > 0) {
 				orderLine.setCharge(new Charge(chargesById.get(orderLine.getChargeId())));
-				orderLine.getCharge().setSubType(
-						new ReferenceList(chargeSubTypeByValue.get(orderLine.getCharge().getSubTypeValue())));
 			}
-			if (orderLineChargeInformationByOrderLine.containsKey(orderLine.getId())) {
-				orderLine.setChargeInformationList(orderLineChargeInformationByOrderLine.get(orderLine.getId()).stream()
-						.map(OrderLineChargeInformation::new)
-						.peek(orderLineChargeInformation -> orderLineChargeInformation.setChargeInformationUuid(
-								chargeInformationById.get(orderLineChargeInformation.getChargeInformationId())
-										.getBH_Charge_Info_UU()))
-						.collect(Collectors.toList()));
+			if (businessPartnerSpecificPayerInformationByOrderLineId.containsKey(orderLine.getId())) {
+				orderLine.setBusinessPartnerSpecificPayerInformationList(
+						businessPartnerSpecificPayerInformationByOrderLineId.get(orderLine.getId()).stream()
+								.map(BusinessPartnerSpecificPayerInformation::new).peek(
+										businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.setPayerInformationFieldUuid(
+												payerInformationFieldsById.get(businessPartnerSpecificPayerInformation.getPayerInformationFieldId())
+														.getBH_Payer_Info_Field_UU())).collect(Collectors.toList()));
 			}
 
 			// go-2331 - revert
@@ -295,12 +265,12 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		// Get the associated order line charge information and delete it
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::getC_OrderLine_ID)
 				.collect(Collectors.toSet());
-		boolean wereChildrenDeletesSuccessful = orderLineChargeInformationDBService
-				.getGroupsByIds(MBHOrderLineChargeInfo::getC_OrderLine_ID,
-						MBHOrderLineChargeInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
+		boolean wereChildrenDeletesSuccessful = businessPartnerSpecificPayerInformationDBService
+				.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
+						MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
 				.values().stream().flatMap(Collection::stream)
-				.allMatch(businessPartnerChargeInformation -> orderLineChargeInformationDBService
-						.deleteEntity(businessPartnerChargeInformation.getBH_OrderLine_Charge_Info_UU()));
+				.allMatch(businessPartnerChargeInformation -> businessPartnerSpecificPayerInformationDBService
+						.deleteEntity(businessPartnerChargeInformation.getBH_BP_Specific_Payer_Info_UU()));
 		if (!wereChildrenDeletesSuccessful) {
 			throw new AdempiereException("There was an error deleting information");
 		}

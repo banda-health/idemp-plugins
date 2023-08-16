@@ -1,14 +1,14 @@
 import { productApi, serviceApi } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
 import { Product, Service } from '../types/org.bandahealth.idempiere.rest';
-import { createOrder, createPatient, createProduct, createPurchaseOrder, createVendor } from '../utils';
+import { createBusinessPartner, createOrder, createProduct, createPurchaseOrder } from '../utils';
 
 test('inactive products and services not returned from the search method', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product 1';
 	await createProduct(valueObject);
@@ -63,7 +63,7 @@ test('inactive products and services not returned from the search method', async
 
 	valueObject.stepName = 'Create patient';
 	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Sell first product so it can be deactivated';
 	valueObject.documentAction = documentAction.Complete;

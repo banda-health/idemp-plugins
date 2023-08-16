@@ -1,12 +1,13 @@
 package org.bandahealth.idempiere.base.model;
 
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.compiere.model.I_C_Location;
+import org.compiere.model.I_C_ValidCombination;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
-import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
@@ -15,7 +16,6 @@ import org.compiere.model.MCostElement;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
-import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
@@ -36,6 +36,7 @@ import org.compiere.model.MWarehouse;
 import org.compiere.model.MYear;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
+import org.compiere.model.X_C_BP_Group_Acct;
 import org.compiere.model.X_C_BankAccount_Acct;
 import org.compiere.model.X_C_Charge_Acct;
 import org.compiere.model.X_M_AttributeSetExclude;
@@ -50,7 +51,6 @@ import org.compiere.util.Trx;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -189,16 +189,14 @@ public class MBandaSetup {
 			return false;
 		}
 
-		/**
-		 * In iDempiere, accounts are mapped to many different things, such as bank
-		 * accounts and charges. The default account mappings generated map different
-		 * accounts to the Bank Asset account (B_Asset) and the Bank In-Transit account
-		 * (B_InTransit). Based on a recommendation from Chuck, we simplify this mapping
-		 * and choose to map these accounts to the same default account because we don't
-		 * ever upload bank statements, which is the default way iDempiere transfers
-		 * value from B_InTransit to B_Asset. So, we need to make the B_Asset account
-		 * match the B_InTransit account.
-		 */
+		// In iDempiere, accounts are mapped to many different things, such as bank
+		// accounts and charges. The default account mappings generated map different
+		// accounts to the Bank Asset account (B_Asset) and the Bank In-Transit account
+		// (B_InTransit). Based on a recommendation from Chuck, we simplify this mapping
+		// and choose to map these accounts to the same default account because we don't
+		// ever upload bank statements, which is the default way iDempiere transfers
+		// value from B_InTransit to B_Asset. So, we need to make the B_Asset account
+		// match the B_InTransit account.
 		MAccount assetAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
 				.getPO(acctSchemaDefault.getB_Asset_Acct(), getTransactionName());
 		MAccount inTransitAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
@@ -222,13 +220,11 @@ public class MBandaSetup {
 			return false;
 		}
 
-		/**
-		 * The default account mappings generated map different accounts to the Vendor
-		 * Liability account (V_Liability) and the Bank Payment Select account
-		 * (B_PaymentSelect). Based on a recommendation from Chuck, we simplify this
-		 * mapping and choose to map these accounts to the same default account. So, we
-		 * need to make the B_PaymentSelect account match the V_Liability account.
-		 */
+		// The default account mappings generated map different accounts to the Vendor
+		// Liability account (V_Liability) and the Bank Payment Select account
+		// (B_PaymentSelect). Based on a recommendation from Chuck, we simplify this
+		// mapping and choose to map these accounts to the same default account. So, we
+		// need to make the B_PaymentSelect account match the V_Liability account.
 		MAccount paymentSelectAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
 				.getPO(acctSchemaDefault.getB_PaymentSelect_Acct(), getTransactionName());
 		MAccount liabilityAccount = (MAccount) MTable.get(context, MAccount.Table_ID)
@@ -366,8 +362,6 @@ public class MBandaSetup {
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 
-		Map<Integer, Integer> defaultChargeToChargeMap = new HashMap<>();
-
 		for (MCharge_BH defaultCharge : defaultCharges) {
 			// Create a new charge for new client based on this default charge
 			MCharge_BH charge = new MCharge_BH(context, 0, getTransactionName());
@@ -375,10 +369,6 @@ public class MBandaSetup {
 			charge.setDescription(defaultCharge.getDescription());
 			charge.setC_ChargeType_ID(defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
-			charge.setBH_SubType(defaultCharge.getBH_SubType());
-			charge.setC_ElementValue_ID(
-					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getC_ElementValue_ID());
-			charge.setBH_NeedAdditionalVisitInfo(defaultCharge.isBH_NeedAdditionalVisitInfo());
 			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -388,11 +378,18 @@ public class MBandaSetup {
 				return false;
 			}
 
-			defaultChargeToChargeMap.put(defaultCharge.getC_Charge_ID(), charge.getC_Charge_ID());
+			// Get the account associated with this charge
+			// PO.setCrossTenantSafe();
+			X_C_Charge_Acct defaultChargeChargeAccount =
+					new Query(this.context, X_C_Charge_Acct.Table_Name, X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
+							this.getTransactionName()).setParameters(defaultCharge.getC_Charge_ID()).first();
 
 			// Create a valid combination for this account value
 			MAccount chargeExpenseAccount = getOrCreateValidCombination(
-					elementValuesMap.get(defaultCharge.getC_ElementValue_ID()).getValue());
+					elementValuesMap.get(defaultChargeChargeAccount.getCh_Expense_A().getAccount_ID())
+							.getValue());
+			// PO.clearCrossTenantSafe();
+
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
@@ -424,30 +421,30 @@ public class MBandaSetup {
 				return false;
 			}
 		}
-		return addChargeInformation(defaultChargeToChargeMap);
+		return true;
 	}
 
 	/**
-	 * Add non-Patient payments for this client
+	 * Add insurance & donation payers for this client
 	 */
-	private boolean addChargeInformation(Map<Integer, Integer> defaultChargeToChargeMap) {
-		Map<Integer, MBHChargeInfoValue> infoValues = getAllInfoValuesMap();
+	private boolean addPayerInformationFields(Map<Integer, Integer> clientPayerIdsByDefaultPayerId) {
+		Map<Integer, MBHPayerInfoFieldValue> infoValues = getDefaultPayerInfoFieldValuesMap();
 
 		// PO.setCrossTenantSafe();
-		List<MBHChargeInfo> defaultchargeInfoList = new Query(context, MBHChargeInfo.Table_Name,
-				MBHChargeInfo.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
+		List<MBHPayerInfoField> defaultPayerInfoFieldList = new Query(context, MBHPayerInfoField.Table_Name,
+				MBHPayerInfoField.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 
-		for (MBHChargeInfo defaultChargeInfo : defaultchargeInfoList) {
-			MBHChargeInfo chargeInfo = new MBHChargeInfo(context, 0, getTransactionName());
-			chargeInfo.setBH_ChargeInfoDataType(defaultChargeInfo.getBH_ChargeInfoDataType());
-			chargeInfo.setBH_FillFromPatient(defaultChargeInfo.isBH_FillFromPatient());
-			chargeInfo.setC_Charge_ID(defaultChargeToChargeMap.get(defaultChargeInfo.getC_Charge_ID()));
-			chargeInfo.setName(defaultChargeInfo.getName());
-			chargeInfo.setLine(defaultChargeInfo.getLine());
-			if (!chargeInfo.save()) {
-				String errorMessage = "Charge Info NOT saved";
+		for (MBHPayerInfoField defaultPayerInfoField : defaultPayerInfoFieldList) {
+			MBHPayerInfoField payerInfoField = new MBHPayerInfoField(context, 0, getTransactionName());
+			payerInfoField.setBH_PayerInfoFieldDataType(defaultPayerInfoField.getBH_PayerInfoFieldDataType());
+			payerInfoField.setBH_FillFromPatient(defaultPayerInfoField.isBH_FillFromPatient());
+			payerInfoField.setBH_Payer_ID(clientPayerIdsByDefaultPayerId.get(defaultPayerInfoField.getBH_Payer_ID()));
+			payerInfoField.setName(defaultPayerInfoField.getName());
+			payerInfoField.setLine(defaultPayerInfoField.getLine());
+			if (!payerInfoField.save()) {
+				String errorMessage = "Payer Info Field NOT saved";
 				log.log(Level.SEVERE, errorMessage);
 				info.append(errorMessage);
 				transaction.rollback();
@@ -455,21 +452,20 @@ public class MBandaSetup {
 				return false;
 			}
 
-			List<MBHChargeInfoValue> defaultChargeInformationValuesForDefaultChargeInformation = infoValues.values()
-					.stream().filter(chargeInformationValue -> chargeInformationValue
-							.getBH_Charge_Info_ID() == defaultChargeInfo.getBH_Charge_Info_ID())
-					.collect(Collectors.toList());
+			List<MBHPayerInfoFieldValue> defaultPayerInformationFieldValuesForDefaultPayerInformationField =
+					infoValues.values().stream().filter(
+							payerInformationFieldValue -> payerInformationFieldValue.getBH_Payer_Info_Field_ID() ==
+									defaultPayerInfoField.getBH_Payer_Info_Field_ID()).collect(Collectors.toList());
 
-			// We need to get all charge info values mapped for this charge info from the
-			// map.
-			for (MBHChargeInfoValue defaultChargeInformationValue :
-					defaultChargeInformationValuesForDefaultChargeInformation) {
-				MBHChargeInfoValue chargeInfoValue = new MBHChargeInfoValue(context, 0, getTransactionName());
-				chargeInfoValue.setName(defaultChargeInformationValue.getName());
-				chargeInfoValue.setBH_Charge_Info_ID(chargeInfo.getBH_Charge_Info_ID());
-				chargeInfoValue.setLine(defaultChargeInformationValue.getLine());
+			// We need to get all payer info values mapped for this charge info from the map
+			for (MBHPayerInfoFieldValue defaultPayerInformationFieldValue :
+					defaultPayerInformationFieldValuesForDefaultPayerInformationField) {
+				MBHPayerInfoFieldValue chargeInfoValue = new MBHPayerInfoFieldValue(context, 0, getTransactionName());
+				chargeInfoValue.setName(defaultPayerInformationFieldValue.getName());
+				chargeInfoValue.setBH_Payer_Info_Field_ID(payerInfoField.getBH_Payer_Info_Field_ID());
+				chargeInfoValue.setLine(defaultPayerInformationFieldValue.getLine());
 				if (!chargeInfoValue.save()) {
-					String errorMessage = "ChargeInfoValue value NOT saved";
+					String errorMessage = "Payer Info Field Value NOT saved";
 					log.log(Level.SEVERE, errorMessage);
 					info.append(errorMessage);
 					transaction.rollback();
@@ -483,7 +479,7 @@ public class MBandaSetup {
 	}
 
 	/**
-	 * These creates the default product categories for a client
+	 * This creates the default product categories for a client
 	 *
 	 * @return
 	 */
@@ -554,7 +550,7 @@ public class MBandaSetup {
 	 * @return Whether the user role was successfully reset or not
 	 */
 	public boolean resetUserRole() {
-		MRefList userRoleReferenceList = new Query(Env.getCtx(), MRefList.Table_Name,
+		MRefList userRoleReferenceList = new Query(this.context, MRefList.Table_Name,
 				MRefList.Table_Name + "." + MRefList.COLUMNNAME_Value + "=? AND" + " " + MReference_BH.Table_Name + "."
 						+ MReference_BH.COLUMNNAME_AD_Reference_UU + "=?",
 				getTransactionName())
@@ -569,7 +565,7 @@ public class MBandaSetup {
 			return false;
 		}
 
-		MRole userRole = new Query(Env.getCtx(), MRole.Table_Name, MRole.COLUMNNAME_Name + "=?", getTransactionName())
+		MRole userRole = new Query(this.context, MRole.Table_Name, MRole.COLUMNNAME_Name + "=?", getTransactionName())
 				.setParameters(getRoleName(client.getName(), userRoleReferenceList.getName())).setClient_ID().first();
 		if (userRole == null) {
 			log.log(Level.SEVERE, "User role not defined for client");
@@ -592,7 +588,7 @@ public class MBandaSetup {
 			return false;
 		}
 
-		MReference userType = new Query(Env.getCtx(), MReference_BH.Table_Name,
+		MReference userType = new Query(this.context, MReference_BH.Table_Name,
 				MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", getTransactionName())
 				.setParameters(MReference_BH.USER_TYPE_AD_REFERENCE_UU).first();
 		if (userType == null) {
@@ -600,7 +596,7 @@ public class MBandaSetup {
 			return false;
 		}
 
-		List<MRefList> userTypeValues = new Query(Env.getCtx(), MRefList.Table_Name,
+		List<MRefList> userTypeValues = new Query(this.context, MRefList.Table_Name,
 				MRefList.COLUMNNAME_AD_Reference_ID + "=?", getTransactionName())
 				.setParameters(userType.getAD_Reference_ID()).setOnlyActiveRecords(true).list();
 
@@ -701,7 +697,7 @@ public class MBandaSetup {
 		// uncomment for iDempiere-8.2+
 
 		// Get all access for the roles we'll configure
-		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(Env.getCtx(),
+		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(this.context,
 				X_AD_Document_Action_Access.Table_Name,
 				X_AD_Document_Action_Access.COLUMNNAME_AD_Role_ID + " IN ("
 						+ rolesToConfigureByDBUserType.values().stream()
@@ -1106,7 +1102,7 @@ public class MBandaSetup {
 				.filter(elementValue -> elementValue.getAD_Client_ID() == MClient_BH.CLIENTID_CONFIG)
 				.collect(Collectors.toMap(MElementValue::getC_ElementValue_ID,
 						elementValue -> newClientAccountElementIdsByValue.getOrDefault(elementValue.getValue(),
-								new MElementValue(Env.getCtx(), 0, null))));
+								new MElementValue(this.context, 0, getTransactionName()))));
 	}
 
 	/**
@@ -1114,14 +1110,14 @@ public class MBandaSetup {
 	 *
 	 * @return a map of the info values
 	 */
-	private Map<Integer, MBHChargeInfoValue> getAllInfoValuesMap() {
+	private Map<Integer, MBHPayerInfoFieldValue> getDefaultPayerInfoFieldValuesMap() {
 		// PO.setCrossTenantSafe();
-		List<MBHChargeInfoValue> infoValuesList = new Query(context, MBHChargeInfoValue.Table_Name,
-				MBHChargeInfoValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+		List<MBHPayerInfoFieldValue> infoValuesList = new Query(context, MBHPayerInfoFieldValue.Table_Name,
+				MBHPayerInfoFieldValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 		return infoValuesList.stream()
-				.collect(Collectors.toMap(MBHChargeInfoValue::getBH_Charge_Info_Values_ID, Function.identity()));
+				.collect(Collectors.toMap(MBHPayerInfoFieldValue::getBH_Payer_Info_Field_Value_ID, Function.identity()));
 	}
 
 	/**
@@ -1379,7 +1375,7 @@ public class MBandaSetup {
 	 * @return
 	 */
 	public boolean createDefaultBusinessPartners() {
-		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = addDefaultBusinessPartnerGroups();
+		Map<Integer, MBPGroup_BH> defaultBusinessPartnerGroups = addDefaultBusinessPartnerGroups();
 		if (defaultBusinessPartnerGroups.isEmpty()) {
 			log.warning("Failure: Could not find a business partner group for this client");
 			return false;
@@ -1387,67 +1383,259 @@ public class MBandaSetup {
 
 		// PO.setCrossTenantSafe();
 		MClient configurationClient = MClient_BH.get(Env.getCtx(), MClient_BH.CLIENTID_CONFIG);
-		List<MBPartner_BH> businessPartners = new Query(this.context, MBPartner_BH.Table_Name,
+		List<MBPartner_BH> defaultBusinessPartners = new Query(this.context, MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %' AND " +
 						MBPartner_BH.COLUMNNAME_Name + "!=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG,
 				configurationClient.getName(), DEFAULT_IDEMPIERE_ENTITY_NAME).list();
 		// PO.clearCrossTenantSafe();
 
-		businessPartners.forEach((businessPartner) -> {
-			MBPartner_BH instance = new MBPartner_BH(context, 0, getTransactionName());
-			MBPartner_BH.copyValues(businessPartner, instance);
-			instance.setClientOrg(getAD_Client_ID(), getAD_Org_ID());
-			instance.setM_PriceList_ID(0);
-			instance.setPO_PriceList_ID(0);
-			instance.setC_PaymentTerm_ID(0);
-			instance.setPO_PaymentTerm_ID(0);
-			instance.setName(PREFIX_OTC_BUSINESS_PARTNER + client.getName());
-			if (defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()) != null) {
-				instance.setC_BP_Group_ID(defaultBusinessPartnerGroups.get(businessPartner.getC_BP_Group_ID()).get_ID());
+		I_C_Location clientLocation = MOrgInfo_BH.get(getAD_Org_ID()).getC_Location();
+
+		Map<Integer, Integer> clientBusinessPartnerIdsByDefaultBusinessPartnerId = new HashMap<>();
+		for (MBPartner_BH defaultBusinessPartner : defaultBusinessPartners) {
+			MBPartner_BH clientBusinessPartner = new MBPartner_BH(context, 0, getTransactionName());
+			MBPartner_BH.copyValues(defaultBusinessPartner, clientBusinessPartner);
+			clientBusinessPartner.setClientOrg(getAD_Client_ID(), getAD_Org_ID());
+			clientBusinessPartner.setM_PriceList_ID(0);
+			clientBusinessPartner.setPO_PriceList_ID(0);
+			clientBusinessPartner.setC_PaymentTerm_ID(0);
+			clientBusinessPartner.setPO_PaymentTerm_ID(0);
+			clientBusinessPartner.setBH_NeedAdditionalVisitInfo(defaultBusinessPartner.isBH_NeedAdditionalVisitInfo());
+			if (defaultBusinessPartner.getName().contains(PREFIX_OTC_BUSINESS_PARTNER)) {
+				clientBusinessPartner.setName(PREFIX_OTC_BUSINESS_PARTNER + client.getName());
+			}
+			if (defaultBusinessPartnerGroups.get(defaultBusinessPartner.getC_BP_Group_ID()) != null) {
+				clientBusinessPartner.setC_BP_Group_ID(
+						defaultBusinessPartnerGroups.get(defaultBusinessPartner.getC_BP_Group_ID()).get_ID());
 			}
 
-			if (!instance.save()) {
+			if (!clientBusinessPartner.save()) {
 				log.warning("Failure: Could not save default business partner");
+				return false;
 			}
-		});
+			clientBusinessPartnerIdsByDefaultBusinessPartnerId.put(defaultBusinessPartner.get_ID(),
+					clientBusinessPartner.get_ID());
 
-		return true;
+			// Create a location for this BP
+			MBPartnerLocation businessPartnerLocation = new MBPartnerLocation(this.context, 0, getTransactionName());
+			businessPartnerLocation.setAD_Org_ID(0);
+			businessPartnerLocation.setC_BPartner_ID(clientBusinessPartner.get_ID());
+			businessPartnerLocation.setC_Location_ID(clientLocation.getC_Location_ID());
+			businessPartnerLocation.setName("Default Location");
+			businessPartnerLocation.saveEx();
+		}
+
+		return addPayerInformationFields(clientBusinessPartnerIdsByDefaultBusinessPartnerId);
 	}
 
 	/**
 	 * Create default business partner groups for new clients
 	 *
-	 * @return
+	 * @return A map of the default BP Group IDs to the clients BP Groups
 	 */
-	private Map<Integer, MBPGroup> addDefaultBusinessPartnerGroups() {
-		Map<Integer, MBPGroup> defaultBusinessPartnerGroups = new HashMap<>();
+	private Map<Integer, MBPGroup_BH> addDefaultBusinessPartnerGroups() {
+		Map<Integer, MBPGroup_BH> clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId = new HashMap<>();
 		// PO.setCrossTenantSafe();
-		List<MBPGroup> businessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
-				MBPGroup.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup.COLUMNNAME_Name + " !=?",
+		List<MBPGroup_BH> defaultBusinessPartnerGroups = new Query(this.context, MBPGroup_BH.Table_Name,
+				MBPGroup_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup_BH.COLUMNNAME_Name + " !=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, DEFAULT_IDEMPIERE_ENTITY_NAME)
 				.list();
 		// PO.clearCrossTenantSafe();
-		businessPartnerGroups.forEach((businessPartnerGroup) -> {
-			MBPGroup instance = new MBPGroup(context, 0, getTransactionName());
-			MBPGroup.copyValues(businessPartnerGroup, instance);
-			if (!instance.save()) {
+		defaultBusinessPartnerGroups.forEach((defaultBusinessPartnerGroup) -> {
+			MBPGroup_BH clientBusinessPartnerGroup = new MBPGroup_BH(context, 0, getTransactionName());
+			MBPGroup.copyValues(defaultBusinessPartnerGroup, clientBusinessPartnerGroup);
+			clientBusinessPartnerGroup.setM_PriceList_ID(0);
+			clientBusinessPartnerGroup.setPO_PriceList_ID(0);
+			clientBusinessPartnerGroup.setBH_SubType(defaultBusinessPartnerGroup.getBH_SubType());
+			if (!clientBusinessPartnerGroup.save()) {
 				log.warning("Failure: Could not save default business partner group");
 			}
 
-			defaultBusinessPartnerGroups.put(businessPartnerGroup.get_ID(), instance);
+			clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId.put(defaultBusinessPartnerGroup.get_ID(),
+					clientBusinessPartnerGroup);
 		});
 
 		// Add a mapping for the standard BP Group
 		// PO.setCrossTenantSafe();
-		List<MBPGroup> standardBusinessPartnerGroups = new Query(this.context, MBPGroup.Table_Name,
-				MBPGroup.COLUMNNAME_AD_Client_ID + " IN (?,?) AND " + MBPGroup.COLUMNNAME_Name + "=?",
+		List<MBPGroup_BH> defaultThenClientStandardBusinessPartnerGroups = new Query(this.context, MBPGroup_BH.Table_Name,
+				MBPGroup_BH.COLUMNNAME_AD_Client_ID + " IN (?,?) AND " + MBPGroup_BH.COLUMNNAME_Name + "=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID(),
 				DEFAULT_IDEMPIERE_ENTITY_NAME).setOrderBy(MClient_BH.COLUMNNAME_AD_Client_ID).list();
 		// PO.clearCrossTenantSafe();
-		defaultBusinessPartnerGroups.put(standardBusinessPartnerGroups.get(0).getC_BP_Group_ID(),
-				standardBusinessPartnerGroups.get(1));
+		clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId.put(
+				defaultThenClientStandardBusinessPartnerGroups.get(0).getC_BP_Group_ID(),
+				defaultThenClientStandardBusinessPartnerGroups.get(1));
 
-		return defaultBusinessPartnerGroups;
+		// While the accounting is automatically created for the new BP Groups, some accounts may need to be updated
+		// PO.setCrossTenantSafe();
+
+		List<Object> parameters = new ArrayList<>();
+		String businessPartnerGroupIdWhereClause =
+				QueryUtil.getWhereClauseAndSetParametersForSet(
+						clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId.keySet(), parameters);
+
+		// Create a BP Group account map to match the defaults
+		List<X_C_BP_Group_Acct> defaultBusinessPartnerGroupAccounts = new Query(this.context, X_C_BP_Group_Acct.Table_Name,
+				X_C_BP_Group_Acct.COLUMNNAME_C_BP_Group_ID + " IN (" + businessPartnerGroupIdWhereClause + ")",
+				getTransactionName()).setParameters(parameters).list();
+		parameters = new ArrayList<>();
+		businessPartnerGroupIdWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+				clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId.values().stream().map(MBPGroup_BH::getC_BP_Group_ID)
+						.collect(Collectors.toSet()), parameters);
+
+		List<X_C_BP_Group_Acct> clientBusinessPartnerGroupAccounts = new Query(this.context, X_C_BP_Group_Acct.Table_Name,
+				X_C_BP_Group_Acct.COLUMNNAME_C_BP_Group_ID + " IN (" + businessPartnerGroupIdWhereClause + ")",
+				getTransactionName()).setParameters(parameters).list();
+		Map<Integer, X_C_BP_Group_Acct> clientBusinessPartnerGroupAccountsByClientBusinessPartnerGroupId =
+				clientBusinessPartnerGroupAccounts.stream().collect(Collectors.toMap(X_C_BP_Group_Acct::getC_BP_Group_ID,
+						clientBusinessPartnerGroupAccount -> clientBusinessPartnerGroupAccount));
+
+		Map<Integer, X_C_BP_Group_Acct> clientBusinessPartnerGroupAccountsByDefaultBusinessPartnerGroupId =
+				defaultBusinessPartnerGroupAccounts.stream().collect(Collectors.toMap(X_C_BP_Group_Acct::getC_BP_Group_ID,
+						defaultBusinessPartnerGroupAccount -> clientBusinessPartnerGroupAccountsByClientBusinessPartnerGroupId.get(
+								clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId.get(
+										defaultBusinessPartnerGroupAccount.getC_BP_Group_ID()).getC_BP_Group_ID())));
+
+		int defaultAccountSchemaId = defaultBusinessPartnerGroupAccounts.get(0).getC_AcctSchema_ID();
+		MAcctSchemaDefault defaultAccountSchemaDefaults = new Query(this.context, MAcctSchemaDefault.Table_Name,
+				MAcctSchemaDefault.COLUMNNAME_AD_Client_ID + "=? AND " + MAcctSchemaDefault.COLUMNNAME_C_AcctSchema_ID + "=?",
+				this.getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, defaultAccountSchemaId).first();
+
+		// Create an account ID map to match the default with the newly created
+		List<MElementValue> defaultAccounts =
+				new Query(this.context, MElementValue.Table_Name, MElementValue.COLUMNNAME_AD_Client_ID + "=?",
+						this.getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG).list();
+		List<MElementValue> clientAccounts =
+				new Query(this.context, MElementValue.Table_Name, null, this.getTransactionName()).setClient_ID().list();
+		int clientAccountSchemaId = clientBusinessPartnerGroupAccounts.get(0).getC_AcctSchema_ID();
+
+		MElementValue emptyAccount = new MElementValue(this.context, 0, this.getTransactionName());
+		Map<Integer, Integer> clientAccountIdsByDefaultAccountId = defaultAccounts.stream().collect(
+				Collectors.toMap(MElementValue::getC_ElementValue_ID, defaultAccount -> clientAccounts.stream()
+						.filter(clientAccount -> clientAccount.getValue().equals(defaultAccount.getValue())).findFirst()
+						.orElse(emptyAccount).getC_ElementValue_ID()));
+
+		// The config client schema will match the schema loaded from the Excel file
+		// So, if any of the default BP group accounts don't match the default, we need to update the client BP created
+		// accounts so they match the different mapping
+		for (X_C_BP_Group_Acct defaultBPGroupAccount : defaultBusinessPartnerGroupAccounts) {
+			X_C_BP_Group_Acct clientBusinessPartnerGroupAccount =
+					clientBusinessPartnerGroupAccountsByDefaultBusinessPartnerGroupId.get(
+							defaultBPGroupAccount.getC_BP_Group_ID());
+
+			// NB: while this code is somewhat duplicated between "if" statements, extracting it into a separate
+			// function did not increase readability and/or maintainability, so the code was kept here
+
+			// Check to see if the customer receivables (A/R) account differs from default
+			if (defaultBPGroupAccount.getC_Receivable_Acct() != defaultAccountSchemaDefaults.getC_Receivable_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getC_Receivable_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setC_Receivable_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the customer pre-payment account differs from default
+			if (defaultBPGroupAccount.getC_Prepayment_Acct() != defaultAccountSchemaDefaults.getC_Prepayment_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getC_Prepayment_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setC_Prepayment_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the vendor liability (A/P) account differs from default
+			if (defaultBPGroupAccount.getV_Liability_Acct() != defaultAccountSchemaDefaults.getV_Liability_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getV_Liability_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setV_Liability_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the vendor liability (A/P) for services account differs from default
+			if (defaultBPGroupAccount.getV_Liability_Services_Acct() !=
+					defaultAccountSchemaDefaults.getV_Liability_Services_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getV_Liability_Services_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setV_Liability_Services_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the vendor prepayment account differs from default
+			if (defaultBPGroupAccount.getV_Prepayment_Acct() != defaultAccountSchemaDefaults.getV_Prepayment_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getV_Prepayment_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setV_Prepayment_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the expense payment discount account differs from default
+			if (defaultBPGroupAccount.getPayDiscount_Exp_Acct() != defaultAccountSchemaDefaults.getPayDiscount_Exp_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getPayDiscount_Exp_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setPayDiscount_Exp_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the revenue payment discount account differs from default
+			if (defaultBPGroupAccount.getPayDiscount_Rev_Acct() != defaultAccountSchemaDefaults.getPayDiscount_Rev_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getPayDiscount_Rev_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setPayDiscount_Rev_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the write-off account differs from default
+			if (defaultBPGroupAccount.getWriteOff_Acct() != defaultAccountSchemaDefaults.getWriteOff_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getWriteOff_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setWriteOff_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the non-invoiced receipts account differs from default
+			if (defaultBPGroupAccount.getNotInvoicedReceipts_Acct() !=
+					defaultAccountSchemaDefaults.getNotInvoicedReceipts_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getNotInvoicedReceipts_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setNotInvoicedReceipts_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the unearned revenue account differs from default
+			if (defaultBPGroupAccount.getUnEarnedRevenue_Acct() != defaultAccountSchemaDefaults.getUnEarnedRevenue_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getUnEarnedRevenue_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setUnEarnedRevenue_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Check to see if the customer receivables (A/R) for services account differs from default
+			if (defaultBPGroupAccount.getC_Receivable_Services_Acct() !=
+					defaultAccountSchemaDefaults.getC_Receivable_Services_Acct()) {
+				I_C_ValidCombination nonDefaultAccount = defaultBPGroupAccount.getC_Receivable_Services_A();
+				MAccount clientAccount = getAccount(clientAccountSchemaId,
+						clientAccountIdsByDefaultAccountId.get(nonDefaultAccount.getAccount_ID()));
+				clientBusinessPartnerGroupAccount.setC_Receivable_Services_Acct(clientAccount.getC_ValidCombination_ID());
+			}
+
+			// Finally, save the thing
+			clientBusinessPartnerGroupAccount.saveEx();
+		}
+
+		// PO.clearCrossTenantSafe();
+
+		return clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId;
+	}
+
+	/**
+	 * A sugar method to get the account more easily
+	 *
+	 * @param clientAccountSchemaId The client schema ID
+	 * @param accountId             The account ID to look for
+	 * @return The found or created account
+	 */
+	private MAccount getAccount(int clientAccountSchemaId, int accountId) {
+		return MAccount.get(this.context, this.getAD_Client_ID(), 0, clientAccountSchemaId, accountId, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, this.getTransactionName());
 	}
 
 	/**

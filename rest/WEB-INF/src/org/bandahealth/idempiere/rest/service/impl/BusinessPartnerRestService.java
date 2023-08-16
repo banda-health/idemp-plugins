@@ -1,12 +1,12 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import org.bandahealth.idempiere.base.model.MBHBPartnerCharge;
+import org.bandahealth.idempiere.base.model.MBHBPPayerInfo;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
-import org.bandahealth.idempiere.rest.model.BusinessPartnerCharge;
+import org.bandahealth.idempiere.rest.model.BusinessPartnerPayerInformation;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
-import org.bandahealth.idempiere.rest.service.db.BusinessPartnerChargeDBService;
+import org.bandahealth.idempiere.rest.service.db.BusinessPartnerPayerInformationDBService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,63 +25,69 @@ import java.util.stream.Collectors;
 @Path(IRestConfigs.BUSINESS_PARTNER_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class BusinessPartnerRestService extends BaseRestService<BusinessPartner, MBPartner_BH, BusinessPartnerDBService> {
+public class BusinessPartnerRestService
+		extends BaseRestService<BusinessPartner, MBPartner_BH, BusinessPartnerDBService> {
 	@Autowired
-	private BusinessPartnerChargeDBService businessPartnerChargeDBService;
+	private BusinessPartnerPayerInformationDBService businessPartnerPayerInformationDBService;
 	@Autowired
 	private BusinessPartnerDBService businessPartnerDBService;
 
 	@GET
 	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES)
-	public List<BusinessPartnerCharge> getCharges(@PathParam("uuid") String uuid) {
+	public List<BusinessPartnerPayerInformation> getCharges(@PathParam("uuid") String uuid) {
 		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByUuidFromDB(uuid);
 		if (businessPartner == null) {
 			return new ArrayList<>();
 		}
-		return businessPartnerChargeDBService.transformData(businessPartnerChargeDBService
-				.getGroupsByIds(MBHBPartnerCharge::getC_BPartner_ID, MBHBPartnerCharge.COLUMNNAME_C_BPartner_ID,
+		return businessPartnerPayerInformationDBService.transformData(businessPartnerPayerInformationDBService
+				.getGroupsByIds(MBHBPPayerInfo::getC_BPartner_ID, MBHBPPayerInfo.COLUMNNAME_C_BPartner_ID,
 						Collections.singleton(businessPartner.getC_BPartner_ID()))
 				.getOrDefault(businessPartner.getC_BPartner_ID(), new ArrayList<>()));
 	}
 
 	@POST
-	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES)
-	public List<BusinessPartnerCharge> saveCharges(@PathParam("uuid") String uuid,
-			List<BusinessPartnerCharge> businessPartnerChargeList) {
+	@Path(IRestConfigs.UUID_PATH + "/payer-information")
+	public List<BusinessPartnerPayerInformation> savePayerInformation(@PathParam("uuid") String uuid,
+			List<BusinessPartnerPayerInformation> businessPartnerPayerInformationList) {
 		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByUuidFromDB(uuid);
 		if (businessPartner == null) {
 			return new ArrayList<>();
 		}
 		// Save what was provided
-		List<BusinessPartnerCharge> savedCharges = businessPartnerChargeList.stream()
-				.peek(businessPartnerCharge -> businessPartnerCharge.setBusinessPartnerId(businessPartner.getC_BPartner_ID()))
-				.map(businessPartnerChargeDBService::saveEntity).collect(Collectors.toList());
+		List<BusinessPartnerPayerInformation> savedBusinessPartnerPayerInformation =
+				businessPartnerPayerInformationList.stream()
+						.peek(businessPartnerPayerInformation -> businessPartnerPayerInformation.setBusinessPartnerId(
+								businessPartner.getC_BPartner_ID()))
+						.map(businessPartnerPayerInformationDBService::saveEntity).collect(Collectors.toList());
 		// Delete what is no longer there
-		List<MBHBPartnerCharge> currentCharges = businessPartnerChargeDBService
-				.getGroupsByIds(MBHBPartnerCharge::getC_BPartner_ID, MBHBPartnerCharge.COLUMNNAME_C_BPartner_ID,
+		List<MBHBPPayerInfo> businessPartnerPayerInformation = businessPartnerPayerInformationDBService
+				.getGroupsByIds(MBHBPPayerInfo::getC_BPartner_ID, MBHBPPayerInfo.COLUMNNAME_C_BPartner_ID,
 						Collections.singleton(businessPartner.getC_BPartner_ID())).get(businessPartner.getC_BPartner_ID());
-		if (currentCharges == null) {
-			currentCharges = new ArrayList<>();
+		if (businessPartnerPayerInformation == null) {
+			businessPartnerPayerInformation = new ArrayList<>();
 		}
-		currentCharges.stream().filter(currentCharge -> savedCharges.stream()
-				.noneMatch(savedCharge -> savedCharge.getUuid().equals(currentCharge.getBH_BPartner_Charge_UU()))).forEach(
-				currentCharge -> businessPartnerChargeDBService.deleteEntity(currentCharge.getBH_BPartner_Charge_UU()));
+		businessPartnerPayerInformation.stream().filter(
+				currentBusinessPartnerPayerInformation -> savedBusinessPartnerPayerInformation.stream().noneMatch(
+						savedCharge -> savedCharge.getUuid()
+								.equals(currentBusinessPartnerPayerInformation.getBH_BP_Payer_Info_UU()))).forEach(
+				currentBusinessPartnerPayerInformation -> businessPartnerPayerInformationDBService.deleteEntity(
+						currentBusinessPartnerPayerInformation.getBH_BP_Payer_Info_UU()));
 
-		return savedCharges;
+		return savedBusinessPartnerPayerInformation;
 	}
 
 	@POST
 	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES + "/{businessPartnerChargeUuid}")
-	public BusinessPartnerCharge saveSingleCharge(@PathParam("uuid") String uuid,
+	public BusinessPartnerPayerInformation saveSingleCharge(@PathParam("uuid") String uuid,
 			@PathParam("businessPartnerChargeUuid") String businessPartnerChargeUuid,
-			BusinessPartnerCharge businessPartnerCharge) {
+			BusinessPartnerPayerInformation businessPartnerPayerInformation) {
 		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByUuidFromDB(uuid);
 		if (businessPartner == null) {
 			return null;
 		}
-		businessPartnerCharge.setUuid(businessPartnerChargeUuid);
-		businessPartnerCharge.setBusinessPartnerId(businessPartner.getC_BPartner_ID());
-		return businessPartnerChargeDBService.saveEntity(businessPartnerCharge);
+		businessPartnerPayerInformation.setUuid(businessPartnerChargeUuid);
+		businessPartnerPayerInformation.setBusinessPartnerId(businessPartner.getC_BPartner_ID());
+		return businessPartnerPayerInformationDBService.saveEntity(businessPartnerPayerInformation);
 	}
 
 	@Override

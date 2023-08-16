@@ -1,12 +1,13 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 
 import java.math.BigDecimal;
-
-import javax.xml.bind.annotation.XmlElement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BusinessPartner extends BaseEntity {
 
@@ -18,10 +19,6 @@ public class BusinessPartner extends BaseEntity {
 	private String address;
 	private String gender;
 	private String email;
-	private String nhifRelationship;
-	private String nhifMemberName;
-	private String nhifNumber;
-	private String nhifType;
 	private String nationalId;
 	private String occupation;
 	private String nextOfKinName;
@@ -30,6 +27,13 @@ public class BusinessPartner extends BaseEntity {
 	private int totalVisits;
 	private String lastVisitDate;
 	private Boolean isApproximateDateOfBirth;
+	private List<PayerInformationField> payerInformationFieldList = new ArrayList<>();
+	private BusinessPartnerGroup businessPartnerGroup;
+	@JsonProperty("isCustomer")
+	private Boolean isCustomer;
+	@JsonProperty("isVendor")
+	private Boolean isVendor;
+	private boolean needAdditionalVisitInformation;
 
 	public BusinessPartner() {
 	}
@@ -44,16 +48,15 @@ public class BusinessPartner extends BaseEntity {
 		this.phone = model.getBH_Phone();
 		this.gender = model.getbh_gender();
 		this.email = model.getBH_EMail();
-		this.nhifRelationship = model.getbh_nhif_relationship();
-		this.nhifMemberName = model.getbh_nhif_member_name();
-		this.nhifNumber = model.getNHIF_Number();
-		this.nhifType = model.getBH_NHIF_Type();
 		this.nationalId = model.getNationalID();
 		this.occupation = model.getbh_occupation();
 		this.nextOfKinName = model.getNextOfKin_Name();
 		this.nextOfKinContact = model.getNextOfKin_Contact();
 		this.localPatientNumber = model.getBH_Local_PatientID();
 		this.isApproximateDateOfBirth = model.isBH_IsApproximateDateOfBirth();
+		this.isCustomer = model.isCustomer();
+		this.isVendor = model.isVendor();
+//		setNeedAdditionalVisitInformation(entity.isBH_NeedAdditionalVisitInfo());
 	}
 
 	public BusinessPartner(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -117,38 +120,6 @@ public class BusinessPartner extends BaseEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getNhifRelationship() {
-		return nhifRelationship;
-	}
-
-	public void setNhifRelationship(String nhifRelationship) {
-		this.nhifRelationship = nhifRelationship;
-	}
-
-	public String getNhifMemberName() {
-		return nhifMemberName;
-	}
-
-	public void setNhifMemberName(String nhifMemberName) {
-		this.nhifMemberName = nhifMemberName;
-	}
-
-	public String getNhifNumber() {
-		return nhifNumber;
-	}
-
-	public void setNhifNumber(String nhifNumber) {
-		this.nhifNumber = nhifNumber;
-	}
-
-	public String getNhifType() {
-		return nhifType;
-	}
-
-	public void setNhifType(String nhifType) {
-		this.nhifType = nhifType;
 	}
 
 	public String getNationalId() {
@@ -215,5 +186,49 @@ public class BusinessPartner extends BaseEntity {
 	@JsonProperty("isApproximateDateOfBirth")
 	public Boolean isApproximateDateOfBirth() {
 		return isApproximateDateOfBirth;
+	}
+
+	public List<PayerInformationField> getPayerInformationFieldList() {
+		return payerInformationFieldList;
+	}
+
+	public void setPayerInformationFieldList(List<PayerInformationField> payerInformationFieldList) {
+		this.payerInformationFieldList = payerInformationFieldList;
+	}
+
+	public BusinessPartnerGroup getBusinessPartnerGroup() {
+		return businessPartnerGroup;
+	}
+
+	public void setBusinessPartnerGroup(BusinessPartnerGroup businessPartnerGroup) {
+		this.businessPartnerGroup = businessPartnerGroup;
+	}
+
+	@JsonProperty("isCustomer")
+	public Boolean getCustomer() {
+		return isCustomer;
+	}
+
+	@JsonProperty("isCustomer")
+	public void setCustomer(Boolean customer) {
+		isCustomer = customer;
+	}
+
+	@JsonProperty("isVendor")
+	public Boolean getVendor() {
+		return isVendor;
+	}
+
+	@JsonProperty("isVendor")
+	public void setVendor(Boolean vendor) {
+		isVendor = vendor;
+	}
+
+	public boolean isNeedAdditionalVisitInformation() {
+		return needAdditionalVisitInformation;
+	}
+
+	public void setNeedAdditionalVisitInformation(boolean needAdditionalVisitInformation) {
+		this.needAdditionalVisitInformation = needAdditionalVisitInformation;
 	}
 }

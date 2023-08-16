@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Expense;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.X_C_BPartner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Expenses logic
@@ -24,14 +24,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
+	private final Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MInvoice_BH.Table_Name + "." +
 				MInvoice_BH.COLUMNNAME_C_BPartner_ID + " = "
 				+ MBPartner_BH.Table_Name + "." + MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
-
-	@Autowired
-	private VendorDBService vendorDBService;
 
 	@Override
 	protected String getDocumentTypeName() {
@@ -45,25 +42,20 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 
 	public BaseListResponse<Expense> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		List<Object> parameters = new ArrayList<>();
-
-		StringBuilder whereClause = new StringBuilder()
-				.append(MInvoice_BH.COLUMNNAME_IsSOTrx).append("=?").append(AND_OPERATOR)
-				.append(MInvoice_BH.COLUMNNAME_BH_IsExpense).append("=?");
 		parameters.add("N");
-		parameters.add("Y");
-		return super.getAll(whereClause.toString(), parameters, pagingInfo, sortJson, filterJson, null);
+
+		return super.getAll(MInvoice_BH.COLUMNNAME_IsSOTrx + "=?", parameters, pagingInfo, sortJson, filterJson, null);
 	}
 
 	@Override
 	protected void beforeSave(Expense entity, MInvoice_BH invoice) {
-		if (entity.getSupplier() != null && entity.getSupplier().getUuid() != null) {
-			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getSupplier().getUuid());
+		if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getUuid() != null) {
+			MBPartner_BH vendor = businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
 			invoice.setC_BPartner_ID(vendor.get_ID());
 		}
 
 		invoice.setTotalLines(invoice.getGrandTotal());
 		invoice.setIsSOTrx(false);
-		invoice.setBH_IsExpense(true);
 	}
 
 	@Override
@@ -73,15 +65,15 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	@Override
 	protected Expense createInstanceWithDefaultFields(MInvoice_BH instance) {
 		try {
-			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
-			if (vendor == null) {
+			MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
+			if (businessPartner == null) {
 				log.severe("Missing provider");
 				return null;
 			}
 
 			return new Expense(
 					instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(), instance.isActive(),
-					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new Vendor(vendor.getName()),
+					DateUtil.parse(instance.getCreated()), instance.getCreatedBy(), new BusinessPartner(businessPartner),
 					DateUtil.parseDateOnly(instance.getDateInvoiced()), instance.getDocStatus(),
 					instance.getGrandTotal(), instance.getPaymentRule());
 
@@ -94,15 +86,15 @@ public class ExpenseDBService extends BaseInvoiceDBService<Expense> {
 	@Override
 	protected Expense createInstanceWithAllFields(MInvoice_BH instance) {
 		try {
-			MBPartner_BH vendor = vendorDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
-			if (vendor == null) {
-				log.severe("Missing vendor");
+			MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(instance.getC_BPartner_ID());
+			if (businessPartner == null) {
+				log.severe("Missing businessPartner");
 				return null;
 			}
 
 			return new Expense(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_Invoice_UU(),
 					instance.isActive(), DateUtil.parse(instance.getCreated()), instance.getCreatedBy(),
-					new Vendor(vendor.getC_BPartner_UU(), vendor.getName()), DateUtil.parseDateOnly(instance.getDateInvoiced()),
+					new BusinessPartner(businessPartner), DateUtil.parseDateOnly(instance.getDateInvoiced()),
 					invoiceLineDBService.getInvoiceLinesByInvoiceId(instance.get_ID()), instance.getDocStatus(),
 					instance.getGrandTotal(), instance.getPaymentRule());
 

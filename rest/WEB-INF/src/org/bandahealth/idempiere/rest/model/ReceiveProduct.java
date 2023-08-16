@@ -15,22 +15,11 @@ public class ReceiveProduct extends Order {
 
 	private static final long serialVersionUID = 1L;
 
-	private Vendor vendor;
-
 	public ReceiveProduct() {
 		setIsSalesOrderTransaction(false);
 	}
 
 	public ReceiveProduct(MOrder_BH model) {
 		super(model);
-	}
-
-	@XmlElement
-	public Vendor getVendor() {
-		return vendor;
-	}
-
-	public void setVendor(Vendor vendor) {
-		this.vendor = vendor;
 	}
 }

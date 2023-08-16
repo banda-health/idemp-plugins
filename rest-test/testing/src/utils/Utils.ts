@@ -1,21 +1,21 @@
 import {
+	businessPartnerApi,
 	chargeApi,
 	inventoryApi,
 	invoiceApi,
 	orderApi,
-	patientApi,
 	paymentApi,
 	processApi,
 	productApi,
 	productCategoryApi,
 	receiveProductsApi,
 	referenceListApi,
-	vendorsApi,
 	visitApi,
 	warehouseApi,
 } from '../api';
 import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
+	BusinessPartner,
 	Charge,
 	Inventory,
 	InventoryLine,
@@ -23,57 +23,14 @@ import {
 	InvoiceLine,
 	Order,
 	OrderLine,
-	Patient,
 	Payment,
 	PaymentType,
 	ProcessInfoParameter,
 	Product,
 	ProductCategory,
 	ReceiveProduct,
-	Vendor,
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
-
-/**
- * Create a patient. If a business partner already exists on the value object, this won't do anything.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createPatient(valueObject: ValueObject) {
-	valueObject.validate();
-
-	if (!valueObject.businessPartner) {
-		const patient: Partial<Patient> = {
-			name: valueObject.getDynamicStepMessage(),
-			description: valueObject.getStepMessageLong(),
-			dateOfBirth: valueObject.date?.toISOString(),
-			gender: 'male',
-		};
-		valueObject.businessPartner = await patientApi.save(valueObject, patient as Patient);
-		if (!valueObject.businessPartner) {
-			throw new Error('Business partner not created');
-		}
-	}
-}
-/**
- * Create a vendor. If a business partner already exists on the value object, this won't do anything.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createVendor(valueObject: ValueObject) {
-	valueObject.validate();
-
-	if (!valueObject.businessPartner) {
-		const businessPartner: Partial<Vendor> = {
-			name: valueObject.getDynamicStepMessage(),
-			description: valueObject.getStepMessageLong(),
-		};
-		valueObject.businessPartner = await vendorsApi.save(valueObject, businessPartner as Vendor);
-		if (!valueObject.businessPartner) {
-			throw new Error('Business partner not created');
-		}
-	}
-}
 
 /**
  * Create a business partner (don't really have an ideal method for this at the moment - have to go through patients).
@@ -82,7 +39,22 @@ export async function createVendor(valueObject: ValueObject) {
  * @returns Nothing
  */
 export async function createBusinessPartner(valueObject: ValueObject) {
-	await createPatient(valueObject);
+	valueObject.validate();
+
+	if (!valueObject.businessPartner) {
+		const patient: Partial<BusinessPartner> = {
+			name: valueObject.getDynamicStepMessage(),
+			description: valueObject.getStepMessageLong(),
+			dateOfBirth: valueObject.date?.toISOString(),
+			gender: 'male',
+			isCustomer: true,
+			isVendor: true,
+		};
+		valueObject.businessPartner = await businessPartnerApi.save(valueObject, patient as BusinessPartner);
+		if (!valueObject.businessPartner) {
+			throw new Error('Business partner not created');
+		}
+	}
 }
 
 /**
@@ -145,7 +117,7 @@ export async function createVisit(valueObject: ValueObject) {
 
 	const visit: Partial<Visit> = {
 		description: valueObject.getStepMessageLong(),
-		patient: valueObject.businessPartner as Patient | undefined,
+		patient: valueObject.businessPartner,
 		visitDate: valueObject.date,
 	};
 	valueObject.visit = await visitApi.save(valueObject, visit as Visit);
@@ -173,7 +145,7 @@ export async function createPurchaseOrder(valueObject: ValueObject) {
 	const order: Partial<ReceiveProduct> = {
 		description: valueObject.getStepMessageLong(),
 		dateOrdered: valueObject.date,
-		vendor: valueObject!.businessPartner as Vendor,
+		businessPartner: valueObject!.businessPartner,
 		warehouse: valueObject!.warehouse,
 		orderLines: [],
 	};
@@ -315,7 +287,7 @@ export async function createPayment(valueObject: ValueObject) {
 
 	const payment: Partial<Payment> = {
 		orgId: 0,
-		patient: valueObject.businessPartner as unknown as Patient,
+		businessPartner: valueObject.businessPartner,
 		description: valueObject.getStepMessageLong(),
 		payAmount: valueObject.invoice?.grandTotal || valueObject.paymentAmount || valueObject.order?.grandTotal || 1,
 		paymentType:

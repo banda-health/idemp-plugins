@@ -15,7 +15,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 public class Payment extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private Patient patient;
+	private BusinessPartner businessPartner;
 	@JsonIgnore
 	private int chargeId;
 	@JsonIgnore
@@ -45,12 +45,12 @@ public class Payment extends BaseMetadata {
 		setTenderType(entity.getTenderType());
 	}
 
-	public Patient getPatient() {
-		return patient;
+	public BusinessPartner getBusinessPartner() {
+		return businessPartner;
 	}
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public void setBusinessPartner(BusinessPartner businessPartner) {
+		this.businessPartner = businessPartner;
 	}
 
 	public int getChargeId() {

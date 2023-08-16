@@ -1,14 +1,7 @@
 import { paymentApi, referenceListApi } from '../api';
 import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
 import { PaymentType } from '../types/org.bandahealth.idempiere.rest';
-import {
-	createBusinessPartner,
-	createPayment,
-	createProduct,
-	createPurchaseOrder,
-	createVendor,
-	createVisit,
-} from '../utils';
+import { createBusinessPartner, createPayment, createProduct, createPurchaseOrder, createVisit } from '../utils';
 
 test('payment type updated with UUID, not value', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -67,7 +60,7 @@ test('debt payments are processed correctly', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -76,10 +69,6 @@ test('debt payments are processed correctly', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create business partner';
-	valueObject.businessPartner = undefined;
-	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = documentAction.Complete;

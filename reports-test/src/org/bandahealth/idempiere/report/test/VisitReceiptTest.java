@@ -443,7 +443,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create non-patient payment");
 		valueObject.setRandom();
 		ChuBoeCreateEntity.createCharge(valueObject);
-		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
 		valueObject.getCharge().setName(valueObject.getRandomNumber() + valueObject.getCharge().getName());
 		valueObject.getCharge().saveEx();
 		commitEx();

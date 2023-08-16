@@ -62,8 +62,8 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create donor charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
-		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
-		valueObject.getCharge().saveEx();
+//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
+//		valueObject.getCharge().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create PO");
@@ -180,8 +180,8 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create donor charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
-		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
-		valueObject.getCharge().saveEx();
+//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
+//		valueObject.getCharge().saveEx();
 		commitEx();
 
 		Timestamp earlyDate = TimestampUtils.startOfYesterday();

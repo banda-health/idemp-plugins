@@ -53,8 +53,8 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	/**
 	 * Document Type
 	 */
-	private int p_C_DocType_ID = 0;
-	private Map<String, String> dynamicJoins = new HashMap<>() {
+	private final int p_C_DocType_ID = 0;
+	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MWarehouse.Table_Name,
 					"LEFT JOIN " + MWarehouse.Table_Name + " ON " + MMovement_BH.Table_Name + "."

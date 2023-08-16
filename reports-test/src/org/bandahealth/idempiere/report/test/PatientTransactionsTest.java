@@ -252,8 +252,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create first charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
-		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
-		valueObject.getCharge().saveEx();
+//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+//		valueObject.getCharge().saveEx();
 		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
 		orderLine.setDescription(valueObject.getStepMessageLong());
@@ -269,8 +269,8 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create second charge");
 		valueObject.clearCharge();
 		ChuBoeCreateEntity.createCharge(valueObject);
-		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
-		valueObject.getCharge().saveEx();
+//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
+//		valueObject.getCharge().saveEx();
 		orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
 		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
 		orderLine.setDescription(valueObject.getStepMessageLong());

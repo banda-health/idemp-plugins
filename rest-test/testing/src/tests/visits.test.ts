@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import isEqual from 'lodash/isEqual';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
-import { chargeApi, languageApi, patientApi, referenceListApi, visitApi, voidedReasonApi } from '../api';
+import { businessPartnerApi, languageApi, referenceListApi, visitApi, voidedReasonApi } from '../api';
 import {
 	documentAction,
 	documentBaseType,
@@ -15,19 +15,17 @@ import {
 	BusinessPartner,
 	Order,
 	OrderLine,
-	Patient,
 	Payment,
 	PaymentType,
 	ProcessInfoParameter,
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
 import {
+	createBusinessPartner,
 	createOrder,
-	createPatient,
 	createPayment,
 	createProduct,
 	createPurchaseOrder,
-	createVendor,
 	createVisit,
 	formatDate,
 	runReport,
@@ -44,7 +42,7 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -53,10 +51,6 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -80,7 +74,7 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test(`visit saved from scratch is correct`, async () => {
@@ -88,7 +82,7 @@ test(`visit saved from scratch is correct`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -98,15 +92,11 @@ test(`visit saved from scratch is correct`, async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
 
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
-
 	valueObject.stepName = 'Create and complete visit';
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
-		patient: valueObject.businessPartner as Patient | undefined,
+		patient: valueObject.businessPartner,
 		visitDate: valueObject.date,
 		orders: [
 			{
@@ -126,14 +116,14 @@ test(`visit saved from scratch is correct`, async () => {
 		payments: [
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 60,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
 			},
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 40,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
@@ -145,7 +135,7 @@ test(`visit saved from scratch is correct`, async () => {
 	expect(valueObject.visit.orders.every((order) => order.docStatus === documentStatus.Completed));
 	expect(valueObject.visit.payments.every((order) => order.docStatus === documentStatus.Completed));
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	const fetchedVisit = (
 		await visitApi.get(
@@ -164,7 +154,7 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -173,10 +163,6 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -204,7 +190,9 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(50);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		50,
+	);
 });
 
 test(`patient open balance reverted correctly after visit with partial payment is re-opened`, async () => {
@@ -212,7 +200,7 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -221,10 +209,6 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -252,12 +236,14 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(50);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		50,
+	);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	const newPayment = valueObject.visit.payments.find((payment) => payment.docStatus === 'DR');
@@ -265,7 +251,9 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	newPayment!.payAmount = 40;
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(60);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		60,
+	);
 });
 
 test(`patient open balance correct with multiple payments`, async () => {
@@ -273,7 +261,7 @@ test(`patient open balance correct with multiple payments`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	const totalCharge = 100;
@@ -283,10 +271,6 @@ test(`patient open balance correct with multiple payments`, async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -322,14 +306,14 @@ test(`patient open balance correct with multiple payments`, async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		totalCharge - paymentTotal,
 	);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	const newPayment = valueObject.visit.payments.find((payment) => payment.docStatus === 'DR');
@@ -340,7 +324,7 @@ test(`patient open balance correct with multiple payments`, async () => {
 		.reduce((runningTotal, payment) => (runningTotal += payment.payAmount), 0);
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		totalCharge - paymentTotal,
 	);
 });
@@ -350,7 +334,7 @@ test('payments can be removed and added to re-opened visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -359,10 +343,6 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -390,12 +370,12 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	valueObject.visit.payments = valueObject.visit.payments.filter((payment) => payment.docStatus !== 'DR');
@@ -407,12 +387,12 @@ test('payments can be removed and added to re-opened visit', async () => {
 	} as Payment);
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reverse visit again';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit again';
 	valueObject.visit.payments = valueObject.visit.payments.filter((payment) => payment.docStatus !== 'DR');
@@ -424,7 +404,7 @@ test('payments can be removed and added to re-opened visit', async () => {
 	} as Payment);
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test('re-opened visit returns voided/reversed payments', async () => {
@@ -432,7 +412,7 @@ test('re-opened visit returns voided/reversed payments', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -441,10 +421,6 @@ test('re-opened visit returns voided/reversed payments', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -473,7 +449,7 @@ test('re-opened visit returns voided/reversed payments', async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
@@ -490,7 +466,7 @@ test('tender amount set correctly for payments', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -499,10 +475,6 @@ test('tender amount set correctly for payments', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -532,7 +504,7 @@ test('tender amount set correctly for payments', async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 	expect(valueObject.visit.payments[0].payAmount).toBe(valueObject.salesStandardPrice);
 	expect(valueObject.visit.payments[0].tenderAmount).toBe(valueObject.salesStandardPrice! + 500);
 });
@@ -542,7 +514,7 @@ test('voiding visit returns voided/reversed payments', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -551,10 +523,6 @@ test('voiding visit returns voided/reversed payments', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -583,13 +551,13 @@ test('voiding visit returns voided/reversed payments', async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Void visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.Void);
 
 	expect(valueObject.visit.payments.every((payment) => payment.docStatus === documentStatus.Reversed)).toBeTruthy();
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test(`completing a "future" visit doesn't cause problems with the payment`, async () => {
@@ -597,7 +565,7 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -606,10 +574,6 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -639,15 +603,16 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test('correct patient shown when patient changed after initial switch', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	valueObject.stepName = 'Create first business partner';
+	await createBusinessPartner(valueObject);
+	const firstPatientName = valueObject.businessPartner!.name;
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -656,11 +621,6 @@ test('correct patient shown when patient changed after initial switch', async ()
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create first patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
-	const firstPatientName = valueObject.businessPartner!.name;
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -680,8 +640,8 @@ test('correct patient shown when patient changed after initial switch', async ()
 	valueObject.stepName = 'Create second patient';
 	valueObject.businessPartner = undefined;
 	valueObject.setRandom();
-	await createPatient(valueObject);
-	valueObject.visit!.patient = { uuid: valueObject.businessPartner!.uuid } as Patient;
+	await createBusinessPartner(valueObject);
+	valueObject.visit!.patient = { uuid: valueObject.businessPartner!.uuid } as BusinessPartner;
 	const secondPatientName = valueObject.businessPartner!.name;
 
 	valueObject.stepName = 'Complete visit';
@@ -704,7 +664,7 @@ test('create and complete pharmacy sales visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -715,7 +675,7 @@ test('create and complete pharmacy sales visit', async () => {
 	await createPurchaseOrder(valueObject);
 
 	const pharmacySalesPatients = (
-		await patientApi.get(valueObject, 0, 10, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
+		await businessPartnerApi.get(valueObject, 0, 10, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
 	).results;
 	expect(pharmacySalesPatients.length).toBe(1);
 	const pharmacySalesPatient = pharmacySalesPatients[0];
@@ -748,15 +708,15 @@ test('create and complete pharmacy sales visit', async () => {
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test(`getByUuid method returns the correct data`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	const patient: Partial<Patient> = {
+	valueObject.stepName = 'Create business partner';
+	const businessPartner: Partial<BusinessPartner> = {
 		name: valueObject.getDynamicStepMessage(),
 		description: valueObject.getStepMessageLong(),
 		dateOfBirth: valueObject.date?.toISOString(),
@@ -766,7 +726,7 @@ test(`getByUuid method returns the correct data`, async () => {
 		nextOfKinName: 'Wifey',
 		nextOfKinContact: '155155',
 	};
-	const savedPatient = await patientApi.save(valueObject, patient as Patient);
+	const savedPatient = await businessPartnerApi.save(valueObject, businessPartner as BusinessPartner);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
 
 	valueObject.stepName = 'Create product';
@@ -797,10 +757,10 @@ test(`getByUuid method returns the correct data`, async () => {
 	expect(fetchedVisit.patient).toBeTruthy();
 	expect(fetchedVisit.patient.lastVisitDate).toBe(formatDate(twoDaysAgo));
 	expect(fetchedVisit.patient.totalVisits).toBe(1);
-	expect(fetchedVisit.patient.nationalId).toBe(patient.nationalId);
-	expect(fetchedVisit.patient.occupation).toBe(patient.occupation);
-	expect(fetchedVisit.patient.nextOfKinName).toBe(patient.nextOfKinName);
-	expect(fetchedVisit.patient.nextOfKinContact).toBe(patient.nextOfKinContact);
+	expect(fetchedVisit.patient.nationalId).toBe(businessPartner.nationalId);
+	expect(fetchedVisit.patient.occupation).toBe(businessPartner.occupation);
+	expect(fetchedVisit.patient.nextOfKinName).toBe(businessPartner.nextOfKinName);
+	expect(fetchedVisit.patient.nextOfKinContact).toBe(businessPartner.nextOfKinContact);
 });
 
 test(`get method returns the correct data`, async () => {
@@ -808,7 +768,7 @@ test(`get method returns the correct data`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create patient';
-	const patient: Partial<Patient> = {
+	const businessPartner: Partial<BusinessPartner> = {
 		name: valueObject.getDynamicStepMessage(),
 		description: valueObject.getStepMessageLong(),
 		dateOfBirth: valueObject.date?.toISOString(),
@@ -818,7 +778,7 @@ test(`get method returns the correct data`, async () => {
 		nextOfKinName: 'Wifey',
 		nextOfKinContact: '155155',
 	};
-	const savedPatient = await patientApi.save(valueObject, patient as Patient);
+	const savedPatient = await businessPartnerApi.save(valueObject, businessPartner as BusinessPartner);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
 
 	valueObject.stepName = 'Create product';
@@ -862,7 +822,7 @@ test('can remove a payment from a re-opened visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -871,10 +831,6 @@ test('can remove a payment from a re-opened visit', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -903,7 +859,7 @@ test('can remove a payment from a re-opened visit', async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reactivate visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
@@ -914,7 +870,7 @@ test('can remove a payment from a re-opened visit', async () => {
 	valueObject.stepName = 'Re-complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		valueObject.salesStandardPrice,
 	);
 });
@@ -924,7 +880,7 @@ test('can delete a drafted visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -933,10 +889,6 @@ test('can delete a drafted visit', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -973,7 +925,7 @@ test(`product created and sold with more than received quantity throws an error`
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -982,10 +934,6 @@ test(`product created and sold with more than received quantity throws an error`
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create Patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -1010,7 +958,7 @@ test(`selling more than in inventory error message is correct and is the same in
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1019,10 +967,6 @@ test(`selling more than in inventory error message is correct and is the same in
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create Patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -1083,7 +1027,7 @@ test('voiding visits shows data on the report correctly', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1092,10 +1036,6 @@ test('voiding visits shows data on the report correctly', async () => {
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -1124,7 +1064,7 @@ test('voiding visits shows data on the report correctly', async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Void visit';
 	valueObject.visit!.voidedReason = (await voidedReasonApi.get(valueObject)).results[0];
@@ -1152,9 +1092,9 @@ test('visit can be saved with really long chief complaint', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
+	valueObject.stepName = 'Create business partner';
 	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -1170,7 +1110,7 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1180,21 +1120,17 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
 
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
-
 	valueObject.stepName = 'Create and complete visit';
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
-	const chargeToUse = (await chargeApi.getNonPatientPayments(valueObject)).results.filter(
-		(charge) => charge.chargeInformationList.length,
-	)[0];
-	const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
-		(chargeInformation) => chargeInformation.dataType.value === 'T',
-	)[0];
+	// const chargeToUse = (await chargeApi.getNonPatientPayments(valueObject)).results.filter(
+	// 	(charge) => charge.chargeInformationList.length,
+	// )[0];
+	// const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
+	// 	(chargeInformation) => chargeInformation.dataType.value === 'T',
+	// )[0];
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
-		patient: valueObject.businessPartner as Patient | undefined,
+		patient: valueObject.businessPartner,
 		visitDate: valueObject.date,
 		orders: [
 			{
@@ -1210,10 +1146,10 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 					} as OrderLine,
 					{
 						description: valueObject.getStepMessageLong(),
-						charge: chargeToUse,
+						// charge: chargeToUse,
 						quantity: 1,
 						price: 50,
-						chargeInformationList: [{ chargeInformationUuid: chargeInformationToUse.uuid, value: 'Test' }],
+						// chargeInformationList: [{ chargeInformationUuid: chargeInformationToUse.uuid, value: 'Test' }],
 					} as OrderLine,
 				],
 			} as Partial<Order>,
@@ -1221,14 +1157,14 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 		payments: [
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 60,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
 			},
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 40,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
@@ -1250,7 +1186,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1260,21 +1196,17 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
 
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
-
 	valueObject.stepName = 'Create visit';
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
-	const chargeToUse = (await chargeApi.getNonPatientPayments(valueObject)).results.filter(
-		(charge) => charge.chargeInformationList.length,
-	)[0];
-	const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
-		(chargeInformation) => chargeInformation.dataType.value === 'T',
-	)[0];
+	// const chargeToUse = (await chargeApi.getNonPatientPayments(valueObject)).results.filter(
+	// 	(charge) => charge.chargeInformationList.length,
+	// )[0];
+	// const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
+	// 	(chargeInformation) => chargeInformation.dataType.value === 'T',
+	// )[0];
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
-		patient: valueObject.businessPartner as Patient | undefined,
+		patient: valueObject.businessPartner,
 		visitDate: valueObject.date,
 		orders: [
 			{
@@ -1290,10 +1222,10 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 					} as OrderLine,
 					{
 						description: valueObject.getStepMessageLong(),
-						charge: chargeToUse,
+						// charge: chargeToUse,
 						quantity: 1,
 						price: 50,
-						chargeInformationList: [{ chargeInformationUuid: chargeInformationToUse.uuid, value: 'Test' }],
+						// chargeInformationList: [{ chargeInformationUuid: chargeInformationToUse.uuid, value: 'Test' }],
 					} as OrderLine,
 				],
 			} as Partial<Order>,
@@ -1301,14 +1233,14 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 		payments: [
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 60,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
 			},
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 40,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
@@ -1316,6 +1248,6 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 		],
 	} as Visit;
 	valueObject.visit = await visitApi.save(valueObject, visitToSave);
-	
+
 	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
 });

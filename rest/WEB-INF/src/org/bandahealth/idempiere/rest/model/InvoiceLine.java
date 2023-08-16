@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 public class InvoiceLine extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private ExpenseCategory expenseCategory;
 	private Product product;
 	private String description;
 	private Integer invoiceId;
@@ -60,11 +59,11 @@ public class InvoiceLine extends BaseMetadata {
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			ExpenseCategory expenseCategory, Integer invoiceId, BigDecimal price, BigDecimal quantity,
+			Charge charge, Integer invoiceId, BigDecimal price, BigDecimal quantity,
 			BigDecimal lineNetAmount, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
-		this.expenseCategory = expenseCategory;
+		this.charge = charge;
 		this.invoiceId = invoiceId;
 		this.price = price;
 		this.quantity = quantity;
@@ -84,22 +83,13 @@ public class InvoiceLine extends BaseMetadata {
 	}
 
 	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer invoiceId, ExpenseCategory expenseCategory, BigDecimal price, String description) {
+			Integer invoiceId, Charge charge, BigDecimal price, String description) {
 		super(clientId, orgId, uuid, isActive, created, createdBy);
 
 		this.invoiceId = invoiceId;
-		this.expenseCategory = expenseCategory;
+		this.charge = charge;
 		this.price = price;
 		this.description = description;
-	}
-
-	@XmlElement
-	public ExpenseCategory getExpenseCategory() {
-		return expenseCategory;
-	}
-
-	public void setExpenseCategory(ExpenseCategory charge) {
-		this.expenseCategory = charge;
 	}
 
 	@XmlElement

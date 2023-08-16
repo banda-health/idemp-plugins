@@ -2,10 +2,10 @@ import isEqual from 'lodash/isEqual';
 import {
 	attributeSetApi,
 	attributeSetInstanceApi,
+	businessPartnerApi,
 	productApi,
 	receiveProductsApi,
 	storageOnHandApi,
-	vendorsApi,
 } from '../api';
 import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
 import { AttributeSetInstance, Product, ReceiveProduct, VoidedReason } from '../types/org.bandahealth.idempiere.rest';
@@ -15,7 +15,6 @@ import {
 	createOrder,
 	createProduct,
 	createPurchaseOrder,
-	createVendor,
 	getDateOffset,
 } from '../utils';
 
@@ -28,7 +27,7 @@ test(`vendor open balance is 0 after purchase order completed`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -38,7 +37,7 @@ test(`vendor open balance is 0 after purchase order completed`, async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await createPurchaseOrder(valueObject);
 
-	expect((await vendorsApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test(`invalid orders can be completed`, async () => {
@@ -46,7 +45,7 @@ test(`invalid orders can be completed`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	const expiringAttributeSet = (
@@ -98,7 +97,7 @@ test(`completed order can't be closed`, async () => {
 	await valueObject.login(RoleName.ClinicAdmin);
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -121,7 +120,7 @@ test(`can't void an order after product has been sold`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create a business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -145,10 +144,6 @@ test(`can't void an order after product has been sold`, async () => {
 			)
 		).results.reduce((totalQuantity, storageOnHand) => storageOnHand.quantityOnHand + totalQuantity, 0),
 	).toBe(1);
-
-	valueObject.stepName = 'Create another business partner for sales orders';
-	valueObject.businessPartner = undefined;
-	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create sales order';
 	valueObject.documentAction = documentAction.Complete;
@@ -198,7 +193,7 @@ test(`save returns the same thing as getByUuid`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	const expiringAttributeSet = (
@@ -234,7 +229,7 @@ test(`process returns the same thing as getByUuid`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	const expiringAttributeSet = (
@@ -271,7 +266,7 @@ test(`saveAndProcess returns the same thing as getByUuid`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	const expiringAttributeSet = (

@@ -273,20 +273,6 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"		           AND (p.isactive = 'N' OR pc.periodstatus = 'C')) AS result"
 			);
 
-			// PS: Deactivating this test - We now accept default business partners
-			// Assert default business partners are deactivated
-			/*addAssertionSQL(
-					"SELECT " +
-							"	'Default customer Business Partners are inactive' AS name, " +
-							"	NOT EXISTS(SELECT * " +
-							"	           FROM " +
-							"		           c_bpartner " +
-							"	           WHERE " +
-							"		           ad_client_id = " + client.get_ID() +
-							"		           AND iscustomer = 'Y' " +
-							"		           AND isactive = 'Y')                  AS result"
-			);*/
-
 			// Assert default business partners are created
 			MClient configurationClient = MClient_BH.get(valueObject.getContext(), MClient_BH.CLIENTID_CONFIG);
 			List<MBPartner_BH> configurationBusinessPartners = new Query(valueObject.getContext(), MBPartner_BH.Table_Name,

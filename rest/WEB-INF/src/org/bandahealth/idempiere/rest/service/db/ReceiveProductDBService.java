@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
@@ -24,7 +21,6 @@ import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.ReceiveProduct;
-import org.bandahealth.idempiere.rest.model.Vendor;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MOrder;
 import org.compiere.model.Query;
@@ -41,8 +37,6 @@ import org.springframework.stereotype.Component;
 public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> {
 
 	@Autowired
-	private VendorDBService vendorDBService;
-	@Autowired
 	private WarehouseDBService warehouseDBService;
 
 	public BaseListResponse<ReceiveProduct> getAll(Paging pagingInfo, String sortJson, String filterJson) {
@@ -58,8 +52,8 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 
 	@Override
 	protected void beforeSave(ReceiveProduct entity, MOrder_BH mOrder) {
-		if (entity.getVendor() != null && entity.getVendor().getUuid() != null) {
-			MBPartner_BH vendor = vendorDBService.getEntityByUuidFromDB(entity.getVendor().getUuid());
+		if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getUuid() != null) {
+			MBPartner_BH vendor = businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
 			mOrder.setC_BPartner_ID(vendor.get_ID());
 		}
 
@@ -137,7 +131,7 @@ public class ReceiveProductDBService extends BaseOrderDBService<ReceiveProduct> 
 					orderLine.setProduct(productsByIds.get(orderLine.getProductId()));
 				}
 			});
-			purchaseOrder.setVendor(new Vendor(businessPartnersById.get(purchaseOrder.getBusinessPartnerId())));
+			purchaseOrder.setBusinessPartner(new BusinessPartner(businessPartnersById.get(purchaseOrder.getBusinessPartnerId())));
 		}).collect(Collectors.toList());
 	}
 

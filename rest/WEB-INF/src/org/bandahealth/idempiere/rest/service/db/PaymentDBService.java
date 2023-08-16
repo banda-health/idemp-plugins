@@ -6,11 +6,11 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.NHIF;
 import org.bandahealth.idempiere.rest.model.NHIFRelationship;
 import org.bandahealth.idempiere.rest.model.NHIFType;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -47,8 +47,8 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	@Autowired
 	private ReferenceListDBService referenceListDBService;
 	@Autowired
-	private PatientDBService patientDBService;
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
+	private BusinessPartnerDBService businessPartnerDBService;
+	private final Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(MBPartner_BH.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." +
 				MPayment_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
 				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
@@ -92,8 +92,8 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 			mPayment.setBH_IsServiceDebt(true);
 		}
 
-		if (entity.getPatient() != null) {
-			MBPartner_BH bPartner = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
+		if (entity.getBusinessPartner() != null) {
+			MBPartner_BH bPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
 			if (bPartner != null) {
 				mPayment.setC_BPartner_ID(bPartner.get_ID());
 			}
@@ -300,7 +300,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	public List<Payment> transformData(List<MPayment_BH> dbModels) {
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MPayment_BH::getC_BPartner_ID).collect(Collectors.toSet());
 		Map<Integer, MBPartner_BH> businessPartnersById =
-				businessPartnerIds.isEmpty() ? new HashMap<>() : patientDBService.getByIds(businessPartnerIds);
+				businessPartnerIds.isEmpty() ? new HashMap<>() : businessPartnerDBService.getByIds(businessPartnerIds);
 		Set<String> tenderTypeValues = dbModels.stream().map(MPayment_BH::getTenderType).collect(Collectors.toSet());
 		Map<String, MRefList> tenderTypesByValue = tenderTypeValues.isEmpty() ? new HashMap<>() :
 				referenceListDBService.getTypes(MReference_BH.TENDER_TYPE_AD_REFERENCE_UU, tenderTypeValues).stream()
@@ -315,8 +315,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 			if (businessPartnersById.containsKey(payment.getC_BPartner_ID())) {
 				MBPartner_BH businessPartner = businessPartnersById.get(payment.getC_BPartner_ID());
-				newPayment.setPatient(new Patient(businessPartner.getC_BPartner_UU(), businessPartner.getName(),
-						businessPartner.getTotalOpenBalance()));
+				newPayment.setBusinessPartner(new BusinessPartner(businessPartner));
 			}
 			if (tenderTypesByValue.containsKey(payment.getTenderType())) {
 				newPayment.setPaymentType(new PaymentType(tenderTypesByValue.get(payment.getTenderType())));

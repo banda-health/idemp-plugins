@@ -5,25 +5,24 @@ import java.sql.ResultSet;
 import org.adempiere.base.IModelFactory;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
-import org.bandahealth.idempiere.base.model.MBHBPartnerCharge;
-import org.bandahealth.idempiere.base.model.MBHBPartnerChargeInfo;
-import org.bandahealth.idempiere.base.model.MBHChargeDefault;
-import org.bandahealth.idempiere.base.model.MBHChargeInfo;
-import org.bandahealth.idempiere.base.model.MBHChargeInfoSuggestion;
-import org.bandahealth.idempiere.base.model.MBHChargeInfoValue;
-import org.bandahealth.idempiere.base.model.MBHChargeInfoValueSuggestion;
-import org.bandahealth.idempiere.base.model.MBHChargeTypeDefault;
+import org.bandahealth.idempiere.base.model.MBHBPPayerInfo;
+import org.bandahealth.idempiere.base.model.MBHBPGeneralPayerInfo;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoField;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldSuggestion;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldValue;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldValueSuggestion;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
 import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
 import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
-import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
+import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
 import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
+import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
@@ -88,8 +87,6 @@ public class BHModelFactory implements IModelFactory {
 			return MBHPaymentRef.class;
 		} else if (tableName.equalsIgnoreCase(MBHPaymentRefBankAccount.Table_Name)) {
 			return MBHPaymentRefBankAccount.class;
-		} else if (tableName.equalsIgnoreCase(MBHChargeDefault.Table_Name)) {
-			return MBHChargeDefault.class;
 		} else if (tableName.equalsIgnoreCase(MChargeType_BH.Table_Name)) {
 			return MChargeType_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProductCategory_BH.Table_Name)) {
@@ -98,6 +95,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHProductCategoryDefault.class;
 		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
 			return MBHDefaultIncludedRole.class;
+		} else if (tableName.equalsIgnoreCase(MBPGroup_BH.Table_Name)) {
+			return MBPGroup_BH.class;
 		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccess.Table_Name)) {
 			return MBHDefaultDocActionAccess.class;
 		} else if (tableName.equalsIgnoreCase(MReference_BH.Table_Name)) {
@@ -108,22 +107,20 @@ public class BHModelFactory implements IModelFactory {
 			return MWindowAccess_BH.class;
 		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosis.Table_Name)) {
 			return MBHCodedDiagnosis.class;
-		} else if (tableName.equalsIgnoreCase(MBHChargeTypeDefault.Table_Name)) {
-			return MBHChargeTypeDefault.class;
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfo.Table_Name)) {
-			return MBHChargeInfo.class;
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValue.Table_Name)) {
-			return MBHChargeInfoValue.class;
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoSuggestion.Table_Name)) {
-			return MBHChargeInfoSuggestion.class;
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValueSuggestion.Table_Name)) {
-			return MBHChargeInfoValueSuggestion.class;
-		} else if (tableName.equalsIgnoreCase(MBHOrderLineChargeInfo.Table_Name)) {
-			return MBHOrderLineChargeInfo.class;
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerChargeInfo.Table_Name)) {
-			return MBHBPartnerChargeInfo.class;
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerCharge.Table_Name)) {
-			return MBHBPartnerCharge.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoField.Table_Name)) {
+			return MBHPayerInfoField.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldValue.Table_Name)) {
+			return MBHPayerInfoFieldValue.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldSuggestion.Table_Name)) {
+			return MBHPayerInfoFieldSuggestion.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldValueSuggestion.Table_Name)) {
+			return MBHPayerInfoFieldValueSuggestion.class;
+		} else if (tableName.equalsIgnoreCase(MBHBPSpecificPayerInfo.Table_Name)) {
+			return MBHBPSpecificPayerInfo.class;
+		} else if (tableName.equalsIgnoreCase(MBHBPGeneralPayerInfo.Table_Name)) {
+			return MBHBPGeneralPayerInfo.class;
+		} else if (tableName.equalsIgnoreCase(MBHBPPayerInfo.Table_Name)) {
+			return MBHBPPayerInfo.class;
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return MBHVoidedReason.class;
 		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
@@ -195,8 +192,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHPaymentRef(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHPaymentRefBankAccount.Table_Name)) {
 			return new MBHPaymentRefBankAccount(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeDefault.Table_Name)) {
-			return new MBHChargeDefault(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MChargeType_BH.Table_Name)) {
 			return new MChargeType_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductCategory_BH.Table_Name)) {
@@ -205,6 +200,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHProductCategoryDefault(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
 			return new MBHDefaultIncludedRole(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBPGroup_BH.Table_Name)) {
+			return new MBPGroup_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccess.Table_Name)) {
 			return new MBHDefaultDocActionAccess(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MReference_BH.Table_Name)) {
@@ -215,22 +212,20 @@ public class BHModelFactory implements IModelFactory {
 			return new MWindowAccess_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosis.Table_Name)) {
 			return new MBHCodedDiagnosis(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeTypeDefault.Table_Name)) {
-			return new MBHChargeTypeDefault(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfo.Table_Name)) {
-			return new MBHChargeInfo(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValue.Table_Name)) {
-			return new MBHChargeInfoValue(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoSuggestion.Table_Name)) {
-			return new MBHChargeInfoSuggestion(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValueSuggestion.Table_Name)) {
-			return new MBHChargeInfoValueSuggestion(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHOrderLineChargeInfo.Table_Name)) {
-			return new MBHOrderLineChargeInfo(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerChargeInfo.Table_Name)) {
-			return new MBHBPartnerChargeInfo(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerCharge.Table_Name)) {
-			return new MBHBPartnerCharge(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoField.Table_Name)) {
+			return new MBHPayerInfoField(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldValue.Table_Name)) {
+			return new MBHPayerInfoFieldValue(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldSuggestion.Table_Name)) {
+			return new MBHPayerInfoFieldSuggestion(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldValueSuggestion.Table_Name)) {
+			return new MBHPayerInfoFieldValueSuggestion(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPSpecificPayerInfo.Table_Name)) {
+			return new MBHBPSpecificPayerInfo(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPGeneralPayerInfo.Table_Name)) {
+			return new MBHBPGeneralPayerInfo(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPPayerInfo.Table_Name)) {
+			return new MBHBPPayerInfo(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return new MBHVoidedReason(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
@@ -300,8 +295,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHPaymentRef(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHPaymentRefBankAccount.Table_Name)) {
 			return new MBHPaymentRefBankAccount(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeDefault.Table_Name)) {
-			return new MBHChargeDefault(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MChargeType_BH.Table_Name)) {
 			return new MChargeType_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductCategory_BH.Table_Name)) {
@@ -310,6 +303,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHProductCategoryDefault(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
 			return new MBHDefaultIncludedRole(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBPGroup_BH.Table_Name)) {
+			return new MBPGroup_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccess.Table_Name)) {
 			return new MBHDefaultDocActionAccess(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MReference_BH.Table_Name)) {
@@ -320,22 +315,20 @@ public class BHModelFactory implements IModelFactory {
 			return new MWindowAccess_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosis.Table_Name)) {
 			return new MBHCodedDiagnosis(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeTypeDefault.Table_Name)) {
-			return new MBHChargeTypeDefault(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfo.Table_Name)) {
-			return new MBHChargeInfo(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValue.Table_Name)) {
-			return new MBHChargeInfoValue(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoSuggestion.Table_Name)) {
-			return new MBHChargeInfoSuggestion(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHChargeInfoValueSuggestion.Table_Name)) {
-			return new MBHChargeInfoValueSuggestion(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHOrderLineChargeInfo.Table_Name)) {
-			return new MBHOrderLineChargeInfo(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerChargeInfo.Table_Name)) {
-			return new MBHBPartnerChargeInfo(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHBPartnerCharge.Table_Name)) {
-			return new MBHBPartnerCharge(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoField.Table_Name)) {
+			return new MBHPayerInfoField(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldValue.Table_Name)) {
+			return new MBHPayerInfoFieldValue(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldSuggestion.Table_Name)) {
+			return new MBHPayerInfoFieldSuggestion(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFieldValueSuggestion.Table_Name)) {
+			return new MBHPayerInfoFieldValueSuggestion(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPSpecificPayerInfo.Table_Name)) {
+			return new MBHBPSpecificPayerInfo(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPGeneralPayerInfo.Table_Name)) {
+			return new MBHBPGeneralPayerInfo(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPPayerInfo.Table_Name)) {
+			return new MBHBPPayerInfo(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
 			return new MBHVoidedReason(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {

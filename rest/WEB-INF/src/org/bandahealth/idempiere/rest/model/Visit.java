@@ -74,10 +74,10 @@ public class Visit extends BaseEntity {
 		this.documentNumber = model.getDocumentNo();
 	}
 
-	public Visit getVisitQueue(String created, String uuid, Patient patient, OrderStatus status) {
+	public Visit getVisitQueue(String created, String uuid, BusinessPartner businessPartner, OrderStatus status) {
 		setCreated(created);
 		setUuid(uuid);
-		setPatient(patient);
+		setPatient(businessPartner);
 		setStatus(status);
 
 		return this;
@@ -141,7 +141,7 @@ public class Visit extends BaseEntity {
 		return patient;
 	}
 
-	public void setPatient(Patient patient) {
+	public void setPatient(BusinessPartner patient) {
 		this.patient = patient;
 	}
 

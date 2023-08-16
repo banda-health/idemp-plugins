@@ -17,7 +17,6 @@ import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.User;
@@ -65,8 +64,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	@Autowired
 	private CodedDiagnosisDBService codedDiagnosisDBService;
 	@Autowired
-	private PatientDBService patientDBService;
-	@Autowired
 	private PaymentDBService paymentDBService;
 	@Autowired
 	private OrderDBService orderDBService;
@@ -81,7 +78,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	@Autowired
 	private BusinessPartnerDBService businessPartnerDBService;
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {
+	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MBPartner_BH.Table_Name,
 					"LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MBHVisit.Table_Name + "." + MBHVisit.COLUMNNAME_Patient_ID +
@@ -340,9 +337,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		if (entity.getPatient() != null && entity.getPatient().getUuid() != null &&
 				(businessPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getPatient().getUuid())) != null) {
 			visit.setPatient_ID(businessPartner.get_ID());
+			MBPartner_BH finalBusinessPartner = businessPartner;
 			entity.getOrders().forEach(order -> {
 				order.setBusinessPartner(new BusinessPartner());
-				order.getBusinessPartner().setUuid(businessPartner.getC_BPartner_UU());
+				order.getBusinessPartner().setUuid(finalBusinessPartner.getC_BPartner_UU());
 			});
 		}
 
@@ -369,14 +367,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		for (Order order : entity.getOrders()) {
 			order.setVisitId(visit.get_ID());
 			order.setDocumentTypeTargetId(onCreditOrderDocumentType.get().get_ID());
-
-			// set patient
-			if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
-				MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
-				if (patient != null) {
-					order.setBusinessPartner(new BusinessPartner(patient));
-				}
-			}
 
 			order.setIsSalesOrderTransaction(true);
 			order.setDateOrdered(entity.getVisitDate());
@@ -405,8 +395,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				// that the property has been overridden by another save request between when it
 				// was set for this order and now
 				if (entity.getPatient() != null) {
-					payment.setPatient(new Patient());
-					payment.getPatient().setUuid(entity.getPatient().getUuid());
+					payment.setBusinessPartner(new BusinessPartner());
+					payment.getBusinessPartner().setUuid(entity.getPatient().getUuid());
 				}
 
 				Payment response = paymentDBService.saveEntity(payment);
@@ -490,8 +480,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	@Override
 	protected Visit createInstanceWithDefaultFields(MBHVisit instance) {
 		try {
-			MBPartner_BH patient = patientDBService.getPatientById(instance.getPatient_ID());
-			if (patient == null) {
+			MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(instance.getPatient_ID());
+			if (businessPartner == null) {
 				log.severe("Missing patient");
 				return null;
 			}
@@ -507,7 +497,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setCreated(DateUtil.parse(instance.getCreated()));
 			visit.setCreatedTimestamp(instance.getCreated());
 			visit.setCreatedBy(instance.getCreatedBy());
-			visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
+			visit.setPatient(new BusinessPartner(businessPartner));
 			visit.setPatientType(new PatientType(
 					entityMetadataDBService.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)));
 			visit.setVisitDate(instance.getBH_VisitDate());
@@ -525,11 +515,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 //		visit.setStatus(getOrderStatus(instance));
 
 		// get patient
-		MBPartner_BH businessPartner = patientDBService.getPatientById(instance.getPatient_ID());
+		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(instance.getPatient_ID());
 		if (businessPartner == null) {
 			throw new AdempiereException("Missing patient");
 		}
-		visit.setPatient(patientDBService.transformData(Collections.singletonList(businessPartner)).get(0));
+		visit.setPatient(businessPartnerDBService.transformData(Collections.singletonList(businessPartner)).get(0));
 		visit.setPayments(paymentDBService.getPaymentsByVisitId(instance.get_ID()));
 		visit.setOrders(orderDBService.transformData(
 				orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
@@ -642,15 +632,15 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				for (MOrder_BH entity : entities) {
 					if (entity != null) {
 						// get patient
-						MBPartner_BH patient = patientDBService.getPatientById(entity.getC_BPartner_ID());
-						if (patient == null) {
+						MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(entity.getC_BPartner_ID());
+						if (businessPartner == null) {
 							continue;
 						}
 						Visit visit = new Visit();
 						visit.setCreated(DateUtil.parseQueueTime(entity.getCreated()));
 						visit.setCreatedTimestamp(entity.getCreated());
 						visit.setUuid(entity.getC_Order_UU());
-						visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
+						visit.setPatient(new BusinessPartner(businessPartner));
 						results.add(visit);
 					}
 				}
@@ -672,10 +662,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	 */
 	public Integer getOpenVisitDraftsCount() {
 		List<Object> parameters = new ArrayList<>();
-		StringBuilder sqlWhere = new StringBuilder("WHERE ")
-				.append(buildOpenDraftsWhereClauseAndParameters(parameters));
+		String sqlWhere = "WHERE " +
+				buildOpenDraftsWhereClauseAndParameters(parameters);
 
-		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
+		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere, parameters);
 	}
 
 	/**
@@ -693,12 +683,12 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	}
 
 	private String buildOpenDraftsWhereClauseAndParameters(List<Object> parameters) {
-		StringBuilder sqlWhere = new StringBuilder().append(MOrder_BH.COLUMNNAME_AD_Client_ID).append(" =?")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_IsActive).append(" =?").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ").append(AND_OPERATOR).append("to_char(")
-				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
+		String sqlWhere = MOrder_BH.COLUMNNAME_AD_Client_ID + " =?" +
+				AND_OPERATOR + MOrder_BH.COLUMNNAME_AD_Org_ID + " =?" + AND_OPERATOR +
+				MOrder_BH.COLUMNNAME_IsActive + " =?" + AND_OPERATOR +
+				MOrder_BH.COLUMNNAME_DocStatus + " =? " + AND_OPERATOR + "to_char(" +
+				MOrder_BH.COLUMNNAME_Created + ", 'YYYY-MM-DD')" + " < ? " + AND_OPERATOR +
+				MOrder_BH.COLUMNNAME_IsSOTrx + " = ?";
 
 		if (parameters == null) {
 			parameters = new ArrayList<>();
@@ -711,7 +701,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
 		parameters.add("Y");
 
-		return sqlWhere.toString();
+		return sqlWhere;
 	}
 
 	@Override

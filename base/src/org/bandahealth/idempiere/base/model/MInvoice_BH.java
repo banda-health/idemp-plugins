@@ -19,25 +19,7 @@ public class MInvoice_BH extends MInvoice {
 	 * BH Cash Account = b
 	 */
 	public static final String PAYMENTRULE_BHCashAccount = "b";
-	public static final String EXPENSE_InvoiceType = "e";
-	public static final String INCOME_InvoiceType = "i";
-	/**
-	 * Column name BH_Processing
-	 */
-	public static final String COLUMNNAME_BH_Processing = "BH_Processing";
 	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
-	/**
-	 * Column name BH_IsExpense
-	 */
-	public static final String COLUMNNAME_BH_IsExpense = "BH_IsExpense";
-	/**
-	 * Column name BH_DocAction
-	 */
-	public static final String COLUMNNAME_BH_DocAction = "BH_DocAction";
-	/**
-	 * Column name BH_InvoiceType
-	 */
-	public static final String COLUMNNAME_BH_InvoiceType = "BH_InvoiceType";
 	/**
 	 * Column name BH_Visit_ID
 	 */
@@ -60,86 +42,6 @@ public class MInvoice_BH extends MInvoice {
 		super(invoice.getCtx(), 0, invoice.get_TrxName());
 
 		PO.copyValues(invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
-	}
-
-	/**
-	 * Get BH_Processing.
-	 *
-	 * @return BH_Processing
-	 */
-	public boolean getBH_Processing() {
-		Object bhProcessing = get_Value(COLUMNNAME_BH_Processing);
-		if (bhProcessing == null) {
-			return false;
-		}
-		return (boolean) bhProcessing;
-	}
-
-	/**
-	 * Set BH_Processing.
-	 *
-	 * @param bhProcessing Whether this invoice is an expense or not
-	 */
-	public void setBH_Processing(boolean bhProcessing) {
-		set_Value(COLUMNNAME_BH_Processing, bhProcessing);
-	}
-
-	/**
-	 * Get BH_IsExpense.
-	 *
-	 * @return BH_IsExpense
-	 */
-	public boolean getBH_IsExpense() {
-		Object bhIsExpense = get_Value(COLUMNNAME_BH_IsExpense);
-		if (bhIsExpense == null) {
-			return false;
-		}
-		return (boolean) bhIsExpense;
-	}
-
-	/**
-	 * Set BH_IsExpense.
-	 *
-	 * @param bhIsExpense Whether this invoice is an expense or not
-	 */
-	public void setBH_IsExpense(boolean bhIsExpense) {
-		set_Value(COLUMNNAME_BH_IsExpense, bhIsExpense);
-	}
-
-	/**
-	 * Get BH_DocAction.
-	 *
-	 * @return BH_DocAction
-	 */
-	public String getBH_DocAction() {
-		return (String) get_Value(COLUMNNAME_BH_DocAction);
-	}
-
-	/**
-	 * Set BH_DocAction.
-	 *
-	 * @param bhDocAction Get the code-set value of the doc action (not used in UI anywhere)
-	 */
-	public void setBH_DocAction(String bhDocAction) {
-		set_Value(COLUMNNAME_BH_DocAction, bhDocAction);
-	}
-
-	/**
-	 * Get BH_InvoiceType.
-	 *
-	 * @return BH_InvoiceType
-	 */
-	public String getBH_InvoiceType() {
-		return (String) get_Value(COLUMNNAME_BH_InvoiceType);
-	}
-
-	/**
-	 * Set BH_InvoiceType.
-	 *
-	 * @param invoiceType
-	 */
-	public void setBH_InvoiceType(String invoiceType) {
-		set_Value(COLUMNNAME_BH_InvoiceType, invoiceType);
 	}
 
 	public int getBH_VoidedReasonID() {

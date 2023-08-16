@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountDBService extends BaseDBService<Account, MElementValue> {
 
-	private CLogger log = CLogger.getCLogger(AccountDBService.class);
+	private final CLogger log = CLogger.getCLogger(AccountDBService.class);
 
 	@Override
 	public Account saveEntity(Account entity) {

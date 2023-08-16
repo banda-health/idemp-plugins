@@ -1,14 +1,7 @@
-import { accountApi, expenseCategoryApi, invoiceApi } from '../api';
-import { expenseApi } from '../api/expenses';
+import { accountApi, chargeApi, expenseApi, invoiceApi } from '../api';
 import { documentAction, documentBaseType, documentStatus } from '../models';
-import {
-	BusinessPartner,
-	Expense,
-	ExpenseCategory,
-	InvoiceLine,
-	Vendor,
-} from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createCharge, createInvoice, createProduct, createVendor } from '../utils';
+import { BusinessPartner, Charge, Expense, InvoiceLine } from '../types/org.bandahealth.idempiere.rest';
+import { createBusinessPartner, createCharge, createInvoice } from '../utils';
 
 test('creating an invoice with a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -99,14 +92,14 @@ test(`expenses can be deleted when they haven't been completed`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create charge';
-	let expenseCategory: Partial<ExpenseCategory> = {
+	let charge: Partial<Charge> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
 		name: `${valueObject.random}_${valueObject.scenarioName}`,
-		accountUuid: (
+		account: (
 			await accountApi.get(
 				valueObject,
 				undefined,
@@ -114,19 +107,16 @@ test(`expenses can be deleted when they haven't been completed`, async () => {
 				undefined,
 				JSON.stringify({ issummary: false, name: 'Utilities' }),
 			)
-		).results[0].uuid,
+		).results[0],
 	};
-	expenseCategory = await expenseCategoryApi.save(valueObject, expenseCategory as ExpenseCategory);
+	charge = await chargeApi.save(valueObject, charge as Charge);
 
 	valueObject.stepName = 'Create expense';
 	let expense: Partial<Expense> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
-		supplier: valueObject.businessPartner as Vendor,
 		businessPartner: {
 			...valueObject.businessPartner,
-			phoneNumber: undefined,
-			emailAddress: undefined,
 		} as BusinessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
@@ -134,7 +124,7 @@ test(`expenses can be deleted when they haven't been completed`, async () => {
 	const invoiceLine: Partial<InvoiceLine> = {
 		description: valueObject.getStepMessageLong(),
 		quantity: valueObject.quantity || 1,
-		expenseCategory: expenseCategory as ExpenseCategory,
+		charge: charge as Charge,
 	};
 	expense.invoiceLines?.push(invoiceLine as InvoiceLine);
 
@@ -153,14 +143,14 @@ test(`expenses are voided when they've been completed and you try to delete them
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create charge';
-	let expenseCategory: Partial<ExpenseCategory> = {
+	let charge: Partial<Charge> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
 		name: `${valueObject.random}_${valueObject.scenarioName}`,
-		accountUuid: (
+		account: (
 			await accountApi.get(
 				valueObject,
 				undefined,
@@ -168,27 +158,22 @@ test(`expenses are voided when they've been completed and you try to delete them
 				undefined,
 				JSON.stringify({ issummary: false, name: 'Utilities' }),
 			)
-		).results[0].uuid,
+		).results[0],
 	};
-	expenseCategory = await expenseCategoryApi.save(valueObject, expenseCategory as ExpenseCategory);
+	charge = await chargeApi.save(valueObject, charge as Charge);
 
 	valueObject.stepName = 'Create expense';
 	let expense: Partial<Expense> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
-		supplier: valueObject.businessPartner as Vendor,
-		businessPartner: {
-			...valueObject.businessPartner,
-			phoneNumber: undefined,
-			emailAddress: undefined,
-		} as BusinessPartner,
+		businessPartner: valueObject.businessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
 	};
 	const invoiceLine: Partial<InvoiceLine> = {
 		description: valueObject.getStepMessageLong(),
 		quantity: valueObject.quantity || 1,
-		expenseCategory: expenseCategory as ExpenseCategory,
+		charge: charge as Charge,
 	};
 	invoiceLine.price = (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
 	expense.invoiceLines?.push(invoiceLine as InvoiceLine);
@@ -209,7 +194,7 @@ test('can complete an invoice', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create charge';
 	await createCharge(valueObject);
